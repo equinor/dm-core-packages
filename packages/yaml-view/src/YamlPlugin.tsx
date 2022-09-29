@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import hljs from 'highlight.js'
 import yaml from 'highlight.js/lib/languages/yaml'
+// @ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import jsyaml from 'js-yaml'
 import styled, { keyframes } from 'styled-components'
