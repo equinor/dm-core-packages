@@ -10,8 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Install Precommit
+      - name: Install pre-commit
         run: pip install pre-commit
+
       - name: Run prettier formatting
         run: pre-commit run prettier --all-files
 
@@ -22,13 +23,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+
       - uses: actions/setup-node@v3
 
       # TODO: Cache yarn install
 
-      - name: "Web Tests"
+      - name: "Typescript test"
         run: |
           cd packages/${{ matrix.package }}
           yarn install
           yarn tsc
-          yarn test
+          HAS_TESTS=$(cat package.json | jq '.["scripts"]["test"]')
+          if [[ $HAS_TESTS != "null" ]]; then
+            yarn test
+          fi
