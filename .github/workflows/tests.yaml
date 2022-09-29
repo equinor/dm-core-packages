@@ -1,0 +1,34 @@
+on:
+  # Workflow dispatch is used for manual triggers
+  workflow_dispatch:
+  # Workflow call is used for called from another workflow
+  workflow_call:
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install Precommit
+        run: pip install pre-commit
+      - name: Run prettier formatting
+        run: pre-commit run prettier --all-files
+
+  tests:
+    strategy:
+      matrix:
+        package: [blueprint, default-pdf, default-preview, dmt-core, job, mermaid, yaml-view]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v3
+
+      # TODO: Cache yarn install
+
+      - name: "Web Tests"
+        run: |
+          cd packages/${{ matrix.package }}
+          yarn install
+          yarn tsc
+          yarn test

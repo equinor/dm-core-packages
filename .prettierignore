@@ -1,0 +1,6 @@
+**/gen/*
+
+build
+coverage
+node_modules
+dist

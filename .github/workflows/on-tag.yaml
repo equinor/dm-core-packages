@@ -1,0 +1,13 @@
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - v*
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yaml
+
+  publish:
+    needs: tests
+    uses: ./.github/workflows/publish.yaml

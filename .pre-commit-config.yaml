@@ -1,0 +1,29 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.5.0
+  hooks:
+    - id: check-merge-conflict
+    - id: check-case-conflict
+    - id: check-json
+    - id: check-toml
+    - id: check-yaml
+    - id: trailing-whitespace
+      exclude: ^.*\.(lock)$||^docs\/
+    - id: mixed-line-ending
+      exclude: ^.*\.(lock)$||^docs\/
+    - id: detect-private-key
+
+- repo: https://github.com/pre-commit/mirrors-prettier
+  rev: v2.2.1
+  hooks:
+    - id: prettier
+      files: ^.*\.(ts|tsx|js|css|html|json)$
+      args: ['--config=.prettierrc.js', '--ignore-path=.prettierignore']
+
+- repo: local
+  hooks:
+    - id: eslint
+      name: ESlint
+      entry: sh -c "npm run lint:fix"
+      language: system
+      pass_filenames: false

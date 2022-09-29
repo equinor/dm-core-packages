@@ -1,0 +1,8 @@
+{
+  "name": "@dmt/default-pdf",
+  "version": "1.0.0",
+  "main": "src/index.tsx",
+  "peerDependencies": {
+    "@development-framework/dm-core": ">=1.0.5"
+  }
+}
