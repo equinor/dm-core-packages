@@ -141,7 +141,7 @@ export const JobControl = (props: {
     setLoading(true)
     try {
       await dmtApi.removeJob({ jobUid: jobUID })
-      await dmssApi.documentRemove({
+      await dmssApi.explorerRemove({
         dataSourceId: dataSourceId,
         dottedId: documentId,
       })

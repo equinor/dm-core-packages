@@ -20,10 +20,11 @@ repos:
       files: ^.*\.(ts|tsx|js|css|html|json)$
       args: ['--config=.prettierrc.js', '--ignore-path=.prettierignore']
 
-- repo: local
-  hooks:
-    - id: eslint
-      name: ESlint
-      entry: sh -c "npm run lint:fix"
-      language: system
-      pass_filenames: false
+# TODO: Figure out formating in pre-commit
+#- repo: local
+#  hooks:
+#    - id: eslint
+#      name: ESlint
+#      entry: sh -c "npm run lint:fix"
+#      language: system
+#      pass_filenames: false

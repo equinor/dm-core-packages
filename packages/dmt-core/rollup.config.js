@@ -12,8 +12,6 @@ import * as path from 'path'
 
 const packageJson = require('./package.json')
 
-// https://dev.to/siddharthvenkatesh/component-library-setup-with-react-typescript-and-rollup-onj
-
 export default [
   {
     input: 'src/index.tsx',

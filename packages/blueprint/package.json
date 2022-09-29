@@ -3,16 +3,15 @@
   "license": "MIT",
   "version": "1.0.0",
   "main": "src/index.tsx",
-  "dependencies": {
-    "@equinor/eds-core-react": "^0.20.0",
-    "@equinor/eds-icons": "^0.11.0",
-    "@equinor/eds-tokens": "^0.7.0"
-  },
   "devDependencies": {
     "@types/react": "^17.0.39",
+    "typescript": "^4.5.5",
+    "@development-framework/dm-core": ">=1.0.5",
     "@types/styled-components": "^4.1.18"
   },
   "peerDependencies": {
-    "@development-framework/dm-core": ">=1.0.5"
+    "react": ">=17.0.2",
+    "@development-framework/dm-core": ">=1.0.5",
+    "styled-components": ">=5.3.6"
   }
 }

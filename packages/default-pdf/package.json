@@ -1,8 +1,17 @@
 {
   "name": "@dmt/default-pdf",
+  "license": "MIT",
   "version": "1.0.0",
   "main": "src/index.tsx",
+  "devDependencies": {
+    "@types/react": "^17.0.39",
+    "typescript": "^4.5.5",
+    "@development-framework/dm-core": ">=1.0.5",
+    "@types/styled-components": "^4.1.18"
+  },
   "peerDependencies": {
-    "@development-framework/dm-core": ">=1.0.5"
+    "react": ">=17.0.2",
+    "@development-framework/dm-core": ">=1.0.5",
+    "styled-components": ">=5.3.6"
   }
 }
