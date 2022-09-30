@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "downlevelIteration": true,
     "declaration": true,
     "declarationMap": true,

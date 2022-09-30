@@ -1,0 +1,38 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      - ci/publish-packages # TODO: Remove
+
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yaml
+
+  create-package-artifact:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [ blueprint, default-pdf, default-preview, job, mermaid, yaml-view ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Create package distribution
+        run: |
+          cd packages/${{ matrix.package }}
+          yarn install
+          yarn tsc
+          
+      - name: Upload package
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.package }}
+          path: packages/${{ matrix.package }}/dist/
+          retention-days: 365
+          if-no-files-found: error
