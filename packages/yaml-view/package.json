@@ -1,8 +1,14 @@
 {
-  "name": "@dmt/yaml-view",
-  "version": "1.0.0",
+  "name": "@development-framework/yaml-view",
+  "version": "1.0.1",
   "license": "MIT",
-  "main": "src/index.tsx",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "highlight.js": "^10.7.2",
     "js-yaml": "^4.1.0",
@@ -20,5 +26,8 @@
     "@types/react": "^17.0.39",
     "@development-framework/dm-core": ">=1.0.5",
     "@types/styled-components": "^4.1.18"
+  },
+  "scripts": {
+    "build": "tsc"
   }
 }

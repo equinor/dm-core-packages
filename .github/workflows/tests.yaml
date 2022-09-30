@@ -28,7 +28,7 @@ jobs:
 
       # TODO: Cache yarn install
 
-      - name: "Typescript test"
+      - name: "test"
         run: |
           cd packages/${{ matrix.package }}
           yarn install

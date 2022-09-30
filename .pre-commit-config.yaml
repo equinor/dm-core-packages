@@ -20,11 +20,21 @@ repos:
       files: ^.*\.(ts|tsx|js|css|html|json)$
       args: ['--config=.prettierrc.js', '--ignore-path=.prettierignore']
 
-# TODO: Figure out formating in pre-commit
-#- repo: local
-#  hooks:
-#    - id: eslint
-#      name: ESlint
-#      entry: sh -c "npm run lint:fix"
-#      language: system
-#      pass_filenames: false
+- repo: https://github.com/pre-commit/mirrors-eslint
+  rev: 'v8.24.0'
+  hooks:
+  -   id: eslint
+      files: \.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
+      types: [ file ]
+      additional_dependencies:
+        - eslint
+        - eslint-config-react-app
+        - typescript
+        - "@typescript-eslint/parser"
+        - "@typescript-eslint/eslint-plugin"
+        - eslint-config-prettier # turns off all rules that might conflict with prettier
+        - eslint-plugin-jsx-a11y # checks accessibility rules on jsx elements
+        - eslint-plugin-prettier # runs prettier as an eslint rule
+        - eslint-plugin-react # react specific linting rules
+        - eslint-plugin-react-hooks # enforces the rules of hooks
+      args: ["--config=.eslintrc.json", "--ignore-path=.eslintignore"]
