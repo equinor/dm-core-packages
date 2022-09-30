@@ -1,0 +1,46 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yaml
+
+  publish-packages:
+    needs: [tests]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [ blueprint, default-pdf, default-preview, job, mermaid, yaml-view ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Check if new version
+        id: check-version
+        run: |
+          echo '::set-output name=NEW_VERSION::false'
+          cd packages/${{ matrix.package }}
+          PACKAGE_VERSION=$(cat package.json | jq '.["version"]' | tr -d '"')
+          PACKAGE_NAME=$(cat package.json | jq '.["name"]' | tr -d '"')
+          
+          VERSION_EXISTS=$(curl --HEAD --output /dev/null --silent -w "%{http_code}" https://registry.npmjs.org/$PACKAGE_NAME/$PACKAGE_VERSION)
+          if [[ $VERSION_EXISTS == 404 ]]; then
+            echo '::set-output name=NEW_VERSION::true'
+          fi
+
+      - name: Create package distribution and publish
+        if: ${{ steps.check-version.outputs.NEW_VERSION }} == true
+        run: |
+          cd packages/${{ matrix.package }}
+          yarn install
+          yarn build
+          yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

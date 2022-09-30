@@ -1,6 +1,7 @@
 {
-  "name": "@dmt/default-preview",
+  "name": "@development-framework/default-preview",
   "version": "1.0.0",
+  "license": "MIT",
   "main": "src/index.tsx",
   "devDependencies": {
     "@types/react": "^17.0.39",
@@ -11,5 +12,8 @@
   "peerDependencies": {
     "react": ">=17.0.2",
     "@development-framework/dm-core": ">=1.0.5"
+  },
+  "scripts": {
+    "build": "tsc"
   }
 }
