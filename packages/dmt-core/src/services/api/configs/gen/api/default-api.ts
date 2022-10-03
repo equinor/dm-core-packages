@@ -25,6 +25,8 @@ import { ACL } from '../models';
 // @ts-ignore
 import { AccessLevel } from '../models';
 // @ts-ignore
+import { BasicEntity } from '../models';
+// @ts-ignore
 import { DataSourceInformation } from '../models';
 // @ts-ignore
 import { DataSourceRequest } from '../models';
@@ -905,6 +907,49 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Instantiate
+         * @param {BasicEntity} basicEntity 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        instantiateEntity: async (basicEntity: BasicEntity, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'basicEntity' is not null or undefined
+            assertParamExists('instantiateEntity', 'basicEntity', basicEntity)
+            const localVarPath = `/api/v1/entity`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(basicEntity, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Delete Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -1493,6 +1538,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Instantiate
+         * @param {BasicEntity} basicEntity 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async instantiateEntity(basicEntity: BasicEntity, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(basicEntity, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Delete Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -1797,6 +1853,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getApiV1HealthcheckGet(options?: any): AxiosPromise<string> {
             return localVarFp.getApiV1HealthcheckGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Instantiate
+         * @param {BasicEntity} basicEntity 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        instantiateEntity(basicEntity: BasicEntity, options?: any): AxiosPromise<object> {
+            return localVarFp.instantiateEntity(basicEntity, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2281,6 +2347,20 @@ export interface DefaultApiGetAclRequest {
 }
 
 /**
+ * Request parameters for instantiateEntity operation in DefaultApi.
+ * @export
+ * @interface DefaultApiInstantiateEntityRequest
+ */
+export interface DefaultApiInstantiateEntityRequest {
+    /**
+     * 
+     * @type {BasicEntity}
+     * @memberof DefaultApiInstantiateEntity
+     */
+    readonly basicEntity: BasicEntity
+}
+
+/**
  * Request parameters for referenceDelete operation in DefaultApi.
  * @export
  * @interface DefaultApiReferenceDeleteRequest
@@ -2646,6 +2726,18 @@ export class DefaultApi extends BaseAPI {
      */
     public getApiV1HealthcheckGet(options?: any) {
         return DefaultApiFp(this.configuration).getApiV1HealthcheckGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Instantiate
+     * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public instantiateEntity(requestParameters: DefaultApiInstantiateEntityRequest, options?: any) {
+        return DefaultApiFp(this.configuration).instantiateEntity(requestParameters.basicEntity, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

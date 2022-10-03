@@ -1,17 +1,14 @@
 {
   "name": "@development-framework/dm-core",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "MIT",
-  "resolutions": {
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11"
-  },
   "peerDependencies": {
-    "react-router-dom": ">=5.1.2"
+    "react-router-dom": ">=5.1.2",
+    "react": ">=17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.2.3"
   },
   "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "@equinor/eds-core-react": "^0.20.0",
     "@equinor/eds-icons": "^0.12.0",
     "@equinor/eds-tokens": "^0.7.0",
@@ -20,16 +17,15 @@
     "react-icons": "3.11.0",
     "react-is": "^17.0.2",
     "react-notifications": "^1.7.4",
-    "react-oauth2-code-pkce": "^1.6.1",
-    "styled-components": "^5.2.3"
+    "react-oauth2-code-pkce": "^1.6.1"
   },
   "devDependencies": {
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.6",
-    "@rollup/plugin-typescript": "^8.5.0",
+    "react-router-dom": ">=5.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.2.3",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^27.4.0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
@@ -39,29 +35,18 @@
     "jest": "^27.1.3",
     "jest-environment-jsdom": "^27.1.3",
     "path-browserify": "^1.0.1",
-    "rollup": "^2.79.0",
-    "rollup-plugin-dts": "^4.2.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-svg": "2.0.0",
-    "@rollup/plugin-alias": "3.1.9",
-    "@svgr/rollup": "6.3.1",
     "ts-jest": "^27.1.3",
     "ts-loader": "^9.3.1",
     "typescript": "^4.5.5"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
   "files": [
-    "dist",
-    "package.json",
-    "README.md"
+    "dist"
   ],
   "types": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "rollup-watch": "rollup -c -w",
-    "build": "yarn run prebuild && rollup -c",
+    "prebuild": "rm -rf dist && yarn install",
+    "build": "tsc",
+    "postbuild": "cp package.json ./dist/ && rm -rf node_modules",
     "test": "jest test"
   }
 }
