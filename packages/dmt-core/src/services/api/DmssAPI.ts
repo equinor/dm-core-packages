@@ -4,7 +4,7 @@ export class DmssAPI extends DefaultApi {
   constructor(token: string, dmssBasePath?: string) {
     /*
       dmssBasePath is an optional parameter where you can specify the url for DMSS. Example: http://localhost:8000
-      (Note: a forward slash should not be included at the end of the url.
+      (Note: a forward slash should not be included at the end of the url)
     */
     const DMSSConfiguration = new Configuration({
       basePath: dmssBasePath || '/api/dmss',
