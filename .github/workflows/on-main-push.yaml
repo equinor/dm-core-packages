@@ -36,7 +36,7 @@ jobs:
           fi
 
       - name: Create package distribution and publish
-        if: ${{ steps.check-version.outputs.NEW_VERSION }} == true
+        if: steps.check-version.outputs.NEW_VERSION == 'true'
         run: |
           cd packages/${{ matrix.package }}
           yarn install
