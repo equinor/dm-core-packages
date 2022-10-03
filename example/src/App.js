@@ -2,9 +2,16 @@ import {
   AccessControlList,
   BlueprintPicker,
   JsonView,
+    DmssAPI
 } from '@development-framework/dm-core'
 
 function App() {
+  const dmssAPI = new DmssAPI("", "http://localhost:8000")
+
+    dmssAPI.dataSourceGetAll().then(res => {
+        console.log("data sources found: ", res)
+    })
+
   return (
     <div
       style={{
