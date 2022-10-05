@@ -1,5 +1,7 @@
 import { Configuration, DefaultApi } from './configs/gen'
 
+const DMSS_URL = process.env.REACT_APP_DMSS_URL ?? '/api/dmss'
+
 export class DmssAPI extends DefaultApi {
   constructor(token: string, dmssBasePath?: string) {
     /*
@@ -7,7 +9,7 @@ export class DmssAPI extends DefaultApi {
       (Note: a forward slash should not be included at the end of the url)
     */
     const DMSSConfiguration = new Configuration({
-      basePath: dmssBasePath || '/api/dmss',
+      basePath: dmssBasePath ?? DMSS_URL,
       accessToken: token,
     })
     super(DMSSConfiguration)
