@@ -12,7 +12,7 @@
   },
   "scripts": {
     "preinstall": "cd ../packages/dmt-core && npm run build",
-    "start": "REACT_APP_DMSS_URL=http://localhost:8000 react-scripts start",
+    "start": "REACT_APP_DMSS_URL=http://localhost:8000 REACT_APP_DMT_URL=http://localhost:5000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

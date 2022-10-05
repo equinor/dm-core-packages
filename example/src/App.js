@@ -1,13 +1,19 @@
 import {
-  AccessControlList, BlueprintPicker, JsonView, DmssAPI, FSTreeContext, TreeView, DataSourceInformation} from '@development-framework/dm-core'
-import {useContext} from "react";
-import { AxiosResponse} from 'axios'
-
+  AccessControlList,
+  BlueprintPicker,
+  JsonView,
+  DmssAPI,
+  FSTreeContext,
+  TreeView,
+  DataSourceInformation,
+} from '@development-framework/dm-core'
+import { useContext } from 'react'
+import { AxiosResponse } from 'axios'
 
 function App() {
   const dmssAPI = new DmssAPI('')
 
-  const {treeNodes, loading} = useContext(FSTreeContext)
+  const { treeNodes, loading } = useContext(FSTreeContext)
 
   dmssAPI
     .dataSourceGetAll()
@@ -18,7 +24,8 @@ function App() {
       console.error(err.message)
     })
 
-  return (<div
+  return (
+    <div
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -28,13 +35,20 @@ function App() {
         justifyContent: 'space-evenly',
       }}
     >
-      <div style={{border: "2px solid blue", backgroundColor: "whitesmoke", width: "600px"}}>
-      <TreeView nodes={treeNodes}/>
+      <div
+        style={{
+          border: '2px solid blue',
+          backgroundColor: 'whitesmoke',
+          width: '600px',
+        }}
+      >
+        <TreeView nodes={treeNodes} />
       </div>
-      <JsonView data={{JsonView: 'test'}}/>
-      <AccessControlList dataSourceId={'123'} documentId={'12356'}/>
-      <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')}/>
-    </div>)
+      <JsonView data={{ JsonView: 'test' }} />
+      <AccessControlList dataSourceId={'123'} documentId={'12356'} />
+      <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')} />
+    </div>
+  )
 }
 
 export default App
