@@ -1,7 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import { ApplicationContext, FSTreeProvider } from '@development-framework/dm-core'
+import {
+  ApplicationContext,
+  FSTreeProvider,
+} from '@development-framework/dm-core'
 
 const fullCurrentURL = () =>
   `${window.location.pathname}${window.location.search}${window.location.hash}`
@@ -20,15 +23,20 @@ const authConfig = {
     }
   },
 }
-const APP_SETTINGS = {visibleDataSources: ['system', 'DemoDS'], name: "Example DM App"}
+const APP_SETTINGS = {
+  visibleDataSources: ['system', 'DemoDS'],
+  name: 'Example DM App',
+}
 
-ReactDOM.render(<>
-  {/*<AuthProvider authConfig={authConfig}>*/}
+ReactDOM.render(
+  <>
+    {/*<AuthProvider authConfig={authConfig}>*/}
     <ApplicationContext.Provider value={APP_SETTINGS}>
       <FSTreeProvider>
-        <App/>
+        <App />
       </FSTreeProvider>
     </ApplicationContext.Provider>
-  {/*</AuthProvider>*/}
-
-</>, document.getElementById('root'))
+    {/*</AuthProvider>*/}
+  </>,
+  document.getElementById('root')
+)
