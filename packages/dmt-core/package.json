@@ -1,6 +1,6 @@
 {
   "name": "@development-framework/dm-core",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "license": "MIT",
   "peerDependencies": {
     "react-router-dom": ">=5.1.2",
@@ -41,7 +41,8 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "tsconfig.json"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
