@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "target": "es5",
     "composite": false,

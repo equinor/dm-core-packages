@@ -28,6 +28,7 @@
     "@types/styled-components": "^4.1.18"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "postbuild": "cp src/index.css dist/index.css"
   }
 }
