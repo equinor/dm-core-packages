@@ -14,7 +14,7 @@ import styled from 'styled-components'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { TReference } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
-import { DmtAPI } from '../services'
+import DmssAPI from '../services/api/DmssAPI'
 
 const DialogWrapper = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ export function NewEntityButton(props: {
   const [typeToCreate, setTypeToCreate] = useState<string>(type || '')
   const [loading, setLoading] = useState<boolean>(false)
   const { token } = useContext(AuthContext)
-  const dmtAPI = new DmtAPI(token)
+  const dmssAPI = new DmssAPI(token)
 
   useEffect(() => setTypeToCreate(type || ''), [type])
   useEffect(() => {
@@ -164,7 +164,7 @@ export function NewEntityButton(props: {
                       setLoading(false)
                     })
                 } else {
-                  dmtAPI
+                  dmssAPI
                     .instantiateEntity({
                       basicEntity: {
                         name: newName as string,
