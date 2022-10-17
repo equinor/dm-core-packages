@@ -1,14 +1,13 @@
 import {
-  AccessControlList,
   BlueprintPicker,
   JsonView,
   DmssAPI,
   FSTreeContext,
   TreeView,
-  DataSourceInformation,
+  Loading,
 } from '@development-framework/dm-core'
 import { useContext } from 'react'
-import { AxiosResponse } from 'axios'
+import { Jobs } from './test_components/Jobs'
 
 function App() {
   const dmssAPI = new DmssAPI('')
@@ -17,7 +16,7 @@ function App() {
 
   dmssAPI
     .dataSourceGetAll()
-    .then((res: AxiosResponse<DataSourceInformation[]>) => {
+    .then((res) => {
       console.log('data sources found: ', res.data)
     })
     .catch((err) => {
@@ -30,7 +29,7 @@ function App() {
         display: 'flex',
         flexDirection: 'column',
         padding: '50px',
-        height: '1080px',
+        height: '680px',
         width: '1920px',
         justifyContent: 'space-evenly',
       }}
@@ -42,11 +41,11 @@ function App() {
           width: '600px',
         }}
       >
-        <TreeView nodes={treeNodes} />
+        {loading ? <Loading /> : <TreeView nodes={treeNodes} />}
       </div>
       <JsonView data={{ JsonView: 'test' }} />
-      <AccessControlList dataSourceId={'123'} documentId={'12356'} />
       <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')} />
+      <Jobs />
     </div>
   )
 }

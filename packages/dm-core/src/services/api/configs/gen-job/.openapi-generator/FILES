@@ -1,0 +1,15 @@
+.gitignore
+.npmignore
+api.ts
+api/dmjobs-api.ts
+base.ts
+common.ts
+configuration.ts
+git_push.sh
+index.ts
+models/error-response.ts
+models/get-job-result-response.ts
+models/index.ts
+models/job-status.ts
+models/start-job-response.ts
+models/status-job-response.ts

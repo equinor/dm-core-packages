@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@development-framework/dm-core": "link:../packages/dmt-core",
+    "@development-framework/dm-core": "link:../packages/dm-core",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "5.3.4",
     "react-scripts": "5.0.1",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "@types/node": "^16.11.66",
+    "@types/react": "^17.0.50",
+    "@types/react-dom": "^17.0.17",
+    "typescript": "^4.8.4"
   },
   "scripts": {
-    "preinstall": "cd ../packages/dmt-core && npm run build",
-    "start": "REACT_APP_DMSS_URL=http://localhost:8000 REACT_APP_DMT_URL=http://localhost:5000 react-scripts start",
+    "preinstall": "cd ../packages/dm-core && npm run build",
+    "start": "REACT_APP_DMSS_URL=http://localhost:5001  REACT_APP_DM_JOB_URL=http://localhost:5000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -34,8 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/node": "^18.8.2"
   }
 }
