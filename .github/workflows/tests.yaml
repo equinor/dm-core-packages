@@ -8,7 +8,7 @@ jobs:
   linting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
 
       - name: Install pre-commit
         run: pip install pre-commit
@@ -19,10 +19,10 @@ jobs:
   tests:
     strategy:
       matrix:
-        package: [blueprint, default-pdf, default-preview, dmt-core, job, mermaid, yaml-view, tabs]
+        package: [blueprint, default-pdf, default-preview, dm-core, job, mermaid, yaml-view, tabs]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
 
       - uses: actions/setup-node@v3
 

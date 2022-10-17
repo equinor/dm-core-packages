@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [ blueprint, default-pdf, default-preview, job, mermaid, yaml-view, dmt-core, tabs ]
+        package: [ blueprint, default-pdf, default-preview, job, mermaid, yaml-view, dm-core, tabs ]
     steps:
       - uses: actions/checkout@v2
 
@@ -29,7 +29,7 @@ jobs:
           cd packages/${{ matrix.package }}
           PACKAGE_VERSION=$(cat package.json | jq '.["version"]' | tr -d '"')
           PACKAGE_NAME=$(cat package.json | jq '.["name"]' | tr -d '"')
-          
+
           VERSION_EXISTS=$(curl --HEAD --output /dev/null --silent -w "%{http_code}" https://registry.npmjs.org/$PACKAGE_NAME/$PACKAGE_VERSION)
           if [[ $VERSION_EXISTS == 404 ]]; then
             echo '::set-output name=NEW_VERSION::true'

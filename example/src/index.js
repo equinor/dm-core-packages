@@ -24,7 +24,7 @@ const authConfig = {
   },
 }
 const APP_SETTINGS = {
-  visibleDataSources: ['system', 'DemoDS'],
+  visibleDataSources: ['system', 'DemoDataSource', 'WorkflowDS'],
   name: 'Example DM App',
 }
 
