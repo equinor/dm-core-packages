@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "commonjs"],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -18,7 +18,7 @@
     "skipLibCheck": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2022",
     "composite": false,
