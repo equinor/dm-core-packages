@@ -1,6 +1,6 @@
 {
   "name": "@development-framework/yaml-view",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "files": [
     "dist",
@@ -27,8 +27,15 @@
     "@development-framework/dm-core": ">=1.0.5",
     "@types/styled-components": "^4.1.18"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "prebuild": "rm -rf dist && yarn install",
     "build": "tsc",
-    "postbuild": "cp src/index.css dist/index.css"
+    "postbuild": "cp package.json ./dist/ && cp src/index.css ./dist/ &&  rm -rf node_modules"
   }
 }
