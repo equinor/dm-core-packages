@@ -32,7 +32,7 @@ ReactDOM.render(
   <>
     {/*<AuthProvider authConfig={authConfig}>*/}
     <ApplicationContext.Provider value={APP_SETTINGS}>
-      <FSTreeProvider>
+      <FSTreeProvider visibleDataSources={APP_SETTINGS.visibleDataSources}>
         <App />
       </FSTreeProvider>
     </ApplicationContext.Provider>

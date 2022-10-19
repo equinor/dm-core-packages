@@ -19,10 +19,12 @@ export const FSTreeContext = createContext<{
   loading: false,
 })
 
-export const FSTreeProvider = (props: { children: ReactNode }) => {
-  const { children } = props
+export const FSTreeProvider = (props: {
+  children: ReactNode
+  visibleDataSources: string[]
+}) => {
+  const { children, visibleDataSources } = props
   const { token } = useContext(AuthContext)
-  const appConfig = useContext(ApplicationContext)
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
   //@ts-ignore
@@ -31,7 +33,7 @@ export const FSTreeProvider = (props: { children: ReactNode }) => {
   useEffect(() => {
     setLoading(true)
     tree
-      .initFromDataSources(appConfig.visibleDataSources)
+      .initFromDataSources(visibleDataSources)
       .finally(() => setLoading(false))
   }, [])
 
