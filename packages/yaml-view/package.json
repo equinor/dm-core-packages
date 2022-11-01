@@ -27,12 +27,6 @@
     "@development-framework/dm-core": ">=1.0.5",
     "@types/styled-components": "^4.1.18"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "rm -rf dist && yarn install",
     "build": "tsc",

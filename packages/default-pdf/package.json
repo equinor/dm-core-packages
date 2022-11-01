@@ -1,8 +1,8 @@
 {
   "name": "@development-framework/default-pdf",
   "license": "MIT",
-  "version": "1.0.1",
-  "main": "src/index.tsx",
+  "version": "1.0.3",
+  "main": "dist/index.js",
   "devDependencies": {
     "@types/react": "^17.0.39",
     "typescript": "^4.5.5",

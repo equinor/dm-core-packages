@@ -17,7 +17,9 @@ import {
   Switch,
   TextField,
 } from '@equinor/eds-core-react'
+import { close_circle_outlined} from "@equinor/eds-icons"
 import styled from 'styled-components'
+
 
 const Spacer = styled.div`
   margin-top: 15px;
@@ -69,7 +71,7 @@ const Extends = (props: {
                 }
               >
                 <Icon
-                  name="close_circle_outlined"
+                  data={close_circle_outlined}
                   title="save action"
                   size={18}
                 />
@@ -217,6 +219,9 @@ export const EditBlueprint = (props: IDmtUIPlugin) => {
 
   useEffect(() => {
     if (!document) return
+    if (!document.attributes){
+      document.attributes = []
+    }
     setFormData(document)
   }, [document])
 
@@ -278,7 +283,7 @@ export const EditBlueprint = (props: IDmtUIPlugin) => {
                   }}
                 >
                   <Icon
-                    name="close_circle_outlined"
+                    data={close_circle_outlined}
                     title="remove attribute"
                     size={24}
                   />

@@ -186,7 +186,7 @@ export function UIPluginSelector(props: {
     setSelectablePlugins(
       filterPlugins(blueprint, categories || [], roles, getUiPlugin)
     )
-  }, [blueprint])
+  }, [blueprint, loading])
 
   if (loadingBlueprint || loading)
     return (
