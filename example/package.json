@@ -16,7 +16,7 @@
   },
   "scripts": {
     "preinstall": "cd ../packages/dm-core && npm run build",
-    "start": "REACT_APP_DMSS_URL=http://localhost:5001  REACT_APP_DM_JOB_URL=http://localhost:5000 react-scripts start",
+    "start": "REACT_APP_DMSS_URL=http://localhost:5000  REACT_APP_DM_JOB_URL=http://localhost:5001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

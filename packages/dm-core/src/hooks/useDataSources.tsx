@@ -1,44 +1,23 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect, useState } from 'react'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
-import DataSourceReducer, {
-  DocumentActions,
-  initialState,
-} from './DataSourcesReducer'
-import { DmssAPI, TDataSource } from '../services'
+import DmssAPI from 'src/services/api/DmssAPI'
 
-export interface IModels {
-  dataSources: TDataSource[]
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IOperations {}
+import { TDataSource } from 'src/types'
+import { AxiosResponse, AxiosError } from 'axios'
+import { ErrorResponse } from 'src/services'
 
-export interface IDataSources {
-  models: IModels
-  operations: IOperations
-}
-
-export const useDataSources = (dmssAPI: DmssAPI): IDataSources => {
-  const [state, dispatch] = useReducer(DataSourceReducer, initialState)
-
-  const fetchData = async () => {
-    try {
-      const dataSources = await dmssAPI.dataSourceGetAll()
-      //@ts-ignore
-      dispatch(DocumentActions.addDataSources(dataSources))
-    } catch (error) {
-      console.error(error)
-      NotificationManager.error(error.statusText, 'List DataSources')
-    }
-  }
+export const useDataSources = (dmssAPI: DmssAPI): TDataSource[] => {
+  const [dataSources, setDataSources] = useState<TDataSource[]>([])
 
   useEffect(() => {
-    fetchData()
+    const dataSources = dmssAPI
+      .dataSourceGetAll()
+      .then((response: AxiosResponse<TDataSource[]>) =>
+        setDataSources(response.data)
+      )
+      .catch((error: AxiosError<ErrorResponse>) => console.error(error))
   }, [])
-  return {
-    operations: {},
-    models: {
-      dataSources: state.dataSources,
-    },
-  }
+
+  return dataSources
 }

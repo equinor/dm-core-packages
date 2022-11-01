@@ -8,7 +8,6 @@ import { APP_ROLES, DMSS_ADMIN_ROLE } from '../utils/appRoles'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
 import axios, { AxiosResponse } from 'axios'
-import { TDmtSettings } from '../types'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { DmssAPI } from '../services'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -98,7 +97,7 @@ const StyledLink = styled(Link)`
 export const Header = (props: {
   appName: string
   urlPath: string
-  allApps: TDmtSettings[]
+  allApps: any[]
 }): JSX.Element => {
   const { appName, urlPath, allApps } = props
   const [version, setVersion] = useState<string>('Version not loaded')

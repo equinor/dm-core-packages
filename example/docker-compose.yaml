@@ -11,7 +11,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: maf
       SECRET_KEY: sg9aeUM5i1JO4gNN8fQadokJa3_gXQMLBjSGGYcfscs= # Don't reuse this in production...
     ports:
-      - "5001:5000"
+      - "5000:5000"
     depends_on:
       - db
 
@@ -48,7 +48,7 @@ services:
     volumes:
       - ../../dm-job/src/:/code/src
     ports:
-      - "5000:5000"
+      - "5001:5000"
 
 #  db-ui:
 #    image: mongo-express:1.0.0-alpha

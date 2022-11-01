@@ -5,6 +5,8 @@ import {
   FSTreeContext,
   TreeView,
   Loading,
+  useDataSources,
+  TDataSource,
 } from '@development-framework/dm-core'
 import { useContext } from 'react'
 import { Jobs } from './test_components/Jobs'
@@ -14,14 +16,7 @@ function App() {
 
   const { treeNodes, loading } = useContext(FSTreeContext)
 
-  dmssAPI
-    .dataSourceGetAll()
-    .then((res) => {
-      console.log('data sources found: ', res.data)
-    })
-    .catch((err) => {
-      console.error(err.message)
-    })
+  const dataSources = useDataSources(dmssAPI)
 
   return (
     <div
@@ -29,9 +24,8 @@ function App() {
         display: 'flex',
         flexDirection: 'column',
         padding: '50px',
-        height: '680px',
-        width: '1920px',
         justifyContent: 'space-evenly',
+        overflow: 'auto',
       }}
     >
       <div
@@ -44,6 +38,11 @@ function App() {
         {loading ? <Loading /> : <TreeView nodes={treeNodes} />}
       </div>
       <JsonView data={{ JsonView: 'test' }} />
+      <ul>
+        {dataSources.map((ds: TDataSource) => (
+          <li key={ds.id}>{ds.name}</li>
+        ))}
+      </ul>
       <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')} />
       <Jobs />
     </div>
