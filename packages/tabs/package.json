@@ -1,7 +1,7 @@
 {
   "name": "@development-framework/tabs",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "@equinor/eds-core-react": "^0.20.0",
     "@equinor/eds-icons": "^0.12.0",
