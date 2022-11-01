@@ -44,7 +44,10 @@ function App() {
         ))}
       </ul>
       <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')} />
-      <UIPluginSelector type={"system/SIMOS/Blueprint"} absoluteDottedId={"DemoDataSource/2ead26dd-0aa2-44d8-951b-049eae126548"}/>
+      <UIPluginSelector
+        type={'system/SIMOS/Blueprint'}
+        absoluteDottedId={'DemoDataSource/2ead26dd-0aa2-44d8-951b-049eae126548'}
+      />
       <Jobs />
     </div>
   )

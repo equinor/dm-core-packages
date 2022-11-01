@@ -4,9 +4,9 @@ import App from './App'
 import {
   ApplicationContext,
   FSTreeProvider,
-  UiPluginProvider
+  UiPluginProvider,
 } from '@development-framework/dm-core'
-import plugins from "./plugins";
+import plugins from './plugins'
 
 const fullCurrentURL = () =>
   `${window.location.pathname}${window.location.search}${window.location.hash}`
@@ -36,7 +36,7 @@ ReactDOM.render(
     <ApplicationContext.Provider value={APP_SETTINGS}>
       <FSTreeProvider visibleDataSources={APP_SETTINGS.visibleDataSources}>
         <UiPluginProvider pluginsToLoad={plugins}>
-        <App />
+          <App />
         </UiPluginProvider>
       </FSTreeProvider>
     </ApplicationContext.Provider>

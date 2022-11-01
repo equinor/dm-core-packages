@@ -17,9 +17,8 @@ import {
   Switch,
   TextField,
 } from '@equinor/eds-core-react'
-import { close_circle_outlined} from "@equinor/eds-icons"
+import { close_circle_outlined } from '@equinor/eds-icons'
 import styled from 'styled-components'
-
 
 const Spacer = styled.div`
   margin-top: 15px;
@@ -219,7 +218,7 @@ export const EditBlueprint = (props: IDmtUIPlugin) => {
 
   useEffect(() => {
     if (!document) return
-    if (!document.attributes){
+    if (!document.attributes) {
       document.attributes = []
     }
     setFormData(document)
