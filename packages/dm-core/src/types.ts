@@ -1,4 +1,6 @@
 import { JobStatus } from './services/api/configs/gen-job'
+import { EDmtPluginType } from './context/UiPluginContext'
+import React from 'react'
 
 export type TDataSource = {
   id: string
@@ -125,6 +127,12 @@ export type TCronJob = {
 export type TValidEntity = {
   type: string
   [key: string]: any
+}
+
+export type TPlugin = {
+  pluginName: string
+  pluginType: EDmtPluginType
+  component: React.FC
 }
 
 export type TUserIdMapping = { userId: string; username: string }
