@@ -1,17 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react'
-
-export interface TDmtPlugin {
-  pluginType: EDmtPluginType
-  pluginName: string
-  component: (props: IDmtUIPlugin) => JSX.Element
-}
+import { TPlugin } from '../types'
 
 type TUiPluginMap = {
-  [key: string]: TDmtPlugin
+  [key: string]: TPlugin
 }
 
 export interface ILoadedPlugin {
-  plugins: TDmtPlugin[]
+  plugins: TPlugin[]
 }
 
 export interface IDmtUIPlugin {
@@ -25,7 +20,7 @@ export interface IDmtUIPlugin {
   readOnly?: boolean
 }
 
-export enum EDmtPluginType {
+export enum EPluginType {
   UI,
   PAGE,
 }
@@ -33,11 +28,11 @@ export enum EDmtPluginType {
 type TUiPluginContext = {
   plugins: TUiPluginMap
   loading: boolean
-  getUiPlugin: (uiRecipeName: string) => TDmtPlugin
-  getPagePlugin: (uiRecipeName: string) => TDmtPlugin
+  getUiPlugin: (uiRecipeName: string) => TPlugin
+  getPagePlugin: (uiRecipeName: string) => TPlugin
 }
-const emtpyDMTPlugin: TDmtPlugin = {
-  pluginType: EDmtPluginType.PAGE,
+const emtpyDMTPlugin: TPlugin = {
+  pluginType: EPluginType.PAGE,
   pluginName: '',
   component: () => {
     return <div></div>
@@ -67,12 +62,12 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
       pluginsToLoad.map(
         async (pluginPackage: any) =>
           await pluginPackage.then((loadedPluginPackage: ILoadedPlugin) =>
-            loadedPluginPackage.plugins.map((plugin: TDmtPlugin) => plugin)
+            loadedPluginPackage.plugins.map((plugin: TPlugin) => plugin)
           )
       )
     )
       .then((pluginPackageList: any[]) => {
-        pluginPackageList.forEach((pluginPackage: TDmtPlugin[]) => {
+        pluginPackageList.forEach((pluginPackage: TPlugin[]) => {
           pluginPackage.forEach(
             (plugin) =>
               (newPluginMap = { ...newPluginMap, [plugin.pluginName]: plugin })
@@ -87,17 +82,17 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
       .finally(() => setLoading(false))
   }, [pluginsToLoad])
 
-  function getUiPlugin(uiRecipeName: string): TDmtPlugin {
+  function getUiPlugin(uiRecipeName: string): TPlugin {
     const pluginName = uiRecipeName.trim()
     if (pluginName in plugins) return plugins[pluginName]
     return {
       pluginName: 'NotFound',
-      pluginType: EDmtPluginType.UI,
+      pluginType: EPluginType.UI,
       component: () => <div>Did not find the plugin: {pluginName} </div>,
     }
   }
 
-  function getPagePlugin(uiRecipeName: string): TDmtPlugin {
+  function getPagePlugin(uiRecipeName: string): TPlugin {
     const pluginName = uiRecipeName.trim()
     if (pluginName in plugins) {
       return plugins[pluginName]

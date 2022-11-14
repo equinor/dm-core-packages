@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
 import {
   IDmtUIPlugin,
-  TDmtPlugin,
+  TPlugin,
   UiPluginContext,
 } from '../context/UiPluginContext'
 import { AuthContext } from 'react-oauth2-code-pkce'
@@ -109,7 +109,7 @@ function filterPlugins(
   blueprint: any,
   categories: string[],
   roles: string[],
-  getUIPlugin: (name: string) => TDmtPlugin
+  getUIPlugin: (name: string) => TPlugin
 ): TSelectablePlugins[] {
   let uiRecipes = blueprint.uiRecipes
   const fallbackPlugin = [

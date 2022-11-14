@@ -2,10 +2,10 @@ import * as React from 'react'
 
 import './index.css'
 import {
-  EDmtPluginType,
+  EPluginType,
   IDmtUIPlugin,
   Loading,
-  TDmtPlugin,
+  TPlugin,
   useDocument,
 } from '@development-framework/dm-core'
 import PreviewPlugin from './YamlPlugin'
@@ -29,10 +29,10 @@ const PluginComponent = (props: IDmtUIPlugin) => {
   return <PreviewPlugin document={document} />
 }
 
-export const plugins: TDmtPlugin[] = [
+export const plugins: TPlugin[] = [
   {
     pluginName: 'yaml-view',
-    pluginType: EDmtPluginType.UI,
+    pluginType: EPluginType.UI,
     component: PluginComponent,
   },
 ]

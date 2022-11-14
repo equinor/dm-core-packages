@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ViewerPDFPlugin } from './PDFViewer'
 
 import {
-  EDmtPluginType,
+  EPluginType,
   IDmtUIPlugin,
   Loading,
 } from '@development-framework/dm-core'
@@ -20,7 +20,7 @@ const PluginComponent = (props: IDmtUIPlugin) => {
 export const plugins: any = [
   {
     pluginName: 'default-pdf',
-    pluginType: EDmtPluginType.UI,
+    pluginType: EPluginType.UI,
     component: PluginComponent,
   },
 ]
