@@ -1,5 +1,5 @@
 import {
-  IDmtUIPlugin,
+  IUIPlugin,
   EJobStatus,
   Loading,
   TJob,
@@ -9,7 +9,7 @@ import {
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-export const JobInputEdit = (props: IDmtUIPlugin) => {
+export const JobInputEdit = (props: IUIPlugin) => {
   const { documentId, dataSourceId } = props
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
     dataSourceId,

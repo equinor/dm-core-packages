@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import {
   EPluginType,
-  IDmtUIPlugin,
+  IUIPlugin,
   useDocument,
   TJob,
   Loading,
@@ -10,7 +10,7 @@ import {
 import { JobControl } from './JobControl'
 import { JobInputEdit } from './JobInputEdit'
 
-const JobControlWrapper = (props: IDmtUIPlugin) => {
+const JobControlWrapper = (props: IUIPlugin) => {
   const { documentId, dataSourceId } = props
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
     dataSourceId,

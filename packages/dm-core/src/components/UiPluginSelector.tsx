@@ -4,11 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
-import {
-  IDmtUIPlugin,
-  TPlugin,
-  UiPluginContext,
-} from '../context/UiPluginContext'
+import { IUIPlugin, TPlugin, UiPluginContext } from '../context/UiPluginContext'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { getRoles } from '../utils/appRoles'
 import { ErrorBoundary } from '../utils/ErrorBoundary'
@@ -101,7 +97,7 @@ const SelectPluginButton = styled.div<ISPButton>`
 
 type TSelectablePlugins = {
   name: string
-  component: (props: IDmtUIPlugin) => JSX.Element
+  component: (props: IUIPlugin) => JSX.Element
   config: any
 }
 
@@ -204,7 +200,7 @@ export function UIPluginSelector(props: {
   if (!selectablePlugins.length)
     return <Wrapper>No compatible uiRecipes for entity</Wrapper>
 
-  const UiPlugin: (props: IDmtUIPlugin) => JSX.Element =
+  const UiPlugin: (props: IUIPlugin) => JSX.Element =
     selectablePlugins[selectedPlugin].component
   const config: any = selectablePlugins[selectedPlugin].config
 

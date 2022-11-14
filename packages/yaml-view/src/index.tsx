@@ -3,14 +3,14 @@ import * as React from 'react'
 import './index.css'
 import {
   EPluginType,
-  IDmtUIPlugin,
+  IUIPlugin,
   Loading,
   TPlugin,
   useDocument,
 } from '@development-framework/dm-core'
 import PreviewPlugin from './YamlPlugin'
 
-const PluginComponent = (props: IDmtUIPlugin) => {
+const PluginComponent = (props: IUIPlugin) => {
   const { documentId, dataSourceId } = props
   // eslint-disable-next-line
   const [document, loading, updateDocument, error] = useDocument(

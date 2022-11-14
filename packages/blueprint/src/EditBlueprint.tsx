@@ -1,6 +1,6 @@
 import {
   BlueprintPicker,
-  IDmtUIPlugin,
+  IUIPlugin,
   INPUT_FIELD_WIDTH,
   Loading,
   Select,
@@ -208,7 +208,7 @@ const BlueprintAttribute = (props: {
   )
 }
 
-export const EditBlueprint = (props: IDmtUIPlugin) => {
+export const EditBlueprint = (props: IUIPlugin) => {
   const { documentId, dataSourceId } = props
   const [document, _loading, updateDocument] = useDocument<any>(
     dataSourceId,
