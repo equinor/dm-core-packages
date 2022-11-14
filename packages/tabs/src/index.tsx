@@ -1,10 +1,10 @@
-import { EPluginType } from '@development-framework/dm-core'
+import { EDmtPluginType } from '@development-framework/dm-core'
 import { TabsContainer } from './TabsContainer'
 
 export const plugins: any = [
   {
     pluginName: 'tabs',
-    pluginType: EPluginType.UI,
+    pluginType: EDmtPluginType.UI,
     component: TabsContainer,
   },
 ]

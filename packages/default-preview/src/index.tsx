@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { EPluginType, IDmtUIPlugin } from '@development-framework/dm-core'
+import { EDmtPluginType, IDmtUIPlugin } from '@development-framework/dm-core'
 import PreviewPlugin from './PreviewPlugin'
 
 const PluginComponent = (props: IDmtUIPlugin) => {
@@ -15,7 +15,7 @@ const PluginComponent = (props: IDmtUIPlugin) => {
 export const plugins: any = [
   {
     pluginName: 'default-preview',
-    pluginType: EPluginType.UI,
+    pluginType: EDmtPluginType.UI,
     component: PluginComponent,
   },
 ]
