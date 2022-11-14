@@ -1,5 +1,5 @@
 import { JobStatus } from './services/api/configs/gen-job'
-import { EDmtPluginType } from './context/UiPluginContext'
+import { EPluginType } from './context/UiPluginContext'
 import React from 'react'
 
 export type TDataSource = {
@@ -131,7 +131,7 @@ export type TValidEntity = {
 
 export type TPlugin = {
   pluginName: string
-  pluginType: EDmtPluginType
+  pluginType: EPluginType
   component: React.FC
 }
 
