@@ -5,7 +5,7 @@ import {
   AuthContext,
   DmssAPI,
   EPluginType,
-  IDmtUIPlugin,
+  IUIPlugin,
   Loading,
   useDocument,
 } from '@development-framework/dm-core'
@@ -74,7 +74,7 @@ function useExplorer(dmssAPI: DmssAPI) {
   }
 }
 
-const PluginComponent = (props: IDmtUIPlugin) => {
+const PluginComponent = (props: IUIPlugin) => {
   const { documentId, dataSourceId } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)

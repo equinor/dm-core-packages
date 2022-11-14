@@ -9,7 +9,7 @@ export interface ILoadedPlugin {
   plugins: TPlugin[]
 }
 
-export interface IDmtUIPlugin {
+export interface IUIPlugin {
   type?: string
   categories?: string[]
   dataSourceId: string

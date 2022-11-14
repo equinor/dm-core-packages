@@ -1,5 +1,5 @@
 import {
-  IDmtUIPlugin,
+  IUIPlugin,
   Loading,
   TChildTab,
   TGenericObject,
@@ -48,7 +48,7 @@ type TStringMap = {
   [key: string]: TChildTab
 }
 
-export const TabsContainer = (props: IDmtUIPlugin) => {
+export const TabsContainer = (props: IUIPlugin) => {
   const { documentId, dataSourceId, config, onSubmit } = props
   const [selectedTab, setSelectedTab] = useState<string>('home')
   const [formData, setFormData] = useState<TGenericObject>({})

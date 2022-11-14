@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { EPluginType, IDmtUIPlugin } from '@development-framework/dm-core'
+import { EPluginType, IUIPlugin } from '@development-framework/dm-core'
 import PreviewPlugin from './PreviewPlugin'
 
-const PluginComponent = (props: IDmtUIPlugin) => {
+const PluginComponent = (props: IUIPlugin) => {
   return (
     <PreviewPlugin
       documentId={props.documentId}
