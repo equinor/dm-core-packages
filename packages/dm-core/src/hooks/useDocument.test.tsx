@@ -6,7 +6,7 @@ import { mockGetDocument } from '../utils/test-utils-dm-core'
 
 const mockDocument = [
   {
-    documentId: '1',
+    idReference: 'testDS/1',
     description: 'Description1',
   },
 ]
@@ -19,21 +19,20 @@ describe('useDocumentHook', () => {
   describe(-'useDocument hook', () => {
     it('should correctly return the document', async () => {
       const mock = mockGetDocument(mockDocument)
-      const { result } = renderHook(() => useDocument('', '1'))
+      const { result } = renderHook(() => useDocument('testDS/1'))
 
       await waitFor(() => {
         expect(result.current[0]).toEqual(mockDocument)
         expect(mock).toHaveBeenCalledTimes(1)
         expect(mock).toHaveBeenCalledWith({
-          dataSourceId: '',
-          documentId: '1',
+          idReference: 'testDS/1',
           depth: 1,
         })
       })
     })
     it('return error message when fetching the document fails', async () => {
       const mock = mockGetDocument(mockDocument)
-      const { result } = renderHook(() => useDocument('', '-1'))
+      const { result } = renderHook(() => useDocument('testDS/-1'))
 
       await waitFor(() => {
         expect(result.current[0]).toEqual(null)

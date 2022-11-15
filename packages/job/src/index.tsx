@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import {
-  EPluginType,
-  IUIPlugin,
+  EDmtPluginType,
+  IDmtUIPlugin,
   useDocument,
   TJob,
   Loading,
@@ -10,7 +10,7 @@ import {
 import { JobControl } from './JobControl'
 import { JobInputEdit } from './JobInputEdit'
 
-const JobControlWrapper = (props: IUIPlugin) => {
+const JobControlWrapper = (props: IDmtUIPlugin) => {
   const { documentId, dataSourceId } = props
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
     dataSourceId,
@@ -37,12 +37,12 @@ const JobControlWrapper = (props: IUIPlugin) => {
 export const plugins: any = [
   {
     pluginName: 'jobControl',
-    pluginType: EPluginType.UI,
+    pluginType: EDmtPluginType.UI,
     component: JobControlWrapper,
   },
   {
     pluginName: 'jobInputEdit',
-    pluginType: EPluginType.UI,
+    pluginType: EDmtPluginType.UI,
     component: JobInputEdit,
   },
 ]

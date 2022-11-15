@@ -200,11 +200,9 @@ export class TreeNode {
 
   // Fetches the unresolved document of the node
   async fetch() {
-    const [dataSourceId, documentId] = this.nodeId.split('/', 2)
     return this.tree.dmssApi
       .documentGetById({
-        dataSourceId: dataSourceId,
-        documentId: documentId,
+        idReference: this.nodeId,
         depth: 0,
       })
       .then((response: any) => response.data)
@@ -212,14 +210,12 @@ export class TreeNode {
 
   async expand(): Promise<void> {
     if (!this.isDataSource) {
-      const [dataSourceId, documentId] = this.nodeId.split('/', 2)
       const parentBlueprint: TBlueprint = await this.tree.dmssApi
         .blueprintGet({ typeRef: this.type })
         .then((response: any) => response.data)
       this.tree.dmssApi
         .documentGetById({
-          dataSourceId: dataSourceId,
-          documentId: documentId,
+          idReference: this.nodeId,
           depth: 0,
         })
         .then((response: any) => {
@@ -347,10 +343,9 @@ export class Tree {
   }
 
   async initFromFolder(folderPath: string) {
-    const [dataSourceId, ...pathArray] = folderPath.split('/')
-    const path = pathArray.join('/')
+    const dataSourceId = folderPath.split('/', 1)[0]
     this.dmssApi
-      .documentGetByPath({ dataSourceId: dataSourceId, path: path })
+      .documentGetByPath({ absolutePath: folderPath })
       .then((response: any) => {
         const data = response.data
         const folderNode = new TreeNode(

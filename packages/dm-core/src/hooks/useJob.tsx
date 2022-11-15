@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
-//@ts-ignore
-import { NotificationManager } from 'react-notifications'
 import {
   ErrorResponse,
   GetJobResultResponse,
@@ -87,10 +85,8 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   useEffect(() => {
     if (entityId) {
       setIsLoading(true)
-      const dataSourceId = entityId.split('/')[0]
-      const documentId = entityId.split('/')[1]
       dmssApi
-        .documentGetById({ dataSourceId, documentId })
+        .documentGetById({ idReference: entityId })
         // @ts-ignore
         .then((response: AxiosResponse<TJob>) => {
           if (response.data?.uid) {

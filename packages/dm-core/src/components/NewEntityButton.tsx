@@ -54,9 +54,7 @@ export function NewEntityButton(props: {
   }, [defaultDestination])
 
   function addEntityToPath(entity: any): Promise<void> {
-    const [dataSource, ...directories] = saveDestination.split('/')
-    const directory = directories.join('/')
-    return addToPath(entity, token, [], dataSource, directory)
+    return addToPath(entity, token, [], saveDestination)
       .then((newId: string) =>
         setReference({ _id: newId, type: entity.type, name: entity.name })
       )

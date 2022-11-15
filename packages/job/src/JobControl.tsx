@@ -4,10 +4,10 @@ import {
   AuthContext,
   Dialog,
   DmssAPI,
-  DmtAPI,
+  DmJobAPI,
   ErrorResponse,
   UIPluginSelector,
-  EJobStatus,
+  JobStatus,
   TJob,
   ApplicationContext,
 } from '@development-framework/dm-core'
@@ -37,15 +37,15 @@ const ClickableLabel = styled.div`
 
 function colorFromStatus(status: string): string {
   switch (status) {
-    case EJobStatus.CREATED:
+    case JobStatus.Registered:
       return 'slateblue'
-    case EJobStatus.STARTING:
+    case JobStatus.Starting:
       return 'orange'
-    case EJobStatus.RUNNING:
+    case JobStatus.Running:
       return 'orange'
-    case EJobStatus.COMPLETED:
+    case JobStatus.Completed:
       return 'green'
-    case EJobStatus.FAILED:
+    case JobStatus.Failed:
       return 'red'
     default:
       return 'darkgrey'
@@ -84,12 +84,12 @@ export const JobControl = (props: {
   const [dataSourceId, documentId] = jobId.split('/', 2)
   const { token } = useContext(AuthContext)
   const settings = useContext(ApplicationContext)
-  const dmtApi = new DmtAPI(token)
+  const dmtApi = new DmJobAPI(token)
   const dmssApi = new DmssAPI(token)
   const [loading, setLoading] = useState<boolean>(false)
   const [jobUID, setJobUID] = useState<string | undefined>(document?.uid)
   const [jobLogs, setJobLogs] = useState<any>()
-  const [jobStatus, setJobStatus] = useState<EJobStatus>(document.status)
+  const [jobStatus, setJobStatus] = useState<JobStatus>(document.status)
   const [refreshCount, setRefreshCount] = useState<number>(0)
   const [runnerModal, setRunnerModal] = useState<boolean>(false)
   const [inputModal, setInputModal] = useState<boolean>(false)
@@ -123,7 +123,7 @@ export const JobControl = (props: {
         )
         setJobUID(result.data.uid)
         setJobLogs(result.data.message)
-        setJobStatus(EJobStatus.STARTING)
+        setJobStatus(JobStatus.Starting)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
@@ -141,7 +141,7 @@ export const JobControl = (props: {
     setLoading(true)
     try {
       await dmtApi.removeJob({ jobUid: jobUID })
-      await dmssApi.explorerRemove({
+      await dmssApi.documentRemove({
         dataSourceId: dataSourceId,
         dottedId: documentId,
       })
@@ -221,7 +221,7 @@ export const JobControl = (props: {
         </RowGroup>
         <RowGroup>
           <Label label="Started:" />
-          {document.status === EJobStatus.CREATED ? (
+          {document.status === JobStatus.Registered ? (
             <label>Not started</label>
           ) : (
             <label>
@@ -275,7 +275,7 @@ export const JobControl = (props: {
         >
           <Icons name="refresh" title="refresh" />
         </Button>
-        {jobStatus === EJobStatus.CREATED && (
+        {jobStatus === JobStatus.Registered && (
           <Button style={{ width: '150px' }} onClick={() => startJob()}>
             Start job
             <Icons name="play" title="play" />

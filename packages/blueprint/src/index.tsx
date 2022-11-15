@@ -1,10 +1,10 @@
-import { EPluginType } from '@development-framework/dm-core'
+import { EDmtPluginType } from '@development-framework/dm-core'
 import { EditBlueprint } from './EditBlueprint'
 
 export const plugins: any = [
   {
     pluginName: 'edit-blueprint',
-    pluginType: EPluginType.UI,
+    pluginType: EDmtPluginType.UI,
     component: EditBlueprint,
   },
 ]

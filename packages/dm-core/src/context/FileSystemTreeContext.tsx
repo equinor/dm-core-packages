@@ -6,7 +6,6 @@ import React, {
   useState,
 } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import { ApplicationContext } from './ApplicationContext'
 import { Tree, TreeNode } from '../domain/Tree'
 
 export const FSTreeContext = createContext<{

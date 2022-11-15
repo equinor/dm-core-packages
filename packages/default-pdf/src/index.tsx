@@ -1,10 +1,14 @@
 import * as React from 'react'
 import { ViewerPDFPlugin } from './PDFViewer'
 
-import { EPluginType, IUIPlugin, Loading } from '@development-framework/dm-core'
+import {
+  EDmtPluginType,
+  IDmtUIPlugin,
+  Loading,
+} from '@development-framework/dm-core'
 import { useDocument } from '@development-framework/dm-core'
 
-const PluginComponent = (props: IUIPlugin) => {
+const PluginComponent = (props: IDmtUIPlugin) => {
   const { documentId, dataSourceId } = props
   const [document, loading] = useDocument(dataSourceId, documentId, 999)
 
@@ -16,7 +20,7 @@ const PluginComponent = (props: IUIPlugin) => {
 export const plugins: any = [
   {
     pluginName: 'default-pdf',
-    pluginType: EPluginType.UI,
+    pluginType: EDmtPluginType.UI,
     component: PluginComponent,
   },
 ]

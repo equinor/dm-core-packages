@@ -12,8 +12,7 @@ export interface ILoadedPlugin {
 export interface IUIPlugin {
   type?: string
   categories?: string[]
-  dataSourceId: string
-  documentId: string
+  idReference: string
   onSubmit?: (data: any) => void
   onOpen?: (data: any) => void
   config?: any

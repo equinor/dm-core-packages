@@ -32,14 +32,12 @@ import { AuthContext } from 'react-oauth2-code-pkce'
  * <DisplayDocument document={document} />
  * ```
  *
- * @param dataSourceId The ID of the data source
- * @param documentId The ID of the document
+ * @param idReference The ID reference of the document on format DATA_SOURCE/UUID.Attribute
  * @param depth The maximum depth level of nested objects to resolve
  * @returns A list containing the document, a boolean representing the loading state, a function to update the document, and an Error, if any.
  */
 export function useDocument<T>(
-  dataSourceId: string,
-  documentId: string,
+  idReference: string,
   depth?: number | undefined
 ): [
   any | null,
@@ -60,8 +58,7 @@ export function useDocument<T>(
       throw new Error('Depth must be a positive number < 999')
     dmssAPI
       .documentGetById({
-        dataSourceId: dataSourceId,
-        documentId: documentId,
+        idReference: idReference,
         depth: documentDepth,
       })
       .then((response: any) => {
@@ -71,9 +68,10 @@ export function useDocument<T>(
       })
       .catch((error: AxiosError) => setError(error))
       .finally(() => setLoading(false))
-  }, [dataSourceId, documentId])
+  }, [idReference])
 
   function updateDocument(newDocument: T, notify: boolean): void {
+    const [dataSourceId, documentId] = idReference.split('/', 2)
     setLoading(true)
     dmssAPI
       .documentUpdate({
