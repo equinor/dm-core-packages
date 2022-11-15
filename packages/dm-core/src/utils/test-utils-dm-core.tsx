@@ -8,7 +8,7 @@ export const mockGetDocument = (documents: any) => {
   //@ts-ignore
   mock.mockImplementation((parameters) => {
     return documents.some(
-      (document: any) => document.documentId === parameters['documentId']
+      (document: any) => document.idReference === parameters['idReference']
     )
       ? Promise.resolve({
           data: documents,

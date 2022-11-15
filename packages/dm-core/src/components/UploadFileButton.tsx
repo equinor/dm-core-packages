@@ -17,17 +17,16 @@ export const addToPath = (
   body: TGenericObject,
   token: string,
   files: File[] | undefined[] = [],
-  dataSourceId: string,
-  directory: string,
+  pathReference: string,
   updateUncontained = false
 ): Promise<string> => {
   const dmssAPI = new DmssAPI(token)
 
   return dmssAPI
     .documentAddToPath({
-      dataSourceId: dataSourceId,
+      pathReference: pathReference,
       document: JSON.stringify(body),
-      directory: directory, // @ts-ignore
+      // @ts-ignore
       files: files.filter((item) => item !== undefined),
       updateUncontained: updateUncontained,
     })
@@ -68,8 +67,7 @@ export function UploadFileButton(props: {
         newDocumentBody,
         token,
         [file],
-        dataSourceId,
-        '/Data/STasks',
+        `${dataSourceId}/Data/STasks`,
         true
       )
         .then((createdUUID: string) =>

@@ -4,7 +4,11 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
-import { IUIPlugin, TPlugin, UiPluginContext } from '../context/UiPluginContext'
+import {
+  IDmtUIPlugin,
+  TPlugin,
+  UiPluginContext,
+} from '../context/UiPluginContext'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { getRoles } from '../utils/appRoles'
 import { ErrorBoundary } from '../utils/ErrorBoundary'
@@ -163,11 +167,6 @@ export function UIPluginSelector(props: {
     onSubmit,
     onOpen,
   } = props
-  let [dataSourceId, documentId] = ['', '']
-  if (absoluteDottedId) {
-    dataSourceId = absoluteDottedId.split('/', 2)[0]
-    documentId = absoluteDottedId.split('/', 2)[1]
-  }
   const [blueprint, loadingBlueprint, error] = useBlueprint(type)
   const { loading, getUiPlugin } = useContext(UiPluginContext)
   const { tokenData } = useContext(AuthContext)
@@ -206,9 +205,7 @@ export function UIPluginSelector(props: {
 
   return (
     <Wrapper>
-      {breadcrumb && (
-        <DocumentPath absoluteDottedId={`${dataSourceId}/${documentId}`} />
-      )}
+      {breadcrumb && <DocumentPath absoluteDottedId={absoluteDottedId} />}
       {referencedBy && <DocumentPath absoluteDottedId={referencedBy} />}
       {selectablePlugins.length > 1 && (
         <PluginTabsWrapper>
@@ -235,8 +232,7 @@ export function UIPluginSelector(props: {
         )}
       >
         <UiPlugin
-          dataSourceId={dataSourceId}
-          documentId={documentId}
+          idReference={absoluteDottedId}
           onSubmit={onSubmit}
           onOpen={onOpen}
           categories={categories}

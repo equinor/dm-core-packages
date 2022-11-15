@@ -1,6 +1,6 @@
 import {
-  IUIPlugin,
-  EJobStatus,
+  IDmtUIPlugin,
+  JobStatus,
   Loading,
   TJob,
   UIPluginSelector,
@@ -9,7 +9,7 @@ import {
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-export const JobInputEdit = (props: IUIPlugin) => {
+export const JobInputEdit = (props: IDmtUIPlugin) => {
   const { documentId, dataSourceId } = props
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
     dataSourceId,
@@ -37,7 +37,7 @@ export const JobInputEdit = (props: IUIPlugin) => {
   }
   if (!formData) return <div>The job document is empty</div>
 
-  if (formData.status !== EJobStatus.CREATED) {
+  if (formData.status !== JobStatus.Registered) {
     return (
       <div
         style={{

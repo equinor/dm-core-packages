@@ -2,15 +2,15 @@ import * as React from 'react'
 
 import './index.css'
 import {
-  EPluginType,
-  IUIPlugin,
+  EDmtPluginType,
+  IDmtUIPlugin,
   Loading,
-  TPlugin,
+  TDmtPlugin,
   useDocument,
 } from '@development-framework/dm-core'
 import PreviewPlugin from './YamlPlugin'
 
-const PluginComponent = (props: IUIPlugin) => {
+const PluginComponent = (props: IDmtUIPlugin) => {
   const { documentId, dataSourceId } = props
   // eslint-disable-next-line
   const [document, loading, updateDocument, error] = useDocument(
@@ -29,10 +29,10 @@ const PluginComponent = (props: IUIPlugin) => {
   return <PreviewPlugin document={document} />
 }
 
-export const plugins: TPlugin[] = [
+export const plugins: TDmtPlugin[] = [
   {
     pluginName: 'yaml-view',
-    pluginType: EPluginType.UI,
+    pluginType: EDmtPluginType.UI,
     component: PluginComponent,
   },
 ]

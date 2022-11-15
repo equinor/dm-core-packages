@@ -491,25 +491,22 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
          * @summary Add To Path
-         * @param {string} dataSourceId 
+         * @param {string} pathReference 
          * @param {string} document 
-         * @param {string} directory 
          * @param {boolean} [updateUncontained] 
          * @param {Array<any>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAddToPath: async (dataSourceId: string, document: string, directory: string, updateUncontained?: boolean, files?: Array<any>, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('documentAddToPath', 'dataSourceId', dataSourceId)
+        documentAddToPath: async (pathReference: string, document: string, updateUncontained?: boolean, files?: Array<any>, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pathReference' is not null or undefined
+            assertParamExists('documentAddToPath', 'pathReference', pathReference)
             // verify required parameter 'document' is not null or undefined
             assertParamExists('documentAddToPath', 'document', document)
-            // verify required parameter 'directory' is not null or undefined
-            assertParamExists('documentAddToPath', 'directory', directory)
-            const localVarPath = `/api/v1/documents/{data_source_id}/add-to-path`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)));
+            const localVarPath = `/api/v1/documents/{path_reference}/add-to-path`
+                .replace(`{${"path_reference"}}`, encodeURIComponent(String(pathReference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -537,10 +534,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             if (document !== undefined) { 
                 localVarFormParams.append('document', document as any);
             }
-    
-            if (directory !== undefined) { 
-                localVarFormParams.append('directory', directory as any);
-            }
                 if (files) {
                 files.forEach((element) => {
                     localVarFormParams.append('files', element as any);
@@ -564,21 +557,16 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary Get By Id
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
-         * @param {string} [attribute] 
+         * @param {string} idReference 
          * @param {number} [depth] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGetById: async (dataSourceId: string, documentId: string, attribute?: string, depth?: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('documentGetById', 'dataSourceId', dataSourceId)
-            // verify required parameter 'documentId' is not null or undefined
-            assertParamExists('documentGetById', 'documentId', documentId)
-            const localVarPath = `/api/v1/documents/{data_source_id}/{document_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"document_id"}}`, encodeURIComponent(String(documentId)));
+        documentGetById: async (idReference: string, depth?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idReference' is not null or undefined
+            assertParamExists('documentGetById', 'idReference', idReference)
+            const localVarPath = `/api/v1/documents/{id_reference}`
+                .replace(`{${"id_reference"}}`, encodeURIComponent(String(idReference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -596,10 +584,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2AuthorizationCodeBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-            if (attribute !== undefined) {
-                localVarQueryParameter['attribute'] = attribute;
-            }
 
             if (depth !== undefined) {
                 localVarQueryParameter['depth'] = depth;
@@ -617,19 +601,17 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get a document by it\'s path in the form \"{dataSource}/{rootPackage}/{subPackage(s)?/{name}
+         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
          * @summary Get By Path
-         * @param {string} dataSourceId 
-         * @param {string} [attribute] 
-         * @param {string} [path] 
+         * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGetByPath: async (dataSourceId: string, attribute?: string, path?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('documentGetByPath', 'dataSourceId', dataSourceId)
-            const localVarPath = `/api/v1/documents-by-path/{data_source_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)));
+        documentGetByPath: async (absolutePath: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'absolutePath' is not null or undefined
+            assertParamExists('documentGetByPath', 'absolutePath', absolutePath)
+            const localVarPath = `/api/v1/documents-by-path/{absolute_path}`
+                .replace(`{${"absolute_path"}}`, encodeURIComponent(String(absolutePath)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -647,14 +629,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2AuthorizationCodeBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-            if (attribute !== undefined) {
-                localVarQueryParameter['attribute'] = attribute;
-            }
-
-            if (path !== undefined) {
-                localVarQueryParameter['path'] = path;
-            }
 
 
     
@@ -1433,45 +1407,40 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
          * @summary Add To Path
-         * @param {string} dataSourceId 
+         * @param {string} pathReference 
          * @param {string} document 
-         * @param {string} directory 
          * @param {boolean} [updateUncontained] 
          * @param {Array<any>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentAddToPath(dataSourceId: string, document: string, directory: string, updateUncontained?: boolean, files?: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAddToPath(dataSourceId, document, directory, updateUncontained, files, options);
+        async documentAddToPath(pathReference: string, document: string, updateUncontained?: boolean, files?: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAddToPath(pathReference, document, updateUncontained, files, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Get By Id
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
-         * @param {string} [attribute] 
+         * @param {string} idReference 
          * @param {number} [depth] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentGetById(dataSourceId: string, documentId: string, attribute?: string, depth?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGetById(dataSourceId, documentId, attribute, depth, options);
+        async documentGetById(idReference: string, depth?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGetById(idReference, depth, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get a document by it\'s path in the form \"{dataSource}/{rootPackage}/{subPackage(s)?/{name}
+         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
          * @summary Get By Path
-         * @param {string} dataSourceId 
-         * @param {string} [attribute] 
-         * @param {string} [path] 
+         * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentGetByPath(dataSourceId: string, attribute?: string, path?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGetByPath(dataSourceId, attribute, path, options);
+        async documentGetByPath(absolutePath: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGetByPath(absolutePath, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1759,43 +1728,38 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentAddSimple(dataSourceId, body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
          * @summary Add To Path
-         * @param {string} dataSourceId 
+         * @param {string} pathReference 
          * @param {string} document 
-         * @param {string} directory 
          * @param {boolean} [updateUncontained] 
          * @param {Array<any>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAddToPath(dataSourceId: string, document: string, directory: string, updateUncontained?: boolean, files?: Array<any>, options?: any): AxiosPromise<object> {
-            return localVarFp.documentAddToPath(dataSourceId, document, directory, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentAddToPath(pathReference: string, document: string, updateUncontained?: boolean, files?: Array<any>, options?: any): AxiosPromise<object> {
+            return localVarFp.documentAddToPath(pathReference, document, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Get By Id
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
-         * @param {string} [attribute] 
+         * @param {string} idReference 
          * @param {number} [depth] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGetById(dataSourceId: string, documentId: string, attribute?: string, depth?: number, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGetById(dataSourceId, documentId, attribute, depth, options).then((request) => request(axios, basePath));
+        documentGetById(idReference: string, depth?: number, options?: any): AxiosPromise<object> {
+            return localVarFp.documentGetById(idReference, depth, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a document by it\'s path in the form \"{dataSource}/{rootPackage}/{subPackage(s)?/{name}
+         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
          * @summary Get By Path
-         * @param {string} dataSourceId 
-         * @param {string} [attribute] 
-         * @param {string} [path] 
+         * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGetByPath(dataSourceId: string, attribute?: string, path?: string, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGetByPath(dataSourceId, attribute, path, options).then((request) => request(axios, basePath));
+        documentGetByPath(absolutePath: string, options?: any): AxiosPromise<object> {
+            return localVarFp.documentGetByPath(absolutePath, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2140,7 +2104,7 @@ export interface DefaultApiDocumentAddToPathRequest {
      * @type {string}
      * @memberof DefaultApiDocumentAddToPath
      */
-    readonly dataSourceId: string
+    readonly pathReference: string
 
     /**
      * 
@@ -2148,13 +2112,6 @@ export interface DefaultApiDocumentAddToPathRequest {
      * @memberof DefaultApiDocumentAddToPath
      */
     readonly document: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentAddToPath
-     */
-    readonly directory: string
 
     /**
      * 
@@ -2182,21 +2139,7 @@ export interface DefaultApiDocumentGetByIdRequest {
      * @type {string}
      * @memberof DefaultApiDocumentGetById
      */
-    readonly dataSourceId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentGetById
-     */
-    readonly documentId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentGetById
-     */
-    readonly attribute?: string
+    readonly idReference: string
 
     /**
      * 
@@ -2217,21 +2160,7 @@ export interface DefaultApiDocumentGetByPathRequest {
      * @type {string}
      * @memberof DefaultApiDocumentGetByPath
      */
-    readonly dataSourceId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentGetByPath
-     */
-    readonly attribute?: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentGetByPath
-     */
-    readonly path?: string
+    readonly absolutePath: string
 }
 
 /**
@@ -2634,7 +2563,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.
+     * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
      * @summary Add To Path
      * @param {DefaultApiDocumentAddToPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2642,7 +2571,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentAddToPath(requestParameters: DefaultApiDocumentAddToPathRequest, options?: any) {
-        return DefaultApiFp(this.configuration).documentAddToPath(requestParameters.dataSourceId, requestParameters.document, requestParameters.directory, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentAddToPath(requestParameters.pathReference, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2654,11 +2583,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentGetById(requestParameters: DefaultApiDocumentGetByIdRequest, options?: any) {
-        return DefaultApiFp(this.configuration).documentGetById(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.attribute, requestParameters.depth, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentGetById(requestParameters.idReference, requestParameters.depth, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Get a document by it\'s path in the form \"{dataSource}/{rootPackage}/{subPackage(s)?/{name}
+     * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
      * @summary Get By Path
      * @param {DefaultApiDocumentGetByPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2666,7 +2595,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentGetByPath(requestParameters: DefaultApiDocumentGetByPathRequest, options?: any) {
-        return DefaultApiFp(this.configuration).documentGetByPath(requestParameters.dataSourceId, requestParameters.attribute, requestParameters.path, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentGetByPath(requestParameters.absolutePath, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

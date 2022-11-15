@@ -4,8 +4,8 @@ import { useContext, useEffect, useState } from 'react'
 import {
   AuthContext,
   DmssAPI,
-  EPluginType,
-  IUIPlugin,
+  EDmtPluginType,
+  IDmtUIPlugin,
   Loading,
   useDocument,
 } from '@development-framework/dm-core'
@@ -74,7 +74,7 @@ function useExplorer(dmssAPI: DmssAPI) {
   }
 }
 
-const PluginComponent = (props: IUIPlugin) => {
+const PluginComponent = (props: IDmtUIPlugin) => {
   const { documentId, dataSourceId } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
@@ -105,7 +105,7 @@ const PluginComponent = (props: IUIPlugin) => {
 export const plugins: any = [
   {
     pluginName: 'mermaid',
-    pluginType: EPluginType.UI,
+    pluginType: EDmtPluginType.UI,
     component: PluginComponent,
   },
 ]
