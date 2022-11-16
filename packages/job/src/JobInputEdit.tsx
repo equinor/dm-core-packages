@@ -1,5 +1,5 @@
 import {
-  IDmtUIPlugin,
+  IUIPlugin,
   JobStatus,
   Loading,
   TJob,
@@ -9,11 +9,11 @@ import {
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-export const JobInputEdit = (props: IDmtUIPlugin) => {
-  const { documentId, dataSourceId } = props
+export const JobInputEdit = (props: IUIPlugin) => {
+  const { idReference } = props
+  const [dataSourceId, documentId] = idReference.split('/', 2)
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
-    dataSourceId,
-    documentId
+    idReference
   )
   const [formData, setFormData] = useState<TJob | null>(null)
 
