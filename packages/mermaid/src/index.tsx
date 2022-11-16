@@ -4,8 +4,8 @@ import { useContext, useEffect, useState } from 'react'
 import {
   AuthContext,
   DmssAPI,
-  EDmtPluginType,
-  IDmtUIPlugin,
+  EPluginType,
+  IUIPlugin,
   Loading,
   useDocument,
 } from '@development-framework/dm-core'
@@ -74,15 +74,15 @@ function useExplorer(dmssAPI: DmssAPI) {
   }
 }
 
-const PluginComponent = (props: IDmtUIPlugin) => {
-  const { documentId, dataSourceId } = props
+const PluginComponent = (props: IUIPlugin) => {
+  const { idReference } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
   const explorer = useExplorer(dmssAPI)
 
   const [chart, setChart] = useState<string | undefined>(undefined)
 
-  const [document, loading] = useDocument(dataSourceId, documentId)
+  const [document, isLoading] = useDocument(idReference)
 
   useEffect(() => {
     loader(token, explorer, document).then(async (tree: Node) => {
@@ -92,7 +92,7 @@ const PluginComponent = (props: IDmtUIPlugin) => {
   }, [])
 
   if (!chart) return <div>Creating chart...</div>
-  if (loading) {
+  if (isLoading) {
     return <Loading />
   }
   return (
@@ -105,7 +105,7 @@ const PluginComponent = (props: IDmtUIPlugin) => {
 export const plugins: any = [
   {
     pluginName: 'mermaid',
-    pluginType: EDmtPluginType.UI,
+    pluginType: EPluginType.UI,
     component: PluginComponent,
   },
 ]
