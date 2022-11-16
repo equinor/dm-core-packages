@@ -11,16 +11,12 @@ import {
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 type TPreviewProps = {
-  documentId: string
-  dataSourceId: string
+  idReference: string
 }
 
 export default (props: TPreviewProps) => {
-  const { documentId, dataSourceId } = props
-  const [document, loading] = useDocument<TGenericObject>(
-    dataSourceId,
-    documentId
-  )
+  const { idReference } = props
+  const [document, loading] = useDocument<TGenericObject>(idReference)
   const infoText: string = ''
   if (loading) {
     return <Loading />
