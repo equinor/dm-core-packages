@@ -9,10 +9,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@development-framework/dm-core@>=1.0.20":
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/@development-framework/dm-core/-/dm-core-1.0.20.tgz#5b6ff3d6e6ada9decce8354b436cd0b5517d9e88"
-  integrity sha512-k5J66bWmMOwvs5J9FTUAd9metWdwJGs5fDm22b7tmrKc8r2XM/ILcXm8mCmWIjOkeOhUCpJGlAj3APrCrDLFkQ==
+"@development-framework/dm-core@>=1.0.22":
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/@development-framework/dm-core/-/dm-core-1.0.22.tgz#9ee312c629cb8bc7265a80e8c2138aa7d5f38c0d"
+  integrity sha512-bxmooFJFKoKmGAINkW+9Qlts0Zu1eIMgb+D7B+gBaGqz0Eg/KblT7R57RvSITHcJ1AC+K+VdB/3+vmIR1SyeCw==
   dependencies:
     "@equinor/eds-core-react" "^0.20.0"
     "@equinor/eds-icons" "^0.12.0"
