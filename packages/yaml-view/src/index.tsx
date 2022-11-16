@@ -2,20 +2,18 @@ import * as React from 'react'
 
 import './index.css'
 import {
-  EDmtPluginType,
-  IDmtUIPlugin,
+  EPluginType,
+  IUIPlugin,
   Loading,
-  TDmtPlugin,
   useDocument,
 } from '@development-framework/dm-core'
 import PreviewPlugin from './YamlPlugin'
 
-const PluginComponent = (props: IDmtUIPlugin) => {
-  const { documentId, dataSourceId } = props
+const PluginComponent = (props: IUIPlugin) => {
+  const { idReference } = props
   // eslint-disable-next-line
   const [document, loading, updateDocument, error] = useDocument(
-    dataSourceId,
-    documentId,
+    idReference,
     999
   )
   if (loading) return <Loading />
@@ -29,10 +27,11 @@ const PluginComponent = (props: IDmtUIPlugin) => {
   return <PreviewPlugin document={document} />
 }
 
-export const plugins: TDmtPlugin[] = [
+//TODO add type. TPlugin in dm-core must be updated to avoid error.
+export const plugins: any = [
   {
     pluginName: 'yaml-view',
-    pluginType: EDmtPluginType.UI,
+    pluginType: EPluginType.UI,
     component: PluginComponent,
   },
 ]
