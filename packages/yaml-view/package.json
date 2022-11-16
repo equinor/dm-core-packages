@@ -16,7 +16,7 @@
     "react-copy-to-clipboard": "^5.1.0"
   },
   "peerDependencies": {
-    "@development-framework/dm-core": ">=1.0.20",
+    "@development-framework/dm-core": ">=1.0.22",
     "react": ">=17.0.2"
   },
   "devDependencies": {
@@ -24,7 +24,7 @@
     "@types/highlightjs": "^9.12.2",
     "typescript": "^4.5.5",
     "@types/react": "^17.0.39",
-    "@development-framework/dm-core": ">=1.0.5",
+    "@development-framework/dm-core": ">=1.0.2",
     "@types/styled-components": "^4.1.18"
   },
   "scripts": {
