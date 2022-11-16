@@ -1,5 +1,5 @@
 import {
-  IDmtUIPlugin,
+  IUIPlugin,
   Loading,
   TChildTab,
   TGenericObject,
@@ -48,15 +48,13 @@ type TStringMap = {
   [key: string]: TChildTab
 }
 
-export const TabsContainer = (props: IDmtUIPlugin) => {
-  const { documentId, dataSourceId, config, onSubmit } = props
+export const TabsContainer = (props: IUIPlugin) => {
+  const { idReference, config, onSubmit } = props
+  const [dataSourceId, documentId] = idReference.split('/', 2)
   const [selectedTab, setSelectedTab] = useState<string>('home')
   const [formData, setFormData] = useState<TGenericObject>({})
   const [childTabs, setChildTabs] = useState<TStringMap>({})
-  const [entity, loading] = useDocument<TGenericObject>(
-    dataSourceId,
-    documentId
-  )
+  const [entity, isLoading] = useDocument<TGenericObject>(idReference)
 
   useEffect(() => {
     if (!entity) return
@@ -69,7 +67,7 @@ export const TabsContainer = (props: IDmtUIPlugin) => {
     setChildTabs({ ...childTabs, [tabData.attribute]: tabData })
     setSelectedTab(tabData.attribute)
   }
-  if (loading) {
+  if (isLoading) {
     return <Loading />
   }
   return (
