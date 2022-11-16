@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import {
-  EDmtPluginType,
-  IDmtUIPlugin,
+  EPluginType,
+  IUIPlugin,
   useDocument,
   TJob,
   Loading,
@@ -10,11 +10,11 @@ import {
 import { JobControl } from './JobControl'
 import { JobInputEdit } from './JobInputEdit'
 
-const JobControlWrapper = (props: IDmtUIPlugin) => {
-  const { documentId, dataSourceId } = props
+const JobControlWrapper = (props: IUIPlugin) => {
+  const { idReference } = props
+  const [dataSourceId, documentId] = idReference.split('/', 2)
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
-    dataSourceId,
-    documentId
+    idReference
   )
   if (documentLoading) return <Loading />
   if (error) {
@@ -28,7 +28,7 @@ const JobControlWrapper = (props: IDmtUIPlugin) => {
   return (
     <JobControl
       document={document}
-      jobId={`${dataSourceId}/${documentId}`}
+      jobId={`${dataSourceId}/${document}`} //TODO fix input: this will fail since document is of type TJob and not any
       updateDocument={updateDocument}
     />
   )
@@ -37,12 +37,12 @@ const JobControlWrapper = (props: IDmtUIPlugin) => {
 export const plugins: any = [
   {
     pluginName: 'jobControl',
-    pluginType: EDmtPluginType.UI,
+    pluginType: EPluginType.UI,
     component: JobControlWrapper,
   },
   {
     pluginName: 'jobInputEdit',
-    pluginType: EDmtPluginType.UI,
+    pluginType: EPluginType.UI,
     component: JobInputEdit,
   },
 ]
