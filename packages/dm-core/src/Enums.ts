@@ -5,15 +5,15 @@
  */
 export enum EBlueprint {
   /** Path to the Blueprint blueprint */
-  BLUEPRINT = 'system/SIMOS/Blueprint',
+  BLUEPRINT = 'sys://system/SIMOS/Blueprint',
   /** Path to the BlueprintAttribute blueprint */
-  ATTRIBUTE = 'system/SIMOS/BlueprintAttribute',
+  ATTRIBUTE = 'sys://system/SIMOS/BlueprintAttribute',
   /** Path to the Package blueprint */
-  PACKAGE = 'system/SIMOS/Package',
+  PACKAGE = 'sys://system/SIMOS/Package',
   /** Path to the Entity blueprint */
-  ENTITY = 'system/SIMOS/Entity',
+  ENTITY = 'sys://system/SIMOS/Entity',
   /** Path to the Enum blueprint */
-  ENUM = 'system/SIMOS/Enum',
+  ENUM = 'sys://system/SIMOS/Enum',
   /** Path to the Job blueprint */
-  JOB = 'WorkflowDS/Blueprints/Job',
+  JOB = 'sys://WorkflowDS/Blueprints/Job',
 }
