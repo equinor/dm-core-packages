@@ -6,6 +6,7 @@ import {
   DmssAPI,
   ErrorResponse,
   Loading,
+  TGenericObject,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
 
@@ -31,7 +32,10 @@ const TagWrapper = styled.div`
   height: 22px;
 `
 
-export const ViewerPDFPlugin = (props: any) => {
+export const ViewerPDFPlugin = (props: {
+  document: TGenericObject
+  dataSourceId: string
+}) => {
   const { document, dataSourceId } = props
   const [blobUrl, setBlobUrl] = useState('')
   const [loading, setLoading] = useState(true)
@@ -56,7 +60,7 @@ export const ViewerPDFPlugin = (props: any) => {
         setError(error.response?.data.message || 'Failed to fetch PDF')
       })
       .finally(() => setLoading(false))
-  }, [props.blob_reference])
+  }, [props.document])
 
   if (error)
     return (
