@@ -1,5 +1,5 @@
 import { JobStatus } from './services/api/configs/gen-job'
-import { EPluginType } from './context/UiPluginContext'
+import { EPluginType, IUIPlugin } from './context/UiPluginContext'
 import React from 'react'
 
 export type TDataSource = {
@@ -132,7 +132,7 @@ export type TValidEntity = {
 export type TPlugin = {
   pluginName: string
   pluginType: EPluginType
-  component: React.FC
+  component: React.FC<IUIPlugin>
 }
 
 export type TUserIdMapping = { userId: string; username: string }
