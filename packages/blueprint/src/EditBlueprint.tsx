@@ -6,6 +6,7 @@ import {
   Select,
   truncatePathString,
   useDocument,
+  TBlueprint,
 } from '@development-framework/dm-core'
 import * as React from 'react'
 import { ChangeEvent, useEffect, useState } from 'react'
@@ -210,8 +211,10 @@ const BlueprintAttribute = (props: {
 
 export const EditBlueprint = (props: IUIPlugin) => {
   const { idReference } = props
-  const [document, _loading, updateDocument] = useDocument<any>(idReference)
-  const [formData, setFormData] = useState<any>({ ...document })
+  const [document, _loading, updateDocument] = useDocument<TBlueprint>(
+    idReference
+  )
+  const [formData, setFormData] = useState<any>({ ...document }) //TODO remove any type (requires TBlueprint to be updated)
 
   useEffect(() => {
     if (!document) return
