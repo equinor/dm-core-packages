@@ -6,6 +6,7 @@ import {
   useDocument,
   TJob,
   Loading,
+  TPlugin,
 } from '@development-framework/dm-core'
 import { JobControl } from './JobControl'
 import { JobInputEdit } from './JobInputEdit'
@@ -34,7 +35,7 @@ const JobControlWrapper = (props: IUIPlugin) => {
   )
 }
 
-export const plugins: any = [
+export const plugins: TPlugin[] = [
   {
     pluginName: 'jobControl',
     pluginType: EPluginType.UI,
