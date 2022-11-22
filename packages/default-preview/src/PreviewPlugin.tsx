@@ -18,7 +18,7 @@ export default (props: TPreviewProps) => {
   const { idReference } = props
   const [document, loading] = useDocument<TGenericObject>(idReference)
   const infoText: string = ''
-  if (loading) {
+  if (loading || document === null) {
     return <Loading />
   }
   return (
