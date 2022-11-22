@@ -8,4 +8,3 @@ export const plugins: TPlugin[] = [
     component: TabsContainer,
   },
 ]
-t
