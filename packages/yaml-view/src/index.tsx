@@ -6,6 +6,7 @@ import {
   IUIPlugin,
   Loading,
   TGenericObject,
+  TPlugin,
   useDocument,
 } from '@development-framework/dm-core'
 import PreviewPlugin from './YamlPlugin'
@@ -30,8 +31,7 @@ const PluginComponent = (props: IUIPlugin) => {
   return <PreviewPlugin document={document || {}} />
 }
 
-//TODO add type. TPlugin in dm-core must be updated to avoid error.
-export const plugins: any = [
+export const plugins: TPlugin[] = [
   {
     pluginName: 'yaml-view',
     pluginType: EPluginType.UI,
