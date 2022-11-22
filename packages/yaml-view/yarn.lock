@@ -124,10 +124,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@development-framework/dm-core@>=1.0.2":
-  version "1.0.22"
-  resolved "https://registry.yarnpkg.com/@development-framework/dm-core/-/dm-core-1.0.22.tgz#9ee312c629cb8bc7265a80e8c2138aa7d5f38c0d"
-  integrity sha512-bxmooFJFKoKmGAINkW+9Qlts0Zu1eIMgb+D7B+gBaGqz0Eg/KblT7R57RvSITHcJ1AC+K+VdB/3+vmIR1SyeCw==
+"@development-framework/dm-core@>=1.0.25":
+  version "1.0.25"
+  resolved "https://registry.yarnpkg.com/@development-framework/dm-core/-/dm-core-1.0.25.tgz#52a94bd44dac363c5d6b9768c61835c9579095cf"
+  integrity sha512-Hz7afgWGzW70Mw1JoXcb8Ig9zHvuGWcDIysPa/7UgBLYbytrowI4b83KKnt/1eeCJ9dGsAKFuALk+i/YIN++PA==
   dependencies:
     "@equinor/eds-core-react" "^0.20.0"
     "@equinor/eds-icons" "^0.12.0"
