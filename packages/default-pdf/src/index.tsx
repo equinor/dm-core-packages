@@ -6,6 +6,7 @@ import {
   IUIPlugin,
   Loading,
   TGenericObject,
+  TPlugin
 } from '@development-framework/dm-core'
 import { useDocument } from '@development-framework/dm-core'
 
@@ -19,7 +20,7 @@ const PluginComponent = (props: IUIPlugin) => {
   return <ViewerPDFPlugin document={document} dataSourceId={dataSource} />
 }
 
-export const plugins: any = [
+export const plugins: TPlugin[] = [
   {
     pluginName: 'default-pdf',
     pluginType: EPluginType.UI,
