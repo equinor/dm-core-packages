@@ -5,6 +5,7 @@ import {
   EPluginType,
   IUIPlugin,
   Loading,
+  TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
 import PreviewPlugin from './YamlPlugin'
@@ -12,10 +13,12 @@ import PreviewPlugin from './YamlPlugin'
 const PluginComponent = (props: IUIPlugin) => {
   const { idReference } = props
   // eslint-disable-next-line
-  const [document, loading, updateDocument, error] = useDocument(
-    idReference,
-    999
-  )
+  const [
+    document,
+    loading,
+    updateDocument,
+    error,
+  ] = useDocument<TGenericObject>(idReference, 999)
   if (loading) return <Loading />
   if (error) {
     const errorResponse =
@@ -24,7 +27,7 @@ const PluginComponent = (props: IUIPlugin) => {
         : error.response?.data
     return <pre style={{ color: 'red' }}>{errorResponse}</pre>
   }
-  return <PreviewPlugin document={document} />
+  return <PreviewPlugin document={document || {}} />
 }
 
 //TODO add type. TPlugin in dm-core must be updated to avoid error.
