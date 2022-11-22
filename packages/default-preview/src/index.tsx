@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { EPluginType, IUIPlugin } from '@development-framework/dm-core'
+import { EPluginType, IUIPlugin, TPlugin } from '@development-framework/dm-core'
 import PreviewPlugin from './PreviewPlugin'
 
 const PluginComponent = (props: IUIPlugin) => {
   return <PreviewPlugin idReference={props.idReference} />
 }
 
-export const plugins: any = [
+export const plugins: TPlugin[] = [
   {
     pluginName: 'default-preview',
     pluginType: EPluginType.UI,
