@@ -7,6 +7,7 @@ import {
   EPluginType,
   IUIPlugin,
   Loading,
+  TPlugin,
   useDocument,
 } from '@development-framework/dm-core'
 import Mermaid from './Mermaid'
@@ -102,7 +103,7 @@ const PluginComponent = (props: IUIPlugin) => {
   )
 }
 
-export const plugins: any = [
+export const plugins: TPlugin[] = [
   {
     pluginName: 'mermaid',
     pluginType: EPluginType.UI,
