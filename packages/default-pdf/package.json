@@ -1,7 +1,7 @@
 {
   "name": "@development-framework/default-pdf",
   "license": "MIT",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/index.js",
   "devDependencies": {
     "@types/react": "^17.0.39",

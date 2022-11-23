@@ -1,7 +1,7 @@
 {
   "name": "@development-framework/blueprint",
   "license": "MIT",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/index.js",
   "dependencies": {
     "@equinor/eds-icons": "^0.15.0",
