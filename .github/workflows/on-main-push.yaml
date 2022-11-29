@@ -25,14 +25,14 @@ jobs:
       - name: Check if new version
         id: check-version
         run: |
-          echo '::set-output name=NEW_VERSION::false'
+          echo "NEW_VERSION=false" >> $GITHUB_OUTPUT
           cd packages/${{ matrix.package }}
           PACKAGE_VERSION=$(cat package.json | jq '.["version"]' | tr -d '"')
           PACKAGE_NAME=$(cat package.json | jq '.["name"]' | tr -d '"')
 
           VERSION_EXISTS=$(curl --HEAD --output /dev/null --silent -w "%{http_code}" https://registry.npmjs.org/$PACKAGE_NAME/$PACKAGE_VERSION)
           if [[ $VERSION_EXISTS == 404 ]]; then
-            echo '::set-output name=NEW_VERSION::true'
+            echo "NEW_VERSION=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Create package distribution and publish
