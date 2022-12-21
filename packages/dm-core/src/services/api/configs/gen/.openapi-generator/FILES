@@ -10,6 +10,7 @@ api/document-api.ts
 api/entity-api.ts
 api/export-api.ts
 api/health-check-api.ts
+api/lookup-table-api.ts
 api/personal-access-token-api.ts
 api/reference-api.ts
 api/search-api.ts
@@ -25,6 +26,7 @@ models/basic-entity.ts
 models/data-source-information.ts
 models/data-source-request.ts
 models/error-response.ts
+models/get-blueprint-response.ts
 models/index.ts
 models/patdata.ts
 models/reference.ts

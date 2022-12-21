@@ -106,12 +106,11 @@ type TSelectablePlugins = {
 }
 
 function filterPlugins(
-  blueprint: any,
+  uiRecipes: object[],
   categories: string[],
   roles: string[],
   getUIPlugin: (name: string) => TPlugin
 ): TSelectablePlugins[] {
-  let uiRecipes = blueprint.uiRecipes
   const fallbackPlugin = [
     { name: 'yaml', component: getUIPlugin('yaml-view').component, config: {} },
   ]
@@ -167,7 +166,7 @@ export function UIPluginSelector(props: {
     onSubmit,
     onOpen,
   } = props
-  const [blueprint, loadingBlueprint, error] = useBlueprint(type)
+  const { uiRecipes, loadingBlueprint, error } = useBlueprint(type)
   const { loading, getUiPlugin } = useContext(UiPluginContext)
   const { tokenData } = useContext(AuthContext)
   const roles = getRoles(tokenData)
@@ -177,11 +176,12 @@ export function UIPluginSelector(props: {
   >([])
 
   useEffect(() => {
-    if (!blueprint) return
+    // Make sure uiRecipes and ui plugins have been loaded
+    if (loadingBlueprint || loading) return
     setSelectablePlugins(
-      filterPlugins(blueprint, categories || [], roles, getUiPlugin)
+      filterPlugins(uiRecipes, categories || [], roles, getUiPlugin)
     )
-  }, [blueprint, loading])
+  }, [uiRecipes, loading, loadingBlueprint])
 
   if (loadingBlueprint || loading)
     return (

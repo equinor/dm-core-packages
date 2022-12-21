@@ -22,6 +22,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
 import { ErrorResponse } from '../models';
+// @ts-ignore
+import { GetBlueprintResponse } from '../models';
 /**
  * BlueprintApi - axios parameter creator
  * @export
@@ -29,13 +31,14 @@ import { ErrorResponse } from '../models';
 export const BlueprintApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Fetch the Blueprint of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
          * @summary Get Blueprint
          * @param {string} typeRef 
+         * @param {string} [context] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintGet: async (typeRef: string, options: any = {}): Promise<RequestArgs> => {
+        blueprintGet: async (typeRef: string, context?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'typeRef' is not null or undefined
             assertParamExists('blueprintGet', 'typeRef', typeRef)
             const localVarPath = `/api/v1/blueprint/{type_ref}`
@@ -58,6 +61,10 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
 
+            if (context !== undefined) {
+                localVarQueryParameter['context'] = context;
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -70,7 +77,7 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to it\'s type path
+         * Resolve the data_source/uuid form of a blueprint to its type path
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -121,18 +128,19 @@ export const BlueprintApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BlueprintApiAxiosParamCreator(configuration)
     return {
         /**
-         * Fetch the Blueprint of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
          * @summary Get Blueprint
          * @param {string} typeRef 
+         * @param {string} [context] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async blueprintGet(typeRef: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintGet(typeRef, options);
+        async blueprintGet(typeRef: string, context?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBlueprintResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintGet(typeRef, context, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to it\'s type path
+         * Resolve the data_source/uuid form of a blueprint to its type path
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -153,17 +161,18 @@ export const BlueprintApiFactory = function (configuration?: Configuration, base
     const localVarFp = BlueprintApiFp(configuration)
     return {
         /**
-         * Fetch the Blueprint of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
          * @summary Get Blueprint
          * @param {string} typeRef 
+         * @param {string} [context] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintGet(typeRef: string, options?: any): AxiosPromise<object> {
-            return localVarFp.blueprintGet(typeRef, options).then((request) => request(axios, basePath));
+        blueprintGet(typeRef: string, context?: string, options?: any): AxiosPromise<GetBlueprintResponse> {
+            return localVarFp.blueprintGet(typeRef, context, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to it\'s type path
+         * Resolve the data_source/uuid form of a blueprint to its type path
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -187,6 +196,13 @@ export interface BlueprintApiBlueprintGetRequest {
      * @memberof BlueprintApiBlueprintGet
      */
     readonly typeRef: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof BlueprintApiBlueprintGet
+     */
+    readonly context?: string
 }
 
 /**
@@ -211,7 +227,7 @@ export interface BlueprintApiBlueprintResolveRequest {
  */
 export class BlueprintApi extends BaseAPI {
     /**
-     * Fetch the Blueprint of a type (including inherited attributes)
+     * Fetch the Blueprint and Recipes of a type (including inherited attributes)
      * @summary Get Blueprint
      * @param {BlueprintApiBlueprintGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -219,11 +235,11 @@ export class BlueprintApi extends BaseAPI {
      * @memberof BlueprintApi
      */
     public blueprintGet(requestParameters: BlueprintApiBlueprintGetRequest, options?: any) {
-        return BlueprintApiFp(this.configuration).blueprintGet(requestParameters.typeRef, options).then((request) => request(this.axios, this.basePath));
+        return BlueprintApiFp(this.configuration).blueprintGet(requestParameters.typeRef, requestParameters.context, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Resolve the data_source/uuid form of a blueprint to it\'s type path
+     * Resolve the data_source/uuid form of a blueprint to its type path
      * @summary Resolve Blueprint Id
      * @param {BlueprintApiBlueprintResolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

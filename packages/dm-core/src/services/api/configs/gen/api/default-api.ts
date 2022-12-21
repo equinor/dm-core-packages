@@ -33,6 +33,8 @@ import { DataSourceRequest } from '../models';
 // @ts-ignore
 import { ErrorResponse } from '../models';
 // @ts-ignore
+import { GetBlueprintResponse } from '../models';
+// @ts-ignore
 import { PATData } from '../models';
 // @ts-ignore
 import { Reference } from '../models';
@@ -43,7 +45,7 @@ import { Reference } from '../models';
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Download a zip-folder of the requested root package
+         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -185,17 +187,63 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Fetch the Blueprint of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
          * @summary Get Blueprint
          * @param {string} typeRef 
+         * @param {string} [context] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintGet: async (typeRef: string, options: any = {}): Promise<RequestArgs> => {
+        blueprintGet: async (typeRef: string, context?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'typeRef' is not null or undefined
             assertParamExists('blueprintGet', 'typeRef', typeRef)
             const localVarPath = `/api/v1/blueprint/{type_ref}`
                 .replace(`{${"type_ref"}}`, encodeURIComponent(String(typeRef)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+            if (context !== undefined) {
+                localVarQueryParameter['context'] = context;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Resolve the data_source/uuid form of a blueprint to its type path
+         * @summary Resolve Blueprint Id
+         * @param {string} absoluteId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        blueprintResolve: async (absoluteId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'absoluteId' is not null or undefined
+            assertParamExists('blueprintResolve', 'absoluteId', absoluteId)
+            const localVarPath = `/api/v1/resolve-path/{absolute_id}`
+                .replace(`{${"absolute_id"}}`, encodeURIComponent(String(absoluteId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -226,17 +274,20 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to it\'s type path
-         * @summary Resolve Blueprint Id
-         * @param {string} absoluteId 
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.
+         * @summary Create Lookup
+         * @param {string} application 
+         * @param {string} recipePackage 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintResolve: async (absoluteId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'absoluteId' is not null or undefined
-            assertParamExists('blueprintResolve', 'absoluteId', absoluteId)
-            const localVarPath = `/api/v1/resolve-path/{absolute_id}`
-                .replace(`{${"absolute_id"}}`, encodeURIComponent(String(absoluteId)));
+        createLookup: async (application: string, recipePackage: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'application' is not null or undefined
+            assertParamExists('createLookup', 'application', application)
+            // verify required parameter 'recipePackage' is not null or undefined
+            assertParamExists('createLookup', 'recipePackage', recipePackage)
+            const localVarPath = `/api/v1/application/{application}`
+                .replace(`{${"application"}}`, encodeURIComponent(String(application)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -244,7 +295,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -254,6 +305,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // authentication OAuth2AuthorizationCodeBearer required
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+            if (recipePackage !== undefined) {
+                localVarQueryParameter['recipe_package'] = recipePackage;
+            }
 
 
     
@@ -805,6 +860,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * @summary Export Meta
+         * @param {string} absoluteDocumentRef 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        exportMeta: async (absoluteDocumentRef: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'absoluteDocumentRef' is not null or undefined
+            assertParamExists('exportMeta', 'absoluteDocumentRef', absoluteDocumentRef)
+            const localVarPath = `/api/v1/export/meta/{absolute_document_ref}`
+                .replace(`{${"absolute_document_ref"}}`, encodeURIComponent(String(absoluteDocumentRef)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 
          * @summary Get Acl
          * @param {string} dataSourceId 
@@ -1291,7 +1387,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
-         * Download a zip-folder of the requested root package
+         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -1327,18 +1423,19 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Fetch the Blueprint of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
          * @summary Get Blueprint
          * @param {string} typeRef 
+         * @param {string} [context] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async blueprintGet(typeRef: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintGet(typeRef, options);
+        async blueprintGet(typeRef: string, context?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBlueprintResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintGet(typeRef, context, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to it\'s type path
+         * Resolve the data_source/uuid form of a blueprint to its type path
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -1346,6 +1443,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async blueprintResolve(absoluteId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintResolve(absoluteId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.
+         * @summary Create Lookup
+         * @param {string} application 
+         * @param {string} recipePackage 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createLookup(application: string, recipePackage: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createLookup(application, recipePackage, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1481,6 +1590,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async documentUpdate(dataSourceId: string, documentId: string, data: string, updateUncontained?: boolean, attribute?: string, files?: Array<any>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(dataSourceId, documentId, data, updateUncontained, attribute, files, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * @summary Export Meta
+         * @param {string} absoluteDocumentRef 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async exportMeta(absoluteDocumentRef: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(absoluteDocumentRef, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1622,7 +1742,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
-         * Download a zip-folder of the requested root package
+         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -1655,17 +1775,18 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.blobUpload(dataSourceId, blobId, file, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch the Blueprint of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
          * @summary Get Blueprint
          * @param {string} typeRef 
+         * @param {string} [context] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintGet(typeRef: string, options?: any): AxiosPromise<object> {
-            return localVarFp.blueprintGet(typeRef, options).then((request) => request(axios, basePath));
+        blueprintGet(typeRef: string, context?: string, options?: any): AxiosPromise<GetBlueprintResponse> {
+            return localVarFp.blueprintGet(typeRef, context, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to it\'s type path
+         * Resolve the data_source/uuid form of a blueprint to its type path
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -1673,6 +1794,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         blueprintResolve(absoluteId: string, options?: any): AxiosPromise<string> {
             return localVarFp.blueprintResolve(absoluteId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.
+         * @summary Create Lookup
+         * @param {string} application 
+         * @param {string} recipePackage 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createLookup(application: string, recipePackage: string, options?: any): AxiosPromise<void> {
+            return localVarFp.createLookup(application, recipePackage, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1797,6 +1929,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         documentUpdate(dataSourceId: string, documentId: string, data: string, updateUncontained?: boolean, attribute?: string, files?: Array<any>, options?: any): AxiosPromise<any> {
             return localVarFp.documentUpdate(dataSourceId, documentId, data, updateUncontained, attribute, files, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * @summary Export Meta
+         * @param {string} absoluteDocumentRef 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        exportMeta(absoluteDocumentRef: string, options?: any): AxiosPromise<any> {
+            return localVarFp.exportMeta(absoluteDocumentRef, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1993,6 +2135,13 @@ export interface DefaultApiBlueprintGetRequest {
      * @memberof DefaultApiBlueprintGet
      */
     readonly typeRef: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiBlueprintGet
+     */
+    readonly context?: string
 }
 
 /**
@@ -2007,6 +2156,27 @@ export interface DefaultApiBlueprintResolveRequest {
      * @memberof DefaultApiBlueprintResolve
      */
     readonly absoluteId: string
+}
+
+/**
+ * Request parameters for createLookup operation in DefaultApi.
+ * @export
+ * @interface DefaultApiCreateLookupRequest
+ */
+export interface DefaultApiCreateLookupRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiCreateLookup
+     */
+    readonly application: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiCreateLookup
+     */
+    readonly recipePackage: string
 }
 
 /**
@@ -2255,6 +2425,20 @@ export interface DefaultApiDocumentUpdateRequest {
 }
 
 /**
+ * Request parameters for exportMeta operation in DefaultApi.
+ * @export
+ * @interface DefaultApiExportMetaRequest
+ */
+export interface DefaultApiExportMetaRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiExportMeta
+     */
+    readonly absoluteDocumentRef: string
+}
+
+/**
  * Request parameters for getAcl operation in DefaultApi.
  * @export
  * @interface DefaultApiGetAclRequest
@@ -2444,7 +2628,7 @@ export interface DefaultApiTokenDeleteRequest {
  */
 export class DefaultApi extends BaseAPI {
     /**
-     * Download a zip-folder of the requested root package
+     * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
      * @summary Export
      * @param {DefaultApiExportRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2480,7 +2664,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Fetch the Blueprint of a type (including inherited attributes)
+     * Fetch the Blueprint and Recipes of a type (including inherited attributes)
      * @summary Get Blueprint
      * @param {DefaultApiBlueprintGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2488,11 +2672,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public blueprintGet(requestParameters: DefaultApiBlueprintGetRequest, options?: any) {
-        return DefaultApiFp(this.configuration).blueprintGet(requestParameters.typeRef, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).blueprintGet(requestParameters.typeRef, requestParameters.context, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Resolve the data_source/uuid form of a blueprint to it\'s type path
+     * Resolve the data_source/uuid form of a blueprint to its type path
      * @summary Resolve Blueprint Id
      * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2501,6 +2685,18 @@ export class DefaultApi extends BaseAPI {
      */
     public blueprintResolve(requestParameters: DefaultApiBlueprintResolveRequest, options?: any) {
         return DefaultApiFp(this.configuration).blueprintResolve(requestParameters.absoluteId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.
+     * @summary Create Lookup
+     * @param {DefaultApiCreateLookupRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public createLookup(requestParameters: DefaultApiCreateLookupRequest, options?: any) {
+        return DefaultApiFp(this.configuration).createLookup(requestParameters.application, requestParameters.recipePackage, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2632,6 +2828,18 @@ export class DefaultApi extends BaseAPI {
      */
     public documentUpdate(requestParameters: DefaultApiDocumentUpdateRequest, options?: any) {
         return DefaultApiFp(this.configuration).documentUpdate(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.data, requestParameters.updateUncontained, requestParameters.attribute, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+     * @summary Export Meta
+     * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public exportMeta(requestParameters: DefaultApiExportMetaRequest, options?: any) {
+        return DefaultApiFp(this.configuration).exportMeta(requestParameters.absoluteDocumentRef, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

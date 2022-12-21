@@ -1,0 +1,22 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "DummyBlueprint",
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default blueprint edit",
+      "plugin": "edit-blueprint"
+    },
+    {
+      "name": "Diagram",
+      "type": "CORE:UiRecipe",
+      "plugin": "mermaid"
+    }
+  ]
+}
