@@ -27,7 +27,7 @@ const authConfig = {
 }
 const APP_SETTINGS = {
   visibleDataSources: ['system', 'DemoDataSource', 'WorkflowDS'],
-  name: 'Example DM App',
+  name: 'example',
 }
 
 ReactDOM.render(

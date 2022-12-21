@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { DmssAPI } from '../services/api/DmssAPI'
 import { AuthContext } from 'react-oauth2-code-pkce'
+import { ApplicationContext } from '../context/ApplicationContext'
 
 /**
  * Hook to fetch a Blueprint from the DMSS API
@@ -26,23 +27,24 @@ import { AuthContext } from 'react-oauth2-code-pkce'
  */
 export const useBlueprint = (typeRef: string) => {
   const [blueprint, setBlueprint] = useState<any | null>(null)
+  const [uiRecipes, setUiRecipes] = useState<any[]>([])
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
   const { token } = useContext(AuthContext)
+  const { name } = useContext(ApplicationContext)
   const dmssAPI = new DmssAPI(token)
 
   useEffect(() => {
-    setLoading(true)
     dmssAPI
-      .blueprintGet({ typeRef: typeRef })
+      .blueprintGet({ typeRef: typeRef, context: name })
       .then((response: any) => {
-        const data = response.data
-        setBlueprint(data)
+        setBlueprint(response.data.blueprint)
+        setUiRecipes(response.data.uiRecipes)
         setError(null)
       })
       .catch((error: Error) => setError(error))
       .finally(() => setLoading(false))
   }, [typeRef])
 
-  return [blueprint, isLoading, error]
+  return { blueprint, uiRecipes, isLoading, error }
 }

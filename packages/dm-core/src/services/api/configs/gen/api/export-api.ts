@@ -29,7 +29,7 @@ import { ErrorResponse } from '../models';
 export const ExportApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Download a zip-folder of the requested root package
+         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -39,6 +39,47 @@ export const ExportApiAxiosParamCreator = function (configuration?: Configuratio
             // verify required parameter 'absoluteDocumentRef' is not null or undefined
             assertParamExists('_export', 'absoluteDocumentRef', absoluteDocumentRef)
             const localVarPath = `/api/v1/export/{absolute_document_ref}`
+                .replace(`{${"absolute_document_ref"}}`, encodeURIComponent(String(absoluteDocumentRef)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * @summary Export Meta
+         * @param {string} absoluteDocumentRef 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        exportMeta: async (absoluteDocumentRef: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'absoluteDocumentRef' is not null or undefined
+            assertParamExists('exportMeta', 'absoluteDocumentRef', absoluteDocumentRef)
+            const localVarPath = `/api/v1/export/meta/{absolute_document_ref}`
                 .replace(`{${"absolute_document_ref"}}`, encodeURIComponent(String(absoluteDocumentRef)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -80,7 +121,7 @@ export const ExportApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ExportApiAxiosParamCreator(configuration)
     return {
         /**
-         * Download a zip-folder of the requested root package
+         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -88,6 +129,17 @@ export const ExportApiFp = function(configuration?: Configuration) {
          */
         async _export(absoluteDocumentRef: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator._export(absoluteDocumentRef, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * @summary Export Meta
+         * @param {string} absoluteDocumentRef 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async exportMeta(absoluteDocumentRef: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(absoluteDocumentRef, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -101,7 +153,7 @@ export const ExportApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = ExportApiFp(configuration)
     return {
         /**
-         * Download a zip-folder of the requested root package
+         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -109,6 +161,16 @@ export const ExportApiFactory = function (configuration?: Configuration, basePat
          */
         _export(absoluteDocumentRef: string, options?: any): AxiosPromise<void> {
             return localVarFp._export(absoluteDocumentRef, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * @summary Export Meta
+         * @param {string} absoluteDocumentRef 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        exportMeta(absoluteDocumentRef: string, options?: any): AxiosPromise<any> {
+            return localVarFp.exportMeta(absoluteDocumentRef, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -128,6 +190,20 @@ export interface ExportApiExportRequest {
 }
 
 /**
+ * Request parameters for exportMeta operation in ExportApi.
+ * @export
+ * @interface ExportApiExportMetaRequest
+ */
+export interface ExportApiExportMetaRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ExportApiExportMeta
+     */
+    readonly absoluteDocumentRef: string
+}
+
+/**
  * ExportApi - object-oriented interface
  * @export
  * @class ExportApi
@@ -135,7 +211,7 @@ export interface ExportApiExportRequest {
  */
 export class ExportApi extends BaseAPI {
     /**
-     * Download a zip-folder of the requested root package
+     * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
      * @summary Export
      * @param {ExportApiExportRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -144,5 +220,17 @@ export class ExportApi extends BaseAPI {
      */
     public _export(requestParameters: ExportApiExportRequest, options?: any) {
         return ExportApiFp(this.configuration)._export(requestParameters.absoluteDocumentRef, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+     * @summary Export Meta
+     * @param {ExportApiExportMetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExportApi
+     */
+    public exportMeta(requestParameters: ExportApiExportMetaRequest, options?: any) {
+        return ExportApiFp(this.configuration).exportMeta(requestParameters.absoluteDocumentRef, options).then((request) => request(this.axios, this.basePath));
     }
 }

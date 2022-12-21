@@ -4,6 +4,7 @@ export * from './basic-entity';
 export * from './data-source-information';
 export * from './data-source-request';
 export * from './error-response';
+export * from './get-blueprint-response';
 export * from './patdata';
 export * from './reference';
 export * from './repository';
