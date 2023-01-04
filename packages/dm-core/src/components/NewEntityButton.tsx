@@ -28,10 +28,10 @@ const DialogWrapper = styled.div`
 
 export function NewEntityButton(props: {
   type?: string
-  setReference: (r: TReference) => void
+  onCreated: (r: TReference) => void
   defaultDestination?: string
 }) {
-  const { type, setReference, defaultDestination } = props
+  const { type, onCreated, defaultDestination } = props
   const [showScrim, setShowScrim] = useState<boolean>(false)
   const [saveDestination, setSaveDestination] = useState<string>(
     defaultDestination ? defaultDestination : ''
@@ -56,7 +56,7 @@ export function NewEntityButton(props: {
   function addEntityToPath(entity: any): Promise<void> {
     return addToPath(entity, token, [], saveDestination)
       .then((newId: string) =>
-        setReference({ _id: newId, type: entity.type, name: entity.name })
+        onCreated({ _id: newId, type: entity.type, name: entity.name })
       )
       .catch((error: AxiosError) => {
         console.error(error)
