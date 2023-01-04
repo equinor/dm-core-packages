@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -36,12 +36,12 @@ export const LookupTableApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createLookup: async (application: string, recipePackage: string, options: any = {}): Promise<RequestArgs> => {
+        createLookup: async (application: string, recipePackage: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'application' is not null or undefined
             assertParamExists('createLookup', 'application', application)
             // verify required parameter 'recipePackage' is not null or undefined
             assertParamExists('createLookup', 'recipePackage', recipePackage)
-            const localVarPath = `/api/v1/application/{application}`
+            const localVarPath = `/api/application/{application}`
                 .replace(`{${"application"}}`, encodeURIComponent(String(application)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -67,7 +67,7 @@ export const LookupTableApiAxiosParamCreator = function (configuration?: Configu
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -94,7 +94,7 @@ export const LookupTableApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createLookup(application: string, recipePackage: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async createLookup(application: string, recipePackage: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createLookup(application, recipePackage, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -158,7 +158,7 @@ export class LookupTableApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LookupTableApi
      */
-    public createLookup(requestParameters: LookupTableApiCreateLookupRequest, options?: any) {
+    public createLookup(requestParameters: LookupTableApiCreateLookupRequest, options?: AxiosRequestConfig) {
         return LookupTableApiFp(this.configuration).createLookup(requestParameters.application, requestParameters.recipePackage, options).then((request) => request(this.axios, this.basePath));
     }
 }

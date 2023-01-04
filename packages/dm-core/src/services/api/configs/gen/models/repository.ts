@@ -13,7 +13,11 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
 import { RepositoryType } from './repository-type';
+// May contain unused imports in some cases
+// @ts-ignore
 import { StorageDataTypes } from './storage-data-types';
 
 /**
@@ -27,67 +31,66 @@ export interface Repository {
      * @type {RepositoryType}
      * @memberof Repository
      */
-    type: RepositoryType;
+    'type': RepositoryType;
     /**
      * 
      * @type {Array<StorageDataTypes>}
      * @memberof Repository
      */
-    data_types?: Array<StorageDataTypes>;
+    'data_types'?: Array<StorageDataTypes>;
     /**
      * 
      * @type {string}
      * @memberof Repository
      */
-    host?: string;
+    'host'?: string;
     /**
      * 
      * @type {number}
      * @memberof Repository
      */
-    port?: number;
+    'port'?: number;
     /**
      * 
      * @type {string}
      * @memberof Repository
      */
-    username?: string;
+    'username'?: string;
     /**
      * 
      * @type {string}
      * @memberof Repository
      */
-    password?: string;
+    'password'?: string;
     /**
      * 
      * @type {string}
      * @memberof Repository
      */
-    database?: string;
+    'database'?: string;
     /**
      * 
      * @type {string}
      * @memberof Repository
      */
-    collection?: string;
+    'collection'?: string;
     /**
      * 
      * @type {string}
      * @memberof Repository
      */
-    account_url?: string;
+    'account_url'?: string;
     /**
      * 
      * @type {string}
      * @memberof Repository
      */
-    container?: string;
+    'container'?: string;
     /**
      * 
      * @type {boolean}
      * @memberof Repository
      */
-    tls?: boolean;
+    'tls'?: boolean;
 }
-
 

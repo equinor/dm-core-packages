@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -40,8 +40,8 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenCreate: async (scope?: AccessLevel, timeToLive?: number, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/token`;
+        tokenCreate: async (scope?: AccessLevel, timeToLive?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/token`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -67,7 +67,7 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -83,10 +83,10 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenDelete: async (tokenId: string, options: any = {}): Promise<RequestArgs> => {
+        tokenDelete: async (tokenId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'tokenId' is not null or undefined
             assertParamExists('tokenDelete', 'tokenId', tokenId)
-            const localVarPath = `/api/v1/token/{token_id}`
+            const localVarPath = `/api/token/{token_id}`
                 .replace(`{${"token_id"}}`, encodeURIComponent(String(tokenId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -105,7 +105,7 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -120,8 +120,8 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenListAll: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/token`;
+        tokenListAll: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/token`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -139,7 +139,7 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -166,7 +166,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tokenCreate(scope?: AccessLevel, timeToLive?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async tokenCreate(scope?: AccessLevel, timeToLive?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(scope, timeToLive, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -177,7 +177,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tokenDelete(tokenId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async tokenDelete(tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.tokenDelete(tokenId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -187,7 +187,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tokenListAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PATData>>> {
+        async tokenListAll(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PATData>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.tokenListAll(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -284,7 +284,7 @@ export class PersonalAccessTokenApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PersonalAccessTokenApi
      */
-    public tokenCreate(requestParameters: PersonalAccessTokenApiTokenCreateRequest = {}, options?: any) {
+    public tokenCreate(requestParameters: PersonalAccessTokenApiTokenCreateRequest = {}, options?: AxiosRequestConfig) {
         return PersonalAccessTokenApiFp(this.configuration).tokenCreate(requestParameters.scope, requestParameters.timeToLive, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -296,7 +296,7 @@ export class PersonalAccessTokenApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PersonalAccessTokenApi
      */
-    public tokenDelete(requestParameters: PersonalAccessTokenApiTokenDeleteRequest, options?: any) {
+    public tokenDelete(requestParameters: PersonalAccessTokenApiTokenDeleteRequest, options?: AxiosRequestConfig) {
         return PersonalAccessTokenApiFp(this.configuration).tokenDelete(requestParameters.tokenId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -307,7 +307,7 @@ export class PersonalAccessTokenApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PersonalAccessTokenApi
      */
-    public tokenListAll(options?: any) {
+    public tokenListAll(options?: AxiosRequestConfig) {
         return PersonalAccessTokenApiFp(this.configuration).tokenListAll(options).then((request) => request(this.axios, this.basePath));
     }
 }

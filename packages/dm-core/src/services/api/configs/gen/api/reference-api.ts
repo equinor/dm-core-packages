@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -38,12 +38,12 @@ export const ReferenceApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        referenceDelete: async (dataSourceId: string, documentDottedId: string, options: any = {}): Promise<RequestArgs> => {
+        referenceDelete: async (dataSourceId: string, documentDottedId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
             assertParamExists('referenceDelete', 'dataSourceId', dataSourceId)
             // verify required parameter 'documentDottedId' is not null or undefined
             assertParamExists('referenceDelete', 'documentDottedId', documentDottedId)
-            const localVarPath = `/api/v1/reference/{data_source_id}/{document_dotted_id}`
+            const localVarPath = `/api/reference/{data_source_id}/{document_dotted_id}`
                 .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
                 .replace(`{${"document_dotted_id"}}`, encodeURIComponent(String(documentDottedId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -66,7 +66,7 @@ export const ReferenceApiAxiosParamCreator = function (configuration?: Configura
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -84,14 +84,14 @@ export const ReferenceApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        referenceInsert: async (dataSourceId: string, documentDottedId: string, reference: Reference, options: any = {}): Promise<RequestArgs> => {
+        referenceInsert: async (dataSourceId: string, documentDottedId: string, reference: Reference, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
             assertParamExists('referenceInsert', 'dataSourceId', dataSourceId)
             // verify required parameter 'documentDottedId' is not null or undefined
             assertParamExists('referenceInsert', 'documentDottedId', documentDottedId)
             // verify required parameter 'reference' is not null or undefined
             assertParamExists('referenceInsert', 'reference', reference)
-            const localVarPath = `/api/v1/reference/{data_source_id}/{document_dotted_id}`
+            const localVarPath = `/api/reference/{data_source_id}/{document_dotted_id}`
                 .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
                 .replace(`{${"document_dotted_id"}}`, encodeURIComponent(String(documentDottedId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -116,7 +116,7 @@ export const ReferenceApiAxiosParamCreator = function (configuration?: Configura
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(reference, localVarRequestOptions, configuration)
@@ -144,7 +144,7 @@ export const ReferenceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async referenceDelete(dataSourceId: string, documentDottedId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async referenceDelete(dataSourceId: string, documentDottedId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(dataSourceId, documentDottedId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -157,7 +157,7 @@ export const ReferenceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async referenceInsert(dataSourceId: string, documentDottedId: string, reference: Reference, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async referenceInsert(dataSourceId: string, documentDottedId: string, reference: Reference, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.referenceInsert(dataSourceId, documentDottedId, reference, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -261,7 +261,7 @@ export class ReferenceApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ReferenceApi
      */
-    public referenceDelete(requestParameters: ReferenceApiReferenceDeleteRequest, options?: any) {
+    public referenceDelete(requestParameters: ReferenceApiReferenceDeleteRequest, options?: AxiosRequestConfig) {
         return ReferenceApiFp(this.configuration).referenceDelete(requestParameters.dataSourceId, requestParameters.documentDottedId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -273,7 +273,7 @@ export class ReferenceApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ReferenceApi
      */
-    public referenceInsert(requestParameters: ReferenceApiReferenceInsertRequest, options?: any) {
+    public referenceInsert(requestParameters: ReferenceApiReferenceInsertRequest, options?: AxiosRequestConfig) {
         return ReferenceApiFp(this.configuration).referenceInsert(requestParameters.dataSourceId, requestParameters.documentDottedId, requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
     }
 }

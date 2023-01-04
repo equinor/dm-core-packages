@@ -13,6 +13,8 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
 import { AccessLevel } from './access-level';
 
 /**
@@ -26,25 +28,24 @@ export interface ACL {
      * @type {string}
      * @memberof ACL
      */
-    owner: string;
+    'owner': string;
     /**
      * 
      * @type {{ [key: string]: AccessLevel; }}
      * @memberof ACL
      */
-    roles?: { [key: string]: AccessLevel; };
+    'roles'?: { [key: string]: AccessLevel; };
     /**
      * 
      * @type {{ [key: string]: AccessLevel; }}
      * @memberof ACL
      */
-    users?: { [key: string]: AccessLevel; };
+    'users'?: { [key: string]: AccessLevel; };
     /**
      * 
      * @type {AccessLevel}
      * @memberof ACL
      */
-    others?: AccessLevel;
+    'others'?: AccessLevel;
 }
-
 

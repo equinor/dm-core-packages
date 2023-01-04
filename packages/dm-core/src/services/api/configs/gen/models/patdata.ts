@@ -13,6 +13,8 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
 import { AccessLevel } from './access-level';
 
 /**
@@ -26,37 +28,36 @@ export interface PATData {
      * @type {string}
      * @memberof PATData
      */
-    pat_hash?: string;
+    'pat_hash'?: string;
     /**
      * 
      * @type {string}
      * @memberof PATData
      */
-    uuid?: string;
+    'uuid'?: string;
     /**
      * 
      * @type {string}
      * @memberof PATData
      */
-    user_id: string;
+    'user_id': string;
     /**
      * 
      * @type {Array<string>}
      * @memberof PATData
      */
-    roles?: Array<string>;
+    'roles'?: Array<string>;
     /**
      * 
      * @type {AccessLevel}
      * @memberof PATData
      */
-    scope: AccessLevel;
+    'scope': AccessLevel;
     /**
      * 
      * @type {string}
      * @memberof PATData
      */
-    expire: string;
+    'expire': string;
 }
-
 

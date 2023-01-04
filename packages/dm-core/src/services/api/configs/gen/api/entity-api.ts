@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -37,10 +37,10 @@ export const EntityApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        instantiateEntity: async (basicEntity: BasicEntity, options: any = {}): Promise<RequestArgs> => {
+        instantiateEntity: async (basicEntity: BasicEntity, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'basicEntity' is not null or undefined
             assertParamExists('instantiateEntity', 'basicEntity', basicEntity)
-            const localVarPath = `/api/v1/entity`;
+            const localVarPath = `/api/entity`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -63,7 +63,7 @@ export const EntityApiAxiosParamCreator = function (configuration?: Configuratio
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(basicEntity, localVarRequestOptions, configuration)
@@ -90,7 +90,7 @@ export const EntityApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async instantiateEntity(basicEntity: BasicEntity, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async instantiateEntity(basicEntity: BasicEntity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(basicEntity, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -146,7 +146,7 @@ export class EntityApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EntityApi
      */
-    public instantiateEntity(requestParameters: EntityApiInstantiateEntityRequest, options?: any) {
+    public instantiateEntity(requestParameters: EntityApiInstantiateEntityRequest, options?: AxiosRequestConfig) {
         return EntityApiFp(this.configuration).instantiateEntity(requestParameters.basicEntity, options).then((request) => request(this.axios, this.basePath));
     }
 }

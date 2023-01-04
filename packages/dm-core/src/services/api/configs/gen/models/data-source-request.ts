@@ -13,6 +13,8 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
 import { Repository } from './repository';
 
 /**
@@ -26,13 +28,12 @@ export interface DataSourceRequest {
      * @type {string}
      * @memberof DataSourceRequest
      */
-    name: string;
+    'name': string;
     /**
      * 
      * @type {{ [key: string]: Repository; }}
      * @memberof DataSourceRequest
      */
-    repositories: { [key: string]: Repository; };
+    'repositories': { [key: string]: Repository; };
 }
-
 
