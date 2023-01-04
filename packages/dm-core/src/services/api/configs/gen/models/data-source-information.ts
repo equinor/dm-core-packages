@@ -25,25 +25,24 @@ export interface DataSourceInformation {
      * @type {string}
      * @memberof DataSourceInformation
      */
-    id: string;
+    'id': string;
     /**
      * 
      * @type {string}
      * @memberof DataSourceInformation
      */
-    name: string;
+    'name': string;
     /**
      * 
      * @type {string}
      * @memberof DataSourceInformation
      */
-    host?: string;
+    'host'?: string;
     /**
      * 
      * @type {string}
      * @memberof DataSourceInformation
      */
-    type?: string;
+    'type'?: string;
 }
-
 

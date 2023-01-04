@@ -25,13 +25,12 @@ export interface BasicEntity {
      * @type {string}
      * @memberof BasicEntity
      */
-    name?: string;
+    'name'?: string;
     /**
      * 
      * @type {string}
      * @memberof BasicEntity
      */
-    type: string;
+    'type': string;
 }
-
 

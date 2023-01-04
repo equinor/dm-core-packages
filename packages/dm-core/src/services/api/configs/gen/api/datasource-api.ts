@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -39,10 +39,10 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceGet: async (dataSourceId: string, options: any = {}): Promise<RequestArgs> => {
+        dataSourceGet: async (dataSourceId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
             assertParamExists('dataSourceGet', 'dataSourceId', dataSourceId)
-            const localVarPath = `/api/v1/data-sources/{data_source_id}`
+            const localVarPath = `/api/data-sources/{data_source_id}`
                 .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -64,7 +64,7 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -79,8 +79,8 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceGetAll: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/data-sources`;
+        dataSourceGetAll: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data-sources`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -101,7 +101,7 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -118,12 +118,12 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceSave: async (dataSourceId: string, dataSourceRequest: DataSourceRequest, options: any = {}): Promise<RequestArgs> => {
+        dataSourceSave: async (dataSourceId: string, dataSourceRequest: DataSourceRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
             assertParamExists('dataSourceSave', 'dataSourceId', dataSourceId)
             // verify required parameter 'dataSourceRequest' is not null or undefined
             assertParamExists('dataSourceSave', 'dataSourceRequest', dataSourceRequest)
-            const localVarPath = `/api/v1/data-sources/{data_source_id}`
+            const localVarPath = `/api/data-sources/{data_source_id}`
                 .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -147,7 +147,7 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(dataSourceRequest, localVarRequestOptions, configuration)
@@ -174,7 +174,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dataSourceGet(dataSourceId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async dataSourceGet(dataSourceId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceGet(dataSourceId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -184,7 +184,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dataSourceGetAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DataSourceInformation>>> {
+        async dataSourceGetAll(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DataSourceInformation>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceGetAll(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -196,7 +196,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dataSourceSave(dataSourceId: string, dataSourceRequest: DataSourceRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async dataSourceSave(dataSourceId: string, dataSourceRequest: DataSourceRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceSave(dataSourceId, dataSourceRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -293,7 +293,7 @@ export class DatasourceApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DatasourceApi
      */
-    public dataSourceGet(requestParameters: DatasourceApiDataSourceGetRequest, options?: any) {
+    public dataSourceGet(requestParameters: DatasourceApiDataSourceGetRequest, options?: AxiosRequestConfig) {
         return DatasourceApiFp(this.configuration).dataSourceGet(requestParameters.dataSourceId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -304,7 +304,7 @@ export class DatasourceApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DatasourceApi
      */
-    public dataSourceGetAll(options?: any) {
+    public dataSourceGetAll(options?: AxiosRequestConfig) {
         return DatasourceApiFp(this.configuration).dataSourceGetAll(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -316,7 +316,7 @@ export class DatasourceApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DatasourceApi
      */
-    public dataSourceSave(requestParameters: DatasourceApiDataSourceSaveRequest, options?: any) {
+    public dataSourceSave(requestParameters: DatasourceApiDataSourceSaveRequest, options?: AxiosRequestConfig) {
         return DatasourceApiFp(this.configuration).dataSourceSave(requestParameters.dataSourceId, requestParameters.dataSourceRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }

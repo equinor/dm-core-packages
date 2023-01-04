@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -34,8 +34,8 @@ export const HealthCheckApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getApiV1HealthcheckGet: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/healthcheck`;
+        getApiHealthcheckGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/healthcheck`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -49,7 +49,7 @@ export const HealthCheckApiAxiosParamCreator = function (configuration?: Configu
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -74,8 +74,8 @@ export const HealthCheckApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getApiV1HealthcheckGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiV1HealthcheckGet(options);
+        async getApiHealthcheckGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiHealthcheckGet(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -94,8 +94,8 @@ export const HealthCheckApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getApiV1HealthcheckGet(options?: any): AxiosPromise<string> {
-            return localVarFp.getApiV1HealthcheckGet(options).then((request) => request(axios, basePath));
+        getApiHealthcheckGet(options?: any): AxiosPromise<string> {
+            return localVarFp.getApiHealthcheckGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -114,7 +114,7 @@ export class HealthCheckApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HealthCheckApi
      */
-    public getApiV1HealthcheckGet(options?: any) {
-        return HealthCheckApiFp(this.configuration).getApiV1HealthcheckGet(options).then((request) => request(this.axios, this.basePath));
+    public getApiHealthcheckGet(options?: AxiosRequestConfig) {
+        return HealthCheckApiFp(this.configuration).getApiHealthcheckGet(options).then((request) => request(this.axios, this.basePath));
     }
 }

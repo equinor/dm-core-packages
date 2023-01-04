@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -35,10 +35,10 @@ export const ExportApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        _export: async (absoluteDocumentRef: string, options: any = {}): Promise<RequestArgs> => {
+        _export: async (absoluteDocumentRef: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'absoluteDocumentRef' is not null or undefined
             assertParamExists('_export', 'absoluteDocumentRef', absoluteDocumentRef)
-            const localVarPath = `/api/v1/export/{absolute_document_ref}`
+            const localVarPath = `/api/export/{absolute_document_ref}`
                 .replace(`{${"absolute_document_ref"}}`, encodeURIComponent(String(absoluteDocumentRef)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -60,7 +60,7 @@ export const ExportApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -76,10 +76,10 @@ export const ExportApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        exportMeta: async (absoluteDocumentRef: string, options: any = {}): Promise<RequestArgs> => {
+        exportMeta: async (absoluteDocumentRef: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'absoluteDocumentRef' is not null or undefined
             assertParamExists('exportMeta', 'absoluteDocumentRef', absoluteDocumentRef)
-            const localVarPath = `/api/v1/export/meta/{absolute_document_ref}`
+            const localVarPath = `/api/export/meta/{absolute_document_ref}`
                 .replace(`{${"absolute_document_ref"}}`, encodeURIComponent(String(absoluteDocumentRef)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -101,7 +101,7 @@ export const ExportApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -127,7 +127,7 @@ export const ExportApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async _export(absoluteDocumentRef: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async _export(absoluteDocumentRef: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator._export(absoluteDocumentRef, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -138,7 +138,7 @@ export const ExportApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async exportMeta(absoluteDocumentRef: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async exportMeta(absoluteDocumentRef: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(absoluteDocumentRef, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -218,7 +218,7 @@ export class ExportApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExportApi
      */
-    public _export(requestParameters: ExportApiExportRequest, options?: any) {
+    public _export(requestParameters: ExportApiExportRequest, options?: AxiosRequestConfig) {
         return ExportApiFp(this.configuration)._export(requestParameters.absoluteDocumentRef, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -230,7 +230,7 @@ export class ExportApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExportApi
      */
-    public exportMeta(requestParameters: ExportApiExportMetaRequest, options?: any) {
+    public exportMeta(requestParameters: ExportApiExportMetaRequest, options?: AxiosRequestConfig) {
         return ExportApiFp(this.configuration).exportMeta(requestParameters.absoluteDocumentRef, options).then((request) => request(this.axios, this.basePath));
     }
 }

@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -34,8 +34,8 @@ export const WhoamiApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        whoami: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/whoami`;
+        whoami: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/whoami`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -56,7 +56,7 @@ export const WhoamiApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -81,7 +81,7 @@ export const WhoamiApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async whoami(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async whoami(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.whoami(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -121,7 +121,7 @@ export class WhoamiApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WhoamiApi
      */
-    public whoami(options?: any) {
+    public whoami(options?: AxiosRequestConfig) {
         return WhoamiApiFp(this.configuration).whoami(options).then((request) => request(this.axios, this.basePath));
     }
 }

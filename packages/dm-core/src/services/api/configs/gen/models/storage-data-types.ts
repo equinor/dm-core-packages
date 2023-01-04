@@ -19,13 +19,16 @@
  * @export
  * @enum {string}
  */
-export enum StorageDataTypes {
-    Default = 'default',
-    Large = 'large',
-    VeryLarge = 'veryLarge',
-    Video = 'video',
-    Blob = 'blob'
-}
+
+export const StorageDataTypes = {
+    Default: 'default',
+    Large: 'large',
+    VeryLarge: 'veryLarge',
+    Video: 'video',
+    Blob: 'blob'
+} as const;
+
+export type StorageDataTypes = typeof StorageDataTypes[keyof typeof StorageDataTypes];
 
 
 

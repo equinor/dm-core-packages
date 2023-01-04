@@ -25,19 +25,18 @@ export interface GetBlueprintResponse {
      * @type {object}
      * @memberof GetBlueprintResponse
      */
-    blueprint: object;
+    'blueprint': object;
     /**
      * 
      * @type {Array<object>}
      * @memberof GetBlueprintResponse
      */
-    uiRecipes: Array<object>;
+    'uiRecipes': Array<object>;
     /**
      * 
      * @type {Array<object>}
      * @memberof GetBlueprintResponse
      */
-    storageRecipes: Array<object>;
+    'storageRecipes': Array<object>;
 }
-
 

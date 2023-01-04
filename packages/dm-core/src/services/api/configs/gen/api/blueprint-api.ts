@@ -13,7 +13,7 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -38,10 +38,10 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintGet: async (typeRef: string, context?: string, options: any = {}): Promise<RequestArgs> => {
+        blueprintGet: async (typeRef: string, context?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'typeRef' is not null or undefined
             assertParamExists('blueprintGet', 'typeRef', typeRef)
-            const localVarPath = `/api/v1/blueprint/{type_ref}`
+            const localVarPath = `/api/blueprint/{type_ref}`
                 .replace(`{${"type_ref"}}`, encodeURIComponent(String(typeRef)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -67,7 +67,7 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -83,10 +83,10 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintResolve: async (absoluteId: string, options: any = {}): Promise<RequestArgs> => {
+        blueprintResolve: async (absoluteId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'absoluteId' is not null or undefined
             assertParamExists('blueprintResolve', 'absoluteId', absoluteId)
-            const localVarPath = `/api/v1/resolve-path/{absolute_id}`
+            const localVarPath = `/api/resolve-path/{absolute_id}`
                 .replace(`{${"absolute_id"}}`, encodeURIComponent(String(absoluteId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -108,7 +108,7 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -135,7 +135,7 @@ export const BlueprintApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async blueprintGet(typeRef: string, context?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBlueprintResponse>> {
+        async blueprintGet(typeRef: string, context?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBlueprintResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintGet(typeRef, context, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -146,7 +146,7 @@ export const BlueprintApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async blueprintResolve(absoluteId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async blueprintResolve(absoluteId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintResolve(absoluteId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -234,7 +234,7 @@ export class BlueprintApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BlueprintApi
      */
-    public blueprintGet(requestParameters: BlueprintApiBlueprintGetRequest, options?: any) {
+    public blueprintGet(requestParameters: BlueprintApiBlueprintGetRequest, options?: AxiosRequestConfig) {
         return BlueprintApiFp(this.configuration).blueprintGet(requestParameters.typeRef, requestParameters.context, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -246,7 +246,7 @@ export class BlueprintApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BlueprintApi
      */
-    public blueprintResolve(requestParameters: BlueprintApiBlueprintResolveRequest, options?: any) {
+    public blueprintResolve(requestParameters: BlueprintApiBlueprintResolveRequest, options?: AxiosRequestConfig) {
         return BlueprintApiFp(this.configuration).blueprintResolve(requestParameters.absoluteId, options).then((request) => request(this.axios, this.basePath));
     }
 }
