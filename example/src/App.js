@@ -7,6 +7,7 @@ import {
   Loading,
   useDataSources,
   UIPluginSelector,
+  NewEntityButton,
 } from '@development-framework/dm-core'
 import { useContext } from 'react'
 import { Jobs } from './test_components/Jobs'
@@ -53,6 +54,20 @@ function App() {
         absoluteDottedId={'DemoDataSource/f5282220-4a90-4d02-8f34-b82255fc91d5'}
       />
       <Jobs />
+      <p>Test create new NamedEntity:</p>
+      <NewEntityButton
+        type={'dmss://system/SIMOS/NamedEntity'}
+        defaultDestination={'DemoDataSource/DemoPackage'}
+        onCreated={(createdEntity) =>
+          dmssAPI
+            .documentGetById({
+              idReference: `DemoDataSource/${createdEntity._id}`,
+            })
+            .then((response) => {
+              console.log('got data', response.data)
+            })
+        }
+      />
     </div>
   )
 }
