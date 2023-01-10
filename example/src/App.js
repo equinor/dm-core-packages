@@ -35,7 +35,11 @@ function App() {
           width: '600px',
         }}
       >
-        {loading ? <Loading /> : <TreeView nodes={treeNodes} />}
+        {loading ? (
+          <Loading />
+        ) : (
+          <TreeView nodes={treeNodes} onSelect={() => {}} />
+        )}
       </div>
       <JsonView data={{ JsonView: 'test' }} />
       <ul>
