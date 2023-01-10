@@ -212,7 +212,7 @@ export class TreeNode {
     if (!this.isDataSource) {
       const parentBlueprint: TBlueprint = await this.tree.dmssApi
         .blueprintGet({ typeRef: this.type })
-        .then((response: any) => response.data)
+        .then((response: any) => response.data.blueprint)
       this.tree.dmssApi
         .documentGetById({
           idReference: this.nodeId,
