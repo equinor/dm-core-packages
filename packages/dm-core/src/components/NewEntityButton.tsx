@@ -165,14 +165,16 @@ export function NewEntityButton(props: {
                   dmssAPI
                     .instantiateEntity({
                       basicEntity: {
-                        name: newName as string,
                         type: typeToCreate,
                       },
                     })
-                    .then((newEntity) => {
-                      addEntityToPath({ ...newEntity.data }).then(() =>
-                        setShowScrim(false)
-                      )
+                    .then((response) => {
+                      const newEntity = response.data
+                      // instantiateEntity from DMSS will not populate the name, therefore the name has to be added manually.
+                      addEntityToPath({
+                        ...newEntity,
+                        name: newName as string,
+                      }).then(() => setShowScrim(false))
                     })
                     .finally(() => {
                       setLoading(false)

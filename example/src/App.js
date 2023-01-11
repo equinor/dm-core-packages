@@ -9,7 +9,7 @@ import {
   UIPluginSelector,
   NewEntityButton,
 } from '@development-framework/dm-core'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { Jobs } from './test_components/Jobs'
 
 function App() {
@@ -18,6 +18,7 @@ function App() {
   const { treeNodes, loading } = useContext(FSTreeContext)
 
   const dataSources = useDataSources(dmssAPI)
+  const [createdEntity, setCreatedEntity] = useState({})
 
   return (
     <div
@@ -64,10 +65,16 @@ function App() {
               idReference: `DemoDataSource/${createdEntity._id}`,
             })
             .then((response) => {
-              console.log('got data', response.data)
+              setCreatedEntity(response.data)
             })
         }
       />
+      {Object.entries(createdEntity).length !== 0 && (
+        <>
+          <h2>Created entity:</h2>
+          <JsonView data={createdEntity} />
+        </>
+      )}
     </div>
   )
 }
