@@ -1,22 +1,49 @@
 {
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "DummyBlueprint",
-  "uiRecipes": [
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "yaml-view"
+  "uiRecipe": {
+    "name": "Sidebar",
+    "type": "CORE:UiRecipe",
+    "plugin": "UiRecipesSideBarSelector",
+    "category": "selector",
+    "config": {
+      "type": "object",
+      "uiRecipes": [
+        {
+          "name": "Yaml",
+          "type": "CORE:UiRecipe",
+          "plugin": "yaml-view"
+        },
+        {
+          "type": "CORE:UiRecipe",
+          "name": "Edit",
+          "description": "Default blueprint edit",
+          "plugin": "edit-blueprint"
+        },
+        {
+          "name": "Diagram",
+          "type": "CORE:UiRecipe",
+          "plugin": "mermaid"
+        }
+      ]
     },
-    {
-      "type": "CORE:UiRecipe",
-      "name": "Edit",
-      "description": "Default blueprint edit",
-      "plugin": "edit-blueprint"
-    },
-    {
-      "name": "Diagram",
-      "type": "CORE:UiRecipe",
-      "plugin": "mermaid"
-    }
-  ]
+    "uiRecipes": [
+      {
+        "name": "Yaml",
+        "type": "CORE:UiRecipe",
+        "plugin": "yaml-view"
+      },
+      {
+        "type": "CORE:UiRecipe",
+        "name": "Edit",
+        "description": "Default blueprint edit",
+        "plugin": "edit-blueprint"
+      },
+      {
+        "name": "Diagram",
+        "type": "CORE:UiRecipe",
+        "plugin": "mermaid"
+      }
+    ]
+  }
 }

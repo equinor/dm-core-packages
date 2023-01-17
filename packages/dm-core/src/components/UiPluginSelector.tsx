@@ -149,16 +149,17 @@ function filterPlugins(
 }
 
 export function UIPluginSelector(props: {
-  absoluteDottedId?: string
+  idReference?: string
   type: string
   onSubmit?: (data: any) => void
   categories?: string[]
   breadcrumb?: boolean
   referencedBy?: string
   onOpen?: (data: any) => void
+  config?: any
 }): JSX.Element {
   const {
-    absoluteDottedId,
+    idReference,
     type,
     categories,
     breadcrumb,
@@ -205,7 +206,7 @@ export function UIPluginSelector(props: {
 
   return (
     <Wrapper>
-      {breadcrumb && <DocumentPath absoluteDottedId={absoluteDottedId} />}
+      {breadcrumb && <DocumentPath absoluteDottedId={idReference} />}
       {referencedBy && <DocumentPath absoluteDottedId={referencedBy} />}
       {selectablePlugins.length > 1 && (
         <PluginTabsWrapper>
@@ -232,7 +233,7 @@ export function UIPluginSelector(props: {
         )}
       >
         <UiPlugin
-          idReference={absoluteDottedId}
+          idReference={idReference}
           onSubmit={onSubmit}
           onOpen={onOpen}
           categories={categories}

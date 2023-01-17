@@ -27,6 +27,7 @@ import { ApplicationContext } from '../context/ApplicationContext'
  */
 export const useBlueprint = (typeRef: string) => {
   const [blueprint, setBlueprint] = useState<any | null>(null)
+  const [uiRecipe, setUiRecipe] = useState<any>()
   const [uiRecipes, setUiRecipes] = useState<any[]>([])
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
@@ -40,11 +41,12 @@ export const useBlueprint = (typeRef: string) => {
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
         setUiRecipes(response.data.uiRecipes)
+        setUiRecipe(response.data.uiRecipe)
         setError(null)
       })
       .catch((error: Error) => setError(error))
       .finally(() => setLoading(false))
   }, [typeRef])
 
-  return { blueprint, uiRecipes, isLoading, error }
+  return { blueprint, uiRecipe, uiRecipes, isLoading, error }
 }

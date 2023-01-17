@@ -2,7 +2,8 @@ version: "3.4"
 
 services:
   dmss:
-    image: datamodelingtool.azurecr.io/dmss:latest
+    image: dmss-dev
+#    image: datamodelingtool.azurecr.io/dmss:latest
     restart: unless-stopped
     environment:
       AUTH_ENABLED: 0
@@ -25,7 +26,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: maf
 
   job-api:
-    image: datamodelingtool.azurecr.io/dm-job
+    image: datamodelingtool.azurecr.io/dm-job:v1.0.4
     restart: unless-stopped
     environment:
       SCHEDULER_ENVS_TO_EXPORT: "PUBLIC_DMSS_API,SIMA_LICENSE"
