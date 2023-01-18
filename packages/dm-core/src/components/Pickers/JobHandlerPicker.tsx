@@ -14,8 +14,8 @@ export const JobHandlerPicker = (props: {
   const dmssApi = new DmssAPI(token)
   const [searchResult] = useSearch<any>(
     {
-      type: 'system/SIMOS/Blueprint',
-      extends: ['WorkflowDS/Blueprints/jobHandlers/JobHandler'],
+      type: 'dmss://system/SIMOS/Blueprint',
+      extends: ['dmss://WorkflowDS/Blueprints/JobHandler'],
     },
     'WorkflowDS'
   )

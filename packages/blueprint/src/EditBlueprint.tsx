@@ -313,7 +313,7 @@ export const EditBlueprint = (props: IUIPlugin) => {
                 {
                   name: 'new-attribute',
                   attributeType: 'string',
-                  type: 'system/SIMOS/BlueprintAttribute',
+                  type: 'dmss://system/SIMOS/BlueprintAttribute',
                   contained: true,
                   optional: true,
                 },
