@@ -91,18 +91,17 @@ export const Jobs = () => {
       applicationInput: {
         name: 'whatever',
         _id: 'f5282220-4a90-4d02-8f34-b82255fc91d5',
-        type: 'system/SIMOS/NamedEntity',
+        type: 'dmss://system/SIMOS/NamedEntity',
       },
-      runner: { type: 'WorkflowDS/Blueprints/ReverseDescription' },
+      runner: { type: 'dmss://WorkflowDS/Blueprints/ReverseDescription' },
       started: 'Not started',
     }
   }
 
   const saveJobEntity = (jobEntity: any) => {
     DmssApi.documentAddToPath({
-      dataSourceId: dataSource,
+      pathReference: `${dataSource}/DemoPackage`,
       document: JSON.stringify(jobEntity),
-      directory: '/DemoPackage',
     })
       .then((response: AxiosResponse<any>) => {
         setJobEntityId(`${dataSource}/${response.data.uid}`)
