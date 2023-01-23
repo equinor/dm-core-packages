@@ -1,0 +1,16 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "CORE:Application",
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view"
+    },
+    {
+      "name": "Explorer",
+      "type": "CORE:UiRecipe",
+      "plugin": "explorer"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "name": "exampleApp",
+  "type": "CORE:Application",
+  "visibleDataSources": ["system", "DemoDataSource", "WorkflowDS"]
+}
