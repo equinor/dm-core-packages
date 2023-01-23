@@ -10,6 +10,7 @@
     "@development-framework/form": "link:../packages/form",
     "@development-framework/tabs": "link:../packages/tabs",
     "@development-framework/header": "link:../packages/header",
+    "@development-framework/explorer": "link:../packages/explorer",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-oauth2-code-pkce": "^1.10.1",
