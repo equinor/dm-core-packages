@@ -1,18 +1,13 @@
-// @ts-nocheck
-
 import React, { useContext, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
-import {
-  IDmtUIPlugin,
-  TPlugin,
-  UiPluginContext,
-} from '../context/UiPluginContext'
+import { UiPluginContext } from '../context/UiPluginContext'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { getRoles } from '../utils/appRoles'
 import { ErrorBoundary } from '../utils/ErrorBoundary'
 import { useBlueprint } from '../hooks'
+import { IUIPlugin, TPlugin } from '../types'
 
 const lightGray = '#d3d3d3'
 
@@ -149,16 +144,17 @@ function filterPlugins(
 }
 
 export function UIPluginSelector(props: {
-  absoluteDottedId?: string
+  idReference: string
   type: string
   onSubmit?: (data: any) => void
   categories?: string[]
   breadcrumb?: boolean
   referencedBy?: string
   onOpen?: (data: any) => void
+  config?: any
 }): JSX.Element {
   const {
-    absoluteDottedId,
+    idReference,
     type,
     categories,
     breadcrumb,
@@ -166,8 +162,8 @@ export function UIPluginSelector(props: {
     onSubmit,
     onOpen,
   } = props
-  const { uiRecipes, loadingBlueprint, error } = useBlueprint(type)
-  const { loading, getUiPlugin } = useContext(UiPluginContext)
+  const { uiRecipes, isLoading: isBlueprintLoading, error } = useBlueprint(type)
+  const { loading: isContextLoading, getUiPlugin } = useContext(UiPluginContext)
   const { tokenData } = useContext(AuthContext)
   const roles = getRoles(tokenData)
   const [selectedPlugin, setSelectedPlugin] = useState<number>(0)
@@ -177,13 +173,13 @@ export function UIPluginSelector(props: {
 
   useEffect(() => {
     // Make sure uiRecipes and ui plugins have been loaded
-    if (loadingBlueprint || loading) return
+    if (isBlueprintLoading || isContextLoading) return
     setSelectablePlugins(
       filterPlugins(uiRecipes, categories || [], roles, getUiPlugin)
     )
-  }, [uiRecipes, loading, loadingBlueprint])
+  }, [uiRecipes, isContextLoading, isBlueprintLoading])
 
-  if (loadingBlueprint || loading)
+  if (isBlueprintLoading || isContextLoading)
     return (
       <div style={{ alignSelf: 'center', padding: '50px' }}>
         <CircularProgress color="primary" />
@@ -205,7 +201,7 @@ export function UIPluginSelector(props: {
 
   return (
     <Wrapper>
-      {breadcrumb && <DocumentPath absoluteDottedId={absoluteDottedId} />}
+      {breadcrumb && <DocumentPath absoluteDottedId={idReference} />}
       {referencedBy && <DocumentPath absoluteDottedId={referencedBy} />}
       {selectablePlugins.length > 1 && (
         <PluginTabsWrapper>
@@ -222,8 +218,8 @@ export function UIPluginSelector(props: {
           )}
         </PluginTabsWrapper>
       )}
+      {/*@ts-ignore*/}
       <ErrorBoundary
-        key={selectablePlugins[selectedPlugin].name}
         fallBack={() => (
           <h4 style={{ color: 'red' }}>
             The UiPlugin <i>{selectablePlugins[selectedPlugin].name}</i>{' '}
@@ -232,7 +228,8 @@ export function UIPluginSelector(props: {
         )}
       >
         <UiPlugin
-          idReference={absoluteDottedId}
+          idReference={idReference}
+          type={type}
           onSubmit={onSubmit}
           onOpen={onOpen}
           categories={categories}

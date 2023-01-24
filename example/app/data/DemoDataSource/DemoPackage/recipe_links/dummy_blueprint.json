@@ -1,6 +1,12 @@
 {
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "DummyBlueprint",
+  "initialUiRecipe": {
+    "name": "Sidebar",
+    "type": "dmss://system/SIMOS/UiRecipe",
+    "plugin": "UiRecipesSideBarSelector",
+    "config": {}
+  },
   "uiRecipes": [
     {
       "name": "Yaml",
