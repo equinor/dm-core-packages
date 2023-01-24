@@ -4,10 +4,9 @@ import {
   DmssAPI,
   FSTreeContext,
   TreeView,
-  Loading,
   useDataSources,
-  UIPluginSelector,
   NewEntityButton,
+  UIRecipesSelector,
 } from '@development-framework/dm-core'
 import { useContext, useState } from 'react'
 import { Jobs } from './test_components/Jobs'
@@ -19,6 +18,8 @@ function App() {
 
   const dataSources = useDataSources(dmssAPI)
   const [createdEntity, setCreatedEntity] = useState({})
+  const [selectedType, setSelectedType] = useState()
+  const [selectedEntity, setSelectedEntity] = useState()
 
   return (
     <div
@@ -38,22 +39,23 @@ function App() {
         }}
       >
         {loading ? (
-          <Loading />
+          <>Loading...</>
         ) : (
-          <TreeView nodes={treeNodes} onSelect={() => {}} />
+          <TreeView
+            nodes={treeNodes}
+            onSelect={(node) => {
+              console.log(node)
+              setSelectedType(node.type)
+              setSelectedEntity(node.nodeId)
+            }}
+          />
         )}
       </div>
-      <JsonView data={{ JsonView: 'test' }} />
-      <ul>
-        {dataSources.map((ds) => (
-          <li key={ds.id}>{ds.name}</li>
-        ))}
-      </ul>
+      {selectedType && selectedEntity && (
+        <UIRecipesSelector type={selectedType} idReference={selectedEntity} />
+      )}
       <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')} />
-      <UIPluginSelector
-        type={'dmss://DemoDataSource/DemoPackage/DummyBlueprint'}
-        absoluteDottedId={'DemoDataSource/f5282220-4a90-4d02-8f34-b82255fc91d5'}
-      />
+
       <Jobs />
       <p>Test create new NamedEntity:</p>
       <NewEntityButton

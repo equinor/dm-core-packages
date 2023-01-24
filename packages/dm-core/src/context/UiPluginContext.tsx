@@ -9,16 +9,6 @@ export interface ILoadedPlugin {
   plugins: TPlugin[]
 }
 
-export interface IUIPlugin {
-  type?: string
-  categories?: string[]
-  idReference: string
-  onSubmit?: (data: any) => void
-  onOpen?: (data: any) => void
-  config?: any
-  readOnly?: boolean
-}
-
 export enum EPluginType {
   UI,
   PAGE,

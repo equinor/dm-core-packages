@@ -3,6 +3,13 @@ import { DmssAPI } from '../services/api/DmssAPI'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { ApplicationContext } from '../context/ApplicationContext'
 
+interface IUseBlueprint {
+  blueprint: any
+  initialUiRecipe: any
+  uiRecipes: any[]
+  isLoading: boolean
+  error: Error | null
+}
 /**
  * Hook to fetch a Blueprint from the DMSS API
  *
@@ -25,9 +32,10 @@ import { ApplicationContext } from '../context/ApplicationContext'
  * @param typeRef - The reference to the blueprint to retrieve
  * @returns A list containing the blueprint document, a boolean representing the loading state, and an Error, if any.
  */
-export const useBlueprint = (typeRef: string) => {
+export const useBlueprint = (typeRef: string): IUseBlueprint => {
   const [blueprint, setBlueprint] = useState<any | null>(null)
   const [uiRecipes, setUiRecipes] = useState<any[]>([])
+  const [initialUiRecipe, setInitialUiRecipe] = useState<any>()
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
   const { token } = useContext(AuthContext)
@@ -39,6 +47,7 @@ export const useBlueprint = (typeRef: string) => {
       .blueprintGet({ typeRef: typeRef, context: name })
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
+        setInitialUiRecipe(response.data.initialUiRecipe)
         setUiRecipes(response.data.uiRecipes)
         setError(null)
       })
@@ -46,5 +55,5 @@ export const useBlueprint = (typeRef: string) => {
       .finally(() => setLoading(false))
   }, [typeRef])
 
-  return { blueprint, uiRecipes, isLoading, error }
+  return { blueprint, initialUiRecipe, uiRecipes, isLoading, error }
 }
