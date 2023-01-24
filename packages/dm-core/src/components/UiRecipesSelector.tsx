@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 
 import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
 import { useBlueprint } from '../hooks'
 import { UIPluginSelector } from './UiPluginSelector'
 import { UiRecipesSideBarSelector } from './UiRecipesSideBarSelector'
+import { UiPluginContext } from '../context/UiPluginContext'
+import { IUIPlugin } from '../types'
 
 const Wrapper = styled.div`
   align-self: start;
@@ -12,33 +14,34 @@ const Wrapper = styled.div`
   width: 100%;
 `
 
-export function UIRecipesSelector(props: {
-  idReference: string
-  type: string
-}): any {
+export function UIRecipesSelector(props: IUIPlugin): JSX.Element {
   const { idReference, type } = props
-  const { uiRecipe, isLoading, error } = useBlueprint(type)
-  const [recipeSelector, setRecipeSelector] = useState<any>()
+  const { initialUiRecipe, isLoading, error } = useBlueprint(type)
+  const { loading, getUiPlugin } = useContext(UiPluginContext)
+  const [initialPlugin, setInitialPlugin] = useState<any>()
 
   useEffect(() => {
-    // Make sure uiRecipe has been loaded
-    if (isLoading) return
+    // Make sure uiRecipes has been loaded
+    if (isLoading || loading) return
     let Component
 
-    switch (uiRecipe.plugin) {
+    if (!initialUiRecipe) {
+      setInitialPlugin({ component: UIPluginSelector })
+      return
+    }
+
+    switch (initialUiRecipe.plugin) {
       case 'UiPluginSelector':
-        Component = UiRecipesSideBarSelector
-        // Component = UIPluginSelector
+        Component = UIPluginSelector
         break
       case 'UiRecipesSideBarSelector':
         Component = UiRecipesSideBarSelector
         break
       default:
-        Component = UiRecipesSideBarSelector
-      // Component = UIPluginSelector
+        Component = getUiPlugin(initialUiRecipe.plugin).component
     }
-    setRecipeSelector({ component: Component })
-  }, [uiRecipe, isLoading])
+    setInitialPlugin({ component: Component })
+  }, [initialUiRecipe, isLoading, loading])
 
   if (isLoading)
     return (
@@ -48,6 +51,7 @@ export function UIRecipesSelector(props: {
     )
 
   if (error) {
+    console.error(error)
     return (
       <div style={{ color: 'red' }}>
         Failed to fetch Blueprint {type || '(unknown type)'}
@@ -55,15 +59,16 @@ export function UIRecipesSelector(props: {
     )
   }
 
-  if (!recipeSelector)
+  if (!initialPlugin)
     return <Wrapper>No compatible uiRecipes for entity</Wrapper>
 
-  const Selector: (props: any) => JSX.Element = recipeSelector.component
+  const Selector: (props: any) => JSX.Element = initialPlugin.component
 
   return (
-    <div>
-      <Selector idReference={idReference} config={uiRecipe.config} />
-      <UIPluginSelector type={type} idReference={idReference} />
-    </div>
+    <Selector
+      idReference={idReference}
+      config={initialUiRecipe?.config}
+      type={type}
+    />
   )
 }

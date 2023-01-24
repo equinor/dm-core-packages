@@ -1,18 +1,13 @@
-// @ts-nocheck
-
 import React, { useContext, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
-import {
-  IDmtUIPlugin,
-  TPlugin,
-  UiPluginContext,
-} from '../context/UiPluginContext'
+import { UiPluginContext } from '../context/UiPluginContext'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { getRoles } from '../utils/appRoles'
 import { ErrorBoundary } from '../utils/ErrorBoundary'
 import { useBlueprint } from '../hooks'
+import { IUIPlugin, TPlugin } from '../types'
 
 const lightGray = '#d3d3d3'
 
@@ -149,7 +144,7 @@ function filterPlugins(
 }
 
 export function UIPluginSelector(props: {
-  idReference?: string
+  idReference: string
   type: string
   onSubmit?: (data: any) => void
   categories?: string[]
@@ -167,7 +162,7 @@ export function UIPluginSelector(props: {
     onSubmit,
     onOpen,
   } = props
-  const { uiRecipes, loadingBlueprint, error } = useBlueprint(type)
+  const { uiRecipes, isLoading, error } = useBlueprint(type)
   const { loading, getUiPlugin } = useContext(UiPluginContext)
   const { tokenData } = useContext(AuthContext)
   const roles = getRoles(tokenData)
@@ -178,13 +173,13 @@ export function UIPluginSelector(props: {
 
   useEffect(() => {
     // Make sure uiRecipes and ui plugins have been loaded
-    if (loadingBlueprint || loading) return
+    if (isLoading || loading) return
     setSelectablePlugins(
       filterPlugins(uiRecipes, categories || [], roles, getUiPlugin)
     )
-  }, [uiRecipes, loading, loadingBlueprint])
+  }, [uiRecipes, loading, isLoading])
 
-  if (loadingBlueprint || loading)
+  if (isLoading || loading)
     return (
       <div style={{ alignSelf: 'center', padding: '50px' }}>
         <CircularProgress color="primary" />
@@ -234,6 +229,7 @@ export function UIPluginSelector(props: {
       >
         <UiPlugin
           idReference={idReference}
+          type={type}
           onSubmit={onSubmit}
           onOpen={onOpen}
           categories={categories}

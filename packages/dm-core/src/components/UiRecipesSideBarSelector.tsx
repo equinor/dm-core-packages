@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
-import { IUIPlugin, UiPluginContext } from '../context/UiPluginContext'
+import { UiPluginContext } from '../context/UiPluginContext'
 import { ErrorBoundary } from '../utils/ErrorBoundary'
+import { useBlueprint } from '../hooks'
+import { IUIPlugin } from '../types'
 
 const lightGray = '#d3d3d3'
 
@@ -43,55 +45,49 @@ type TSelectablePlugins = {
   config: any
 }
 
-export function UiRecipesSideBarSelector(props: {
-  idReference: string
-  type: string
-  onSubmit?: (data: any) => void
-  categories?: string[]
-  onOpen?: (data: any) => void
-  config?: any
-}): JSX.Element {
-  const { idReference, categories, onSubmit, onOpen, config } = props
+export function UiRecipesSideBarSelector(props: IUIPlugin): JSX.Element {
+  const { idReference, categories, onSubmit, onOpen, type } = props
   const { loading, getUiPlugin } = useContext(UiPluginContext)
-  const [selectedPlugin, setSelectedPlugin] = useState<number>(0)
-  const [selectablePlugins, setSelectablePlugins] = useState<
+  const { uiRecipes, isLoading } = useBlueprint(type)
+  const [selectedRecipe, setSelectedRecipe] = useState<number>(0)
+  const [selectableRecipes, setSelectableRecipes] = useState<
     TSelectablePlugins[]
   >([])
 
   useEffect(() => {
     // Make sure ui plugins have been loaded
-    if (loading) return
-    const selectAbleRecipes = config.uiRecipes.map((uiRecipe: any) => ({
+    if (loading || isLoading) return
+    const recipes = uiRecipes.map((uiRecipe: any) => ({
       name: uiRecipe?.label || uiRecipe?.name || uiRecipe?.plugin || 'No name',
       component: getUiPlugin(uiRecipe?.plugin).component,
       config: uiRecipe?.config,
     }))
-    setSelectablePlugins(selectAbleRecipes)
-  }, [loading])
+    // @ts-ignore
+    setSelectableRecipes(recipes)
+  }, [loading, isLoading, uiRecipes])
 
-  if (loading)
+  if (loading || isLoading)
     return (
       <div style={{ alignSelf: 'center', padding: '50px' }}>
         <CircularProgress color="primary" />
       </div>
     )
 
-  if (!selectablePlugins.length)
+  if (!selectableRecipes.length)
     return <Wrapper>No compatible uiRecipes for entity</Wrapper>
 
   const UiPlugin: (props: IUIPlugin) => JSX.Element =
-    selectablePlugins[selectedPlugin].component
-  const recipeConfig: any = selectablePlugins[selectedPlugin].config
+    selectableRecipes[selectedRecipe].component
 
   return (
     <Wrapper>
       <RecipeSidebarWrapper>
-        {selectablePlugins.map(
+        {selectableRecipes.map(
           (component: TSelectablePlugins, index: number) => (
             <SelectPluginButton
               key={index}
-              onClick={() => setSelectedPlugin(index)}
-              active={index === selectedPlugin}
+              onClick={() => setSelectedRecipe(index)}
+              active={index === selectedRecipe}
             >
               {component.name}
             </SelectPluginButton>
@@ -101,17 +97,18 @@ export function UiRecipesSideBarSelector(props: {
       <ErrorBoundary
         fallBack={() => (
           <h4 style={{ color: 'red' }}>
-            The UiPlugin <i>{selectablePlugins[selectedPlugin].name}</i>{' '}
+            The UiPlugin <i>{selectableRecipes[selectedRecipe].name}</i>{' '}
             crashed...
           </h4>
         )}
       >
         <UiPlugin
           idReference={idReference}
+          type={type}
           onSubmit={onSubmit}
           onOpen={onOpen}
           categories={categories}
-          config={recipeConfig}
+          config={selectableRecipes[selectedRecipe].config}
         />
       </ErrorBoundary>
     </Wrapper>

@@ -1,49 +1,28 @@
 {
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "DummyBlueprint",
-  "uiRecipe": {
+  "initialUiRecipe": {
     "name": "Sidebar",
-    "type": "CORE:UiRecipe",
+    "type": "dmss://system/SIMOS/UiRecipe",
     "plugin": "UiRecipesSideBarSelector",
-    "category": "selector",
-    "config": {
-      "type": "object",
-      "uiRecipes": [
-        {
-          "name": "Yaml",
-          "type": "CORE:UiRecipe",
-          "plugin": "yaml-view"
-        },
-        {
-          "type": "CORE:UiRecipe",
-          "name": "Edit",
-          "description": "Default blueprint edit",
-          "plugin": "edit-blueprint"
-        },
-        {
-          "name": "Diagram",
-          "type": "CORE:UiRecipe",
-          "plugin": "mermaid"
-        }
-      ]
+    "config": {}
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view"
     },
-    "uiRecipes": [
-      {
-        "name": "Yaml",
-        "type": "CORE:UiRecipe",
-        "plugin": "yaml-view"
-      },
-      {
-        "type": "CORE:UiRecipe",
-        "name": "Edit",
-        "description": "Default blueprint edit",
-        "plugin": "edit-blueprint"
-      },
-      {
-        "name": "Diagram",
-        "type": "CORE:UiRecipe",
-        "plugin": "mermaid"
-      }
-    ]
-  }
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default blueprint edit",
+      "plugin": "edit-blueprint"
+    },
+    {
+      "name": "Diagram",
+      "type": "CORE:UiRecipe",
+      "plugin": "mermaid"
+    }
+  ]
 }

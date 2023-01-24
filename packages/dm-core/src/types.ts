@@ -1,5 +1,5 @@
 import { JobStatus } from './services/api/configs/gen-job'
-import { EPluginType, IUIPlugin } from './context/UiPluginContext'
+import { EPluginType } from './context/UiPluginContext'
 import React from 'react'
 
 export type TDataSource = {
@@ -129,10 +129,20 @@ export type TValidEntity = {
   [key: string]: any
 }
 
+export interface IUIPlugin {
+  type: string
+  idReference: string
+  categories?: string[]
+  onSubmit?: (data: any) => void
+  onOpen?: (data: any) => void
+  config?: any
+  readOnly?: boolean
+}
+
 export type TPlugin = {
   pluginName: string
   pluginType: EPluginType
-  component: React.FC<IUIPlugin>
+  component: (props: IUIPlugin) => JSX.Element
 }
 
 export type TUserIdMapping = { userId: string; username: string }
