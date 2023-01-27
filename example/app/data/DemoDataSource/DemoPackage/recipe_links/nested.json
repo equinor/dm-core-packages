@@ -1,0 +1,40 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "../Plugins/Form/Nested",
+  "initialUiRecipe": {
+    "name": "Tabs",
+    "type": "CORE:UiRecipe",
+    "plugin": "tabs",
+    "config": {}
+  },
+  "uiRecipes": [
+    {
+      "name": "custom",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view",
+      "category": "view"
+    },
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "form",
+      "category": "edit"
+    },
+    {
+      "name": "aRecipeName",
+      "type": "CORE:UiRecipe",
+      "plugin": "form",
+      "category": "edit",
+      "config": {
+        "type": "/DemoPackage/configs/form/FormInput",
+        "attributes": [
+          {
+            "type": "/DemoPackage/configs/form/fields/StringField",
+            "name": "bar",
+            "widget": "TextareaWidget"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Nested",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "foo",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Foo",
+      "optional": true
+    },
+    {
+      "name": "bar",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Bar",
+      "optional": false
+    },
+    {
+      "name": "baz",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Baz",
+      "optional": true
+    }
+  ]
+}

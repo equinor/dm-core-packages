@@ -190,8 +190,10 @@ export function UIPluginSelector(props: IUIPlugin): JSX.Element {
 
   return (
     <Wrapper>
-      {config.breadcrumb && <DocumentPath absoluteDottedId={idReference} />}
-      {config.referencedBy && (
+      {config && config.breadcrumb && (
+        <DocumentPath absoluteDottedId={idReference} />
+      )}
+      {config && config.referencedBy && (
         <DocumentPath absoluteDottedId={config.referencedBy} />
       )}
       {selectablePlugins.length > 1 && (
