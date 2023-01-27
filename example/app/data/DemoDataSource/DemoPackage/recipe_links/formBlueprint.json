@@ -1,0 +1,88 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "../Plugins/Form/FormBlueprint",
+  "initialUiRecipe": {
+    "name": "Tabs",
+    "type": "CORE:UiRecipe",
+    "plugin": "tabs",
+    "config": {
+      "type": "TabsPluginConfig",
+      "homeRecipe": "home"
+    }
+  },
+  "uiRecipes": [
+    {
+      "type": "CORE:UiRecipe",
+      "name": "home",
+      "plugin": "UiPluginSelector",
+      "config": {
+        "type": "UiPluginSelectorConfig",
+        "recipes": ["Yaml", "Edit"]
+      }
+    },
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "plugin": "form",
+      "category": "edit",
+      "config": {
+        "type": "/DemoPackage/configs/form/FormInput",
+        "attributes": [
+          {
+            "type": "/DemoPackage/configs/form/fields/StringField",
+            "name": "type",
+            "widget": "TypeWidget"
+          },
+          {
+            "type": "/DemoPackage/configs/form/fields/StringField",
+            "name": "aDate",
+            "widget": "TextWidget",
+            "format": "date-time"
+          },
+          {
+            "type": "/DemoPackage/configs/form/fields/StringField",
+            "name": "description",
+            "widget": "TextareaWidget"
+          },
+          {
+            "type": "/DemoPackage/configs/form/fields/StringField",
+            "name": "aStringAsTextfield",
+            "widget": "TextareaWidget"
+          },
+          {
+            "type": "/DemoPackage/configs/form/fields/ObjectField",
+            "name": "aNestedObject",
+            "uiRecipe": "aRecipeName"
+          },
+          {
+            "type": "/DemoPackage/configs/form/fields/StringField",
+            "name": "blueprintPicker",
+            "widget": "BlueprintPickerWidget"
+          },
+          {
+            "type": "/DemoPackage/configs/form/fields/ObjectField",
+            "name": "aNestedObjectWithCustomUI",
+            "uiRecipe": "custom"
+          },
+          {
+            "type": "/DemoPackage/configs/form/fields/StringField",
+            "name": "blueprintPicker",
+            "widget": "ObjectWidget"
+          },
+          {
+            "type": "/DemoPackage/configs/form/fields/ArrayField",
+            "name": "listOfObjects",
+            "widget": "TableWidget",
+            "columns": ["name", "foo", "bar", "baz"]
+          }
+        ],
+        "order": ["name", "type", "description", "aBool", "*"]
+      }
+    },
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view"
+    }
+  ]
+}

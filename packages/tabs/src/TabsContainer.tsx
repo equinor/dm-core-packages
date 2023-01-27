@@ -17,7 +17,7 @@ interface ITabs {
   active: boolean
 }
 
-type TChildTab = {
+export type TChildTab = {
   attribute: string
   entity: any
   absoluteDottedId: string
@@ -73,13 +73,14 @@ export const TabsContainer = (props: IUIPlugin): JSX.Element => {
     if (!entity) return
     setFormData({ ...entity })
     if (config?.childTabsOnRender) {
-      let newChildTabs: TStringMap = {}
+      const newChildTabs: TStringMap = {}
       Object.entries(entity).forEach(([key, attributeData]: [string, any]) => {
         if (typeof attributeData == 'object') {
           newChildTabs[key] = {
             attribute: key,
             entity: attributeData,
             absoluteDottedId: `${idReference}.${key}`,
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
             onSubmit: () => {},
           }
         }
