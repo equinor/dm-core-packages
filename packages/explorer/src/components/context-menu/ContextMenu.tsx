@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
 import './react-contextmenu.css'
-import { ContextMenu, ContextMenuTrigger, MenuItem } from 'react-contextmenu'
+import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import { AxiosError } from 'axios'
 import {
   AuthContext,
@@ -18,7 +18,7 @@ import {
 import { NotificationManager } from 'react-notifications'
 import { createContextMenuItems } from './utils/createContextMenuItmes'
 import { SingleTextInput } from './utils/SingleTextInput'
-import { DialogContent, edsButtonStyleConfig } from './utils/styledComponents'
+import { DialogContent, edsButtonStyleConfig } from './utils/styles'
 import {
   DeleteAction,
   NewFolderAction,
@@ -85,14 +85,16 @@ export const NodeRightClickMenu = (props: {
           setScrimToShow('')
         }}
       >
-        <SingleTextInput
-          label={'Folder name'}
-          setFormData={setFormData}
-          handleSubmit={() =>
-            handleFormDataSubmit(node, formData, NewFolderAction)
-          }
-          buttonisDisabled={formData === undefined || formData === ''}
-        />
+        <DialogContent>
+          <SingleTextInput
+            label={'Folder name'}
+            setFormData={setFormData}
+            handleSubmit={() =>
+              handleFormDataSubmit(node, formData, NewFolderAction)
+            }
+            buttonisDisabled={formData === undefined || formData === ''}
+          />
+        </DialogContent>
       </Dialog>
 
       <Dialog
@@ -102,13 +104,8 @@ export const NodeRightClickMenu = (props: {
         closeScrim={() => setScrimToShow('')}
         header={'Confirm Deletion'}
       >
-        <DialogContent
-          style={{
-            padding: '10px',
-            height: '100%',
-          }}
-        >
-          <div>
+        <DialogContent>
+          <div style={{ paddingBottom: '18px' }}>
             Are you sure you want to delete the entity <b>{node.name}</b> of
             type <b>{node.type}</b>?
           </div>
@@ -142,14 +139,16 @@ export const NodeRightClickMenu = (props: {
         }}
         header={'New root package'}
       >
-        <SingleTextInput
-          label={'Root package name'}
-          handleSubmit={() =>
-            handleFormDataSubmit(node, formData, NewRootPackageAction)
-          }
-          setFormData={setFormData}
-          buttonisDisabled={formData === undefined || formData === ''}
-        />
+        <DialogContent>
+          <SingleTextInput
+            label={'Root package name'}
+            handleSubmit={() =>
+              handleFormDataSubmit(node, formData, NewRootPackageAction)
+            }
+            setFormData={setFormData}
+            buttonisDisabled={formData === undefined || formData === ''}
+          />
+        </DialogContent>
       </Dialog>
 
       <Dialog
@@ -201,7 +200,7 @@ export const NodeRightClickMenu = (props: {
         height={STANDARD_DIALOG_HEIGHT}
       >
         <DialogContent>
-          <div style={{ display: 'block', padding: '10px 0 0 10px' }}>
+          <div style={{ display: 'block' }}>
             <BlueprintPicker
               label={'Blueprint'}
               onChange={(selectedType: string) =>
@@ -247,7 +246,7 @@ export const NodeRightClickMenu = (props: {
         height={STANDARD_DIALOG_HEIGHT}
       >
         <DialogContent>
-          <div style={{ display: 'block', padding: '10px 0 0 10px' }}>
+          <div style={{ display: 'block' }}>
             <Label label={'Name'} />
             <Input
               style={{ width: INPUT_FIELD_WIDTH }}

@@ -17,7 +17,7 @@
 
 ### Development tips
 
-Oneline to get environment up and running (from the example folder)
+Oneliner to get environment up and running (run command from the example folder in the terminal)
 ```bash
 docker-compose run --rm dmss reset-app && dm reset app && docker-compose run --rm job-api dm -u http://dmss:5000 reset ../app && dm create-lookup example DemoDataSource/DemoPackage/recipe_links
 ```

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { ALMOST_BLACK } from './styles'
+
+export const ALMOST_BLACK = '#363636'
 
 export const H5 = styled.h5`
   margin-bottom: 2px;
