@@ -7,7 +7,7 @@ import {
   useDataSources,
   NewEntityButton,
   UIRecipesSelector,
-  TreeNode,
+  UIPluginSelector,
 } from '@development-framework/dm-core'
 import { useContext, useState } from 'react'
 

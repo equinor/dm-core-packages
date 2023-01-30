@@ -12,6 +12,7 @@ import {
   BlueprintPicker,
   INPUT_FIELD_WIDTH,
   ErrorResponse,
+  TNodeWrapperProps,
 } from '@development-framework/dm-core'
 
 // @ts-ignore
@@ -27,11 +28,7 @@ import {
 
 //Component that can be used when a context menu action requires one text (string) input.
 
-export const NodeRightClickMenu = (props: {
-  node: TreeNode
-  removeNode: () => void
-  children: any
-}) => {
+export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
   const { node, children, removeNode } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token, 'http://localhost:5000')
@@ -39,15 +36,10 @@ export const NodeRightClickMenu = (props: {
   const [formData, setFormData] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)
 
-  const STANDARD_DIALOG_WIDTH = '60vw'
-  const STANDARD_DIALOG_HEIGHT = '40vh'
+  const STANDARD_DIALOG_WIDTH = '100%'
+  const STANDARD_DIALOG_HEIGHT = '300px'
 
-  const menuItems = createContextMenuItems(
-    node,
-    dmssAPI,
-    removeNode,
-    setScrimToShow
-  )
+  const menuItems = createContextMenuItems(node, dmssAPI, setScrimToShow)
 
   const handleFormDataSubmit = (
     node: TreeNode,
@@ -120,6 +112,7 @@ export const NodeRightClickMenu = (props: {
               color="danger"
               onClick={async () => {
                 await DeleteAction(node, dmssAPI, setLoading)
+                await node.remove()
                 setScrimToShow('')
               }}
             >
@@ -220,7 +213,7 @@ export const NodeRightClickMenu = (props: {
               onClick={() => {
                 setLoading(true)
                 node
-                  .addEntity(formData?.type, formData?.name || '')
+                  .addEntity(`dmss://${formData?.type}`, formData?.name || '')
                   .then(() => {
                     setScrimToShow('')
                     NotificationManager.success(`New entity created`, 'Success')
