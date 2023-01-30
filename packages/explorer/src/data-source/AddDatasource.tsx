@@ -26,7 +26,7 @@ const constructType = (selectedDatasourceType: string) => {
 
 const AddDataSourceComponent = () => {
   const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token, 'http://localhost:8000')
+  const dmssAPI = new DmssAPI(token, 'http://localhost:5000')
   const { getUiPlugin } = useContext(UiPluginContext)
   const [selectedDatasourceType, setSelectedDatasourceType] = useState(
     'mongo-db'
