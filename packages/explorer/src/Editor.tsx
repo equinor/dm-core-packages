@@ -67,7 +67,7 @@ export default () => {
       node?.name || 'None',
       ELayoutComponents.blueprint,
       {
-        absoluteDottedId: node.nodeId,
+        idReference: node.nodeId,
         type: node.entity.type,
       }
     )
@@ -86,7 +86,6 @@ export default () => {
             <TreeView
               nodes={treeNodes}
               onSelect={(node: TreeNode) => open(node)}
-              // @ts-ignore
               NodeWrapper={NodeRightClickMenu}
             />
           )}

@@ -5,7 +5,6 @@ import React from 'react'
 export function createContextMenuItems(
   node: TreeNode,
   dmssAPI: DmssAPI,
-  removeNode: () => void,
   setShowScrimId: (id: string) => void
 ): JSX.Element[] {
   const menuItems = []
