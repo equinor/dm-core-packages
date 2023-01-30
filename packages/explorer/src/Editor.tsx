@@ -1,13 +1,22 @@
-import React, {useContext} from 'react'
-import {ELayoutComponents, ILayout, useLayout,} from './context/dashboard/useLayout'
-import {ModalProvider} from './context/modal/ModalContext'
-import {GoldenLayoutComponent} from './components/golden-layout/GoldenLayoutComponent'
+import React, { useContext } from 'react'
+import {
+  ELayoutComponents,
+  ILayout,
+  useLayout,
+} from './context/dashboard/useLayout'
+import { ModalProvider } from './context/modal/ModalContext'
+import { GoldenLayoutComponent } from './components/golden-layout/GoldenLayoutComponent'
 import GoldenLayoutPanel from './components/golden-layout/GoldenLayoutPanel'
 import styled from 'styled-components'
-import {FSTreeContext, TreeNode, TreeView, UIPluginSelector,} from '@development-framework/dm-core'
-import {NodeRightClickMenu} from './components/context-menu/ContextMenu'
+import {
+  FSTreeContext,
+  TreeNode,
+  TreeView,
+  UIPluginSelector,
+} from '@development-framework/dm-core'
+import { NodeRightClickMenu } from './components/context-menu/ContextMenu'
 
-import {Progress} from '@equinor/eds-core-react'
+import { Progress } from '@equinor/eds-core-react'
 
 export const TreeWrapper = styled.div`
   width: 25%;
@@ -24,7 +33,7 @@ function wrapComponent(Component: any) {
     render() {
       return (
         <GoldenLayoutPanel {...this.props}>
-          <Component/>
+          <Component />
         </GoldenLayoutPanel>
       )
     }
@@ -46,7 +55,7 @@ const LAYOUT_CONFIG = {
 }
 
 export default () => {
-  const {treeNodes, loading} = useContext(FSTreeContext)
+  const { treeNodes, loading } = useContext(FSTreeContext)
   const layout: ILayout = useLayout()
 
   const open = (node: TreeNode) => {
@@ -67,11 +76,11 @@ export default () => {
 
   return (
     <ModalProvider>
-      <div style={{display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
         <TreeWrapper>
           {loading ? (
-            <div style={{display: 'flex', justifyContent: 'center'}}>
-              <Progress.Circular/>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Progress.Circular />
             </div>
           ) : (
             <TreeView
@@ -83,7 +92,7 @@ export default () => {
           )}
         </TreeWrapper>
         <GoldenLayoutComponent
-          htmlAttrs={{style: {height: '100vh', width: '100%'}}}
+          htmlAttrs={{ style: { height: '100vh', width: '100%' } }}
           config={LAYOUT_CONFIG}
           registerComponents={(myLayout: any) => {
             myLayout.registerComponent(

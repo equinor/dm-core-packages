@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
-// import './react-contextmenu.css'
+import './react-contextmenu.css'
 import { ContextMenu, ContextMenuTrigger, MenuItem } from 'react-contextmenu'
 import { AxiosError } from 'axios'
 import {
@@ -16,146 +16,16 @@ import {
 
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
-
-function createMenuItems(
-  node: TreeNode,
-  dmssAPI: DmssAPI,
-  removeNode: () => void,
-  setShowScrimId: (id: string) => void
-): JSX.Element[] {
-  const menuItems = []
-
-  // dataSources get a "new root package"
-  if (node.type === 'dataSource') {
-    menuItems.push(
-      // @ts-ignore
-      <MenuItem
-        key={'new-root-package'}
-        onClick={() => setShowScrimId('new-root-package')}
-      >
-        New package
-      </MenuItem>
-    )
-  }
-
-  // Append to lists
-  if (node.attribute.dimensions !== '') {
-    menuItems.push(
-      // @ts-ignore
-      <MenuItem
-        key={'append-entity'}
-        onClick={() => setShowScrimId('append-entity')}
-      >
-        Append {node.name}
-      </MenuItem>
-    )
-  }
-
-  // Packages get a "new folder"
-  // and "new entity"
-  // and "new blueprint"
-  if (node.type == EBlueprint.PACKAGE) {
-    menuItems.push(
-      // @ts-ignore
-      <MenuItem key={'new-entity'} onClick={() => setShowScrimId('new-entity')}>
-        New entity
-      </MenuItem>
-    )
-    menuItems.push(
-      // @ts-ignore
-      <MenuItem
-        key={'new-blueprint'}
-        onClick={() => setShowScrimId('new-blueprint')}
-      >
-        New blueprint
-      </MenuItem>
-    )
-    menuItems.push(
-      // @ts-ignore
-      <MenuItem key={'new-folder'} onClick={() => setShowScrimId('new-folder')}>
-        New folder
-      </MenuItem>
-    )
-  }
-
-  // Everything besides dataSources and folders can be viewed
-  if (!['dataSource', EBlueprint.PACKAGE].includes(node.type)) {
-    menuItems.push(
-      // @ts-ignore
-      <MenuItem
-        key={'view'}
-        onClick={() => {
-          // @ts-ignore
-          window.open(`dmt/view/${node.nodeId}`, '_blank').focus()
-        }}
-      >
-        View in new tab
-      </MenuItem>
-    )
-  }
-
-  // Everything besides dataSources can be deleted
-  if (node.type !== 'dataSource') {
-    menuItems.push(
-      //@ts-ignore
-      <MenuItem
-        key={'delete'}
-        onClick={() => {
-          setShowScrimId('delete')
-        }}
-      >
-        Delete
-      </MenuItem>
-    )
-  }
-
-  return menuItems
-}
+import { createContextMenuItems } from './utils/createContextMenuItmes'
+import { SingleTextInput } from './utils/SingleTextInput'
+import { DialogContent, edsButtonStyleConfig } from './utils/styledComponents'
+import {
+  DeleteAction,
+  NewFolderAction,
+  NewRootPackageAction,
+} from './utils/contextMenuActions'
 
 //Component that can be used when a context menu action requires one text (string) input.
-const SingleTextInput = (props: {
-  label: string
-  handleSubmit: () => void
-  setFormData: (newFormData: string) => void
-  buttonisDisabled: boolean
-}) => {
-  const { label, handleSubmit, setFormData, buttonisDisabled } = props
-  return (
-    <div>
-      <div style={{ display: 'block', padding: '10px 0 0 10px' }}>
-        <Label label={label} />
-        <Input
-          type={'string'}
-          style={{ width: INPUT_FIELD_WIDTH }}
-          onChange={(event) => setFormData(event.target.value)}
-        />
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Button
-          disabled={buttonisDisabled}
-          style={edsButtonStyleConfig}
-          onClick={() => {
-            handleSubmit()
-          }}
-        >
-          Create
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-const edsButtonStyleConfig = {
-  marginTop: '40px',
-  width: '200px',
-  alignSelf: 'center',
-}
 
 export const NodeRightClickMenu = (props: {
   node: TreeNode
@@ -169,85 +39,28 @@ export const NodeRightClickMenu = (props: {
   const [formData, setFormData] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)
 
-  const STANDARD_DIALOG_WIDTH = '30vw'
-  const STANDARD_DIALOG_HEIGHT = '20vh'
+  const STANDARD_DIALOG_WIDTH = '60vw'
+  const STANDARD_DIALOG_HEIGHT = '40vh'
 
-  const menuItems = createMenuItems(node, dmssAPI, removeNode, setScrimToShow)
-
-  const DeleteAction = async (node: TreeNode) => {
-    setLoading(true)
-    await dmssAPI
-      .documentRemoveByPath({
-        dataSourceId: node.dataSource,
-        directory: node.pathFromRootPackage(),
-      })
-      .then(() => {
-        node.remove()
-        NotificationManager.success('Deleted')
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-        NotificationManager.error(
-          error.response?.data.message,
-          'Failed to delete'
-        )
-      })
-      .finally(() => setLoading(false))
-  }
-
-  const NewFolderAction = (node: TreeNode, folderName: string) => {
-    const newFolder = {
-      name: folderName,
-      type: 'system/SIMOS/Package',
-      isRoot: false,
-      content: [],
-    }
-    const ref = `${node.nodeId}.content`
-    dmssAPI
-      .documentAdd({
-        absoluteRef: ref,
-        body: newFolder,
-        updateUncontained: true,
-      })
-      .then(() => node.expand())
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-        NotificationManager.error(error.response?.data.message)
-      })
-  }
-
-  const NewRootPackageAction = (node: TreeNode, packageName: string) => {
-    const newPackage = {
-      name: packageName,
-      type: 'system/SIMOS/Package',
-      isRoot: true,
-      content: [],
-    }
-    const ref: string = node.dataSource
-    dmssAPI
-      .documentAdd({
-        absoluteRef: ref,
-        body: newPackage,
-        updateUncontained: true,
-      })
-      .then(() => {
-        node.expand()
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        NotificationManager.error(
-          JSON.stringify(error.response?.data.message),
-          'Failed to create new root package'
-        )
-      })
-  }
+  const menuItems = createContextMenuItems(
+    node,
+    dmssAPI,
+    removeNode,
+    setScrimToShow
+  )
 
   const handleFormDataSubmit = (
     node: TreeNode,
     formData: string,
-    action: (node: TreeNode, formData: string) => void
+    action: (
+      node: TreeNode,
+      formData: string,
+      dmssAPI: DmssAPI,
+      setLoading: (isLoading: boolean) => void
+    ) => void
   ) => {
     if (formData) {
-      action(node, formData)
+      action(node, formData, dmssAPI, setLoading)
       setScrimToShow('')
       setFormData('')
     } else {
@@ -289,13 +102,10 @@ export const NodeRightClickMenu = (props: {
         closeScrim={() => setScrimToShow('')}
         header={'Confirm Deletion'}
       >
-        <div
+        <DialogContent
           style={{
             padding: '10px',
             height: '100%',
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'column',
           }}
         >
           <div>
@@ -312,14 +122,14 @@ export const NodeRightClickMenu = (props: {
             <Button
               color="danger"
               onClick={async () => {
-                await DeleteAction(node)
+                await DeleteAction(node, dmssAPI, setLoading)
                 setScrimToShow('')
               }}
             >
               {loading ? <Progress.Dots /> : 'Delete'}
             </Button>
           </div>
-        </div>
+        </DialogContent>
       </Dialog>
 
       <Dialog
@@ -348,13 +158,7 @@ export const NodeRightClickMenu = (props: {
         header={`Append new entity to list`}
         width={STANDARD_DIALOG_WIDTH}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
+        <DialogContent>
           {loading ? (
             <Button style={edsButtonStyleConfig}>
               <Progress.Dots />
@@ -386,7 +190,7 @@ export const NodeRightClickMenu = (props: {
               Create
             </Button>
           )}
-        </div>
+        </DialogContent>
       </Dialog>
 
       <Dialog
@@ -396,13 +200,7 @@ export const NodeRightClickMenu = (props: {
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
+        <DialogContent>
           <div style={{ display: 'block', padding: '10px 0 0 10px' }}>
             <BlueprintPicker
               label={'Blueprint'}
@@ -438,7 +236,7 @@ export const NodeRightClickMenu = (props: {
               Create
             </Button>
           )}
-        </div>
+        </DialogContent>
       </Dialog>
 
       <Dialog
@@ -448,13 +246,7 @@ export const NodeRightClickMenu = (props: {
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
+        <DialogContent>
           <div style={{ display: 'block', padding: '10px 0 0 10px' }}>
             <Label label={'Name'} />
             <Input
@@ -492,7 +284,7 @@ export const NodeRightClickMenu = (props: {
               Create
             </Button>
           )}
-        </div>
+        </DialogContent>
       </Dialog>
     </div>
   )

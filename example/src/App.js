@@ -10,6 +10,7 @@ import {
   TreeNode,
 } from '@development-framework/dm-core'
 import { useContext, useState } from 'react'
+
 import { Jobs } from './test_components/Jobs'
 
 function App() {
@@ -32,6 +33,12 @@ function App() {
         overflow: 'auto',
       }}
     >
+      <h3>Explorer from explorer</h3>
+      <UIPluginSelector
+        type={'dmss://system/SIMOS/Application'}
+        absoluteDottedId={'DemoDataSource/03bf685b-edb6-40e4-8c67-62b13fefecaa'}
+      />
+      <h3>TreeView from dm-core</h3>
       <div
         style={{
           border: '2px solid blue',
@@ -58,7 +65,7 @@ function App() {
       <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')} />
 
       <Jobs />
-      <p>Test create new NamedEntity:</p>
+      <h3>NewEntityButton button from dm-core</h3>
       <NewEntityButton
         type={'dmss://system/SIMOS/NamedEntity'}
         defaultDestination={'DemoDataSource/DemoPackage'}
@@ -74,7 +81,7 @@ function App() {
       />
       {Object.entries(createdEntity).length !== 0 && (
         <>
-          <h2>Created entity:</h2>
+          <h3>Created entity:</h3>
           <JsonView data={createdEntity} />
         </>
       )}
