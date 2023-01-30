@@ -4,7 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 /*
- * This component is gotten from https://javascript.plainenglish.io/architecting-and-making-a-modal-with-react-75bf652ccc70
+ * This component is from https://javascript.plainenglish.io/architecting-and-making-a-modal-with-react-75bf652ccc70
  */
 
 const ModalWrapper = styled.div`
