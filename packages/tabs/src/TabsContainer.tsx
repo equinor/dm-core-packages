@@ -61,13 +61,15 @@ export const TabsContainer = (props: IUIPlugin) => {
     setFormData({ ...entity })
   }, [entity])
 
-  if (!entity || Object.keys(formData).length === 0) return null
+  if (!entity || Object.keys(formData).length === 0) {
+    console.error('TabsContainer failed. Entity is empty.')
+  }
 
   const handleOpen = (tabData: TChildTab) => {
     setChildTabs({ ...childTabs, [tabData.attribute]: tabData })
     setSelectedTab(tabData.attribute)
   }
-  if (isLoading) {
+  if (isLoading || entity === null) {
     return <Loading />
   }
   return (
@@ -107,8 +109,7 @@ export const TabsContainer = (props: IUIPlugin) => {
         </div>
         <HidableWrapper hidden={'home' !== selectedTab}>
           <UIPluginSelector
-            key={'home'}
-            absoluteDottedId={`${dataSourceId}/${documentId}`}
+            idReference={`${dataSourceId}/${documentId}`}
             type={formData.type}
             categories={config?.subCategories?.filter(
               (c: string) => c !== 'container'
@@ -132,8 +133,8 @@ export const TabsContainer = (props: IUIPlugin) => {
               hidden={childTab.attribute !== selectedTab}
             >
               <UIPluginSelector
-                absoluteDottedId={childTab.absoluteDottedId}
-                type={childTab.entity.type}
+                idReference={childTab.absoluteDottedId}
+                type={childTab.entity.type as string}
                 categories={childTab.categories}
                 onSubmit={(data: TChildTab) => {
                   const newFormData = {
