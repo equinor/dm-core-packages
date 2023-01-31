@@ -7,7 +7,7 @@ import { AuthContext } from 'react-oauth2-code-pkce'
 import { getRoles } from '../utils/appRoles'
 import { ErrorBoundary } from '../utils/ErrorBoundary'
 import { useBlueprint } from '../hooks'
-import { IUIPlugin, TPlugin } from '../types'
+import { IUIPlugin, TUiRecipe } from '../types'
 
 const lightGray = '#d3d3d3'
 
@@ -100,36 +100,45 @@ type TSelectablePlugins = {
   config: any
 }
 
+type TUiPluginSelectorConfig = {
+  recipes: string[]
+  breadcrumb?: boolean
+  referencedBy?: string
+}
+
 function filterPlugins(
-  uiRecipes: object[],
-  categories: string[],
+  uiRecipes: TUiRecipe[],
   roles: string[],
-  getUIPlugin: (name: string) => TPlugin
+  getUIPlugin: (pluginName: string) => (props: IUIPlugin) => JSX.Element,
+  config?: TUiPluginSelectorConfig
 ): TSelectablePlugins[] {
-  const fallbackPlugin = [
-    { name: 'yaml', component: getUIPlugin('yaml-view').component, config: {} },
+  const fallbackPlugin: TSelectablePlugins[] = [
+    { name: 'yaml', component: getUIPlugin('yaml-view'), config: {} },
   ]
+
   // Blueprint has no recipes
   if (!uiRecipes.length) return fallbackPlugin
 
-  // Filter on category and role
-  uiRecipes = uiRecipes.filter((recipe: any) => {
-    if (categories.length) {
-      return categories.includes(recipe?.category)
-    }
-    return true
-  })
-  uiRecipes = uiRecipes.filter((recipe: any) => {
+  uiRecipes = uiRecipes.filter((recipe: TUiRecipe) => {
     // If no role filter on recipe, keep it. Else, only keep it if one of the active roles match one of the roles
     // given in recipe
-    if (recipe.roles?.length) {
+    if (recipe?.roles && recipe.roles.length) {
       return (
+        // @ts-ignore
         roles.filter((activeRole: string) => recipe.roles.includes(activeRole))
           .length > 0
       )
     }
     return true
   })
+
+  // Filter on recipes from config
+  if (config?.recipes) {
+    uiRecipes = uiRecipes.filter((recipe: TUiRecipe) =>
+      config.recipes.includes(recipe.name)
+    )
+  }
+
   // If there are no recipes with the correct filter, show fallback
   if (!uiRecipes.length) {
     return fallbackPlugin
@@ -138,30 +147,13 @@ function filterPlugins(
   // Return the remaining recipes
   return uiRecipes.map((uiRecipe: any) => ({
     name: uiRecipe?.label || uiRecipe?.name || uiRecipe?.plugin || 'No name',
-    component: getUIPlugin(uiRecipe?.plugin).component,
+    component: getUIPlugin(uiRecipe?.plugin),
     config: uiRecipe?.config,
   }))
 }
 
-export function UIPluginSelector(props: {
-  idReference: string
-  type: string
-  onSubmit?: (data: any) => void
-  categories?: string[]
-  breadcrumb?: boolean
-  referencedBy?: string
-  onOpen?: (data: any) => void
-  config?: any
-}): JSX.Element {
-  const {
-    idReference,
-    type,
-    categories,
-    breadcrumb,
-    referencedBy,
-    onSubmit,
-    onOpen,
-  } = props
+export function UIPluginSelector(props: IUIPlugin): JSX.Element {
+  const { idReference, type, onSubmit, onOpen, config } = props
   const { uiRecipes, isLoading: isBlueprintLoading, error } = useBlueprint(type)
   const { loading: isContextLoading, getUiPlugin } = useContext(UiPluginContext)
   const { tokenData } = useContext(AuthContext)
@@ -174,9 +166,7 @@ export function UIPluginSelector(props: {
   useEffect(() => {
     // Make sure uiRecipes and ui plugins have been loaded
     if (isBlueprintLoading || isContextLoading) return
-    setSelectablePlugins(
-      filterPlugins(uiRecipes, categories || [], roles, getUiPlugin)
-    )
+    setSelectablePlugins(filterPlugins(uiRecipes, roles, getUiPlugin, config))
   }, [uiRecipes, isContextLoading, isBlueprintLoading])
 
   if (isBlueprintLoading || isContextLoading)
@@ -197,12 +187,13 @@ export function UIPluginSelector(props: {
 
   const UiPlugin: (props: IUIPlugin) => JSX.Element =
     selectablePlugins[selectedPlugin].component
-  const config: any = selectablePlugins[selectedPlugin].config
 
   return (
     <Wrapper>
-      {breadcrumb && <DocumentPath absoluteDottedId={idReference} />}
-      {referencedBy && <DocumentPath absoluteDottedId={referencedBy} />}
+      {config.breadcrumb && <DocumentPath absoluteDottedId={idReference} />}
+      {config.referencedBy && (
+        <DocumentPath absoluteDottedId={config.referencedBy} />
+      )}
       {selectablePlugins.length > 1 && (
         <PluginTabsWrapper>
           {selectablePlugins.map(
@@ -232,8 +223,7 @@ export function UIPluginSelector(props: {
           type={type}
           onSubmit={onSubmit}
           onOpen={onOpen}
-          categories={categories}
-          config={config}
+          config={selectablePlugins[selectedPlugin].config}
         />
       </ErrorBoundary>
     </Wrapper>

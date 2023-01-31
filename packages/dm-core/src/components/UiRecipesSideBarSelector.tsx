@@ -46,7 +46,7 @@ type TSelectablePlugins = {
 }
 
 export function UiRecipesSideBarSelector(props: IUIPlugin): JSX.Element {
-  const { idReference, categories, onSubmit, onOpen, type } = props
+  const { idReference, onSubmit, onOpen, type } = props
   const { loading: isContextLoading, getUiPlugin } = useContext(UiPluginContext)
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
   const [selectedRecipe, setSelectedRecipe] = useState<number>(0)
@@ -61,7 +61,7 @@ export function UiRecipesSideBarSelector(props: IUIPlugin): JSX.Element {
       (uiRecipe: any): TSelectablePlugins => ({
         name:
           uiRecipe?.label || uiRecipe?.name || uiRecipe?.plugin || 'No name',
-        component: getUiPlugin(uiRecipe?.plugin).component,
+        component: getUiPlugin(uiRecipe?.plugin),
         config: uiRecipe?.config,
       })
     )
@@ -110,7 +110,6 @@ export function UiRecipesSideBarSelector(props: IUIPlugin): JSX.Element {
           type={type}
           onSubmit={onSubmit}
           onOpen={onOpen}
-          categories={categories}
           config={selectableRecipes[selectedRecipe].config}
         />
       </ErrorBoundary>
