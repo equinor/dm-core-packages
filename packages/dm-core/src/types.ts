@@ -132,16 +132,21 @@ export type TValidEntity = {
 export interface IUIPlugin {
   type: string
   idReference: string
-  categories?: string[]
   onSubmit?: (data: any) => void
   onOpen?: (data: any) => void
   config?: any
-  readOnly?: boolean
+}
+
+export type TUiRecipe = {
+  type: string
+  name: string
+  plugin: string
+  roles?: string[]
 }
 
 export type TPlugin = {
   pluginName: string
-  pluginType: EPluginType
+  pluginType?: EPluginType
   component: (props: IUIPlugin) => JSX.Element
 }
 

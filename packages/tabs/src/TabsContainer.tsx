@@ -50,7 +50,6 @@ type TStringMap = {
 
 export const TabsContainer = (props: IUIPlugin) => {
   const { idReference, config, onSubmit } = props
-  const [dataSourceId, documentId] = idReference.split('/', 2)
   const [selectedTab, setSelectedTab] = useState<string>('home')
   const [formData, setFormData] = useState<TGenericObject>({})
   const [childTabs, setChildTabs] = useState<TStringMap>({})
@@ -61,7 +60,7 @@ export const TabsContainer = (props: IUIPlugin) => {
     setFormData({ ...entity })
   }, [entity])
 
-  if (!entity || Object.keys(formData).length === 0) return null
+  if (!entity || Object.keys(formData).length === 0) return <></>
 
   const handleOpen = (tabData: TChildTab) => {
     setChildTabs({ ...childTabs, [tabData.attribute]: tabData })
@@ -108,7 +107,7 @@ export const TabsContainer = (props: IUIPlugin) => {
         <HidableWrapper hidden={'home' !== selectedTab}>
           <UIPluginSelector
             key={'home'}
-            absoluteDottedId={`${dataSourceId}/${documentId}`}
+            idReference={idReference}
             type={formData.type}
             categories={config?.subCategories?.filter(
               (c: string) => c !== 'container'
@@ -132,7 +131,7 @@ export const TabsContainer = (props: IUIPlugin) => {
               hidden={childTab.attribute !== selectedTab}
             >
               <UIPluginSelector
-                absoluteDottedId={childTab.absoluteDottedId}
+                idReference={childTab.absoluteDottedId}
                 type={childTab.entity.type}
                 categories={childTab.categories}
                 onSubmit={(data: TChildTab) => {

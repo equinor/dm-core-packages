@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
 import { useBlueprint } from '../hooks'
 import { UIPluginSelector } from './UiPluginSelector'
-import { UiRecipesSideBarSelector } from './UiRecipesSideBarSelector'
 import { UiPluginContext } from '../context/UiPluginContext'
 import { IUIPlugin } from '../types'
 
@@ -27,24 +26,13 @@ export function UIRecipesSelector(props: IUIPlugin): JSX.Element {
   useEffect(() => {
     // Make sure uiRecipes has been loaded
     if (isBlueprintLoading || isContextLoading) return
-    let component
 
     if (!initialUiRecipe) {
       setInitialPlugin({ component: UIPluginSelector })
       return
     }
 
-    switch (initialUiRecipe.plugin) {
-      case 'UiPluginSelector':
-        component = UIPluginSelector
-        break
-      case 'UiRecipesSideBarSelector':
-        component = UiRecipesSideBarSelector
-        break
-      default:
-        component = getUiPlugin(initialUiRecipe.plugin).component
-    }
-    setInitialPlugin({ component: component })
+    setInitialPlugin({ component: getUiPlugin(initialUiRecipe.plugin) })
   }, [initialUiRecipe, isBlueprintLoading, isContextLoading])
 
   if (isBlueprintLoading || isContextLoading)

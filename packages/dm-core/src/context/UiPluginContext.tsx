@@ -1,8 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { TPlugin } from '../types'
+import { IUIPlugin, TPlugin } from '../types'
+import { UIPluginSelector, UiRecipesSideBarSelector } from '../components'
 
 type TUiPluginMap = {
-  [key: string]: TPlugin
+  [pluginName: string]: (props: IUIPlugin) => JSX.Element
 }
 
 export interface ILoadedPlugin {
@@ -17,25 +18,13 @@ export enum EPluginType {
 type TUiPluginContext = {
   plugins: TUiPluginMap
   loading: boolean
-  getUiPlugin: (uiRecipeName: string) => TPlugin
-  getPagePlugin: (uiRecipeName: string) => TPlugin
+  getUiPlugin: (pluginName: string) => (props: IUIPlugin) => JSX.Element
 }
-const emtpyDMTPlugin: TPlugin = {
-  pluginType: EPluginType.PAGE,
-  pluginName: '',
-  component: () => {
-    return <div></div>
-  },
-}
+
 const emptyContext: TUiPluginContext = {
   loading: false,
   plugins: {},
-  getUiPlugin: (uiRecipeName: string) => {
-    return emtpyDMTPlugin
-  },
-  getPagePlugin: (uiRecipeName: string) => {
-    return emtpyDMTPlugin
-  },
+  getUiPlugin: () => () => <></>,
 }
 export const UiPluginContext = createContext<TUiPluginContext>(emptyContext)
 
@@ -46,7 +35,12 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
   // Async load all the javascript packages defined in packages.json
   // Iterate every package, and adding all the UiPlugins contained in each package to the context
   useEffect(() => {
-    let newPluginMap: TUiPluginMap
+    // Add builtin plugins
+    let newPluginMap: TUiPluginMap = {
+      UiPluginSelector: UIPluginSelector,
+      UiRecipesSideBarSelector: UiRecipesSideBarSelector,
+    }
+
     Promise.all(
       pluginsToLoad.map(
         async (pluginPackage: any) =>
@@ -59,7 +53,10 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
         pluginPackageList.forEach((pluginPackage: TPlugin[]) => {
           pluginPackage.forEach(
             (plugin) =>
-              (newPluginMap = { ...newPluginMap, [plugin.pluginName]: plugin })
+              (newPluginMap = {
+                ...newPluginMap,
+                [plugin.pluginName]: plugin.component,
+              })
           )
         })
         setPlugins(newPluginMap)
@@ -71,31 +68,13 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
       .finally(() => setLoading(false))
   }, [pluginsToLoad])
 
-  function getUiPlugin(uiRecipeName: string): TPlugin {
-    const pluginName = uiRecipeName.trim()
+  function getUiPlugin(pluginName: string): (props: IUIPlugin) => JSX.Element {
     if (pluginName in plugins) return plugins[pluginName]
-    return {
-      pluginName: 'NotFound',
-      pluginType: EPluginType.UI,
-      component: () => <div>Did not find the plugin: {pluginName} </div>,
-    }
-  }
-
-  function getPagePlugin(uiRecipeName: string): TPlugin {
-    const pluginName = uiRecipeName.trim()
-    if (pluginName in plugins) {
-      return plugins[pluginName]
-    }
-    console.warn(
-      `No pagePlugin loaded for application '${pluginName}'. Defaulting to the DMT view`
-    )
-    return plugins['DMT']
+    return () => <div>Did not find the plugin: {pluginName} </div>
   }
 
   return (
-    <UiPluginContext.Provider
-      value={{ plugins, loading, getUiPlugin, getPagePlugin }}
-    >
+    <UiPluginContext.Provider value={{ plugins, loading, getUiPlugin }}>
       {children}
     </UiPluginContext.Provider>
   )
