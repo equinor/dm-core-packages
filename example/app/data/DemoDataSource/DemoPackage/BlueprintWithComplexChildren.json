@@ -1,0 +1,34 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "BlueprintWithComplexChildren",
+  "attributes": [
+    {
+      "attributeType": "BlueprintWithComplexChildren",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "firstAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "BlueprintWithComplexChildren",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "secondAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "BlueprintWithComplexChildren",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "thirdAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "string",
+      "type": "string",
+      "name": "aStringValue",
+      "contained": true,
+      "optional": true
+    }
+  ]
+}

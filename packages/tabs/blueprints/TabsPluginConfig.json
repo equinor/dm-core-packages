@@ -1,0 +1,21 @@
+{
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "TabsPluginConfig",
+  "attributes": [
+    {
+      "attributeType": "boolean",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "childTabsOnRender",
+      "contained": true,
+      "optional": true,
+      "default": false
+    },
+    {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "homeRecipe",
+      "contained": true,
+      "optional": true
+    }
+  ]
+}
