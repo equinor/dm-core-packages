@@ -1,0 +1,37 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "BlueprintWithComplexChildren",
+  "initialUiRecipe": {
+    "name": "Tabs",
+    "type": "CORE:UiRecipe",
+    "plugin": "tabs",
+    "config": {
+      "type": "TabsPluginConfig",
+      "childTabsOnRender": true,
+      "homeRecipe": "home"
+    }
+  },
+  "uiRecipes": [
+    {
+      "type": "CORE:UiRecipe",
+      "name": "home",
+      "plugin": "UiPluginSelector",
+      "config": {
+        "type": "UiPluginSelectorConfig",
+        "recipes": ["Yaml", "Edit"]
+      }
+    },
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view",
+      "category": "container"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default edit",
+      "plugin": "form"
+    }
+  ]
+}

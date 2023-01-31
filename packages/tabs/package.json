@@ -1,21 +1,21 @@
 {
   "name": "@development-framework/tabs",
   "license": "MIT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "dependencies": {
     "@equinor/eds-core-react": "^0.20.0",
     "@equinor/eds-icons": "^0.12.0",
-    "@equinor/eds-tokens": "^0.7.0"
+    "@equinor/eds-tokens": "^0.7.0",
+    "@development-framework/dm-core": ">=1.0.35"
   },
   "devDependencies": {
     "@types/react": "^17.0.39",
     "@types/styled-components": "^4.1.18",
-    "typescript": "^4.5.5",
-    "@development-framework/dm-core": ">=1.0.25"
+    "typescript": "^4.5.5"
   },
   "peerDependencies": {
-    "@development-framework/dm-core": ">=1.0.25",
-    "react": ">=17.0.2"
+    "react": ">=17.0.2",
+    "@development-framework/dm-core": ">=1.0.35"
   },
   "files": [
     "dist",
@@ -27,6 +27,6 @@
   "scripts": {
     "prebuild": "rm -rf dist && yarn install",
     "build": "tsc",
-    "postbuild": "cp package.json ./dist/ && rm -rf node_modules"
+    "postbuild": "cp -R blueprints package.json ./dist/ && rm -rf node_modules"
   }
 }

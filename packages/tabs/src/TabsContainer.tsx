@@ -1,19 +1,27 @@
 import {
   IUIPlugin,
   Loading,
-  TChildTab,
   TGenericObject,
   UIPluginSelector,
+  UIRecipesSelector,
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Icon, Tooltip } from '@equinor/eds-core-react'
+import { home } from '@equinor/eds-icons'
 import { TabsProvider } from './TabsContext'
 
 interface ITabs {
   active: boolean
+}
+
+type TChildTab = {
+  attribute: string
+  entity: any
+  absoluteDottedId: string
+  onSubmit: (data: TChildTab) => void
 }
 
 const Tab = styled.div<ITabs>`
@@ -48,8 +56,14 @@ type TStringMap = {
   [key: string]: TChildTab
 }
 
-export const TabsContainer = (props: IUIPlugin) => {
-  const { idReference, config, onSubmit } = props
+export type TTabsPluginConfig = {
+  childTabsOnRender: boolean
+  homeRecipe: string
+}
+
+export const TabsContainer = (props: IUIPlugin): JSX.Element => {
+  const { idReference, config: passedConfig, onSubmit } = props
+  const config: TTabsPluginConfig = passedConfig
   const [selectedTab, setSelectedTab] = useState<string>('home')
   const [formData, setFormData] = useState<TGenericObject>({})
   const [childTabs, setChildTabs] = useState<TStringMap>({})
@@ -58,17 +72,34 @@ export const TabsContainer = (props: IUIPlugin) => {
   useEffect(() => {
     if (!entity) return
     setFormData({ ...entity })
+    if (config?.childTabsOnRender) {
+      let newChildTabs: TStringMap = {}
+      Object.entries(entity).forEach(([key, attributeData]: [string, any]) => {
+        if (typeof attributeData == 'object') {
+          newChildTabs[key] = {
+            attribute: key,
+            entity: attributeData,
+            absoluteDottedId: `${idReference}.${key}`,
+            onSubmit: () => {},
+          }
+        }
+      })
+      setChildTabs(newChildTabs)
+    }
   }, [entity])
 
-  if (!entity || Object.keys(formData).length === 0) return <></>
+  if (!entity || Object.keys(formData).length === 0)
+    return <>No data in entity</>
 
   const handleOpen = (tabData: TChildTab) => {
     setChildTabs({ ...childTabs, [tabData.attribute]: tabData })
     setSelectedTab(tabData.attribute)
   }
+
   if (isLoading) {
     return <Loading />
   }
+
   return (
     <TabsProvider onOpen={handleOpen}>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -85,7 +116,7 @@ export const TabsContainer = (props: IUIPlugin) => {
               onClick={() => setSelectedTab('home')}
               active={selectedTab === 'home'}
             >
-              <Icon name="home" size={24} />
+              <Icon data={home} size={24} />
             </BaseTab>
           </Tooltip>
           {Object.values(childTabs).map((tabData: TChildTab) => (
@@ -106,12 +137,8 @@ export const TabsContainer = (props: IUIPlugin) => {
         </div>
         <HidableWrapper hidden={'home' !== selectedTab}>
           <UIPluginSelector
-            key={'home'}
             idReference={idReference}
             type={formData.type}
-            categories={config?.subCategories?.filter(
-              (c: string) => c !== 'container'
-            )} // Cannot render the 'tabs' plugin here. That would cause a recursive loop
             onOpen={(tabData: TChildTab) => {
               setChildTabs({ ...childTabs, [tabData.attribute]: tabData })
               setSelectedTab(tabData.attribute)
@@ -122,6 +149,7 @@ export const TabsContainer = (props: IUIPlugin) => {
                 onSubmit(newFormData)
               }
             }}
+            config={{ recipes: [config?.homeRecipe] || [] }}
           />
         </HidableWrapper>
         {Object.values(childTabs).map((childTab: TChildTab) => {
@@ -130,10 +158,9 @@ export const TabsContainer = (props: IUIPlugin) => {
               key={childTab.attribute}
               hidden={childTab.attribute !== selectedTab}
             >
-              <UIPluginSelector
+              <UIRecipesSelector
                 idReference={childTab.absoluteDottedId}
                 type={childTab.entity.type}
-                categories={childTab.categories}
                 onSubmit={(data: TChildTab) => {
                   const newFormData = {
                     ...formData,
