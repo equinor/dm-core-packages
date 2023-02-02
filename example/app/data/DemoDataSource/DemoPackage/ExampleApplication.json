@@ -1,0 +1,34 @@
+{
+  "name": "ExampleApplication",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Application"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "dataSources",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": false
+    },
+    {
+      "name": "adminRole",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "roles",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": true
+    }
+  ]
+}

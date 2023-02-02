@@ -1,0 +1,32 @@
+{
+  "name": "@development-framework/header",
+  "license": "MIT",
+  "version": "1.0.0",
+  "dependencies": {
+    "@development-framework/dm-core": ">=1.0.35",
+    "@equinor/eds-core-react": "^0.28.0",
+    "@equinor/eds-icons": "^0.18.0",
+    "@equinor/eds-tokens": "^0.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.39",
+    "@types/styled-components": "^5.1.26",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "@development-framework/dm-core": ">=1.0.35",
+    "react": ">=17.0.2"
+  },
+  "files": [
+    "dist",
+    "src",
+    "tsconfig.json"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rm -rf dist && yarn install",
+    "build": "tsc",
+    "postbuild": "cp -R package.json README.md ./dist/ && rm -rf node_modules"
+  }
+}

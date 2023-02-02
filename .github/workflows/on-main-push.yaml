@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [ blueprint, default-pdf, default-preview, job, mermaid, yaml-view, dm-core, tabs, form ]
+        package: [ blueprint, default-pdf, default-preview, job, mermaid, yaml-view, dm-core, tabs, header, form]
     steps:
       - uses: actions/checkout@v2
 
