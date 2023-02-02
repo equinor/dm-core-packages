@@ -1,0 +1,10 @@
+{
+  "_id": "46a2c6ce-5bb4-41bc-923e-ede8dc95500e",
+  "name": "example",
+  "type": "ExampleApplication",
+  "dataSources": ["system", "DemoDataSource"],
+  "label": "Data Modelling Example App",
+  "description": "Application used to test and demo some '@development-framework' plugins",
+  "adminRole": "dmss-admin",
+  "roles": ["user", "expert-user", "domain-expert"]
+}

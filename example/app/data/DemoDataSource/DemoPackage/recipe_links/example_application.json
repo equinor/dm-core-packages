@@ -1,0 +1,23 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "ExampleApplication",
+  "initialUiRecipe": {
+    "name": "Header",
+    "type": "CORE:UiRecipe",
+    "plugin": "header"
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view",
+      "category": "container"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default edit",
+      "plugin": "form"
+    }
+  ]
+}

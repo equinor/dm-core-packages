@@ -27,6 +27,6 @@
   "scripts": {
     "prebuild": "rm -rf dist && yarn install",
     "build": "tsc",
-    "postbuild": "cp -R blueprints package.json ./dist/ && rm -rf node_modules"
+    "postbuild": "cp -R blueprints package.json README.md ./dist/ && rm -rf node_modules"
   }
 }
