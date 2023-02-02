@@ -10,7 +10,7 @@ import { Button, Progress } from '@equinor/eds-core-react'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
 import { AxiosError, AxiosResponse } from 'axios'
-import { TGenericObject, TReference, TSTaskBody } from '../types'
+import { TGenericObject, TReference, TValidEntity } from '../types'
 import { AuthContext } from 'react-oauth2-code-pkce'
 
 export const addToPath = (
@@ -39,7 +39,7 @@ export const addToPath = (
 // formData - only used to clear 'error' state when the parent form using this component changes
 export function UploadFileButton(props: {
   fileSuffix: string[]
-  getBody: (filename: string) => TSTaskBody
+  getBody: (filename: string) => TValidEntity
   dataSourceId: string
   onUpload: (createdRef: TReference) => void
   formData?: TReference
