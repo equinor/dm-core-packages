@@ -24,7 +24,8 @@
     "start": "REACT_APP_DMSS_URL=http://localhost:5000  REACT_APP_DM_JOB_URL=http://localhost:5001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-all-packages": "for package in ../packages/*/; do echo $package && cd $package && yarn install && yarn build && cd ../../example; done"
   },
   "eslintConfig": {
     "extends": [
