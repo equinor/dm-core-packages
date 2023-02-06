@@ -40,7 +40,6 @@ type UserInfoDialogProps = {
 
 export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const { isOpen, setIsOpen, applicationEntity } = props
-
   const [apiKey, setAPIKey] = useState<string | null>(null)
   const { tokenData, token, logOut } = useContext(AuthContext)
   const dmssApi = new DmssAPI(token)
@@ -65,7 +64,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
           <UserInfoLabel>{tokenData?.preferred_username}</UserInfoLabel>
         </Row>
         <Row>
-          Roles:{' '}
+          Roles:
           <UserInfoLabel>{JSON.stringify(tokenData?.roles)}</UserInfoLabel>
         </Row>
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -102,17 +101,18 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
           <>
             <p>Impersonate a role (UI only)</p>
             <UnstyledList>
-              {applicationEntity.roles.map((role: string) => (
-                <li key={role}>
-                  <Radio
-                    label={role}
-                    name="impersonate-role"
-                    value={role}
-                    checked={checked === role}
-                    onChange={(e: any) => updateChecked(e.target.value)}
-                  />
-                </li>
-              ))}
+              {applicationEntity.roles &&
+                applicationEntity.roles.map((role: string) => (
+                  <li key={role}>
+                    <Radio
+                      label={role}
+                      name="impersonate-role"
+                      value={role}
+                      checked={checked === role}
+                      onChange={(e: any) => updateChecked(e.target.value)}
+                    />
+                  </li>
+                ))}
             </UnstyledList>
           </>
         )}

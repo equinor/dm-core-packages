@@ -1,14 +1,21 @@
-import { IUIPlugin, Loading, useDocument } from '@development-framework/dm-core'
-import React, { useState } from 'react'
+import {
+  IUIPlugin,
+  Loading,
+  UiPluginContext,
+  useDocument,
+  useBlueprint,
+  TUiRecipe,
+} from '@development-framework/dm-core'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Icon, TopBar } from '@equinor/eds-core-react'
 
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
 import { account_circle, grid_on, info_circle } from '@equinor/eds-icons'
+
 import { UserInfoDialog } from './components/UserInfoDialog'
 import { AboutDialog } from './components/AboutDialog'
 import { TApplication } from './types'
+import { PluginSelector } from './components/PluginSelector'
 
 const Icons = styled.div`
   display: flex;
@@ -20,38 +27,6 @@ const Icons = styled.div`
   }
 `
 
-const AppSelectorWrapper = styled.div`
-  position: absolute;
-  top: 60px;
-  left: 0;
-  min-width: 300px;
-  max-width: 300px;
-  background: #ffffff;
-  border: 1px solid gray;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  padding: 10px;
-  width: min-content;
-`
-
-const AppBox = styled.div`
-  border: 3px solid grey;
-  padding: 8px;
-  margin: 5px;
-  height: 80px;
-  width: 80px;
-  background: #b3dae0;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-
-  &:hover {
-    background: #4f878d;
-  }
-`
 const ClickableIcon = styled.div`
   &:hover {
     color: gray;
@@ -60,72 +35,106 @@ const ClickableIcon = styled.div`
 `
 
 type THeaderPluginConfig = {
+  uiRecipesList: string[]
   hideUserInfo: boolean
   hideAbout: boolean
 }
 
 export default (props: IUIPlugin): JSX.Element => {
-  const { idReference, config: passedConfig } = props
-  const config: THeaderPluginConfig = passedConfig
-  const [entity, isLoading] = useDocument<TApplication>(idReference)
-
+  const { idReference, config: passedConfig, type } = props
+  const config = passedConfig as THeaderPluginConfig
+  const [entity, isApplicationLoading] = useDocument<TApplication>(idReference)
+  const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
-  const [apiKey, setAPIKey] = useState<string | null>(null)
+  const { loading: isContextLoading, getUiPlugin } = useContext(UiPluginContext)
 
-  if (isLoading || !entity) {
+  const [selectedPlugin, setSelectedPlugin] = useState<{
+    component: (props: IUIPlugin) => JSX.Element
+  }>({
+    component: (props: IUIPlugin) => <div></div>,
+  })
+
+  useEffect(() => {
+    if (isContextLoading === false && isBlueprintLoading === false) {
+      const defaultPluginName: string =
+        config.uiRecipesList.length > 0
+          ? uiRecipes.find((recipe: TUiRecipe) => {
+              return recipe.name === config.uiRecipesList[0]
+            }).plugin
+          : uiRecipes[0].plugin
+      setSelectedPlugin({ component: getUiPlugin(defaultPluginName) })
+    }
+  }, [isBlueprintLoading, isContextLoading])
+
+  const UIPlugin: (props: IUIPlugin) => JSX.Element = selectedPlugin.component
+  if (
+    isApplicationLoading ||
+    !entity ||
+    isContextLoading ||
+    isBlueprintLoading
+  ) {
     return <Loading />
   }
 
   return (
-    <TopBar>
-      <TopBar.Header>
-        {/*<ClickableIcon onClick={() => setAppSelectorOpen(!appSelectorOpen)}>*/}
-        <Icon data={grid_on} size={32} />
-        {/*</ClickableIcon>*/}
-        <h4 style={{ paddingTop: 9, paddingLeft: 10 }}>{entity.label}</h4>
-        {/*{appSelectorOpen && (*/}
-        {/*  <AppSelectorWrapper>*/}
-        {/*    {entity.dataSources.map((app) => (*/}
-        {/*      <Link to={`/${app.urlPath}`} key={app.name}>*/}
-        {/*        <AppBox>{app?.label ? app.label : app.name}</AppBox>*/}
-        {/*      </Link>*/}
-        {/*    ))}*/}
-        {/*    <Link to={'/DMT/search'}>*/}
-        {/*      <AppBox>Search</AppBox>*/}
-        {/*    </Link>*/}
-        {/*  </AppSelectorWrapper>*/}
-        {/*)}*/}
-      </TopBar.Header>
-      <TopBar.Actions>
-        <Icons>
+    <div>
+      <TopBar>
+        <TopBar.Header>
           <ClickableIcon
-            onClick={() => setAboutOpen(true)}
-            hidden={config?.hideAbout}
+            onClick={() => {
+              setAppSelectorOpen(!appSelectorOpen)
+            }}
           >
-            <Icon data={info_circle} size={24} title="About" />
+            <Icon data={grid_on} size={32} />
           </ClickableIcon>
-          <ClickableIcon
-            onClick={() => setVisibleUserInfo(true)}
-            hidden={config?.hideUserInfo}
-          >
-            <Icon data={account_circle} size={24} title="User" />
-          </ClickableIcon>
-        </Icons>
-      </TopBar.Actions>
-      <TopBar.CustomContent>
-        <AboutDialog
-          isOpen={aboutOpen}
-          setIsOpen={setAboutOpen}
-          applicationEntity={entity}
-        />
-        <UserInfoDialog
-          isOpen={visibleUserInfo}
-          setIsOpen={setVisibleUserInfo}
-          applicationEntity={entity}
-        />
-      </TopBar.CustomContent>
-    </TopBar>
+          <h4 style={{ paddingTop: 9, paddingLeft: 10 }}>{entity.label}</h4>
+          {appSelectorOpen && (
+            <PluginSelector
+              selectableUiRecipeNames={
+                config.uiRecipesList.length > 0
+                  ? config.uiRecipesList
+                  : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
+              }
+              availableUiRecipes={uiRecipes}
+              setSelectedUiPlugin={(uiPluginName) => {
+                setAppSelectorOpen(false)
+                setSelectedPlugin({ component: getUiPlugin(uiPluginName) })
+              }}
+            />
+          )}
+        </TopBar.Header>
+        <TopBar.Actions>
+          <Icons>
+            <ClickableIcon
+              onClick={() => setAboutOpen(true)}
+              hidden={config.hideAbout}
+            >
+              <Icon data={info_circle} size={24} title="About" />
+            </ClickableIcon>
+            <ClickableIcon
+              onClick={() => setVisibleUserInfo(true)}
+              hidden={config.hideUserInfo}
+            >
+              <Icon data={account_circle} size={24} title="User" />
+            </ClickableIcon>
+          </Icons>
+        </TopBar.Actions>
+        <TopBar.CustomContent>
+          <AboutDialog
+            isOpen={aboutOpen}
+            setIsOpen={setAboutOpen}
+            applicationEntity={entity}
+          />
+          <UserInfoDialog
+            isOpen={visibleUserInfo}
+            setIsOpen={setVisibleUserInfo}
+            applicationEntity={entity}
+          />
+        </TopBar.CustomContent>
+      </TopBar>
+      <UIPlugin idReference={idReference} type={entity.type} config={config} />
+    </div>
   )
 }
