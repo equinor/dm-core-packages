@@ -31,7 +31,7 @@ import { GetBlueprintResponse } from '../models';
 export const BlueprintApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -77,7 +77,7 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to its type path
+         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -128,7 +128,7 @@ export const BlueprintApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BlueprintApiAxiosParamCreator(configuration)
     return {
         /**
-         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -140,7 +140,7 @@ export const BlueprintApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to its type path
+         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -161,7 +161,7 @@ export const BlueprintApiFactory = function (configuration?: Configuration, base
     const localVarFp = BlueprintApiFp(configuration)
     return {
         /**
-         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -172,7 +172,7 @@ export const BlueprintApiFactory = function (configuration?: Configuration, base
             return localVarFp.blueprintGet(typeRef, context, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to its type path
+         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -227,7 +227,7 @@ export interface BlueprintApiBlueprintResolveRequest {
  */
 export class BlueprintApi extends BaseAPI {
     /**
-     * Fetch the Blueprint and Recipes of a type (including inherited attributes)
+     * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
      * @summary Get Blueprint
      * @param {BlueprintApiBlueprintGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -239,7 +239,7 @@ export class BlueprintApi extends BaseAPI {
     }
 
     /**
-     * Resolve the data_source/uuid form of a blueprint to its type path
+     * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
      * @summary Resolve Blueprint Id
      * @param {BlueprintApiBlueprintResolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

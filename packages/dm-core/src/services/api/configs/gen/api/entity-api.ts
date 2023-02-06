@@ -31,7 +31,7 @@ import { ErrorResponse } from '../models';
 export const EntityApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
          * @param {BasicEntity} basicEntity 
          * @param {*} [options] Override http request option.
@@ -84,7 +84,7 @@ export const EntityApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = EntityApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
          * @param {BasicEntity} basicEntity 
          * @param {*} [options] Override http request option.
@@ -105,7 +105,7 @@ export const EntityApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = EntityApiFp(configuration)
     return {
         /**
-         * 
+         * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
          * @param {BasicEntity} basicEntity 
          * @param {*} [options] Override http request option.
@@ -139,7 +139,7 @@ export interface EntityApiInstantiateEntityRequest {
  */
 export class EntityApi extends BaseAPI {
     /**
-     * 
+     * Create a new entity and return it.  (entity is not saved in DMSS)
      * @summary Instantiate
      * @param {EntityApiInstantiateEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

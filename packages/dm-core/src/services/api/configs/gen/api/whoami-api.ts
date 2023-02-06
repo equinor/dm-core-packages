@@ -29,7 +29,7 @@ import { ErrorResponse } from '../models';
 export const WhoamiApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -76,7 +76,7 @@ export const WhoamiApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = WhoamiApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -96,7 +96,7 @@ export const WhoamiApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = WhoamiApiFp(configuration)
     return {
         /**
-         * 
+         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -115,7 +115,7 @@ export const WhoamiApiFactory = function (configuration?: Configuration, basePat
  */
 export class WhoamiApi extends BaseAPI {
     /**
-     * 
+     * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
      * @summary Get Information On Authenticated User
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

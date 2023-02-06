@@ -29,7 +29,7 @@ import { ErrorResponse } from '../models';
 export const BlobApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -74,7 +74,7 @@ export const BlobApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * 
+         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -140,7 +140,7 @@ export const BlobApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BlobApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -152,7 +152,7 @@ export const BlobApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -175,7 +175,7 @@ export const BlobApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = BlobApiFp(configuration)
     return {
         /**
-         * 
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -186,7 +186,7 @@ export const BlobApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.blobGetById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -257,7 +257,7 @@ export interface BlobApiBlobUploadRequest {
  */
 export class BlobApi extends BaseAPI {
     /**
-     * 
+     * Get blob from id. A blob (binary large object) can be anything from video to text file.
      * @summary Get By Id
      * @param {BlobApiBlobGetByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -269,7 +269,7 @@ export class BlobApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Upload a new blob. A blob (binary large object) can be anything from video to text file.
      * @summary Upload
      * @param {BlobApiBlobUploadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

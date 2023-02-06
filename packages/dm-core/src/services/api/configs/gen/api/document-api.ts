@@ -128,7 +128,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Add To Path
          * @param {string} pathReference 
          * @param {string} document 
@@ -192,7 +192,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * 
+         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
          * @summary Get By Id
          * @param {string} idReference 
          * @param {number} [depth] 
@@ -238,7 +238,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
+         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
          * @summary Get By Path
          * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
@@ -279,7 +279,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * 
+         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
          * @summary Remove
          * @param {string} dataSourceId 
          * @param {string} dottedId 
@@ -324,7 +324,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * 
+         * Remove a document from DMSS.  - **directory**: path to document to remove.
          * @summary Remove By Path
          * @param {string} dataSourceId 
          * @param {string} directory 
@@ -369,7 +369,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * 
+         * Update document
          * @summary Update
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -477,7 +477,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Add To Path
          * @param {string} pathReference 
          * @param {string} document 
@@ -491,7 +491,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
          * @summary Get By Id
          * @param {string} idReference 
          * @param {number} [depth] 
@@ -503,7 +503,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
+         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
          * @summary Get By Path
          * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
@@ -514,7 +514,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
          * @summary Remove
          * @param {string} dataSourceId 
          * @param {string} dottedId 
@@ -526,7 +526,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Remove a document from DMSS.  - **directory**: path to document to remove.
          * @summary Remove By Path
          * @param {string} dataSourceId 
          * @param {string} directory 
@@ -538,7 +538,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Update document
          * @summary Update
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -587,7 +587,7 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentAddSimple(dataSourceId, body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Add To Path
          * @param {string} pathReference 
          * @param {string} document 
@@ -600,7 +600,7 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentAddToPath(pathReference, document, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
          * @summary Get By Id
          * @param {string} idReference 
          * @param {number} [depth] 
@@ -611,7 +611,7 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentGetById(idReference, depth, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
+         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
          * @summary Get By Path
          * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
@@ -621,7 +621,7 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentGetByPath(absolutePath, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
          * @summary Remove
          * @param {string} dataSourceId 
          * @param {string} dottedId 
@@ -632,7 +632,7 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentRemove(dataSourceId, dottedId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Remove a document from DMSS.  - **directory**: path to document to remove.
          * @summary Remove By Path
          * @param {string} dataSourceId 
          * @param {string} directory 
@@ -643,7 +643,7 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentRemoveByPath(dataSourceId, directory, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Update document
          * @summary Update
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -902,7 +902,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
+     * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
      * @summary Add To Path
      * @param {DocumentApiDocumentAddToPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -914,7 +914,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
      * @summary Get By Id
      * @param {DocumentApiDocumentGetByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -926,7 +926,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
+     * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
      * @summary Get By Path
      * @param {DocumentApiDocumentGetByPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -938,7 +938,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
      * @summary Remove
      * @param {DocumentApiDocumentRemoveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -950,7 +950,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Remove a document from DMSS.  - **directory**: path to document to remove.
      * @summary Remove By Path
      * @param {DocumentApiDocumentRemoveByPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -962,7 +962,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Update document
      * @summary Update
      * @param {DocumentApiDocumentUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

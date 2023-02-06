@@ -31,7 +31,7 @@ import { ErrorResponse } from '../models';
 export const AccessControlApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -76,7 +76,7 @@ export const AccessControlApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * 
+         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -142,7 +142,7 @@ export const AccessControlApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AccessControlApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -154,7 +154,7 @@ export const AccessControlApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -178,7 +178,7 @@ export const AccessControlApiFactory = function (configuration?: Configuration, 
     const localVarFp = AccessControlApiFp(configuration)
     return {
         /**
-         * 
+         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -189,7 +189,7 @@ export const AccessControlApiFactory = function (configuration?: Configuration, 
             return localVarFp.getAcl(dataSourceId, documentId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -268,7 +268,7 @@ export interface AccessControlApiSetAclRequest {
  */
 export class AccessControlApi extends BaseAPI {
     /**
-     * 
+     * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
      * @summary Get Acl
      * @param {AccessControlApiGetAclRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -280,7 +280,7 @@ export class AccessControlApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
      * @summary Set Acl
      * @param {AccessControlApiSetAclRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

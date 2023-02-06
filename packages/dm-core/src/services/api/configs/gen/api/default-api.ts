@@ -35,6 +35,8 @@ import { ErrorResponse } from '../models';
 // @ts-ignore
 import { GetBlueprintResponse } from '../models';
 // @ts-ignore
+import { Lookup } from '../models';
+// @ts-ignore
 import { PATData } from '../models';
 // @ts-ignore
 import { Reference } from '../models';
@@ -45,7 +47,7 @@ import { Reference } from '../models';
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
+         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -86,7 +88,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -131,7 +133,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -187,7 +189,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -233,7 +235,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to its type path
+         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -274,7 +276,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application
          * @summary Create Lookup
          * @param {string} application 
          * @param {string} recipePackage 
@@ -322,7 +324,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Get configuration of a single data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -363,7 +365,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Get list of all data sources found in DMSS (name and id for each data source).
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -400,7 +402,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Create or update a data source configuration
+         * Create or update a data source configuration.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -546,7 +548,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Add To Path
          * @param {string} pathReference 
          * @param {string} document 
@@ -610,7 +612,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
          * @summary Get By Id
          * @param {string} idReference 
          * @param {number} [depth] 
@@ -656,7 +658,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
+         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
          * @summary Get By Path
          * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
@@ -697,7 +699,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
          * @summary Remove
          * @param {string} dataSourceId 
          * @param {string} dottedId 
@@ -742,7 +744,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Remove a document from DMSS.  - **directory**: path to document to remove.
          * @summary Remove By Path
          * @param {string} dataSourceId 
          * @param {string} directory 
@@ -787,7 +789,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Update document
          * @summary Update
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -860,7 +862,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
          * @summary Export Meta
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -901,7 +903,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -946,7 +948,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Healthcheck endpoint. Responds with \"OK\" - 200.
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -976,7 +978,48 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Fetch a single lookup table.  - **application**: name of application
+         * @summary Get Lookup
+         * @param {string} application 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLookup: async (application: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'application' is not null or undefined
+            assertParamExists('getLookup', 'application', application)
+            const localVarPath = `/api/application/{application}`
+                .replace(`{${"application"}}`, encodeURIComponent(String(application)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
          * @param {BasicEntity} basicEntity 
          * @param {*} [options] Override http request option.
@@ -1019,7 +1062,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Delete Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -1064,7 +1107,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -1115,7 +1158,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Takes a list of data source id\'s as a query parameter, and search all data sources for the posted dictionary. If data source list is empty, search all databases.
+         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
          * @summary Search
          * @param {object} body 
          * @param {Array<string>} [dataSources] 
@@ -1168,7 +1211,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -1224,7 +1267,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -1268,7 +1311,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Delete a personal access token (PAT).
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -1306,7 +1349,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Get a list of all personal access tokens (PATs).
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1340,7 +1383,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * 
+         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1387,7 +1430,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
+         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -1398,7 +1441,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -1410,7 +1453,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -1423,7 +1466,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -1435,7 +1478,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to its type path
+         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -1446,7 +1489,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application
          * @summary Create Lookup
          * @param {string} application 
          * @param {string} recipePackage 
@@ -1458,7 +1501,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get configuration of a single data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -1469,7 +1512,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get list of all data sources found in DMSS (name and id for each data source).
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1479,7 +1522,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create or update a data source configuration
+         * Create or update a data source configuration.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -1516,7 +1559,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Add To Path
          * @param {string} pathReference 
          * @param {string} document 
@@ -1530,7 +1573,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
          * @summary Get By Id
          * @param {string} idReference 
          * @param {number} [depth] 
@@ -1542,7 +1585,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
+         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
          * @summary Get By Path
          * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
@@ -1553,7 +1596,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
          * @summary Remove
          * @param {string} dataSourceId 
          * @param {string} dottedId 
@@ -1565,7 +1608,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Remove a document from DMSS.  - **directory**: path to document to remove.
          * @summary Remove By Path
          * @param {string} dataSourceId 
          * @param {string} directory 
@@ -1577,7 +1620,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Update document
          * @summary Update
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -1593,7 +1636,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
          * @summary Export Meta
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -1604,7 +1647,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -1616,7 +1659,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Healthcheck endpoint. Responds with \"OK\" - 200.
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1626,7 +1669,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Fetch a single lookup table.  - **application**: name of application
+         * @summary Get Lookup
+         * @param {string} application 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLookup(application: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Lookup>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLookup(application, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
          * @param {BasicEntity} basicEntity 
          * @param {*} [options] Override http request option.
@@ -1637,7 +1691,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Delete Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -1649,7 +1703,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -1662,7 +1716,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Takes a list of data source id\'s as a query parameter, and search all data sources for the posted dictionary. If data source list is empty, search all databases.
+         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
          * @summary Search
          * @param {object} body 
          * @param {Array<string>} [dataSources] 
@@ -1675,7 +1729,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -1689,7 +1743,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -1701,7 +1755,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Delete a personal access token (PAT).
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -1712,7 +1766,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get a list of all personal access tokens (PATs).
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1722,7 +1776,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1742,7 +1796,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
+         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -1752,7 +1806,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp._export(absoluteDocumentRef, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -1763,7 +1817,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.blobGetById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -1775,7 +1829,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.blobUpload(dataSourceId, blobId, file, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch the Blueprint and Recipes of a type (including inherited attributes)
+         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -1786,7 +1840,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.blueprintGet(typeRef, context, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolve the data_source/uuid form of a blueprint to its type path
+         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
          * @summary Resolve Blueprint Id
          * @param {string} absoluteId 
          * @param {*} [options] Override http request option.
@@ -1796,7 +1850,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.blueprintResolve(absoluteId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application
          * @summary Create Lookup
          * @param {string} application 
          * @param {string} recipePackage 
@@ -1807,7 +1861,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.createLookup(application, recipePackage, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get configuration of a single data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -1817,7 +1871,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.dataSourceGet(dataSourceId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get list of all data sources found in DMSS (name and id for each data source).
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1826,7 +1880,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.dataSourceGetAll(options).then((request) => request(axios, basePath));
         },
         /**
-         * Create or update a data source configuration
+         * Create or update a data source configuration.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -1860,7 +1914,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentAddSimple(dataSourceId, body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
+         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Add To Path
          * @param {string} pathReference 
          * @param {string} document 
@@ -1873,7 +1927,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentAddToPath(pathReference, document, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
          * @summary Get By Id
          * @param {string} idReference 
          * @param {number} [depth] 
@@ -1884,7 +1938,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentGetById(idReference, depth, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
+         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
          * @summary Get By Path
          * @param {string} absolutePath 
          * @param {*} [options] Override http request option.
@@ -1894,7 +1948,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentGetByPath(absolutePath, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
          * @summary Remove
          * @param {string} dataSourceId 
          * @param {string} dottedId 
@@ -1905,7 +1959,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentRemove(dataSourceId, dottedId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Remove a document from DMSS.  - **directory**: path to document to remove.
          * @summary Remove By Path
          * @param {string} dataSourceId 
          * @param {string} directory 
@@ -1916,7 +1970,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentRemoveByPath(dataSourceId, directory, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Update document
          * @summary Update
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -1931,7 +1985,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentUpdate(dataSourceId, documentId, data, updateUncontained, attribute, files, options).then((request) => request(axios, basePath));
         },
         /**
-         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
          * @summary Export Meta
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -1941,7 +1995,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.exportMeta(absoluteDocumentRef, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -1952,7 +2006,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getAcl(dataSourceId, documentId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Healthcheck endpoint. Responds with \"OK\" - 200.
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1961,7 +2015,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getApiHealthcheckGet(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Fetch a single lookup table.  - **application**: name of application
+         * @summary Get Lookup
+         * @param {string} application 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLookup(application: string, options?: any): AxiosPromise<Lookup> {
+            return localVarFp.getLookup(application, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
          * @param {BasicEntity} basicEntity 
          * @param {*} [options] Override http request option.
@@ -1971,7 +2035,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.instantiateEntity(basicEntity, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Delete Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -1982,7 +2046,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.referenceDelete(dataSourceId, documentDottedId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -1994,7 +2058,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.referenceInsert(dataSourceId, documentDottedId, reference, options).then((request) => request(axios, basePath));
         },
         /**
-         * Takes a list of data source id\'s as a query parameter, and search all data sources for the posted dictionary. If data source list is empty, search all databases.
+         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
          * @summary Search
          * @param {object} body 
          * @param {Array<string>} [dataSources] 
@@ -2006,7 +2070,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.search(body, dataSources, sortByAttribute, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -2019,7 +2083,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.setAcl(dataSourceId, documentId, aCL, recursively, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -2030,7 +2094,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.tokenCreate(scope, timeToLive, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Delete a personal access token (PAT).
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -2040,7 +2104,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.tokenDelete(tokenId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get a list of all personal access tokens (PATs).
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2049,7 +2113,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.tokenListAll(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2460,6 +2524,20 @@ export interface DefaultApiGetAclRequest {
 }
 
 /**
+ * Request parameters for getLookup operation in DefaultApi.
+ * @export
+ * @interface DefaultApiGetLookupRequest
+ */
+export interface DefaultApiGetLookupRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiGetLookup
+     */
+    readonly application: string
+}
+
+/**
  * Request parameters for instantiateEntity operation in DefaultApi.
  * @export
  * @interface DefaultApiInstantiateEntityRequest
@@ -2628,7 +2706,7 @@ export interface DefaultApiTokenDeleteRequest {
  */
 export class DefaultApi extends BaseAPI {
     /**
-     * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
+     * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
      * @summary Export
      * @param {DefaultApiExportRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2640,7 +2718,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get blob from id. A blob (binary large object) can be anything from video to text file.
      * @summary Get By Id
      * @param {DefaultApiBlobGetByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2652,7 +2730,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Upload a new blob. A blob (binary large object) can be anything from video to text file.
      * @summary Upload
      * @param {DefaultApiBlobUploadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2664,7 +2742,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Fetch the Blueprint and Recipes of a type (including inherited attributes)
+     * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
      * @summary Get Blueprint
      * @param {DefaultApiBlueprintGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2676,7 +2754,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Resolve the data_source/uuid form of a blueprint to its type path
+     * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
      * @summary Resolve Blueprint Id
      * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2688,7 +2766,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.
+     * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application
      * @summary Create Lookup
      * @param {DefaultApiCreateLookupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2700,7 +2778,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get configuration of a single data source.
      * @summary Get
      * @param {DefaultApiDataSourceGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2712,7 +2790,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get list of all data sources found in DMSS (name and id for each data source).
      * @summary Get All
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2723,7 +2801,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Create or update a data source configuration
+     * Create or update a data source configuration.
      * @summary Save
      * @param {DefaultApiDataSourceSaveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2759,7 +2837,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files. The path must be on format; DATA_SOURCE/PACKAGE/ENTITY.Attribute
+     * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
      * @summary Add To Path
      * @param {DefaultApiDocumentAddToPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2771,7 +2849,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
      * @summary Get By Id
      * @param {DefaultApiDocumentGetByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2783,7 +2861,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get a document by its path in the form PROTOCOL://DATA_SOURCE/PACKAGE/FOLDER/NAME.Attribute
+     * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
      * @summary Get By Path
      * @param {DefaultApiDocumentGetByPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2795,7 +2873,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
      * @summary Remove
      * @param {DefaultApiDocumentRemoveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2807,7 +2885,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Remove a document from DMSS.  - **directory**: path to document to remove.
      * @summary Remove By Path
      * @param {DefaultApiDocumentRemoveByPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2819,7 +2897,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Update document
      * @summary Update
      * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2831,7 +2909,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+     * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
      * @summary Export Meta
      * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2843,7 +2921,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
      * @summary Get Acl
      * @param {DefaultApiGetAclRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2855,7 +2933,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Healthcheck endpoint. Responds with \"OK\" - 200.
      * @summary Get
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2866,7 +2944,19 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Fetch a single lookup table.  - **application**: name of application
+     * @summary Get Lookup
+     * @param {DefaultApiGetLookupRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getLookup(requestParameters: DefaultApiGetLookupRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getLookup(requestParameters.application, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a new entity and return it.  (entity is not saved in DMSS)
      * @summary Instantiate
      * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2878,7 +2968,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
      * @summary Delete Reference
      * @param {DefaultApiReferenceDeleteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2890,7 +2980,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
      * @summary Insert Reference
      * @param {DefaultApiReferenceInsertRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2902,7 +2992,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Takes a list of data source id\'s as a query parameter, and search all data sources for the posted dictionary. If data source list is empty, search all databases.
+     * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
      * @summary Search
      * @param {DefaultApiSearchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2914,7 +3004,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
      * @summary Set Acl
      * @param {DefaultApiSetAclRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2926,7 +3016,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
      * @summary New Personal Access Token
      * @param {DefaultApiTokenCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2938,7 +3028,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Delete a personal access token (PAT).
      * @summary Revoke Personal Access Token
      * @param {DefaultApiTokenDeleteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2950,7 +3040,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get a list of all personal access tokens (PATs).
      * @summary List All Pats
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2961,7 +3051,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
      * @summary Get Information On Authenticated User
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

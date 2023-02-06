@@ -31,7 +31,7 @@ import { Reference } from '../models';
 export const ReferenceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Delete Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -76,7 +76,7 @@ export const ReferenceApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * 
+         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -137,7 +137,7 @@ export const ReferenceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ReferenceApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Delete Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -149,7 +149,7 @@ export const ReferenceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -172,7 +172,7 @@ export const ReferenceApiFactory = function (configuration?: Configuration, base
     const localVarFp = ReferenceApiFp(configuration)
     return {
         /**
-         * 
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Delete Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -183,7 +183,7 @@ export const ReferenceApiFactory = function (configuration?: Configuration, base
             return localVarFp.referenceDelete(dataSourceId, documentDottedId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
          * @param {string} dataSourceId 
          * @param {string} documentDottedId 
@@ -254,7 +254,7 @@ export interface ReferenceApiReferenceInsertRequest {
  */
 export class ReferenceApi extends BaseAPI {
     /**
-     * 
+     * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
      * @summary Delete Reference
      * @param {ReferenceApiReferenceDeleteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -266,7 +266,7 @@ export class ReferenceApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
      * @summary Insert Reference
      * @param {ReferenceApiReferenceInsertRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

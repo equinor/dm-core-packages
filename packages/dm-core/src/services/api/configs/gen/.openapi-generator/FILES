@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 api/access-control-api.ts
 api/blob-api.ts
@@ -29,8 +28,13 @@ models/data-source-request.ts
 models/error-response.ts
 models/get-blueprint-response.ts
 models/index.ts
+models/lookup.ts
 models/patdata.ts
+models/recipe-attribute.ts
+models/recipe.ts
 models/reference.ts
 models/repository-type.ts
 models/repository.ts
+models/storage-attribute.ts
 models/storage-data-types.ts
+models/storage-recipe.ts

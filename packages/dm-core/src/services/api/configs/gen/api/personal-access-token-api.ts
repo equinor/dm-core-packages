@@ -33,7 +33,7 @@ import { PATData } from '../models';
 export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -77,7 +77,7 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
             };
         },
         /**
-         * 
+         * Delete a personal access token (PAT).
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -115,7 +115,7 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
             };
         },
         /**
-         * 
+         * Get a list of all personal access tokens (PATs).
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -159,7 +159,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
     const localVarAxiosParamCreator = PersonalAccessTokenApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -171,7 +171,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Delete a personal access token (PAT).
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -182,7 +182,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get a list of all personal access tokens (PATs).
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -202,7 +202,7 @@ export const PersonalAccessTokenApiFactory = function (configuration?: Configura
     const localVarFp = PersonalAccessTokenApiFp(configuration)
     return {
         /**
-         * 
+         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -213,7 +213,7 @@ export const PersonalAccessTokenApiFactory = function (configuration?: Configura
             return localVarFp.tokenCreate(scope, timeToLive, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Delete a personal access token (PAT).
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -223,7 +223,7 @@ export const PersonalAccessTokenApiFactory = function (configuration?: Configura
             return localVarFp.tokenDelete(tokenId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get a list of all personal access tokens (PATs).
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -277,7 +277,7 @@ export interface PersonalAccessTokenApiTokenDeleteRequest {
  */
 export class PersonalAccessTokenApi extends BaseAPI {
     /**
-     * 
+     * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
      * @summary New Personal Access Token
      * @param {PersonalAccessTokenApiTokenCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -289,7 +289,7 @@ export class PersonalAccessTokenApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Delete a personal access token (PAT).
      * @summary Revoke Personal Access Token
      * @param {PersonalAccessTokenApiTokenDeleteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -301,7 +301,7 @@ export class PersonalAccessTokenApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get a list of all personal access tokens (PATs).
      * @summary List All Pats
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
