@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from 'react'
 import {
   AuthContext,
   DmssAPI,
-  EPluginType,
   IUIPlugin,
   Loading,
   TPlugin,
@@ -106,7 +105,6 @@ const PluginComponent = (props: IUIPlugin) => {
 export const plugins: TPlugin[] = [
   {
     pluginName: 'mermaid',
-    pluginType: EPluginType.UI,
     component: PluginComponent,
   },
 ]

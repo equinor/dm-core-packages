@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { EPluginType, IUIPlugin, TPlugin } from '@development-framework/dm-core'
+import { IUIPlugin, TPlugin } from '@development-framework/dm-core'
 import PreviewPlugin from './PreviewPlugin'
 
 const PluginComponent = (props: IUIPlugin) => {
@@ -10,7 +10,6 @@ const PluginComponent = (props: IUIPlugin) => {
 export const plugins: TPlugin[] = [
   {
     pluginName: 'default-preview',
-    pluginType: EPluginType.UI,
     component: PluginComponent,
   },
 ]
