@@ -29,7 +29,7 @@ import { ErrorResponse } from '../models';
 export const SearchApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Takes a list of data source id\'s as a query parameter, and search all data sources for the posted dictionary. If data source list is empty, search all databases.
+         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
          * @summary Search
          * @param {object} body 
          * @param {Array<string>} [dataSources] 
@@ -92,7 +92,7 @@ export const SearchApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = SearchApiAxiosParamCreator(configuration)
     return {
         /**
-         * Takes a list of data source id\'s as a query parameter, and search all data sources for the posted dictionary. If data source list is empty, search all databases.
+         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
          * @summary Search
          * @param {object} body 
          * @param {Array<string>} [dataSources] 
@@ -115,7 +115,7 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = SearchApiFp(configuration)
     return {
         /**
-         * Takes a list of data source id\'s as a query parameter, and search all data sources for the posted dictionary. If data source list is empty, search all databases.
+         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
          * @summary Search
          * @param {object} body 
          * @param {Array<string>} [dataSources] 
@@ -165,7 +165,7 @@ export interface SearchApiSearchRequest {
  */
 export class SearchApi extends BaseAPI {
     /**
-     * Takes a list of data source id\'s as a query parameter, and search all data sources for the posted dictionary. If data source list is empty, search all databases.
+     * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
      * @summary Search
      * @param {SearchApiSearchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

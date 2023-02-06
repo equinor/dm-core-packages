@@ -29,7 +29,7 @@ import { ErrorResponse } from '../models';
 export const ExportApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
+         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -70,7 +70,7 @@ export const ExportApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
          * @summary Export Meta
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -121,7 +121,7 @@ export const ExportApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ExportApiAxiosParamCreator(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
+         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -132,7 +132,7 @@ export const ExportApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
          * @summary Export Meta
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -153,7 +153,7 @@ export const ExportApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = ExportApiFp(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
+         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
          * @summary Export
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -163,7 +163,7 @@ export const ExportApiFactory = function (configuration?: Configuration, basePat
             return localVarFp._export(absoluteDocumentRef, options).then((request) => request(axios, basePath));
         },
         /**
-         * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
          * @summary Export Meta
          * @param {string} absoluteDocumentRef 
          * @param {*} [options] Override http request option.
@@ -211,7 +211,7 @@ export interface ExportApiExportMetaRequest {
  */
 export class ExportApi extends BaseAPI {
     /**
-     * Download a zip-folder with one or more documents as json file(s).  absolute_document_ref is on the format: \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id}
+     * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
      * @summary Export
      * @param {ExportApiExportRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -223,7 +223,7 @@ export class ExportApi extends BaseAPI {
     }
 
     /**
-     * Export only the metadata of an entity. Entities must be specified on the format \'DATASOURCE/PACKAGE/{ENTITY.name/ENTITY._id} An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.
+     * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
      * @summary Export Meta
      * @param {ExportApiExportMetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

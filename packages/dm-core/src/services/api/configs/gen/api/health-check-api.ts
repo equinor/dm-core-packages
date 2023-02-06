@@ -29,7 +29,7 @@ import { ErrorResponse } from '../models';
 export const HealthCheckApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Healthcheck endpoint. Responds with \"OK\" - 200.
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -69,7 +69,7 @@ export const HealthCheckApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = HealthCheckApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Healthcheck endpoint. Responds with \"OK\" - 200.
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -89,7 +89,7 @@ export const HealthCheckApiFactory = function (configuration?: Configuration, ba
     const localVarFp = HealthCheckApiFp(configuration)
     return {
         /**
-         * 
+         * Healthcheck endpoint. Responds with \"OK\" - 200.
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -108,7 +108,7 @@ export const HealthCheckApiFactory = function (configuration?: Configuration, ba
  */
 export class HealthCheckApi extends BaseAPI {
     /**
-     * 
+     * Healthcheck endpoint. Responds with \"OK\" - 200.
      * @summary Get
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

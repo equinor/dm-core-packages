@@ -33,7 +33,7 @@ import { ErrorResponse } from '../models';
 export const DatasourceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Get configuration of a single data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -74,7 +74,7 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * 
+         * Get list of all data sources found in DMSS (name and id for each data source).
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -111,7 +111,7 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Create or update a data source configuration
+         * Create or update a data source configuration.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -168,7 +168,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DatasourceApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Get configuration of a single data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -179,7 +179,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get list of all data sources found in DMSS (name and id for each data source).
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -189,7 +189,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create or update a data source configuration
+         * Create or update a data source configuration.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -211,7 +211,7 @@ export const DatasourceApiFactory = function (configuration?: Configuration, bas
     const localVarFp = DatasourceApiFp(configuration)
     return {
         /**
-         * 
+         * Get configuration of a single data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -221,7 +221,7 @@ export const DatasourceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.dataSourceGet(dataSourceId, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get list of all data sources found in DMSS (name and id for each data source).
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -230,7 +230,7 @@ export const DatasourceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.dataSourceGetAll(options).then((request) => request(axios, basePath));
         },
         /**
-         * Create or update a data source configuration
+         * Create or update a data source configuration.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -286,7 +286,7 @@ export interface DatasourceApiDataSourceSaveRequest {
  */
 export class DatasourceApi extends BaseAPI {
     /**
-     * 
+     * Get configuration of a single data source.
      * @summary Get
      * @param {DatasourceApiDataSourceGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -298,7 +298,7 @@ export class DatasourceApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Get list of all data sources found in DMSS (name and id for each data source).
      * @summary Get All
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -309,7 +309,7 @@ export class DatasourceApi extends BaseAPI {
     }
 
     /**
-     * Create or update a data source configuration
+     * Create or update a data source configuration.
      * @summary Save
      * @param {DatasourceApiDataSourceSaveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
