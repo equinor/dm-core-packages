@@ -2,7 +2,6 @@ import * as React from 'react'
 import { ViewerPDFPlugin } from './PDFViewer'
 
 import {
-  EPluginType,
   IUIPlugin,
   Loading,
   TGenericObject,
@@ -23,7 +22,6 @@ const PluginComponent = (props: IUIPlugin) => {
 export const plugins: TPlugin[] = [
   {
     pluginName: 'default-pdf',
-    pluginType: EPluginType.UI,
     component: PluginComponent,
   },
 ]

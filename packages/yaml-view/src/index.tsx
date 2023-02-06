@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import './index.css'
 import {
-  EPluginType,
   IUIPlugin,
   Loading,
   TGenericObject,
@@ -34,7 +33,6 @@ const PluginComponent = (props: IUIPlugin) => {
 export const plugins: TPlugin[] = [
   {
     pluginName: 'yaml-view',
-    pluginType: EPluginType.UI,
     component: PluginComponent,
   },
 ]
