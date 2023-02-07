@@ -2,11 +2,6 @@
   "name": "@development-framework/yaml-view",
   "version": "1.0.4",
   "license": "MIT",
-  "files": [
-    "dist",
-    "package.json",
-    "README.md"
-  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
@@ -28,8 +23,8 @@
     "@types/styled-components": "^4.1.18"
   },
   "scripts": {
-    "prebuild": "rm -rf dist && yarn install",
-    "build": "tsc",
-    "postbuild": "cp package.json ./dist/ && cp src/index.css ./dist/ &&  rm -rf node_modules"
+    "prebuild": "rm -rf dist",
+    "build": "tsc && cp src/index.css ./dist/",
+    "postbuild": "rm -rf node_modules"
   }
 }

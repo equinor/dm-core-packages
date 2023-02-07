@@ -28,9 +28,9 @@
     "styled-components": ">=5.3.6"
   },
   "scripts": {
-    "prebuild": "rm -rf dist && yarn install",
+    "prebuild": "rm -rf dist",
     "copy-css-file": "cp src/components/context-menu/react-contextmenu.css  dist/components/context-menu/react-contextmenu.css",
     "build": "tsc && yarn copy-css-file",
-    "postbuild": "cp package.json ./dist/ && rm -rf node_modules"
+    "postbuild": "rm -rf node_modules"
   }
 }
