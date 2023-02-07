@@ -1,7 +1,7 @@
 {
   "name": "@development-framework/explorer",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "dependencies": {
     "@equinor/eds-core-react": "^0.20.0",
