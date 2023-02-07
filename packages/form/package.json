@@ -4,14 +4,15 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
+    "blueprints",
     "dist",
     "src",
     "tsconfig.json"
   ],
   "scripts": {
-    "prebuild": "rm -rf dist && yarn install",
+    "prebuild": "rm -rf dist",
     "build": "tsc",
-    "postbuild": "cp package.json ./dist/ &&  rm -rf node_modules",
+    "postbuild": "rm -rf node_modules",
     "test": "jest test",
     "test-watch": "jest test --watchAll"
   },

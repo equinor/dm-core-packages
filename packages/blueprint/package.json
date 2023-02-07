@@ -19,8 +19,8 @@
     "styled-components": ">=5.3.6"
   },
   "scripts": {
-    "prebuild": "rm -rf dist && yarn install",
+    "prebuild": "rm -rf dist",
     "build": "tsc",
-    "postbuild": "cp package.json ./dist/ && rm -rf node_modules"
+    "postbuild": "rm -rf node_modules"
   }
 }

@@ -8,7 +8,7 @@ Add the package to your project with `npm add @development-framework/form`.
 
 If you want to specify a config object in some UiRecipe-entity, the Blueprint is included in the npm package.
 
-Copy it like so: `cp -R node_modules/@development-framework/form/dist/blueprint ./myApplicationBlueprints/`
+Copy it like so: `cp -R node_modules/@development-framework/form/blueprints ./myApplicationBlueprints/`
 
 Alternative is to just import it directly without copying: `dm pkg import node_modules/@development-framework/form/dist/blueprints/ DemoDataSource``
 
