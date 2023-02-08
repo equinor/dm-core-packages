@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "BlueprintWithComplexChildren",
+  "_blueprintPath_": "TabsStandardBlueprint",
   "initialUiRecipe": {
     "name": "Tabs",
     "type": "CORE:UiRecipe",
@@ -8,6 +8,7 @@
     "config": {
       "type": "TabsPluginConfig",
       "childTabsOnRender": true,
+      "asSidebar": false,
       "homeRecipe": "home"
     }
   },

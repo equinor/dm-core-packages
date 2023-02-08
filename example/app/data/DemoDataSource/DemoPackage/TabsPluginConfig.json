@@ -5,8 +5,7 @@
     {
       "attributeType": "boolean",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "addChildTabsOnRender",
-      "contained": true,
+      "name": "childTabsOnRender",
       "optional": true,
       "default": false
     },
@@ -14,7 +13,13 @@
       "attributeType": "string",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "name": "homeRecipe",
-      "contained": true,
+      "optional": true,
+      "default": "home"
+    },
+    {
+      "attributeType": "boolean",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "asSidebar",
       "optional": true,
       "default": false
     }

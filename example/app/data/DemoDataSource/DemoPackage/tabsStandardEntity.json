@@ -1,0 +1,39 @@
+{
+  "_id": "g6282220-4a90-4d02-8f34-b82255fc91d5",
+  "type": "TabsStandardBlueprint",
+  "name": "tabsStandardEntity",
+  "firstAttribute": {
+    "type": "TabsStandardBlueprint",
+    "name": "first attribute",
+    "firstAttribute": {
+      "type": "TabsStandardBlueprint",
+      "name": "first attribute"
+    }
+  },
+  "secondAttribute": {
+    "type": "TabsStandardBlueprint",
+    "name": "second attribute"
+  },
+  "thirdAttribute": {
+    "type": "TabsStandardBlueprint",
+    "name": "third attribute",
+    "firstAttribute": {
+      "type": "TabsStandardBlueprint",
+      "name": "first attribute",
+      "firstAttribute": {
+        "type": "TabsStandardBlueprint",
+        "name": "first attribute",
+        "aStringValue": "Something here"
+      }
+    },
+    "secondAttribute": {
+      "type": "TabsStandardBlueprint",
+      "name": "second attribute"
+    },
+    "thirdAttribute": {
+      "type": "TabsStandardBlueprint",
+      "name": "third attribute",
+      "aStringValue": "Hallo World!"
+    }
+  }
+}

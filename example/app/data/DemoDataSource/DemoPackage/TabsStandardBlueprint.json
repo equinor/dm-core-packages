@@ -1,0 +1,34 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "TabsStandardBlueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "attributeType": "TabsStandardBlueprint",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "firstAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "TabsStandardBlueprint",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "secondAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "TabsStandardBlueprint",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "thirdAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "aStringValue",
+      "optional": true
+    }
+  ]
+}
