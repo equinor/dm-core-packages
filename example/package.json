@@ -26,7 +26,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "build-all-packages": "for package in ../packages/*/; do echo $package && cd $package && yarn install && yarn build && cd ../../example; done",
+    "build-all-packages": "for package in ../packages/*/; do echo $package && cd $package && yarn install --no-lockfile && yarn build && cd ../../example; done",
     "symlinks": "for package in ../packages/*/; do echo $package && cd $package && mkdir -p dist && cd dist && ln -sf ../src/index.tsx index.js && cd ../../../example; done",
     "remove-symlinks": "for package in ../packages/*/; do echo $package && rm -rf dist && cd ../example; done"
   },
