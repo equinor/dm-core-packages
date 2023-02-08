@@ -9,8 +9,8 @@ import {
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Icon, Tooltip } from '@equinor/eds-core-react'
-import { home } from '@equinor/eds-icons'
+import { Icon, Tooltip, SideBar } from '@equinor/eds-core-react'
+import { home, subdirectory_arrow_right } from '@equinor/eds-icons'
 import { TabsProvider } from './TabsContext'
 
 interface ITabs {
@@ -57,13 +57,18 @@ type TStringMap = {
 }
 
 export type TTabsPluginConfig = {
-  childTabsOnRender: boolean
-  homeRecipe: string
+  childTabsOnRender?: boolean
+  homeRecipe?: string
+  asSidebar?: boolean
 }
 
 export const TabsContainer = (props: IUIPlugin): JSX.Element => {
   const { idReference, config: passedConfig, onSubmit } = props
-  const config: TTabsPluginConfig = passedConfig
+  const config: TTabsPluginConfig = {
+    childTabsOnRender: passedConfig?.childTabsOnRender ?? false,
+    homeRecipe: passedConfig?.homeRecipe ?? 'home',
+    asSidebar: passedConfig?.asSidebar ?? false,
+  }
   const [selectedTab, setSelectedTab] = useState<string>('home')
   const [formData, setFormData] = useState<TGenericObject>({})
   const [childTabs, setChildTabs] = useState<TStringMap>({})
@@ -72,7 +77,7 @@ export const TabsContainer = (props: IUIPlugin): JSX.Element => {
   useEffect(() => {
     if (!entity) return
     setFormData({ ...entity })
-    if (config?.childTabsOnRender) {
+    if (config.childTabsOnRender) {
       const newChildTabs: TStringMap = {}
       Object.entries(entity).forEach(([key, attributeData]: [string, any]) => {
         if (typeof attributeData == 'object') {
@@ -103,39 +108,70 @@ export const TabsContainer = (props: IUIPlugin): JSX.Element => {
 
   return (
     <TabsProvider onOpen={handleOpen}>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            display: 'flex',
-            borderBottom: '1px black solid',
-          }}
-        >
-          <Tooltip enterDelay={600} title={entity.type} placement="top-start">
-            <BaseTab
-              onClick={() => setSelectedTab('home')}
-              active={selectedTab === 'home'}
-            >
-              <Icon data={home} size={24} />
-            </BaseTab>
-          </Tooltip>
-          {Object.values(childTabs).map((tabData: TChildTab) => (
-            <Tooltip
-              key={tabData.attribute}
-              enterDelay={600}
-              title={tabData.entity.type}
-              placement="top-start"
-            >
-              <ChildTab
-                onClick={() => setSelectedTab(tabData.attribute)}
-                active={selectedTab === tabData.attribute}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: config.asSidebar ? 'row' : 'column',
+          backgroundColor: 'green',
+        }}
+      >
+        {config.asSidebar ? (
+          <SideBar open style={{ height: 'auto' }}>
+            <SideBar.Content>
+              <SideBar.Link
+                icon={home}
+                label={entity.name}
+                onClick={() => setSelectedTab('home')}
+                active={selectedTab === 'home'}
+              />
+              {Object.values(childTabs).map((tabData: TChildTab) => (
+                <SideBar.Link
+                  key={tabData.attribute}
+                  icon={subdirectory_arrow_right}
+                  label={tabData.entity.name}
+                  onClick={() => setSelectedTab(tabData.attribute)}
+                  active={selectedTab === tabData.attribute}
+                />
+              ))}
+            </SideBar.Content>
+            <SideBar.Footer>
+              <SideBar.Toggle />
+            </SideBar.Footer>
+          </SideBar>
+        ) : (
+          <div
+            style={{
+              width: '100%',
+              flexDirection: 'row',
+              display: 'flex',
+              borderBottom: '1px black solid',
+            }}
+          >
+            <Tooltip enterDelay={600} title={entity.type} placement="top-start">
+              <BaseTab
+                onClick={() => setSelectedTab('home')}
+                active={selectedTab === 'home'}
               >
-                {tabData.attribute}
-              </ChildTab>
+                <Icon data={home} size={24} />
+              </BaseTab>
             </Tooltip>
-          ))}
-        </div>
+            {Object.values(childTabs).map((tabData: TChildTab) => (
+              <Tooltip
+                key={tabData.attribute}
+                enterDelay={600}
+                title={tabData.entity.type}
+                placement="top-start"
+              >
+                <ChildTab
+                  onClick={() => setSelectedTab(tabData.attribute)}
+                  active={selectedTab === tabData.attribute}
+                >
+                  {tabData.entity.name}
+                </ChildTab>
+              </Tooltip>
+            ))}
+          </div>
+        )}
         <HidableWrapper hidden={'home' !== selectedTab}>
           <UIPluginSelector
             idReference={idReference}

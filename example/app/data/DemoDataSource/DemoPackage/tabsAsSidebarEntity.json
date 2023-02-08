@@ -1,0 +1,39 @@
+{
+  "_id": "g6282220-4a90-4d02-8f34-b82255fc91d6",
+  "type": "TabsAsSidebarBlueprint",
+  "name": "tabsAsSidebarEntity",
+  "firstAttribute": {
+    "type": "TabsAsSidebarBlueprint",
+    "name": "first attribute",
+    "firstAttribute": {
+      "type": "TabsAsSidebarBlueprint",
+      "name": "first attribute"
+    }
+  },
+  "secondAttribute": {
+    "type": "TabsAsSidebarBlueprint",
+    "name": "second attribute"
+  },
+  "thirdAttribute": {
+    "type": "TabsAsSidebarBlueprint",
+    "name": "third attribute",
+    "firstAttribute": {
+      "type": "TabsAsSidebarBlueprint",
+      "name": "first attribute",
+      "firstAttribute": {
+        "type": "TabsAsSidebarBlueprint",
+        "name": "first attribute",
+        "aStringValue": "Something here"
+      }
+    },
+    "secondAttribute": {
+      "type": "TabsAsSidebarBlueprint",
+      "name": "second attribute"
+    },
+    "thirdAttribute": {
+      "type": "TabsAsSidebarBlueprint",
+      "name": "third attribute",
+      "aStringValue": "Hallo World!"
+    }
+  }
+}
