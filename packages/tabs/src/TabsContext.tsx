@@ -1,12 +1,23 @@
+import { TGenericObject } from '@development-framework/dm-core'
 import React, { createContext, useContext } from 'react'
-import { TChildTab } from './TabsContainer'
+import { TStringMap, TTabsPluginConfig } from './TabsContainer'
 
-type TabsProviderProps = {
-  onOpen: (tabData: TChildTab) => void
-  children: React.ReactNode
+type TabsContextProps = {
+  entity: TGenericObject
+  selectedTab: string
+  setSelectedTab: (x: string) => void
+  childTabs: TStringMap
+  setChildTabs: (x: TStringMap) => void
+  formData: TGenericObject
+  setFormData: (x: TGenericObject) => void
+  onSubmit: ((data: any) => void) | undefined
+  idReference: string
+  config: TTabsPluginConfig
 }
 
-export const TabsContext = createContext<any>({})
+export const TabsContext = createContext<TabsContextProps>(
+  {} as TabsContextProps
+)
 
 export const useTabContext = () => {
   const context = useContext(TabsContext)
@@ -16,12 +27,10 @@ export const useTabContext = () => {
   return context
 }
 
-export const TabsProvider = (props: TabsProviderProps) => {
-  const { onOpen, children } = props
-
-  const value = {
-    onOpen,
-  }
-
-  return <TabsContext.Provider value={value}>{children}</TabsContext.Provider>
+export const TabsProvider = (
+  props: { children: React.ReactNode } & TabsContextProps
+) => {
+  return (
+    <TabsContext.Provider value={props}>{props.children}</TabsContext.Provider>
+  )
 }
