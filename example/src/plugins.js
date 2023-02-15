@@ -1,9 +1,13 @@
 export default [
-  import('@development-framework/yaml-view'),
-  import('@development-framework/blueprint'),
-  import('@development-framework/default-pdf'),
-  import('@development-framework/form'),
-  import('@development-framework/tabs'),
-  import('@development-framework/header'),
-  import('@development-framework/explorer'),
+  { plugins: import('@development-framework/yaml-view') },
+  { plugins: import('@development-framework/blueprint') },
+  { plugins: import('@development-framework/default-pdf') },
+  { plugins: import('@development-framework/form') },
+  // 'validationBlueprintsPackage' points to a folder in DMSS where the plugins blueprints have been uploaded
+  {
+    plugins: import('@development-framework/tabs'),
+    validationBlueprintsPackage: 'DemoDataSource/DemoPackage/Plugins/PDF',
+  },
+  { plugins: import('@development-framework/header') },
+  { plugins: import('@development-framework/explorer') },
 ]

@@ -1,0 +1,54 @@
+{
+  "name": "PDFViewerValidation",
+  "type": "CORE:Blueprint",
+  "_meta_": {
+    "type": "CORE:Meta",
+    "version": "0.0.1",
+    "dependencies": [
+      {
+        "alias": "CORE",
+        "address": "system/SIMOS",
+        "version": "0.0.1",
+        "protocol": "dmss"
+      }
+    ]
+  },
+  "extends": ["CORE:NamedEntity"],
+  "description": "Blueprint for validating entities for the 'default-pdf'-UIPlugin",
+  "attributes": [
+    {
+      "type": "CORE:BlueprintAttribute",
+      "name": "blob",
+      "description": "id for the data blob",
+      "attributeType": "CORE:Blob",
+      "contained": true
+    },
+    {
+      "type": "CORE:BlueprintAttribute",
+      "name": "size",
+      "description": "Size of the PDF in bytes",
+      "attributeType": "integer",
+      "default": "0",
+      "optional": true,
+      "contained": true
+    },
+    {
+      "type": "CORE:BlueprintAttribute",
+      "name": "tags",
+      "description": "List of tags used for indexing",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": true,
+      "contained": true
+    },
+    {
+      "type": "CORE:BlueprintAttribute",
+      "name": "author",
+      "description": "Author of the PDF",
+      "attributeType": "string",
+      "default": "",
+      "contained": true,
+      "optional": true
+    }
+  ]
+}

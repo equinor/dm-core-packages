@@ -2,12 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import { CircularProgress } from '@equinor/eds-core-react'
-import { UiPluginContext } from '../context/UiPluginContext'
+import {
+  TExportedPluginInterface,
+  UiPluginContext,
+} from '../context/UiPluginContext'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { getRoles } from '../utils/appRoles'
 import { ErrorBoundary } from '../utils/ErrorBoundary'
 import { useBlueprint } from '../hooks'
-import { IUIPlugin, TUiRecipe } from '../types'
+import { IUIPlugin, TUiRecipe, TValidEntity } from '../types'
+import { DmssAPI } from '../services'
 
 const lightGray = '#d3d3d3'
 
@@ -97,6 +101,7 @@ const SelectPluginButton = styled.div<ISPButton>`
 type TSelectablePlugins = {
   name: string
   component: (props: IUIPlugin) => JSX.Element
+  validationBlueprint?: string
   config: any
 }
 
@@ -109,11 +114,11 @@ type TUiPluginSelectorConfig = {
 function filterPlugins(
   uiRecipes: TUiRecipe[],
   roles: string[],
-  getUIPlugin: (pluginName: string) => (props: IUIPlugin) => JSX.Element,
+  getUIPlugin: (pluginName: string) => TExportedPluginInterface,
   config?: TUiPluginSelectorConfig
 ): TSelectablePlugins[] {
   const fallbackPlugin: TSelectablePlugins[] = [
-    { name: 'yaml', component: getUIPlugin('yaml-view'), config: {} },
+    { name: 'yaml', component: getUIPlugin('yaml-view').component, config: {} },
   ]
 
   // Blueprint has no recipes
@@ -145,18 +150,23 @@ function filterPlugins(
   }
 
   // Return the remaining recipes
-  return uiRecipes.map((uiRecipe: any) => ({
-    name: uiRecipe?.label || uiRecipe?.name || uiRecipe?.plugin || 'No name',
-    component: getUIPlugin(uiRecipe?.plugin),
-    config: uiRecipe?.config,
-  }))
+  return uiRecipes.map((uiRecipe: any) => {
+    const plugin = getUIPlugin(uiRecipe?.plugin)
+    return {
+      name: uiRecipe?.label || uiRecipe?.name || uiRecipe?.plugin || 'No name',
+      component: plugin.component,
+      validationBlueprint: plugin.validationBlueprint,
+      config: uiRecipe?.config,
+    }
+  })
 }
 
 export function UIPluginSelector(props: IUIPlugin): JSX.Element {
   const { idReference, type, onSubmit, onOpen, config } = props
   const { uiRecipes, isLoading: isBlueprintLoading, error } = useBlueprint(type)
   const { loading: isContextLoading, getUiPlugin } = useContext(UiPluginContext)
-  const { tokenData } = useContext(AuthContext)
+  const { token, tokenData } = useContext(AuthContext)
+  const dmss = new DmssAPI(token)
   const roles = getRoles(tokenData)
   const [selectedPlugin, setSelectedPlugin] = useState<number>(0)
   const [selectablePlugins, setSelectablePlugins] = useState<
@@ -226,6 +236,12 @@ export function UIPluginSelector(props: IUIPlugin): JSX.Element {
           onSubmit={onSubmit}
           onOpen={onOpen}
           config={selectablePlugins[selectedPlugin].config}
+          validate={(data: TValidEntity) => {
+            dmss.validateEntity({
+              basicEntity: data,
+              asType: selectablePlugins[selectedPlugin].validationBlueprint,
+            })
+          }}
         />
       </ErrorBoundary>
     </Wrapper>

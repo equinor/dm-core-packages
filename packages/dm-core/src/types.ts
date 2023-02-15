@@ -75,6 +75,7 @@ export interface IUIPlugin {
   idReference: string
   onSubmit?: (data: any) => void
   onOpen?: (data: any) => void
+  validate?: (data: any) => void
   config?: any
 }
 
@@ -88,6 +89,8 @@ export type TUiRecipe = {
 export type TPlugin = {
   pluginName: string
   component: (props: IUIPlugin) => JSX.Element
+  validationBlueprint?: string
+  validationBlueprintsPackage?: string
 }
 
 export type TUserIdMapping = { userId: string; username: string }
