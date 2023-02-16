@@ -19,7 +19,7 @@ jobs:
   tests:
     strategy:
       matrix:
-        package: [blueprint, default-pdf, default-preview, dm-core, job, mermaid, yaml-view, tabs, header, form, explorer]
+        package: [dm-core, dm-core-plugins]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main

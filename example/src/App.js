@@ -33,11 +33,6 @@ function App() {
         overflow: 'auto',
       }}
     >
-      <h3>Explorer from explorer</h3>
-      <UIPluginSelector
-        type={'dmss://system/SIMOS/Application'}
-        absoluteDottedId={'DemoDataSource/03bf685b-edb6-40e4-8c67-62b13fefecaa'}
-      />
       <h3>TreeView from dm-core</h3>
       <div
         style={{
@@ -62,9 +57,12 @@ function App() {
       {selectedType && selectedEntity && (
         <UIRecipesSelector type={selectedType} idReference={selectedEntity} />
       )}
-      <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')} />
+      <h3>Explorer from explorer</h3>
+      <UIPluginSelector
+        type={'dmss://system/SIMOS/Application'}
+        absoluteDottedId={'DemoDataSource/03bf685b-edb6-40e4-8c67-62b13fefecaa'}
+      />
 
-      <Jobs />
       <h3>NewEntityButton button from dm-core</h3>
       <NewEntityButton
         type={'dmss://system/SIMOS/NamedEntity'}
