@@ -8,6 +8,7 @@ import {
   NewEntityButton,
   UIRecipesSelector,
   UIPluginSelector,
+  UiPluginContext,
 } from '@development-framework/dm-core'
 import { useContext, useState } from 'react'
 
@@ -18,10 +19,14 @@ function App() {
 
   const { treeNodes, loading } = useContext(FSTreeContext)
 
+  const { plugins } = useContext(UiPluginContext)
+
   const dataSources = useDataSources(dmssAPI)
   const [createdEntity, setCreatedEntity] = useState({})
   const [selectedType, setSelectedType] = useState()
   const [selectedEntity, setSelectedEntity] = useState()
+
+  console.log('plugins', plugins)
 
   return (
     <div

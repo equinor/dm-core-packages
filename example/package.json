@@ -11,6 +11,7 @@
     "@development-framework/tabs": "link:../packages/tabs",
     "@development-framework/header": "link:../packages/header",
     "@development-framework/explorer": "link:../packages/explorer",
+    "@development-framework/dm-core-plugins": "link:../packages/dm-core-plugins",
     "@craco/craco": "^7.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

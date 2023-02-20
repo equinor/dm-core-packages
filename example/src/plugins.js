@@ -6,4 +6,5 @@ export default [
   import('@development-framework/tabs'),
   import('@development-framework/header'),
   import('@development-framework/explorer'),
+  import('@development-framework/dm-core-plugins'),
 ]

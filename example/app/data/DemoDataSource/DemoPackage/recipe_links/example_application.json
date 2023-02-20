@@ -6,7 +6,7 @@
     "type": "CORE:UiRecipe",
     "plugin": "header",
     "config": {
-      "uiRecipesList": ["Yaml", "Explorer"],
+      "uiRecipesList": ["Yaml", "Explorer", "Tabs99"],
       "type": "HeaderPluginConfig",
       "hideAbout": false,
       "hideUserInfo": false
@@ -29,6 +29,11 @@
       "name": "Explorer",
       "type": "CORE:UiRecipe",
       "plugin": "explorer"
+    },
+    {
+      "name": "Tabs99",
+      "type": "CORE:UiRecipe",
+      "plugin": "tabs99"
     }
   ]
 }
