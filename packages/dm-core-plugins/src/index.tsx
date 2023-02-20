@@ -10,7 +10,10 @@ export const plugins: TPlugin[] = [
     component: Editor
   },
   {
-    pluginName: 'tabs99',
+    pluginName: 'header',
     component: Header
   },
+  {
+    pluginName: ""
+  }
 ]

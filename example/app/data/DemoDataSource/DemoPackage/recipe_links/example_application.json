@@ -32,11 +32,6 @@
       "name": "Explorer",
       "type": "CORE:UiRecipe",
       "plugin": "explorer"
-    },
-    {
-      "name": "Tabs99",
-      "type": "CORE:UiRecipe",
-      "plugin": "tabs99"
     }
   ]
 }
