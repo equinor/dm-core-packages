@@ -6,7 +6,7 @@ import Header from "./header/Header";
 
 export const plugins: TPlugin[] = [
   {
-    pluginName: 'tabs89',
+    pluginName: 'explorer',
     component: Editor
   },
   {
