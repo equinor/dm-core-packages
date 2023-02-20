@@ -32,9 +32,10 @@ function wrapComponent(Component: any) {
   class Wrapped extends React.Component {
     render() {
       return (
-        <GoldenLayoutPanel {...this.props}>
-          <Component/>
-        </GoldenLayoutPanel>
+        <Component/>
+        // <GoldenLayoutPanel {...this.props}>
+        //   <Component/>
+        // </GoldenLayoutPanel>
       )
     }
   }
@@ -92,6 +93,7 @@ export default () => {
             />
           )}
         </TreeWrapper>
+        {/*//@ts-ignore*/}
         <GoldenLayoutComponent
           htmlAttrs={{style: {height: '100vh', width: '100%'}}}
           config={LAYOUT_CONFIG}
