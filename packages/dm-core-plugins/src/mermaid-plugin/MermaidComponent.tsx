@@ -1,17 +1,16 @@
 import * as React from 'react'
-import { useContext, useEffect, useState } from 'react'
+import {useContext, useEffect, useState} from 'react'
 
 import {
   AuthContext,
   DmssAPI,
   IUIPlugin,
   Loading,
-  TPlugin,
   useDocument,
 } from '@development-framework/dm-core'
-import Mermaid from './Mermaid'
-import { dfs, loader, Node } from './loader'
-import { TAttributeType } from './types'
+import MermaidWrapper from './MermaidWrapper'
+import {dfs, loader, Node} from './loader'
+import {TAttributeType} from './types'
 
 const classElement = (node: Node) => {
   const primitiveAttributeElements = node
@@ -68,15 +67,15 @@ const createChart = (tree: Node): string => {
 
 function useExplorer(dmssAPI: DmssAPI) {
   const blueprintGet = (typeRef: string) =>
-    dmssAPI.blueprintGet({ typeRef: typeRef })
+    dmssAPI.blueprintGet({typeRef: typeRef})
   return {
     blueprintGet,
   }
 }
 
-const PluginComponent = (props: IUIPlugin) => {
-  const { idReference } = props
-  const { token } = useContext(AuthContext)
+export const MermaidComponent = (props: IUIPlugin) => {
+  const {idReference} = props
+  const {token} = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
   const explorer = useExplorer(dmssAPI)
 
@@ -93,18 +92,14 @@ const PluginComponent = (props: IUIPlugin) => {
 
   if (!chart) return <div>Creating chart...</div>
   if (isLoading) {
-    return <Loading />
+    return <Loading/>
   }
+
   return (
     <div>
-      <Mermaid chart={chart} />
+      {/*// @ts-ignore*/}
+      <MermaidWrapper chart={chart}/>
     </div>
   )
 }
 
-export const plugins: TPlugin[] = [
-  {
-    pluginName: 'mermaid',
-    component: PluginComponent,
-  },
-]

@@ -11,6 +11,7 @@
     "golden-layout": "1.5.9",
     "highlight.js": "^10.7.2",
     "js-yaml": "^4.1.0",
+    "mermaid": "^10.0.0",
     "react-contextmenu": "^2.11.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-notifications": "^1.4.3",
