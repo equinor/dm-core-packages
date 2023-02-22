@@ -49,8 +49,9 @@ export const PluginSelector = (props: PluginSelectorProps) => {
 
   return (
     <AppSelectorWrapper>
-      {selectableUiRecipeNames.map((recipeName: string) => (
+      {selectableUiRecipeNames.map((recipeName: string, index: number) => (
         <AppBox
+          key={index}
           onClick={() => {
             availableUiRecipes.map((recipe) => {
               if (recipe.name === recipeName) {
