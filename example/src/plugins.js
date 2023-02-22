@@ -4,5 +4,5 @@ export default [
     import('@development-framework/form'),
     import('@development-framework/tabs'),
     import('@development-framework/header'),
-    import('@development-framework/dm-core-packages'),
+    import('@development-framework/dm-core-plugins'),
 ]
