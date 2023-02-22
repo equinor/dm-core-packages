@@ -7,10 +7,10 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
 export const JobInputEdit = (props: IUIPlugin) => {
-  const {idReference} = props
+  const { idReference } = props
   const [dataSourceId, documentId] = idReference.split('/', 2)
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
     idReference
@@ -22,7 +22,7 @@ export const JobInputEdit = (props: IUIPlugin) => {
     setFormData(document)
   }, [document])
 
-  if (documentLoading) return <Loading/>
+  if (documentLoading) return <Loading />
   if (error) {
     const errorResponse =
       typeof error.response?.data == 'object'
@@ -54,17 +54,17 @@ export const JobInputEdit = (props: IUIPlugin) => {
 
   return (
     <div>
-      <div style={{marginBottom: '10px'}}>
+      <div style={{ marginBottom: '10px' }}>
         {Object.keys(formData.applicationInput || {}).length ? (
           <UIPluginSelector
             type={formData.applicationInput.type}
             idReference={`${dataSourceId}/${formData.applicationInput._id}`}
             onSubmit={(data: any) =>
-              updateDocument({...formData, applicationInput: data}, true)
+              updateDocument({ ...formData, applicationInput: data }, true)
             }
           />
         ) : (
-          <pre style={{color: 'red'}}>
+          <pre style={{ color: 'red' }}>
             The jobs has no value for the "applicationInput" attribute
           </pre>
         )}

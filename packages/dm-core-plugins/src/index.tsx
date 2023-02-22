@@ -1,15 +1,15 @@
-import {TPlugin} from '@development-framework/dm-core'
+import { TPlugin } from '@development-framework/dm-core'
 import Editor from './explorer/Editor'
-import {PluginComponent} from "./yaml-view/YamlPlugin";
-import {TabsContainer} from "./tabs/TabsContainer";
-import {MermaidComponent} from "./mermaid-plugin/MermaidComponent";
-import {JobInputEdit} from "./job/JobInputEdit";
-import {JobControlWrapper} from "./job/JobControlWrapper";
-import {FormComponent} from "./form/FormComonent";
-import Header from "./header/Header";
-import {DefaultPreviewComponent} from './default-preview/DefaultPreviewComponent'
-import {DefaultPdfComponent} from "./default-pdf/DefaultPdfComponent";
-import {EditBlueprint} from "./blueprint/EditBlueprint";
+import { PluginComponent } from './yaml-view/YamlPlugin'
+import { TabsContainer } from './tabs/TabsContainer'
+import { MermaidComponent } from './mermaid-plugin/MermaidComponent'
+import { JobInputEdit } from './job/JobInputEdit'
+import { JobControlWrapper } from './job/JobControlWrapper'
+import { FormComponent } from './form/FormComonent'
+import Header from './header/Header'
+import { DefaultPreviewComponent } from './default-preview/DefaultPreviewComponent'
+import { DefaultPdfComponent } from './default-pdf/DefaultPdfComponent'
+import { EditBlueprint } from './blueprint/EditBlueprint'
 
 export const plugins: TPlugin[] = [
   {
@@ -49,12 +49,11 @@ export const plugins: TPlugin[] = [
     component: DefaultPreviewComponent,
   },
   {
-    pluginName: "default-pdfpdf",
-    component: DefaultPdfComponent
+    pluginName: 'default-pdfpdf',
+    component: DefaultPdfComponent,
   },
   {
     pluginName: 'edit-blueprint',
     component: EditBlueprint,
   },
-
 ]

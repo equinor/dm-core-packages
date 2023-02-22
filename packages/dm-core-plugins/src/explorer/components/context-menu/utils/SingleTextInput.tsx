@@ -1,7 +1,7 @@
-import {Button, Input, Label} from '@equinor/eds-core-react'
-import {INPUT_FIELD_WIDTH} from '@development-framework/dm-core'
+import { Button, Input, Label } from '@equinor/eds-core-react'
+import { INPUT_FIELD_WIDTH } from '@development-framework/dm-core'
 import React from 'react'
-import {edsButtonStyleConfig} from './styles'
+import { edsButtonStyleConfig } from './styles'
 
 export const SingleTextInput = (props: {
   label: string
@@ -9,14 +9,14 @@ export const SingleTextInput = (props: {
   setFormData: (newFormData: string) => void
   buttonisDisabled: boolean
 }) => {
-  const {label, handleSubmit, setFormData, buttonisDisabled} = props
+  const { label, handleSubmit, setFormData, buttonisDisabled } = props
   return (
     <div>
-      <div style={{display: 'block'}}>
-        <Label label={label}/>
+      <div style={{ display: 'block' }}>
+        <Label label={label} />
         <Input
           type={'string'}
-          style={{width: INPUT_FIELD_WIDTH}}
+          style={{ width: INPUT_FIELD_WIDTH }}
           onChange={(event: any) => setFormData(event.target.value)}
         />
       </div>

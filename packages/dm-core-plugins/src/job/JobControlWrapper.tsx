@@ -6,15 +6,15 @@ import {
   TJob,
   Loading,
 } from '@development-framework/dm-core'
-import {JobControl} from './JobControl'
+import { JobControl } from './JobControl'
 
 export const JobControlWrapper = (props: IUIPlugin) => {
-  const {idReference} = props
+  const { idReference } = props
   const [dataSourceId, documentId] = idReference.split('/', 2)
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
     idReference
   )
-  if (documentLoading) return <Loading/>
+  if (documentLoading) return <Loading />
   if (error) {
     const errorResponse =
       typeof error.response?.data == 'object'
@@ -31,4 +31,3 @@ export const JobControlWrapper = (props: IUIPlugin) => {
     />
   )
 }
-
