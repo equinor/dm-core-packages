@@ -8,6 +8,7 @@ import {JobControlWrapper} from "./job/JobControlWrapper";
 import {FormComponent} from "./form/FormComonent";
 import Header from "./header/Header";
 import {DefaultPreviewComponent} from './default-preview/DefaultPreviewComponent'
+import {DefaultPdfComponent} from "./default-pdf/DefaultPdfComponent";
 
 export const plugins: TPlugin[] = [
   {
@@ -46,5 +47,9 @@ export const plugins: TPlugin[] = [
     pluginName: 'default-preview',
     component: DefaultPreviewComponent,
   },
+  {
+    pluginName: "default-pdfpdf",
+    component: DefaultPdfComponent
+  }
 
 ]

@@ -5,7 +5,6 @@
   "dependencies": {
     "@development-framework/dm-core": "link:../packages/dm-core",
     "@development-framework/blueprint": "link:../packages/blueprint",
-    "@development-framework/default-pdf": "link:../packages/default-pdf",
     "@development-framework/dm-core-plugins": "link:../packages/dm-core-plugins",
     "@craco/craco": "^7.0.0",
     "react": "^17.0.2",
