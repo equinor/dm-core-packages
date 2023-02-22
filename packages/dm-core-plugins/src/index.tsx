@@ -5,6 +5,7 @@ import {TabsContainer} from "./tabs/TabsContainer";
 import {MermaidComponent} from "./mermaid-plugin/MermaidComponent";
 import {JobInputEdit} from "./job/JobInputEdit";
 import {JobControlWrapper} from "./job/JobControlWrapper";
+import {FormComponent} from "./form/FormComonent";
 
 export const plugins: TPlugin[] = [
   {
@@ -30,6 +31,10 @@ export const plugins: TPlugin[] = [
   {
     pluginName: 'jobInputEdit',
     component: JobInputEdit,
+  },
+  {
+    pluginName: 'form',
+    component: FormComponent,
   },
 
 ]
