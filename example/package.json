@@ -5,7 +5,6 @@
   "dependencies": {
     "@development-framework/dm-core": "link:../packages/dm-core",
     "@development-framework/blueprint": "link:../packages/blueprint",
-    "@development-framework/yaml-view": "link:../packages/yaml-view",
     "@development-framework/default-pdf": "link:../packages/default-pdf",
     "@development-framework/form": "link:../packages/form",
     "@development-framework/tabs": "link:../packages/tabs",
