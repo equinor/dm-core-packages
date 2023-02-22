@@ -9,11 +9,11 @@ jobs:
     uses: ./.github/workflows/tests.yaml
 
   publish-packages:
-    needs: [tests]
+    needs: [ tests ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: [ blueprint, default-pdf, default-preview, job, mermaid, yaml-view, dm-core, tabs, header, form, explorer]
+        package: [ dm-core, dm-core-plugins ]
     steps:
       - uses: actions/checkout@v2
 
