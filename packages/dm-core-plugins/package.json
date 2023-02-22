@@ -4,7 +4,9 @@
   "version": "1.0.1",
   "main": "dist/index.js",
   "dependencies": {
-    "@equinor/eds-core-react": "^0.20.0",
+    "@equinor/eds-core-react": "^0.29.1",
+    "@equinor/eds-icons": "^0.18.0",
+    "@equinor/eds-tokens": "^0.9.0",
     "axios": "^0.27.2",
     "golden-layout": "1.5.9",
     "highlight.js": "^10.7.2",
