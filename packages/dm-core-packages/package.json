@@ -29,7 +29,7 @@
   },
   "scripts": {
     "prebuild": "rm -rf dist",
-    "copy-css-file": "cp src/explorer/components/context-menu/react-contextmenu.css  dist/components/context-menu/react-contextmenu.css",
+    "copy-css-file": "cp src/explorer/components/context-menu/react-contextmenu.css  dist/explorer/components/context-menu/react-contextmenu.css",
     "build": "tsc && yarn copy-css-file",
     "postbuild": "rm -rf node_modules"
   }
