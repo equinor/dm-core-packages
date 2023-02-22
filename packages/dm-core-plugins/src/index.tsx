@@ -7,6 +7,7 @@ import {JobInputEdit} from "./job/JobInputEdit";
 import {JobControlWrapper} from "./job/JobControlWrapper";
 import {FormComponent} from "./form/FormComonent";
 import Header from "./header/Header";
+import {DefaultPreviewComponent} from './default-preview/DefaultPreviewComponent'
 
 export const plugins: TPlugin[] = [
   {
@@ -40,6 +41,10 @@ export const plugins: TPlugin[] = [
   {
     pluginName: 'header',
     component: Header,
+  },
+  {
+    pluginName: 'default-preview',
+    component: DefaultPreviewComponent,
   },
 
 ]
