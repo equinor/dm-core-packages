@@ -1,3 +1,1 @@
-export default [
-    import('@development-framework/dm-core-plugins'),
-]
+export default [import('@development-framework/dm-core-plugins')]

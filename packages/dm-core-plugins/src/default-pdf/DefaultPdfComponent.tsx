@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {ViewerPDFPlugin} from './PDFViewer'
+import { ViewerPDFPlugin } from './PDFViewer'
 
 import {
   IUIPlugin,
@@ -7,16 +7,14 @@ import {
   TGenericObject,
   TPlugin,
 } from '@development-framework/dm-core'
-import {useDocument} from '@development-framework/dm-core'
+import { useDocument } from '@development-framework/dm-core'
 
 export const DefaultPdfComponent = (props: IUIPlugin) => {
-  const {idReference} = props
+  const { idReference } = props
   const [document, loading] = useDocument<TGenericObject>(idReference, 999)
   const dataSource = idReference.split('/')[0]
 
-  if (loading || document === null) return <Loading/>
+  if (loading || document === null) return <Loading />
 
-  return <ViewerPDFPlugin document={document} dataSourceId={dataSource}/>
+  return <ViewerPDFPlugin document={document} dataSourceId={dataSource} />
 }
-
-

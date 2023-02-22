@@ -1,11 +1,17 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import hljs from 'highlight.js'
 import yaml from 'highlight.js/lib/languages/yaml'
 // @ts-ignore
-import {CopyToClipboard} from 'react-copy-to-clipboard'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import jsyaml from 'js-yaml'
-import styled, {keyframes} from 'styled-components'
-import {Button, IUIPlugin, Loading, TGenericObject, useDocument} from '@development-framework/dm-core'
+import styled, { keyframes } from 'styled-components'
+import {
+  Button,
+  IUIPlugin,
+  Loading,
+  TGenericObject,
+  useDocument,
+} from '@development-framework/dm-core'
 import './index.css'
 
 hljs.registerLanguage('yaml', yaml)
@@ -34,10 +40,10 @@ const TooltipText = styled.div`
 `
 
 const YamlPlugin = (props: { document: TGenericObject }) => {
-  const {document} = props
+  const { document } = props
   const [showTooltip, setShowTooltip] = useState<boolean>(false)
   const asYAML: string = jsyaml.dump(document)
-  const highlighted = hljs.highlight(asYAML, {language: 'yaml'})
+  const highlighted = hljs.highlight(asYAML, { language: 'yaml' })
 
   return (
     <div>
@@ -48,7 +54,7 @@ const YamlPlugin = (props: { document: TGenericObject }) => {
           flexDirection: 'column',
         }}
       >
-        <div style={{position: 'absolute', right: '120px'}}>
+        <div style={{ position: 'absolute', right: '120px' }}>
           {showTooltip && (
             <TooltipText onAnimationEnd={() => setShowTooltip(false)}>
               Copied!
@@ -64,15 +70,15 @@ const YamlPlugin = (props: { document: TGenericObject }) => {
           </CopyToClipboard>
         </div>
       </div>
-      <pre style={{backgroundColor: '#193549', color: 'coral'}}>
-        <code dangerouslySetInnerHTML={{__html: highlighted.value}}/>
+      <pre style={{ backgroundColor: '#193549', color: 'coral' }}>
+        <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
       </pre>
     </div>
   )
 }
 
 export const PluginComponent = (props: IUIPlugin) => {
-  const {idReference} = props
+  const { idReference } = props
   // eslint-disable-next-line
   const [
     document,
@@ -80,13 +86,13 @@ export const PluginComponent = (props: IUIPlugin) => {
     updateDocument,
     error,
   ] = useDocument<TGenericObject>(idReference, 999)
-  if (loading) return <Loading/>
+  if (loading) return <Loading />
   if (error) {
     const errorResponse =
       typeof error.response?.data == 'object'
         ? error.response?.data?.message
         : error.response?.data
-    return <pre style={{color: 'red'}}>{errorResponse}</pre>
+    return <pre style={{ color: 'red' }}>{errorResponse}</pre>
   }
-  return <YamlPlugin document={document || {}}/>
+  return <YamlPlugin document={document || {}} />
 }

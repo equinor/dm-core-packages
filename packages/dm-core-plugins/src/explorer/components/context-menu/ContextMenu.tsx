@@ -1,8 +1,8 @@
-import React, {useContext, useState} from 'react'
-import {Button, Input, Label, Progress} from '@equinor/eds-core-react'
+import React, { useContext, useState } from 'react'
+import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
 import './react-contextmenu.css'
-import {ContextMenu, ContextMenuTrigger} from 'react-contextmenu'
-import {AxiosError} from 'axios'
+import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
+import { AxiosError } from 'axios'
 import {
   AuthContext,
   EBlueprint,
@@ -16,10 +16,10 @@ import {
 } from '@development-framework/dm-core'
 
 // @ts-ignore
-import {NotificationManager} from 'react-notifications'
-import {createContextMenuItems} from './utils/createContextMenuItmes'
-import {SingleTextInput} from './utils/SingleTextInput'
-import {DialogContent, edsButtonStyleConfig} from './utils/styles'
+import { NotificationManager } from 'react-notifications'
+import { createContextMenuItems } from './utils/createContextMenuItmes'
+import { SingleTextInput } from './utils/SingleTextInput'
+import { DialogContent, edsButtonStyleConfig } from './utils/styles'
 import {
   DeleteAction,
   NewFolderAction,
@@ -29,8 +29,8 @@ import {
 //Component that can be used when a context menu action requires one text (string) input.
 
 export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
-  const {node, children, removeNode} = props
-  const {token} = useContext(AuthContext)
+  const { node, children, removeNode } = props
+  const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token, 'http://localhost:5000')
   const [scrimToShow, setScrimToShow] = useState<string>('')
   const [formData, setFormData] = useState<any>('')
@@ -97,7 +97,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         header={'Confirm Deletion'}
       >
         <DialogContent>
-          <div style={{paddingBottom: '18px'}}>
+          <div style={{ paddingBottom: '18px' }}>
             Are you sure you want to delete the entity <b>{node.name}</b> of
             type <b>{node.type}</b>?
           </div>
@@ -116,7 +116,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
                 setScrimToShow('')
               }}
             >
-              {loading ? <Progress.Dots/> : 'Delete'}
+              {loading ? <Progress.Dots /> : 'Delete'}
             </Button>
           </div>
         </DialogContent>
@@ -153,7 +153,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         <DialogContent>
           {loading ? (
             <Button style={edsButtonStyleConfig}>
-              <Progress.Dots/>
+              <Progress.Dots />
             </Button>
           ) : (
             <Button
@@ -193,18 +193,18 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         height={STANDARD_DIALOG_HEIGHT}
       >
         <DialogContent>
-          <div style={{display: 'block'}}>
+          <div style={{ display: 'block' }}>
             <BlueprintPicker
               label={'Blueprint'}
               onChange={(selectedType: string) =>
-                setFormData({type: selectedType})
+                setFormData({ type: selectedType })
               }
               formData={formData?.type || ''}
             />
           </div>
           {loading ? (
             <Button style={edsButtonStyleConfig}>
-              <Progress.Dots/>
+              <Progress.Dots />
             </Button>
           ) : (
             <Button
@@ -239,21 +239,21 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         height={STANDARD_DIALOG_HEIGHT}
       >
         <DialogContent>
-          <div style={{display: 'block'}}>
-            <Label label={'Name'}/>
+          <div style={{ display: 'block' }}>
+            <Label label={'Name'} />
             <Input
-              style={{width: INPUT_FIELD_WIDTH}}
+              style={{ width: INPUT_FIELD_WIDTH }}
               type="string"
               value={formData?.name || ''}
               onChange={(event: any) =>
-                setFormData({...formData, name: event.target.value})
+                setFormData({ ...formData, name: event.target.value })
               }
               placeholder="Name for new blueprint"
             />
           </div>
           {loading ? (
             <Button style={edsButtonStyleConfig}>
-              <Progress.Dots/>
+              <Progress.Dots />
             </Button>
           ) : (
             <Button
