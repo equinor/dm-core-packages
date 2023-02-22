@@ -8,19 +8,18 @@ import { TWidget } from '../../types'
 Icon.add({ error_filled })
 
 const TextWidget = (props: TWidget) => {
-  const { label, onChange, id, value, onClick, readOnly } = props
+  const { label, onChange } = props
 
   const _onChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => onChange(value === '' ? '' : value)
-
   return (
     <TextField
-      id={id}
+      id={props.id}
+      readOnly={props.readOnly}
+      value={props.value}
+      onClick={props.onClick}
       onChange={_onChange}
-      readOnly={readOnly}
-      onClick={onClick}
-      value={value}
       label={label}
     />
   )

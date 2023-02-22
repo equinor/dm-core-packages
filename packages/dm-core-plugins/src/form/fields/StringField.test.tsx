@@ -76,7 +76,7 @@ describe('StringField', () => {
       )
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
@@ -105,7 +105,7 @@ describe('StringField', () => {
       )
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
@@ -134,12 +134,16 @@ describe('StringField', () => {
         },
       ])
       const { container } = render(<Form type="SingleField" />)
+
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
-        const id = inputNode !== null ? inputNode.getAttribute('id') : ''
+        const id =
+          inputNode !== null
+            ? inputNode.getAttribute('id')
+            : 'input node is null'
         expect(id).toBe('foo')
       })
     })
@@ -162,7 +166,7 @@ describe('StringField', () => {
       const { container } = render(<Form type="SingleField" />)
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         const id = inputNode !== null ? inputNode.getAttribute('id') : ''
