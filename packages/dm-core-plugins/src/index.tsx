@@ -2,6 +2,7 @@ import {TPlugin} from '@development-framework/dm-core'
 import Editor from './explorer/Editor'
 import {PluginComponent} from "./yaml-view/YamlPlugin";
 import {TabsContainer} from "./tabs/TabsContainer";
+import {MermaidComponent} from "./mermaid-plugin/MermaidComponent";
 
 export const plugins: TPlugin[] = [
   {
@@ -15,6 +16,10 @@ export const plugins: TPlugin[] = [
   {
     pluginName: 'tabs',
     component: TabsContainer,
+  },
+  {
+    pluginName: 'mermaid',
+    component: MermaidComponent,
   },
 
 ]
