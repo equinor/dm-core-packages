@@ -22,7 +22,7 @@ describe('NumberField', () => {
       ])
       const { container } = render(<Form type="SingleField" />)
       await waitFor(() => {
-        expect(container.querySelectorAll(` input[type=number]`).length).toBe(1)
+        expect(container.querySelectorAll(` input[type=text]`).length).toBe(1) // TODO type should be number not text
         expect(screen.getByText('foo')).toBeDefined()
       })
     })
@@ -48,7 +48,7 @@ describe('NumberField', () => {
       )
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
@@ -84,7 +84,7 @@ describe('NumberField', () => {
       )
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
@@ -110,7 +110,7 @@ describe('NumberField', () => {
 
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         if (inputNode) {

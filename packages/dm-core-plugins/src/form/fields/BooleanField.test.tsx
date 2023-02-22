@@ -104,7 +104,7 @@ describe('BooleanField', () => {
       )
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
@@ -133,7 +133,7 @@ describe('BooleanField', () => {
       )
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
@@ -164,7 +164,7 @@ describe('BooleanField', () => {
       const { container } = render(<Form type="SingleField" />)
       await waitFor(() => {
         const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
+          ` input[id="foo"]`
         )
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
