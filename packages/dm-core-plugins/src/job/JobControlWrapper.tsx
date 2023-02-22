@@ -1,23 +1,20 @@
 import * as React from 'react'
 
 import {
-  EPluginType,
   IUIPlugin,
   useDocument,
   TJob,
   Loading,
-  TPlugin,
 } from '@development-framework/dm-core'
-import { JobControl } from './JobControl'
-import { JobInputEdit } from './JobInputEdit'
+import {JobControl} from './JobControl'
 
-const JobControlWrapper = (props: IUIPlugin) => {
-  const { idReference } = props
+export const JobControlWrapper = (props: IUIPlugin) => {
+  const {idReference} = props
   const [dataSourceId, documentId] = idReference.split('/', 2)
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
     idReference
   )
-  if (documentLoading) return <Loading />
+  if (documentLoading) return <Loading/>
   if (error) {
     const errorResponse =
       typeof error.response?.data == 'object'
@@ -35,15 +32,3 @@ const JobControlWrapper = (props: IUIPlugin) => {
   )
 }
 
-export const plugins: TPlugin[] = [
-  {
-    pluginName: 'jobControl',
-    pluginType: EPluginType.UI,
-    component: JobControlWrapper,
-  },
-  {
-    pluginName: 'jobInputEdit',
-    pluginType: EPluginType.UI,
-    component: JobInputEdit,
-  },
-]

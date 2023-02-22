@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {
   AuthContext,
@@ -11,11 +11,11 @@ import {
   TJob,
   ApplicationContext,
 } from '@development-framework/dm-core'
-import { Button, Label, Progress } from '@equinor/eds-core-react'
+import {Button, Label, Progress} from '@equinor/eds-core-react'
 import Icons from './Icons'
-import { AxiosError } from 'axios'
+import {AxiosError} from 'axios'
 // @ts-ignore
-import { NotificationManager } from 'react-notifications'
+import {NotificationManager} from 'react-notifications'
 
 const StyledPre = styled.pre`
   display: flex;
@@ -67,7 +67,7 @@ const SimStatusWrapper = styled.div<ISimStatusWrapper>`
   padding: 0 10px;
   margin-left: 10px;
   border: ${(props: ISimStatusWrapper) =>
-    `${colorFromStatus(props.status)} 3px solid`};
+          `${colorFromStatus(props.status)} 3px solid`};
   color: ${(props: ISimStatusWrapper) => colorFromStatus(props.status)};
 `
 
@@ -80,9 +80,9 @@ export const JobControl = (props: {
   jobId: string
   updateDocument: (newDocument: any, notify: boolean) => void
 }) => {
-  const { jobId, document } = props
+  const {jobId, document} = props
   const [dataSourceId, documentId] = jobId.split('/', 2)
-  const { token } = useContext(AuthContext)
+  const {token} = useContext(AuthContext)
   const settings = useContext(ApplicationContext)
   const dmtApi = new DmJobAPI(token)
   const dmssApi = new DmssAPI(token)
@@ -99,7 +99,7 @@ export const JobControl = (props: {
     if (!jobUID) return // job has not been started
     setLoading(true)
     dmtApi
-      .jobStatus({ jobUid: jobUID })
+      .jobStatus({jobUid: jobUID})
       .then((result: any) => {
         setJobLogs(result.data.log)
         setJobStatus(result.data.status)
@@ -115,7 +115,7 @@ export const JobControl = (props: {
   const startJob = () => {
     setLoading(true)
     dmtApi
-      .startJob({ jobDmssId: jobId })
+      .startJob({jobDmssId: jobId})
       .then((result: any) => {
         NotificationManager.success(
           JSON.stringify(result.data.message),
@@ -140,7 +140,7 @@ export const JobControl = (props: {
     if (!jobUID) return // job has not been started
     setLoading(true)
     try {
-      await dmtApi.removeJob({ jobUid: jobUID })
+      await dmtApi.removeJob({jobUid: jobUID})
       await dmssApi.documentRemove({
         dataSourceId: dataSourceId,
         dottedId: documentId,
@@ -175,9 +175,8 @@ export const JobControl = (props: {
       >
         {document.runner ? (
           <UIPluginSelector
-            categories={['view']}
             type={document.runner.type}
-            absoluteDottedId={`${jobId}.runner`}
+            idReference={`${jobId}.runner`}
           />
         ) : (
           <pre>None</pre>
@@ -192,9 +191,8 @@ export const JobControl = (props: {
       >
         {document.applicationInput ? (
           <UIPluginSelector
-            categories={['view']}
             type={document.applicationInput.type}
-            absoluteDottedId={`${jobId.split('/', 1)[0]}/${
+            idReference={`${jobId.split('/', 1)[0]}/${
               document.applicationInput._id
             }`}
           />
@@ -212,15 +210,15 @@ export const JobControl = (props: {
         }}
       >
         <RowGroup>
-          <Label label="Status:" />
+          <Label label="Status:"/>
           <SimStatusWrapper status={jobStatus}>{jobStatus}</SimStatusWrapper>
         </RowGroup>
         <RowGroup>
-          <Label label="Started by:" />
+          <Label label="Started by:"/>
           <label>{document.triggeredBy}</label>
         </RowGroup>
         <RowGroup>
-          <Label label="Started:" />
+          <Label label="Started:"/>
           {document.status === JobStatus.Registered ? (
             <label>Not started</label>
           ) : (
@@ -231,19 +229,19 @@ export const JobControl = (props: {
           )}
         </RowGroup>
         <RowGroup>
-          <Label label="Runner:" />
+          <Label label="Runner:"/>
           <ClickableLabel onClick={() => setRunnerModal(true)}>
             View
           </ClickableLabel>
         </RowGroup>
         <RowGroup>
-          <Label label="input:" />
+          <Label label="input:"/>
           <ClickableLabel onClick={() => setInputModal(true)}>
             View
           </ClickableLabel>
         </RowGroup>
         <RowGroup>
-          <Label label="Result:" />
+          <Label label="Result:"/>
           {Object.keys(document?.result || {}).length ? (
             <ClickableLabel
               onClick={() =>
@@ -273,12 +271,12 @@ export const JobControl = (props: {
           onClick={() => setRefreshCount(refreshCount + 1)}
           variant="outlined"
         >
-          <Icons name="refresh" title="refresh" />
+          <Icons name="refresh" title="refresh"/>
         </Button>
         {jobStatus === JobStatus.Registered && (
-          <Button style={{ width: '150px' }} onClick={() => startJob()}>
+          <Button style={{width: '150px'}} onClick={() => startJob()}>
             Start job
-            <Icons name="play" title="play" />
+            <Icons name="play" title="play"/>
           </Button>
         )}
       </div>
@@ -288,9 +286,9 @@ export const JobControl = (props: {
           marginTop: '25px',
         }}
       >
-        <h4 style={{ alignSelf: 'self-end', marginRight: '10px' }}>Logs:</h4>
+        <h4 style={{alignSelf: 'self-end', marginRight: '10px'}}>Logs:</h4>
         <Button
-          style={{ height: '20px' }}
+          style={{height: '20px'}}
           variant="outlined"
           onClick={() => setShowLogs(!showLogs)}
         >
@@ -300,9 +298,9 @@ export const JobControl = (props: {
       {showLogs && (
         <>
           {loading ? (
-            <Progress.Dots color="primary" />
+            <Progress.Dots color="primary"/>
           ) : (
-            <div style={{ paddingBottom: '20px' }}>
+            <div style={{paddingBottom: '20px'}}>
               <StyledPre>{jobLogs}</StyledPre>
             </div>
           )}
