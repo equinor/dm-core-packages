@@ -3,6 +3,8 @@ import Editor from './explorer/Editor'
 import {PluginComponent} from "./yaml-view/YamlPlugin";
 import {TabsContainer} from "./tabs/TabsContainer";
 import {MermaidComponent} from "./mermaid-plugin/MermaidComponent";
+import {JobInputEdit} from "./job/JobInputEdit";
+import {JobControlWrapper} from "./job/JobControlWrapper";
 
 export const plugins: TPlugin[] = [
   {
@@ -20,6 +22,14 @@ export const plugins: TPlugin[] = [
   {
     pluginName: 'mermaid',
     component: MermaidComponent,
+  },
+  {
+    pluginName: 'jobControl',
+    component: JobControlWrapper,
+  },
+  {
+    pluginName: 'jobInputEdit',
+    component: JobInputEdit,
   },
 
 ]
