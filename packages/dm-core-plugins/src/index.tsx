@@ -9,6 +9,7 @@ import {FormComponent} from "./form/FormComonent";
 import Header from "./header/Header";
 import {DefaultPreviewComponent} from './default-preview/DefaultPreviewComponent'
 import {DefaultPdfComponent} from "./default-pdf/DefaultPdfComponent";
+import {EditBlueprint} from "./blueprint/EditBlueprint";
 
 export const plugins: TPlugin[] = [
   {
@@ -50,6 +51,10 @@ export const plugins: TPlugin[] = [
   {
     pluginName: "default-pdfpdf",
     component: DefaultPdfComponent
-  }
+  },
+  {
+    pluginName: 'edit-blueprint',
+    component: EditBlueprint,
+  },
 
 ]
