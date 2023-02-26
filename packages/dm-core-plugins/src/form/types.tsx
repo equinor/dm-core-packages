@@ -48,7 +48,7 @@ export type TBooleanFieldProps = {
   uiAttribute?: any
 }
 
-export declare type Variants = 'error' | 'default'
+export declare type Variants = 'error' | 'success' | 'error'
 
 export type TWidget = {
   label: string
