@@ -17,7 +17,9 @@ export const SingleTextInput = (props: {
         <Input
           type={'string'}
           style={{ width: INPUT_FIELD_WIDTH }}
-          onChange={(event: any) => setFormData(event.target.value)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setFormData(event.target.value)
+          }
         />
       </div>
       <div>

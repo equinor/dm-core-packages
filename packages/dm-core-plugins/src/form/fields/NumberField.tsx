@@ -65,7 +65,7 @@ export const NumberField = (props: TNumberFieldProps) => {
             label={displayLabel}
             inputRef={ref}
             helperText={error?.message}
-            variant={invalid ? 'error' : 'default'}
+            variant={invalid ? 'error' : undefined}
           />
         )
       }}

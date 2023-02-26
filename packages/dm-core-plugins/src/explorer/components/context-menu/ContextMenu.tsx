@@ -245,7 +245,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
               style={{ width: INPUT_FIELD_WIDTH }}
               type="string"
               value={formData?.name || ''}
-              onChange={(event: any) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 setFormData({ ...formData, name: event.target.value })
               }
               placeholder="Name for new blueprint"

@@ -32,7 +32,7 @@ export const BooleanField = (props: TBooleanFieldProps) => {
           inputRef={ref}
           label={displayLabel}
           helperText={error?.message}
-          variant={invalid ? 'error' : 'default'}
+          variant={invalid ? 'error' : undefined}
         />
       )}
     />
