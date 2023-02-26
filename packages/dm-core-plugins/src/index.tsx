@@ -49,7 +49,7 @@ export const plugins: TPlugin[] = [
     component: DefaultPreviewComponent,
   },
   {
-    pluginName: 'default-pdfpdf',
+    pluginName: 'default-pdf',
     component: DefaultPdfComponent,
   },
   {
