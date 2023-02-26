@@ -43,7 +43,7 @@ export const StringField = (props: TStringFieldProps) => {
             label={displayLabel}
             inputRef={ref}
             helperText={error?.message || error?.type}
-            variant={invalid ? 'error' : 'default'}
+            variant={invalid ? 'error' : undefined}
           />
         )
       }}
