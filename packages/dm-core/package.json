@@ -1,6 +1,6 @@
 {
   "name": "@development-framework/dm-core",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "license": "MIT",
   "peerDependencies": {
     "react-router-dom": ">=5.1.2",
