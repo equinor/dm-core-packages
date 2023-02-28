@@ -16,8 +16,7 @@
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
-      "plugin": "yaml-view",
-      "category": "container"
+      "plugin": "yaml-view"
     },
     {
       "type": "CORE:UiRecipe",

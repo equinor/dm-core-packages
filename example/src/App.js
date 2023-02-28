@@ -7,7 +7,6 @@ import {
   useDataSources,
   NewEntityButton,
   UIRecipesSelector,
-  UIPluginSelector,
 } from '@development-framework/dm-core'
 import { useContext, useState } from 'react'
 
@@ -34,9 +33,9 @@ function App() {
       }}
     >
       <h3>Explorer from explorer</h3>
-      <UIPluginSelector
-        type={'dmss://system/SIMOS/Application'}
-        absoluteDottedId={'DemoDataSource/03bf685b-edb6-40e4-8c67-62b13fefecaa'}
+      <UIRecipesSelector
+        type={'dmss://DemoDataSource/DemoPackage/blueprints/ExampleApplication'}
+        idReference={'DemoDataSource/03bf685b-edb6-40e4-8c67-62b13fefecaa'}
       />
       <h3>TreeView from dm-core</h3>
       <div

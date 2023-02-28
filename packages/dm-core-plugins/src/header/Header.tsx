@@ -5,6 +5,7 @@ import {
   useDocument,
   useBlueprint,
   TUiRecipe,
+  TGenericObject,
 } from '@development-framework/dm-core'
 import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
@@ -15,7 +16,7 @@ import { account_circle, grid_on, info_circle } from '@equinor/eds-icons'
 import { UserInfoDialog } from './components/UserInfoDialog'
 import { AboutDialog } from './components/AboutDialog'
 import { TApplication } from './types'
-import { PluginSelector } from './components/PluginSelector'
+import { RecipeSelector } from './components/RecipeSelector'
 
 const Icons = styled.div`
   display: flex;
@@ -40,6 +41,11 @@ type THeaderPluginConfig = {
   hideAbout: boolean
 }
 
+type TRecipeConfigAndPlugin = {
+  config?: TGenericObject
+  component: (props: IUIPlugin) => JSX.Element
+}
+
 export default (props: IUIPlugin): JSX.Element => {
   const { idReference, config: passedConfig, type } = props
   const config = passedConfig as THeaderPluginConfig
@@ -50,25 +56,36 @@ export default (props: IUIPlugin): JSX.Element => {
   const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
   const { loading: isContextLoading, getUiPlugin } = useContext(UiPluginContext)
 
-  const [selectedPlugin, setSelectedPlugin] = useState<{
-    component: (props: IUIPlugin) => JSX.Element
-  }>({
+  const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
     component: (props: IUIPlugin) => <div></div>,
+    config: {},
   })
 
+  function getRecipeConfigAndPlugin(
+    recipeName: string
+  ): TRecipeConfigAndPlugin {
+    const recipe = uiRecipes.find(
+      (recipe: TUiRecipe) => recipe.name === recipeName
+    )
+    return {
+      component: getUiPlugin(recipe.plugin),
+      config: recipe?.config ?? {},
+    }
+  }
+
   useEffect(() => {
-    if (isContextLoading === false && isBlueprintLoading === false) {
-      const defaultPluginName: string =
+    if (!isContextLoading && !isBlueprintLoading) {
+      const defaultRecipe: TUiRecipe =
         config.uiRecipesList.length > 0
-          ? uiRecipes.find((recipe: TUiRecipe) => {
-              return recipe.name === config.uiRecipesList[0]
-            }).plugin
-          : uiRecipes[0].plugin
-      setSelectedPlugin({ component: getUiPlugin(defaultPluginName) })
+          ? uiRecipes.find(
+              (recipe: TUiRecipe) => recipe.name === config.uiRecipesList[0]
+            )
+          : uiRecipes[0]
+      setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))
     }
   }, [isBlueprintLoading, isContextLoading])
 
-  const UIPlugin: (props: IUIPlugin) => JSX.Element = selectedPlugin.component
+  const UIPlugin: (props: IUIPlugin) => JSX.Element = selectedRecipe.component
   if (
     isApplicationLoading ||
     !entity ||
@@ -91,16 +108,15 @@ export default (props: IUIPlugin): JSX.Element => {
           </ClickableIcon>
           <h4 style={{ paddingTop: 9, paddingLeft: 10 }}>{entity.label}</h4>
           {appSelectorOpen && (
-            <PluginSelector
+            <RecipeSelector
               selectableUiRecipeNames={
                 config.uiRecipesList.length > 0
                   ? config.uiRecipesList
                   : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
               }
-              availableUiRecipes={uiRecipes}
-              setSelectedUiPlugin={(uiPluginName) => {
+              setSelectedUiRecipe={(uiRecipeName: string) => {
                 setAppSelectorOpen(false)
-                setSelectedPlugin({ component: getUiPlugin(uiPluginName) })
+                setSelectedRecipe(getRecipeConfigAndPlugin(uiRecipeName))
               }}
             />
           )}
@@ -134,7 +150,11 @@ export default (props: IUIPlugin): JSX.Element => {
           />
         </TopBar.CustomContent>
       </TopBar>
-      <UIPlugin idReference={idReference} type={entity.type} config={config} />
+      <UIPlugin
+        idReference={idReference}
+        type={entity.type}
+        config={selectedRecipe.config}
+      />
     </div>
   )
 }
