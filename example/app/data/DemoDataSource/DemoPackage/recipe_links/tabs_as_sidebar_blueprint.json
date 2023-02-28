@@ -1,12 +1,12 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "TabsAsSidebarBlueprint",
+  "_blueprintPath_": "blueprints/TabsAsSidebarBlueprint",
   "initialUiRecipe": {
     "name": "Tabs",
     "type": "CORE:UiRecipe",
     "plugin": "tabs",
     "config": {
-      "type": "TabsPluginConfig",
+      "type": "blueprints/Plugins/TabsPluginConfig",
       "childTabsOnRender": true,
       "asSidebar": true,
       "homeRecipe": "home"
@@ -18,7 +18,7 @@
       "name": "home",
       "plugin": "UiPluginSelector",
       "config": {
-        "type": "UiPluginSelectorConfig",
+        "type": "blueprints/Plugins/UiPluginSelectorConfig",
         "recipes": ["Yaml", "Edit"]
       }
     },

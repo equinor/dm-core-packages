@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "../Plugins/Form/Nested",
+  "_blueprintPath_": "blueprints/Plugins/Form/Nested",
   "initialUiRecipe": {
     "name": "Tabs",
     "type": "CORE:UiRecipe",
@@ -26,10 +26,10 @@
       "plugin": "form",
       "category": "edit",
       "config": {
-        "type": "/DemoPackage/configs/form/FormInput",
+        "type": "blueprints/Plugins/Form/FormInput",
         "attributes": [
           {
-            "type": "/DemoPackage/configs/form/fields/StringField",
+            "type": "blueprints/Plugins/Form/fields/StringField",
             "name": "bar",
             "widget": "TextareaWidget"
           }

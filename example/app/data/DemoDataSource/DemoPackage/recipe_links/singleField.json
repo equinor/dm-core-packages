@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "../Plugins/Form/SingleField",
+  "_blueprintPath_": "blueprints/Plugins/Form/fields/SingleField",
   "uiRecipes": [
     {
       "name": "Yaml",

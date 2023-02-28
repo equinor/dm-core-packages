@@ -1,6 +1,6 @@
 {
   "_id": "FormExample",
-  "type": "./FormBlueprint",
+  "type": "blueprints/Plugins/Form//FormBlueprint",
   "blueprintPicker": "FormBlueprint",
   "name": "FormExample",
   "aString": "a simple string",
@@ -10,20 +10,20 @@
   "aStringAsTextfield": "This is a very long description....",
   "listOfStrings": ["foo", "bar"],
   "aNestedObject": {
-    "type": "./Nested",
+    "type": "blueprints/Plugins/Form//Nested",
     "foo": 1337,
     "bar": "hello",
     "baz": "testing"
   },
   "aNestedObjectWithCustomUI": {
-    "type": "./Nested",
+    "type": "blueprints/Plugins/Form/Nested",
     "foo": 1337,
     "bar": "hello",
     "baz": "testing"
   },
   "inputEntity": {
     "_id": "4483c9b0-d505-46c9-a157-94c79f4d7a6b",
-    "type": "./SingleField",
+    "type": "blueprints/Plugins/Form/fields/SingleField",
     "name": "singleFieldExample",
     "contained": false
   }

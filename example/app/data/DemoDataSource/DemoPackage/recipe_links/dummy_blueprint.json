@@ -1,9 +1,9 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "DummyBlueprint",
+  "_blueprintPath_": "blueprints/DummyBlueprint",
   "initialUiRecipe": {
     "name": "Sidebar",
-    "type": "dmss://system/SIMOS/UiRecipe",
+    "type": "CORE:UiRecipe",
     "plugin": "UiRecipesSideBarSelector",
     "config": {}
   },

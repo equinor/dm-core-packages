@@ -1,11 +1,11 @@
 {
-  "type": "dmss://system/SIMOS/Blueprint",
+  "type": "CORE:Blueprint",
   "name": "FormInput",
   "description": "",
   "attributes": [
     {
       "name": "attributes",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "fields/Field",
       "dimensions": "*",
       "optional": true,
@@ -13,7 +13,7 @@
     },
     {
       "name": "order",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "dimensions": "*",
       "optional": true,

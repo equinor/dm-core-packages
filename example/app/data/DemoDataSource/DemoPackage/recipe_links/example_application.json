@@ -1,13 +1,13 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "ExampleApplication",
+  "_blueprintPath_": "blueprints/ExampleApplication",
   "initialUiRecipe": {
     "name": "Header",
     "type": "CORE:UiRecipe",
     "plugin": "header",
     "config": {
       "uiRecipesList": ["Yaml", "Explorer"],
-      "type": "HeaderPluginConfig",
+      "type": "blueprints/Plugins/HeaderPluginConfig",
       "hideAbout": false,
       "hideUserInfo": false
     }
