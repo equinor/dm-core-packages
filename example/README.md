@@ -12,8 +12,16 @@
 5. Load test app data
     - `dm reset app`
     - `dm create-lookup example DemoDataSource/DemoPackage/recipe_links`
-6. Start the test app (npm will not work)
-   - `yarn install && yarn start`
+6. Build dependent packages locally and create symlinks
+   - `yarn build-all-packages`
+   - `yarn symlinks`
+7. Start the test app (npm will not work)
+   - `yarn install`
+   - `yarn start`
+
+> **Note**
+> There can be no remaining `node_modules` in the packages.
+> That will cause strange and subtle bugs
 
 ### Development tips
 

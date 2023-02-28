@@ -13,6 +13,7 @@ import React, { useContext, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Chip } from '@equinor/eds-core-react'
 
+// TODO: Rewrite this example to use the "useJob"-hook
 export const JobControl = (props: { jobEntityId: string }) => {
   const { jobEntityId } = props
   const {

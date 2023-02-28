@@ -32,7 +32,7 @@ function App() {
         overflow: 'auto',
       }}
     >
-      <h3>Explorer from explorer</h3>
+      <h3>An application with the "header"-plugin</h3>
       <UIRecipesSelector
         type={'dmss://DemoDataSource/DemoPackage/blueprints/ExampleApplication'}
         idReference={'DemoDataSource/03bf685b-edb6-40e4-8c67-62b13fefecaa'}
@@ -61,8 +61,8 @@ function App() {
       {selectedType && selectedEntity && (
         <UIRecipesSelector type={selectedType} idReference={selectedEntity} />
       )}
-      <BlueprintPicker formData={'A-BP'} onChange={() => console.log('123')} />
 
+      <h3>Example on using jobs (outdated)</h3>
       <Jobs />
       <h3>NewEntityButton button from dm-core</h3>
       <NewEntityButton
