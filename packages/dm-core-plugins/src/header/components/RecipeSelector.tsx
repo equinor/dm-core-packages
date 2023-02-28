@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TUiRecipe } from '@development-framework/dm-core'
 
 const AppSelectorWrapper = styled.div`
   position: absolute;
@@ -35,30 +34,19 @@ const AppBox = styled.div`
   }
 `
 
-type PluginSelectorProps = {
+type RecipeSelectorProps = {
   selectableUiRecipeNames: string[]
-  setSelectedUiPlugin: (uiPluginName: string) => void
-  availableUiRecipes: TUiRecipe[]
+  setSelectedUiRecipe: (uiRecipeName: string) => void
 }
-export const PluginSelector = (props: PluginSelectorProps) => {
-  const {
-    selectableUiRecipeNames,
-    setSelectedUiPlugin,
-    availableUiRecipes,
-  } = props
+export const RecipeSelector = (props: RecipeSelectorProps) => {
+  const { selectableUiRecipeNames, setSelectedUiRecipe } = props
 
   return (
     <AppSelectorWrapper>
-      {selectableUiRecipeNames.map((recipeName: string, index: number) => (
+      {selectableUiRecipeNames.map((recipeName: string) => (
         <AppBox
-          key={index}
-          onClick={() => {
-            availableUiRecipes.map((recipe) => {
-              if (recipe.name === recipeName) {
-                setSelectedUiPlugin(recipe.plugin)
-              }
-            })
-          }}
+          key={recipeName}
+          onClick={() => setSelectedUiRecipe(recipeName)}
         >
           {recipeName}
         </AppBox>

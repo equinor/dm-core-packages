@@ -36,7 +36,7 @@ const APP_SETTINGS = {
 }
 
 ReactDOM.render(
-  <>
+  <React.StrictMode>
     {/*<AuthProvider authConfig={authConfig}>*/}
     <ApplicationContext.Provider value={APP_SETTINGS}>
       <FSTreeProvider visibleDataSources={APP_SETTINGS.visibleDataSources}>
@@ -46,6 +46,6 @@ ReactDOM.render(
       </FSTreeProvider>
     </ApplicationContext.Provider>
     {/*</AuthProvider>*/}
-  </>,
+  </React.StrictMode>,
   document.getElementById('root')
 )
