@@ -1,7 +1,7 @@
 {
-  "_id": "46a2c6ce-5bb4-41bc-923e-ede8dc95500e",
+  "_id": "03bf685b-edb6-40e4-8c67-62b13fefecaa",
   "name": "example",
-  "type": "ExampleApplication",
+  "type": "blueprints/ExampleApplication",
   "dataSources": ["system", "DemoDataSource"],
   "label": "Data Modelling Example App",
   "description": "Application used to test and demo some '@development-framework' plugins",

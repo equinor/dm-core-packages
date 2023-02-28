@@ -1,90 +1,90 @@
 {
   "name": "FormBlueprint",
-  "type": "dmss://system/SIMOS/Blueprint",
+  "type": "CORE:Blueprint",
   "attributes": [
     {
       "attributeType": "string",
-      "type": "dmss://dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "type"
     },
     {
       "name": "blueprintPicker",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "label": "Blueprint picker widget"
     },
     {
       "name": "aNumber",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
       "label": "A number"
     },
     {
       "name": "aDate",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "label": "A date"
     },
     {
       "name": "aBool",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
       "label": "A bool"
     },
     {
       "name": "aString",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "label": "A string"
     },
     {
       "name": "aStringAsTextfield",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "label": "A string as textfield"
     },
     {
       "name": "aOptionalNumber",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
       "label": "A optional number",
       "optional": true
     },
     {
       "name": "aOptionalString",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "label": "A optional string",
       "optional": true
     },
     {
       "name": "listOfStrings",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "dimensions": "*",
       "label": "A list of strings"
     },
     {
       "name": "aNestedObject",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "./Nested",
       "label": "A nested object"
     },
     {
       "name": "aOptionalNestedObject",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "./Nested",
       "label": "A optional nested object",
       "optional": true
     },
     {
       "name": "aNestedObjectWithCustomUI",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "./Nested",
       "label": "A nested object with custom ui"
     },
     {
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "inputEntity",
       "description": "Generic input entity",
       "attributeType": "object",
@@ -92,7 +92,7 @@
     },
     {
       "name": "listOfObjects",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "./Nested",
       "dimensions": "*",
       "label": "A list of objects"

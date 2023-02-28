@@ -1,22 +1,22 @@
 {
-  "type": "dmss://system/SIMOS/Blueprint",
+  "type": "CORE:Blueprint",
   "name": "HeaderPluginConfig",
   "attributes": [
     {
       "attributeType": "boolean",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "hideAbout",
       "default": false
     },
     {
       "attributeType": "boolean",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "hideUserInfo",
       "default": false
     },
     {
       "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "dimensions": "*",
       "name": "uiRecipesList"
     }

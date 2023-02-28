@@ -1,10 +1,10 @@
 {
-  "type": "dmss://system/SIMOS/Blueprint",
+  "type": "CORE:Blueprint",
   "name": "UiPluginSelectorConfig",
   "attributes": [
     {
       "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "recipes",
       "dimensions": "*",
       "contained": true,

@@ -1,11 +1,11 @@
 {
   "name": "StringField",
-  "type": "dmss://system/SIMOS/Blueprint",
+  "type": "CORE:Blueprint",
   "extends": ["./Field"],
   "attributes": [
     {
       "name": "format",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "label": "Format",
       "default": "",

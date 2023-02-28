@@ -1,0 +1,5 @@
+{
+  "_id": "NestedExample",
+  "name": "nestedExample",
+  "type": "blueprints/Plugins/Form/Nested"
+}

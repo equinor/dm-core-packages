@@ -1,37 +1,37 @@
 {
-  "_id": "g6282220-4a90-4d02-8f34-b82255fc91d5",
-  "type": "TabsStandardBlueprint",
-  "name": "tabsStandardEntity",
+  "_id": "g6282220-4a90-4d02-8f34-b82255fc91d6",
+  "type": "blueprints/TabsAsSidebarBlueprint",
+  "name": "tabsAsSidebarEntity",
   "firstAttribute": {
-    "type": "TabsStandardBlueprint",
+    "type": "blueprints/TabsAsSidebarBlueprint",
     "name": "first attribute",
     "firstAttribute": {
-      "type": "TabsStandardBlueprint",
+      "type": "blueprints/TabsAsSidebarBlueprint",
       "name": "first attribute"
     }
   },
   "secondAttribute": {
-    "type": "TabsStandardBlueprint",
+    "type": "blueprints/TabsAsSidebarBlueprint",
     "name": "second attribute"
   },
   "thirdAttribute": {
-    "type": "TabsStandardBlueprint",
+    "type": "blueprints/TabsAsSidebarBlueprint",
     "name": "third attribute",
     "firstAttribute": {
-      "type": "TabsStandardBlueprint",
+      "type": "blueprints/TabsAsSidebarBlueprint",
       "name": "first attribute",
       "firstAttribute": {
-        "type": "TabsStandardBlueprint",
+        "type": "blueprints/TabsAsSidebarBlueprint",
         "name": "first attribute",
         "aStringValue": "Something here"
       }
     },
     "secondAttribute": {
-      "type": "TabsStandardBlueprint",
+      "type": "blueprints/TabsAsSidebarBlueprint",
       "name": "second attribute"
     },
     "thirdAttribute": {
-      "type": "TabsStandardBlueprint",
+      "type": "blueprints/TabsAsSidebarBlueprint",
       "name": "third attribute",
       "aStringValue": "Hallo World!"
     }
