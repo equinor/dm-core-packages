@@ -4,6 +4,7 @@ import { home } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { TChildTab } from './TabsContainer'
 import { useTabContext } from './TabsContext'
+import { prettifyName } from './utils'
 
 interface ITabs {
   active: boolean
@@ -30,6 +31,8 @@ const BaseTab = styled(Tab as any)`
 
 const ChildTab = styled(Tab as any)`
   background-color: #d1d1d1;
+  display: flex;
+  align-items: self-end;
 `
 
 export const Tabs = (): JSX.Element => {
@@ -62,7 +65,9 @@ export const Tabs = (): JSX.Element => {
             onClick={() => setSelectedTab(tabData.attribute)}
             active={selectedTab === tabData.attribute}
           >
-            {tabData.entity.name}
+            {tabData.entity?.label ||
+              prettifyName(tabData.entity?.name || '') ||
+              tabData.attribute}
           </ChildTab>
         </Tooltip>
       ))}

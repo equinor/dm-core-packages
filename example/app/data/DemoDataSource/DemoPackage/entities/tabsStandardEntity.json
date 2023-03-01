@@ -12,7 +12,7 @@
   },
   "secondAttribute": {
     "type": "blueprints/TabsStandardBlueprint",
-    "name": "second attribute"
+    "name": ""
   },
   "thirdAttribute": {
     "type": "blueprints/TabsStandardBlueprint",
@@ -20,6 +20,7 @@
     "firstAttribute": {
       "type": "blueprints/TabsStandardBlueprint",
       "name": "first attribute",
+      "label": "First attribute label ½¡@£",
       "firstAttribute": {
         "type": "blueprints/TabsStandardBlueprint",
         "name": "first attribute",
@@ -28,11 +29,11 @@
     },
     "secondAttribute": {
       "type": "blueprints/TabsStandardBlueprint",
-      "name": "second attribute"
+      "name": "a"
     },
     "thirdAttribute": {
       "type": "blueprints/TabsStandardBlueprint",
-      "name": "third attribute",
+      "name": "_third-attribute_test_name------____",
       "aStringValue": "Hallo World!"
     }
   }
