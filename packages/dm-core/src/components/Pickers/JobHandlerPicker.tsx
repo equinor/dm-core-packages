@@ -12,6 +12,7 @@ export const JobHandlerPicker = (props: {
   const blueprintName = formData.split('/').pop()
   const { token } = useContext(AuthContext)
   const dmssApi = new DmssAPI(token)
+  const protocolPrefix = 'dmss://'
   const [searchResult] = useSearch<any>(
     {
       type: 'dmss://system/SIMOS/Blueprint',
@@ -26,7 +27,7 @@ export const JobHandlerPicker = (props: {
         absoluteId: `WorkflowDS/${blueprintId}`,
       })
       .then((response: any) => {
-        onChange(response.data)
+        onChange(`${protocolPrefix}${response.data}`)
       })
       .catch((error: any) => console.error(error))
   }
