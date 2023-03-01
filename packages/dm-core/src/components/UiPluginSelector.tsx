@@ -33,6 +33,7 @@ const PathWrapper = styled.div`
 
 const PathPartLink = styled.a`
   color: #007079;
+
   &:hover {
     color: #004f55;
     font-weight: bold;
@@ -88,6 +89,7 @@ const SelectPluginButton = styled.div<ISPButton>`
   border-bottom: ${(props: any) =>
     (props.active == true && '2px #017078FF solid') ||
     `2px ${lightGray} solid`};
+
   &:hover {
     background: ${lightGray};
     cursor: pointer;
@@ -113,7 +115,7 @@ function filterPlugins(
   config?: TUiPluginSelectorConfig
 ): TSelectablePlugins[] {
   const fallbackPlugin: TSelectablePlugins[] = [
-    { name: 'yaml', component: getUIPlugin('yaml-view'), config: {} },
+    { name: 'yaml', component: getUIPlugin('yaml'), config: {} },
   ]
 
   // Blueprint has no recipes
