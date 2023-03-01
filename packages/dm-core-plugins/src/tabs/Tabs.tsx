@@ -15,9 +15,11 @@ const Tab = styled.div<ITabs>`
   height: 30px;
   padding: 2px 15px;
   align-self: self-end;
+
   &:hover {
     color: gray;
   }
+
   cursor: pointer;
   border-bottom: ${(props: ITabs) =>
     (props.active == true && '3px red solid') || '3px grey solid'};

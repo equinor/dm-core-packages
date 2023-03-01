@@ -1,15 +1,16 @@
 import { TPlugin } from '@development-framework/dm-core'
-import ExplorerPlugin from './explorer/ExplorerPlugin'
+
 import { YamlPlugin } from './yaml/YamlPlugin'
-import { JobInputEditPlugin } from './job/JobInputEditPlugin'
 import { TabsPlugin } from './tabs/TabsPlugin'
+import { BlueprintHierarchyPlugin } from './blueprint-hierarchy/BlueprintHierarchyPlugin'
+import { JobInputEditPlugin } from './job/JobInputEditPlugin'
 import { JobControlPlugin } from './job/JobControlPlugin'
 import { FormPlugin } from './form/FormPlugin'
 import HeaderPlugin from './header/HeaderPlugin'
-import { BlueprintHierarchyPlugin } from './blueprint-hierarchy/BlueprintHierarchyPlugin'
 import { DefaultPreviewComponent } from './default-preview/DefaultPreviewComponent'
 import { DefaultPdfComponent } from './default-pdf/DefaultPdfComponent'
 import { EditBlueprint } from './blueprint/EditBlueprint'
+import ExplorerPlugin from './explorer/ExplorerPlugin'
 
 export const plugins: TPlugin[] = [
   {

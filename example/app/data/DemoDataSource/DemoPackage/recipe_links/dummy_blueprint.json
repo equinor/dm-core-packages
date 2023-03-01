@@ -22,7 +22,7 @@
     {
       "name": "Diagram",
       "type": "CORE:UiRecipe",
-      "plugin": "mermaid"
+      "plugin": "blueprint-hierarchy"
     }
   ]
 }
