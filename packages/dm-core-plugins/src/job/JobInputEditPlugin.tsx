@@ -9,7 +9,7 @@ import {
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-export const JobInputEdit = (props: IUIPlugin) => {
+export const JobInputEditPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   const [dataSourceId, documentId] = idReference.split('/', 2)
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(

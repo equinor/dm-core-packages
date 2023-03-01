@@ -6,7 +6,7 @@ import {
   UIRecipesSelector,
 } from '@development-framework/dm-core'
 import { useTabContext } from './TabsContext'
-import { TChildTab } from './TabsContainer'
+import { TChildTab } from './TabsPlugin'
 
 const HidableWrapper = styled.div<any>`
   display: ${(props: { hidden: boolean }) => (props.hidden && 'none') || 'flex'}

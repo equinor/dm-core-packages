@@ -1,6 +1,6 @@
 import { TGenericObject } from '@development-framework/dm-core'
 import React, { createContext, useContext } from 'react'
-import { TStringMap, TTabsPluginConfig } from './TabsContainer'
+import { TStringMap, TTabsPluginConfig } from './TabsPlugin'
 
 type TabsContextProps = {
   entity: TGenericObject

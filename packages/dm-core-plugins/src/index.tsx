@@ -1,12 +1,12 @@
 import { TPlugin } from '@development-framework/dm-core'
-import Editor from './explorer/Editor'
+import ExplorerPlugin from './explorer/ExplorerPlugin'
 import { YamlPlugin } from './yaml/YamlPlugin'
-import { TabsContainer } from './tabs/TabsContainer'
-import { MermaidComponent } from './mermaid-plugin/MermaidComponent'
-import { JobInputEdit } from './job/JobInputEdit'
-import { JobControlWrapper } from './job/JobControlWrapper'
-import { FormComponent } from './form/FormComponent'
-import Header from './header/Header'
+import { JobInputEditPlugin } from './job/JobInputEditPlugin'
+import { TabsPlugin } from './tabs/TabsPlugin'
+import { JobControlPlugin } from './job/JobControlPlugin'
+import { FormPlugin } from './form/FormPlugin'
+import HeaderPlugin from './header/HeaderPlugin'
+import { BlueprintHierarchyPlugin } from './blueprint-hierarchy/BlueprintHierarchyPlugin'
 import { DefaultPreviewComponent } from './default-preview/DefaultPreviewComponent'
 import { DefaultPdfComponent } from './default-pdf/DefaultPdfComponent'
 import { EditBlueprint } from './blueprint/EditBlueprint'
@@ -14,7 +14,7 @@ import { EditBlueprint } from './blueprint/EditBlueprint'
 export const plugins: TPlugin[] = [
   {
     pluginName: 'explorer',
-    component: Editor,
+    component: ExplorerPlugin,
   },
   {
     pluginName: 'yaml',
@@ -22,27 +22,27 @@ export const plugins: TPlugin[] = [
   },
   {
     pluginName: 'tabs',
-    component: TabsContainer,
+    component: TabsPlugin,
   },
   {
-    pluginName: 'mermaid',
-    component: MermaidComponent,
+    pluginName: 'blueprint-hierarchy',
+    component: BlueprintHierarchyPlugin,
   },
   {
     pluginName: 'jobControl',
-    component: JobControlWrapper,
+    component: JobControlPlugin,
   },
   {
     pluginName: 'jobInputEdit',
-    component: JobInputEdit,
+    component: JobInputEditPlugin,
   },
   {
     pluginName: 'form',
-    component: FormComponent,
+    component: FormPlugin,
   },
   {
     pluginName: 'header',
-    component: Header,
+    component: HeaderPlugin,
   },
   {
     pluginName: 'default-preview',

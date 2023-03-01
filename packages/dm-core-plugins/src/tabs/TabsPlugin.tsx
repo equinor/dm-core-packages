@@ -28,7 +28,7 @@ export type TTabsPluginConfig = {
   asSidebar?: boolean
 }
 
-export const TabsContainer = (props: IUIPlugin): JSX.Element => {
+export const TabsPlugin = (props: IUIPlugin): JSX.Element => {
   const { idReference, config: passedConfig, onSubmit } = props
   const config: TTabsPluginConfig = {
     childTabsOnRender: passedConfig?.childTabsOnRender ?? false,

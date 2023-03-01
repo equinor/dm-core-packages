@@ -73,7 +73,7 @@ function useExplorer(dmssAPI: DmssAPI) {
   }
 }
 
-export const MermaidComponent = (props: IUIPlugin) => {
+export const BlueprintHierarchyPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)

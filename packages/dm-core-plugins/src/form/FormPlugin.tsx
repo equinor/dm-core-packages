@@ -68,7 +68,7 @@ const widgets = {
   },
 }
 
-export const FormComponent = (props: IUIPlugin) => {
+export const FormPlugin = (props: IUIPlugin) => {
   const { config, onOpen } = props
   const { idReference } = props
   const [document, loading, updateDocument] = useDocument<any>(idReference, 999)
