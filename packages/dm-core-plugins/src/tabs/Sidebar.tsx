@@ -1,8 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { SideBar } from '@equinor/eds-core-react'
 import { home, subdirectory_arrow_right } from '@equinor/eds-icons'
 import { useTabContext } from './TabsContext'
 import { TChildTab } from './TabsContainer'
+import { prettifyName } from './utils'
 
 export const Sidebar = (): JSX.Element => {
   const { entity, selectedTab, setSelectedTab, childTabs } = useTabContext()
@@ -11,7 +12,9 @@ export const Sidebar = (): JSX.Element => {
       <SideBar.Content>
         <SideBar.Link
           icon={home}
-          label={entity.name}
+          label={
+            entity?.label ?? prettifyName(entity?.name || '') ?? selectedTab
+          }
           onClick={() => setSelectedTab('home')}
           active={selectedTab === 'home'}
         />
@@ -19,7 +22,11 @@ export const Sidebar = (): JSX.Element => {
           <SideBar.Link
             key={tabData.attribute}
             icon={subdirectory_arrow_right}
-            label={tabData.entity.name}
+            label={
+              tabData.entity?.label ||
+              prettifyName(tabData.entity?.name || '') ||
+              tabData.attribute
+            }
             onClick={() => setSelectedTab(tabData.attribute)}
             active={selectedTab === tabData.attribute}
           />
