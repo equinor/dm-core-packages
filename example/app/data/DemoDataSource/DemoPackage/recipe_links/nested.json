@@ -11,7 +11,7 @@
     {
       "name": "custom",
       "type": "CORE:UiRecipe",
-      "plugin": "yaml-view",
+      "plugin": "yaml",
       "category": "view"
     },
     {

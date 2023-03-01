@@ -39,7 +39,7 @@ const TooltipText = styled.div`
   animation: ${tempVisible} 2s;
 `
 
-const YamlPlugin = (props: { document: TGenericObject }) => {
+const YamlView = (props: { document: TGenericObject }) => {
   const { document } = props
   const [showTooltip, setShowTooltip] = useState<boolean>(false)
   const asYAML: string = jsyaml.dump(document)
@@ -77,7 +77,7 @@ const YamlPlugin = (props: { document: TGenericObject }) => {
   )
 }
 
-export const PluginComponent = (props: IUIPlugin) => {
+export const YamlPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   // eslint-disable-next-line
   const [
@@ -94,5 +94,5 @@ export const PluginComponent = (props: IUIPlugin) => {
         : error.response?.data
     return <pre style={{ color: 'red' }}>{errorResponse}</pre>
   }
-  return <YamlPlugin document={document || {}} />
+  return <YamlView document={document || {}} />
 }

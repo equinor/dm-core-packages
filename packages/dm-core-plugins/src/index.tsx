@@ -1,6 +1,6 @@
 import { TPlugin } from '@development-framework/dm-core'
 import Editor from './explorer/Editor'
-import { PluginComponent } from './yaml-view/YamlPlugin'
+import { YamlPlugin } from './yaml/YamlPlugin'
 import { TabsContainer } from './tabs/TabsContainer'
 import { MermaidComponent } from './mermaid-plugin/MermaidComponent'
 import { JobInputEdit } from './job/JobInputEdit'
@@ -17,8 +17,8 @@ export const plugins: TPlugin[] = [
     component: Editor,
   },
   {
-    pluginName: 'yaml-view',
-    component: PluginComponent,
+    pluginName: 'yaml',
+    component: YamlPlugin,
   },
   {
     pluginName: 'tabs',

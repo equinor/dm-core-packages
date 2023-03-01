@@ -5,7 +5,7 @@
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
-      "plugin": "yaml-view"
+      "plugin": "yaml"
     },
     {
       "type": "CORE:UiRecipe",

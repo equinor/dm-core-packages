@@ -54,8 +54,8 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "copy-explorer-css-file": "cp src/explorer/components/context-menu/react-contextmenu.css  dist/explorer/components/context-menu/react-contextmenu.css",
-    "copy-yaml-view-css-file": "cp src/yaml-view/index.css ./dist/yaml-view",
-    "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-view-css-file",
+    "copy-yaml-css-file": "cp src/yaml/index.css ./dist/yaml",
+    "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-css-file",
     "postbuild": "rm -rf node_modules",
     "test": "jest test",
     "posttest": "npm remove --no-save --legacy-peer-deps react styled-components",
