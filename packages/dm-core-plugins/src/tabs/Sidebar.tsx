@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import { SideBar } from '@equinor/eds-core-react'
 import { home, subdirectory_arrow_right } from '@equinor/eds-icons'
 import { useTabContext } from './TabsContext'
-import { TChildTab } from './TabsContainer'
+import { TChildTab } from './TabsPlugin'
 import { prettifyName } from './utils'
 
 export const Sidebar = (): JSX.Element => {

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Icon, Tooltip } from '@equinor/eds-core-react'
 import { home } from '@equinor/eds-icons'
 import styled from 'styled-components'
-import { TChildTab } from './TabsContainer'
+import { TChildTab } from './TabsPlugin'
 import { useTabContext } from './TabsContext'
 import { prettifyName } from './utils'
 

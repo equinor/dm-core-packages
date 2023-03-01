@@ -8,7 +8,7 @@ import {
 } from '@development-framework/dm-core'
 import { JobControl } from './JobControl'
 
-export const JobControlWrapper = (props: IUIPlugin) => {
+export const JobControlPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   const [dataSourceId, documentId] = idReference.split('/', 2)
   const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
