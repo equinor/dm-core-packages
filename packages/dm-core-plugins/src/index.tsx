@@ -11,6 +11,7 @@ import { DefaultPreviewComponent } from './default-preview/DefaultPreviewCompone
 import { DefaultPdfComponent } from './default-pdf/DefaultPdfComponent'
 import { EditBlueprint } from './blueprint/EditBlueprint'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
+import { GridPlugin } from './grid/GridPlugin'
 
 export const plugins: TPlugin[] = [
   {
@@ -20,6 +21,10 @@ export const plugins: TPlugin[] = [
   {
     pluginName: 'yaml',
     component: YamlPlugin,
+  },
+  {
+    pluginName: 'grid',
+    component: GridPlugin,
   },
   {
     pluginName: 'tabs',

@@ -1,0 +1,15 @@
+{
+  "_id": "OrderExample",
+  "type": "./Order",
+  "items": [
+    {
+      "type": "./OrderItem",
+      "quantity": "1",
+      "product": {
+        "_id": "product1",
+        "type": "./Product",
+        "name": "Product 1"
+      }
+    }
+  ]
+}

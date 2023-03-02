@@ -1,0 +1,21 @@
+{
+  "_id": "DashboardExample",
+  "type": "./Dashboard",
+  "orders": [
+    {
+      "type": "./OrderItem",
+      "quantity": "1",
+      "product": {
+        "_id": "product1",
+        "type": "./Product",
+        "name": "Product 1"
+      }
+    }
+  ],
+  "aNestedObjectWithCustomUI": {
+    "type": "blueprints/Plugins/Form/Nested",
+    "foo": 1337,
+    "bar": "hello",
+    "baz": "testing"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "OrderItem",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "attributeType": "number",
+      "type": "dmss://dmss://system/SIMOS/BlueprintAttribute",
+      "name": "quantity"
+    }
+  ]
+}

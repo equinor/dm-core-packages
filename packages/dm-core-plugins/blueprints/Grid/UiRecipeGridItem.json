@@ -1,0 +1,13 @@
+{
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "UiRecipeGridItem",
+  "extends": ["./GridItem"],
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "uiRecipes",
+      "dimensions": "*"
+    }
+  ]
+}
