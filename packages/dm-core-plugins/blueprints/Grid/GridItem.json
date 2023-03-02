@@ -1,0 +1,11 @@
+{
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "GridItem",
+  "attributes": [
+    {
+      "attributeType": "./GridArea",
+      "type": "CORE:BlueprintAttribute",
+      "name": "gridArea"
+    }
+  ]
+}

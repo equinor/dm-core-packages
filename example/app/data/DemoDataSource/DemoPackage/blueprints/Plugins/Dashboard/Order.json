@@ -1,0 +1,12 @@
+{
+  "name": "Order",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "attributeType": "./OrderItem",
+      "dimensions": "*",
+      "type": "dmss://dmss://system/SIMOS/BlueprintAttribute",
+      "name": "items"
+    }
+  ]
+}

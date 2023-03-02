@@ -1,0 +1,17 @@
+{
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "GridPluginConfig",
+  "attributes": [
+    {
+      "attributeType": "./Size",
+      "type": "CORE:BlueprintAttribute",
+      "name": "size"
+    },
+    {
+      "attributeType": "./GridItem",
+      "type": "CORE:BlueprintAttribute",
+      "name": "items",
+      "dimensions": "*"
+    }
+  ]
+}

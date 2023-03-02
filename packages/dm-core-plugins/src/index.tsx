@@ -11,6 +11,7 @@ import JsonPlugin from './json/JsonPlugin'
 import { PdfPlugin } from './pdf/PdfPlugin'
 import { BlueprintPlugin } from './blueprint/BlueprintPlugin'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
+import { GridPlugin } from './grid/GridPlugin'
 
 export const plugins: TPlugin[] = [
   {
@@ -20,6 +21,10 @@ export const plugins: TPlugin[] = [
   {
     pluginName: 'yaml',
     component: YamlPlugin,
+  },
+  {
+    pluginName: 'grid',
+    component: GridPlugin,
   },
   {
     pluginName: '@development-framework/dm-core-plugins/attribute-selector',
