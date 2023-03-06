@@ -9,7 +9,7 @@ import { FormPlugin } from './form/FormPlugin'
 import HeaderPlugin from './header/HeaderPlugin'
 import JsonPlugin from './json/JsonPlugin'
 import { DefaultPdfComponent } from './default-pdf/DefaultPdfComponent'
-import { EditBlueprint } from './blueprint/EditBlueprint'
+import { BlueprintPlugin } from './blueprint/EditBlueprint'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
 
 export const plugins: TPlugin[] = [
@@ -54,7 +54,7 @@ export const plugins: TPlugin[] = [
     component: DefaultPdfComponent,
   },
   {
-    pluginName: 'edit-blueprint',
-    component: EditBlueprint,
+    pluginName: '@development-framework/dm-core-plugins/blueprint',
+    component: BlueprintPlugin,
   },
 ]
