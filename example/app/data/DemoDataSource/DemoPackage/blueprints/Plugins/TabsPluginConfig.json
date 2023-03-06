@@ -17,6 +17,13 @@
       "default": "home"
     },
     {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "visibleAttributes",
+      "optional": true,
+      "dimensions": "*"
+    },
+    {
       "attributeType": "boolean",
       "type": "CORE:BlueprintAttribute",
       "name": "asSidebar",

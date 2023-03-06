@@ -17,6 +17,13 @@
       "default": "home"
     },
     {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "visibleAttributes",
+      "optional": true,
+      "dimensions": "*"
+    },
+    {
       "attributeType": "boolean",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "name": "asSidebar",

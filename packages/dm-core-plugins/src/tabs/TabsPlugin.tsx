@@ -26,6 +26,7 @@ export type TTabsPluginConfig = {
   childTabsOnRender?: boolean
   homeRecipe?: string
   asSidebar?: boolean
+  visibleAttributes?: string[]
 }
 
 export const TabsPlugin = (props: IUIPlugin): JSX.Element => {
@@ -34,6 +35,7 @@ export const TabsPlugin = (props: IUIPlugin): JSX.Element => {
     childTabsOnRender: passedConfig?.childTabsOnRender ?? false,
     homeRecipe: passedConfig?.homeRecipe ?? 'home',
     asSidebar: passedConfig?.asSidebar ?? false,
+    visibleAttributes: passedConfig?.visibleAttributes ?? [],
   }
   const [selectedTab, setSelectedTab] = useState<string>('home')
   const [formData, setFormData] = useState<TGenericObject>({})
