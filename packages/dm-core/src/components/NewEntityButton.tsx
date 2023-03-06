@@ -111,7 +111,9 @@ export function NewEntityButton(props: {
             }}
             type="string"
             value={newName}
-            onChange={(event) => setNewName(event.target.value)}
+            onChange={(event: {
+              target: { value: React.SetStateAction<string> }
+            }) => setNewName(event.target.value)}
             placeholder="Name for new entity"
           />
           {!!copyTarget && (
