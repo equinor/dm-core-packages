@@ -16,7 +16,7 @@
     {
       "type": "CORE:UiRecipe",
       "name": "home",
-      "plugin": "blueprints/Plugins/UiPluginSelector",
+      "plugin": "UiPluginSelector",
       "config": {
         "type": "blueprints/Plugins/UiPluginSelectorConfig",
         "recipes": ["Yaml", "Edit"]
