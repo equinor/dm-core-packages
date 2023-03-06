@@ -9,9 +9,9 @@
     "styled-components": "^5.2.3"
   },
   "dependencies": {
-    "@equinor/eds-core-react": "^0.20.0",
-    "@equinor/eds-icons": "^0.12.0",
-    "@equinor/eds-tokens": "^0.7.0",
+    "@equinor/eds-core-react": "^0.29.1",
+    "@equinor/eds-icons": "^0.18.0",
+    "@equinor/eds-tokens": "^0.9.0",
     "axios": "^0.27.2",
     "lodash": "^4.17.19",
     "react-icons": "3.11.0",

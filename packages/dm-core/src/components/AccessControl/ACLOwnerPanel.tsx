@@ -20,7 +20,9 @@ export const ACLOwnerPanel = ({
         <Input
           style={{ width: '150px', marginLeft: '5px' }}
           placeholder={acl.owner}
-          onChange={(event) => handleChange({ owner: event.target.value })}
+          onChange={(event: { target: { value: any } }) =>
+            handleChange({ owner: event.target.value })
+          }
         />
         <Icon name="edit_text" size={24} style={{ color: 'teal' }} />
       </CenteredRow>

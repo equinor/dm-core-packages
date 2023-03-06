@@ -9,12 +9,12 @@ import {
 import { EBlueprint } from '../../Enums'
 
 import { Input, Label, Progress, Tooltip } from '@equinor/eds-core-react'
-import { Variants } from '@equinor/eds-core-react/dist/types/components/TextField/types'
 import { FSTreeContext } from '../../context/FileSystemTreeContext'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
 import { TreeView } from '../TreeView'
 import { TreeNode } from '../../domain/Tree'
+import { Variants } from '@equinor/eds-core-react/dist/types/components/types'
 
 export type TBlueprintPickerProps = {
   /** A function to trigger with the onChange event */
@@ -60,7 +60,7 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
       >
         <Input
           disabled={disabled}
-          variant={variant || 'default'}
+          variant={variant || undefined}
           style={{
             width: PATH_INPUT_FIELD_WIDTH,
             cursor: 'pointer',
