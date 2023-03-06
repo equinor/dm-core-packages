@@ -9,7 +9,8 @@
       "type": "blueprints/Plugins/AttributeSelectorPluginConfig",
       "childTabsOnRender": true,
       "asSidebar": true,
-      "homeRecipe": "home"
+      "homeRecipe": "home",
+      "visibleAttributes": ["firstAttribute", "thirdAttribute"]
     }
   },
   "uiRecipes": [
