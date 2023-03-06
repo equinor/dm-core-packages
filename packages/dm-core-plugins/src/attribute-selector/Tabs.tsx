@@ -38,7 +38,13 @@ const ChildTab = styled(Tab as any)`
 `
 
 export const Tabs = (): JSX.Element => {
-  const { entity, selectedTab, setSelectedTab, childTabs } = useTabContext()
+  const {
+    entity,
+    selectedTab,
+    setSelectedTab,
+    childTabs,
+    config,
+  } = useTabContext()
   return (
     <div
       style={{
@@ -56,23 +62,31 @@ export const Tabs = (): JSX.Element => {
           <Icon data={home} size={24} />
         </BaseTab>
       </Tooltip>
-      {Object.values(childTabs).map((tabData: TChildTab) => (
-        <Tooltip
-          key={tabData.attribute}
-          enterDelay={600}
-          title={tabData.entity.type}
-          placement="top-start"
-        >
-          <ChildTab
-            onClick={() => setSelectedTab(tabData.attribute)}
-            active={selectedTab === tabData.attribute}
-          >
-            {tabData.entity?.label ||
-              prettifyName(tabData.entity?.name || '') ||
-              tabData.attribute}
-          </ChildTab>
-        </Tooltip>
-      ))}
+      {Object.values(childTabs).map((tabData: TChildTab) => {
+        if (
+          config?.visibleAttributes === undefined ||
+          config?.visibleAttributes.length === 0 ||
+          config?.visibleAttributes.includes(tabData.attribute)
+        ) {
+          return (
+            <Tooltip
+              key={tabData.attribute}
+              enterDelay={600}
+              title={tabData.entity.type}
+              placement="top-start"
+            >
+              <ChildTab
+                onClick={() => setSelectedTab(tabData.attribute)}
+                active={selectedTab === tabData.attribute}
+              >
+                {tabData.entity?.label ||
+                  prettifyName(tabData.entity?.name || '') ||
+                  tabData.attribute}
+              </ChildTab>
+            </Tooltip>
+          )
+        }
+      })}
     </div>
   )
 }

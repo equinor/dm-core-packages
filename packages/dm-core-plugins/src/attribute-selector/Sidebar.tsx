@@ -6,7 +6,14 @@ import { TChildTab } from './AttributeSelectorPlugin'
 import { prettifyName } from './utils'
 
 export const Sidebar = (): JSX.Element => {
-  const { entity, selectedTab, setSelectedTab, childTabs } = useTabContext()
+  const {
+    entity,
+    selectedTab,
+    setSelectedTab,
+    childTabs,
+    config,
+  } = useTabContext()
+
   return (
     <SideBar open style={{ height: 'auto' }}>
       <SideBar.Content>
@@ -18,19 +25,27 @@ export const Sidebar = (): JSX.Element => {
           onClick={() => setSelectedTab('home')}
           active={selectedTab === 'home'}
         />
-        {Object.values(childTabs).map((tabData: TChildTab) => (
-          <SideBar.Link
-            key={tabData.attribute}
-            icon={subdirectory_arrow_right}
-            label={
-              tabData.entity?.label ||
-              prettifyName(tabData.entity?.name || '') ||
-              tabData.attribute
-            }
-            onClick={() => setSelectedTab(tabData.attribute)}
-            active={selectedTab === tabData.attribute}
-          />
-        ))}
+        {Object.values(childTabs).map((tabData: TChildTab) => {
+          if (
+            config?.visibleAttributes === undefined ||
+            config?.visibleAttributes.length === 0 ||
+            config?.visibleAttributes.includes(tabData.attribute)
+          ) {
+            return (
+              <SideBar.Link
+                key={tabData.attribute}
+                icon={subdirectory_arrow_right}
+                label={
+                  tabData.entity?.label ||
+                  prettifyName(tabData.entity?.name || '') ||
+                  tabData.attribute
+                }
+                onClick={() => setSelectedTab(tabData.attribute)}
+                active={selectedTab === tabData.attribute}
+              />
+            )
+          }
+        })}
       </SideBar.Content>
       <SideBar.Footer>
         <SideBar.Toggle />
