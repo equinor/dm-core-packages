@@ -1,7 +1,7 @@
 import { TPlugin } from '@development-framework/dm-core'
 
 import { YamlPlugin } from './yaml/YamlPlugin'
-import { TabsPlugin } from './tabs/TabsPlugin'
+import { AttributeSelectorPlugin } from './attribute-selector/AttributeSelectorPlugin'
 import { BlueprintHierarchyPlugin } from './blueprint-hierarchy/BlueprintHierarchyPlugin'
 import { JobInputEditPlugin } from './job/JobInputEditPlugin'
 import { JobControlPlugin } from './job/JobControlPlugin'
@@ -22,8 +22,8 @@ export const plugins: TPlugin[] = [
     component: YamlPlugin,
   },
   {
-    pluginName: 'tabs',
-    component: TabsPlugin,
+    pluginName: '@development-framework/dm-core-plugins/attribute-selector',
+    component: AttributeSelectorPlugin,
   },
   {
     pluginName: 'blueprint-hierarchy',

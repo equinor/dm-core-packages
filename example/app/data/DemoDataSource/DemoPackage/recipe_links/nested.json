@@ -2,9 +2,9 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "blueprints/Plugins/Form/Nested",
   "initialUiRecipe": {
-    "name": "Tabs",
+    "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "tabs",
+    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
     "config": {}
   },
   "uiRecipes": [

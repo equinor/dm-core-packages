@@ -1,24 +1,24 @@
 {
-  "type": "CORE:Blueprint",
-  "name": "TabsPluginConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "AttributeSelectorPluginConfig",
   "attributes": [
     {
       "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
       "name": "childTabsOnRender",
       "optional": true,
       "default": false
     },
     {
       "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
       "name": "homeRecipe",
       "optional": true,
       "default": "home"
     },
     {
       "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
       "name": "asSidebar",
       "optional": true,
       "default": false

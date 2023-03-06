@@ -2,11 +2,11 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "blueprints/TabsStandardBlueprint",
   "initialUiRecipe": {
-    "name": "Tabs",
+    "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "tabs",
+    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
     "config": {
-      "type": "blueprints/Plugins/TabsPluginConfig",
+      "type": "blueprints/Plugins/AttributeSelectorPluginConfig",
       "childTabsOnRender": true,
       "asSidebar": false,
       "homeRecipe": "home"

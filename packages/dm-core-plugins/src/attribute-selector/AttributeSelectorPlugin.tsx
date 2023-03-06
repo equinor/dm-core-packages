@@ -22,15 +22,15 @@ export type TStringMap = {
   [key: string]: TChildTab
 }
 
-export type TTabsPluginConfig = {
+export type TAttributeSelectorPluginConfig = {
   childTabsOnRender?: boolean
   homeRecipe?: string
   asSidebar?: boolean
 }
 
-export const TabsPlugin = (props: IUIPlugin): JSX.Element => {
+export const AttributeSelectorPlugin = (props: IUIPlugin): JSX.Element => {
   const { idReference, config: passedConfig, onSubmit } = props
-  const config: TTabsPluginConfig = {
+  const config: TAttributeSelectorPluginConfig = {
     childTabsOnRender: passedConfig?.childTabsOnRender ?? false,
     homeRecipe: passedConfig?.homeRecipe ?? 'home',
     asSidebar: passedConfig?.asSidebar ?? false,

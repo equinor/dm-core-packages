@@ -1,6 +1,9 @@
 import { TGenericObject } from '@development-framework/dm-core'
 import React, { createContext, useContext } from 'react'
-import { TStringMap, TTabsPluginConfig } from './TabsPlugin'
+import {
+  TStringMap,
+  TAttributeSelectorPluginConfig,
+} from './AttributeSelectorPlugin'
 
 type TabsContextProps = {
   entity: TGenericObject
@@ -12,7 +15,7 @@ type TabsContextProps = {
   setFormData: (x: TGenericObject) => void
   onSubmit: ((data: any) => void) | undefined
   idReference: string
-  config: TTabsPluginConfig
+  config: TAttributeSelectorPluginConfig
 }
 
 export const TabsContext = createContext<TabsContextProps>(
