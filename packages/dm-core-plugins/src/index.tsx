@@ -8,7 +8,7 @@ import { JobControlPlugin } from './job/JobControlPlugin'
 import { FormPlugin } from './form/FormPlugin'
 import HeaderPlugin from './header/HeaderPlugin'
 import JsonPlugin from './json/JsonPlugin'
-import { DefaultPdfComponent } from './default-pdf/DefaultPdfComponent'
+import { PdfPlugin } from './pdf/PdfPlugin'
 import { BlueprintPlugin } from './blueprint/EditBlueprint'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
 
@@ -50,8 +50,8 @@ export const plugins: TPlugin[] = [
     component: JsonPlugin,
   },
   {
-    pluginName: 'default-pdf',
-    component: DefaultPdfComponent,
+    pluginName: '@development-framework/dm-core-plugins/pdf',
+    component: PdfPlugin,
   },
   {
     pluginName: '@development-framework/dm-core-plugins/blueprint',
