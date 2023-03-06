@@ -7,7 +7,7 @@ import { JobInputEditPlugin } from './job/JobInputEditPlugin'
 import { JobControlPlugin } from './job/JobControlPlugin'
 import { FormPlugin } from './form/FormPlugin'
 import HeaderPlugin from './header/HeaderPlugin'
-import { DefaultPreviewComponent } from './default-preview/DefaultPreviewComponent'
+import JsonPlugin from './json/JsonPlugin'
 import { DefaultPdfComponent } from './default-pdf/DefaultPdfComponent'
 import { EditBlueprint } from './blueprint/EditBlueprint'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
@@ -46,8 +46,8 @@ export const plugins: TPlugin[] = [
     component: HeaderPlugin,
   },
   {
-    pluginName: 'default-preview',
-    component: DefaultPreviewComponent,
+    pluginName: '@development-framework/dm-core-plugins/json',
+    component: JsonPlugin,
   },
   {
     pluginName: 'default-pdf',

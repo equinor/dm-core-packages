@@ -4,17 +4,14 @@ import {
   Button,
   useDocument,
   Loading,
+  IUIPlugin,
   TGenericObject,
 } from '@development-framework/dm-core'
 
 // @ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-type TPreviewProps = {
-  idReference: string
-}
-
-export default (props: TPreviewProps) => {
+export default (props: IUIPlugin) => {
   const { idReference } = props
   const [document, loading] = useDocument<TGenericObject>(idReference)
   const infoText: string = ''
