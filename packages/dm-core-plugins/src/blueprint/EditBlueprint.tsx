@@ -211,8 +211,9 @@ const BlueprintAttribute = (props: {
 
 export const BlueprintPlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const [document, _loading, updateDocument] =
-    useDocument<TBlueprint>(idReference)
+  const [document, _loading, updateDocument] = useDocument<TBlueprint>(
+    idReference
+  )
   const [formData, setFormData] = useState<any>({ ...document }) //TODO remove any type (requires TBlueprint to be updated)
 
   useEffect(() => {

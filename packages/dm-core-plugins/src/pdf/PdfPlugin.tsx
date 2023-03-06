@@ -9,7 +9,7 @@ import {
 } from '@development-framework/dm-core'
 import { useDocument } from '@development-framework/dm-core'
 
-export const DefaultPdfComponent = (props: IUIPlugin) => {
+export const PdfPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   const [document, loading] = useDocument<TGenericObject>(idReference, 999)
   const dataSource = idReference.split('/')[0]
