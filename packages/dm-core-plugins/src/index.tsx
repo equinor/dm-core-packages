@@ -9,7 +9,7 @@ import { FormPlugin } from './form/FormPlugin'
 import HeaderPlugin from './header/HeaderPlugin'
 import JsonPlugin from './json/JsonPlugin'
 import { PdfPlugin } from './pdf/PdfPlugin'
-import { BlueprintPlugin } from './blueprint/EditBlueprint'
+import { BlueprintPlugin } from './blueprint/BlueprintPlugin'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
 
 export const plugins: TPlugin[] = [
