@@ -70,7 +70,7 @@ export const ACLUserRolesPanel = ({
         <Input
           style={{ width: '170px' }}
           placeholder={getPlaceholderText()}
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) =>
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setNewRole(e.target.value)
           }
         />

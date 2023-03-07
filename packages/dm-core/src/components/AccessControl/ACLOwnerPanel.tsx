@@ -20,7 +20,7 @@ export const ACLOwnerPanel = ({
         <Input
           style={{ width: '150px', marginLeft: '5px' }}
           placeholder={acl.owner}
-          onChange={(event: { target: { value: any } }) =>
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleChange({ owner: event.target.value })
           }
         />
