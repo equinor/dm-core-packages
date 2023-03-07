@@ -1,24 +1,24 @@
 {
   "type": "CORE:Blueprint",
-  "name": "TabsAsSidebarBlueprint",
+  "name": "AttributeSelectorSidebarBlueprint",
   "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
-      "attributeType": "TabsAsSidebarBlueprint",
+      "attributeType": "AttributeSelectorSidebarBlueprint",
       "type": "CORE:BlueprintAttribute",
       "name": "firstAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "TabsAsSidebarBlueprint",
+      "attributeType": "AttributeSelectorSidebarBlueprint",
       "type": "CORE:BlueprintAttribute",
       "name": "secondAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "TabsAsSidebarBlueprint",
+      "attributeType": "AttributeSelectorSidebarBlueprint",
       "type": "CORE:BlueprintAttribute",
       "name": "thirdAttribute",
       "contained": true,
