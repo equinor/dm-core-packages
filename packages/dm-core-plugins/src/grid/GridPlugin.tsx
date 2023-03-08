@@ -18,7 +18,7 @@ const Grid = styled.div`
 `
 
 export const GridPlugin = (props: TGridPluginConfig): JSX.Element => {
-  const { config, idReference, type } = props
+  const { config, idReference } = props
   const [document, isLoadingDocument] = useDocument<TGenericObject>(idReference)
 
   if (isLoadingDocument) return <Loading />
@@ -27,7 +27,6 @@ export const GridPlugin = (props: TGridPluginConfig): JSX.Element => {
     <Grid columns={config.size.columns} rows={config.size.rows}>
       <GridItems
         idReference={idReference}
-        type={type}
         document={document || {}}
         items={config.items}
       />

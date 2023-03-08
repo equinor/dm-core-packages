@@ -1,4 +1,4 @@
-import { IUIPlugin } from '@development-framework/dm-core'
+import { IUIPlugin, TViewConfig } from '@development-framework/dm-core'
 
 export type TGridSize = {
   columns: number
@@ -12,27 +12,11 @@ export type TGridArea = {
   columnEnd: number
 }
 
-export type TBaseGridItem = {
+export type TGridItem = {
   type: string
   gridArea: TGridArea
+  viewConfig: TViewConfig
 }
-
-export type TAttributeGridItem = TBaseGridItem & {
-  attribute: string
-  uiRecipes?: string[]
-}
-
-export type TUiRecipeGridItem = TBaseGridItem & {
-  uiRecipes: string[]
-}
-
-export function isAttributeGridItem(
-  gridItem: TBaseGridItem
-): gridItem is TAttributeGridItem {
-  return gridItem.type.split('/').at(-1) === 'AttributeGridItem'
-}
-
-export type TGridItem = TAttributeGridItem | TUiRecipeGridItem
 
 export type TGridPluginConfig = IUIPlugin & {
   config: {

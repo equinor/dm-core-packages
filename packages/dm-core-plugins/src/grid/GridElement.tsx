@@ -1,7 +1,7 @@
 import { TBaseGridItem, TGridArea } from './types'
 import styled from 'styled-components'
 import React from 'react'
-import { UIPluginSelector } from '@development-framework/dm-core'
+import { TGenericObject, ViewCreator } from '@development-framework/dm-core'
 
 const Element = styled.div`
   grid-area: ${(props: TGridArea) =>
@@ -10,13 +10,12 @@ const Element = styled.div`
 
 type TGridItemProps = {
   idReference: string
-  type: string
-  config?: object
   item: TBaseGridItem
+  document: TGenericObject
 }
 
 export const GridElement = (props: TGridItemProps): JSX.Element => {
-  const { idReference, type, config, item } = props
+  const { idReference, document, item } = props
 
   return (
     <Element
@@ -25,7 +24,11 @@ export const GridElement = (props: TGridItemProps): JSX.Element => {
       columnStart={item.gridArea.columnStart}
       columnEnd={item.gridArea.columnEnd}
     >
-      <UIPluginSelector type={type} idReference={idReference} config={config} />
+      <ViewCreator
+        idReference={idReference}
+        document={document}
+        viewConfig={item.viewConfig}
+      />
     </Element>
   )
 }

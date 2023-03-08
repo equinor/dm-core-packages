@@ -7,13 +7,6 @@
       "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
       "name": "attribute"
-    },
-    {
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
-      "name": "uiRecipes",
-      "optional": true,
-      "dimensions": "*"
     }
   ]
 }

@@ -14,9 +14,12 @@
       },
       "items": [
         {
-          "type": "blueprints/Plugins/Grid/AttributeGridItem",
-          "attribute": "aNestedObjectWithCustomUI",
-          "uiRecipes": ["aRecipeName", "custom"],
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "blueprints/Plugins/View/ReferenceViewConfig",
+            "scope": "aNestedObjectWithCustomUI",
+            "recipe": "aRecipeName"
+          },
           "gridArea": {
             "type": "blueprints/Plugins/Grid/GridArea",
             "rowStart": 1,
@@ -26,8 +29,40 @@
           }
         },
         {
-          "type": "blueprints/Plugins/Grid/AttributeGridItem",
-          "attribute": "aNestedObjectWithCustomUI",
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "blueprints/Plugins/View/RecipeViewConfig",
+            "scope": "aNestedObjectWithCustomUI",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "plugin": "form",
+              "name": "form",
+              "config": {
+                "type": "blueprints/Plugins/Form/FormInput",
+                "attributes": [
+                  {
+                    "type": "blueprints/Plugins/Form/fields/StringField",
+                    "name": "bar",
+                    "widget": "TextareaWidget"
+                  }
+                ]
+              }
+            }
+          },
+          "gridArea": {
+            "type": "blueprints/Plugins/Grid/GridArea",
+            "rowStart": 1,
+            "columnStart": 4,
+            "rowEnd": 3,
+            "columnEnd": 6
+          }
+        },
+        {
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "blueprints/Plugins/View/ReferenceViewConfig",
+            "scope": "aNestedObjectWithCustomUI"
+          },
           "gridArea": {
             "type": "blueprints/Plugins/Grid/GridArea",
             "rowStart": 3,
@@ -37,8 +72,14 @@
           }
         },
         {
-          "type": "blueprints/Plugins/Grid/UiRecipeGridItem",
-          "uiRecipes": ["Yaml"],
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "blueprints/Plugins/View/RecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "plugin": "default-preview"
+            }
+          },
           "gridArea": {
             "type": "blueprints/Plugins/Grid/GridArea",
             "rowStart": 3,
@@ -54,7 +95,7 @@
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
-      "plugin": "yaml-view"
+      "plugin": "yaml"
     },
     {
       "name": "Edit",
