@@ -1,0 +1,18 @@
+{
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "ReferenceViewConfig",
+  "extends": ["./ViewConfig"],
+  "attributes": [
+    {
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "name": "recipe"
+    },
+    {
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "object",
+      "name": "config",
+      "optional": true
+    }
+  ]
+}

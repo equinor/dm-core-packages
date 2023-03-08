@@ -1,0 +1,12 @@
+{
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "ViewConfig",
+  "attributes": [
+    {
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "name": "scope",
+      "optional": true
+    }
+  ]
+}

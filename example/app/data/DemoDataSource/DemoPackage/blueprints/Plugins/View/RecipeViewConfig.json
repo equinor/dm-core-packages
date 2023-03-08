@@ -1,0 +1,12 @@
+{
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "RecipeViewConfig",
+  "extends": ["./ViewConfig"],
+  "attributes": [
+    {
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:UiRecipe",
+      "name": "recipe"
+    }
+  ]
+}
