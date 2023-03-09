@@ -1,4 +1,4 @@
-import { TBaseGridItem, TGridArea } from './types'
+import { TGridItem, TGridArea } from './types'
 import styled from 'styled-components'
 import React from 'react'
 import { TGenericObject, ViewCreator } from '@development-framework/dm-core'
@@ -10,7 +10,7 @@ const Element = styled.div`
 
 type TGridItemProps = {
   idReference: string
-  item: TBaseGridItem
+  item: TGridItem
   document: TGenericObject
 }
 

@@ -1,4 +1,4 @@
-import { IUIPlugin, TViewConfig } from '@development-framework/dm-core'
+import { TViewConfig } from '@development-framework/dm-core'
 
 export type TGridSize = {
   columns: number
@@ -18,9 +18,11 @@ export type TGridItem = {
   viewConfig: TViewConfig
 }
 
-export type TGridPluginConfig = IUIPlugin & {
+export type TGridPluginConfig = {
+  idReference: string
+  type: string
   config: {
     size: TGridSize
-    items: TGridItem
+    items: TGridItem[]
   }
 }

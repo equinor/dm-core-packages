@@ -3,7 +3,7 @@ import {
   isReferenceViewConfig,
   TViewConfig,
 } from '../../types'
-import { TGenericObject, UiPluginContext } from '@development-framework/dm-core'
+import { TGenericObject, UiPluginContext } from '../../index'
 import React, { useContext } from 'react'
 import { ReferenceView } from './ReferenceView'
 import { RecipeView } from './RecipeView'

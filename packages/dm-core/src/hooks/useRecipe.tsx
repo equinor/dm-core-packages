@@ -1,5 +1,5 @@
 import React from 'react'
-import { useBlueprint, TUiRecipe } from '@development-framework/dm-core'
+import { useBlueprint, TUiRecipe } from '../index'
 
 const findRecipe = (
   initialUiRecipe: any,

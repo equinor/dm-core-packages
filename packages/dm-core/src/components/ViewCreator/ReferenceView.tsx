@@ -1,5 +1,5 @@
 import { TReferenceViewConfig } from '../../types'
-import { IUIPlugin, useRecipe } from '@development-framework/dm-core'
+import { IUIPlugin, useRecipe } from '../../index'
 import React from 'react'
 
 type TReferenceView = {

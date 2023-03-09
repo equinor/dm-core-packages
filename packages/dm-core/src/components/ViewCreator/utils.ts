@@ -1,5 +1,5 @@
 import { TViewConfig } from '../../types'
-import { TGenericObject } from '@development-framework/dm-core'
+import { TGenericObject } from '../../index'
 
 export const getTarget = (idReference: string, viewConfig: TViewConfig) => {
   if (viewConfig?.scope) return `${idReference}.${viewConfig.scope}`

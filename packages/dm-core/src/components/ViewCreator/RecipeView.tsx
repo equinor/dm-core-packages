@@ -1,5 +1,5 @@
 import { TRecipeViewConfig } from '../../types'
-import { IUIPlugin } from '@development-framework/dm-core'
+import { IUIPlugin } from '../../index'
 import React from 'react'
 
 type TRecipeView = {
