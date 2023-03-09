@@ -92,3 +92,30 @@ export type TPlugin = {
 }
 
 export type TUserIdMapping = { userId: string; username: string }
+
+// View config specific
+
+export type TViewConfig = {
+  type: string
+  scope: string
+}
+
+export type TReferenceViewConfig = TViewConfig & {
+  recipe: string
+}
+
+export type TInlineRecipeViewConfig = TViewConfig & {
+  recipe: TUiRecipe
+}
+
+export function isReferenceViewConfig(
+  viewConfig: TViewConfig
+): viewConfig is TReferenceViewConfig {
+  return viewConfig.type.split('/').at(-1) === 'ReferenceViewConfig'
+}
+
+export function isInlineRecipeViewConfig(
+  viewConfig: TViewConfig
+): viewConfig is TInlineRecipeViewConfig {
+  return viewConfig.type.split('/').at(-1) === 'InlineRecipeViewConfig'
+}
