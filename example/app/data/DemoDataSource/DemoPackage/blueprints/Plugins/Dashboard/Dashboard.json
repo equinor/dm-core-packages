@@ -5,7 +5,7 @@
     {
       "attributeType": "./Order",
       "dimensions": "*",
-      "type": "dmss://dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "orders"
     },
     {

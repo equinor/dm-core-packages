@@ -4,12 +4,12 @@
   "attributes": [
     {
       "attributeType": "string",
-      "type": "dmss://dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "name"
     },
     {
       "attributeType": "./ProductCategory",
-      "type": "dmss://dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "category",
       "contained": false,
       "optional": true

@@ -4,7 +4,7 @@
   "attributes": [
     {
       "attributeType": "number",
-      "type": "dmss://dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "name": "quantity"
     }
   ]
