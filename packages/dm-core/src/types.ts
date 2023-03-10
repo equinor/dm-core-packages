@@ -111,11 +111,11 @@ export type TInlineRecipeViewConfig = TViewConfig & {
 export function isReferenceViewConfig(
   viewConfig: TViewConfig
 ): viewConfig is TReferenceViewConfig {
-  return viewConfig.type.split('/').at(-1) === 'ReferenceViewConfig'
+  return viewConfig.type.split(/:|\//).at(-1) === 'ReferenceViewConfig'
 }
 
 export function isInlineRecipeViewConfig(
   viewConfig: TViewConfig
 ): viewConfig is TInlineRecipeViewConfig {
-  return viewConfig.type.split('/').at(-1) === 'InlineRecipeViewConfig'
+  return viewConfig.type.split(/:|\//).at(-1) === 'InlineRecipeViewConfig'
 }

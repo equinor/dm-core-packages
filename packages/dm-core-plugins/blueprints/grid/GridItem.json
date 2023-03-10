@@ -6,6 +6,11 @@
       "attributeType": "./GridArea",
       "type": "CORE:BlueprintAttribute",
       "name": "gridArea"
+    },
+    {
+      "attributeType": "CORE:ViewConfig",
+      "type": "CORE:BlueprintAttribute",
+      "name": "viewConfig"
     }
   ]
 }
