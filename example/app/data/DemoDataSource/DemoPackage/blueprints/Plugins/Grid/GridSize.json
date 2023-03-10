@@ -1,0 +1,18 @@
+{
+  "type": "dmss://system/SIMOS/Blueprint",
+  "name": "GridSize",
+  "attributes": [
+    {
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "name": "columns",
+      "default": 5
+    },
+    {
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "name": "rows",
+      "default": 5
+    }
+  ]
+}

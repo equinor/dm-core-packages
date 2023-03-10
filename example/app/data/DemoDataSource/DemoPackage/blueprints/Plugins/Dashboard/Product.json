@@ -1,0 +1,18 @@
+{
+  "name": "Product",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "name"
+    },
+    {
+      "attributeType": "./ProductCategory",
+      "type": "CORE:BlueprintAttribute",
+      "name": "category",
+      "contained": false,
+      "optional": true
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Dashboard",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "attributeType": "./Order",
+      "dimensions": "*",
+      "type": "CORE:BlueprintAttribute",
+      "name": "orders"
+    },
+    {
+      "name": "aNestedObjectWithCustomUI",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./../Form/Nested",
+      "label": "A nested object with custom ui"
+    }
+  ]
+}
