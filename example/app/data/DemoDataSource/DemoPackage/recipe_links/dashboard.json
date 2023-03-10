@@ -16,7 +16,7 @@
         {
           "type": "blueprints/Plugins/Grid/GridItem",
           "viewConfig": {
-            "type": "blueprints/Plugins/View/ReferenceViewConfig",
+            "type": "CORE:ReferenceViewConfig",
             "scope": "aNestedObjectWithCustomUI",
             "recipe": "aRecipeName"
           },
@@ -31,7 +31,7 @@
         {
           "type": "blueprints/Plugins/Grid/GridItem",
           "viewConfig": {
-            "type": "blueprints/Plugins/View/InlineRecipeViewConfig",
+            "type": "CORE:InlineRecipeViewConfig",
             "scope": "aNestedObjectWithCustomUI",
             "recipe": {
               "type": "CORE:UiRecipe",
@@ -60,7 +60,7 @@
         {
           "type": "blueprints/Plugins/Grid/GridItem",
           "viewConfig": {
-            "type": "blueprints/Plugins/View/ReferenceViewConfig",
+            "type": "CORE:ReferenceViewConfig",
             "scope": "aNestedObjectWithCustomUI"
           },
           "gridArea": {
@@ -74,7 +74,7 @@
         {
           "type": "blueprints/Plugins/Grid/GridItem",
           "viewConfig": {
-            "type": "blueprints/Plugins/View/InlineRecipeViewConfig",
+            "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "type": "CORE:UiRecipe",
               "plugin": "@development-framework/dm-core-plugins/json"
