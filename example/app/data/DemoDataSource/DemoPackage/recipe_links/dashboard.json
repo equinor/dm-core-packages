@@ -1,0 +1,106 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "blueprints/Plugins/Dashboard/Dashboard",
+  "initialUiRecipe": {
+    "name": "Dashboard",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/grid",
+    "config": {
+      "type": "blueprints/Plugins/Grid/GridPluginConfig",
+      "size": {
+        "type": "blueprints/Plugins/Grid/GridSize",
+        "columns": 6,
+        "rows": 5
+      },
+      "items": [
+        {
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "blueprints/Plugins/View/ReferenceViewConfig",
+            "scope": "aNestedObjectWithCustomUI",
+            "recipe": "aRecipeName"
+          },
+          "gridArea": {
+            "type": "blueprints/Plugins/Grid/GridArea",
+            "rowStart": 1,
+            "columnStart": 1,
+            "rowEnd": 3,
+            "columnEnd": 6
+          }
+        },
+        {
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "blueprints/Plugins/View/InlineRecipeViewConfig",
+            "scope": "aNestedObjectWithCustomUI",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "plugin": "form",
+              "name": "form",
+              "config": {
+                "type": "blueprints/Plugins/Form/FormInput",
+                "attributes": [
+                  {
+                    "type": "blueprints/Plugins/Form/fields/StringField",
+                    "name": "bar",
+                    "widget": "TextareaWidget"
+                  }
+                ]
+              }
+            }
+          },
+          "gridArea": {
+            "type": "blueprints/Plugins/Grid/GridArea",
+            "rowStart": 1,
+            "columnStart": 4,
+            "rowEnd": 3,
+            "columnEnd": 6
+          }
+        },
+        {
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "blueprints/Plugins/View/ReferenceViewConfig",
+            "scope": "aNestedObjectWithCustomUI"
+          },
+          "gridArea": {
+            "type": "blueprints/Plugins/Grid/GridArea",
+            "rowStart": 3,
+            "columnStart": 3,
+            "rowEnd": 6,
+            "columnEnd": 7
+          }
+        },
+        {
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "blueprints/Plugins/View/InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "plugin": "@development-framework/dm-core-plugins/json"
+            }
+          },
+          "gridArea": {
+            "type": "blueprints/Plugins/Grid/GridArea",
+            "rowStart": 3,
+            "columnStart": 1,
+            "rowEnd": 6,
+            "columnEnd": 3
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml"
+    },
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "plugin": "form"
+    }
+  ]
+}
