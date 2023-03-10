@@ -32,7 +32,7 @@ const findRecipe = (
 }
 
 interface IUseRecipe {
-  recipe: TUiRecipe
+  recipe: TUiRecipe | undefined
   isLoading: boolean
   error: Error | null
 }
@@ -64,7 +64,9 @@ export const useRecipe = (typeRef: string, recipeName?: string): IUseRecipe => {
   const { initialUiRecipe, uiRecipes, isLoading, error } = useBlueprint(typeRef)
 
   return {
-    recipe: findRecipe(initialUiRecipe, uiRecipes, recipeName),
+    recipe: isLoading
+      ? undefined
+      : findRecipe(initialUiRecipe, uiRecipes, recipeName),
     isLoading,
     error,
   }

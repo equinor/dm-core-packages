@@ -17,6 +17,7 @@ export const ReferenceView = (props: TReferenceView) => {
   )
   if (isRecipeLoading) return <>Loading...</>
   if (error) return <>Error</>
+  if (recipe === undefined) return <>Recipe is undefined</>
   const UiPlugin = getUiPlugin(recipe.plugin)
   // TODO: Add override configuration functionality
   return (
