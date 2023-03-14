@@ -6,13 +6,7 @@ import { TChildTab } from './AttributeSelectorPlugin'
 import { prettifyName } from './utils'
 
 export const Sidebar = (): JSX.Element => {
-  const {
-    entity,
-    selectedTab,
-    setSelectedTab,
-    childTabs,
-    config,
-  } = useTabContext()
+  const { entity, selectedTab, setSelectedTab, childTabs } = useTabContext()
 
   return (
     <SideBar open style={{ height: 'auto' }}>
@@ -26,25 +20,19 @@ export const Sidebar = (): JSX.Element => {
           active={selectedTab === 'home'}
         />
         {Object.values(childTabs).map((tabData: TChildTab) => {
-          if (
-            config?.visibleAttributes === undefined ||
-            config?.visibleAttributes.length === 0 ||
-            config?.visibleAttributes.includes(tabData.attribute)
-          ) {
-            return (
-              <SideBar.Link
-                key={tabData.attribute}
-                icon={subdirectory_arrow_right}
-                label={
-                  tabData.entity?.label ||
-                  prettifyName(tabData.entity?.name || '') ||
-                  tabData.attribute
-                }
-                onClick={() => setSelectedTab(tabData.attribute)}
-                active={selectedTab === tabData.attribute}
-              />
-            )
-          }
+          return (
+            <SideBar.Link
+              key={tabData.attribute}
+              icon={subdirectory_arrow_right}
+              label={
+                tabData.entity?.label ||
+                prettifyName(tabData.entity?.name || '') ||
+                tabData.attribute
+              }
+              onClick={() => setSelectedTab(tabData.attribute)}
+              active={selectedTab === tabData.attribute}
+            />
+          )
         })}
       </SideBar.Content>
       <SideBar.Footer>
