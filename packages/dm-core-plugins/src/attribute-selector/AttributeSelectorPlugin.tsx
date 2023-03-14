@@ -90,6 +90,7 @@ export const AttributeSelectorPlugin = (props: IUIPlugin): JSX.Element => {
         style={{
           display: 'flex',
           flexDirection: config.asSidebar ? 'row' : 'column',
+          width: '100%',
         }}
       >
         {config.asSidebar ? <Sidebar /> : <Tabs />}

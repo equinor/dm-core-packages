@@ -11,6 +11,7 @@ import { TChildTab } from './AttributeSelectorPlugin'
 const HidableWrapper = styled.div<any>`
   display: ${(props: { hidden: boolean }) => (props.hidden && 'none') || 'flex'}
   align-self: normal;
+  width: 100%;
 `
 
 export const Content = (): JSX.Element => {
@@ -26,7 +27,7 @@ export const Content = (): JSX.Element => {
     config,
   } = useTabContext()
   return (
-    <>
+    <div style={{ width: '100%' }}>
       <HidableWrapper hidden={'home' !== selectedTab}>
         <UIPluginSelector
           idReference={idReference}
@@ -67,6 +68,6 @@ export const Content = (): JSX.Element => {
           </HidableWrapper>
         )
       })}
-    </>
+    </div>
   )
 }
