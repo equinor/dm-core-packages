@@ -21,7 +21,8 @@
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "name": "visibleAttributes",
       "optional": true,
-      "dimensions": "*"
+      "dimensions": "*",
+      "default": []
     },
     {
       "attributeType": "boolean",
