@@ -19,21 +19,19 @@ export const Sidebar = (): JSX.Element => {
           onClick={() => setSelectedTab('home')}
           active={selectedTab === 'home'}
         />
-        {Object.values(childTabs).map((tabData: TChildTab) => {
-          return (
-            <SideBar.Link
-              key={tabData.attribute}
-              icon={subdirectory_arrow_right}
-              label={
-                tabData.entity?.label ||
-                prettifyName(tabData.entity?.name || '') ||
-                tabData.attribute
-              }
-              onClick={() => setSelectedTab(tabData.attribute)}
-              active={selectedTab === tabData.attribute}
-            />
-          )
-        })}
+        {Object.values(childTabs).map((tabData: TChildTab) => (
+          <SideBar.Link
+            key={tabData.attribute}
+            icon={subdirectory_arrow_right}
+            label={
+              tabData.entity?.label ||
+              prettifyName(tabData.entity?.name || '') ||
+              tabData.attribute
+            }
+            onClick={() => setSelectedTab(tabData.attribute)}
+            active={selectedTab === tabData.attribute}
+          />
+        ))}
       </SideBar.Content>
       <SideBar.Footer>
         <SideBar.Toggle />

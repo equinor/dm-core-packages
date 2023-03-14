@@ -48,12 +48,11 @@ export const AttributeSelectorPlugin = (props: IUIPlugin): JSX.Element => {
     if (config.childTabsOnRender) {
       const newChildTabs: TStringMap = {}
       Object.entries(entity).forEach(([key, attributeData]: [string, any]) => {
-        if (
-          (config?.visibleAttributes === undefined ||
-            config?.visibleAttributes.length === 0 ||
-            config?.visibleAttributes.includes(key)) &&
-          typeof attributeData == 'object'
-        ) {
+        const filteredOutInConfig =
+          config?.visibleAttributes !== undefined &&
+          config?.visibleAttributes.length > 0 &&
+          !config?.visibleAttributes.includes(key)
+        if (!filteredOutInConfig && typeof attributeData == 'object') {
           newChildTabs[key] = {
             attribute: key,
             entity: attributeData,
