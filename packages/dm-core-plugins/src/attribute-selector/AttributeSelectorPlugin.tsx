@@ -32,7 +32,7 @@ export type TAttributeSelectorPluginConfig = {
 export const AttributeSelectorPlugin = (props: IUIPlugin): JSX.Element => {
   const { idReference, config: passedConfig, onSubmit } = props
   const config: TAttributeSelectorPluginConfig = {
-    childTabsOnRender: passedConfig?.childTabsOnRender ?? false,
+    childTabsOnRender: passedConfig?.childTabsOnRender ?? true,
     homeRecipe: passedConfig?.homeRecipe ?? 'home',
     asSidebar: passedConfig?.asSidebar ?? false,
     visibleAttributes: passedConfig?.visibleAttributes ?? [],
@@ -48,7 +48,12 @@ export const AttributeSelectorPlugin = (props: IUIPlugin): JSX.Element => {
     if (config.childTabsOnRender) {
       const newChildTabs: TStringMap = {}
       Object.entries(entity).forEach(([key, attributeData]: [string, any]) => {
-        if (typeof attributeData == 'object') {
+        if (
+          (config?.visibleAttributes === undefined ||
+            config?.visibleAttributes.length === 0 ||
+            config?.visibleAttributes.includes(key)) &&
+          typeof attributeData == 'object'
+        ) {
           newChildTabs[key] = {
             attribute: key,
             entity: attributeData,
