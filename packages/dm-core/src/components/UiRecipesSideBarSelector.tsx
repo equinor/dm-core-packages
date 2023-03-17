@@ -98,12 +98,7 @@ export function UiRecipesSideBarSelector(props: IUIPlugin): JSX.Element {
       </RecipeSidebarWrapper>
       {/*@ts-ignore*/}
       <ErrorBoundary
-        fallBack={() => (
-          <h4 style={{ color: 'red' }}>
-            The UiPlugin <i>{selectableRecipes[selectedRecipe].name}</i>{' '}
-            crashed...
-          </h4>
-        )}
+        message={`Plugin '${selectableRecipes[selectedRecipe].name}' crashed...`}
       >
         <UiPlugin
           idReference={idReference}

@@ -21,9 +21,10 @@ const ErrorHelperText = styled.div`
 const widgets = {
   TypeWidget: (props: TWidget) => {
     const { id, namePath, label, value } = props
-    const { blueprint, isLoading } = useBlueprint(value)
+    const { blueprint, isLoading, error } = useBlueprint(value)
 
     if (isLoading) return <Loading />
+    if (error) throw new Error(`Failed to fetch blueprint for '${value}'`)
     if (blueprint === undefined) return <div>Could not find the blueprint</div>
 
     const datasourceId = value.split('/')[0]

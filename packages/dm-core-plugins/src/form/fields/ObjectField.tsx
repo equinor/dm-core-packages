@@ -474,6 +474,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
 
   if (isLoading) return <Loading />
+  if (error) throw new Error(`Failed to fetch blueprint for '${type}'`)
   if (blueprint === undefined) return <div>Could not find the blueprint</div>
 
   // The root object uses the ui recipe config that is passed into the ui plugin,

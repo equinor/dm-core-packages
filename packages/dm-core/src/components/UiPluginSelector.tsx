@@ -215,12 +215,8 @@ export function UIPluginSelector(props: IUIPlugin): JSX.Element {
       )}
       {/*@ts-ignore*/}
       <ErrorBoundary
-        fallBack={() => (
-          <h4 style={{ color: 'red' }}>
-            The UiPlugin <i>{selectablePlugins[selectedPlugin].name}</i>{' '}
-            crashed...
-          </h4>
-        )}
+        key={selectablePlugins[selectedPlugin].name}
+        message={`Plugin '${selectablePlugins[selectedPlugin].name}' crashed...`}
       >
         <UiPlugin
           idReference={idReference}

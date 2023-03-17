@@ -1,5 +1,5 @@
 import React from 'react'
-import { useBlueprint, TUiRecipe } from '../index'
+import { useBlueprint, TUiRecipe, ErrorResponse } from '../index'
 
 const findRecipe = (
   initialUiRecipe: TUiRecipe | undefined,
@@ -34,7 +34,7 @@ const findRecipe = (
 interface IUseRecipe {
   recipe: TUiRecipe | undefined
   isLoading: boolean
-  error: Error | null
+  error: ErrorResponse | null
 }
 
 /**

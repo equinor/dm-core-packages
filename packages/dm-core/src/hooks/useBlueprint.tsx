@@ -2,13 +2,14 @@ import { useContext, useEffect, useState } from 'react'
 import { DmssAPI } from '../services/api/DmssAPI'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { ApplicationContext } from '../context/ApplicationContext'
-
+import { ErrorResponse } from '../services'
+import { AxiosError } from 'axios'
 interface IUseBlueprint {
   blueprint: any
   initialUiRecipe: any
   uiRecipes: any[]
   isLoading: boolean
-  error: Error | null
+  error: ErrorResponse | null
 }
 /**
  * Hook to fetch a Blueprint from the DMSS API
@@ -37,7 +38,7 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
   const [uiRecipes, setUiRecipes] = useState<any[]>([])
   const [initialUiRecipe, setInitialUiRecipe] = useState<any>()
   const [isLoading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<Error | null>(null)
+  const [error, setError] = useState<ErrorResponse | null>(null)
   const { token } = useContext(AuthContext)
   const { name } = useContext(ApplicationContext)
   const dmssAPI = new DmssAPI(token)
@@ -51,7 +52,9 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
         setUiRecipes(response.data.uiRecipes)
         setError(null)
       })
-      .catch((error: Error) => setError(error))
+      .catch((error: AxiosError<ErrorResponse>) =>
+        setError(error.response?.data || null)
+      )
       .finally(() => setLoading(false))
   }, [typeRef])
 
