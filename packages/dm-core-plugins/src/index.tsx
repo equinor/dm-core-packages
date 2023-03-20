@@ -39,7 +39,7 @@ export const plugins: TPlugin[] = [
     component: JobControlPlugin,
   },
   {
-    pluginName: 'jobInputEdit',
+    pluginName: '@development-framework/dm-core-plugins/jobInputEdit',
     component: JobInputEditPlugin,
   },
   {
