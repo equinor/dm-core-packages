@@ -22,7 +22,7 @@
     {
       "name": "Diagram",
       "type": "CORE:UiRecipe",
-      "plugin": "blueprint-hierarchy"
+      "plugin": "@development-framework/dm-core-plugins/blueprint-hierarchy"
     }
   ]
 }
