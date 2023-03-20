@@ -33,7 +33,7 @@
       "type": "CORE:UiRecipe",
       "name": "Edit",
       "description": "Default edit",
-      "plugin": "form"
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

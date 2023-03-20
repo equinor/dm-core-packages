@@ -43,7 +43,7 @@ export const plugins: TPlugin[] = [
     component: JobInputEditPlugin,
   },
   {
-    pluginName: 'form',
+    pluginName: '@development-framework/dm-core-plugins/form',
     component: FormPlugin,
   },
   {
