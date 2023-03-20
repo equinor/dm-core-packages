@@ -35,7 +35,7 @@
             "scope": "aNestedObjectWithCustomUI",
             "recipe": {
               "type": "CORE:UiRecipe",
-              "plugin": "form",
+              "plugin": "@development-framework/dm-core-plugins/form",
               "name": "form",
               "config": {
                 "type": "blueprints/Plugins/Form/FormInput",
@@ -100,7 +100,7 @@
     {
       "name": "Edit",
       "type": "CORE:UiRecipe",
-      "plugin": "form"
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

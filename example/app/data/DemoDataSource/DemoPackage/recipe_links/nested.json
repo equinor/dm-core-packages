@@ -17,13 +17,13 @@
     {
       "name": "Form",
       "type": "CORE:UiRecipe",
-      "plugin": "form",
+      "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit"
     },
     {
       "name": "aRecipeName",
       "type": "CORE:UiRecipe",
-      "plugin": "form",
+      "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit",
       "config": {
         "type": "blueprints/Plugins/Form/FormInput",

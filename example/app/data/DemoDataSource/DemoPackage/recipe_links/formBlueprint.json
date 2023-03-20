@@ -23,7 +23,7 @@
     {
       "name": "Edit",
       "type": "CORE:UiRecipe",
-      "plugin": "form",
+      "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit",
       "config": {
         "type": "blueprints/Plugins/Form/FormInput",

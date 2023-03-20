@@ -10,7 +10,7 @@
     {
       "type": "CORE:UiRecipe",
       "name": "Form",
-      "plugin": "form"
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }
