@@ -35,7 +35,7 @@ export const plugins: TPlugin[] = [
     component: BlueprintHierarchyPlugin,
   },
   {
-    pluginName: 'jobControl',
+    pluginName: '@development-framework/dm-core-plugins/jobControl',
     component: JobControlPlugin,
   },
   {
