@@ -5,7 +5,7 @@
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
-      "plugin": "yaml"
+      "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
       "type": "CORE:UiRecipe",

@@ -10,7 +10,10 @@
       "childTabsOnRender": true,
       "asSidebar": true,
       "homeRecipe": "home",
-      "visibleAttributes": ["firstAttribute", "thirdAttribute"]
+      "visibleAttributes": [
+        "firstAttribute",
+        "thirdAttribute"
+      ]
     }
   },
   "uiRecipes": [
@@ -20,13 +23,16 @@
       "plugin": "UiPluginSelector",
       "config": {
         "type": "blueprints/Plugins/UiPluginSelectorConfig",
-        "recipes": ["Yaml", "Edit"]
+        "recipes": [
+          "Yaml",
+          "Edit"
+        ]
       }
     },
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
-      "plugin": "yaml",
+      "plugin": "@development-framework/dm-core-plugins/yaml",
       "category": "container"
     },
     {
