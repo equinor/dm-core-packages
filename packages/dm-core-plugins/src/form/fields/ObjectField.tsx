@@ -225,6 +225,7 @@ const AttributeList = (props: any) => {
       )
       const uiAttribute =
         config &&
+        config.attributes &&
         config.attributes.find(
           (uiAttribute: any) => uiAttribute.name === attribute.name
         )
