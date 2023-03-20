@@ -41,6 +41,12 @@ type THeaderPluginConfig = {
   hideAbout: boolean
 }
 
+const defaultHeaderPluginConfig = {
+  uiRecipesList: [],
+  hideUserInfo: false,
+  hideAbout: false,
+}
+
 type TRecipeConfigAndPlugin = {
   config?: TGenericObject
   component: (props: IUIPlugin) => JSX.Element
@@ -48,7 +54,10 @@ type TRecipeConfigAndPlugin = {
 
 export default (props: IUIPlugin): JSX.Element => {
   const { idReference, config: passedConfig, type } = props
-  const config = passedConfig as THeaderPluginConfig
+  const config: THeaderPluginConfig = {
+    ...defaultHeaderPluginConfig,
+    ...passedConfig,
+  }
   const [entity, isApplicationLoading] = useDocument<TApplication>(idReference)
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
   const [aboutOpen, setAboutOpen] = useState(false)
