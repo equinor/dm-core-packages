@@ -31,7 +31,7 @@ export const plugins: TPlugin[] = [
     component: AttributeSelectorPlugin,
   },
   {
-    pluginName: 'blueprint-hierarchy',
+    pluginName: '@development-framework/dm-core-plugins/blueprint-hierarchy',
     component: BlueprintHierarchyPlugin,
   },
   {
