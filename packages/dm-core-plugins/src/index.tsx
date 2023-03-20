@@ -47,7 +47,7 @@ export const plugins: TPlugin[] = [
     component: FormPlugin,
   },
   {
-    pluginName: 'header',
+    pluginName: '@development-framework/dm-core-plugins/header',
     component: HeaderPlugin,
   },
   {
