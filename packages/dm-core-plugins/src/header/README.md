@@ -13,6 +13,9 @@ The Header plugin can accept a config of type `HeaderPluginConfig` (see `bluepri
 Explanation of the attributes:
 
 * `uiRecipesList`: Can be used to specify a list of UI recipes the user can select. By default, the fist UI recipe in
-  the list is displayed. If the list is empty, all UI recipes will be included.
-* `hideAbout`: Is a boolean value that determines if the About button in the header is activated
-* `hideUserInfo`: Is a boolean value that determines if the User info button in the header is activated
+  the list is displayed. If the list is empty, all UI recipes will be included. If not
+  specified, defaults to empty list.
+* `hideAbout`: Is a boolean value that determines if the About button in the header is activated. If not specified,
+  defaults to false.
+* `hideUserInfo`: Is a boolean value that determines if the User info button in the header is activated. If not
+  specified, defaults to false.
