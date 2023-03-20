@@ -25,11 +25,11 @@ import { ACL } from '../models';
 // @ts-ignore
 import { AccessLevel } from '../models';
 // @ts-ignore
-import { BasicEntity } from '../models';
-// @ts-ignore
 import { DataSourceInformation } from '../models';
 // @ts-ignore
 import { DataSourceRequest } from '../models';
+// @ts-ignore
+import { Entity } from '../models';
 // @ts-ignore
 import { ErrorResponse } from '../models';
 // @ts-ignore
@@ -562,7 +562,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('documentAddToPath', 'pathReference', pathReference)
             // verify required parameter 'document' is not null or undefined
             assertParamExists('documentAddToPath', 'document', document)
-            const localVarPath = `/api/documents/{path_reference}/add-to-path`
+            const localVarPath = `/api/documents-by-path/{path_reference}`
                 .replace(`{${"path_reference"}}`, encodeURIComponent(String(pathReference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -699,21 +699,17 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
+         * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
          * @summary Remove
-         * @param {string} dataSourceId 
-         * @param {string} dottedId 
+         * @param {string} idReference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove: async (dataSourceId: string, dottedId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('documentRemove', 'dataSourceId', dataSourceId)
-            // verify required parameter 'dottedId' is not null or undefined
-            assertParamExists('documentRemove', 'dottedId', dottedId)
-            const localVarPath = `/api/documents/{data_source_id}/{dotted_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"dotted_id"}}`, encodeURIComponent(String(dottedId)));
+        documentRemove: async (idReference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idReference' is not null or undefined
+            assertParamExists('documentRemove', 'idReference', idReference)
+            const localVarPath = `/api/documents/{id_reference}`
+                .replace(`{${"id_reference"}}`, encodeURIComponent(String(idReference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -744,21 +740,17 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Remove a document from DMSS.  - **directory**: path to document to remove.
+         * Remove a document from DMSS.  - **path_reference**: <data_source>/<path>.<attribute>
          * @summary Remove By Path
-         * @param {string} dataSourceId 
-         * @param {string} directory 
+         * @param {string} pathReference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemoveByPath: async (dataSourceId: string, directory: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('documentRemoveByPath', 'dataSourceId', dataSourceId)
-            // verify required parameter 'directory' is not null or undefined
-            assertParamExists('documentRemoveByPath', 'directory', directory)
-            const localVarPath = `/api/documents/{data_source_id}/remove-by-path/{directory}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"directory"}}`, encodeURIComponent(String(directory)));
+        documentRemoveByPath: async (pathReference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pathReference' is not null or undefined
+            assertParamExists('documentRemoveByPath', 'pathReference', pathReference)
+            const localVarPath = `/api/documents-by-path/{path_reference}`
+                .replace(`{${"path_reference"}}`, encodeURIComponent(String(pathReference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -789,27 +781,22 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Update document
+         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
+         * @param {string} idReference 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
-         * @param {string} [attribute] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentUpdate: async (dataSourceId: string, documentId: string, data: string, updateUncontained?: boolean, attribute?: string, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('documentUpdate', 'dataSourceId', dataSourceId)
-            // verify required parameter 'documentId' is not null or undefined
-            assertParamExists('documentUpdate', 'documentId', documentId)
+        documentUpdate: async (idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idReference' is not null or undefined
+            assertParamExists('documentUpdate', 'idReference', idReference)
             // verify required parameter 'data' is not null or undefined
             assertParamExists('documentUpdate', 'data', data)
-            const localVarPath = `/api/documents/{data_source_id}/{document_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"document_id"}}`, encodeURIComponent(String(documentId)));
+            const localVarPath = `/api/documents/{id_reference}`
+                .replace(`{${"id_reference"}}`, encodeURIComponent(String(idReference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -836,10 +823,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
             if (data !== undefined) { 
                 localVarFormParams.append('data', data as any);
-            }
-    
-            if (attribute !== undefined) { 
-                localVarFormParams.append('attribute', attribute as any);
             }
                 if (files) {
                 files.forEach((element) => {
@@ -1021,13 +1004,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
-         * @param {BasicEntity} basicEntity 
+         * @param {Entity} entity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        instantiateEntity: async (basicEntity: BasicEntity, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'basicEntity' is not null or undefined
-            assertParamExists('instantiateEntity', 'basicEntity', basicEntity)
+        instantiateEntity: async (entity: Entity, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'entity' is not null or undefined
+            assertParamExists('instantiateEntity', 'entity', entity)
             const localVarPath = `/api/entity`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1054,7 +1037,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(basicEntity, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(entity, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1383,6 +1366,54 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * @summary Validate
+         * @param {Entity} entity 
+         * @param {string} [asType] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateEntity: async (entity: Entity, asType?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'entity' is not null or undefined
+            assertParamExists('validateEntity', 'entity', entity)
+            const localVarPath = `/api/entity/validate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+            if (asType !== undefined) {
+                localVarQueryParameter['as_type'] = asType;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(entity, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
@@ -1596,43 +1627,39 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
+         * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
          * @summary Remove
-         * @param {string} dataSourceId 
-         * @param {string} dottedId 
+         * @param {string} idReference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentRemove(dataSourceId: string, dottedId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(dataSourceId, dottedId, options);
+        async documentRemove(idReference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(idReference, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Remove a document from DMSS.  - **directory**: path to document to remove.
+         * Remove a document from DMSS.  - **path_reference**: <data_source>/<path>.<attribute>
          * @summary Remove By Path
-         * @param {string} dataSourceId 
-         * @param {string} directory 
+         * @param {string} pathReference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentRemoveByPath(dataSourceId: string, directory: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemoveByPath(dataSourceId, directory, options);
+        async documentRemoveByPath(pathReference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemoveByPath(pathReference, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update document
+         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
+         * @param {string} idReference 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
-         * @param {string} [attribute] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentUpdate(dataSourceId: string, documentId: string, data: string, updateUncontained?: boolean, attribute?: string, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(dataSourceId, documentId, data, updateUncontained, attribute, files, options);
+        async documentUpdate(idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(idReference, data, updateUncontained, files, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1682,12 +1709,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         /**
          * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
-         * @param {BasicEntity} basicEntity 
+         * @param {Entity} entity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async instantiateEntity(basicEntity: BasicEntity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(basicEntity, options);
+        async instantiateEntity(entity: Entity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(entity, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1773,6 +1800,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async tokenListAll(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PATData>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.tokenListAll(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * @summary Validate
+         * @param {Entity} entity 
+         * @param {string} [asType] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async validateEntity(entity: Entity, asType?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateEntity(entity, asType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1948,41 +1987,37 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentGetByPath(absolutePath, options).then((request) => request(axios, basePath));
         },
         /**
-         * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
+         * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
          * @summary Remove
-         * @param {string} dataSourceId 
-         * @param {string} dottedId 
+         * @param {string} idReference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove(dataSourceId: string, dottedId: string, options?: any): AxiosPromise<string> {
-            return localVarFp.documentRemove(dataSourceId, dottedId, options).then((request) => request(axios, basePath));
+        documentRemove(idReference: string, options?: any): AxiosPromise<string> {
+            return localVarFp.documentRemove(idReference, options).then((request) => request(axios, basePath));
         },
         /**
-         * Remove a document from DMSS.  - **directory**: path to document to remove.
+         * Remove a document from DMSS.  - **path_reference**: <data_source>/<path>.<attribute>
          * @summary Remove By Path
-         * @param {string} dataSourceId 
-         * @param {string} directory 
+         * @param {string} pathReference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemoveByPath(dataSourceId: string, directory: string, options?: any): AxiosPromise<any> {
-            return localVarFp.documentRemoveByPath(dataSourceId, directory, options).then((request) => request(axios, basePath));
+        documentRemoveByPath(pathReference: string, options?: any): AxiosPromise<any> {
+            return localVarFp.documentRemoveByPath(pathReference, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update document
+         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
+         * @param {string} idReference 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
-         * @param {string} [attribute] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentUpdate(dataSourceId: string, documentId: string, data: string, updateUncontained?: boolean, attribute?: string, files?: Array<File>, options?: any): AxiosPromise<any> {
-            return localVarFp.documentUpdate(dataSourceId, documentId, data, updateUncontained, attribute, files, options).then((request) => request(axios, basePath));
+        documentUpdate(idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<any> {
+            return localVarFp.documentUpdate(idReference, data, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
          * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
@@ -2027,12 +2062,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         /**
          * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
-         * @param {BasicEntity} basicEntity 
+         * @param {Entity} entity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        instantiateEntity(basicEntity: BasicEntity, options?: any): AxiosPromise<object> {
-            return localVarFp.instantiateEntity(basicEntity, options).then((request) => request(axios, basePath));
+        instantiateEntity(entity: Entity, options?: any): AxiosPromise<object> {
+            return localVarFp.instantiateEntity(entity, options).then((request) => request(axios, basePath));
         },
         /**
          * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
@@ -2111,6 +2146,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         tokenListAll(options?: any): AxiosPromise<Array<PATData>> {
             return localVarFp.tokenListAll(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * @summary Validate
+         * @param {Entity} entity 
+         * @param {string} [asType] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateEntity(entity: Entity, asType?: string, options?: any): AxiosPromise<any> {
+            return localVarFp.validateEntity(entity, asType, options).then((request) => request(axios, basePath));
         },
         /**
          * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
@@ -2408,14 +2454,7 @@ export interface DefaultApiDocumentRemoveRequest {
      * @type {string}
      * @memberof DefaultApiDocumentRemove
      */
-    readonly dataSourceId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentRemove
-     */
-    readonly dottedId: string
+    readonly idReference: string
 }
 
 /**
@@ -2429,14 +2468,7 @@ export interface DefaultApiDocumentRemoveByPathRequest {
      * @type {string}
      * @memberof DefaultApiDocumentRemoveByPath
      */
-    readonly dataSourceId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentRemoveByPath
-     */
-    readonly directory: string
+    readonly pathReference: string
 }
 
 /**
@@ -2450,14 +2482,7 @@ export interface DefaultApiDocumentUpdateRequest {
      * @type {string}
      * @memberof DefaultApiDocumentUpdate
      */
-    readonly dataSourceId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentUpdate
-     */
-    readonly documentId: string
+    readonly idReference: string
 
     /**
      * 
@@ -2472,13 +2497,6 @@ export interface DefaultApiDocumentUpdateRequest {
      * @memberof DefaultApiDocumentUpdate
      */
     readonly updateUncontained?: boolean
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiDocumentUpdate
-     */
-    readonly attribute?: string
 
     /**
      * 
@@ -2545,10 +2563,10 @@ export interface DefaultApiGetLookupRequest {
 export interface DefaultApiInstantiateEntityRequest {
     /**
      * 
-     * @type {BasicEntity}
+     * @type {Entity}
      * @memberof DefaultApiInstantiateEntity
      */
-    readonly basicEntity: BasicEntity
+    readonly entity: Entity
 }
 
 /**
@@ -2696,6 +2714,27 @@ export interface DefaultApiTokenDeleteRequest {
      * @memberof DefaultApiTokenDelete
      */
     readonly tokenId: string
+}
+
+/**
+ * Request parameters for validateEntity operation in DefaultApi.
+ * @export
+ * @interface DefaultApiValidateEntityRequest
+ */
+export interface DefaultApiValidateEntityRequest {
+    /**
+     * 
+     * @type {Entity}
+     * @memberof DefaultApiValidateEntity
+     */
+    readonly entity: Entity
+
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiValidateEntity
+     */
+    readonly asType?: string
 }
 
 /**
@@ -2873,7 +2912,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Remove document  - **dotted_id**: can have value <document_id> or <document_id>.<attribute_path>  Example: dotted_id=3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id.
+     * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
      * @summary Remove
      * @param {DefaultApiDocumentRemoveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2881,11 +2920,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentRemove(requestParameters: DefaultApiDocumentRemoveRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentRemove(requestParameters.dataSourceId, requestParameters.dottedId, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentRemove(requestParameters.idReference, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Remove a document from DMSS.  - **directory**: path to document to remove.
+     * Remove a document from DMSS.  - **path_reference**: <data_source>/<path>.<attribute>
      * @summary Remove By Path
      * @param {DefaultApiDocumentRemoveByPathRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2893,11 +2932,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentRemoveByPath(requestParameters: DefaultApiDocumentRemoveByPathRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentRemoveByPath(requestParameters.dataSourceId, requestParameters.directory, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentRemoveByPath(requestParameters.pathReference, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Update document
+     * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
      * @summary Update
      * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2905,7 +2944,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentUpdate(requestParameters: DefaultApiDocumentUpdateRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentUpdate(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.data, requestParameters.updateUncontained, requestParameters.attribute, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentUpdate(requestParameters.idReference, requestParameters.data, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2964,7 +3003,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public instantiateEntity(requestParameters: DefaultApiInstantiateEntityRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).instantiateEntity(requestParameters.basicEntity, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).instantiateEntity(requestParameters.entity, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3048,6 +3087,18 @@ export class DefaultApi extends BaseAPI {
      */
     public tokenListAll(options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).tokenListAll(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+     * @summary Validate
+     * @param {DefaultApiValidateEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public validateEntity(requestParameters: DefaultApiValidateEntityRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).validateEntity(requestParameters.entity, requestParameters.asType, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
