@@ -15,7 +15,7 @@ import { GridPlugin } from './grid/GridPlugin'
 
 export const plugins: TPlugin[] = [
   {
-    pluginName: 'explorer',
+    pluginName: '@development-framework/dm-core-plugins/explorer',
     component: ExplorerPlugin,
   },
   {

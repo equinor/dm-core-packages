@@ -6,10 +6,7 @@
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/header",
     "config": {
-      "uiRecipesList": [
-        "Yaml",
-        "Explorer"
-      ],
+      "uiRecipesList": ["Yaml", "Explorer"],
       "type": "blueprints/Plugins/HeaderPluginConfig",
       "hideAbout": false,
       "hideUserInfo": false
@@ -30,7 +27,7 @@
     {
       "name": "Explorer",
       "type": "CORE:UiRecipe",
-      "plugin": "explorer"
+      "plugin": "@development-framework/dm-core-plugins/explorer"
     }
   ]
 }
