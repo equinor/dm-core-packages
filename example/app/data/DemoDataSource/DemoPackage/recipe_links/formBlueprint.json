@@ -17,7 +17,10 @@
       "plugin": "UiPluginSelector",
       "config": {
         "type": "blueprints/Plugins/UiPluginSelectorConfig",
-        "recipes": ["Yaml", "Edit"]
+        "recipes": [
+          "Yaml",
+          "Edit"
+        ]
       }
     },
     {
@@ -73,16 +76,27 @@
             "type": "blueprints/Plugins/Form/fields/ArrayField",
             "name": "listOfObjects",
             "widget": "TableWidget",
-            "columns": ["name", "foo", "bar", "baz"]
+            "columns": [
+              "name",
+              "foo",
+              "bar",
+              "baz"
+            ]
           }
         ],
-        "order": ["name", "type", "description", "aBool", "*"]
+        "order": [
+          "name",
+          "type",
+          "description",
+          "aBool",
+          "*"
+        ]
       }
     },
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
-      "plugin": "yaml"
+      "plugin": "@development-framework/dm-core-plugins/yaml"
     }
   ]
 }

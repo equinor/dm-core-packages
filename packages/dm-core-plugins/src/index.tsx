@@ -19,7 +19,7 @@ export const plugins: TPlugin[] = [
     component: ExplorerPlugin,
   },
   {
-    pluginName: 'yaml',
+    pluginName: '@development-framework/dm-core-plugins/yaml',
     component: YamlPlugin,
   },
   {
