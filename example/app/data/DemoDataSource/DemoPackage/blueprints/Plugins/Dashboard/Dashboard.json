@@ -9,6 +9,11 @@
       "name": "orders"
     },
     {
+      "attributeType": "./Order",
+      "type": "CORE:BlueprintAttribute",
+      "name": "order"
+    },
+    {
       "name": "aNestedObjectWithCustomUI",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./../Form/Nested",

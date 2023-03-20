@@ -1,0 +1,16 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "blueprints/Plugins/Dashboard/OrderItem",
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}

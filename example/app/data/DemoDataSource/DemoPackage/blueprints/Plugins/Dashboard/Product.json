@@ -8,11 +8,9 @@
       "name": "name"
     },
     {
-      "attributeType": "./ProductCategory",
+      "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
-      "name": "category",
-      "contained": false,
-      "optional": true
+      "name": "something"
     }
   ]
 }
