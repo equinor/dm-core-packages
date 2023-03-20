@@ -166,7 +166,7 @@ export function NewEntityButton(props: {
                 } else {
                   dmssAPI
                     .instantiateEntity({
-                      basicEntity: {
+                      entity: {
                         type: typeToCreate,
                       },
                     })

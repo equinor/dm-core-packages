@@ -71,12 +71,10 @@ export function useDocument<T>(
   }, [idReference])
 
   function updateDocument(newDocument: T, notify: boolean): void {
-    const [dataSourceId, documentId] = idReference.split('/', 2)
     setLoading(true)
     dmssAPI
       .documentUpdate({
-        dataSourceId: dataSourceId,
-        documentId: documentId,
+        idReference: idReference,
         data: JSON.stringify(newDocument),
         updateUncontained: false,
       })

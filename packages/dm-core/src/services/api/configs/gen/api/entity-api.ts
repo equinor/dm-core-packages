@@ -21,7 +21,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { BasicEntity } from '../models';
+import { Entity } from '../models';
 // @ts-ignore
 import { ErrorResponse } from '../models';
 /**
@@ -33,13 +33,13 @@ export const EntityApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
-         * @param {BasicEntity} basicEntity 
+         * @param {Entity} entity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        instantiateEntity: async (basicEntity: BasicEntity, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'basicEntity' is not null or undefined
-            assertParamExists('instantiateEntity', 'basicEntity', basicEntity)
+        instantiateEntity: async (entity: Entity, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'entity' is not null or undefined
+            assertParamExists('instantiateEntity', 'entity', entity)
             const localVarPath = `/api/entity`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -66,7 +66,55 @@ export const EntityApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(basicEntity, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(entity, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * @summary Validate
+         * @param {Entity} entity 
+         * @param {string} [asType] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateEntity: async (entity: Entity, asType?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'entity' is not null or undefined
+            assertParamExists('validateEntity', 'entity', entity)
+            const localVarPath = `/api/entity/validate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+            if (asType !== undefined) {
+                localVarQueryParameter['as_type'] = asType;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(entity, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -86,12 +134,24 @@ export const EntityApiFp = function(configuration?: Configuration) {
         /**
          * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
-         * @param {BasicEntity} basicEntity 
+         * @param {Entity} entity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async instantiateEntity(basicEntity: BasicEntity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(basicEntity, options);
+        async instantiateEntity(entity: Entity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(entity, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * @summary Validate
+         * @param {Entity} entity 
+         * @param {string} [asType] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async validateEntity(entity: Entity, asType?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateEntity(entity, asType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -107,12 +167,23 @@ export const EntityApiFactory = function (configuration?: Configuration, basePat
         /**
          * Create a new entity and return it.  (entity is not saved in DMSS)
          * @summary Instantiate
-         * @param {BasicEntity} basicEntity 
+         * @param {Entity} entity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        instantiateEntity(basicEntity: BasicEntity, options?: any): AxiosPromise<object> {
-            return localVarFp.instantiateEntity(basicEntity, options).then((request) => request(axios, basePath));
+        instantiateEntity(entity: Entity, options?: any): AxiosPromise<object> {
+            return localVarFp.instantiateEntity(entity, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * @summary Validate
+         * @param {Entity} entity 
+         * @param {string} [asType] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateEntity(entity: Entity, asType?: string, options?: any): AxiosPromise<any> {
+            return localVarFp.validateEntity(entity, asType, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -125,10 +196,31 @@ export const EntityApiFactory = function (configuration?: Configuration, basePat
 export interface EntityApiInstantiateEntityRequest {
     /**
      * 
-     * @type {BasicEntity}
+     * @type {Entity}
      * @memberof EntityApiInstantiateEntity
      */
-    readonly basicEntity: BasicEntity
+    readonly entity: Entity
+}
+
+/**
+ * Request parameters for validateEntity operation in EntityApi.
+ * @export
+ * @interface EntityApiValidateEntityRequest
+ */
+export interface EntityApiValidateEntityRequest {
+    /**
+     * 
+     * @type {Entity}
+     * @memberof EntityApiValidateEntity
+     */
+    readonly entity: Entity
+
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityApiValidateEntity
+     */
+    readonly asType?: string
 }
 
 /**
@@ -147,6 +239,18 @@ export class EntityApi extends BaseAPI {
      * @memberof EntityApi
      */
     public instantiateEntity(requestParameters: EntityApiInstantiateEntityRequest, options?: AxiosRequestConfig) {
-        return EntityApiFp(this.configuration).instantiateEntity(requestParameters.basicEntity, options).then((request) => request(this.axios, this.basePath));
+        return EntityApiFp(this.configuration).instantiateEntity(requestParameters.entity, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+     * @summary Validate
+     * @param {EntityApiValidateEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EntityApi
+     */
+    public validateEntity(requestParameters: EntityApiValidateEntityRequest, options?: AxiosRequestConfig) {
+        return EntityApiFp(this.configuration).validateEntity(requestParameters.entity, requestParameters.asType, options).then((request) => request(this.axios, this.basePath));
     }
 }
