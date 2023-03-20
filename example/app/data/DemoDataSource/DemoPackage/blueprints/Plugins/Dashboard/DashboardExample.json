@@ -12,6 +12,15 @@
       }
     }
   ],
+  "order": {
+    "type": "./OrderItem",
+    "quantity": "1",
+    "product": {
+      "type": "./Product",
+      "name": "Product 1",
+      "something": "Asdf"
+    }
+  },
   "aNestedObjectWithCustomUI": {
     "type": "blueprints/Plugins/Form/Nested",
     "foo": 1337,

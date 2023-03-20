@@ -3,7 +3,7 @@ import {
   isReferenceViewConfig,
   TViewConfig,
 } from '../../types'
-import { EntityView, TGenericObject } from '../../index'
+import { EntityView, Loading, useDocument, TGenericObject } from '../../index'
 import React from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget, getType } from './utils'
@@ -12,6 +12,13 @@ type TViewCreator = {
   idReference: string
   document: TGenericObject
   viewConfig: TViewConfig
+}
+
+const getScopeDepth = (scope: string): number => {
+  if (scope) {
+    return scope.split('.').length
+  }
+  return 1
 }
 
 /**
@@ -34,11 +41,23 @@ type TViewCreator = {
  * @param props
  */
 export const ViewCreator = (props: TViewCreator): JSX.Element => {
-  const { idReference, document, viewConfig } = props
+  const { idReference, viewConfig } = props
+  const [document, isLoadingDocument] = useDocument<TGenericObject>(
+    idReference,
+    getScopeDepth(viewConfig.scope)
+  )
 
-  if (viewConfig === undefined) return <>Missing view config</>
+  if (isLoadingDocument) {
+    return (
+      <div style={{ alignSelf: 'center', padding: '50px' }}>
+        <Loading />
+      </div>
+    )
+  }
 
+  if (document == null) return <>Could not find the document, check the scope</>
   const type = getType(document, viewConfig)
+  if (type === undefined) return <>Could not find the type, check the scope</>
   const absoluteDottedId = getTarget(idReference, viewConfig)
 
   if (isInlineRecipeViewConfig(viewConfig))

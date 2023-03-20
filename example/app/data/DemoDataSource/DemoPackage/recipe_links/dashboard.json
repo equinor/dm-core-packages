@@ -61,14 +61,30 @@
           "type": "blueprints/Plugins/Grid/GridItem",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
-            "scope": "aNestedObjectWithCustomUI"
+            "scope": "orders.0.product",
+            "recipe": "Yaml"
+          },
+          "gridArea": {
+            "type": "blueprints/Plugins/Grid/GridArea",
+            "rowStart": 5,
+            "columnStart": 3,
+            "rowEnd": 6,
+            "columnEnd": 7
+          }
+        },
+        {
+          "type": "blueprints/Plugins/Grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "scope": "order.product",
+            "recipe": "Form"
           },
           "gridArea": {
             "type": "blueprints/Plugins/Grid/GridArea",
             "rowStart": 3,
             "columnStart": 3,
             "rowEnd": 6,
-            "columnEnd": 7
+            "columnEnd": 5
           }
         },
         {

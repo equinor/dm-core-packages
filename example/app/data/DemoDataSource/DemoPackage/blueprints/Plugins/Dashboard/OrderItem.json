@@ -6,6 +6,11 @@
       "attributeType": "number",
       "type": "CORE:BlueprintAttribute",
       "name": "quantity"
+    },
+    {
+      "attributeType": "./Product",
+      "type": "CORE:BlueprintAttribute",
+      "name": "product"
     }
   ]
 }
