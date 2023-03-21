@@ -15,8 +15,7 @@ export const DeleteAction = async (
   setLoading(true)
   await dmssAPI
     .documentRemoveByPath({
-      dataSourceId: node.dataSource,
-      directory: node.pathFromRootPackage(),
+      pathReference: `${node.dataSource}/${node.pathFromRootPackage()}`,
     })
     .then(() => {
       node.remove()

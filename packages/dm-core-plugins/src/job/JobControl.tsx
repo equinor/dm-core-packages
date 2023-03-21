@@ -81,7 +81,6 @@ export const JobControl = (props: {
   updateDocument: (newDocument: any, notify: boolean) => void
 }) => {
   const { jobId, document } = props
-  const [dataSourceId, documentId] = jobId.split('/', 2)
   const { token } = useContext(AuthContext)
   const settings = useContext(ApplicationContext)
   const dmtApi = new DmJobAPI(token)
@@ -141,10 +140,7 @@ export const JobControl = (props: {
     setLoading(true)
     try {
       await dmtApi.removeJob({ jobUid: jobUID })
-      await dmssApi.documentRemove({
-        dataSourceId: dataSourceId,
-        dottedId: documentId,
-      })
+      await dmssApi.documentRemove({ idReference: jobId })
     } catch (error: AxiosError<ErrorResponse> | any) {
       if (isAxiosError(error)) {
         console.error(error.response?.data)

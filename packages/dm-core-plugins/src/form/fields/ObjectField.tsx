@@ -77,15 +77,13 @@ const AddObject = (props: any) => {
 
     dmssAPI
       .instantiateEntity({
-        basicEntity: { name: namePath as string, type: type as string },
+        entity: { name: namePath as string, type: type as string },
       })
       .then((newEntity: AxiosResponse<any>) => {
-        const [dataSourceId, documentId] = idReference.split('/', 2)
         const data = JSON.stringify(newEntity.data)
         dmssAPI
           .documentUpdate({
-            dataSourceId: dataSourceId,
-            documentId: contained ? `${documentId}.${namePath}` : namePath,
+            idReference: `${idReference}.${namePath}`,
             data: data,
             updateUncontained: false,
           })

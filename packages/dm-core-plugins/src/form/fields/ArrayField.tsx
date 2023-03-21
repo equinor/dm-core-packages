@@ -57,17 +57,15 @@ export default function Fields(props: any) {
 
   const handleAddObject = () => {
     const name: string = `${namePath}-${fields.length}`
-    const [dataSourceId, id] = documentId.split('/', 2)
     dmssAPI
       .instantiateEntity({
-        basicEntity: { name: name, type: type as string },
+        entity: { name: name, type: type as string },
       })
       .then((newEntity: any) => {
         const data = JSON.stringify([...fields, newEntity.data])
         dmssAPI
           .documentUpdate({
-            dataSourceId: dataSourceId,
-            documentId: `${id}.${namePath}`,
+            idReference: `${documentId}.${namePath}`,
             data: data,
             updateUncontained: false,
           })
