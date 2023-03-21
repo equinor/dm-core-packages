@@ -6,6 +6,7 @@ import { ObjectField } from './fields/ObjectField'
 import { TFormProps } from './types'
 import { RegistryProvider } from './RegistryContext'
 import styled from 'styled-components'
+import { TGenericObject } from '@development-framework/dm-core'
 
 const Wrapper = styled.div`
   max-width: 650px;
@@ -32,8 +33,18 @@ export const Form = (props: TFormProps) => {
   // Every react hook form controller needs to have a unique name
   const namePath: string = ''
 
+  const convertNullToUndefined = (obj: TGenericObject) => {
+    Object.keys(obj).forEach((key) => {
+      if (obj[key] === null) {
+        obj[key] = undefined
+      }
+    })
+    return obj
+  }
+
   const handleSubmit = methods.handleSubmit((data) => {
-    if (onSubmit !== undefined) onSubmit(data)
+    // since react-hook-form cannot handle undefined values, we have to convert null values to undefined before submitting.
+    if (onSubmit !== undefined) onSubmit(convertNullToUndefined(data))
   })
 
   return (

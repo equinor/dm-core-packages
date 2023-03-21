@@ -2,6 +2,7 @@ import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { TStringFieldProps } from '../types'
 import { useRegistryContext } from '../RegistryContext'
+import { asNumber } from './NumberField'
 
 const formatDate = (date: string) => {
   return new Date(date).toLocaleString(navigator.language)
@@ -23,7 +24,7 @@ export const StringField = (props: TStringFieldProps) => {
       rules={{
         required: !optional,
       }}
-      defaultValue={defaultValue || ''}
+      defaultValue={defaultValue ?? ''}
       render={({
         field: { ref, value, ...props },
         fieldState: { invalid, error },
@@ -38,7 +39,7 @@ export const StringField = (props: TStringFieldProps) => {
           <Widget
             readOnly={readOnly}
             {...props}
-            value={value}
+            value={value ?? ''}
             id={namePath}
             label={displayLabel}
             inputRef={ref}
