@@ -1,22 +1,28 @@
 import { TInlineRecipeViewConfig } from '../../types'
-import { IUIPlugin } from '../../index'
-import React from 'react'
+import { ErrorBoundary, Loading, UiPluginContext } from '../../index'
+import React, { useContext } from 'react'
 
 type TInlineRecipeView = {
   absoluteDottedId: string
   type: string
   viewConfig: TInlineRecipeViewConfig
-  getUiPlugin: (pluginName: string) => (props: IUIPlugin) => JSX.Element
 }
 
 export const InlineRecipeView = (props: TInlineRecipeView) => {
-  const { absoluteDottedId, type, viewConfig, getUiPlugin } = props
+  const { absoluteDottedId, type, viewConfig } = props
+  const { loading, getUiPlugin } = useContext(UiPluginContext)
+
+  if (loading) return <Loading />
+
   const UiPlugin = getUiPlugin(viewConfig.recipe.plugin)
   return (
-    <UiPlugin
-      idReference={absoluteDottedId}
-      type={type}
-      config={viewConfig.recipe.config || {}}
-    />
+    // @ts-ignore
+    <ErrorBoundary message={`Plugin "${viewConfig.recipe.plugin}" crashed...`}>
+      <UiPlugin
+        idReference={absoluteDottedId}
+        type={type}
+        config={viewConfig.recipe.config || {}}
+      />
+    </ErrorBoundary>
   )
 }

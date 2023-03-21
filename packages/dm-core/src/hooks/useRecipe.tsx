@@ -1,5 +1,11 @@
-import React from 'react'
-import { useBlueprint, TUiRecipe, ErrorResponse } from '../index'
+import React, { useContext } from 'react'
+import {
+  useBlueprint,
+  TUiRecipe,
+  ErrorResponse,
+  UiPluginContext,
+  IUIPlugin,
+} from '../index'
 
 const findRecipe = (
   initialUiRecipe: TUiRecipe | undefined,
@@ -35,6 +41,7 @@ interface IUseRecipe {
   recipe: TUiRecipe | undefined
   isLoading: boolean
   error: ErrorResponse | null
+  getUiPlugin: (pluginName: string) => (props: IUIPlugin) => JSX.Element
 }
 
 /**
@@ -61,13 +68,22 @@ interface IUseRecipe {
  * @returns A list containing the blueprint document, a boolean representing the loading state, and an Error, if any.
  */
 export const useRecipe = (typeRef: string, recipeName?: string): IUseRecipe => {
-  const { initialUiRecipe, uiRecipes, isLoading, error } = useBlueprint(typeRef)
+  const {
+    initialUiRecipe,
+    uiRecipes,
+    isLoading: isBlueprintLoading,
+    error,
+  } = useBlueprint(typeRef)
+  const { loading: isPluginContextLoading, getUiPlugin } = useContext(
+    UiPluginContext
+  )
 
   return {
-    recipe: isLoading
+    recipe: isBlueprintLoading
       ? undefined
       : findRecipe(initialUiRecipe, uiRecipes, recipeName),
-    isLoading,
+    isLoading: isBlueprintLoading && isPluginContextLoading,
     error,
+    getUiPlugin,
   }
 }
