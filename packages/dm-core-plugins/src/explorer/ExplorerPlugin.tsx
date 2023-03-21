@@ -15,7 +15,7 @@ import {
   EntityView,
 } from '@development-framework/dm-core'
 import { NodeRightClickMenu } from './components/context-menu/ContextMenu'
-
+import './style.css'
 import { Progress } from '@equinor/eds-core-react'
 
 export const TreeWrapper = styled.div`
@@ -26,6 +26,7 @@ export const TreeWrapper = styled.div`
   height: 100vh;
   border-right: black solid 1px;
   border-radius: 2px;
+  overflow: scroll;
 `
 
 function wrapComponent(Component: any) {

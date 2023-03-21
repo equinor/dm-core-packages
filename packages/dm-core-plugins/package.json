@@ -1,7 +1,7 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "dist/index.js",
   "dependencies": {
     "@development-framework/dm-core": "^1.0.45",
@@ -55,7 +55,8 @@
     "prebuild": "rm -rf dist",
     "copy-explorer-css-file": "cp src/explorer/components/context-menu/react-contextmenu.css  dist/explorer/components/context-menu/react-contextmenu.css",
     "copy-yaml-css-file": "cp src/yaml/index.css ./dist/yaml",
-    "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-css-file",
+    "copy-explorer-css-file": "cp src/explorer/style.css ./dist/explorer",
+    "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-css-file && yarn copy-explorer-css-file",
     "postbuild": "rm -rf node_modules",
     "test": "jest test",
     "posttest": "npm remove --no-save --legacy-peer-deps react styled-components",
