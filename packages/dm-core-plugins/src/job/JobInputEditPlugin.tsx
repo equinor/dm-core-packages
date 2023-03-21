@@ -3,7 +3,7 @@ import {
   JobStatus,
   Loading,
   TJob,
-  UIPluginSelector,
+  EntityView,
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
@@ -56,7 +56,7 @@ export const JobInputEditPlugin = (props: IUIPlugin) => {
     <div>
       <div style={{ marginBottom: '10px' }}>
         {Object.keys(formData.applicationInput || {}).length ? (
-          <UIPluginSelector
+          <EntityView
             type={formData.applicationInput.type}
             idReference={`${dataSourceId}/${formData.applicationInput._id}`}
             onSubmit={(data: any) =>

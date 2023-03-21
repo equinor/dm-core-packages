@@ -3,7 +3,6 @@ import {
   DmssAPI,
   FSTreeContext,
   TreeView,
-  useDataSources,
   NewEntityButton,
   EntityView,
 } from '@development-framework/dm-core'
@@ -49,7 +48,6 @@ function App() {
           <TreeView
             nodes={treeNodes}
             onSelect={(node) => {
-              console.log(node)
               setSelectedType(node.type)
               setSelectedEntity(node.nodeId)
             }}

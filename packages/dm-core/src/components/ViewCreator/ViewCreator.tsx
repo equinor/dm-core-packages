@@ -10,7 +10,6 @@ import { getTarget, getType } from './utils'
 
 type TViewCreator = {
   idReference: string
-  document: TGenericObject
   viewConfig: TViewConfig
 }
 
@@ -47,13 +46,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
     getScopeDepth(viewConfig.scope)
   )
 
-  if (isLoadingDocument) {
-    return (
-      <div style={{ alignSelf: 'center', padding: '50px' }}>
-        <Loading />
-      </div>
-    )
-  }
+  if (isLoadingDocument) return <Loading />
 
   if (document == null) return <>Could not find the document, check the scope</>
   const type = getType(document, viewConfig)

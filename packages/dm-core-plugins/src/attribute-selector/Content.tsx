@@ -2,8 +2,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 import {
   TGenericObject,
-  UIPluginSelector,
-  UIRecipesSelector,
+  EntityView,
+  useBlueprint,
+  Loading,
 } from '@development-framework/dm-core'
 import { useTabContext } from './TabsContext'
 import { TChildTab } from './AttributeSelectorPlugin'
@@ -26,10 +27,15 @@ export const Content = (): JSX.Element => {
     idReference,
     config,
   } = useTabContext()
+
+  // TODO: This is a workaround until 'attribute-selector' implements "view concept"
+  const { uiRecipes, isLoading } = useBlueprint(formData.type)
+  if (isLoading) return <Loading />
+
   return (
     <div style={{ width: '100%' }}>
       <HidableWrapper hidden={'home' !== selectedTab}>
-        <UIPluginSelector
+        <EntityView
           idReference={idReference}
           type={formData.type}
           onOpen={(tabData: TChildTab) => {
@@ -42,7 +48,8 @@ export const Content = (): JSX.Element => {
               onSubmit(newFormData)
             }
           }}
-          config={{ recipes: [config?.homeRecipe] || [] }}
+          recipeName={uiRecipes[0].name}
+          config={config}
         />
       </HidableWrapper>
       {Object.values(childTabs).map((childTab: TChildTab) => {
@@ -51,7 +58,7 @@ export const Content = (): JSX.Element => {
             key={childTab.attribute}
             hidden={childTab.attribute !== selectedTab}
           >
-            <UIRecipesSelector
+            <EntityView
               idReference={childTab.absoluteDottedId}
               type={childTab.entity.type}
               onSubmit={(data: TChildTab) => {
