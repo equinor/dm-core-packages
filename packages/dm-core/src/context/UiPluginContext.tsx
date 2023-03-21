@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { IUIPlugin, TPlugin } from '../types'
-import { UIPluginSelector, UiRecipesSideBarSelector } from '../components'
+import { RecipeSelector, UiRecipesSideBarSelector } from '../components'
 
 type TUiPluginMap = {
   [pluginName: string]: (props: IUIPlugin) => JSX.Element
@@ -8,11 +8,6 @@ type TUiPluginMap = {
 
 export interface ILoadedPlugin {
   plugins: TPlugin[]
-}
-
-export enum EPluginType {
-  UI,
-  PAGE,
 }
 
 type TUiPluginContext = {
@@ -37,8 +32,9 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
   useEffect(() => {
     // Add builtin plugins
     let newPluginMap: TUiPluginMap = {
-      UiPluginSelector: UIPluginSelector,
-      UiRecipesSideBarSelector: UiRecipesSideBarSelector,
+      UiRecipeSideBarSelector: UiRecipesSideBarSelector,
+      // @ts-ignore
+      'recipe-selector': RecipeSelector,
     }
 
     Promise.all(

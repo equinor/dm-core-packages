@@ -5,7 +5,7 @@ import {
   ErrorResponse,
   Loading,
   NewEntityButton,
-  UIPluginSelector,
+  EntityView,
   useBlueprint,
   // @ts-ignore
 } from '@development-framework/dm-core'
@@ -254,7 +254,7 @@ const External = (props: any) => {
     : `${dataSourceId}/${documentId}`
 
   return (
-    <UIPluginSelector
+    <EntityView
       key={namePath}
       idReference={idReference}
       type={initialValue.type}

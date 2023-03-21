@@ -2,10 +2,26 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "CORE:Blueprint",
   "initialUiRecipe": {
-    "name": "UiPluginSelector",
+    "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "UiPluginSelector",
-    "config": {}
+    "plugin": "recipe-selector",
+    "config": {
+      "type": "blueprints/Plugins/RecipeSelectorConfig",
+      "views": [
+        {
+          "type": "CORE:ReferenceViewConfig",
+          "recipe": "Edit"
+        },
+        {
+          "type": "CORE:InlineRecipeViewConfig",
+          "recipe": {
+            "name": "Yaml",
+            "type": "CORE:UiRecipe",
+            "plugin": "@development-framework/dm-core-plugins/yaml"
+          }
+        }
+      ]
+    }
   },
   "uiRecipes": [
     {

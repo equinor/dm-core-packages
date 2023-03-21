@@ -6,7 +6,7 @@ import {
   DmssAPI,
   DmJobAPI,
   ErrorResponse,
-  UIPluginSelector,
+  EntityView,
   JobStatus,
   TJob,
   ApplicationContext,
@@ -170,7 +170,7 @@ export const JobControl = (props: {
         height={'70vh'}
       >
         {document.runner ? (
-          <UIPluginSelector
+          <EntityView
             type={document.runner.type}
             idReference={`${jobId}.runner`}
           />
@@ -186,7 +186,7 @@ export const JobControl = (props: {
         width={'50vw'}
       >
         {document.applicationInput ? (
-          <UIPluginSelector
+          <EntityView
             type={document.applicationInput.type}
             idReference={`${jobId.split('/', 1)[0]}/${
               document.applicationInput._id

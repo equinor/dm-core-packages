@@ -17,17 +17,12 @@
     {
       "type": "CORE:UiRecipe",
       "name": "home",
-      "plugin": "UiPluginSelector",
-      "config": {
-        "type": "blueprints/Plugins/UiPluginSelectorConfig",
-        "recipes": ["Yaml", "Edit"]
-      }
+      "plugin": "recipe-selector"
     },
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml",
-      "category": "container"
+      "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
       "type": "CORE:UiRecipe",

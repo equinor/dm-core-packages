@@ -4,21 +4,21 @@
   "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
-      "attributeType": "AttributeSelectorTabsBlueprint",
+      "attributeType": "./AttributeSelectorTabsBlueprint",
       "type": "CORE:BlueprintAttribute",
       "name": "firstAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "AttributeSelectorTabsBlueprint",
+      "attributeType": "./AttributeSelectorTabsBlueprint",
       "type": "CORE:BlueprintAttribute",
       "name": "secondAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "AttributeSelectorTabsBlueprint",
+      "attributeType": "./AttributeSelectorTabsBlueprint",
       "type": "CORE:BlueprintAttribute",
       "name": "thirdAttribute",
       "contained": true,
