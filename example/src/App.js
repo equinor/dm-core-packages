@@ -1,12 +1,11 @@
 import {
-  BlueprintPicker,
   JsonView,
   DmssAPI,
   FSTreeContext,
   TreeView,
   useDataSources,
   NewEntityButton,
-  UIRecipesSelector,
+  EntityView,
 } from '@development-framework/dm-core'
 import { useContext, useState } from 'react'
 
@@ -17,7 +16,6 @@ function App() {
 
   const { treeNodes, loading } = useContext(FSTreeContext)
 
-  const dataSources = useDataSources(dmssAPI)
   const [createdEntity, setCreatedEntity] = useState({})
   const [selectedType, setSelectedType] = useState()
   const [selectedEntity, setSelectedEntity] = useState()
@@ -33,7 +31,7 @@ function App() {
       }}
     >
       <h3>An application with the "header"-plugin</h3>
-      <UIRecipesSelector
+      <EntityView
         type={'dmss://DemoDataSource/DemoPackage/blueprints/ExampleApplication'}
         idReference={'DemoDataSource/03bf685b-edb6-40e4-8c67-62b13fefecaa'}
       />
@@ -59,7 +57,7 @@ function App() {
         )}
       </div>
       {selectedType && selectedEntity && (
-        <UIRecipesSelector type={selectedType} idReference={selectedEntity} />
+        <EntityView type={selectedType} idReference={selectedEntity} />
       )}
 
       <h3>Example on using jobs (outdated)</h3>
