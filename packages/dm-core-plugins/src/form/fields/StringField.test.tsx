@@ -240,18 +240,40 @@ describe('StringField', () => {
               type: 'system/SIMOS/BlueprintAttribute',
               attributeType: 'string',
               default: 'bare',
+              optional: true,
             },
           ],
         },
       ])
+      let value = 'beep'
       const formData = {
-        foo: 'beep',
+        foo: value,
       }
+
       render(<Form type="SingleField" formData={formData} />, { wrapper })
       await waitFor(() => {
-        fireEvent.change(screen.getByTestId('form-textfield'), {
-          target: { value: '' },
-        })
+        expect(screen.getByTestId('form-textfield').getAttribute('value')).toBe(
+          value
+        )
+      })
+
+      userEvent.type(
+        screen.getByTestId('form-textfield'),
+        '{backspace}{backspace}{backspace}{backspace}hei'
+      )
+
+      await waitFor(() => {
+        expect(screen.getByTestId('form-textfield').getAttribute('value')).toBe(
+          'hei'
+        )
+      })
+
+      userEvent.type(
+        screen.getByTestId('form-textfield'),
+        '{backspace}{backspace}{backspace}'
+      )
+
+      await waitFor(() => {
         expect(screen.getByTestId('form-textfield').getAttribute('value')).toBe(
           ''
         )

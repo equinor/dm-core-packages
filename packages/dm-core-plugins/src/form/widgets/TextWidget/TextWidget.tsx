@@ -10,19 +10,22 @@ Icon.add({ error_filled })
 const TextWidget = (props: TWidget) => {
   const { label, onChange } = props
 
-  const _onChange = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => onChange(value === '' ? '' : value)
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    const formattedValue = value === '' ? null : value
+    onChange(formattedValue)
+  }
+
   return (
     <TextField
       id={props.id}
       readOnly={props.readOnly}
-      value={props.value}
+      defaultValue={props.value}
       onClick={props.onClick}
       inputRef={props.inputRef}
       variant={props.variant}
       helperText={props.helperText}
-      onChange={_onChange}
+      onChange={onChangeHandler}
       label={label}
       data-testid="form-textfield"
     />

@@ -169,5 +169,57 @@ describe('NumberField', () => {
         expect(onSubmit).toHaveBeenCalledTimes(0)
       })
     })
+
+    it('should handle an empty number change event', async () => {
+      mockBlueprintGet([
+        {
+          name: 'SingleField',
+          type: 'system/SIMOS/Blueprint',
+          attributes: [
+            {
+              name: 'foo',
+              type: 'system/SIMOS/BlueprintAttribute',
+              attributeType: 'number',
+              default: '432',
+              optional: true,
+            },
+          ],
+        },
+      ])
+      let value = 567
+
+      const formData = {
+        foo: value,
+      }
+
+      render(<Form type="SingleField" formData={formData} />, { wrapper })
+      await waitFor(() => {
+        expect(screen.getByTestId('form-textfield').getAttribute('value')).toBe(
+          String(value)
+        )
+      })
+
+      userEvent.type(
+        screen.getByTestId('form-textfield'),
+        '{backspace}{backspace}{backspace}{backspace}123'
+      )
+
+      await waitFor(() => {
+        expect(screen.getByTestId('form-textfield').getAttribute('value')).toBe(
+          '123'
+        )
+      })
+
+      userEvent.type(
+        screen.getByTestId('form-textfield'),
+        '{backspace}{backspace}{backspace}'
+      )
+
+      await waitFor(() => {
+        expect(screen.getByTestId('form-textfield').getAttribute('value')).toBe(
+          ''
+        )
+      })
+    })
   })
 })
