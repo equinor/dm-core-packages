@@ -1,27 +1,27 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "blueprints/Plugins/Dashboard/Dashboard",
+  "_blueprintPath_": "blueprints/Dashboard",
   "initialUiRecipe": {
     "name": "Dashboard",
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/grid",
     "config": {
-      "type": "blueprints/Plugins/Grid/GridPluginConfig",
+      "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
       "size": {
-        "type": "blueprints/Plugins/Grid/GridSize",
+        "type": "PLUGINS:dm-core-plugins/grid/GridSize",
         "columns": 6,
         "rows": 5
       },
       "items": [
         {
-          "type": "blueprints/Plugins/Grid/GridItem",
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "scope": "aNestedObjectWithCustomUI",
             "recipe": "aRecipeName"
           },
           "gridArea": {
-            "type": "blueprints/Plugins/Grid/GridArea",
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
             "columnStart": 1,
             "rowEnd": 3,
@@ -29,7 +29,7 @@
           }
         },
         {
-          "type": "blueprints/Plugins/Grid/GridItem",
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "scope": "aNestedObjectWithCustomUI",
@@ -38,10 +38,10 @@
               "plugin": "@development-framework/dm-core-plugins/form",
               "name": "form",
               "config": {
-                "type": "blueprints/Plugins/Form/FormInput",
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "attributes": [
                   {
-                    "type": "blueprints/Plugins/Form/fields/StringField",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
                     "name": "bar",
                     "widget": "TextareaWidget"
                   }
@@ -50,7 +50,7 @@
             }
           },
           "gridArea": {
-            "type": "blueprints/Plugins/Grid/GridArea",
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
             "columnStart": 4,
             "rowEnd": 3,
@@ -58,14 +58,14 @@
           }
         },
         {
-          "type": "blueprints/Plugins/Grid/GridItem",
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "scope": "orders.0.product",
             "recipe": "Yaml"
           },
           "gridArea": {
-            "type": "blueprints/Plugins/Grid/GridArea",
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 5,
             "columnStart": 3,
             "rowEnd": 6,
@@ -73,14 +73,14 @@
           }
         },
         {
-          "type": "blueprints/Plugins/Grid/GridItem",
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "scope": "order.product",
             "recipe": "Form"
           },
           "gridArea": {
-            "type": "blueprints/Plugins/Grid/GridArea",
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 3,
             "columnStart": 3,
             "rowEnd": 6,
@@ -88,7 +88,7 @@
           }
         },
         {
-          "type": "blueprints/Plugins/Grid/GridItem",
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
@@ -97,7 +97,7 @@
             }
           },
           "gridArea": {
-            "type": "blueprints/Plugins/Grid/GridArea",
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 3,
             "columnStart": 1,
             "rowEnd": 6,

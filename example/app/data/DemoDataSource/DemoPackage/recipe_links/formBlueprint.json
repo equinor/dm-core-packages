@@ -1,12 +1,12 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "blueprints/Plugins/Form/FormBlueprint",
+  "_blueprintPath_": "blueprints/FormBlueprint",
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/attribute-selector",
     "config": {
-      "type": "blueprints/Plugins/AttributeSelectorPluginConfig",
+      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorPluginConfig",
       "homeRecipe": "home"
     }
   },
@@ -22,51 +22,51 @@
       "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit",
       "config": {
-        "type": "blueprints/Plugins/Form/FormInput",
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
         "attributes": [
           {
-            "type": "blueprints/Plugins/Form/fields/StringField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "type",
             "widget": "TypeWidget"
           },
           {
-            "type": "blueprints/Plugins/Form/fields/StringField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "aDate",
             "widget": "TextWidget",
             "format": "date-time"
           },
           {
-            "type": "blueprints/Plugins/Form/fields/StringField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "description",
             "widget": "TextareaWidget"
           },
           {
-            "type": "blueprints/Plugins/Form/fields/StringField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "aStringAsTextfield",
             "widget": "TextareaWidget"
           },
           {
-            "type": "blueprints/Plugins/Form/fields/ObjectField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "aNestedObject",
             "uiRecipe": "aRecipeName"
           },
           {
-            "type": "blueprints/Plugins/Form/fields/StringField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "blueprintPicker",
             "widget": "BlueprintPickerWidget"
           },
           {
-            "type": "blueprints/Plugins/Form/fields/ObjectField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "aNestedObjectWithCustomUI",
             "uiRecipe": "custom"
           },
           {
-            "type": "blueprints/Plugins/Form/fields/StringField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "blueprintPicker",
             "widget": "ObjectWidget"
           },
           {
-            "type": "blueprints/Plugins/Form/fields/ArrayField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "name": "listOfObjects",
             "widget": "TableWidget",
             "columns": ["name", "foo", "bar", "baz"]

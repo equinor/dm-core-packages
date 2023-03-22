@@ -6,7 +6,7 @@
     {
       "name": "attributes",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "fields/Field",
+      "attributeType": "PLUGINS:dm-core-plugins/form/fields/Field",
       "dimensions": "*",
       "optional": true,
       "contained": true

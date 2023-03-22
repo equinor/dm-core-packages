@@ -16,7 +16,7 @@
     {
       "name": "aNestedObjectWithCustomUI",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "./../Form/Nested",
+      "attributeType": "./Nested",
       "label": "A nested object with custom ui"
     }
   ]

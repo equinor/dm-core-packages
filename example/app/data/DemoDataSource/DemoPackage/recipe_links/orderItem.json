@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "blueprints/Plugins/Dashboard/OrderItem",
+  "_blueprintPath_": "blueprints/OrderItem",
   "uiRecipes": [
     {
       "name": "Yaml",

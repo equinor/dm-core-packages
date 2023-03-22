@@ -11,6 +11,7 @@
    - `docker-compose run --rm job-api dm -u http://dmss:5000 reset ../app`
 5. Load test app data
     - `dm reset app`
+    - `dm import-plugin-blueprints node_modules/@development-framework/dm-core-plugins`
     - `dm create-lookup example DemoDataSource/DemoPackage/recipe_links`
 6. Build dependent packages locally and create symlinks
    - `yarn build-all-packages`
@@ -27,5 +28,9 @@
 
 Oneliner to get environment up and running (run command from the example folder in the terminal)
 ```bash
-docker-compose run --rm dmss reset-app && dm reset app && docker-compose run --rm job-api dm -u http://dmss:5000 reset ../app && dm create-lookup example DemoDataSource/DemoPackage/recipe_links
+docker-compose run --rm dmss reset-app && \
+dm reset app && \
+docker-compose run --rm job-api dm -u http://dmss:5000 reset ../app && \
+dm import-plugin-blueprints node_modules/@development-framework/dm-core-plugins && \
+dm create-lookup example DemoDataSource/DemoPackage/recipe_links
 ```

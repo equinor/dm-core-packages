@@ -1,5 +1,5 @@
 {
   "name": "ObjectField",
   "type": "dmss://system/SIMOS/Blueprint",
-  "extends": ["./Field"]
+  "extends": ["PLUGINS:dm-core-plugins/form/fields/Field"]
 }

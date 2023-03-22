@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "blueprints/Plugins/Dashboard/Product",
+  "_blueprintPath_": "blueprints/Product",
   "uiRecipes": [
     {
       "name": "Yaml",

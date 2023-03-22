@@ -6,7 +6,7 @@
     "type": "CORE:UiRecipe",
     "plugin": "recipe-selector",
     "config": {
-      "type": "blueprints/Plugins/RecipeSelectorConfig",
+      "type": "PLUGINS:dm-core-plugins/attribute-selector/RecipeSelectorConfig",
       "views": [
         {
           "type": "CORE:ReferenceViewConfig",

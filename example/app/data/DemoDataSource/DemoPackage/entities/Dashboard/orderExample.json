@@ -1,12 +1,12 @@
 {
-  "_id": "OrderExample",
-  "type": "./Order",
+  "_id": "orderExample",
+  "type": "blueprints/Order",
   "items": [
     {
-      "type": "./OrderItem",
+      "type": "blueprints/OrderItem",
       "quantity": "1",
       "product": {
-        "type": "./Product",
+        "type": "blueprints/Product",
         "name": "Product 1",
         "something": "Asdf"
       }
