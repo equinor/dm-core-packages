@@ -12,7 +12,7 @@ import {
   FSTreeContext,
   TreeNode,
   TreeView,
-  UIRecipesSelector,
+  EntityView,
 } from '@development-framework/dm-core'
 import { NodeRightClickMenu } from './components/context-menu/ContextMenu'
 
@@ -98,7 +98,7 @@ export default () => {
           registerComponents={(myLayout: any) => {
             myLayout.registerComponent(
               ELayoutComponents.blueprint,
-              wrapComponent(UIRecipesSelector)
+              wrapComponent(EntityView)
             )
             layout.operations.registerLayout({
               myLayout,
