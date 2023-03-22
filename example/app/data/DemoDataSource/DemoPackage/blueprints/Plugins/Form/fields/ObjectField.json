@@ -1,5 +1,0 @@
-{
-  "name": "ObjectField",
-  "type": "CORE:Blueprint",
-  "extends": ["./Field"]
-}

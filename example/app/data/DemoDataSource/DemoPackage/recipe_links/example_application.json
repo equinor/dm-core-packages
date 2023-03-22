@@ -7,7 +7,7 @@
     "plugin": "@development-framework/dm-core-plugins/header",
     "config": {
       "uiRecipesList": ["Yaml", "Explorer"],
-      "type": "blueprints/Plugins/HeaderPluginConfig",
+      "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
       "hideAbout": false,
       "hideUserInfo": false
     }

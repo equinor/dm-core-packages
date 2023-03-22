@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "blueprints/Plugins/Form/Nested",
+  "_blueprintPath_": "blueprints/Nested",
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
@@ -26,10 +26,10 @@
       "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit",
       "config": {
-        "type": "blueprints/Plugins/Form/FormInput",
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
         "attributes": [
           {
-            "type": "blueprints/Plugins/Form/fields/StringField",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "bar",
             "widget": "TextareaWidget"
           }

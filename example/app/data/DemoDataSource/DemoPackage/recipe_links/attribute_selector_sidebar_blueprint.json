@@ -6,7 +6,7 @@
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/attribute-selector",
     "config": {
-      "type": "blueprints/Plugins/AttributeSelectorPluginConfig",
+      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorPluginConfig",
       "childTabsOnRender": true,
       "asSidebar": true,
       "homeRecipe": "home",

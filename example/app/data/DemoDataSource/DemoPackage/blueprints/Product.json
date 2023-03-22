@@ -1,16 +1,17 @@
 {
+  "name": "Product",
   "type": "dmss://system/SIMOS/Blueprint",
-  "name": "GridItem",
   "attributes": [
     {
-      "attributeType": "./GridArea",
+      "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
-      "name": "gridArea"
+      "name": "name"
     },
     {
-      "attributeType": "CORE:ViewConfig",
+      "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
-      "name": "viewConfig"
+      "name": "something",
+      "optional": true
     }
   ]
 }
