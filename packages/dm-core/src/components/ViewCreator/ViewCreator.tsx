@@ -1,20 +1,26 @@
 import {
   isInlineRecipeViewConfig,
   isReferenceViewConfig,
+  isViewConfig,
+  IUIPlugin,
+  TInlineRecipeViewConfig,
+  TReferenceViewConfig,
   TViewConfig,
 } from '../../types'
-import { EntityView, Loading, useDocument, TGenericObject } from '../../index'
+import { EntityView, Loading, TGenericObject, useDocument } from '../../index'
 import React from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget, getType } from './utils'
 
-type TViewCreator = {
-  idReference: string
-  viewConfig: TViewConfig
+type TViewCreator = Omit<IUIPlugin, 'type'> & {
+  viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
 }
 
 const getScopeDepth = (scope: string): number => {
   if (scope) {
+    if (scope === 'self') {
+      return 1
+    }
     return scope.split('.').length
   }
   return 1
@@ -32,7 +38,6 @@ const getScopeDepth = (scope: string): number => {
  * ```
  * <ViewCreator
  *    idReference={idReference}
- *    document={document}
  *    viewConfig={viewConfig} />
  * ```
  *
@@ -68,6 +73,15 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
         type={type}
         idReference={absoluteDottedId}
         recipeName={viewConfig.recipe}
+      />
+    )
+  if (isViewConfig(viewConfig))
+    return (
+      <EntityView
+        idReference={absoluteDottedId}
+        type={type}
+        // Don't use initialUiRecipes when rendering 'self'
+        noInit={idReference === absoluteDottedId}
       />
     )
 

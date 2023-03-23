@@ -12,11 +12,15 @@ const Wrapper = styled.div`
   width: 100%;
 `
 
-type IEntityView = IUIPlugin & { recipeName?: string }
+type IEntityView = IUIPlugin & { recipeName?: string; noInit?: boolean }
 
 export const EntityView = (props: IEntityView): JSX.Element => {
-  const { idReference, type, onSubmit, onOpen, recipeName } = props
-  const { recipe, isLoading, error, getUiPlugin } = useRecipe(type, recipeName)
+  const { idReference, type, onSubmit, onOpen, recipeName, noInit } = props
+  const { recipe, isLoading, error, getUiPlugin } = useRecipe(
+    type,
+    recipeName,
+    noInit
+  )
 
   if (isLoading)
     return (
