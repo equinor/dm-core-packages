@@ -23,18 +23,9 @@ export const JobInputEditPlugin = (props: IUIPlugin) => {
   }, [document])
 
   if (documentLoading) return <Loading />
-  if (error) {
-    const errorResponse =
-      typeof error.response?.data == 'object'
-        ? error.response?.data?.message
-        : error.response?.data
-    return (
-      <div>
-        <div>Something went wrong when fetching document:</div>
-        {errorResponse}
-      </div>
-    )
-  }
+
+  if (error) throw new Error(JSON.stringify(error, null, 2))
+
   if (!formData) return <div>The job document is empty</div>
 
   if (formData.status !== JobStatus.Registered) {

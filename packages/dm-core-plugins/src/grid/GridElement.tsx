@@ -11,11 +11,10 @@ const Element = styled.div`
 type TGridItemProps = {
   idReference: string
   item: TGridItem
-  document: TGenericObject
 }
 
 export const GridElement = (props: TGridItemProps): JSX.Element => {
-  const { idReference, document, item } = props
+  const { idReference, item } = props
 
   return (
     <Element
@@ -24,11 +23,7 @@ export const GridElement = (props: TGridItemProps): JSX.Element => {
       columnStart={item.gridArea.columnStart}
       columnEnd={item.gridArea.columnEnd}
     >
-      <ViewCreator
-        idReference={idReference}
-        document={document}
-        viewConfig={item.viewConfig}
-      />
+      <ViewCreator idReference={idReference} viewConfig={item.viewConfig} />
     </Element>
   )
 }

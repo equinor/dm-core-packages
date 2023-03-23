@@ -1,9 +1,3 @@
-import {
-  Loading,
-  TGenericObject,
-  useDocument,
-} from '@development-framework/dm-core'
-
 import React from 'react'
 import styled from 'styled-components'
 import { TGridSize, TGridPluginConfig } from './types'
@@ -19,17 +13,10 @@ const Grid = styled.div`
 
 export const GridPlugin = (props: TGridPluginConfig): JSX.Element => {
   const { config, idReference } = props
-  const [document, isLoadingDocument] = useDocument<TGenericObject>(idReference)
-
-  if (isLoadingDocument) return <Loading />
 
   return (
     <Grid columns={config.size.columns} rows={config.size.rows}>
-      <GridItems
-        idReference={idReference}
-        document={document || {}}
-        items={config.items}
-      />
+      <GridItems idReference={idReference} items={config.items} />
     </Grid>
   )
 }

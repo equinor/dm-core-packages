@@ -98,6 +98,7 @@ export type TUserIdMapping = { userId: string; username: string }
 export type TViewConfig = {
   type: string
   scope: string
+  label?: string
 }
 
 export type TReferenceViewConfig = TViewConfig & {

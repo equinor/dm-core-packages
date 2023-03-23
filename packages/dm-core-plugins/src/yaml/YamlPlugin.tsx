@@ -87,12 +87,8 @@ export const YamlPlugin = (props: IUIPlugin) => {
     error,
   ] = useDocument<TGenericObject>(idReference, 999)
   if (loading) return <Loading />
-  if (error) {
-    const errorResponse =
-      typeof error.response?.data == 'object'
-        ? error.response?.data?.message
-        : error.response?.data
-    return <pre style={{ color: 'red' }}>{errorResponse}</pre>
-  }
+
+  if (error) throw new Error(JSON.stringify(error, null, 2))
+
   return <YamlView document={document || {}} />
 }
