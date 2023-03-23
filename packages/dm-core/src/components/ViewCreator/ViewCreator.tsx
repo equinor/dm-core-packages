@@ -46,12 +46,13 @@ const getScopeDepth = (scope: string): number => {
  */
 export const ViewCreator = (props: TViewCreator): JSX.Element => {
   const { idReference, viewConfig } = props
-  const [document, isLoadingDocument] = useDocument<TGenericObject>(
+  const [document, isLoadingDocument, _, error] = useDocument<TGenericObject>(
     idReference,
     getScopeDepth(viewConfig.scope)
   )
 
   if (isLoadingDocument) return <Loading />
+  if (error) throw new Error(JSON.stringify(error, null, 2))
 
   if (document == null) return <>Could not find the document, check the scope</>
   const type = getType(document, viewConfig)

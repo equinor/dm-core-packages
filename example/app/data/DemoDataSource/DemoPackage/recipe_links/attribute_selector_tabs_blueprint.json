@@ -6,18 +6,66 @@
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/attribute-selector",
     "config": {
-      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorPluginConfig",
+      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorConfig",
       "childTabsOnRender": true,
       "asSidebar": false,
-      "homeRecipe": "home"
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Edit first",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "Edit",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form"
+            },
+            "scope": "firstAttribute"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Tabs from third",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "Tabs",
+              "description": "Tabs",
+              "plugin": "@development-framework/dm-core-plugins/attribute-selector"
+            },
+            "scope": "thirdAttribute"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Yaml on self",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Yaml",
+              "type": "CORE:UiRecipe",
+              "plugin": "@development-framework/dm-core-plugins/yaml"
+            }
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Yaml on self again",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Yaml",
+              "type": "CORE:UiRecipe",
+              "plugin": "@development-framework/dm-core-plugins/yaml"
+            }
+          }
+        }
+      ]
     }
   },
   "uiRecipes": [
-    {
-      "type": "CORE:UiRecipe",
-      "name": "home",
-      "plugin": "recipe-selector"
-    },
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",

@@ -1,35 +1,25 @@
 import * as React from 'react'
 import { SideBar } from '@equinor/eds-core-react'
-import { home, subdirectory_arrow_right } from '@equinor/eds-icons'
-import { useTabContext } from './TabsContext'
-import { TChildTab } from './AttributeSelectorPlugin'
-import { prettifyName } from './utils'
+import { subdirectory_arrow_right } from '@equinor/eds-icons'
+import { TItemData } from './types'
 
-export const Sidebar = (): JSX.Element => {
-  const { entity, selectedTab, setSelectedTab, childTabs } = useTabContext()
+export const Sidebar = (props: {
+  selectedView: number
+  setSelectedView: Function
+  items: TItemData[]
+}): JSX.Element => {
+  const { selectedView, setSelectedView, items } = props
 
   return (
     <SideBar open style={{ height: 'auto' }}>
       <SideBar.Content>
-        <SideBar.Link
-          icon={home}
-          label={
-            entity?.label ?? prettifyName(entity?.name || '') ?? selectedTab
-          }
-          onClick={() => setSelectedTab('home')}
-          active={selectedTab === 'home'}
-        />
-        {Object.values(childTabs).map((tabData: TChildTab) => (
+        {items.map((config: TItemData, index) => (
           <SideBar.Link
-            key={tabData.attribute}
+            key={index}
             icon={subdirectory_arrow_right}
-            label={
-              tabData.entity?.label ||
-              prettifyName(tabData.entity?.name || '') ||
-              tabData.attribute
-            }
-            onClick={() => setSelectedTab(tabData.attribute)}
-            active={selectedTab === tabData.attribute}
+            label={config.label ?? config.view.scope ?? 'self'}
+            onClick={() => setSelectedView(index)}
+            active={selectedView === index}
           />
         ))}
       </SideBar.Content>

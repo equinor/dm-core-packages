@@ -55,9 +55,12 @@ function App() {
         )}
       </div>
       {selectedType && selectedEntity && (
-        <EntityView type={selectedType} idReference={selectedEntity} />
+        <EntityView
+          type={selectedType}
+          idReference={selectedEntity}
+          key={selectedEntity}
+        />
       )}
-
       <h3>Example on using jobs (outdated)</h3>
       <Jobs />
       <h3>NewEntityButton button from dm-core</h3>

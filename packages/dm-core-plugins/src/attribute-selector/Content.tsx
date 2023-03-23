@@ -1,13 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import {
-  TGenericObject,
-  EntityView,
-  useBlueprint,
-  Loading,
-} from '@development-framework/dm-core'
-import { useTabContext } from './TabsContext'
-import { TChildTab } from './AttributeSelectorPlugin'
+import { TGenericObject, ViewCreator } from '@development-framework/dm-core'
+import { TItemData } from './types'
 
 const HidableWrapper = styled.div<any>`
   display: ${(props: { hidden: boolean }) => (props.hidden && 'none') || 'flex'}
@@ -15,61 +9,28 @@ const HidableWrapper = styled.div<any>`
   width: 100%;
 `
 
-export const Content = (): JSX.Element => {
-  const {
-    selectedTab,
-    setSelectedTab,
-    childTabs,
-    setChildTabs,
-    formData,
-    setFormData,
-    onSubmit,
-    idReference,
-    config,
-  } = useTabContext()
-
-  // TODO: This is a workaround until 'attribute-selector' implements "view concept"
-  const { uiRecipes, isLoading } = useBlueprint(formData.type)
-  if (isLoading) return <Loading />
+export const Content = (props: {
+  selectedView: number
+  items: TItemData[]
+  setFormData: Function
+  formData: TGenericObject
+}): JSX.Element => {
+  const { selectedView, items, setFormData, formData } = props
 
   return (
     <div style={{ width: '100%' }}>
-      <HidableWrapper hidden={'home' !== selectedTab}>
-        <EntityView
-          idReference={idReference}
-          type={formData.type}
-          onOpen={(tabData: TChildTab) => {
-            setChildTabs({ ...childTabs, [tabData.attribute]: tabData })
-            setSelectedTab(tabData.attribute)
-          }}
-          onSubmit={(newFormData: TGenericObject) => {
-            setFormData({ ...newFormData })
-            if (onSubmit) {
-              onSubmit(newFormData)
-            }
-          }}
-          recipeName={uiRecipes[0].name}
-          config={config}
-        />
-      </HidableWrapper>
-      {Object.values(childTabs).map((childTab: TChildTab) => {
+      {items.map((config: TItemData, index) => {
         return (
-          <HidableWrapper
-            key={childTab.attribute}
-            hidden={childTab.attribute !== selectedTab}
-          >
-            <EntityView
-              idReference={childTab.absoluteDottedId}
-              type={childTab.entity.type}
-              onSubmit={(data: TChildTab) => {
-                const newFormData = {
+          <HidableWrapper key={index} hidden={index !== selectedView}>
+            <ViewCreator
+              idReference={config.rootEntityId}
+              viewConfig={config.view}
+              // TODO: Fix this
+              onSubmit={(data: TGenericObject) => {
+                setFormData({
                   ...formData,
-                  [childTab.attribute]: data,
-                }
-                setFormData(newFormData)
-                if (childTab?.onSubmit) {
-                  childTab.onSubmit(data)
-                }
+                  [config.view.scope]: data,
+                })
               }}
             />
           </HidableWrapper>
