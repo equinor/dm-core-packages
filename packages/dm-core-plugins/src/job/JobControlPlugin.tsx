@@ -15,13 +15,7 @@ export const JobControlPlugin = (props: IUIPlugin) => {
     idReference
   )
   if (documentLoading) return <Loading />
-  if (error) {
-    const errorResponse =
-      typeof error.response?.data == 'object'
-        ? error.response?.data?.message
-        : error.response?.data
-    return <div>Something went wrong; {errorResponse}</div>
-  }
+  if (error) throw new Error(JSON.stringify(error, null, 2))
   if (!document) return <div>The job document is empty</div>
   return (
     <JobControl
