@@ -10,7 +10,8 @@ import {
 const findRecipe = (
   initialUiRecipe: TUiRecipe | undefined,
   recipes: TUiRecipe[],
-  recipeName?: string
+  recipeName?: string,
+  noInit: boolean = false
 ): TUiRecipe => {
   // If recipe is defined, find and return the ui recipe from available recipes.
   if (recipeName) {
@@ -22,8 +23,8 @@ const findRecipe = (
     }
     return recipe
   }
-  // If not recipe is defined, use initialize recipe, or the first from recipes list or lastly fallback.
-  if (initialUiRecipe && Object.keys(initialUiRecipe).length > 0) {
+  // If no recipe is defined, use initialize recipe, or the first from recipes list or lastly fallback.
+  if (!noInit && initialUiRecipe && Object.keys(initialUiRecipe).length > 0) {
     return initialUiRecipe
   }
   if (recipes.length > 0) {
@@ -65,9 +66,14 @@ interface IUseRecipe {
  *
  * @param typeRef - The reference to the blueprint to retrieve a recipe for
  * @param recipeName - Name of recipe to find (optional)
+ * @param noInit - Do not return any initialRecipes
  * @returns A list containing the blueprint document, a boolean representing the loading state, and an Error, if any.
  */
-export const useRecipe = (typeRef: string, recipeName?: string): IUseRecipe => {
+export const useRecipe = (
+  typeRef: string,
+  recipeName?: string,
+  noInit: boolean = false
+): IUseRecipe => {
   const {
     initialUiRecipe,
     uiRecipes,
@@ -81,7 +87,7 @@ export const useRecipe = (typeRef: string, recipeName?: string): IUseRecipe => {
   return {
     recipe: isBlueprintLoading
       ? undefined
-      : findRecipe(initialUiRecipe, uiRecipes, recipeName),
+      : findRecipe(initialUiRecipe, uiRecipes, recipeName, noInit),
     isLoading: isBlueprintLoading && isPluginContextLoading,
     error,
     getUiPlugin,
