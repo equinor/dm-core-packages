@@ -93,7 +93,8 @@
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/json"
+              "plugin": "@development-framework/dm-core-plugins/json",
+              "name": "Json"
             }
           },
           "gridArea": {
