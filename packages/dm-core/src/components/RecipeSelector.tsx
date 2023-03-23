@@ -69,8 +69,8 @@ export function RecipeSelector(
         | TInlineRecipeViewConfig
       )[] = []
       uiRecipes.forEach((recipe: TUiRecipe) => {
-        if (recipe.plugin !== 'recipe-selector')
           // Avoid recursive loop
+        if (recipe.plugin !== 'recipe-selector')
           newSelectableViews.push({
             type: 'InlineRecipeViewConfig',
             recipe: recipe,

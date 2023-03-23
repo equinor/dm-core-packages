@@ -1,0 +1,28 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "AttributeSelectorConfig",
+  "attributes": [
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "childTabsOnRender",
+      "optional": true,
+      "default": true
+    },
+    {
+      "attributeType": "./AttributeSelectorItem",
+      "type": "CORE:BlueprintAttribute",
+      "name": "items",
+      "dimensions": "*",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "asSidebar",
+      "optional": true,
+      "default": false
+    }
+  ]
+}

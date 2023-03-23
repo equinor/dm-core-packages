@@ -37,7 +37,7 @@ describe('useDocumentHook', () => {
       await waitFor(() => {
         expect(result.current[0]).toEqual(null)
         expect(result.current[1]).toEqual(false)
-        expect(result.current[3]).toEqual({ message: 'Unknown error' })
+        expect(result.current[3]).toEqual({ message: undefined, data: 'error' })
         expect(mock).toHaveBeenCalledTimes(1)
       })
     })

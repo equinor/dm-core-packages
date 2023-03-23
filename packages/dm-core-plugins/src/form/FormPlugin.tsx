@@ -72,8 +72,13 @@ const widgets = {
 export const FormPlugin = (props: IUIPlugin) => {
   const { config, onOpen } = props
   const { idReference } = props
-  const [document, loading, updateDocument] = useDocument<any>(idReference, 999)
+  const [document, loading, updateDocument, error] = useDocument<any>(
+    idReference,
+    999
+  )
   if (loading) return <Loading />
+
+  if (error) throw new Error(JSON.stringify(error, null, 2))
 
   const handleOnSubmit = (formData: any) => {
     updateDocument(formData, true)

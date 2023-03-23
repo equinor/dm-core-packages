@@ -67,9 +67,10 @@ export function useDocument<T>(
         setDocument(data)
         setError(null)
       })
-      .catch((error: AxiosError<ErrorResponse>) =>
-        setError(error.response?.data || { message: 'Unknown error' })
-      )
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        setError(error.response?.data || { message: error.name, data: error })
+      })
       .finally(() => setLoading(false))
   }, [idReference])
 
@@ -86,7 +87,7 @@ export function useDocument<T>(
         setError(null)
         if (notify) NotificationManager.success('Document updated')
       })
-      .catch((error: AxiosError<any>) => {
+      .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
         if (notify)
           NotificationManager.error(
@@ -94,7 +95,7 @@ export function useDocument<T>(
             'Failed to update document',
             0
           )
-        setError(error.response?.data)
+        setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
   }

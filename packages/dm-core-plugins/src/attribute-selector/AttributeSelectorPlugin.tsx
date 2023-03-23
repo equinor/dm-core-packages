@@ -2,100 +2,129 @@ import {
   IUIPlugin,
   Loading,
   TGenericObject,
+  TViewConfig,
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { TabsProvider } from './TabsContext'
 import { Sidebar } from './Sidebar'
 import { Tabs } from './Tabs'
 import { Content } from './Content'
+import {
+  TAttributeSelectorConfig,
+  TAttributeSelectorItem,
+  TItemData,
+} from './types'
 
-export type TChildTab = {
-  attribute: string
-  entity: any
-  absoluteDottedId: string
-  onSubmit: (data: TChildTab) => void
-}
-
-export type TStringMap = {
-  [key: string]: TChildTab
-}
-
-export type TAttributeSelectorPluginConfig = {
-  childTabsOnRender?: boolean
-  homeRecipe?: string
-  asSidebar?: boolean
-  visibleAttributes?: string[]
-}
-
-export const AttributeSelectorPlugin = (props: IUIPlugin): JSX.Element => {
-  const { idReference, config: passedConfig, onSubmit } = props
-  const config: TAttributeSelectorPluginConfig = {
-    childTabsOnRender: passedConfig?.childTabsOnRender ?? true,
-    homeRecipe: passedConfig?.homeRecipe ?? 'home',
-    asSidebar: passedConfig?.asSidebar ?? false,
-    visibleAttributes: passedConfig?.visibleAttributes ?? [],
+export const AttributeSelectorPlugin = (
+  props: IUIPlugin & { config?: TAttributeSelectorConfig }
+): JSX.Element => {
+  const { idReference, config, onSubmit } = props
+  const internalConfig: TAttributeSelectorConfig = {
+    childTabsOnRender: true,
+    asSidebar: false,
+    items: [],
+    ...config,
   }
-  const [selectedTab, setSelectedTab] = useState<string>('home')
+  const [entity, isLoading, _, error] = useDocument<TGenericObject>(idReference)
+  const [selectedView, setSelectedView] = useState<number>(0)
+  const [views, setViews] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
-  const [childTabs, setChildTabs] = useState<TStringMap>({})
-  const [entity, isLoading] = useDocument<TGenericObject>(idReference)
 
   useEffect(() => {
     if (!entity) return
     setFormData({ ...entity })
-    if (config.childTabsOnRender) {
-      const newChildTabs: TStringMap = {}
-      Object.entries(entity).forEach(([key, attributeData]: [string, any]) => {
-        const filteredOutInConfig =
-          config?.visibleAttributes !== undefined &&
-          config?.visibleAttributes.length > 0 &&
-          !config?.visibleAttributes.includes(key)
-        if (!filteredOutInConfig && typeof attributeData == 'object') {
-          newChildTabs[key] = {
-            attribute: key,
-            entity: attributeData,
-            absoluteDottedId: `${idReference}.${key}`,
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onSubmit: () => {},
+
+    const newViews: TItemData[] = []
+    if (internalConfig.items && internalConfig.items.length) {
+      internalConfig.items.forEach((viewItem: TAttributeSelectorItem) => {
+        newViews.push({
+          ...viewItem,
+          rootEntityId: idReference,
+          onSubmit: (newAttributeData: TGenericObject) => {
+            setFormData({
+              ...formData,
+              [viewItem.view.scope]: newAttributeData,
+            })
+            if (onSubmit) {
+              onSubmit({ ...formData, [viewItem.view.scope]: newAttributeData })
+            }
+          },
+        })
+      })
+    } else {
+      // No views where passed. Create default for all complex attributes and "self"
+      newViews.push({
+        label: 'self',
+        icon: 'home',
+        view: {
+          type: 'ViewConfig',
+          scope: 'self',
+        },
+        rootEntityId: idReference,
+        onSubmit: (newFormData: TGenericObject) => {
+          setFormData({ ...newFormData })
+          if (onSubmit) {
+            onSubmit(newFormData)
+          }
+        },
+      })
+      Object.entries(entity).forEach(
+        ([key, attributeEntity]: [string, any]) => {
+          if (typeof attributeEntity == 'object') {
+            newViews.push({
+              label: key,
+              view: {
+                type: 'ViewConfig',
+                scope: key,
+              },
+              rootEntityId: idReference,
+              onSubmit: (newAttributeData: TGenericObject) => {
+                setFormData({ ...formData, [key]: newAttributeData })
+                if (onSubmit) {
+                  onSubmit({ ...formData, [key]: newAttributeData })
+                }
+              },
+            })
           }
         }
-      })
-      setChildTabs(newChildTabs)
+      )
     }
+    setViews(newViews)
   }, [entity])
 
-  if (!entity || Object.keys(formData).length === 0)
-    return <>No data in entity</>
-
-  if (isLoading) {
+  if (isLoading || !views) {
     return <Loading />
   }
+  if (error) throw new Error(JSON.stringify(error, null, 2))
 
   return (
-    <TabsProvider
-      entity={entity}
-      selectedTab={selectedTab}
-      setSelectedTab={setSelectedTab}
-      childTabs={childTabs}
-      setChildTabs={setChildTabs}
-      formData={formData}
-      setFormData={setFormData}
-      onSubmit={onSubmit}
-      idReference={idReference}
-      config={config}
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: internalConfig.asSidebar ? 'row' : 'column',
+        width: '100%',
+      }}
     >
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: config.asSidebar ? 'row' : 'column',
-          width: '100%',
-        }}
-      >
-        {config.asSidebar ? <Sidebar /> : <Tabs />}
-        <Content />
-      </div>
-    </TabsProvider>
+      {internalConfig.asSidebar ? (
+        <Sidebar
+          items={views}
+          selectedView={selectedView}
+          setSelectedView={setSelectedView}
+        />
+      ) : (
+        <Tabs
+          items={views}
+          selectedView={selectedView}
+          setSelectedView={setSelectedView}
+        />
+      )}
+      <Content
+        formData={formData}
+        selectedView={selectedView}
+        items={views}
+        setFormData={setFormData}
+      />
+    </div>
   )
 }

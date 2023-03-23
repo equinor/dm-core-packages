@@ -9,6 +9,7 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   max-width: 650px;
+  width: 100%;
 `
 
 export const Form = (props: TFormProps) => {

@@ -4,7 +4,7 @@
   "initialUiRecipe": {
     "name": "Sidebar",
     "type": "CORE:UiRecipe",
-    "plugin": "UiRecipesSideBarSelector",
+    "plugin": "UiRecipeSideBarSelector",
     "config": {}
   },
   "uiRecipes": [
