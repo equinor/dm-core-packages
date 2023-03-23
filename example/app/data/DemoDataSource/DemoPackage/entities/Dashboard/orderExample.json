@@ -4,7 +4,7 @@
   "items": [
     {
       "type": "blueprints/OrderItem",
-      "quantity": "1",
+      "quantity": 1,
       "product": {
         "type": "blueprints/Product",
         "name": "Product 1",

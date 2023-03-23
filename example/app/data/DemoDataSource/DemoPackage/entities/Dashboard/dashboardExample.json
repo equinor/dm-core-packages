@@ -4,17 +4,18 @@
   "orders": [
     {
       "type": "blueprints/OrderItem",
-      "quantity": "1",
+      "quantity": 1,
       "product": {
         "_id": "product1",
         "type": "blueprints/Product",
-        "name": "Product 1"
+        "name": "Product 1",
+        "something": "Asdf"
       }
     }
   ],
   "order": {
     "type": "blueprints/OrderItem",
-    "quantity": "1",
+    "quantity": 1,
     "product": {
       "type": "blueprints/Product",
       "name": "Product 1",
