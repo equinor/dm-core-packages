@@ -226,6 +226,7 @@ export const GenericListPlugin = (
                   {itemsExpanded[key] && (
                     <ViewCreator
                       idReference={`${idReference}.${index}`}
+                      type={item.type}
                       viewConfig={
                         internalConfig.views[index] ??
                         internalConfig.defaultView

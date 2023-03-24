@@ -12,12 +12,6 @@
       "type": "CORE:BlueprintAttribute",
       "name": "label",
       "optional": true
-    },
-    {
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
-      "name": "eds_icon",
-      "optional": true
     }
   ]
 }
