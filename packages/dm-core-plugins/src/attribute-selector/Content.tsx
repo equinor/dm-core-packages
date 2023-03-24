@@ -20,21 +20,26 @@ export const Content = (props: {
   return (
     <div style={{ width: '100%' }}>
       {items.map((config: TItemData, index) => {
-        return (
-          <HidableWrapper key={index} hidden={index !== selectedView}>
-            <ViewCreator
-              idReference={config.rootEntityId}
-              viewConfig={config.view}
-              // TODO: Fix this
-              onSubmit={(data: TGenericObject) => {
-                setFormData({
-                  ...formData,
-                  [config.view.scope]: data,
-                })
-              }}
-            />
-          </HidableWrapper>
-        )
+        if (config.view.scope === undefined) {
+          return <div></div>
+        } else {
+          return (
+            <HidableWrapper key={index} hidden={index !== selectedView}>
+              <ViewCreator
+                idReference={config.rootEntityId}
+                viewConfig={config.view}
+                type={config.view.type}
+                // TODO: Fix this
+                onSubmit={(data: TGenericObject) => {
+                  setFormData({
+                    ...formData,
+                    [config.view?.scope ?? '?????']: data,
+                  })
+                }}
+              />
+            </HidableWrapper>
+          )
+        }
       })}
     </div>
   )

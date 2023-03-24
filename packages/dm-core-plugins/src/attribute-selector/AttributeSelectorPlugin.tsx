@@ -44,10 +44,13 @@ export const AttributeSelectorPlugin = (
           onSubmit: (newAttributeData: TGenericObject) => {
             setFormData({
               ...formData,
-              [viewItem.view.scope]: newAttributeData,
+              [viewItem.view?.scope ?? '?????']: newAttributeData,
             })
             if (onSubmit) {
-              onSubmit({ ...formData, [viewItem.view.scope]: newAttributeData })
+              onSubmit({
+                ...formData,
+                [viewItem.view?.scope ?? '?????']: newAttributeData,
+              })
             }
           },
         })
@@ -56,10 +59,10 @@ export const AttributeSelectorPlugin = (
       // No views where passed. Create default for all complex attributes and "self"
       newViews.push({
         label: 'self',
-        icon: 'home',
         view: {
           type: 'ViewConfig',
           scope: 'self',
+          eds_icon: 'home',
         },
         rootEntityId: idReference,
         onSubmit: (newFormData: TGenericObject) => {

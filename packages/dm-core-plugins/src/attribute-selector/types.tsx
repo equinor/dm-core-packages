@@ -7,7 +7,6 @@ import {
 
 export type TAttributeSelectorItem = {
   view: TReferenceViewConfig | TInlineRecipeViewConfig | TViewConfig
-  icon?: string
   label?: string
 }
 export type TItemData = TAttributeSelectorItem & {

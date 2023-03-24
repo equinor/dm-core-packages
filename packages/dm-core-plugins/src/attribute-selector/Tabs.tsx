@@ -1,6 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { TItemData } from './types'
+import Icon from './Icon'
+import { TViewConfig } from '@development-framework/dm-core'
 
 interface ITabs {
   active: boolean
@@ -13,7 +15,8 @@ const Tab = styled.div<ITabs>`
   align-self: self-end;
   background-color: #d1d1d1;
   display: flex;
-  align-items: self-end;
+  align-items: center;
+  vertical-align: middle;
   cursor: pointer;
   border-bottom: ${(props: ITabs) =>
     (props.active == true && '3px red solid') || '3px grey solid'};
@@ -46,6 +49,13 @@ export const Tabs = (props: {
             onClick={() => setSelectedView(index)}
             active={selectedView === index}
           >
+            {config.view.eds_icon && (
+              <Icon
+                style={{ paddingRight: '4px' }}
+                name={config.view.eds_icon}
+                title={config.view.eds_icon}
+              />
+            )}
             {config.label ?? config.view.scope ?? 'self'}
           </Tab>
         )

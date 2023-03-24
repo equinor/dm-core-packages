@@ -2,6 +2,7 @@ import * as React from 'react'
 import { SideBar } from '@equinor/eds-core-react'
 import { subdirectory_arrow_right } from '@equinor/eds-icons'
 import { TItemData } from './types'
+import { availableIcons } from './Icon'
 
 export const Sidebar = (props: {
   selectedView: number
@@ -16,7 +17,11 @@ export const Sidebar = (props: {
         {items.map((config: TItemData, index) => (
           <SideBar.Link
             key={index}
-            icon={subdirectory_arrow_right}
+            icon={
+              config.view.eds_icon
+                ? availableIcons[config.view.eds_icon]
+                : subdirectory_arrow_right
+            }
             label={config.label ?? config.view.scope ?? 'self'}
             onClick={() => setSelectedView(index)}
             active={selectedView === index}
