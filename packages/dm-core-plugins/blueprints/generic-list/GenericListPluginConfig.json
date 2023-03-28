@@ -1,0 +1,12 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "GenericListPluginConfig",
+  "attributes": [
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "expanded",
+      "default": false
+    }
+  ]
+}

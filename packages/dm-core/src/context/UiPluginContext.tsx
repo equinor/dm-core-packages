@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { IUIPlugin, TPlugin } from '../types'
 import { RecipeSelector, UiRecipesSideBarSelector } from '../components'
+import styled from 'styled-components'
 
 type TUiPluginMap = {
   [pluginName: string]: (props: IUIPlugin) => JSX.Element
@@ -9,6 +10,15 @@ type TUiPluginMap = {
 export interface ILoadedPlugin {
   plugins: TPlugin[]
 }
+
+const ErrorGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(213, 18, 18, 0.71);
+  border-radius: 5px;
+  padding: 20px 20px;
+  background-color: #f6dfdf;
+`
 
 type TUiPluginContext = {
   plugins: TUiPluginMap
@@ -32,8 +42,7 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
   useEffect(() => {
     // Add builtin plugins
     let newPluginMap: TUiPluginMap = {
-      UiRecipeSideBarSelector: UiRecipesSideBarSelector,
-      // @ts-ignore
+      UiRecipeSideBarSelector: UiRecipesSideBarSelector, // @ts-ignore
       'recipe-selector': RecipeSelector,
     }
 
@@ -66,7 +75,7 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
 
   function getUiPlugin(pluginName: string): (props: IUIPlugin) => JSX.Element {
     if (pluginName in plugins) return plugins[pluginName]
-    return () => <div>Did not find the plugin: {pluginName} </div>
+    return () => <ErrorGroup>Did not find the plugin: {pluginName}</ErrorGroup>
   }
 
   return (

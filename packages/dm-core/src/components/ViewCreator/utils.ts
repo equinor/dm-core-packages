@@ -13,6 +13,11 @@ const resolvePath = (
   path: string
 ): TGenericObject =>
   path.split('.').reduce((acc, key) => {
+    // TODO: Rewrite this to dig down in blueprints to find type of lists
+    // TODO: there is no guarantee that the first element of the list has the generic type for the whole list
+    if (Array.isArray(acc[key])) {
+      return key in acc[key][0] ? acc[key][0] : acc[key][0]
+    }
     return key in acc ? acc[key] : acc
   }, initial)
 

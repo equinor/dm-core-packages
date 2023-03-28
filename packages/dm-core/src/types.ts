@@ -84,6 +84,7 @@ export type TUiRecipe = {
   plugin: string
   config?: TGenericObject
   roles?: string[]
+  dimensions?: string
 }
 
 export type TPlugin = {

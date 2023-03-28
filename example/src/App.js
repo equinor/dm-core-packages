@@ -29,6 +29,12 @@ function App() {
         overflow: 'auto',
       }}
     >
+      <h3>A generic list view</h3>
+      <EntityView
+        type={'dmss://DemoDataSource/DemoPackage/blueprints/OrderItem'}
+        idReference={'DemoDataSource/orderExample.items'}
+        dimensions={'*'}
+      />
       <h3>An application with the "header"-plugin</h3>
       <EntityView
         type={'dmss://DemoDataSource/DemoPackage/blueprints/ExampleApplication'}
