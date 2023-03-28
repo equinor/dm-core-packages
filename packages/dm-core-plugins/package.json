@@ -1,7 +1,7 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "dist/index.js",
   "dependencies": {
     "@development-framework/dm-core": "^1.0.46",
@@ -53,7 +53,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "rm -rf dist",
-    "copy-explorer-css-file": "cp src/explorer/components/context-menu/react-contextmenu.css  dist/explorer/components/context-menu/react-contextmenu.css",
     "copy-yaml-css-file": "cp src/yaml/index.css ./dist/yaml",
     "copy-explorer-css-file": "cp src/explorer/style.css ./dist/explorer",
     "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-css-file && yarn copy-explorer-css-file",

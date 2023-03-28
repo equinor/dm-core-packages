@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
-import './react-contextmenu.css'
+import './../../style.css'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import { AxiosError } from 'axios'
 import {
