@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   useBlueprint,
   TUiRecipe,
@@ -100,13 +100,30 @@ export const useRecipe = (
   const { loading: isPluginContextLoading, getUiPlugin } = useContext(
     UiPluginContext
   )
+  const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
+  const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
+    null
+  )
+
+  useEffect(() => {
+    if (isBlueprintLoading) return
+    try {
+      setFoundRecipe(
+        findRecipe(initialUiRecipe, uiRecipes, recipeName, noInit, dimensions)
+      )
+    } catch (error) {
+      const errorResponse: ErrorResponse = {
+        type: 'RecipeSelectionError',
+        message: error.message,
+      }
+      setFindRecipeError(errorResponse)
+    }
+  }, [isBlueprintLoading])
 
   return {
-    recipe: isBlueprintLoading
-      ? undefined
-      : findRecipe(initialUiRecipe, uiRecipes, recipeName, noInit, dimensions),
+    recipe: isBlueprintLoading ? undefined : foundRecipe,
     isLoading: isBlueprintLoading && isPluginContextLoading,
-    error,
+    error: error ?? findRecipeError,
     getUiPlugin,
   }
 }

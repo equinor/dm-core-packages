@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styled from 'styled-components'
-import { ErrorBoundary } from '../utils/ErrorBoundary'
+import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { useRecipe } from '../hooks'
 import { IUIPlugin } from '../types'
 import { Loading } from './Loading'
@@ -44,9 +44,12 @@ export const EntityView = (props: IEntityView): JSX.Element => {
 
   if (error)
     return (
-      <div style={{ color: 'red' }}>
-        Failed to fetch Blueprint {type || '(unknown type)'}
-      </div>
+      <ErrorGroup>
+        <p>{`Failed to find UiRecipe for type "${
+          type || '(unknown type)'
+        }"`}</p>
+        <p>{JSON.stringify(error)}</p>
+      </ErrorGroup>
     )
 
   if (!recipe || !Object.keys(recipe).length)
