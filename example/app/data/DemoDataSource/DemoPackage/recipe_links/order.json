@@ -1,0 +1,36 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "blueprints/Order",
+  "initialUiRecipe": {
+    "name": "AttributeSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorConfig",
+      "childTabsOnRender": true,
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Items",
+          "view": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "List",
+            "scope": "items"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}

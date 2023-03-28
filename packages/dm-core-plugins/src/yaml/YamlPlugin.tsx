@@ -70,7 +70,7 @@ const YamlView = (props: { document: TGenericObject }) => {
           </CopyToClipboard>
         </div>
       </div>
-      <pre style={{ backgroundColor: '#193549', color: 'coral' }}>
+      <pre style={{ backgroundColor: '#193549', color: 'coral', margin: '0' }}>
         <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
       </pre>
     </div>

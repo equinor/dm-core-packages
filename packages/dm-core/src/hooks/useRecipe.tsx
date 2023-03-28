@@ -11,7 +11,8 @@ const findRecipe = (
   initialUiRecipe: TUiRecipe | undefined,
   recipes: TUiRecipe[],
   recipeName?: string,
-  noInit: boolean = false
+  noInit: boolean = false,
+  dimensions: string = ''
 ): TUiRecipe => {
   // If recipe is defined, find and return the ui recipe from available recipes.
   if (recipeName) {
@@ -23,12 +24,27 @@ const findRecipe = (
     }
     return recipe
   }
-  // If no recipe is defined, use initialize recipe, or the first from recipes list or lastly fallback.
+
+  // If dimensions are given, use the first recipe with a matching dimension
+  if (dimensions) {
+    const rightDimensionsRecipe = recipes.filter(
+      (r: TUiRecipe) => r.dimensions === dimensions
+    )
+    if (!rightDimensionsRecipe.length)
+      throw new Error(`No recipe with given dimension "${dimensions}" found`)
+    return rightDimensionsRecipe[0]
+  }
+
+  // If no recipe is defined, use initial recipe, or the first from recipes list or lastly fallback.
   if (!noInit && initialUiRecipe && Object.keys(initialUiRecipe).length > 0) {
     return initialUiRecipe
   }
   if (recipes.length > 0) {
-    return recipes[0]
+    // Recipes for lists should not be used as fallback
+    const noDimensionsRecipes = recipes.filter(
+      (r: TUiRecipe) => !r.dimensions || r.dimensions === ''
+    )
+    return noDimensionsRecipes[0]
   }
   return {
     type: 'CORE:UIRecipe',
@@ -72,7 +88,8 @@ interface IUseRecipe {
 export const useRecipe = (
   typeRef: string,
   recipeName?: string,
-  noInit: boolean = false
+  noInit: boolean = false,
+  dimensions: string = ''
 ): IUseRecipe => {
   const {
     initialUiRecipe,
@@ -87,7 +104,7 @@ export const useRecipe = (
   return {
     recipe: isBlueprintLoading
       ? undefined
-      : findRecipe(initialUiRecipe, uiRecipes, recipeName, noInit),
+      : findRecipe(initialUiRecipe, uiRecipes, recipeName, noInit, dimensions),
     isLoading: isBlueprintLoading && isPluginContextLoading,
     error,
     getUiPlugin,

@@ -3,6 +3,12 @@
   "_blueprintPath_": "blueprints/OrderItem",
   "uiRecipes": [
     {
+      "name": "List",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/generic-list",
+      "dimensions": "*"
+    },
+    {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/yaml"

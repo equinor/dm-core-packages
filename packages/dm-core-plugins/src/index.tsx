@@ -12,11 +12,16 @@ import { PdfPlugin } from './pdf/PdfPlugin'
 import { BlueprintPlugin } from './blueprint/BlueprintPlugin'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
 import { GridPlugin } from './grid/GridPlugin'
+import { GenericListPlugin } from './generic-list/GenericListPlugin'
 
 export const plugins: TPlugin[] = [
   {
     pluginName: '@development-framework/dm-core-plugins/explorer',
     component: ExplorerPlugin,
+  },
+  {
+    pluginName: '@development-framework/dm-core-plugins/generic-list',
+    component: GenericListPlugin,
   },
   {
     pluginName: '@development-framework/dm-core-plugins/yaml',
