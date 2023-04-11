@@ -1,10 +1,10 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "dist/index.js",
   "dependencies": {
-    "@development-framework/dm-core": "^1.0.46",
+    "@development-framework/dm-core": "^1.0.48",
     "@equinor/eds-core-react": "^0.29.1",
     "@equinor/eds-icons": "^0.18.0",
     "@equinor/eds-tokens": "^0.9.0",
@@ -58,7 +58,6 @@
     "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-css-file && yarn copy-explorer-css-file",
     "postbuild": "rm -rf node_modules",
     "test": "jest test",
-    "posttest": "npm remove --no-save --legacy-peer-deps react styled-components",
     "test-watch": "jest test --watchAll"
   }
 }

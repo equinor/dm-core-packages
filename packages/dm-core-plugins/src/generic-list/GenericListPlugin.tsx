@@ -54,7 +54,7 @@ const defaultConfig: TGenericListConfig = {
 export const GenericListPlugin = (
   props: IUIPlugin & { config?: TGenericListConfig }
 ) => {
-  const { idReference, config } = props
+  const { idReference, config, type } = props
   const internalConfig = { ...defaultConfig, ...config }
   const [document, loading, _, error] = useDocument<TGenericObject[]>(
     idReference,
@@ -90,11 +90,11 @@ export const GenericListPlugin = (
       setItems({ ...items })
     })
   }
-  const addItem = (reference: string, type: string) => {
+  const addItem = (reference: string) => {
     dmssAPI
       // TODO: Get type from parent blueprint, be able to select specialised type
       .instantiateEntity({
-        entity: { type: items[Object.keys(items)[0]].type },
+        entity: { type: type },
       })
       .then((newEntity: AxiosResponse<object, TGenericObject>) => {
         dmssAPI
@@ -110,15 +110,11 @@ export const GenericListPlugin = (
 
   if (loading) return <Loading />
   if (error) throw new Error(JSON.stringify(error, null, 2))
-  if (!items) return <Loading />
 
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        <Button
-          variant="ghost_icon"
-          onClick={() => addItem(idReference, 'type')}
-        >
+        <Button variant="ghost_icon" onClick={() => addItem(idReference)}>
           <Icon data={library_add} title="Append" />
         </Button>
       </div>
@@ -206,10 +202,7 @@ export const GenericListPlugin = (
         </tbody>
       </Table>
       <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        <Button
-          variant="ghost_icon"
-          onClick={() => addItem(idReference, 'type')}
-        >
+        <Button variant="ghost_icon" onClick={() => addItem(idReference)}>
           <Icon data={library_add} title="Append" />
         </Button>
       </div>

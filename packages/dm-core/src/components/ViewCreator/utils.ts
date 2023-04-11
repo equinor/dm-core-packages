@@ -26,5 +26,7 @@ export const getType = (document: TGenericObject, viewConfig: TViewConfig) => {
     const target: TGenericObject = resolvePath(document, viewConfig.scope)
     return target.type
   }
+  if (Array.isArray(document)) return document[0]?.type
+
   return document.type
 }
