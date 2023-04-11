@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import {
   AuthContext,
   DmssAPI,
-  EntityView,
+  ViewCreator,
   IUIPlugin,
   Loading,
   TGenericObject,
   useDocument,
+  TViewConfig,
 } from '@development-framework/dm-core'
 import { AxiosResponse } from 'axios'
 import { Button, Icon } from '@equinor/eds-core-react'
@@ -39,11 +40,15 @@ type TGenericListConfig = {
   expanded: boolean
   headers: string[]
   showDelete: boolean
+  defaultView: TViewConfig
+  views: TViewConfig[]
 }
 const defaultConfig: TGenericListConfig = {
   expanded: false,
   headers: ['name'],
   showDelete: true,
+  defaultView: { type: 'ViewConfig', scope: 'self' },
+  views: [],
 }
 
 export const GenericListPlugin = (
@@ -122,7 +127,7 @@ export const GenericListPlugin = (
           <tr style={{ borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
             <th></th>
             {internalConfig.headers.map((attribute: string) => (
-              <th>{attribute}</th>
+              <th key={attribute}>{attribute}</th>
             ))}
             <th></th>
           </tr>
@@ -150,7 +155,7 @@ export const GenericListPlugin = (
                   >
                     <Icon
                       data={itemsExpanded[key] ? chevron_down : chevron_right}
-                      title="Delete"
+                      title="Expand"
                     />
                   </Button>
                 </td>
@@ -160,7 +165,9 @@ export const GenericListPlugin = (
                       `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
                     )
                   return (
-                    <td style={{ textAlign: 'center' }}>{item[attribute]}</td>
+                    <td key={attribute} style={{ textAlign: 'center' }}>
+                      {item[attribute]}
+                    </td>
                   )
                 })}
                 <TableData>
@@ -184,9 +191,12 @@ export const GenericListPlugin = (
                   }}
                 >
                   {itemsExpanded[key] && (
-                    <EntityView
-                      type={item.type}
+                    <ViewCreator
                       idReference={`${idReference}.${index}`}
+                      viewConfig={
+                        internalConfig.views[index] ??
+                        internalConfig.defaultView
+                      }
                     />
                   )}
                 </td>
