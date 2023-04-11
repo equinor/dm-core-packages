@@ -67,7 +67,7 @@ function App() {
           key={selectedEntity}
         />
       )}
-      <h3>Example on using jobs (outdated)</h3>
+      <h3>Example on using jobs</h3>
       <Jobs />
       <h3>NewEntityButton button from dm-core</h3>
       <NewEntityButton

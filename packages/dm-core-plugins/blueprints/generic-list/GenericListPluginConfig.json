@@ -6,7 +6,23 @@
       "attributeType": "boolean",
       "type": "CORE:BlueprintAttribute",
       "name": "expanded",
-      "default": false
+      "default": false,
+      "description": "Initial expand state for items in list"
+    },
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Name of primitive child attributes to display in header of item",
+      "name": "headers",
+      "default": ["name"],
+      "dimensions": "*"
+    },
+    {
+      "attributeType": "boolean",
+      "description": "Toggle visibility of 'delete element' button",
+      "type": "CORE:BlueprintAttribute",
+      "name": "showDelete",
+      "default": true
     }
   ]
 }
