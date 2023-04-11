@@ -13,6 +13,7 @@ import { BlueprintPlugin } from './blueprint/BlueprintPlugin'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
 import { GridPlugin } from './grid/GridPlugin'
 import { GenericListPlugin } from './generic-list/GenericListPlugin'
+import { GenericTablePlugin } from './generic-list/GenericTablePlugin'
 
 export const plugins: TPlugin[] = [
   {
@@ -22,6 +23,10 @@ export const plugins: TPlugin[] = [
   {
     pluginName: '@development-framework/dm-core-plugins/generic-list',
     component: GenericListPlugin,
+  },
+  {
+    pluginName: '@development-framework/dm-core-plugins/generic-table',
+    component: GenericTablePlugin,
   },
   {
     pluginName: '@development-framework/dm-core-plugins/yaml',

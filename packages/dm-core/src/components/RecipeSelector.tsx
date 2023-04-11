@@ -110,6 +110,7 @@ export function RecipeSelector(
       <ViewCreator
         idReference={idReference}
         viewConfig={selectableViews[selectedView]}
+        type={type}
       />
     </Wrapper>
   )

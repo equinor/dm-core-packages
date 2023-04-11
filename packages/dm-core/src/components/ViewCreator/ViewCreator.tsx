@@ -12,7 +12,7 @@ import React from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget, getType } from './utils'
 
-type TViewCreator = Omit<IUIPlugin, 'type'> & {
+type TViewCreator = IUIPlugin & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
 }
 
@@ -45,7 +45,7 @@ const getScopeDepth = (scope: string): number => {
  * @param props
  */
 export const ViewCreator = (props: TViewCreator): JSX.Element => {
-  const { idReference, viewConfig } = props
+  const { idReference, viewConfig, type: passedType } = props
   const [document, isLoadingDocument, _, error] = useDocument<TGenericObject>(
     idReference,
     getScopeDepth(viewConfig?.scope)
@@ -55,8 +55,11 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
   if (document == null) return <>Could not find the document, check the scope</>
-  const type = getType(document, viewConfig)
-  if (type === undefined) return <>Could not find the type, check the scope</>
+  const type = getType(document, viewConfig) || passedType
+  if (type === undefined)
+    throw new Error(
+      `Could not find the type, check that the scope('${viewConfig?.scope}') exists in the target document`
+    )
   const absoluteDottedId = getTarget(idReference, viewConfig)
 
   if (isInlineRecipeViewConfig(viewConfig))

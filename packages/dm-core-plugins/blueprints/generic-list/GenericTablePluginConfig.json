@@ -1,0 +1,36 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "GenericTablePluginConfig",
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "type"
+    },
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Name of primitive child attributes to display in header of item",
+      "name": "columns",
+      "optional": true,
+      "default": ["name", "type"],
+      "dimensions": "*"
+    },
+    {
+      "attributeType": "boolean",
+      "description": "Toggle visibility of 'delete element' button",
+      "type": "CORE:BlueprintAttribute",
+      "name": "showDelete",
+      "optional": true,
+      "default": true
+    },
+    {
+      "attributeType": "boolean",
+      "description": "Render a table for editing items or simply for viewing",
+      "type": "CORE:BlueprintAttribute",
+      "name": "editMode",
+      "optional": true,
+      "default": true
+    }
+  ]
+}
