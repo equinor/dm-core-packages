@@ -48,7 +48,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   const { idReference, viewConfig } = props
   const [document, isLoadingDocument, _, error] = useDocument<TGenericObject>(
     idReference,
-    getScopeDepth(viewConfig.scope)
+    getScopeDepth(viewConfig?.scope)
   )
 
   if (isLoadingDocument) return <Loading />

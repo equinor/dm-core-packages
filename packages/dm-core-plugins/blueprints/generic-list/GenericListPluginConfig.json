@@ -23,6 +23,17 @@
       "type": "CORE:BlueprintAttribute",
       "name": "showDelete",
       "default": true
+    },
+    {
+      "attributeType": "CORE:ViewConfig",
+      "type": "CORE:BlueprintAttribute",
+      "name": "defaultView"
+    },
+    {
+      "attributeType": "CORE:ViewConfig",
+      "type": "CORE:BlueprintAttribute",
+      "name": "views",
+      "dimensions": "*"
     }
   ]
 }
