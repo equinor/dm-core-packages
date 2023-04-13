@@ -53,7 +53,7 @@ describe('NumberField', () => {
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('2')
-        fireEvent.submit(screen.getByRole('button'))
+        fireEvent.submit(screen.getByTestId('form-submit'))
         expect(onSubmit).toHaveBeenCalled()
         expect(onSubmit).toHaveBeenCalledWith({
           foo: 2,
@@ -140,11 +140,11 @@ describe('NumberField', () => {
       const onSubmit = jest.fn()
       render(<Form type="SingleField" onSubmit={onSubmit} />)
       await waitFor(() => {
-        fireEvent.submit(screen.getByRole('button'))
-        expect(onSubmit).toHaveBeenCalled()
-        expect(onSubmit).toHaveBeenCalledWith({})
-        expect(screen.getByText('foo (optional)')).toBeDefined()
+        fireEvent.submit(screen.getByTestId('form-submit'))
       })
+      expect(onSubmit).toHaveBeenCalled()
+      expect(onSubmit).toHaveBeenCalledWith({})
+      expect(screen.getByText('foo (optional)')).toBeDefined()
     })
 
     it('should not call onSubmit if non-optional field are missing value', async () => {
@@ -164,7 +164,7 @@ describe('NumberField', () => {
       ])
       const onSubmit = jest.fn()
       render(<Form type="SingleField" onSubmit={onSubmit} />)
-      fireEvent.submit(screen.getByRole('button'))
+      fireEvent.submit(screen.getByTestId('form-submit'))
       await waitFor(() => {
         expect(onSubmit).not.toHaveBeenCalled()
         expect(onSubmit).toHaveBeenCalledTimes(0)
