@@ -138,7 +138,7 @@ describe('BooleanField', () => {
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('true')
-        fireEvent.submit(screen.getByRole('button'))
+        fireEvent.submit(screen.getByTestId('form-submit'))
         expect(onSubmit).toHaveBeenCalled()
         expect(onSubmit).toHaveBeenCalledWith({
           foo: true,
@@ -169,8 +169,8 @@ describe('BooleanField', () => {
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('true')
-        userEvent.click(screen.getByRole('checkbox'))
-        fireEvent.submit(screen.getByRole('button'))
+        userEvent.click(screen.getByTestId('form-checkbox'))
+        fireEvent.submit(screen.getByTestId('form-submit'))
       })
     })
 

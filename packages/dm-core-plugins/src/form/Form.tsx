@@ -49,7 +49,9 @@ export const Form = (props: TFormProps) => {
             {type && (
               <ObjectField config={config} namePath={namePath} type={type} />
             )}
-            <Button type="submit">Submit</Button>
+            <Button type="submit" data-testid="form-submit">
+              Submit
+            </Button>
           </form>
         </RegistryProvider>
       </FormProvider>

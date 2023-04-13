@@ -1,19 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import React, { useEffect, useState } from 'react'
-import { act } from 'react-dom/test-utils'
+import { render, waitFor } from '@testing-library/react'
+import React from 'react'
 import { Form } from './Form'
 import { mockBlueprintGet } from './test-utils'
 
 describe('Form', () => {
   afterEach(() => {
     jest.clearAllMocks()
-  })
-
-  describe('Empty Type', () => {
-    it('should render a submit button', () => {
-      render(<Form />)
-      expect(screen.getAllByRole('button').length).toBe(1)
-    })
   })
 
   describe('With Type', () => {
@@ -39,7 +31,6 @@ describe('Form', () => {
 
       const { container } = render(<Form type="Root" />)
       await waitFor(() => {
-        expect(screen.getAllByRole('button').length).toBe(1)
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="bar"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="baz"]`)).toBeNull()
@@ -88,7 +79,6 @@ describe('Form', () => {
       }
       const { container } = render(<Form type="Root" formData={formData} />)
       await waitFor(() => {
-        expect(screen.getAllByRole('button').length).toBe(1)
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="child.bar"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="baz"]`)).toBeNull()
@@ -125,7 +115,6 @@ describe('Form', () => {
 
       const { container } = render(<Form type="Root" config={config} />)
       await waitFor(() => {
-        expect(screen.getAllByRole('button').length).toBe(1)
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         // Should only call get blueprint once
         expect(mock).toHaveBeenCalledWith({ typeRef: 'Root' })

@@ -315,7 +315,6 @@ describe('StringField', () => {
       )
     })
 
-    // Skipped: "react-hook-form" package failes to detect an invalid field. Unable to make it work...
     it.skip('should not call onSubmit if non-optional field are missing value', async () => {
       mockBlueprintGet([
         {
@@ -334,8 +333,10 @@ describe('StringField', () => {
       const onSubmit = jest.fn()
       render(<Form type="SingleField" onSubmit={onSubmit} />)
       fireEvent.submit(screen.getByRole('button'))
-      await waitFor(() => expect(onSubmit).not.toHaveBeenCalled())
-      await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(0))
+      await waitFor(() => {
+        expect(onSubmit).not.toHaveBeenCalled()
+        expect(onSubmit).toHaveBeenCalledTimes(0)
+      })
     })
 
     it.skip('should render a string field with a description', () => {})
