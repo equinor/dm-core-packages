@@ -98,8 +98,9 @@ export type TUserIdMapping = { userId: string; username: string }
 
 export type TViewConfig = {
   type: string
-  scope: string
+  scope?: string
   label?: string
+  eds_icon?: string
 }
 
 export type TReferenceViewConfig = TViewConfig & {
