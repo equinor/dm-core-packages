@@ -2,26 +2,29 @@ import React, { useContext, useEffect, useState } from 'react'
 import {
   AuthContext,
   DmssAPI,
-  ViewCreator,
   IUIPlugin,
   Loading,
   TGenericObject,
-  useDocument,
   TViewConfig,
+  useDocument,
+  ViewCreator,
 } from '@development-framework/dm-core'
 import { AxiosResponse } from 'axios'
-import { Button, Icon } from '@equinor/eds-core-react'
-import {
-  chevron_down,
-  chevron_right,
-  delete_to_trash,
-  library_add,
-} from '@equinor/eds-icons'
+import { Button, Icon, Typography } from '@equinor/eds-core-react'
+import { chevron_down, chevron_right } from '@equinor/eds-icons'
 
 import styled from 'styled-components'
+import {
+  AppendButton,
+  DeleteButton,
+  MoveItemDownButton,
+  MoveItemUpButton,
+  SaveButton,
+} from './Components'
+import { reorderObject } from './utils'
 
 const TableData = styled.td`
-  text-align: right;
+  text-align: center;
 `
 const TableRow = styled.tr`
   text-align: right;
@@ -64,6 +67,8 @@ export const GenericListPlugin = (
   const [itemsExpanded, setItemsExpanded] = useState<{
     [key: string]: boolean
   }>({})
+  const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const { token } = useContext(AuthContext)
   const dmssAPI = new DmssAPI(token)
 
@@ -85,20 +90,23 @@ export const GenericListPlugin = (
   }, [document, loading])
 
   const deleteItem = (reference: string, key: string) => {
-    dmssAPI.documentRemove({ idReference: reference }).then(() => {
-      delete items[key]
-      setItems({ ...items })
-    })
-  }
-  const addItem = (reference: string) => {
+    setIsLoading(true)
     dmssAPI
-      // TODO: Get type from parent blueprint, be able to select specialised type
+      .documentRemove({ idReference: reference })
+      .then(() => {
+        delete items[key]
+        setItems({ ...items })
+      })
+      .finally(() => setIsLoading(false))
+  }
+  const addItem = () => {
+    dmssAPI
       .instantiateEntity({
         entity: { type: type },
       })
       .then((newEntity: AxiosResponse<object, TGenericObject>) => {
         dmssAPI
-          .documentAdd({ absoluteRef: reference, body: newEntity.data })
+          .documentAdd({ absoluteRef: idReference, body: newEntity.data })
           .then(() =>
             setItems({
               ...items,
@@ -108,37 +116,52 @@ export const GenericListPlugin = (
       })
   }
 
+  const save = () => {
+    setIsLoading(true)
+    dmssAPI
+      .documentUpdate({
+        idReference: idReference,
+        data: JSON.stringify(Object.values(items)),
+      })
+      .then(() => setUnsavedChanges(false))
+      .catch((e: Error) => alert(JSON.stringify(e, null, 2)))
+      .finally(() => setIsLoading(false))
+  }
+
   if (loading) return <Loading />
   if (error) throw new Error(JSON.stringify(error, null, 2))
-
   return (
-    <>
-      <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        <Button variant="ghost_icon" onClick={() => addItem(idReference)}>
-          <Icon data={library_add} title="Append" />
-        </Button>
-      </div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        width: '100%',
+      }}
+    >
+      <AppendButton onClick={() => addItem()} />
       <Table>
         <thead>
           <tr style={{ borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
             <th></th>
             {internalConfig.headers.map((attribute: string) => (
-              <th key={attribute}>{attribute}</th>
+              <th key={attribute}>
+                <Typography group="table" variant={'cell_header'}>
+                  {attribute}
+                </Typography>
+              </th>
             ))}
-            <th></th>
+            <th>
+              <Typography group="table" variant={'cell_header'}>
+                Controls
+              </Typography>
+            </th>
           </tr>
         </thead>
         <tbody>
           {Object.entries(items).map(([key, item], index: number) => (
             <React.Fragment key={key}>
-              <TableRow
-                onClick={() =>
-                  setItemsExpanded({
-                    ...itemsExpanded,
-                    [key]: !itemsExpanded[key],
-                  })
-                }
-              >
+              <TableRow>
                 <td style={{ textAlign: 'left' }}>
                   <Button
                     variant="ghost_icon"
@@ -161,22 +184,36 @@ export const GenericListPlugin = (
                       `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
                     )
                   return (
-                    <td key={attribute} style={{ textAlign: 'center' }}>
-                      {item[attribute]}
-                    </td>
+                    <TableData key={attribute}>
+                      <Typography group="table" variant={'cell_text'}>
+                        {item[attribute]}
+                      </Typography>
+                    </TableData>
                   )
                 })}
-                <TableData>
+                <td style={{ textAlign: 'right' }}>
                   {internalConfig?.showDelete && (
-                    <Button
-                      variant="ghost_icon"
-                      color="danger"
-                      onClick={() => deleteItem(`${idReference}.${index}`, key)}
-                    >
-                      <Icon data={delete_to_trash} title="Delete" />
-                    </Button>
+                    <>
+                      <MoveItemUpButton
+                        onClick={() => {
+                          setItems(reorderObject(key, -1, items))
+                          setUnsavedChanges(true)
+                        }}
+                      />
+                      <MoveItemDownButton
+                        onClick={() => {
+                          setItems(reorderObject(key, 1, items))
+                          setUnsavedChanges(true)
+                        }}
+                      />
+                      <DeleteButton
+                        onClick={() =>
+                          deleteItem(`${idReference}.${index}`, key)
+                        }
+                      />
+                    </>
                   )}
-                </TableData>
+                </td>
               </TableRow>
               <TableRow style={{ cursor: 'initial' }}>
                 <td
@@ -201,11 +238,14 @@ export const GenericListPlugin = (
           ))}
         </tbody>
       </Table>
-      <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        <Button variant="ghost_icon" onClick={() => addItem(idReference)}>
-          <Icon data={library_add} title="Append" />
-        </Button>
+      <div>
+        <SaveButton
+          onClick={save}
+          disabled={!unsavedChanges}
+          isLoading={isLoading}
+        />
+        <AppendButton onClick={() => addItem()} />
       </div>
-    </>
+    </div>
   )
 }
