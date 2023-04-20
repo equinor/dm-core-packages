@@ -11,7 +11,7 @@ export const getTarget = (idReference: string, viewConfig: TViewConfig) => {
 const resolvePath = (
   initial: Record<string | number, any>,
   path: string
-): TGenericObject =>
+): TGenericObject | undefined =>
   path.split('.').reduce((acc, key) => {
     // TODO: Rewrite this to dig down in blueprints to find type of lists
     // TODO: there is no guarantee that the first element of the list has the generic type for the whole list
@@ -21,12 +21,19 @@ const resolvePath = (
     return key in acc ? acc[key] : acc
   }, initial)
 
-export const getType = (document: TGenericObject, viewConfig: TViewConfig) => {
+export const getType = (
+  document: TGenericObject,
+  viewConfig: TViewConfig
+): string | undefined => {
   if (viewConfig?.scope) {
-    const target: TGenericObject = resolvePath(document, viewConfig.scope)
+    const target = resolvePath(document, viewConfig.scope)
+    if (target === undefined) {
+      throw new Error(
+        `Could not find the view target, check that the attribute '${viewConfig?.scope}' exists in the target document`
+      )
+    }
     return target.type
   }
   if (Array.isArray(document)) return document[0]?.type
-
   return document.type
 }
