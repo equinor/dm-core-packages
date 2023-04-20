@@ -42,15 +42,17 @@ export const AttributeSelectorPlugin = (
           ...viewItem,
           rootEntityId: idReference,
           onSubmit: (newAttributeData: TGenericObject) => {
-            setFormData({
-              ...formData,
-              [viewItem.view?.scope ?? '?????']: newAttributeData,
-            })
+            let newFormData = { ...formData }
+            // TODO check if newAttributeData is always needed in newFormData, or is it valid to have newFormData without newAttributeData
+            if (viewItem.view?.scope) {
+              newFormData = {
+                ...newFormData,
+                [viewItem.view?.scope]: newAttributeData,
+              }
+            }
+            setFormData(newFormData)
             if (onSubmit) {
-              onSubmit({
-                ...formData,
-                [viewItem.view?.scope ?? '?????']: newAttributeData,
-              })
+              onSubmit(newFormData)
             }
           },
         })

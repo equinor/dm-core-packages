@@ -1,90 +1,17 @@
 import { Icon } from '@equinor/eds-core-react'
-import {
-  filter_alt_active,
-  reorder,
-  sort,
-  filter_list,
-  cut,
-  edit,
-  add,
-  refresh,
-  undo,
-  redo,
-  star_outlined,
-  check,
-  world,
-  person,
-  group,
-  warning_outlined,
-  notifications,
-  menu,
-  apps,
-  home,
-  category,
-  settings,
-  widgets,
-  measure,
-  build_wrench,
-  IconData,
-} from '@equinor/eds-icons'
 
-Icon.add({
-  filter_alt_active,
-  reorder,
-  sort,
-  filter_list,
-  cut,
-  edit,
-  add,
-  refresh,
-  undo,
-  redo,
-  star_outlined,
-  check,
-  world,
-  person,
-  group,
-  warning_outlined,
-  notifications,
-  menu,
-  apps,
-  home,
-  category,
-  settings,
-  widgets,
-  measure,
-  build_wrench,
+import { IconData } from '@equinor/eds-icons'
+import { Name } from '@equinor/eds-core-react/dist/types/components/Icon/Icon.types'
+
+type IconRecord = Record<Name, IconData>
+const edsIcons: IconData[] = require('./eds-icons.json')
+export const availableIcons: IconRecord = {}
+edsIcons.forEach((item: IconData) => {
+  availableIcons[item.name] = item
 })
 
-export const availableIcons: { [key: string]: IconData } = {
-  filter_alt_active: filter_alt_active,
-  reorder: reorder,
-  sort: sort,
-  filter_list: filter_list,
-  cut: cut,
-  edit: edit,
-  add: add,
-  refresh: refresh,
-  undo: undo,
-  redo: undo,
-  star_outlined: star_outlined,
-  check: check,
-  world: world,
-  person: person,
-  group: group,
-  warning_outlined: warning_outlined,
-  notifications: notifications,
-  menu: menu,
-  apps: apps,
-  home: home,
-  category: category,
-  settings: settings,
-  widgets: widgets,
-  measure: measure,
-  build_wrench: build_wrench,
-}
+Icon.add(availableIcons)
 
 export default Icon
-
 // Usage example:
 // <Icon name="info_circle" size={24} />
