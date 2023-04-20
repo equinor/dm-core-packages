@@ -1,15 +1,15 @@
 import * as React from 'react'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
-  AuthContext,
   DmssAPI,
   IUIPlugin,
   Loading,
+  useDMSS,
   useDocument,
 } from '@development-framework/dm-core'
-import MermaidWrapper from './MermaidWrapper'
 import { dfs, loader, Node } from './loader'
+import MermaidWrapper from './MermaidWrapper'
 import { TAttributeType } from './types'
 
 const classElement = (node: Node) => {
@@ -75,8 +75,7 @@ function useExplorer(dmssAPI: DmssAPI) {
 
 export const BlueprintHierarchyPlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
   const explorer = useExplorer(dmssAPI)
 
   const [chart, setChart] = useState<string | undefined>(undefined)
@@ -84,7 +83,7 @@ export const BlueprintHierarchyPlugin = (props: IUIPlugin) => {
   const [document, isLoading] = useDocument(idReference)
 
   useEffect(() => {
-    loader(token, explorer, document).then(async (tree: Node) => {
+    loader(explorer, document).then(async (tree: Node) => {
       const chart = createChart(tree)
       setChart(chart)
     })

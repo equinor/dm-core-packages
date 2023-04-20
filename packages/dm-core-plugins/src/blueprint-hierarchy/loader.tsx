@@ -1,5 +1,5 @@
-import { DmssAPI } from '@development-framework/dm-core'
-import { TAttributeType, IBlueprintType } from './types'
+import { useDMSS } from '@development-framework/dm-core'
+import { IBlueprintType, TAttributeType } from './types'
 
 export class Node {
   public attribute: TAttributeType
@@ -57,8 +57,8 @@ const nonPrimitiveAttributes = (blueprint: IBlueprintType): TAttributeType[] =>
     isNonPrimitive(attribute)
   )
 
-const search = async (token: string, query: any) => {
-  const dmssAPI = new DmssAPI(token)
+const search = async (query: any) => {
+  const dmssAPI = useDMSS()
 
   const response = await dmssAPI.search({
     dataSources: ['WorkflowDS'],
@@ -69,11 +69,7 @@ const search = async (token: string, query: any) => {
   return Object.values(result)
 }
 
-export const loader = async (
-  token: string,
-  explorer: any,
-  document: any
-): Promise<Node> => {
+export const loader = async (explorer: any, document: any): Promise<Node> => {
   const node = new Node(document)
   await Promise.all(
     nonPrimitiveAttributes(document).map(async (attribute: TAttributeType) => {
@@ -81,23 +77,19 @@ export const loader = async (
         const child: IBlueprintType = await explorer.blueprintGet(
           attribute['attributeType']
         ).data
-        const childNode: Node = await loader(token, explorer, child)
+        const childNode: Node = await loader(explorer, child)
         childNode.attribute = attribute
         childNode.entity = child
         // If the attribute is abstract, we need to search for concrete definitions.
         if (child['abstract']) {
-          const concreteDefinitions: IBlueprintType[] = await search(token, {
+          const concreteDefinitions: IBlueprintType[] = await search({
             type: child['type'],
             extends: attribute['attributeType'],
           })
           await Promise.all(
             concreteDefinitions.map(
               async (concreteDefinition: IBlueprintType) => {
-                const concertNode = await loader(
-                  token,
-                  explorer,
-                  concreteDefinition
-                )
+                const concertNode = await loader(explorer, concreteDefinition)
                 concertNode.concrete = true
                 concertNode.attribute = attribute
                 // Connect the concrete definition to the abstract definition,
