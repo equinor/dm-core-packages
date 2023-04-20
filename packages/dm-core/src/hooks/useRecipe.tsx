@@ -97,9 +97,8 @@ export const useRecipe = (
     isLoading: isBlueprintLoading,
     error,
   } = useBlueprint(typeRef)
-  const { loading: isPluginContextLoading, getUiPlugin } = useContext(
-    UiPluginContext
-  )
+  const { loading: isPluginContextLoading, getUiPlugin } =
+    useContext(UiPluginContext)
   const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
   const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
     null

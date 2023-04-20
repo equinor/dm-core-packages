@@ -80,12 +80,8 @@ const YamlView = (props: { document: TGenericObject }) => {
 export const YamlPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   // eslint-disable-next-line
-  const [
-    document,
-    loading,
-    updateDocument,
-    error,
-  ] = useDocument<TGenericObject>(idReference, 999)
+  const [document, loading, updateDocument, error] =
+    useDocument<TGenericObject>(idReference, 999)
   if (loading) return <Loading />
 
   if (error) throw new Error(JSON.stringify(error, null, 2))

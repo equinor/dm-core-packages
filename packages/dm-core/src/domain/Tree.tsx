@@ -284,13 +284,12 @@ export class TreeNode {
       entity: { name: name, type: type },
     })
     const newEntity = { ...response.data, name: name }
-    const createResponse: AxiosResponse<any> = await this.tree.dmssApi.documentAdd(
-      {
+    const createResponse: AxiosResponse<any> =
+      await this.tree.dmssApi.documentAdd({
         absoluteRef: `${this.nodeId}${packageContent}`,
         body: newEntity,
         updateUncontained: true,
-      }
-    )
+      })
     await this.expand()
     return createResponse.data.uid
   }
