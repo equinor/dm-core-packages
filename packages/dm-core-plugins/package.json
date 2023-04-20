@@ -56,8 +56,7 @@
     "prebuild": "rm -rf dist",
     "copy-yaml-css-file": "cp src/yaml/index.css ./dist/yaml",
     "copy-explorer-css-file": "cp src/explorer/style.css ./dist/explorer",
-    "copy-attribute-selector-icons-file": "cp src/attribute-selector/eds-icons.json ./dist/attribute-selector",
-    "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-css-file && yarn copy-explorer-css-file && yarn copy-attribute-selector-icons-file",
+    "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-css-file && yarn copy-explorer-css-file",
     "postbuild": "rm -rf node_modules",
     "test": "jest test",
     "test-watch": "jest test --watchAll"
