@@ -5,8 +5,8 @@ import { TItemData } from './types'
 import { availableIcons } from './Icon'
 
 export const Sidebar = (props: {
-  selectedView: number
-  setSelectedView: Function
+  selectedView: string
+  setSelectedView: (k: string) => void
   items: TItemData[]
 }): JSX.Element => {
   const { selectedView, setSelectedView, items } = props
@@ -14,17 +14,17 @@ export const Sidebar = (props: {
   return (
     <SideBar open style={{ height: 'auto' }}>
       <SideBar.Content>
-        {items.map((config: TItemData, index) => (
+        {items.map((config: TItemData) => (
           <SideBar.Link
-            key={index}
+            key={config.viewId}
             icon={
               config.view.eds_icon
                 ? availableIcons[config.view.eds_icon]
                 : subdirectory_arrow_right
             }
-            label={config.label ?? config.view.scope ?? 'self'}
-            onClick={() => setSelectedView(index)}
-            active={selectedView === index}
+            label={config.label}
+            onClick={() => setSelectedView(config.viewId)}
+            active={selectedView === config.viewId}
           />
         ))}
       </SideBar.Content>

@@ -19,7 +19,7 @@ import {
 export const AttributeSelectorPlugin = (
   props: IUIPlugin & { config?: TAttributeSelectorConfig }
 ): JSX.Element => {
-  const { idReference, config, onSubmit } = props
+  const { idReference, config } = props
   const internalConfig: TAttributeSelectorConfig = {
     childTabsOnRender: true,
     asSidebar: false,
@@ -27,9 +27,24 @@ export const AttributeSelectorPlugin = (
     ...config,
   }
   const [entity, isLoading, _, error] = useDocument<TGenericObject>(idReference)
-  const [selectedView, setSelectedView] = useState<number>(0)
+  const [selectedView, setSelectedView] = useState<string | undefined>()
   const [views, setViews] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
+
+  function addView(viewId: string, view: TViewConfig) {
+    if (!views.find((view: TItemData) => view.viewId === viewId)) {
+      // View does not exist, add it
+      const newView: TItemData = {
+        viewId: viewId,
+        view: view,
+        label: view.label ?? viewId,
+        rootEntityId: idReference,
+        onSubmit: () => undefined,
+      }
+      setViews([...views, newView])
+    }
+    setSelectedView(viewId)
+  }
 
   useEffect(() => {
     if (!entity) return
@@ -38,70 +53,55 @@ export const AttributeSelectorPlugin = (
     const newViews: TItemData[] = []
     if (internalConfig.items && internalConfig.items.length) {
       internalConfig.items.forEach((viewItem: TAttributeSelectorItem) => {
+        const backupKey: string = viewItem.view?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
         newViews.push({
           ...viewItem,
+          label: viewItem.label ?? backupKey,
+          // Generate UUID to allow for multiple view of same scope
+          viewId: newViews.find((v) => v.viewId === backupKey)
+            ? crypto.randomUUID()
+            : backupKey,
           rootEntityId: idReference,
-          onSubmit: (newAttributeData: TGenericObject) => {
-            let newFormData = { ...formData }
-            // TODO check if newAttributeData is always needed in newFormData, or is it valid to have newFormData without newAttributeData
-            if (viewItem.view?.scope) {
-              newFormData = {
-                ...newFormData,
-                [viewItem.view?.scope]: newAttributeData,
-              }
-            }
-            setFormData(newFormData)
-            if (onSubmit) {
-              onSubmit(newFormData)
-            }
-          },
         })
       })
     } else {
       // No views where passed. Create default for all complex attributes and "self"
       newViews.push({
         label: 'self',
+        viewId: 'self',
         view: {
           type: 'ViewConfig',
           scope: 'self',
           eds_icon: 'home',
         },
         rootEntityId: idReference,
-        onSubmit: (newFormData: TGenericObject) => {
-          setFormData({ ...newFormData })
-          if (onSubmit) {
-            onSubmit(newFormData)
-          }
-        },
       })
       Object.entries(entity).forEach(
         ([key, attributeEntity]: [string, any]) => {
           if (typeof attributeEntity == 'object') {
             newViews.push({
+              viewId: key,
               label: key,
               view: {
                 type: 'ViewConfig',
                 scope: key,
               },
               rootEntityId: idReference,
-              onSubmit: (newAttributeData: TGenericObject) => {
-                setFormData({ ...formData, [key]: newAttributeData })
-                if (onSubmit) {
-                  onSubmit({ ...formData, [key]: newAttributeData })
-                }
-              },
             })
           }
         }
       )
     }
     setViews(newViews)
+    setSelectedView(newViews[0].viewId)
   }, [entity])
 
-  if (isLoading || !views) {
+  if (error) {
+    throw new Error(JSON.stringify(error, null, 2))
+  }
+  if (isLoading || !views.length || !selectedView) {
     return <Loading />
   }
-  if (error) throw new Error(JSON.stringify(error, null, 2))
 
   return (
     <div
@@ -125,6 +125,7 @@ export const AttributeSelectorPlugin = (
         />
       )}
       <Content
+        onOpen={addView}
         formData={formData}
         selectedView={selectedView}
         items={views}

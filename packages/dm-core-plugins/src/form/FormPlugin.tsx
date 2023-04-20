@@ -84,13 +84,10 @@ export const FormPlugin = (props: IUIPlugin) => {
     updateDocument(formData, true)
   }
 
-  const dataSourceId = idReference.split('/')[0]
-
   return (
     <Form
       onOpen={onOpen}
-      documentId={idReference}
-      dataSourceId={dataSourceId}
+      idReference={idReference}
       widgets={widgets}
       type={document.type}
       config={config}

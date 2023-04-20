@@ -10,7 +10,10 @@ export type TAttributeSelectorItem = {
   label?: string
 }
 export type TItemData = TAttributeSelectorItem & {
+  viewId: string
+  label: string
   rootEntityId: string
+  // onSubmit is not yet supported
   onSubmit?: (data: TItemData) => void
 }
 
