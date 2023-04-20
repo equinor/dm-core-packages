@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useContext } from 'react'
-import DmssAPI from '../../services/api/DmssAPI'
-import { AuthContext } from 'react-oauth2-code-pkce'
+import React, { ChangeEvent } from 'react'
 import { useSearch } from '../../hooks/useSearch'
 import { Select } from '../Select'
+import { useDMSS } from '../../context/DMSSContext'
 
 export const JobHandlerPicker = (props: {
   onChange: (data: string) => void
@@ -10,8 +9,7 @@ export const JobHandlerPicker = (props: {
 }) => {
   const { onChange, formData } = props
   const blueprintName = formData.split('/').pop()
-  const { token } = useContext(AuthContext)
-  const dmssApi = new DmssAPI(token)
+  const dmssAPI = useDMSS()
   const [searchResult] = useSearch<any>(
     {
       type: 'dmss://system/SIMOS/Blueprint',
@@ -21,7 +19,7 @@ export const JobHandlerPicker = (props: {
   )
 
   const handleChange = (blueprintId: string) => {
-    dmssApi
+    dmssAPI
       .blueprintResolve({
         absoluteId: `WorkflowDS/${blueprintId}`,
       })

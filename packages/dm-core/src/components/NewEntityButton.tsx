@@ -11,10 +11,9 @@ import {
 import { addToPath } from './UploadFileButton'
 import { AxiosError } from 'axios'
 import styled from 'styled-components'
-import { AuthContext } from 'react-oauth2-code-pkce'
 import { TReference } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
-import DmssAPI from '../services/api/DmssAPI'
+import { useDMSS } from '../context/DMSSContext'
 
 const DialogWrapper = styled.div`
   display: flex;
@@ -43,8 +42,7 @@ export function NewEntityButton(props: {
   )
   const [typeToCreate, setTypeToCreate] = useState<string>(type || '')
   const [loading, setLoading] = useState<boolean>(false)
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   useEffect(() => setTypeToCreate(type || ''), [type])
   useEffect(() => {
@@ -54,7 +52,7 @@ export function NewEntityButton(props: {
   }, [defaultDestination])
 
   function addEntityToPath(entity: any): Promise<void> {
-    return addToPath(entity, token, [], saveDestination)
+    return addToPath(entity, [], saveDestination)
       .then((newId: string) =>
         onCreated({ _id: newId, type: entity.type, name: entity.name })
       )

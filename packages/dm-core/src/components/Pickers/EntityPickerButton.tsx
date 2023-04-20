@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Progress } from '@equinor/eds-core-react'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
-import { AuthContext } from 'react-oauth2-code-pkce'
 import { TReference } from '../../types'
 import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
@@ -20,17 +19,12 @@ export const EntityPickerButton = (props: {
   scope?: string // Path to a folder to limit the view within
 }) => {
   const { onChange, typeFilter, text, variant, scope } = props
-  const { token } = useContext(AuthContext)
   const appConfig = useContext(ApplicationContext)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
 
-  const tree: Tree = new Tree(
-    token,
-    // @ts-ignore
-    (t: Tree) => setTreeNodes([...t])
-  )
+  const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
 
   useEffect(() => {
     setLoading(true)

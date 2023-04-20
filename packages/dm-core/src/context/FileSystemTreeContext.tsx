@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
-import { AuthContext } from 'react-oauth2-code-pkce'
+import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { Tree, TreeNode } from '../domain/Tree'
 
 export const FSTreeContext = createContext<{
@@ -23,11 +16,9 @@ export const FSTreeProvider = (props: {
   visibleDataSources: string[]
 }) => {
   const { children, visibleDataSources } = props
-  const { token } = useContext(AuthContext)
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
-  //@ts-ignore
-  const tree: Tree = new Tree(token, (t: Tree) => setTreeNodes([...t]))
+  const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
 
   useEffect(() => {
     setLoading(true)

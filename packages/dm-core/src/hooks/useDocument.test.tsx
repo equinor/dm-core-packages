@@ -1,7 +1,9 @@
-import { useDocument } from './useDocument'
 import { renderHook } from '@testing-library/react-hooks'
+import { useDocument } from './useDocument'
 
 import { waitFor } from '@testing-library/react'
+import React from 'react'
+import { DMSSProvider } from '../context/DMSSContext'
 import { mockGetDocument } from '../utils/test-utils-dm-core'
 
 const mockDocument = [
@@ -11,6 +13,10 @@ const mockDocument = [
   },
 ]
 
+const wrapper = (props: { children: React.ReactNode }) => (
+  <DMSSProvider>{props.children}</DMSSProvider>
+)
+
 describe('useDocumentHook', () => {
   afterEach(() => {
     jest.clearAllMocks()
@@ -19,7 +25,7 @@ describe('useDocumentHook', () => {
   describe(-'useDocument hook', () => {
     it('should correctly return the document', async () => {
       const mock = mockGetDocument(mockDocument)
-      const { result } = renderHook(() => useDocument('testDS/1'))
+      const { result } = renderHook(() => useDocument('testDS/1'), { wrapper })
 
       await waitFor(() => {
         expect(result.current[0]).toEqual(mockDocument)
@@ -32,7 +38,7 @@ describe('useDocumentHook', () => {
     })
     it('return error message when fetching the document fails', async () => {
       const mock = mockGetDocument(mockDocument)
-      const { result } = renderHook(() => useDocument('testDS/-1'))
+      const { result } = renderHook(() => useDocument('testDS/-1'), { wrapper })
 
       await waitFor(() => {
         expect(result.current[0]).toEqual(null)

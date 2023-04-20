@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
-import { DmssAPI } from '../services/api/DmssAPI'
-import { AuthContext } from 'react-oauth2-code-pkce'
 import { ApplicationContext } from '../context/ApplicationContext'
 import { ErrorResponse } from '../services'
 import { AxiosError } from 'axios'
+import { useDMSS } from '../context/DMSSContext'
 interface IUseBlueprint {
   blueprint: any
   initialUiRecipe: any
@@ -39,9 +38,8 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
   const [initialUiRecipe, setInitialUiRecipe] = useState<any>()
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
-  const { token } = useContext(AuthContext)
   const { name } = useContext(ApplicationContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   useEffect(() => {
     dmssAPI

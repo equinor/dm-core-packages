@@ -9,11 +9,11 @@ import { APP_ROLES, DMSS_ADMIN_ROLE } from '../utils/appRoles'
 import { NotificationManager } from 'react-notifications'
 import axios, { AxiosResponse } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import { DmssAPI } from '../services'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { sortApplications } from '../utils/applicationHelperFunctions'
 import { Dialog } from './Dialog'
 import { Button } from './Button'
+import { useDMSS } from '../context/DMSSContext'
 
 Icon.add({
   grid_on,
@@ -106,7 +106,7 @@ export const Header = (props: {
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
   const [apiKey, setAPIKey] = useState<string | null>(null)
-  const dmssApi = new DmssAPI(token)
+  const dmssAPI = useDMSS()
   const [checked, updateChecked] = useLocalStorage<string | null>(
     'impersonateRoles',
     null
@@ -195,7 +195,7 @@ export const Header = (props: {
             </Button>
             <Button
               onClick={() =>
-                dmssApi
+                dmssAPI
                   .tokenCreate()
                   .then((response: any) => setAPIKey(response.data))
                   .catch((error: any) => {

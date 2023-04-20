@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AxiosError } from 'axios'
-import { DmssAPI } from '../services/api/DmssAPI'
 //@ts-ignore
 import { NotificationManager } from 'react-notifications'
-import { AuthContext } from 'react-oauth2-code-pkce'
 import { ErrorResponse } from '../services'
+import { useDMSS } from '../context/DMSSContext'
 
 /**
  * A hook for asynchronously working with documents.
@@ -49,8 +48,7 @@ export function useDocument<T>(
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   useEffect(() => {
     setLoading(true)
