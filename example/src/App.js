@@ -1,17 +1,17 @@
 import {
-  JsonView,
-  DmssAPI,
-  FSTreeContext,
-  TreeView,
-  NewEntityButton,
   EntityView,
+  FSTreeContext,
+  JsonView,
+  NewEntityButton,
+  TreeView,
+  useDMSS,
 } from '@development-framework/dm-core'
 import { useContext, useState } from 'react'
 
 import { Jobs } from './test_components/Jobs'
 
 function App() {
-  const dmssAPI = new DmssAPI('')
+  const dmssAPI = useDMSS()
 
   const { treeNodes, loading } = useContext(FSTreeContext)
 

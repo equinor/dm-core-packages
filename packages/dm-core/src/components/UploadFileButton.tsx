@@ -12,15 +12,15 @@ import { NotificationManager } from 'react-notifications'
 import { AxiosError, AxiosResponse } from 'axios'
 import { TGenericObject, TReference, TValidEntity } from '../types'
 import { AuthContext } from 'react-oauth2-code-pkce'
+import { useDMSS } from '../context/DMSSContext'
 
 export const addToPath = (
   body: TGenericObject,
-  token: string,
   files: File[] | undefined[] = [],
   pathReference: string,
   updateUncontained = false
 ): Promise<string> => {
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   return dmssAPI
     .documentAddToPath({
@@ -63,13 +63,7 @@ export function UploadFileButton(props: {
     } else {
       const newDocumentBody = getBody(file.name)
       setLoading(true)
-      addToPath(
-        newDocumentBody,
-        token,
-        [file],
-        `${dataSourceId}/Data/STasks`,
-        true
-      )
+      addToPath(newDocumentBody, [file], `${dataSourceId}/Data/STasks`, true)
         .then((createdUUID: string) =>
           onUpload({
             _id: createdUUID,

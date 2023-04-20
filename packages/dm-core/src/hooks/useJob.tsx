@@ -7,9 +7,10 @@ import {
   StartJobResponse,
   StatusJobResponse,
 } from '../services/api/configs/gen-job'
-import { DmJobAPI, DmssAPI } from '../services'
+import { DmJobAPI } from '../services'
 import { TJob } from '../types'
 import { AuthContext } from 'react-oauth2-code-pkce'
+import { useDMSS } from '../context/DMSSContext'
 
 interface IUseJob {
   start: () => Promise<StartJobResponse | null>
@@ -80,12 +81,12 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   const [error, setError] = useState<ErrorResponse>()
   const { token } = useContext(AuthContext)
   const dmJobApi = new DmJobAPI(token)
-  const dmssApi = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   useEffect(() => {
     if (entityId) {
       setIsLoading(true)
-      dmssApi
+      dmssAPI
         .documentGetById({ idReference: entityId })
         // @ts-ignore
         .then((response: AxiosResponse<TJob>) => {
