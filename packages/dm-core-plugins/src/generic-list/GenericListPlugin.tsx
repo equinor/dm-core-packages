@@ -1,18 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
 import {
-  AuthContext,
-  DmssAPI,
   IUIPlugin,
   Loading,
   TGenericObject,
   TViewConfig,
+  useDMSS,
   useDocument,
   ViewCreator,
 } from '@development-framework/dm-core'
-import { AxiosResponse } from 'axios'
 import { Button, Icon, Typography } from '@equinor/eds-core-react'
 import { chevron_down, chevron_right } from '@equinor/eds-icons'
-
+import { AxiosResponse } from 'axios'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import {
   AppendButton,
@@ -59,7 +57,7 @@ export const GenericListPlugin = (
 ) => {
   const { idReference, config, type } = props
   const internalConfig = { ...defaultConfig, ...config }
-  const [document, loading, _, error] = useDocument<TGenericObject[]>(
+  const [document, loading, , error] = useDocument<TGenericObject[]>(
     idReference,
     2
   )
@@ -69,8 +67,7 @@ export const GenericListPlugin = (
   }>({})
   const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   useEffect(() => {
     if (loading || !document) return

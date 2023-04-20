@@ -1,15 +1,14 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import {
-  AuthContext,
-  DmssAPI,
   ErrorResponse,
   IUIPlugin,
   Loading,
   TGenericObject,
+  useDMSS,
   useDocument,
 } from '@development-framework/dm-core'
-import { AxiosError, AxiosResponse } from 'axios'
 import { Input, Table } from '@equinor/eds-core-react'
+import { AxiosError, AxiosResponse } from 'axios'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import {
   AppendButton,
   DeleteButton,
@@ -35,15 +34,14 @@ export const GenericTablePlugin = (
 ) => {
   const { idReference, config, type } = props
   const internalConfig = { ...defaultConfig, ...config }
-  const [document, loading, _, error] = useDocument<TGenericObject[]>(
+  const [document, loading, , error] = useDocument<TGenericObject[]>(
     idReference,
     2
   )
   const [items, setItems] = useState<{ [key: string]: TGenericObject }>({})
   const [isSaveLoading, setIsSaveLoading] = useState<boolean>(false)
   const [dirtyState, setDirtyState] = useState<boolean>(false)
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   useEffect(() => {
     if (loading || !document) return

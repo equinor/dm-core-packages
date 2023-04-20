@@ -1,20 +1,13 @@
-import { Icon, Radio, TopBar } from '@equinor/eds-core-react'
-import {
-  Button,
-  Dialog,
-  DmssAPI,
-  IUIPlugin,
-  Loading,
-  useDocument,
-} from '@development-framework/dm-core'
-import styled from 'styled-components'
+import { Button, Dialog, useDMSS } from '@development-framework/dm-core'
+import { Radio } from '@equinor/eds-core-react'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
+import styled from 'styled-components'
 // @ts-ignore
-import { NotificationManager } from 'react-notifications'
 import { AxiosResponse } from 'axios'
-import { useLocalStorage } from '../useLocalStorage'
+import { NotificationManager } from 'react-notifications'
 import { TApplication } from '../types'
+import { useLocalStorage } from '../useLocalStorage'
 
 const UnstyledList = styled.ul`
   margin: 0;
@@ -42,7 +35,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const { isOpen, setIsOpen, applicationEntity } = props
   const [apiKey, setAPIKey] = useState<string | null>(null)
   const { tokenData, token, logOut } = useContext(AuthContext)
-  const dmssApi = new DmssAPI(token)
+  const dmssAPI = useDMSS()
   const [checked, updateChecked] = useLocalStorage<string | null>(
     'impersonateRoles',
     null
@@ -78,7 +71,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
           </Button>
           <Button
             onClick={() =>
-              dmssApi
+              dmssAPI
                 .tokenCreate()
                 .then((response: AxiosResponse<string>) =>
                   setAPIKey(response.data)

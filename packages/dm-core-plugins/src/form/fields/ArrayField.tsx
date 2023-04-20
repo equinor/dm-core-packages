@@ -1,19 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
-import { useFieldArray, useFormContext } from 'react-hook-form'
-import { AttributeField } from './AttributeField'
+import { ErrorResponse, useDMSS } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
-import styled from 'styled-components'
-import { isPrimitive } from '../utils'
-import { useRegistryContext } from '../RegistryContext'
-import {
-  AuthContext,
-  DmssAPI,
-  ErrorResponse,
-} from '@development-framework/dm-core'
-import DynamicTable from '../components/DynamicTable'
-import { OpenObject } from './ObjectField'
 import { AxiosError } from 'axios'
+import { useFieldArray, useFormContext } from 'react-hook-form'
+import styled from 'styled-components'
+import DynamicTable from '../components/DynamicTable'
+import { useRegistryContext } from '../RegistryContext'
+import { isPrimitive } from '../utils'
+import { AttributeField } from './AttributeField'
+import { OpenObject } from './ObjectField'
 
 const Wrapper = styled.div`
   margin-bottom: 20px;
@@ -46,8 +42,7 @@ export default function Fields(props: any) {
   const { namePath, displayLabel, type, uiAttribute } = props
 
   const { documentId, dataSourceId, onOpen } = useRegistryContext()
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
   const { control } = useFormContext()
 
   const { fields, append, remove } = useFieldArray({

@@ -1,7 +1,7 @@
-import React from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import React from 'react'
 import { Form } from '../Form'
-import { mockBlueprintGet } from '../test-utils'
+import { mockBlueprintGet, wrapper } from '../test-utils'
 
 describe.skip('ObjectField', () => {
   describe('Blueprint', () => {
@@ -27,7 +27,7 @@ describe.skip('ObjectField', () => {
 
     it('should render a string attribute', async () => {
       mockBlueprintGet([blueprint])
-      const { container } = render(<Form type="MyBlueprint" />)
+      const { container } = render(<Form type="MyBlueprint" />, { wrapper })
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)
         expect(screen.getByText('foo')).toBeDefined()
@@ -36,7 +36,7 @@ describe.skip('ObjectField', () => {
 
     it('should render a boolean attribute', async () => {
       mockBlueprintGet([blueprint])
-      const { container } = render(<Form type="MyBlueprint" />)
+      const { container } = render(<Form type="MyBlueprint" />, { wrapper })
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=checkbox]`).length).toBe(
           1
@@ -47,7 +47,7 @@ describe.skip('ObjectField', () => {
 
     it('should handle a default object value', async () => {
       mockBlueprintGet([blueprint])
-      const { container } = render(<Form type="MyBlueprint" />)
+      const { container } = render(<Form type="MyBlueprint" />, { wrapper })
 
       await waitFor(() => {
         const foo: Element | null = container.querySelector(` input[id="foo"]`)
@@ -84,7 +84,7 @@ describe.skip('ObjectField', () => {
 
     it('should render the widget with the expected id', async () => {
       mockBlueprintGet([blueprint])
-      const { container } = render(<Form type="MyBlueprint" />)
+      const { container } = render(<Form type="MyBlueprint" />, { wrapper })
       await waitFor(() => {
         const inputNode: Element | null =
           container.querySelector(` input[id="foo"]`)
@@ -122,7 +122,7 @@ describe.skip('ObjectField', () => {
       },
     ])
     const onSubmit = jest.fn()
-    render(<Form type="Parent" onSubmit={onSubmit} />)
+    render(<Form type="Parent" onSubmit={onSubmit} />, { wrapper })
     await waitFor(() => {
       // It's ok to submit
       fireEvent.submit(screen.getByText('Submit'))

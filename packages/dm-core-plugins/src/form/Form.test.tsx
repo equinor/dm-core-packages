@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
 import { Form } from './Form'
-import { mockBlueprintGet } from './test-utils'
+import { mockBlueprintGet, wrapper } from './test-utils'
 
 describe('Form', () => {
   afterEach(() => {
@@ -29,7 +29,7 @@ describe('Form', () => {
         },
       ])
 
-      const { container } = render(<Form type="Root" />)
+      const { container } = render(<Form type="Root" />, { wrapper })
       await waitFor(() => {
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="bar"]`)).toBeTruthy()
@@ -77,7 +77,9 @@ describe('Form', () => {
           bar: '',
         },
       }
-      const { container } = render(<Form type="Root" formData={formData} />)
+      const { container } = render(<Form type="Root" formData={formData} />, {
+        wrapper,
+      })
       await waitFor(() => {
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="child.bar"]`)).toBeTruthy()
@@ -113,7 +115,9 @@ describe('Form', () => {
         ],
       }
 
-      const { container } = render(<Form type="Root" config={config} />)
+      const { container } = render(<Form type="Root" config={config} />, {
+        wrapper,
+      })
       await waitFor(() => {
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         // Should only call get blueprint once

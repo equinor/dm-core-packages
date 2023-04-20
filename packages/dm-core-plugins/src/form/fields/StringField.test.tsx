@@ -1,14 +1,14 @@
-import React from 'react'
 import {
+  cleanup,
   fireEvent,
   render,
   screen,
   waitFor,
-  cleanup,
 } from '@testing-library/react'
-import { Form } from '../Form'
-import { mockBlueprintGet } from '../test-utils'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
+import { Form } from '../Form'
+import { mockBlueprintGet, wrapper } from '../test-utils'
 
 describe('StringField', () => {
   afterEach(() => {
@@ -34,7 +34,7 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)
         expect(screen.getByText('foo')).toBeDefined()
@@ -54,7 +54,7 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)
         expect(screen.getByText('foo')).toBeDefined()
@@ -76,7 +76,9 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleFieldWithLabel" />)
+      const { container } = render(<Form type="SingleFieldWithLabel" />, {
+        wrapper,
+      })
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)
         expect(screen.getByText('Foo')).toBeDefined()
@@ -102,7 +104,8 @@ describe('StringField', () => {
         foo: 'beep',
       }
       const { container } = render(
-        <Form type="SingleField" formData={formData} />
+        <Form type="SingleField" formData={formData} />,
+        { wrapper }
       )
       await waitFor(() => {
         const inputNode: Element | null =
@@ -130,7 +133,8 @@ describe('StringField', () => {
       ])
       const onSubmit = jest.fn()
       const { container } = render(
-        <Form type="SingleField" onSubmit={onSubmit} />
+        <Form type="SingleField" onSubmit={onSubmit} />,
+        { wrapper }
       )
       await waitFor(() => {
         const inputNode: Element | null =
@@ -161,7 +165,7 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
 
       await waitFor(() => {
         const inputNode: Element | null =
@@ -190,7 +194,7 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
       await waitFor(() => {
         const inputNode: Element | null =
           container.querySelector(` input[id="foo"]`)
@@ -215,7 +219,7 @@ describe('StringField', () => {
           ],
         },
       ])
-      render(<Form type="SingleField" />)
+      render(<Form type="SingleField" />, { wrapper })
 
       waitFor(async () => {
         userEvent.type(screen.getByTestId('form-textfield'), 'foobar')
@@ -243,9 +247,7 @@ describe('StringField', () => {
       const formData = {
         foo: 'beep',
       }
-      const { container } = render(
-        <Form type="SingleField" formData={formData} />
-      )
+      render(<Form type="SingleField" formData={formData} />, { wrapper })
       await waitFor(() => {
         fireEvent.change(screen.getByTestId('form-textfield'), {
           target: { value: '' },
@@ -273,7 +275,8 @@ describe('StringField', () => {
       const onSubmit = jest.fn()
       const formData = {}
       render(
-        <Form type="SingleField" formData={formData} onSubmit={onSubmit} />
+        <Form type="SingleField" formData={formData} onSubmit={onSubmit} />,
+        { wrapper }
       )
       await waitFor(() => {
         fireEvent.submit(screen.getByTestId('form-submit'))
@@ -300,7 +303,8 @@ describe('StringField', () => {
       const onSubmit = jest.fn()
       const formData = {}
       render(
-        <Form type="SingleField" formData={formData} onSubmit={onSubmit} />
+        <Form type="SingleField" formData={formData} onSubmit={onSubmit} />,
+        { wrapper }
       )
       fireEvent.submit(screen.getByTestId('form-submit'))
       // The useForm "methods.handleSubmit" seems to be async, and needs to be awaited
@@ -327,7 +331,7 @@ describe('StringField', () => {
         },
       ])
       const onSubmit = jest.fn()
-      render(<Form type="SingleField" onSubmit={onSubmit} />)
+      render(<Form type="SingleField" onSubmit={onSubmit} />, { wrapper })
       fireEvent.submit(screen.getByRole('button'))
       await waitFor(() => {
         expect(onSubmit).not.toHaveBeenCalled()
