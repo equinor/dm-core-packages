@@ -30,12 +30,12 @@ export const Content = (props: {
                 viewConfig={config.view}
                 type={config.view.type}
                 // TODO: Fix this
-                onSubmit={(data: TGenericObject) => {
-                  setFormData({
-                    ...formData,
-                    [config.view?.scope ?? '?????']: data,
-                  })
-                }}
+                // onSubmit={(data: TGenericObject) => {
+                //   setFormData({
+                //     ...formData,
+                //     [config.view?.scope]: data,
+                //   })
+                // }}
               />
             </HidableWrapper>
           )
