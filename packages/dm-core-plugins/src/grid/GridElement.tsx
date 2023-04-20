@@ -1,7 +1,7 @@
 import { TGridItem, TGridArea } from './types'
 import styled from 'styled-components'
 import React from 'react'
-import { TGenericObject, ViewCreator } from '@development-framework/dm-core'
+import { ViewCreator } from '@development-framework/dm-core'
 
 const Element = styled.div`
   grid-area: ${(props: TGridArea) =>

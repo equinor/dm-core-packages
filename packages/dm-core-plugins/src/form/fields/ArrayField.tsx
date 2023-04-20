@@ -5,11 +5,10 @@ import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
-import DynamicTable from '../components/DynamicTable'
 import { useRegistryContext } from '../RegistryContext'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
-import { OpenObject } from './ObjectField'
+import { OpenObjectButton } from '../components/OpenObjectButton'
 
 const Wrapper = styled.div`
   margin-bottom: 20px;
@@ -29,19 +28,14 @@ const Stretch = styled.div`
 
 const Sticky = styled.div``
 
-const FixedContainer = styled.div`
-  max-height: 400px;
-  overflow: auto;
-`
-
 const isPrimitiveType = (value: string): boolean => {
   return ['string', 'number', 'integer', 'number', 'boolean'].includes(value)
 }
 
 export default function Fields(props: any) {
-  const { namePath, displayLabel, type, uiAttribute } = props
+  const { namePath, displayLabel, type } = props
 
-  const { documentId, dataSourceId, onOpen } = useRegistryContext()
+  const { idReference, onOpen } = useRegistryContext()
   const dmssAPI = useDMSS()
   const { control } = useFormContext()
 
@@ -60,7 +54,7 @@ export default function Fields(props: any) {
         const data = JSON.stringify([...fields, newEntity.data])
         dmssAPI
           .documentUpdate({
-            idReference: `${documentId}.${namePath}`,
+            idReference: `${idReference}.${namePath}`,
             data: data,
             updateUncontained: false,
           })
@@ -74,53 +68,10 @@ export default function Fields(props: any) {
   }
 
   if (onOpen && !isPrimitiveType(type)) {
-    const rows: Array<any> = []
-    const columns =
-      uiAttribute && uiAttribute.columns
-        ? [...uiAttribute.columns, 'actions']
-        : ['name', 'actions']
-    fields.map((item: any, index: number) => {
-      const row: any = {}
-      columns.forEach((column: any) => (row[column] = item[column]))
-
-      row['actions'] = (
-        <div>
-          <OpenObject
-            type={type}
-            namePath={`${namePath}.${index}`}
-            contained={true}
-            dataSourceId={dataSourceId}
-            documentId={documentId}
-            entity={item}
-          />
-          <Button
-            variant="outlined"
-            type="button"
-            onClick={() => remove(index)}
-          >
-            Remove
-          </Button>
-        </div>
-      )
-
-      rows.push(row)
-    })
-
     return (
       <Wrapper>
         <Typography bold={true}>{displayLabel}</Typography>
-        <FixedContainer>
-          <DynamicTable columns={columns} rows={rows} />
-        </FixedContainer>
-        <Button
-          variant="outlined"
-          data-testid={`add-${namePath}`}
-          onClick={() => {
-            handleAddObject()
-          }}
-        >
-          Add
-        </Button>
+        <OpenObjectButton namePath={namePath} />
       </Wrapper>
     )
   }
@@ -128,33 +79,30 @@ export default function Fields(props: any) {
   return (
     <Wrapper>
       <Typography bold={true}>{displayLabel}</Typography>
-      <FixedContainer>
-        {fields.map((item: any, index: number) => {
-          return (
-            <ItemWrapper key={item.id}>
-              <Stretch>
-                <AttributeField
-                  namePath={`${namePath}.${index}`}
-                  attribute={{
-                    attributeType: type,
-                    dimensions: '',
-                  }}
-                />
-              </Stretch>
-              <Sticky>
-                <Button
-                  variant="outlined"
-                  type="button"
-                  onClick={() => remove(index)}
-                >
-                  Remove
-                </Button>
-              </Sticky>
-            </ItemWrapper>
-          )
-        })}
-      </FixedContainer>
-
+      {fields.map((item: any, index: number) => {
+        return (
+          <ItemWrapper key={item.id}>
+            <Stretch>
+              <AttributeField
+                namePath={`${namePath}.${index}`}
+                attribute={{
+                  attributeType: type,
+                  dimensions: '',
+                }}
+              />
+            </Stretch>
+            <Sticky>
+              <Button
+                variant="outlined"
+                type="button"
+                onClick={() => remove(index)}
+              >
+                Remove
+              </Button>
+            </Sticky>
+          </ItemWrapper>
+        )
+      })}
       <Button
         variant="outlined"
         data-testid={`add-${namePath}`}

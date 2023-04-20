@@ -98,8 +98,8 @@ export const GenericTablePlugin = (
       .finally(() => setIsSaveLoading(false))
   }
 
-  if (loading) return <Loading />
   if (error) throw new Error(JSON.stringify(error, null, 2))
+  if (loading) return <Loading />
 
   return (
     <div

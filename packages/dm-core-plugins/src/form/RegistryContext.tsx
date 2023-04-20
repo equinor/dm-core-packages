@@ -15,7 +15,7 @@ export const useRegistryContext = () => {
 }
 
 export const RegistryProvider = (props: any) => {
-  const { widgets, children, dataSourceId, documentId, onOpen } = props
+  const { widgets, children, idReference, onOpen } = props
 
   const allWidgets = { ...widgets, ...defaultWidgets }
 
@@ -27,8 +27,7 @@ export const RegistryProvider = (props: any) => {
 
   const value = {
     getWidget,
-    dataSourceId,
-    documentId,
+    idReference,
     onOpen,
   }
 

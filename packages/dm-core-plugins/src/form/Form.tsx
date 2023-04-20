@@ -14,16 +14,8 @@ const Wrapper = styled.div`
 `
 
 export const Form = (props: TFormProps) => {
-  const {
-    type,
-    formData,
-    widgets,
-    config,
-    onSubmit,
-    dataSourceId,
-    documentId,
-    onOpen,
-  } = props
+  const { type, formData, widgets, config, onSubmit, idReference, onOpen } =
+    props
 
   const methods = useForm({
     // Set initial state.
@@ -31,7 +23,8 @@ export const Form = (props: TFormProps) => {
   })
 
   // Every react hook form controller needs to have a unique name
-  const namePath: string = ''
+  const attributePath = idReference?.split('.', 2).slice(-1)[0] ?? ''
+  const namePath: string = attributePath === idReference ? '' : attributePath
 
   const convertNullToUndefined = (obj: TGenericObject) => {
     Object.keys(obj).forEach((key) => {
@@ -53,8 +46,7 @@ export const Form = (props: TFormProps) => {
         <RegistryProvider
           onOpen={onOpen}
           widgets={widgets}
-          dataSourceId={dataSourceId}
-          documentId={documentId}
+          idReference={idReference}
         >
           <form onSubmit={handleSubmit}>
             {type && (

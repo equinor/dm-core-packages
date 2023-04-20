@@ -46,7 +46,7 @@ type TGenericListConfig = {
 }
 const defaultConfig: TGenericListConfig = {
   expanded: false,
-  headers: ['name'],
+  headers: ['name', 'type'],
   showDelete: true,
   defaultView: { type: 'ViewConfig', scope: 'self' },
   views: [],
@@ -125,8 +125,8 @@ export const GenericListPlugin = (
       .finally(() => setIsLoading(false))
   }
 
-  if (loading) return <Loading />
   if (error) throw new Error(JSON.stringify(error, null, 2))
+  if (loading) return <Loading />
   return (
     <div
       style={{
@@ -223,7 +223,6 @@ export const GenericListPlugin = (
                   {itemsExpanded[key] && (
                     <ViewCreator
                       idReference={`${idReference}.${index}`}
-                      type={item.type}
                       viewConfig={
                         internalConfig.views[index] ??
                         internalConfig.defaultView
