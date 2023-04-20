@@ -26,12 +26,6 @@
     "symlinks": "for package in ../packages/*/; do echo $package && cd $package && mkdir -p dist && cd dist && ln -sf ../src/index.tsx index.js && cd ../../../example; done",
     "remove-symlinks": "for package in ../packages/*/; do echo $package && rm -rf dist && cd ../example; done"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",

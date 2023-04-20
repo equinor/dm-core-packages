@@ -12,9 +12,8 @@ import { useEffect, useState } from 'react'
 export const JobInputEditPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   const [dataSourceId, documentId] = idReference.split('/', 2)
-  const [document, documentLoading, updateDocument, error] = useDocument<TJob>(
-    idReference
-  )
+  const [document, documentLoading, updateDocument, error] =
+    useDocument<TJob>(idReference)
   const [formData, setFormData] = useState<TJob | null>(null)
 
   useEffect(() => {

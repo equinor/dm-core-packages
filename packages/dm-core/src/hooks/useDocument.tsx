@@ -43,7 +43,7 @@ export function useDocument<T>(
   T | null,
   boolean,
   (newDocument: T, notify: boolean) => void,
-  ErrorResponse | null
+  ErrorResponse | null,
 ] {
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)

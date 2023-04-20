@@ -86,9 +86,8 @@ describe.skip('ObjectField', () => {
       mockBlueprintGet([blueprint])
       const { container } = render(<Form type="MyBlueprint" />)
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         const id = inputNode !== null ? inputNode.getAttribute('id') : ''
         expect(id).toBe('foo')

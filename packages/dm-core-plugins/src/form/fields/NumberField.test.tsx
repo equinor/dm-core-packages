@@ -47,9 +47,8 @@ describe('NumberField', () => {
         <Form type="SingleField" onSubmit={onSubmit} />
       )
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('2')
@@ -83,9 +82,8 @@ describe('NumberField', () => {
         <Form type="SingleField" formData={formData} />
       )
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('2')
@@ -109,9 +107,8 @@ describe('NumberField', () => {
       const { container } = render(<Form type="SingleField" />)
 
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         if (inputNode) {
           userEvent.type(inputNode, '2')
