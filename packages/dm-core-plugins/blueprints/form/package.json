@@ -2,16 +2,18 @@
   "name": "form",
   "type": "CORE:Package",
   "_meta_": {
-    "type": "CORE:Meta",
+    "type": "dmss://system/SIMOS/Meta",
     "version": "0.0.1",
     "dependencies": [
       {
+        "type": "dmss://system/SIMOS/Dependency",
         "alias": "CORE",
         "address": "system/SIMOS",
         "version": "0.0.1",
         "protocol": "dmss"
       },
       {
+        "type": "dmss://system/SIMOS/Dependency",
         "alias": "PLUGINS",
         "address": "system/Plugins",
         "version": "0.0.1",
