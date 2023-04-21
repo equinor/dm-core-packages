@@ -1,6 +1,7 @@
 {
   "name": "grid",
   "type": "CORE:Package",
+  "isRoot": false,
   "_meta_": {
     "type": "dmss://system/SIMOS/Meta",
     "version": "0.0.1",
