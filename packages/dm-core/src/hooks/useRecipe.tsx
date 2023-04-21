@@ -16,6 +16,11 @@ const findRecipe = (
 ): TUiRecipe => {
   // If recipe is defined, find and return the ui recipe from available recipes.
   if (recipeName) {
+    if (!noInit && initialUiRecipe && Object.keys(initialUiRecipe).length > 0) {
+      if (initialUiRecipe && initialUiRecipe.name == recipeName)
+        return initialUiRecipe
+    }
+    
     const recipe: TUiRecipe | undefined = recipes.find(
       (recipe: any) => recipe.name == recipeName
     )
