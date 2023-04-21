@@ -70,7 +70,7 @@ const YamlView = (props: { document: TGenericObject }) => {
           </CopyToClipboard>
         </div>
       </div>
-      <pre style={{ backgroundColor: '#193549', color: 'coral' }}>
+      <pre style={{ backgroundColor: '#193549', color: 'coral', margin: '0' }}>
         <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
       </pre>
     </div>
@@ -80,12 +80,8 @@ const YamlView = (props: { document: TGenericObject }) => {
 export const YamlPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   // eslint-disable-next-line
-  const [
-    document,
-    loading,
-    updateDocument,
-    error,
-  ] = useDocument<TGenericObject>(idReference, 999)
+  const [document, loading, updateDocument, error] =
+    useDocument<TGenericObject>(idReference, 999)
   if (loading) return <Loading />
 
   if (error) throw new Error(JSON.stringify(error, null, 2))

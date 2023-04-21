@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import { formatBytes } from './formatBytes'
 import {
-  AuthContext,
-  DmssAPI,
   ErrorResponse,
   Loading,
   TGenericObject,
+  useDMSS,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { formatBytes } from './formatBytes'
 
 export const ErrorGroup = styled.div`
   display: flex;
@@ -40,8 +39,7 @@ export const ViewerPDFPlugin = (props: {
   const [blobUrl, setBlobUrl] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   useEffect(() => {
     setError(null)

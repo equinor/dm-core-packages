@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styled from 'styled-components'
-import { ErrorBoundary } from '../utils/ErrorBoundary'
+import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { useRecipe } from '../hooks'
 import { IUIPlugin } from '../types'
 import { Loading } from './Loading'
@@ -12,14 +12,27 @@ const Wrapper = styled.div`
   width: 100%;
 `
 
-type IEntityView = IUIPlugin & { recipeName?: string; noInit?: boolean }
+type IEntityView = IUIPlugin & {
+  recipeName?: string
+  noInit?: boolean
+  dimensions?: string
+}
 
 export const EntityView = (props: IEntityView): JSX.Element => {
-  const { idReference, type, onSubmit, onOpen, recipeName, noInit } = props
+  const {
+    idReference,
+    type,
+    onSubmit,
+    onOpen,
+    recipeName,
+    noInit,
+    dimensions,
+  } = props
   const { recipe, isLoading, error, getUiPlugin } = useRecipe(
     type,
     recipeName,
-    noInit
+    noInit,
+    dimensions
   )
 
   if (isLoading)
@@ -31,9 +44,12 @@ export const EntityView = (props: IEntityView): JSX.Element => {
 
   if (error)
     return (
-      <div style={{ color: 'red' }}>
-        Failed to fetch Blueprint {type || '(unknown type)'}
-      </div>
+      <ErrorGroup>
+        <p>{`Failed to find UiRecipe for type "${
+          type || '(unknown type)'
+        }"`}</p>
+        <p>{JSON.stringify(error)}</p>
+      </ErrorGroup>
     )
 
   if (!recipe || !Object.keys(recipe).length)

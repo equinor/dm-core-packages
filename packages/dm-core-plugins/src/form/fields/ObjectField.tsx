@@ -1,24 +1,21 @@
 import {
-  DmssAPI,
   // @ts-ignore
   EntityPickerButton,
+  EntityView,
   ErrorResponse,
   Loading,
   NewEntityButton,
-  EntityView,
   useBlueprint,
-  // @ts-ignore
+  useDMSS,
 } from '@development-framework/dm-core'
-import { AxiosResponse } from 'axios'
-import React, { useContext, useState } from 'react'
-import { AttributeField } from './AttributeField'
 import { Button, Typography } from '@equinor/eds-core-react'
-import styled from 'styled-components'
-import { TObjectFieldProps } from '../types'
-import { useRegistryContext } from '../RegistryContext'
+import { AxiosError, AxiosResponse } from 'axios'
+import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { AxiosError } from 'axios'
-import { AuthContext } from 'react-oauth2-code-pkce'
+import styled from 'styled-components'
+import { useRegistryContext } from '../RegistryContext'
+import { TObjectFieldProps } from '../types'
+import { AttributeField } from './AttributeField'
 
 const Wrapper = styled.div`
   margin-bottom: 20px;
@@ -66,8 +63,7 @@ const AddExternal = (props: any) => {
 const AddObject = (props: any) => {
   const { type, namePath, onAdd, contained, idReference } = props
   const { setValue } = useFormContext()
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
   const handleAdd = () => {
     const options = {
       shouldValidate: true,

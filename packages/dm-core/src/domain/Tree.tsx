@@ -3,6 +3,7 @@ import { EBlueprint } from '../Enums'
 import { TAttribute, TBlueprint } from './types'
 import { TReference } from '../types'
 import { AxiosResponse } from 'axios'
+import { useDMSS } from '../context/DMSSContext'
 
 type TTreeMap = {
   [nodeId: string]: TreeNode
@@ -284,13 +285,12 @@ export class TreeNode {
       entity: { name: name, type: type },
     })
     const newEntity = { ...response.data, name: name }
-    const createResponse: AxiosResponse<any> = await this.tree.dmssApi.documentAdd(
-      {
+    const createResponse: AxiosResponse<any> =
+      await this.tree.dmssApi.documentAdd({
         absoluteRef: `${this.nodeId}${packageContent}`,
         body: newEntity,
         updateUncontained: true,
-      }
-    )
+      })
     await this.expand()
     return createResponse.data.uid
   }
@@ -301,8 +301,8 @@ export class Tree {
   dmssApi: DmssAPI
   updateCallback: (t: Tree) => void
 
-  constructor(token: string, updateCallback: (t: Tree) => void) {
-    this.dmssApi = new DmssAPI(token)
+  constructor(updateCallback: (t: Tree) => void) {
+    this.dmssApi = useDMSS()
     this.updateCallback = updateCallback
   }
 

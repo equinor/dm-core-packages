@@ -1,37 +1,36 @@
-import React, { useContext, useState } from 'react'
-import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
-import './../../style.css'
-import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
-import { AxiosError } from 'axios'
 import {
-  AuthContext,
-  EBlueprint,
-  DmssAPI,
-  TreeNode,
-  Dialog,
   BlueprintPicker,
-  INPUT_FIELD_WIDTH,
+  Dialog,
+  DmssAPI,
+  EBlueprint,
   ErrorResponse,
+  INPUT_FIELD_WIDTH,
   TNodeWrapperProps,
+  TreeNode,
+  useDMSS,
 } from '@development-framework/dm-core'
+import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
+import { AxiosError } from 'axios'
+import React, { useState } from 'react'
+import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
+import './../../style.css'
 
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
-import { createContextMenuItems } from './utils/createContextMenuItmes'
-import { SingleTextInput } from './utils/SingleTextInput'
-import { DialogContent, edsButtonStyleConfig } from './utils/styles'
 import {
   DeleteAction,
   NewFolderAction,
   NewRootPackageAction,
 } from './utils/contextMenuActions'
+import { createContextMenuItems } from './utils/createContextMenuItmes'
+import { SingleTextInput } from './utils/SingleTextInput'
+import { DialogContent, edsButtonStyleConfig } from './utils/styles'
 
 //Component that can be used when a context menu action requires one text (string) input.
 
 export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
-  const { node, children, removeNode } = props
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token, 'http://localhost:5000')
+  const { node, children } = props
+  const dmssAPI = useDMSS()
   const [scrimToShow, setScrimToShow] = useState<string>('')
   const [formData, setFormData] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)

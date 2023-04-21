@@ -1,9 +1,8 @@
-import React from 'react'
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
-import { Form } from '../Form'
-import { mockBlueprintGet } from '../test-utils'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { act } from 'react-dom/test-utils'
+import React from 'react'
+import { Form } from '../Form'
+import { mockBlueprintGet, wrapper } from '../test-utils'
 
 describe('BooleanField', () => {
   afterEach(() => {
@@ -25,7 +24,7 @@ describe('BooleanField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=checkbox]`).length).toBe(
           1
@@ -49,7 +48,7 @@ describe('BooleanField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleFieldWithLabel" />)
+      render(<Form type="SingleFieldWithLabel" />, { wrapper })
       await waitFor(() => {
         expect(screen.getByText('Foo')).toBeDefined()
       })
@@ -70,11 +69,10 @@ describe('BooleanField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[name="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[name="foo"]`)
         expect(inputNode).toBeDefined()
         const id = inputNode !== null ? inputNode.getAttribute('id') : ''
         expect(id).toBe('foo')
@@ -100,12 +98,12 @@ describe('BooleanField', () => {
         foo: 'beep',
       }
       const { container } = render(
-        <Form type="SingleField" formData={formData} />
+        <Form type="SingleField" formData={formData} />,
+        { wrapper }
       )
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe(formData.foo)
@@ -129,16 +127,16 @@ describe('BooleanField', () => {
       ])
       const onSubmit = jest.fn()
       const { container } = render(
-        <Form type="SingleField" onSubmit={onSubmit} />
+        <Form type="SingleField" onSubmit={onSubmit} />,
+        { wrapper }
       )
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('true')
-        fireEvent.submit(screen.getByRole('button'))
+        fireEvent.submit(screen.getByTestId('form-submit'))
         expect(onSubmit).toHaveBeenCalled()
         expect(onSubmit).toHaveBeenCalledWith({
           foo: true,
@@ -161,16 +159,15 @@ describe('BooleanField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('true')
-        userEvent.click(screen.getByRole('checkbox'))
-        fireEvent.submit(screen.getByRole('button'))
+        userEvent.click(screen.getByTestId('form-checkbox'))
+        fireEvent.submit(screen.getByTestId('form-submit'))
       })
     })
 

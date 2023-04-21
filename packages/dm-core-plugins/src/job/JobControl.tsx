@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
 import {
+  ApplicationContext,
   AuthContext,
   Dialog,
-  DmssAPI,
   DmJobAPI,
-  ErrorResponse,
   EntityView,
+  ErrorResponse,
   JobStatus,
   TJob,
-  ApplicationContext,
+  useDMSS,
 } from '@development-framework/dm-core'
 import { Button, Label, Progress } from '@equinor/eds-core-react'
-import Icons from './Icons'
 import { AxiosError } from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import styled from 'styled-components'
+import Icons from './Icons'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
 
@@ -84,7 +84,7 @@ export const JobControl = (props: {
   const { token } = useContext(AuthContext)
   const settings = useContext(ApplicationContext)
   const dmtApi = new DmJobAPI(token)
-  const dmssApi = new DmssAPI(token)
+  const dmssAPI = useDMSS()
   const [loading, setLoading] = useState<boolean>(false)
   const [jobUID, setJobUID] = useState<string | undefined>(document?.uid)
   const [jobLogs, setJobLogs] = useState<any>()
@@ -140,7 +140,7 @@ export const JobControl = (props: {
     setLoading(true)
     try {
       await dmtApi.removeJob({ jobUid: jobUID })
-      await dmssApi.documentRemove({ idReference: jobId })
+      await dmssAPI.documentRemove({ idReference: jobId })
     } catch (error: AxiosError<ErrorResponse> | any) {
       if (isAxiosError(error)) {
         console.error(error.response?.data)

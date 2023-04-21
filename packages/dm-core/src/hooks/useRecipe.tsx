@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   useBlueprint,
   TUiRecipe,
@@ -11,7 +11,8 @@ const findRecipe = (
   initialUiRecipe: TUiRecipe | undefined,
   recipes: TUiRecipe[],
   recipeName?: string,
-  noInit: boolean = false
+  noInit: boolean = false,
+  dimensions: string = ''
 ): TUiRecipe => {
   // If recipe is defined, find and return the ui recipe from available recipes.
   if (recipeName) {
@@ -28,12 +29,27 @@ const findRecipe = (
     }
     return recipe
   }
-  // If no recipe is defined, use initialize recipe, or the first from recipes list or lastly fallback.
+
+  // If dimensions are given, use the first recipe with a matching dimension
+  if (dimensions) {
+    const rightDimensionsRecipe = recipes.filter(
+      (r: TUiRecipe) => r.dimensions === dimensions
+    )
+    if (!rightDimensionsRecipe.length)
+      throw new Error(`No recipe with given dimension "${dimensions}" found`)
+    return rightDimensionsRecipe[0]
+  }
+
+  // If no recipe is defined, use initial recipe, or the first from recipes list or lastly fallback.
   if (!noInit && initialUiRecipe && Object.keys(initialUiRecipe).length > 0) {
     return initialUiRecipe
   }
   if (recipes.length > 0) {
-    return recipes[0]
+    // Recipes for lists should not be used as fallback
+    const noDimensionsRecipes = recipes.filter(
+      (r: TUiRecipe) => !r.dimensions || r.dimensions === ''
+    )
+    return noDimensionsRecipes[0]
   }
   return {
     type: 'CORE:UIRecipe',
@@ -77,7 +93,8 @@ interface IUseRecipe {
 export const useRecipe = (
   typeRef: string,
   recipeName?: string,
-  noInit: boolean = false
+  noInit: boolean = false,
+  dimensions: string = ''
 ): IUseRecipe => {
   const {
     initialUiRecipe,
@@ -85,16 +102,32 @@ export const useRecipe = (
     isLoading: isBlueprintLoading,
     error,
   } = useBlueprint(typeRef)
-  const { loading: isPluginContextLoading, getUiPlugin } = useContext(
-    UiPluginContext
+  const { loading: isPluginContextLoading, getUiPlugin } =
+    useContext(UiPluginContext)
+  const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
+  const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
+    null
   )
 
+  useEffect(() => {
+    if (isBlueprintLoading) return
+    try {
+      setFoundRecipe(
+        findRecipe(initialUiRecipe, uiRecipes, recipeName, noInit, dimensions)
+      )
+    } catch (error) {
+      const errorResponse: ErrorResponse = {
+        type: 'RecipeSelectionError',
+        message: error.message,
+      }
+      setFindRecipeError(errorResponse)
+    }
+  }, [isBlueprintLoading])
+
   return {
-    recipe: isBlueprintLoading
-      ? undefined
-      : findRecipe(initialUiRecipe, uiRecipes, recipeName, noInit),
+    recipe: isBlueprintLoading ? undefined : foundRecipe,
     isLoading: isBlueprintLoading && isPluginContextLoading,
-    error,
+    error: error ?? findRecipeError,
     getUiPlugin,
   }
 }

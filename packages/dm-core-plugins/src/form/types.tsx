@@ -1,3 +1,5 @@
+import { TViewConfig } from '@development-framework/dm-core'
+
 export type TFormProps = {
   documentId?: string
   dataSourceId?: string
@@ -6,7 +8,7 @@ export type TFormProps = {
   onSubmit?: (data: any) => void
   widgets?: any
   config?: any
-  onOpen?: (data: any) => void
+  onOpen?: (key: string, view: TViewConfig) => void
 }
 
 export type TObjectFieldProps = {

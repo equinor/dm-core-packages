@@ -11,9 +11,13 @@ import { useDocument } from '@development-framework/dm-core'
 
 export const PdfPlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const [document, loading] = useDocument<TGenericObject>(idReference, 999)
+  const [document, loading, _, error] = useDocument<TGenericObject>(
+    idReference,
+    999
+  )
   const dataSource = idReference.split('/')[0]
 
+  if (error) throw new Error(JSON.stringify(error, null, 2))
   if (loading || document === null) return <Loading />
 
   return <ViewerPDFPlugin document={document} dataSourceId={dataSource} />

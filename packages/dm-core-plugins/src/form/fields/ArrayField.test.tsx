@@ -1,7 +1,7 @@
-import { mockBlueprintGet } from '../test-utils'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { Form } from '../Form'
 import React from 'react'
+import { Form } from '../Form'
+import { mockBlueprintGet, wrapper } from '../test-utils'
 
 describe('ArrayField', () => {
   afterEach(() => {
@@ -31,7 +31,7 @@ describe('ArrayField', () => {
           },
         ],
       }
-      render(<Form type="MyBlueprint" formData={formData} />)
+      render(<Form type="MyBlueprint" formData={formData} />, { wrapper })
       await waitFor(() => {
         expect(screen.getByText('Could not find the blueprint')).toBeDefined()
       })
@@ -54,7 +54,7 @@ describe('ArrayField', () => {
 
     it('should contain no field in the list by default', async () => {
       mockBlueprintGet([blueprint])
-      const { container } = render(<Form type="MyBlueprint" />)
+      const { container } = render(<Form type="MyBlueprint" />, { wrapper })
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(0)
       })
@@ -62,7 +62,7 @@ describe('ArrayField', () => {
 
     it('should have an add button', async () => {
       mockBlueprintGet([blueprint])
-      const { container } = render(<Form type="MyBlueprint" />)
+      render(<Form type="MyBlueprint" />, { wrapper })
       await waitFor(() => {
         expect(screen.getByText('Add')).toBeDefined()
       })
@@ -70,7 +70,7 @@ describe('ArrayField', () => {
 
     it('should add a new field when clicking the add button', async () => {
       mockBlueprintGet([blueprint])
-      const { container } = render(<Form type="MyBlueprint" />)
+      const { container } = render(<Form type="MyBlueprint" />, { wrapper })
       await waitFor(() => {
         fireEvent.click(screen.getByText('Add'))
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)
@@ -83,7 +83,8 @@ describe('ArrayField', () => {
         array: ['foo', 'bar'],
       }
       const { container } = render(
-        <Form type="MyBlueprint" formData={formData} />
+        <Form type="MyBlueprint" formData={formData} />,
+        { wrapper }
       )
       await waitFor(() => {
         const inputs = container.querySelectorAll(` input[type=text]`)
@@ -99,7 +100,8 @@ describe('ArrayField', () => {
         array: ['foo', 'bar'],
       }
       const { container } = render(
-        <Form type="MyBlueprint" formData={formData} />
+        <Form type="MyBlueprint" formData={formData} />,
+        { wrapper }
       )
       await waitFor(() => {
         const inputs = container.querySelectorAll(` input[type=text]`)
@@ -143,7 +145,8 @@ describe('ArrayField', () => {
         ],
       }
       const { container } = render(
-        <Form type="MyBlueprint" formData={formData} />
+        <Form type="MyBlueprint" formData={formData} />,
+        { wrapper }
       )
       await waitFor(() => {
         const inputs = container.querySelectorAll(` input[type=text]`)
@@ -188,7 +191,9 @@ describe('ArrayField', () => {
           },
         ],
       }
-      const { container } = render(<Form type="Root" formData={formData} />)
+      const { container } = render(<Form type="Root" formData={formData} />, {
+        wrapper,
+      })
       await waitFor(() => {
         const inputs = container.querySelectorAll(` input[type=text]`)
         expect(inputs.length).toBe(3)
@@ -200,7 +205,7 @@ describe('ArrayField', () => {
 
     it.skip('should add an inner when clicking the add button', async () => {
       mockBlueprintGet([outer, inner])
-      const { container } = render(<Form type="Root" />)
+      const { container } = render(<Form type="Root" />, { wrapper })
       await waitFor(() => {
         fireEvent.click(screen.getByTestId('add-array'))
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)

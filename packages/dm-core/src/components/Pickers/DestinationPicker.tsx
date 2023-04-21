@@ -17,7 +17,6 @@ import {
 import styled from 'styled-components'
 import { ApplicationContext } from '../../context/ApplicationContext'
 import { truncatePathString } from '../../utils/truncatePathString'
-import { AuthContext, AuthProvider } from 'react-oauth2-code-pkce'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { Dialog } from '../Dialog'
 
@@ -31,17 +30,12 @@ type TDestinationPickerProps = {
 
 export const DestinationPicker = (props: TDestinationPickerProps) => {
   const { onChange, formData, disabled, scope, label } = props
-  const { token } = useContext(AuthContext)
   const appConfig = useContext(ApplicationContext)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
 
-  const tree: Tree = new Tree(
-    token,
-    // @ts-ignore
-    (t: Tree) => setTreeNodes([...t])
-  )
+  const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
 
   useEffect(() => {
     setLoading(true)

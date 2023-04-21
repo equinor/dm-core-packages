@@ -21,7 +21,8 @@
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form"
             },
-            "scope": "firstAttribute"
+            "scope": "firstAttribute",
+            "eds_icon": "apps"
           }
         },
         {
@@ -35,7 +36,8 @@
               "description": "Tabs",
               "plugin": "@development-framework/dm-core-plugins/attribute-selector"
             },
-            "scope": "thirdAttribute"
+            "scope": "thirdAttribute",
+            "eds_icon": "filter_list"
           }
         },
         {

@@ -1,6 +1,5 @@
-import { useEffect, useState, useContext } from 'react'
-import { AuthContext } from 'react-oauth2-code-pkce'
-import { DmssAPI } from '../services'
+import { useEffect, useState } from 'react'
+import { useDMSS } from '../context/DMSSContext'
 
 export function useSearch<T>(
   body: any,
@@ -10,8 +9,7 @@ export function useSearch<T>(
   const [searchResult, setSearchResult] = useState<T[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
-  const { token } = useContext(AuthContext)
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   useEffect(() => {
     setIsLoading(true)

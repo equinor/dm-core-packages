@@ -74,7 +74,7 @@ export interface IUIPlugin {
   type: string
   idReference: string
   onSubmit?: (data: any) => void
-  onOpen?: (data: any) => void
+  onOpen?: (key: string, view: TViewConfig) => void
   config?: any
 }
 
@@ -84,6 +84,7 @@ export type TUiRecipe = {
   plugin: string
   config?: TGenericObject
   roles?: string[]
+  dimensions?: string
 }
 
 export type TPlugin = {
@@ -97,8 +98,9 @@ export type TUserIdMapping = { userId: string; username: string }
 
 export type TViewConfig = {
   type: string
-  scope: string
+  scope?: string
   label?: string
+  eds_icon?: string
 }
 
 export type TReferenceViewConfig = TViewConfig & {

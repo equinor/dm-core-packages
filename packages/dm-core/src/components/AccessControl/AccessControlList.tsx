@@ -3,7 +3,6 @@ import { Button, Checkbox, Icon, Progress, Tabs } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import { edit_text, save } from '@equinor/eds-icons'
 
-import DmssAPI from '../../services/api/DmssAPI'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 //@ts-ignore
 import { NotificationManager } from 'react-notifications'
@@ -17,7 +16,7 @@ import { ACLUserRolesPanel } from './ACLUserRolesPanel'
 import { ACLOwnerPanel } from './ACLOwnerPanel'
 import { TUserIdMapping } from '../../types'
 import { AccessLevel, ACL } from '../../services'
-import { AuthContext } from 'react-oauth2-code-pkce'
+import { useDMSS } from '../../context/DMSSContext'
 
 Icon.add({ edit_text, save })
 
@@ -57,9 +56,8 @@ export const AccessControlList = (props: {
   const [loading, setLoading] = useState<boolean>(false)
   const [loadingACLDocument, setLoadingACLDocument] = useState<boolean>(false)
   const [tokenWithReadAccess, setTokenWithReadAccess] = useState<string>('')
-  const { token } = useContext(AuthContext)
   const [refreshToken] = useLocalStorage('ROCP_refreshToken', '')
-  const dmssAPI = new DmssAPI(token)
+  const dmssAPI = useDMSS()
 
   const [documentACL, setDocumentACL] = useState<ACL>({
     owner: '',

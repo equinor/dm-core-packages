@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { IUIPlugin, TPlugin } from '../types'
 import { RecipeSelector, UiRecipesSideBarSelector } from '../components'
+import { ErrorGroup } from '../utils/ErrorBoundary'
 
 type TUiPluginMap = {
   [pluginName: string]: (props: IUIPlugin) => JSX.Element
@@ -32,8 +33,7 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
   useEffect(() => {
     // Add builtin plugins
     let newPluginMap: TUiPluginMap = {
-      UiRecipeSideBarSelector: UiRecipesSideBarSelector,
-      // @ts-ignore
+      UiRecipeSideBarSelector: UiRecipesSideBarSelector, // @ts-ignore
       'recipe-selector': RecipeSelector,
     }
 
@@ -66,7 +66,7 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
 
   function getUiPlugin(pluginName: string): (props: IUIPlugin) => JSX.Element {
     if (pluginName in plugins) return plugins[pluginName]
-    return () => <div>Did not find the plugin: {pluginName} </div>
+    return () => <ErrorGroup>Did not find the plugin: {pluginName}</ErrorGroup>
   }
 
   return (

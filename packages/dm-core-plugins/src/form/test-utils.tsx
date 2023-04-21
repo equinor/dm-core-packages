@@ -1,4 +1,5 @@
-import { DmssAPI } from '@development-framework/dm-core'
+import { DmssAPI, DMSSProvider } from '@development-framework/dm-core'
+import React from 'react'
 
 export const mockBlueprintGet = (blueprints: Array<any>) => {
   const mock = jest.spyOn(DmssAPI.prototype, 'blueprintGet')
@@ -14,3 +15,7 @@ export const mockBlueprintGet = (blueprints: Array<any>) => {
   )
   return mock
 }
+
+export const wrapper = (props: { children: React.ReactNode }) => (
+  <DMSSProvider>{props.children}</DMSSProvider>
+)

@@ -1,17 +1,17 @@
 import {
-  JsonView,
-  DmssAPI,
-  FSTreeContext,
-  TreeView,
-  NewEntityButton,
   EntityView,
+  FSTreeContext,
+  JsonView,
+  NewEntityButton,
+  TreeView,
+  useDMSS,
 } from '@development-framework/dm-core'
 import { useContext, useState } from 'react'
 
 import { Jobs } from './test_components/Jobs'
 
 function App() {
-  const dmssAPI = new DmssAPI('')
+  const dmssAPI = useDMSS()
 
   const { treeNodes, loading } = useContext(FSTreeContext)
 
@@ -29,6 +29,11 @@ function App() {
         overflow: 'auto',
       }}
     >
+      <h3>A generic list view</h3>
+      <EntityView
+        type={'dmss://DemoDataSource/DemoPackage/blueprints/OrderItem'}
+        idReference={'DemoDataSource/orderExample.items'}
+      />
       <h3>An application with the "header"-plugin</h3>
       <EntityView
         type={'dmss://DemoDataSource/DemoPackage/blueprints/ExampleApplication'}
@@ -61,7 +66,7 @@ function App() {
           key={selectedEntity}
         />
       )}
-      <h3>Example on using jobs (outdated)</h3>
+      <h3>Example on using jobs</h3>
       <Jobs />
       <h3>NewEntityButton button from dm-core</h3>
       <NewEntityButton

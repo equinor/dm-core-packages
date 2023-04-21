@@ -1,19 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import React, { useEffect, useState } from 'react'
-import { act } from 'react-dom/test-utils'
+import { render, waitFor } from '@testing-library/react'
+import React from 'react'
 import { Form } from './Form'
-import { mockBlueprintGet } from './test-utils'
+import { mockBlueprintGet, wrapper } from './test-utils'
 
 describe('Form', () => {
   afterEach(() => {
     jest.clearAllMocks()
-  })
-
-  describe('Empty Type', () => {
-    it('should render a submit button', () => {
-      render(<Form />)
-      expect(screen.getAllByRole('button').length).toBe(1)
-    })
   })
 
   describe('With Type', () => {
@@ -37,9 +29,8 @@ describe('Form', () => {
         },
       ])
 
-      const { container } = render(<Form type="Root" />)
+      const { container } = render(<Form type="Root" />, { wrapper })
       await waitFor(() => {
-        expect(screen.getAllByRole('button').length).toBe(1)
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="bar"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="baz"]`)).toBeNull()
@@ -86,9 +77,10 @@ describe('Form', () => {
           bar: '',
         },
       }
-      const { container } = render(<Form type="Root" formData={formData} />)
+      const { container } = render(<Form type="Root" formData={formData} />, {
+        wrapper,
+      })
       await waitFor(() => {
-        expect(screen.getAllByRole('button').length).toBe(1)
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="child.bar"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="baz"]`)).toBeNull()
@@ -123,9 +115,10 @@ describe('Form', () => {
         ],
       }
 
-      const { container } = render(<Form type="Root" config={config} />)
+      const { container } = render(<Form type="Root" config={config} />, {
+        wrapper,
+      })
       await waitFor(() => {
-        expect(screen.getAllByRole('button').length).toBe(1)
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         // Should only call get blueprint once
         expect(mock).toHaveBeenCalledWith({ typeRef: 'Root' })

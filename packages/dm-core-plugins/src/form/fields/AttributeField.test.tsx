@@ -1,7 +1,7 @@
-import { mockBlueprintGet } from '../test-utils'
 import { render, screen, waitFor } from '@testing-library/react'
-import { Form } from '../Form'
 import React from 'react'
+import { Form } from '../Form'
+import { mockBlueprintGet, wrapper } from '../test-utils'
 
 describe('AttributeField', () => {
   describe('Unsupported field', () => {
@@ -19,7 +19,7 @@ describe('AttributeField', () => {
           ],
         },
       ])
-      render(<Form type="SingleField" />)
+      render(<Form type="SingleField" />, { wrapper })
       await waitFor(() => {
         expect(
           screen.getByText('Could not find the blueprint', { exact: false })

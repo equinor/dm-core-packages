@@ -23,7 +23,11 @@ export const GridElement = (props: TGridItemProps): JSX.Element => {
       columnStart={item.gridArea.columnStart}
       columnEnd={item.gridArea.columnEnd}
     >
-      <ViewCreator idReference={idReference} viewConfig={item.viewConfig} />
+      <ViewCreator
+        idReference={idReference}
+        viewConfig={item.viewConfig}
+        type={item.type}
+      />
     </Element>
   )
 }

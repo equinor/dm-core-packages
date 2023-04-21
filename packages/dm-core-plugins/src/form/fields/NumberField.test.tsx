@@ -1,8 +1,8 @@
-import React from 'react'
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
-import { Form } from '../Form'
-import { mockBlueprintGet } from '../test-utils'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
+import { Form } from '../Form'
+import { mockBlueprintGet, wrapper } from '../test-utils'
 
 describe('NumberField', () => {
   describe('TextWidget', () => {
@@ -20,7 +20,7 @@ describe('NumberField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1) // TODO type should be number not text
         expect(screen.getByText('foo')).toBeDefined()
@@ -44,16 +44,16 @@ describe('NumberField', () => {
       ])
       const onSubmit = jest.fn()
       const { container } = render(
-        <Form type="SingleField" onSubmit={onSubmit} />
+        <Form type="SingleField" onSubmit={onSubmit} />,
+        { wrapper }
       )
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('2')
-        fireEvent.submit(screen.getByRole('button'))
+        fireEvent.submit(screen.getByTestId('form-submit'))
         expect(onSubmit).toHaveBeenCalled()
         expect(onSubmit).toHaveBeenCalledWith({
           foo: 2,
@@ -80,12 +80,12 @@ describe('NumberField', () => {
         foo: 2,
       }
       const { container } = render(
-        <Form type="SingleField" formData={formData} />
+        <Form type="SingleField" formData={formData} />,
+        { wrapper }
       )
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         const value = inputNode !== null ? inputNode.getAttribute('value') : ''
         expect(value).toBe('2')
@@ -106,12 +106,11 @@ describe('NumberField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />)
+      const { container } = render(<Form type="SingleField" />, { wrapper })
 
       await waitFor(() => {
-        const inputNode: Element | null = container.querySelector(
-          ` input[id="foo"]`
-        )
+        const inputNode: Element | null =
+          container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
         if (inputNode) {
           userEvent.type(inputNode, '2')
@@ -138,13 +137,13 @@ describe('NumberField', () => {
         },
       ])
       const onSubmit = jest.fn()
-      render(<Form type="SingleField" onSubmit={onSubmit} />)
+      render(<Form type="SingleField" onSubmit={onSubmit} />, { wrapper })
       await waitFor(() => {
-        fireEvent.submit(screen.getByRole('button'))
-        expect(onSubmit).toHaveBeenCalled()
-        expect(onSubmit).toHaveBeenCalledWith({})
-        expect(screen.getByText('foo (optional)')).toBeDefined()
+        fireEvent.submit(screen.getByTestId('form-submit'))
       })
+      expect(onSubmit).toHaveBeenCalled()
+      expect(onSubmit).toHaveBeenCalledWith({})
+      expect(screen.getByText('foo (optional)')).toBeDefined()
     })
 
     it('should not call onSubmit if non-optional field are missing value', async () => {
@@ -163,8 +162,8 @@ describe('NumberField', () => {
         },
       ])
       const onSubmit = jest.fn()
-      render(<Form type="SingleField" onSubmit={onSubmit} />)
-      fireEvent.submit(screen.getByRole('button'))
+      render(<Form type="SingleField" onSubmit={onSubmit} />, { wrapper })
+      fireEvent.submit(screen.getByTestId('form-submit'))
       await waitFor(() => {
         expect(onSubmit).not.toHaveBeenCalled()
         expect(onSubmit).toHaveBeenCalledTimes(0)
