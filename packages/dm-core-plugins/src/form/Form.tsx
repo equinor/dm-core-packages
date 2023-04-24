@@ -23,8 +23,7 @@ export const Form = (props: TFormProps) => {
   })
 
   // Every react hook form controller needs to have a unique name
-  const attributePath = idReference?.split('.', 2).slice(-1)[0] ?? ''
-  const namePath: string = attributePath === idReference ? '' : attributePath
+  const namePath: string = ''
 
   const convertNullToUndefined = (obj: TGenericObject) => {
     Object.keys(obj).forEach((key) => {
