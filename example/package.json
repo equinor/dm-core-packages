@@ -19,7 +19,7 @@
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false REACT_APP_DMSS_URL=http://localhost:5000  REACT_APP_DM_JOB_URL=http://localhost:5001 craco start",
+    "start": "GENERATE_SOURCEMAP=false REACT_APP_DMSS_URL=http://localhost:5000 ESLINT_NO_DEV_ERRORS='true' REACT_APP_DM_JOB_URL=http://localhost:5001 craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",

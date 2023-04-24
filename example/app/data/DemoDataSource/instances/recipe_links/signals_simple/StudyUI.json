@@ -32,6 +32,12 @@
       "name": "Edit",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
-    }    
+    },
+        {
+      "name": "List",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/generic-list",
+      "dimensions": "*"
+    }
   ]
 }
