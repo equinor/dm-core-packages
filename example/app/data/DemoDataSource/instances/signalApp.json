@@ -1,0 +1,71 @@
+{
+  "_id": "4483c9b0-d505-46c9-a157-94c79f4d7a6a",
+  "type": "AppModels:SignalApp",
+  "name": "signalApp",
+  "description": "This is an app for generating and plotting sin signals.",
+  "label": "",
+  "dataSources": [
+    "AppStorage"
+  ],
+  "study": {
+    "type": "AppModels:signals_simple/Study",
+    "cases": [
+      {
+        "type": "AppModels:signals_simple/Case",
+        "name": "case1",
+        "description": "",
+        "duration": 100,
+        "timeStep": 0.1,
+        "components": [
+          {
+            "type": "AppModels:signals_simple/SinComp",
+            "A": 10,
+            "T": 10,
+            "phase": 0.1
+          },
+          {
+            "type": "AppModels:signals_simple/SinComp",
+            "A": 2,
+            "T": 2,
+            "phase": 0
+          },
+          {
+            "type": "AppModels:signals_simple/SinComp",
+            "A": 20,
+            "T": 20,
+            "phase": 0.05
+          }
+        ],
+        "signal": {
+          "type": "AppModels:containers/EquallySpacedSignal",
+          "name": "signal",
+          "value": [],
+          "xname": "time",
+          "xunit": "s",
+          "xdelta": 0.1,
+          "xstart": 0,
+          "xlabel": "Time",
+          "label": " ",
+          "legend": " ",
+          "unit": "m"
+        },
+        "job": {
+          "label": "signal generator job",
+          "type": "JOBCORE:Job",
+          "status": "not started",
+          "triggeredBy": "me",
+          "applicationInput": { "name": "input_proxy",
+                                "type": "AppModels:CaseProxy",
+                                "description": "sdrawkcab si siht",
+                                "child_id":""},
+          "runner": { "type": "AppModels:SignalGeneratorJob" },
+          "started": "Not started"
+        }
+      }
+    ]
+  },
+  "studyNC": {
+    "type": "AppModels:signals_simple/StudyNC",
+    "cases": []
+  }
+}

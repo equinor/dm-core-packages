@@ -1,0 +1,35 @@
+{
+  "name": "Case",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "components",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./SinComp",
+      "dimensions": "*"
+    },
+    {
+      "name": "duration",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number"
+    },
+    {
+      "name": "timeStep",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number"
+    },
+    {
+      "name": "signal",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "../containers/EquallySpacedSignal"
+    },
+    {
+      "name": "job",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "JOBCORE:Job",
+      "optional": true
+    }    
+  ]
+}
