@@ -13,8 +13,8 @@ export const JobControlPlugin = (props: IUIPlugin) => {
   const [dataSourceId, documentId] = idReference.split('/', 2)
   const [document, documentLoading, updateDocument, error] =
     useDocument<TJob>(idReference)
-  if (documentLoading) return <Loading />
   if (error) throw new Error(JSON.stringify(error, null, 2))
+  if (documentLoading) return <Loading />
   if (!document) return <div>The job document is empty</div>
   return (
     <JobControl

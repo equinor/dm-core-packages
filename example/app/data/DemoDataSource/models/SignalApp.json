@@ -30,6 +30,6 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./signals_simple/StudyNC",
       "optional": false
-    }
+    }     
   ]
 }

@@ -211,7 +211,7 @@ const BlueprintAttribute = (props: {
 
 export const BlueprintPlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const [document, _loading, updateDocument] =
+  const [document, _loading, updateDocument, error] =
     useDocument<TBlueprint>(idReference)
   const [formData, setFormData] = useState<any>({ ...document }) //TODO remove any type (requires TBlueprint to be updated)
 
@@ -223,6 +223,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
     setFormData(document)
   }, [document])
 
+  if (error) throw new Error(JSON.stringify(error, null, 2))
   if (!document || _loading) return <Loading />
 
   return (

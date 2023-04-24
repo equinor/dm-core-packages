@@ -1,5 +1,4 @@
 import {
-  // @ts-ignore
   EntityPickerButton,
   EntityView,
   ErrorResponse,
@@ -16,6 +15,7 @@ import styled from 'styled-components'
 import { useRegistryContext } from '../RegistryContext'
 import { TObjectFieldProps } from '../types'
 import { AttributeField } from './AttributeField'
+import { OpenObjectButton } from '../components/OpenObjectButton'
 
 const Wrapper = styled.div`
   margin-bottom: 20px;
@@ -61,7 +61,7 @@ const AddExternal = (props: any) => {
 }
 
 const AddObject = (props: any) => {
-  const { type, namePath, onAdd, contained, idReference } = props
+  const { type, namePath, onAdd, idReference } = props
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
   const handleAdd = () => {
@@ -103,39 +103,6 @@ const AddObject = (props: any) => {
   )
 }
 
-export const OpenObject = (props: any) => {
-  const { type, namePath, contained, dataSourceId, documentId, entity } = props
-  const { onOpen, setValue } = useRegistryContext()
-
-  const idReference = contained
-    ? `${documentId}.${namePath}`
-    : `${dataSourceId}/${documentId}`
-  return (
-    <Button
-      variant="outlined"
-      onClick={() =>
-        onOpen({
-          attribute: namePath,
-          entity: entity || {
-            type,
-          },
-          // TODO: absoluteDottedId should be renamed to idReference after Tabs container rename it
-          absoluteDottedId: idReference,
-          onSubmit: (data: any) => {
-            const options = {
-              shouldValidate: true,
-              shouldDirty: true,
-              shouldTouch: true,
-            }
-            setValue(namePath, data, options)
-          },
-        })
-      }
-    >
-      Open
-    </Button>
-  )
-}
 const RemoveObject = (props: any) => {
   const { namePath, onRemove } = props
   const { setValue } = useFormContext()
@@ -237,7 +204,7 @@ const AttributeList = (props: any) => {
 }
 
 const External = (props: any) => {
-  const { type, namePath, contained = true, dataSourceId, documentId } = props
+  const { type, namePath, contained = true, idReference } = props
 
   const { getValues } = useFormContext()
   const { onOpen } = useRegistryContext()
@@ -245,14 +212,11 @@ const External = (props: any) => {
   const initialValue = getValues(namePath) || {
     type: type,
   }
-  const idReference = contained
-    ? `${dataSourceId}/${documentId}.${namePath}`
-    : `${dataSourceId}/${documentId}`
 
   return (
     <EntityView
       key={namePath}
-      idReference={idReference}
+      idReference={contained ? `${idReference}.${namePath}` : idReference}
       type={initialValue.type}
       onOpen={onOpen}
     />
@@ -272,7 +236,7 @@ export const Contained = (props: any): JSX.Element => {
   } = props
 
   const { getValues, setValue } = useFormContext()
-  const { documentId, dataSourceId, onOpen } = useRegistryContext()
+  const { idReference, onOpen } = useRegistryContext()
   const [isDefined, setIsDefined] = useState(
     namePath == ''
       ? getValues() !== undefined
@@ -281,9 +245,9 @@ export const Contained = (props: any): JSX.Element => {
   )
   const hasOpen = onOpen !== undefined
   const isRoot = namePath == ''
-  const values = isRoot ? getValues() : getValues(namePath)
-  // const hasValues = values !== undefined
   const shouldOpen = hasOpen && !isRoot
+
+  const attributePath = idReference?.split('.', 2).slice(-1)[0] ?? ''
 
   return (
     <Wrapper>
@@ -291,7 +255,7 @@ export const Contained = (props: any): JSX.Element => {
         <Typography bold={true}>{displayLabel}</Typography>
         {!isDefined && (
           <AddObject
-            idReference={documentId}
+            idReference={idReference}
             contained={contained}
             namePath={namePath}
             type={type}
@@ -299,14 +263,7 @@ export const Contained = (props: any): JSX.Element => {
           />
         )}
         {shouldOpen && isDefined && (
-          <OpenObject
-            type={type}
-            namePath={namePath}
-            contained={contained}
-            dataSourceId={dataSourceId}
-            documentId={documentId}
-            entity={values}
-          />
+          <OpenObjectButton namePath={`${attributePath}.${namePath}`} />
         )}
       </ItemWrapper>
       {!shouldOpen && isDefined && (
@@ -326,23 +283,15 @@ export const Contained = (props: any): JSX.Element => {
             />
           )}
           {uiRecipe && uiRecipe.plugin !== 'form' && (
-            <External
-              {...props}
-              documentId={documentId}
-              dataSourceId={dataSourceId}
-            />
+            <External {...props} idReference={idReference} />
           )}
           {(isRoot ||
             uiRecipe === null ||
             (uiRecipe && uiRecipe.plugin === 'form')) && (
             <AttributeList
-              type={type}
               namePath={namePath}
               config={uiRecipe ? uiRecipe.config : config}
               blueprint={blueprint}
-              contained={contained}
-              dataSourceId={dataSourceId}
-              documentId={documentId}
             />
           )}
         </>
@@ -396,16 +345,7 @@ export const NonContained = (props: any): JSX.Element => {
                       setValue(namePath, null, options)
                     }}
                   />
-                  {onOpen && (
-                    <OpenObject
-                      type={type}
-                      namePath={namePath}
-                      contained={contained}
-                      dataSourceId={dataSourceId}
-                      documentId={value._id}
-                      entity={value}
-                    />
-                  )}
+                  {onOpen && <OpenObjectButton namePath={namePath} />}
                 </ItemWrapper>
                 {!onOpen && (
                   <External
@@ -447,12 +387,13 @@ export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
 
   const values = getValues(namePath)
   // If the attribute type is an object, we need to find the correct type from the values.
-  if (type === 'object' && !values) {
-    return (
-      <Button variant="outlined" data-testid={`add-${namePath}`}>
-        Add
-      </Button>
-    )
+  if (type === 'object' && !values){
+    return     <Button
+                variant="outlined"
+                data-testid={`add-${namePath}`}
+              >
+                Add
+              </Button>
   }
 
   return (
@@ -480,8 +421,8 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
 
   if (isLoading) return <Loading />
   if (type == 'object') {
-    console.log('*** ERR ***')
-    console.log('*** ERR2 ***')
+    console.log('*** ERR ***') 
+    console.log('*** ERR2 ***') 
   }
   console.log(namePath)
   console.log(type)

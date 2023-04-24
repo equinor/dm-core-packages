@@ -47,19 +47,24 @@ export const NumberField = (props: TNumberFieldProps) => {
         required: !optional,
         pattern: { value: /^[0-9]+$/g, message: 'Only digits allowed' },
       }}
-      defaultValue={defaultValue || undefined}
+      defaultValue={defaultValue || null}
       render={({
         field: { ref, onChange, ...props },
         fieldState: { invalid, error },
       }) => {
         // Convert to number
-        const handleChange = (value: string) => {
-          onChange(asNumber(value))
+        const handleChange = (value: string | null) => {
+          if (value === null) {
+            onChange(null)
+          } else {
+            onChange(asNumber(value))
+          }
         }
         return (
           <Widget
             {...props}
             onChange={handleChange}
+            value={props.value ?? ''}
             type="number"
             id={namePath}
             label={displayLabel}

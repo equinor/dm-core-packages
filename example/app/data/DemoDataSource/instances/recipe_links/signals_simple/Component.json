@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "AppModels:signals_simple/Study",
+  "_blueprintPath_": "AppModels:signals_simple/SinComp",
   "initialUiRecipe": {
       "name": "Tabs",
       "type": "CORE:UiRecipe",
@@ -33,7 +33,7 @@
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
     },
-        {
+    {
       "name": "List",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/generic-list",

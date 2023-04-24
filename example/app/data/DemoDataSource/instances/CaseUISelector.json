@@ -1,16 +1,14 @@
 {
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "AppModels:signals_simple/Case",
-  "initialUiRecipe": {
+  "initialUiRecipe":  {
     "type": "CORE:UiRecipe",
     "name": "Selector",
     "description": "ESS Plot",
     "plugin": "UiPluginSelector",
-    "config": {
-      "type": "PluginModels:uiPluginSelector/UiPluginSelectorConfig",
-      "recipes": ["Tabs", "Run"]
-    }
-  },
+    "config": {"type": "PluginModels:uiPluginSelector/UiPluginSelectorConfig",
+               "recipes": ["Tabs", "Run"]}
+    },
   "uiRecipes": [
     {
       "name": "Yaml",
@@ -39,6 +37,6 @@
       "name": "Run",
       "description": "running",
       "plugin": "signal-job"
-    }
+    }    
   ]
 }

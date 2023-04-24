@@ -4,7 +4,9 @@
   "name": "signalApp",
   "description": "This is an app for generating and plotting sin signals.",
   "label": "",
-  "dataSources": ["AppStorage"],
+  "dataSources": [
+    "AppStorage"
+  ],
   "study": {
     "type": "AppModels:signals_simple/Study",
     "cases": [
@@ -37,7 +39,7 @@
         "signal": {
           "type": "AppModels:containers/EquallySpacedSignal",
           "name": "signal",
-          "value": [],
+          "value": [1,5,2,6,10,5,23],
           "xname": "time",
           "xunit": "s",
           "xdelta": 0.1,
@@ -52,12 +54,10 @@
           "type": "JOBCORE:Job",
           "status": "not started",
           "triggeredBy": "me",
-          "applicationInput": {
-            "name": "input_proxy",
-            "type": "AppModels:CaseProxy",
-            "description": "sdrawkcab si siht",
-            "child_id": ""
-          },
+          "applicationInput": { "name": "input_proxy",
+                                "type": "AppModels:CaseProxy",
+                                "description": "sdrawkcab si siht",
+                                "child_id":""},
           "runner": { "type": "AppModels:SignalGeneratorJob" },
           "started": "Not started"
         }

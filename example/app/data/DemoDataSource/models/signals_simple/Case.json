@@ -30,6 +30,6 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "JOBCORE:Job",
       "optional": true
-    }
+    }    
   ]
 }

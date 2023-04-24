@@ -12,6 +12,12 @@
       "type": "CORE:BlueprintAttribute",
       "name": "something",
       "optional": true
+    },
+    {
+      "attributeType": "number",
+      "type": "CORE:BlueprintAttribute",
+      "name": "price",
+      "optional": true
     }
   ]
 }

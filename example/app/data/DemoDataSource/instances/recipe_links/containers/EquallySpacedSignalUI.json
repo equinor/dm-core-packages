@@ -5,12 +5,28 @@
     "type": "CORE:UiRecipe",
     "name": "Selector",
     "description": "ESS Plot",
-    "plugin": "UiPluginSelector",
-    "config": {
-      "type": "PluginModels:uiPluginSelector/UiPluginSelectorConfig",
-      "recipes": ["Plot", "Table"]
-    }
-  },
+    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+    "config": {"type": "PluginModels:tabs/AttributeSelectorPluginConfig",
+              "items": [
+                {
+                  "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+                  "label": "Plot",
+                  "view": {
+                    "type": "CORE:ReferenceViewConfig",
+                    "recipe": "Plot"
+                  }
+                },
+                {
+                  "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+                  "label": "Table",
+                  "view": {
+                    "type": "CORE:ReferenceViewConfig",
+                    "recipe": "Table"
+                  }
+                }                
+              ]              
+            }
+          },
   "uiRecipes": [
     {
       "name": "Plot",
@@ -21,12 +37,12 @@
       "name": "Table",
       "type": "CORE:UiRecipe",
       "plugin": "marmo-ess-table-view"
-    },
+    },    
     {
       "type": "CORE:UiRecipe",
       "name": "Edit",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
-    }
+    }    
   ]
 }

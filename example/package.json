@@ -13,13 +13,18 @@
     "react-router-dom": "5.3.4",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6",
-    "tsconfig-paths-webpack-plugin": "^4.0.0"
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
+    "material-table": "^1.57.2",
+    "react-plotly.js": "^2.6.0",
+    "plotly.js": "^2.18.2"
   },
   "devDependencies": {
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=false REACT_APP_DMSS_URL=http://localhost:5000  REACT_APP_DM_JOB_URL=http://localhost:5001 craco start",
+    "start": "GENERATE_SOURCEMAP=false REACT_APP_DMSS_URL=http://localhost:5000 ESLINT_NO_DEV_ERRORS='true' REACT_APP_DM_JOB_URL=http://localhost:5001 craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",

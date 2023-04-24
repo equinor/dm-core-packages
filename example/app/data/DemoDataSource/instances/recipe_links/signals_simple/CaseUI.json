@@ -1,7 +1,7 @@
 {
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "AppModels:signals_simple/Case",
-  "initialUiRecipe": {
+  "initialUiRecipe":  {
     "type": "CORE:UiRecipe",
     "name": "Dashboard",
     "description": "ESS Plot",
@@ -12,7 +12,7 @@
         "type": "PluginModels:grid/GridSize",
         "columns": 12,
         "rows": 15
-      },
+            },
       "items": [
         {
           "type": "PluginModels:grid/GridItem",
@@ -56,7 +56,7 @@
             "rowEnd": 10,
             "columnEnd": 12
           }
-        }
+        }                   
       ]
     }
   },
@@ -94,6 +94,12 @@
       "name": "RunInt",
       "description": "running",
       "plugin": "signal-job-single"
-    }
+    },
+   {
+  "name": "List",
+  "type": "CORE:UiRecipe",
+  "plugin": "@development-framework/dm-core-plugins/generic-list",
+  "dimensions": "*"
+}            
   ]
 }

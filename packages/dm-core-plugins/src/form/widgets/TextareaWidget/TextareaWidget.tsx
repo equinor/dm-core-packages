@@ -10,9 +10,11 @@ Icon.add({ error_filled })
 const TextareaWidget = (props: TWidget) => {
   const { label, onChange } = props
 
-  const _onChange = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => onChange(value === '' ? '' : value)
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    const formattedValue = value === '' ? null : value
+    onChange(formattedValue)
+  }
 
   return (
     // @ts-ignore
@@ -20,7 +22,7 @@ const TextareaWidget = (props: TWidget) => {
       {...props}
       multiline={true}
       rows={5}
-      onChange={_onChange}
+      onChange={onChangeHandler}
       label={label}
     />
   )

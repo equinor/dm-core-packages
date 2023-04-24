@@ -35,19 +35,19 @@ const TabsWrapper = styled.div`
 `
 
 export const Tabs = (props: {
-  selectedView: number
+  selectedView: string
   setSelectedView: Function
   items: TItemData[]
 }): JSX.Element => {
   const { selectedView, setSelectedView, items } = props
   return (
     <TabsWrapper>
-      {items.map((config: TItemData, index) => {
+      {items.map((config: TItemData) => {
         return (
           <Tab
-            key={index}
-            onClick={() => setSelectedView(index)}
-            active={selectedView === index}
+            key={config.viewId}
+            onClick={() => setSelectedView(config.viewId)}
+            active={selectedView === config.viewId}
           >
             {config.view.eds_icon && (
               <Icon
@@ -56,7 +56,7 @@ export const Tabs = (props: {
                 title={config.view.eds_icon}
               />
             )}
-            {config.label ?? config.view.scope ?? 'self'}
+            {config.label}
           </Tab>
         )
       })}
