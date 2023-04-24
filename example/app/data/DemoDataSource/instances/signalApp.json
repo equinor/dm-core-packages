@@ -4,9 +4,7 @@
   "name": "signalApp",
   "description": "This is an app for generating and plotting sin signals.",
   "label": "",
-  "dataSources": [
-    "AppStorage"
-  ],
+  "dataSources": ["AppStorage"],
   "study": {
     "type": "AppModels:signals_simple/Study",
     "cases": [
@@ -54,10 +52,12 @@
           "type": "JOBCORE:Job",
           "status": "not started",
           "triggeredBy": "me",
-          "applicationInput": { "name": "input_proxy",
-                                "type": "AppModels:CaseProxy",
-                                "description": "sdrawkcab si siht",
-                                "child_id":""},
+          "applicationInput": {
+            "name": "input_proxy",
+            "type": "AppModels:CaseProxy",
+            "description": "sdrawkcab si siht",
+            "child_id": ""
+          },
           "runner": { "type": "AppModels:SignalGeneratorJob" },
           "started": "Not started"
         }

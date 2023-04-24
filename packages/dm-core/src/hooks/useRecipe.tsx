@@ -20,7 +20,7 @@ const findRecipe = (
       if (initialUiRecipe && initialUiRecipe.name == recipeName)
         return initialUiRecipe
     }
-    
+
     const recipe: TUiRecipe | undefined = recipes.find(
       (recipe: any) => recipe.name == recipeName
     )

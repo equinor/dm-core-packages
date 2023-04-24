@@ -1,15 +1,15 @@
 {
-    "type": "CORE:Blueprint",
-    "name": "UiPluginSelectorConfig",
-    "attributes": [
-      {
-        "attributeType": "string",
-        "type": "CORE:BlueprintAttribute",
-        "name": "recipes",
-        "dimensions": "*",
-        "contained": true,
-        "optional": true,
-        "default": false
-      }
-    ]
-  }
+  "type": "CORE:Blueprint",
+  "name": "UiPluginSelectorConfig",
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "recipes",
+      "dimensions": "*",
+      "contained": true,
+      "optional": true,
+      "default": false
+    }
+  ]
+}

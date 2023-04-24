@@ -6,9 +6,11 @@
     "name": "Selector",
     "description": "ESS Plot",
     "plugin": "UiPluginSelector",
-    "config": {"type": "PluginModels:uiPluginSelector/UiPluginSelectorConfig",
-               "recipes": ["Plot", "Table"]}
-    },
+    "config": {
+      "type": "PluginModels:uiPluginSelector/UiPluginSelectorConfig",
+      "recipes": ["Plot", "Table"]
+    }
+  },
   "uiRecipes": [
     {
       "name": "Plot",
@@ -19,12 +21,12 @@
       "name": "Table",
       "type": "CORE:UiRecipe",
       "plugin": "marmo-ess-table-view"
-    },    
+    },
     {
       "type": "CORE:UiRecipe",
       "name": "Edit",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
-    }    
+    }
   ]
 }

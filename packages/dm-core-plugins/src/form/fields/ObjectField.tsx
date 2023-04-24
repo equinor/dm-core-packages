@@ -447,13 +447,12 @@ export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
 
   const values = getValues(namePath)
   // If the attribute type is an object, we need to find the correct type from the values.
-  if (type === 'object' && !values){
-    return     <Button
-                variant="outlined"
-                data-testid={`add-${namePath}`}
-              >
-                Add
-              </Button>
+  if (type === 'object' && !values) {
+    return (
+      <Button variant="outlined" data-testid={`add-${namePath}`}>
+        Add
+      </Button>
+    )
   }
 
   return (
@@ -476,14 +475,13 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
   } = props
 
   if (type == 'object') {
-
   }
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
 
   if (isLoading) return <Loading />
   if (type == 'object') {
-    console.log('*** ERR ***') 
-    console.log('*** ERR2 ***') 
+    console.log('*** ERR ***')
+    console.log('*** ERR2 ***')
   }
   console.log(namePath)
   console.log(type)

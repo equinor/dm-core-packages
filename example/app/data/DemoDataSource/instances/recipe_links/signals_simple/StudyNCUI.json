@@ -3,16 +3,16 @@
   "name": "StudyNCUI",
   "_blueprintPath_": "AppModels:signals_simple/StudyNC",
   "initialUiRecipe": {
-      "name": "Tabs",
-      "type": "CORE:UiRecipe",
-      "plugin": "tabs",
-      "config": {
-        "type": "PluginModels:tabs/TabsPluginConfig",
-        "childTabsOnRender": true,
-        "asSidebar": false,
-        "homeRecipe": "Edit"
-      }
-    },
+    "name": "Tabs",
+    "type": "CORE:UiRecipe",
+    "plugin": "tabs",
+    "config": {
+      "type": "PluginModels:tabs/TabsPluginConfig",
+      "childTabsOnRender": true,
+      "asSidebar": false,
+      "homeRecipe": "Edit"
+    }
+  },
   "uiRecipes": [
     {
       "name": "Yaml",
@@ -24,6 +24,6 @@
       "name": "Edit",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
-    }    
+    }
   ]
 }
