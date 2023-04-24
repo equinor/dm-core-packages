@@ -1,0 +1,15 @@
+{
+  "name": "ArrayField",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "extends": ["./Field"],
+  "attributes": [
+    {
+      "name": "columns",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Columns",
+      "default": "",
+      "dimensions": "*"
+    }
+  ]
+}

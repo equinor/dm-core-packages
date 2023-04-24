@@ -1,0 +1,35 @@
+{
+  "name": "SignalApp",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Application"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "dataSources",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": false
+    },
+    {
+      "name": "study",
+      "label": "Study",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./signals_simple/Study",
+      "optional": false
+    },
+    {
+      "name": "studyNC",
+      "label": "Study NC",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./signals_simple/StudyNC",
+      "optional": false
+    }     
+  ]
+}

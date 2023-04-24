@@ -1,0 +1,15 @@
+{
+  "name": "StringField",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "extends": ["./Field"],
+  "attributes": [
+    {
+      "name": "format",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Format",
+      "default": "",
+      "optional": true
+    }
+  ]
+}

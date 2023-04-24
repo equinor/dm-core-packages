@@ -1,0 +1,55 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "AppModels:SignalApp",
+  "initialUiRecipe": {
+    "name": "Header",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/header",
+    "config": {
+      "uiRecipesList": ["SideBar", "Explorer", "Yaml"],
+      "type": "PluginModels:header/HeaderPluginConfig",
+      "hideAbout": false,
+      "hideUserInfo": true
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "name": "Explorer",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/explorer"
+    },
+    {
+      "name": "SideBar",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorConfig", 
+        "childTabsOnRender": true,
+        "asSidebar": true,
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+            "label": "Study",
+            "view": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "Tabs",
+              "scope": "study",
+              "eds_icon": "change_history" 
+            }
+          }
+        ]       
+      }
+    }
+  ]
+}

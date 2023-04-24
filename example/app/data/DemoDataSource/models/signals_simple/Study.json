@@ -1,0 +1,15 @@
+{
+  "name": "Study",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "cases",
+      "label": "Cases",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Case",
+      "dimensions": "*",
+      "contained": true
+    }
+  ]
+}

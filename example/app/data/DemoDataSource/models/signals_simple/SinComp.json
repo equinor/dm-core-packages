@@ -1,0 +1,27 @@
+{
+  "name": "SinComp",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "A",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "default": 0,
+      "optional": false
+    },
+    {
+      "name": "T",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "default": 0,
+      "optional": false
+    },
+    {
+      "name": "phase",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": false
+    }
+  ]
+}

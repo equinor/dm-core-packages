@@ -14,6 +14,11 @@ const APP_SETTINGS = {
   name: 'example',
 }
 
+const SIGNAL_APP_SETTINGS = {
+  visibleDataSources: ['system', 'AppStorage', 'WorkflowDS'],
+  name: 'signalapp',
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <DMSSProvider>
