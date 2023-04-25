@@ -26,6 +26,11 @@ export const GridElement = (props: TGridItemProps): JSX.Element => {
       <ViewCreator
         idReference={idReference}
         viewConfig={item.viewConfig}
+        blueprintAttribute={{
+          name: 'nil',
+          attributeType: item.type,
+          dimensions: '',
+        }}
         type={item.type}
       />
     </Element>
