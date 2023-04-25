@@ -6,10 +6,11 @@ import {
   useDMSS,
   useDocument,
   ViewCreator,
+  ErrorResponse,
 } from '@development-framework/dm-core'
 import { Button, Icon, Typography } from '@equinor/eds-core-react'
 import { chevron_down, chevron_right } from '@equinor/eds-icons'
-import { AxiosResponse } from 'axios'
+import { AxiosResponse, AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import {
@@ -110,6 +111,10 @@ export const GenericListPlugin = (
               [crypto.randomUUID()]: { ...newEntity.data },
             })
           )
+          .catch((error: AxiosError<ErrorResponse>) => {
+            console.error(error)
+            alert(JSON.stringify(error.response?.data, null, 2))
+          })
       })
   }
 
@@ -223,6 +228,12 @@ export const GenericListPlugin = (
                   {itemsExpanded[key] && (
                     <ViewCreator
                       idReference={`${idReference}.${index}`}
+                      // @ts-ignore Remove after dm-core bump
+                      blueprintAttribute={{
+                        name: 'nil',
+                        attributeType: type,
+                        dimensions: '',
+                      }}
                       viewConfig={
                         internalConfig.views[index] ??
                         internalConfig.defaultView
