@@ -7,31 +7,22 @@ import {
   TReferenceViewConfig,
   TViewConfig,
 } from '../../types'
-import { EntityView, Loading, TGenericObject, useDocument } from '../../index'
-import React from 'react'
+import { EntityView, Loading, TAttribute, useDMSS } from '../../index'
+import React, { useEffect, useState } from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
-import { getTarget, getType } from './utils'
-import { ErrorGroup } from '../../utils/ErrorBoundary'
+import { getTarget, getScopeTypeAndDimensions } from './utils'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
-  type?: string
-}
-
-const getScopeDepth = (scope: string): number => {
-  if (scope) {
-    if (scope === 'self') {
-      return 1
-    }
-    return scope.split('.').length
-  }
-  return 1
+  type: string
+  blueprintAttribute: TAttribute
 }
 
 /**
  * A component that will create a view from a view config.
  *
  * A view config can contain a UIRecipe (InlineRecipeViewConfig) or reference an existing UIRecipe (ReferenceViewConfig).
+ * Passed type is for the document the idReference points to, _not_ any scope.
  *
  * @docs Components
  *
@@ -47,37 +38,43 @@ const getScopeDepth = (scope: string): number => {
  * @param props
  */
 export const ViewCreator = (props: TViewCreator): JSX.Element => {
-  const { idReference, viewConfig, type: passedType, onOpen } = props
-  const [document, isLoadingDocument, _, error] = useDocument<TGenericObject>(
-    idReference,
-    getScopeDepth(viewConfig?.scope ?? '')
-  )
+  const { idReference, viewConfig, onOpen, blueprintAttribute } = props
+  const dmssAPI = useDMSS()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [error, setError] = useState<Error>()
+  const [targetType, setTargetType] = useState<string>()
+  const [targetDimensions, setTargetDimensions] = useState<string>()
 
-  if (isLoadingDocument) return <Loading />
-  if (error) throw new Error(JSON.stringify(error, null, 2))
-
-  if (document == null) return <>Could not find the document, check the scope</>
-
-  const type = getType(document, viewConfig) || passedType
-  if (type === undefined) {
-    // If no type is passed, and the entity pointed to in "scope" is empty, we have no way of knowing type.
-    //TODO: Fix this to get type from parent or something...
-    return (
-      <ErrorGroup>
-        <pre style={{ color: 'red' }}>
-          Not supported: Rendering views for empty documents are not yet
-          supported.
-        </pre>
-      </ErrorGroup>
+  if (!blueprintAttribute)
+    throw new Error(
+      "ViewCreator was called without being passed a 'blueprintAttribute'"
     )
-  }
+
+  useEffect(() => {
+    const scopeArray: string[] = viewConfig.scope
+      ? viewConfig.scope.split('.')
+      : []
+    getScopeTypeAndDimensions(blueprintAttribute, dmssAPI, scopeArray)
+      .then(([type, dimensions]) => {
+        setTargetType(type)
+        setTargetDimensions(dimensions)
+      })
+      .catch((error) => setError(error))
+      .finally(() => setIsLoading(false))
+  }, [])
+
+  if (isLoading) return <Loading />
+  if (error) throw error
+  if (!targetType || !targetDimensions === undefined)
+    throw new Error('Unable to find type and dimensions for view')
+
   const absoluteDottedId = getTarget(idReference, viewConfig)
 
   if (isInlineRecipeViewConfig(viewConfig))
     return (
       <InlineRecipeView
         idReference={absoluteDottedId}
-        type={type}
+        type={targetType}
         viewConfig={viewConfig}
         onOpen={onOpen}
       />
@@ -86,20 +83,22 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   if (isReferenceViewConfig(viewConfig))
     return (
       <EntityView
-        type={type}
+        type={targetType}
         idReference={absoluteDottedId}
         recipeName={viewConfig.recipe}
         onOpen={onOpen}
+        dimensions={targetDimensions}
       />
     )
   if (isViewConfig(viewConfig))
     return (
       <EntityView
         idReference={absoluteDottedId}
-        type={type}
+        type={targetType}
         // Don't use initialUiRecipes when rendering 'self'
         noInit={idReference === absoluteDottedId}
         onOpen={onOpen}
+        dimensions={targetDimensions}
       />
     )
 

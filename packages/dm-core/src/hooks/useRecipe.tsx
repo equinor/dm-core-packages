@@ -8,19 +8,22 @@ import {
 } from '../index'
 
 const findRecipe = (
-  initialUiRecipe: TUiRecipe | undefined,
   recipes: TUiRecipe[],
+  initialUiRecipe?: TUiRecipe,
   recipeName?: string,
   noInit: boolean = false,
   dimensions: string = ''
 ): TUiRecipe => {
+  if (dimensions) {
+    initialUiRecipe = undefined
+  }
   // If recipe is defined, find and return the ui recipe from available recipes.
   if (recipeName) {
     if (!noInit && initialUiRecipe && Object.keys(initialUiRecipe).length > 0) {
       if (initialUiRecipe && initialUiRecipe.name == recipeName)
         return initialUiRecipe
     }
-    
+
     const recipe: TUiRecipe | undefined = recipes.find(
       (recipe: any) => recipe.name == recipeName
     )
@@ -113,11 +116,13 @@ export const useRecipe = (
     if (isBlueprintLoading) return
     try {
       setFoundRecipe(
-        findRecipe(initialUiRecipe, uiRecipes, recipeName, noInit, dimensions)
+        findRecipe(uiRecipes, initialUiRecipe, recipeName, noInit, dimensions)
       )
     } catch (error) {
+      console.error(error)
       const errorResponse: ErrorResponse = {
         type: 'RecipeSelectionError',
+        debug: `type: "${typeRef}"`,
         message: error.message,
       }
       setFindRecipeError(errorResponse)

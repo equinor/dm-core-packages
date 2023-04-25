@@ -1,10 +1,10 @@
 export type TAttribute = {
-  type: string
+  type?: string
   name: string
   dimensions: string
   attributeType: string
-  optional: boolean
-  contained: boolean
+  optional?: boolean
+  contained?: boolean
   description?: string
   label?: string
   enumType?: string

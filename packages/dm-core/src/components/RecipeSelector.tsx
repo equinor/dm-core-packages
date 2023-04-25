@@ -111,6 +111,12 @@ export function RecipeSelector(
         idReference={idReference}
         viewConfig={selectableViews[selectedView]}
         type={type}
+        //@ts-ignore  Remove after dm-core bump
+        blueprintAttribute={{
+          name: 'nil',
+          attributeType: type,
+          dimensions: '',
+        }}
       />
     </Wrapper>
   )

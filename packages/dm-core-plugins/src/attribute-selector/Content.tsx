@@ -14,13 +14,14 @@ const HidableWrapper = styled.div<any>`
 `
 
 export const Content = (props: {
+  type: string
   selectedView: string
   items: TItemData[]
   setFormData: (v: TGenericObject) => void
   onOpen: (id: string, v: TViewConfig) => void
   formData: TGenericObject
 }): JSX.Element => {
-  const { selectedView, items, setFormData, formData, onOpen } = props
+  const { selectedView, items, setFormData, formData, onOpen, type } = props
 
   return (
     <div style={{ width: '100%' }}>
@@ -31,6 +32,12 @@ export const Content = (props: {
         >
           <ViewCreator
             idReference={config.rootEntityId}
+            // @ts-ignore Remove after dm-core bump
+            blueprintAttribute={{
+              name: 'nil',
+              dimensions: '',
+              attributeType: type,
+            }}
             viewConfig={config.view}
             onOpen={onOpen}
             onSubmit={(data: TGenericObject) => {

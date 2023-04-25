@@ -19,7 +19,7 @@ import {
 export const AttributeSelectorPlugin = (
   props: IUIPlugin & { config?: TAttributeSelectorConfig }
 ): JSX.Element => {
-  const { idReference, config } = props
+  const { idReference, config, type } = props
   const internalConfig: TAttributeSelectorConfig = {
     childTabsOnRender: true,
     asSidebar: false,
@@ -125,6 +125,7 @@ export const AttributeSelectorPlugin = (
         />
       )}
       <Content
+        type={type}
         onOpen={addView}
         formData={formData}
         selectedView={selectedView}

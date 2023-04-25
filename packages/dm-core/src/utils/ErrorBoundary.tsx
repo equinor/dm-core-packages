@@ -9,6 +9,12 @@ export const ErrorGroup = styled.div`
   padding: 20px 20px;
   background-color: #f6dfdf;
 `
+
+const Message = styled.div`
+  overflow-wrap: break-word;
+  font-family: monospace;
+`
+
 export class ErrorBoundary extends React.Component<
   any,
   { hasError: boolean; error: Error }
@@ -16,7 +22,7 @@ export class ErrorBoundary extends React.Component<
   fallBack: (error: Error) => ReactNode = (error: Error) => (
     <ErrorGroup>
       <h4 style={{ color: 'red' }}>{this.message}</h4>
-      <pre>{error.message}</pre>
+      <Message>{error.message}</Message>
     </ErrorGroup>
   )
   message = 'unknown'
