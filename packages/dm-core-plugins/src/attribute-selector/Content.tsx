@@ -30,9 +30,9 @@ export const Content = (props: {
           key={config.viewId}
           hidden={config.viewId !== selectedView}
         >
+          {/*@ts-ignore*/}
           <ViewCreator
             idReference={config.rootEntityId}
-            // @ts-ignore Remove after dm-core bump
             blueprintAttribute={{
               name: 'nil',
               dimensions: '',

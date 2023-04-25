@@ -14,7 +14,6 @@ import { getTarget, getScopeTypeAndDimensions } from './utils'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
-  type: string
   blueprintAttribute: TAttribute
 }
 
@@ -94,8 +93,6 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
       <EntityView
         idReference={absoluteDottedId}
         type={targetType}
-        // Don't use initialUiRecipes when rendering 'self'
-        noInit={idReference === absoluteDottedId}
         onOpen={onOpen}
         dimensions={targetDimensions}
       />
