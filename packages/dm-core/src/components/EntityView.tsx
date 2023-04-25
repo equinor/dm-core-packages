@@ -28,6 +28,8 @@ export const EntityView = (props: IEntityView): JSX.Element => {
     noInit,
     dimensions,
   } = props
+  if (!type)
+    throw new Error(`<EntityView> must be called with a type. Got "${type}"`)
   const { recipe, isLoading, error, getUiPlugin } = useRecipe(
     type,
     recipeName,

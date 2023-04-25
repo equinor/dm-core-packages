@@ -1,5 +1,5 @@
 import { TViewConfig } from '../../types'
-import { TGenericObject } from '../../index'
+import { DmssAPI, TAttribute, TBlueprint } from '../../index'
 
 export const getTarget = (idReference: string, viewConfig: TViewConfig) => {
   if (viewConfig?.scope && viewConfig.scope !== 'self')
@@ -7,33 +7,42 @@ export const getTarget = (idReference: string, viewConfig: TViewConfig) => {
   return idReference
 }
 
-// Source: https://stackoverflow.com/questions/6491463/accessing-nested-javascript-objects-and-arrays-by-string-path
-const resolvePath = (
-  initial: Record<string | number, any>,
-  path: string
-): TGenericObject | undefined =>
-  path.split('.').reduce((acc, key) => {
-    // TODO: Rewrite this to dig down in blueprints to find type of lists
-    // TODO: there is no guarantee that the first element of the list has the generic type for the whole list
-    if (Array.isArray(acc[key])) {
-      return key in acc[key][0] ? acc[key][0] : acc[key][0]
-    }
-    return key in acc ? acc[key] : acc
-  }, initial)
-
-export const getType = (
-  document: TGenericObject,
-  viewConfig: TViewConfig
-): string | undefined => {
-  if (viewConfig?.scope) {
-    const target = resolvePath(document, viewConfig.scope)
-    if (target === undefined) {
+export async function getScopeTypeAndDimensions(
+  blueprintAttribute: TAttribute,
+  dmssApi: DmssAPI,
+  scope: string[]
+): Promise<[string, string]> {
+  if (!scope?.length || scope[0] === 'self') {
+    if (!blueprintAttribute.attributeType)
       throw new Error(
-        `Could not find the view target, check that the attribute '${viewConfig?.scope}' exists in the target document`
+        `Got invalid "attributeType" for blueprint attribute "${JSON.stringify(
+          blueprintAttribute
+        )}"`
       )
-    }
-    return target.type
+    return Promise.resolve([
+      blueprintAttribute.attributeType,
+      blueprintAttribute.dimensions ?? '',
+    ])
   }
-  if (Array.isArray(document)) return document[0]?.type
-  return document.type
+
+  const blueprint: TBlueprint = await dmssApi
+    .blueprintGet({ typeRef: blueprintAttribute.attributeType })
+    .then((response: any) => response.data.blueprint)
+
+  const attribute = blueprint.attributes.find((a) => a.name === scope[0])
+  if (!attribute) {
+    throw new Error(
+      `Unable to find attribute '${scope[0]}' in blueprint '${blueprintAttribute.attributeType}'`
+    )
+  }
+  if (scope.length === 1) {
+    if (!blueprintAttribute.attributeType)
+      throw new Error(
+        `Got invalid "attributeType" for blueprint attribute "${JSON.stringify(
+          blueprintAttribute
+        )}"`
+      )
+    return [attribute.attributeType, attribute.dimensions]
+  }
+  return getScopeTypeAndDimensions(attribute, dmssApi, scope.splice(0, 1))
 }
