@@ -96,7 +96,6 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
         idReference={absoluteDottedId}
         type={targetType}
         // Don't use initialUiRecipes when rendering 'self'
-        noInit={idReference === absoluteDottedId}
         onOpen={onOpen}
         dimensions={targetDimensions}
       />
