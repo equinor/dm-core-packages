@@ -11,7 +11,6 @@ const findRecipe = (
   recipes: TUiRecipe[],
   initialUiRecipe?: TUiRecipe,
   recipeName?: string,
-  noInit: boolean = false,
   dimensions: string = ''
 ): TUiRecipe => {
   if (dimensions) {
@@ -39,7 +38,7 @@ const findRecipe = (
   }
 
   // If no recipe is defined, use initial recipe, or the first from recipes list or lastly fallback.
-  if (!noInit && initialUiRecipe && Object.keys(initialUiRecipe).length > 0) {
+  if (initialUiRecipe && Object.keys(initialUiRecipe).length > 0) {
     return initialUiRecipe
   }
   if (recipes.length > 0) {
@@ -91,7 +90,6 @@ interface IUseRecipe {
 export const useRecipe = (
   typeRef: string,
   recipeName?: string,
-  noInit: boolean = false,
   dimensions: string = ''
 ): IUseRecipe => {
   const {
@@ -111,7 +109,7 @@ export const useRecipe = (
     if (isBlueprintLoading) return
     try {
       setFoundRecipe(
-        findRecipe(uiRecipes, initialUiRecipe, recipeName, noInit, dimensions)
+        findRecipe(uiRecipes, initialUiRecipe, recipeName, dimensions)
       )
     } catch (error) {
       console.error(error)

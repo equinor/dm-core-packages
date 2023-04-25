@@ -14,26 +14,16 @@ const Wrapper = styled.div`
 
 type IEntityView = IUIPlugin & {
   recipeName?: string
-  noInit?: boolean
   dimensions?: string
 }
 
 export const EntityView = (props: IEntityView): JSX.Element => {
-  const {
-    idReference,
-    type,
-    onSubmit,
-    onOpen,
-    recipeName,
-    noInit,
-    dimensions,
-  } = props
+  const { idReference, type, onSubmit, onOpen, recipeName, dimensions } = props
   if (!type)
     throw new Error(`<EntityView> must be called with a type. Got "${type}"`)
   const { recipe, isLoading, error, getUiPlugin } = useRecipe(
     type,
     recipeName,
-    noInit,
     dimensions
   )
 

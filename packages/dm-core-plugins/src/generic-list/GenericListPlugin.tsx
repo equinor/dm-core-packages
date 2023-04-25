@@ -226,9 +226,9 @@ export const GenericListPlugin = (
                   }}
                 >
                   {itemsExpanded[key] && (
+                    // @ts-ignore
                     <ViewCreator
                       idReference={`${idReference}.${index}`}
-                      // @ts-ignore Remove after dm-core bump
                       blueprintAttribute={{
                         name: 'nil',
                         attributeType: type,

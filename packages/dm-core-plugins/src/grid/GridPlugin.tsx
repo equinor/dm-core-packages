@@ -12,11 +12,11 @@ const Grid = styled.div`
 `
 
 export const GridPlugin = (props: TGridPluginConfig): JSX.Element => {
-  const { config, idReference } = props
+  const { config, idReference, type } = props
 
   return (
     <Grid columns={config.size.columns} rows={config.size.rows}>
-      <GridItems idReference={idReference} items={config.items} />
+      <GridItems idReference={idReference} items={config.items} type={type} />
     </Grid>
   )
 }

@@ -11,10 +11,11 @@ const Element = styled.div`
 type TGridItemProps = {
   idReference: string
   item: TGridItem
+  type: string
 }
 
 export const GridElement = (props: TGridItemProps): JSX.Element => {
-  const { idReference, item } = props
+  const { idReference, item, type } = props
 
   return (
     <Element
@@ -26,6 +27,11 @@ export const GridElement = (props: TGridItemProps): JSX.Element => {
       <ViewCreator
         idReference={idReference}
         viewConfig={item.viewConfig}
+        blueprintAttribute={{
+          name: 'nil',
+          attributeType: type,
+          dimensions: '',
+        }}
         type={item.type}
       />
     </Element>
