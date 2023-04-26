@@ -32,7 +32,6 @@ export const GridElement = (props: TGridItemProps): JSX.Element => {
           attributeType: type,
           dimensions: '',
         }}
-        type={item.type}
       />
     </Element>
   )
