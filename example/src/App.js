@@ -37,7 +37,7 @@ function App() {
                       />
       <h3>Signal Application</h3>
       <EntityView
-        type={'dmss://DemoDataSource/models/SignalApp'}
+        type={'dmss://DemoDataSource/apps/MySignalApp/models/SignalApp'}
         idReference={'DemoDataSource/4483c9b0-d505-46c9-a157-94c79f4d7a6a'}
       />     
       <h3>An application with the "header"-plugin</h3>

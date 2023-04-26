@@ -108,7 +108,13 @@
   "name": "List",
   "type": "CORE:UiRecipe",
   "plugin": "@development-framework/dm-core-plugins/generic-list",
-  "dimensions": "*"
+  "dimensions": "*",
+  "config": {
+    "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
+    "headers": ["name", "description"],
+    "showDelete": true,
+    "expanded": false
+    }
 }            
   ]
 }

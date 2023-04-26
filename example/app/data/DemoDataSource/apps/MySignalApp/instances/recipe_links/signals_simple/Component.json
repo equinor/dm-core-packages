@@ -34,10 +34,15 @@
       "plugin": "@development-framework/dm-core-plugins/form"
     },
     {
-      "name": "List",
+      "name": "Table Edit",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/generic-list",
-      "dimensions": "*"
+      "plugin": "@development-framework/dm-core-plugins/generic-table",
+      "dimensions": "*",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/generic-list/GenericTablePluginConfig",
+        "columns": ["A", "T", "phase"],
+        "showDelete": true
+      }
     }
   ]
 }

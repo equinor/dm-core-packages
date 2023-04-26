@@ -13,13 +13,13 @@
       },
       {
         "alias": "AppModels",
-        "address": "DemoDataSource/models",
+        "address": "DemoDataSource/apps/MySignalApp/models",
         "version": "0.0.1",
         "protocol": "dmss"
       },
       {
         "alias": "PluginModels",
-        "address": "DemoDataSource/models/plugins",
+        "address": "DemoDataSource/apps/MySignalApp/models/plugins",
         "version": "0.0.1",
         "protocol": "dmss"
       },
