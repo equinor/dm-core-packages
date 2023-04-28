@@ -1,0 +1,16 @@
+{
+  "name": "ExtraDataSource",
+  "repositories": {
+    "exampleRepo": {
+      "type": "mongo-db",
+      "host": "db",
+      "port": 27017,
+      "username": "maf",
+      "password": "maf",
+      "tls": false,
+      "database": "ExtraDataSource",
+      "collection": "default",
+      "data_types": []
+    }
+  }
+}

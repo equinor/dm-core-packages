@@ -1,0 +1,6 @@
+{
+  "_id": "remoteExample",
+  "name": "RemoteEntity",
+  "a": "test",
+  "type": "../blueprints/RemoteBlueprint"
+}
