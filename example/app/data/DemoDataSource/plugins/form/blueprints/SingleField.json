@@ -3,6 +3,11 @@
   "type": "CORE:Blueprint",
   "attributes": [
     {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "type"
+    },
+    {
       "name": "foo",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",

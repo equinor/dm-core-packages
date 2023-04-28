@@ -4,6 +4,11 @@
   "attributes": [
     {
       "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "type"
+    },
+    {
+      "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
       "name": "name"
     },
