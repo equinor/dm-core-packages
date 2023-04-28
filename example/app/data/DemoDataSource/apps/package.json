@@ -1,0 +1,31 @@
+{
+  "name": "apps",
+  "type": "CORE:Package",
+  "_meta_": {
+    "type": "CORE:Meta",
+    "version": "0.0.1",
+    "dependencies": [
+      {
+        "type": "CORE:Dependency",
+        "alias": "CORE",
+        "address": "system/SIMOS",
+        "version": "0.0.1",
+        "protocol": "dmss"
+      },
+      {
+        "type": "CORE:Dependency",
+        "alias": "PLUGINS",
+        "address": "system/Plugins",
+        "version": "0.0.1",
+        "protocol": "dmss"
+      },
+      {
+        "type": "CORE:Dependency",
+        "alias": "REMOTE-PACKAGE",
+        "address": "ExtraDataSource/remote-package/blueprints/",
+        "version": "0.0.1",
+        "protocol": "dmss"
+      }
+    ]
+  }
+}

@@ -10,7 +10,12 @@ import App from './App'
 import plugins from './plugins'
 
 const APP_SETTINGS = {
-  visibleDataSources: ['system', 'DemoDataSource', 'WorkflowDS'],
+  visibleDataSources: [
+    'system',
+    'DemoDataSource',
+    'ExtraDataSource',
+    'WorkflowDS',
+  ],
   name: 'example',
 }
 
