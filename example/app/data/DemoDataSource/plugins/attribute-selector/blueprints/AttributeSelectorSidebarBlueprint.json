@@ -1,0 +1,34 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "AttributeSelectorSidebarBlueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "attributeType": "./AttributeSelectorSidebarBlueprint",
+      "type": "CORE:BlueprintAttribute",
+      "name": "firstAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "./AttributeSelectorSidebarBlueprint",
+      "type": "CORE:BlueprintAttribute",
+      "name": "secondAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "./AttributeSelectorSidebarBlueprint",
+      "type": "CORE:BlueprintAttribute",
+      "name": "thirdAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "aStringValue",
+      "optional": true
+    }
+  ]
+}

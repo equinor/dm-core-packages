@@ -1,0 +1,32 @@
+{
+  "_id": "dashboardExample",
+  "type": "./blueprints/Dashboard",
+  "name": "DashboardExample",
+  "orders": [
+    {
+      "type": "./blueprints/OrderItem",
+      "quantity": 1,
+      "product": {
+        "_id": "product1",
+        "type": "./blueprints/Product",
+        "name": "Product 1",
+        "something": "Asdf"
+      }
+    }
+  ],
+  "order": {
+    "type": "./blueprints/OrderItem",
+    "quantity": 1,
+    "product": {
+      "type": "./blueprints/Product",
+      "name": "Product 1",
+      "something": "Asdf"
+    }
+  },
+  "aNestedObjectWithCustomUI": {
+    "type": "./blueprints/Nested",
+    "foo": 1337,
+    "bar": "hello",
+    "baz": "testing"
+  }
+}

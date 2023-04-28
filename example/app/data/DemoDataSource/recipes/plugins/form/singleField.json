@@ -1,0 +1,16 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/form/blueprints/SingleField",
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Form",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}
