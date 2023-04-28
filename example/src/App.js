@@ -29,18 +29,7 @@ function App() {
         overflow: 'auto',
       }}
     >
-      <h3>A generic list view</h3>
-      <EntityView
-        type={'dmss://DemoDataSource/DemoPackage/blueprints/OrderItem'}
-        idReference={'DemoDataSource/orderExample.items'}
-        dimensions={'*'}
-      />
-      <h3>An application with the "header"-plugin</h3>
-      <EntityView
-        type={'dmss://DemoDataSource/DemoPackage/blueprints/ExampleApplication'}
-        idReference={'DemoDataSource/03bf685b-edb6-40e4-8c67-62b13fefecaa'}
-      />
-      <h3>TreeView from dm-core</h3>
+      <h3>Browse examples</h3>
       <div
         style={{
           border: '2px solid blue',

@@ -1,0 +1,101 @@
+{
+  "name": "FormBlueprint",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "type"
+    },
+    {
+      "name": "blueprintPicker",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Blueprint picker widget"
+    },
+    {
+      "name": "aNumber",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "A number"
+    },
+    {
+      "name": "aDate",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "A date"
+    },
+    {
+      "name": "aBool",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "A bool"
+    },
+    {
+      "name": "aString",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "A string"
+    },
+    {
+      "name": "aStringAsTextfield",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "A string as textfield"
+    },
+    {
+      "name": "aOptionalNumber",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "A optional number",
+      "optional": true
+    },
+    {
+      "name": "aOptionalString",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "A optional string",
+      "optional": true
+    },
+    {
+      "name": "listOfStrings",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "label": "A list of strings"
+    },
+    {
+      "name": "aNestedObject",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./NestedField",
+      "label": "A nested object"
+    },
+    {
+      "name": "aOptionalNestedObject",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./NestedField",
+      "label": "A optional nested object",
+      "optional": true
+    },
+    {
+      "name": "aNestedObjectWithCustomUI",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./NestedField",
+      "label": "A nested object with custom ui"
+    },
+    {
+      "type": "CORE:BlueprintAttribute",
+      "name": "inputEntity",
+      "description": "Generic input entity",
+      "attributeType": "object",
+      "contained": false
+    },
+    {
+      "name": "listOfObjects",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./NestedField",
+      "dimensions": "*",
+      "label": "A list of objects"
+    }
+  ]
+}
