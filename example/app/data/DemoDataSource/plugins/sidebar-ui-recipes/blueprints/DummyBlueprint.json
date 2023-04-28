@@ -2,5 +2,12 @@
   "_id": "2ead26dd-0aa2-44d8-951b-049eae126548",
   "type": "CORE:Blueprint",
   "name": "DummyBlueprint",
-  "description": "Rakso Gits"
+  "description": "Rakso Gits",
+  "attributes": [
+    {
+      "name": "type",
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute"
+    }
+  ]
 }

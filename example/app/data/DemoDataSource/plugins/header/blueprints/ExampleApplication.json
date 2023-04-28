@@ -5,6 +5,11 @@
   "description": "",
   "attributes": [
     {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "type"
+    },
+    {
       "name": "label",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
