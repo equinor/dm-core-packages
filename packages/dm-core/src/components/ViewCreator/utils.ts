@@ -44,5 +44,10 @@ export async function getScopeTypeAndDimensions(
       )
     return [attribute.attributeType, attribute.dimensions]
   }
-  return getScopeTypeAndDimensions(attribute, dmssApi, scope.splice(0, 1))
+  if (attribute.dimensions == '*') {
+    scope.splice(0, 2)
+  } else {
+    scope.splice(0, 1)
+  }
+  return getScopeTypeAndDimensions(attribute, dmssApi, scope)
 }
