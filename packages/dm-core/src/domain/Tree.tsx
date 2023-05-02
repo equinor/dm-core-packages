@@ -71,7 +71,7 @@ const createFolderChildren = (
 ): TTreeMap => {
   const newChildren: TTreeMap = {}
   document.content.forEach((ref: TReference) => {
-    const newChildId = `${parentNode.dataSource}/${ref?._id}`
+    const newChildId = `${parentNode.dataSource}/$${ref?._id}`
     newChildren[newChildId] = new TreeNode(
       parentNode.tree,
       newChildId,
@@ -110,7 +110,7 @@ const updateRootPackagesInTree = (
     ) {
       const rootPackageNode = new TreeNode( // Add the rootPackage nodes to the dataSource
         tree,
-        `${dataSource}/${rootPackage._id}`,
+        `${dataSource}/$${rootPackage._id}`,
         1,
         rootPackage,
         packageAttribute,
@@ -126,7 +126,7 @@ const updateRootPackagesInTree = (
         ) => {
           children[ref?._id] = new TreeNode(
             tree,
-            `${dataSource}/${ref?._id}`,
+            `${dataSource}/$${ref?._id}`,
             2,
             ref,
             packageAttribute,
@@ -287,7 +287,7 @@ export class TreeNode {
     const newEntity = { ...response.data, name: name }
     const createResponse: AxiosResponse<any> =
       await this.tree.dmssApi.documentAdd({
-        absoluteRef: `${this.nodeId}${packageContent}`,
+        absoluteRef: `${this.nodeId}$${packageContent}`,
         body: newEntity,
         updateUncontained: true,
       })
@@ -363,7 +363,7 @@ export class Tree {
           throw new Error('Path does not resolve to a package')
 
         folderNode.children = createFolderChildren(data, folderNode)
-        this.index = { [`${dataSourceId}/${data._id}`]: folderNode }
+        this.index = { [`${dataSourceId}/$${data._id}`]: folderNode }
       })
       .catch((error: Error) => {
         const folderNode = new TreeNode(
