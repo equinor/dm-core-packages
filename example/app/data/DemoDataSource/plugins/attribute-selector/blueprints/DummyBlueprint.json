@@ -8,6 +8,16 @@
       "name": "type",
       "attributeType": "string",
       "type": "CORE:BlueprintAttribute"
+    },
+    {
+      "name": "valueA",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "valueB",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "number"
     }
   ]
 }
