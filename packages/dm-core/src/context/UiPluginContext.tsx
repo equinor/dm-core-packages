@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { IUIPlugin, TPlugin } from '../types'
-import { RecipeSelector, UiRecipesSideBarSelector } from '../components'
 import { ErrorGroup } from '../utils/ErrorBoundary'
 
 type TUiPluginMap = {
@@ -32,10 +31,7 @@ export const UiPluginProvider = ({ pluginsToLoad, children }: any) => {
   // Iterate every package, and adding all the UiPlugins contained in each package to the context
   useEffect(() => {
     // Add builtin plugins
-    let newPluginMap: TUiPluginMap = {
-      UiRecipeSideBarSelector: UiRecipesSideBarSelector, // @ts-ignore
-      'recipe-selector': RecipeSelector,
-    }
+    let newPluginMap: TUiPluginMap = {}
 
     Promise.all(
       pluginsToLoad.map(

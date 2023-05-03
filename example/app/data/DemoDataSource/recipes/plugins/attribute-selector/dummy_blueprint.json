@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/attribute-selector/blueprints/AttributeSelectorSidebarBlueprint",
+  "_blueprintPath_": "/plugins/attribute-selector/blueprints/DummyBlueprint",
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
@@ -12,6 +12,7 @@
       "items": [
         {
           "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Edit self",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
@@ -20,35 +21,50 @@
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form"
             },
-            "scope": "firstAttribute"
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
-          "view": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "type": "CORE:UiRecipe",
-              "name": "Edit",
-              "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form"
-            },
-            "scope": "secondAttribute",
+            "scope": "self",
             "eds_icon": "edit"
           }
         },
         {
           "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Yaml view",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "type": "CORE:UiRecipe",
-              "name": "Edit",
-              "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form"
+              "name": "Yaml",
+              "description": "Yaml view",
+              "plugin": "@development-framework/dm-core-plugins/yaml"
             },
-            "scope": "thirdAttribute",
-            "eds_icon": "apps"
+            "scope": "self"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Diagram",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "Diagram",
+              "description": "Default diagram",
+              "plugin": "@development-framework/dm-core-plugins/blueprint-hierarchy"
+            },
+            "scope": "self"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "List",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "List",
+              "type": "CORE:UiRecipe",
+              "plugin": "@development-framework/dm-core-plugins/generic-list",
+              "dimensions": "*"
+            },
+            "scope": "self"
           }
         }
       ]
@@ -63,8 +79,13 @@
     {
       "type": "CORE:UiRecipe",
       "name": "Edit",
-      "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form"
+      "description": "Default blueprint edit",
+      "plugin": "@development-framework/dm-core-plugins/blueprint"
+    },
+    {
+      "name": "Diagram",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/blueprint-hierarchy"
     }
   ]
 }

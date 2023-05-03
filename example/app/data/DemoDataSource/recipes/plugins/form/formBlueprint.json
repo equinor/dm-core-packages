@@ -28,11 +28,6 @@
   },
   "uiRecipes": [
     {
-      "type": "CORE:UiRecipe",
-      "name": "home",
-      "plugin": "recipe-selector"
-    },
-    {
       "name": "Edit",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/form",
