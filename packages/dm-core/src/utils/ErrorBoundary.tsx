@@ -8,6 +8,7 @@ export const ErrorGroup = styled.div`
   border-radius: 5px;
   padding: 20px 20px;
   background-color: #f6dfdf;
+  overflow: auto;
 `
 
 const Message = styled.div`
