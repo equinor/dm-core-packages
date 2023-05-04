@@ -228,7 +228,7 @@ export const GenericListPlugin = (
                   {itemsExpanded[key] && (
                     // @ts-ignore
                     <ViewCreator
-                      idReference={`${idReference}.${index}`}
+                      idReference={`${idReference}[${index}]`}
                       blueprintAttribute={{
                         name: 'nil',
                         attributeType: type,

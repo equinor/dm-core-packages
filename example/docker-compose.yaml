@@ -45,8 +45,8 @@ services:
       #SIMA_LICENSE: |
     depends_on:
       - job-store
-    volumes:
-      - ../../dm-job/src/:/code/src
+#    volumes:
+#      - ../../dm-job/src/:/code/src
     ports:
       - "5001:5000"
 
