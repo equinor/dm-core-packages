@@ -3,14 +3,14 @@ import {
   FSTreeContext,
   TreeView,
 } from '@development-framework/dm-core'
-import { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 function App() {
   const { treeNodes, loading } = useContext(FSTreeContext)
-  const [selectedType, setSelectedType] = useState()
-  const [selectedEntity, setSelectedEntity] = useState()
+  const [selectedType, setSelectedType] = useState<string>()
+  const [selectedEntity, setSelectedEntity] = useState<string>()
 
-  if (loading) return <>Loading</>
+  if (loading) return <div>Loading</div>
 
   return (
     <div
