@@ -73,6 +73,7 @@ export const AttributeSelectorPlugin = (
           type: 'InlineRecipeViewConfig',
           scope: 'self',
           recipe: {
+            type: 'UiRecipe',
             name: 'Yaml',
             plugin: '@development-framework/dm-core-plugins/yaml',
           },

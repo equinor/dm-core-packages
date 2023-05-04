@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/attribute-selector/blueprints/AttributeSelectorTabsBlueprint",
+  "_blueprintPath_": "/plugins/attribute-selector/blueprints/AttributeSelectorTabs",
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",

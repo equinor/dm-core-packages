@@ -1,37 +1,36 @@
 {
-  "_id": "g6282220-4a90-4d02-8f34-b82255fc91d6",
-  "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+  "type": "./blueprints/AttributeSelectorSidebar",
   "name": "attributeSelectorSidebarEntity",
   "firstAttribute": {
-    "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+    "type": "./blueprints/AttributeSelectorSidebar",
     "name": "first attribute",
     "firstAttribute": {
-      "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+      "type": "./blueprints/AttributeSelectorSidebar",
       "name": "first attribute"
     }
   },
   "secondAttribute": {
-    "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+    "type": "./blueprints/AttributeSelectorSidebar",
     "name": "second attribute"
   },
   "thirdAttribute": {
-    "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+    "type": "./blueprints/AttributeSelectorSidebar",
     "name": "third attribute",
     "firstAttribute": {
-      "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+      "type": "./blueprints/AttributeSelectorSidebar",
       "name": "first attribute",
       "firstAttribute": {
-        "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+        "type": "./blueprints/AttributeSelectorSidebar",
         "name": "first attribute",
         "aStringValue": "Something here"
       }
     },
     "secondAttribute": {
-      "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+      "type": "./blueprints/AttributeSelectorSidebar",
       "name": "second attribute"
     },
     "thirdAttribute": {
-      "type": "./blueprints/AttributeSelectorSidebarBlueprint",
+      "type": "./blueprints/AttributeSelectorSidebar",
       "name": "third attribute",
       "aStringValue": "Hallo World!"
     }
