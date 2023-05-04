@@ -1,0 +1,44 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "AppModels:signals_simple/Case",
+  "initialUiRecipe": {
+    "type": "CORE:UiRecipe",
+    "name": "Selector",
+    "description": "ESS Plot",
+    "plugin": "UiPluginSelector",
+    "config": {
+      "type": "PluginModels:uiPluginSelector/UiPluginSelectorConfig",
+      "recipes": ["Tabs", "Run"]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view"
+    },
+    {
+      "name": "Tabs",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+      "config": {
+        "type": "PluginModels:tabs/TabsPluginConfig",
+        "childTabsOnRender": true,
+        "asSidebar": false,
+        "homeRecipe": "Edit"
+      }
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default edit",
+      "plugin": "form"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Run",
+      "description": "running",
+      "plugin": "signal-job"
+    }
+  ]
+}
