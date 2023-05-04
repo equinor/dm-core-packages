@@ -70,8 +70,12 @@ export const AttributeSelectorPlugin = (
         label: 'self',
         viewId: 'self',
         view: {
-          type: 'ViewConfig',
+          type: 'InlineRecipeViewConfig',
           scope: 'self',
+          recipe: {
+            name: 'Yaml',
+            plugin: '@development-framework/dm-core-plugins/yaml',
+          },
           eds_icon: 'home',
         },
         rootEntityId: idReference,
