@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/attribute-selector/blueprints/AttributeSelectorSidebarBlueprint",
+  "_blueprintPath_": "/plugins/attribute-selector/blueprints/AttributeSelectorSidebar",
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",

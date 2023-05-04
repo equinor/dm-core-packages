@@ -1,0 +1,39 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "AttributeSelectorTabs",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "type"
+    },
+    {
+      "attributeType": "./AttributeSelectorTabs",
+      "type": "CORE:BlueprintAttribute",
+      "name": "firstAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "./AttributeSelectorTabs",
+      "type": "CORE:BlueprintAttribute",
+      "name": "secondAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "./AttributeSelectorTabs",
+      "type": "CORE:BlueprintAttribute",
+      "name": "thirdAttribute",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "aStringValue",
+      "optional": true
+    }
+  ]
+}
