@@ -1,0 +1,120 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "AppModels:signals_simple/Case",
+  "uiRecipes": [
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Dashboard",
+      "description": "ESS Plot",
+      "plugin": "@development-framework/dm-core-plugins/grid",
+      "config": {
+        "type": "PluginModels:grid/GridPluginConfig",
+        "size": {
+          "type": "PluginModels:grid/GridSize",
+          "columns": 12,
+          "rows": 15
+        },
+        "items": [
+          {
+            "type": "PluginModels:grid/GridItem",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "Tabs"
+            },
+            "gridArea": {
+              "type": "PluginModels:grid/GridArea",
+              "rowStart": 1,
+              "columnStart": 1,
+              "rowEnd": 10,
+              "columnEnd": 6
+            }
+          },
+          {
+            "type": "PluginModels:grid/GridItem",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "scope": "signal",
+              "recipe": "Plot"
+            },
+            "gridArea": {
+              "type": "PluginModels:grid/GridArea",
+              "rowStart": 1,
+              "columnStart": 6,
+              "rowEnd": 3,
+              "columnEnd": 12
+            }
+          },
+          {
+            "type": "PluginModels:grid/GridItem",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "RunInt"
+            },
+            "gridArea": {
+              "type": "PluginModels:grid/GridArea",
+              "rowStart": 3,
+              "columnStart": 6,
+              "rowEnd": 10,
+              "columnEnd": 12
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view"
+    },
+    {
+      "name": "Tabs",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+      "config": {
+        "type": "PluginModels:tabs/AttributeSelectorPluginConfig",
+        "childTabsOnRender": true,
+        "asSidebar": false,
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+            "label": "Home",
+            "view": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "Edit"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Run",
+      "description": "running",
+      "plugin": "signal-job"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "RunInt",
+      "description": "running",
+      "plugin": "signal-job-single"
+    },
+    {
+      "name": "List",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/generic-list",
+      "dimensions": "*",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
+        "headers": ["name", "description"],
+        "showDelete": true,
+        "expanded": false
+      }
+    }
+  ]
+}

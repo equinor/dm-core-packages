@@ -1,0 +1,13 @@
+{
+  "name": "CaseProxy",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "child_id",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}

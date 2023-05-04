@@ -1,47 +1,41 @@
 {
-  "name": "recipes",
+  "name": "MySignalApp",
   "type": "CORE:Package",
   "_meta_": {
     "type": "CORE:Meta",
     "version": "0.0.1",
     "dependencies": [
       {
-        "type": "CORE:Dependency",
         "alias": "CORE",
         "address": "system/SIMOS",
         "version": "0.0.1",
         "protocol": "dmss"
       },
       {
-        "type": "CORE:Dependency",
-        "alias": "PLUGINS",
-        "address": "system/Plugins",
-        "version": "0.0.1",
-        "protocol": "dmss"
-      },
-      {
-        "type": "CORE:Dependency",
         "alias": "AppModels",
         "address": "DemoDataSource/apps/MySignalApp/models",
         "version": "0.0.1",
         "protocol": "dmss"
       },
       {
-        "type": "CORE:Dependency",
         "alias": "PluginModels",
         "address": "DemoDataSource/apps/MySignalApp/models/plugins",
         "version": "0.0.1",
         "protocol": "dmss"
       },
       {
-        "type": "CORE:Dependency",
+        "alias": "PLUGINS",
+        "address": "system/Plugins",
+        "version": "0.0.1",
+        "protocol": "dmss"
+      },
+      {
         "alias": "JOBCORE",
         "address": "WorkflowDS/Blueprints",
         "version": "0.0.1",
         "protocol": "dmss"
       },
       {
-        "type": "CORE:Dependency",
         "alias": "SIMA",
         "address": "SIMADS/sima4.2.1",
         "version": "4.2.1",
