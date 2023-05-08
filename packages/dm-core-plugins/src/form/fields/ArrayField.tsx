@@ -48,7 +48,7 @@ export default function Fields(props: any) {
     const name: string = `${namePath}-${fields.length}`
     dmssAPI
       .instantiateEntity({
-        entity: { name: name, type: type as string },
+        entity: { type: type as string },
       })
       .then((newEntity: any) => {
         const data = JSON.stringify([...fields, newEntity.data])

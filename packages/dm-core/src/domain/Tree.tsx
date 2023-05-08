@@ -202,8 +202,8 @@ export class TreeNode {
   // Fetches the unresolved document of the node
   async fetch() {
     return this.tree.dmssApi
-      .documentGetById({
-        idReference: this.nodeId,
+      .documentGet({
+        reference: this.nodeId,
         depth: 0,
       })
       .then((response: any) => response.data)
@@ -215,8 +215,8 @@ export class TreeNode {
         .blueprintGet({ typeRef: this.type })
         .then((response: any) => response.data.blueprint)
       this.tree.dmssApi
-        .documentGetById({
-          idReference: this.nodeId,
+        .documentGet({
+          reference: this.nodeId,
           depth: 0,
         })
         .then((response: any) => {
@@ -282,6 +282,7 @@ export class TreeNode {
     if (this.type === EBlueprint.PACKAGE) packageContent = '.content'
 
     const response = await this.tree.dmssApi.instantiateEntity({
+      // @ts-ignore
       entity: { name: name, type: type },
     })
     const newEntity = { ...response.data, name: name }
@@ -345,7 +346,7 @@ export class Tree {
   async initFromFolder(folderPath: string) {
     const dataSourceId = folderPath.split('/', 1)[0]
     this.dmssApi
-      .documentGetByPath({ absolutePath: folderPath })
+      .documentGet({ reference: folderPath })
       .then((response: any) => {
         const data = response.data
         const folderNode = new TreeNode(

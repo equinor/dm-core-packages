@@ -77,5 +77,11 @@ export interface Recipe {
      * @memberof Recipe
      */
     'label'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Recipe
+     */
+    'dimensions'?: string;
 }
 

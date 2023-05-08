@@ -25,18 +25,18 @@ export interface Reference {
      * @type {string}
      * @memberof Reference
      */
-    '_id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Reference
-     */
-    'name': string;
+    'address': string;
     /**
      * 
      * @type {string}
      * @memberof Reference
      */
     'type': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Reference
+     */
+    'referenceType': string;
 }
 

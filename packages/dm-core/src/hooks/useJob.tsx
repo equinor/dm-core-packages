@@ -87,7 +87,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     if (entityId) {
       setIsLoading(true)
       dmssAPI
-        .documentGetById({ idReference: entityId })
+        .documentGet({ reference: entityId })
         // @ts-ignore
         .then((response: AxiosResponse<TJob>) => {
           if (response.data?.uid) {

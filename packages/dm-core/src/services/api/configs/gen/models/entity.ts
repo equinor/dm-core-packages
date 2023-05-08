@@ -26,6 +26,5 @@ export interface Entity {
      * @memberof Entity
      */
     'type': string;
-    [key: string]: any;
 }
 
