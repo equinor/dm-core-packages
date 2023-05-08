@@ -8,7 +8,7 @@ import { mockGetDocument } from '../utils/test-utils-dm-core'
 
 const mockDocument = [
   {
-    idReference: 'testDS/1',
+    reference: 'testDS/1',
     description: 'Description1',
   },
 ]
@@ -31,7 +31,7 @@ describe('useDocumentHook', () => {
         expect(result.current[0]).toEqual(mockDocument)
         expect(mock).toHaveBeenCalledTimes(1)
         expect(mock).toHaveBeenCalledWith({
-          idReference: 'testDS/1',
+          reference: 'testDS/1',
           depth: 1,
         })
       })

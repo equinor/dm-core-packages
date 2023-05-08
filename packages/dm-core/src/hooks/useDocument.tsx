@@ -56,8 +56,8 @@ export function useDocument<T>(
     if (documentDepth < 0 || documentDepth > 999)
       throw new Error('Depth must be a positive number < 999')
     dmssAPI
-      .documentGetById({
-        idReference: idReference,
+      .documentGet({
+        reference: idReference,
         depth: documentDepth,
       })
       .then((response: any) => {

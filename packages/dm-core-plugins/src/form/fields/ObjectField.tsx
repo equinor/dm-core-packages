@@ -73,7 +73,7 @@ const AddObject = (props: any) => {
 
     dmssAPI
       .instantiateEntity({
-        entity: { name: namePath as string, type: type as string },
+        entity: { type: type as string },
       })
       .then((newEntity: AxiosResponse<any>) => {
         const data = JSON.stringify(newEntity.data)

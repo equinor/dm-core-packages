@@ -192,18 +192,18 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
-         * @summary Get By Id
-         * @param {string} idReference 
+         * Get document as JSON string.  - **reference**:   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)    The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * @summary Get
+         * @param {string} reference 
          * @param {number} [depth] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGetById: async (idReference: string, depth?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'idReference' is not null or undefined
-            assertParamExists('documentGetById', 'idReference', idReference)
-            const localVarPath = `/api/documents/{id_reference}`
-                .replace(`{${"id_reference"}}`, encodeURIComponent(String(idReference)));
+        documentGet: async (reference: string, depth?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reference' is not null or undefined
+            assertParamExists('documentGet', 'reference', reference)
+            const localVarPath = `/api/documents/{reference}`
+                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -225,47 +225,6 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             if (depth !== undefined) {
                 localVarQueryParameter['depth'] = depth;
             }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
-         * @summary Get By Path
-         * @param {string} absolutePath 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        documentGetByPath: async (absolutePath: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'absolutePath' is not null or undefined
-            assertParamExists('documentGetByPath', 'absolutePath', absolutePath)
-            const localVarPath = `/api/documents-by-path/{absolute_path}`
-                .replace(`{${"absolute_path"}}`, encodeURIComponent(String(absolutePath)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
 
 
     
@@ -474,26 +433,15 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
-         * @summary Get By Id
-         * @param {string} idReference 
+         * Get document as JSON string.  - **reference**:   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)    The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * @summary Get
+         * @param {string} reference 
          * @param {number} [depth] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentGetById(idReference: string, depth?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGetById(idReference, depth, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
-         * @summary Get By Path
-         * @param {string} absolutePath 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async documentGetByPath(absolutePath: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGetByPath(absolutePath, options);
+        async documentGet(reference: string, depth?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(reference, depth, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -579,25 +527,15 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentAddToPath(pathReference, document, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
-         * @summary Get By Id
-         * @param {string} idReference 
+         * Get document as JSON string.  - **reference**:   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)    The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * @summary Get
+         * @param {string} reference 
          * @param {number} [depth] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGetById(idReference: string, depth?: number, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGetById(idReference, depth, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
-         * @summary Get By Path
-         * @param {string} absolutePath 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        documentGetByPath(absolutePath: string, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGetByPath(absolutePath, options).then((request) => request(axios, basePath));
+        documentGet(reference: string, depth?: number, options?: any): AxiosPromise<object> {
+            return localVarFp.documentGet(reference, depth, options).then((request) => request(axios, basePath));
         },
         /**
          * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
@@ -720,38 +658,24 @@ export interface DocumentApiDocumentAddToPathRequest {
 }
 
 /**
- * Request parameters for documentGetById operation in DocumentApi.
+ * Request parameters for documentGet operation in DocumentApi.
  * @export
- * @interface DocumentApiDocumentGetByIdRequest
+ * @interface DocumentApiDocumentGetRequest
  */
-export interface DocumentApiDocumentGetByIdRequest {
+export interface DocumentApiDocumentGetRequest {
     /**
      * 
      * @type {string}
-     * @memberof DocumentApiDocumentGetById
+     * @memberof DocumentApiDocumentGet
      */
-    readonly idReference: string
+    readonly reference: string
 
     /**
      * 
      * @type {number}
-     * @memberof DocumentApiDocumentGetById
+     * @memberof DocumentApiDocumentGet
      */
     readonly depth?: number
-}
-
-/**
- * Request parameters for documentGetByPath operation in DocumentApi.
- * @export
- * @interface DocumentApiDocumentGetByPathRequest
- */
-export interface DocumentApiDocumentGetByPathRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof DocumentApiDocumentGetByPath
-     */
-    readonly absolutePath: string
 }
 
 /**
@@ -861,27 +785,15 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Get document as JSON string.  - **id_reference**: <data_source>/<document_uuid> - **depth**: Maximum depth for resolving nested documents.
-     * @summary Get By Id
-     * @param {DocumentApiDocumentGetByIdRequest} requestParameters Request parameters.
+     * Get document as JSON string.  - **reference**:   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)    The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+     * @summary Get
+     * @param {DocumentApiDocumentGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentApi
      */
-    public documentGetById(requestParameters: DocumentApiDocumentGetByIdRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentGetById(requestParameters.idReference, requestParameters.depth, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get a document by its absolute path.  - **absolute_path**: <protocol>://<data_source>/<path>.<attribute>
-     * @summary Get By Path
-     * @param {DocumentApiDocumentGetByPathRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DocumentApi
-     */
-    public documentGetByPath(requestParameters: DocumentApiDocumentGetByPathRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentGetByPath(requestParameters.absolutePath, options).then((request) => request(this.axios, this.basePath));
+    public documentGet(requestParameters: DocumentApiDocumentGetRequest, options?: AxiosRequestConfig) {
+        return DocumentApiFp(this.configuration).documentGet(requestParameters.reference, requestParameters.depth, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
