@@ -29,6 +29,9 @@ export async function getScopeTypeAndDimensions(
     .blueprintGet({ typeRef: blueprintAttribute.attributeType })
     .then((response: any) => response.data.blueprint)
 
+  // We need to remove any scope that contains list index
+  scope[0] = scope[0].split('[')[0]
+
   const attribute = blueprint.attributes.find((a) => a.name === scope[0])
   if (!attribute) {
     throw new Error(
@@ -44,10 +47,6 @@ export async function getScopeTypeAndDimensions(
       )
     return [attribute.attributeType, attribute.dimensions]
   }
-  if (attribute.dimensions == '*') {
-    scope.splice(0, 2)
-  } else {
-    scope.splice(0, 1)
-  }
+  scope.splice(0, 1)
   return getScopeTypeAndDimensions(attribute, dmssApi, scope)
 }
