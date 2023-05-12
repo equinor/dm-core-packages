@@ -2,13 +2,31 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "AppModels:containers/EquallySpacedSignal",
   "initialUiRecipe": {
+    "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
-    "name": "Selector",
-    "description": "ESS Plot",
-    "plugin": "UiPluginSelector",
+    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
     "config": {
-      "type": "PluginModels:uiPluginSelector/UiPluginSelectorConfig",
-      "recipes": ["Plot", "Table"]
+      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Plot",
+          "view": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Plot",
+            "scope": "self"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "label": "Table",
+          "view": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Table",
+            "scope": "self"
+          }
+        }
+      ]
     }
   },
   "uiRecipes": [
