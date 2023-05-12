@@ -18,12 +18,6 @@
         "protocol": "dmss"
       },
       {
-        "alias": "PluginModels",
-        "address": "DemoDataSource/apps/MySignalApp/models/plugins",
-        "version": "0.0.1",
-        "protocol": "dmss"
-      },
-      {
         "alias": "PLUGINS",
         "address": "system/Plugins",
         "version": "0.0.1",

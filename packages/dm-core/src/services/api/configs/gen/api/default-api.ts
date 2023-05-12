@@ -616,10 +616,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @summary Get
          * @param {string} reference 
          * @param {number} [depth] 
+         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet: async (reference: string, depth?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentGet: async (reference: string, depth?: number, resolveLinks?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'reference' is not null or undefined
             assertParamExists('documentGet', 'reference', reference)
             const localVarPath = `/api/documents/{reference}`
@@ -644,6 +645,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
             if (depth !== undefined) {
                 localVarQueryParameter['depth'] = depth;
+            }
+
+            if (resolveLinks !== undefined) {
+                localVarQueryParameter['resolve_links'] = resolveLinks;
             }
 
 
@@ -1567,11 +1572,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @summary Get
          * @param {string} reference 
          * @param {number} [depth] 
+         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentGet(reference: string, depth?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(reference, depth, options);
+        async documentGet(reference: string, depth?: number, resolveLinks?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(reference, depth, resolveLinks, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1918,11 +1924,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @summary Get
          * @param {string} reference 
          * @param {number} [depth] 
+         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet(reference: string, depth?: number, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGet(reference, depth, options).then((request) => request(axios, basePath));
+        documentGet(reference: string, depth?: number, resolveLinks?: boolean, options?: any): AxiosPromise<object> {
+            return localVarFp.documentGet(reference, depth, resolveLinks, options).then((request) => request(axios, basePath));
         },
         /**
          * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
@@ -2365,6 +2372,13 @@ export interface DefaultApiDocumentGetRequest {
      * @memberof DefaultApiDocumentGet
      */
     readonly depth?: number
+
+    /**
+     * 
+     * @type {boolean}
+     * @memberof DefaultApiDocumentGet
+     */
+    readonly resolveLinks?: boolean
 }
 
 /**
@@ -2820,7 +2834,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentGet(requestParameters: DefaultApiDocumentGetRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentGet(requestParameters.reference, requestParameters.depth, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentGet(requestParameters.reference, requestParameters.depth, requestParameters.resolveLinks, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

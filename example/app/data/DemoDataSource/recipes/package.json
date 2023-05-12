@@ -28,13 +28,6 @@
       },
       {
         "type": "CORE:Dependency",
-        "alias": "PluginModels",
-        "address": "DemoDataSource/apps/MySignalApp/models/plugins",
-        "version": "0.0.1",
-        "protocol": "dmss"
-      },
-      {
-        "type": "CORE:Dependency",
         "alias": "JOBCORE",
         "address": "WorkflowDS/Blueprints",
         "version": "0.0.1",

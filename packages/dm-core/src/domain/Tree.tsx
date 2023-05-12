@@ -217,7 +217,8 @@ export class TreeNode {
       this.tree.dmssApi
         .documentGet({
           reference: this.nodeId,
-          depth: 0,
+          depth: 2,
+          resolveLinks: true,
         })
         .then((response: any) => {
           const data = response.data
