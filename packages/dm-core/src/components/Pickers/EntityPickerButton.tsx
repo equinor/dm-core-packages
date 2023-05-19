@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { Button, Progress } from '@equinor/eds-core-react'
+import { Button, Progress, Icon } from '@equinor/eds-core-react'
+import { do_not_disturb } from '@equinor/eds-icons'
+import { AxiosError } from 'axios'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
 import { TReference } from '../../types'
@@ -8,9 +10,26 @@ import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { Dialog } from '../Dialog'
 import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
-import { TreeView } from '../TreeView'
+import { TNodeWrapperProps, TreeView } from '../TreeView'
 import { truncatePathString } from '../../utils/truncatePathString'
+import { ErrorResponse } from '../../services'
 
+const NodeWrapper = (props: TNodeWrapperProps & { typeFilter?: string }) => {
+  const { node, children, typeFilter } = props
+  return (
+    <div style={{ display: 'flex' }}>
+      {children}
+      {typeFilter && node.type !== typeFilter && (
+        <Icon
+          data={do_not_disturb}
+          title="save action"
+          size={18}
+          color={'salmon'}
+        />
+      )}
+    </div>
+  )
+}
 export const EntityPickerButton = (props: {
   onChange: (ref: TReference) => void
   typeFilter?: string
@@ -57,28 +76,33 @@ export const EntityPickerButton = (props: {
             <Progress.Circular />
           </div>
         ) : (
-          <TreeView
-            nodes={treeNodes}
-            onSelect={(node: TreeNode) => {
-              if (typeFilter && node.type !== typeFilter) {
-                NotificationManager.warning(
-                  `Type must be '${truncatePathString(typeFilter, 43)}'`
-                )
-                return
+          <div style={{ paddingRight: '10px' }}>
+            <TreeView
+              nodes={treeNodes}
+              NodeWrapper={(props: TNodeWrapperProps) =>
+                NodeWrapper({ ...props, typeFilter })
               }
-              setShowModal(false)
-              node
-                .fetch()
-                .then((doc: any) => {
-                  setShowModal(false)
-                  onChange(doc)
-                })
-                .catch((error: any) => {
-                  console.error(error)
-                  NotificationManager.error('Failed to fetch')
-                })
-            }}
-          />
+              onSelect={(node: TreeNode) => {
+                if (typeFilter && node.type !== typeFilter) {
+                  NotificationManager.warning(
+                    `Type must be '${truncatePathString(typeFilter, 43)}'`
+                  )
+                  return
+                }
+                setShowModal(false)
+                node
+                  .fetch()
+                  .then((doc: any) => {
+                    setShowModal(false)
+                    onChange(doc)
+                  })
+                  .catch((error: AxiosError<ErrorResponse>) => {
+                    console.error(error.response?.data)
+                    alert(error.response?.data.message)
+                  })
+              }}
+            />
+          </div>
         )}
       </Dialog>
     </div>

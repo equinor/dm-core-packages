@@ -113,7 +113,7 @@ export const GenericListPlugin = (
           )
           .catch((error: AxiosError<ErrorResponse>) => {
             console.error(error)
-            alert(JSON.stringify(error.response?.data, null, 2))
+            alert(error.response?.data.message)
           })
       })
   }

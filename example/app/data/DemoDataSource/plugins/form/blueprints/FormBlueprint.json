@@ -14,6 +14,13 @@
       "label": "Blueprint picker widget"
     },
     {
+      "name": "aJob",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "JOBCORE:Job",
+      "optional": true,
+      "contained": false
+    },
+    {
       "name": "aNumber",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",

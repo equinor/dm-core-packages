@@ -49,6 +49,7 @@ const AddExternal = (props: any) => {
       <EntityPickerButton
         data-testid={`select-${namePath}`}
         onChange={handleSelect}
+        typeFilter={type}
       />
       <NewEntityButton
         data-testid={`new-entity-${namePath}`}

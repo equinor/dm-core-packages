@@ -64,6 +64,7 @@ export const DestinationPicker = (props: TDestinationPickerProps) => {
           }}
           disabled={disabled || false}
           type="string"
+          readOnly
           value={truncatePathString(formData)}
           placeholder="Select folder"
           onClick={() => setShowModal(true)}
