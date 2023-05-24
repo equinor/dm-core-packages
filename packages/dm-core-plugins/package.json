@@ -37,6 +37,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "17.0.2",
+    "shx": " 0.3.4",
     "ts-jest": "^29.1.0",
     "ts-loader": "^9.3.1",
     "typescript": "^4.5.5",
@@ -53,11 +54,11 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "copy-yaml-css-file": "cp src/yaml/index.css ./dist/yaml",
-    "copy-explorer-css-file": "cp src/explorer/style.css ./dist/explorer",
+    "prebuild": "shx rm -rf dist",
+    "copy-yaml-css-file": "shx cp src/yaml/index.css ./dist/yaml",
+    "copy-explorer-css-file": "shx cp src/explorer/style.css ./dist/explorer",
     "build": "tsc && yarn copy-explorer-css-file && yarn copy-yaml-css-file && yarn copy-explorer-css-file",
-    "postbuild": "rm -rf node_modules",
+    "postbuild": "shx rm -rf node_modules",
     "test": "jest test",
     "test-watch": "jest test --watchAll"
   }
