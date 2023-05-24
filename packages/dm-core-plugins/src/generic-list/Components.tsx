@@ -42,3 +42,16 @@ export const MoveItemDownButton = (props: { onClick: () => void }) => (
     <Icon data={arrow_down} title="Move down" />
   </Button>
 )
+
+export const ItemsPerPageButton = (props: {
+  onClick: (n: number) => void
+  amount: number
+  current: number
+}) => (
+  <Button
+    onClick={() => props.onClick(props.amount)}
+    variant={props.current === props.amount ? 'outlined' : 'ghost'}
+  >
+    {props.amount}
+  </Button>
+)
