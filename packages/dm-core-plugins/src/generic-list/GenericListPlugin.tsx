@@ -8,7 +8,13 @@ import {
   ViewCreator,
   ErrorResponse,
 } from '@development-framework/dm-core'
-import { Button, Icon, Typography } from '@equinor/eds-core-react'
+import {
+  Button,
+  Icon,
+  Typography,
+  Pagination,
+  Label,
+} from '@equinor/eds-core-react'
 import { chevron_down, chevron_right } from '@equinor/eds-icons'
 import { AxiosResponse, AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -16,6 +22,7 @@ import styled from 'styled-components'
 import {
   AppendButton,
   DeleteButton,
+  ItemsPerPageButton,
   MoveItemDownButton,
   MoveItemUpButton,
   SaveButton,
@@ -37,6 +44,18 @@ const Table = styled.table`
   width: 100%;
   bordercollapse: collapse;
 `
+
+function paginatedItems(
+  allItems: { [key: string]: TGenericObject },
+  currentPage: number,
+  itemsPerPage: number
+): {
+  [key: string]: TGenericObject
+} {
+  const firstItem = currentPage * itemsPerPage
+  const lastItem = firstItem + itemsPerPage
+  return Object.fromEntries(Object.entries(allItems).slice(firstItem, lastItem))
+}
 
 type TGenericListConfig = {
   expanded: boolean
@@ -69,12 +88,18 @@ export const GenericListPlugin = (
   const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const dmssAPI = useDMSS()
+  const [currentPage, setCurrentPage] = useState(0)
+  const [itemsPerPage, setItemsPerPage] = useState(5)
 
   useEffect(() => {
     if (loading || !document) return
     // Need to generate a uuid for each item in the list to be used for reacts "key" property
     const itemsWithIds = Object.fromEntries(
-      Object.values(document).map((value: any) => [crypto.randomUUID(), value])
+      // Since we have pagination, index in visible list does not correspond to correct index in DMSS. Therefor we add the "original index".
+      Object.values(document).map((value: any, index: number) => [
+        crypto.randomUUID(),
+        { data: value, index: index },
+      ])
     )
 
     const itemsExpanded = Object.fromEntries(
@@ -161,98 +186,141 @@ export const GenericListPlugin = (
           </tr>
         </thead>
         <tbody>
-          {Object.entries(items).map(([key, item], index: number) => (
-            <React.Fragment key={key}>
-              <TableRow>
-                <td style={{ textAlign: 'left' }}>
-                  <Button
-                    variant="ghost_icon"
-                    onClick={() =>
-                      setItemsExpanded({
-                        ...itemsExpanded,
-                        [key]: !itemsExpanded[key],
-                      })
-                    }
-                  >
-                    <Icon
-                      data={itemsExpanded[key] ? chevron_down : chevron_right}
-                      title="Expand"
-                    />
-                  </Button>
-                </td>
-                {internalConfig.headers.map((attribute: string) => {
-                  if (typeof item[attribute] === 'object')
-                    throw new Error(
-                      `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
+          {Object.entries(paginatedItems(items, currentPage, itemsPerPage)).map(
+            ([key, item]) => (
+              <React.Fragment key={key}>
+                <TableRow>
+                  <td style={{ textAlign: 'left' }}>
+                    <Button
+                      variant="ghost_icon"
+                      onClick={() =>
+                        setItemsExpanded({
+                          ...itemsExpanded,
+                          [key]: !itemsExpanded[key],
+                        })
+                      }
+                    >
+                      <Icon
+                        data={itemsExpanded[key] ? chevron_down : chevron_right}
+                        title="Expand"
+                      />
+                    </Button>
+                  </td>
+                  {internalConfig.headers.map((attribute: string) => {
+                    if (typeof item.data[attribute] === 'object')
+                      throw new Error(
+                        `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
+                      )
+                    return (
+                      <TableData key={attribute}>
+                        <Typography group="table" variant={'cell_text'}>
+                          {item.data[attribute]}
+                        </Typography>
+                      </TableData>
                     )
-                  return (
-                    <TableData key={attribute}>
-                      <Typography group="table" variant={'cell_text'}>
-                        {item[attribute]}
-                      </Typography>
-                    </TableData>
-                  )
-                })}
-                <td style={{ textAlign: 'right' }}>
-                  {internalConfig?.showDelete && (
-                    <>
-                      <MoveItemUpButton
-                        onClick={() => {
-                          setItems(reorderObject(key, -1, items))
-                          setUnsavedChanges(true)
+                  })}
+                  <td style={{ textAlign: 'right' }}>
+                    {internalConfig?.showDelete && (
+                      <>
+                        <MoveItemUpButton
+                          onClick={() => {
+                            setItems(reorderObject(key, -1, items))
+                            setUnsavedChanges(true)
+                          }}
+                        />
+                        <MoveItemDownButton
+                          onClick={() => {
+                            setItems(reorderObject(key, 1, items))
+                            setUnsavedChanges(true)
+                          }}
+                        />
+                        <DeleteButton
+                          onClick={() =>
+                            deleteItem(`${idReference}.${item.index}`, key)
+                          }
+                        />
+                      </>
+                    )}
+                  </td>
+                </TableRow>
+                <TableRow style={{ cursor: 'initial' }}>
+                  <td
+                    colSpan={4}
+                    style={{
+                      borderBottom: '1px solid rgba(224, 224, 224, 1)',
+                      textAlign: 'initial',
+                    }}
+                  >
+                    {itemsExpanded[key] && ( // @ts-ignore
+                      <ViewCreator
+                        idReference={`${idReference}[${item.index}]`}
+                        blueprintAttribute={{
+                          name: 'nil',
+                          attributeType: type,
+                          dimensions: '',
                         }}
-                      />
-                      <MoveItemDownButton
-                        onClick={() => {
-                          setItems(reorderObject(key, 1, items))
-                          setUnsavedChanges(true)
-                        }}
-                      />
-                      <DeleteButton
-                        onClick={() =>
-                          deleteItem(`${idReference}.${index}`, key)
+                        viewConfig={
+                          internalConfig.views[item.index] ??
+                          internalConfig.defaultView
                         }
                       />
-                    </>
-                  )}
-                </td>
-              </TableRow>
-              <TableRow style={{ cursor: 'initial' }}>
-                <td
-                  colSpan={4}
-                  style={{
-                    borderBottom: '1px solid rgba(224, 224, 224, 1)',
-                    textAlign: 'initial',
-                  }}
-                >
-                  {itemsExpanded[key] && (
-                    // @ts-ignore
-                    <ViewCreator
-                      idReference={`${idReference}[${index}]`}
-                      blueprintAttribute={{
-                        name: 'nil',
-                        attributeType: type,
-                        dimensions: '',
-                      }}
-                      viewConfig={
-                        internalConfig.views[index] ??
-                        internalConfig.defaultView
-                      }
-                    />
-                  )}
-                </td>
-              </TableRow>
-            </React.Fragment>
-          ))}
+                    )}
+                  </td>
+                </TableRow>
+              </React.Fragment>
+            )
+          )}
         </tbody>
       </Table>
-      <div>
-        <SaveButton
-          onClick={save}
-          disabled={!unsavedChanges}
-          isLoading={isLoading}
-        />
-        <AppendButton onClick={() => addItem()} />
+
+      <div
+        style={{
+          display: 'grid',
+          gridAutoColumns: 'minmax(0, 1fr)',
+          width: '100%',
+          paddingTop: '10px',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Label label={'Items per page:'} />
+          {[5, 10, 20, 50].map((amount) => (
+            <ItemsPerPageButton
+              key={amount}
+              onClick={setItemsPerPage}
+              amount={amount}
+              current={itemsPerPage}
+            />
+          ))}
+        </div>
+        <div style={{ justifySelf: 'center' }}>
+          <Pagination
+            totalItems={Object.keys(items).length}
+            itemsPerPage={itemsPerPage}
+            defaultPage={currentPage + 1}
+            onChange={(_: any, p: number) => setCurrentPage(p - 1)}
+          />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gridColumnStart: '3',
+            justifySelf: 'end',
+          }}
+        >
+          <SaveButton
+            onClick={save}
+            disabled={!unsavedChanges}
+            isLoading={isLoading}
+          />
+          <AppendButton onClick={() => addItem()} />
+        </div>
       </div>
     </div>
   )
