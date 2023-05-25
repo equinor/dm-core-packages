@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "workspaces": [
+    "example",
+    "packages/dm-core",
+    "packages/dm-core-plugins"
+  ],
+  "scripts": {
+    "start:example": "yarn workspace example start",
+    "build:dm-core": "yarn workspace @development-framework/dm-core build",
+    "build:dm-core-plugins": "yarn workspace @development-framework/dm-core-plugins build",
+    "clear-external-pckgs": "rm -rf node_modules && rm -rf packages/dm-core/node_modules && rm -rf packages/dm-core-plugins/node_modules && rm -rf example/node_modules && rm yarn.lock"
+  }
+}
