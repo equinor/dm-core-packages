@@ -19,6 +19,20 @@ module.exports = {
           mainFields: ['module', 'main'],
         })
       )
+
+      if ((process.env.NODE_ENV || '').trim() === 'development') {
+        config.resolve.alias = {
+          '@development-framework/dm-core': path.resolve(
+            __dirname,
+            '../packages/dm-core/src/index.tsx'
+          ),
+          '@development-framework/dm-core-plugins': path.resolve(
+            __dirname,
+            '../packages/dm-core-plugins/src/index.tsx'
+          ),
+        }
+      }
+
       const oneOfRule = config.module.rules.find((rule) => rule.oneOf)
       // Replace include option for babel loader with exclude
       // so babel will handle workspace projects as well.
