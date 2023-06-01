@@ -29,17 +29,17 @@ import { ErrorResponse } from '../models';
 export const ExportApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
+         * Download a zip-folder with one or more documents as json file(s).  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export
-         * @param {string} absoluteDocumentRef 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        _export: async (absoluteDocumentRef: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'absoluteDocumentRef' is not null or undefined
-            assertParamExists('_export', 'absoluteDocumentRef', absoluteDocumentRef)
-            const localVarPath = `/api/export/{absolute_document_ref}`
-                .replace(`{${"absolute_document_ref"}}`, encodeURIComponent(String(absoluteDocumentRef)));
+        _export: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reference' is not null or undefined
+            assertParamExists('_export', 'reference', reference)
+            const localVarPath = `/api/export/{reference}`
+                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -70,17 +70,17 @@ export const ExportApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export Meta
-         * @param {string} absoluteDocumentRef 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        exportMeta: async (absoluteDocumentRef: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'absoluteDocumentRef' is not null or undefined
-            assertParamExists('exportMeta', 'absoluteDocumentRef', absoluteDocumentRef)
-            const localVarPath = `/api/export/meta/{absolute_document_ref}`
-                .replace(`{${"absolute_document_ref"}}`, encodeURIComponent(String(absoluteDocumentRef)));
+        exportMeta: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reference' is not null or undefined
+            assertParamExists('exportMeta', 'reference', reference)
+            const localVarPath = `/api/export/meta/{reference}`
+                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -121,25 +121,25 @@ export const ExportApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ExportApiAxiosParamCreator(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
+         * Download a zip-folder with one or more documents as json file(s).  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export
-         * @param {string} absoluteDocumentRef 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async _export(absoluteDocumentRef: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator._export(absoluteDocumentRef, options);
+        async _export(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator._export(reference, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export Meta
-         * @param {string} absoluteDocumentRef 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async exportMeta(absoluteDocumentRef: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(absoluteDocumentRef, options);
+        async exportMeta(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(reference, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -153,24 +153,24 @@ export const ExportApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = ExportApiFp(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
+         * Download a zip-folder with one or more documents as json file(s).  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export
-         * @param {string} absoluteDocumentRef 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        _export(absoluteDocumentRef: string, options?: any): AxiosPromise<void> {
-            return localVarFp._export(absoluteDocumentRef, options).then((request) => request(axios, basePath));
+        _export(reference: string, options?: any): AxiosPromise<void> {
+            return localVarFp._export(reference, options).then((request) => request(axios, basePath));
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export Meta
-         * @param {string} absoluteDocumentRef 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        exportMeta(absoluteDocumentRef: string, options?: any): AxiosPromise<any> {
-            return localVarFp.exportMeta(absoluteDocumentRef, options).then((request) => request(axios, basePath));
+        exportMeta(reference: string, options?: any): AxiosPromise<any> {
+            return localVarFp.exportMeta(reference, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -186,7 +186,7 @@ export interface ExportApiExportRequest {
      * @type {string}
      * @memberof ExportApiExport
      */
-    readonly absoluteDocumentRef: string
+    readonly reference: string
 }
 
 /**
@@ -200,7 +200,7 @@ export interface ExportApiExportMetaRequest {
      * @type {string}
      * @memberof ExportApiExportMeta
      */
-    readonly absoluteDocumentRef: string
+    readonly reference: string
 }
 
 /**
@@ -211,7 +211,7 @@ export interface ExportApiExportMetaRequest {
  */
 export class ExportApi extends BaseAPI {
     /**
-     * Download a zip-folder with one or more documents as json file(s).  - **absolute_document_ref**: <data_source>/<path>/<document_name>
+     * Download a zip-folder with one or more documents as json file(s).  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
      * @summary Export
      * @param {ExportApiExportRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -219,11 +219,11 @@ export class ExportApi extends BaseAPI {
      * @memberof ExportApi
      */
     public _export(requestParameters: ExportApiExportRequest, options?: AxiosRequestConfig) {
-        return ExportApiFp(this.configuration)._export(requestParameters.absoluteDocumentRef, options).then((request) => request(this.axios, this.basePath));
+        return ExportApiFp(this.configuration)._export(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **absolute_document_ref**: <data_source>/<path_to_entity>/<entity_name>
+     * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
      * @summary Export Meta
      * @param {ExportApiExportMetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -231,6 +231,6 @@ export class ExportApi extends BaseAPI {
      * @memberof ExportApi
      */
     public exportMeta(requestParameters: ExportApiExportMetaRequest, options?: AxiosRequestConfig) {
-        return ExportApiFp(this.configuration).exportMeta(requestParameters.absoluteDocumentRef, options).then((request) => request(this.axios, this.basePath));
+        return ExportApiFp(this.configuration).exportMeta(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
     }
 }

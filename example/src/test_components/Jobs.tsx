@@ -98,8 +98,8 @@ export const Jobs = () => {
 
   const saveJobEntity = (jobEntity: any) => {
     dmssAPI
-      .documentAddToPath({
-        pathReference: `${dataSource}/DemoPackage`,
+      .documentAdd({
+        reference: `${dataSource}/DemoPackage`,
         document: JSON.stringify(jobEntity),
       })
       .then((response: AxiosResponse<any>) => {

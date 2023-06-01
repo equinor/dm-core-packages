@@ -23,8 +23,8 @@ export const addToPath = (
   const dmssAPI = useDMSS()
 
   return dmssAPI
-    .documentAddToPath({
-      pathReference: pathReference,
+    .documentAdd({
+      reference: pathReference,
       document: JSON.stringify(body),
       // @ts-ignore
       files: files.filter((item) => item !== undefined),

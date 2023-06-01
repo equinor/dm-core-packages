@@ -29,121 +29,22 @@ import { ErrorResponse } from '../models';
 export const DocumentApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Add a new document to absolute ref (root of data source, or another document). If added to another document, a valid attribute type check is done. Select parent with format \'data_source/document_id.attribute.index.attribute\'
-         * @summary Add By Parent Id
-         * @param {string} absoluteRef 
-         * @param {object} body 
-         * @param {boolean} [updateUncontained] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        documentAdd: async (absoluteRef: string, body: object, updateUncontained?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'absoluteRef' is not null or undefined
-            assertParamExists('documentAdd', 'absoluteRef', absoluteRef)
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('documentAdd', 'body', body)
-            const localVarPath = `/api/documents/{absolute_ref}`
-                .replace(`{${"absolute_ref"}}`, encodeURIComponent(String(absoluteRef)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-            if (updateUncontained !== undefined) {
-                localVarQueryParameter['update_uncontained'] = updateUncontained;
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
-         * @summary Add Raw
-         * @param {string} dataSourceId 
-         * @param {object} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        documentAddSimple: async (dataSourceId: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('documentAddSimple', 'dataSourceId', dataSourceId)
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('documentAddSimple', 'body', body)
-            const localVarPath = `/api/documents/{data_source_id}/add-raw`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Add To Path
-         * @param {string} pathReference 
+         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * @summary Add Document
+         * @param {string} reference 
          * @param {string} document 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAddToPath: async (pathReference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'pathReference' is not null or undefined
-            assertParamExists('documentAddToPath', 'pathReference', pathReference)
+        documentAdd: async (reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reference' is not null or undefined
+            assertParamExists('documentAdd', 'reference', reference)
             // verify required parameter 'document' is not null or undefined
-            assertParamExists('documentAddToPath', 'document', document)
-            const localVarPath = `/api/documents-by-path/{path_reference}`
-                .replace(`{${"path_reference"}}`, encodeURIComponent(String(pathReference)));
+            assertParamExists('documentAdd', 'document', document)
+            const localVarPath = `/api/documents/{reference}`
+                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -192,7 +93,54 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get document as JSON string.  - **reference**:   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)    The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+         * @summary Add Raw
+         * @param {string} dataSourceId 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentAddSimple: async (dataSourceId: string, body: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataSourceId' is not null or undefined
+            assertParamExists('documentAddSimple', 'dataSourceId', dataSourceId)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('documentAddSimple', 'body', body)
+            const localVarPath = `/api/documents-add-raw/{data_source_id}`
+                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
          * @param {string} reference 
          * @param {number} [depth] 
@@ -243,58 +191,17 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
+         * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} idReference 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove: async (idReference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'idReference' is not null or undefined
-            assertParamExists('documentRemove', 'idReference', idReference)
-            const localVarPath = `/api/documents/{id_reference}`
-                .replace(`{${"id_reference"}}`, encodeURIComponent(String(idReference)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Remove a document from DMSS.  - **path_reference**: <data_source>/<path>.<attribute>
-         * @summary Remove By Path
-         * @param {string} pathReference 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        documentRemoveByPath: async (pathReference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'pathReference' is not null or undefined
-            assertParamExists('documentRemoveByPath', 'pathReference', pathReference)
-            const localVarPath = `/api/documents-by-path/{path_reference}`
-                .replace(`{${"path_reference"}}`, encodeURIComponent(String(pathReference)));
+        documentRemove: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reference' is not null or undefined
+            assertParamExists('documentRemove', 'reference', reference)
+            const localVarPath = `/api/documents/{reference}`
+                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -399,16 +306,17 @@ export const DocumentApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DocumentApiAxiosParamCreator(configuration)
     return {
         /**
-         * Add a new document to absolute ref (root of data source, or another document). If added to another document, a valid attribute type check is done. Select parent with format \'data_source/document_id.attribute.index.attribute\'
-         * @summary Add By Parent Id
-         * @param {string} absoluteRef 
-         * @param {object} body 
+         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * @summary Add Document
+         * @param {string} reference 
+         * @param {string} document 
          * @param {boolean} [updateUncontained] 
+         * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentAdd(absoluteRef: string, body: object, updateUncontained?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAdd(absoluteRef, body, updateUncontained, options);
+        async documentAdd(reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAdd(reference, document, updateUncontained, files, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -424,21 +332,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Add To Path
-         * @param {string} pathReference 
-         * @param {string} document 
-         * @param {boolean} [updateUncontained] 
-         * @param {Array<File>} [files] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async documentAddToPath(pathReference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAddToPath(pathReference, document, updateUncontained, files, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get document as JSON string.  - **reference**:   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)    The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
          * @param {string} reference 
          * @param {number} [depth] 
@@ -451,25 +345,14 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
+         * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} idReference 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentRemove(idReference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(idReference, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Remove a document from DMSS.  - **path_reference**: <data_source>/<path>.<attribute>
-         * @summary Remove By Path
-         * @param {string} pathReference 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async documentRemoveByPath(pathReference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemoveByPath(pathReference, options);
+        async documentRemove(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(reference, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -497,16 +380,17 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
     const localVarFp = DocumentApiFp(configuration)
     return {
         /**
-         * Add a new document to absolute ref (root of data source, or another document). If added to another document, a valid attribute type check is done. Select parent with format \'data_source/document_id.attribute.index.attribute\'
-         * @summary Add By Parent Id
-         * @param {string} absoluteRef 
-         * @param {object} body 
+         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * @summary Add Document
+         * @param {string} reference 
+         * @param {string} document 
          * @param {boolean} [updateUncontained] 
+         * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAdd(absoluteRef: string, body: object, updateUncontained?: boolean, options?: any): AxiosPromise<object> {
-            return localVarFp.documentAdd(absoluteRef, body, updateUncontained, options).then((request) => request(axios, basePath));
+        documentAdd(reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<object> {
+            return localVarFp.documentAdd(reference, document, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
          * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
@@ -520,20 +404,7 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentAddSimple(dataSourceId, body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Add To Path
-         * @param {string} pathReference 
-         * @param {string} document 
-         * @param {boolean} [updateUncontained] 
-         * @param {Array<File>} [files] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        documentAddToPath(pathReference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<object> {
-            return localVarFp.documentAddToPath(pathReference, document, updateUncontained, files, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get document as JSON string.  - **reference**:   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)    The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
          * @param {string} reference 
          * @param {number} [depth] 
@@ -545,24 +416,14 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentGet(reference, depth, resolveLinks, options).then((request) => request(axios, basePath));
         },
         /**
-         * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
+         * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} idReference 
+         * @param {string} reference 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove(idReference: string, options?: any): AxiosPromise<string> {
-            return localVarFp.documentRemove(idReference, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Remove a document from DMSS.  - **path_reference**: <data_source>/<path>.<attribute>
-         * @summary Remove By Path
-         * @param {string} pathReference 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        documentRemoveByPath(pathReference: string, options?: any): AxiosPromise<any> {
-            return localVarFp.documentRemoveByPath(pathReference, options).then((request) => request(axios, basePath));
+        documentRemove(reference: string, options?: any): AxiosPromise<any> {
+            return localVarFp.documentRemove(reference, options).then((request) => request(axios, basePath));
         },
         /**
          * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
@@ -591,14 +452,14 @@ export interface DocumentApiDocumentAddRequest {
      * @type {string}
      * @memberof DocumentApiDocumentAdd
      */
-    readonly absoluteRef: string
+    readonly reference: string
 
     /**
      * 
-     * @type {object}
+     * @type {string}
      * @memberof DocumentApiDocumentAdd
      */
-    readonly body: object
+    readonly document: string
 
     /**
      * 
@@ -606,6 +467,13 @@ export interface DocumentApiDocumentAddRequest {
      * @memberof DocumentApiDocumentAdd
      */
     readonly updateUncontained?: boolean
+
+    /**
+     * 
+     * @type {Array<File>}
+     * @memberof DocumentApiDocumentAdd
+     */
+    readonly files?: Array<File>
 }
 
 /**
@@ -627,41 +495,6 @@ export interface DocumentApiDocumentAddSimpleRequest {
      * @memberof DocumentApiDocumentAddSimple
      */
     readonly body: object
-}
-
-/**
- * Request parameters for documentAddToPath operation in DocumentApi.
- * @export
- * @interface DocumentApiDocumentAddToPathRequest
- */
-export interface DocumentApiDocumentAddToPathRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof DocumentApiDocumentAddToPath
-     */
-    readonly pathReference: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DocumentApiDocumentAddToPath
-     */
-    readonly document: string
-
-    /**
-     * 
-     * @type {boolean}
-     * @memberof DocumentApiDocumentAddToPath
-     */
-    readonly updateUncontained?: boolean
-
-    /**
-     * 
-     * @type {Array<File>}
-     * @memberof DocumentApiDocumentAddToPath
-     */
-    readonly files?: Array<File>
 }
 
 /**
@@ -703,21 +536,7 @@ export interface DocumentApiDocumentRemoveRequest {
      * @type {string}
      * @memberof DocumentApiDocumentRemove
      */
-    readonly idReference: string
-}
-
-/**
- * Request parameters for documentRemoveByPath operation in DocumentApi.
- * @export
- * @interface DocumentApiDocumentRemoveByPathRequest
- */
-export interface DocumentApiDocumentRemoveByPathRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof DocumentApiDocumentRemoveByPath
-     */
-    readonly pathReference: string
+    readonly reference: string
 }
 
 /**
@@ -763,15 +582,15 @@ export interface DocumentApiDocumentUpdateRequest {
  */
 export class DocumentApi extends BaseAPI {
     /**
-     * Add a new document to absolute ref (root of data source, or another document). If added to another document, a valid attribute type check is done. Select parent with format \'data_source/document_id.attribute.index.attribute\'
-     * @summary Add By Parent Id
+     * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+     * @summary Add Document
      * @param {DocumentApiDocumentAddRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocumentApi
      */
     public documentAdd(requestParameters: DocumentApiDocumentAddRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentAdd(requestParameters.absoluteRef, requestParameters.body, requestParameters.updateUncontained, options).then((request) => request(this.axios, this.basePath));
+        return DocumentApiFp(this.configuration).documentAdd(requestParameters.reference, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -787,19 +606,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Same as \'add_to_parent\', but reference parent by path instead of ID. Also supports files.  - **path_reference**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-     * @summary Add To Path
-     * @param {DocumentApiDocumentAddToPathRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DocumentApi
-     */
-    public documentAddToPath(requestParameters: DocumentApiDocumentAddToPathRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentAddToPath(requestParameters.pathReference, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get document as JSON string.  - **reference**:   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)    The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+     * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
      * @summary Get
      * @param {DocumentApiDocumentGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -811,7 +618,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Remove document - **id_reference**: <data_source>/<document_uuid>.<attribute_path>  Example: id_reference=SomeDataSource/3978d9ca-2d7a-4b47-8fed-57710f6cf50b.attributes.1 will remove the first element in the attribute list of a blueprint with the given id in data source \'SomeDataSource\'.
+     * Remove a document from DMSS.
      * @summary Remove
      * @param {DocumentApiDocumentRemoveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -819,19 +626,7 @@ export class DocumentApi extends BaseAPI {
      * @memberof DocumentApi
      */
     public documentRemove(requestParameters: DocumentApiDocumentRemoveRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentRemove(requestParameters.idReference, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Remove a document from DMSS.  - **path_reference**: <data_source>/<path>.<attribute>
-     * @summary Remove By Path
-     * @param {DocumentApiDocumentRemoveByPathRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DocumentApi
-     */
-    public documentRemoveByPath(requestParameters: DocumentApiDocumentRemoveByPathRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentRemoveByPath(requestParameters.pathReference, options).then((request) => request(this.axios, this.basePath));
+        return DocumentApiFp(this.configuration).documentRemove(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
