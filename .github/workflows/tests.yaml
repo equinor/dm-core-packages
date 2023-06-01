@@ -19,7 +19,7 @@ jobs:
   tests:
     strategy:
       matrix:
-        package: [dm-core, dm-core-plugins]
+        package: [ dm-core, dm-core-plugins ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
@@ -39,17 +39,17 @@ jobs:
         working-directory: packages/${{ matrix.package }}
         run: yarn install
 
-      - name: 'Copy local variant of dm-core to node_modules'
-        working-directory: packages/${{ matrix.package }}
-        if: steps.variables.outputs.DM_CORE_VERSION != 'null'
-        run: |
-          cd ../dm-core
-          yarn install --no-lockfile
-          yarn build
-          cd ../dm-core-plugins
-          rm -r node_modules/@development-framework/dm-core/*
-          cp -r ../dm-core/dist node_modules/@development-framework/dm-core/dist
-          cp ../dm-core/package.json node_modules/@development-framework/dm-core/package.json
+      #      - name: 'Copy local variant of dm-core to node_modules'
+      #        working-directory: packages/${{ matrix.package }}
+      #        if: steps.variables.outputs.DM_CORE_VERSION != 'null'
+      #        run: |
+      #          cd ../dm-core
+      #          yarn install --no-lockfile
+      #          yarn build
+      #          cd ../dm-core-plugins
+      #          rm -r node_modules/@development-framework/dm-core/*
+      #          cp -r ../dm-core/dist node_modules/@development-framework/dm-core/dist
+      #          cp ../dm-core/package.json node_modules/@development-framework/dm-core/package.json
 
       - name: 'yarn tsc'
         working-directory: packages/${{ matrix.package }}

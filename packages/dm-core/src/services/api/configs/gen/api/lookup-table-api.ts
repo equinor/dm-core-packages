@@ -31,14 +31,14 @@ import { Lookup } from '../models';
 export const LookupTableApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
          * @summary Create Lookup
          * @param {string} application 
-         * @param {string} recipePackage 
+         * @param {Array<string>} recipePackage 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createLookup: async (application: string, recipePackage: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createLookup: async (application: string, recipePackage: Array<string>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'application' is not null or undefined
             assertParamExists('createLookup', 'application', application)
             // verify required parameter 'recipePackage' is not null or undefined
@@ -63,7 +63,7 @@ export const LookupTableApiAxiosParamCreator = function (configuration?: Configu
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
 
-            if (recipePackage !== undefined) {
+            if (recipePackage) {
                 localVarQueryParameter['recipe_package'] = recipePackage;
             }
 
@@ -130,14 +130,14 @@ export const LookupTableApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = LookupTableApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
          * @summary Create Lookup
          * @param {string} application 
-         * @param {string} recipePackage 
+         * @param {Array<string>} recipePackage 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createLookup(application: string, recipePackage: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async createLookup(application: string, recipePackage: Array<string>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createLookup(application, recipePackage, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -163,14 +163,14 @@ export const LookupTableApiFactory = function (configuration?: Configuration, ba
     const localVarFp = LookupTableApiFp(configuration)
     return {
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application
+         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
          * @summary Create Lookup
          * @param {string} application 
-         * @param {string} recipePackage 
+         * @param {Array<string>} recipePackage 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createLookup(application: string, recipePackage: string, options?: any): AxiosPromise<void> {
+        createLookup(application: string, recipePackage: Array<string>, options?: any): AxiosPromise<void> {
             return localVarFp.createLookup(application, recipePackage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -201,10 +201,10 @@ export interface LookupTableApiCreateLookupRequest {
 
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof LookupTableApiCreateLookup
      */
-    readonly recipePackage: string
+    readonly recipePackage: Array<string>
 }
 
 /**
@@ -229,7 +229,7 @@ export interface LookupTableApiGetLookupRequest {
  */
 export class LookupTableApi extends BaseAPI {
     /**
-     * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application
+     * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
      * @summary Create Lookup
      * @param {LookupTableApiCreateLookupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
