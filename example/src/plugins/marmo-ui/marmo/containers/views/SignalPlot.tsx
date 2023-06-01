@@ -1,75 +1,39 @@
-//import React, {useEffect, useState} from 'react'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-
+import React from 'react'
 import {
-  BlueprintPicker,
   IUIPlugin,
-  INPUT_FIELD_WIDTH,
   Loading,
-  Select,
-  truncatePathString,
   useDocument,
-  TBlueprint,
-  TGenericObject
+  TGenericObject,
 } from '@development-framework/dm-core'
-
-import {
-  Accordion,
-  Button,
-  Icon,
-  Label,
-  Switch,
-  TextField,
-} from '@equinor/eds-core-react'
-
-import Plot from "react-plotly.js";
+import Plot from 'react-plotly.js'
 
 const ESSPlotPlugin = (props: { document: TGenericObject }) => {
   const { document } = props
 
   console.log(document)
 
-
-  type  Line = { x?:  number[];
-                 y?:  number[];
-                 xlabel?: string;
-                 ylabel?: string; }
-
-  const line: Line = {};
-
-  line['x'] = [0]
-  line['y'] = [0]
+  const yData = document.value
+  const xData: number[] = []
 
   if (Array.isArray(document.value)) {
-    line['y'] = document.value
-    line['x'] = []
     for (let i = 0; i < document.value.length; i++) {
-      line.x.push(document.xstart + i * document.xdelta)
+      xData.push(document.xstart + i * document.xdelta)
     }
   }
 
-  let xlabel = document.xname
-  let ylabel = document.name
-  let xunit = ''
-  let yunit = ''
-
-  if (document.xlabel != '') xlabel = document.xlabel
-  if (document.label != '') ylabel = document.label
-
-  if (document.xunit != '') xunit = '[' + document.xunit + ']'
-  if (document.unit != '') yunit = '[' + document.unit + ']'
-
-  line['xlabel'] = xlabel + ' ' + xunit
-  line['ylabel'] = ylabel + ' ' + yunit
-
-  console.log(line)
+  const xLabel: string = `${document.xlabel || document.xname}${
+    document.xunit ? ` [${document.xunit}]` : ''
+  }`
+  const yLabel: string = `${document.label || document.name}${
+    document.unit ? ` [${document.unit}]` : ''
+  }`
 
   return (
     <Plot
       data={[
         {
-          x: line.x,
-          y: line.y,
+          x: xData,
+          y: yData,
           type: 'scatter',
           mode: 'lines',
           marker: { color: 'red' },
@@ -80,12 +44,12 @@ const ESSPlotPlugin = (props: { document: TGenericObject }) => {
         height: 440,
         title: document.name,
         xaxis: {
-          title: line.xlabel,
+          title: xLabel,
           showgrid: true,
           zeroline: true,
         },
         yaxis: {
-          title: line.ylabel,
+          title: yLabel,
           showgrid: true,
           zeroline: true,
         },
@@ -96,23 +60,15 @@ const ESSPlotPlugin = (props: { document: TGenericObject }) => {
 
 const SignalPlot_Component = (props: IUIPlugin) => {
   const { idReference } = props
-  const [
-    document,
-    loading,
-    updateDocument,
-    error,
-  ] = useDocument<TGenericObject>(idReference, 999)
+  const [document, loading, updateDocument, error] =
+    useDocument<TGenericObject>(idReference, 999)
 
   if (loading) return <Loading />
   if (error) {
     throw new Error(JSON.stringify(error))
   }
 
-  // return <SignalPlot document={document} />
-
   return <ESSPlotPlugin document={document || {}} />
-
 }
 
 export { SignalPlot_Component as SignalPlot }
-
