@@ -115,7 +115,7 @@ export const GenericListPlugin = (
   const deleteItem = (reference: string, key: string) => {
     setIsLoading(true)
     dmssAPI
-      .documentRemove({ idReference: reference })
+      .documentRemove({ reference: reference })
       .then(() => {
         delete items[key]
         setItems({ ...items })
@@ -129,7 +129,10 @@ export const GenericListPlugin = (
       })
       .then((newEntity: AxiosResponse<object, TGenericObject>) => {
         dmssAPI
-          .documentAdd({ absoluteRef: idReference, body: newEntity.data })
+          .documentAdd({
+            reference: idReference,
+            document: JSON.stringify(newEntity.data),
+          })
           .then(() =>
             setItems({
               ...items,

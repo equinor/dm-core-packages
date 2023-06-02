@@ -211,7 +211,7 @@ export class TreeNode {
 
   expand = () => {
     return new Promise((resolve, reject) => {
-      ;(async () => {
+      return (async () => {
         if (!this.isDataSource) {
           const parentBlueprint: TBlueprint = await this.tree.dmssApi
             .blueprintGet({ typeRef: this.type })
