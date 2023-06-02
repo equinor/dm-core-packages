@@ -136,7 +136,10 @@ export const GenericListPlugin = (
           .then(() =>
             setItems({
               ...items,
-              [crypto.randomUUID()]: { ...newEntity.data },
+              [crypto.randomUUID()]: {
+                data: newEntity.data,
+                index: Object.keys(items).length,
+              },
             })
           )
           .catch((error: AxiosError<ErrorResponse>) => {
@@ -210,17 +213,19 @@ export const GenericListPlugin = (
                     </Button>
                   </td>
                   {internalConfig.headers.map((attribute: string) => {
-                    if (typeof item.data[attribute] === 'object')
-                      throw new Error(
-                        `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
+                    if (item.data && attribute in item.data) {
+                      if (typeof item.data[attribute] === 'object')
+                        throw new Error(
+                          `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
+                        )
+                      return (
+                        <TableData key={attribute}>
+                          <Typography group="table" variant={'cell_text'}>
+                            {item?.data[attribute]}
+                          </Typography>
+                        </TableData>
                       )
-                    return (
-                      <TableData key={attribute}>
-                        <Typography group="table" variant={'cell_text'}>
-                          {item.data[attribute]}
-                        </Typography>
-                      </TableData>
-                    )
+                    }
                   })}
                   <td style={{ textAlign: 'right' }}>
                     {internalConfig?.showDelete && (
