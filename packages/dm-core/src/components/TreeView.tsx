@@ -31,6 +31,7 @@ const StyledTreeNode = styled.div`
   padding-left: ${(props: TStyledTreeNode) => props.level * 20}px;
   cursor: pointer;
   width: -webkit-fill-available;
+
   &:hover {
     background-color: #acb7da;
   }
@@ -140,11 +141,12 @@ export const TreeView = (props: {
     setExpandedNodes(expandedNodes)
   }, [])
 
-  const _onClick = (node: TreeNode, setLoading: (l: boolean) => void) => {
+  const _onClick = async (node: TreeNode, setLoading: (l: boolean) => void) => {
     const newExpandedNodes: { [k: string]: boolean } = {}
     if (!expandedNodes[node.nodeId]) {
       setLoading(true)
-      node.expand().finally(() => setLoading(false))
+      await node.expand()
+      setLoading(false)
       newExpandedNodes[node.nodeId] = true
     } else {
       // Set all children nodes as collapsed recursively
