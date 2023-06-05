@@ -209,51 +209,67 @@ export class TreeNode {
       .then((response: any) => response.data)
   }
 
-  async expand(): Promise<void> {
-    if (!this.isDataSource) {
-      const parentBlueprint: TBlueprint = await this.tree.dmssApi
-        .blueprintGet({ typeRef: this.type })
-        .then((response: any) => response.data.blueprint)
-      this.tree.dmssApi
-        .documentGet({
-          reference: this.nodeId,
-          depth: 2,
-          resolveLinks: true,
-        })
-        .then((response: any) => {
-          const data = response.data
-          if (data.type === EBlueprint.PACKAGE) {
-            this.children = createFolderChildren(data, this)
-          } else {
-            this.children = createContainedChildren(data, this, parentBlueprint)
-          }
-          this.tree.updateCallback(this.tree)
-        })
-        .catch((error: Error) => {
-          this.type = 'error'
-          this.message = error.message
-        })
-    } else {
-      // Update content in a datasource. Search the DMSS database for root packages in a given datasource
-      // and update the tree if any packages from DMSS is missing in the tree.
-      await this.tree.dmssApi
-        .search({
-          body: { type: EBlueprint.PACKAGE, isRoot: 'true' },
-          dataSources: [this.dataSource],
-        })
-        .then((response: any) => {
-          updateRootPackagesInTree(response.data, this.tree, this.dataSource)
-        })
-        .catch((error: Error) => {
-          // If the search fail, set the DataSource as an error node.
-          console.error(error)
-          this.tree.index[this.dataSource].type = 'error'
-          this.tree.index[this.dataSource].message = error.message
-        })
-        .finally(() => {
-          this.tree.updateCallback(this.tree)
-        })
-    }
+  expand = () => {
+    return new Promise((resolve, reject) => {
+      return (async () => {
+        if (!this.isDataSource) {
+          const parentBlueprint: TBlueprint = await this.tree.dmssApi
+            .blueprintGet({ typeRef: this.type })
+            .then((response: any) => response.data.blueprint)
+          this.tree.dmssApi
+            .documentGet({
+              reference: this.nodeId,
+              depth: 2,
+              resolveLinks: true,
+            })
+            .then((response: any) => {
+              const data = response.data
+              if (data.type === EBlueprint.PACKAGE) {
+                this.children = createFolderChildren(data, this)
+              } else {
+                this.children = createContainedChildren(
+                  data,
+                  this,
+                  parentBlueprint
+                )
+              }
+              this.tree.updateCallback(this.tree)
+              resolve('Done')
+            })
+            .catch((error: Error) => {
+              this.type = 'error'
+              this.message = error.message
+              reject()
+            })
+        } else {
+          // Update content in a datasource. Search the DMSS database for root packages in a given datasource
+          // and update the tree if any packages from DMSS is missing in the tree.
+          await this.tree.dmssApi
+            .search({
+              body: { type: EBlueprint.PACKAGE, isRoot: 'true' },
+              dataSources: [this.dataSource],
+            })
+            .then((response: any) => {
+              updateRootPackagesInTree(
+                response.data,
+                this.tree,
+                this.dataSource
+              )
+              resolve('Ok')
+            })
+            .catch((error: Error) => {
+              // If the search fail, set the DataSource as an error node.
+              console.error(error)
+              this.tree.index[this.dataSource].type = 'error'
+              this.tree.index[this.dataSource].message = error.message
+              reject()
+            })
+            .finally(() => {
+              this.tree.updateCallback(this.tree)
+            })
+        }
+      })()
+    })
   }
 
   getPath(): string {
