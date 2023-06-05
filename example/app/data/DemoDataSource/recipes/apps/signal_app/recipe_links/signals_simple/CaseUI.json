@@ -1,6 +1,65 @@
 {
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "AppModels:signals_simple/Case",
+  "initialUiRecipe": {
+    "type": "CORE:UiRecipe",
+    "name": "Dashboard",
+    "description": "ESS Plot",
+    "plugin": "@development-framework/dm-core-plugins/grid",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+      "size": {
+        "type": "PLUGINS:dm-core-plugins/grid/GridSize",
+        "columns": 12,
+        "rows": 15
+      },
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Tabs"
+          },
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "rowStart": 1,
+            "columnStart": 1,
+            "rowEnd": 10,
+            "columnEnd": 6
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "scope": "signal",
+            "recipe": "Plot"
+          },
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "rowStart": 1,
+            "columnStart": 6,
+            "rowEnd": 3,
+            "columnEnd": 12
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "RunInt"
+          },
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "rowStart": 3,
+            "columnStart": 6,
+            "rowEnd": 10,
+            "columnEnd": 12
+          }
+        }
+      ]
+    }
+  },
   "uiRecipes": [
     {
       "type": "CORE:UiRecipe",
