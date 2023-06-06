@@ -18,8 +18,6 @@ import { Chip } from '@equinor/eds-core-react'
 import { Button, Icon } from '@equinor/eds-core-react'
 import { play, stop } from '@equinor/eds-icons'
 
-import { jsonContainer } from '../design/styles'
-
 import { v4 as uuidv4 } from 'uuid'
 
 /******************************************************* */
