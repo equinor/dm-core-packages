@@ -1,0 +1,103 @@
+on:
+  # Workflow dispatch is used for manual triggers
+  workflow_dispatch:
+  # Workflow call is used for called from another workflow
+  workflow_call:
+    outputs:
+      dm_cli_version:
+        description: "DM CLI version used in test"
+        value: ${{ jobs.integration-tests.outputs.dm_cli_version }}
+      dmss_version:
+        description: "DMSS version used in test"
+        value: ${{ jobs.integration-tests.outputs.dmss_version }}
+      job_version:
+        description: "Job version used in test"
+        value: ${{ jobs.integration-tests.outputs.job_version }}
+
+
+jobs:
+  integration-tests:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: e2e/
+    # Map a step output to a job output
+    outputs:
+      dm_cli_version: ${{ steps.dm_cli.outputs.version }}
+      dmss_version: ${{ steps.dmss.outputs.dmss_version }}
+      job_version: ${{ steps.dmss.outputs.job_version }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Start example application
+        run: |
+          # Install daemon process manager
+          npm install pm2 -g
+          yarn build-all-packages
+          yarn symlinks
+          yarn install
+          pm2 start "yarn start" --name web --wait-ready --listen-timeout 10000 # wait for 10 seconds
+        working-directory: example/
+
+      - name: Start DMSS
+        id: dmss
+        run: | 
+          docker-compose run --rm dmss cat src/version.txt > dmss_version.txt
+          dmss_version=$(tail -n 1 dmss_version.txt)
+          docker-compose run --rm job-api cat version.txt > job_version.txt
+          job_version=$(tail -n 1 job_version.txt)
+          docker-compose up -d && sleep 60 && docker-compose run --rm dmss reset-app
+          echo "dmss_version=$dmss_version" >> "$GITHUB_OUTPUT"
+          echo "job_version=$job_version" >> "$GITHUB_OUTPUT"
+        working-directory: example/
+
+      - name: Download test blueprints
+        run: |
+          npm pack @development-framework/dm-core-plugins
+          tar -xzf development-framework-dm-core-plugins-*.tgz
+          # reset-all.sh script is hardcoded to find it under node_modules
+          mkdir -p node_modules/@development-framework/
+          mv package/ node_modules/@development-framework/dm-core-plugins
+        working-directory: example/
+
+      - name: Build and install dm-cli package
+        id: dm_cli
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install dm-cli
+          ./reset-all.sh
+          echo "version=$(dm --version)" >> "$GITHUB_OUTPUT"
+        working-directory: example/
+
+      - name: Install dependencies
+        run: |
+           npm install --package-lock-only
+           npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: |
+          pm2 ps
+          npx playwright test
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results
+          path: e2e/test-results/
+          retention-days: 30
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: e2e/playwright-report/
+          retention-days: 30

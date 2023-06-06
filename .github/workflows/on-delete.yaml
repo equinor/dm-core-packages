@@ -1,0 +1,12 @@
+on:
+  workflow_dispatch:
+  delete:
+    branches-ignore:
+      - main
+      - gh-pages
+    tags-ignore:
+      - v*
+
+jobs:
+  remove-integration-tests-reports:
+    uses: ./.github/workflows/remove-integration-tests-reports.yaml
