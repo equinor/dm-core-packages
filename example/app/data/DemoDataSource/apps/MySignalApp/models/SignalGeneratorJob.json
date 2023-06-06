@@ -1,7 +1,0 @@
-{
-  "name": "SignalGeneratorJob",
-  "extends": ["JOBCORE:JobHandler"],
-  "type": "CORE:Blueprint",
-  "description": "",
-  "attributes": []
-}
