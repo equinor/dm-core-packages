@@ -6,6 +6,7 @@ import {
   NewEntityButton,
   useBlueprint,
   useDMSS,
+  //TLinkReference, todo import
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -48,6 +49,7 @@ const AddExternal = (props: any) => {
     <ButtonGroup>
       <EntityPickerButton
         data-testid={`select-${namePath}`}
+        //returnLinkReference={true} TODO add prop
         onChange={handleSelect}
       />
       <NewEntityButton
@@ -264,11 +266,12 @@ export const Contained = (props: any): JSX.Element => {
         )}
         {shouldOpen && isDefined && (
           <OpenObjectButton
-            namePath={
+            attributeName={
               attributePath.length > 1
                 ? `${attributePath[1]}.${namePath}`
                 : namePath
             }
+            isLinkReference={false}
           />
         )}
       </ItemWrapper>
@@ -309,7 +312,7 @@ export const Contained = (props: any): JSX.Element => {
 export const NonContained = (props: any): JSX.Element => {
   const {
     type,
-    namePath,
+    namePath: attributeName,
     displayLabel = '',
     contained = false,
     config,
@@ -317,13 +320,12 @@ export const NonContained = (props: any): JSX.Element => {
   } = props
   const { getValues, control, setValue } = useFormContext()
   const { dataSourceId, onOpen } = useRegistryContext()
-  const initialValue = getValues(namePath)
-
+  const initialValue = getValues(attributeName)
   return (
     <Wrapper>
       <Typography bold={true}>{displayLabel}</Typography>
       <Controller
-        name={namePath}
+        name={attributeName}
         control={control}
         defaultValue={initialValue}
         render={({
@@ -334,13 +336,13 @@ export const NonContained = (props: any): JSX.Element => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           formState,
         }) => {
-          if (value && value._id) {
+          if (value && value.referenceType === 'link' && value.address) {
             return (
               <div>
                 <ItemWrapper>
-                  <Typography>Id: {value._id}</Typography>
+                  <Typography>Id: {value.address}</Typography>
                   <RemoveObject
-                    namePath={namePath}
+                    namePath={attributeName}
                     type={type}
                     onRemove={() => {
                       const options = {
@@ -348,19 +350,24 @@ export const NonContained = (props: any): JSX.Element => {
                         shouldDirty: true,
                         shouldTouch: true,
                       }
-                      setValue(namePath, null, options)
+                      setValue(attributeName, null, options)
                     }}
                   />
-                  {onOpen && <OpenObjectButton namePath={namePath} />}
+                  {onOpen && (
+                    <OpenObjectButton
+                      attributeName={attributeName}
+                      isLinkReference={true}
+                    />
+                  )}
                 </ItemWrapper>
                 {!onOpen && (
                   <External
                     type={type}
-                    namePath={namePath}
+                    namePath={attributeName}
                     config={uiRecipe ? uiRecipe.config : config}
                     contained={contained}
                     dataSourceId={dataSourceId}
-                    documentId={value._id}
+                    documentId={value.address}
                     onOpen={onOpen}
                     f
                   />
@@ -368,10 +375,18 @@ export const NonContained = (props: any): JSX.Element => {
               </div>
             )
           } else {
-            const handleAdd = (entity: any) => onChange(entity)
+            const handleAdd = (linkReference: any) => {
+              //TODO use type TLinkReference
+              onChange(linkReference)
+            }
 
             return (
-              <AddExternal type={type} namePath={namePath} onAdd={handleAdd} />
+              <AddExternal
+                type={type}
+                namePath={attributeName}
+                onAdd={handleAdd}
+                willReturnLinkReference={true}
+              />
             )
           }
         }}

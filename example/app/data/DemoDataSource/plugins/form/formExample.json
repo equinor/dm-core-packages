@@ -22,10 +22,9 @@
     "baz": "testing"
   },
   "inputEntity": {
-    "type": "./blueprints/SingleField",
-    "_id": "4483c9b0-d505-46c9-a157-94c79f4d7a6b",
-    "name": "singleFieldExample",
-    "contained": false
+    "type": "CORE:Reference",
+    "referenceType": "link",
+    "address": "$4483c9b0-d505-46c9-a157-94c79f4d7a6b"
   },
   "listOfObjects": [
     {

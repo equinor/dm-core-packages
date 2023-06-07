@@ -4,11 +4,6 @@
   "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
-      "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
-    },
-    {
       "attributeType": "./AttributeSelectorTabs",
       "type": "CORE:BlueprintAttribute",
       "name": "firstAttribute",

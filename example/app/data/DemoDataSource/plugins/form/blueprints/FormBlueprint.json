@@ -87,7 +87,7 @@
       "type": "CORE:BlueprintAttribute",
       "name": "inputEntity",
       "description": "Generic input entity",
-      "attributeType": "./SingleField",
+      "attributeType": "object",
       "contained": false
     },
     {

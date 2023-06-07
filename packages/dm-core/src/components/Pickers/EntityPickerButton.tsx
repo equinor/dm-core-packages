@@ -3,22 +3,32 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Progress } from '@equinor/eds-core-react'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
-import { TReference } from '../../types'
+import { TGenericObject, TLinkReference } from '../../types'
 import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { Dialog } from '../Dialog'
 import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
 import { TreeView } from '../TreeView'
 import { truncatePathString } from '../../utils/truncatePathString'
+import { EBlueprint } from '../../Enums'
 
+/**
+ * A component for selecting an Entity.
+ *
+ * Uses the Tree component to let user pick an entity from the tree. After an entity is selected, the prop
+ * "onChange" is called. If returnLinkReference is false, the onChange is called with the selected entity as an object.
+ * If returnLinkReference is true, onChange is called with a link reference to the selected entity.
+ */
 export const EntityPickerButton = (props: {
-  onChange: (ref: TReference) => void
+  onChange: (value: TGenericObject | TLinkReference) => void
+  returnLinkReference?: boolean
   typeFilter?: string
   text?: string
   variant?: 'contained' | 'outlined' | 'ghost' | 'ghost_icon'
   scope?: string // Path to a folder to limit the view within
 }) => {
   const { onChange, typeFilter, text, variant, scope } = props
+  const { returnLinkReference = false } = props
   const appConfig = useContext(ApplicationContext)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
@@ -71,7 +81,15 @@ export const EntityPickerButton = (props: {
                 .fetch()
                 .then((doc: any) => {
                   setShowModal(false)
-                  onChange(doc)
+                  onChange(
+                    returnLinkReference
+                      ? {
+                          type: EBlueprint.REFERENCE,
+                          referenceType: 'link',
+                          address: `dmss://${node.dataSource}/$${doc._id}`,
+                        }
+                      : doc
+                  )
                 })
                 .catch((error: any) => {
                   console.error(error)

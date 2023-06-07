@@ -3,6 +3,7 @@ import {
   isReferenceViewConfig,
   isViewConfig,
   IUIPlugin,
+  TGenericObject,
   TInlineRecipeViewConfig,
   TReferenceViewConfig,
   TViewConfig,
@@ -43,7 +44,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   const [error, setError] = useState<Error>()
   const [targetType, setTargetType] = useState<string>()
   const [targetDimensions, setTargetDimensions] = useState<string>()
-
+  const [resolvedDocument, setResolvedDocument] = useState<TGenericObject>()
   if (!blueprintAttribute)
     throw new Error(
       "ViewCreator was called without being passed a 'blueprintAttribute'"
@@ -53,13 +54,29 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
     const scopeArray: string[] = viewConfig.scope
       ? viewConfig.scope.split('.')
       : []
-    getScopeTypeAndDimensions(blueprintAttribute, dmssAPI, scopeArray)
-      .then(([type, dimensions]) => {
-        setTargetType(type)
-        setTargetDimensions(dimensions)
-      })
-      .catch((error) => setError(error))
-      .finally(() => setIsLoading(false))
+    if (isReferenceViewConfig(viewConfig)) {
+      dmssAPI
+        .documentGet({
+          reference: idReference + '.' + viewConfig.scope,
+          depth: 0,
+          resolveLinks: true,
+        })
+        .then((response: any) => {
+          const data = response.data
+          setTargetType(data['type'])
+          setResolvedDocument(response.data)
+          setTargetDimensions(data['dimensions'] ?? '')
+        })
+        .finally(() => setIsLoading(false))
+    } else {
+      getScopeTypeAndDimensions(blueprintAttribute, dmssAPI, scopeArray)
+        .then(([type, dimensions]) => {
+          setTargetType(type)
+          setTargetDimensions(dimensions)
+        })
+        .catch((error) => setError(error))
+        .finally(() => setIsLoading(false))
+    }
   }, [])
 
   if (isLoading) return <Loading />
@@ -77,18 +94,17 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
         onOpen={onOpen}
       />
     )
-
-  if (isReferenceViewConfig(viewConfig))
+  if (isReferenceViewConfig(viewConfig)) {
     return (
       <EntityView
         type={targetType}
-        idReference={absoluteDottedId}
+        idReference={'dmss://DemoDataSource/$' + resolvedDocument?._id}
         recipeName={viewConfig.recipe}
         onOpen={onOpen}
         dimensions={targetDimensions}
       />
     )
-  if (isViewConfig(viewConfig))
+  } else if (isViewConfig(viewConfig)) {
     return (
       <EntityView
         idReference={absoluteDottedId}
@@ -97,6 +113,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
         dimensions={targetDimensions}
       />
     )
+  }
 
   return <>Unknown view config type</>
 }
