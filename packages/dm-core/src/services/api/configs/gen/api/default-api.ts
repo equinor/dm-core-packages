@@ -88,6 +88,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Fetch the attribute from a reference.
+         * @summary Get Attribute
+         * @param {string} reference 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        attributeGet: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'reference' is not null or undefined
+            assertParamExists('attributeGet', 'reference', reference)
+            const localVarPath = `/api/attribute/{reference}`
+                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
@@ -1343,6 +1384,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Fetch the attribute from a reference.
+         * @summary Get Attribute
+         * @param {string} reference 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async attributeGet(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.attributeGet(reference, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
@@ -1682,6 +1734,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp._export(reference, options).then((request) => request(axios, basePath));
         },
         /**
+         * Fetch the attribute from a reference.
+         * @summary Get Attribute
+         * @param {string} reference 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        attributeGet(reference: string, options?: any): AxiosPromise<object> {
+            return localVarFp.attributeGet(reference, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get blob from id. A blob (binary large object) can be anything from video to text file.
          * @summary Get By Id
          * @param {string} dataSourceId 
@@ -1986,6 +2048,20 @@ export interface DefaultApiExportRequest {
      * 
      * @type {string}
      * @memberof DefaultApiExport
+     */
+    readonly reference: string
+}
+
+/**
+ * Request parameters for attributeGet operation in DefaultApi.
+ * @export
+ * @interface DefaultApiAttributeGetRequest
+ */
+export interface DefaultApiAttributeGetRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiAttributeGet
      */
     readonly reference: string
 }
@@ -2511,6 +2587,18 @@ export class DefaultApi extends BaseAPI {
      */
     public _export(requestParameters: DefaultApiExportRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration)._export(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Fetch the attribute from a reference.
+     * @summary Get Attribute
+     * @param {DefaultApiAttributeGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public attributeGet(requestParameters: DefaultApiAttributeGetRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).attributeGet(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

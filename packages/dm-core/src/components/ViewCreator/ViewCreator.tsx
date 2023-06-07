@@ -3,6 +3,7 @@ import {
   isReferenceViewConfig,
   isViewConfig,
   IUIPlugin,
+  TGenericObject,
   TInlineRecipeViewConfig,
   TReferenceViewConfig,
   TViewConfig,
@@ -10,11 +11,10 @@ import {
 import { EntityView, Loading, TAttribute, useDMSS } from '../../index'
 import React, { useEffect, useState } from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
-import { getTarget, getScopeTypeAndDimensions } from './utils'
+import { getTarget } from './utils'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
-  blueprintAttribute: TAttribute
 }
 
 /**
@@ -37,26 +37,21 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
  * @param props
  */
 export const ViewCreator = (props: TViewCreator): JSX.Element => {
-  const { idReference, viewConfig, onOpen, blueprintAttribute } = props
+  const { idReference, viewConfig, onOpen } = props
   const dmssAPI = useDMSS()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error>()
-  const [targetType, setTargetType] = useState<string>()
-  const [targetDimensions, setTargetDimensions] = useState<string>()
+  const [attribute, setAttribute] = useState<TAttribute>()
 
-  if (!blueprintAttribute)
-    throw new Error(
-      "ViewCreator was called without being passed a 'blueprintAttribute'"
-    )
+  const reference = getTarget(idReference, viewConfig)
 
   useEffect(() => {
-    const scopeArray: string[] = viewConfig.scope
-      ? viewConfig.scope.split('.')
-      : []
-    getScopeTypeAndDimensions(blueprintAttribute, dmssAPI, scopeArray)
-      .then(([type, dimensions]) => {
-        setTargetType(type)
-        setTargetDimensions(dimensions)
+    dmssAPI
+      .attributeGet({
+        reference: reference,
+      })
+      .then((response: any) => {
+        setAttribute(response.data)
       })
       .catch((error) => setError(error))
       .finally(() => setIsLoading(false))
@@ -64,39 +59,39 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
 
   if (isLoading) return <Loading />
   if (error) throw error
-  if (!targetType || !targetDimensions === undefined)
+  if (attribute === undefined)
     throw new Error('Unable to find type and dimensions for view')
-  const absoluteDottedId = getTarget(idReference, viewConfig)
 
   if (isInlineRecipeViewConfig(viewConfig))
     return (
       <InlineRecipeView
-        idReference={absoluteDottedId}
-        type={targetType}
+        idReference={reference}
+        type={attribute.attributeType}
         viewConfig={viewConfig}
         onOpen={onOpen}
       />
     )
 
-  if (isReferenceViewConfig(viewConfig))
+  if (isReferenceViewConfig(viewConfig)) {
     return (
       <EntityView
-        type={targetType}
-        idReference={absoluteDottedId}
+        type={attribute.attributeType}
+        idReference={reference}
         recipeName={viewConfig.recipe}
         onOpen={onOpen}
-        dimensions={targetDimensions}
+        dimensions={attribute.dimensions}
       />
     )
-  if (isViewConfig(viewConfig))
+  } else if (isViewConfig(viewConfig)) {
     return (
       <EntityView
-        idReference={absoluteDottedId}
-        type={targetType}
+        idReference={reference}
+        type={attribute.attributeType}
         onOpen={onOpen}
-        dimensions={targetDimensions}
+        dimensions={attribute.dimensions}
       />
     )
+  }
 
   return <>Unknown view config type</>
 }
