@@ -22,6 +22,10 @@ module.exports = {
 
       if ((process.env.NODE_ENV || '').trim() === 'development') {
         config.resolve.alias = {
+          '@development-framework/dm-core/dist/main.css': path.resolve(
+            __dirname,
+            '../packages/dm-core/src/styles/main.css'
+          ),
           '@development-framework/dm-core': path.resolve(
             __dirname,
             '../packages/dm-core/src/index.tsx'
