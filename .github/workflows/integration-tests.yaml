@@ -38,11 +38,10 @@ jobs:
         run: |
           # Install daemon process manager
           npm install pm2 -g
-          yarn build-all-packages
-          yarn symlinks
           yarn install
-          pm2 start "yarn start" --name web --wait-ready --listen-timeout 10000 # wait for 10 seconds
-        working-directory: example/
+          yarn build:packages
+          pm2 start "yarn start:example" --name web --wait-ready --listen-timeout 10000 # wait for 10 seconds
+        working-directory: ./
 
       - name: Start DMSS
         id: dmss
