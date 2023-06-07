@@ -71,7 +71,7 @@ export default function Fields(props: any) {
     return (
       <Wrapper>
         <Typography bold={true}>{displayLabel}</Typography>
-        <OpenObjectButton namePath={namePath} />
+        <OpenObjectButton attributeName={namePath} isLinkReference={false} />
       </Wrapper>
     )
   }

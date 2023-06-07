@@ -15,6 +15,7 @@ import { getTarget } from './utils'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
+  blueprintAttribute: TAttribute
 }
 
 /**
