@@ -16,4 +16,5 @@ export enum EBlueprint {
   ENUM = 'dmss://system/SIMOS/Enum',
   /** Path to the Job blueprint */
   JOB = 'dmss://WorkflowDS/Blueprints/Job',
+  REFERENCE = 'dmss://system/SIMOS/Reference',
 }

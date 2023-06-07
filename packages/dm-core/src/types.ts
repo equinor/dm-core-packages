@@ -7,10 +7,17 @@ export type TDataSource = {
   host?: string
 }
 
+// TODO check if TReference is used instead of TLinkReference
 export type TReference = {
   type: string
   _id: string
   name?: string
+}
+
+export type TLinkReference = {
+  type: string
+  referenceType: 'link'
+  address: string
 }
 
 export type TBlob = {
