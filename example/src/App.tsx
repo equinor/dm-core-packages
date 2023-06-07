@@ -1,9 +1,11 @@
+import '@development-framework/dm-core/dist/main.css'
 import {
   EntityView,
   FSTreeContext,
   TreeView,
 } from '@development-framework/dm-core'
 import React, { useContext, useState } from 'react'
+import { Typography } from '@equinor/eds-core-react'
 
 function App() {
   const { treeNodes, loading } = useContext(FSTreeContext)
@@ -25,7 +27,7 @@ function App() {
           width: '500px',
         }}
       >
-        <h3>Examples</h3>
+        <Typography variant="h3">Examples</Typography>
         <TreeView
           nodes={treeNodes}
           onSelect={(node) => {
