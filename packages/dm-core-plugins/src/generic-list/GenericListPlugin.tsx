@@ -262,11 +262,6 @@ export const GenericListPlugin = (
                     {itemsExpanded[key] && ( // @ts-ignore
                       <ViewCreator
                         idReference={`${idReference}[${item.index}]`}
-                        blueprintAttribute={{
-                          name: 'nil',
-                          attributeType: type,
-                          dimensions: '',
-                        }}
                         viewConfig={
                           internalConfig.views[item.index] ??
                           internalConfig.defaultView

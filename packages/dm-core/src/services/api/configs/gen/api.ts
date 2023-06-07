@@ -15,6 +15,7 @@
 
 
 export * from './api/access-control-api';
+export * from './api/attribute-api';
 export * from './api/blob-api';
 export * from './api/blueprint-api';
 export * from './api/datasource-api';

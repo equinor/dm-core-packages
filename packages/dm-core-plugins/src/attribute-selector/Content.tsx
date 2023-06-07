@@ -33,11 +33,6 @@ export const Content = (props: {
           {/*@ts-ignore*/}
           <ViewCreator
             idReference={config.rootEntityId}
-            blueprintAttribute={{
-              name: 'nil',
-              dimensions: '',
-              attributeType: type,
-            }}
             viewConfig={config.view}
             onOpen={onOpen}
             onSubmit={(data: TGenericObject) => {
