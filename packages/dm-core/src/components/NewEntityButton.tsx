@@ -11,7 +11,7 @@ import {
 import { addToPath } from './UploadFileButton'
 import { AxiosError } from 'axios'
 import styled from 'styled-components'
-import { TReference } from '../types'
+import { TGenericObject, TLinkReference, TReference } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
 import { useDMSS } from '../context/DMSSContext'
 
@@ -20,6 +20,7 @@ const DialogWrapper = styled.div`
   flex-direction: column;
   justifycontent: space-between;
   margin: 20px;
+
   & > * {
     padding-top: 8px;
   }
@@ -37,9 +38,9 @@ export function NewEntityButton(props: {
   )
 
   const [newName, setNewName] = useState<string>('')
-  const [copyTarget, setCopyTarget] = useState<TReference | undefined>(
-    undefined
-  )
+  const [copyTarget, setCopyTarget] = useState<
+    TGenericObject | TLinkReference | undefined
+  >(undefined)
   const [typeToCreate, setTypeToCreate] = useState<string>(type || '')
   const [loading, setLoading] = useState<boolean>(false)
   const dmssAPI = useDMSS()
@@ -114,9 +115,7 @@ export function NewEntityButton(props: {
             }
             placeholder="Name for new entity"
           />
-          {!!copyTarget && (
-            <div>{`Copying entity named '${copyTarget.name}'`}</div>
-          )}
+          {!!copyTarget && <div>{`Copying entity'`}</div>}
           <div
             style={{
               display: 'flex',
@@ -130,7 +129,9 @@ export function NewEntityButton(props: {
                 variant="outlined"
                 typeFilter={typeToCreate}
                 text="Copy existing"
-                onChange={(ref: TReference) => setCopyTarget(ref)}
+                onChange={(ref: TGenericObject | TLinkReference) =>
+                  setCopyTarget(ref)
+                }
               />
             ) : (
               <Button
@@ -152,7 +153,9 @@ export function NewEntityButton(props: {
                 if (copyTarget) {
                   // @ts-ignore
                   delete copyTarget._id
-                  copyTarget.name = newName
+                  if ('name' in copyTarget) {
+                    copyTarget.name = newName
+                  }
 
                   addEntityToPath({ ...copyTarget })
                     .then(() => setShowScrim(false))

@@ -66,7 +66,7 @@ export function UploadFileButton(props: {
       addToPath(newDocumentBody, [file], `${dataSourceId}/Data/STasks`, true)
         .then((createdUUID: string) =>
           onUpload({
-            _id: createdUUID,
+            _id: createdUUID, //todo check if we need use new link reference format with address instead,
             name: newDocumentBody.name,
             type: newDocumentBody.type,
           })
