@@ -9,4 +9,4 @@ on:
 
 jobs:
   remove-integration-tests-reports:
-    uses: ./.github/workflows/remove-integration-tests-reports.yaml
+    uses: ./.github/workflows/remove-integration-tests-report.yaml
