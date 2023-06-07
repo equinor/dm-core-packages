@@ -96,7 +96,7 @@ export const Jobs = (props: IUIPlugin) => {
   const token = ''
   const DmssApi = new DmssAPI(token)
   const [jobEntityId, setJobEntityId] = useState<string>()
-  const dataSource = 'AppStorage'
+  const dataSource = 'DemoDataSource'
 
   const [document, loading, error] = useDocument<TGenericObject>(
     idReference,
@@ -122,25 +122,27 @@ export const Jobs = (props: IUIPlugin) => {
       //applicationInput: {...document, _id: '2d0dd4a4-0429-4310-ad00-8a33c4039800', _child_id:idReference},
       applicationInput: {
         name: 'input_proxy',
-        type: 'dmss://AppStorage/models/CaseProxy',
+        type: 'dmss://DemoDataSource/apps/MySignalApp/models/CaseProxy',
         _id: myuuid,
         // @ts-ignore
         description: 'sdrawkcab si siht',
         child_id: idReference,
       },
-      runner: { type: 'dmss://AppStorage/models/SignalGeneratorJob' },
+      runner: {
+        type: 'dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob',
+      },
       started: 'Not started',
     }
   }
 
   const saveJobEntity = (jobEntity: any) => {
-    DmssApi.documentAddToPath({
-      pathReference: `${dataSource}/instances`,
+    DmssApi.documentAdd({
+      reference: `${dataSource}/apps/MySignalApp/instances`,
       document: JSON.stringify(jobEntity),
       updateUncontained: true,
     })
       .then((response: AxiosResponse<any>) => {
-        setJobEntityId(`${dataSource}/${response.data.uid}`)
+        setJobEntityId(`${dataSource}/$${response.data.uid}`)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error.response?.data)
