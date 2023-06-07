@@ -3,11 +3,10 @@ on:
   workflow_dispatch:
   # Workflow call is used for called from another workflow
   workflow_call:
-
-# ensures that currently running Playwright workflow of deleted branch gets cancelled
-concurrency:
-  group: ${{ github.event.ref }}
-  cancel-in-progress: true
+    inputs:
+      deleted-branch:
+        description: 'Name of the deleted branch.'
+        required: true
 
 jobs:
   delete_reports:
@@ -15,17 +14,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Contains all reports for deleted branch
-      BRANCH_REPORTS_DIR: reports/${{ github.event.ref }}
+      BRANCH_REPORTS_DIR: reports/${{ github.event.inputs.deleted-branch }}
     steps:
       - name: Checkout GitHub Pages Branch
         uses: actions/checkout@v3
         with:
           ref: gh-pages
+
       - name: Set Git User
         # see: https://github.com/actions/checkout/issues/13#issuecomment-724415212
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - name: Check for workflow reports
         run: |
           if [ -z "$(ls -A $BRANCH_REPORTS_DIR)" ]; then
@@ -33,15 +34,16 @@ jobs:
           else
             echo "BRANCH_REPORTS_EXIST="true"" >> $GITHUB_ENV
           fi
+
       - name: Delete reports from repo for branch
         if: ${{ env.BRANCH_REPORTS_EXIST == 'true' }}
         timeout-minutes: 3
         run: |
           cd $BRANCH_REPORTS_DIR/..
 
-          rm -rf ${{ github.event.ref }}
+          rm -rf ${{ github.event.inputs.deleted-branch }}
           git add .
-          git commit -m "workflow: remove all reports for branch ${{ github.event.ref }}"
+          git commit -m "workflow: remove all reports for branch ${{ github.event.inputs.deleted-branch }}"
 
           while true; do
             git pull --rebase
