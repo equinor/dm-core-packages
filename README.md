@@ -1,1 +1,1 @@
-# Data Modeling Core Packages
+# Data Modeling Core Packages[Release **DMSS VERSION**: 8b1ab8f 2023-06-08 Eirik..ksnes feat: attribute endpoint grafted, HEAD -> master, origin/master **DM CLI VERSION**: 1.0.12 **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main ]()
