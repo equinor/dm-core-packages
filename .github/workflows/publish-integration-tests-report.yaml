@@ -46,6 +46,15 @@ jobs:
           name: playwright-report
           path: ${{ env.HTML_REPORT_URL_PATH }}
 
+      - name: Add entry to README.md on success
+        if: ${{ success() }} && github.ref == 'refs/heads/main'
+        run: |
+          echo "* ${{ github.event.head_commit.message }} (${{ github.event.repository.updated_at}})" >> README.md
+          echo "  * [Integration tests](https://equinor.github.io/dm-core-packages/$HTML_REPORT_URL_PATH)" >> README.md
+          echo "    * **DMSS VERSION**: ${{ inputs.dmss_version }}" >> README.md
+          echo "    * **DM CLI VERSION**: ${{ inputs.dm_cli_version }}" >> README.md
+          echo "    * **JOB VERSION**: ${{ inputs.job_version }}" >> README.md          
+
       - name: Push HTML Report
         timeout-minutes: 3
         # commit report, then try push-rebase-loop until it's able to merge the HTML report to the gh-pages branch
@@ -88,3 +97,4 @@ jobs:
           echo "- **DMSS VERSION**: ${{ inputs.dmss_version }}" >> $GITHUB_STEP_SUMMARY
           echo "- **DM CLI VERSION**: ${{ inputs.dm_cli_version }}" >> $GITHUB_STEP_SUMMARY
           echo "- **JOB VERSION**: ${{ inputs.job_version }}" >> $GITHUB_STEP_SUMMARY
+
