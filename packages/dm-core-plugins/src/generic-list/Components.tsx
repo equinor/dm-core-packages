@@ -1,8 +1,8 @@
 import React, { MouseEvent } from 'react'
-import { Button, Icon, Progress } from '@equinor/eds-core-react'
+import { Button, EdsProvider, Icon, Progress } from '@equinor/eds-core-react'
 import {
-  arrow_down,
-  arrow_up,
+  chevron_down,
+  chevron_up,
   delete_to_trash,
   library_add,
 } from '@equinor/eds-icons'
@@ -32,15 +32,19 @@ export const DeleteButton = (props: { onClick: () => void }) => (
 )
 
 export const MoveItemUpButton = (props: { onClick: () => void }) => (
-  <Button variant="ghost_icon" onClick={props.onClick}>
-    <Icon data={arrow_up} title="Move up" />
-  </Button>
+  <EdsProvider density="compact">
+    <Button variant="ghost_icon" onClick={props.onClick}>
+      <Icon data={chevron_up} title="Move up" />
+    </Button>
+  </EdsProvider>
 )
 
 export const MoveItemDownButton = (props: { onClick: () => void }) => (
-  <Button variant="ghost_icon" onClick={props.onClick}>
-    <Icon data={arrow_down} title="Move down" />
-  </Button>
+  <EdsProvider density="compact">
+    <Button variant="ghost_icon" onClick={props.onClick}>
+      <Icon data={chevron_down} title="Move down" />
+    </Button>
+  </EdsProvider>
 )
 
 export const ItemsPerPageButton = (props: {
