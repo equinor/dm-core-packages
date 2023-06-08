@@ -6,17 +6,17 @@ import {
   useDMSS,
   useDocument,
 } from '@development-framework/dm-core'
-import { Input, Table } from '@equinor/eds-core-react'
+import { Button, Icon, Input, Table } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import {
-  AppendButton,
   DeleteButton,
   MoveItemDownButton,
   MoveItemUpButton,
   SaveButton,
 } from './Components'
 import { reorderObject } from './utils'
+import { add } from '@equinor/eds-icons'
 
 type TGenericTablePlugin = {
   editMode: boolean
@@ -106,14 +106,15 @@ export const GenericTablePlugin = (
       style={{
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-end',
         width: '100%',
       }}
     >
-      <AppendButton onClick={() => addItem()} />
       <Table style={{ width: '100%' }}>
         <Table.Head>
           <Table.Row>
+            {internalConfig.editMode && (
+              <Table.Cell aria-label="Controls"></Table.Cell>
+            )}
             {internalConfig.columns.map((attribute: string) => (
               <Table.Cell key={attribute}>{attribute}</Table.Cell>
             ))}
@@ -125,6 +126,24 @@ export const GenericTablePlugin = (
         <Table.Body>
           {Object.entries(items).map(([key, item], index) => (
             <Table.Row key={key}>
+              <Table.Cell style={{ width: '48px', padding: '0.25rem 0.5rem' }}>
+                {internalConfig.editMode && (
+                  <>
+                    <MoveItemUpButton
+                      onClick={() => {
+                        setItems(reorderObject(key, -1, items))
+                        setDirtyState(true)
+                      }}
+                    />
+                    <MoveItemDownButton
+                      onClick={() => {
+                        setItems(reorderObject(key, 1, items))
+                        setDirtyState(true)
+                      }}
+                    />
+                  </>
+                )}
+              </Table.Cell>
               {internalConfig.columns.map((attribute: string) => {
                 if (typeof item[attribute] === 'object')
                   throw new Error(
@@ -133,7 +152,10 @@ export const GenericTablePlugin = (
                 // TODO: Consider having a more robust way of getting type and validating form
                 const attributeType = typeof item[attribute]
                 return (
-                  <Table.Cell key={attribute}>
+                  <Table.Cell
+                    key={attribute}
+                    style={{ padding: '0.25rem 0.5rem' }}
+                  >
                     <Input
                       value={item[attribute] ?? ''}
                       readOnly={
@@ -155,40 +177,39 @@ export const GenericTablePlugin = (
                 )
               })}
 
-              <Table.Cell style={{ textAlign: 'right' }}>
+              <Table.Cell
+                style={{ textAlign: 'center', padding: '0.25rem 0.5rem' }}
+              >
                 {internalConfig.editMode && internalConfig?.showDelete && (
-                  <>
-                    <MoveItemUpButton
-                      onClick={() => {
-                        setItems(reorderObject(key, -1, items))
-                        setDirtyState(true)
-                      }}
-                    />
-                    <MoveItemDownButton
-                      onClick={() => {
-                        setItems(reorderObject(key, 1, items))
-                        setDirtyState(true)
-                      }}
-                    />
-                    <DeleteButton
-                      onClick={() => deleteItem(`${idReference}.${index}`, key)}
-                    />
-                  </>
+                  <DeleteButton
+                    onClick={() => deleteItem(`${idReference}.${index}`, key)}
+                  />
                 )}
               </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
       </Table>
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          gap: '0.5rem',
+          marginTop: '0.5rem',
+        }}
+      >
         {internalConfig.editMode && (
           <>
+            <Button onClick={() => addItem()} variant="outlined">
+              <Icon data={add} />
+              Add row
+            </Button>
             <SaveButton
               onClick={() => saveTable()}
               disabled={isSaveLoading || !dirtyState}
               isLoading={isSaveLoading}
             />
-            <AppendButton onClick={() => addItem()} />
           </>
         )}
       </div>
