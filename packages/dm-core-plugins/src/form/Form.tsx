@@ -6,7 +6,7 @@ import { ObjectField } from './fields/ObjectField'
 import { TFormProps } from './types'
 import { RegistryProvider } from './RegistryContext'
 import styled from 'styled-components'
-import { TGenericObject } from '@development-framework/dm-core'
+import { Stack, TGenericObject } from '@development-framework/dm-core'
 
 const Wrapper = styled.div`
   max-width: 650px;
@@ -48,12 +48,18 @@ export const Form = (props: TFormProps) => {
           idReference={idReference}
         >
           <form onSubmit={handleSubmit}>
-            {type && (
-              <ObjectField config={config} namePath={namePath} type={type} />
-            )}
-            <Button type="submit" data-testid="form-submit">
-              Submit
-            </Button>
+            <Stack spacing={2}>
+              {type && (
+                <ObjectField config={config} namePath={namePath} type={type} />
+              )}
+              <Button
+                type="submit"
+                data-testid="form-submit"
+                style={{ alignSelf: 'flex-start' }}
+              >
+                Submit
+              </Button>
+            </Stack>
           </form>
         </RegistryProvider>
       </FormProvider>

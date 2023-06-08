@@ -1,32 +1,13 @@
 import React from 'react'
-
-import { ErrorResponse, useDMSS } from '@development-framework/dm-core'
+import { ErrorResponse, Stack, useDMSS } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import { useFieldArray, useFormContext } from 'react-hook-form'
-import styled from 'styled-components'
+
 import { useRegistryContext } from '../RegistryContext'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
 import { OpenObjectButton } from '../components/OpenObjectButton'
-
-const Wrapper = styled.div`
-  margin-bottom: 20px;
-  margin-top: 20px;
-  width: 100%;
-`
-
-const ItemWrapper = styled.div`
-  display: flex;
-`
-
-const Stretch = styled.div`
-  flex: 1 0 auto;
-  margin-right: 10px;
-  margin-bottom: 8px;
-`
-
-const Sticky = styled.div``
 
 const isPrimitiveType = (value: string): boolean => {
   return ['string', 'number', 'integer', 'number', 'boolean'].includes(value)
@@ -45,7 +26,7 @@ export default function Fields(props: any) {
   })
 
   const handleAddObject = () => {
-    const name: string = `${namePath}-${fields.length}`
+    // const name: string = `${namePath}-${fields.length}`
     dmssAPI
       .instantiateEntity({
         entity: { type: type as string },
@@ -69,20 +50,25 @@ export default function Fields(props: any) {
 
   if (onOpen && !isPrimitiveType(type)) {
     return (
-      <Wrapper>
+      <Stack spacing={0.25} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
         <OpenObjectButton namePath={namePath} />
-      </Wrapper>
+      </Stack>
     )
   }
 
   return (
-    <Wrapper>
+    <Stack spacing={0.5} alignItems="flex-start">
       <Typography bold={true}>{displayLabel}</Typography>
       {fields.map((item: any, index: number) => {
         return (
-          <ItemWrapper key={item.id}>
-            <Stretch>
+          <Stack
+            key={item.id}
+            direction="row"
+            spacing={0.5}
+            alignSelf="stretch"
+          >
+            <Stack grow={1}>
               <AttributeField
                 namePath={`${namePath}.${index}`}
                 attribute={{
@@ -90,17 +76,15 @@ export default function Fields(props: any) {
                   dimensions: '',
                 }}
               />
-            </Stretch>
-            <Sticky>
-              <Button
-                variant="outlined"
-                type="button"
-                onClick={() => remove(index)}
-              >
-                Remove
-              </Button>
-            </Sticky>
-          </ItemWrapper>
+            </Stack>
+            <Button
+              variant="outlined"
+              type="button"
+              onClick={() => remove(index)}
+            >
+              Remove
+            </Button>
+          </Stack>
         )
       })}
       <Button
@@ -117,6 +101,6 @@ export default function Fields(props: any) {
       >
         Add
       </Button>
-    </Wrapper>
+    </Stack>
   )
 }

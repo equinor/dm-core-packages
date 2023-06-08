@@ -6,32 +6,16 @@ import {
   NewEntityButton,
   useBlueprint,
   useDMSS,
+  Stack,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import styled from 'styled-components'
 import { useRegistryContext } from '../RegistryContext'
 import { TObjectFieldProps } from '../types'
 import { AttributeField } from './AttributeField'
 import { OpenObjectButton } from '../components/OpenObjectButton'
-
-const Wrapper = styled.div`
-  margin-bottom: 20px;
-  margin-top: 20px;
-`
-const AttributeListWrapper = styled.div`
-  margin-top: 30px;
-`
-
-const ButtonGroup = styled.div`
-  display: flex;
-  alignitems: flex-end;
-`
-
-//  display: flex;
-const ItemWrapper = styled.div``
 
 const AddExternal = (props: any) => {
   const { type, namePath, onAdd } = props
@@ -45,7 +29,7 @@ const AddExternal = (props: any) => {
   }
 
   return (
-    <ButtonGroup>
+    <Stack direction="row" spacing={1}>
       <EntityPickerButton
         data-testid={`select-${namePath}`}
         onChange={handleSelect}
@@ -56,7 +40,7 @@ const AddExternal = (props: any) => {
         onCreated={handleAdd}
         type={type}
       />
-    </ButtonGroup>
+    </Stack>
   )
 }
 
@@ -200,7 +184,7 @@ const AttributeList = (props: any) => {
       )
     })
 
-  return <AttributeListWrapper>{attributeFields}</AttributeListWrapper>
+  return <Stack spacing={1}>{attributeFields}</Stack>
 }
 
 const External = (props: any) => {
@@ -250,8 +234,8 @@ export const Contained = (props: any): JSX.Element => {
   const attributePath = idReference?.split('.', 2).slice(1)
 
   return (
-    <Wrapper>
-      <ItemWrapper>
+    <div>
+      <Stack spacing={0.25} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
         {!isDefined && (
           <AddObject
@@ -271,7 +255,7 @@ export const Contained = (props: any): JSX.Element => {
             }
           />
         )}
-      </ItemWrapper>
+      </Stack>
       {!shouldOpen && isDefined && (
         <>
           {!isRoot && optional && (
@@ -302,7 +286,7 @@ export const Contained = (props: any): JSX.Element => {
           )}
         </>
       )}
-    </Wrapper>
+    </div>
   )
 }
 
@@ -320,7 +304,7 @@ export const NonContained = (props: any): JSX.Element => {
   const initialValue = getValues(namePath)
 
   return (
-    <Wrapper>
+    <Stack spacing={0.5}>
       <Typography bold={true}>{displayLabel}</Typography>
       <Controller
         name={namePath}
@@ -337,34 +321,36 @@ export const NonContained = (props: any): JSX.Element => {
           if (value && value._id) {
             return (
               <div>
-                <ItemWrapper>
+                <Stack spacing={0.25} alignItems="flex-start">
                   <Typography>Id: {value._id}</Typography>
-                  <RemoveObject
-                    namePath={namePath}
-                    type={type}
-                    onRemove={() => {
-                      const options = {
-                        shouldValidate: false,
-                        shouldDirty: true,
-                        shouldTouch: true,
-                      }
-                      setValue(namePath, null, options)
-                    }}
-                  />
-                  {onOpen && <OpenObjectButton namePath={namePath} />}
-                </ItemWrapper>
-                {!onOpen && (
-                  <External
-                    type={type}
-                    namePath={namePath}
-                    config={uiRecipe ? uiRecipe.config : config}
-                    contained={contained}
-                    dataSourceId={dataSourceId}
-                    documentId={value._id}
-                    onOpen={onOpen}
-                    f
-                  />
-                )}
+                  <Stack direction="row" spacing={1}>
+                    <RemoveObject
+                      namePath={namePath}
+                      type={type}
+                      onRemove={() => {
+                        const options = {
+                          shouldValidate: false,
+                          shouldDirty: true,
+                          shouldTouch: true,
+                        }
+                        setValue(namePath, null, options)
+                      }}
+                    />
+                    {onOpen && <OpenObjectButton namePath={namePath} />}
+                    {!onOpen && (
+                      <External
+                        type={type}
+                        namePath={namePath}
+                        config={uiRecipe ? uiRecipe.config : config}
+                        contained={contained}
+                        dataSourceId={dataSourceId}
+                        documentId={value._id}
+                        onOpen={onOpen}
+                        f
+                      />
+                    )}
+                  </Stack>
+                </Stack>
               </div>
             )
           } else {
@@ -376,7 +362,7 @@ export const NonContained = (props: any): JSX.Element => {
           }
         }}
       />
-    </Wrapper>
+    </Stack>
   )
 }
 
