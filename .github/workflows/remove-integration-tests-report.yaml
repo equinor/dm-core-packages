@@ -7,6 +7,7 @@ on:
       deleted-branch:
         description: 'Name of the deleted branch.'
         required: true
+        type: string
 
 jobs:
   delete_reports:
