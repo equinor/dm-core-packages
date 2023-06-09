@@ -10,13 +10,10 @@ test('signalApp', async ({ page }) => {
   //Open Explorer
   await page.getByRole('banner').locator('svg').first().click()
   await page.getByText('Explorer').click()
-
   await page.getByRole('banner').locator('svg').first().click()
   await page.getByText('SideBar').click()
-  await page.getByRole('button', { name: 'Open' }).click()
 
   //Open case
   await page.getByRole('button', { name: 'Open' }).click()
   await page.getByRole('button', { name: 'Expand' }).click()
-  await page.getByText('editEdit').click()
 })
