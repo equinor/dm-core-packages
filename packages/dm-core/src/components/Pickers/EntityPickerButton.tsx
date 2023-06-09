@@ -58,7 +58,7 @@ export const EntityPickerButton = (props: {
       <Dialog
         isOpen={showModal}
         closeScrim={() => setShowModal(false)}
-        header={'Select an Entity'}
+        header={`Select an Entity ${typeFilter ? `of type ${typeFilter}` : ''}`}
         width={TREE_DIALOG_WIDTH}
         height={TREE_DIALOG_HEIGHT}
       >

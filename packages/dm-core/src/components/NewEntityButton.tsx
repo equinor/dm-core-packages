@@ -11,7 +11,7 @@ import {
 import { addToPath } from './UploadFileButton'
 import { AxiosError } from 'axios'
 import styled from 'styled-components'
-import { TGenericObject, TLinkReference, TReference } from '../types'
+import { TGenericObject, TReference } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
 import { useDMSS } from '../context/DMSSContext'
 
@@ -26,6 +26,7 @@ const DialogWrapper = styled.div`
   }
 `
 
+// TODO fix this component - the component is not working due to a hook error somewhere, probably in the context
 export function NewEntityButton(props: {
   type?: string
   onCreated: (r: TReference) => void
@@ -38,8 +39,8 @@ export function NewEntityButton(props: {
   )
 
   const [newName, setNewName] = useState<string>('')
-  const [copyTarget, setCopyTarget] = useState<
-    TGenericObject | TLinkReference | undefined
+  const [documentToCopy, setDocumentToCopy] = useState<
+    TGenericObject | undefined
   >(undefined)
   const [typeToCreate, setTypeToCreate] = useState<string>(type || '')
   const [loading, setLoading] = useState<boolean>(false)
@@ -82,7 +83,7 @@ export function NewEntityButton(props: {
             <div style={{ display: 'block' }}>
               <BlueprintPicker
                 label={'Blueprint'}
-                disabled={!!copyTarget}
+                disabled={!!documentToCopy}
                 onChange={(selectedType: string) =>
                   setTypeToCreate(selectedType)
                 }
@@ -115,7 +116,9 @@ export function NewEntityButton(props: {
             }
             placeholder="Name for new entity"
           />
-          {!!copyTarget && <div>{`Copying entity'`}</div>}
+          {!!documentToCopy && (
+            <div>{`Copying entity named '${documentToCopy.name}'`}</div>
+          )}
           <div
             style={{
               display: 'flex',
@@ -124,18 +127,17 @@ export function NewEntityButton(props: {
               marginTop: '40px',
             }}
           >
-            {!copyTarget ? (
+            {!documentToCopy ? (
               <EntityPickerButton
                 variant="outlined"
                 typeFilter={typeToCreate}
                 text="Copy existing"
-                onChange={(ref: TGenericObject | TLinkReference) =>
-                  setCopyTarget(ref)
-                }
+                returnLinkReference={false}
+                onChange={(ref) => setDocumentToCopy(ref as TGenericObject)}
               />
             ) : (
               <Button
-                onClick={() => setCopyTarget(undefined)}
+                onClick={() => setDocumentToCopy(undefined)}
                 variant="outlined"
                 color="danger"
               >
@@ -144,23 +146,25 @@ export function NewEntityButton(props: {
             )}
             <Button
               disabled={
-                !(newName && saveDestination && (typeToCreate || copyTarget))
+                !(
+                  newName &&
+                  saveDestination &&
+                  (typeToCreate || documentToCopy)
+                )
               }
               type="submit"
               onClick={() => {
                 setLoading(true)
 
-                if (copyTarget) {
+                if (documentToCopy) {
                   // @ts-ignore
-                  delete copyTarget._id
-                  if ('name' in copyTarget) {
-                    copyTarget.name = newName
-                  }
+                  delete documentToCopy._id
+                  documentToCopy.name = newName
 
-                  addEntityToPath({ ...copyTarget })
+                  addEntityToPath({ ...documentToCopy })
                     .then(() => setShowScrim(false))
                     .finally(() => {
-                      setCopyTarget(undefined)
+                      setDocumentToCopy(undefined)
                       setNewName('')
                       setLoading(false)
                     })
@@ -181,7 +185,7 @@ export function NewEntityButton(props: {
                     })
                     .finally(() => {
                       setLoading(false)
-                      setCopyTarget(undefined)
+                      setDocumentToCopy(undefined)
                       setNewName('')
                     })
                 }
