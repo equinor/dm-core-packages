@@ -7,15 +7,20 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(${(props: TGridSize) => props.columns}, 1fr);
   grid-template-rows: repeat(${(props: TGridSize) => props.rows}, 1fr);
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;
+  column-gap: ${({ columnGap }) => columnGap || 16}px;
+  row-gap: ${({ rowGap }) => rowGap || 16}px;
 `
 
 export const GridPlugin = (props: TGridPluginConfig): JSX.Element => {
   const { config, idReference, type } = props
 
   return (
-    <Grid columns={config.size.columns} rows={config.size.rows}>
+    <Grid
+      columns={config.size.columns}
+      rows={config.size.rows}
+      rowGap={config.size.rowGap}
+      columnGap={config.size.columnGap}
+    >
       <GridItems idReference={idReference} items={config.items} type={type} />
     </Grid>
   )

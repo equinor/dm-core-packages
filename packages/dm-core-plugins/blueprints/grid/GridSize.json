@@ -13,6 +13,18 @@
       "attributeType": "number",
       "name": "rows",
       "default": 5
+    },
+    {
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "name": "rowGap",
+      "default": 16
+    },
+    {
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "name": "columnGap",
+      "default": 16
     }
   ]
 }
