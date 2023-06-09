@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # Contains all reports for deleted branch
-      BRANCH_REPORTS_DIR: reports/${{ github.event.inputs.deleted-branch }}
+      BRANCH_REPORTS_DIR: reports/${{ inputs.deleted-branch }}
     steps:
       - name: Checkout GitHub Pages Branch
         uses: actions/checkout@v3
@@ -41,10 +41,10 @@ jobs:
         timeout-minutes: 3
         run: |
           cd $BRANCH_REPORTS_DIR/..
-
-          rm -rf ${{ github.event.inputs.deleted-branch }}
+          echo "Removing folder: ${{ inputs.deleted-branch }}"
+          rm -rf ${{ inputs.deleted-branch }}
           git add .
-          git commit -m "workflow: remove all reports for branch ${{ github.event.inputs.deleted-branch }}"
+          git commit -m "workflow: remove all reports for branch ${{ inputs.deleted-branch }}"
 
           while true; do
             git pull --rebase
