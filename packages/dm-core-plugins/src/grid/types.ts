@@ -3,6 +3,8 @@ import { TViewConfig, IUIPlugin } from '@development-framework/dm-core'
 export type TGridSize = {
   columns: number
   rows: number
+  rowGap: number
+  columnGap: number
 }
 
 export type TGridArea = {
