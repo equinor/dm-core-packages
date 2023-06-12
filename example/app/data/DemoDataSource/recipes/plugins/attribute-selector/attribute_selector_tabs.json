@@ -12,56 +12,17 @@
       "items": [
         {
           "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
-          "label": "Edit first",
-          "view": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "type": "CORE:UiRecipe",
-              "name": "Edit",
-              "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form"
-            },
-            "scope": "firstAttribute",
-            "eds_icon": "apps"
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
           "label": "Tabs from third",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "type": "CORE:UiRecipe",
-              "name": "Tabs",
-              "description": "Tabs",
-              "plugin": "@development-framework/dm-core-plugins/attribute-selector"
+              "name": "Edit",
+              "description": "Edit",
+              "plugin": "@development-framework/dm-core-plugins/form"
             },
             "scope": "thirdAttribute",
             "eds_icon": "filter_list"
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
-          "label": "Yaml on self",
-          "view": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "Yaml",
-              "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/yaml"
-            }
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
-          "label": "Yaml on self again",
-          "view": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "Yaml",
-              "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/yaml"
-            }
           }
         }
       ]

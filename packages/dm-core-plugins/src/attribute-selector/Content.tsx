@@ -30,11 +30,13 @@ export const Content = (props: {
           key={config.viewId}
           hidden={config.viewId !== selectedView}
         >
-          {/*@ts-ignore*/}
           <ViewCreator
             idReference={config.rootEntityId}
             viewConfig={config.view}
-            onOpen={onOpen}
+            onOpen={(id: string, v: TViewConfig) => {
+              console.log('open id ', id)
+              onOpen(id, v)
+            }}
             onSubmit={(data: TGenericObject) => {
               setFormData({
                 ...formData,
