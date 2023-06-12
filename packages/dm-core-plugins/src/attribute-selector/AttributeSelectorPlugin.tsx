@@ -40,10 +40,19 @@ export const AttributeSelectorPlugin = (
         label: view.label ?? viewId,
         rootEntityId: idReference,
         onSubmit: () => undefined,
+        closeable: true,
       }
       setViews([...views, newView])
     }
     setSelectedView(viewId)
+  }
+
+  function removeView(viewId: string) {
+    const viewIndex = views.findIndex((view) => view.viewId === viewId)
+    const viewsCopy: TItemData[] = [...views]
+    viewsCopy.splice(viewIndex, 1)
+    setViews(viewsCopy)
+    setSelectedView('self')
   }
 
   useEffect(() => {
@@ -54,13 +63,14 @@ export const AttributeSelectorPlugin = (
     if (internalConfig.items && internalConfig.items.length) {
       internalConfig.items.forEach((viewItem: TAttributeSelectorItem) => {
         const backupKey: string = viewItem.view?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
+        const viewId = newViews.find((v) => v.viewId === backupKey)
+          ? crypto.randomUUID()
+          : backupKey
         newViews.push({
           ...viewItem,
           label: viewItem.label ?? backupKey,
           // Generate UUID to allow for multiple view of same scope
-          viewId: newViews.find((v) => v.viewId === backupKey)
-            ? crypto.randomUUID()
-            : backupKey,
+          viewId,
           rootEntityId: idReference,
         })
       })
@@ -127,6 +137,7 @@ export const AttributeSelectorPlugin = (
           items={views}
           selectedView={selectedView}
           setSelectedView={setSelectedView}
+          removeView={removeView}
         />
       )}
       <Content
