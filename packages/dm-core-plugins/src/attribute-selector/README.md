@@ -17,9 +17,9 @@ An `AttributeSelectorItem` has the following attributes:
 
 * `view` (required): object of type `ViewConfig` for the plugin
 * `label` (optional)
-
-The name of eds icon to display can be specified in the view attribute. List of all EDS icons can be
-found [here](https://eds-storybook-react.azurewebsites.net/?path=/docs/icons--preview).
+* `scope` (optional): can be either set to `self` or one of the attributes defined in the blueprint.
+* `eds_icon` (optional): specify what icon to display in the attribute selector. The name of eds icon to display must be
+  chosen from the list found [here](https://eds-storybook-react.azurewebsites.net/?path=/docs/icons--preview).
 
 Copy blueprints from the attribute-selector plugin like so:
 `cp -R node_modules/@development-framework/dm-core-plugins/blueprints/attribute-selector ./myApplicationBlueprints/`
