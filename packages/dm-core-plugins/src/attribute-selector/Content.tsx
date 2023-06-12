@@ -22,7 +22,6 @@ export const Content = (props: {
   formData: TGenericObject
 }): JSX.Element => {
   const { selectedView, items, setFormData, formData, onOpen, type } = props
-
   return (
     <div style={{ width: '100%' }}>
       {items.map((config: TItemData) => (
@@ -30,7 +29,6 @@ export const Content = (props: {
           key={config.viewId}
           hidden={config.viewId !== selectedView}
         >
-          {/*@ts-ignore*/}
           <ViewCreator
             idReference={config.rootEntityId}
             viewConfig={config.view}

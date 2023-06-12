@@ -12,6 +12,7 @@ import { EntityView, Loading, TAttribute, useDMSS } from '../../index'
 import React, { useEffect, useState } from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget } from './utils'
+import { AxiosResponse } from 'axios'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
@@ -50,7 +51,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
       .attributeGet({
         reference: reference,
       })
-      .then((response: any) => {
+      .then((response: AxiosResponse) => {
         setAttribute(response.data)
       })
       .catch((error) => setError(error))
@@ -58,11 +59,17 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   }, [])
 
   if (isLoading) return <Loading />
-  if (error) throw error
+  if (error)
+    return (
+      <p>
+        Could not find attribute for document with id {reference} (
+        {error.message})
+      </p>
+    )
   if (attribute === undefined)
     throw new Error('Unable to find type and dimensions for view')
 
-  if (isInlineRecipeViewConfig(viewConfig))
+  if (isInlineRecipeViewConfig(viewConfig)) {
     return (
       <InlineRecipeView
         idReference={reference}
@@ -71,6 +78,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
         onOpen={onOpen}
       />
     )
+  }
 
   if (isReferenceViewConfig(viewConfig)) {
     return (

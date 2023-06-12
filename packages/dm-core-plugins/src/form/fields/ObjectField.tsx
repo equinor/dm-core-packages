@@ -214,7 +214,6 @@ export const ContainedAttribute = (props: any): JSX.Element => {
     uiRecipe,
     blueprint,
   } = props
-
   const { getValues, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const [isDefined, setIsDefined] = useState(

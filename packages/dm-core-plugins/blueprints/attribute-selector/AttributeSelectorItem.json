@@ -3,6 +3,11 @@
   "name": "AttributeSelectorItem",
   "attributes": [
     {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "type"
+    },
+    {
       "attributeType": "CORE:ViewConfig",
       "type": "CORE:BlueprintAttribute",
       "name": "view"
