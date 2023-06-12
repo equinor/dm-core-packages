@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   TReferenceViewConfig,
   TInlineRecipeViewConfig,
@@ -9,9 +8,11 @@ export type TAttributeSelectorItem = {
   view: TReferenceViewConfig | TInlineRecipeViewConfig | TViewConfig
   label?: string
 }
+
 export type TItemData = TAttributeSelectorItem & {
   viewId: string
   label: string
+  closeable?: boolean
   rootEntityId: string
   // onSubmit is not yet supported
   onSubmit?: (data: TItemData) => void
