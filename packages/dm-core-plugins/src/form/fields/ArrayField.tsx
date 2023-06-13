@@ -26,7 +26,6 @@ export default function Fields(props: any) {
   })
 
   const handleAddObject = () => {
-    // const name: string = `${namePath}-${fields.length}`
     dmssAPI
       .instantiateEntity({
         entity: { type: type as string },
