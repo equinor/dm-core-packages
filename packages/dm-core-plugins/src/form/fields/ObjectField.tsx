@@ -4,9 +4,11 @@ import {
   ErrorResponse,
   Loading,
   NewEntityButton,
+  TLinkReference,
   useBlueprint,
   useDMSS,
   Stack,
+  TGenericObject,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -17,11 +19,14 @@ import { TObjectFieldProps } from '../types'
 import { AttributeField } from './AttributeField'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 
-const AddExternal = (props: any) => {
+const AddUncontained = (props: {
+  type: string
+  namePath: string
+  onAdd: (referenceObject: TLinkReference) => void
+}) => {
   const { type, namePath, onAdd } = props
-
-  const handleSelect = (entity: any) => {
-    onAdd(entity)
+  const handleSelect = (referenceObject: TLinkReference | TGenericObject) => {
+    onAdd(referenceObject as TLinkReference)
   }
 
   const handleAdd = (entity: any) => {
@@ -32,11 +37,12 @@ const AddExternal = (props: any) => {
     <Stack direction="row" spacing={1}>
       <EntityPickerButton
         data-testid={`select-${namePath}`}
+        returnLinkReference={true}
         onChange={handleSelect}
       />
+      {/*TODO fix hook error and add support for updated reference type in NewEntityButton  component*/}
       <NewEntityButton
         data-testid={`new-entity-${namePath}`}
-        // @ts-ignore
         onCreated={handleAdd}
         type={type}
       />
@@ -207,7 +213,7 @@ const External = (props: any) => {
   )
 }
 
-export const Contained = (props: any): JSX.Element => {
+export const ContainedAttribute = (props: any): JSX.Element => {
   const {
     type,
     namePath,
@@ -290,7 +296,7 @@ export const Contained = (props: any): JSX.Element => {
   )
 }
 
-export const NonContained = (props: any): JSX.Element => {
+export const UncontainedAttribute = (props: any): JSX.Element => {
   const {
     type,
     namePath,
@@ -318,15 +324,14 @@ export const NonContained = (props: any): JSX.Element => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           formState,
         }) => {
-          if (value && value._id) {
+          if (value && value.address && value.referenceType === 'link') {
             return (
               <div>
                 <Stack spacing={0.25} alignItems="flex-start">
-                  <Typography>Id: {value._id}</Typography>
+                  <Typography>Id: {value.address}</Typography>
                   <Stack direction="row" spacing={1}>
                     <RemoveObject
                       namePath={namePath}
-                      type={type}
                       onRemove={() => {
                         const options = {
                           shouldValidate: false,
@@ -344,7 +349,7 @@ export const NonContained = (props: any): JSX.Element => {
                         config={uiRecipe ? uiRecipe.config : config}
                         contained={contained}
                         dataSourceId={dataSourceId}
-                        documentId={value._id}
+                        documentId={value.address}
                         onOpen={onOpen}
                         f
                       />
@@ -357,7 +362,11 @@ export const NonContained = (props: any): JSX.Element => {
             const handleAdd = (entity: any) => onChange(entity)
 
             return (
-              <AddExternal type={type} namePath={namePath} onAdd={handleAdd} />
+              <AddUncontained
+                type={type}
+                namePath={namePath}
+                onAdd={handleAdd}
+              />
             )
           }
         }}
@@ -410,8 +419,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
     ? uiRecipes.find((uiRecipe: any) => uiRecipe.name === uiRecipeName)
     : null
 
-  const Content = contained ? Contained : NonContained
-
+  const Content = contained ? ContainedAttribute : UncontainedAttribute
   return (
     <Content
       type={type}
