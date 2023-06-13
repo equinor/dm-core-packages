@@ -100,3 +100,8 @@
     * **DMSS VERSION**: 0470c11 2023-06-09 Krist..rstad refactor: cleanup testing of tree and also fix bug grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.12
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* feat: make EntityPickerButton able to pick reference to entity (2023-06-02T11:23:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/feat/make-entityPickerButton-able-to-pick-reference-to-entity/5254493203/1)
+    * **DMSS VERSION**: 895f0b2 2023-06-13 Krist..rstad fix: bug with add document grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.12
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
