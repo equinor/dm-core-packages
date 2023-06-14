@@ -8,8 +8,7 @@ import {
   DestinationPicker,
   EntityPickerButton,
 } from './Pickers'
-import { addToPath } from './UploadFileButton'
-import { AxiosError } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import styled from 'styled-components'
 import { TGenericObject, TReference } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
@@ -53,11 +52,17 @@ export function NewEntityButton(props: {
     }
   }, [defaultDestination])
 
-  function addEntityToPath(entity: any): Promise<void> {
-    return addToPath(entity, [], saveDestination)
-      .then((newId: string) =>
-        onCreated({ _id: newId, type: entity.type, name: entity.name })
-      )
+  function addEntityToPath(entity: TGenericObject) {
+    return dmssAPI
+      .documentAdd({
+        reference: saveDestination,
+        document: JSON.stringify(entity),
+        updateUncontained: false,
+      })
+      .then((response: AxiosResponse<TGenericObject>) => {
+        const idForNewEntity = response.data.uid
+        onCreated({ _id: idForNewEntity, type: entity.type, name: entity.name })
+      })
       .catch((error: AxiosError) => {
         console.error(error)
         NotificationManager.error(
@@ -66,6 +71,47 @@ export function NewEntityButton(props: {
           'Failed to create'
         )
       })
+  }
+
+  const onCreateEntity = () => {
+    setLoading(true)
+
+    if (documentToCopy) {
+      const newDocumentToCopy: TGenericObject = {
+        ...documentToCopy,
+        name: newName,
+      }
+      delete newDocumentToCopy._id
+
+      addEntityToPath({ ...newDocumentToCopy })
+        .then(() => setShowScrim(false))
+        .finally(() => {
+          setDocumentToCopy(undefined)
+          setNewName('')
+          setLoading(false)
+        })
+    } else {
+      dmssAPI
+        .instantiateEntity({
+          entity: {
+            type: typeToCreate,
+          },
+        })
+        .then((response) => {
+          const newEntity = response.data
+          // instantiateEntity from DMSS will not populate the name, therefore the name has to be added manually.
+
+          addEntityToPath({
+            ...newEntity,
+            name: newName as string,
+          }).then(() => setShowScrim(false))
+        })
+        .finally(() => {
+          setLoading(false)
+          setDocumentToCopy(undefined)
+          setNewName('')
+        })
+    }
   }
 
   return (
@@ -153,45 +199,7 @@ export function NewEntityButton(props: {
                 )
               }
               type="submit"
-              onClick={() => {
-                setLoading(true)
-
-                if (documentToCopy) {
-                  const newDocumentToCopy: TGenericObject = {
-                    ...documentToCopy,
-                    name: newName,
-                  }
-                  delete newDocumentToCopy._id
-
-                  addEntityToPath({ ...newDocumentToCopy })
-                    .then(() => setShowScrim(false))
-                    .finally(() => {
-                      setDocumentToCopy(undefined)
-                      setNewName('')
-                      setLoading(false)
-                    })
-                } else {
-                  dmssAPI
-                    .instantiateEntity({
-                      entity: {
-                        type: typeToCreate,
-                      },
-                    })
-                    .then((response) => {
-                      const newEntity = response.data
-                      // instantiateEntity from DMSS will not populate the name, therefore the name has to be added manually.
-                      addEntityToPath({
-                        ...newEntity,
-                        name: newName as string,
-                      }).then(() => setShowScrim(false))
-                    })
-                    .finally(() => {
-                      setLoading(false)
-                      setDocumentToCopy(undefined)
-                      setNewName('')
-                    })
-                }
-              }}
+              onClick={onCreateEntity}
             >
               {loading ? <Progress.Dots /> : 'Create'}
             </Button>
