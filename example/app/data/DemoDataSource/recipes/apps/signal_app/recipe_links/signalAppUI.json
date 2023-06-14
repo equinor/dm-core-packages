@@ -6,7 +6,7 @@
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/header",
     "config": {
-      "uiRecipesList": ["SideBar", "Explorer", "Yaml"],
+      "uiRecipesList": ["View study", "Explorer", "Yaml"],
       "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
       "hideAbout": false,
       "hideUserInfo": true
@@ -30,7 +30,7 @@
       "plugin": "@development-framework/dm-core-plugins/explorer"
     },
     {
-      "name": "SideBar",
+      "name": "View study",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/attribute-selector",
       "config": {
