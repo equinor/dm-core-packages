@@ -1,37 +1,10 @@
-import { DmssAPI } from '../services'
-import React, {
-  ChangeEvent,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Button, Progress } from '@equinor/eds-core-react'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
 import { AxiosError, AxiosResponse } from 'axios'
 import { TGenericObject, TReference, TValidEntity } from '../types'
-import { AuthContext } from 'react-oauth2-code-pkce'
 import { useDMSS } from '../context/DMSSContext'
-
-export const addToPath = (
-  body: TGenericObject,
-  files: File[] | undefined[] = [],
-  pathReference: string,
-  updateUncontained = false
-): Promise<string> => {
-  const dmssAPI = useDMSS()
-
-  return dmssAPI
-    .documentAdd({
-      reference: pathReference,
-      document: JSON.stringify(body),
-      // @ts-ignore
-      files: files.filter((item) => item !== undefined),
-      updateUncontained: updateUncontained,
-    })
-    .then((response: AxiosResponse<TGenericObject>) => response.data.uid)
-}
 
 // fileSuffix - A list of strings with allowed file suffixes without '.'. For example to allow yaml uploads; ['yaml', 'yml']
 // getBody - A callback function to get the body of the document where file (Blob) should be created in.
@@ -48,11 +21,11 @@ export function UploadFileButton(props: {
   const textInput = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
-  const { token } = useContext(AuthContext)
+  const dmssAPI = useDMSS()
 
   useEffect(() => setError(undefined), [formData])
 
-  function handleUpload(event: any): void {
+  function handleUploadSTaskFile(event: any): void {
     setError('')
     const file = event.target.files[0]
     const suffix = file.name.split('.')[file.name.split('.').length - 1]
@@ -63,10 +36,15 @@ export function UploadFileButton(props: {
     } else {
       const newDocumentBody = getBody(file.name)
       setLoading(true)
-      addToPath(newDocumentBody, [file], `${dataSourceId}/Data/STasks`, true)
-        .then((createdUUID: string) =>
+      dmssAPI
+        .documentAdd({
+          reference: `${dataSourceId}/Data/STasks`,
+          document: JSON.stringify(newDocumentBody),
+          updateUncontained: true,
+        })
+        .then((response: AxiosResponse<TGenericObject>) =>
           onUpload({
-            _id: createdUUID,
+            _id: response.data.uid,
             name: newDocumentBody.name,
             type: newDocumentBody.type,
           })
@@ -94,7 +72,9 @@ export function UploadFileButton(props: {
         ref={textInput}
         accept={fileSuffix.map((a: string) => '.' + a).join(',')}
         style={{ display: 'none' }}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => handleUpload(event)}
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+          handleUploadSTaskFile(event)
+        }
       />
       {loading ? (
         <Button style={{ margin: '0 10px' }}>

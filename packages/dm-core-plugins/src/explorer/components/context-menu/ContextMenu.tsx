@@ -160,7 +160,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
               onClick={() => {
                 setLoading(true)
                 node
-                  .addEntity(
+                  .addEntityToPackage(
                     node.attribute.attributeType,
                     `${node.entity.length}`
                   )
@@ -212,7 +212,10 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
               onClick={() => {
                 setLoading(true)
                 node
-                  .addEntity(`dmss://${formData?.type}`, formData?.name || '')
+                  .addEntityToPackage(
+                    `dmss://${formData?.type}`,
+                    formData?.name || 'Created_entity'
+                  )
                   .then(() => {
                     setScrimToShow('')
                     NotificationManager.success(`New entity created`, 'Success')
@@ -261,7 +264,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
               onClick={() => {
                 setLoading(true)
                 node
-                  .addEntity(EBlueprint.BLUEPRINT, formData?.name)
+                  .addEntityToPackage(EBlueprint.BLUEPRINT, formData?.name)
                   .then(() => {
                     setScrimToShow('')
                   })

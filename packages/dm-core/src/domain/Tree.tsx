@@ -291,12 +291,10 @@ export class TreeNode {
 
   // Creates a new entity on DMSS of the given type and saves it to this package,
   // returns the entity's UUID
-  async addEntity(type: string, name: string): Promise<string> {
-    if (this.type !== EBlueprint.PACKAGE && !Array.isArray(this.entity)) {
-      throw 'Entities can only be added to packages and lists'
+  async addEntityToPackage(type: string, name: string): Promise<string> {
+    if (this.type !== EBlueprint.PACKAGE) {
+      throw 'Entities can only be added to package'
     }
-    let packageContent = ''
-    if (this.type === EBlueprint.PACKAGE) packageContent = '.content'
 
     const response = await this.tree.dmssApi.instantiateEntity({
       // @ts-ignore
@@ -305,7 +303,7 @@ export class TreeNode {
     const newEntity = { ...response.data, name: name }
     const createResponse: AxiosResponse<any> =
       await this.tree.dmssApi.documentAdd({
-        reference: `${this.nodeId}$${packageContent}`,
+        reference: `${this.nodeId}.content`,
         document: JSON.stringify(newEntity),
         updateUncontained: true,
       })
