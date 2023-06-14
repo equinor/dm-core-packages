@@ -4,7 +4,7 @@ import { useRegistryContext } from '../RegistryContext'
 
 export const OpenObjectButton = ({ namePath }: { namePath: string }) => {
   const { onOpen } = useRegistryContext()
-
+  // console.log('namepath to onopenbutton', namePath)
   return (
     <Button
       variant="outlined"

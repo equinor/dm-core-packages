@@ -34,7 +34,6 @@ export const Content = (props: {
             idReference={config.rootEntityId}
             viewConfig={config.view}
             onOpen={(id: string, v: TViewConfig) => {
-              console.log('open id ', id)
               onOpen(id, v)
             }}
             onSubmit={(data: TGenericObject) => {

@@ -214,7 +214,6 @@ export const ContainedAttribute = (props: any): JSX.Element => {
     uiRecipe,
     blueprint,
   } = props
-
   const { getValues, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const [isDefined, setIsDefined] = useState(
@@ -227,8 +226,12 @@ export const ContainedAttribute = (props: any): JSX.Element => {
   const isRoot = namePath == ''
   const shouldOpen = hasOpen && !isRoot
 
-  const attributePath = idReference?.split('.', 2).slice(1)
-
+  const splitReference = idReference?.split('.')
+  splitReference.shift()
+  const attributePath = splitReference.join('.') TODO is this right???
+  // console.log('id ref', idReference)
+  // console.log('attrpath', attributePath)
+  // console.log('namepath to openobjectbtn', attributePath)
   return (
     <div>
       <Stack spacing={0.25} alignItems="flex-start">
@@ -243,13 +246,17 @@ export const ContainedAttribute = (props: any): JSX.Element => {
           />
         )}
         {shouldOpen && isDefined && (
-          <OpenObjectButton
-            namePath={
-              attributePath.length > 1
-                ? `${attributePath[1]}.${namePath}`
-                : namePath
-            }
-          />
+          <>
+            <p>
+              {idReference}.{namePath}
+            </p>
+            <p>{attributePath ? `${attributePath}.${namePath}` : namePath}</p>
+            <OpenObjectButton
+              namePath={
+                attributePath ? `${attributePath}.${namePath}` : namePath
+              }
+            />
+          </>
         )}
       </Stack>
       {!shouldOpen && isDefined && (

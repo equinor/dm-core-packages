@@ -44,7 +44,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   const [attribute, setAttribute] = useState<TAttribute>()
 
   const reference = getTarget(idReference, viewConfig)
-
+  console.log('reference', reference)
   useEffect(() => {
     dmssAPI
       .attributeGet({

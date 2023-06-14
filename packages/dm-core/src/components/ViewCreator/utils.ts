@@ -2,8 +2,16 @@ import { TViewConfig } from '../../types'
 import { DmssAPI, TAttribute, TBlueprint } from '../../index'
 
 export const getTarget = (idReference: string, viewConfig: TViewConfig) => {
-  if (viewConfig?.scope && viewConfig.scope !== 'self')
+  //skal idreference inneholde path til attributes?
+  // skal viewconfig.scope max ha 1 attribute (dvs ingen dot)?
+  // console.log('id', idReference)
+  // console.log('scope', viewConfig.scope)
+  if (viewConfig?.scope && viewConfig.scope !== 'self') {
+    // console.log('got target ', `${idReference}.${viewConfig.scope}`)
     return `${idReference}.${viewConfig.scope}`
+  }
+
+  // console.log('got target', idReference)
   return idReference
 }
 
