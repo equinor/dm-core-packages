@@ -11,7 +11,7 @@ test('signalApp', async ({ page }) => {
   await page.getByRole('banner').locator('svg').first().click()
   await page.getByText('Explorer').click()
   await page.getByRole('banner').locator('svg').first().click()
-  await page.getByText('SideBar').click()
+  await page.getByText('View study').click()
 
   //Open case
   await page.getByRole('button', { name: 'Open' }).click()
