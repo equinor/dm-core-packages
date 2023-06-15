@@ -18,14 +18,14 @@ repos:
     hooks:
       - id: prettier
         files: ^.*\.(ts|tsx|js|css|html|json)$
-        args: ['--config=.prettierrc.js', '--ignore-path=.prettierignore']
+        args: [ '--config=.prettierrc.js', '--ignore-path=.prettierignore' ]
 
   - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: 'v8.38.0'
+    rev: 'v8.42.0'
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
-        types: [file]
+        types: [ file ]
         additional_dependencies:
           - eslint
           - eslint-config-react-app
@@ -37,4 +37,4 @@ repos:
           - eslint-plugin-prettier # runs prettier as an eslint rule
           - eslint-plugin-react # react specific linting rules
           - eslint-plugin-react-hooks # enforces the rules of hooks
-        args: ['--config=.eslintrc.json', '--ignore-path=.eslintignore']
+        args: [ '--config=.eslintrc.json', '--ignore-path=.eslintignore' ]
