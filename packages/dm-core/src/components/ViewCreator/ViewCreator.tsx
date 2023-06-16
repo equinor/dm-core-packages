@@ -45,8 +45,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   const [attribute, setAttribute] = useState<TAttribute>()
 
   const reference = getTarget(idReference, viewConfig)
-  console.log('reference', reference)
-  console.log('prop ref', idReference)
+
   useEffect(() => {
     dmssAPI
       .attributeGet({
@@ -64,7 +63,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   if (attribute === undefined)
     throw new Error('Unable to find type and dimensions for view')
 
-  if (isInlineRecipeViewConfig(viewConfig))
+  if (isInlineRecipeViewConfig(viewConfig)) {
     return (
       <InlineRecipeView
         idReference={reference}
@@ -73,6 +72,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
         onOpen={onOpen}
       />
     )
+  }
 
   if (isReferenceViewConfig(viewConfig)) {
     return (

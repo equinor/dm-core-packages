@@ -21,7 +21,7 @@
               "description": "Edit",
               "plugin": "@development-framework/dm-core-plugins/form"
             },
-            "scope": "self",
+            "scope": "thirdAttribute",
             "eds_icon": "filter_list"
           }
         }

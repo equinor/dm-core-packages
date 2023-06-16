@@ -22,7 +22,7 @@ export const Content = (props: {
   formData: TGenericObject
 }): JSX.Element => {
   const { selectedView, items, setFormData, formData, onOpen, type } = props
-
+  console.log('vc items', items)
   return (
     <div style={{ width: '100%' }}>
       {items.map((config) => {

@@ -256,8 +256,8 @@ export const ContainedAttribute = (props: any): JSX.Element => {
             </p>
             <OpenObjectButton
               namePath={
-                namePath
-                // attributePath ? `${attributePath}.${namePath}` : namePath
+                //namePath
+                attributePath ? `${attributePath}.${namePath}` : namePath
               }
             />
           </>

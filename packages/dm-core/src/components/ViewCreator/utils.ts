@@ -7,11 +7,11 @@ export const getTarget = (idReference: string, viewConfig: TViewConfig) => {
   // console.log('id', idReference)
   // console.log('scope', viewConfig.scope)
   if (viewConfig?.scope && viewConfig.scope !== 'self') {
-    console.log('got target w scope ', `${idReference}.${viewConfig.scope}`)
+    // console.log('got target w scope ', `${idReference}.${viewConfig.scope}`)
     return `${idReference}.${viewConfig.scope}`
   }
 
-  console.log('got target', idReference)
+  // console.log('got target', idReference)
   return idReference
 }
 
