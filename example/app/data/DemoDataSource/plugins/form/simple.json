@@ -1,0 +1,6 @@
+{
+  "_id": "Simple",
+  "name": "Simple",
+  "type": "./blueprints/Simple",
+  "Firstname": ""
+}
