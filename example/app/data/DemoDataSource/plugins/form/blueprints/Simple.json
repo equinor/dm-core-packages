@@ -11,14 +11,14 @@
       "name": "stringOptional",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "label": "Optional string",
+      "label": "An optional string",
       "optional": true
     },
     {
       "name": "stringRequired",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "label": "Required string",
+      "label": "A required string",
       "optional": false
     },
     {

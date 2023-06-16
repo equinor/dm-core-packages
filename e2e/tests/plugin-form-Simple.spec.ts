@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test('Simple form', async ({ page }) => {
-  //Open form
+  //Open simple form
   await page.goto('http://localhost:3000/')
   await page.getByText('plugins', { exact: true }).click()
   await page.getByText('form').click()
