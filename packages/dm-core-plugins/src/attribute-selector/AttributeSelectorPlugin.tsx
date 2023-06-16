@@ -31,6 +31,9 @@ export const AttributeSelectorPlugin = (
   const [views, setViews] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
 
+  if (idReference.includes('.'))
+    console.error('idref to root cannot have dotted path')
+
   function addView(viewId: string, view: TViewConfig) {
     if (!views.find((view: TItemData) => view.viewId === viewId)) {
       // View does not exist, add it
@@ -58,6 +61,12 @@ export const AttributeSelectorPlugin = (
   }
 
   useEffect(() => {
+    console.log(
+      'ENTITY CHAGNES IN ATTR SEL PLUG: ',
+      entity,
+      'with id ',
+      idReference
+    )
     if (!entity) return
     setFormData({ ...entity })
 
@@ -143,6 +152,7 @@ export const AttributeSelectorPlugin = (
         />
       )}
       <Content
+        key="content-in-attr-plugin"
         type={type}
         onOpen={addView}
         formData={formData}

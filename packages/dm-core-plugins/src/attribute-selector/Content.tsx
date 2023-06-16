@@ -25,6 +25,14 @@ export const Content = (props: {
 
   return (
     <div style={{ width: '100%' }}>
+      {items.map((config) => {
+        console.log(
+          'WILL DISPLAY In VC with idRef ',
+          config.rootEntityId,
+          ' AND scope ',
+          config.view.scope
+        )
+      })}
       {items.map((config: TItemData) => (
         <HidableWrapper
           key={config.viewId}

@@ -12,6 +12,7 @@ import { EntityView, Loading, TAttribute, useDMSS } from '../../index'
 import React, { useEffect, useState } from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget } from './utils'
+import { AxiosResponse } from 'axios'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
@@ -45,12 +46,13 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
 
   const reference = getTarget(idReference, viewConfig)
   console.log('reference', reference)
+  console.log('prop ref', idReference)
   useEffect(() => {
     dmssAPI
       .attributeGet({
         reference: reference,
       })
-      .then((response: any) => {
+      .then((response: AxiosResponse) => {
         setAttribute(response.data)
       })
       .catch((error) => setError(error))
