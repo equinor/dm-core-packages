@@ -5,6 +5,7 @@ test('Simple form', async ({ page }) => {
   await page.goto('http://localhost:3000/')
   await page.getByText('plugins', { exact: true }).click()
   await page.getByText('form').click()
+  await page.getByText('simple', { exact: true }).click()
   await page.getByText('DemoDataSource/$Simple').click()
 
   //Fill out optional string
@@ -28,6 +29,7 @@ test('Simple form', async ({ page }) => {
   await page.reload()
   await page.getByText('plugins', { exact: true }).click()
   await page.getByText('form').click()
+  await page.getByText('simple', { exact: true }).click()
   await page.getByText('DemoDataSource/$Simple').click()
   await expect(page.getByLabel('Optional string (optional)')).toHaveValue('Foo')
   await expect(page.getByLabel('Required string')).toHaveValue('Bar')
