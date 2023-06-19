@@ -31,14 +31,14 @@ export const AttributeSelectorPlugin = (
   const [views, setViews] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
 
-  function addView(viewId: string, view: TViewConfig) {
+  function addView(viewId: string, view: TViewConfig, rootId?: string) {
     if (!views.find((view: TItemData) => view.viewId === viewId)) {
       // View does not exist, add it
       const newView: TItemData = {
         viewId: viewId,
         view: view,
         label: view.label ?? viewId,
-        rootEntityId: idReference,
+        rootEntityId: rootId || idReference,
         onSubmit: () => undefined,
         closeable: true,
       }

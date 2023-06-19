@@ -81,7 +81,7 @@ export interface IUIPlugin {
   type: string
   idReference: string
   onSubmit?: (data: any) => void
-  onOpen?: (key: string, view: TViewConfig) => void
+  onOpen?: (key: string, view: TViewConfig, rootId?: string) => void
   config?: any
 }
 
