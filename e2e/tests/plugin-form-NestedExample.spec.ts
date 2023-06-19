@@ -5,6 +5,7 @@ test('NestedExample plugin', async ({ page }) => {
   await page.goto('http://localhost:3000/')
   await page.getByText('plugins', { exact: true }).click()
   await page.getByText('form').click()
+  await page.getByText('example', { exact: true }).click()
   await page.getByText('DemoDataSource/$NestedExample').click()
 
   //Empty current input and enter new
@@ -21,6 +22,7 @@ test('NestedExample plugin', async ({ page }) => {
   await page.reload()
   await page.getByText('plugins', { exact: true }).click()
   await page.getByText('form').click()
+  await page.getByText('example', { exact: true }).click()
   await page.getByText('DemoDataSource/$NestedExample').click()
   await expect(page.getByLabel('Foo (optional)')).toHaveValue('1234')
   await expect(page.getByLabel('Bar')).toHaveValue('Bar')

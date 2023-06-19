@@ -5,6 +5,7 @@ test('Form Example plugin', async ({ page }) => {
   await page.goto('http://localhost:3000/')
   await page.getByText('plugins', { exact: true }).click()
   await page.getByText('form').click()
+  await page.getByText('example', { exact: true }).click()
   await page.getByText('DemoDataSource/$formExample').click()
 
   //A bool
@@ -24,6 +25,7 @@ test('Form Example plugin', async ({ page }) => {
 
   //A nested object
   await page.getByRole('button', { name: 'Open' }).first().click()
+  await expect(page.getByText('A nested object', { exact: true })).toBeVisible
   await page.getByLabel('Foo (optional)').fill('1234')
   await page.getByLabel('Bar').fill('bar test')
   await page.getByLabel('Baz (optional)').fill('baz test')

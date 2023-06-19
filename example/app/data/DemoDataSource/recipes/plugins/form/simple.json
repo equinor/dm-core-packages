@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/blueprints/Simple",
+  "_blueprintPath_": "/plugins/form/simple/blueprints/Simple",
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
