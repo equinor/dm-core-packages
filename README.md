@@ -265,3 +265,8 @@
     * **DMSS VERSION**: 895f0b2 2023-06-13 Krist..rstad fix: bug with add document grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.12
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* refactor: restructure folders for forms (2023-06-02T11:23:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/refactor/folder-structure-forms/5309691815/1)
+    * **DMSS VERSION**: 895f0b2 2023-06-13 Krist..rstad fix: bug with add document grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.12
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
