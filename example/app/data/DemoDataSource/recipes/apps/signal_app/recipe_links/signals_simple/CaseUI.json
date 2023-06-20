@@ -10,8 +10,8 @@
       "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
       "size": {
         "type": "PLUGINS:dm-core-plugins/grid/GridSize",
-        "columns": 12,
-        "rows": 15
+        "columns": 2,
+        "rows": 2
       },
       "items": [
         {
@@ -24,8 +24,8 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
             "columnStart": 1,
-            "rowEnd": 10,
-            "columnEnd": 6
+            "rowEnd": 3,
+            "columnEnd": 2
           }
         },
         {
@@ -38,9 +38,9 @@
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
-            "columnStart": 6,
-            "rowEnd": 3,
-            "columnEnd": 12
+            "columnStart": 2,
+            "rowEnd": 2,
+            "columnEnd": 3
           }
         },
         {
@@ -51,10 +51,10 @@
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 3,
-            "columnStart": 6,
-            "rowEnd": 10,
-            "columnEnd": 12
+            "rowStart": 2,
+            "columnStart": 2,
+            "rowEnd": 3,
+            "columnEnd": 3
           }
         }
       ]
