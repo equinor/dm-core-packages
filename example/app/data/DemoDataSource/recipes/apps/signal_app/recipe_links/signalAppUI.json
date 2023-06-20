@@ -19,12 +19,6 @@
       "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
-      "type": "CORE:UiRecipe",
-      "name": "Edit",
-      "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form"
-    },
-    {
       "name": "Explorer",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/explorer"

@@ -62,70 +62,6 @@
   },
   "uiRecipes": [
     {
-      "type": "CORE:UiRecipe",
-      "name": "Dashboard",
-      "description": "ESS Plot",
-      "plugin": "@development-framework/dm-core-plugins/grid",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
-        "size": {
-          "type": "PLUGINS:dm-core-plugins/grid/GridSize",
-          "columns": 12,
-          "rows": 15
-        },
-        "items": [
-          {
-            "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-            "viewConfig": {
-              "type": "CORE:ReferenceViewConfig",
-              "recipe": "Tabs"
-            },
-            "gridArea": {
-              "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-              "rowStart": 1,
-              "columnStart": 1,
-              "rowEnd": 10,
-              "columnEnd": 6
-            }
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-            "viewConfig": {
-              "type": "CORE:ReferenceViewConfig",
-              "scope": "signal",
-              "recipe": "Plot"
-            },
-            "gridArea": {
-              "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-              "rowStart": 1,
-              "columnStart": 6,
-              "rowEnd": 3,
-              "columnEnd": 12
-            }
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-            "viewConfig": {
-              "type": "CORE:ReferenceViewConfig",
-              "recipe": "RunInt"
-            },
-            "gridArea": {
-              "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-              "rowStart": 3,
-              "columnStart": 6,
-              "rowEnd": 10,
-              "columnEnd": 12
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "yaml-view"
-    },
-    {
       "name": "Tabs",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/attribute-selector",
@@ -150,12 +86,6 @@
       "name": "Edit",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
-    },
-    {
-      "type": "CORE:UiRecipe",
-      "name": "Run",
-      "description": "running",
-      "plugin": "signal-job"
     },
     {
       "type": "CORE:UiRecipe",

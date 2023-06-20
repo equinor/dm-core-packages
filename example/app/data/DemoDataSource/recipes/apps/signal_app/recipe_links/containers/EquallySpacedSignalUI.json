@@ -39,12 +39,6 @@
       "name": "Table",
       "type": "CORE:UiRecipe",
       "plugin": "marmo-ess-table-view"
-    },
-    {
-      "type": "CORE:UiRecipe",
-      "name": "Edit",
-      "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }
