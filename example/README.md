@@ -10,7 +10,7 @@
 ## Running
 
 > **Note**
-> Run all these commands from the `dm-core-packages`/ (main project) folder
+> Run all these commands from the `dm-core-packages/` (main project) folder unless otherwise stated
 
 1. Install dependecies.
 
@@ -30,10 +30,10 @@
    - Install dm-cli package by running `pip install dm-cli`
 
 2. Build the required packages locally (dm-core and dm-core-plugins).
-   - Run `yarn build:dm-core` and `yarn build:dm-core-plugins` in that order
-3. Pull and start API services
+   - Run `yarn build:dm-core && yarn build:dm-core-plugins`
+3. Navigate to the `example` folder, then pull and start API services
    - `docker-compose pull && docker-compose up -d`
-4. Run shell script to load dmss data
+4. Navigate to the `example` folder, then run shell script to load dmss data. If the command fails, try updating dm-cli before retrying.
    - `./reset-all.sh`
 5. Start the test app
    - `yarn start:example`
