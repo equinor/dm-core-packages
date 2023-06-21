@@ -13,14 +13,8 @@
         {
           "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
           "view": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "type": "CORE:UiRecipe",
-              "name": "Edit",
-              "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form"
-            },
-            "scope": "self"
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Edit"
           }
         }
       ]
@@ -39,57 +33,10 @@
             "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "type",
             "widget": "TypeWidget"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "name": "aDate",
-            "widget": "TextWidget",
-            "format": "date-time"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "name": "description",
-            "widget": "TextareaWidget"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "name": "aStringAsTextfield",
-            "widget": "TextareaWidget"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "name": "aNestedObject",
-            "uiRecipe": "aRecipeName"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "name": "blueprintPicker",
-            "widget": "BlueprintPickerWidget"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "name": "aNestedObjectWithCustomUI",
-            "uiRecipe": "custom"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "name": "blueprintPicker",
-            "widget": "ObjectWidget"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "name": "listOfObjects",
-            "widget": "TableWidget",
-            "columns": ["name", "foo", "bar", "baz"]
           }
         ],
-        "order": ["name", "type", "description", "aBool", "*"]
+        "order": ["type", "aDate", "aBool", "*", "aNumber"]
       }
-    },
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
     }
   ]
 }

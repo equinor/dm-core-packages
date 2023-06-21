@@ -4,20 +4,20 @@ import {
   ErrorResponse,
   Loading,
   NewEntityButton,
+  Stack,
+  TGenericObject,
   TLinkReference,
   useBlueprint,
   useDMSS,
-  Stack,
-  TGenericObject,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../RegistryContext'
+import { OpenObjectButton } from '../components/OpenObjectButton'
 import { TObjectFieldProps } from '../types'
 import { AttributeField } from './AttributeField'
-import { OpenObjectButton } from '../components/OpenObjectButton'
 
 const AddUncontained = (props: {
   type: string
@@ -119,35 +119,25 @@ const RemoveObject = (props: any) => {
   )
 }
 
-export const orderAttributes = (attributes: any, order: any) => {
-  if (!Array.isArray(order)) {
-    return attributes
-  }
+export const orderAttributes = (
+  attributes: string[],
+  order: string[] | null
+) => {
   if (order == null) {
     return attributes
   }
+  if (order.filter((x) => x === '*').length > 1) {
+    throw new Error('The config.order list contains more than one wildcard')
+  }
 
-  const arrayToHash = (arr: any) =>
-    arr.reduce((prev: any, curr: any): any => {
-      prev[curr] = true
-      return prev
-    }, {})
-
-  const propertyHash = arrayToHash(attributes)
-  const orderFiltered = order.filter(
-    (prop) => prop === '*' || propertyHash[prop]
-  )
-  const orderHash = arrayToHash(orderFiltered)
-  const rest = attributes.filter((prop: any) => !orderHash[prop])
+  const orderFiltered = order.filter((x) => x === '*' || attributes.includes(x))
+  const rest = attributes.filter((prop: any) => !orderFiltered.includes(prop))
   const restIndex = orderFiltered.indexOf('*')
   if (restIndex === -1) {
     if (rest.length) {
-      throw new Error(`uiSchema order list does not contain all properties`)
+      throw new Error(`The config.order list does not include all properties`)
     }
     return orderFiltered
-  }
-  if (restIndex !== orderFiltered.lastIndexOf('*')) {
-    throw new Error('uiSchema order list contains more than one wildcard item')
   }
 
   const complete = [...orderFiltered]
