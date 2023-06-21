@@ -3,7 +3,7 @@ import React from 'react'
 import { Form } from '../Form'
 import { mockBlueprintGet, wrapper } from '../test-utils'
 
-describe.skip('ObjectField', () => {
+describe('ObjectField', () => {
   describe('Blueprint', () => {
     const blueprint = {
       name: 'MyBlueprint',
@@ -69,9 +69,7 @@ describe.skip('ObjectField', () => {
     it('should handle object fields change events', async () => {
       mockBlueprintGet([blueprint])
       const onSubmit = jest.fn()
-      const { container } = render(
-        <Form type="MyBlueprint" onSubmit={onSubmit} />
-      )
+      render(<Form type="MyBlueprint" onSubmit={onSubmit} />, { wrapper })
       await waitFor(() => {
         fireEvent.change(screen.getByTestId('form-textfield'), {
           target: { value: 'changed' },
