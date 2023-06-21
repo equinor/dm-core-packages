@@ -45,6 +45,31 @@ describe('ObjectField', () => {
       })
     })
 
+    it('should show foo before bar by default', async () => {
+      mockBlueprintGet([blueprint])
+      render(<Form type="MyBlueprint" />, { wrapper })
+      await waitFor(() => {
+        const foo = screen.getByText('foo')
+        const bar = screen.getByText('bar')
+        expect(foo.compareDocumentPosition(bar)).toBe(
+          Node.DOCUMENT_POSITION_FOLLOWING
+        )
+      })
+    })
+
+    it('should show foo after bar if order states it', async () => {
+      mockBlueprintGet([blueprint])
+      const config = { order: ['bar', 'foo'] }
+      render(<Form type="MyBlueprint" config={config} />, { wrapper })
+      await waitFor(() => {
+        const foo = screen.getByText('foo')
+        const bar = screen.getByText('bar')
+        expect(foo.compareDocumentPosition(bar)).toBe(
+          Node.DOCUMENT_POSITION_PRECEDING
+        )
+      })
+    })
+
     it('should handle a default object value', async () => {
       mockBlueprintGet([blueprint])
       const { container } = render(<Form type="MyBlueprint" />, { wrapper })
