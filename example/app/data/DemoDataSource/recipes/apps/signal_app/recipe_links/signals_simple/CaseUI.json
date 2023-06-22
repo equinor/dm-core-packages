@@ -96,13 +96,19 @@
     {
       "name": "List",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/generic-list",
+      "plugin": "@development-framework/dm-core-plugins/generic-table",
       "dimensions": "*",
       "config": {
-        "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
-        "headers": ["name", "description"],
-        "showDelete": true,
-        "expanded": false
+        "type": "PLUGINS:dm-core-plugins/generic-list/GenericTablePluginConfig",
+        "columns": ["name", "description"],
+        "editableColumns": ["name"],
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/generic-list/FunctionalityConfig",
+          "delete": true,
+          "sort": true,
+          "add": true,
+          "edit": true
+        }
       }
     }
   ]

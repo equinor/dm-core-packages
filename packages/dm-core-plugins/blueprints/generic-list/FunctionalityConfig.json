@@ -1,0 +1,48 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "FunctionalityConfig",
+  "attributes": [
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "openAsTab",
+      "optional": true,
+      "default": true
+    },
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "openAsExpandable",
+      "optional": true,
+      "default": false
+    },
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "delete",
+      "optional": true,
+      "default": false
+    },
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "add",
+      "optional": true,
+      "default": false
+    },
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "edit",
+      "optional": true,
+      "default": false
+    },
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "sort",
+      "optional": true,
+      "default": false
+    }
+  ]
+}
