@@ -7,9 +7,14 @@ import { isArray, isPrimitive } from '../utils'
 import { BooleanField } from './BooleanField'
 import { TAttributeFieldProps } from '../types'
 import { NumberField } from './NumberField'
+import { BinaryField } from './BinaryField'
 
 const getFieldType = (attribute: any) => {
   const { attributeType, dimensions } = attribute
+
+  if (attributeType == 'binary') {
+    return 'binary'
+  }
 
   if (!isArray(dimensions) && isPrimitive(attributeType)) {
     return attributeType
@@ -38,6 +43,17 @@ export const AttributeField = (props: TAttributeFieldProps) => {
   const displayLabel = getDisplayLabel(attribute)
 
   switch (fieldType) {
+    case 'binary':
+      return (
+        <BinaryField
+          namePath={namePath}
+          displayLabel={displayLabel}
+          defaultValue={attribute.default}
+          optional={attribute.optional}
+          uiAttribute={uiAttribute}
+        />
+      )
+
     case 'object':
       // Get the ui recipe name that should be used for nested
       return (

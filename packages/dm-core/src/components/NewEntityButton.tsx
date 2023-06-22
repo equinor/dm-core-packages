@@ -61,7 +61,12 @@ export function NewEntityButton(props: {
       })
       .then((response: AxiosResponse<TGenericObject>) => {
         const idForNewEntity = response.data.uid
-        onCreated({ _id: idForNewEntity, type: entity.type, name: entity.name })
+        onCreated({
+          _id: idForNewEntity,
+          type: entity.type,
+          name: entity.name,
+          ...entity,
+        })
       })
       .catch((error: AxiosError) => {
         console.error(error)

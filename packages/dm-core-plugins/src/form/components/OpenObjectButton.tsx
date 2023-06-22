@@ -2,17 +2,29 @@ import { Button } from '@equinor/eds-core-react'
 import React from 'react'
 import { useRegistryContext } from '../RegistryContext'
 
-export const OpenObjectButton = ({ namePath }: { namePath: string }) => {
+export const OpenObjectButton = ({
+  viewId,
+  namePath,
+  idReference,
+}: {
+  viewId: string
+  namePath: string
+  idReference?: string
+}) => {
   const { onOpen } = useRegistryContext()
 
   return (
     <Button
       variant="outlined"
       onClick={() =>
-        onOpen?.(namePath, {
-          type: 'ViewConfig',
-          scope: namePath,
-        })
+        onOpen?.(
+          viewId || namePath,
+          {
+            type: 'ViewConfig',
+            scope: namePath,
+          },
+          idReference
+        )
       }
     >
       Open

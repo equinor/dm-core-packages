@@ -174,6 +174,51 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * @summary Get Metadata By Id
+         * @param {string} dataSourceId 
+         * @param {string} blobId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        blobMetadataById: async (dataSourceId: string, blobId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataSourceId' is not null or undefined
+            assertParamExists('blobMetadataById', 'dataSourceId', dataSourceId)
+            // verify required parameter 'blobId' is not null or undefined
+            assertParamExists('blobMetadataById', 'blobId', blobId)
+            const localVarPath = `/api/blobs-meta/{data_source_id}/{blob_id}`
+                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
+                .replace(`{${"blob_id"}}`, encodeURIComponent(String(blobId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
@@ -798,6 +843,62 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * @summary Upload File
+         * @param {string} dataSourceId 
+         * @param {string} fileId 
+         * @param {File} file 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUpload: async (dataSourceId: string, fileId: string, file: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataSourceId' is not null or undefined
+            assertParamExists('fileUpload', 'dataSourceId', dataSourceId)
+            // verify required parameter 'fileId' is not null or undefined
+            assertParamExists('fileUpload', 'fileId', fileId)
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('fileUpload', 'file', file)
+            const localVarPath = `/api/files/{data_source_id}/{file_id}`
+                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
+                .replace(`{${"file_id"}}`, encodeURIComponent(String(fileId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
          * @summary Get Acl
          * @param {string} dataSourceId 
@@ -1407,6 +1508,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * @summary Get Metadata By Id
+         * @param {string} dataSourceId 
+         * @param {string} blobId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async blobMetadataById(dataSourceId: string, blobId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.blobMetadataById(dataSourceId, blobId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
@@ -1560,6 +1673,19 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async exportMeta(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(reference, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * @summary Upload File
+         * @param {string} dataSourceId 
+         * @param {string} fileId 
+         * @param {File} file 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async fileUpload(dataSourceId: string, fileId: string, file: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fileUpload(dataSourceId, fileId, file, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1755,6 +1881,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.blobGetById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * @summary Get Metadata By Id
+         * @param {string} dataSourceId 
+         * @param {string} blobId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        blobMetadataById(dataSourceId: string, blobId: string, options?: any): AxiosPromise<object> {
+            return localVarFp.blobMetadataById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
@@ -1896,6 +2033,18 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         exportMeta(reference: string, options?: any): AxiosPromise<any> {
             return localVarFp.exportMeta(reference, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * @summary Upload File
+         * @param {string} dataSourceId 
+         * @param {string} fileId 
+         * @param {File} file 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fileUpload(dataSourceId: string, fileId: string, file: File, options?: any): AxiosPromise<object> {
+            return localVarFp.fileUpload(dataSourceId, fileId, file, options).then((request) => request(axios, basePath));
         },
         /**
          * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
@@ -2083,6 +2232,27 @@ export interface DefaultApiBlobGetByIdRequest {
      * 
      * @type {string}
      * @memberof DefaultApiBlobGetById
+     */
+    readonly blobId: string
+}
+
+/**
+ * Request parameters for blobMetadataById operation in DefaultApi.
+ * @export
+ * @interface DefaultApiBlobMetadataByIdRequest
+ */
+export interface DefaultApiBlobMetadataByIdRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiBlobMetadataById
+     */
+    readonly dataSourceId: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiBlobMetadataById
      */
     readonly blobId: string
 }
@@ -2354,6 +2524,34 @@ export interface DefaultApiExportMetaRequest {
 }
 
 /**
+ * Request parameters for fileUpload operation in DefaultApi.
+ * @export
+ * @interface DefaultApiFileUploadRequest
+ */
+export interface DefaultApiFileUploadRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiFileUpload
+     */
+    readonly dataSourceId: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiFileUpload
+     */
+    readonly fileId: string
+
+    /**
+     * 
+     * @type {File}
+     * @memberof DefaultApiFileUpload
+     */
+    readonly file: File
+}
+
+/**
  * Request parameters for getAcl operation in DefaultApi.
  * @export
  * @interface DefaultApiGetAclRequest
@@ -2614,6 +2812,18 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
+     * Get blob from id. A blob (binary large object) can be anything from video to text file.
+     * @summary Get Metadata By Id
+     * @param {DefaultApiBlobMetadataByIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public blobMetadataById(requestParameters: DefaultApiBlobMetadataByIdRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).blobMetadataById(requestParameters.dataSourceId, requestParameters.blobId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Upload a new blob. A blob (binary large object) can be anything from video to text file.
      * @summary Upload
      * @param {DefaultApiBlobUploadRequest} requestParameters Request parameters.
@@ -2766,6 +2976,18 @@ export class DefaultApi extends BaseAPI {
      */
     public exportMeta(requestParameters: DefaultApiExportMetaRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).exportMeta(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+     * @summary Upload File
+     * @param {DefaultApiFileUploadRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public fileUpload(requestParameters: DefaultApiFileUploadRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).fileUpload(requestParameters.dataSourceId, requestParameters.fileId, requestParameters.file, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

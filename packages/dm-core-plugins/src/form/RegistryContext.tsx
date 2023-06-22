@@ -3,7 +3,7 @@ import React, { createContext, useContext } from 'react'
 
 type Props = {
   idReference: string
-  onOpen?: (key: string, view: TViewConfig) => void
+  onOpen?: (key: string, view: TViewConfig, rootId?: string) => void
 }
 
 const RegistryContext = createContext<Props | undefined>(undefined)

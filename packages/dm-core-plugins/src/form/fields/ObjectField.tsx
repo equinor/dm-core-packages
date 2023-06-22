@@ -4,11 +4,12 @@ import {
   ErrorResponse,
   Loading,
   NewEntityButton,
-  Stack,
-  TGenericObject,
   TLinkReference,
   useBlueprint,
   useDMSS,
+  Stack,
+  TGenericObject,
+  EBlueprint,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -187,18 +188,13 @@ const AttributeList = (props: any) => {
 const External = (props: any) => {
   const { type, namePath, contained = true, idReference } = props
 
-  const { getValues } = useFormContext()
   const { onOpen } = useRegistryContext()
-
-  const initialValue = getValues(namePath) || {
-    type: type,
-  }
 
   return (
     <EntityView
       key={namePath}
       idReference={contained ? `${idReference}.${namePath}` : idReference}
-      type={initialValue.type}
+      type={type}
       onOpen={onOpen}
     />
   )
@@ -244,6 +240,8 @@ export const ContainedAttribute = (props: any): JSX.Element => {
         )}
         {shouldOpen && isDefined && (
           <OpenObjectButton
+            viewId={namePath}
+            idReference={idReference}
             namePath={
               attributePath && attributePath.length > 1
                 ? `${attributePath[1]}.${namePath}`
@@ -291,6 +289,7 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
   const { getValues, control, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const initialValue = getValues(namePath)
+  const dataSourceId = idReference?.split('/', 2)[0]
 
   return (
     <Stack spacing={0.5}>
@@ -307,12 +306,20 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           formState,
         }) => {
+          // Note: address using path does not work.
+          // The address needs to use data source ID.
+          const id = `${dataSourceId}/${value?.address}`
+
+          const handleSubmit = (formData: any) => {
+            setValue(namePath, formData)
+          }
+
           if (value && value.address && value.referenceType === 'link') {
             return (
               <div>
                 <Stack spacing={0.25} alignItems="flex-start">
                   <Typography>Id: {value.address}</Typography>
-                  <Stack direction="row" spacing={1}>
+                  <Stack spacing={1}>
                     <RemoveObject
                       namePath={namePath}
                       onRemove={() => {
@@ -324,13 +331,22 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
                         setValue(namePath, null, options)
                       }}
                     />
-                    {onOpen && <OpenObjectButton namePath={namePath} />}
+                    {onOpen && (
+                      <OpenObjectButton
+                        viewId={namePath}
+                        namePath=""
+                        idReference={id}
+                      />
+                    )}
                     {!onOpen && (
                       <External
                         type={type}
                         namePath={namePath}
                         contained={contained}
-                        idReference={idReference}
+                        dataSourceId={dataSourceId}
+                        idReference={id}
+                        onOpen={onOpen}
+                        onSubmit={handleSubmit}
                       />
                     )}
                   </Stack>
@@ -338,7 +354,17 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
               </div>
             )
           } else {
-            const handleAdd = (entity: any) => onChange(entity)
+            const handleAdd = (entity: any) => {
+              // Since we are getting the created entity,
+              // we need to insert a reference,
+              // since this is uncontained attribute.
+              const reference = {
+                type: EBlueprint.REFERENCE,
+                referenceType: 'link',
+                address: `$${entity['_id']}`,
+              }
+              onChange(reference)
+            }
 
             return (
               <AddUncontained
