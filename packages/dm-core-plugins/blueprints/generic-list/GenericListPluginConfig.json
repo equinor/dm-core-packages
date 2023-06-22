@@ -12,17 +12,17 @@
     {
       "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
-      "description": "Name of primitive child attributes to display in header of item",
+      "description": "Name of primitive child attributes to display in item",
       "name": "headers",
       "default": ["name"],
       "dimensions": "*"
     },
     {
-      "attributeType": "boolean",
-      "description": "Toggle visibility of 'delete element' button",
+      "attributeType": "./FunctionalityConfig.json",
       "type": "CORE:BlueprintAttribute",
-      "name": "showDelete",
-      "default": true
+      "name": "functionality",
+      "description": "List functionality config",
+      "optional": true
     },
     {
       "attributeType": "CORE:ViewConfig",

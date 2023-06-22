@@ -17,20 +17,20 @@
       "dimensions": "*"
     },
     {
-      "attributeType": "boolean",
-      "description": "Toggle visibility of 'delete element' button",
+      "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
-      "name": "showDelete",
+      "description": "Name of column-headers that should have edit functionality if edit is activated. Array of strings.",
+      "name": "editableColumns",
       "optional": true,
-      "default": true
+      "default": [],
+      "dimensions": "*"
     },
     {
-      "attributeType": "boolean",
-      "description": "Render a table for editing items or simply for viewing",
+      "attributeType": "./FunctionalityConfig.json",
       "type": "CORE:BlueprintAttribute",
-      "name": "editMode",
-      "optional": true,
-      "default": true
+      "name": "functionality",
+      "description": "Table functionality config",
+      "optional": true
     }
   ]
 }
