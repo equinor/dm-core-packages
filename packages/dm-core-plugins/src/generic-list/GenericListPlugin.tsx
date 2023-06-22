@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import {
   IUIPlugin,
   Loading,
@@ -7,58 +8,18 @@ import {
   useDocument,
   ViewCreator,
   ErrorResponse,
-} from '@development-framework/dm-core'
-import {
-  Button,
-  Icon,
-  Typography,
+  Stack,
   Pagination,
-  Label,
-} from '@equinor/eds-core-react'
-import { chevron_down, chevron_right } from '@equinor/eds-icons'
+} from '@development-framework/dm-core'
+import { Button, Typography, Icon, Tooltip } from '@equinor/eds-core-react'
 import { AxiosResponse, AxiosError } from 'axios'
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import {
-  AppendButton,
-  DeleteButton,
-  ItemsPerPageButton,
-  MoveItemDownButton,
-  MoveItemUpButton,
-  SaveButton,
-} from './Components'
-import { reorderObject } from './utils'
-
-const TableData = styled.td`
-  text-align: center;
-`
-const TableRow = styled.tr`
-  text-align: right;
-  border-collapse: collapse;
-  cursor: pointer;
-`
-const Table = styled.table`
-  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-  border-radius: 4px;
-  width: 100%;
-  bordercollapse: collapse;
-`
-
-function paginatedItems(
-  allItems: { [key: string]: TGenericObject },
-  currentPage: number,
-  itemsPerPage: number
-): {
-  [key: string]: TGenericObject
-} {
-  const firstItem = currentPage * itemsPerPage
-  const lastItem = firstItem + itemsPerPage
-  return Object.fromEntries(Object.entries(allItems).slice(firstItem, lastItem))
-}
+import { AppendButton, ListItemButton, SaveButton } from './Components'
+import { moveItem } from './utils'
+import { add, minimize } from '@equinor/eds-icons'
 
 type TGenericListConfig = {
   expanded: boolean
+  openInline: boolean
   headers: string[]
   showDelete: boolean
   defaultView: TViewConfig
@@ -66,63 +27,70 @@ type TGenericListConfig = {
 }
 const defaultConfig: TGenericListConfig = {
   expanded: false,
+  openInline: false,
   headers: ['name', 'type'],
   showDelete: true,
   defaultView: { type: 'ViewConfig', scope: 'self' },
   views: [],
 }
 
+type ItemRow = {
+  key: string
+  data: any
+  index: number
+  expanded: boolean
+}
+
 export const GenericListPlugin = (
   props: IUIPlugin & { config?: TGenericListConfig }
 ) => {
-  const { idReference, config, type } = props
+  const { idReference, config, type, onOpen = () => null } = props
   const internalConfig = { ...defaultConfig, ...config }
   const [document, loading, , error] = useDocument<TGenericObject[]>(
     idReference,
     2
   )
-  const [items, setItems] = useState<{ [key: string]: TGenericObject }>({})
-  const [itemsExpanded, setItemsExpanded] = useState<{
-    [key: string]: boolean
-  }>({})
+  const [items, setItems] = useState<ItemRow[]>([])
+  const [paginationPage, setPaginationPage] = useState(0)
+  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(10)
   const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const dmssAPI = useDMSS()
-  const [currentPage, setCurrentPage] = useState(0)
-  const [itemsPerPage, setItemsPerPage] = useState(5)
+
+  const paginatedRows = items.slice(
+    paginationPage * paginationRowsPerPage,
+    paginationPage * paginationRowsPerPage + paginationRowsPerPage
+  )
 
   useEffect(() => {
     if (loading || !document) return
     // Need to generate a uuid for each item in the list to be used for reacts "key" property
-    const itemsWithIds = Object.fromEntries(
-      // Since we have pagination, index in visible list does not correspond to correct index in DMSS. Therefor we add the "original index".
-      Object.values(document).map((value: any, index: number) => [
-        crypto.randomUUID(),
-        { data: value, index: index },
-      ])
-    )
+    const itemsWithIds = document
+      ? Object.values(document).map((data, index) => ({
+          data,
+          expanded: internalConfig.expanded,
+          index,
+          key: crypto.randomUUID(),
+        }))
+      : []
 
-    const itemsExpanded = Object.fromEntries(
-      Object.keys(itemsWithIds).map((key: string) => [
-        key,
-        internalConfig.expanded,
-      ])
-    )
-    setItemsExpanded(itemsExpanded)
     setItems(itemsWithIds)
   }, [document, loading])
 
-  const deleteItem = (reference: string, key: string) => {
+  function deleteItem(reference: string, key: string) {
     setIsLoading(true)
     dmssAPI
       .documentRemove({ reference: reference })
       .then(() => {
-        delete items[key]
-        setItems({ ...items })
+        const itemIndex = items.findIndex((item) => item.key === key)
+        const itemsCopy = [...items]
+        itemsCopy.splice(itemIndex, 1)
+        setItems(itemsCopy)
       })
       .finally(() => setIsLoading(false))
   }
-  const addItem = () => {
+
+  function addItem() {
     dmssAPI
       .instantiateEntity({
         entity: { type: type },
@@ -134,13 +102,15 @@ export const GenericListPlugin = (
             document: JSON.stringify(newEntity.data),
           })
           .then(() =>
-            setItems({
+            setItems([
               ...items,
-              [crypto.randomUUID()]: {
+              {
+                key: crypto.randomUUID(),
                 data: newEntity.data,
                 index: Object.keys(items).length,
+                expanded: internalConfig.expanded,
               },
-            })
+            ])
           )
           .catch((error: AxiosError<ErrorResponse>) => {
             console.error(error)
@@ -149,7 +119,7 @@ export const GenericListPlugin = (
       })
   }
 
-  const save = () => {
+  function save() {
     setIsLoading(true)
     dmssAPI
       .documentUpdate({
@@ -161,170 +131,144 @@ export const GenericListPlugin = (
       .finally(() => setIsLoading(false))
   }
 
+  function openItemAsTab(item: TGenericObject) {
+    const view = { label: item?.data?.name, type: 'ViewConfig' }
+    onOpen(crypto.randomUUID(), view, `${idReference}[${item.index}]`)
+  }
+
+  function expandItem(index: number) {
+    const itemsCopy = [...items]
+    itemsCopy[index].expanded = !itemsCopy[index].expanded
+    setItems(itemsCopy)
+  }
+
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (loading) return <Loading />
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-        width: '100%',
-      }}
-    >
-      <AppendButton onClick={() => addItem()} />
-      <Table>
-        <thead>
-          <tr style={{ borderBottom: '1px solid rgba(224, 224, 224, 1)' }}>
-            <th></th>
-            {internalConfig.headers.map((attribute: string) => (
-              <th key={attribute}>
-                <Typography group="table" variant={'cell_header'}>
-                  {attribute}
-                </Typography>
-              </th>
-            ))}
-            <th>
-              <Typography group="table" variant={'cell_header'}>
-                Controls
-              </Typography>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(paginatedItems(items, currentPage, itemsPerPage)).map(
-            ([key, item]) => (
-              <React.Fragment key={key}>
-                <TableRow>
-                  <td style={{ textAlign: 'left' }}>
-                    <Button
-                      variant="ghost_icon"
-                      onClick={() =>
-                        setItemsExpanded({
-                          ...itemsExpanded,
-                          [key]: !itemsExpanded[key],
-                        })
-                      }
-                    >
-                      <Icon
-                        data={itemsExpanded[key] ? chevron_down : chevron_right}
-                        title="Expand"
-                      />
-                    </Button>
-                  </td>
-                  {internalConfig.headers.map((attribute: string) => {
-                    if (item.data && attribute in item.data) {
-                      if (typeof item.data[attribute] === 'object')
-                        throw new Error(
-                          `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
-                        )
-                      return (
-                        <TableData key={attribute}>
-                          <Typography group="table" variant={'cell_text'}>
-                            {item?.data[attribute]}
-                          </Typography>
-                        </TableData>
-                      )
-                    }
-                  })}
-                  <td style={{ textAlign: 'right' }}>
-                    {internalConfig?.showDelete && (
-                      <>
-                        <MoveItemUpButton
-                          onClick={() => {
-                            setItems(reorderObject(key, -1, items))
-                            setUnsavedChanges(true)
-                          }}
-                        />
-                        <MoveItemDownButton
-                          onClick={() => {
-                            setItems(reorderObject(key, 1, items))
-                            setUnsavedChanges(true)
-                          }}
-                        />
-                        <DeleteButton
-                          onClick={() =>
-                            deleteItem(`${idReference}.${item.index}`, key)
-                          }
-                        />
-                      </>
-                    )}
-                  </td>
-                </TableRow>
-                <TableRow style={{ cursor: 'initial' }}>
-                  <td
-                    colSpan={4}
-                    style={{
-                      borderBottom: '1px solid rgba(224, 224, 224, 1)',
-                      textAlign: 'initial',
-                    }}
-                  >
-                    {itemsExpanded[key] && ( // @ts-ignore
-                      <ViewCreator
-                        idReference={`${idReference}[${item.index}]`}
-                        viewConfig={
-                          internalConfig.views[item.index] ??
-                          internalConfig.defaultView
-                        }
-                      />
-                    )}
-                  </td>
-                </TableRow>
-              </React.Fragment>
-            )
-          )}
-        </tbody>
-      </Table>
 
-      <div
-        style={{
-          display: 'grid',
-          gridAutoColumns: 'minmax(0, 1fr)',
-          width: '100%',
-          paddingTop: '10px',
-        }}
+  return (
+    <Stack>
+      {paginatedRows.map((item, index) => (
+        <React.Fragment key={item?.key}>
+          <Stack
+            direction="row"
+            spacing={1}
+            justifyContent="space-between"
+            alignItems="center"
+            style={{
+              padding: '0.25rem 0.5rem',
+              borderBottom: '1px solid #ccc',
+            }}
+          >
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Tooltip
+                title={
+                  internalConfig.openInline
+                    ? item.expanded
+                      ? 'Minimize'
+                      : 'Expand'
+                    : 'Open in new tab'
+                }
+              >
+                <Button
+                  variant="ghost_icon"
+                  color="secondary"
+                  onClick={
+                    internalConfig.openInline
+                      ? () => expandItem(index)
+                      : () => openItemAsTab(item)
+                  }
+                >
+                  <Icon data={item.expanded ? minimize : add} />
+                </Button>
+              </Tooltip>
+              {internalConfig.headers.map(
+                (attribute: string, index: number) => {
+                  if (item.data && item.data?.[attribute]) {
+                    console.log(item.data.name)
+                    if (typeof item.data[attribute] === 'object')
+                      throw new Error(
+                        `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
+                      )
+                    return (
+                      <Typography
+                        key={attribute}
+                        variant="body_short"
+                        bold={index === 0}
+                      >
+                        {item?.data[attribute]}
+                      </Typography>
+                    )
+                  }
+                }
+              )}
+            </Stack>
+            <Stack direction="row" alignItems="center">
+              {internalConfig?.showDelete && (
+                <>
+                  <ListItemButton
+                    disabled={index === 0}
+                    onClick={() => {
+                      setItems(moveItem(items, item.key, 'up'))
+                      setUnsavedChanges(true)
+                    }}
+                    type="up"
+                  />
+                  <ListItemButton
+                    type="down"
+                    disabled={
+                      index === paginationRowsPerPage - 1 ||
+                      index === items?.length - 1
+                    }
+                    onClick={() => {
+                      setItems(moveItem(items, item.key, 'down'))
+                      setUnsavedChanges(true)
+                    }}
+                  />
+                  <ListItemButton
+                    type="delete"
+                    onClick={() =>
+                      deleteItem(`${idReference}.${item.index}`, item.key)
+                    }
+                  />
+                </>
+              )}
+            </Stack>
+          </Stack>
+          <Stack>
+            {item?.expanded && (
+              <ViewCreator
+                idReference={`${idReference}[${item.index}]`}
+                viewConfig={
+                  internalConfig.views[item.index] ?? internalConfig.defaultView
+                }
+              />
+            )}
+          </Stack>
+        </React.Fragment>
+      ))}
+
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        spacing={1}
+        style={{ padding: '1rem 0' }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Label label={'Items per page:'} />
-          {[5, 10, 20, 50].map((amount) => (
-            <ItemsPerPageButton
-              key={amount}
-              onClick={setItemsPerPage}
-              amount={amount}
-              current={itemsPerPage}
-            />
-          ))}
-        </div>
-        <div style={{ justifySelf: 'center' }}>
-          <Pagination
-            totalItems={Object.keys(items).length}
-            itemsPerPage={itemsPerPage}
-            defaultPage={currentPage + 1}
-            onChange={(_: any, p: number) => setCurrentPage(p - 1)}
-          />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gridColumnStart: '3',
-            justifySelf: 'end',
-          }}
-        >
+        <Pagination
+          count={Object.keys(items).length}
+          page={paginationPage}
+          setPage={setPaginationPage}
+          rowsPerPage={paginationRowsPerPage}
+          setRowsPerPage={setPaginationRowsPerPage}
+        />
+        <Stack direction="row" spacing={1}>
+          <AppendButton onClick={() => addItem()} />
           <SaveButton
             onClick={save}
             disabled={!unsavedChanges}
             isLoading={isLoading}
           />
-          <AppendButton onClick={() => addItem()} />
-        </div>
-      </div>
-    </div>
+        </Stack>
+      </Stack>
+    </Stack>
   )
 }

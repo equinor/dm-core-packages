@@ -4,14 +4,14 @@ import {
   chevron_down,
   chevron_up,
   delete_to_trash,
-  library_add,
+  add,
 } from '@equinor/eds-icons'
 
 export const AppendButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
 }) => (
-  <Button variant="ghost_icon" onClick={props.onClick}>
-    <Icon data={library_add} title="Append" />
+  <Button variant="outlined" onClick={props.onClick}>
+    <Icon data={add} title="Append" /> Add Item
   </Button>
 )
 
@@ -25,37 +25,27 @@ export const SaveButton = (props: {
   </Button>
 )
 
-export const DeleteButton = (props: { onClick: () => void }) => (
-  <Button variant="ghost_icon" color="danger" onClick={props.onClick}>
-    <Icon data={delete_to_trash} title="Delete" />
-  </Button>
-)
-
-export const MoveItemUpButton = (props: { onClick: () => void }) => (
-  <EdsProvider density="compact">
-    <Button variant="ghost_icon" onClick={props.onClick}>
-      <Icon data={chevron_up} title="Move up" />
-    </Button>
-  </EdsProvider>
-)
-
-export const MoveItemDownButton = (props: { onClick: () => void }) => (
-  <EdsProvider density="compact">
-    <Button variant="ghost_icon" onClick={props.onClick}>
-      <Icon data={chevron_down} title="Move down" />
-    </Button>
-  </EdsProvider>
-)
-
-export const ItemsPerPageButton = (props: {
-  onClick: (n: number) => void
-  amount: number
-  current: number
-}) => (
-  <Button
-    onClick={() => props.onClick(props.amount)}
-    variant={props.current === props.amount ? 'outlined' : 'ghost'}
-  >
-    {props.amount}
-  </Button>
-)
+export const ListItemButton = (props: {
+  onClick: () => void
+  disabled?: boolean
+  type: 'up' | 'down' | 'delete'
+}) => {
+  const { type } = props
+  const ICONS = {
+    delete: delete_to_trash,
+    up: chevron_up,
+    down: chevron_down,
+  }
+  return (
+    <EdsProvider density="compact">
+      <Button
+        color={type === 'delete' ? 'danger' : 'primary'}
+        disabled={props.disabled}
+        variant="ghost_icon"
+        onClick={props.onClick}
+      >
+        <Icon data={ICONS[type]} title="Move up" />
+      </Button>
+    </EdsProvider>
+  )
+}
