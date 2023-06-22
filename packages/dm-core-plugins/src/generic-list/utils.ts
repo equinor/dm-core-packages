@@ -1,23 +1,14 @@
-export function reorderObject(
-  key: string,
-  moveValue: number,
-  inObject: { [k: string]: any }
-): { [k: string]: any } {
-  const oldIndex = Object.keys(inObject).indexOf(key)
-  const item = inObject[key]
-  delete inObject[key]
-  const itemKeys = Object.keys(inObject)
-  const oldItems = Object.values(inObject)
-  let newIndex = oldIndex + moveValue
-  // Move from top to bottom
-  if (newIndex < 0) newIndex = itemKeys.length
-  // Move from bottom to top
-  else if (newIndex > itemKeys.length) newIndex = 0
+function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
+  const arrayCopy = [...arr]
+  const element = arrayCopy[fromIndex]
+  arrayCopy.splice(fromIndex, 1)
+  arrayCopy.splice(toIndex, 0, element)
+  return arrayCopy
+}
 
-  itemKeys.splice(newIndex, 0, key)
-  oldItems.splice(newIndex, 0, item)
-
-  return Object.fromEntries(
-    itemKeys.map((key: string, index: number) => [key, oldItems[index]])
-  )
+export function moveItem(list: any[], key: string, direction: 'up' | 'down') {
+  const itemIndex = list.findIndex((item) => item.key === key)
+  const toIndex = direction === 'up' ? itemIndex - 1 : itemIndex + 1
+  const updatedList = arrayMove(list, itemIndex, toIndex)
+  return updatedList
 }
