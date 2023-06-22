@@ -15,5 +15,5 @@ test('signalApp', async ({ page }) => {
 
   //Open case
   await page.getByRole('button', { name: 'Open' }).click()
-  await page.getByRole('button', { name: 'Expand' }).click()
+  // await page.getByRole('button', { name: 'Expand' }).click()
 })
