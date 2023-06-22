@@ -35,7 +35,10 @@
               "config": {
                 "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
                 "headers": ["name", "quantity", "type"],
-                "showDelete": true,
+                "functionality": {
+                  "type": "PLUGINS:dm-core-plugins/generic-list/FunctionalityConfig",
+                  "delete": true
+                },
                 "expanded": false,
                 "defaultView": {
                   "type": "CORE:InlineRecipeViewConfig",
