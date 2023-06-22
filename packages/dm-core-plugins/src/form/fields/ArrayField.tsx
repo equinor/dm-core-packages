@@ -51,7 +51,7 @@ export default function Fields(props: any) {
     return (
       <Stack spacing={0.25} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
-        <OpenObjectButton namePath={namePath} />
+        <OpenObjectButton viewId={namePath} namePath={namePath} />
       </Stack>
     )
   }

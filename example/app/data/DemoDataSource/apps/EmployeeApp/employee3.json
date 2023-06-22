@@ -1,0 +1,10 @@
+{
+  "type": "./blueprints/Employee",
+  "name": "employee3",
+  "description": "This is a description...",
+  "profilePicture": {
+    "type": "dmss://system/SIMOS/Reference",
+    "address": "./assets/positive",
+    "referenceType": "link"
+  }
+}

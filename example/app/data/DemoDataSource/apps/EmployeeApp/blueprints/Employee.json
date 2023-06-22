@@ -1,0 +1,28 @@
+{
+  "name": "Employee",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "type"
+    },
+    {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "name"
+    },
+    {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "description"
+    },
+    {
+      "name": "profilePicture",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:File",
+      "optional": true,
+      "contained": false
+    }
+  ]
+}

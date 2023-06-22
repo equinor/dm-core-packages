@@ -14,6 +14,7 @@ import ExplorerPlugin from './explorer/ExplorerPlugin'
 import { GridPlugin } from './grid/GridPlugin'
 import { GenericListPlugin } from './generic-list/GenericListPlugin'
 import { TablePlugin } from './table/TablePlugin'
+import { FilePlugin } from './file/FilePlugin'
 
 export const plugins: TPlugin[] = [
   {
@@ -31,6 +32,10 @@ export const plugins: TPlugin[] = [
   {
     pluginName: '@development-framework/dm-core-plugins/yaml',
     component: YamlPlugin,
+  },
+  {
+    pluginName: '@development-framework/dm-core-plugins/file',
+    component: FilePlugin,
   },
   {
     pluginName: '@development-framework/dm-core-plugins/grid',

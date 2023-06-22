@@ -7,6 +7,9 @@ import {
   FaChevronRight,
   FaDatabase,
   FaExclamationTriangle,
+  FaFileArchive,
+  FaFileImage,
+  FaFilePdf,
   FaFolder,
   FaFolderOpen,
   FaList,
@@ -53,6 +56,14 @@ const GetIcon = (props: { node: TreeNode; expanded: boolean }) => {
     return <label>{'{}'}</label>
   }
   switch (node.type) {
+    case EBlueprint.FILE: {
+      const fileColor = '#2965FF'
+      if (node.entity['filetype'] == 'application/pdf')
+        return <FaFilePdf style={{ color: fileColor }} />
+      if (node.entity['filetype'].startsWith('image'))
+        return <FaFileImage style={{ color: fileColor }} />
+      return <FaFileArchive style={{ color: fileColor }} />
+    }
     case 'dataSource':
       return <FaDatabase style={{ color: 'gray' }} />
     case 'error':
@@ -100,7 +111,9 @@ const TreeNodeComponent = (props: {
       ) : (
         <div style={{ width: '18px' }} />
       )}
-      <GetIcon node={node} expanded={expanded} />
+      <div>
+        <GetIcon node={node} expanded={expanded} />
+      </div>
       <Tooltip
         enterDelay={600}
         title={node?.message || node?.type || ''}

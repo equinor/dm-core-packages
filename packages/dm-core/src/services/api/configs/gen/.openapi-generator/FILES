@@ -10,6 +10,7 @@ api/default-api.ts
 api/document-api.ts
 api/entity-api.ts
 api/export-api.ts
+api/file-api.ts
 api/health-check-api.ts
 api/lookup-table-api.ts
 api/personal-access-token-api.ts

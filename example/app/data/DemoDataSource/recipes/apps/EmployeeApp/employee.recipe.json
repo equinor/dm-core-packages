@@ -1,0 +1,20 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/apps/EmployeeApp/blueprints/Employee",
+  "initialUiRecipe": {
+    "type": "CORE:UiRecipe",
+    "name": "Edit",
+    "description": "Default edit",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "attributes": [
+        {
+          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+          "name": "description",
+          "widget": "TextareaWidget"
+        }
+      ]
+    }
+  }
+}

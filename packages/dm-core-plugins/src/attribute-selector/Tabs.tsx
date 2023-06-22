@@ -24,7 +24,7 @@ export const Tabs = (props: {
                 active={selectedView === config.viewId}
                 className="tabs-group-tab"
               >
-                {config.view.eds_icon && (
+                {config.view?.eds_icon && (
                   <Icon
                     style={{ paddingRight: '4px' }}
                     name={config.view.eds_icon}
