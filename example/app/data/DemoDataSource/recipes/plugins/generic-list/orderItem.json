@@ -35,8 +35,10 @@
               "config": {
                 "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
                 "headers": ["name", "quantity", "type"],
-                "showDelete": true,
-                "expanded": false,
+                "functionality": {
+                  "type": "PLUGINS:dm-core-plugins/generic-list/FunctionalityConfig",
+                  "delete": true
+                },
                 "defaultView": {
                   "type": "CORE:InlineRecipeViewConfig",
                   "recipe": {
@@ -145,8 +147,11 @@
       "config": {
         "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
         "headers": ["name", "description"],
-        "showDelete": true,
-        "expanded": false
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/generic-list/FunctionalityConfig",
+          "delete": true,
+          "add": true
+        }
       }
     }
   ]

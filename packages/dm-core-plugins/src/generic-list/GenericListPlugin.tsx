@@ -21,17 +21,29 @@ type TGenericListConfig = {
   expanded: boolean
   openInline: boolean
   headers: string[]
-  showDelete: boolean
   defaultView: TViewConfig
   views: TViewConfig[]
+  functionality: {
+    openAsTab: boolean
+    openAsExpandable: boolean
+    add: boolean
+    sort: boolean
+    delete: boolean
+  }
 }
 const defaultConfig: TGenericListConfig = {
   expanded: false,
   openInline: false,
   headers: ['name', 'type'],
-  showDelete: true,
   defaultView: { type: 'ViewConfig', scope: 'self' },
   views: [],
+  functionality: {
+    openAsTab: true,
+    openAsExpandable: false,
+    add: false,
+    sort: false,
+    delete: false,
+  },
 }
 
 type ItemRow = {
@@ -45,7 +57,11 @@ export const GenericListPlugin = (
   props: IUIPlugin & { config?: TGenericListConfig }
 ) => {
   const { idReference, config, type, onOpen = () => null } = props
-  const internalConfig = { ...defaultConfig, ...config }
+  const internalConfig: TGenericListConfig = {
+    ...defaultConfig,
+    ...config,
+    functionality: { ...defaultConfig.functionality, ...config.functionality },
+  }
   const [document, loading, , error] = useDocument<TGenericObject[]>(
     idReference,
     2
@@ -203,7 +219,7 @@ export const GenericListPlugin = (
               )}
             </Stack>
             <Stack direction="row" alignItems="center">
-              {internalConfig?.showDelete && (
+              {internalConfig?.functionality?.delete && (
                 <>
                   <ListItemButton
                     disabled={index === 0}
