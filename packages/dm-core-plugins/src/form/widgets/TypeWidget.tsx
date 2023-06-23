@@ -4,7 +4,7 @@ import { TWidget } from '../types'
 import TextWidget from './TextWidget'
 
 const TypeWidget = (props: TWidget) => {
-  const { id, namePath, label, value } = props
+  const { id, label, value } = props
   const { blueprint, isLoading, error } = useBlueprint(value)
 
   if (isLoading) return <Loading />
@@ -17,7 +17,6 @@ const TypeWidget = (props: TWidget) => {
     <>
       <TextWidget
         id={id}
-        namePath={namePath}
         label={label}
         readOnly={true}
         value={value}

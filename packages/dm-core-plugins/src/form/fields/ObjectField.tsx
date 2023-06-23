@@ -246,7 +246,7 @@ export const ContainedAttribute = (props: any): JSX.Element => {
         {shouldOpen && isDefined && (
           <OpenObjectButton
             namePath={
-              attributePath.length > 1
+              attributePath && attributePath.length > 1
                 ? `${attributePath[1]}.${namePath}`
                 : namePath
             }
@@ -288,16 +288,9 @@ export const ContainedAttribute = (props: any): JSX.Element => {
 }
 
 export const UncontainedAttribute = (props: any): JSX.Element => {
-  const {
-    type,
-    namePath,
-    displayLabel = '',
-    contained = false,
-    config,
-    uiRecipe,
-  } = props
+  const { type, namePath, displayLabel = '', contained = false } = props
   const { getValues, control, setValue } = useFormContext()
-  const { dataSourceId, onOpen } = useRegistryContext()
+  const { idReference, onOpen } = useRegistryContext()
   const initialValue = getValues(namePath)
 
   return (
@@ -337,12 +330,8 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
                       <External
                         type={type}
                         namePath={namePath}
-                        config={uiRecipe ? uiRecipe.config : config}
                         contained={contained}
-                        dataSourceId={dataSourceId}
-                        documentId={value.address}
-                        onOpen={onOpen}
-                        f
+                        idReference={idReference}
                       />
                     )}
                   </Stack>
@@ -367,7 +356,7 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
 }
 
 export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
-  const { type, namePath, uiAttribute } = props
+  const { type, namePath, uiAttribute, displayLabel } = props
   const { getValues } = useFormContext()
 
   // Be able to override the object field
@@ -381,6 +370,8 @@ export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
   return (
     <Widget
       {...props}
+      id={namePath}
+      label={displayLabel ?? ''}
       type={type === 'object' && values ? values.type : type}
     />
   )

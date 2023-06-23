@@ -52,14 +52,14 @@ export declare type Variants = 'error' | 'success' | 'warning'
 
 export type TWidget = {
   label: string
-  value: any
-  onChange: (value: any) => void
+  value?: any
+  onChange?: (value: any) => void
   onClick?: (value: any) => void
   id: string
   inputRef?: any
   helperText?: string
   variant?: Variants
-  namePath: string
+  type?: string
   readOnly?: boolean
 }
 

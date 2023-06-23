@@ -13,7 +13,7 @@ const TextareaWidget = (props: TWidget) => {
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
     const formattedValue = value === '' ? null : value
-    onChange(formattedValue)
+    onChange?.(formattedValue)
   }
 
   return (

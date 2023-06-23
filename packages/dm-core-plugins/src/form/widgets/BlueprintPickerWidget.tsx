@@ -17,7 +17,7 @@ const BlueprintPickerWidget = (props: TWidget) => {
       <BlueprintPicker
         label={label}
         variant={variant}
-        onChange={onChange}
+        onChange={onChange ?? (() => undefined)}
         formData={value}
       />
       {variant === 'error' ? (

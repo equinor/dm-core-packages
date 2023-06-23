@@ -6,7 +6,7 @@ type Props = {
   onOpen?: (key: string, view: TViewConfig) => void
 }
 
-export const RegistryContext = createContext<Props | undefined>(undefined)
+const RegistryContext = createContext<Props | undefined>(undefined)
 
 export const useRegistryContext = () => {
   const context = useContext(RegistryContext)
