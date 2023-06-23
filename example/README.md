@@ -50,4 +50,7 @@ docker-compose down --volumes && docker-compose pull && docker-compose up -d && 
 4. Make sure you have pip and venv installed in the WSL (Ubuntu) system. 
    1. `sudo apt-get upgrade && sudo apt-get upgrade`
    2. `sudo apt install python3-pip && sudo apt install python3-venv`
-
+5. In the WSL terminal navigate to `dm-core-packages/example` and run `python3 -m venv .venv`. This will take a few minutes to run. Now grab a coffee. ☕
+6. Run `source .venv/bin/activate`
+7. Run `pip install dm-cli && dm reset app && dm import-plugin-blueprints node_modules/@development-framework/dm-core-plugins && dm create-lookup example DemoDataSource/recipes`
+8. Using the Powershell terminal, navigate to root in `dm-core-packages` and start the app with the command `yarn start:example`. The app should now be served on `localhost:5000`. 
