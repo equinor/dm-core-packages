@@ -52,7 +52,7 @@ jobs:
         run: |
           yarn install
           yarn build:packages
-          yarn workspace dm-core publish --access public
-          yarn workspace dm-core-plugins publish --access public
+          yarn workspace @development-framework/dm-core publish --access public
+          yarn workspace @development-framework/dm-core-plugins publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
