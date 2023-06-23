@@ -40,11 +40,9 @@
 
 ## Running (Windows)
 
-something yarn install
-something dmcorebuild 
-
 1. Open Powershell and navigate to dm-core-packages/example.
-2. Run these commands
+2. Make sure docker engine is running, then run these commands
+   - `yarn install`
    - `docker-compose down --volumes`
    - `docker-compose pull`
    - `docker-compose up -d`
@@ -65,7 +63,7 @@ something dmcorebuild
    python3 -m venv .venv && 
    source .venv/bin/activate
    ```
-   This will take a few minutes to run, so now grab a coffee and strech your legs. ☕
+   This may take a few minutes to run, so now grab a coffee and strech your legs. ☕
 6. Run 
    ```
    pip install dm-cli &&
