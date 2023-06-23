@@ -7,7 +7,7 @@
 - [Docker Compose](https://docs.docker.com/compose/)
 - Make sure you have Python installed. version 3.10 or higher is required.
 
-## Running
+## Running (Mac / Linux)
 
 > **Note**
 > Run all these commands from the `dm-core-packages/` (main project) folder unless otherwise stated
@@ -37,3 +37,17 @@
    - `./reset-all.sh`
 5. Start the test app
    - `yarn start:example`
+
+## Running (Windows)
+
+1. Open Powershell and navigate to dm-core-packages/example
+2. Run
+```
+docker-compose down --volumes && docker-compose pull && docker-compose up -d && docker-compose run --rm dmss reset-app && docker compose run --rm job-api dm -u http://dmss:5000 reset ../app
+```
+3. Download and open WSL (windows subsystem for linux) terminal and navigate to c disk. `cd /mnt/c`
+   1. A useful tip is to download 'Windows Terminal' from the App Store, which is a useful terminal for switching between WSL (Ubuntu) and powershell. 
+4. Make sure you have pip and venv installed in the WSL (Ubuntu) system. 
+   1. `sudo apt-get upgrade && sudo apt-get upgrade`
+   2. `sudo apt install python3-pip && sudo apt install python3-venv`
+
