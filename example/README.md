@@ -43,17 +43,32 @@
 1. Open Powershell and navigate to dm-core-packages/example.
 2. Run
    ```
-   docker-compose down --volumes && docker-compose pull && docker-compose up -d && docker-compose run --rm dmss reset-app && docker compose run --rm job-api dm -u http://dmss:5000 reset ../app
+   docker-compose down --volumes && 
+   docker-compose pull &&
+   docker-compose up -d &&
+   docker-compose run --rm dmss reset-app &&
+   docker compose run --rm job-api dm -u http://dmss:5000 reset ../app
    ```
 3. Download and open WSL (windows subsystem for linux) terminal and navigate to c disk using the command: `cd /mnt/c`. 
    1. A useful tip is to download 'Windows Terminal' from the App Store, which is a useful terminal for switching between WSL (Ubuntu) and powershell. 
 4. Make sure you have pip and venv installed in the WSL (Ubuntu) system. 
-   1. `sudo apt-get upgrade && sudo apt-get upgrade`.
-   2. `sudo apt install python3-pip && sudo apt install python3-venv`.
-5. In the WSL terminal navigate to `dm-core-packages/example` and run `python3 -m venv .venv`. This will take a few minutes to run. Now grab a coffee. ☕
-6. Run `source .venv/bin/activate`.
-7. Run 
    ```
-   pip install dm-cli && dm reset app && dm import-plugin-blueprints node_modules/@development-framework/dm-core-plugins && dm create-lookup example DemoDataSource/recipes
+   sudo apt-get upgrade &&
+   sudo apt-get upgrade && 
+   sudo apt install python3-pip &&
+   sudo apt install python3-venv
    ```
-8. Using the Powershell terminal, navigate to root in `dm-core-packages` and start the app with the command `yarn start:example`. The app should now be served on `localhost:5000`. 
+5. In the WSL terminal navigate to `dm-core-packages/example` and run 
+   ```
+   python3 -m venv .venv && 
+   source .venv/bin/activate
+   ```
+   This will take a few minutes to run, so now grab a coffee and strech your legs. ☕
+6. Run 
+   ```
+   pip install dm-cli &&
+   dm reset app &&
+   dm import-plugin-blueprints node_modules/@development-framework/dm-core-plugins &&
+   dm create-lookup example DemoDataSource/recipes
+   ```
+7. Go back to the Powershell terminal and navigate to root in `dm-core-packages/` and start the app with the command `yarn start:example`. The app should now be served on `localhost:5000`. 
