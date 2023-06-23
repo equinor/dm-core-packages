@@ -17,6 +17,7 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../RegistryContext'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { TObjectFieldProps } from '../types'
+import getWidget from '../widgets'
 import { AttributeField } from './AttributeField'
 
 const AddUncontained = (props: {
@@ -368,12 +369,11 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
 export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
   const { type, namePath, uiAttribute } = props
   const { getValues } = useFormContext()
-  const { getWidget } = useRegistryContext()
 
   // Be able to override the object field
   const Widget =
     uiAttribute && uiAttribute.widget
-      ? getWidget(namePath, uiAttribute.widget)
+      ? getWidget(uiAttribute.widget)
       : ObjectTypeSelector
 
   const values = getValues(namePath)

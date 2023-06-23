@@ -1,10 +1,12 @@
+import { TViewConfig } from '@development-framework/dm-core'
 import React, { createContext, useContext } from 'react'
-import widgets from './widgets/'
 
-export const RegistryContext = createContext<any>({
-  fields: {},
-  widgets: {},
-})
+type Props = {
+  idReference?: string
+  onOpen?: (key: string, view: TViewConfig) => void
+}
+
+export const RegistryContext = createContext<Props | undefined>(undefined)
 
 export const useRegistryContext = () => {
   const context = useContext(RegistryContext)
@@ -14,20 +16,8 @@ export const useRegistryContext = () => {
   return context
 }
 
-export const RegistryProvider = (props: any) => {
-  const { children, idReference, onOpen } = props
-
-  const getWidget = (namePath: string, widgetName: string) => {
-    const name = widgetName.trim()
-    if (name in widgets) return widgets[name]
-    return () => <div>Did not find widget: {name} </div>
-  }
-
-  const value = {
-    getWidget,
-    idReference,
-    onOpen,
-  }
+export const RegistryProvider = (props: Props & { children: JSX.Element }) => {
+  const { children, ...value } = props
 
   return (
     <RegistryContext.Provider value={value}>

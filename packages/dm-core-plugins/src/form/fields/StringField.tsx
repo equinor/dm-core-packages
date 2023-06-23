@@ -1,8 +1,7 @@
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { TStringFieldProps } from '../types'
-import { useRegistryContext } from '../RegistryContext'
-import { asNumber } from './NumberField'
+import getWidget from '../widgets'
 
 const formatDate = (date: string) => {
   return new Date(date).toLocaleString(navigator.language)
@@ -12,10 +11,8 @@ export const StringField = (props: TStringFieldProps) => {
   const { control } = useFormContext()
   const { namePath, displayLabel, defaultValue, optional, uiAttribute } = props
 
-  const { getWidget } = useRegistryContext()
-
   const defaultWidget = uiAttribute ? uiAttribute.widget : 'TextWidget'
-  const Widget = getWidget(namePath, defaultWidget)
+  const Widget = getWidget(defaultWidget)
 
   return (
     <Controller

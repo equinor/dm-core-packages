@@ -15,4 +15,10 @@ const widgets: {
   TypeWidget,
 }
 
-export default widgets
+export default (widgetName: string) => {
+  const name = widgetName.trim()
+  if (!(name in widgets)) {
+    throw Error(`Could not find widget ${name}`)
+  }
+  return widgets[name]
+}
