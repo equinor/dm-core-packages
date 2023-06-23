@@ -62,3 +62,7 @@ export type TWidget = {
   namePath: string
   readOnly?: boolean
 }
+
+export type TWidgets = {
+  [key: string]: (props: TWidget) => JSX.Element
+}

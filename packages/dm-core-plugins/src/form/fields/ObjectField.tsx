@@ -16,8 +16,8 @@ import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../RegistryContext'
 import { OpenObjectButton } from '../components/OpenObjectButton'
+import { getWidget } from '../context/WidgetContext'
 import { TObjectFieldProps } from '../types'
-import getWidget from '../widgets'
 import { AttributeField } from './AttributeField'
 
 const AddUncontained = (props: {

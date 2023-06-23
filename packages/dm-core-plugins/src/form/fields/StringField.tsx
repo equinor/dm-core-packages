@@ -1,7 +1,7 @@
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { getWidget } from '../context/WidgetContext'
 import { TStringFieldProps } from '../types'
-import getWidget from '../widgets'
 
 const formatDate = (date: string) => {
   return new Date(date).toLocaleString(navigator.language)

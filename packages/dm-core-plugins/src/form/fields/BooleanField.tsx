@@ -1,7 +1,7 @@
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { getWidget } from '../context/WidgetContext'
 import { TBooleanFieldProps } from '../types'
-import getWidget from '../widgets'
 
 export const BooleanField = (props: TBooleanFieldProps) => {
   const { control } = useFormContext()

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { getWidget } from '../context/WidgetContext'
 import { TNumberFieldProps } from '../types'
-import getWidget from '../widgets'
 
 // Taken from: https://github.com/rjsf-team/react-jsonschema-form/blob/cff979dae5348e9b100447641bcb53374168367f/packages/core/src/utils.js#L436
 export const asNumber = (value: string): number | string => {
