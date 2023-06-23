@@ -450,3 +450,8 @@
     * **DMSS VERSION**: 0dc273b 2023-06-19 Krist..rstad chore: clean up _get_node_to_update() in document_service.py grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.12
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* fix: renaming nested form example (2023-06-02T11:23:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/fix/renaming-nested-example/5353719592/1)
+    * **DMSS VERSION**: 0dc273b 2023-06-19 Krist..rstad chore: clean up _get_node_to_update() in document_service.py grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.12
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
