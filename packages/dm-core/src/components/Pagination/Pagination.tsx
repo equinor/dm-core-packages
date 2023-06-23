@@ -14,19 +14,10 @@ type PaginationProps = {
 export function Pagination(props: PaginationProps) {
   const { count = 0, page, setPage, rowsPerPage, setRowsPerPage } = props
 
-  const getVisibleToLabel = () => {
-    if (count === -1) {
-      return (page + 1) * rowsPerPage
-    }
-    return rowsPerPage === -1
-      ? count
-      : Math.min(count, (page + 1) * rowsPerPage)
-  }
-
   const calculatedPages = count / rowsPerPage // could be less than zero
   const availablePages = calculatedPages < 1 ? 1 : calculatedPages // if calculated pages is less than zero, return 1
   const visibleFromLabel = count === 0 ? 0 : page * rowsPerPage + 1
-  const visibleToLabel = getVisibleToLabel()
+  const visibleToLabel = Math.min(count, (page + 1) * rowsPerPage)
 
   return (
     <Stack

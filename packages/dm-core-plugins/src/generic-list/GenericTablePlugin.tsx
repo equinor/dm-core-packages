@@ -83,9 +83,6 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
     paginationPage * rowsPerPage + rowsPerPage
   )
 
-  console.log(config)
-  console.log(functionality)
-
   useEffect(() => {
     if (loading || !document) return
     const itemsWithIds = document
@@ -190,9 +187,11 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
               <Table.Cell key={attribute}>{attribute}</Table.Cell>
             ))}
             {functionality?.delete && (
-              <Table.Cell width="80">Delete</Table.Cell>
+              <Table.Cell width="48" aria-label="Delete"></Table.Cell>
             )}
-            {functionality?.sort && <Table.Cell aria-label="Sort"></Table.Cell>}
+            {functionality?.sort && (
+              <Table.Cell width="48" aria-label="Sort"></Table.Cell>
+            )}
           </Table.Row>
         </Table.Head>
         <Table.Body>
