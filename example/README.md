@@ -49,6 +49,7 @@
    docker-compose run --rm dmss reset-app &&
    docker compose run --rm job-api dm -u http://dmss:5000 reset ../app
    ```
+   You will get a warning that "AZURE_SP_SECRET" is not set. This is fine. 
 3. Download and open WSL (windows subsystem for linux) terminal and navigate to c disk using the command: `cd /mnt/c`. 
    1. A useful tip is to download 'Windows Terminal' from the App Store, which is a useful terminal for switching between WSL (Ubuntu) and powershell. 
 4. Make sure you have pip and venv installed in the WSL (Ubuntu) system. 
@@ -71,4 +72,4 @@
    dm import-plugin-blueprints node_modules/@development-framework/dm-core-plugins &&
    dm create-lookup example DemoDataSource/recipes
    ```
-7. Go back to the Powershell terminal and navigate to root in `dm-core-packages/` and start the app with the command `yarn start:example`. The app should now be served on `localhost:5000`. 
+7. Go back to the Powershell terminal and navigate to root in `dm-core-packages/` by typing the command `cd .. ` and start the app with the command `yarn start:example`.
