@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Checkbox } from '@equinor/eds-core-react'
-import { TWidget } from '../../types'
+import { TWidget } from '../types'
 
 const CheckboxWidget = (props: TWidget) => {
   const { value } = props
