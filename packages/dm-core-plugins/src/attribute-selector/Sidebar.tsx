@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { SideBar } from '@equinor/eds-core-react'
-import { subdirectory_arrow_right } from '@equinor/eds-icons'
+import * as EdsIcons from '@equinor/eds-icons'
 import { TItemData } from './types'
-import { availableIcons } from './Icon'
 
 export const Sidebar = (props: {
   selectedView: string
@@ -19,8 +18,8 @@ export const Sidebar = (props: {
             key={config.viewId}
             icon={
               config.view.eds_icon
-                ? availableIcons[config.view.eds_icon]
-                : subdirectory_arrow_right
+                ? EdsIcons[config.view.eds_icon as keyof typeof EdsIcons]
+                : EdsIcons.subdirectory_arrow_right
             }
             label={config.label}
             onClick={() => setSelectedView(config.viewId)}
