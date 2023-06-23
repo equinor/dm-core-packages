@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import { useForm, FormProvider } from 'react-hook-form'
+import { Stack, TGenericObject } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
+import { FormProvider, useForm } from 'react-hook-form'
+import styled from 'styled-components'
+import { RegistryProvider } from './RegistryContext'
 import { ObjectField } from './fields/ObjectField'
 import { TFormProps } from './types'
-import { RegistryProvider } from './RegistryContext'
-import styled from 'styled-components'
-import { Stack, TGenericObject } from '@development-framework/dm-core'
 
 const Wrapper = styled.div`
   max-width: 650px;
@@ -14,8 +14,7 @@ const Wrapper = styled.div`
 `
 
 export const Form = (props: TFormProps) => {
-  const { type, formData, widgets, config, onSubmit, idReference, onOpen } =
-    props
+  const { type, formData, config, onSubmit, idReference, onOpen } = props
 
   const methods = useForm({
     // Set initial state.
@@ -42,11 +41,7 @@ export const Form = (props: TFormProps) => {
   return (
     <Wrapper>
       <FormProvider {...methods}>
-        <RegistryProvider
-          onOpen={onOpen}
-          widgets={widgets}
-          idReference={idReference}
-        >
+        <RegistryProvider onOpen={onOpen} idReference={idReference}>
           <form onSubmit={handleSubmit}>
             <Stack spacing={2}>
               {type && (

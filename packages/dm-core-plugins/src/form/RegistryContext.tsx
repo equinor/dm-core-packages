@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import defaultWidgets from './widgets/index'
+import widgets from './widgets/'
 
 export const RegistryContext = createContext<any>({
   fields: {},
@@ -15,13 +15,11 @@ export const useRegistryContext = () => {
 }
 
 export const RegistryProvider = (props: any) => {
-  const { widgets, children, idReference, onOpen } = props
-
-  const allWidgets = { ...widgets, ...defaultWidgets }
+  const { children, idReference, onOpen } = props
 
   const getWidget = (namePath: string, widgetName: string) => {
     const name = widgetName.trim()
-    if (name in allWidgets) return allWidgets[name]
+    if (name in widgets) return widgets[name]
     return () => <div>Did not find widget: {name} </div>
   }
 

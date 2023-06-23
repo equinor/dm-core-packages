@@ -4,7 +4,6 @@ export type TFormProps = {
   idReference?: string
   type?: string
   formData?: any
-  widgets?: any
   config?: any
   onOpen?: (key: string, view: TViewConfig) => void
   onSubmit?: (data: any) => void
