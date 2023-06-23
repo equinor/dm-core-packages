@@ -49,10 +49,12 @@ export const AttributeSelectorPlugin = (
 
   function removeView(viewId: string) {
     const viewIndex = views.findIndex((view) => view.viewId === viewId)
+    const newSelectedView =
+      views[viewIndex + 1]?.viewId || views[viewIndex - 1]?.viewId || 'self'
     const viewsCopy: TItemData[] = [...views]
     viewsCopy.splice(viewIndex, 1)
     setViews(viewsCopy)
-    setSelectedView('self')
+    setSelectedView(newSelectedView)
   }
 
   useEffect(() => {
