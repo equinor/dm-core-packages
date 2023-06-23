@@ -2,5 +2,5 @@
   "_id": "NestedExample",
   "name": "NestedExample",
   "bar": "test",
-  "type": "./blueprints/NestedField"
+  "type": "./blueprints/NestedExample"
 }

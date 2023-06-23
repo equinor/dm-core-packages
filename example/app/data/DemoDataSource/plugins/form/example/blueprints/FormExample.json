@@ -1,5 +1,5 @@
 {
-  "name": "FormBlueprint",
+  "name": "FormExample",
   "type": "CORE:Blueprint",
   "attributes": [
     {
@@ -67,20 +67,20 @@
     {
       "name": "aNestedObject",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "./NestedField",
+      "attributeType": "./NestedExample",
       "label": "A nested object"
     },
     {
       "name": "aOptionalNestedObject",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "./NestedField",
+      "attributeType": "./NestedExample",
       "label": "A optional nested object",
       "optional": true
     },
     {
       "name": "aNestedObjectWithCustomUI",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "./NestedField",
+      "attributeType": "./NestedExample",
       "label": "A nested object with custom ui"
     },
     {
@@ -93,7 +93,7 @@
     {
       "name": "listOfObjects",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "./NestedField",
+      "attributeType": "./NestedExample",
       "dimensions": "*",
       "label": "A list of objects"
     }

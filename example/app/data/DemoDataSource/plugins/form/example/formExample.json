@@ -1,7 +1,7 @@
 {
   "_id": "formExample",
-  "type": "./blueprints/FormBlueprint",
-  "blueprintPicker": "FormBlueprint",
+  "type": "./blueprints/FormExample",
+  "blueprintPicker": "FormExample",
   "name": "FormExample",
   "aString": "a simple string",
   "aNumber": 1337,
@@ -10,20 +10,20 @@
   "aStringAsTextfield": "This is a very long description....",
   "listOfStrings": ["foo", "bar"],
   "aNestedObject": {
-    "type": "./blueprints/NestedField",
+    "type": "./blueprints/NestedExample",
     "foo": 1337,
     "bar": "hello",
     "baz": "testing"
   },
   "aNestedObjectWithCustomUI": {
-    "type": "./blueprints/NestedField",
+    "type": "./blueprints/NestedExample",
     "foo": 1337,
     "bar": "hello",
     "baz": "testing"
   },
   "listOfObjects": [
     {
-      "type": "./blueprints/NestedField",
+      "type": "./blueprints/NestedExample",
       "foo": 1337,
       "bar": "hello",
       "baz": "testing"
