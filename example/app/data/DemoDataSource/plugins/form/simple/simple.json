@@ -2,5 +2,5 @@
   "_id": "Simple",
   "name": "Simple",
   "type": "./blueprints/Simple",
-  "Firstname": ""
+  "stringOptional": "a prefilled optional string"
 }
