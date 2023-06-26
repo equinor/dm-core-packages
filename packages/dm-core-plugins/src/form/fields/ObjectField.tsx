@@ -226,9 +226,7 @@ export const ContainedAttribute = (props: any): JSX.Element => {
   const isRoot = namePath == ''
   const shouldOpen = hasOpen && !isRoot
 
-  const splitReference = idReference?.split('.')
-  splitReference.shift()
-  const attributePath = splitReference.join('.')
+  const attributePath = idReference?.split('.', 2).slice(1)
 
   return (
     <div>
@@ -245,7 +243,11 @@ export const ContainedAttribute = (props: any): JSX.Element => {
         )}
         {shouldOpen && isDefined && (
           <OpenObjectButton
-            namePath={attributePath ? `${attributePath}.${namePath}` : namePath}
+            namePath={
+              attributePath.length > 1
+                ? `${attributePath[1]}.${namePath}`
+                : namePath
+            }
           />
         )}
       </Stack>
