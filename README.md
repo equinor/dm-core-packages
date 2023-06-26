@@ -659,3 +659,8 @@ Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.gi
     * **DMSS VERSION**: 5ce26a7 2023-06-26 Inger..ellen refactor: replace reference str with Address class (#457) grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.12
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* fix: expanded simple-form pluging and updated e2e (2023-06-02T11:23:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/fix/expanded-simple-plugin-and-e2e/5378000647/1)
+    * **DMSS VERSION**: 5ce26a7 2023-06-26 Inger..ellen refactor: replace reference str with Address class (#457) grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.12
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
