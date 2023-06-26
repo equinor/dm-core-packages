@@ -30,10 +30,8 @@ export const AttributeSelectorPlugin = (
   const [selectedView, setSelectedView] = useState<string | undefined>()
   const [views, setViews] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
-  console.log('vc views', views)
 
   function addView(viewId: string, view: TViewConfig) {
-    console.log('vc addview')
     if (!views.find((view: TItemData) => view.viewId === viewId)) {
       // View does not exist, add it
       const newView: TItemData = {
@@ -61,11 +59,6 @@ export const AttributeSelectorPlugin = (
 
   useEffect(() => {
     if (!entity) return
-    // if (idReference.includes('.')) {
-    //   console.error('idref to root cannot have dotted path')
-    //   console.log('vc entity: ', entity, ' and id ', idReference)
-    //   return
-    // }
     setFormData({ ...entity })
 
     const newViews: TItemData[] = []
@@ -150,7 +143,6 @@ export const AttributeSelectorPlugin = (
         />
       )}
       <Content
-        key="content-in-attr-plugin"
         type={type}
         onOpen={addView}
         formData={formData}

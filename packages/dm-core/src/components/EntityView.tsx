@@ -59,11 +59,6 @@ export const EntityView = (props: IEntityView): JSX.Element => {
           onSubmit={onSubmit}
           onOpen={onOpen}
           config={recipe.config || {}}
-          //the ui plugin here will render AttributeSelectorPlugin again. the problem is that when we have nested things with the same type,
-          //we have no guarantee that recipe.config is correct ofr "sub attributets". It is the scope attribute in the recipe.config that creates trouble.
-          //one way to fix it is to NOT ALLOW scope to be optional attribute OR handle it such taht if scope is optional attribute, try to render it if the attribute exists on document and if not exist let recipe.config be empty.
-
-          // bug: when opening an attribute from rootDocument, the recipe from the rootDocument should NOT be used since the
         />
       </ErrorBoundary>
     </Wrapper>

@@ -62,8 +62,8 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   if (error)
     return (
       <p>
-        {' '}
-        Could not attribute for document with id {reference} ({error.message})
+        Could not find attribute for document with id {reference} (
+        {error.message})
       </p>
     )
   if (attribute === undefined)

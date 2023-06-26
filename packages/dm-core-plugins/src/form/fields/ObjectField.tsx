@@ -215,7 +215,7 @@ export const ContainedAttribute = (props: any): JSX.Element => {
     blueprint,
   } = props
   const { getValues, setValue } = useFormContext()
-  const { idReference, onOpen } = useRegistryContext() //reference to the entity displayed by the form.
+  const { idReference, onOpen } = useRegistryContext()
   const [isDefined, setIsDefined] = useState(
     namePath == ''
       ? getValues() !== undefined
@@ -229,9 +229,7 @@ export const ContainedAttribute = (props: any): JSX.Element => {
   const splitReference = idReference?.split('.')
   splitReference.shift()
   const attributePath = splitReference.join('.')
-  // console.log('id ref', idReference)
-  // console.log('attrpath', attributePath)
-  // console.log('namepath to openobjectbtn', attributePath)
+
   return (
     <div>
       <Stack spacing={0.25} alignItems="flex-start">
@@ -246,21 +244,9 @@ export const ContainedAttribute = (props: any): JSX.Element => {
           />
         )}
         {shouldOpen && isDefined && (
-          <>
-            <p>idref: {idReference}</p>
-            <p>attr path: {attributePath}</p>
-            <p>namepath: {namePath}</p>
-            <p>
-              will open:{' '}
-              {attributePath ? `${attributePath}.${namePath}` : namePath}
-            </p>
-            <OpenObjectButton
-              namePath={
-                //namePath
-                attributePath ? `${attributePath}.${namePath}` : namePath
-              }
-            />
-          </>
+          <OpenObjectButton
+            namePath={attributePath ? `${attributePath}.${namePath}` : namePath}
+          />
         )}
       </Stack>
       {!shouldOpen && isDefined && (
@@ -423,7 +409,6 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
   const Content = contained ? ContainedAttribute : UncontainedAttribute
   return (
     <Content
-      key="content-in-obj-field"
       type={type}
       namePath={namePath}
       displayLabel={displayLabel}

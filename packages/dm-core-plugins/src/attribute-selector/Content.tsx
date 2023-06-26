@@ -22,17 +22,8 @@ export const Content = (props: {
   formData: TGenericObject
 }): JSX.Element => {
   const { selectedView, items, setFormData, formData, onOpen, type } = props
-  console.log('vc items', items)
   return (
     <div style={{ width: '100%' }}>
-      {items.map((config) => {
-        console.log(
-          'WILL DISPLAY In VC with idRef ',
-          config.rootEntityId,
-          ' AND scope ',
-          config.view.scope
-        )
-      })}
       {items.map((config: TItemData) => (
         <HidableWrapper
           key={config.viewId}
