@@ -59,7 +59,13 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   }, [])
 
   if (isLoading) return <Loading />
-  if (error) throw error
+  if (error)
+    return (
+      <p>
+        {' '}
+        Could not attribute for document with id {reference} ({error.message})
+      </p>
+    )
   if (attribute === undefined)
     throw new Error('Unable to find type and dimensions for view')
 
