@@ -1,7 +1,14 @@
 {
-  "_id": "attributeSelectorTabsEntity",
   "type": "./blueprints/AttributeSelectorTabs",
   "name": "attributeSelectorTabsEntity",
+  "firstAttribute": {
+    "type": "./blueprints/AttributeSelectorTabs",
+    "name": "first attribute",
+    "firstAttribute": {
+      "type": "./blueprints/AttributeSelectorTabs",
+      "name": "first attribute"
+    }
+  },
   "secondAttribute": {
     "type": "./blueprints/AttributeSelectorTabs",
     "name": ""
@@ -11,11 +18,11 @@
     "name": "third attribute",
     "firstAttribute": {
       "type": "./blueprints/AttributeSelectorTabs",
-      "name": "first attribute inside entity.thirdAttribute",
-      "label": "First attribute inside entity.thirdAttribute label ½¡@£",
+      "name": "first attribute",
+      "label": "First attribute label ½¡@£",
       "firstAttribute": {
         "type": "./blueprints/AttributeSelectorTabs",
-        "name": "first attribute inside entity.thirdAttribute.firstAttribute",
+        "name": "first attribute",
         "aStringValue": "Something here"
       }
     },
