@@ -27,6 +27,27 @@
       "attributeType": "number",
       "label": "Numbers only",
       "optional": true
+    },
+    {
+      "name": "integer",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "label": "Integer only",
+      "optional": true
+    },
+    {
+      "name": "optionalCheckbox",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "An optional checkbox",
+      "optional": true
+    },
+    {
+      "name": "requiredCheckbox",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "A required checbox (e.g. for confirmation purposes)",
+      "optional": false
     }
   ]
 }
