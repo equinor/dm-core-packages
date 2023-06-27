@@ -124,7 +124,7 @@ export const orderAttributes = (
   attributes: string[],
   order: string[] | null
 ) => {
-  if (order == null) {
+  if (order == null || order.length == 0) {
     return attributes
   }
   if (order.filter((x) => x === '*').length > 1) {

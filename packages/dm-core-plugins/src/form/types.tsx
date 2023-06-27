@@ -4,7 +4,7 @@ export type TFormProps = {
   idReference?: string
   type?: string
   formData?: any
-  config?: any
+  config?: TConfig
   onOpen?: (key: string, view: TViewConfig) => void
   onSubmit?: (data: any) => void
 }
@@ -15,7 +15,7 @@ export type TObjectFieldProps = {
   type: string
   displayLabel?: string
   optional?: boolean
-  config?: any
+  config?: TConfig
   uiRecipeName?: string
   uiAttribute?: any
 }
@@ -46,6 +46,19 @@ export type TBooleanFieldProps = {
   displayLabel: string
   defaultValue: string
   uiAttribute?: any
+}
+
+type TAttributeBasis = {
+  name: string
+  widget: string
+}
+type TAttributeString = TAttributeBasis & { format: string }
+type TAttributeArray = TAttributeBasis & { columns: string[] }
+type TAttributeObject = TAttributeBasis
+type TAttribute = TAttributeArray | TAttributeObject | TAttributeString
+export type TConfig = {
+  attributes: TAttribute[]
+  order: string[]
 }
 
 export declare type Variants = 'error' | 'success' | 'warning'

@@ -68,7 +68,7 @@ test('should show foo before bar by default', async () => {
 test('should show foo after bar if order states it', async () => {
   const utils = await setupSimple({
     type: 'MyBlueprint',
-    config: { order: ['bar', 'foo'] },
+    config: { attributes: [], order: ['bar', 'foo'] },
   })
   expect(utils.fooInput.compareDocumentPosition(utils.barInput)).toBe(
     Node.DOCUMENT_POSITION_PRECEDING
