@@ -24,7 +24,10 @@ describe('BooleanField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=checkbox]`).length).toBe(
           1
@@ -48,7 +51,9 @@ describe('BooleanField', () => {
           ],
         },
       ])
-      render(<Form type="SingleFieldWithLabel" />, { wrapper })
+      render(<Form idReference="ds/$1" type="SingleFieldWithLabel" />, {
+        wrapper,
+      })
       await waitFor(() => {
         expect(screen.getByText('Foo')).toBeDefined()
       })
@@ -69,7 +74,10 @@ describe('BooleanField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
       await waitFor(() => {
         const inputNode: Element | null =
           container.querySelector(` input[name="foo"]`)
@@ -98,7 +106,7 @@ describe('BooleanField', () => {
         foo: 'beep',
       }
       const { container } = render(
-        <Form type="SingleField" formData={formData} />,
+        <Form idReference="ds/$1" type="SingleField" formData={formData} />,
         { wrapper }
       )
       await waitFor(() => {
@@ -127,7 +135,7 @@ describe('BooleanField', () => {
       ])
       const onSubmit = jest.fn()
       const { container } = render(
-        <Form type="SingleField" onSubmit={onSubmit} />,
+        <Form idReference="ds/$1" type="SingleField" onSubmit={onSubmit} />,
         { wrapper }
       )
       await waitFor(() => {
@@ -159,7 +167,10 @@ describe('BooleanField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
       await waitFor(() => {
         const inputNode: Element | null =
           container.querySelector(` input[id="foo"]`)

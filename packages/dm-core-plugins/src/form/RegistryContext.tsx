@@ -2,7 +2,7 @@ import { TViewConfig } from '@development-framework/dm-core'
 import React, { createContext, useContext } from 'react'
 
 type Props = {
-  idReference?: string
+  idReference: string
   onOpen?: (key: string, view: TViewConfig) => void
 }
 

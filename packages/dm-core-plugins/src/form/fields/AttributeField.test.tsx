@@ -19,7 +19,7 @@ describe('AttributeField', () => {
           ],
         },
       ])
-      render(<Form type="SingleField" />, { wrapper })
+      render(<Form idReference="ds/$1" type="SingleField" />, { wrapper })
       await waitFor(() => {
         expect(
           screen.getByText('Could not find the blueprint', { exact: false })

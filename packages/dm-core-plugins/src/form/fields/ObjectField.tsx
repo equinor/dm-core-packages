@@ -227,7 +227,7 @@ export const ContainedAttribute = (props: any): JSX.Element => {
   const isRoot = namePath == ''
   const shouldOpen = hasOpen && !isRoot
 
-  const attributePath = idReference?.split('.', 2).slice(1)
+  const attributePath = idReference.split('.', 2).slice(1)
 
   return (
     <div>

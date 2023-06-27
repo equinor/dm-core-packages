@@ -1,7 +1,7 @@
 import { TViewConfig } from '@development-framework/dm-core'
 
 export type TFormProps = {
-  idReference?: string
+  idReference: string
   type?: string
   formData?: any
   config?: TConfig
