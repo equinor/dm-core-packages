@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { TextField, Icon } from '@equinor/eds-core-react'
+import { Icon, TextField } from '@equinor/eds-core-react'
 
 import { error_filled } from '@equinor/eds-icons'
-import { TWidget } from '../../types'
+import { TWidget } from '../types'
 
 Icon.add({ error_filled })
 
@@ -13,7 +13,7 @@ const TextWidget = (props: TWidget) => {
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
     const formattedValue = value === '' ? null : value
-    onChange(formattedValue)
+    onChange?.(formattedValue)
   }
 
   return (

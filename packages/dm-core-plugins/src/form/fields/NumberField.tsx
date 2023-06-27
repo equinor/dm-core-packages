@@ -1,7 +1,7 @@
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { getWidget } from '../context/WidgetContext'
 import { TNumberFieldProps } from '../types'
-import { useRegistryContext } from '../RegistryContext'
 
 // Taken from: https://github.com/rjsf-team/react-jsonschema-form/blob/cff979dae5348e9b100447641bcb53374168367f/packages/core/src/utils.js#L436
 export const asNumber = (value: string): number | string => {
@@ -34,10 +34,8 @@ export const NumberField = (props: TNumberFieldProps) => {
   const { control } = useFormContext()
   const { namePath, displayLabel, defaultValue, optional, uiAttribute } = props
 
-  const { getWidget } = useRegistryContext()
-
   const defaultWidget = uiAttribute ? uiAttribute.widget : 'TextWidget'
-  const Widget = getWidget(namePath, defaultWidget)
+  const Widget = getWidget(defaultWidget)
 
   return (
     <Controller

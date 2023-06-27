@@ -4,7 +4,6 @@ export type TFormProps = {
   idReference?: string
   type?: string
   formData?: any
-  widgets?: any
   config?: any
   onOpen?: (key: string, view: TViewConfig) => void
   onSubmit?: (data: any) => void
@@ -53,13 +52,17 @@ export declare type Variants = 'error' | 'success' | 'warning'
 
 export type TWidget = {
   label: string
-  value: any
-  onChange: (value: any) => void
+  value?: any
+  onChange?: (value: any) => void
   onClick?: (value: any) => void
   id: string
   inputRef?: any
   helperText?: string
   variant?: Variants
-  namePath: string
+  type?: string
   readOnly?: boolean
+}
+
+export type TWidgets = {
+  [key: string]: (props: TWidget) => JSX.Element
 }
