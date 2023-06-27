@@ -113,6 +113,7 @@ describe('Form', () => {
             widget: 'TextWidget', // TODO TextareaWidget is not implemented it seems like...
           },
         ],
+        order: [],
       }
 
       const { container } = render(<Form type="Root" config={config} />, {

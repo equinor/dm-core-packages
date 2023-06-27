@@ -2,12 +2,17 @@ import * as React from 'react'
 
 import { IUIPlugin, Loading, useDocument } from '@development-framework/dm-core'
 import { Form } from './Form'
+import { TConfig } from './types'
+
+const defaultConfig: TConfig = {
+  attributes: [],
+  order: [],
+}
 
 export const FormPlugin = (props: IUIPlugin) => {
-  const { config, onOpen } = props
-  const { idReference } = props
+  const config: TConfig = { ...defaultConfig, ...props.config }
   const [document, loading, updateDocument, error] = useDocument<any>(
-    idReference,
+    props.idReference,
     999
   )
   if (loading) return <Loading />
@@ -20,8 +25,8 @@ export const FormPlugin = (props: IUIPlugin) => {
 
   return (
     <Form
-      onOpen={onOpen}
-      idReference={idReference}
+      onOpen={props.onOpen}
+      idReference={props.idReference}
       type={document.type}
       config={config}
       formData={document}
