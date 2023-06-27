@@ -1,9 +1,9 @@
-import { DmssAPI } from '../services'
-import { EBlueprint } from '../Enums'
-import { TAttribute, TBlueprint } from './types'
-import { TReference } from '../types'
 import { AxiosResponse } from 'axios'
+import { EBlueprint } from '../Enums'
 import { useDMSS } from '../context/DMSSContext'
+import { DmssAPI } from '../services'
+import { TReference } from '../types'
+import { TAttribute, TBlueprint } from './types'
 
 type TTreeMap = {
   [nodeId: string]: TreeNode
@@ -34,7 +34,7 @@ const createContainedChildren = (
 ): TTreeMap => {
   const newChildren: TTreeMap = {}
   Object.entries(document).forEach(([key, value]: [string, any]) => {
-    let attribute = blueprint.attributes.find(
+    let attribute = blueprint.attributes?.find(
       (attr: TAttribute) => attr.name === key
     ) as TAttribute
     if (Array.isArray(document)) {
