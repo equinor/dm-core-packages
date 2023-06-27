@@ -854,3 +854,8 @@ Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.gi
     * **DMSS VERSION**: a5ed0b2 2023-06-27 Eirik..ksnes feat: add file support grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.12
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* refactor: ran prettier on all json files as well to please GHA (2023-06-27T08:10:13Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/refactor/renaming-json-files-to-new-naming-convention/5390280814/1)
+    * **DMSS VERSION**: a5ed0b2 2023-06-27 Eirik..ksnes feat: add file support grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.12
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
