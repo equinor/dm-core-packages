@@ -21,114 +21,6 @@
             },
             "scope": "self"
           }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
-          "label": "List",
-          "view": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "List",
-              "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/generic-list",
-              "dimensions": "*",
-              "config": {
-                "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
-                "headers": ["name", "quantity", "type"],
-                "functionality": {
-                  "type": "PLUGINS:dm-core-plugins/generic-list/FunctionalityConfig",
-                  "delete": true
-                },
-                "expanded": false,
-                "defaultView": {
-                  "type": "CORE:InlineRecipeViewConfig",
-                  "recipe": {
-                    "type": "CORE:UiRecipe",
-                    "name": "Edit",
-                    "description": "Default edit",
-                    "plugin": "@development-framework/dm-core-plugins/form"
-                  },
-                  "scope": "self"
-                },
-                "views": [
-                  {
-                    "type": "CORE:ViewConfig",
-                    "scope": "product"
-                  },
-                  {
-                    "type": "CORE:InlineRecipeViewConfig",
-                    "recipe": {
-                      "type": "CORE:UiRecipe",
-                      "name": "Edit",
-                      "description": "Default edit",
-                      "plugin": "@development-framework/dm-core-plugins/form"
-                    },
-                    "scope": "self"
-                  },
-                  {
-                    "type": "CORE:InlineRecipeViewConfig",
-                    "recipe": {
-                      "type": "CORE:UiRecipe",
-                      "name": "Yaml",
-                      "description": "Yaml view",
-                      "plugin": "@development-framework/dm-core-plugins/yaml"
-                    },
-                    "scope": "self"
-                  }
-                ]
-              }
-            },
-            "scope": "self"
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
-          "label": "Table Edit",
-          "view": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "Table Edit",
-              "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/table",
-              "dimensions": "*",
-              "config": {
-                "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-                "columns": ["name", "quantity", "type"],
-                "editableColumns": ["name", "quantity"],
-                "functionality": {
-                  "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-                  "openAsTab": false,
-                  "delete": true,
-                  "add": true,
-                  "edit": true,
-                  "sort": true
-                }
-              }
-            },
-            "scope": "self"
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
-          "label": "Table View",
-          "view": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "Table View",
-              "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/table",
-              "dimensions": "*",
-              "config": {
-                "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-                "columns": ["name", "quantity", "type"],
-                "functionality": {
-                  "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-                  "openAsTab": false
-                }
-              },
-              "scope": "self"
-            }
-          }
         }
       ]
     }
@@ -148,18 +40,14 @@
       "name": "List",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/generic-list",
-      "dimensions": "*"
-    },
-    {
-      "name": "List",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/generic-list",
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
-        "headers": ["name", "description"],
-        "showDelete": true,
-        "expanded": false
+        "headers": ["name", "quantity", "type"],
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/generic-list/FunctionalityConfig",
+          "delete": true
+        }
       }
     }
   ]
