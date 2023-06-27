@@ -55,6 +55,7 @@ type ITableItemRow = {
   data: any
   index: number
   expanded: boolean
+  isSaved: boolean
 }
 
 type GenericTablePluginProps = {
@@ -89,6 +90,7 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
       ? Object.values(document)?.map((data, index) => ({
           data,
           expanded: false,
+          isSaved: true,
           index,
           key: crypto.randomUUID(),
         }))
@@ -119,6 +121,7 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
             data: newEntity.data,
             index: Object.keys(items).length,
             expanded: false,
+            isSaved: false,
           },
         ])
       })
@@ -134,6 +137,7 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
   ) {
     const itemsCopy = [...items]
     itemsCopy[index].data[attribute] = newValue
+    itemsCopy[index].isSaved = false
     setItems(itemsCopy)
     setDirtyState(true)
   }
@@ -146,7 +150,13 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
         idReference: idReference,
         data: JSON.stringify(payload),
       })
-      .then(() => setDirtyState(false))
+      .then(() => {
+        const updatedItems: ITableItemRow[] = items.map((item) => {
+          return { ...item, isSaved: true }
+        })
+        setItems(updatedItems)
+        setDirtyState(false)
+      })
       .catch((error: AxiosError<ErrorResponse>) =>
         alert(JSON.stringify(error.response?.data))
       )
@@ -213,6 +223,7 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
                       <Button
                         variant="ghost_icon"
                         color="secondary"
+                        disabled={!item.isSaved}
                         onClick={
                           functionality.openAsExpandable
                             ? () => expandItem(index)
