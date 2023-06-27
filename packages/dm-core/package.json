@@ -3,11 +3,11 @@
   "version": "1.0.61",
   "license": "MIT",
   "peerDependencies": {
-    "react-router-dom": ">=5.1.2",
+    "@types/react": "^17.0.39",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.2.3",
-    "@types/react": "^17.0.39"
+    "react-router-dom": ">=5.1.2",
+    "styled-components": "^5.2.3"
   },
   "dependencies": {
     "@equinor/eds-core-react": "^0.29.1",
@@ -15,6 +15,7 @@
     "@equinor/eds-tokens": "^0.9.0",
     "axios": "^0.27.2",
     "lodash": "^4.17.19",
+    "prettier": "^3.0.0-alpha.6",
     "react-icons": "3.11.0",
     "react-is": "^17.0.2",
     "react-notifications": "^1.7.4",
