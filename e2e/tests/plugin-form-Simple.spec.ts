@@ -9,7 +9,7 @@ test('Simple form', async ({ page }) => {
   await page.getByText('DemoDataSource/$Simple').click()
 
   //Remove prefilled optional string
-  await page.getByLabel('Optional string (optional)').fill('')
+  await page.getByLabel('An optional string (optional)').fill('')
 
   //Fill out required string
   await page.getByTestId('form-submit').click()
