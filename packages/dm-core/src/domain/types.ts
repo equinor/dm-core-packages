@@ -1,21 +1,22 @@
 export type TAttribute = {
-  type?: string
   name: string
-  dimensions: string
+  type: string
   attributeType: string
+  dimensions?: string
   optional?: boolean
   contained?: boolean
   description?: string
   label?: string
   enumType?: string
-  default?: string
+  default?: any
 }
 
 export type TBlueprint = {
   name: string
   type: string
-  description: string
-  attributes: TAttribute[]
-  uiRecipes?: any[]
-  storageRecipes?: any[]
+  description?: string
+  extends?: string[]
+  attributes?: TAttribute[]
+  _meta_?: any[]
+  abstract?: boolean
 }
