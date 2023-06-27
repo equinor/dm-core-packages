@@ -48,9 +48,10 @@ const defaultConfig: TGenericListConfig = {
 
 type ItemRow = {
   key: string
-  data: any
+  data: TGenericObject
   index: number
   expanded: boolean
+  isSaved: boolean
 }
 
 export const GenericListPlugin = (
@@ -80,11 +81,19 @@ export const GenericListPlugin = (
 
   useEffect(() => {
     if (loading || !document) return
+    else if (!Array.isArray(document)) {
+      throw new Error(
+        `Generic table plugin cannot be used on document that is not an array! Got document ${JSON.stringify(
+          document
+        )} `
+      )
+    }
     // Need to generate a uuid for each item in the list to be used for reacts "key" property
     const itemsWithIds = document
       ? Object.values(document).map((data, index) => ({
           data,
           expanded: internalConfig.expanded,
+          isSaved: true,
           index,
           key: crypto.randomUUID(),
         }))
@@ -94,55 +103,53 @@ export const GenericListPlugin = (
   }, [document, loading])
 
   function deleteItem(reference: string, key: string) {
-    setIsLoading(true)
-    dmssAPI
-      .documentRemove({ reference: reference })
-      .then(() => {
-        const itemIndex = items.findIndex((item) => item.key === key)
-        const itemsCopy = [...items]
-        itemsCopy.splice(itemIndex, 1)
-        setItems(itemsCopy)
-      })
-      .finally(() => setIsLoading(false))
+    const itemIndex = items.findIndex((item) => item.key === key)
+    const itemsCopy = [...items]
+    itemsCopy.splice(itemIndex, 1)
+    setItems(itemsCopy)
+    setUnsavedChanges(true)
   }
 
   function addItem() {
+    setUnsavedChanges(true)
     dmssAPI
       .instantiateEntity({
         entity: { type: type },
       })
       .then((newEntity: AxiosResponse<object, TGenericObject>) => {
-        dmssAPI
-          .documentAdd({
-            reference: idReference,
-            document: JSON.stringify(newEntity.data),
-          })
-          .then(() =>
-            setItems([
-              ...items,
-              {
-                key: crypto.randomUUID(),
-                data: newEntity.data,
-                index: Object.keys(items).length,
-                expanded: internalConfig.expanded,
-              },
-            ])
-          )
-          .catch((error: AxiosError<ErrorResponse>) => {
-            console.error(error)
-            alert(JSON.stringify(error.response?.data, null, 2))
-          })
+        console.log('created', newEntity)
+        setItems([
+          ...items,
+          {
+            key: crypto.randomUUID(),
+            data: newEntity.data,
+            index: Object.keys(items).length,
+            expanded: internalConfig.expanded,
+            isSaved: false,
+          },
+        ])
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        alert(JSON.stringify(error.response?.data, null, 2))
       })
   }
 
   function save() {
     setIsLoading(true)
+    const payload = items.map((item) => item.data)
     dmssAPI
       .documentUpdate({
         idReference: idReference,
-        data: JSON.stringify(Object.values(items)),
+        data: JSON.stringify(Object.values(payload)),
       })
-      .then(() => setUnsavedChanges(false))
+      .then(() => {
+        const updatedItems: ItemRow[] = items.map((item) => {
+          return { ...item, isSaved: true }
+        })
+        setItems(updatedItems)
+        setUnsavedChanges(false)
+      })
       .catch((e: Error) => alert(JSON.stringify(e, null, 2)))
       .finally(() => setIsLoading(false))
   }
@@ -188,6 +195,7 @@ export const GenericListPlugin = (
                 <Button
                   variant="ghost_icon"
                   color="secondary"
+                  disabled={!item.isSaved}
                   onClick={
                     internalConfig.openInline
                       ? () => expandItem(index)
@@ -243,7 +251,7 @@ export const GenericListPlugin = (
                   <ListItemButton
                     type="delete"
                     onClick={() =>
-                      deleteItem(`${idReference}.${item.index}`, item.key)
+                      deleteItem(`${idReference}[${item.index}]`, item.key)
                     }
                   />
                 </>
