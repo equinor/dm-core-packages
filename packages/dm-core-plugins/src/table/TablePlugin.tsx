@@ -54,6 +54,13 @@ export const TablePlugin = (props: IUIPlugin) => {
 
   useEffect(() => {
     if (loading || !document) return
+    else if (!Array.isArray(document)) {
+      throw new Error(
+        `Generic table plugin cannot be used on document that is not an array! Got document ${JSON.stringify(
+          document
+        )} `
+      )
+    }
     const itemsWithIds = document
       ? Object.values(document)?.map((data, index) => ({
           data,
