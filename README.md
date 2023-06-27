@@ -749,3 +749,18 @@ Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.gi
     * **DMSS VERSION**: e981e99 2023-06-27 Inger..ellen refactor: rename reference to path grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.12
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* feat: enable custom form widgets (#275)
+
+* refactor: remove superfluous widget folders
+
+* refactor: extract widgets from formplugin to file
+
+* refactor: extract getWidget from RegistryContext
+
+* feat: create widget context
+
+* fix: solve ts issues (2023-06-27T08:10:13Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5387638355/1)
+    * **DMSS VERSION**: e981e99 2023-06-27 Inger..ellen refactor: rename reference to path grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.12
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
