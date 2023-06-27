@@ -20,7 +20,10 @@ describe('NumberField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1) // TODO type should be number not text
         expect(screen.getByText('foo')).toBeDefined()
@@ -44,7 +47,7 @@ describe('NumberField', () => {
       ])
       const onSubmit = jest.fn()
       const { container } = render(
-        <Form type="SingleField" onSubmit={onSubmit} />,
+        <Form idReference="ds/$1" type="SingleField" onSubmit={onSubmit} />,
         { wrapper }
       )
       await waitFor(() => {
@@ -80,7 +83,7 @@ describe('NumberField', () => {
         foo: 2,
       }
       const { container } = render(
-        <Form type="SingleField" formData={formData} />,
+        <Form idReference="ds/$1" type="SingleField" formData={formData} />,
         { wrapper }
       )
       await waitFor(() => {
@@ -106,7 +109,10 @@ describe('NumberField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
 
       await waitFor(() => {
         const inputNode: Element | null =
@@ -137,7 +143,12 @@ describe('NumberField', () => {
         },
       ])
       const onSubmit = jest.fn()
-      render(<Form type="SingleField" onSubmit={onSubmit} />, { wrapper })
+      render(
+        <Form idReference="ds/$1" type="SingleField" onSubmit={onSubmit} />,
+        {
+          wrapper,
+        }
+      )
       await waitFor(() => {
         fireEvent.submit(screen.getByTestId('form-submit'))
       })
@@ -162,7 +173,12 @@ describe('NumberField', () => {
         },
       ])
       const onSubmit = jest.fn()
-      render(<Form type="SingleField" onSubmit={onSubmit} />, { wrapper })
+      render(
+        <Form idReference="ds/$1" type="SingleField" onSubmit={onSubmit} />,
+        {
+          wrapper,
+        }
+      )
       fireEvent.submit(screen.getByTestId('form-submit'))
       await waitFor(() => {
         expect(onSubmit).not.toHaveBeenCalled()
@@ -192,7 +208,12 @@ describe('NumberField', () => {
         foo: value,
       }
 
-      render(<Form type="SingleField" formData={formData} />, { wrapper })
+      render(
+        <Form idReference="ds/$1" type="SingleField" formData={formData} />,
+        {
+          wrapper,
+        }
+      )
       await waitFor(() => {
         expect(screen.getByTestId('form-textfield').getAttribute('value')).toBe(
           String(value)

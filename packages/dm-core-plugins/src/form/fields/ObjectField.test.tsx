@@ -42,24 +42,24 @@ const setupSimple = async (props: TFormProps) => {
 }
 
 test('should render two inputs', async () => {
-  const utils = await setupSimple({ type: 'MyBlueprint' })
+  const utils = await setupSimple({ idReference: 'ds/$1', type: 'MyBlueprint' })
   expect(utils.inputs.length).toBe(2)
 })
 
 test('should render a text input with label foo', async () => {
-  const utils = await setupSimple({ type: 'MyBlueprint' })
+  const utils = await setupSimple({ idReference: 'ds/$1', type: 'MyBlueprint' })
   expect(utils.fooInput).toBeDefined()
   expect(utils.fooInput.type).toBe('text')
 })
 
 test('should render a checkbox input with label bar', async () => {
-  const utils = await setupSimple({ type: 'MyBlueprint' })
+  const utils = await setupSimple({ idReference: 'ds/$1', type: 'MyBlueprint' })
   expect(utils.barInput).toBeDefined()
   expect(utils.barInput.type).toBe('checkbox')
 })
 
 test('should show foo before bar by default', async () => {
-  const utils = await setupSimple({ type: 'MyBlueprint' })
+  const utils = await setupSimple({ idReference: 'ds/$1', type: 'MyBlueprint' })
   expect(utils.fooInput.compareDocumentPosition(utils.barInput)).toBe(
     Node.DOCUMENT_POSITION_FOLLOWING
   )
@@ -67,6 +67,7 @@ test('should show foo before bar by default', async () => {
 
 test('should show foo after bar if order states it', async () => {
   const utils = await setupSimple({
+    idReference: 'ds/$1',
     type: 'MyBlueprint',
     config: { attributes: [], order: ['bar', 'foo'] },
   })
@@ -76,25 +77,29 @@ test('should show foo after bar if order states it', async () => {
 })
 
 test('should handle a default object value', async () => {
-  const utils = await setupSimple({ type: 'MyBlueprint' })
+  const utils = await setupSimple({ idReference: 'ds/$1', type: 'MyBlueprint' })
   expect(utils.fooInput.getAttribute('value')).toBe('beep')
   expect(utils.barInput.getAttribute('value')).toBe('false')
 })
 
 test('should handle object fields change events', async () => {
-  const utils = await setupSimple({ type: 'MyBlueprint' })
+  const utils = await setupSimple({ idReference: 'ds/$1', type: 'MyBlueprint' })
   fireEvent.change(utils.fooInput, { target: { value: 'changed' } })
   expect(utils.fooInput.getAttribute('value')).toBe('changed')
 })
 
 test('should render the widget with the expected id', async () => {
-  const utils = await setupSimple({ type: 'MyBlueprint' })
+  const utils = await setupSimple({ idReference: 'ds/$1', type: 'MyBlueprint' })
   expect(utils.fooInput.getAttribute('id')).toBe('foo')
 })
 
 test('should handle submit', async () => {
   const onSubmit = jest.fn()
-  const utils = await setupSimple({ type: 'MyBlueprint', onSubmit: onSubmit })
+  const utils = await setupSimple({
+    idReference: 'ds/$1',
+    type: 'MyBlueprint',
+    onSubmit: onSubmit,
+  })
   await waitFor(() => {
     fireEvent.submit(utils.submit)
     expect(onSubmit).toHaveBeenCalled()
@@ -128,7 +133,7 @@ test('should handle optional', async () => {
       ],
     },
   ])
-  render(<Form type="Parent" />, { wrapper })
+  render(<Form idReference="ds/$1" type="Parent" />, { wrapper })
   await waitFor(() => {
     screen.debug()
     // Show optional in label

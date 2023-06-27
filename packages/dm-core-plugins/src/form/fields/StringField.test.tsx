@@ -34,7 +34,10 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)
         expect(screen.getByText('foo')).toBeDefined()
@@ -54,7 +57,10 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)
         expect(screen.getByText('foo')).toBeDefined()
@@ -76,9 +82,12 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleFieldWithLabel" />, {
-        wrapper,
-      })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleFieldWithLabel" />,
+        {
+          wrapper,
+        }
+      )
       await waitFor(() => {
         expect(container.querySelectorAll(` input[type=text]`).length).toBe(1)
         expect(screen.getByText('Foo')).toBeDefined()
@@ -104,7 +113,7 @@ describe('StringField', () => {
         foo: 'beep',
       }
       const { container } = render(
-        <Form type="SingleField" formData={formData} />,
+        <Form idReference="ds/$1" type="SingleField" formData={formData} />,
         { wrapper }
       )
       await waitFor(() => {
@@ -133,7 +142,7 @@ describe('StringField', () => {
       ])
       const onSubmit = jest.fn()
       const { container } = render(
-        <Form type="SingleField" onSubmit={onSubmit} />,
+        <Form idReference="ds/$1" type="SingleField" onSubmit={onSubmit} />,
         { wrapper }
       )
       await waitFor(() => {
@@ -165,7 +174,10 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
 
       await waitFor(() => {
         const inputNode: Element | null =
@@ -194,7 +206,10 @@ describe('StringField', () => {
           ],
         },
       ])
-      const { container } = render(<Form type="SingleField" />, { wrapper })
+      const { container } = render(
+        <Form idReference="ds/$1" type="SingleField" />,
+        { wrapper }
+      )
       await waitFor(() => {
         const inputNode: Element | null =
           container.querySelector(` input[id="foo"]`)
@@ -219,7 +234,7 @@ describe('StringField', () => {
           ],
         },
       ])
-      render(<Form type="SingleField" />, { wrapper })
+      render(<Form idReference="ds/$1" type="SingleField" />, { wrapper })
 
       waitFor(async () => {
         userEvent.type(screen.getByTestId('form-textfield'), 'foobar')
@@ -250,7 +265,12 @@ describe('StringField', () => {
         foo: value,
       }
 
-      render(<Form type="SingleField" formData={formData} />, { wrapper })
+      render(
+        <Form idReference="ds/$1" type="SingleField" formData={formData} />,
+        {
+          wrapper,
+        }
+      )
       await waitFor(() => {
         expect(screen.getByTestId('form-textfield').getAttribute('value')).toBe(
           value
@@ -297,7 +317,12 @@ describe('StringField', () => {
       const onSubmit = jest.fn()
       const formData = {}
       render(
-        <Form type="SingleField" formData={formData} onSubmit={onSubmit} />,
+        <Form
+          idReference="ds/$1"
+          type="SingleField"
+          formData={formData}
+          onSubmit={onSubmit}
+        />,
         { wrapper }
       )
       await waitFor(() => {
@@ -325,7 +350,12 @@ describe('StringField', () => {
       const onSubmit = jest.fn()
       const formData = {}
       render(
-        <Form type="SingleField" formData={formData} onSubmit={onSubmit} />,
+        <Form
+          idReference="ds/$1"
+          type="SingleField"
+          formData={formData}
+          onSubmit={onSubmit}
+        />,
         { wrapper }
       )
       fireEvent.submit(screen.getByTestId('form-submit'))
@@ -353,7 +383,12 @@ describe('StringField', () => {
         },
       ])
       const onSubmit = jest.fn()
-      render(<Form type="SingleField" onSubmit={onSubmit} />, { wrapper })
+      render(
+        <Form idReference="ds/$1" type="SingleField" onSubmit={onSubmit} />,
+        {
+          wrapper,
+        }
+      )
       fireEvent.submit(screen.getByRole('button'))
       await waitFor(() => {
         expect(onSubmit).not.toHaveBeenCalled()
