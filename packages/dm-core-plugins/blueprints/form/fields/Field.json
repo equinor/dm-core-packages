@@ -1,4 +1,11 @@
 {
   "name": "Field",
-  "type": "dmss://system/SIMOS/Blueprint"
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "widget",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
 }
