@@ -1,12 +1,7 @@
 {
   "type": "CORE:Blueprint",
-  "name": "GenericTablePluginConfig",
+  "name": "TablePluginConfig",
   "attributes": [
-    {
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
-      "name": "type"
-    },
     {
       "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
@@ -26,11 +21,20 @@
       "dimensions": "*"
     },
     {
-      "attributeType": "./FunctionalityConfig.json",
+      "attributeType": "./TableFunctionalityConfig.json",
       "type": "CORE:BlueprintAttribute",
       "name": "functionality",
       "description": "Table functionality config",
-      "optional": true
+      "optional": true,
+      "default": {
+        "type": "./TableFunctionalityConfig",
+        "openAsTab": true,
+        "openAsExpandable": false,
+        "save": false,
+        "delete": false,
+        "edit": false,
+        "sort": false
+      }
     }
   ]
 }
