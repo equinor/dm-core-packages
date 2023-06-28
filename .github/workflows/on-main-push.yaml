@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - release
 
 jobs:
   tests:
@@ -20,8 +21,13 @@ jobs:
       dm_cli_version: ${{ needs.integration-tests.outputs.dm_cli_version }}
       job_version: ${{ needs.integration-tests.outputs.job_version }}
 
+  release-please:
+    needs: tests
+    uses: ./.github/workflows/create-release-pr.yaml
+
   publish-packages:
-    needs: [tests]
+    needs: release-please
+    if: ${{ needs.release-please.outputs.releases_created }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,21 +40,7 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Check if new version
-        id: check-version
-        run: |
-          echo "NEW_VERSION=false" >> $GITHUB_OUTPUT
-          cd packages/${{ matrix.package }}
-          PACKAGE_VERSION=$(cat package.json | jq '.["version"]' | tr -d '"')
-          PACKAGE_NAME=$(cat package.json | jq '.["name"]' | tr -d '"')
-
-          VERSION_EXISTS=$(curl --HEAD --output /dev/null --silent -w "%{http_code}" https://registry.npmjs.org/$PACKAGE_NAME/$PACKAGE_VERSION)
-          if [[ $VERSION_EXISTS == 404 ]]; then
-            echo "NEW_VERSION=true" >> $GITHUB_OUTPUT
-          fi
-
       - name: Create package distribution and publish
-        if: steps.check-version.outputs.NEW_VERSION == 'true'
         run: |
           yarn install
           yarn build:packages
