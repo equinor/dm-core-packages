@@ -10,11 +10,11 @@
   "packages": {
     "packages/dm-core": {
       "package-name": "@development-framework/dm-core",
-      "release-as": "0.1.0"
+      "release-as": "1.1.0"
     },
     "packages/dm-core-plugins": {
       "package-name": "@development-framework/dm-core-plugins",
-      "release-as": "0.1.0"
+      "release-as": "1.1.0"
     }
   }
 }
