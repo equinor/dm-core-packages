@@ -1,4 +1,4 @@
-import { TViewConfig } from '@development-framework/dm-core'
+import { TGenericObject, TViewConfig } from '@development-framework/dm-core'
 
 export type TTablePluginConfig = {
   editMode: boolean
@@ -36,7 +36,7 @@ export const defaultConfig: TTablePluginConfig = {
 
 export type TTableItemRow = {
   key: string
-  data: any
+  data: TGenericObject
   index: number
   expanded: boolean
   isSaved: boolean

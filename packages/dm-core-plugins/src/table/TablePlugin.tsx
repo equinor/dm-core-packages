@@ -94,7 +94,7 @@ export const TablePlugin = (props: IUIPlugin) => {
           {
             key: crypto.randomUUID(),
             data: newEntity.data,
-            index: Object.keys(items).length,
+            index: items?.length,
             expanded: false,
             isSaved: false,
           },
@@ -247,7 +247,7 @@ export const TablePlugin = (props: IUIPlugin) => {
                         color="danger"
                         variant="ghost_icon"
                         onClick={() =>
-                          deleteItem(`${idReference}.${index}`, item.key)
+                          deleteItem(`${idReference}[${index}]`, item.key)
                         }
                       >
                         <Icon data={delete_to_trash} aria-hidden />

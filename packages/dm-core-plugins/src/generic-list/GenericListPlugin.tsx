@@ -117,7 +117,6 @@ export const GenericListPlugin = (
         entity: { type: type },
       })
       .then((newEntity: AxiosResponse<object, TGenericObject>) => {
-        console.log('created', newEntity)
         setItems([
           ...items,
           {
