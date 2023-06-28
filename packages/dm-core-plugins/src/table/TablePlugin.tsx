@@ -28,16 +28,16 @@ import {
 import { AxiosError, AxiosResponse } from 'axios'
 import { SaveButton } from '../generic-list/Components'
 import { moveItem } from '../generic-list/utils'
-import { ITableItemRow, TTablePlugin, defaultConfig } from './types'
+import { TTableItemRow, TTablePluginConfig, defaultConfig } from './types'
 
 export const TablePlugin = (props: IUIPlugin) => {
   const { idReference, type, onOpen = () => null } = props
-  const config: TTablePlugin = { ...defaultConfig, ...props.config }
+  const config: TTablePluginConfig = { ...defaultConfig, ...props.config }
   const functionality = {
     ...defaultConfig.functionality,
     ...props.config.functionality,
   }
-  const [items, setItems] = useState<ITableItemRow[]>([])
+  const [items, setItems] = useState<TTableItemRow[]>([])
   const [isSaveLoading, setIsSaveLoading] = useState<boolean>(false)
   const [dirtyState, setDirtyState] = useState<boolean>(false)
   const [paginationPage, setPaginationPage] = useState<number>(0)
@@ -119,7 +119,7 @@ export const TablePlugin = (props: IUIPlugin) => {
         data: JSON.stringify(payload),
       })
       .then(() => {
-        const updatedItems: ITableItemRow[] = items.map((item) => {
+        const updatedItems: TTableItemRow[] = items.map((item) => {
           return { ...item, isSaved: true }
         })
         setItems(updatedItems)

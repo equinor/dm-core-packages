@@ -1,6 +1,6 @@
-import { IUIPlugin, TViewConfig } from '@development-framework/dm-core'
+import { TViewConfig } from '@development-framework/dm-core'
 
-export type TTablePlugin = {
+export type TTablePluginConfig = {
   editMode: boolean
   columns: string[]
   showDelete: boolean
@@ -17,7 +17,7 @@ export type TTablePlugin = {
   views: TViewConfig[]
 }
 
-export const defaultConfig: TTablePlugin = {
+export const defaultConfig: TTablePluginConfig = {
   editMode: true,
   columns: ['name', 'type'],
   showDelete: true,
@@ -34,14 +34,10 @@ export const defaultConfig: TTablePlugin = {
   views: [],
 }
 
-export type ITableItemRow = {
+export type TTableItemRow = {
   key: string
   data: any
   index: number
   expanded: boolean
   isSaved: boolean
 }
-
-export type TablePluginProps = {
-  config?: TTablePlugin
-} & IUIPlugin
