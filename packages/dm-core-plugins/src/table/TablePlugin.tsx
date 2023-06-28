@@ -6,65 +6,33 @@ import {
   Pagination,
   Stack,
   TGenericObject,
-  TViewConfig,
   ViewCreator,
   useDMSS,
   useDocument,
 } from '@development-framework/dm-core'
-import { Button, Icon, Input, Table, Tooltip } from '@equinor/eds-core-react'
-import { add, minimize } from '@equinor/eds-icons'
+import {
+  Button,
+  EdsProvider,
+  Icon,
+  Input,
+  Table,
+  Tooltip,
+} from '@equinor/eds-core-react'
+import {
+  add,
+  chevron_down,
+  chevron_up,
+  delete_to_trash,
+  minimize,
+} from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ListItemButton, SaveButton } from './Components'
-import { moveItem } from './utils'
+import { SaveButton } from '../generic-list/Components'
+import { moveItem } from '../generic-list/utils'
+import { ITableItemRow, TTablePlugin, defaultConfig } from './types'
 
-type TGenericTablePlugin = {
-  editMode: boolean
-  columns: string[]
-  showDelete: boolean
-  editableColumns?: string[]
-  functionality: {
-    openAsTab: boolean
-    openAsExpandable: boolean
-    add: boolean
-    sort: boolean
-    edit: boolean
-    delete: boolean
-  }
-  defaultView: TViewConfig
-  views: TViewConfig[]
-}
-const defaultConfig: TGenericTablePlugin = {
-  editMode: true,
-  columns: ['name', 'type'],
-  showDelete: true,
-  editableColumns: [],
-  functionality: {
-    openAsTab: true,
-    openAsExpandable: false,
-    add: false,
-    sort: false,
-    edit: false,
-    delete: false,
-  },
-  defaultView: { type: 'ViewConfig', scope: 'self' },
-  views: [],
-}
-
-type ITableItemRow = {
-  key: string
-  data: any
-  index: number
-  expanded: boolean
-  isSaved: boolean
-}
-
-type GenericTablePluginProps = {
-  config?: TGenericTablePlugin
-} & IUIPlugin
-
-export const GenericTablePlugin = (props: GenericTablePluginProps) => {
+export const TablePlugin = (props: IUIPlugin) => {
   const { idReference, type, onOpen = () => null } = props
-  const config = { ...defaultConfig, ...props.config }
+  const config: TTablePlugin = { ...defaultConfig, ...props.config }
   const functionality = {
     ...defaultConfig.functionality,
     ...props.config.functionality,
@@ -72,7 +40,7 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
   const [items, setItems] = useState<ITableItemRow[]>([])
   const [isSaveLoading, setIsSaveLoading] = useState<boolean>(false)
   const [dirtyState, setDirtyState] = useState<boolean>(false)
-  const [paginationPage, setPaginationPage] = useState(0)
+  const [paginationPage, setPaginationPage] = useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [document, loading, , error] = useDocument<TGenericObject[]>(
     idReference,
@@ -264,42 +232,53 @@ export const GenericTablePlugin = (props: GenericTablePluginProps) => {
                     </Table.Cell>
                   )
                 })}
-
-                {functionality?.delete && (
-                  <Table.Cell style={{ textAlign: 'center' }}>
-                    <ListItemButton
-                      type="delete"
-                      onClick={() =>
-                        deleteItem(`${idReference}.${index}`, item.key)
-                      }
-                    />
-                  </Table.Cell>
-                )}
-                {functionality?.sort && (
-                  <Table.Cell style={{ width: '48px' }}>
-                    <>
-                      <ListItemButton
-                        type="up"
-                        disabled={index === 0}
-                        onClick={() => {
-                          setItems(moveItem(items, item.key, 'up'))
-                          setDirtyState(true)
-                        }}
-                      />
-                      <ListItemButton
-                        type="down"
-                        disabled={
-                          index === rowsPerPage - 1 ||
-                          index === items?.length - 1
+                <EdsProvider density="compact">
+                  {functionality?.delete && (
+                    <Table.Cell style={{ textAlign: 'center' }}>
+                      <Button
+                        title="Delete row"
+                        color="danger"
+                        variant="ghost_icon"
+                        onClick={() =>
+                          deleteItem(`${idReference}.${index}`, item.key)
                         }
-                        onClick={() => {
-                          setItems(moveItem(items, item.key, 'down'))
-                          setDirtyState(true)
-                        }}
-                      />
-                    </>
-                  </Table.Cell>
-                )}
+                      >
+                        <Icon data={delete_to_trash} aria-hidden />
+                      </Button>
+                    </Table.Cell>
+                  )}
+                  {functionality?.sort && (
+                    <Table.Cell style={{ width: '48px' }}>
+                      <>
+                        <Button
+                          title="Move row up"
+                          disabled={index === 0}
+                          variant="ghost_icon"
+                          onClick={() => {
+                            setItems(moveItem(items, item.key, 'up'))
+                            setDirtyState(true)
+                          }}
+                        >
+                          <Icon data={chevron_up} aria-hidden />
+                        </Button>
+                        <Button
+                          title="Move row down"
+                          disabled={
+                            index === rowsPerPage - 1 ||
+                            index === items?.length - 1
+                          }
+                          variant="ghost_icon"
+                          onClick={() => {
+                            setItems(moveItem(items, item.key, 'down'))
+                            setDirtyState(true)
+                          }}
+                        >
+                          <Icon data={chevron_down} aria-hidden />
+                        </Button>
+                      </>
+                    </Table.Cell>
+                  )}
+                </EdsProvider>
               </Table.Row>
               {item?.expanded && (
                 <Table.Row>
