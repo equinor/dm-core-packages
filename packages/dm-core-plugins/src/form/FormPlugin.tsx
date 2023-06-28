@@ -4,7 +4,7 @@ import { IUIPlugin, Loading, useDocument } from '@development-framework/dm-core'
 import { Form } from './Form'
 import { TConfig } from './types'
 
-const defaultConfig: TConfig = {
+export const defaultConfig: TConfig = {
   attributes: [],
   order: [],
 }

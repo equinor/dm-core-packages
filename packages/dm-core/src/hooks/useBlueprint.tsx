@@ -49,7 +49,7 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
         setInitialUiRecipe(response.data.initialUiRecipe)
-        setUiRecipes(response.data.uiRecipes)
+        setUiRecipes(response.data.uiRecipes ?? [])
         setError(null)
       })
       .catch((error: AxiosError<ErrorResponse>) =>

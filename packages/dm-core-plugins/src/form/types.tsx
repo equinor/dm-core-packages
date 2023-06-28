@@ -1,4 +1,8 @@
-import { TViewConfig } from '@development-framework/dm-core'
+import {
+  TBlueprint,
+  TUiRecipe,
+  TViewConfig,
+} from '@development-framework/dm-core'
 
 export type TFormProps = {
   idReference: string
@@ -19,10 +23,22 @@ export type TObjectFieldProps = {
   uiRecipeName?: string
   uiAttribute?: any
 }
+
+export type TContentProps = {
+  type: string
+  namePath: string
+  displayLabel: string
+  optional: boolean
+  contained: boolean
+  config: TConfig | undefined
+  blueprint: TBlueprint | undefined
+  uiRecipe: TUiRecipeForm | undefined
+}
+
 export type TAttributeFieldProps = {
   namePath: string
   attribute: any
-  uiAttribute?: any
+  uiAttribute?: TAttributeConfig
 }
 
 export type TStringFieldProps = {
@@ -55,11 +71,13 @@ type TAttributeBasis = {
 type TAttributeString = TAttributeBasis & { format: string }
 type TAttributeArray = TAttributeBasis & { columns: string[] }
 type TAttributeObject = TAttributeBasis
-type TAttribute = TAttributeArray | TAttributeObject | TAttributeString
+type TAttributeConfig = TAttributeArray | TAttributeObject | TAttributeString
 export type TConfig = {
-  attributes: TAttribute[]
+  attributes: TAttributeConfig[]
   order: string[]
 }
+
+export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & { config: TConfig }
 
 export declare type Variants = 'error' | 'success' | 'warning'
 
