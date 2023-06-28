@@ -3,25 +3,31 @@ on:
   push:
     branches:
       - main
+      - release
 
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
 
-  integration-tests:
-    uses: ./.github/workflows/integration-tests.yaml
+  #integration-tests:
+  #  uses: ./.github/workflows/integration-tests.yaml
 
-  publish-integration-tests-report:
-    needs: integration-tests
-    if: ${{ ! cancelled() }}
-    uses: ./.github/workflows/publish-integration-tests-report.yaml
-    with:
-      dmss_version: ${{ needs.integration-tests.outputs.dmss_version }}
-      dm_cli_version: ${{ needs.integration-tests.outputs.dm_cli_version }}
-      job_version: ${{ needs.integration-tests.outputs.job_version }}
+  #publish-integration-tests-report:
+  #  needs: integration-tests
+  #  if: ${{ ! cancelled() }}
+  #  uses: ./.github/workflows/publish-integration-tests-report.yaml
+  #  with:
+  #    dmss_version: ${{ needs.integration-tests.outputs.dmss_version }}
+  #    dm_cli_version: ${{ needs.integration-tests.outputs.dm_cli_version }}
+  #    job_version: ${{ needs.integration-tests.outputs.job_version }}
+
+  release-please:
+    needs: tests
+    uses: ./.github/workflows/create-release-pr.yaml
 
   publish-packages:
-    needs: [tests]
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
