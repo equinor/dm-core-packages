@@ -1,12 +1,14 @@
-import { useContext, useEffect, useState } from 'react'
-import { ApplicationContext } from '../context/ApplicationContext'
-import { ErrorResponse } from '../services'
 import { AxiosError } from 'axios'
+import { useContext, useEffect, useState } from 'react'
+import { TBlueprint } from 'src/domain/types'
+import { TUiRecipe } from 'src/types'
+import { ApplicationContext } from '../context/ApplicationContext'
 import { useDMSS } from '../context/DMSSContext'
+import { ErrorResponse } from '../services'
 interface IUseBlueprint {
-  blueprint: any
-  initialUiRecipe: any
-  uiRecipes: any[]
+  blueprint: TBlueprint | undefined
+  initialUiRecipe: TUiRecipe | undefined
+  uiRecipes: TUiRecipe[]
   isLoading: boolean
   error: ErrorResponse | null
 }
@@ -33,9 +35,9 @@ interface IUseBlueprint {
  * @returns A list containing the blueprint document, a boolean representing the loading state, and an Error, if any.
  */
 export const useBlueprint = (typeRef: string): IUseBlueprint => {
-  const [blueprint, setBlueprint] = useState<any | null>(null)
-  const [uiRecipes, setUiRecipes] = useState<any[]>([])
-  const [initialUiRecipe, setInitialUiRecipe] = useState<any>()
+  const [blueprint, setBlueprint] = useState<TBlueprint>()
+  const [uiRecipes, setUiRecipes] = useState<TUiRecipe[]>([])
+  const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
   const { name } = useContext(ApplicationContext)
