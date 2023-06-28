@@ -6,12 +6,20 @@
     {
       "name": "Table Edit",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/generic-table",
+      "plugin": "@development-framework/dm-core-plugins/table",
       "dimensions": "*",
       "config": {
-        "type": "PLUGINS:dm-core-plugins/generic-list/GenericTablePluginConfig",
+        "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
         "columns": ["A", "T", "phase"],
-        "showDelete": true
+        "editableColumns": ["A", "T", "phase"],
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+          "openAsTab": false,
+          "delete": true,
+          "add": true,
+          "edit": true,
+          "sort": true
+        }
       }
     }
   ]
