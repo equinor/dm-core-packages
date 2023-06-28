@@ -1,0 +1,50 @@
+name: "Create release-please PR"
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    outputs:
+      release_created:
+        description: "If true, a release PR has been merged"
+        value: ${{ jobs.release-please.outputs.release_created }}
+      tag_name:
+        description: "The release tag. Ex v1.4.0"
+        value: ${{ jobs.release-please.outputs.tag_name }}
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          command: manifest
+          token: ${{ secrets.GITHUB_TOKEN }}
+          default-branch: release
+          changelog-types: >
+            [
+               { "type": "feat", "section": "Features", "hidden": false },
+               { "type": "feature", "section": "Features", "hidden": false},
+               { "type": "fix", "section": "Bug Fixes", "hidden": false },
+               { "type": "perf", "section": "Performance Improvements", "hidden": false },
+               { "type": "revert", "section": "Reverts", "hidden": false },
+               { "type": "docs", "section": "Documentation", "hidden": false },
+               { "type": "style", "section": "Styles", "hidden": false },
+               { "type": "chore", "section": "Miscellaneous Chores", "hidden": false },
+               { "type": "refactor", "section": "Code Refactoring", "hidden": false },
+               { "type": "test", "section": "Tests", "hidden": false },
+               { "type": "build", "section": "Build System", "hidden": false },
+               { "type": "ci", "section": "Continuous Integration", "hidden": false }
+            ]
+      # true for single package
+      - name: Echo release_created
+        run: echo "${{ steps.release.outputs.release_created }}"
+
+      # true for multiple packages
+      - name: Echo releases_created
+        run: echo "${{ steps.release.outputs.releases_created }}"
+
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+
