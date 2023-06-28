@@ -40,15 +40,11 @@
 
 ## Running (Windows)
 
-1. Open Powershell and navigate to dm-core-packages/example.
-2. Make sure docker engine is running, then run these commands
-   - `yarn install`
-   - `docker-compose down --volumes`
-   - `docker-compose pull`
-   - `docker-compose up -d`
-   - `docker-compose run --rm dmss reset-app` (This fails sometimes, try again if it fails. )
-   - `docker compose run --rm job-api dm -u http://dmss:5000 reset ../app`
-   
+1. Open Powershell and navigate to dm-core-packages and run `yarn install`. 
+2. Navigate to dm-core-packages/example. Make sure docker engine is running, then run these commands: 
+   - `docker-compose down && docker-compose pull && docker-compose up -d`
+   - `docker-compose run --rm dmss reset-app`
+   - `docker-compose run --rm job-api dm -u http://dmss:5000 reset ../app`
 3. Download and open WSL (windows subsystem for linux) terminal and navigate to c disk using the command: `cd /mnt/c`. 
    1. A useful tip is to download 'Windows Terminal' from the App Store, which is a useful terminal for switching between WSL (Ubuntu) and powershell. 
 4. Make sure you have pip and venv installed in the WSL (Ubuntu) system. 
