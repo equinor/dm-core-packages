@@ -12,8 +12,5 @@
     "clear-external-pckgs": "rm -rf node_modules && rm -rf packages/dm-core/node_modules && rm -rf packages/dm-core-plugins/node_modules && rm -rf example/node_modules && rm yarn.lock",
     "build:packages": "yarn workspace @development-framework/dm-core build && yarn workspace @development-framework/dm-core-plugins build",
     "test:packages": "yarn workspace @development-framework/dm-core test && yarn workspace @development-framework/dm-core-plugins test"
-  },
-  "dependencies": {
-    "prettier": "^3.0.0-alpha.6"
   }
 }
