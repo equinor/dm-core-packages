@@ -307,19 +307,11 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
         defaultValue={initialValue}
         render={({
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          field: { ref, onChange, value },
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          fieldState: { invalid, error },
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          formState,
+          field: { onChange, value },
         }) => {
           // Note: address using path does not work.
           // The address needs to use data source ID.
           const id = `${dataSourceId}/${value?.address}`
-
-          const handleSubmit = (formData: any) => {
-            setValue(namePath, formData)
-          }
 
           if (value && value.address && value.referenceType === 'link') {
             return (
@@ -350,10 +342,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
                         type={type}
                         namePath={namePath}
                         contained={contained}
-                        dataSourceId={dataSourceId}
                         idReference={id}
-                        onOpen={onOpen}
-                        onSubmit={handleSubmit}
                       />
                     )}
                   </Stack>
