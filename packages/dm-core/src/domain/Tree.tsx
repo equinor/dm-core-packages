@@ -44,7 +44,13 @@ const createContainedChildren = (
     if (!attribute) return false // If no attribute, there likely where some invalid keys. Ignore those
     // Skip adding nodes for primitives
     if (!['string', 'number', 'boolean'].includes(attribute.attributeType)) {
-      const childNodeId = `${parentNode.nodeId}.${key}`
+      let childNodeId: string
+      if (Number.isInteger(Number(key))) {
+        // For arrays, bracket syntax is used to construct the node id: [key]
+        childNodeId = `${parentNode.nodeId}[${key}]`
+      } else {
+        childNodeId = `${parentNode.nodeId}.${key}`
+      }
       newChildren[childNodeId] = new TreeNode(
         parentNode.tree,
         childNodeId,
@@ -179,9 +185,10 @@ export class TreeNode {
     this.isDataSource = isDataSource
     this.entity = entity
     this.name = name || entity?.name
-    this.type = Object.keys(entity).length
-      ? entity.type
-      : attribute.attributeType
+    this.type =
+      entity && Object.hasOwn(entity, 'type')
+        ? entity.type
+        : attribute.attributeType
     this.attribute = attribute
     this.children = children
   }
@@ -214,7 +221,9 @@ export class TreeNode {
       return (async () => {
         if (!this.isDataSource) {
           const parentBlueprint: TBlueprint = await this.tree.dmssApi
-            .blueprintGet({ typeRef: this.type })
+            .blueprintGet({
+              typeRef: this.type,
+            })
             .then((response: any) => response.data.blueprint)
           this.tree.dmssApi
             .documentGet({
