@@ -49,7 +49,7 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   useEffect(() => {
     dmssAPI
       .attributeGet({
-        reference: reference,
+        address: reference,
       })
       .then((response: AxiosResponse) => {
         setAttribute(response.data)

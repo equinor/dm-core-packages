@@ -21,7 +21,7 @@ export const JobHandlerPicker = (props: {
   const handleChange = (blueprintId: string) => {
     dmssAPI
       .blueprintResolve({
-        absoluteId: `WorkflowDS/${blueprintId}`,
+        address: `WorkflowDS/${blueprintId}`,
       })
       .then((response: any) => {
         onChange(response.data)

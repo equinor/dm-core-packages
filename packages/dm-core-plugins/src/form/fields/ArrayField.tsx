@@ -34,7 +34,7 @@ export default function Fields(props: any) {
         const data = JSON.stringify([...fields, newEntity.data])
         dmssAPI
           .documentUpdate({
-            idReference: `${idReference}.${namePath}`,
+            idAddress: `${idReference}.${namePath}`,
             data: data,
             updateUncontained: false,
           })
