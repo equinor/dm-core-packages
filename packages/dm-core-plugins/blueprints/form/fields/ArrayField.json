@@ -4,6 +4,18 @@
   "extends": ["PLUGINS:dm-core-plugins/form/fields/Field"],
   "attributes": [
     {
+      "name": "widget",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true,
+      "attributeType": "string"
+    },
+    {
+      "name": "plugin",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true,
+      "attributeType": "string"
+    },
+    {
       "name": "columns",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "string",

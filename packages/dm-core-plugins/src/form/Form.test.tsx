@@ -114,6 +114,7 @@ describe('Form', () => {
       const config = {
         attributes: [
           {
+            type: 'PLUGINS:dm-core-plugins/form/fields/StringField',
             name: 'foo',
             widget: 'TextWidget', // TODO TextareaWidget is not implemented it seems like...
           },

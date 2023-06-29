@@ -1,13 +1,13 @@
 import React from 'react'
 
+import { TAttributeFieldProps } from '../types'
+import { isArray, isPrimitive } from '../utils'
 import ArrayField from './ArrayField'
+import { BinaryField } from './BinaryField'
+import { BooleanField } from './BooleanField'
+import { NumberField } from './NumberField'
 import { ObjectField } from './ObjectField'
 import { StringField } from './StringField'
-import { isArray, isPrimitive } from '../utils'
-import { BooleanField } from './BooleanField'
-import { TAttributeFieldProps } from '../types'
-import { NumberField } from './NumberField'
-import { BinaryField } from './BinaryField'
 
 const getFieldType = (attribute: any) => {
   const { attributeType, dimensions } = attribute
@@ -63,7 +63,13 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           contained={attribute.contained}
           type={attribute.attributeType}
           optional={attribute.optional}
-          uiRecipeName={uiAttribute && uiAttribute.uiRecipe}
+          uiRecipeName={
+            uiAttribute &&
+            'uiRecipe' in uiAttribute &&
+            typeof uiAttribute.uiRecipe == 'string'
+              ? uiAttribute.uiRecipe
+              : undefined
+          }
           uiAttribute={uiAttribute}
         />
       )

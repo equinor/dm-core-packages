@@ -1,24 +1,32 @@
 import {
+  EBlueprint,
   EntityPickerButton,
   EntityView,
   ErrorResponse,
   Loading,
   NewEntityButton,
+  Stack,
+  TAttribute,
+  TBlueprint,
+  TGenericObject,
   TLinkReference,
   useBlueprint,
   useDMSS,
-  Stack,
-  TGenericObject,
-  EBlueprint,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { defaultConfig } from '../FormPlugin'
 import { useRegistryContext } from '../RegistryContext'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { getWidget } from '../context/WidgetContext'
-import { TObjectFieldProps } from '../types'
+import {
+  TConfig,
+  TContentProps,
+  TObjectFieldProps,
+  TUiRecipeForm,
+} from '../types'
 import { AttributeField } from './AttributeField'
 
 const AddUncontained = (props: {
@@ -52,7 +60,12 @@ const AddUncontained = (props: {
   )
 }
 
-const AddObject = (props: any) => {
+const AddObject = (props: {
+  type: string
+  namePath: string
+  onAdd: () => void
+  idReference: string
+}) => {
   const { type, namePath, onAdd, idReference } = props
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
@@ -95,7 +108,7 @@ const AddObject = (props: any) => {
   )
 }
 
-const RemoveObject = (props: any) => {
+const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
   const { namePath, onRemove } = props
   const { setValue } = useFormContext()
 
@@ -121,10 +134,7 @@ const RemoveObject = (props: any) => {
   )
 }
 
-export const orderAttributes = (
-  attributes: string[],
-  order: string[] | null
-) => {
+const orderAttributes = (attributes: string[], order: string[] | undefined) => {
   if (order == null || order.length == 0) {
     return attributes
   }
@@ -147,31 +157,26 @@ export const orderAttributes = (
   return complete
 }
 
-const AttributeList = (props: any) => {
+const AttributeList = (props: {
+  namePath: string
+  config: TConfig | undefined
+  blueprint: TBlueprint | undefined
+}) => {
   const { namePath, config, blueprint } = props
 
   const prefix = namePath === '' ? `` : `${namePath}.`
 
-  const attributeNames = blueprint.attributes.map(
-    (attribute: any) => attribute.name
-  )
-  const orderedAttributesNames = orderAttributes(
-    attributeNames,
-    (config && config.order) || null
-  )
+  const attributes = blueprint?.attributes ?? []
+  const attributeNames = attributes.map((attribute) => attribute.name)
+  const orderedAttributesNames = orderAttributes(attributeNames, config?.order)
 
-  const attributeFields =
-    blueprint &&
-    orderedAttributesNames.map((attributeName: any) => {
-      const attribute = blueprint.attributes.find(
-        (attribute: any) => attribute.name == attributeName
+  const attributeFields = orderedAttributesNames
+    .map((name: string) => attributes.find((x) => x.name == name))
+    .filter((attribute): attribute is TAttribute => !!attribute)
+    .map((attribute) => {
+      const uiAttribute = config?.attributes.find(
+        (uiAttribute: any) => uiAttribute.name === attribute.name
       )
-      const uiAttribute =
-        config &&
-        config.attributes &&
-        config.attributes.find(
-          (uiAttribute: any) => uiAttribute.name === attribute.name
-        )
       return (
         <AttributeField
           key={`${prefix}${attribute.name}`}
@@ -185,7 +190,12 @@ const AttributeList = (props: any) => {
   return <Stack spacing={1}>{attributeFields}</Stack>
 }
 
-const External = (props: any) => {
+const External = (props: {
+  type: string
+  namePath: string
+  contained: boolean
+  idReference: string
+}) => {
   const { type, namePath, contained = true, idReference } = props
 
   const { onOpen } = useRegistryContext()
@@ -200,13 +210,12 @@ const External = (props: any) => {
   )
 }
 
-export const ContainedAttribute = (props: any): JSX.Element => {
+export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const {
     type,
     namePath,
     displayLabel = '',
     optional = false,
-    contained = true,
     config,
     uiRecipe,
     blueprint,
@@ -232,7 +241,6 @@ export const ContainedAttribute = (props: any): JSX.Element => {
         {!isDefined && (
           <AddObject
             idReference={idReference}
-            contained={contained}
             namePath={namePath}
             type={type}
             onAdd={() => setIsDefined(true)}
@@ -255,7 +263,6 @@ export const ContainedAttribute = (props: any): JSX.Element => {
           {!isRoot && optional && (
             <RemoveObject
               namePath={namePath}
-              type={type}
               onRemove={() => {
                 const options = {
                   shouldValidate: false,
@@ -270,7 +277,7 @@ export const ContainedAttribute = (props: any): JSX.Element => {
             <External {...props} idReference={idReference} />
           )}
           {(isRoot ||
-            uiRecipe === null ||
+            uiRecipe === undefined ||
             (uiRecipe && uiRecipe.plugin === 'form')) && (
             <AttributeList
               namePath={namePath}
@@ -284,7 +291,7 @@ export const ContainedAttribute = (props: any): JSX.Element => {
   )
 }
 
-export const UncontainedAttribute = (props: any): JSX.Element => {
+export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   const { type, namePath, displayLabel = '', contained = false } = props
   const { getValues, control, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
@@ -300,19 +307,11 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
         defaultValue={initialValue}
         render={({
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          field: { ref, onChange, value },
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          fieldState: { invalid, error },
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          formState,
+          field: { onChange, value },
         }) => {
           // Note: address using path does not work.
           // The address needs to use data source ID.
           const id = `${dataSourceId}/${value?.address}`
-
-          const handleSubmit = (formData: any) => {
-            setValue(namePath, formData)
-          }
 
           if (value && value.address && value.referenceType === 'link') {
             return (
@@ -343,10 +342,7 @@ export const UncontainedAttribute = (props: any): JSX.Element => {
                         type={type}
                         namePath={namePath}
                         contained={contained}
-                        dataSourceId={dataSourceId}
                         idReference={id}
-                        onOpen={onOpen}
-                        onSubmit={handleSubmit}
                       />
                     )}
                   </Stack>
@@ -421,9 +417,9 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
 
   // The root object uses the ui recipe config that is passed into the ui plugin,
   // the nested objects uses ui recipes names that are passed down from parent configs.
-  const uiRecipe = uiRecipeName
-    ? uiRecipes.find((uiRecipe: any) => uiRecipe.name === uiRecipeName)
-    : null
+  const uiRecipe: TUiRecipeForm | undefined = uiRecipes
+    .map((x) => ({ ...x, config: { ...defaultConfig, ...x.config } }))
+    .find((uiRecipe) => uiRecipe.name === uiRecipeName)
 
   const Content = contained ? ContainedAttribute : UncontainedAttribute
   return (
