@@ -3,8 +3,15 @@
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
-      "name": "widget",
+      "name": "name",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": false,
+      "attributeType": "string"
+    },
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": false,
       "attributeType": "string"
     }
   ]

@@ -66,11 +66,18 @@ export type TBooleanFieldProps = {
 
 type TAttributeBasis = {
   name: string
-  widget: string
+  type: string
 }
-type TAttributeString = TAttributeBasis & { format: string }
-type TAttributeArray = TAttributeBasis & { columns: string[] }
-type TAttributeObject = TAttributeBasis
+type TAttributeString = TAttributeBasis & { widget: string; format: string }
+type TAttributeArray = TAttributeBasis & {
+  widget?: string
+  plugin?: string
+  columns: string[]
+}
+type TAttributeObject = TAttributeBasis & {
+  widget?: string
+  plugin?: string
+}
 type TAttributeConfig = TAttributeArray | TAttributeObject | TAttributeString
 export type TConfig = {
   attributes: TAttributeConfig[]
