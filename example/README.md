@@ -64,7 +64,7 @@
    ```
    pip install dm-cli &&
    dm reset app &&
-   dm import-plugin-blueprints node_modules/@development-framework/dm-core-plugins &&
+   dm import-plugin-blueprints ../node_modules/@development-framework/dm-core-plugins &&
    dm create-lookup example DemoDataSource/recipes
    ```
 7. Go back to the Powershell terminal and navigate to root in `dm-core-packages/` by typing the command `cd .. ` and start the app with the command `yarn start:example`.
