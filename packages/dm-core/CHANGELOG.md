@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.1.0...dm-core-v1.1.1) (2023-06-29)
+
+
+### Bug Fixes
+
+* bug with opening lists in tree ([5a7a13b](https://github.com/equinor/dm-core-packages/commit/5a7a13b0bc91ca5e6099d6262df26237fc82ad98))
+
 ## 1.1.0 (2023-06-29)
 
 

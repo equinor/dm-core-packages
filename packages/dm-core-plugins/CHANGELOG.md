@@ -1,5 +1,11 @@
 # Changelog
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.1.0 to ^1.1.1
+
 ## 1.1.0 (2023-06-29)
 
 
