@@ -68,3 +68,11 @@
    dm create-lookup example DemoDataSource/recipes
    ```
 7. Go back to the Powershell terminal and navigate to root in `dm-core-packages/` by typing the command `cd .. ` and start the app with the command `yarn start:example`.
+
+## Naming Convention
+
+In the example app, json files are named according to what type they are. 
+
+- JSON files of type Blueprint are named `<MyBluePrint>.blueprint.json`, using the PascalCase notation. 
+- JSON files of type RecipeLink are named `<MyBluePrint>.recipe.json`, using the PascalCase notation. 
+- JSON files of type Entity are named `<myEntity>.entity.json`, with the camelCase notation. 
