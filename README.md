@@ -1420,3 +1420,124 @@ Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.gi
     * **DMSS VERSION**: 4c2e8dd 2023-06-28 Inger..ellen fix: make recipe plugin mandatory grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.13
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* Refactor/renaming json files to new naming convention 🔄️ (#295)
+
+* refactor(example): adding .recipeLink to CaseUISelector
+
+* refactor(example): renaming file inputProxy to have .caseProxy
+
+* refactor(example): caseproxy filename renamed to include blueprint
+
+* refactor(example): signalApp renamed to include blueprint
+
+* refactor(example): signalGeneratorJob renamed to include blueprint
+
+* refactor(example): rename inputProxy to be an entity instead, as that was more general
+
+* refactor(examples):  adding name to Simple form for better ui view
+
+* refactor(example): rename signalApp to .entity
+
+* feat(example): rename to recipe instead of recipeLink
+
+* feat(example): rename to recipe instead of recipeLink
+
+* refactor(example): adding blueprint to filename remoteexample
+
+* refactor: change name to recipe
+
+* refactor: signal app ui to include recipe
+
+* refactor: rename appDefault to include recipe
+
+* refactor: renamed all recipes in signals_simple to include recipe
+
+* refactor: renamed equallyspacedsignalui to include recipe
+
+* refactor: renamed blueprint and entity in remote to the new naming standard
+
+* refactor: rename blueprint in signals_simple
+
+* refactor: rename equallyspacedsignal to include blueprint
+
+* refactor: adding entity to remoteExample entity
+
+* refactor: removed 'name' to see if test broke
+
+* refactor: ran prettier on whole project
+
+* refactor: ran prettier on all json files as well to please GHA
+
+* refactor: upgrade prettier to reflect what version GHA is running
+
+* refactor: run prettier v.3 to fix useDocument that failed in GHA
+
+* refactor: adding dot-blueprint to bps in attribute selector
+
+* refactor: making entities in attribute-selector be dot-entity
+
+* refactor: making form json files be up to date with new naming standard
+
+* refactor: making generic-list json files be u2d with new naming
+
+* refactor: making grid json files be u2d with new naming standard
+
+* refactor: making header json files be u2d with new naming standard
+
+* refactor: making attibute selector recipes adhere to the new naming standard
+
+* refactor: making recipes in form adhere to new naming standard
+
+* refactor: making generic list recipes adhere to new naming standard
+
+* refactor: making grid recipes adhere to new naming
+
+* refactor: making header recipe adhere to new naming standard
+
+* refactor: Making recipes have same name as blueprint
+
+* refactor: renaming exampleApplication recipe
+
+* refactor: removing UI from recipelink names
+
+* refactor: ran prettier on whole project
+
+* refactor: new naming convention
+
+* fix: remove duplicate ui recipes
+
+* fix: prettier linting fail on test
+
+* refactor: renamed appDefault to AppDefault
+
+* refactor: removed UI from equiallyspacedsignalui
+
+* refactor: made recipes be capitalized in git
+
+* fix: changing name to fit name of simple form to click
+
+* fix: remove prettier from package.json
+
+* refactor: capitalize first letter of recipes
+
+* fix: revert some changes because it required a lot more to do
+
+* fix: remove prettier as dependency everywhere
+
+* refactor: 4 files into 2
+
+* refactor: remove duplicate file
+
+* refactor: rename recipes
+
+* refactor: some naming
+
+* refactor: rename all recipes to not be capitalized first letter
+
+---------
+
+Co-authored-by: Andrea Vesterhus <andrea.vesterhus@bouvet.no> (2023-06-27T08:10:13Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5413144829/1)
+    * **DMSS VERSION**: 4c2e8dd 2023-06-28 Inger..ellen fix: make recipe plugin mandatory grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.13
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
