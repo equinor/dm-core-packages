@@ -9,12 +9,10 @@
   "always-link-local": true,
   "packages": {
     "packages/dm-core": {
-      "package-name": "@development-framework/dm-core",
-      "release-as": "1.1.0"
+      "package-name": "@development-framework/dm-core"
     },
     "packages/dm-core-plugins": {
-      "package-name": "@development-framework/dm-core-plugins",
-      "release-as": "1.1.0"
+      "package-name": "@development-framework/dm-core-plugins"
     }
   }
 }
