@@ -29,22 +29,22 @@ import { ErrorResponse } from '../models';
 export const DocumentApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
          * @summary Add Document
-         * @param {string} reference 
+         * @param {string} address 
          * @param {string} document 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAdd: async (reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('documentAdd', 'reference', reference)
+        documentAdd: async (address: string, document: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('documentAdd', 'address', address)
             // verify required parameter 'document' is not null or undefined
             assertParamExists('documentAdd', 'document', document)
-            const localVarPath = `/api/documents/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+            const localVarPath = `/api/documents/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -140,19 +140,19 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
-         * @param {string} reference 
+         * @param {string} address 
          * @param {number} [depth] 
          * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet: async (reference: string, depth?: number, resolveLinks?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('documentGet', 'reference', reference)
-            const localVarPath = `/api/documents/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+        documentGet: async (address: string, depth?: number, resolveLinks?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('documentGet', 'address', address)
+            const localVarPath = `/api/documents/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -193,15 +193,15 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('documentRemove', 'reference', reference)
-            const localVarPath = `/api/documents/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+        documentRemove: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('documentRemove', 'address', address)
+            const localVarPath = `/api/documents/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -232,22 +232,22 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} idReference 
+         * @param {string} idAddress 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentUpdate: async (idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'idReference' is not null or undefined
-            assertParamExists('documentUpdate', 'idReference', idReference)
+        documentUpdate: async (idAddress: string, data: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idAddress' is not null or undefined
+            assertParamExists('documentUpdate', 'idAddress', idAddress)
             // verify required parameter 'data' is not null or undefined
             assertParamExists('documentUpdate', 'data', data)
-            const localVarPath = `/api/documents/{id_reference}`
-                .replace(`{${"id_reference"}}`, encodeURIComponent(String(idReference)));
+            const localVarPath = `/api/documents/{id_address}`
+                .replace(`{${"id_address"}}`, encodeURIComponent(String(idAddress)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -306,17 +306,17 @@ export const DocumentApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DocumentApiAxiosParamCreator(configuration)
     return {
         /**
-         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
          * @summary Add Document
-         * @param {string} reference 
+         * @param {string} address 
          * @param {string} document 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentAdd(reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAdd(reference, document, updateUncontained, files, options);
+        async documentAdd(address: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAdd(address, document, updateUncontained, files, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -332,41 +332,41 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
-         * @param {string} reference 
+         * @param {string} address 
          * @param {number} [depth] 
          * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentGet(reference: string, depth?: number, resolveLinks?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(reference, depth, resolveLinks, options);
+        async documentGet(address: string, depth?: number, resolveLinks?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(address, depth, resolveLinks, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentRemove(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(reference, options);
+        async documentRemove(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} idReference 
+         * @param {string} idAddress 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentUpdate(idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(idReference, data, updateUncontained, files, options);
+        async documentUpdate(idAddress: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(idAddress, data, updateUncontained, files, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -380,17 +380,17 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
     const localVarFp = DocumentApiFp(configuration)
     return {
         /**
-         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
          * @summary Add Document
-         * @param {string} reference 
+         * @param {string} address 
          * @param {string} document 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAdd(reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<object> {
-            return localVarFp.documentAdd(reference, document, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentAdd(address: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<object> {
+            return localVarFp.documentAdd(address, document, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
          * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
@@ -404,39 +404,39 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.documentAddSimple(dataSourceId, body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
-         * @param {string} reference 
+         * @param {string} address 
          * @param {number} [depth] 
          * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet(reference: string, depth?: number, resolveLinks?: boolean, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGet(reference, depth, resolveLinks, options).then((request) => request(axios, basePath));
+        documentGet(address: string, depth?: number, resolveLinks?: boolean, options?: any): AxiosPromise<object> {
+            return localVarFp.documentGet(address, depth, resolveLinks, options).then((request) => request(axios, basePath));
         },
         /**
          * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove(reference: string, options?: any): AxiosPromise<any> {
-            return localVarFp.documentRemove(reference, options).then((request) => request(axios, basePath));
+        documentRemove(address: string, options?: any): AxiosPromise<any> {
+            return localVarFp.documentRemove(address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} idReference 
+         * @param {string} idAddress 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentUpdate(idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<any> {
-            return localVarFp.documentUpdate(idReference, data, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentUpdate(idAddress: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<any> {
+            return localVarFp.documentUpdate(idAddress, data, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -452,7 +452,7 @@ export interface DocumentApiDocumentAddRequest {
      * @type {string}
      * @memberof DocumentApiDocumentAdd
      */
-    readonly reference: string
+    readonly address: string
 
     /**
      * 
@@ -508,7 +508,7 @@ export interface DocumentApiDocumentGetRequest {
      * @type {string}
      * @memberof DocumentApiDocumentGet
      */
-    readonly reference: string
+    readonly address: string
 
     /**
      * 
@@ -536,7 +536,7 @@ export interface DocumentApiDocumentRemoveRequest {
      * @type {string}
      * @memberof DocumentApiDocumentRemove
      */
-    readonly reference: string
+    readonly address: string
 }
 
 /**
@@ -550,7 +550,7 @@ export interface DocumentApiDocumentUpdateRequest {
      * @type {string}
      * @memberof DocumentApiDocumentUpdate
      */
-    readonly idReference: string
+    readonly idAddress: string
 
     /**
      * 
@@ -582,7 +582,7 @@ export interface DocumentApiDocumentUpdateRequest {
  */
 export class DocumentApi extends BaseAPI {
     /**
-     * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+     * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
      * @summary Add Document
      * @param {DocumentApiDocumentAddRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -590,7 +590,7 @@ export class DocumentApi extends BaseAPI {
      * @memberof DocumentApi
      */
     public documentAdd(requestParameters: DocumentApiDocumentAddRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentAdd(requestParameters.reference, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
+        return DocumentApiFp(this.configuration).documentAdd(requestParameters.address, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -606,7 +606,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+     * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
      * @summary Get
      * @param {DocumentApiDocumentGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -614,7 +614,7 @@ export class DocumentApi extends BaseAPI {
      * @memberof DocumentApi
      */
     public documentGet(requestParameters: DocumentApiDocumentGetRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentGet(requestParameters.reference, requestParameters.depth, requestParameters.resolveLinks, options).then((request) => request(this.axios, this.basePath));
+        return DocumentApiFp(this.configuration).documentGet(requestParameters.address, requestParameters.depth, requestParameters.resolveLinks, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -626,11 +626,11 @@ export class DocumentApi extends BaseAPI {
      * @memberof DocumentApi
      */
     public documentRemove(requestParameters: DocumentApiDocumentRemoveRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentRemove(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
+        return DocumentApiFp(this.configuration).documentRemove(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+     * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
      * @summary Update
      * @param {DocumentApiDocumentUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -638,6 +638,6 @@ export class DocumentApi extends BaseAPI {
      * @memberof DocumentApi
      */
     public documentUpdate(requestParameters: DocumentApiDocumentUpdateRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentUpdate(requestParameters.idReference, requestParameters.data, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
+        return DocumentApiFp(this.configuration).documentUpdate(requestParameters.idAddress, requestParameters.data, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
     }
 }

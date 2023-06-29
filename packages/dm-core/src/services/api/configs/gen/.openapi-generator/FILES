@@ -13,6 +13,7 @@ api/export-api.ts
 api/file-api.ts
 api/health-check-api.ts
 api/lookup-table-api.ts
+api/meta-api.ts
 api/personal-access-token-api.ts
 api/reference-api.ts
 api/search-api.ts
@@ -34,7 +35,7 @@ models/lookup.ts
 models/patdata.ts
 models/recipe-attribute.ts
 models/recipe.ts
-models/reference.ts
+models/reference-entity.ts
 models/repository-type.ts
 models/repository.ts
 models/storage-attribute.ts

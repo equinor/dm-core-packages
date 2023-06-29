@@ -29,24 +29,23 @@ import { ErrorResponse } from '../models';
 export const FileApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
          * @summary Upload File
          * @param {string} dataSourceId 
-         * @param {string} fileId 
+         * @param {string} data 
          * @param {File} file 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fileUpload: async (dataSourceId: string, fileId: string, file: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        fileUpload: async (dataSourceId: string, data: string, file: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
             assertParamExists('fileUpload', 'dataSourceId', dataSourceId)
-            // verify required parameter 'fileId' is not null or undefined
-            assertParamExists('fileUpload', 'fileId', fileId)
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('fileUpload', 'data', data)
             // verify required parameter 'file' is not null or undefined
             assertParamExists('fileUpload', 'file', file)
-            const localVarPath = `/api/files/{data_source_id}/{file_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"file_id"}}`, encodeURIComponent(String(fileId)));
+            const localVarPath = `/api/files/{data_source_id}`
+                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -67,6 +66,10 @@ export const FileApiAxiosParamCreator = function (configuration?: Configuration)
             await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
 
 
+            if (data !== undefined) { 
+                localVarFormParams.append('data', data as any);
+            }
+    
             if (file !== undefined) { 
                 localVarFormParams.append('file', file as any);
             }
@@ -95,16 +98,16 @@ export const FileApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = FileApiAxiosParamCreator(configuration)
     return {
         /**
-         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
          * @summary Upload File
          * @param {string} dataSourceId 
-         * @param {string} fileId 
+         * @param {string} data 
          * @param {File} file 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fileUpload(dataSourceId: string, fileId: string, file: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fileUpload(dataSourceId, fileId, file, options);
+        async fileUpload(dataSourceId: string, data: string, file: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fileUpload(dataSourceId, data, file, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -118,16 +121,16 @@ export const FileApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = FileApiFp(configuration)
     return {
         /**
-         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
          * @summary Upload File
          * @param {string} dataSourceId 
-         * @param {string} fileId 
+         * @param {string} data 
          * @param {File} file 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fileUpload(dataSourceId: string, fileId: string, file: File, options?: any): AxiosPromise<object> {
-            return localVarFp.fileUpload(dataSourceId, fileId, file, options).then((request) => request(axios, basePath));
+        fileUpload(dataSourceId: string, data: string, file: File, options?: any): AxiosPromise<object> {
+            return localVarFp.fileUpload(dataSourceId, data, file, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -150,7 +153,7 @@ export interface FileApiFileUploadRequest {
      * @type {string}
      * @memberof FileApiFileUpload
      */
-    readonly fileId: string
+    readonly data: string
 
     /**
      * 
@@ -168,7 +171,7 @@ export interface FileApiFileUploadRequest {
  */
 export class FileApi extends BaseAPI {
     /**
-     * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+     * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
      * @summary Upload File
      * @param {FileApiFileUploadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -176,6 +179,6 @@ export class FileApi extends BaseAPI {
      * @memberof FileApi
      */
     public fileUpload(requestParameters: FileApiFileUploadRequest, options?: AxiosRequestConfig) {
-        return FileApiFp(this.configuration).fileUpload(requestParameters.dataSourceId, requestParameters.fileId, requestParameters.file, options).then((request) => request(this.axios, this.basePath));
+        return FileApiFp(this.configuration).fileUpload(requestParameters.dataSourceId, requestParameters.data, requestParameters.file, options).then((request) => request(this.axios, this.basePath));
     }
 }
