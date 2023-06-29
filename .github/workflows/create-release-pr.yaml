@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   workflow_call:
     outputs:
-      release_created:
+      releases_created:
         description: "If true, a release PR has been merged"
         value: ${{ jobs.release-please.outputs.releases_created }}
       tag_name:
@@ -37,6 +37,6 @@ jobs:
             ]
 
     outputs:
-      release_created: ${{ steps.release.outputs.releases_created }}
+      releases_created: ${{ steps.release.outputs.releases_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
 
