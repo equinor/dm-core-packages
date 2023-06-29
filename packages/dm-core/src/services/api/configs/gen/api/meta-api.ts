@@ -23,23 +23,27 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { ErrorResponse } from '../models';
 /**
- * AttributeApi - axios parameter creator
+ * MetaApi - axios parameter creator
  * @export
  */
-export const AttributeApiAxiosParamCreator = function (configuration?: Configuration) {
+export const MetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Fetch the attribute from a address.
-         * @summary Get Attribute
-         * @param {string} address 
+         * Get meta information from data source id.
+         * @summary Get Meta By Id
+         * @param {string} dataSourceId 
+         * @param {string} documentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attributeGet: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'address' is not null or undefined
-            assertParamExists('attributeGet', 'address', address)
-            const localVarPath = `/api/attribute/{address}`
-                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+        metaById: async (dataSourceId: string, documentId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'dataSourceId' is not null or undefined
+            assertParamExists('metaById', 'dataSourceId', dataSourceId)
+            // verify required parameter 'documentId' is not null or undefined
+            assertParamExists('metaById', 'documentId', documentId)
+            const localVarPath = `/api/meta/{data_source_id}/{document_id}`
+                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
+                .replace(`{${"document_id"}}`, encodeURIComponent(String(documentId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -73,76 +77,85 @@ export const AttributeApiAxiosParamCreator = function (configuration?: Configura
 };
 
 /**
- * AttributeApi - functional programming interface
+ * MetaApi - functional programming interface
  * @export
  */
-export const AttributeApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AttributeApiAxiosParamCreator(configuration)
+export const MetaApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = MetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Fetch the attribute from a address.
-         * @summary Get Attribute
-         * @param {string} address 
+         * Get meta information from data source id.
+         * @summary Get Meta By Id
+         * @param {string} dataSourceId 
+         * @param {string} documentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async attributeGet(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.attributeGet(address, options);
+        async metaById(dataSourceId: string, documentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metaById(dataSourceId, documentId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * AttributeApi - factory interface
+ * MetaApi - factory interface
  * @export
  */
-export const AttributeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AttributeApiFp(configuration)
+export const MetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = MetaApiFp(configuration)
     return {
         /**
-         * Fetch the attribute from a address.
-         * @summary Get Attribute
-         * @param {string} address 
+         * Get meta information from data source id.
+         * @summary Get Meta By Id
+         * @param {string} dataSourceId 
+         * @param {string} documentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attributeGet(address: string, options?: any): AxiosPromise<object> {
-            return localVarFp.attributeGet(address, options).then((request) => request(axios, basePath));
+        metaById(dataSourceId: string, documentId: string, options?: any): AxiosPromise<object> {
+            return localVarFp.metaById(dataSourceId, documentId, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for attributeGet operation in AttributeApi.
+ * Request parameters for metaById operation in MetaApi.
  * @export
- * @interface AttributeApiAttributeGetRequest
+ * @interface MetaApiMetaByIdRequest
  */
-export interface AttributeApiAttributeGetRequest {
+export interface MetaApiMetaByIdRequest {
     /**
      * 
      * @type {string}
-     * @memberof AttributeApiAttributeGet
+     * @memberof MetaApiMetaById
      */
-    readonly address: string
+    readonly dataSourceId: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof MetaApiMetaById
+     */
+    readonly documentId: string
 }
 
 /**
- * AttributeApi - object-oriented interface
+ * MetaApi - object-oriented interface
  * @export
- * @class AttributeApi
+ * @class MetaApi
  * @extends {BaseAPI}
  */
-export class AttributeApi extends BaseAPI {
+export class MetaApi extends BaseAPI {
     /**
-     * Fetch the attribute from a address.
-     * @summary Get Attribute
-     * @param {AttributeApiAttributeGetRequest} requestParameters Request parameters.
+     * Get meta information from data source id.
+     * @summary Get Meta By Id
+     * @param {MetaApiMetaByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AttributeApi
+     * @memberof MetaApi
      */
-    public attributeGet(requestParameters: AttributeApiAttributeGetRequest, options?: AxiosRequestConfig) {
-        return AttributeApiFp(this.configuration).attributeGet(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
+    public metaById(requestParameters: MetaApiMetaByIdRequest, options?: AxiosRequestConfig) {
+        return MetaApiFp(this.configuration).metaById(requestParameters.dataSourceId, requestParameters.documentId, options).then((request) => request(this.axios, this.basePath));
     }
 }

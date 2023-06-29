@@ -26,6 +26,7 @@ export * from './api/export-api';
 export * from './api/file-api';
 export * from './api/health-check-api';
 export * from './api/lookup-table-api';
+export * from './api/meta-api';
 export * from './api/personal-access-token-api';
 export * from './api/reference-api';
 export * from './api/search-api';

@@ -74,51 +74,6 @@ export const BlobApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
-         * @summary Get Metadata By Id
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        blobMetadataById: async (dataSourceId: string, blobId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('blobMetadataById', 'dataSourceId', dataSourceId)
-            // verify required parameter 'blobId' is not null or undefined
-            assertParamExists('blobMetadataById', 'blobId', blobId)
-            const localVarPath = `/api/blobs-meta/{data_source_id}/{blob_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"blob_id"}}`, encodeURIComponent(String(blobId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
@@ -197,18 +152,6 @@ export const BlobApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
-         * @summary Get Metadata By Id
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async blobMetadataById(dataSourceId: string, blobId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.blobMetadataById(dataSourceId, blobId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
          * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
@@ -243,17 +186,6 @@ export const BlobApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.blobGetById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
-         * @summary Get Metadata By Id
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        blobMetadataById(dataSourceId: string, blobId: string, options?: any): AxiosPromise<object> {
-            return localVarFp.blobMetadataById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Upload a new blob. A blob (binary large object) can be anything from video to text file.
          * @summary Upload
          * @param {string} dataSourceId 
@@ -285,27 +217,6 @@ export interface BlobApiBlobGetByIdRequest {
      * 
      * @type {string}
      * @memberof BlobApiBlobGetById
-     */
-    readonly blobId: string
-}
-
-/**
- * Request parameters for blobMetadataById operation in BlobApi.
- * @export
- * @interface BlobApiBlobMetadataByIdRequest
- */
-export interface BlobApiBlobMetadataByIdRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BlobApiBlobMetadataById
-     */
-    readonly dataSourceId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof BlobApiBlobMetadataById
      */
     readonly blobId: string
 }
@@ -355,18 +266,6 @@ export class BlobApi extends BaseAPI {
      */
     public blobGetById(requestParameters: BlobApiBlobGetByIdRequest, options?: AxiosRequestConfig) {
         return BlobApiFp(this.configuration).blobGetById(requestParameters.dataSourceId, requestParameters.blobId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get blob from id. A blob (binary large object) can be anything from video to text file.
-     * @summary Get Metadata By Id
-     * @param {BlobApiBlobMetadataByIdRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlobApi
-     */
-    public blobMetadataById(requestParameters: BlobApiBlobMetadataByIdRequest, options?: AxiosRequestConfig) {
-        return BlobApiFp(this.configuration).blobMetadataById(requestParameters.dataSourceId, requestParameters.blobId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

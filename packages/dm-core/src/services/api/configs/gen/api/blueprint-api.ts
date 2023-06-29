@@ -77,17 +77,17 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
+         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
          * @summary Resolve Blueprint Id
-         * @param {string} absoluteId 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintResolve: async (absoluteId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'absoluteId' is not null or undefined
-            assertParamExists('blueprintResolve', 'absoluteId', absoluteId)
-            const localVarPath = `/api/resolve-path/{absolute_id}`
-                .replace(`{${"absolute_id"}}`, encodeURIComponent(String(absoluteId)));
+        blueprintResolve: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('blueprintResolve', 'address', address)
+            const localVarPath = `/api/resolve-path/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -140,14 +140,14 @@ export const BlueprintApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
+         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
          * @summary Resolve Blueprint Id
-         * @param {string} absoluteId 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async blueprintResolve(absoluteId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintResolve(absoluteId, options);
+        async blueprintResolve(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintResolve(address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -172,14 +172,14 @@ export const BlueprintApiFactory = function (configuration?: Configuration, base
             return localVarFp.blueprintGet(typeRef, context, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
+         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
          * @summary Resolve Blueprint Id
-         * @param {string} absoluteId 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintResolve(absoluteId: string, options?: any): AxiosPromise<string> {
-            return localVarFp.blueprintResolve(absoluteId, options).then((request) => request(axios, basePath));
+        blueprintResolve(address: string, options?: any): AxiosPromise<string> {
+            return localVarFp.blueprintResolve(address, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -216,7 +216,7 @@ export interface BlueprintApiBlueprintResolveRequest {
      * @type {string}
      * @memberof BlueprintApiBlueprintResolve
      */
-    readonly absoluteId: string
+    readonly address: string
 }
 
 /**
@@ -239,7 +239,7 @@ export class BlueprintApi extends BaseAPI {
     }
 
     /**
-     * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
+     * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
      * @summary Resolve Blueprint Id
      * @param {BlueprintApiBlueprintResolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -247,6 +247,6 @@ export class BlueprintApi extends BaseAPI {
      * @memberof BlueprintApi
      */
     public blueprintResolve(requestParameters: BlueprintApiBlueprintResolveRequest, options?: AxiosRequestConfig) {
-        return BlueprintApiFp(this.configuration).blueprintResolve(requestParameters.absoluteId, options).then((request) => request(this.axios, this.basePath));
+        return BlueprintApiFp(this.configuration).blueprintResolve(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 }
