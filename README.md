@@ -1234,3 +1234,8 @@ Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.gi
     * **DMSS VERSION**: 4c2e8dd 2023-06-28 Inger..ellen fix: make recipe plugin mandatory grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.12
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* fix: merge conflict issues (2023-06-27T08:10:13Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/refactor/add-types-objectfield/5411665334/1)
+    * **DMSS VERSION**: 4c2e8dd 2023-06-28 Inger..ellen fix: make recipe plugin mandatory grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.12
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
