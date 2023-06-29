@@ -210,7 +210,7 @@ export class TreeNode {
   async fetch() {
     return this.tree.dmssApi
       .documentGet({
-        reference: this.nodeId,
+        address: this.nodeId,
         depth: 0,
       })
       .then((response: any) => response.data)
@@ -227,7 +227,7 @@ export class TreeNode {
             .then((response: any) => response.data.blueprint)
           this.tree.dmssApi
             .documentGet({
-              reference: this.nodeId,
+              address: this.nodeId,
               depth: 2,
               resolveLinks: true,
             })
@@ -312,7 +312,7 @@ export class TreeNode {
     const newEntity = { ...response.data, name: name }
     const createResponse: AxiosResponse<any> =
       await this.tree.dmssApi.documentAdd({
-        reference: `${this.nodeId}.content`,
+        address: `${this.nodeId}.content`,
         document: JSON.stringify(newEntity),
         updateUncontained: true,
       })
@@ -370,7 +370,7 @@ export class Tree {
   async initFromFolder(folderPath: string) {
     const dataSourceId = folderPath.split('/', 1)[0]
     this.dmssApi
-      .documentGet({ reference: folderPath })
+      .documentGet({ address: folderPath })
       .then((response: any) => {
         const data = response.data
         const folderNode = new TreeNode(

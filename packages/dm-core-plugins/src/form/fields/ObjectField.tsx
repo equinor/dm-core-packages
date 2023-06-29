@@ -84,7 +84,7 @@ const AddObject = (props: {
         const data = JSON.stringify(newEntity.data)
         dmssAPI
           .documentUpdate({
-            idReference: `${idReference}.${namePath}`,
+            idAddress: `${idReference}.${namePath}`,
             data: data,
             updateUncontained: false,
           })

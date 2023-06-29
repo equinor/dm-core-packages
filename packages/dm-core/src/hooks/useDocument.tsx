@@ -57,7 +57,7 @@ export function useDocument<T>(
       throw new Error('Depth must be a positive number < 999')
     dmssAPI
       .documentGet({
-        reference: idReference,
+        address: idReference,
         depth: documentDepth,
       })
       .then((response: any) => {
@@ -76,7 +76,7 @@ export function useDocument<T>(
     setLoading(true)
     dmssAPI
       .documentUpdate({
-        idReference: idReference,
+        idAddress: idReference,
         data: JSON.stringify(newDocument),
         updateUncontained: false,
       })
