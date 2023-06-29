@@ -1,3 +1,5 @@
+default_stages: [pre-commit]
+default_install_hook_types: [pre-commit, commit-msg]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -15,19 +17,25 @@ repos:
       - id: no-commit-to-branch
         args: [--branch, main]
 
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v2.3.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.0-alpha.6
     hooks:
       - id: prettier
         files: ^.*\.(ts|tsx|js|css|html|json)$
-        args: [ '--config=.prettierrc.js', '--ignore-path=.prettierignore' ]
+        args: ['--config=.prettierrc.js', '--ignore-path=.prettierignore']
 
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: 'v8.42.0'
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
-        types: [ file ]
+        types: [file]
         additional_dependencies:
           - eslint
           - eslint-config-react-app
@@ -39,4 +47,4 @@ repos:
           - eslint-plugin-prettier # runs prettier as an eslint rule
           - eslint-plugin-react # react specific linting rules
           - eslint-plugin-react-hooks # enforces the rules of hooks
-        args: [ '--config=.eslintrc.json', '--ignore-path=.eslintignore' ]
+        args: ['--config=.eslintrc.json', '--ignore-path=.eslintignore']
