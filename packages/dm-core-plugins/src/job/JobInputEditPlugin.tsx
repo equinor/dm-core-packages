@@ -47,8 +47,8 @@ export const JobInputEditPlugin = (props: IUIPlugin) => {
       <div style={{ marginBottom: '10px' }}>
         {Object.keys(formData.applicationInput || {}).length ? (
           <EntityView
-            type={formData.applicationInput.type}
-            idReference={`${dataSourceId}/${formData.applicationInput._id}`}
+            type={formData.applicationInput?.type}
+            idReference={`${dataSourceId}/${formData.applicationInput?._id}`}
             onSubmit={(data: any) =>
               updateDocument({ ...formData, applicationInput: data }, true)
             }

@@ -219,7 +219,9 @@ export const JobControl = (props: {
             <label>Not started</label>
           ) : (
             <label>
-              {new Date(document.started).toLocaleString(navigator.language)}
+              {new Date(document.started ?? '').toLocaleString(
+                navigator.language
+              )}
               {' (local)'}
             </label>
           )}

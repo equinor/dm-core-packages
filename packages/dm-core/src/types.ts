@@ -57,16 +57,16 @@ export type TContainerJobHandler = {
 
 export type TJob = {
   _id?: string
-  label: string
+  label?: string
   type: string
   status: JobStatus
-  triggeredBy: string
-  applicationInput: TReference
-  runner: TJobHandler | TContainerJobHandler
-  started: string
+  triggeredBy?: string
+  applicationInput?: TGenericObject
+  runner?: TJobHandler | TContainerJobHandler
+  started?: string
   name?: string
   uid?: string
-  result?: any
+  result?: TGenericObject
   ended?: string
   outputTarget?: string
   referenceTarget?: string
