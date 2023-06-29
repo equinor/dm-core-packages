@@ -4,9 +4,9 @@ test('Simple form', async ({ page }) => {
   //Open simple form
   await page.goto('http://localhost:3000/')
   await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
+  await page.getByText('form', { exact: true }).click()
   await page.getByText('simple', { exact: true }).click()
-  await page.getByText('DemoDataSource/$Simple').click()
+  await page.getByText('Simple', { exact: true }).click()
 
   //Remove prefilled optional string
   await page.getByLabel('An optional string (optional)').fill('')
