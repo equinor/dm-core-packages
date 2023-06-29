@@ -31,7 +31,7 @@ describe('useDocumentHook', () => {
         expect(result.current[0]).toEqual(mockDocument)
         expect(mock).toHaveBeenCalledTimes(1)
         expect(mock).toHaveBeenCalledWith({
-          reference: 'testDS/1',
+          address: 'testDS/1',
           depth: 1,
         })
       })

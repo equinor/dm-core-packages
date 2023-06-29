@@ -140,7 +140,7 @@ export const JobControl = (props: {
     setLoading(true)
     try {
       await dmtApi.removeJob({ jobUid: jobUID })
-      await dmssAPI.documentRemove({ reference: jobId })
+      await dmssAPI.documentRemove({ address: jobId })
     } catch (error: AxiosError<ErrorResponse> | any) {
       if (isAxiosError(error)) {
         console.error(error.response?.data)

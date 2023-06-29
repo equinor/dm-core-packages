@@ -139,7 +139,7 @@ export const GenericListPlugin = (
     const payload = items.map((item) => item.data)
     dmssAPI
       .documentUpdate({
-        idReference: idReference,
+        idAddress: idReference,
         data: JSON.stringify(Object.values(payload)),
       })
       .then(() => {

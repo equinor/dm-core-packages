@@ -38,7 +38,7 @@ export function UploadFileButton(props: {
       setLoading(true)
       dmssAPI
         .documentAdd({
-          reference: `${dataSourceId}/Data/STasks`,
+          address: `${dataSourceId}/Data/STasks`,
           document: JSON.stringify(newDocumentBody),
           updateUncontained: true,
         })

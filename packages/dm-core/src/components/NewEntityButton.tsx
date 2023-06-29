@@ -55,7 +55,7 @@ export function NewEntityButton(props: {
   function addEntityToPath(entity: TGenericObject) {
     return dmssAPI
       .documentAdd({
-        reference: saveDestination,
+        address: saveDestination,
         document: JSON.stringify(entity),
         updateUncontained: false,
       })

@@ -91,7 +91,7 @@ export const TablePlugin = (props: IUIPlugin) => {
     const payload = items.map((item) => item.data)
     dmssAPI
       .documentUpdate({
-        idReference: idReference,
+        idAddress: idReference,
         data: JSON.stringify(payload),
       })
       .then(() => {

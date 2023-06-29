@@ -15,7 +15,7 @@ export const DeleteAction = async (
   setLoading(true)
   await dmssAPI
     .documentRemove({
-      reference: `${node.dataSource}/${node.pathFromRootPackage()}`,
+      address: `${node.dataSource}/${node.pathFromRootPackage()}`,
     })
     .then(() => {
       node.remove()
@@ -43,10 +43,10 @@ export const NewFolderAction = (
     isRoot: false,
     content: [],
   }
-  const ref = `${node.nodeId}.content`
+  const address = `${node.nodeId}.content`
   dmssAPI
     .documentAdd({
-      reference: ref,
+      address: address,
       document: JSON.stringify(newFolder),
       updateUncontained: true,
     })
@@ -71,7 +71,7 @@ export const NewRootPackageAction = (
   const ref: string = node.dataSource
   dmssAPI
     .documentAdd({
-      reference: ref,
+      address: ref,
       document: JSON.stringify(newPackage),
       updateUncontained: true,
     })
