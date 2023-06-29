@@ -13,7 +13,7 @@ test('Simple form', async ({ page }) => {
 
   //Fill out required string
   await page.getByTestId('form-submit').click()
-  await expect(page.getByText('required', { exact: true })).toBeVisible()
+  await expect(page.getByText('A required string', { exact: true })).toBeVisible()
   await page.getByLabel('Required string').fill('Foo')
 
   //Fill out number field
@@ -44,7 +44,7 @@ test('Simple form', async ({ page }) => {
   await page.getByText('form').click()
   await page.getByText('simple', { exact: true }).click()
   await page.getByText('Simple').click()
-  await expect(page.getByLabel('Optional string (optional)')).toHaveValue('')
+  await expect(page.getByLabel('An optional string (optional)')).toHaveValue('')
   await expect(page.getByLabel('Required string')).toHaveValue('Foo')
   await expect(page.getByLabel('Numbers only (optional)')).toHaveValue('3.14')
   await expect(page.getByLabel('Integer only (optional)')).toHaveValue('123')
