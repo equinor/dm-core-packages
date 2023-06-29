@@ -43,7 +43,7 @@ test('Simple form', async ({ page }) => {
   await page.getByText('plugins', { exact: true }).click()
   await page.getByText('form').click()
   await page.getByText('simple', { exact: true }).click()
-  await page.getByText('DemoDataSource/$Simple').click()
+  await page.getByText('Simple').click()
   await expect(page.getByLabel('Optional string (optional)')).toHaveValue('')
   await expect(page.getByLabel('Required string')).toHaveValue('Foo')
   await expect(page.getByLabel('Numbers only (optional)')).toHaveValue('3.14')
