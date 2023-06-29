@@ -39,7 +39,7 @@ import { Lookup } from '../models';
 // @ts-ignore
 import { PATData } from '../models';
 // @ts-ignore
-import { Reference } from '../models';
+import { ReferenceEntity } from '../models';
 /**
  * DefaultApi - axios parameter creator
  * @export
@@ -47,17 +47,17 @@ import { Reference } from '../models';
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export
-         * @param {string} reference 
+         * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        _export: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('_export', 'reference', reference)
-            const localVarPath = `/api/export/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+        _export: async (pathAddress: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pathAddress' is not null or undefined
+            assertParamExists('_export', 'pathAddress', pathAddress)
+            const localVarPath = `/api/export/{path_address}`
+                .replace(`{${"path_address"}}`, encodeURIComponent(String(pathAddress)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -88,17 +88,17 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Fetch the attribute from a reference.
+         * Fetch the attribute from a address.
          * @summary Get Attribute
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attributeGet: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('attributeGet', 'reference', reference)
-            const localVarPath = `/api/attribute/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+        attributeGet: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('attributeGet', 'address', address)
+            const localVarPath = `/api/attribute/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -142,51 +142,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // verify required parameter 'blobId' is not null or undefined
             assertParamExists('blobGetById', 'blobId', blobId)
             const localVarPath = `/api/blobs/{data_source_id}/{blob_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"blob_id"}}`, encodeURIComponent(String(blobId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
-         * @summary Get Metadata By Id
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        blobMetadataById: async (dataSourceId: string, blobId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('blobMetadataById', 'dataSourceId', dataSourceId)
-            // verify required parameter 'blobId' is not null or undefined
-            assertParamExists('blobMetadataById', 'blobId', blobId)
-            const localVarPath = `/api/blobs-meta/{data_source_id}/{blob_id}`
                 .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
                 .replace(`{${"blob_id"}}`, encodeURIComponent(String(blobId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -321,17 +276,17 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
+         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
          * @summary Resolve Blueprint Id
-         * @param {string} absoluteId 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintResolve: async (absoluteId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'absoluteId' is not null or undefined
-            assertParamExists('blueprintResolve', 'absoluteId', absoluteId)
-            const localVarPath = `/api/resolve-path/{absolute_id}`
-                .replace(`{${"absolute_id"}}`, encodeURIComponent(String(absoluteId)));
+        blueprintResolve: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('blueprintResolve', 'address', address)
+            const localVarPath = `/api/resolve-path/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -535,22 +490,22 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
          * @summary Add Document
-         * @param {string} reference 
+         * @param {string} address 
          * @param {string} document 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAdd: async (reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('documentAdd', 'reference', reference)
+        documentAdd: async (address: string, document: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('documentAdd', 'address', address)
             // verify required parameter 'document' is not null or undefined
             assertParamExists('documentAdd', 'document', document)
-            const localVarPath = `/api/documents/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+            const localVarPath = `/api/documents/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -646,19 +601,19 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
-         * @param {string} reference 
+         * @param {string} address 
          * @param {number} [depth] 
          * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet: async (reference: string, depth?: number, resolveLinks?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('documentGet', 'reference', reference)
-            const localVarPath = `/api/documents/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+        documentGet: async (address: string, depth?: number, resolveLinks?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('documentGet', 'address', address)
+            const localVarPath = `/api/documents/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -699,15 +654,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('documentRemove', 'reference', reference)
-            const localVarPath = `/api/documents/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+        documentRemove: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('documentRemove', 'address', address)
+            const localVarPath = `/api/documents/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -738,22 +693,22 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} idReference 
+         * @param {string} idAddress 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentUpdate: async (idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'idReference' is not null or undefined
-            assertParamExists('documentUpdate', 'idReference', idReference)
+        documentUpdate: async (idAddress: string, data: string, updateUncontained?: boolean, files?: Array<File>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idAddress' is not null or undefined
+            assertParamExists('documentUpdate', 'idAddress', idAddress)
             // verify required parameter 'data' is not null or undefined
             assertParamExists('documentUpdate', 'data', data)
-            const localVarPath = `/api/documents/{id_reference}`
-                .replace(`{${"id_reference"}}`, encodeURIComponent(String(idReference)));
+            const localVarPath = `/api/documents/{id_address}`
+                .replace(`{${"id_address"}}`, encodeURIComponent(String(idAddress)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -802,17 +757,17 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export Meta
-         * @param {string} reference 
+         * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        exportMeta: async (reference: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('exportMeta', 'reference', reference)
-            const localVarPath = `/api/export/meta/{reference}`
-                .replace(`{${"reference"}}`, encodeURIComponent(String(reference)));
+        exportMeta: async (pathAddress: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'pathAddress' is not null or undefined
+            assertParamExists('exportMeta', 'pathAddress', pathAddress)
+            const localVarPath = `/api/export/meta/{path_address}`
+                .replace(`{${"path_address"}}`, encodeURIComponent(String(pathAddress)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -843,24 +798,23 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
          * @summary Upload File
          * @param {string} dataSourceId 
-         * @param {string} fileId 
+         * @param {string} data 
          * @param {File} file 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fileUpload: async (dataSourceId: string, fileId: string, file: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        fileUpload: async (dataSourceId: string, data: string, file: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
             assertParamExists('fileUpload', 'dataSourceId', dataSourceId)
-            // verify required parameter 'fileId' is not null or undefined
-            assertParamExists('fileUpload', 'fileId', fileId)
+            // verify required parameter 'data' is not null or undefined
+            assertParamExists('fileUpload', 'data', data)
             // verify required parameter 'file' is not null or undefined
             assertParamExists('fileUpload', 'file', file)
-            const localVarPath = `/api/files/{data_source_id}/{file_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"file_id"}}`, encodeURIComponent(String(fileId)));
+            const localVarPath = `/api/files/{data_source_id}`
+                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -881,6 +835,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
 
 
+            if (data !== undefined) { 
+                localVarFormParams.append('data', data as any);
+            }
+    
             if (file !== undefined) { 
                 localVarFormParams.append('file', file as any);
             }
@@ -1058,21 +1016,62 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Delete Reference
+         * Get meta information from data source id.
+         * @summary Get Meta By Id
          * @param {string} dataSourceId 
-         * @param {string} documentDottedId 
+         * @param {string} documentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        referenceDelete: async (dataSourceId: string, documentDottedId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metaById: async (dataSourceId: string, documentId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('referenceDelete', 'dataSourceId', dataSourceId)
-            // verify required parameter 'documentDottedId' is not null or undefined
-            assertParamExists('referenceDelete', 'documentDottedId', documentDottedId)
-            const localVarPath = `/api/reference/{data_source_id}/{document_dotted_id}`
+            assertParamExists('metaById', 'dataSourceId', dataSourceId)
+            // verify required parameter 'documentId' is not null or undefined
+            assertParamExists('metaById', 'documentId', documentId)
+            const localVarPath = `/api/meta/{data_source_id}/{document_id}`
                 .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"document_dotted_id"}}`, encodeURIComponent(String(documentDottedId)));
+                .replace(`{${"document_id"}}`, encodeURIComponent(String(documentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
+         * @summary Delete Reference
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        referenceDelete: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('referenceDelete', 'address', address)
+            const localVarPath = `/api/reference/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1105,22 +1104,18 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
-         * @param {string} dataSourceId 
-         * @param {string} documentDottedId 
-         * @param {Reference} reference 
+         * @param {string} address 
+         * @param {ReferenceEntity} referenceEntity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        referenceInsert: async (dataSourceId: string, documentDottedId: string, reference: Reference, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'dataSourceId' is not null or undefined
-            assertParamExists('referenceInsert', 'dataSourceId', dataSourceId)
-            // verify required parameter 'documentDottedId' is not null or undefined
-            assertParamExists('referenceInsert', 'documentDottedId', documentDottedId)
-            // verify required parameter 'reference' is not null or undefined
-            assertParamExists('referenceInsert', 'reference', reference)
-            const localVarPath = `/api/reference/{data_source_id}/{document_dotted_id}`
-                .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
-                .replace(`{${"document_dotted_id"}}`, encodeURIComponent(String(documentDottedId)));
+        referenceInsert: async (address: string, referenceEntity: ReferenceEntity, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('referenceInsert', 'address', address)
+            // verify required parameter 'referenceEntity' is not null or undefined
+            assertParamExists('referenceInsert', 'referenceEntity', referenceEntity)
+            const localVarPath = `/api/reference/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1146,7 +1141,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(reference, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(referenceEntity, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1474,25 +1469,25 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export
-         * @param {string} reference 
+         * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async _export(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator._export(reference, options);
+        async _export(pathAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator._export(pathAddress, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Fetch the attribute from a reference.
+         * Fetch the attribute from a address.
          * @summary Get Attribute
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async attributeGet(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.attributeGet(reference, options);
+        async attributeGet(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.attributeGet(address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1505,18 +1500,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async blobGetById(dataSourceId: string, blobId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.blobGetById(dataSourceId, blobId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
-         * @summary Get Metadata By Id
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async blobMetadataById(dataSourceId: string, blobId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.blobMetadataById(dataSourceId, blobId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1545,14 +1528,14 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
+         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
          * @summary Resolve Blueprint Id
-         * @param {string} absoluteId 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async blueprintResolve(absoluteId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintResolve(absoluteId, options);
+        async blueprintResolve(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintResolve(address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1601,17 +1584,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
          * @summary Add Document
-         * @param {string} reference 
+         * @param {string} address 
          * @param {string} document 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentAdd(reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAdd(reference, document, updateUncontained, files, options);
+        async documentAdd(address: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentAdd(address, document, updateUncontained, files, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1627,65 +1610,65 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
-         * @param {string} reference 
+         * @param {string} address 
          * @param {number} [depth] 
          * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentGet(reference: string, depth?: number, resolveLinks?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(reference, depth, resolveLinks, options);
+        async documentGet(address: string, depth?: number, resolveLinks?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(address, depth, resolveLinks, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentRemove(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(reference, options);
+        async documentRemove(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} idReference 
+         * @param {string} idAddress 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentUpdate(idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(idReference, data, updateUncontained, files, options);
+        async documentUpdate(idAddress: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(idAddress, data, updateUncontained, files, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export Meta
-         * @param {string} reference 
+         * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async exportMeta(reference: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(reference, options);
+        async exportMeta(pathAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(pathAddress, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
          * @summary Upload File
          * @param {string} dataSourceId 
-         * @param {string} fileId 
+         * @param {string} data 
          * @param {File} file 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fileUpload(dataSourceId: string, fileId: string, file: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fileUpload(dataSourceId, fileId, file, options);
+        async fileUpload(dataSourceId: string, data: string, file: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fileUpload(dataSourceId, data, file, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1733,28 +1716,38 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Delete Reference
+         * Get meta information from data source id.
+         * @summary Get Meta By Id
          * @param {string} dataSourceId 
-         * @param {string} documentDottedId 
+         * @param {string} documentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async referenceDelete(dataSourceId: string, documentDottedId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(dataSourceId, documentDottedId, options);
+        async metaById(dataSourceId: string, documentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metaById(dataSourceId, documentId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
+         * @summary Delete Reference
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async referenceDelete(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
-         * @param {string} dataSourceId 
-         * @param {string} documentDottedId 
-         * @param {Reference} reference 
+         * @param {string} address 
+         * @param {ReferenceEntity} referenceEntity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async referenceInsert(dataSourceId: string, documentDottedId: string, reference: Reference, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.referenceInsert(dataSourceId, documentDottedId, reference, options);
+        async referenceInsert(address: string, referenceEntity: ReferenceEntity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.referenceInsert(address, referenceEntity, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1850,24 +1843,24 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export
-         * @param {string} reference 
+         * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        _export(reference: string, options?: any): AxiosPromise<void> {
-            return localVarFp._export(reference, options).then((request) => request(axios, basePath));
+        _export(pathAddress: string, options?: any): AxiosPromise<void> {
+            return localVarFp._export(pathAddress, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch the attribute from a reference.
+         * Fetch the attribute from a address.
          * @summary Get Attribute
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attributeGet(reference: string, options?: any): AxiosPromise<object> {
-            return localVarFp.attributeGet(reference, options).then((request) => request(axios, basePath));
+        attributeGet(address: string, options?: any): AxiosPromise<object> {
+            return localVarFp.attributeGet(address, options).then((request) => request(axios, basePath));
         },
         /**
          * Get blob from id. A blob (binary large object) can be anything from video to text file.
@@ -1879,17 +1872,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         blobGetById(dataSourceId: string, blobId: string, options?: any): AxiosPromise<File> {
             return localVarFp.blobGetById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
-         * @summary Get Metadata By Id
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        blobMetadataById(dataSourceId: string, blobId: string, options?: any): AxiosPromise<object> {
-            return localVarFp.blobMetadataById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
         },
         /**
          * Upload a new blob. A blob (binary large object) can be anything from video to text file.
@@ -1915,14 +1897,14 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.blueprintGet(typeRef, context, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
+         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
          * @summary Resolve Blueprint Id
-         * @param {string} absoluteId 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintResolve(absoluteId: string, options?: any): AxiosPromise<string> {
-            return localVarFp.blueprintResolve(absoluteId, options).then((request) => request(axios, basePath));
+        blueprintResolve(address: string, options?: any): AxiosPromise<string> {
+            return localVarFp.blueprintResolve(address, options).then((request) => request(axios, basePath));
         },
         /**
          * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
@@ -1966,17 +1948,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.dataSourceSave(dataSourceId, dataSourceRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
          * @summary Add Document
-         * @param {string} reference 
+         * @param {string} address 
          * @param {string} document 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAdd(reference: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<object> {
-            return localVarFp.documentAdd(reference, document, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentAdd(address: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<object> {
+            return localVarFp.documentAdd(address, document, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
          * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
@@ -1990,61 +1972,61 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentAddSimple(dataSourceId, body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
          * @summary Get
-         * @param {string} reference 
+         * @param {string} address 
          * @param {number} [depth] 
          * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet(reference: string, depth?: number, resolveLinks?: boolean, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGet(reference, depth, resolveLinks, options).then((request) => request(axios, basePath));
+        documentGet(address: string, depth?: number, resolveLinks?: boolean, options?: any): AxiosPromise<object> {
+            return localVarFp.documentGet(address, depth, resolveLinks, options).then((request) => request(axios, basePath));
         },
         /**
          * Remove a document from DMSS.
          * @summary Remove
-         * @param {string} reference 
+         * @param {string} address 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove(reference: string, options?: any): AxiosPromise<any> {
-            return localVarFp.documentRemove(reference, options).then((request) => request(axios, basePath));
+        documentRemove(address: string, options?: any): AxiosPromise<any> {
+            return localVarFp.documentRemove(address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
          * @summary Update
-         * @param {string} idReference 
+         * @param {string} idAddress 
          * @param {string} data 
          * @param {boolean} [updateUncontained] 
          * @param {Array<File>} [files] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentUpdate(idReference: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<any> {
-            return localVarFp.documentUpdate(idReference, data, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentUpdate(idAddress: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<any> {
+            return localVarFp.documentUpdate(idAddress, data, updateUncontained, files, options).then((request) => request(axios, basePath));
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
          * @summary Export Meta
-         * @param {string} reference 
+         * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        exportMeta(reference: string, options?: any): AxiosPromise<any> {
-            return localVarFp.exportMeta(reference, options).then((request) => request(axios, basePath));
+        exportMeta(pathAddress: string, options?: any): AxiosPromise<any> {
+            return localVarFp.exportMeta(pathAddress, options).then((request) => request(axios, basePath));
         },
         /**
-         * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
          * @summary Upload File
          * @param {string} dataSourceId 
-         * @param {string} fileId 
+         * @param {string} data 
          * @param {File} file 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fileUpload(dataSourceId: string, fileId: string, file: File, options?: any): AxiosPromise<object> {
-            return localVarFp.fileUpload(dataSourceId, fileId, file, options).then((request) => request(axios, basePath));
+        fileUpload(dataSourceId: string, data: string, file: File, options?: any): AxiosPromise<object> {
+            return localVarFp.fileUpload(dataSourceId, data, file, options).then((request) => request(axios, basePath));
         },
         /**
          * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
@@ -2087,27 +2069,36 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.instantiateEntity(entity, options).then((request) => request(axios, basePath));
         },
         /**
-         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Delete Reference
+         * Get meta information from data source id.
+         * @summary Get Meta By Id
          * @param {string} dataSourceId 
-         * @param {string} documentDottedId 
+         * @param {string} documentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        referenceDelete(dataSourceId: string, documentDottedId: string, options?: any): AxiosPromise<object> {
-            return localVarFp.referenceDelete(dataSourceId, documentDottedId, options).then((request) => request(axios, basePath));
+        metaById(dataSourceId: string, documentId: string, options?: any): AxiosPromise<object> {
+            return localVarFp.metaById(dataSourceId, documentId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
+         * @summary Delete Reference
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        referenceDelete(address: string, options?: any): AxiosPromise<object> {
+            return localVarFp.referenceDelete(address, options).then((request) => request(axios, basePath));
         },
         /**
          * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
          * @summary Insert Reference
-         * @param {string} dataSourceId 
-         * @param {string} documentDottedId 
-         * @param {Reference} reference 
+         * @param {string} address 
+         * @param {ReferenceEntity} referenceEntity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        referenceInsert(dataSourceId: string, documentDottedId: string, reference: Reference, options?: any): AxiosPromise<object> {
-            return localVarFp.referenceInsert(dataSourceId, documentDottedId, reference, options).then((request) => request(axios, basePath));
+        referenceInsert(address: string, referenceEntity: ReferenceEntity, options?: any): AxiosPromise<object> {
+            return localVarFp.referenceInsert(address, referenceEntity, options).then((request) => request(axios, basePath));
         },
         /**
          * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
@@ -2198,7 +2189,7 @@ export interface DefaultApiExportRequest {
      * @type {string}
      * @memberof DefaultApiExport
      */
-    readonly reference: string
+    readonly pathAddress: string
 }
 
 /**
@@ -2212,7 +2203,7 @@ export interface DefaultApiAttributeGetRequest {
      * @type {string}
      * @memberof DefaultApiAttributeGet
      */
-    readonly reference: string
+    readonly address: string
 }
 
 /**
@@ -2232,27 +2223,6 @@ export interface DefaultApiBlobGetByIdRequest {
      * 
      * @type {string}
      * @memberof DefaultApiBlobGetById
-     */
-    readonly blobId: string
-}
-
-/**
- * Request parameters for blobMetadataById operation in DefaultApi.
- * @export
- * @interface DefaultApiBlobMetadataByIdRequest
- */
-export interface DefaultApiBlobMetadataByIdRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiBlobMetadataById
-     */
-    readonly dataSourceId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiBlobMetadataById
      */
     readonly blobId: string
 }
@@ -2317,7 +2287,7 @@ export interface DefaultApiBlueprintResolveRequest {
      * @type {string}
      * @memberof DefaultApiBlueprintResolve
      */
-    readonly absoluteId: string
+    readonly address: string
 }
 
 /**
@@ -2387,7 +2357,7 @@ export interface DefaultApiDocumentAddRequest {
      * @type {string}
      * @memberof DefaultApiDocumentAdd
      */
-    readonly reference: string
+    readonly address: string
 
     /**
      * 
@@ -2443,7 +2413,7 @@ export interface DefaultApiDocumentGetRequest {
      * @type {string}
      * @memberof DefaultApiDocumentGet
      */
-    readonly reference: string
+    readonly address: string
 
     /**
      * 
@@ -2471,7 +2441,7 @@ export interface DefaultApiDocumentRemoveRequest {
      * @type {string}
      * @memberof DefaultApiDocumentRemove
      */
-    readonly reference: string
+    readonly address: string
 }
 
 /**
@@ -2485,7 +2455,7 @@ export interface DefaultApiDocumentUpdateRequest {
      * @type {string}
      * @memberof DefaultApiDocumentUpdate
      */
-    readonly idReference: string
+    readonly idAddress: string
 
     /**
      * 
@@ -2520,7 +2490,7 @@ export interface DefaultApiExportMetaRequest {
      * @type {string}
      * @memberof DefaultApiExportMeta
      */
-    readonly reference: string
+    readonly pathAddress: string
 }
 
 /**
@@ -2541,7 +2511,7 @@ export interface DefaultApiFileUploadRequest {
      * @type {string}
      * @memberof DefaultApiFileUpload
      */
-    readonly fileId: string
+    readonly data: string
 
     /**
      * 
@@ -2601,6 +2571,27 @@ export interface DefaultApiInstantiateEntityRequest {
 }
 
 /**
+ * Request parameters for metaById operation in DefaultApi.
+ * @export
+ * @interface DefaultApiMetaByIdRequest
+ */
+export interface DefaultApiMetaByIdRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiMetaById
+     */
+    readonly dataSourceId: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiMetaById
+     */
+    readonly documentId: string
+}
+
+/**
  * Request parameters for referenceDelete operation in DefaultApi.
  * @export
  * @interface DefaultApiReferenceDeleteRequest
@@ -2611,14 +2602,7 @@ export interface DefaultApiReferenceDeleteRequest {
      * @type {string}
      * @memberof DefaultApiReferenceDelete
      */
-    readonly dataSourceId: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiReferenceDelete
-     */
-    readonly documentDottedId: string
+    readonly address: string
 }
 
 /**
@@ -2632,21 +2616,14 @@ export interface DefaultApiReferenceInsertRequest {
      * @type {string}
      * @memberof DefaultApiReferenceInsert
      */
-    readonly dataSourceId: string
+    readonly address: string
 
     /**
      * 
-     * @type {string}
+     * @type {ReferenceEntity}
      * @memberof DefaultApiReferenceInsert
      */
-    readonly documentDottedId: string
-
-    /**
-     * 
-     * @type {Reference}
-     * @memberof DefaultApiReferenceInsert
-     */
-    readonly reference: Reference
+    readonly referenceEntity: ReferenceEntity
 }
 
 /**
@@ -2776,7 +2753,7 @@ export interface DefaultApiValidateEntityRequest {
  */
 export class DefaultApi extends BaseAPI {
     /**
-     * Download a zip-folder with one or more documents as json file(s).  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+     * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
      * @summary Export
      * @param {DefaultApiExportRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2784,11 +2761,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public _export(requestParameters: DefaultApiExportRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration)._export(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration)._export(requestParameters.pathAddress, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Fetch the attribute from a reference.
+     * Fetch the attribute from a address.
      * @summary Get Attribute
      * @param {DefaultApiAttributeGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2796,7 +2773,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public attributeGet(requestParameters: DefaultApiAttributeGetRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).attributeGet(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).attributeGet(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2809,18 +2786,6 @@ export class DefaultApi extends BaseAPI {
      */
     public blobGetById(requestParameters: DefaultApiBlobGetByIdRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).blobGetById(requestParameters.dataSourceId, requestParameters.blobId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get blob from id. A blob (binary large object) can be anything from video to text file.
-     * @summary Get Metadata By Id
-     * @param {DefaultApiBlobMetadataByIdRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public blobMetadataById(requestParameters: DefaultApiBlobMetadataByIdRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).blobMetadataById(requestParameters.dataSourceId, requestParameters.blobId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2848,7 +2813,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Resolve absolute_id of a blueprint to its type path.  - **absolute_id**: <data_source</<blueprint_uuid>
+     * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
      * @summary Resolve Blueprint Id
      * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2856,7 +2821,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public blueprintResolve(requestParameters: DefaultApiBlueprintResolveRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).blueprintResolve(requestParameters.absoluteId, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).blueprintResolve(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2907,7 +2872,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Add a document to a package (or a data source) using a reference.  - **reference**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+     * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
      * @summary Add Document
      * @param {DefaultApiDocumentAddRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2915,7 +2880,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentAdd(requestParameters: DefaultApiDocumentAddRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentAdd(requestParameters.reference, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentAdd(requestParameters.address, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2931,7 +2896,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get document as JSON string.  - **reference**: A reference to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+     * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
      * @summary Get
      * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2939,7 +2904,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentGet(requestParameters: DefaultApiDocumentGetRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentGet(requestParameters.reference, requestParameters.depth, requestParameters.resolveLinks, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentGet(requestParameters.address, requestParameters.depth, requestParameters.resolveLinks, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2951,11 +2916,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentRemove(requestParameters: DefaultApiDocumentRemoveRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentRemove(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentRemove(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Update document - **id_reference**: <data_source>/<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+     * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
      * @summary Update
      * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2963,11 +2928,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentUpdate(requestParameters: DefaultApiDocumentUpdateRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentUpdate(requestParameters.idReference, requestParameters.data, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentUpdate(requestParameters.idAddress, requestParameters.data, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **reference**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+     * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
      * @summary Export Meta
      * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2975,11 +2940,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public exportMeta(requestParameters: DefaultApiExportMetaRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).exportMeta(requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).exportMeta(requestParameters.pathAddress, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Upload a new file and add it to o package (or a data source) using a reference.  A blob (binary large object) can be anything from video to text file.
+     * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
      * @summary Upload File
      * @param {DefaultApiFileUploadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2987,7 +2952,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public fileUpload(requestParameters: DefaultApiFileUploadRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).fileUpload(requestParameters.dataSourceId, requestParameters.fileId, requestParameters.file, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).fileUpload(requestParameters.dataSourceId, requestParameters.data, requestParameters.file, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3038,6 +3003,18 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
+     * Get meta information from data source id.
+     * @summary Get Meta By Id
+     * @param {DefaultApiMetaByIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public metaById(requestParameters: DefaultApiMetaByIdRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).metaById(requestParameters.dataSourceId, requestParameters.documentId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
      * @summary Delete Reference
      * @param {DefaultApiReferenceDeleteRequest} requestParameters Request parameters.
@@ -3046,7 +3023,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public referenceDelete(requestParameters: DefaultApiReferenceDeleteRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).referenceDelete(requestParameters.dataSourceId, requestParameters.documentDottedId, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).referenceDelete(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3058,7 +3035,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public referenceInsert(requestParameters: DefaultApiReferenceInsertRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).referenceInsert(requestParameters.dataSourceId, requestParameters.documentDottedId, requestParameters.reference, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).referenceInsert(requestParameters.address, requestParameters.referenceEntity, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
