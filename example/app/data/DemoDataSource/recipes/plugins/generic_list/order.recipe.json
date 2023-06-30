@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/generic-list/blueprints/Order",
+  "_blueprintPath_": "/plugins/generic_list/blueprints/Order",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
@@ -24,13 +24,13 @@
     {
       "name": "List",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/generic-list",
+      "plugin": "@development-framework/dm-core-plugins/generic_list",
       "dimensions": "*",
       "config": {
-        "type": "PLUGINS:dm-core-plugins/generic-list/GenericListPluginConfig",
+        "type": "PLUGINS:dm-core-plugins/generic_list/GenericListPluginConfig",
         "headers": ["name", "description"],
         "functionality": {
-          "type": "PLUGINS:dm-core-plugins/generic-list/FunctionalityConfig",
+          "type": "PLUGINS:dm-core-plugins/generic_list/FunctionalityConfig",
           "delete": true
         }
       }
