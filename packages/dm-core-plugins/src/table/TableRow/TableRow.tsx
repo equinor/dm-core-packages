@@ -10,11 +10,10 @@ import React, { ChangeEvent } from 'react'
 import { TTableRow } from '../types'
 import { TGenericObject, ViewCreator } from '@development-framework/dm-core'
 import {
-  add,
   chevron_down,
   chevron_up,
   delete_to_trash,
-  minimize,
+  open_in_browser,
 } from '@equinor/eds-icons'
 import { moveItem } from '../../list/utils'
 
@@ -74,29 +73,16 @@ export function TableRow(props: TTableRow) {
   return (
     <>
       <Table.Row key={item.key}>
-        {(config.functionality?.openAsTab ||
-          config.functionality.openAsExpandable) && (
+        {config.functionality.openAsExpandable && (
           <Table.Cell>
-            <Tooltip
-              title={
-                config.functionality.openAsExpandable
-                  ? item.expanded
-                    ? 'Minimize'
-                    : 'Expand'
-                  : 'Open in new tab'
-              }
-            >
+            <Tooltip title={item.expanded ? 'Minimize' : 'Expand'}>
               <Button
                 variant="ghost_icon"
                 color="secondary"
                 disabled={!item.isSaved}
-                onClick={
-                  config.functionality.openAsExpandable
-                    ? () => expandItem(index)
-                    : () => openItemAsTab(item, index)
-                }
+                onClick={() => expandItem(index)}
               >
-                <Icon data={item.expanded ? minimize : add} />
+                <Icon data={item.expanded ? chevron_up : chevron_down} />
               </Button>
             </Tooltip>
           </Table.Cell>
@@ -128,6 +114,17 @@ export function TableRow(props: TTableRow) {
             </Table.Cell>
           )
         })}
+        {config.functionality?.openAsTab && (
+          <Table.Cell style={{ textAlign: 'center' }}>
+            <Button
+              title="Open"
+              variant="ghost"
+              onClick={() => openItemAsTab(item, index)}
+            >
+              <Icon data={open_in_browser} aria-hidden /> Open
+            </Button>
+          </Table.Cell>
+        )}
         <EdsProvider density="compact">
           {config.functionality?.delete && (
             <Table.Cell style={{ textAlign: 'center' }}>
@@ -178,7 +175,11 @@ export function TableRow(props: TTableRow) {
           <Table.Cell colSpan={getColumnsLength()}>
             <ViewCreator
               idReference={`${idReference}[${item.index}]`}
-              viewConfig={config.views?.[item.index] ?? config.defaultView}
+              viewConfig={
+                config.expandableRecipeViewConfig
+                  ? config.expandableRecipeViewConfig
+                  : config.views?.[item.index] ?? config.defaultView
+              }
             />
           </Table.Cell>
         </Table.Row>

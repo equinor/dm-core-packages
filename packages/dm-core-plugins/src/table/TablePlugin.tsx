@@ -115,13 +115,15 @@ export const TablePlugin = (props: IUIPlugin) => {
       <Table style={{ width: '100%' }}>
         <Table.Head>
           <Table.Row>
-            {(config.functionality?.openAsTab ||
-              config.functionality?.openAsExpandable) && (
+            {config.functionality?.openAsExpandable && (
               <Table.Cell width="80"></Table.Cell>
             )}
             {config.columns.map((attribute: string) => (
               <Table.Cell key={attribute}>{attribute}</Table.Cell>
             ))}
+            {config.functionality?.openAsTab && (
+              <Table.Cell width="48" aria-label="Open in new tab"></Table.Cell>
+            )}
             {config.functionality?.delete && (
               <Table.Cell width="48" aria-label="Delete"></Table.Cell>
             )}

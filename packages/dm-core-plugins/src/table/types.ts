@@ -1,4 +1,8 @@
-import { TGenericObject, TViewConfig } from '@development-framework/dm-core'
+import {
+  TGenericObject,
+  TInlineRecipeViewConfig,
+  TViewConfig,
+} from '@development-framework/dm-core'
 
 export type TTableFunctionalityConfig = {
   openAsTab: boolean
@@ -14,6 +18,7 @@ export type TTablePluginConfig = {
   columns: string[]
   showDelete: boolean
   editableColumns?: string[]
+  expandableRecipeViewConfig?: TInlineRecipeViewConfig
   functionality: TTableFunctionalityConfig
   defaultView: TViewConfig
   views: TViewConfig[]
