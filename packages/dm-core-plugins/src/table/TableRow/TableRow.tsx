@@ -16,7 +16,7 @@ import {
   delete_to_trash,
   minimize,
 } from '@equinor/eds-icons'
-import { moveItem } from '../../generic-list/utils'
+import { moveItem } from '../../generic_list/utils'
 
 export function TableRow(props: TTableRow) {
   const {

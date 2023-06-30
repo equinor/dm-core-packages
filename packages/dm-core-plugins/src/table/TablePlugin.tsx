@@ -12,7 +12,7 @@ import {
 import { Button, Icon, Table } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
-import { SaveButton } from '../generic-list/Components'
+import { SaveButton } from '../generic_list/Components'
 import { TTableRowItem, TTablePluginConfig, defaultConfig } from './types'
 import { TableRow } from './TableRow/TableRow'
 
