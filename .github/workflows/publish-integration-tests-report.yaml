@@ -5,17 +5,22 @@ on:
   workflow_call:
     inputs:
       dm_cli_version:
-        description: "DM CLI version used in test"
+        description: 'DM CLI version used in test'
         required: true
         type: string
       dmss_version:
-        description: "DMSS version used in test"
+        description: 'DMSS version used in test'
         required: true
         type: string
       job_version:
-        description: "Job version used in test"
+        description: 'Job version used in test'
         required: true
         type: string
+      update_readme:
+        description: 'If true, update README.md with test details'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   publish_report:
@@ -46,14 +51,14 @@ jobs:
           name: playwright-report
           path: ${{ env.HTML_REPORT_URL_PATH }}
 
-      - name: Add entry to README.md on success
-        if: ${{ success() }} && github.ref == 'refs/heads/main'
+      - name: Add entry to README.md
+        if: inputs.update_readme
         run: |
           echo "* ${{ github.event.head_commit.message }} (${{ github.event.repository.updated_at}})" >> README.md
           echo "  * [Integration tests](https://equinor.github.io/dm-core-packages/$HTML_REPORT_URL_PATH)" >> README.md
           echo "    * **DMSS VERSION**: ${{ inputs.dmss_version }}" >> README.md
           echo "    * **DM CLI VERSION**: ${{ inputs.dm_cli_version }}" >> README.md
-          echo "    * **JOB VERSION**: ${{ inputs.job_version }}" >> README.md          
+          echo "    * **JOB VERSION**: ${{ inputs.job_version }}" >> README.md
 
       - name: Push HTML Report
         timeout-minutes: 3
@@ -97,4 +102,3 @@ jobs:
           echo "- **DMSS VERSION**: ${{ inputs.dmss_version }}" >> $GITHUB_STEP_SUMMARY
           echo "- **DM CLI VERSION**: ${{ inputs.dm_cli_version }}" >> $GITHUB_STEP_SUMMARY
           echo "- **JOB VERSION**: ${{ inputs.job_version }}" >> $GITHUB_STEP_SUMMARY
-

@@ -20,6 +20,7 @@ jobs:
       dmss_version: ${{ needs.integration-tests.outputs.dmss_version }}
       dm_cli_version: ${{ needs.integration-tests.outputs.dm_cli_version }}
       job_version: ${{ needs.integration-tests.outputs.job_version }}
+      update_readme: ${{ needs.integration-tests.result == 'success' }}
 
   release-please:
     needs: tests
