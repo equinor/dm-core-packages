@@ -1,6 +1,6 @@
 {
   "type": "CORE:Blueprint",
-  "name": "AttributeSelectorTabsDefault",
+  "name": "ViewSelectorTabsDefault",
   "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
@@ -9,21 +9,21 @@
       "name": "type"
     },
     {
-      "attributeType": "./AttributeSelectorTabsDefault",
+      "attributeType": "./ViewSelectorTabsDefault",
       "type": "CORE:BlueprintAttribute",
       "name": "firstAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "./AttributeSelectorTabsDefault",
+      "attributeType": "./ViewSelectorTabsDefault",
       "type": "CORE:BlueprintAttribute",
       "name": "secondAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "./AttributeSelectorTabsDefault",
+      "attributeType": "./ViewSelectorTabsDefault",
       "type": "CORE:BlueprintAttribute",
       "name": "thirdAttribute",
       "contained": true,

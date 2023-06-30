@@ -1,7 +1,7 @@
 import { TPlugin } from '@development-framework/dm-core'
 
 import { YamlPlugin } from './yaml/YamlPlugin'
-import { AttributeSelectorPlugin } from './view_selector/AttributeSelectorPlugin'
+import { ViewSelectorPlugin } from './view_selector/ViewSelectorPlugin'
 import { BlueprintHierarchyPlugin } from './blueprint-hierarchy/BlueprintHierarchyPlugin'
 import { JobInputEditPlugin } from './job/JobInputEditPlugin'
 import { JobControlPlugin } from './job/JobControlPlugin'
@@ -43,7 +43,7 @@ export const plugins: TPlugin[] = [
   },
   {
     pluginName: '@development-framework/dm-core-plugins/view_selector',
-    component: AttributeSelectorPlugin,
+    component: ViewSelectorPlugin,
   },
   {
     pluginName: '@development-framework/dm-core-plugins/blueprint-hierarchy',

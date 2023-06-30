@@ -1,6 +1,6 @@
 {
   "type": "CORE:Blueprint",
-  "name": "AttributeSelectorItem",
+  "name": "ViewSelectorItem",
   "attributes": [
     {
       "attributeType": "string",

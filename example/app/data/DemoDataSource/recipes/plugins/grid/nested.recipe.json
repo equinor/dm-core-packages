@@ -2,7 +2,7 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "/plugins/grid/blueprints/Nested",
   "initialUiRecipe": {
-    "name": "AttributeSelector",
+    "name": "ViewSelector",
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/view_selector",
     "config": {}

@@ -1,8 +1,8 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/view_selector/blueprints/AttributeSelectorTabsDefault",
+  "_blueprintPath_": "/plugins/view_selector/blueprints/ViewSelectorTabsDefault",
   "initialUiRecipe": {
-    "name": "AttributeSelector",
+    "name": "ViewSelector",
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/view_selector"
   }
