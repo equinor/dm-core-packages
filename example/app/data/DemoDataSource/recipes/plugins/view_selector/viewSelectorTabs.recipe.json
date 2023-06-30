@@ -1,17 +1,17 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/attribute-selector/blueprints/AttributeSelectorTabs",
+  "_blueprintPath_": "/plugins/view_selector/blueprints/AttributeSelectorTabs",
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
     "config": {
-      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorConfig",
+      "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorConfig",
       "childTabsOnRender": true,
       "asSidebar": false,
       "items": [
         {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
           "label": "Edit first",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -26,7 +26,7 @@
           }
         },
         {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
           "label": "Tabs from third",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -34,14 +34,14 @@
               "type": "CORE:UiRecipe",
               "name": "Tabs",
               "description": "Tabs",
-              "plugin": "@development-framework/dm-core-plugins/attribute-selector"
+              "plugin": "@development-framework/dm-core-plugins/view_selector"
             },
             "scope": "thirdAttribute",
             "eds_icon": "filter_list"
           }
         },
         {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
           "label": "Yaml on self",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -53,7 +53,7 @@
           }
         },
         {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
           "label": "Yaml on self again",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",

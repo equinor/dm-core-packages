@@ -4,7 +4,7 @@
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
     "config": {}
   },
   "uiRecipes": [
