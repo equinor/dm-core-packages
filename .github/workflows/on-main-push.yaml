@@ -22,7 +22,7 @@ jobs:
       update_readme: ${{ needs.integration-tests.result == 'success' }}
 
   release-please:
-    needs: tests
+    needs: [tests, integration-tests]
     uses: ./.github/workflows/create-release-pr.yaml
 
   publish-packages:
