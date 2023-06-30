@@ -39,7 +39,7 @@ const TooltipText = styled.div`
   animation: ${tempVisible} 2s;
 `
 
-const YamlView = (props: { document: TGenericObject }) => {
+export const YamlView = (props: { document: TGenericObject }) => {
   const { document } = props
   const [showTooltip, setShowTooltip] = useState<boolean>(false)
   const asYAML: string = jsyaml.dump(document)
