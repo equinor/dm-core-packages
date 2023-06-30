@@ -6,6 +6,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.1.0 to ^1.1.1
 
+## [1.1.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.1.1...dm-core-plugins-v1.1.2) (2023-06-30)
+
+
+### Bug Fixes
+
+* use new dmss API in dm-core and dm-core-packages ([94247ff](https://github.com/equinor/dm-core-packages/commit/94247fff84533f29733cf0c3677b54a1360f6658))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.1.1 to ^1.1.2
+
 ## 1.1.0 (2023-06-29)
 
 
