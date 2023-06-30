@@ -1,0 +1,39 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/Table/ListOfCars/blueprints/CarList",
+  "initialUiRecipe": {
+    "name": "AttributeSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "cars",
+              "description": "List of cars",
+              "plugin": "@development-framework/dm-core-plugins/table",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+                "functionality": {
+                  "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+                  "openAsTab": true,
+                  "openAsExpandable": false,
+                  "save": false,
+                  "delete": true,
+                  "edit": false,
+                  "sort": false
+                }
+              }
+            },
+            "scope": "cars"
+          }
+        }
+      ]
+    }
+  }
+}

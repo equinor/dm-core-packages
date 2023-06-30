@@ -1,0 +1,13 @@
+{
+  "name": "Car",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "color",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}

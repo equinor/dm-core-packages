@@ -1,0 +1,14 @@
+{
+  "name": "CarList",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "description": "",
+  "attributes": [
+    {
+      "name": "cars",
+      "dimensions": "*",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Car"
+    }
+  ]
+}

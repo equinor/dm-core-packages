@@ -1,0 +1,12 @@
+{
+  "type": "./blueprints/CarList",
+  "_id": "carList",
+  "name": "CarList",
+  "cars": [
+    {
+      "type": "./blueprints/Car",
+      "name": "Volvo",
+      "color": "grey"
+    }
+  ]
+}
