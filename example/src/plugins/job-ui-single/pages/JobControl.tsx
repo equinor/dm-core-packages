@@ -6,7 +6,7 @@ import {
 } from '@development-framework/dm-core'
 import React, { useEffect, useState } from 'react'
 import { Button, Chip, Icon } from '@equinor/eds-core-react'
-import { stop } from '@equinor/eds-icons'
+import { stop, play } from '@equinor/eds-icons'
 
 export const JobControl = (props: { jobEntityId: string }) => {
   const { jobEntityId } = props
@@ -21,11 +21,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
     remove,
   } = useJob(jobEntityId)
   const [result, setResult] = useState<GetJobResultResponse>()
-
-  //run once when the object is rendered
-  useEffect(() => {
-    start()
-  }, [])
+  const [jobIsStarted, setJobIsStarted] = useState<boolean>(false)
 
   if (isLoading) return <Loading />
   if (error)
@@ -39,11 +35,23 @@ export const JobControl = (props: { jobEntityId: string }) => {
     <div>
       <Chip>Status: {status}</Chip>
 
-      <Button onClick={() => remove()} variant="contained">
-        <Icon data={stop}></Icon>
-        Stop
-      </Button>
-
+      {jobIsStarted ? (
+        <Button onClick={() => remove()} variant="contained">
+          <Icon data={stop}></Icon>
+          Stop
+        </Button>
+      ) : (
+        <Button
+          onClick={() => {
+            start()
+            setJobIsStarted(true)
+          }}
+          variant="contained"
+        >
+          <Icon data={play}></Icon>
+          Start
+        </Button>
+      )}
       <button
         onClick={() => fetchStatusAndLogs()}
         disabled={status === JobStatus.NotStarted}

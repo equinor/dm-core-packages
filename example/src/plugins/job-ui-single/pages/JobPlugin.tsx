@@ -1,90 +1,50 @@
 import {
-  AuthContext,
-  DmssAPI,
   EBlueprint,
-  ErrorResponse,
   JobStatus,
-  Loading,
   TJob,
   IUIPlugin,
-  TGenericObject,
-  useDocument,
 } from '@development-framework/dm-core'
-import React, { useContext, useState } from 'react'
-import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Icon } from '@equinor/eds-core-react'
-import { play } from '@equinor/eds-icons'
+import React, { useState } from 'react'
 
-import { v4 as uuidv4 } from 'uuid'
 import { JobControl } from './JobControl'
+import { CreateJobEntity } from './CreateJobEntity'
 
 export const JobPlugin = (props: IUIPlugin) => {
-  const { idReference } = props
+  // TODO make this plugin general and move to dm-core-packages/packages/dm-core-plugins. Right now, it can only be used in the SignalApp due to hard coded values.
 
-  const { token } = useContext(AuthContext)
-  const DmssApi = new DmssAPI(token)
-  const [jobEntityId, setJobEntityId] = useState<string>()
-  const dataSource = 'DemoDataSource'
+  const [jobEntityId, setJobEntityId] = useState<string>('')
+  const jobEntityDestination = `DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].job`
 
-  const [document, loading, error] = useDocument<TGenericObject>(
-    idReference,
-    999
-  )
+  // Example of another value for jobEntityDestination
+  // const jobEntityDestination = `DemoDataSource/apps/MySignalApp/instances`
 
-  if (loading) return <Loading />
-
-  console.log('*********** Job Testing ****************')
-  console.log(idReference)
-  console.log(document)
-
-  const myuuid = uuidv4()
-
-  // TODO: Find an easier way for users to create valid job entities
-  const getJobEntity = (): TJob => {
-    return {
-      label: 'Example local container job',
-      type: EBlueprint.JOB,
-      status: JobStatus.NotStarted,
-      triggeredBy: 'me',
-      applicationInput: {
-        name: 'input_proxy',
-        type: 'dmss://DemoDataSource/apps/MySignalApp/models/CaseProxy',
-        _id: myuuid,
-        description: 'sdrawkcab si siht',
-        child_id: idReference,
-      },
-      runner: {
-        type: 'dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob',
-      },
-      started: 'Not started',
-    }
-  }
-
-  const saveJobEntity = (jobEntity: TJob) => {
-    DmssApi.documentAdd({
-      reference: `${dataSource}/apps/MySignalApp/instances`,
-      document: JSON.stringify(jobEntity),
-      updateUncontained: true,
-    })
-      .then((response: AxiosResponse<any>) => {
-        setJobEntityId(`${dataSource}/$${response.data.uid}`)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error.response?.data)
-      })
+  // example of a default job entity
+  const defaultJobEntity: TJob = {
+    label: 'Example local container job',
+    type: EBlueprint.JOB,
+    status: JobStatus.NotStarted,
+    triggeredBy: 'me',
+    applicationInput: {
+      type: EBlueprint.REFERENCE,
+      referenceType: 'link',
+      address: 'dmss://DemoDataSource/$5483c9b0-d505-46c9-a157-94c79f4d7a6b',
+    },
+    runner: {
+      type: `dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob`,
+    },
+    started: 'Not started',
   }
 
   return (
     <div>
-      <Button
-        onClick={() => saveJobEntity(getJobEntity())}
-        variant="contained"
-        aria-label="add action"
-      >
-        <Icon data={play}></Icon>
-        Generate Signal
-      </Button>
-
+      {/*// TODO do not include CreateJobEntity component if entity exists in destination*/}
+      {/*TODO have a way to check if an entity of type job already exists in 'jobEntityDestination'. Must scan content of entire package if jobEntityDestination is a package, but its simpler to check if jobEntityDestination is refering to an object's attribute. */}
+      <CreateJobEntity
+        jobEntityDestination={jobEntityDestination}
+        applicationInputType={`dmss://DemoDataSource/apps/MySignalApp/models/CaseProxy`}
+        jobRunnerType={`dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob`}
+        onCreate={(jobEntityId: string) => setJobEntityId(jobEntityId)}
+      />
       {jobEntityId && <JobControl jobEntityId={jobEntityId} />}
     </div>
   )
