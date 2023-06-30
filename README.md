@@ -1591,3 +1591,8 @@ Co-authored-by: Andrea Vesterhus <andrea.vesterhus@bouvet.no> (2023-06-27T08:10:
     * **DMSS VERSION**: 2050738 2023-06-30 Krist..rstad fix: bug with create entity grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.13
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* ci: TEMP - test on success 2 (2023-06-30T06:21:00Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/ci/avoid-publish-test-report/5420884894/1)
+    * **DMSS VERSION**: 2050738 2023-06-30 Krist..rstad fix: bug with create entity grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.13
+    * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
