@@ -6,14 +6,14 @@ in a new tab.
 
 If you want to specify a config object in some UiRecipe-entity, the Blueprint is included in the npm package.
 
-The view_selector UI plugin can accept a config of type `AttributeSelectorConfig` with the following attributes:
+The view_selector UI plugin can accept a config of type `ViewSelectorConfig` with the following attributes:
 
-* `items` (required): A list of AttributeSelectorItem with a ViewConfig for each attribute/recipe to display.
+* `items` (required): A list of ViewSelectorItem with a ViewConfig for each attribute/recipe to display.
 * `childTabsOnRender` (optional): If false the tab/sidebar will only show the home button until "onOpen()" is called on
   an attribute. Defaults to true.
 * `asSidebar` (optional): Specify if attributes should be displayed in a sidebar view. The alternative is a tab view.
 
-An `AttributeSelectorItem` has the following attributes:
+An `ViewSelectorItem` has the following attributes:
 
 * `view` (required): object of type `ViewConfig` for the plugin
 * `label` (optional)

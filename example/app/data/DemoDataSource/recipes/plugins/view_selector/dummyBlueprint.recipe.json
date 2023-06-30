@@ -2,16 +2,16 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "/plugins/view_selector/blueprints/DummyBlueprint",
   "initialUiRecipe": {
-    "name": "AttributeSelector",
+    "name": "ViewSelector",
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/view_selector",
     "config": {
-      "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorConfig",
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
       "asSidebar": true,
       "items": [
         {
-          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Edit self",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -26,7 +26,7 @@
           }
         },
         {
-          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Yaml view",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -40,7 +40,7 @@
           }
         },
         {
-          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Diagram",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -54,7 +54,7 @@
           }
         },
         {
-          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "List",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",

@@ -4,12 +4,12 @@ import {
   TViewConfig,
 } from '@development-framework/dm-core'
 
-export type TAttributeSelectorItem = {
+export type TViewSelectorItem = {
   view: TReferenceViewConfig | TInlineRecipeViewConfig | TViewConfig
   label?: string
 }
 
-export type TItemData = TAttributeSelectorItem & {
+export type TItemData = TViewSelectorItem & {
   viewId: string
   label: string
   closeable?: boolean
@@ -18,8 +18,8 @@ export type TItemData = TAttributeSelectorItem & {
   onSubmit?: (data: TItemData) => void
 }
 
-export type TAttributeSelectorConfig = {
+export type TViewSelectorConfig = {
   childTabsOnRender?: boolean
   asSidebar?: boolean
-  items?: TAttributeSelectorItem[]
+  items?: TViewSelectorItem[]
 }

@@ -10,17 +10,13 @@ import { useEffect, useState } from 'react'
 import { Sidebar } from './Sidebar'
 import { Tabs } from './Tabs'
 import { Content } from './Content'
-import {
-  TAttributeSelectorConfig,
-  TAttributeSelectorItem,
-  TItemData,
-} from './types'
+import { TViewSelectorConfig, TViewSelectorItem, TItemData } from './types'
 
-export const AttributeSelectorPlugin = (
-  props: IUIPlugin & { config?: TAttributeSelectorConfig }
+export const ViewSelectorPlugin = (
+  props: IUIPlugin & { config?: TViewSelectorConfig }
 ): JSX.Element => {
   const { idReference, config, type } = props
-  const internalConfig: TAttributeSelectorConfig = {
+  const internalConfig: TViewSelectorConfig = {
     childTabsOnRender: true,
     asSidebar: false,
     items: [],
@@ -63,7 +59,7 @@ export const AttributeSelectorPlugin = (
 
     const newViews: TItemData[] = []
     if (internalConfig.items && internalConfig.items.length) {
-      internalConfig.items.forEach((viewItem: TAttributeSelectorItem) => {
+      internalConfig.items.forEach((viewItem: TViewSelectorItem) => {
         const backupKey: string = viewItem.view?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
         const viewId = newViews.find((v) => v.viewId === backupKey)
           ? crypto.randomUUID()

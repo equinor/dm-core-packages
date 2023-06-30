@@ -1,24 +1,24 @@
 {
   "type": "CORE:Blueprint",
-  "name": "AttributeSelectorTabs",
+  "name": "ViewSelectorTabs",
   "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
-      "attributeType": "./AttributeSelectorTabs",
+      "attributeType": "./ViewSelectorTabs",
       "type": "CORE:BlueprintAttribute",
       "name": "firstAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "./AttributeSelectorTabs",
+      "attributeType": "./ViewSelectorTabs",
       "type": "CORE:BlueprintAttribute",
       "name": "secondAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "./AttributeSelectorTabs",
+      "attributeType": "./ViewSelectorTabs",
       "type": "CORE:BlueprintAttribute",
       "name": "thirdAttribute",
       "contained": true,

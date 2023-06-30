@@ -1,6 +1,6 @@
 {
   "type": "CORE:Blueprint",
-  "name": "AttributeSelectorSidebar",
+  "name": "ViewSelectorSidebar",
   "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
@@ -9,21 +9,21 @@
       "name": "type"
     },
     {
-      "attributeType": "./AttributeSelectorSidebar",
+      "attributeType": "./ViewSelectorSidebar",
       "type": "CORE:BlueprintAttribute",
       "name": "firstAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "./AttributeSelectorSidebar",
+      "attributeType": "./ViewSelectorSidebar",
       "type": "CORE:BlueprintAttribute",
       "name": "secondAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "./AttributeSelectorSidebar",
+      "attributeType": "./ViewSelectorSidebar",
       "type": "CORE:BlueprintAttribute",
       "name": "thirdAttribute",
       "contained": true,

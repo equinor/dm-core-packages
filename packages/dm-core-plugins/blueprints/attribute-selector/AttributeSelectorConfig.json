@@ -1,6 +1,6 @@
 {
   "type": "CORE:Blueprint",
-  "name": "AttributeSelectorConfig",
+  "name": "ViewSelectorConfig",
   "attributes": [
     {
       "attributeType": "boolean",
@@ -10,7 +10,7 @@
       "default": true
     },
     {
-      "attributeType": "./AttributeSelectorItem",
+      "attributeType": "./ViewSelectorItem",
       "type": "CORE:BlueprintAttribute",
       "name": "items",
       "dimensions": "*",
