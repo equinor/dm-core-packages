@@ -108,6 +108,16 @@
           "sort": true,
           "add": true,
           "edit": true
+        },
+        "expandableRecipeViewConfig": {
+          "type": "CORE:InlineRecipeViewConfig",
+          "scope": "self",
+          "recipe": {
+            "type": "CORE:UiRecipe",
+            "name": "Edit",
+            "description": "Default edit",
+            "plugin": "@development-framework/dm-core-plugins/form"
+          }
         }
       }
     }

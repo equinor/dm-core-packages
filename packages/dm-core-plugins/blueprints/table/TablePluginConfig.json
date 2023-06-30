@@ -21,6 +21,11 @@
       "dimensions": "*"
     },
     {
+      "attributeType": "CORE:ViewConfig",
+      "type": "CORE:BlueprintAttribute",
+      "name": "expandableRecipeViewConfig"
+    },
+    {
       "attributeType": "./TableFunctionalityConfig.json",
       "type": "CORE:BlueprintAttribute",
       "name": "functionality",
