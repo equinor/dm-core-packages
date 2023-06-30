@@ -72,6 +72,10 @@ export type TJob = {
   referenceTarget?: string
 }
 
+export type TJobWithRunner = TJob & {
+  runner: TJobHandler | TContainerJobHandler
+}
+
 export type TValidEntity = {
   type: string
   [key: string]: any
