@@ -22,6 +22,8 @@ jobs:
     name: Publish HTML Report
     # using always() is not ideal here, because it would also run if the workflow was cancelled
     runs-on: ubuntu-latest
+    concurrency:
+      group: publish-integration-tests-report-publish_report
     continue-on-error: true
     env:
       # Unique URL path for each workflow run attempt
