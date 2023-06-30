@@ -4,14 +4,14 @@
   "initialUiRecipe": {
     "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/attribute-selector",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
     "config": {
-      "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorConfig",
+      "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorConfig",
       "childTabsOnRender": true,
       "asSidebar": true,
       "items": [
         {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
           "label": "Edit",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -25,7 +25,7 @@
           }
         },
         {
-          "type": "PLUGINS:dm-core-plugins/attribute-selector/AttributeSelectorItem",
+          "type": "PLUGINS:dm-core-plugins/view_selector/AttributeSelectorItem",
           "label": "Yaml",
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
