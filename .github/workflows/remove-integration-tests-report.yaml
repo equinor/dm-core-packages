@@ -40,11 +40,10 @@ jobs:
         if: ${{ env.BRANCH_REPORTS_EXIST == 'true' }}
         timeout-minutes: 3
         run: |
-          cd $BRANCH_REPORTS_DIR/..
-          echo "Removing folder: ${{ inputs.deleted-branch }}"
-          rm -rf ${{ inputs.deleted-branch }}
+          echo "Removing folder: $BRANCH_REPORTS_DIR"
+          rm -rf $BRANCH_REPORTS_DIR
           git add .
-          git commit -m "workflow: remove all reports for branch ${{ inputs.deleted-branch }}"
+          git commit -m "workflow: remove all reports for branch $BRANCH_REPORTS_DIR"
 
           while true; do
             git pull --rebase
