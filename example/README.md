@@ -76,3 +76,8 @@ In the example app, json files are named according to what type they are.
 - JSON files of type Blueprint are named `<MyBluePrint>.blueprint.json`, using the PascalCase notation. 
 - JSON files of type RecipeLink are named `<MyBluePrint>.recipe.json`, using the PascalCase notation. 
 - JSON files of type Entity are named `<myEntity>.entity.json`, with the camelCase notation. 
+
+In the example app, folders are named according to the naming convention: 
+
+- Apps are to have the PascalCase notation
+- All other folders are to have the snake_case notation. 
