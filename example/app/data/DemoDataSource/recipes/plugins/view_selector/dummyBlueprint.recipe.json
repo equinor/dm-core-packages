@@ -61,7 +61,7 @@
             "recipe": {
               "name": "List",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/generic-list",
+              "plugin": "@development-framework/dm-core-plugins/list",
               "dimensions": "*"
             },
             "scope": "self"
