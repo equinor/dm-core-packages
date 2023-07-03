@@ -1,0 +1,9 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/table/car_list/blueprints/Car",
+  "initialUiRecipe": {
+    "name": "form",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/form"
+  }
+}
