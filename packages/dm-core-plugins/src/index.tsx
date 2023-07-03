@@ -12,7 +12,7 @@ import { PdfPlugin } from './pdf/PdfPlugin'
 import { BlueprintPlugin } from './blueprint/BlueprintPlugin'
 import ExplorerPlugin from './explorer/ExplorerPlugin'
 import { GridPlugin } from './grid/GridPlugin'
-import { GenericListPlugin } from './list/GenericListPlugin'
+import { ListPlugin } from './list/ListPlugin'
 import { TablePlugin } from './table/TablePlugin'
 import { FilePlugin } from './file/FilePlugin'
 
@@ -23,7 +23,7 @@ export const plugins: TPlugin[] = [
   },
   {
     pluginName: '@development-framework/dm-core-plugins/list',
-    component: GenericListPlugin,
+    component: ListPlugin,
   },
   {
     pluginName: '@development-framework/dm-core-plugins/table',

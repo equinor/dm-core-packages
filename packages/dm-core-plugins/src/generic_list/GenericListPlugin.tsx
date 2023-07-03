@@ -17,7 +17,7 @@ import { AppendButton, ListItemButton, SaveButton } from './Components'
 import { moveItem } from './utils'
 import { add, minimize } from '@equinor/eds-icons'
 
-type TGenericListConfig = {
+type TListConfig = {
   expanded: boolean
   openInline: boolean
   headers: string[]
@@ -31,7 +31,7 @@ type TGenericListConfig = {
     delete: boolean
   }
 }
-const defaultConfig: TGenericListConfig = {
+const defaultConfig: TListConfig = {
   expanded: false,
   openInline: false,
   headers: ['name', 'type'],
@@ -54,11 +54,9 @@ type ItemRow = {
   isSaved: boolean
 }
 
-export const GenericListPlugin = (
-  props: IUIPlugin & { config?: TGenericListConfig }
-) => {
+export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const { idReference, config, type, onOpen = () => null } = props
-  const internalConfig: TGenericListConfig = {
+  const internalConfig: TListConfig = {
     ...defaultConfig,
     ...config,
     functionality: { ...defaultConfig.functionality, ...config.functionality },

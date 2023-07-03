@@ -42,7 +42,7 @@
       "plugin": "@development-framework/dm-core-plugins/list",
       "dimensions": "*",
       "config": {
-        "type": "PLUGINS:dm-core-plugins/list/GenericListPluginConfig",
+        "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
         "headers": ["quantity", "type"],
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
