@@ -29,7 +29,6 @@ export type TContentProps = {
   namePath: string
   displayLabel: string
   optional: boolean
-  contained: boolean
   config: TConfig | undefined
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm | undefined
