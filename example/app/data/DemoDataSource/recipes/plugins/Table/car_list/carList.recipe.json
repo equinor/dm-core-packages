@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/Table/ListOfCars/blueprints/CarList",
+  "_blueprintPath_": "/plugins/table/car_list/blueprints/CarList",
   "initialUiRecipe": {
     "name": "AttributeSelector",
     "type": "CORE:UiRecipe",
@@ -19,14 +19,17 @@
               "plugin": "@development-framework/dm-core-plugins/table",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+                "columns": ["Manufacturer", "Model", "Color"],
+                "editableColumns": [],
                 "functionality": {
                   "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
                   "openAsTab": true,
-                  "openAsExpandable": false,
-                  "save": false,
+                  "openAsExpandable": true,
+                  "save": true,
                   "delete": true,
-                  "edit": false,
-                  "sort": false
+                  "edit": true,
+                  "sort": true,
+                  "add": true
                 }
               }
             },
