@@ -39,13 +39,13 @@
     {
       "name": "List",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/generic_list",
+      "plugin": "@development-framework/dm-core-plugins/list",
       "dimensions": "*",
       "config": {
-        "type": "PLUGINS:dm-core-plugins/generic_list/GenericListPluginConfig",
+        "type": "PLUGINS:dm-core-plugins/list/GenericListPluginConfig",
         "headers": ["name", "quantity", "type"],
         "functionality": {
-          "type": "PLUGINS:dm-core-plugins/generic_list/FunctionalityConfig",
+          "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
           "delete": true
         }
       }
