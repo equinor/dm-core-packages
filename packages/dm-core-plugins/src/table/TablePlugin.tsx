@@ -116,7 +116,10 @@ export const TablePlugin = (props: IUIPlugin) => {
         <Table.Head>
           <Table.Row>
             {config.functionality?.openAsExpandable && (
-              <Table.Cell width="80"></Table.Cell>
+              <Table.Cell
+                width="80"
+                aria-label="Open as expandable"
+              ></Table.Cell>
             )}
             {config.columns.map((attribute: string) => (
               <Table.Cell key={attribute}>{attribute}</Table.Cell>

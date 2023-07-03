@@ -75,8 +75,11 @@ export function TableRow(props: TTableRow) {
       <Table.Row key={item.key}>
         {config.functionality.openAsExpandable && (
           <Table.Cell>
-            <Tooltip title={item.expanded ? 'Minimize' : 'Expand'}>
+            <Tooltip title={item.expanded ? 'Minimize' : 'Collapse'}>
               <Button
+                aria-label={
+                  item.expanded ? 'Close expandable row' : 'Open expandable row'
+                }
                 variant="ghost_icon"
                 color="secondary"
                 disabled={!item.isSaved}
@@ -117,7 +120,7 @@ export function TableRow(props: TTableRow) {
         {config.functionality?.openAsTab && (
           <Table.Cell style={{ textAlign: 'center' }}>
             <Button
-              title="Open"
+              disabled={!item.isSaved}
               variant="ghost"
               onClick={() => openItemAsTab(item, index)}
             >
@@ -142,7 +145,7 @@ export function TableRow(props: TTableRow) {
             <Table.Cell style={{ width: '48px' }}>
               <>
                 <Button
-                  title="Move row up"
+                  aria-label="Move row up"
                   disabled={index === 0}
                   variant="ghost_icon"
                   onClick={() => {
@@ -153,7 +156,7 @@ export function TableRow(props: TTableRow) {
                   <Icon data={chevron_up} aria-hidden />
                 </Button>
                 <Button
-                  title="Move row down"
+                  aria-label="Move row down"
                   disabled={
                     index === rowsPerPage - 1 || index === items?.length - 1
                   }
@@ -178,7 +181,7 @@ export function TableRow(props: TTableRow) {
               viewConfig={
                 config.expandableRecipeViewConfig
                   ? config.expandableRecipeViewConfig
-                  : config.views?.[item.index] ?? config.defaultView
+                  : { type: 'ViewConfig', scope: 'self' }
               }
             />
           </Table.Cell>
