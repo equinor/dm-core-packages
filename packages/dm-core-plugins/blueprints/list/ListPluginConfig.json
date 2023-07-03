@@ -1,6 +1,6 @@
 {
   "type": "CORE:Blueprint",
-  "name": "GenericListPluginConfig",
+  "name": "ListPluginConfig",
   "attributes": [
     {
       "attributeType": "boolean",
