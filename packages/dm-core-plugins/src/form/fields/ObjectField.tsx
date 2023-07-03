@@ -8,7 +8,6 @@ import {
   Stack,
   TAttribute,
   TBlueprint,
-  TGenericObject,
   TLinkReference,
   useBlueprint,
   useDMSS,
@@ -32,29 +31,29 @@ import { AttributeField } from './AttributeField'
 const AddUncontained = (props: {
   type: string
   namePath: string
-  onAdd: (referenceObject: TLinkReference) => void
+  onChange: (event: any) => void
 }) => {
-  const { type, namePath, onAdd } = props
-  const handleSelect = (referenceObject: TLinkReference | TGenericObject) => {
-    onAdd(referenceObject as TLinkReference)
-  }
-
-  const handleAdd = (entity: any) => {
-    onAdd(entity)
+  const onChange = (entity: any) => {
+    const reference: TLinkReference = {
+      type: EBlueprint.REFERENCE,
+      referenceType: 'link',
+      address: `$${entity['_id']}`,
+    }
+    props.onChange(reference)
   }
 
   return (
     <Stack direction="row" spacing={1}>
       <EntityPickerButton
-        data-testid={`select-${namePath}`}
+        data-testid={`select-${props.namePath}`}
         returnLinkReference={true}
-        onChange={handleSelect}
+        onChange={onChange}
       />
       {/*TODO fix hook error and add support for updated reference type in NewEntityButton  component*/}
       <NewEntityButton
-        data-testid={`new-entity-${namePath}`}
-        onCreated={handleAdd}
-        type={type}
+        data-testid={`new-entity-${props.namePath}`}
+        onCreated={onChange}
+        type={props.type}
       />
     </Stack>
   )
@@ -333,23 +332,11 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
               </div>
             )
           } else {
-            const handleAdd = (entity: any) => {
-              // Since we are getting the created entity,
-              // we need to insert a reference,
-              // since this is uncontained attribute.
-              const reference = {
-                type: EBlueprint.REFERENCE,
-                referenceType: 'link',
-                address: `$${entity['_id']}`,
-              }
-              onChange(reference)
-            }
-
             return (
               <AddUncontained
                 type={type}
                 namePath={namePath}
-                onAdd={handleAdd}
+                onChange={onChange}
               />
             )
           }
