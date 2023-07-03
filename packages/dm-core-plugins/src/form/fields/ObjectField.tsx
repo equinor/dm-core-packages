@@ -190,26 +190,6 @@ const AttributeList = (props: {
   return <Stack spacing={1}>{attributeFields}</Stack>
 }
 
-const External = (props: {
-  type: string
-  namePath: string
-  contained: boolean
-  idReference: string
-}) => {
-  const { type, namePath, contained = true, idReference } = props
-
-  const { onOpen } = useRegistryContext()
-
-  return (
-    <EntityView
-      key={namePath}
-      idReference={contained ? `${idReference}.${namePath}` : idReference}
-      type={type}
-      onOpen={onOpen}
-    />
-  )
-}
-
 export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const {
     type,
@@ -274,7 +254,11 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
             />
           )}
           {uiRecipe && uiRecipe.plugin !== 'form' && (
-            <External {...props} idReference={idReference} />
+            <EntityView
+              idReference={`${idReference}.${namePath}`}
+              type={type}
+              onOpen={onOpen}
+            />
           )}
           {(isRoot ||
             uiRecipe === undefined ||
@@ -292,7 +276,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
 }
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
-  const { type, namePath, displayLabel = '', contained = false } = props
+  const { type, namePath, displayLabel = '' } = props
   const { getValues, control, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const initialValue = getValues(namePath)
@@ -338,11 +322,10 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
                       />
                     )}
                     {!onOpen && (
-                      <External
-                        type={type}
-                        namePath={namePath}
-                        contained={contained}
+                      <EntityView
                         idReference={id}
+                        type={type}
+                        onOpen={onOpen}
                       />
                     )}
                   </Stack>
@@ -428,7 +411,6 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
       namePath={namePath}
       displayLabel={displayLabel}
       optional={optional}
-      contained={contained}
       config={config}
       blueprint={blueprint}
       uiRecipe={uiRecipe}
