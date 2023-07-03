@@ -1,0 +1,29 @@
+{
+  "name": "Car",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": false
+    },
+    {
+      "name": "Manufacturer",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "Model",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "Color",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
+}

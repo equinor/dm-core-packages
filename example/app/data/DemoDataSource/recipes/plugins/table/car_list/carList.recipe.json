@@ -1,0 +1,42 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/table/car_list/blueprints/CarList",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "cars",
+              "description": "List of cars",
+              "plugin": "@development-framework/dm-core-plugins/table",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+                "columns": ["Manufacturer", "Model", "Color"],
+                "editableColumns": [],
+                "functionality": {
+                  "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+                  "openAsTab": true,
+                  "openAsExpandable": true,
+                  "save": true,
+                  "delete": true,
+                  "edit": true,
+                  "sort": true,
+                  "add": true
+                }
+              }
+            },
+            "scope": "cars"
+          }
+        }
+      ]
+    }
+  }
+}

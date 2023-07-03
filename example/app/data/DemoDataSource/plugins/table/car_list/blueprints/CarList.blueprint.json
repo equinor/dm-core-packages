@@ -1,0 +1,25 @@
+{
+  "name": "CarList",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "default": "",
+      "optional": false
+    },
+    {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "name"
+    },
+    {
+      "name": "cars",
+      "dimensions": "*",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Car"
+    }
+  ]
+}
