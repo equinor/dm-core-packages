@@ -9,9 +9,9 @@ import {
   getDataSourceIdFromReference,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
-import { Form } from '../../../../../packages/dm-core-plugins/src/form/Form'
 import React, { useContext, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
+import { JobForm } from './JobForm'
 
 type TCreateJobEntityProps = {
   jobEntityDestination: string
@@ -25,17 +25,23 @@ type TCreateJobEntityProps = {
  * A component for creating an entity of type Job.
  *
  * If the defaultJobEntity is included as props, this is the entity that will be uplaoded to DMSS when clicking on Save.
- * If the defaultJobEntity is NOT included, the Form plugin is used to create input fields to let the user create the job entity.
+ * If the defaultJobEntity is NOT included, a form is used to create input fields to let the user create the job entity.
  *
  *
+
  * @param jobEntityDestination Where job entity should be uploaded. Must be an address, either to a Package (PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE) or to an attribute inside an object (PROTOCOL://DATA SOURCE/$123-123-123.list[2].job).
  * @param onCreate Function to run when Job entity is created.
  * @param jobRunnerType Type of job runner to add to the Job entity (for example dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob)
  * @param defaultJobEntity An optional default entity.
  */
 export const CreateJobEntity = (props: TCreateJobEntityProps) => {
-  const { jobEntityDestination, onCreate, jobRunnerType, defaultJobEntity } =
-    props
+  const {
+    jobEntityDestination,
+    onCreate,
+    jobRunnerType,
+    defaultJobEntity,
+    applicationInputType,
+  } = props
 
   const { token } = useContext(AuthContext)
   const [createdJobEntity, setCreatedJobEntity] = useState<TGenericObject>()
@@ -101,16 +107,12 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
             </Button>
           </>
         ) : (
-          <Form
-            type={EBlueprint.JOB}
+          <JobForm
             onSubmit={(jobEntityFormData: TJob) => {
               saveJobEntity(jobEntityFormData as TJob)
             }}
-            idReference={`${jobEntityDestination}`}
-            formData={{
-              type: EBlueprint.JOB,
-              runner: { type: jobRunnerType },
-            }}
+            applicationInputType={applicationInputType}
+            jobRunnerType={jobRunnerType}
           />
         )}
       </Stack>

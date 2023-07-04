@@ -281,7 +281,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   const initialValue = getValues(namePath)
   const dataSourceId = idReference?.split('/', 2)[0]
 
-    return (
+  return (
     <Stack spacing={0.5}>
       <Typography bold={true}>{displayLabel}</Typography>
       <Controller
@@ -379,16 +379,6 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
     uiRecipeName,
   } = props
 
-  if (type === 'object') {
-    return (
-      <UncontainedAttribute
-        type={type}
-        namePath={namePath}
-        displayLabel={displayLabel}
-        contained={false}
-      />
-    )
-  }
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
 
   if (isLoading) return <Loading />
