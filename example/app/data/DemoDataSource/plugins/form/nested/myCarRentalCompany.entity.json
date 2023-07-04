@@ -1,0 +1,53 @@
+{
+  "_id": "Nested",
+  "type": "./blueprints/CarRentalCompany",
+  "owner": {
+    "type": "./blueprints/Person",
+    "phoneNumber": 1337,
+    "name": "Miranda"
+  },
+  "accountant": {
+    "type": "./blueprints/Person",
+    "phoneNumber": 1337,
+    "name": "John"
+  },
+  "bestCustomer": {
+    "address": "^.customers[0]",
+    "type": "CORE:Reference",
+    "referenceType": "link"
+  },
+  "cars": [
+    {
+      "type": "./blueprints/Car",
+      "plateNumber": 1337,
+      "name": "Volvo"
+    },
+    {
+      "type": "./blueprints/Car",
+      "plateNumber": 1337,
+      "name": "Ferrari"
+    }
+  ],
+  "customers": [
+    {
+      "type": "./blueprints/Customer",
+      "phoneNumber": 1337,
+      "name": "Jane",
+      "car": {
+        "address": "^.cars[1]",
+        "type": "CORE:Reference",
+        "referenceType": "link"
+      }
+    },
+    {
+      "type": "./blueprints/Customer",
+      "phoneNumber": 1337,
+      "name": "Matt",
+      "car": {
+        "address": "^.cars[0]",
+        "type": "CORE:Reference",
+        "referenceType": "link"
+      }
+    }
+  ]
+}
