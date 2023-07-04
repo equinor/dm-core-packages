@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/example/blueprints/FormExample",
+  "_blueprintPath_": "/plugins/form/nested/blueprints/FormExample",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
