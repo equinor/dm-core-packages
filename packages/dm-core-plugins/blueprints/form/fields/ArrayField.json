@@ -10,7 +10,7 @@
       "attributeType": "string"
     },
     {
-      "name": "plugin",
+      "name": "uiRecipe",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "optional": true,
       "attributeType": "string"
