@@ -70,12 +70,12 @@ type TAttributeBasis = {
 type TAttributeString = TAttributeBasis & { widget: string; format: string }
 type TAttributeArray = TAttributeBasis & {
   widget?: string
-  plugin?: string
+  uiRecipe?: string
   columns: string[]
 }
 type TAttributeObject = TAttributeBasis & {
   widget?: string
-  plugin?: string
+  uiRecipe?: string
 }
 type TAttributeConfig = TAttributeArray | TAttributeObject | TAttributeString
 export type TConfig = {
