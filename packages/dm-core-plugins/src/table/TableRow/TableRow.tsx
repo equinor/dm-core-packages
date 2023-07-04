@@ -75,7 +75,7 @@ export function TableRow(props: TTableRow) {
       <Table.Row key={item.key}>
         {config.functionality.openAsExpandable && (
           <Table.Cell>
-            <Tooltip title={item.expanded ? 'Minimize' : 'Collapse'}>
+            <Tooltip title={item.expanded ? 'Collapse row' : 'Expand row'}>
               <Button
                 aria-label={
                   item.expanded ? 'Close expandable row' : 'Open expandable row'
