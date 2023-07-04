@@ -6,12 +6,11 @@ import {
   TJob,
   TGenericObject,
   Stack,
-  Button,
   getDataSourceIdFromReference,
 } from '@development-framework/dm-core'
+import { Button } from '@equinor/eds-core-react'
 import { Form } from '../../../../../packages/dm-core-plugins/src/form/Form'
-import { YamlView } from '../../../../../packages/dm-core-plugins/src/yaml/YamlPlugin'
-import React, { useContext, useState, ChangeEvent } from 'react'
+import React, { useContext, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 
 type TCreateJobEntityProps = {
@@ -93,7 +92,6 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
               Using default job entity. Will be saved to destination{' '}
               {jobEntityDestination}
             </p>
-            <YamlView document={defaultJobEntity} />
             <Button
               onClick={() => {
                 saveJobEntity(defaultJobEntity)
