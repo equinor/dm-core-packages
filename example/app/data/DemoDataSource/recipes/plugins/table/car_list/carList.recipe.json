@@ -19,7 +19,7 @@
               "plugin": "@development-framework/dm-core-plugins/table",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-                "columns": ["Manufacturer", "Model", "Color"],
+                "columns": ["manufacturer", "model", "color"],
                 "editableColumns": [],
                 "functionality": {
                   "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",

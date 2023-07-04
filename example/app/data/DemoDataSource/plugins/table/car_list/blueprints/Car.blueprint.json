@@ -10,17 +10,20 @@
       "optional": false
     },
     {
-      "name": "Manufacturer",
+      "name": "manufacturer",
+      "label": "Manufacturer",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     },
     {
-      "name": "Model",
+      "name": "model",
+      "label": "Model",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     },
     {
-      "name": "Color",
+      "name": "color",
+      "label": "Color",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "optional": true
