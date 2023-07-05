@@ -13,7 +13,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, TextField } from '@equinor/eds-core-react'
 
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 /**
  * A component for creating an entity of type Job.
@@ -25,17 +25,20 @@ import React, { useState } from 'react'
  * @param onSubmit Function to run when Job is submitted.
  * @param jobRunnerType Type of job runner to add to the Job entity (for example dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob)
  * @param applicationInputType Type of applicationInput to add to the Job entity.
+ * @param defaultJobOutputTarget An optional value for outputTarget in the job entity to create. This value is used in the job handler to specify where results of the job should be uploaded/inserted.
 
  */
 export const JobForm = (props: {
   onSubmit: (job: TJob) => void
   applicationInputType: string
   jobRunnerType: string
+  defaultJobOutputTarget?: string
 }) => {
   const defaultJobValues: TJobWithRunner = {
     type: EBlueprint.JOB,
     runner: { type: props.jobRunnerType } as TJobHandler,
     status: JobStatus.NotStarted,
+    outputTarget: props.defaultJobOutputTarget ?? '',
     started: 'Not started',
   }
   const [formData, setFormData] = useState<TJobWithRunner>(defaultJobValues)
@@ -119,12 +122,23 @@ export const JobForm = (props: {
                 label={
                   attribute.name + (attribute.optional ? ' (optional)' : '')
                 }
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setFormData({
+                    ...formData,
+                    [attribute.name]: event.target.value,
+                  })
+                }}
                 value={formData[attribute.name]}
               />
             </>
           )
         })}
-        <Button onClick={() => props.onSubmit(formData)}>Submit</Button>
+        <Button
+          disabled={!formData?.applicationInput || !formData?.runner.type}
+          onClick={() => props.onSubmit(formData)}
+        >
+          Submit
+        </Button>
       </Stack>
     </div>
   )

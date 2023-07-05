@@ -1,0 +1,6 @@
+{
+  "_id": "5483c9b0-d505-46c9-a157-94c79f4d7a6b",
+  "name": "caseInput",
+  "type": "AppModels:CaseInput",
+  "generateLongSignal": true
+}
