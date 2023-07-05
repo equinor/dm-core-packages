@@ -8,8 +8,8 @@ import {
   Stack,
   getDataSourceIdFromReference,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
-import React, { useContext, useState } from 'react'
+import { Button, TextField } from '@equinor/eds-core-react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { JobForm } from './JobForm'
 
@@ -19,6 +19,7 @@ type TCreateJobEntityProps = {
   jobRunnerType: string
   defaultJobEntity?: TJob
   onCreate: (jobEntityId: string) => void
+  defaultJobOutputTarget?: string
 }
 
 /**
@@ -42,6 +43,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
     jobRunnerType,
     defaultJobEntity,
     applicationInputType,
+    defaultJobOutputTarget,
   } = props
 
   const { token } = useContext(AuthContext)
@@ -52,8 +54,14 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   const dataSourceId: string =
     getDataSourceIdFromReference(jobEntityDestination)
   const [createdJobEntity, setCreatedJobEntity] = useState<TGenericObject>()
-
+  const [jobOutputTarget, setJobOutputTarget] = useState<string>(
+    defaultJobOutputTarget ?? ''
+  )
   const createJobEntity = (jobEntityFormData: TJob) => {
+    jobEntityFormData = {
+      ...jobEntityFormData,
+      outputTarget: jobOutputTarget,
+    }
     if (destinationIsAPackage) {
       DmssApi.documentAdd({
         address: jobEntityDestination,
@@ -93,6 +101,16 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
     <div>
       <Stack spacing={1}>
         <h3>Create new object of type: {EBlueprint.JOB}</h3>
+        {/*// todo maybe replace with DestinationPicker later??? functionality of DestinationPicker must then be updated to be able to select attribute inside entities.*/}
+        <TextField
+          id={'jobOutputTarget'}
+          type={'string'}
+          label={'select where to put result from job (reference)'}
+          value={jobOutputTarget}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            setJobOutputTarget(event.target.value)
+          }}
+        />
         {defaultJobEntity ? (
           <>
             <p>

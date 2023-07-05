@@ -13,7 +13,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, TextField } from '@equinor/eds-core-react'
 
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 /**
  * A component for creating an entity of type Job.
@@ -109,6 +109,12 @@ export const JobForm = (props: {
                 label={
                   attribute.name + (attribute.optional ? ' (optional)' : '')
                 }
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setFormData({
+                    ...formData,
+                    [attribute.name]: event.target.value,
+                  })
+                }}
                 value={formData[attribute.name]}
               />
             </>
