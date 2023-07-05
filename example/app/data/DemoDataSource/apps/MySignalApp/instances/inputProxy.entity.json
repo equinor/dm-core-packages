@@ -3,5 +3,5 @@
   "name": "input_proxy",
   "type": "AppModels:CaseProxy",
   "description": "sdrawkcab si siht",
-  "child_id": ""
+  "child_id": "DemoDataSource/apps/MySignalApp/signalApp.study.cases[0]"
 }
