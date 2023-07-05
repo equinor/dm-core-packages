@@ -37,13 +37,21 @@ class JobHandler(JobHandlerInterface):
 
     def start(self) -> str:
         logger.info("Job started")
-        applicationInputReference = self.job.entity['applicationInput']['address']
-        input_entity = self._get_by_id(applicationInputReference)
-        signal_reference: str = f"{input_entity['child_id']}.signal"
+        application_input_reference = self.job.entity['applicationInput']['address']
+        input_entity = self._get_by_id(application_input_reference)
+        new_signal_value = []
+        logger.info("application_input_reference", application_input_reference)
+        if ("generateLongSignal" in input_entity and
+                input_entity["generateLongSignal"] == True):
+            new_signal_value = [1, 2, 3, 4, 5] * 10
+        else:
+            new_signal_value = [1, 2, 3, 4, 5]
+        signal_reference: str = self.job.entity['outputTarget']
+        # signal_reference: str = f"{input_entity['child_id']}.signal"
         signal_entity = self._get_by_id(signal_reference)
-        signal_entity["value"] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 99]
-        self._update(f"{signal_reference}", {"data": signal_entity})
 
+        signal_entity["value"] = new_signal_value
+        self._update(f"{signal_reference}", {"data": signal_entity})
         return "OK"
 
     def result(self) -> Tuple[str, bytes]:

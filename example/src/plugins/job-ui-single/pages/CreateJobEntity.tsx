@@ -18,6 +18,7 @@ type TCreateJobEntityProps = {
   jobRunnerType: string
   defaultJobEntity?: TJob
   onCreate: (jobEntityId: string) => void
+  defaultJobOutputTarget?: string
 }
 
 /**
@@ -41,6 +42,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
     jobRunnerType,
     defaultJobEntity,
     applicationInputType,
+    defaultJobOutputTarget,
   } = props
 
   const DmssApi = useDMSS()
@@ -111,6 +113,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
             }}
             applicationInputType={applicationInputType}
             jobRunnerType={jobRunnerType}
+            defaultJobOutputTarget={defaultJobOutputTarget}
           />
         )}
       </Stack>

@@ -13,7 +13,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, TextField } from '@equinor/eds-core-react'
 
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 
 /**
  * A component for creating an entity of type Job.
@@ -31,11 +31,13 @@ export const JobForm = (props: {
   onSubmit: (job: TJob) => void
   applicationInputType: string
   jobRunnerType: string
+  defaultJobOutputTarget?: string
 }) => {
   const defaultJobValues: TJobWithRunner = {
     type: EBlueprint.JOB,
     runner: { type: props.jobRunnerType } as TJobHandler,
     status: JobStatus.NotStarted,
+    outputTarget: props.defaultJobOutputTarget ?? '',
     started: 'Not started',
   }
   const [formData, setFormData] = useState<TJobWithRunner>(defaultJobValues)
@@ -119,6 +121,12 @@ export const JobForm = (props: {
                 label={
                   attribute.name + (attribute.optional ? ' (optional)' : '')
                 }
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setFormData({
+                    ...formData,
+                    [attribute.name]: event.target.value,
+                  })
+                }}
                 value={formData[attribute.name]}
               />
             </>
