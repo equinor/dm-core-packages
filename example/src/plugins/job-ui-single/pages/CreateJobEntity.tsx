@@ -4,7 +4,7 @@ import {
   TJob,
   TGenericObject,
   Stack,
-  getDataSourceIdFromReference,
+  getDataSourceIdFromAddress,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
@@ -47,8 +47,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   const destinationIsAPackage: boolean = !(
     jobEntityDestination.includes('.') || jobEntityDestination.includes('[')
   )
-  const dataSourceId: string =
-    getDataSourceIdFromReference(jobEntityDestination)
+  const dataSourceId: string = getDataSourceIdFromAddress(jobEntityDestination)
   const [createdJobEntity, setCreatedJobEntity] = useState<TGenericObject>()
 
   const createJobEntity = (jobEntityFormData: TJob) => {
