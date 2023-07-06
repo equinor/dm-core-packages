@@ -40,7 +40,6 @@ class JobHandler(JobHandlerInterface):
         application_input_reference = self.job.entity['applicationInput']['address']
         input_entity = self._get_by_id(application_input_reference)
         new_signal_value = []
-        logger.info("application_input_reference", application_input_reference)
         if ("generateLongSignal" in input_entity and
                 input_entity["generateLongSignal"] == True):
             new_signal_value = [1, 2, 3, 4, 5] * 10
@@ -52,6 +51,7 @@ class JobHandler(JobHandlerInterface):
 
         signal_entity["value"] = new_signal_value
         self._update(f"{signal_reference}", {"data": signal_entity})
+        self.job.stats = JobStatus.COMPLETED
         return "OK"
 
     def result(self) -> Tuple[str, bytes]:

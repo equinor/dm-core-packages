@@ -34,6 +34,7 @@ type TCreateJobEntityProps = {
  * @param jobRunnerType Type of job runner to add to the Job entity (for example dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob)
  * @param applicationInputType Type of applicationInput to add to the Job entity.
  * @param defaultJobEntity An optional default entity.
+ * @param defaultJobOutputTarget An optional value for outputTarget in the job entity to create. This value is used in the job handler to specify where results of the job should be uploaded/inserted.
  */
 export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   const {
@@ -53,6 +54,12 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   const [createdJobEntity, setCreatedJobEntity] = useState<TGenericObject>()
 
   const createJobEntity = (jobEntityFormData: TJob) => {
+    if (defaultJobOutputTarget) {
+      jobEntityFormData = {
+        ...jobEntityFormData,
+        outputTarget: defaultJobOutputTarget,
+      }
+    }
     if (destinationIsAPackage) {
       DmssApi.documentAdd({
         address: jobEntityDestination,

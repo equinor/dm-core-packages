@@ -2,7 +2,7 @@
   "name": "CaseInput",
   "type": "CORE:Blueprint",
   "extends": ["CORE:NamedEntity"],
-  "description": "Input entity for job of type 'SignalGeneratorJob'. The 'generateLongSignal' attribute determins what type of signal the job should generate.",
+  "description": "Input entity for job of type 'SignalGeneratorJob'. The 'generateLongSignal' attribute determines what type of signal the job should generate.",
   "attributes": [
     {
       "name": "generateLongSignal",
