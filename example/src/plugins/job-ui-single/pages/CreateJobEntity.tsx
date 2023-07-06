@@ -1,15 +1,14 @@
 import {
-  AuthContext,
-  DmssAPI,
   EBlueprint,
   ErrorResponse,
   TJob,
   TGenericObject,
   Stack,
   getDataSourceIdFromReference,
+  useDMSS,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { JobForm } from './JobForm'
 
@@ -44,8 +43,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
     applicationInputType,
   } = props
 
-  const { token } = useContext(AuthContext)
-  const DmssApi = new DmssAPI(token)
+  const DmssApi = useDMSS()
   const destinationIsAPackage: boolean = !(
     jobEntityDestination.includes('.') || jobEntityDestination.includes('[')
   )
