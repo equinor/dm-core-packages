@@ -9,6 +9,8 @@ import {
   TAttribute,
   TBlueprint,
   TLinkReference,
+  resolveRelativeAddress,
+  splitAddress,
   useBlueprint,
   useDMSS,
 } from '@development-framework/dm-core'
@@ -279,7 +281,6 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   const { getValues, control, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const initialValue = getValues(namePath)
-  const dataSourceId = idReference?.split('/', 2)[0]
 
   return (
     <Stack spacing={0.5}>
@@ -292,11 +293,13 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           field: { onChange, value },
         }) => {
-          // Note: address using path does not work.
-          // The address needs to use data source ID.
-          const id = `${dataSourceId}/${value?.address}`
-
           if (value && value.address && value.referenceType === 'link') {
+            const { dataSource, documentPath } = splitAddress(idReference)
+            const id = resolveRelativeAddress(
+              value.address,
+              documentPath,
+              dataSource
+            )
             return (
               <div>
                 <Stack spacing={0.25} alignItems="flex-start">
