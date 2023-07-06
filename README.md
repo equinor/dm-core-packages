@@ -1701,3 +1701,14 @@ Co-authored-by: Andrea Vesterhus <andrea.vesterhus@bouvet.no> (2023-06-27T08:10:
     * **DMSS VERSION**: bd12053 2023-07-05 Krist..rstad fix:bug with add document grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.13
     * **JOB VERSION**: e65a0ba 2023-06-01 Eirik..ksnes refactor: update add and remove endpoints grafted, HEAD -> main, origin/main
+* feat: improve form example (#341)
+
+* refactor: rename form example folder to nested
+
+* refactor: replace example with car rental company
+
+* test: update e2e for nested form (2023-06-30T06:21:00Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5474605219/1)
+    * **DMSS VERSION**: bd12053 2023-07-05 Krist..rstad fix:bug with add document grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.14
+    * **JOB VERSION**: ebce185 2023-07-06 Krist..rstad tests: update call to dmss and fix conftest grafted, HEAD -> main, origin/main
