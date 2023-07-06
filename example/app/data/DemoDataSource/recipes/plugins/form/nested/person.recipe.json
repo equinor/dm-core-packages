@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/example/blueprints/NestedExample",
+  "_blueprintPath_": "/plugins/form/nested/blueprints/Person",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
@@ -28,32 +28,16 @@
   },
   "uiRecipes": [
     {
-      "name": "custom",
+      "name": "defaultYaml",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/yaml",
       "category": "view"
     },
     {
-      "name": "Form",
+      "name": "defaultForm",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit"
-    },
-    {
-      "name": "aRecipeName",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "attributes": [
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "name": "bar",
-            "widget": "TextareaWidget"
-          }
-        ]
-      }
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/example/blueprints/FormExample",
+  "_blueprintPath_": "/plugins/form/nested/blueprints/CarRentalCompany",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
@@ -33,9 +33,14 @@
             "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "name": "type",
             "widget": "TypeWidget"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "name": "owner",
+            "uiRecipe": "defaultYaml"
           }
         ],
-        "order": ["type", "aDate", "aBool", "*", "aNumber"]
+        "order": ["owner", "*", "bestCustomer"]
       }
     }
   ]
