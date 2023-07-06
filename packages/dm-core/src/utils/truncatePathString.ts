@@ -17,15 +17,19 @@ export function truncatePathString(
   let counter: number = 0
   while (truncatedPath.length <= maxLength) {
     previousPath = truncatedPath
-    //truncatedPath = truncatedPath.replace(
-    //  '...',
-    //  `${splitTextOnFolders[counter]}/...`
-    // )
+    truncatedPath = truncatedPath.replace(
+      '...',
+      `${splitTextOnFolders[counter]}/...`
+    )
     if (truncatedPath.length >= maxLength) {
       truncatedPath = previousPath
       break
     }
     counter += 1
+    if (counter > 1000) {
+      // To avoid infinite loop
+      break
+    }
   }
   return truncatedPath
 }
