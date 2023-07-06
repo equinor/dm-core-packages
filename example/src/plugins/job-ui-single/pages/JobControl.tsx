@@ -36,7 +36,13 @@ export const JobControl = (props: { jobEntityId: string }) => {
       <Chip>Status: {status}</Chip>
 
       {jobIsStarted ? (
-        <Button onClick={() => remove()} variant="contained">
+        <Button
+          onClick={() => {
+            setJobIsStarted(false)
+            remove()
+          }}
+          variant="contained"
+        >
           <Icon data={stop}></Icon>
           Stop
         </Button>
