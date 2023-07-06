@@ -45,6 +45,21 @@ export const JobForm = (props: {
     error,
   } = useBlueprint(EBlueprint.JOB)
 
+  const attributesToSkip = [
+    'type',
+    'uid',
+    'started',
+    'ended',
+    'stopped',
+    'status',
+    'result',
+    'referenceTarget',
+  ]
+  const filteredBlueprintAttributes = jobBlueprint
+    ? jobBlueprint.attributes.filter(
+        (attribute: TAttribute) => !attributesToSkip.includes(attribute.name)
+      )
+    : []
   if (isBlueprintLoading) {
     return <Loading />
   }
@@ -54,7 +69,7 @@ export const JobForm = (props: {
   return (
     <div>
       <Stack spacing={1}>
-        {jobBlueprint.attributes.map((attribute: TAttribute) => {
+        {filteredBlueprintAttributes.map((attribute: TAttribute) => {
           if (attribute.name === 'runner') {
             return (
               <>
@@ -67,18 +82,22 @@ export const JobForm = (props: {
                       runner: { ...formData.runner, type: selectedType },
                     })
                   }}
-                  formData={''} //TODO fix bug: for some reason the app crashes is using formData.runner.type here...
+                  formData={formData.runner.type}
                 />
-                {formData.runner.type ?? (
-                  <p>Selected runner type: {formData.runner.type} </p>
-                )}
               </>
             )
           }
           if (attribute.name === 'applicationInput') {
             return (
               <>
-                <p>Select reference to applicationInput</p>
+                <div>
+                  <p>Select reference to applicationInput</p>
+                  <p>
+                    {formData?.applicationInput &&
+                      'Selected: ' +
+                        JSON.stringify(formData.applicationInput.address)}
+                  </p>
+                </div>
                 <EntityPickerButton
                   returnLinkReference={true}
                   onChange={(linkReferenceEntity) => {
@@ -88,17 +107,8 @@ export const JobForm = (props: {
                     })
                   }}
                 />
-                <p>
-                  Selected applicationInput:{' '}
-                  {formData?.applicationInput
-                    ? JSON.stringify(formData.applicationInput.address)
-                    : 'None'}
-                </p>
               </>
             )
-          }
-          if (attribute.optional) {
-            return <></>
           }
 
           return (
