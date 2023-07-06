@@ -1,15 +1,15 @@
 import {
   EBlueprint,
   ErrorResponse,
-  TJob,
-  TGenericObject,
   Stack,
-  getDataSourceIdFromAddress,
+  TGenericObject,
+  TJob,
+  splitAddress,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
-import React, { useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
+import React, { useState } from 'react'
 import { JobForm } from './JobForm'
 
 type TCreateJobEntityProps = {
@@ -47,7 +47,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   const destinationIsAPackage: boolean = !(
     jobEntityDestination.includes('.') || jobEntityDestination.includes('[')
   )
-  const dataSourceId: string = getDataSourceIdFromAddress(jobEntityDestination)
+  const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
   const [createdJobEntity, setCreatedJobEntity] = useState<TGenericObject>()
 
   const createJobEntity = (jobEntityFormData: TJob) => {
