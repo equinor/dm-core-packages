@@ -135,29 +135,6 @@ const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
   )
 }
 
-const orderAttributes = (attributes: string[], order: string[] | undefined) => {
-  if (order == null || order.length == 0) {
-    return attributes
-  }
-  if (order.filter((x) => x === '*').length > 1) {
-    throw new Error('The config.order list contains more than one wildcard')
-  }
-
-  const orderFiltered = order.filter((x) => x === '*' || attributes.includes(x))
-  const rest = attributes.filter((prop: any) => !orderFiltered.includes(prop))
-  const restIndex = orderFiltered.indexOf('*')
-  if (restIndex === -1) {
-    if (rest.length) {
-      throw new Error(`The config.order list does not include all properties`)
-    }
-    return orderFiltered
-  }
-
-  const complete = [...orderFiltered]
-  complete.splice(restIndex, 1, ...rest)
-  return complete
-}
-
 const AttributeList = (props: {
   namePath: string
   config: TConfig | undefined
@@ -168,25 +145,26 @@ const AttributeList = (props: {
   const prefix = namePath === '' ? `` : `${namePath}.`
 
   const attributes = blueprint?.attributes ?? []
-  const attributeNames = attributes.map((attribute) => attribute.name)
-  const orderedAttributesNames = orderAttributes(attributeNames, config?.order)
+  const filteredAttributes =
+    config && config.fields.length
+      ? config.fields
+          .map((name: string) => attributes.find((x) => x.name == name))
+          .filter((attribute): attribute is TAttribute => !!attribute)
+      : attributes
 
-  const attributeFields = orderedAttributesNames
-    .map((name: string) => attributes.find((x) => x.name == name))
-    .filter((attribute): attribute is TAttribute => !!attribute)
-    .map((attribute) => {
-      const uiAttribute = config?.attributes.find(
-        (uiAttribute: any) => uiAttribute.name === attribute.name
-      )
-      return (
-        <AttributeField
-          key={`${prefix}${attribute.name}`}
-          namePath={`${prefix}${attribute.name}`}
-          attribute={attribute}
-          uiAttribute={uiAttribute}
-        />
-      )
-    })
+  const attributeFields = filteredAttributes.map((attribute) => {
+    const uiAttribute = config?.attributes.find(
+      (uiAttribute: any) => uiAttribute.name === attribute.name
+    )
+    return (
+      <AttributeField
+        key={`${prefix}${attribute.name}`}
+        namePath={`${prefix}${attribute.name}`}
+        attribute={attribute}
+        uiAttribute={uiAttribute}
+      />
+    )
+  })
 
   return <Stack spacing={1}>{attributeFields}</Stack>
 }
