@@ -50,8 +50,9 @@ export type TJobHandler = {
 export type TContainerJobHandler = {
   type: string
   label?: string
-  image: string
-  command: string[]
+  image: TContainerImage
+  name: string
+  customCommand?: string
   environmentVariables?: string[]
 }
 

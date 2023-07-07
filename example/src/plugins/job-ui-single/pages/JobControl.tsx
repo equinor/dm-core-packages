@@ -24,12 +24,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
   const [jobIsStarted, setJobIsStarted] = useState<boolean>(false)
 
   if (isLoading) return <Loading />
-  if (error)
-    return (
-      <pre style={{ color: 'red', backgroundColor: 'palegreen' }}>
-        {JSON.stringify(error, null, 2)}
-      </pre>
-    )
+  if (error) console.error(error)
 
   return (
     <div>
@@ -74,8 +69,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
       </button>
 
       <h4>Logs:</h4>
-      <pre>{logs}</pre>
-
+      {error ? <pre>{JSON.stringify(error, null, 2)}</pre> : <pre>{logs}</pre>}
       <h4>Result:</h4>
       {result && (
         <>

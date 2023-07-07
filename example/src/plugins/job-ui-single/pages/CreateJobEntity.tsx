@@ -15,7 +15,6 @@ import { JobForm } from './JobForm'
 type TCreateJobEntityProps = {
   jobEntityDestination: string
   applicationInputType: string
-  jobRunnerType: string
   defaultJobEntity?: TJob
   onCreate: (jobEntityId: string) => void
   defaultJobOutputTarget?: string
@@ -40,7 +39,6 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   const {
     jobEntityDestination,
     onCreate,
-    jobRunnerType,
     defaultJobEntity,
     applicationInputType,
     defaultJobOutputTarget,
@@ -87,6 +85,15 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
     }
   }
 
+  if (!defaultJobEntity) {
+    return (
+      <p style={{ color: 'red' }}>
+        Creating a new job entity is not supported. Please supply a
+        defaultJobEntity instead. (The entity picker button needs to be able to
+        pick attributes inside an entity document before entity creation works).
+      </p>
+    )
+  }
   if (createdJobEntity) {
     return (
       <>
@@ -119,7 +126,6 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
               createJobEntity(jobEntityFormData as TJob)
             }}
             applicationInputType={applicationInputType}
-            jobRunnerType={jobRunnerType}
             defaultJobOutputTarget={defaultJobOutputTarget}
           />
         )}
