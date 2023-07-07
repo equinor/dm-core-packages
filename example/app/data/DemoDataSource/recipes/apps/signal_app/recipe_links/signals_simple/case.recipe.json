@@ -85,7 +85,11 @@
       "type": "CORE:UiRecipe",
       "name": "Edit",
       "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form"
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
+        "fields": ["name", "description", "duration", "timeStep", "components"]
+      }
     },
     {
       "type": "CORE:UiRecipe",
