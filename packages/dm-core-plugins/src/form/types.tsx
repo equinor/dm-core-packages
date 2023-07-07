@@ -80,7 +80,7 @@ type TAttributeObject = TAttributeBasis & {
 type TAttributeConfig = TAttributeArray | TAttributeObject | TAttributeString
 export type TConfig = {
   attributes: TAttributeConfig[]
-  order: string[]
+  fields: string[]
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & { config: TConfig }

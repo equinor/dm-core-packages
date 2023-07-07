@@ -12,13 +12,13 @@
       "contained": true
     },
     {
-      "name": "order",
+      "name": "fields",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "dimensions": "*",
       "optional": true,
       "contained": true,
-      "description": "Define the order in which attributes are rendered"
+      "description": "Define which attributes should be shown, and in what order"
     }
   ]
 }

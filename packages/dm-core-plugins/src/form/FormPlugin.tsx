@@ -6,7 +6,7 @@ import { TConfig } from './types'
 
 export const defaultConfig: TConfig = {
   attributes: [],
-  order: [],
+  fields: [],
 }
 
 export const FormPlugin = (props: IUIPlugin) => {

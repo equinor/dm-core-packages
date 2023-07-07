@@ -119,7 +119,7 @@ describe('Form', () => {
             widget: 'TextWidget', // TODO TextareaWidget is not implemented it seems like...
           },
         ],
-        order: [],
+        fields: [],
       }
 
       const { container } = render(

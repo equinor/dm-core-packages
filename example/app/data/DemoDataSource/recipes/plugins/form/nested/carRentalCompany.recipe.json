@@ -40,7 +40,14 @@
             "uiRecipe": "defaultYaml"
           }
         ],
-        "order": ["owner", "*", "bestCustomer"]
+        "fields": [
+          "owner",
+          "ceo",
+          "accountant",
+          "bestCustomer",
+          "cars",
+          "customers"
+        ]
       }
     }
   ]
