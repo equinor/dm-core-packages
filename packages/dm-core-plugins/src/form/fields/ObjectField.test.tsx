@@ -135,7 +135,6 @@ test('should handle optional', async () => {
   ])
   render(<Form idReference="ds/$1" type="Parent" />, { wrapper })
   await waitFor(() => {
-    screen.debug()
     // Show optional in label
     expect(screen.getByText('nested (optional)')).toBeDefined()
     // Add button
