@@ -19,12 +19,12 @@
   "cars": [
     {
       "type": "./blueprints/Car",
-      "plateNumber": 1337,
+      "plateNumber": "1337",
       "name": "Volvo"
     },
     {
       "type": "./blueprints/Car",
-      "plateNumber": 1337,
+      "plateNumber": "F1337",
       "name": "Ferrari"
     }
   ],

@@ -6,7 +6,7 @@
     {
       "name": "plateNumber",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
+      "attributeType": "string",
       "label": "Plate Number",
       "optional": false
     }

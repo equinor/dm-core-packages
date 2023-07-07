@@ -1,0 +1,9 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/form/nested/blueprints/Customer",
+  "initialUiRecipe": {
+    "name": "form",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/form"
+  }
+}
