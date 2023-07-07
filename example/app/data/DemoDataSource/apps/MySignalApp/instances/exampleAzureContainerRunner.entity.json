@@ -1,0 +1,12 @@
+{
+  "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorAzureContainerJob",
+  "image": {
+    "imageName": "dmt-job/generate-signal",
+    "type": "dmss://WorkflowDS/Blueprints/ContainerImage",
+    "version": "latest",
+    "registryName": "datamodelingtool.azurecr.io",
+    "description": ""
+  },
+  "name": "testContainerJobRunner",
+  "environmentVariables": []
+}

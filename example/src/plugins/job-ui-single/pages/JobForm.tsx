@@ -7,9 +7,8 @@ import {
   TAttribute,
   EntityPickerButton,
   JobStatus,
-  BlueprintPicker,
-  TJobHandler,
-  TJobWithRunner,
+  TGenericObject,
+  TLinkReference,
 } from '@development-framework/dm-core'
 import { Button, TextField } from '@equinor/eds-core-react'
 
@@ -31,24 +30,22 @@ import React, { ChangeEvent, useState } from 'react'
 export const JobForm = (props: {
   onSubmit: (job: TJob) => void
   applicationInputType: string
-  jobRunnerType: string
   defaultJobOutputTarget?: string
 }) => {
-  const defaultJobValues: TJobWithRunner = {
+  const defaultJobValues: TJob = {
     type: EBlueprint.JOB,
-    runner: { type: props.jobRunnerType } as TJobHandler,
     status: JobStatus.NotStarted,
     outputTarget: props.defaultJobOutputTarget ?? '',
     started: 'Not started',
   }
-  const [formData, setFormData] = useState<TJobWithRunner>(defaultJobValues)
+  const [formData, setFormData] = useState<TJob>(defaultJobValues)
   const {
     blueprint: jobBlueprint,
     isLoading: isBlueprintLoading,
     error,
   } = useBlueprint(EBlueprint.JOB)
 
-  const attributesToSkip = [
+  const jobAttributesToSkip = [
     'type',
     'uid',
     'started',
@@ -58,11 +55,13 @@ export const JobForm = (props: {
     'result',
     'referenceTarget',
   ]
-  const filteredBlueprintAttributes = jobBlueprint
+
+  const filteredJobBlueprintAttributes = jobBlueprint
     ? jobBlueprint.attributes.filter(
-        (attribute: TAttribute) => !attributesToSkip.includes(attribute.name)
+        (attribute: TAttribute) => !jobAttributesToSkip.includes(attribute.name)
       )
     : []
+
   if (isBlueprintLoading) {
     return <Loading />
   }
@@ -72,21 +71,21 @@ export const JobForm = (props: {
   return (
     <div>
       <Stack spacing={1}>
-        {filteredBlueprintAttributes.map((attribute: TAttribute) => {
+        {filteredJobBlueprintAttributes.map((attribute: TAttribute) => {
           if (attribute.name === 'runner') {
             return (
               <>
-                <BlueprintPicker
-                  label={'Select type for runner'}
-                  onChange={(selectedType) => {
-                    selectedType = 'dmss://' + selectedType
-                    setFormData({
-                      ...formData,
-                      runner: { ...formData.runner, type: selectedType },
-                    })
+                <p>Pick job runner entity:</p>
+                <EntityPickerButton
+                  returnLinkReference={false}
+                  onChange={(chosenRunnerEntity: TGenericObject) => {
+                    setFormData({ ...formData, runner: chosenRunnerEntity })
                   }}
-                  formData={formData.runner.type}
                 />
+                <p>
+                  {formData?.runner &&
+                    'Selected: ' + JSON.stringify(formData.runner)}
+                </p>
               </>
             )
           }
@@ -103,7 +102,7 @@ export const JobForm = (props: {
                 </div>
                 <EntityPickerButton
                   returnLinkReference={true}
-                  onChange={(linkReferenceEntity) => {
+                  onChange={(linkReferenceEntity: TLinkReference) => {
                     setFormData({
                       ...formData,
                       applicationInput: linkReferenceEntity,
@@ -134,7 +133,7 @@ export const JobForm = (props: {
           )
         })}
         <Button
-          disabled={!formData?.applicationInput || !formData?.runner.type}
+          disabled={!formData?.applicationInput || !formData?.runner}
           onClick={() => props.onSubmit(formData)}
         >
           Submit

@@ -18,7 +18,7 @@ export const JobPlugin = (props: IUIPlugin) => {
   // Example of another value for jobEntityDestination
   // const jobEntityDestination = `DemoDataSource/apps/MySignalApp/instances`
 
-  // example of a default job entity
+  // example of a default job entity for signal app.
   const defaultJobEntity: TJob = {
     label: 'Example local container job',
     type: EBlueprint.JOB,
@@ -27,10 +27,38 @@ export const JobPlugin = (props: IUIPlugin) => {
     applicationInput: {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
-      address: 'dmss://DemoDataSource/$5483c9b0-d505-46c9-a157-94c79f4d7a6b',
+      address:
+        'dmss://DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0]', // TODO support relative syntax: ^.cases[0]
     },
     runner: {
       type: `dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob`,
+    },
+    started: 'Not started',
+  }
+
+  // example of a default azure container job entity for signal app.
+  const defaultContainerJobEntity: TJob = {
+    label: 'Example azure container job',
+    type: EBlueprint.JOB,
+    status: JobStatus.NotStarted,
+    triggeredBy: 'me',
+    applicationInput: {
+      type: EBlueprint.REFERENCE,
+      referenceType: 'link',
+      address:
+        'dmss://DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0]', // TODO support relative syntax: ^.cases[0]
+    },
+    runner: {
+      type: `dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorAzureContainerJob`,
+      image: {
+        imageName: 'dmt-job/generate-signal',
+        type: 'dmss://WorkflowDS/Blueprints/ContainerImage',
+        version: 'latest',
+        registryName: 'datamodelingtool.azurecr.io',
+        description: '',
+      },
+      name: 'testContainerJobRunner',
+      environmentVariables: [],
     },
     started: 'Not started',
   }
@@ -42,9 +70,9 @@ export const JobPlugin = (props: IUIPlugin) => {
       <CreateJobEntity
         jobEntityDestination={jobEntityDestination}
         applicationInputType={`dmss://DemoDataSource/apps/MySignalApp/models/CaseInput`}
-        jobRunnerType={`dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob`}
         onCreate={(jobEntityId: string) => setJobEntityId(jobEntityId)}
         defaultJobOutputTarget={props.idReference + '.signal'}
+        defaultJobEntity={defaultJobEntity}
       />
       {jobEntityId && <JobControl jobEntityId={jobEntityId} />}
     </div>

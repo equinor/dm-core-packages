@@ -151,6 +151,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .then((response: AxiosResponse<StatusJobResponse>) => {
         setLogs(response.data.log ?? '')
         setStatus(response.data.status)
+        setError(undefined)
         return response.data
       })
       .catch((error: AxiosError<ErrorResponse>) => {

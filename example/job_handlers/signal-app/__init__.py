@@ -1,5 +1,5 @@
 from typing import Tuple
-
+import random
 import requests
 import json
 from config import config
@@ -18,10 +18,9 @@ class JobHandler(JobHandlerInterface):
         super().__init__(job, data_source)
         self.headers = {"Access-Key": job.token}
 
-    def _get_by_id(self, reference: str, depth: int = 1, attribute: str = ""):
-        params = {"depth": depth, "attribute": attribute}
+    def _get_by_id(self, reference: str, depth: int = 1):
         req = requests.get(
-            f"{config.DMSS_API}/api/documents/{reference}?resolve_links=true&depth=100", params=params,
+            f"{config.DMSS_API}/api/documents/{reference}?resolve_links=true&depth={depth}",
             headers=self.headers  # type: ignore
         )  # type: ignore
         req.raise_for_status()
@@ -39,12 +38,8 @@ class JobHandler(JobHandlerInterface):
         logger.info("Job started")
         application_input_reference = self.job.entity['applicationInput']['address']
         input_entity = self._get_by_id(application_input_reference)
-        new_signal_value = []
-        if ("generateLongSignal" in input_entity and
-                input_entity["generateLongSignal"] == True):
-            new_signal_value = [1, 2, 3, 4, 5] * 10
-        else:
-            new_signal_value = [1, 2, 3, 4, 5]
+        signal_length = int(input_entity["duration"] / input_entity["timeStep"])
+        new_signal_value = [random.randint(-50, 50) for value in range(signal_length)]
         signal_reference: str = self.job.entity['outputTarget']
         signal_entity = self._get_by_id(signal_reference)
 
