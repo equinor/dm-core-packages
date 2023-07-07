@@ -49,7 +49,7 @@
    1. A useful tip is to download 'Windows Terminal' from the App Store, which is a useful terminal for switching between WSL (Ubuntu) and powershell. 
 4. Make sure you have pip and venv installed in the WSL (Ubuntu) system. 
    ```
-   sudo apt-get upgrade &&
+   sudo apt-get update &&
    sudo apt-get upgrade && 
    sudo apt install python3-pip &&
    sudo apt install python3-venv
