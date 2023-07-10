@@ -6,6 +6,30 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.1.0 to ^1.1.1
 
+## [1.2.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.1.2...dm-core-plugins-v1.2.0) (2023-07-10)
+
+
+### Features
+
+* ability to add custom viewrecipe in table expandable row ([aa00d77](https://github.com/equinor/dm-core-packages/commit/aa00d7719ad97e7c60a38899fdd5968aba3b2214))
+* replace form config order with fields ([fb5b40f](https://github.com/equinor/dm-core-packages/commit/fb5b40f2d737d3f1c8e7d2b1420f392113eab47a))
+
+
+### Bug Fixes
+
+* handle relative reference in form ([7aab5e6](https://github.com/equinor/dm-core-packages/commit/7aab5e677b0a8e1bd2f2263da6927693194a104d))
+* rename plugin to uiRecipe in widget types ([687a73f](https://github.com/equinor/dm-core-packages/commit/687a73f1504cf56c6d35238808e16f7e779dc2f7))
+* rename rest of generic list ([3083584](https://github.com/equinor/dm-core-packages/commit/3083584e92669a40454812859a97b23b438282a4))
+* rename to view_selector ([6dbff29](https://github.com/equinor/dm-core-packages/commit/6dbff290e3f596533fc4646fda48d261f960deaf))
+* wrong title in button  tooltip ([8089ed7](https://github.com/equinor/dm-core-packages/commit/8089ed7acbb0d24153d209e259318140315d2884))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.1.2 to ^1.2.0
+
 ## [1.1.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.1.1...dm-core-plugins-v1.1.2) (2023-06-30)
 
 
