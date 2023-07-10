@@ -148,13 +148,15 @@ const AttributeList = (props: {
   const filteredAttributes =
     config && config.fields.length
       ? config.fields
-          .map((name: string) => attributes.find((x) => x.name == name))
+          .map((name: string) =>
+            attributes.find((attribute) => attribute.name == name)
+          )
           .filter((attribute): attribute is TAttribute => !!attribute)
       : attributes
 
   const attributeFields = filteredAttributes.map((attribute) => {
     const uiAttribute = config?.attributes.find(
-      (uiAttribute: any) => uiAttribute.name === attribute.name
+      (uiAttribute) => uiAttribute.name === attribute.name
     )
     return (
       <AttributeField

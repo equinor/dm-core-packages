@@ -19,3 +19,11 @@ The form is made up from fields and widgets:
 
 The attribute field selects correct fields for each attribute.
 
+When displaying an entity, the Form plugin will fetch the blueprint for that entity and display all fields. However, it
+is possible to control what fields to show, and in what order,
+inside the Form's UI recipe config:
+
+The `fields` attribute is a list of fields to include in the form. If no `fields` attribute is included in the config,
+all fields will be shown as default. The order or attributes displayed in the Form plugin will be equal to the order of
+attributes defined in the  `fields` list.
+
