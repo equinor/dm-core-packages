@@ -5,7 +5,7 @@
   "cars": [
     {
       "type": "./blueprints/Car",
-      "manufacturer": "Volvo",
+      "name": "Volvo",
       "model": "XC40",
       "color": "White"
     }

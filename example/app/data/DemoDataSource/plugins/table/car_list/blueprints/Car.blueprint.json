@@ -10,7 +10,7 @@
       "optional": false
     },
     {
-      "name": "manufacturer",
+      "name": "name",
       "label": "Manufacturer",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
