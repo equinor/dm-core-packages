@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/list/blueprints/OrderItem",
+  "_blueprintPath_": "/plugins/list/order_example/blueprints/OrderItem",
   "initialUiRecipe": {
     "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
