@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.1.2...dm-core-v1.2.0) (2023-07-10)
+
+
+### Features
+
+* add CreateJobEntity and JobForm component ([b070fb0](https://github.com/equinor/dm-core-packages/commit/b070fb087c7356f8e3b8814b1183de73e2660037))
+
+
+### Bug Fixes
+
+* bug in truncatePathString ([f339fc9](https://github.com/equinor/dm-core-packages/commit/f339fc913490bd7bb3b6fe249e200ce4f32c4982))
+* handle relative reference in form ([7aab5e6](https://github.com/equinor/dm-core-packages/commit/7aab5e677b0a8e1bd2f2263da6927693194a104d))
+* support /DS/&lt;path&gt; syntax in getDataSourceIdFromReference() ([f018894](https://github.com/equinor/dm-core-packages/commit/f01889484888f71eafcee2916e7b6cdb4cc0d05c))
+* update setJobIsStarted state in Stop button in JobControl.tsx ([02c4518](https://github.com/equinor/dm-core-packages/commit/02c4518427dab2d2eb1498b0cb0374a477d08b29))
+
 ## [1.1.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.1.1...dm-core-v1.1.2) (2023-06-30)
 
 
