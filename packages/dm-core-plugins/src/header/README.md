@@ -9,7 +9,8 @@ Copy it like so: `cp -R node_modules/@development-framework/dm-core-plugins/blue
 
 # Config
 
-The Header plugin can accept a config of type `HeaderPluginConfig` (see `blueprints/HeaderPluginConfig.json`).
+The Header plugin can accept a config of type `HeaderPluginConfig` (
+see `dm-core-plugins/blueprints/header/HeaderPluginConfig.json`).
 Explanation of the attributes:
 
 * `uiRecipesList`: Can be used to specify a list of UI recipes the user can select. By default, the fist UI recipe in
