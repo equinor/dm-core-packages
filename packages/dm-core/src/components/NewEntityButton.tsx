@@ -180,9 +180,9 @@ export function NewEntityButton(props: {
           >
             {!documentToCopy ? (
               <EntityPickerButton
-                variant="outlined"
+                buttonVariant="outlined"
                 typeFilter={typeToCreate}
-                text="Copy existing"
+                alternativeButtonText="Copy existing"
                 returnLinkReference={false}
                 onChange={(ref) => setDocumentToCopy(ref as TGenericObject)}
               />
