@@ -1,7 +1,7 @@
 from time import sleep
 
 print("Starting to calculate signal")
-sleep(5)
+sleep(3)
 repeat_count = 20
 signal_part = [1, -1, 1, -1]
 final_signal = []

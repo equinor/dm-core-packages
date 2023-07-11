@@ -72,7 +72,7 @@ export const JobPlugin = (props: IUIPlugin) => {
         applicationInputType={`dmss://DemoDataSource/apps/MySignalApp/models/CaseInput`}
         onCreate={(jobEntityId: string) => setJobEntityId(jobEntityId)}
         defaultJobOutputTarget={props.idReference + '.signal'}
-        defaultJobEntity={defaultJobEntity}
+        defaultJobEntity={defaultContainerJobEntity}
       />
       {jobEntityId && <JobControl jobEntityId={jobEntityId} />}
     </div>
