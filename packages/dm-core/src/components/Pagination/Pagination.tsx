@@ -53,14 +53,14 @@ export function Pagination(props: PaginationProps) {
           variant="ghost_icon"
           onClick={() => setPage((prevPage) => prevPage - 1)}
         >
-          <Icon data={chevron_left} />
+          <Icon data={chevron_left} title="Previous page" />
         </Button>
         <Button
           disabled={page + 1 === availablePages}
           variant="ghost_icon"
           onClick={() => setPage((prevPage) => prevPage + 1)}
         >
-          <Icon data={chevron_right} />
+          <Icon data={chevron_right} title="Next page" />
         </Button>
       </Stack>
     </Stack>

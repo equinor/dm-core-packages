@@ -93,13 +93,7 @@ test('Table car list example', async ({ page }) => {
 
   //WIP: Adding several cars to test pagination
   await page.locator('#rowsPerPage').selectOption('5')
-  await expect(
-    page
-      .locator('div')
-      .filter({ hasText: /^Rows per page: 51025501005001 - 3 of 3$/ })
-      .getByRole('button')
-      .nth(1)
-  ).toBeDisabled()
+  await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
   // await page.getByRole('button', { name: 'Add row' }).click()
   // await expect(page.getByText('1 - 3 of 3')).toBeVisible()
   await page.getByRole('button', { name: 'Add row' }).click()
@@ -109,32 +103,12 @@ test('Table car list example', async ({ page }) => {
   await page.getByRole('button', { name: 'Add row' }).click()
   await expect(page.getByText('1 - 5 of 6')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()
-  await page
-    .locator('div')
-    .filter({ hasText: /^Rows per page: 51025501005001 - 5 of 6$/ })
-    .getByRole('button')
-    .nth(1)
-    .click()
+  await page.getByRole('button', { name: 'Next page' }).click()
   await expect(page.getByText('6 - 6 of 6')).toBeVisible()
-  // await expect(
-  //   page
-  //     .locator('div')
-  //     .filter({ hasText: /^Rows per page: 51025501005006 - 6 of 6$/ })
-  //     .getByRole('button')
-  //     .nth(1)
-  // ).toBeDisabled() //BUG #258
-  await page
-    .locator('div')
-    .filter({ hasText: /^Rows per page: 51025501005006 - 6 of 6$/ })
-    .getByRole('button')
-    .first()
-    .click()
+  //await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled() //BUG #258
+  await page.getByRole('button', { name: 'Previous page' }).click()
   await expect(page.getByText('1 - 5 of 6')).toBeVisible()
   await expect(
-    page
-      .locator('div')
-      .filter({ hasText: /^Rows per page: 51025501005001 - 5 of 6$/ })
-      .getByRole('button')
-      .first()
+    page.getByRole('button', { name: 'Previous page' })
   ).toBeDisabled()
 })
