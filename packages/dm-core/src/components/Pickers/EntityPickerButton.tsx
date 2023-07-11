@@ -13,25 +13,33 @@ import { truncatePathString } from '../../utils/truncatePathString'
 import { EBlueprint } from '../../Enums'
 
 /**
- * A component for selecting an Entity.
+ * A component for selecting an Entity or an attribute of an entity.
  *
  * Uses the Tree component to let user pick an entity from the tree. After an entity is selected, the prop
  * "onChange" is called. If returnLinkReference is false, the onChange is called with the selected entity as an object.
  * If returnLinkReference is true, onChange is called with a link reference to the selected entity.
+ *
+ *
+ * @param onChange: function to call when entity is selected.
+ * @param returnLinkReference: if this is set to true, onChange is called with a link reference to the selected entity (or a complex attribute inside the entity) instead of the entity object.
+ * @param typeFilter: optional filter that can be added. If this is included, it is only possible to select an entity with the type specified by typeFilter.
+ * @param alternativeButtonText: optional attribute to override the Button text
+ * @param variant: optional attribute to override the variant / styling used for the button
+ * @param scope: optional attribute to define scope for tree view. The scope will be a path to a folder.
  */
 export const EntityPickerButton = (props: {
   onChange: (value: TGenericObject | TLinkReference) => void
   returnLinkReference?: boolean
   typeFilter?: string
-  text?: string
-  variant?: 'contained' | 'outlined' | 'ghost' | 'ghost_icon'
-  scope?: string // Path to a folder to limit the view within
+  alternativeButtonText?: string
+  buttonVariant?: 'contained' | 'outlined' | 'ghost' | 'ghost_icon'
+  scope?: string
 }) => {
   const {
     onChange,
     typeFilter,
-    text,
-    variant,
+    alternativeButtonText,
+    buttonVariant,
     scope,
     returnLinkReference = false,
   } = props
@@ -41,6 +49,9 @@ export const EntityPickerButton = (props: {
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
 
   const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
+  const [selectedTreeNode, setSelectedTreeNode] = useState<
+    TreeNode | undefined
+  >()
 
   useEffect(() => {
     setLoading(true)
@@ -53,17 +64,51 @@ export const EntityPickerButton = (props: {
     }
   }, [scope])
 
+  const handleSelectEntityInTree = () => {
+    if (!selectedTreeNode) {
+      return
+    }
+    selectedTreeNode
+      .fetch()
+      .then((doc: any) => {
+        setShowModal(false)
+
+        onChange(
+          returnLinkReference
+            ? {
+                type: EBlueprint.REFERENCE,
+                referenceType: 'link',
+                address: `dmss://$${selectedTreeNode.nodeId}`,
+              }
+            : doc
+        )
+      })
+      .catch((error: any) => {
+        console.error(error)
+        NotificationManager.error('Failed to fetch')
+      })
+      .finally(() => {
+        setSelectedTreeNode(undefined)
+        setShowModal(false)
+      })
+  }
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', margin: '0 10px' }}>
+    <div
+      style={{ display: 'flex', flexDirection: 'row', margin: '0 10px 10px' }}
+    >
       <Button
-        variant={variant || 'contained'}
+        variant={buttonVariant || 'contained'}
         onClick={() => setShowModal(true)}
       >
-        {text || 'Select'}
+        {alternativeButtonText || 'Select'}
       </Button>
       <Dialog
         isOpen={showModal}
-        closeScrim={() => setShowModal(false)}
+        closeScrim={() => {
+          setSelectedTreeNode(undefined)
+          setShowModal(false)
+        }}
         header={`Select an Entity ${typeFilter ? `of type ${typeFilter}` : ''}`}
         width={TREE_DIALOG_WIDTH}
         height={TREE_DIALOG_HEIGHT}
@@ -73,36 +118,37 @@ export const EntityPickerButton = (props: {
             <Progress.Circular />
           </div>
         ) : (
-          <TreeView
-            nodes={treeNodes}
-            onSelect={(node: TreeNode) => {
-              if (typeFilter && node.type !== typeFilter) {
-                NotificationManager.warning(
-                  `Type must be '${truncatePathString(typeFilter, 43)}'`
-                )
-                return
-              }
-              setShowModal(false)
-              node
-                .fetch()
-                .then((doc: any) => {
-                  setShowModal(false)
-                  onChange(
-                    returnLinkReference
-                      ? {
-                          type: EBlueprint.REFERENCE,
-                          referenceType: 'link',
-                          address: `dmss://${node.dataSource}/$${doc._id}`,
-                        }
-                      : doc
-                  )
-                })
-                .catch((error: any) => {
-                  console.error(error)
-                  NotificationManager.error('Failed to fetch')
-                })
-            }}
-          />
+          <div style={{ padding: '8px' }}>
+            <div style={{ height: '30vh' }}>
+              <TreeView
+                ignoredTypes={[EBlueprint.BLUEPRINT]}
+                nodes={treeNodes}
+                onSelect={(node: TreeNode) => {
+                  if (typeFilter && node.type !== typeFilter) {
+                    NotificationManager.warning(
+                      `Type must be '${truncatePathString(typeFilter, 43)}'`
+                    )
+                    setSelectedTreeNode(undefined)
+                    return
+                  }
+                  setSelectedTreeNode(node)
+                }}
+              />
+            </div>
+            <p>
+              {selectedTreeNode
+                ? `Selected: ${
+                    selectedTreeNode?.name ?? selectedTreeNode.nodeId
+                  }`
+                : 'No entity selected'}
+            </p>
+            <Button
+              disabled={!selectedTreeNode}
+              onClick={handleSelectEntityInTree}
+            >
+              Select
+            </Button>
+          </div>
         )}
       </Dialog>
     </div>
