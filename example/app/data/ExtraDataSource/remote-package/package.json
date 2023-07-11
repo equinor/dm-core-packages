@@ -1,6 +1,7 @@
 {
   "name": "remote-package",
   "type": "CORE:Package",
+  "isRoot": true,
   "_meta_": {
     "type": "CORE:Meta",
     "version": "0.0.1",

@@ -1,7 +1,6 @@
 {
   "_id": "orderExample",
   "type": "./blueprints/Order",
-  "name": "OrderExample",
   "items": [
     {
       "type": "./blueprints/OrderItem",

@@ -1,6 +1,5 @@
 {
   "type": "CORE:RecipeLink",
-  "name": "StudyNCUI",
   "_blueprintPath_": "AppModels:signals_simple/StudyNC",
   "initialUiRecipe": {
     "name": "Tabs",

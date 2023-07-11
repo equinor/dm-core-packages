@@ -1,6 +1,5 @@
 {
   "_id": "Simple",
-  "name": "Simple",
   "type": "./blueprints/Simple",
   "stringRequired": "",
   "stringOptional": "a prefilled optional string",

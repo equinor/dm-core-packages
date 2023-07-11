@@ -8,6 +8,11 @@
       "name": "type"
     },
     {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "name"
+    },
+    {
       "attributeType": "./OrderItem",
       "dimensions": "*",
       "type": "CORE:BlueprintAttribute",
