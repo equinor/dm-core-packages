@@ -11,6 +11,13 @@
       "optional": true
     },
     {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "label",
+      "contained": true,
+      "optional": true
+    },
+    {
       "attributeType": "./ViewSelectorTabs",
       "type": "CORE:BlueprintAttribute",
       "name": "secondAttribute",

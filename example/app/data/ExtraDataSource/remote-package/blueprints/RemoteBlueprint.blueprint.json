@@ -1,12 +1,8 @@
 {
   "name": "RemoteBlueprint",
   "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
   "attributes": [
-    {
-      "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
-    },
     {
       "name": "a",
       "type": "CORE:BlueprintAttribute",

@@ -1,7 +1,6 @@
 {
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "AppModels:signals_simple/SinComp",
-  "initialUiRecipe": {},
   "uiRecipes": [
     {
       "name": "Table Edit",
