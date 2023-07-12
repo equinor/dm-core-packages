@@ -22,7 +22,6 @@ import React, { ChangeEvent, useState } from 'react'
  * The user must select type for the 'runner' with a BlueprintPicker, and the user must select a reference to use as 'applciationInput'.
  *
  * @param onSubmit Function to run when Job is submitted.
- * @param jobRunnerType Type of job runner to add to the Job entity (for example dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob)
  * @param defaultJobOutputTarget An optional value for outputTarget in the job entity to create. This value is used in the job handler to specify where results of the job should be uploaded/inserted.
 
  */

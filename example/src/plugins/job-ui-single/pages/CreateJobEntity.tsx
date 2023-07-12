@@ -29,8 +29,6 @@ type TCreateJobEntityProps = {
 
  * @param jobEntityDestination Where job entity will be uploaded. Must be an address, either to a Package (PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE) or to an attribute inside an object (PROTOCOL://DATA SOURCE/$123-123-123.list[2].job).
  * @param onCreate Function to run when Job entity is created.
- * @param jobRunnerType Type of job runner to add to the Job entity (for example dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob)
- * @param applicationInputType Type of applicationInput to add to the Job entity.
  * @param defaultJobEntity An optional default entity.
  * @param defaultJobOutputTarget An optional value for outputTarget in the job entity to create. This value is used in the job handler to specify where results of the job should be uploaded/inserted.
  */
