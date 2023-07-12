@@ -72,9 +72,7 @@ test('Nested Form', async ({ page }) => {
   await page.getByRole('button', { name: 'Append Add Item' }).click()
   await expect.soft(page.getByText('1 - 3 of 3')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()
-  await page
-    .locator('div:nth-child(5) > div > .Button__ButtonBase-sc-1hs0myn-1')
-    .click()
+  await page.getByRole('button', { name: 'Open item' }).last().click()
   await page.getByLabel('Name').fill('McLaren')
   await page.getByLabel('Plate Number').fill('3000')
   await page.getByRole('button', { name: 'Submit' }).click()
@@ -85,9 +83,7 @@ test('Nested Form', async ({ page }) => {
   await page.getByText('DemoDataSource/$Nested').click()
   await page.getByText('CarsOpen').getByRole('button', { name: 'Open' }).click()
   // await expect(page.getByText('McLaren')).toBeVisible() Does not work because two instances are stored when submitting form... Known bug.
-  await page
-    .locator('div:nth-child(5) > div > .Button__ButtonBase-sc-1hs0myn-1')
-    .click()
+  await page.getByRole('button', { name: 'Open item' }).last().click()
   await expect(page.getByRole('tab', { name: 'McLaren' })).toBeVisible()
   await expect(page.getByLabel('Name')).toHaveValue('McLaren')
   await expect(page.getByLabel('Plate Number')).toHaveValue('3000')
@@ -103,9 +99,7 @@ test('Nested Form', async ({ page }) => {
   await page.getByRole('button', { name: 'Append Add Item' }).click()
   await expect.soft(page.getByText('1 - 3 of 3')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()
-  await page
-    .locator('div:nth-child(5) > div > .Button__ButtonBase-sc-1hs0myn-1')
-    .click()
+  await page.getByRole('button', { name: 'Open item' }).last().click()
   await page.getByLabel('Name').fill('Lewis')
   await page.getByLabel('Phone number (optional)').fill('12345678')
   await page.getByRole('button', { name: 'Submit' }).click()
@@ -119,9 +113,7 @@ test('Nested Form', async ({ page }) => {
     .getByRole('button', { name: 'Open' })
     .click()
   // await expect(page.getByText('Lewis')).toBeVisible() Does not work because two instances are stored when submitting form... Known bug.
-  await page
-    .locator('div:nth-child(5) > div > .Button__ButtonBase-sc-1hs0myn-1')
-    .click()
+  await page.getByRole('button', { name: 'Open item' }).last().click()
   await expect(page.getByRole('tab', { name: 'Lewis' })).toBeVisible()
   await expect(page.getByLabel('Name')).toHaveValue('Lewis')
   await expect(page.getByLabel('Phone number (optional)')).toHaveValue(
