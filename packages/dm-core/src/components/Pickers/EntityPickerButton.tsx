@@ -72,13 +72,12 @@ export const EntityPickerButton = (props: {
       .fetch()
       .then((doc: any) => {
         setShowModal(false)
-
         onChange(
           returnLinkReference
             ? {
                 type: EBlueprint.REFERENCE,
                 referenceType: 'link',
-                address: `dmss://$${selectedTreeNode.nodeId}`,
+                address: `dmss://${selectedTreeNode.nodeId}`,
               }
             : doc
         )
