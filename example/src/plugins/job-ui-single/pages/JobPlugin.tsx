@@ -69,10 +69,9 @@ export const JobPlugin = (props: IUIPlugin) => {
       {/*TODO have a way to check if an entity of type job already exists in 'jobEntityDestination'. Must scan content of entire package if jobEntityDestination is a package, but its simpler to check if jobEntityDestination is refering to an object's attribute. */}
       <CreateJobEntity
         jobEntityDestination={jobEntityDestination}
-        applicationInputType={`dmss://DemoDataSource/apps/MySignalApp/models/CaseInput`}
         onCreate={(jobEntityId: string) => setJobEntityId(jobEntityId)}
         defaultJobOutputTarget={props.idReference + '.signal'}
-        defaultJobEntity={defaultContainerJobEntity}
+        defaultJobEntity={defaultJobEntity}
       />
       {jobEntityId && <JobControl jobEntityId={jobEntityId} />}
     </div>
