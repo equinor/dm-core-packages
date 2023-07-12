@@ -1,0 +1,39 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/list/task_list/blueprints/TaskList",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "List",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/list",
+      "dimensions": "*",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "headers": ["name", "assigned"],
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
+          "delete": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "_id": "taskList",
+  "type": "./blueprints/TaskList",
+  "name": "TaskList",
+  "task list": [
+    {
+      "type": "./blueprints/Task",
+      "name": "Wash the car",
+      "assigned": "Mark Johnson",
+      "description": "Car needs a thorough wash inside and outside.",
+      "complete": false
+    },
+    {
+      "type": "./blueprints/Task",
+      "name": "Mow the lawn",
+      "assigned": "",
+      "description": "",
+      "complete": false
+    },
+    {
+      "type": "./blueprints/Task",
+      "name": "Paint the living room",
+      "assigned": "",
+      "description": "",
+      "complete": false
+    }
+  ]
+}
