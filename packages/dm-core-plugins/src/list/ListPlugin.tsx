@@ -199,7 +199,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       : () => openItemAsTab(item)
                   }
                 >
-                  <Icon data={item.expanded ? minimize : add} />
+                  <Icon
+                    data={item.expanded ? minimize : add}
+                    title={item.expanded ? 'Close item' : 'Open item'}
+                  />
                 </Button>
               </Tooltip>
               {internalConfig.headers.map(
