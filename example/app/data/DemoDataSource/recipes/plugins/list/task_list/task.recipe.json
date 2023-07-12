@@ -1,0 +1,69 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/list/task_list/blueprints/Task",
+  "initialUiRecipe": {
+    "name": "UiRecipesSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Edit",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "Edit",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "attributes": [
+                  {
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "name": "description",
+                    "widget": "TextareaWidget"
+                  }
+                ]
+              }
+            },
+            "scope": "self"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "name": "List",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/list",
+      "dimensions": "*",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "openInline": true,
+        "headers": ["name", "assigned"],
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
+          "delete": true,
+          "add": true,
+          "openAsTab": true,
+          "openAsExpandable": true,
+          "sort": true
+        }
+      }
+    }
+  ]
+}

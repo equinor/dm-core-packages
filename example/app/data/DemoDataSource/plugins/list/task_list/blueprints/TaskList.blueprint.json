@@ -1,0 +1,22 @@
+{
+  "name": "TaskList",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "type"
+    },
+    {
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "name": "name"
+    },
+    {
+      "attributeType": "./Task",
+      "dimensions": "*",
+      "type": "CORE:BlueprintAttribute",
+      "name": "task list"
+    }
+  ]
+}
