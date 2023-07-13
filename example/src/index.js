@@ -24,7 +24,7 @@ ReactDOM.render(
     <DMSSProvider>
       <ApplicationContext.Provider value={APP_SETTINGS}>
         <FSTreeProvider visibleDataSources={APP_SETTINGS.visibleDataSources}>
-          <UiPluginProvider pluginsToLoad={plugins}>
+          <UiPluginProvider pluginsToLoad={Object.values(plugins)}>
             <App />
           </UiPluginProvider>
         </FSTreeProvider>
