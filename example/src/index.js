@@ -1,6 +1,5 @@
 import {
   ApplicationContext,
-  Button,
   DMSSProvider,
   FSTreeProvider,
   UiPluginProvider,
