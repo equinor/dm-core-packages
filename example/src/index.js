@@ -1,5 +1,6 @@
 import {
   ApplicationContext,
+  Button,
   DMSSProvider,
   FSTreeProvider,
   UiPluginProvider,
@@ -8,6 +9,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import plugins from './plugins'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const APP_SETTINGS = {
   visibleDataSources: [
@@ -26,6 +29,7 @@ ReactDOM.render(
         <FSTreeProvider visibleDataSources={APP_SETTINGS.visibleDataSources}>
           <UiPluginProvider pluginsToLoad={plugins}>
             <App />
+            <ToastContainer />
           </UiPluginProvider>
         </FSTreeProvider>
       </ApplicationContext.Provider>

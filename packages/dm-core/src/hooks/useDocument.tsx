@@ -5,6 +5,8 @@ import { NotificationManager } from 'react-notifications'
 import { ErrorResponse } from '../services'
 import { useDMSS } from '../context/DMSSContext'
 
+import { toast } from 'react-toastify'
+
 /**
  * A hook for asynchronously working with documents.
  *
@@ -43,7 +45,7 @@ export function useDocument<T>(
   T | null,
   boolean,
   (newDocument: T, notify: boolean) => void,
-  ErrorResponse | null,
+  ErrorResponse | null
 ] {
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
@@ -67,6 +69,9 @@ export function useDocument<T>(
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
+        toast.error(
+          'Unable to retrieve document, with message: ' + error.message
+        )
         setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
@@ -87,12 +92,7 @@ export function useDocument<T>(
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
-        if (notify)
-          NotificationManager.error(
-            JSON.stringify(error?.response?.data?.message),
-            'Failed to update document',
-            0
-          )
+        toast.error('Unable to update document, with message: ' + error.message)
         setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
