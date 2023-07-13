@@ -36,6 +36,8 @@ export const ListItemButton = (props: {
     up: chevron_up,
     down: chevron_down,
   }
+  const iconTitle =
+    type === 'up' ? 'Move up' : type === 'down' ? 'Move Down' : 'Delete'
   return (
     <EdsProvider density="compact">
       <Button
@@ -44,7 +46,7 @@ export const ListItemButton = (props: {
         variant="ghost_icon"
         onClick={props.onClick}
       >
-        <Icon data={ICONS[type]} title="Move up" />
+        <Icon data={ICONS[type]} title={iconTitle} />
       </Button>
     </EdsProvider>
   )
