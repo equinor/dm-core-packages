@@ -8,9 +8,7 @@ type TInlineRecipeViewProps = IUIPlugin & {
 
 export const InlineRecipeView = (props: TInlineRecipeViewProps) => {
   const { idReference, type, viewConfig, onOpen } = props
-  const { loading, getUiPlugin } = useContext(UiPluginContext)
-
-  if (loading) return <Loading />
+  const { getUiPlugin } = useContext(UiPluginContext)
 
   const UiPlugin = getUiPlugin(viewConfig.recipe.plugin)
   return (

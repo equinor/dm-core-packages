@@ -63,7 +63,7 @@ export default (props: IUIPlugin): JSX.Element => {
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
-  const { loading: isContextLoading, getUiPlugin } = useContext(UiPluginContext)
+  const { getUiPlugin } = useContext(UiPluginContext)
 
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
     component: (props: IUIPlugin) => <div></div>,
@@ -83,7 +83,7 @@ export default (props: IUIPlugin): JSX.Element => {
   }
 
   useEffect(() => {
-    if (!isContextLoading && !isBlueprintLoading) {
+    if (!isBlueprintLoading) {
       const defaultRecipe: TUiRecipe =
         config.uiRecipesList.length > 0
           ? uiRecipes.find(
@@ -92,15 +92,10 @@ export default (props: IUIPlugin): JSX.Element => {
           : uiRecipes[0]
       setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))
     }
-  }, [isBlueprintLoading, isContextLoading])
+  }, [isBlueprintLoading])
 
   const UIPlugin: (props: IUIPlugin) => JSX.Element = selectedRecipe.component
-  if (
-    isApplicationLoading ||
-    !entity ||
-    isContextLoading ||
-    isBlueprintLoading
-  ) {
+  if (isApplicationLoading || !entity || isBlueprintLoading) {
     return <Loading />
   }
 

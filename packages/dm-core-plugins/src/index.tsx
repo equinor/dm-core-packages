@@ -1,4 +1,4 @@
-import { TPlugin } from '@development-framework/dm-core'
+import { TUiPluginMap } from '@development-framework/dm-core'
 
 import { YamlPlugin } from './yaml/YamlPlugin'
 import { ViewSelectorPlugin } from './view_selector/ViewSelectorPlugin'
@@ -16,64 +16,64 @@ import { ListPlugin } from './list/ListPlugin'
 import { TablePlugin } from './table/TablePlugin'
 import { FilePlugin } from './file/FilePlugin'
 
-export const plugins: { [key: string]: TPlugin } = {
-  explorer: {
+export const plugins: TUiPluginMap = {
+  '@development-framework/dm-core-plugins/explorer': {
     pluginName: '@development-framework/dm-core-plugins/explorer',
     component: ExplorerPlugin,
   },
-  list: {
+  '@development-framework/dm-core-plugins/list': {
     pluginName: '@development-framework/dm-core-plugins/list',
     component: ListPlugin,
   },
-  table: {
+  '@development-framework/dm-core-plugins/table': {
     pluginName: '@development-framework/dm-core-plugins/table',
     component: TablePlugin,
   },
-  yaml: {
+  '@development-framework/dm-core-plugins/yaml': {
     pluginName: '@development-framework/dm-core-plugins/yaml',
     component: YamlPlugin,
   },
-  file: {
+  '@development-framework/dm-core-plugins/file': {
     pluginName: '@development-framework/dm-core-plugins/file',
     component: FilePlugin,
   },
-  grid: {
+  '@development-framework/dm-core-plugins/grid': {
     pluginName: '@development-framework/dm-core-plugins/grid',
     component: GridPlugin,
   },
-  view_selector: {
+  '@development-framework/dm-core-plugins/view_selector': {
     pluginName: '@development-framework/dm-core-plugins/view_selector',
     component: ViewSelectorPlugin,
   },
-  'blueprint-hierachy': {
+  '@development-framework/dm-core-plugins/blueprint-hierarchy': {
     pluginName: '@development-framework/dm-core-plugins/blueprint-hierarchy',
     component: BlueprintHierarchyPlugin,
   },
-  jobControl: {
+  '@development-framework/dm-core-plugins/jobControl': {
     pluginName: '@development-framework/dm-core-plugins/jobControl',
     component: JobControlPlugin,
   },
-  jobInputEdit: {
+  '@development-framework/dm-core-plugins/jobInputEdit': {
     pluginName: '@development-framework/dm-core-plugins/jobInputEdit',
     component: JobInputEditPlugin,
   },
-  form: {
+  '@development-framework/dm-core-plugins/form': {
     pluginName: '@development-framework/dm-core-plugins/form',
     component: FormPlugin,
   },
-  header: {
+  '@development-framework/dm-core-plugins/header': {
     pluginName: '@development-framework/dm-core-plugins/header',
     component: HeaderPlugin,
   },
-  json: {
+  '@development-framework/dm-core-plugins/json': {
     pluginName: '@development-framework/dm-core-plugins/json',
     component: JsonPlugin,
   },
-  pdf: {
+  '@development-framework/dm-core-plugins/pdf': {
     pluginName: '@development-framework/dm-core-plugins/pdf',
     component: PdfPlugin,
   },
-  blueprint: {
+  '@development-framework/dm-core-plugins/blueprint': {
     pluginName: '@development-framework/dm-core-plugins/blueprint',
     component: BlueprintPlugin,
   },
