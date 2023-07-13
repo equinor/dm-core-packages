@@ -101,8 +101,7 @@ export const useRecipe = (
     isLoading: isBlueprintLoading,
     error,
   } = useBlueprint(typeRef)
-  const { loading: isPluginContextLoading, getUiPlugin } =
-    useContext(UiPluginContext)
+  const { getUiPlugin } = useContext(UiPluginContext)
   const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
   const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
     null
@@ -127,7 +126,7 @@ export const useRecipe = (
 
   return {
     recipe: isBlueprintLoading ? undefined : foundRecipe,
-    isLoading: isBlueprintLoading && isPluginContextLoading,
+    isLoading: isBlueprintLoading,
     error: error ?? findRecipeError,
     getUiPlugin,
   }

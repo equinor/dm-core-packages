@@ -97,6 +97,8 @@ export interface IUIPlugin {
   config?: any
 }
 
+export type TUiPluginMap = { [pluginName: string]: TPlugin }
+
 export type TUiRecipe = {
   type: string
   name: string
