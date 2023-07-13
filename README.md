@@ -1817,3 +1817,8 @@ Co-authored-by: Andrea Vesterhus <andrea.vesterhus@bouvet.no> (2023-06-27T08:10:
     * **DMSS VERSION**: bd12053 2023-07-05 Krist..rstad fix:bug with add document grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.14
     * **JOB VERSION**: ebce185 2023-07-06 Krist..rstad tests: update call to dmss and fix conftest grafted, HEAD -> main, origin/main
+* fix: add correct titles to list item buttons (2023-07-10T10:13:30Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5541070496/1)
+    * **DMSS VERSION**: bd12053 2023-07-05 Krist..rstad fix:bug with add document grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.14
+    * **JOB VERSION**: ebce185 2023-07-06 Krist..rstad tests: update call to dmss and fix conftest grafted, HEAD -> main, origin/main
