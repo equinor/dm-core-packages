@@ -70,7 +70,7 @@ export function useDocument<T>(
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
         toast.error(
-          'Unable to retrieve document, with message: ' + error.message
+          'Unable to retrieve document, with message: ' + error.response?.data.message ?? error.message
         )
         setError(error.response?.data || { message: error.name, data: error })
       })
