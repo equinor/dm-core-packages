@@ -87,7 +87,7 @@ export function useDocument<T>(
       .then(() => {
         setDocument(newDocument)
         setError(null)
-        if (notify) NotificationManager.success('Document updated')
+        toast.success('Document updated')
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
