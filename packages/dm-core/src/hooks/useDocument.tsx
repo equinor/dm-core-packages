@@ -1,7 +1,5 @@
 import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
-//@ts-ignore
-import { NotificationManager } from 'react-notifications'
 import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
 
@@ -70,7 +68,8 @@ export function useDocument<T>(
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
         toast.error(
-          'Unable to retrieve document, with message: ' + error.response?.data.message ?? error.message
+          'Unable to retrieve document, with message: ' +
+            error.response?.data.message ?? error.message
         )
         setError(error.response?.data || { message: error.name, data: error })
       })
