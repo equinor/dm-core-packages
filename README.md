@@ -1832,3 +1832,8 @@ Co-authored-by: Andrea Vesterhus <andrea.vesterhus@bouvet.no> (2023-06-27T08:10:
     * **DMSS VERSION**: bd12053 2023-07-05 Krist..rstad fix:bug with add document grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.14
     * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
+* fix: removing notificationmanager and replacing with toast (2023-07-10T10:13:30Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5551848349/1)
+    * **DMSS VERSION**: bd12053 2023-07-05 Krist..rstad fix:bug with add document grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.14
+    * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
