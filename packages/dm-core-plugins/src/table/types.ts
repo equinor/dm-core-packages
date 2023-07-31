@@ -22,8 +22,6 @@ export type TTablePluginConfig = {
     | TInlineRecipeViewConfig
     | TReferenceViewConfig
   functionality: TTableFunctionalityConfig
-  defaultView: TViewConfig
-  views: TViewConfig[]
 }
 
 export const defaultConfig: TTablePluginConfig = {
@@ -37,8 +35,6 @@ export const defaultConfig: TTablePluginConfig = {
     edit: false,
     delete: false,
   },
-  defaultView: { type: 'ViewConfig', scope: 'self' },
-  views: [],
 }
 
 export type TTableRowItem = {
