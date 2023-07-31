@@ -1,13 +1,18 @@
-import React from 'react'
-import { ErrorResponse, Stack, useDMSS } from '@development-framework/dm-core'
+import {
+  EBlueprint,
+  ErrorResponse,
+  Stack,
+  useDMSS,
+} from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
+import React from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
 import { useRegistryContext } from '../RegistryContext'
+import { OpenObjectButton } from '../components/OpenObjectButton'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
-import { OpenObjectButton } from '../components/OpenObjectButton'
 
 const isPrimitiveType = (value: string): boolean => {
   return ['string', 'number', 'integer', 'number', 'boolean'].includes(value)
@@ -73,6 +78,8 @@ export default function Fields(props: any) {
                 attribute={{
                   attributeType: type,
                   dimensions: '',
+                  name: item.id,
+                  type: EBlueprint.ATTRIBUTE,
                 }}
               />
             </Stack>

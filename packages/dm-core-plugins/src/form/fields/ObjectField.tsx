@@ -177,7 +177,6 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
     namePath,
     displayLabel = '',
     optional = false,
-    config,
     uiRecipe,
     blueprint,
   } = props
@@ -246,7 +245,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
             (uiRecipe && uiRecipe.plugin === 'form')) && (
             <AttributeList
               namePath={namePath}
-              config={uiRecipe ? uiRecipe.config : config}
+              config={uiRecipe?.config}
               blueprint={blueprint}
             />
           )}
@@ -345,22 +344,15 @@ export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
     <Widget
       {...props}
       id={namePath}
-      label={displayLabel ?? ''}
+      label={displayLabel}
       type={type === 'object' && values ? values.type : type}
     />
   )
 }
 
 export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
-  const {
-    type,
-    namePath,
-    displayLabel = '',
-    optional = false,
-    contained = true,
-    config,
-    uiRecipeName,
-  } = props
+  const { type, namePath, displayLabel, optional, contained, uiAttribute } =
+    props
 
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
 
@@ -370,6 +362,12 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
 
   // The root object uses the ui recipe config that is passed into the ui plugin,
   // the nested objects uses ui recipes names that are passed down from parent configs.
+  const uiRecipeName =
+    uiAttribute &&
+    'uiRecipe' in uiAttribute &&
+    typeof uiAttribute.uiRecipe == 'string'
+      ? uiAttribute.uiRecipe
+      : undefined
   const uiRecipe: TUiRecipeForm | undefined = uiRecipes
     .map((x) => ({ ...x, config: { ...defaultConfig, ...x.config } }))
     .find((uiRecipe) => uiRecipe.name === uiRecipeName)
@@ -381,7 +379,6 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
       namePath={namePath}
       displayLabel={displayLabel}
       optional={optional}
-      config={config}
       blueprint={blueprint}
       uiRecipe={uiRecipe}
     />
