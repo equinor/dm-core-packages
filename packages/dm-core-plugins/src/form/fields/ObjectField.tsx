@@ -135,7 +135,7 @@ const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
   )
 }
 
-const AttributeList = (props: {
+export const AttributeList = (props: {
   namePath: string
   config: TConfig | undefined
   blueprint: TBlueprint | undefined

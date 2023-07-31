@@ -1,11 +1,15 @@
 import * as React from 'react'
 
-import { Stack, TGenericObject } from '@development-framework/dm-core'
+import {
+  Stack,
+  TGenericObject,
+  useBlueprint,
+} from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { RegistryProvider } from './RegistryContext'
-import { ObjectField } from './fields/ObjectField'
+import { AttributeList } from './fields/ObjectField'
 import { TFormProps } from './types'
 
 const Wrapper = styled.div`
@@ -15,6 +19,7 @@ const Wrapper = styled.div`
 
 export const Form = (props: TFormProps) => {
   const { type, formData, config, onSubmit, idReference, onOpen } = props
+  const { blueprint } = useBlueprint(type)
 
   const methods = useForm({
     // Set initial state.
@@ -43,10 +48,12 @@ export const Form = (props: TFormProps) => {
       <FormProvider {...methods}>
         <RegistryProvider onOpen={onOpen} idReference={idReference}>
           <form onSubmit={handleSubmit}>
-            <Stack spacing={2}>
-              {type && (
-                <ObjectField config={config} namePath={namePath} type={type} />
-              )}
+            <Stack spacing={2} style={{ padding: '1rem 0' }}>
+              <AttributeList
+                namePath={namePath}
+                config={config}
+                blueprint={blueprint}
+              />
               <Button
                 type="submit"
                 data-testid="form-submit"
