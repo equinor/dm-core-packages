@@ -1,4 +1,5 @@
 import {
+  TAttribute,
   TBlueprint,
   TUiRecipe,
   TViewConfig,
@@ -14,14 +15,12 @@ export type TFormProps = {
 }
 
 export type TObjectFieldProps = {
-  contained?: boolean
+  contained: boolean
   namePath: string
   type: string
-  displayLabel?: string
-  optional?: boolean
-  config?: TConfig
-  uiRecipeName?: string
-  uiAttribute?: any
+  displayLabel: string
+  optional: boolean
+  uiAttribute: TAttributeConfig | undefined
 }
 
 export type TContentProps = {
@@ -29,14 +28,13 @@ export type TContentProps = {
   namePath: string
   displayLabel: string
   optional: boolean
-  config: TConfig | undefined
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm | undefined
 }
 
 export type TAttributeFieldProps = {
   namePath: string
-  attribute: any
+  attribute: TAttribute
   uiAttribute?: TAttributeConfig
 }
 

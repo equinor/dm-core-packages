@@ -49,7 +49,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           defaultValue={attribute.default}
-          optional={attribute.optional}
+          optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
         />
       )
@@ -60,16 +60,9 @@ export const AttributeField = (props: TAttributeFieldProps) => {
         <ObjectField
           namePath={namePath}
           displayLabel={displayLabel}
-          contained={attribute.contained}
+          contained={attribute.contained ?? true}
           type={attribute.attributeType}
-          optional={attribute.optional}
-          uiRecipeName={
-            uiAttribute &&
-            'uiRecipe' in uiAttribute &&
-            typeof uiAttribute.uiRecipe == 'string'
-              ? uiAttribute.uiRecipe
-              : undefined
-          }
+          optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
         />
       )
@@ -89,7 +82,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           defaultValue={attribute.default}
-          optional={attribute.optional}
+          optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
         />
       )
@@ -109,7 +102,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           defaultValue={attribute.default}
-          optional={attribute.optional}
+          optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
         />
       )
