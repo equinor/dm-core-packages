@@ -6,7 +6,7 @@ import {
 
 export type TFormProps = {
   idReference: string
-  type?: string
+  type: string
   formData?: any
   config?: TConfig
   onOpen?: (key: string, view: TViewConfig) => void
