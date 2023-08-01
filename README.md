@@ -1869,3 +1869,10 @@ ref #276 (2023-07-10T10:13:30Z)
     * **DMSS VERSION**: 18ed96d 2023-07-31 Krist..rstad refactor: rename resolve_reference.py to resolve_address.py grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.14
     * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
+* fix(form): show remove button even if onOpen exist
+
+#276 (2023-07-10T10:13:30Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5727180644/1)
+    * **DMSS VERSION**: 18ed96d 2023-07-31 Krist..rstad refactor: rename resolve_reference.py to resolve_address.py grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.14
+    * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
