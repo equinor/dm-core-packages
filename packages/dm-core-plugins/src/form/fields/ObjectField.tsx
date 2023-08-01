@@ -19,8 +19,8 @@ import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { defaultConfig } from '../FormPlugin'
-import { useRegistryContext } from '../RegistryContext'
 import { OpenObjectButton } from '../components/OpenObjectButton'
+import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import {
   TConfig,

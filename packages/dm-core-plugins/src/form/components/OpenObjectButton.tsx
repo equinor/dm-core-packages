@@ -1,6 +1,6 @@
 import { Button } from '@equinor/eds-core-react'
 import React from 'react'
-import { useRegistryContext } from '../RegistryContext'
+import { useRegistryContext } from '../context/RegistryContext'
 
 export const OpenObjectButton = ({
   viewId,

@@ -8,7 +8,7 @@ import {
 import { Button } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { RegistryProvider } from './RegistryContext'
+import { RegistryProvider } from './context/RegistryContext'
 import { AttributeList } from './fields/ObjectField'
 import { TFormProps } from './types'
 

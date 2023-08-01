@@ -1,9 +1,9 @@
+import { TLinkReference, useDMSS } from '@development-framework/dm-core'
+import { Button, Progress } from '@equinor/eds-core-react'
+import { AxiosError } from 'axios'
 import * as React from 'react'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { TLinkReference, useDMSS } from '@development-framework/dm-core'
-import { useRegistryContext } from '../form/RegistryContext'
-import { AxiosError } from 'axios'
-import { Button, Progress } from '@equinor/eds-core-react'
+import { useRegistryContext } from '../form/context/RegistryContext'
 import { ErrorGroup } from './ErrorGroup'
 
 export interface DownloadButtonProps {
