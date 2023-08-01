@@ -16,6 +16,9 @@ folder `node_modules/@development-framework/dm-core-plugins/blueprint/list`
 
 Explanation of the attributes in the `ListPluginConfig`
 
+NB! as of August 2023 the functionality of the list plugin is rapidly changing and the docs here are outdated.
+TODO update this documentation.
+
 * expanded: is used to specify if items in the list should be expanded initially.
 * headers: a list of which attributes to display has headers in the list view.
 * functionality: is used for specifying which functionality that should be available in the UI plugin. The possible
