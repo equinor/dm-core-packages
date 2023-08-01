@@ -7,7 +7,7 @@ import {
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import { Form } from '../Form'
+import { Form } from '../components/Form'
 import { mockBlueprintGet, wrapper } from '../test-utils'
 
 describe('StringField', () => {

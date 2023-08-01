@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { IUIPlugin, Loading, useDocument } from '@development-framework/dm-core'
-import { Form } from './Form'
+import { Form } from './components/Form'
 import { TConfig } from './types'
 
 export const defaultConfig: TConfig = {

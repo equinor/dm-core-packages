@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
-import { Form } from '../Form'
+import { Form } from '../components/Form'
 import { mockBlueprintGet, wrapper } from '../test-utils'
 
 describe('ArrayField', () => {

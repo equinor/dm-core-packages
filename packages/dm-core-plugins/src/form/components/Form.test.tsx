@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
+import { mockBlueprintGet, wrapper } from '../test-utils'
 import { Form } from './Form'
-import { mockBlueprintGet, wrapper } from './test-utils'
 
 describe('Form', () => {
   afterEach(() => {
