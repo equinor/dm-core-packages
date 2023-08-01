@@ -1,5 +1,5 @@
 import React from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TStringFieldProps } from '../types'
 
@@ -8,7 +8,6 @@ const formatDate = (date: string) => {
 }
 
 export const StringField = (props: TStringFieldProps) => {
-  const { control } = useFormContext()
   const { namePath, displayLabel, defaultValue, optional, uiAttribute } = props
 
   const defaultWidget = uiAttribute ? uiAttribute.widget : 'TextWidget'
@@ -17,7 +16,6 @@ export const StringField = (props: TStringFieldProps) => {
   return (
     <Controller
       name={namePath}
-      control={control}
       rules={{
         required: !optional,
       }}
