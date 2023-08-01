@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Button, Progress } from '@equinor/eds-core-react'
+import { AxiosError, AxiosResponse } from 'axios'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
-import { AxiosError, AxiosResponse } from 'axios'
-import { TGenericObject, TReference, TValidEntity } from '../types'
 import { useDMSS } from '../context/DMSSContext'
+import { TGenericObject, TReference, TValidEntity } from '../types'
+import { getKey } from '../utils/objectUtilities'
 
 // fileSuffix - A list of strings with allowed file suffixes without '.'. For example to allow yaml uploads; ['yaml', 'yml']
 // getBody - A callback function to get the body of the document where file (Blob) should be created in.
@@ -45,7 +46,7 @@ export function UploadFileButton(props: {
         .then((response: AxiosResponse<TGenericObject>) =>
           onUpload({
             _id: response.data.uid,
-            name: newDocumentBody.name,
+            name: getKey<string>(newDocumentBody, 'name', 'string'),
             type: newDocumentBody.type,
           })
         )
