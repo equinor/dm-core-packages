@@ -13,7 +13,16 @@ folder `node_modules/@development-framework/dm-core-plugins/blueprint/table`
 
 # Config
 
-Explanation of the attributes in the `TableFunctionalityConfig`
+### Explanation of the attributes in `TablePluginConfig`:
+
+* columns: define what attributes to display in the columns of the table.
+* editableColumns: define what columns should be possible to edit the value of. The columns defined as editable must
+  also be defined in the `columns` attribute.
+* functionality: is used to define what functionality is added to the table. See the explanation
+  of `TableFunctionalityConfig` below for more details.
+* expandableRecipeViewConfig: define what UI recipe to show when clicking on the expand button.
+
+### Explanation of the attributes in `TableFunctionalityConfig`
 
 * openAsTab: determines if the list item should be opened in a new tab when clicking on expand
 * openAsExpandable: determines if the list item should be opened in an accordian when clicking on expand
