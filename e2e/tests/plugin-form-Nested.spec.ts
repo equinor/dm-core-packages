@@ -45,6 +45,13 @@ test('Nested Form', async ({ page }) => {
     '99887766'
   )
   await page.getByRole('tab').nth(2).click()
+  await page
+    .getByText('CEO (optional)RemoveOpen')
+    .getByRole('button', { name: 'Remove' })
+    .click()
+  await expect(
+    page.getByText('CEO (optional)Add').getByRole('button', { name: 'Add' })
+  ).toBeVisible()
 
   //Replacing accountant
   await page
