@@ -46,8 +46,8 @@ Example setup:
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
-            "scope": "aNestedObjectWithCustomUI",
-            "recipe": "aRecipeName"
+            "scope": "attributeA",
+            "recipe": "Yaml"
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
@@ -61,14 +61,14 @@ Example setup:
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
-            "scope": "orders[0].product",
+            "scope": "AttributeB",
             "recipe": "Yaml"
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 4,
-            "columnStart": 5,
-            "rowEnd": 6,
+            "columnStart": 3,
+            "rowEnd": 7,
             "columnEnd": 6
           }
         }
@@ -80,17 +80,17 @@ Example setup:
       "name": "Yaml",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/yaml"
-    },
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }
 
-
 ```
 
+For the above example grid, the layout would look like this:
+
+![Illustration of columns and row indexing](grid_example.png)
+
+The start and end indices for rows and columns refers to lines in the grid. The first line has number 1 (not 0). If the
+grid is 6x6, then the indices are in the range 1 to 7.
 
 
