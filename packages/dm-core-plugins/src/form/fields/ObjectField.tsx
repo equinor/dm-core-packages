@@ -140,14 +140,10 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const { getValues, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const [isDefined, setIsDefined] = useState(
-    namePath == ''
-      ? getValues() !== undefined
-      : getValues(namePath) !== undefined &&
-          Object.keys(getValues(namePath)).length > 0
+    getValues(namePath) !== undefined &&
+      Object.keys(getValues(namePath)).length > 0
   )
   const hasOpen = onOpen !== undefined
-  const isRoot = namePath == ''
-  const shouldOpen = hasOpen && !isRoot
 
   const attributePath = idReference.split('.', 2).slice(1)
 
@@ -155,15 +151,29 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
     <div>
       <Stack spacing={0.25} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
-        {!isDefined && (
-          <AddObject
-            idReference={idReference}
-            namePath={namePath}
-            type={type}
-            onAdd={() => setIsDefined(true)}
-          />
-        )}
-        {shouldOpen && isDefined && (
+        {optional &&
+          (isDefined ? (
+            <RemoveObject
+              namePath={namePath}
+              onRemove={() => {
+                const options = {
+                  shouldValidate: false,
+                  shouldDirty: true,
+                  shouldTouch: true,
+                }
+                setValue(namePath, undefined, options)
+                setIsDefined(false)
+              }}
+            />
+          ) : (
+            <AddObject
+              idReference={idReference}
+              namePath={namePath}
+              type={type}
+              onAdd={() => setIsDefined(true)}
+            />
+          ))}
+        {hasOpen && isDefined && (
           <OpenObjectButton
             viewId={namePath}
             idReference={idReference}
@@ -174,40 +184,26 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
             }
           />
         )}
+        {!hasOpen && isDefined && (
+          <>
+            {uiRecipe && uiRecipe.plugin !== 'form' && (
+              <EntityView
+                idReference={`${idReference}.${namePath}`}
+                type={type}
+                onOpen={onOpen}
+              />
+            )}
+            {(uiRecipe === undefined ||
+              (uiRecipe && uiRecipe.plugin === 'form')) && (
+              <AttributeList
+                namePath={namePath}
+                config={uiRecipe?.config}
+                blueprint={blueprint}
+              />
+            )}
+          </>
+        )}
       </Stack>
-      {!shouldOpen && isDefined && (
-        <>
-          {!isRoot && optional && (
-            <RemoveObject
-              namePath={namePath}
-              onRemove={() => {
-                const options = {
-                  shouldValidate: false,
-                  shouldDirty: true,
-                  shouldTouch: true,
-                }
-                setValue(namePath, null, options)
-              }}
-            />
-          )}
-          {uiRecipe && uiRecipe.plugin !== 'form' && (
-            <EntityView
-              idReference={`${idReference}.${namePath}`}
-              type={type}
-              onOpen={onOpen}
-            />
-          )}
-          {(isRoot ||
-            uiRecipe === undefined ||
-            (uiRecipe && uiRecipe.plugin === 'form')) && (
-            <AttributeList
-              namePath={namePath}
-              config={uiRecipe?.config}
-              blueprint={blueprint}
-            />
-          )}
-        </>
-      )}
     </div>
   )
 }

@@ -29,7 +29,7 @@ test('Nested Form', async ({ page }) => {
     .getByRole('button', { name: 'Add' })
     .click()
   await page
-    .getByText('CEO (optional)Open')
+    .getByText('CEO (optional)RemoveOpen')
     .getByRole('button', { name: 'Open' })
     .click()
   await page.getByLabel('Name').fill('Donald')
@@ -37,7 +37,7 @@ test('Nested Form', async ({ page }) => {
   await page.getByRole('button', { name: 'Submit' }).click()
   await page.getByRole('tab').nth(2).click()
   await page
-    .getByText('CEO (optional)Open')
+    .getByText('CEO (optional)RemoveOpen')
     .getByRole('button', { name: 'Open' })
     .click()
   await expect(page.getByLabel('Name')).toHaveValue('Donald')
@@ -45,6 +45,13 @@ test('Nested Form', async ({ page }) => {
     '99887766'
   )
   await page.getByRole('tab').nth(2).click()
+  await page
+    .getByText('CEO (optional)RemoveOpen')
+    .getByRole('button', { name: 'Remove' })
+    .click()
+  await expect(
+    page.getByText('CEO (optional)Add').getByRole('button', { name: 'Add' })
+  ).toBeVisible()
 
   //Replacing accountant
   await page
