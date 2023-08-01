@@ -7,6 +7,7 @@ import {
   NewEntityButton,
   Stack,
   TLinkReference,
+  getKey,
   resolveRelativeAddress,
   splitAddress,
   useBlueprint,
@@ -312,14 +313,8 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
   if (error) throw new Error(`Failed to fetch blueprint for '${type}'`)
   if (blueprint === undefined) return <div>Could not find the blueprint</div>
 
-  // The root object uses the ui recipe config that is passed into the ui plugin,
-  // the nested objects uses ui recipes names that are passed down from parent configs.
-  const uiRecipeName =
-    uiAttribute &&
-    'uiRecipe' in uiAttribute &&
-    typeof uiAttribute.uiRecipe == 'string'
-      ? uiAttribute.uiRecipe
-      : undefined
+  // The nested objects uses ui recipes names that are passed down from parent configs.
+  const uiRecipeName = getKey<string>(uiAttribute, 'uiRecipe', 'string')
   const uiRecipe: TUiRecipeForm | undefined = uiRecipes
     .map((x) => ({ ...x, config: { ...defaultConfig, ...x.config } }))
     .find((uiRecipe) => uiRecipe.name === uiRecipeName)
