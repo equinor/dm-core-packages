@@ -9,8 +9,8 @@ import { AxiosError } from 'axios'
 import React from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
-import { useRegistryContext } from '../RegistryContext'
 import { OpenObjectButton } from '../components/OpenObjectButton'
+import { useRegistryContext } from '../context/RegistryContext'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
 
