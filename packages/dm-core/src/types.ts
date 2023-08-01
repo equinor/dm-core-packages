@@ -77,9 +77,16 @@ export type TJobWithRunner = TJob & {
   runner: TJobHandler | TContainerJobHandler
 }
 
+type TValidAttribute =
+  | string
+  | number
+  | boolean
+  | TValidEntity
+  | TValidAttribute[]
+
 export type TValidEntity = {
   type: string
-  [key: string]: any
+  [key: string]: TValidAttribute
 }
 
 export interface IUIPlugin {
