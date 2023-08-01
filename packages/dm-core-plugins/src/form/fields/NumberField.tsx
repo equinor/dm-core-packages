@@ -33,8 +33,7 @@ export const asNumber = (value: string): number | string => {
 export const NumberField = (props: TNumberFieldProps) => {
   const { namePath, displayLabel, defaultValue, optional, uiAttribute } = props
 
-  const defaultWidget = uiAttribute ? uiAttribute.widget : 'TextWidget'
-  const Widget = getWidget(defaultWidget)
+  const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
 
   return (
     <Controller
