@@ -6,8 +6,6 @@ import {
   Loading,
   NewEntityButton,
   Stack,
-  TAttribute,
-  TBlueprint,
   TLinkReference,
   resolveRelativeAddress,
   splitAddress,
@@ -19,16 +17,11 @@ import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { defaultConfig } from '../FormPlugin'
+import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
-import {
-  TConfig,
-  TContentProps,
-  TObjectFieldProps,
-  TUiRecipeForm,
-} from '../types'
-import { AttributeField } from './AttributeField'
+import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const AddUncontained = (props: {
   type: string
@@ -133,42 +126,6 @@ const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
       Remove
     </Button>
   )
-}
-
-export const AttributeList = (props: {
-  namePath: string
-  config: TConfig | undefined
-  blueprint: TBlueprint | undefined
-}) => {
-  const { namePath, config, blueprint } = props
-
-  const prefix = namePath === '' ? `` : `${namePath}.`
-
-  const attributes = blueprint?.attributes ?? []
-  const filteredAttributes =
-    config && config.fields.length
-      ? config.fields
-          .map((name: string) =>
-            attributes.find((attribute) => attribute.name == name)
-          )
-          .filter((attribute): attribute is TAttribute => !!attribute)
-      : attributes
-
-  const attributeFields = filteredAttributes.map((attribute) => {
-    const uiAttribute = config?.attributes.find(
-      (uiAttribute) => uiAttribute.name === attribute.name
-    )
-    return (
-      <AttributeField
-        key={`${prefix}${attribute.name}`}
-        namePath={`${prefix}${attribute.name}`}
-        attribute={attribute}
-        uiAttribute={uiAttribute}
-      />
-    )
-  })
-
-  return <Stack spacing={1}>{attributeFields}</Stack>
 }
 
 export const ContainedAttribute = (props: TContentProps): JSX.Element => {
