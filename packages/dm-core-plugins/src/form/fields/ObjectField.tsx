@@ -257,7 +257,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   const { type, namePath, displayLabel = '' } = props
-  const { getValues, control, setValue } = useFormContext()
+  const { getValues, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const initialValue = getValues(namePath)
 
@@ -266,7 +266,6 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
       <Typography bold={true}>{displayLabel}</Typography>
       <Controller
         name={namePath}
-        control={control}
         defaultValue={initialValue}
         render={({
           // eslint-disable-next-line @typescript-eslint/no-unused-vars

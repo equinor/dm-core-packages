@@ -1,5 +1,5 @@
 import React from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TNumberFieldProps } from '../types'
 
@@ -31,7 +31,6 @@ export const asNumber = (value: string): number | string => {
 }
 
 export const NumberField = (props: TNumberFieldProps) => {
-  const { control } = useFormContext()
   const { namePath, displayLabel, defaultValue, optional, uiAttribute } = props
 
   const defaultWidget = uiAttribute ? uiAttribute.widget : 'TextWidget'
@@ -40,7 +39,6 @@ export const NumberField = (props: TNumberFieldProps) => {
   return (
     <Controller
       name={namePath}
-      control={control}
       rules={{
         required: !optional,
         pattern: { value: /^[0-9]+$/g, message: 'Only digits allowed' },
