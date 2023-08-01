@@ -45,7 +45,7 @@ export type TStringFieldProps = {
   displayLabel: string
   defaultValue: string
   optional: boolean
-  uiAttribute?: any
+  uiAttribute: TAttributeConfig | undefined
 }
 
 export type TNumberFieldProps = {
@@ -53,14 +53,14 @@ export type TNumberFieldProps = {
   displayLabel: string
   defaultValue: string
   optional: boolean
-  uiAttribute?: any
+  uiAttribute: TAttributeConfig | undefined
 }
 
 export type TBooleanFieldProps = {
   namePath: string
   displayLabel: string
   defaultValue: string
-  uiAttribute?: any
+  uiAttribute: TAttributeConfig | undefined
 }
 
 type TAttributeBasis = {

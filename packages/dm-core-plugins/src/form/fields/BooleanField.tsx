@@ -8,11 +8,9 @@ export const BooleanField = (props: TBooleanFieldProps) => {
   const { namePath, displayLabel, defaultValue, uiAttribute } = props
 
   // We need to convert default values coming from the API since they are always strings
-  const usedDefaultValue =
-    (defaultValue !== undefined && defaultValue == 'True') || false
+  const usedDefaultValue = defaultValue == 'True' ? true : false
 
-  const defaultWidget = uiAttribute ? uiAttribute.widget : 'CheckboxWidget'
-  const Widget = getWidget(defaultWidget)
+  const Widget = getWidget(uiAttribute?.widget ?? 'CheckboxWidget')
 
   return (
     <Controller

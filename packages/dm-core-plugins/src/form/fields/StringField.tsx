@@ -11,8 +11,7 @@ export const StringField = (props: TStringFieldProps) => {
   const { control } = useFormContext()
   const { namePath, displayLabel, defaultValue, optional, uiAttribute } = props
 
-  const defaultWidget = uiAttribute ? uiAttribute.widget : 'TextWidget'
-  const Widget = getWidget(defaultWidget)
+  const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
 
   return (
     <Controller
@@ -28,7 +27,11 @@ export const StringField = (props: TStringFieldProps) => {
       }) => {
         // Support date-time format, and make it default to readonly
         let readOnly = false
-        if (uiAttribute && uiAttribute.format === 'date-time') {
+        if (
+          uiAttribute &&
+          'format' in uiAttribute &&
+          uiAttribute.format === 'date-time'
+        ) {
           value = formatDate(value)
           readOnly = true
         }

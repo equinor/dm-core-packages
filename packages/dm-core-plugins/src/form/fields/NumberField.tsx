@@ -34,8 +34,7 @@ export const NumberField = (props: TNumberFieldProps) => {
   const { control } = useFormContext()
   const { namePath, displayLabel, defaultValue, optional, uiAttribute } = props
 
-  const defaultWidget = uiAttribute ? uiAttribute.widget : 'TextWidget'
-  const Widget = getWidget(defaultWidget)
+  const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
 
   return (
     <Controller
