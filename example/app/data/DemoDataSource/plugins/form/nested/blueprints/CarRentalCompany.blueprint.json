@@ -28,6 +28,13 @@
       "label": "Accountant"
     },
     {
+      "name": "trainee",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Person",
+      "label": "Trainee",
+      "optional": true
+    },
+    {
       "name": "bestCustomer",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",

@@ -135,6 +135,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
     namePath,
     displayLabel = '',
     optional = false,
+    uiAttribute,
     uiRecipe,
     blueprint,
   } = props
@@ -149,7 +150,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const attributePath = idReference.split('.', 2).slice(1)
 
   return (
-    <div>
+    <div data-testid={`${namePath}`}>
       <Stack spacing={0.25} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
         {optional &&
@@ -174,36 +175,35 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
               onAdd={() => setIsDefined(true)}
             />
           ))}
-        {hasOpen && isDefined && (
-          <OpenObjectButton
-            viewId={namePath}
-            idReference={idReference}
-            namePath={
-              attributePath && attributePath.length > 1
-                ? `${attributePath[1]}.${namePath}`
-                : namePath
-            }
-          />
-        )}
-        {!hasOpen && isDefined && (
-          <>
-            {uiRecipe && uiRecipe.plugin !== 'form' && (
-              <EntityView
-                idReference={`${idReference}.${namePath}`}
-                type={type}
-                onOpen={onOpen}
-              />
-            )}
-            {(uiRecipe === undefined ||
-              (uiRecipe && uiRecipe.plugin === 'form')) && (
+        {isDefined &&
+          (hasOpen && !uiAttribute?.isInline ? (
+            <OpenObjectButton
+              viewId={namePath}
+              idReference={idReference}
+              namePath={
+                attributePath && attributePath.length > 1
+                  ? `${attributePath[1]}.${namePath}`
+                  : namePath
+              }
+            />
+          ) : uiRecipe &&
+            uiRecipe.plugin !==
+              '@development-framework/dm-core-plugins/form' ? (
+            <EntityView
+              recipeName={uiRecipe.name}
+              idReference={`${idReference}.${namePath}`}
+              type={type}
+              onOpen={onOpen}
+            />
+          ) : (
+            <div style={{ borderLeft: '1px solid black', paddingLeft: '1rem' }}>
               <AttributeList
                 namePath={namePath}
                 config={uiRecipe?.config}
                 blueprint={blueprint}
               />
-            )}
-          </>
-        )}
+            </div>
+          ))}
       </Stack>
     </div>
   )
@@ -328,6 +328,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
       optional={optional}
       blueprint={blueprint}
       uiRecipe={uiRecipe}
+      uiAttribute={uiAttribute}
     />
   )
 }

@@ -1,10 +1,10 @@
-import * as React from 'react'
-import styled from 'styled-components'
 import {
   TGenericObject,
   TViewConfig,
   ViewCreator,
 } from '@development-framework/dm-core'
+import * as React from 'react'
+import styled from 'styled-components'
 import { TItemData } from './types'
 
 const HidableWrapper = styled.div<any>`
@@ -28,6 +28,7 @@ export const Content = (props: {
         <HidableWrapper
           key={config.viewId}
           hidden={config.viewId !== selectedView}
+          role="tabpanel"
         >
           <ViewCreator
             idReference={config.rootEntityId}

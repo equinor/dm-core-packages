@@ -30,13 +30,15 @@
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
         "attributes": [
           {
-            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "name": "type",
-            "widget": "TypeWidget"
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "name": "trainee",
+            "isInline": true,
+            "uiRecipe": "defaultForm"
           },
           {
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "name": "owner",
+            "name": "accountant",
+            "isInline": true,
             "uiRecipe": "defaultYaml"
           }
         ],
@@ -44,6 +46,7 @@
           "owner",
           "ceo",
           "accountant",
+          "trainee",
           "bestCustomer",
           "cars",
           "customers"
