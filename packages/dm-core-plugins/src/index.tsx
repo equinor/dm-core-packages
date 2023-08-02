@@ -16,7 +16,7 @@ import { ListPlugin } from './list/ListPlugin'
 import { TablePlugin } from './table/TablePlugin'
 import { FilePlugin } from './file/FilePlugin'
 
-export const plugins: TUiPluginMap = {
+export default {
   '@development-framework/dm-core-plugins/explorer': {
     component: ExplorerPlugin,
   },
@@ -62,4 +62,4 @@ export const plugins: TUiPluginMap = {
   '@development-framework/dm-core-plugins/blueprint': {
     component: BlueprintPlugin,
   },
-}
+} as TUiPluginMap
