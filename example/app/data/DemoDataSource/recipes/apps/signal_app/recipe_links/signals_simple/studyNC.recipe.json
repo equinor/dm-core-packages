@@ -8,8 +8,7 @@
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
-      "asSidebar": false,
-      "homeRecipe": "Edit"
+      "asSidebar": false
     }
   },
   "uiRecipes": [

@@ -3,6 +3,11 @@
   "name": "HeaderPluginConfig",
   "attributes": [
     {
+      "name": "type",
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute"
+    },
+    {
       "attributeType": "boolean",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "name": "hideAbout",

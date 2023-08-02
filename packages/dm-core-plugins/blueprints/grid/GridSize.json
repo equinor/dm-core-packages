@@ -3,6 +3,11 @@
   "name": "GridSize",
   "attributes": [
     {
+      "name": "type",
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute"
+    },
+    {
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
       "name": "columns",
@@ -18,12 +23,14 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
       "name": "rowGap",
+      "optional": true,
       "default": 16
     },
     {
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
       "name": "columnGap",
+      "optional": true,
       "default": 16
     }
   ]

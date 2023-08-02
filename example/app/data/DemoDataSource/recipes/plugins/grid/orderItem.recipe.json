@@ -43,7 +43,9 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "views": [],
         "headers": ["name", "quantity", "type"],
+        "openInline": false,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
           "delete": true

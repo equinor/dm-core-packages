@@ -53,6 +53,7 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "views": [],
         "openInline": true,
         "headers": ["name", "assigned"],
         "functionality": {

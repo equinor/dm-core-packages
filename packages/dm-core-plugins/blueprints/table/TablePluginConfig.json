@@ -3,6 +3,11 @@
   "name": "TablePluginConfig",
   "attributes": [
     {
+      "name": "type",
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute"
+    },
+    {
       "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in header of item",
@@ -23,10 +28,11 @@
     {
       "attributeType": "CORE:ViewConfig",
       "type": "CORE:BlueprintAttribute",
-      "name": "expandableRecipeViewConfig"
+      "name": "expandableRecipeViewConfig",
+      "optional": true
     },
     {
-      "attributeType": "./TableFunctionalityConfig.json",
+      "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
       "type": "CORE:BlueprintAttribute",
       "name": "functionality",
       "description": "Table functionality config",
@@ -35,7 +41,6 @@
         "type": "./TableFunctionalityConfig",
         "openAsTab": true,
         "openAsExpandable": false,
-        "save": false,
         "delete": false,
         "edit": false,
         "sort": false

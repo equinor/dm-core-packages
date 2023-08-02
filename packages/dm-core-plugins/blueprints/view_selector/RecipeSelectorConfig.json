@@ -3,6 +3,11 @@
   "name": "RecipeSelectorConfig",
   "attributes": [
     {
+      "name": "type",
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute"
+    },
+    {
       "attributeType": "CORE:ViewConfig",
       "type": "CORE:BlueprintAttribute",
       "name": "views",

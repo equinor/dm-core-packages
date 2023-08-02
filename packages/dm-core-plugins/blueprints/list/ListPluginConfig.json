@@ -3,9 +3,15 @@
   "name": "ListPluginConfig",
   "attributes": [
     {
+      "name": "type",
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute"
+    },
+    {
       "attributeType": "boolean",
       "type": "CORE:BlueprintAttribute",
       "name": "expanded",
+      "optional": true,
       "default": false,
       "description": "Initial expand state for items in list"
     },
@@ -18,7 +24,7 @@
       "dimensions": "*"
     },
     {
-      "attributeType": "./FunctionalityConfig.json",
+      "attributeType": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
       "type": "CORE:BlueprintAttribute",
       "name": "functionality",
       "description": "List functionality config",
@@ -27,13 +33,23 @@
     {
       "attributeType": "CORE:ViewConfig",
       "type": "CORE:BlueprintAttribute",
-      "name": "defaultView"
+      "name": "defaultView",
+      "optional": true
+    },
+    {
+      "attributeType": "boolean",
+      "type": "CORE:BlueprintAttribute",
+      "name": "openInline",
+      "optional": false,
+      "default": false
     },
     {
       "attributeType": "CORE:ViewConfig",
       "type": "CORE:BlueprintAttribute",
       "name": "views",
-      "dimensions": "*"
+      "dimensions": "*",
+      "default": [],
+      "optional": false
     }
   ]
 }
