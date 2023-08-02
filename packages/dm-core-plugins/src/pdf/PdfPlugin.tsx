@@ -5,7 +5,6 @@ import {
   IUIPlugin,
   Loading,
   TGenericObject,
-  TPlugin,
 } from '@development-framework/dm-core'
 import { useDocument } from '@development-framework/dm-core'
 

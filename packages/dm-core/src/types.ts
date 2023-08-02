@@ -111,7 +111,6 @@ export type TUiRecipe = {
 }
 
 export type TPlugin = {
-  pluginName: string
   component: (props: IUIPlugin) => JSX.Element
 }
 
