@@ -186,24 +186,23 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
                   : namePath
               }
             />
+          ) : uiRecipe &&
+            uiRecipe.plugin !==
+              '@development-framework/dm-core-plugins/form' ? (
+            <EntityView
+              recipeName={uiRecipe.name}
+              idReference={`${idReference}.${namePath}`}
+              type={type}
+              onOpen={onOpen}
+            />
           ) : (
-            <>
-              {uiRecipe && uiRecipe.plugin !== 'form' && (
-                <EntityView
-                  idReference={`${idReference}.${namePath}`}
-                  type={type}
-                  onOpen={onOpen}
-                />
-              )}
-              {(uiRecipe === undefined ||
-                (uiRecipe && uiRecipe.plugin === 'form')) && (
-                <AttributeList
-                  namePath={namePath}
-                  config={uiRecipe?.config}
-                  blueprint={blueprint}
-                />
-              )}
-            </>
+            <div style={{ borderLeft: '1px solid black', paddingLeft: '1rem' }}>
+              <AttributeList
+                namePath={namePath}
+                config={uiRecipe?.config}
+                blueprint={blueprint}
+              />
+            </div>
           ))}
       </Stack>
     </div>
