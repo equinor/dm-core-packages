@@ -3,7 +3,6 @@ import { JobPlugin } from './pages/JobPlugin'
 
 export const plugins: TUiPluginMap = {
   'signal-job-single': {
-    pluginName: 'signal-job-single',
     component: JobPlugin,
   },
 }
