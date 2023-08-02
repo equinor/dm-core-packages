@@ -30,6 +30,7 @@ export type TContentProps = {
   optional: boolean
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm | undefined
+  uiAttribute: TAttributeConfig | undefined
 }
 
 export type TAttributeFieldProps = {
@@ -64,6 +65,7 @@ export type TBooleanFieldProps = {
 type TAttributeBasis = {
   name: string
   type: string
+  isInline?: boolean
 }
 type TAttributeString = TAttributeBasis & { widget: string; format: string }
 type TAttributeArray = TAttributeBasis & {

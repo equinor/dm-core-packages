@@ -37,7 +37,13 @@
           {
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "owner",
+            "isInline": true,
             "uiRecipe": "defaultYaml"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "name": "accountant",
+            "isInline": true
           }
         ],
         "fields": [

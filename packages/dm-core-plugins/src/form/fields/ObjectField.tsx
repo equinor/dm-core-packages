@@ -135,6 +135,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
     namePath,
     displayLabel = '',
     optional = false,
+    uiAttribute,
     uiRecipe,
     blueprint,
   } = props
@@ -174,36 +175,36 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
               onAdd={() => setIsDefined(true)}
             />
           ))}
-        {hasOpen && isDefined && (
-          <OpenObjectButton
-            viewId={namePath}
-            idReference={idReference}
-            namePath={
-              attributePath && attributePath.length > 1
-                ? `${attributePath[1]}.${namePath}`
-                : namePath
-            }
-          />
-        )}
-        {!hasOpen && isDefined && (
-          <>
-            {uiRecipe && uiRecipe.plugin !== 'form' && (
-              <EntityView
-                idReference={`${idReference}.${namePath}`}
-                type={type}
-                onOpen={onOpen}
-              />
-            )}
-            {(uiRecipe === undefined ||
-              (uiRecipe && uiRecipe.plugin === 'form')) && (
-              <AttributeList
-                namePath={namePath}
-                config={uiRecipe?.config}
-                blueprint={blueprint}
-              />
-            )}
-          </>
-        )}
+        {isDefined &&
+          (hasOpen && !uiAttribute?.isInline ? (
+            <OpenObjectButton
+              viewId={namePath}
+              idReference={idReference}
+              namePath={
+                attributePath && attributePath.length > 1
+                  ? `${attributePath[1]}.${namePath}`
+                  : namePath
+              }
+            />
+          ) : (
+            <>
+              {uiRecipe && uiRecipe.plugin !== 'form' && (
+                <EntityView
+                  idReference={`${idReference}.${namePath}`}
+                  type={type}
+                  onOpen={onOpen}
+                />
+              )}
+              {(uiRecipe === undefined ||
+                (uiRecipe && uiRecipe.plugin === 'form')) && (
+                <AttributeList
+                  namePath={namePath}
+                  config={uiRecipe?.config}
+                  blueprint={blueprint}
+                />
+              )}
+            </>
+          ))}
       </Stack>
     </div>
   )
@@ -328,6 +329,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
       optional={optional}
       blueprint={blueprint}
       uiRecipe={uiRecipe}
+      uiAttribute={uiAttribute}
     />
   )
 }
