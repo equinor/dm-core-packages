@@ -3,7 +3,12 @@
   "name": "GridItem",
   "attributes": [
     {
-      "attributeType": "./GridArea",
+      "name": "type",
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute"
+    },
+    {
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridArea",
       "type": "CORE:BlueprintAttribute",
       "name": "gridArea"
     },

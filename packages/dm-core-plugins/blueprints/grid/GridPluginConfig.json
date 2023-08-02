@@ -3,12 +3,17 @@
   "name": "GridPluginConfig",
   "attributes": [
     {
-      "attributeType": "./Size",
+      "name": "type",
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute"
+    },
+    {
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridSize",
       "type": "CORE:BlueprintAttribute",
       "name": "size"
     },
     {
-      "attributeType": "./GridItem",
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridItem",
       "type": "CORE:BlueprintAttribute",
       "name": "items",
       "dimensions": "*"

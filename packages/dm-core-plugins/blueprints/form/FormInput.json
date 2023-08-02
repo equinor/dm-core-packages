@@ -4,6 +4,11 @@
   "description": "",
   "attributes": [
     {
+      "name": "type",
+      "attributeType": "string",
+      "type": "dmss://system/SIMOS/BlueprintAttribute"
+    },
+    {
       "name": "attributes",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/form/fields/Field",

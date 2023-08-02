@@ -3,6 +3,11 @@
   "name": "ViewSelectorConfig",
   "attributes": [
     {
+      "name": "type",
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute"
+    },
+    {
       "attributeType": "boolean",
       "type": "CORE:BlueprintAttribute",
       "name": "childTabsOnRender",
@@ -10,7 +15,7 @@
       "default": true
     },
     {
-      "attributeType": "./ViewSelectorItem",
+      "attributeType": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
       "type": "CORE:BlueprintAttribute",
       "name": "items",
       "dimensions": "*",

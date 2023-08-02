@@ -3,6 +3,11 @@
   "name": "GridArea",
   "attributes": [
     {
+      "name": "type",
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute"
+    },
+    {
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
       "name": "rowStart"

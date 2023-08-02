@@ -18,7 +18,7 @@ import { moveItem } from './utils'
 import { add, minimize } from '@equinor/eds-icons'
 
 type TListConfig = {
-  expanded: boolean
+  expanded?: boolean
   openInline: boolean
   headers: string[]
   defaultView: TViewConfig
@@ -90,7 +90,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     const itemsWithIds = document
       ? Object.values(document).map((data, index) => ({
           data,
-          expanded: internalConfig.expanded,
+          expanded: internalConfig.expanded ?? false,
           isSaved: true,
           index,
           key: crypto.randomUUID(),
@@ -121,7 +121,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             key: crypto.randomUUID(),
             data: newEntity.data,
             index: Object.keys(items).length,
-            expanded: internalConfig.expanded,
+            expanded: internalConfig.expanded ?? false,
             isSaved: false,
           },
         ])
