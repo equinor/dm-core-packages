@@ -1,12 +1,16 @@
 import { expect, test } from '@playwright/test'
 
 test('Nested Form', async ({ page }) => {
+  const navigate = async () => {
+    await page.getByText('plugins', { exact: true }).click()
+    await page.getByText('form').click()
+    await page.getByText('nested', { exact: true }).click()
+    await page.getByText('DemoDataSource/$Nested').click()
+  }
+
   //Open form
   await page.goto('http://localhost:3000/')
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('nested', { exact: true }).click()
-  await page.getByText('DemoDataSource/$Nested').click()
+  await navigate()
 
   //Change owner
   await expect(page.getByText('Owner', { exact: true })).toBeVisible
@@ -53,25 +57,34 @@ test('Nested Form', async ({ page }) => {
     page.getByText('CEO (optional)Add').getByRole('button', { name: 'Add' })
   ).toBeVisible()
 
-  //Replacing accountant
+  //View accountant yaml
+  await expect(
+    page.getByTestId('accountant').getByRole('button', { name: 'Copy as YAML' })
+  ).toBeVisible()
+  await expect(
+    page.getByTestId('accountant').getByRole('button', { name: 'Copy as JSON' })
+  ).toBeVisible()
+  await expect(page.getByTestId('accountant').getByRole('code')).toBeVisible()
+
+  // Adding a trainee
   await page
-    .getByText('AccountantOpen')
-    .getByRole('button', { name: 'Open' })
+    .getByText('Trainee (optional)Add')
+    .getByRole('button', { name: 'Add' })
     .click()
-  await page.getByLabel('Name').fill('Richie')
-  await page.getByLabel('Phone Number (optional)').fill('11223344')
+  await page.getByTestId('trainee').getByLabel('Name').fill('Peter Pan')
+  await page
+    .getByTestId('trainee')
+    .getByLabel('Phone Number (optional)')
+    .fill('123')
   await page.getByRole('button', { name: 'Submit' }).click()
-  await page.getByText('self').first().click()
-  await page.getByRole('tab').nth(2).click()
-  await page
-    .getByText('AccountantOpen')
-    .getByRole('button', { name: 'Open' })
-    .click()
-  await expect(page.getByLabel('Name')).toHaveValue('Richie')
-  await expect(page.getByLabel('Phone Number (optional)')).toHaveValue(
-    '11223344'
+  await page.reload()
+  await navigate()
+  await expect(page.getByTestId('trainee').getByLabel('Name')).toHaveValue(
+    'Peter Pan'
   )
-  await page.getByRole('tab').nth(2).click()
+  await expect(
+    page.getByTestId('trainee').getByLabel('Phone Number (optional)')
+  ).toHaveValue('123')
 
   //New car
   await page.getByText('CarsOpen').getByRole('button', { name: 'Open' }).click()
@@ -84,10 +97,7 @@ test('Nested Form', async ({ page }) => {
   await page.getByLabel('Plate Number').fill('3000')
   await page.getByRole('button', { name: 'Submit' }).click()
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('nested').click()
-  await page.getByText('DemoDataSource/$Nested').click()
+  await navigate()
   await page.getByText('CarsOpen').getByRole('button', { name: 'Open' }).click()
   // await expect(page.getByText('McLaren')).toBeVisible() Does not work because two instances are stored when submitting form... Known bug.
   await page.getByRole('button', { name: 'Open item' }).last().click()
@@ -111,10 +121,7 @@ test('Nested Form', async ({ page }) => {
   await page.getByLabel('Phone number (optional)').fill('12345678')
   await page.getByRole('button', { name: 'Submit' }).click()
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('nested').click()
-  await page.getByText('DemoDataSource/$Nested').click()
+  await navigate()
   await page
     .getByText('CustomersOpen')
     .getByRole('button', { name: 'Open' })

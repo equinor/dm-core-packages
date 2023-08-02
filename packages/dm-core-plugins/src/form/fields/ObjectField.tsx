@@ -150,7 +150,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const attributePath = idReference.split('.', 2).slice(1)
 
   return (
-    <div>
+    <div data-testid={`${namePath}`}>
       <Stack spacing={0.25} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
         {optional &&
