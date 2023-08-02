@@ -176,7 +176,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
             />
           ))}
         {isDefined &&
-          (hasOpen && !uiAttribute?.isInline ? (
+          (hasOpen && !uiAttribute?.showInline ? (
             <OpenObjectButton
               viewId={namePath}
               idReference={idReference}

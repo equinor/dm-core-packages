@@ -65,7 +65,7 @@ export type TBooleanFieldProps = {
 type TAttributeBasis = {
   name: string
   type: string
-  isInline?: boolean
+  showInline?: boolean
 }
 type TAttributeString = TAttributeBasis & { widget: string; format: string }
 type TAttributeArray = TAttributeBasis & {

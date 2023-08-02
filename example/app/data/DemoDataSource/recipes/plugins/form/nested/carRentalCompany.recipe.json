@@ -32,13 +32,13 @@
           {
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "trainee",
-            "isInline": true,
+            "showInline": true,
             "uiRecipe": "defaultForm"
           },
           {
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "accountant",
-            "isInline": true,
+            "showInline": true,
             "uiRecipe": "defaultYaml"
           }
         ],
