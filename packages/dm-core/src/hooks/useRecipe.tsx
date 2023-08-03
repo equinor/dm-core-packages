@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
-  useBlueprint,
-  TUiRecipe,
   ErrorResponse,
-  UiPluginContext,
   IUIPlugin,
+  TUiRecipe,
+  UiPluginContext,
+  useBlueprint,
 } from '../index'
 
 const findRecipe = (
@@ -51,12 +51,7 @@ const findRecipe = (
     )
     return noDimensionsRecipes[0]
   }
-  return {
-    type: 'CORE:UIRecipe',
-    name: 'yaml',
-    plugin: 'yaml',
-    config: {},
-  }
+  throw new Error(`No recipe found`)
 }
 
 interface IUseRecipe {
@@ -111,6 +106,7 @@ export const useRecipe = (
   useEffect(() => {
     if (isBlueprintLoading) return
     try {
+      console.log(typeRef, uiRecipes, initialUiRecipe)
       setFoundRecipe(
         findRecipe(uiRecipes, initialUiRecipe, recipeName, dimensions)
       )

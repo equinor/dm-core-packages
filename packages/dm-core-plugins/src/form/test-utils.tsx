@@ -10,6 +10,19 @@ export const mockBlueprintGet = (blueprints: Array<any>) => {
         blueprint: blueprints.find(
           (blueprint: any) => blueprint.name == props.typeRef
         ),
+        uiRecipes: [
+          {
+            name: 'Edit',
+            type: 'dmss://system/SIMOS/UiRecipe',
+            plugin: '@development-framework/dm-core-plugins/form',
+          },
+          {
+            name: 'List',
+            type: 'dmss://system/SIMOS/UiRecipe',
+            plugin: '@development-framework/dm-core-plugins/list',
+            dimensions: '*',
+          },
+        ],
       },
     })
   )
