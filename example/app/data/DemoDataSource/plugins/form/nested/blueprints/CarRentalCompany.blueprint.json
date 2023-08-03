@@ -54,6 +54,13 @@
       "attributeType": "./Customer",
       "dimensions": "*",
       "label": "Customers"
+    },
+    {
+      "name": "locations",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "label": "Locations"
     }
   ]
 }
