@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   ErrorResponse,
   Loading,
-  TGenericObject,
-  TViewConfig,
+  TFileEntity,
   useDMSS,
 } from '@development-framework/dm-core'
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -13,10 +12,10 @@ import { ErrorGroup } from './ErrorGroup'
 
 export interface DownloadButtonProps {
   dataSourceId: string
-  fileEntity: TGenericObject
+  fileEntity: TFileEntity
 }
 
-export const DownloadButton = (props: DownloadButtonProps) => {
+export const DownloadFileButton = (props: DownloadButtonProps) => {
   const { fileEntity, dataSourceId } = props
   const [fileUrl, setFileUrl] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
@@ -33,7 +32,7 @@ export const DownloadButton = (props: DownloadButtonProps) => {
       .blobGetById(
         {
           dataSourceId: dataSourceId,
-          blobId: fileEntity.content['address'],
+          blobId: fileEntity.content?.address ?? 'None',
         },
         options
       )

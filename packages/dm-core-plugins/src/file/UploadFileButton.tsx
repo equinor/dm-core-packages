@@ -3,21 +3,19 @@ import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import * as React from 'react'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { useRegistryContext } from '../form/context/RegistryContext'
 import { ErrorGroup } from './ErrorGroup'
 
 export interface DownloadButtonProps {
+  dataSourceId: string
   onUpload: (file: File, reference: TLinkReference) => void
 }
 
 export const UploadFileButton = (props: DownloadButtonProps) => {
-  const { onUpload } = props
+  const { onUpload, dataSourceId } = props
   const textInput = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const dmssAPI = useDMSS()
-  const { idReference } = useRegistryContext()
-  const dataSourceId = idReference?.split('/', 2)[0]
 
   useEffect(() => setError(undefined))
 

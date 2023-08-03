@@ -132,6 +132,16 @@ export type TInlineRecipeViewConfig = TViewConfig & {
   recipe: TUiRecipe
 }
 
+export type TFileEntity = {
+  type: string
+  name: string
+  author: string
+  date: string
+  size: number
+  filetype: string
+  content?: TLinkReference
+}
+
 export function isViewConfig(
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
 ): viewConfig is TViewConfig {
