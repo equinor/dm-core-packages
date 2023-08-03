@@ -45,7 +45,7 @@ jobs:
 
       - name: Start DMSS
         id: dmss
-        run: | 
+        run: |
           docker-compose run --rm dmss cat src/version.txt > dmss_version.txt
           dmss_version=$(tail -n 1 dmss_version.txt)
           docker-compose run --rm job-api cat version.txt > job_version.txt
@@ -70,14 +70,14 @@ jobs:
           python -m venv .venv
           source .venv/bin/activate
           pip install dm-cli
-          ./reset-all.sh
+          ./reset-all.sh validate-entities
           echo "version=$(dm --version)" >> "$GITHUB_OUTPUT"
         working-directory: example/
 
       - name: Install dependencies
         run: |
-           npm install --package-lock-only
-           npm ci
+          npm install --package-lock-only
+          npm ci
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
