@@ -1904,3 +1904,8 @@ ref #276 (2023-07-10T10:13:30Z)
     * **DMSS VERSION**: ac36a9c 2023-08-01 Krist..rstad chore: fix links in validate tests grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.14
     * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
+* chore: be more explicit that reset all is run with validation (2023-07-10T10:13:30Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5749957782/1)
+    * **DMSS VERSION**: 037c4ba 2023-08-02 Krist..rstad fix: add type attribute to ViewConfig blueprint grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.16
+    * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
