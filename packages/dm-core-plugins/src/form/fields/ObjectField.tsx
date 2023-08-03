@@ -161,49 +161,47 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const hasOpen = onOpen !== undefined
 
   return (
-    <div data-testid={`${namePath}`}>
-      <Stack spacing={0.25} alignItems="flex-start">
-        <Typography bold={true}>{displayLabel}</Typography>
-        {optional &&
-          (isDefined ? (
-            <RemoveObject
-              namePath={namePath}
-              idReference={idReference}
-              onRemove={() => {
-                const options = {
-                  shouldValidate: false,
-                  shouldDirty: true,
-                  shouldTouch: true,
-                }
-                setValue(namePath, undefined, options)
-                setIsDefined(false)
-              }}
-            />
-          ) : (
-            <AddObject
-              idReference={idReference}
-              namePath={namePath}
-              type={type}
-              onAdd={() => setIsDefined(true)}
-            />
-          ))}
-        {isDefined &&
-          (hasOpen && !uiAttribute?.showInline ? (
-            <OpenObjectButton
-              viewId={namePath}
-              idReference={idReference}
-              namePath={namePath}
-            />
-          ) : (
-            <Inline
-              type={type}
-              namePath={namePath}
-              blueprint={blueprint}
-              uiRecipe={uiRecipe}
-            />
-          ))}
-      </Stack>
-    </div>
+    <Stack spacing={0.25} alignItems="flex-start">
+      <Typography bold={true}>{displayLabel}</Typography>
+      {optional &&
+        (isDefined ? (
+          <RemoveObject
+            namePath={namePath}
+            idReference={idReference}
+            onRemove={() => {
+              const options = {
+                shouldValidate: false,
+                shouldDirty: true,
+                shouldTouch: true,
+              }
+              setValue(namePath, undefined, options)
+              setIsDefined(false)
+            }}
+          />
+        ) : (
+          <AddObject
+            idReference={idReference}
+            namePath={namePath}
+            type={type}
+            onAdd={() => setIsDefined(true)}
+          />
+        ))}
+      {isDefined &&
+        (hasOpen && !uiAttribute?.showInline ? (
+          <OpenObjectButton
+            viewId={namePath}
+            idReference={idReference}
+            namePath={namePath}
+          />
+        ) : (
+          <Inline
+            type={type}
+            namePath={namePath}
+            blueprint={blueprint}
+            uiRecipe={uiRecipe}
+          />
+        ))}
+    </Stack>
   )
 }
 
