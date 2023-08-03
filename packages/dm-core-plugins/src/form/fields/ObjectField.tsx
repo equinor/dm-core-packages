@@ -33,7 +33,7 @@ const AddUncontained = (props: {
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
-      address: `$${entity['_id']}`,
+      address: entity['address'],
     }
     props.onChange(reference)
   }
