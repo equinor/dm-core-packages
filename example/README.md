@@ -35,7 +35,7 @@
     - `docker-compose pull && docker-compose up -d`
 4. Navigate to the `example` folder, then run shell script to load dmss data. If the command fails, try updating dm-cli
    before retrying.
-    - `./reset-all.sh`
+    - `./reset-all.sh validate-entities`
 5. Start the test app
     - `yarn start:example`
 
@@ -65,7 +65,7 @@
 6. Run
    ```
    pip install dm-cli &&
-   dm reset app --validate-entities &&
+   dm reset app validate-entities &&
    dm import-plugin-blueprints ../node_modules/@development-framework/dm-core-plugins &&
    dm create-lookup example DemoDataSource/recipes
    ```
