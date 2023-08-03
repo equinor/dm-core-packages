@@ -1,6 +1,6 @@
+import React from 'react'
+import { ErrorBoundary, IUIPlugin, useUiPlugins } from '../../index'
 import { TInlineRecipeViewConfig } from '../../types'
-import { ErrorBoundary, Loading, UiPluginContext, IUIPlugin } from '../../index'
-import React, { useContext } from 'react'
 
 type TInlineRecipeViewProps = IUIPlugin & {
   viewConfig: TInlineRecipeViewConfig
@@ -8,7 +8,7 @@ type TInlineRecipeViewProps = IUIPlugin & {
 
 export const InlineRecipeView = (props: TInlineRecipeViewProps) => {
   const { idReference, type, viewConfig, onOpen } = props
-  const { getUiPlugin } = useContext(UiPluginContext)
+  const { getUiPlugin } = useUiPlugins()
 
   const UiPlugin = getUiPlugin(viewConfig.recipe.plugin)
   return (

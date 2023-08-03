@@ -1,22 +1,22 @@
 import {
   IUIPlugin,
   Loading,
-  UiPluginContext,
-  useDocument,
-  useBlueprint,
-  TUiRecipe,
   TGenericObject,
+  TUiRecipe,
+  useBlueprint,
+  useDocument,
+  useUiPlugins,
 } from '@development-framework/dm-core'
-import React, { useContext, useState, useEffect } from 'react'
-import styled from 'styled-components'
 import { Icon, TopBar } from '@equinor/eds-core-react'
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 import { account_circle, grid_on, info_circle } from '@equinor/eds-icons'
 
-import { UserInfoDialog } from './components/UserInfoDialog'
 import { AboutDialog } from './components/AboutDialog'
-import { TApplication } from './types'
 import { RecipeSelector } from './components/RecipeSelector'
+import { UserInfoDialog } from './components/UserInfoDialog'
+import { TApplication } from './types'
 
 const Icons = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ export default (props: IUIPlugin): JSX.Element => {
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
-  const { getUiPlugin } = useContext(UiPluginContext)
+  const { getUiPlugin } = useUiPlugins()
 
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
     component: (props: IUIPlugin) => <div></div>,

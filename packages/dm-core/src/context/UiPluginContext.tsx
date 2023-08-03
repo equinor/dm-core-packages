@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext } from 'react'
 import { IUIPlugin, TUiPluginMap } from '../types'
 import { ErrorGroup } from '../utils/ErrorBoundary'
 
@@ -7,21 +7,23 @@ type TUiPluginContext = {
   getUiPlugin: (pluginName: string) => (props: IUIPlugin) => JSX.Element
 }
 
-const emptyContext: TUiPluginContext = {
-  plugins: {},
-  getUiPlugin: () => () => <></>,
+const UiPluginContext = createContext<TUiPluginContext | undefined>(undefined)
+
+export const useUiPlugins = () => {
+  const context = useContext(UiPluginContext)
+  if (context == undefined) {
+    throw new Error('useUiPlugins must be used within a UiPluginProvider')
+  }
+  return context
 }
-export const UiPluginContext = createContext<TUiPluginContext>(emptyContext)
 
 export const UiPluginProvider = ({
-  pluginsToLoad,
+  pluginsToLoad: plugins,
   children,
 }: {
   pluginsToLoad: TUiPluginMap
   children: any
 }) => {
-  const [plugins, setPlugins] = useState<TUiPluginMap>(pluginsToLoad)
-
   function getUiPlugin(pluginName: string): (props: IUIPlugin) => JSX.Element {
     if (Object.keys(plugins).includes(pluginName))
       return plugins[pluginName].component
