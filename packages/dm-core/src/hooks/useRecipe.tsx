@@ -51,7 +51,7 @@ const findRecipe = (
     )
     return noDimensionsRecipes[0]
   }
-  throw new Error(`No recipe found`)
+  throw new Error(`No uiRecipe was found`)
 }
 
 interface IUseRecipe {
@@ -106,7 +106,6 @@ export const useRecipe = (
   useEffect(() => {
     if (isBlueprintLoading) return
     try {
-      console.log(typeRef, uiRecipes, initialUiRecipe)
       setFoundRecipe(
         findRecipe(uiRecipes, initialUiRecipe, recipeName, dimensions)
       )
