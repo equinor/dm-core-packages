@@ -14,14 +14,6 @@
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "optional": true,
       "attributeType": "string"
-    },
-    {
-      "name": "columns",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "label": "Columns",
-      "default": "",
-      "dimensions": "*"
     }
   ]
 }
