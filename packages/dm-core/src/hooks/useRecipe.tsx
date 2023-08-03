@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ErrorResponse,
   IUIPlugin,
   TUiRecipe,
-  UiPluginContext,
   useBlueprint,
+  useUiPlugins,
 } from '../index'
 
 const findRecipe = (
@@ -96,7 +96,7 @@ export const useRecipe = (
     isLoading: isBlueprintLoading,
     error,
   } = useBlueprint(typeRef)
-  const { getUiPlugin } = useContext(UiPluginContext)
+  const { getUiPlugin } = useUiPlugins()
   const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
   const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
     null
