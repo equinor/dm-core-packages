@@ -33,6 +33,14 @@ export type TContentProps = {
   uiAttribute: TAttributeConfig | undefined
 }
 
+export type TArrayFieldProps = {
+  namePath: string
+  displayLabel: string
+  type: string
+  uiAttribute: TAttributeConfig | undefined
+  dimensions: string | undefined
+}
+
 export type TAttributeFieldProps = {
   namePath: string
   attribute: TAttribute
