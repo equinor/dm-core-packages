@@ -74,7 +74,9 @@ jobs:
         working-directory: example/
 
       - name: Run reset-all script
-        run: ./reset-all.sh validate-entities
+        run: |
+          source .venv/bin/activate
+          ./reset-all.sh validate-entities
         working-directory: example/
 
       - name: Install dependencies
