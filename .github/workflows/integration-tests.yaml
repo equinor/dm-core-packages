@@ -5,15 +5,14 @@ on:
   workflow_call:
     outputs:
       dm_cli_version:
-        description: "DM CLI version used in test"
+        description: 'DM CLI version used in test'
         value: ${{ jobs.integration-tests.outputs.dm_cli_version }}
       dmss_version:
-        description: "DMSS version used in test"
+        description: 'DMSS version used in test'
         value: ${{ jobs.integration-tests.outputs.dmss_version }}
       job_version:
-        description: "Job version used in test"
+        description: 'Job version used in test'
         value: ${{ jobs.integration-tests.outputs.job_version }}
-
 
 jobs:
   integration-tests:
@@ -46,6 +45,7 @@ jobs:
       - name: Start DMSS
         id: dmss
         run: |
+          docker-compose pull
           docker-compose run --rm dmss cat src/version.txt > dmss_version.txt
           dmss_version=$(tail -n 1 dmss_version.txt)
           docker-compose run --rm job-api cat version.txt > job_version.txt
@@ -70,8 +70,13 @@ jobs:
           python -m venv .venv
           source .venv/bin/activate
           pip install dm-cli
-          ./reset-all.sh validate-entities
           echo "version=$(dm --version)" >> "$GITHUB_OUTPUT"
+        working-directory: example/
+
+      - name: Run reset-all script
+        run: |
+          source .venv/bin/activate
+          ./reset-all.sh validate-entities
         working-directory: example/
 
       - name: Install dependencies
