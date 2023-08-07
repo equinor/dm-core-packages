@@ -49,17 +49,32 @@ jobs:
         run: pm2 start "yarn start:example" --name web --wait-ready --listen-timeout 10000 # wait for 10 seconds
         working-directory: ./
 
-      - name: Start DMSS
-        id: dmss
+      - name: Pull docker images
+        run: docker-compose pull
+        working-directory: example/
+
+      - name: Read and output DMSS version
         run: |
-          docker-compose pull
           docker-compose run --rm dmss cat src/version.txt > dmss_version.txt
           dmss_version=$(tail -n 1 dmss_version.txt)
+          echo "dmss_version=$dmss_version" >> "$GITHUB_OUTPUT"
+        working-directory: example/
+
+      - name: Read and output job-api version
+        run: |
           docker-compose run --rm job-api cat version.txt > job_version.txt
           job_version=$(tail -n 1 job_version.txt)
-          docker-compose up -d && sleep 60 && docker-compose run --rm dmss reset-app
-          echo "dmss_version=$dmss_version" >> "$GITHUB_OUTPUT"
           echo "job_version=$job_version" >> "$GITHUB_OUTPUT"
+        working-directory: example/
+
+      - name: Run docker images
+        run: docker-compose up -d
+        working-directory: example/
+
+      - name: Run reset app script
+        run: |
+          sleep 60
+          docker-compose run --rm dmss reset-app
         working-directory: example/
 
       - name: Download test blueprints
