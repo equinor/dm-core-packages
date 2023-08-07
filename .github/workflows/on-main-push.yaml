@@ -40,11 +40,17 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Create package distribution and publish
-        run: |
-          yarn install
-          yarn build:packages
-          yarn workspace @development-framework/dm-core publish --access public
-          yarn workspace @development-framework/dm-core-plugins publish --access public
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build packages
+        run: yarn build:packages
+
+      - name: Publish dm-core package
+        run: yarn workspace @development-framework/dm-core publish --access public
+
+      - name: Publish dm-core-plugins package
+        run: yarn workspace @development-framework/dm-core-plugins publish --access public
+
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
