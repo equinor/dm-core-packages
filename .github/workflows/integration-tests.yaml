@@ -33,13 +33,20 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install daemon process manager
+        run: npm install pm2 -g
+        working-directory: ./
+
+      - name: Install dependencies
+        run: yarn install
+        working-directory: ./
+
+      - name: Build packages
+        run: yarn build:packages
+        working-directory: ./
+
       - name: Start example application
-        run: |
-          # Install daemon process manager
-          npm install pm2 -g
-          yarn install
-          yarn build:packages
-          pm2 start "yarn start:example" --name web --wait-ready --listen-timeout 10000 # wait for 10 seconds
+        run: pm2 start "yarn start:example" --name web --wait-ready --listen-timeout 10000 # wait for 10 seconds
         working-directory: ./
 
       - name: Start DMSS
