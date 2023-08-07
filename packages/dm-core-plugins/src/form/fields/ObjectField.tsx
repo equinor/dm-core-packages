@@ -98,14 +98,19 @@ const AddObject = (props: {
       data-testid={`add-${namePath}`}
       onClick={handleAdd}
     >
-      Add
+      Add and save
     </Button>
   )
 }
 
-const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
-  const { namePath, onRemove } = props
+const RemoveObject = (props: {
+  namePath: string
+  onRemove: () => void
+  idReference: string
+}) => {
+  const { namePath, onRemove, idReference } = props
   const { setValue } = useFormContext()
+  const dmssAPI = useDMSS()
 
   const handleAdd = () => {
     // TODO: Fill with default values using createEntity?
@@ -115,8 +120,15 @@ const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
       shouldDirty: true,
       shouldTouch: true,
     }
-    setValue(namePath, values, options)
-    onRemove()
+    dmssAPI
+      .documentRemove({ address: `${idReference}.${namePath}` })
+      .then(() => {
+        setValue(namePath, values, options)
+        onRemove()
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+      })
   }
   return (
     <Button
@@ -124,7 +136,7 @@ const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
       data-testid={`remove-${namePath}`}
       onClick={handleAdd}
     >
-      Remove
+      Remove and save
     </Button>
   )
 }
@@ -157,6 +169,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
           (isDefined ? (
             <RemoveObject
               namePath={namePath}
+              idReference={idReference}
               onRemove={() => {
                 const options = {
                   shouldValidate: false,
@@ -239,6 +252,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
                   <Stack spacing={1}>
                     <RemoveObject
                       namePath={namePath}
+                      idReference={idReference}
                       onRemove={() => {
                         const options = {
                           shouldValidate: false,
