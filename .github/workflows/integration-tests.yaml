@@ -77,13 +77,20 @@ jobs:
           docker-compose run --rm dmss reset-app
         working-directory: example/
 
-      - name: Download test blueprints
-        run: |
-          npm pack @development-framework/dm-core-plugins
-          tar -xzf development-framework-dm-core-plugins-*.tgz
-          # reset-all.sh script is hardcoded to find it under node_modules
-          mkdir -p node_modules/@development-framework/
-          mv package/ node_modules/@development-framework/dm-core-plugins
+      - name: Pack core plugins
+        run: npm pack @development-framework/dm-core-plugins
+        working-directory: example/
+
+      - name: Extract tarball
+        run: tar -xzf development-framework-dm-core-plugins-*.tgz
+        working-directory: example/
+
+      - name: Create required directory in node_modules
+        run: mkdir -p node_modules/@development-framework/
+        working-directory: example/
+
+      - name: Move package to directory in node_modules
+        run: mv package/ node_modules/@development-framework/dm-core-plugins
         working-directory: example/
 
       - name: Build and install dm-cli package
