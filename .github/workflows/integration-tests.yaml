@@ -93,13 +93,22 @@ jobs:
         run: mv package/ node_modules/@development-framework/dm-core-plugins
         working-directory: example/
 
-      - name: Build and install dm-cli package
-        id: dm_cli
-        run: |
-          python -m venv .venv
-          source .venv/bin/activate
-          pip install dm-cli
-          echo "version=$(dm --version)" >> "$GITHUB_OUTPUT"
+      - name: Setup Python virtual environment
+        id: setup_venv
+        run: python -m venv .venv
+        working-directory: example/
+
+      - name: Activate Python virtual environment
+        run: source .venv/bin/activate
+        working-directory: example/
+
+      - name: Install dm-cli package
+        run: pip install dm-cli
+        working-directory: example/
+
+      - name: Capture dm-cli version
+        id: capture_version
+        run: echo "version=$(dm --version)" >> "$GITHUB_OUTPUT"
         working-directory: example/
 
       - name: Run reset-all script
