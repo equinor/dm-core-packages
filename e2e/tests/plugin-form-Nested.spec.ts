@@ -39,32 +39,26 @@ test('Change owner', async () => {
 
 test('Hiring a CEO', async () => {
   await page
-    .getByText('CEO (optional)Add')
-    .getByRole('button', { name: 'Add' })
+    .getByTestId('ceo')
+    .getByRole('button', { name: 'Add and save' })
     .click()
-  await page
-    .getByText('CEO (optional)RemoveOpen')
-    .getByRole('button', { name: 'Open' })
-    .click()
+  await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
   await page.getByLabel('Name').fill('Donald')
   await page.getByLabel('Phone Number (optional)').fill('99887766')
   await page.getByRole('button', { name: 'Submit' }).click()
   await page.getByRole('tab').nth(2).click()
-  await page
-    .getByText('CEO (optional)RemoveOpen')
-    .getByRole('button', { name: 'Open' })
-    .click()
+  await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
   await expect(page.getByLabel('Name')).toHaveValue('Donald')
   await expect(page.getByLabel('Phone Number (optional)')).toHaveValue(
     '99887766'
   )
   await page.getByRole('tab').nth(2).click()
   await page
-    .getByText('CEO (optional)RemoveOpen')
-    .getByRole('button', { name: 'Remove' })
+    .getByTestId('ceo')
+    .getByRole('button', { name: 'Remove and save' })
     .click()
   await expect(
-    page.getByText('CEO (optional)Add').getByRole('button', { name: 'Add' })
+    page.getByTestId('ceo').getByRole('button', { name: 'Add and save' })
   ).toBeVisible()
 })
 
@@ -80,8 +74,8 @@ test('View accountant yaml', async () => {
 
 test('Adding a trainee', async () => {
   await page
-    .getByText('Trainee (optional)Add')
-    .getByRole('button', { name: 'Add' })
+    .getByTestId('trainee')
+    .getByRole('button', { name: 'Add and save' })
     .click()
   await page.getByTestId('trainee').getByLabel('Name').fill('Peter Pan')
   await page
