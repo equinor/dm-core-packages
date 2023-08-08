@@ -6,6 +6,7 @@ import {
   Loading,
   NewEntityButton,
   Stack,
+  TBlueprint,
   TLinkReference,
   getKey,
   resolveRelativeAddress,
@@ -98,14 +99,19 @@ const AddObject = (props: {
       data-testid={`add-${namePath}`}
       onClick={handleAdd}
     >
-      Add
+      Add and save
     </Button>
   )
 }
 
-const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
-  const { namePath, onRemove } = props
+const RemoveObject = (props: {
+  namePath: string
+  onRemove: () => void
+  idReference: string
+}) => {
+  const { namePath, onRemove, idReference } = props
   const { setValue } = useFormContext()
+  const dmssAPI = useDMSS()
 
   const handleAdd = () => {
     // TODO: Fill with default values using createEntity?
@@ -115,8 +121,15 @@ const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
       shouldDirty: true,
       shouldTouch: true,
     }
-    setValue(namePath, values, options)
-    onRemove()
+    dmssAPI
+      .documentRemove({ address: `${idReference}.${namePath}` })
+      .then(() => {
+        setValue(namePath, values, options)
+        onRemove()
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+      })
   }
   return (
     <Button
@@ -124,7 +137,7 @@ const RemoveObject = (props: { namePath: string; onRemove: () => void }) => {
       data-testid={`remove-${namePath}`}
       onClick={handleAdd}
     >
-      Remove
+      Remove and save
     </Button>
   )
 }
@@ -147,8 +160,6 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   )
   const hasOpen = onOpen !== undefined
 
-  const attributePath = idReference.split('.', 2).slice(1)
-
   return (
     <div data-testid={`${namePath}`}>
       <Stack spacing={0.25} alignItems="flex-start">
@@ -157,6 +168,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
           (isDefined ? (
             <RemoveObject
               namePath={namePath}
+              idReference={idReference}
               onRemove={() => {
                 const options = {
                   shouldValidate: false,
@@ -180,31 +192,49 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
             <OpenObjectButton
               viewId={namePath}
               idReference={idReference}
-              namePath={
-                attributePath && attributePath.length > 1
-                  ? `${attributePath[1]}.${namePath}`
-                  : namePath
-              }
-            />
-          ) : uiRecipe &&
-            uiRecipe.plugin !==
-              '@development-framework/dm-core-plugins/form' ? (
-            <EntityView
-              recipeName={uiRecipe.name}
-              idReference={`${idReference}.${namePath}`}
-              type={type}
-              onOpen={onOpen}
+              namePath={namePath}
             />
           ) : (
-            <div style={{ borderLeft: '1px solid black', paddingLeft: '1rem' }}>
-              <AttributeList
-                namePath={namePath}
-                config={uiRecipe?.config}
-                blueprint={blueprint}
-              />
-            </div>
+            <Inline
+              type={type}
+              namePath={namePath}
+              blueprint={blueprint}
+              uiRecipe={uiRecipe}
+            />
           ))}
       </Stack>
+    </div>
+  )
+}
+
+const Inline = (props: {
+  type: string
+  namePath: string
+  blueprint: TBlueprint | undefined
+  uiRecipe: TUiRecipeForm | undefined
+}): JSX.Element => {
+  const { idReference, onOpen } = useRegistryContext()
+  const { type, namePath, uiRecipe, blueprint } = props
+  if (
+    uiRecipe &&
+    uiRecipe.plugin !== '@development-framework/dm-core-plugins/form'
+  ) {
+    return (
+      <EntityView
+        recipeName={uiRecipe.name}
+        idReference={`${idReference}.${namePath}`}
+        type={type}
+        onOpen={onOpen}
+      />
+    )
+  }
+  return (
+    <div style={{ borderLeft: '1px solid black', paddingLeft: '1rem' }}>
+      <AttributeList
+        namePath={namePath}
+        config={uiRecipe?.config}
+        blueprint={blueprint}
+      />
     </div>
   )
 }
@@ -239,6 +269,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
                   <Stack spacing={1}>
                     <RemoveObject
                       namePath={namePath}
+                      idReference={idReference}
                       onRemove={() => {
                         const options = {
                           shouldValidate: false,

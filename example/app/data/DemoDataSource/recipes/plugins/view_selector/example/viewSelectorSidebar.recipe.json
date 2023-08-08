@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/view_selector/blueprints/ViewSelectorSidebar",
+  "_blueprintPath_": "/plugins/view_selector/example/blueprints/ViewSelectorSidebar",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
