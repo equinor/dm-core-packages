@@ -1953,3 +1953,10 @@ ref #276 (2023-07-10T10:13:30Z)
     * **DMSS VERSION**: 8ab9721 2023-08-08 Krist..rstad fix: remove name attribute from Node class grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.16
     * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
+* refactor(form): create inline component
+
+#276 (2023-08-04T08:38:38Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5796685166/1)
+    * **DMSS VERSION**: 8ab9721 2023-08-08 Krist..rstad fix: remove name attribute from Node class grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.16
+    * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
