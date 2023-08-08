@@ -105,8 +105,7 @@ jobs:
         working-directory: example/
 
       - name: Run reset-all script
-        run: |
-          ./reset-all.sh validate-entities
+        run: ./reset-all.sh validate-entities
         working-directory: example/
 
       - name: Install dependencies
