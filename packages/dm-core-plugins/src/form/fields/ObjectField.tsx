@@ -147,8 +147,6 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   )
   const hasOpen = onOpen !== undefined
 
-  const attributePath = idReference.split('.', 2).slice(1)
-
   return (
     <div data-testid={`${namePath}`}>
       <Stack spacing={0.25} alignItems="flex-start">
@@ -180,31 +178,49 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
             <OpenObjectButton
               viewId={namePath}
               idReference={idReference}
-              namePath={
-                attributePath && attributePath.length > 1
-                  ? `${attributePath[1]}.${namePath}`
-                  : namePath
-              }
-            />
-          ) : uiRecipe &&
-            uiRecipe.plugin !==
-              '@development-framework/dm-core-plugins/form' ? (
-            <EntityView
-              recipeName={uiRecipe.name}
-              idReference={`${idReference}.${namePath}`}
-              type={type}
-              onOpen={onOpen}
+              namePath={namePath}
             />
           ) : (
-            <div style={{ borderLeft: '1px solid black', paddingLeft: '1rem' }}>
-              <AttributeList
-                namePath={namePath}
-                config={uiRecipe?.config}
-                blueprint={blueprint}
-              />
-            </div>
+            <Inline
+              type={type}
+              namePath={namePath}
+              blueprint={blueprint}
+              uiRecipe={uiRecipe}
+            />
           ))}
       </Stack>
+    </div>
+  )
+}
+
+const Inline = (props: {
+  type: string
+  namePath: string
+  blueprint: TBlueprint | undefined
+  uiRecipe: TUiRecipeForm | undefined
+}): JSX.Element => {
+  const { idReference, onOpen } = useRegistryContext()
+  const { type, namePath, uiRecipe, blueprint } = props
+  if (
+    uiRecipe &&
+    uiRecipe.plugin !== '@development-framework/dm-core-plugins/form'
+  ) {
+    return (
+      <EntityView
+        recipeName={uiRecipe.name}
+        idReference={`${idReference}.${namePath}`}
+        type={type}
+        onOpen={onOpen}
+      />
+    )
+  }
+  return (
+    <div style={{ borderLeft: '1px solid black', paddingLeft: '1rem' }}>
+      <AttributeList
+        namePath={namePath}
+        config={uiRecipe?.config}
+        blueprint={blueprint}
+      />
     </div>
   )
 }
