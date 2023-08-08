@@ -23,9 +23,9 @@ jobs:
         working-directory: e2e/
     # Map a step output to a job output
     outputs:
-      dm_cli_version: ${{ steps.dm_cli.outputs.version }}
-      dmss_version: ${{ steps.dmss.outputs.dmss_version }}
-      job_version: ${{ steps.dmss.outputs.job_version }}
+      dm_cli_version: ${{ steps.capture_dm_cli_version.outputs.version }}
+      dmss_version: ${{ steps.capture_dmss_version.outputs.dmss_version }}
+      job_version: ${{ steps.capture_job_version.outputs.job_version }}
     steps:
       - uses: actions/checkout@v3
 
@@ -54,6 +54,7 @@ jobs:
         working-directory: example/
 
       - name: Capture output DMSS version
+        id: capture_dmss_version
         run: |
           docker-compose run --rm dmss cat src/version.txt > dmss_version.txt
           dmss_version=$(tail -n 1 dmss_version.txt)
@@ -61,6 +62,7 @@ jobs:
         working-directory: example/
 
       - name: Capture job-api version
+        id: capture_job_version
         run: |
           docker-compose run --rm job-api cat version.txt > job_version.txt
           job_version=$(tail -n 1 job_version.txt)
@@ -93,27 +95,17 @@ jobs:
         run: mv package/ node_modules/@development-framework/dm-core-plugins
         working-directory: example/
 
-      - name: Setup Python virtual environment
-        id: setup_venv
-        run: python -m venv .venv
-        working-directory: example/
-
-      - name: Activate Python virtual environment
-        run: source .venv/bin/activate
-        working-directory: example/
-
       - name: Install dm-cli package
         run: pip install dm-cli
         working-directory: example/
 
       - name: Capture dm-cli version
-        id: capture_version
+        id: capture_dm_cli_version
         run: echo "version=$(dm --version)" >> "$GITHUB_OUTPUT"
         working-directory: example/
 
       - name: Run reset-all script
         run: |
-          source .venv/bin/activate
           ./reset-all.sh validate-entities
         working-directory: example/
 
