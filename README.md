@@ -1965,3 +1965,16 @@ ref #276 (2023-07-10T10:13:30Z)
     * **DMSS VERSION**: 8ab9721 2023-08-08 Krist..rstad fix: remove name attribute from Node class grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.16
     * **JOB VERSION**: c391292 2023-07-13 Krist..rstad fix: inside status_job(), check if results exist in job_entity before accessing this attribute grafted, HEAD -> main, origin/main
+* feat(form): allow inline presentation of list of non-primitives (#411)
+
+* test(form): add testid to all fields
+* test(form): update model with lists for testing
+* refactor(form): remove unused columns config
+* feat(form): allow inline object list
+* test(form): make tests pass
+
+ref #276 (2023-08-04T08:38:38Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5809008456/1)
+    * **DMSS VERSION**: 5d62311 2023-08-09 Inger..ellen chore: update codeowners grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.16
+    * **JOB VERSION**: 9b8cfdf 2023-08-09 Inger..ellen chore: update codeowners grafted, HEAD -> main, origin/main
