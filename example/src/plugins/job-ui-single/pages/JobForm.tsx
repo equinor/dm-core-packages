@@ -1,14 +1,14 @@
 import {
   EBlueprint,
-  TJob,
-  Stack,
-  useBlueprint,
-  Loading,
-  TAttribute,
   EntityPickerButton,
   JobStatus,
-  TGenericObject,
+  Loading,
+  Stack,
+  TAttribute,
+  TJob,
   TLinkReference,
+  TValidEntity,
+  useBlueprint,
 } from '@development-framework/dm-core'
 import { Button, TextField } from '@equinor/eds-core-react'
 
@@ -74,9 +74,8 @@ export const JobForm = (props: {
               <>
                 <p>Pick job runner entity:</p>
                 <EntityPickerButton
-                  returnLinkReference={false}
-                  onChange={(chosenRunnerEntity: TGenericObject) => {
-                    setFormData({ ...formData, runner: chosenRunnerEntity })
+                  onChange={(address: string, entity: TValidEntity) => {
+                    setFormData({ ...formData, runner: entity })
                   }}
                 />
                 <p>
@@ -98,11 +97,15 @@ export const JobForm = (props: {
                   </p>
                 </div>
                 <EntityPickerButton
-                  returnLinkReference={true}
-                  onChange={(linkReferenceEntity: TLinkReference) => {
+                  onChange={(address: string, entity: TValidEntity) => {
+                    const ref: TLinkReference = {
+                      type: EBlueprint.REFERENCE,
+                      referenceType: 'link',
+                      address: address,
+                    }
                     setFormData({
                       ...formData,
-                      applicationInput: linkReferenceEntity,
+                      applicationInput: ref,
                     })
                   }}
                 />
