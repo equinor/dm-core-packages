@@ -1,7 +1,9 @@
 import {
   EBlueprint,
+  EntityView,
   ErrorResponse,
   Stack,
+  getKey,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
@@ -11,15 +13,16 @@ import { useFieldArray, useFormContext } from 'react-hook-form'
 
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
+import { TArrayFieldProps } from '../types'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
 
 const isPrimitiveType = (value: string): boolean => {
-  return ['string', 'number', 'integer', 'number', 'boolean'].includes(value)
+  return ['string', 'number', 'integer', 'boolean'].includes(value)
 }
 
-export default function Fields(props: any) {
-  const { namePath, displayLabel, type } = props
+export default function ArrayField(props: TArrayFieldProps) {
+  const { namePath, displayLabel, type, uiAttribute, dimensions } = props
 
   const { idReference, onOpen } = useRegistryContext()
   const dmssAPI = useDMSS()
@@ -52,11 +55,26 @@ export default function Fields(props: any) {
       })
   }
 
-  if (onOpen && !isPrimitiveType(type)) {
+  if (onOpen && !uiAttribute?.showInline && !isPrimitiveType(type)) {
     return (
       <Stack spacing={0.25} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
         <OpenObjectButton viewId={namePath} namePath={namePath} />
+      </Stack>
+    )
+  }
+
+  if (!isPrimitiveType(type)) {
+    return (
+      <Stack spacing={0.5} alignItems="flex-start">
+        <Typography bold={true}>{displayLabel}</Typography>
+        <EntityView
+          recipeName={getKey<string>(uiAttribute, 'uiRecipe', 'string')}
+          idReference={`${idReference}.${namePath}`}
+          type={type}
+          onOpen={onOpen}
+          dimensions={dimensions}
+        />
       </Stack>
     )
   }

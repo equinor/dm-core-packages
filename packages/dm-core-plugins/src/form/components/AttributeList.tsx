@@ -27,12 +27,16 @@ export const AttributeList = (props: {
       (uiAttribute) => uiAttribute.name === attribute.name
     )
     return (
-      <AttributeField
+      <div
+        data-testid={`${prefix}${attribute.name}`}
         key={`${prefix}${attribute.name}`}
-        namePath={`${prefix}${attribute.name}`}
-        attribute={attribute}
-        uiAttribute={uiAttribute}
-      />
+      >
+        <AttributeField
+          namePath={`${prefix}${attribute.name}`}
+          attribute={attribute}
+          uiAttribute={uiAttribute}
+        />
+      </div>
     )
   })
 

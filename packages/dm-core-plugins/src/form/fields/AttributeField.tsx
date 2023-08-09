@@ -74,6 +74,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           displayLabel={displayLabel}
           type={attribute.attributeType}
           uiAttribute={uiAttribute}
+          dimensions={attribute.dimensions}
         />
       )
     case 'string':

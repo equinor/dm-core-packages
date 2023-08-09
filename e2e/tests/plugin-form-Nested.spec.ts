@@ -93,13 +93,36 @@ test('Adding a trainee', async () => {
   ).toHaveValue('123')
 })
 
+test('Locations', async () => {
+  const locationsDiv = page.getByTestId('locations')
+  await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
+  await expect(locationsDiv.getByRole('textbox')).toHaveValue('Trondheim')
+  await locationsDiv.getByRole('button', { name: 'Add' }).click()
+  await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
+  await locationsDiv.getByRole('textbox').last().fill('Oslo')
+  await page.getByRole('button', { name: 'Submit' }).click()
+  await page.reload()
+  await navigate()
+  await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
+  await expect(locationsDiv.getByRole('textbox').first()).toHaveValue(
+    'Trondheim'
+  )
+  await expect(locationsDiv.getByRole('textbox').last()).toHaveValue('Oslo')
+  await locationsDiv.getByRole('button', { name: 'Remove' }).last().click()
+  await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
+  await page.getByRole('button', { name: 'Submit' }).click()
+  await page.reload()
+  await navigate()
+  await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
+})
+
 test('New car', async () => {
-  await page.getByText('CarsOpen').getByRole('button', { name: 'Open' }).click()
-  await expect.soft(page.getByText('1 - 2 of 2')).toBeVisible()
-  await page.getByRole('button', { name: 'Append Add Item' }).click()
-  await expect.soft(page.getByText('1 - 3 of 3')).toBeVisible()
-  await page.getByRole('button', { name: 'Save' }).click()
-  await page.getByRole('button', { name: 'Open item' }).last().click()
+  const carsDiv = page.getByTestId('cars')
+  await expect.soft(carsDiv.getByText('1 - 2 of 2')).toBeVisible()
+  await carsDiv.getByRole('button', { name: 'Append Add Item' }).click()
+  await expect.soft(carsDiv.getByText('1 - 3 of 3')).toBeVisible()
+  await carsDiv.getByRole('button', { name: 'Save' }).click()
+  await carsDiv.getByRole('button', { name: 'Open item' }).last().click()
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
   await lastTabPanel.getByLabel('Name').fill('McLaren')
@@ -107,13 +130,11 @@ test('New car', async () => {
   await lastTabPanel.getByRole('button', { name: 'Submit' }).click()
   await page.reload()
   await navigate()
-  await page.getByText('CarsOpen').getByRole('button', { name: 'Open' }).click()
-  // await expect(page.getByText('McLaren')).toBeVisible() Does not work because two instances are stored when submitting form... Known bug.
-  await page.getByRole('button', { name: 'Open item' }).last().click()
+  // await expect(cars.getByText('McLaren')).toBeVisible() Does not work because two instances are stored when submitting form... Known bug.
+  await carsDiv.getByRole('button', { name: 'Open item' }).last().click()
   await expect(page.getByRole('tab', { name: 'McLaren' })).toBeVisible()
   await expect(lastTabPanel.getByLabel('Name')).toHaveValue('McLaren')
   await expect(lastTabPanel.getByLabel('Plate Number')).toHaveValue('3000')
-  await page.getByRole('tab').last().click()
   await page.getByRole('tab').last().click()
 })
 
