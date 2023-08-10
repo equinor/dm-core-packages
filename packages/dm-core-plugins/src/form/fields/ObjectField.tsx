@@ -16,36 +16,47 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import React, { useState } from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
+import styled from 'styled-components'
 import { defaultConfig } from '../FormPlugin'
 import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
+import { isPrimitive } from '../utils'
 
-const AddUncontained = (props: {
-  type: string
-  namePath: string
-  onChange: (event: any) => void
-}) => {
+const AddUncontained = (props: { type: string; namePath: string }) => {
+  const { setValue, setError, clearErrors } = useFormContext()
   const onChange = (address: string, entity: TValidEntity) => {
+    clearErrors(props.namePath)
+    if (entity.type != props.type) {
+      setError(props.namePath, {
+        type: 'custom',
+        message: `The selected entity has an invalid type. Valid type is ${props.type}`,
+      })
+      return
+    }
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
       address: address,
     }
-    props.onChange(reference)
+    const options = {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    }
+    setValue(props.namePath, reference, options)
   }
 
   return (
-    <Stack direction="row" spacing={1}>
-      <EntityPickerButton
-        data-testid={`select-${props.namePath}`}
-        onChange={onChange}
-      />
-    </Stack>
+    <EntityPickerButton
+      data-testid={`select-${props.namePath}`}
+      onChange={onChange}
+      buttonVariant="outlined"
+    />
   )
 }
 
@@ -106,9 +117,7 @@ const RemoveObject = (props: {
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
 
-  const handleAdd = () => {
-    // TODO: Fill with default values using createEntity?
-    const values = null
+  const onClick = () => {
     const options = {
       shouldValidate: true,
       shouldDirty: true,
@@ -117,7 +126,8 @@ const RemoveObject = (props: {
     dmssAPI
       .documentRemove({ address: `${idReference}.${namePath}` })
       .then(() => {
-        setValue(namePath, values, options)
+        // TODO: Fill with default values using createEntity?
+        setValue(namePath, null, options)
         onRemove()
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -128,7 +138,7 @@ const RemoveObject = (props: {
     <Button
       variant="outlined"
       data-testid={`remove-${namePath}`}
-      onClick={handleAdd}
+      onClick={onClick}
     >
       Remove and save
     </Button>
@@ -220,85 +230,89 @@ const Inline = (props: {
     )
   }
   return (
-    <div style={{ borderLeft: '1px solid black', paddingLeft: '1rem' }}>
+    <Indent>
       <AttributeList
         namePath={namePath}
         config={uiRecipe?.config}
         blueprint={blueprint}
       />
-    </div>
+    </Indent>
   )
 }
 
+const Indent = styled.div`
+  border-left: 1px solid black;
+  padding-left: 1rem;
+`
+
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   const { type, namePath, displayLabel = '' } = props
-  const { getValues, setValue } = useFormContext()
-  const { idReference, onOpen } = useRegistryContext()
-  const initialValue = getValues(namePath)
+  const { watch, formState } = useFormContext()
+  const { idReference } = useRegistryContext()
+  const [referedEntity, setReferedEntity] = useState<
+    { address: string; entity: TValidEntity } | undefined
+  >()
+  const value = watch(namePath)
+  const dmssAPI = useDMSS()
+  const { dataSource, documentPath } = splitAddress(idReference)
+
+  useEffect(() => {
+    if (value && value.address && value.referenceType === 'link') {
+      const id = resolveRelativeAddress(value.address, documentPath, dataSource)
+      dmssAPI
+        .documentGet({ address: id })
+        .then((response: AxiosResponse<any>) => {
+          setReferedEntity({ address: id, entity: response.data })
+        })
+    } else {
+      setReferedEntity(undefined)
+    }
+  }, [value])
+
+  const Content = () => {
+    if (referedEntity) {
+      return (
+        <Stack spacing={0.25} alignItems="flex-start">
+          {referedEntity && (
+            // TODO Make a plugin for displaying the values of an entity in a nicer way than this
+            <Indent>
+              <Typography>Id: {referedEntity.address}</Typography>
+              {Object.entries(referedEntity.entity)
+                .filter(
+                  ([key, value]) => key != 'type' && isPrimitive(typeof value)
+                )
+                .map(([key, value]) => {
+                  return (
+                    <Typography key={key}>
+                      {key}: {`${value}`}
+                    </Typography>
+                  )
+                })}
+            </Indent>
+          )}
+          <RemoveObject
+            namePath={namePath}
+            idReference={idReference}
+            onRemove={() => undefined}
+          />
+        </Stack>
+      )
+    } else {
+      return <AddUncontained type={type} namePath={namePath} />
+    }
+  }
 
   return (
     <Stack spacing={0.5}>
       <Typography bold={true}>{displayLabel}</Typography>
-      <Controller
-        name={namePath}
-        defaultValue={initialValue}
-        render={({
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          field: { onChange, value },
-        }) => {
-          if (value && value.address && value.referenceType === 'link') {
-            const { dataSource, documentPath } = splitAddress(idReference)
-            const id = resolveRelativeAddress(
-              value.address,
-              documentPath,
-              dataSource
-            )
-            return (
-              <div>
-                <Stack spacing={0.25} alignItems="flex-start">
-                  <Typography>Id: {value.address}</Typography>
-                  <Stack spacing={1}>
-                    <RemoveObject
-                      namePath={namePath}
-                      idReference={idReference}
-                      onRemove={() => {
-                        const options = {
-                          shouldValidate: false,
-                          shouldDirty: true,
-                          shouldTouch: true,
-                        }
-                        setValue(namePath, null, options)
-                      }}
-                    />
-                    {onOpen && (
-                      <OpenObjectButton
-                        viewId={namePath}
-                        namePath=""
-                        idReference={id}
-                      />
-                    )}
-                    {!onOpen && (
-                      <EntityView
-                        idReference={id}
-                        type={type}
-                        onOpen={onOpen}
-                      />
-                    )}
-                  </Stack>
-                </Stack>
-              </div>
-            )
-          } else {
-            return (
-              <AddUncontained
-                type={type}
-                namePath={namePath}
-                onChange={onChange}
-              />
-            )
-          }
-        }}
-      />
+      {formState.errors[namePath]?.message && (
+        <Typography
+          group="input"
+          variant="helper"
+          color="danger"
+        >{`${formState.errors[namePath]?.message}`}</Typography>
+      )}
+      <Content />
     </Stack>
   )
 }

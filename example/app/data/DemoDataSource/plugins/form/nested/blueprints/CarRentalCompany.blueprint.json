@@ -37,7 +37,7 @@
     {
       "name": "bestCustomer",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
+      "attributeType": "./Customer",
       "contained": false,
       "optional": true
     },
