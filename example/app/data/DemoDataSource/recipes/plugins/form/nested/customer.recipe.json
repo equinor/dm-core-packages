@@ -5,5 +5,19 @@
     "name": "form",
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/form"
-  }
+  },
+  "uiRecipes": [
+    {
+      "name": "defaultYaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml",
+      "category": "view"
+    },
+    {
+      "name": "defaultForm",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "category": "edit"
+    }
+  ]
 }

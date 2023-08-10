@@ -50,6 +50,12 @@
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "name": "locations",
             "showInline": true
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "name": "bestCustomer",
+            "showInline": true,
+            "uiRecipe": "defaultYaml"
           }
         ],
         "fields": [

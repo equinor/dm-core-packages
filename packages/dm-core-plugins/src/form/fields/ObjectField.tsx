@@ -16,7 +16,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { defaultConfig } from '../FormPlugin'
@@ -25,7 +25,6 @@ import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
-import { isPrimitive } from '../utils'
 
 const AddUncontained = (props: { type: string; namePath: string }) => {
   const { setValue, setError, clearErrors } = useFormContext()
@@ -246,55 +245,34 @@ const Indent = styled.div`
 `
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
-  const { type, namePath, displayLabel = '' } = props
+  const { type, namePath, displayLabel, uiRecipe, uiAttribute } = props
   const { watch, formState } = useFormContext()
-  const { idReference } = useRegistryContext()
-  const [referedEntity, setReferedEntity] = useState<
-    { address: string; entity: TValidEntity } | undefined
-  >()
+  const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
-  const dmssAPI = useDMSS()
   const { dataSource, documentPath } = splitAddress(idReference)
 
-  useEffect(() => {
+  const Content = () => {
     if (value && value.address && value.referenceType === 'link') {
       const id = resolveRelativeAddress(value.address, documentPath, dataSource)
-      dmssAPI
-        .documentGet({ address: id })
-        .then((response: AxiosResponse<any>) => {
-          setReferedEntity({ address: id, entity: response.data })
-        })
-    } else {
-      setReferedEntity(undefined)
-    }
-  }, [value])
-
-  const Content = () => {
-    if (referedEntity) {
       return (
         <Stack spacing={0.25} alignItems="flex-start">
-          {referedEntity && (
-            // TODO Make a plugin for displaying the values of an entity in a nicer way than this
-            <Indent>
-              <Typography>Id: {referedEntity.address}</Typography>
-              {Object.entries(referedEntity.entity)
-                .filter(
-                  ([key, value]) => key != 'type' && isPrimitive(typeof value)
-                )
-                .map(([key, value]) => {
-                  return (
-                    <Typography key={key}>
-                      {key}: {`${value}`}
-                    </Typography>
-                  )
-                })}
-            </Indent>
-          )}
+          <Typography>Id: {value.address}</Typography>
           <RemoveObject
             namePath={namePath}
             idReference={idReference}
             onRemove={() => undefined}
           />
+          {onOpen && !uiAttribute?.showInline ? ( // eslint-disable-line react/prop-types
+            <OpenObjectButton viewId={namePath} namePath="" idReference={id} />
+          ) : (
+            <EntityView
+              idReference={id}
+              type={type}
+              // eslint-disable-next-line react/prop-types
+              recipeName={uiRecipe?.name}
+              onOpen={onOpen}
+            />
+          )}
         </Stack>
       )
     } else {
