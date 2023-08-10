@@ -78,9 +78,7 @@ export const EntityPickerButton = (props: {
   }
 
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'row', margin: '0 10px 10px' }}
-    >
+    <div>
       <Button
         variant={buttonVariant || 'contained'}
         onClick={() => setShowModal(true)}
