@@ -71,7 +71,7 @@ export const JobPlugin = (props: IUIPlugin) => {
         jobEntityDestination={jobEntityDestination}
         onCreate={(jobEntityId: string) => setJobEntityId(jobEntityId)}
         defaultJobOutputTarget={props.idReference + '.signal'}
-        defaultJobEntity={defaultJobEntity}
+        defaultJobEntity={defaultContainerJobEntity}
       />
       {jobEntityId && <JobControl jobEntityId={jobEntityId} />}
     </div>
