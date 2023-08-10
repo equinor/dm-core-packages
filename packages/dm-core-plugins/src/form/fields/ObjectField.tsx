@@ -4,10 +4,10 @@ import {
   EntityView,
   ErrorResponse,
   Loading,
-  NewEntityButton,
   Stack,
   TBlueprint,
   TLinkReference,
+  TValidEntity,
   getKey,
   resolveRelativeAddress,
   splitAddress,
@@ -30,11 +30,11 @@ const AddUncontained = (props: {
   namePath: string
   onChange: (event: any) => void
 }) => {
-  const onChange = (entity: any) => {
+  const onChange = (address: string, entity: TValidEntity) => {
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
-      address: entity['address'],
+      address: address,
     }
     props.onChange(reference)
   }
@@ -43,14 +43,7 @@ const AddUncontained = (props: {
     <Stack direction="row" spacing={1}>
       <EntityPickerButton
         data-testid={`select-${props.namePath}`}
-        returnLinkReference={true}
         onChange={onChange}
-      />
-      {/*TODO fix hook error and add support for updated reference type in NewEntityButton  component*/}
-      <NewEntityButton
-        data-testid={`new-entity-${props.namePath}`}
-        onCreated={onChange}
-        type={props.type}
       />
     </Stack>
   )

@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
 import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
+import { AxiosError, AxiosResponse } from 'axios'
+import React, { useEffect, useState } from 'react'
 import { Dialog } from './Dialog'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
+import styled from 'styled-components'
+import { useDMSS } from '../context/DMSSContext'
+import { TGenericObject, TReference, TValidEntity } from '../types'
+import { INPUT_FIELD_WIDTH } from '../utils/variables'
 import {
   BlueprintPicker,
   DestinationPicker,
   EntityPickerButton,
 } from './Pickers'
-import { AxiosError, AxiosResponse } from 'axios'
-import styled from 'styled-components'
-import { TGenericObject, TReference } from '../types'
-import { INPUT_FIELD_WIDTH } from '../utils/variables'
-import { useDMSS } from '../context/DMSSContext'
 
 const DialogWrapper = styled.div`
   display: flex;
@@ -183,8 +183,9 @@ export function NewEntityButton(props: {
                 buttonVariant="outlined"
                 typeFilter={typeToCreate}
                 alternativeButtonText="Copy existing"
-                returnLinkReference={false}
-                onChange={(ref) => setDocumentToCopy(ref as TGenericObject)}
+                onChange={(address: string, entity: TValidEntity) =>
+                  setDocumentToCopy(entity)
+                }
               />
             ) : (
               <Button

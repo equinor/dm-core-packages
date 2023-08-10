@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Progress } from '@equinor/eds-core-react'
 // @ts-ignore
 import { NotificationManager } from 'react-notifications'
-import { TGenericObject, TLinkReference } from '../../types'
+import { EBlueprint } from '../../Enums'
 import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
-import { Dialog } from '../Dialog'
-import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
-import { TreeView } from '../TreeView'
+import { TValidEntity } from '../../types'
 import { truncatePathString } from '../../utils/truncatePathString'
-import { EBlueprint } from '../../Enums'
+import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
+import { Dialog } from '../Dialog'
+import { TreeView } from '../TreeView'
 
 /**
  * A component for selecting an Entity or an attribute of an entity.
@@ -28,21 +28,14 @@ import { EBlueprint } from '../../Enums'
  * @param scope: optional attribute to define scope for tree view. The scope will be a path to a folder.
  */
 export const EntityPickerButton = (props: {
-  onChange: (value: TGenericObject | TLinkReference) => void
-  returnLinkReference?: boolean
+  onChange: (address: string, entity: TValidEntity) => void
   typeFilter?: string
   alternativeButtonText?: string
   buttonVariant?: 'contained' | 'outlined' | 'ghost' | 'ghost_icon'
   scope?: string
 }) => {
-  const {
-    onChange,
-    typeFilter,
-    alternativeButtonText,
-    buttonVariant,
-    scope,
-    returnLinkReference = false,
-  } = props
+  const { onChange, typeFilter, alternativeButtonText, buttonVariant, scope } =
+    props
   const appConfig = useContext(ApplicationContext)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
@@ -72,15 +65,7 @@ export const EntityPickerButton = (props: {
       .fetch()
       .then((doc: any) => {
         setShowModal(false)
-        onChange(
-          returnLinkReference
-            ? {
-                type: EBlueprint.REFERENCE,
-                referenceType: 'link',
-                address: `dmss://${selectedTreeNode.nodeId}`,
-              }
-            : doc
-        )
+        onChange(`dmss://${selectedTreeNode.nodeId}`, doc)
       })
       .catch((error: any) => {
         console.error(error)
