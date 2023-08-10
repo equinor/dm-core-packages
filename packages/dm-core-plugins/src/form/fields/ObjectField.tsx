@@ -27,16 +27,8 @@ import { getWidget } from '../context/WidgetContext'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const AddUncontained = (props: { type: string; namePath: string }) => {
-  const { setValue, setError, clearErrors } = useFormContext()
+  const { setValue } = useFormContext()
   const onChange = (address: string, entity: TValidEntity) => {
-    clearErrors(props.namePath)
-    if (entity.type != props.type) {
-      setError(props.namePath, {
-        type: 'custom',
-        message: `The selected entity has an invalid type. Valid type is ${props.type}`,
-      })
-      return
-    }
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
@@ -55,6 +47,7 @@ const AddUncontained = (props: { type: string; namePath: string }) => {
       data-testid={`select-${props.namePath}`}
       onChange={onChange}
       buttonVariant="outlined"
+      typeFilter={props.type}
     />
   )
 }
@@ -246,7 +239,7 @@ const Indent = styled.div`
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   const { type, namePath, displayLabel, uiRecipe, uiAttribute } = props
-  const { watch, formState } = useFormContext()
+  const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
   const { dataSource, documentPath } = splitAddress(idReference)
@@ -283,13 +276,6 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   return (
     <Stack spacing={0.5}>
       <Typography bold={true}>{displayLabel}</Typography>
-      {formState.errors[namePath]?.message && (
-        <Typography
-          group="input"
-          variant="helper"
-          color="danger"
-        >{`${formState.errors[namePath]?.message}`}</Typography>
-      )}
       <Content />
     </Stack>
   )
