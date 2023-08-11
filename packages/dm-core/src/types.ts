@@ -93,9 +93,15 @@ export interface IUIPlugin {
   type: string
   idReference: string
   onSubmit?: (data: any) => void
-  onOpen?: (key: string, view: TViewConfig, rootId?: string) => void
+  onOpen?: TOnOpen
   config?: any
 }
+
+export type TOnOpen = (
+  viewId: string,
+  view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
+  rootId?: string
+) => void
 
 export type TUiPluginMap = { [pluginName: string]: TPlugin }
 

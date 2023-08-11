@@ -1,8 +1,8 @@
 import {
   TAttribute,
   TBlueprint,
+  TOnOpen,
   TUiRecipe,
-  TViewConfig,
 } from '@development-framework/dm-core'
 
 export type TFormProps = {
@@ -10,7 +10,7 @@ export type TFormProps = {
   type: string
   formData?: any
   config?: TConfig
-  onOpen?: (key: string, view: TViewConfig) => void
+  onOpen?: TOnOpen
   onSubmit?: (data: any) => void
 }
 
