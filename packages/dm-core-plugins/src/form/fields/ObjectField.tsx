@@ -16,7 +16,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import React, { useState } from 'react'
+import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { defaultConfig } from '../FormPlugin'
@@ -55,10 +55,9 @@ const SelectReference = (props: { type: string; namePath: string }) => {
 const AddObject = (props: {
   type: string
   namePath: string
-  onAdd: () => void
   idReference: string
 }) => {
-  const { type, namePath, onAdd, idReference } = props
+  const { type, namePath, idReference } = props
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
   const handleAdd = () => {
@@ -82,7 +81,6 @@ const AddObject = (props: {
           })
           .then((response: any) => {
             setValue(namePath, response.data.data, options)
-            onAdd()
           })
           .catch((error: AxiosError<ErrorResponse>) => {
             console.error(error)
@@ -100,12 +98,8 @@ const AddObject = (props: {
   )
 }
 
-const RemoveObject = (props: {
-  namePath: string
-  onRemove: () => void
-  idReference: string
-}) => {
-  const { namePath, onRemove, idReference } = props
+const RemoveObject = (props: { namePath: string; idReference: string }) => {
+  const { namePath, idReference } = props
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
 
@@ -120,7 +114,6 @@ const RemoveObject = (props: {
       .then(() => {
         // TODO: Fill with default values using createEntity?
         setValue(namePath, null, options)
-        onRemove()
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
@@ -147,42 +140,26 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
     uiRecipe,
     blueprint,
   } = props
-  const { getValues, setValue } = useFormContext()
+  const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
-  const [isDefined, setIsDefined] = useState(
-    getValues(namePath) !== undefined &&
-      Object.keys(getValues(namePath)).length > 0
-  )
-  const hasOpen = onOpen !== undefined
+  const value = watch(namePath)
+  const isDefined = value && Object.keys(value).length > 0
 
   return (
     <Stack spacing={0.25} alignItems="flex-start">
       <Typography bold={true}>{displayLabel}</Typography>
       {optional &&
         (isDefined ? (
-          <RemoveObject
-            namePath={namePath}
-            idReference={idReference}
-            onRemove={() => {
-              const options = {
-                shouldValidate: false,
-                shouldDirty: true,
-                shouldTouch: true,
-              }
-              setValue(namePath, undefined, options)
-              setIsDefined(false)
-            }}
-          />
+          <RemoveObject namePath={namePath} idReference={idReference} />
         ) : (
           <AddObject
             idReference={idReference}
             namePath={namePath}
             type={type}
-            onAdd={() => setIsDefined(true)}
           />
         ))}
       {isDefined &&
-        (hasOpen && !uiAttribute?.showInline ? (
+        (onOpen && !uiAttribute?.showInline ? (
           <OpenObjectButton
             viewId={namePath}
             idReference={idReference}
@@ -259,11 +236,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
       <Stack direction="row" spacing={0.5}>
         <SelectReference type={type} namePath={namePath} />
         {optional && address && (
-          <RemoveObject
-            namePath={namePath}
-            idReference={idReference}
-            onRemove={() => undefined}
-          />
+          <RemoveObject namePath={namePath} idReference={idReference} />
         )}
       </Stack>
       {address && <Typography>Address: {value.address}</Typography>}
