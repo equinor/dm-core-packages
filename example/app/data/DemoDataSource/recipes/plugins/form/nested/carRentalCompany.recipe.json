@@ -31,6 +31,12 @@
         "attributes": [
           {
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "name": "owner",
+            "showInline": false,
+            "uiRecipe": "defaultForm"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "trainee",
             "showInline": true,
             "uiRecipe": "defaultForm"
