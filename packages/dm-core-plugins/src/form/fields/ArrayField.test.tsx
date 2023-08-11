@@ -1,4 +1,4 @@
-import { TViewConfig } from '@development-framework/dm-core'
+import { TOnOpen } from '@development-framework/dm-core'
 import {
   cleanup,
   fireEvent,
@@ -105,7 +105,7 @@ describe('List of objects', () => {
     onOpen,
   }: {
     config?: TConfig
-    onOpen?: (key: string, view: TViewConfig) => void
+    onOpen?: TOnOpen
   }) => {
     const outer = {
       name: 'Root',

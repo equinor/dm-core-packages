@@ -1,6 +1,6 @@
 import {
   TGenericObject,
-  TViewConfig,
+  TOnOpen,
   ViewCreator,
 } from '@development-framework/dm-core'
 import * as React from 'react'
@@ -18,7 +18,7 @@ export const Content = (props: {
   selectedView: string
   items: TItemData[]
   setFormData: (v: TGenericObject) => void
-  onOpen: (id: string, v: TViewConfig) => void
+  onOpen: TOnOpen
   formData: TGenericObject
 }): JSX.Element => {
   const { selectedView, items, setFormData, formData, onOpen, type } = props

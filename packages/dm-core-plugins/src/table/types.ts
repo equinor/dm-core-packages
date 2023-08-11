@@ -1,6 +1,7 @@
 import {
   TGenericObject,
   TInlineRecipeViewConfig,
+  TOnOpen,
   TReferenceViewConfig,
   TViewConfig,
 } from '@development-framework/dm-core'
@@ -53,6 +54,6 @@ export type TTableRow = {
   items: TTableRowItem[]
   setItems: React.Dispatch<React.SetStateAction<TTableRowItem[]>>
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
-  onOpen: any
+  onOpen: TOnOpen
   rowsPerPage: number
 }

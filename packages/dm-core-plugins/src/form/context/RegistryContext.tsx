@@ -1,9 +1,9 @@
-import { TViewConfig } from '@development-framework/dm-core'
+import { TOnOpen } from '@development-framework/dm-core'
 import React, { createContext, useContext } from 'react'
 
 type Props = {
   idReference: string
-  onOpen?: (key: string, view: TViewConfig, rootId?: string) => void
+  onOpen?: TOnOpen
 }
 
 const RegistryContext = createContext<Props | undefined>(undefined)

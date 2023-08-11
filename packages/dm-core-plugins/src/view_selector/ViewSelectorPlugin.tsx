@@ -2,15 +2,18 @@ import {
   IUIPlugin,
   Loading,
   TGenericObject,
+  TInlineRecipeViewConfig,
+  TOnOpen,
+  TReferenceViewConfig,
   TViewConfig,
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
+import { Content } from './Content'
 import { Sidebar } from './Sidebar'
 import { Tabs } from './Tabs'
-import { Content } from './Content'
-import { TViewSelectorConfig, TViewSelectorItem, TItemData } from './types'
+import { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
 
 export const ViewSelectorPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
@@ -27,7 +30,11 @@ export const ViewSelectorPlugin = (
   const [views, setViews] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
 
-  function addView(viewId: string, view: TViewConfig, rootId?: string) {
+  const addView: TOnOpen = (
+    viewId: string,
+    view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
+    rootId?: string
+  ) => {
     if (!views.find((view: TItemData) => view.viewId === viewId)) {
       // View does not exist, add it
       const newView: TItemData = {
