@@ -233,15 +233,13 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   return (
     <Stack spacing={0.5}>
       <Typography bold={true}>{displayLabel}</Typography>
+      {address && <Typography>Address: {value.address}</Typography>}
       <Stack direction="row" spacing={0.5}>
         <SelectReference type={type} namePath={namePath} />
         {optional && address && (
           <RemoveObject namePath={namePath} idReference={idReference} />
         )}
-      </Stack>
-      {address && <Typography>Address: {value.address}</Typography>}
-      {address &&
-        (onOpen && !uiAttribute?.showInline ? (
+        {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
             view={{
@@ -251,14 +249,16 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
             }}
             idReference={address}
           />
-        ) : (
-          <EntityView
-            idReference={address}
-            type={type}
-            recipeName={uiRecipe?.name}
-            onOpen={onOpen}
-          />
-        ))}
+        )}
+      </Stack>
+      {address && !(onOpen && !uiAttribute?.showInline) && (
+        <EntityView
+          idReference={address}
+          type={type}
+          recipeName={uiRecipe?.name}
+          onOpen={onOpen}
+        />
+      )}
     </Stack>
   )
 }
