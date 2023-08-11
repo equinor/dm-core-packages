@@ -26,7 +26,7 @@ import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
-const AddUncontained = (props: { type: string; namePath: string }) => {
+const SelectReference = (props: { type: string; namePath: string }) => {
   const { setValue } = useFormContext()
   const onChange = (address: string, entity: TValidEntity) => {
     const reference: TLinkReference = {
@@ -242,52 +242,50 @@ const Indent = styled.div`
 `
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
-  const { type, namePath, displayLabel, uiAttribute } = props
+  const { type, namePath, displayLabel, uiAttribute, uiRecipe, optional } =
+    props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
   const { dataSource, documentPath } = splitAddress(idReference)
+  const address =
+    value && value.address && value.referenceType === 'link'
+      ? resolveRelativeAddress(value.address, documentPath, dataSource)
+      : undefined
 
-  const Content = () => {
-    if (value && value.address && value.referenceType === 'link') {
-      const id = resolveRelativeAddress(value.address, documentPath, dataSource)
-      return (
-        <Stack spacing={0.25} alignItems="flex-start">
-          <Typography>Id: {value.address}</Typography>
+  return (
+    <Stack spacing={0.5}>
+      <Typography bold={true}>{displayLabel}</Typography>
+      <Stack direction="row" spacing={0.5}>
+        <SelectReference type={type} namePath={namePath} />
+        {optional && address && (
           <RemoveObject
             namePath={namePath}
             idReference={idReference}
             onRemove={() => undefined}
           />
-          {onOpen && !uiAttribute?.showInline ? ( // eslint-disable-line react/prop-types
-            <OpenObjectButton
-              viewId={namePath}
-              view={{
-                type: 'ReferenceViewConfig',
-                scope: '',
-                recipe: getKey<string>(uiAttribute, 'uiRecipe', 'string'),
-              }}
-              idReference={id}
-            />
-          ) : (
-            <EntityView
-              idReference={id}
-              type={type}
-              recipeName={getKey<string>(uiAttribute, 'uiRecipe', 'string')}
-              onOpen={onOpen}
-            />
-          )}
-        </Stack>
-      )
-    } else {
-      return <AddUncontained type={type} namePath={namePath} />
-    }
-  }
-
-  return (
-    <Stack spacing={0.5}>
-      <Typography bold={true}>{displayLabel}</Typography>
-      <Content />
+        )}
+      </Stack>
+      {address && <Typography>Address: {value.address}</Typography>}
+      {address &&
+        (onOpen && !uiAttribute?.showInline ? (
+          <OpenObjectButton
+            viewId={namePath}
+            view={{
+              type: 'ReferenceViewConfig',
+              scope: '',
+              recipe: uiRecipe?.name,
+            }}
+            idReference={address}
+          />
+        ) : (
+          <EntityView
+            idReference={address}
+            type={type}
+            recipeName={uiRecipe?.name}
+            onOpen={onOpen}
+          />
+        ))}
     </Stack>
   )
 }
