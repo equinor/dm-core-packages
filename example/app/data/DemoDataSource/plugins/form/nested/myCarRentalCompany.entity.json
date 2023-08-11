@@ -11,11 +11,6 @@
     "phoneNumber": 1337,
     "name": "John"
   },
-  "bestCustomer": {
-    "address": "^.customers[0]",
-    "type": "CORE:Reference",
-    "referenceType": "link"
-  },
   "cars": [
     {
       "type": "./blueprints/Car",
