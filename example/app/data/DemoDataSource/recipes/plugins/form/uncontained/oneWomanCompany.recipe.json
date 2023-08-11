@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/nested/blueprints/CarRentalCompany",
+  "_blueprintPath_": "/plugins/form/uncontainedObject/blueprints/OneWomanCompany",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
@@ -31,15 +31,9 @@
         "attributes": [
           {
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "name": "owner",
+            "name": "ceo",
             "showInline": false,
-            "uiRecipe": "defaultForm"
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "name": "trainee",
-            "showInline": true,
-            "uiRecipe": "defaultForm"
+            "uiRecipe": "defaultYaml"
           },
           {
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
@@ -48,25 +42,19 @@
             "uiRecipe": "defaultYaml"
           },
           {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "name": "cars",
-            "showInline": true
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "name": "assistant",
+            "showInline": false,
+            "uiRecipe": "defaultYaml"
           },
           {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "name": "locations",
-            "showInline": true
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "name": "trainee",
+            "showInline": true,
+            "uiRecipe": "defaultYaml"
           }
         ],
-        "fields": [
-          "owner",
-          "ceo",
-          "accountant",
-          "trainee",
-          "locations",
-          "cars",
-          "customers"
-        ]
+        "fields": ["ceo", "accountant", "assistant", "trainee"]
       }
     }
   ]
