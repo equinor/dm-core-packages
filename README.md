@@ -1983,3 +1983,8 @@ ref #276 (2023-08-04T08:38:38Z)
     * **DMSS VERSION**: f529465 2023-08-09 Krist..rstad test: fix modeling errors in test_tree_dict_conversion.py grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.16
     * **JOB VERSION**: 9b8cfdf 2023-08-09 Inger..ellen chore: update codeowners grafted, HEAD -> main, origin/main
+* style(EntityPicker): remove button styling (2023-08-10T07:34:28Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5830233229/1)
+    * **DMSS VERSION**: e42508d 2023-08-10 Krist..rstad fix: modeling error in instantiate_entity.feature grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.16
+    * **JOB VERSION**: 9b8cfdf 2023-08-09 Inger..ellen chore: update codeowners grafted, HEAD -> main, origin/main
