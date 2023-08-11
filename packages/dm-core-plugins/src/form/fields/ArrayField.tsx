@@ -32,6 +32,7 @@ export default function ArrayField(props: TArrayFieldProps) {
     control,
     name: namePath,
   })
+  const uiRecipeName = getKey<string>(uiAttribute, 'uiRecipe', 'string')
 
   const handleAddObject = () => {
     dmssAPI
@@ -59,7 +60,14 @@ export default function ArrayField(props: TArrayFieldProps) {
     return (
       <Stack spacing={0.25} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
-        <OpenObjectButton viewId={namePath} namePath={namePath} />
+        <OpenObjectButton
+          viewId={namePath}
+          view={{
+            type: 'ReferenceViewConfig',
+            scope: namePath,
+            recipe: uiRecipeName,
+          }}
+        />
       </Stack>
     )
   }
@@ -69,7 +77,7 @@ export default function ArrayField(props: TArrayFieldProps) {
       <Stack spacing={0.5} alignItems="flex-start">
         <Typography bold={true}>{displayLabel}</Typography>
         <EntityView
-          recipeName={getKey<string>(uiAttribute, 'uiRecipe', 'string')}
+          recipeName={uiRecipeName}
           idReference={`${idReference}.${namePath}`}
           type={type}
           onOpen={onOpen}

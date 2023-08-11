@@ -186,7 +186,11 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
           <OpenObjectButton
             viewId={namePath}
             idReference={idReference}
-            namePath={namePath}
+            view={{
+              type: 'ReferenceViewConfig',
+              scope: namePath,
+              recipe: uiRecipe?.name,
+            }}
           />
         ) : (
           <Inline
@@ -238,7 +242,7 @@ const Indent = styled.div`
 `
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
-  const { type, namePath, displayLabel, uiRecipe, uiAttribute } = props
+  const { type, namePath, displayLabel, uiAttribute } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
@@ -256,13 +260,20 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
             onRemove={() => undefined}
           />
           {onOpen && !uiAttribute?.showInline ? ( // eslint-disable-line react/prop-types
-            <OpenObjectButton viewId={namePath} namePath="" idReference={id} />
+            <OpenObjectButton
+              viewId={namePath}
+              view={{
+                type: 'ReferenceViewConfig',
+                scope: '',
+                recipe: getKey<string>(uiAttribute, 'uiRecipe', 'string'),
+              }}
+              idReference={id}
+            />
           ) : (
             <EntityView
               idReference={id}
               type={type}
-              // eslint-disable-next-line react/prop-types
-              recipeName={uiRecipe?.name}
+              recipeName={getKey<string>(uiAttribute, 'uiRecipe', 'string')}
               onOpen={onOpen}
             />
           )}
