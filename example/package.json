@@ -3,24 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "plotly.js": "^2.18.2",
-    "@development-framework/dm-core": "1.1.2",
-    "@development-framework/dm-core-plugins": "1.1.2",
     "@craco/craco": "^7.0.0",
+    "@development-framework/dm-core": "1.2.0",
+    "@development-framework/dm-core-plugins": "1.2.0",
+    "plotly.js": "^2.18.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-oauth2-code-pkce": "^1.10.1",
     "react-plotly.js": "^2.6.0",
     "react-router-dom": "5.3.4",
-    "react-toastify": "9.1.3",
     "react-scripts": "5.0.1",
+    "react-toastify": "9.1.3",
     "styled-components": "^5.3.6",
     "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
   "devDependencies": {
     "cross-env": "7.0.3",
-    "typescript": "^4.8.4",
-    "eslint": "^8.42.0"
+    "eslint": "^8.42.0",
+    "typescript": "^4.8.4"
   },
   "scripts": {
     "start": "cross-env GENERATE_SOURCEMAP=false REACT_APP_DMSS_URL=http://localhost:5000 ESLINT_NO_DEV_ERRORS='true' REACT_APP_DM_JOB_URL=http://localhost:5001 craco start",
