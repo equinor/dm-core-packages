@@ -13,7 +13,7 @@ export const FormPlugin = (props: IUIPlugin) => {
   const config: TConfig = { ...defaultConfig, ...props.config }
   const [document, loading, updateDocument, error] = useDocument<any>(
     props.idReference,
-    999
+    1
   )
   if (loading) return <Loading />
 

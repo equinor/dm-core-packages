@@ -63,7 +63,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   }
   const [document, loading, , error] = useDocument<TGenericObject[]>(
     idReference,
-    2
+    1
   )
   const [items, setItems] = useState<ItemRow[]>([])
   const [paginationPage, setPaginationPage] = useState(0)

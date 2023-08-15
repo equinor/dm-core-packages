@@ -31,7 +31,7 @@ import { ErrorResponse } from '../models';
 export const EntityApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create a new entity and return it.  (entity is not saved in DMSS)
+         * Create a new entity and return it.  (entity is not saved in DMSS) Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
@@ -121,6 +121,47 @@ export const EntityApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * @summary Validate Existing
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateExistingEntity: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('validateExistingEntity', 'address', address)
+            const localVarPath = `/api/entity/validate-existing-entity/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -132,7 +173,7 @@ export const EntityApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = EntityApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create a new entity and return it.  (entity is not saved in DMSS)
+         * Create a new entity and return it.  (entity is not saved in DMSS) Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
@@ -154,6 +195,17 @@ export const EntityApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.validateEntity(entity, asType, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * @summary Validate Existing
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async validateExistingEntity(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateExistingEntity(address, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -165,7 +217,7 @@ export const EntityApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = EntityApiFp(configuration)
     return {
         /**
-         * Create a new entity and return it.  (entity is not saved in DMSS)
+         * Create a new entity and return it.  (entity is not saved in DMSS) Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
@@ -184,6 +236,16 @@ export const EntityApiFactory = function (configuration?: Configuration, basePat
          */
         validateEntity(entity: Entity, asType?: string, options?: any): AxiosPromise<any> {
             return localVarFp.validateEntity(entity, asType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * @summary Validate Existing
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateExistingEntity(address: string, options?: any): AxiosPromise<any> {
+            return localVarFp.validateExistingEntity(address, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -224,6 +286,20 @@ export interface EntityApiValidateEntityRequest {
 }
 
 /**
+ * Request parameters for validateExistingEntity operation in EntityApi.
+ * @export
+ * @interface EntityApiValidateExistingEntityRequest
+ */
+export interface EntityApiValidateExistingEntityRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof EntityApiValidateExistingEntity
+     */
+    readonly address: string
+}
+
+/**
  * EntityApi - object-oriented interface
  * @export
  * @class EntityApi
@@ -231,7 +307,7 @@ export interface EntityApiValidateEntityRequest {
  */
 export class EntityApi extends BaseAPI {
     /**
-     * Create a new entity and return it.  (entity is not saved in DMSS)
+     * Create a new entity and return it.  (entity is not saved in DMSS) Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
      * @summary Instantiate
      * @param {EntityApiInstantiateEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -252,5 +328,17 @@ export class EntityApi extends BaseAPI {
      */
     public validateEntity(requestParameters: EntityApiValidateEntityRequest, options?: AxiosRequestConfig) {
         return EntityApiFp(this.configuration).validateEntity(requestParameters.entity, requestParameters.asType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+     * @summary Validate Existing
+     * @param {EntityApiValidateExistingEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EntityApi
+     */
+    public validateExistingEntity(requestParameters: EntityApiValidateExistingEntityRequest, options?: AxiosRequestConfig) {
+        return EntityApiFp(this.configuration).validateExistingEntity(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 }

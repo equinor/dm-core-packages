@@ -38,8 +38,6 @@ import { GetBlueprintResponse } from '../models';
 import { Lookup } from '../models';
 // @ts-ignore
 import { PATData } from '../models';
-// @ts-ignore
-import { ReferenceEntity } from '../models';
 /**
  * DefaultApi - axios parameter creator
  * @export
@@ -490,7 +488,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -605,11 +603,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
-         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet: async (address: string, depth?: number, resolveLinks?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentGet: async (address: string, depth?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'address' is not null or undefined
             assertParamExists('documentGet', 'address', address)
             const localVarPath = `/api/documents/{address}`
@@ -634,10 +631,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
             if (depth !== undefined) {
                 localVarQueryParameter['depth'] = depth;
-            }
-
-            if (resolveLinks !== undefined) {
-                localVarQueryParameter['resolve_links'] = resolveLinks;
             }
 
 
@@ -973,7 +966,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Create a new entity and return it.  (entity is not saved in DMSS)
+         * Create a new entity and return it.  (entity is not saved in DMSS) Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
@@ -1095,53 +1088,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
-         * @summary Insert Reference
-         * @param {string} address 
-         * @param {ReferenceEntity} referenceEntity 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        referenceInsert: async (address: string, referenceEntity: ReferenceEntity, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'address' is not null or undefined
-            assertParamExists('referenceInsert', 'address', address)
-            // verify required parameter 'referenceEntity' is not null or undefined
-            assertParamExists('referenceInsert', 'referenceEntity', referenceEntity)
-            const localVarPath = `/api/reference/{address}`
-                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(referenceEntity, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1422,6 +1368,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * @summary Validate Existing
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateExistingEntity: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('validateExistingEntity', 'address', address)
+            const localVarPath = `/api/entity/validate-existing-entity/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
@@ -1584,7 +1571,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -1614,12 +1601,11 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
-         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentGet(address: string, depth?: number, resolveLinks?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(address, depth, resolveLinks, options);
+        async documentGet(address: string, depth?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(address, depth, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1705,7 +1691,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create a new entity and return it.  (entity is not saved in DMSS)
+         * Create a new entity and return it.  (entity is not saved in DMSS) Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
@@ -1736,18 +1722,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async referenceDelete(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(address, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
-         * @summary Insert Reference
-         * @param {string} address 
-         * @param {ReferenceEntity} referenceEntity 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async referenceInsert(address: string, referenceEntity: ReferenceEntity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.referenceInsert(address, referenceEntity, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1820,6 +1794,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async validateEntity(entity: Entity, asType?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.validateEntity(entity, asType, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * @summary Validate Existing
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async validateExistingEntity(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateExistingEntity(address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1948,7 +1933,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.dataSourceSave(dataSourceId, dataSourceRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -1976,12 +1961,11 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
-         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet(address: string, depth?: number, resolveLinks?: boolean, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGet(address, depth, resolveLinks, options).then((request) => request(axios, basePath));
+        documentGet(address: string, depth?: number, options?: any): AxiosPromise<object> {
+            return localVarFp.documentGet(address, depth, options).then((request) => request(axios, basePath));
         },
         /**
          * Remove a document from DMSS.
@@ -2059,7 +2043,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getLookup(application, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create a new entity and return it.  (entity is not saved in DMSS)
+         * Create a new entity and return it.  (entity is not saved in DMSS) Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
@@ -2088,17 +2072,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         referenceDelete(address: string, options?: any): AxiosPromise<object> {
             return localVarFp.referenceDelete(address, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
-         * @summary Insert Reference
-         * @param {string} address 
-         * @param {ReferenceEntity} referenceEntity 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        referenceInsert(address: string, referenceEntity: ReferenceEntity, options?: any): AxiosPromise<object> {
-            return localVarFp.referenceInsert(address, referenceEntity, options).then((request) => request(axios, basePath));
         },
         /**
          * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
@@ -2165,6 +2138,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         validateEntity(entity: Entity, asType?: string, options?: any): AxiosPromise<any> {
             return localVarFp.validateEntity(entity, asType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * @summary Validate Existing
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateExistingEntity(address: string, options?: any): AxiosPromise<any> {
+            return localVarFp.validateExistingEntity(address, options).then((request) => request(axios, basePath));
         },
         /**
          * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
@@ -2421,13 +2404,6 @@ export interface DefaultApiDocumentGetRequest {
      * @memberof DefaultApiDocumentGet
      */
     readonly depth?: number
-
-    /**
-     * 
-     * @type {boolean}
-     * @memberof DefaultApiDocumentGet
-     */
-    readonly resolveLinks?: boolean
 }
 
 /**
@@ -2606,27 +2582,6 @@ export interface DefaultApiReferenceDeleteRequest {
 }
 
 /**
- * Request parameters for referenceInsert operation in DefaultApi.
- * @export
- * @interface DefaultApiReferenceInsertRequest
- */
-export interface DefaultApiReferenceInsertRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiReferenceInsert
-     */
-    readonly address: string
-
-    /**
-     * 
-     * @type {ReferenceEntity}
-     * @memberof DefaultApiReferenceInsert
-     */
-    readonly referenceEntity: ReferenceEntity
-}
-
-/**
  * Request parameters for search operation in DefaultApi.
  * @export
  * @interface DefaultApiSearchRequest
@@ -2743,6 +2698,20 @@ export interface DefaultApiValidateEntityRequest {
      * @memberof DefaultApiValidateEntity
      */
     readonly asType?: string
+}
+
+/**
+ * Request parameters for validateExistingEntity operation in DefaultApi.
+ * @export
+ * @interface DefaultApiValidateExistingEntityRequest
+ */
+export interface DefaultApiValidateExistingEntityRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiValidateExistingEntity
+     */
+    readonly address: string
 }
 
 /**
@@ -2872,7 +2841,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+     * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
      * @summary Add Document
      * @param {DefaultApiDocumentAddRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2904,7 +2873,7 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public documentGet(requestParameters: DefaultApiDocumentGetRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).documentGet(requestParameters.address, requestParameters.depth, requestParameters.resolveLinks, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).documentGet(requestParameters.address, requestParameters.depth, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2991,7 +2960,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Create a new entity and return it.  (entity is not saved in DMSS)
+     * Create a new entity and return it.  (entity is not saved in DMSS) Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
      * @summary Instantiate
      * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3024,18 +2993,6 @@ export class DefaultApi extends BaseAPI {
      */
     public referenceDelete(requestParameters: DefaultApiReferenceDeleteRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).referenceDelete(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
-     * @summary Insert Reference
-     * @param {DefaultApiReferenceInsertRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public referenceInsert(requestParameters: DefaultApiReferenceInsertRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).referenceInsert(requestParameters.address, requestParameters.referenceEntity, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3107,6 +3064,18 @@ export class DefaultApi extends BaseAPI {
      */
     public validateEntity(requestParameters: DefaultApiValidateEntityRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).validateEntity(requestParameters.entity, requestParameters.asType, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+     * @summary Validate Existing
+     * @param {DefaultApiValidateExistingEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public validateExistingEntity(requestParameters: DefaultApiValidateExistingEntityRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).validateExistingEntity(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

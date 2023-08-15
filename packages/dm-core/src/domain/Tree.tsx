@@ -230,7 +230,6 @@ export class TreeNode {
             .documentGet({
               address: this.nodeId,
               depth: 2,
-              resolveLinks: true,
             })
             .then((response: any) => {
               const data = response.data

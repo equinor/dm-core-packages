@@ -22,8 +22,6 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
 import { ErrorResponse } from '../models';
-// @ts-ignore
-import { ReferenceEntity } from '../models';
 /**
  * ReferenceApi - axios parameter creator
  * @export
@@ -71,53 +69,6 @@ export const ReferenceApiAxiosParamCreator = function (configuration?: Configura
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
-         * @summary Insert Reference
-         * @param {string} address 
-         * @param {ReferenceEntity} referenceEntity 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        referenceInsert: async (address: string, referenceEntity: ReferenceEntity, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'address' is not null or undefined
-            assertParamExists('referenceInsert', 'address', address)
-            // verify required parameter 'referenceEntity' is not null or undefined
-            assertParamExists('referenceInsert', 'referenceEntity', referenceEntity)
-            const localVarPath = `/api/reference/{address}`
-                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(referenceEntity, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -137,18 +88,6 @@ export const ReferenceApiFp = function(configuration?: Configuration) {
          */
         async referenceDelete(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(address, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
-         * @summary Insert Reference
-         * @param {string} address 
-         * @param {ReferenceEntity} referenceEntity 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async referenceInsert(address: string, referenceEntity: ReferenceEntity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.referenceInsert(address, referenceEntity, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -171,17 +110,6 @@ export const ReferenceApiFactory = function (configuration?: Configuration, base
         referenceDelete(address: string, options?: any): AxiosPromise<object> {
             return localVarFp.referenceDelete(address, options).then((request) => request(axios, basePath));
         },
-        /**
-         * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
-         * @summary Insert Reference
-         * @param {string} address 
-         * @param {ReferenceEntity} referenceEntity 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        referenceInsert(address: string, referenceEntity: ReferenceEntity, options?: any): AxiosPromise<object> {
-            return localVarFp.referenceInsert(address, referenceEntity, options).then((request) => request(axios, basePath));
-        },
     };
 };
 
@@ -197,27 +125,6 @@ export interface ReferenceApiReferenceDeleteRequest {
      * @memberof ReferenceApiReferenceDelete
      */
     readonly address: string
-}
-
-/**
- * Request parameters for referenceInsert operation in ReferenceApi.
- * @export
- * @interface ReferenceApiReferenceInsertRequest
- */
-export interface ReferenceApiReferenceInsertRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof ReferenceApiReferenceInsert
-     */
-    readonly address: string
-
-    /**
-     * 
-     * @type {ReferenceEntity}
-     * @memberof ReferenceApiReferenceInsert
-     */
-    readonly referenceEntity: ReferenceEntity
 }
 
 /**
@@ -237,17 +144,5 @@ export class ReferenceApi extends BaseAPI {
      */
     public referenceDelete(requestParameters: ReferenceApiReferenceDeleteRequest, options?: AxiosRequestConfig) {
         return ReferenceApiFp(this.configuration).referenceDelete(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Add reference to an entity.  Used to add uncontained attributes to an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute> - **reference**: a reference object in JSON format
-     * @summary Insert Reference
-     * @param {ReferenceApiReferenceInsertRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ReferenceApi
-     */
-    public referenceInsert(requestParameters: ReferenceApiReferenceInsertRequest, options?: AxiosRequestConfig) {
-        return ReferenceApiFp(this.configuration).referenceInsert(requestParameters.address, requestParameters.referenceEntity, options).then((request) => request(this.axios, this.basePath));
     }
 }

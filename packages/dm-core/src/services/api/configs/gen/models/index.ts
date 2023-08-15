@@ -9,7 +9,6 @@ export * from './lookup';
 export * from './patdata';
 export * from './recipe';
 export * from './recipe-attribute';
-export * from './reference-entity';
 export * from './repository';
 export * from './repository-type';
 export * from './storage-attribute';

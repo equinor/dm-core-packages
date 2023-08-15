@@ -33,7 +33,7 @@ export const TablePlugin = (props: IUIPlugin) => {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [document, loading, , error] = useDocument<TGenericObject[]>(
     idReference,
-    2
+    1
   )
   const dmssAPI = useDMSS()
   const paginatedRows = items.slice(
