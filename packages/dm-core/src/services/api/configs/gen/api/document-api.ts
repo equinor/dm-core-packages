@@ -29,7 +29,7 @@ import { ErrorResponse } from '../models';
 export const DocumentApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -144,11 +144,10 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
-         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet: async (address: string, depth?: number, resolveLinks?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        documentGet: async (address: string, depth?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'address' is not null or undefined
             assertParamExists('documentGet', 'address', address)
             const localVarPath = `/api/documents/{address}`
@@ -173,10 +172,6 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
 
             if (depth !== undefined) {
                 localVarQueryParameter['depth'] = depth;
-            }
-
-            if (resolveLinks !== undefined) {
-                localVarQueryParameter['resolve_links'] = resolveLinks;
             }
 
 
@@ -306,7 +301,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DocumentApiAxiosParamCreator(configuration)
     return {
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -336,12 +331,11 @@ export const DocumentApiFp = function(configuration?: Configuration) {
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
-         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async documentGet(address: string, depth?: number, resolveLinks?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(address, depth, resolveLinks, options);
+        async documentGet(address: string, depth?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(address, depth, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -380,7 +374,7 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
     const localVarFp = DocumentApiFp(configuration)
     return {
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -408,12 +402,11 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
-         * @param {boolean} [resolveLinks] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet(address: string, depth?: number, resolveLinks?: boolean, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGet(address, depth, resolveLinks, options).then((request) => request(axios, basePath));
+        documentGet(address: string, depth?: number, options?: any): AxiosPromise<object> {
+            return localVarFp.documentGet(address, depth, options).then((request) => request(axios, basePath));
         },
         /**
          * Remove a document from DMSS.
@@ -516,13 +509,6 @@ export interface DocumentApiDocumentGetRequest {
      * @memberof DocumentApiDocumentGet
      */
     readonly depth?: number
-
-    /**
-     * 
-     * @type {boolean}
-     * @memberof DocumentApiDocumentGet
-     */
-    readonly resolveLinks?: boolean
 }
 
 /**
@@ -582,7 +568,7 @@ export interface DocumentApiDocumentUpdateRequest {
  */
 export class DocumentApi extends BaseAPI {
     /**
-     * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.
+     * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
      * @summary Add Document
      * @param {DocumentApiDocumentAddRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -614,7 +600,7 @@ export class DocumentApi extends BaseAPI {
      * @memberof DocumentApi
      */
     public documentGet(requestParameters: DocumentApiDocumentGetRequest, options?: AxiosRequestConfig) {
-        return DocumentApiFp(this.configuration).documentGet(requestParameters.address, requestParameters.depth, requestParameters.resolveLinks, options).then((request) => request(this.axios, this.basePath));
+        return DocumentApiFp(this.configuration).documentGet(requestParameters.address, requestParameters.depth, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

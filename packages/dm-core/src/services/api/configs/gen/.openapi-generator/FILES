@@ -35,7 +35,6 @@ models/lookup.ts
 models/patdata.ts
 models/recipe-attribute.ts
 models/recipe.ts
-models/reference-entity.ts
 models/repository-type.ts
 models/repository.ts
 models/storage-attribute.ts
