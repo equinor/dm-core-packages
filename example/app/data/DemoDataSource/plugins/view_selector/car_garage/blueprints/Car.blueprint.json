@@ -1,0 +1,30 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "CarBlueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "model",
+      "label": "Model",
+      "optional": false
+    },
+    {
+      "attributeType": "./OwnerBlueprint",
+      "type": "CORE:BlueprintAttribute",
+      "name": "Owner",
+      "label": "View owner details and history",
+      "contained": true,
+      "optional": false
+    },
+    {
+      "attributeType": "./TechBlueprint",
+      "type": "CORE:BlueprintAttribute",
+      "name": "Technical",
+      "label": "View technical information",
+      "contained": true,
+      "optional": false
+    }
+  ]
+}

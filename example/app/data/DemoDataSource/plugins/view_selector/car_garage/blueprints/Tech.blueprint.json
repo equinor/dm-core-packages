@@ -1,0 +1,42 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "TechBlueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "controlDate",
+      "label": "Last control date",
+      "optional": false
+    },
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "nextControl",
+      "label": "Next control date",
+      "optional": false
+    },
+    {
+      "attributeType": "number",
+      "type": "CORE:BlueprintAttribute",
+      "name": "width",
+      "label": "Width (mm)",
+      "optional": true
+    },
+    {
+      "attributeType": "number",
+      "type": "CORE:BlueprintAttribute",
+      "name": "length",
+      "label": "Length (mm)",
+      "optional": true
+    },
+    {
+      "attributeType": "number",
+      "type": "CORE:BlueprintAttribute",
+      "name": "heigth",
+      "label": "Heigth (mm)",
+      "optional": true
+    }
+  ]
+}
