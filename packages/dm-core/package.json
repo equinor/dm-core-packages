@@ -26,7 +26,6 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
-    "fs-extra": "10.1.0",
     "jest": "^29.6.2",
     "jest-environment-jsdom": "^29.6.2",
     "path-browserify": "^1.0.1",
