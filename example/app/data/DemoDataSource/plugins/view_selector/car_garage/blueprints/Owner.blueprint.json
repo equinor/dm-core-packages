@@ -1,0 +1,28 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "OwnerBlueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "nameOwner",
+      "label": "Name of Owner",
+      "optional": false
+    },
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "DateOwned",
+      "optional": true
+    },
+    {
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "name": "earlierOwners",
+      "dimensions": "*",
+      "label": "Earlier owners",
+      "optional": false
+    }
+  ]
+}

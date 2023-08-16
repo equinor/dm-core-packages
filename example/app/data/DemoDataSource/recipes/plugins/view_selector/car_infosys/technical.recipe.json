@@ -1,0 +1,66 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/view_selector/car_garage/blueprints/TechBlueprint",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true,
+      "asSidebar": false,
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "EU control",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "Edit",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "fields": ["controlDate", "nextControl"]
+              }
+            },
+            "eds_icon": "check"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Dimensions",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "Edit",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "fields": ["width", "length", "heigth"]
+              }
+            },
+            "eds_icon": "car"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml",
+      "category": "container"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}

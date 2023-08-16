@@ -1,0 +1,66 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/view_selector/car_garage/blueprints/OwnerBlueprint",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true,
+      "asSidebar": false,
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Owner details",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "Edit",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "fields": ["nameOwner", "DateOwned"]
+              }
+            },
+            "eds_icon": "person"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Owner history",
+          "view": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "type": "CORE:UiRecipe",
+              "name": "Edit",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "fields": ["earlierOwners"]
+              }
+            },
+            "eds_icon": "group"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml",
+      "category": "container"
+    },
+    {
+      "type": "CORE:UiRecipe",
+      "name": "Edit",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}
