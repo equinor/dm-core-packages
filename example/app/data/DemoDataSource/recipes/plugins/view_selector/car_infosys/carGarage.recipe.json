@@ -16,8 +16,8 @@
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "type": "CORE:UiRecipe",
-              "name": "Garage",
-              "description": "",
+              "name": "Edit",
+              "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
@@ -31,6 +31,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "view": {
+            "recipe": "Edit",
             "type": "CORE:ReferenceViewConfig",
             "scope": "Audi",
             "eds_icon": "car"
@@ -39,6 +40,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "view": {
+            "recipe": "Edit",
             "type": "CORE:ReferenceViewConfig",
             "scope": "Volvo",
             "eds_icon": "car"
