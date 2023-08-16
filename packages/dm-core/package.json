@@ -13,7 +13,7 @@
     "@equinor/eds-core-react": "^0.32.4",
     "@equinor/eds-icons": "^0.19.3",
     "@equinor/eds-tokens": "^0.9.0",
-    "axios": "^0.27.2",
+    "axios": "^1.4.0",
     "lodash": "^4.17.19",
     "react-icons": "3.11.0",
     "react-is": "^17.0.2",
