@@ -5,11 +5,11 @@ import {
   UiPluginProvider,
 } from '@development-framework/dm-core'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import App from './App'
 import plugins from './plugins'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 const APP_SETTINGS = {
   visibleDataSources: [
@@ -20,8 +20,8 @@ const APP_SETTINGS = {
   ],
   name: 'example',
 }
-
-ReactDOM.render(
+const root = createRoot(document.getElementById('root'))
+root.render(
   <React.StrictMode>
     <DMSSProvider>
       <ApplicationContext.Provider value={APP_SETTINGS}>
@@ -33,6 +33,5 @@ ReactDOM.render(
         </FSTreeProvider>
       </ApplicationContext.Provider>
     </DMSSProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 )

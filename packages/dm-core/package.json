@@ -3,9 +3,9 @@
   "version": "1.2.0",
   "license": "MIT",
   "peerDependencies": {
-    "@types/react": "^17.0.39",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "@types/react": "^18.2.20",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": ">=5.1.2",
     "styled-components": "^5.2.3"
   },
@@ -21,10 +21,9 @@
     "react-oauth2-code-pkce": "^1.10.1"
   },
   "devDependencies": {
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/react": "^14.0.0",
     "@types/jest": "^27.4.0",
-    "@types/react-dom": "^17.0.11",
+    "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^4.1.18",
     "fs-extra": "10.1.0",
