@@ -1,7 +1,9 @@
-import { TreeNode } from '../domain/Tree'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { TreeNode } from '../domain/Tree'
 
+import { Progress, Tooltip } from '@equinor/eds-core-react'
+import React from 'react'
 import {
   FaChevronDown,
   FaChevronRight,
@@ -15,8 +17,6 @@ import {
   FaList,
   FaRegFileAlt,
 } from 'react-icons/fa'
-import { Progress, Tooltip } from '@equinor/eds-core-react'
-import React from 'react'
 import { EBlueprint } from '../Enums'
 
 type TStyledTreeNode = {
@@ -28,7 +28,7 @@ const ExpandButton = styled.div`
   width: 15px;
 `
 
-const StyledTreeNode = styled.div`
+const StyledTreeNode = styled.div<TStyledTreeNode>`
   align-items: center;
   display: flex;
   padding-left: ${(props: TStyledTreeNode) => props.level * 20}px;

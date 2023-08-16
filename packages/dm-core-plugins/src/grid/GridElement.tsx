@@ -1,9 +1,9 @@
-import { TGridItem, TGridArea } from './types'
-import styled from 'styled-components'
-import React from 'react'
 import { ViewCreator } from '@development-framework/dm-core'
+import React from 'react'
+import styled from 'styled-components'
+import { TGridArea, TGridItem } from './types'
 
-const Element = styled.div`
+const Element = styled.div<TGridArea>`
   grid-area: ${(props: TGridArea) =>
     `${props.rowStart} / ${props.columnStart} / ${props.rowEnd} / ${props.columnEnd} `};
 `
