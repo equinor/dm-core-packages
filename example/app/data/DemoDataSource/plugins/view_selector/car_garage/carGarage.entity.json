@@ -2,15 +2,14 @@
   "type": "./blueprints/CarGarage",
   "name": "CarGarage",
   "description": "Here you will find detailed information about the cars in our garage",
-  "Volvo": {
+  "Audi": {
     "type": "./blueprints/CarBlueprint",
-    "name": "Volvo",
+    "name": "Audi",
     "model": "2023",
     "Owner": {
       "type": "./blueprints/OwnerBlueprint",
-      "name": "Owner",
-      "nameOwner": "Devon",
-      "earlierOwners": ["Jack", "Maria"]
+      "name": "Aiden",
+      "earlierOwners": ["Melissa"]
     },
     "Technical": {
       "type": "./blueprints/TechBlueprint",
@@ -22,15 +21,15 @@
       "heigth": 1600
     }
   },
-  "Audi": {
+  "Volvo": {
     "type": "./blueprints/CarBlueprint",
-    "name": "Audi",
+    "name": "Volvo",
     "model": "2023",
     "Owner": {
       "type": "./blueprints/OwnerBlueprint",
-      "name": "Owner",
-      "nameOwner": "Aiden",
-      "earlierOwners": ["Melissa"]
+      "name": "Devon",
+      "DateOwned": "2023-06-01",
+      "earlierOwners": ["Jack", "Maria"]
     },
     "Technical": {
       "type": "./blueprints/TechBlueprint",
