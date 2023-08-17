@@ -128,6 +128,7 @@ test('New car', async () => {
   await lastTabPanel.getByLabel('Name').fill('McLaren')
   await lastTabPanel.getByLabel('Plate Number').fill('3000')
   await lastTabPanel.getByRole('button', { name: 'Submit' }).click()
+  await page.waitForTimeout(5000)
   await page.reload()
   await navigate()
   // await expect(cars.getByText('McLaren')).toBeVisible() Does not work because two instances are stored when submitting form... Known bug.

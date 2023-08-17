@@ -47,9 +47,7 @@
   },
   "files": [
     "blueprints",
-    "dist",
-    "src",
-    "tsconfig.json"
+    "dist"
   ],
   "types": "dist/index.d.ts",
   "scripts": {
