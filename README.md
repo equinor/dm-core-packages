@@ -2021,3 +2021,8 @@ ref #276 (2023-08-04T08:38:38Z)
     * **DMSS VERSION**: 811b1c6 2023-08-11 Krist..rstad fix: remove insert_reference endpoint and use document add instead grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.16
     * **JOB VERSION**: 9b8cfdf 2023-08-09 Inger..ellen chore: update codeowners grafted, HEAD -> main, origin/main
+* fix: set wait for timeout after submit form (2023-08-10T07:34:28Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5891496466/1)
+    * **DMSS VERSION**: 53e2911 2023-08-17 Eirik..ksnes refactor: add method to data source to get storage affinity grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.16
+    * **JOB VERSION**: 2eef466 2023-08-16 Krist..rstad docs: add more documentation to job API endpoints grafted, HEAD -> main, origin/main
