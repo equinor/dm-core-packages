@@ -1,13 +1,15 @@
 {
   "name": "ExampleApplication",
   "type": "CORE:Blueprint",
-  "extends": ["CORE:Application"],
   "description": "",
+  "extends": [
+    "CORE:Application"
+  ],
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
       "name": "label",

@@ -16,8 +16,8 @@
     },
     {
       "name": "showInline",
-      "description": "If true, the attribute will be shown inline. If false, it will be opened in a new tab if possible",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "If true, the attribute will be shown inline. If false, it will be opened in a new tab if possible",
       "optional": true,
       "default": false,
       "attributeType": "boolean"

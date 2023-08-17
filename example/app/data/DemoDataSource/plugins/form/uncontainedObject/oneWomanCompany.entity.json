@@ -2,18 +2,18 @@
   "_id": "UncontainedObject",
   "type": "./blueprints/OneWomanCompany",
   "owner": {
+    "name": "Miranda",
     "type": "./blueprints/Person",
-    "phoneNumber": 1337,
-    "name": "Miranda"
+    "phoneNumber": 1337
   },
   "ceo": {
-    "address": "^.owner",
     "type": "CORE:Reference",
+    "address": "^.owner",
     "referenceType": "link"
   },
   "accountant": {
-    "address": "^.owner",
     "type": "CORE:Reference",
+    "address": "^.owner",
     "referenceType": "link"
   }
 }

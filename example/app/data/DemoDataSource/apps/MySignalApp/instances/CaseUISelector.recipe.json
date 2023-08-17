@@ -46,14 +46,14 @@
       }
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "Edit",
+      "type": "CORE:UiRecipe",
       "description": "Default edit",
       "plugin": "form"
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "Run",
+      "type": "CORE:UiRecipe",
       "description": "running",
       "plugin": "signal-job"
     }

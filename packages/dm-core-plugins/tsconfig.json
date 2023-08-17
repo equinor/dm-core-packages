@@ -3,6 +3,13 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["src", "src/**/*.json"],
-  "exclude": ["node_modules", "src/**/*.spec.ts", "dist"]
+  "include": [
+    "src",
+    "src/**/*.json"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts",
+    "dist"
+  ]
 }

@@ -1,12 +1,12 @@
 {
-  "type": "dmss://system/SIMOS/Blueprint",
   "name": "FormInput",
+  "type": "dmss://system/SIMOS/Blueprint",
   "description": "",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute"
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
     },
     {
       "name": "attributes",
@@ -19,11 +19,11 @@
     {
       "name": "fields",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Define which attributes should be shown, and in what order",
       "attributeType": "string",
       "dimensions": "*",
       "optional": true,
-      "contained": true,
-      "description": "Define which attributes should be shown, and in what order"
+      "contained": true
     }
   ]
 }

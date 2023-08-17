@@ -1,38 +1,38 @@
 {
-  "type": "./blueprints/ViewSelectorTabs",
   "name": "viewSelectorTabsEntity",
+  "type": "./blueprints/ViewSelectorTabs",
   "firstAttribute": {
-    "type": "./blueprints/ViewSelectorTabs",
     "name": "first attribute",
+    "type": "./blueprints/ViewSelectorTabs",
     "firstAttribute": {
-      "type": "./blueprints/ViewSelectorTabs",
-      "name": "first attribute"
+      "name": "first attribute",
+      "type": "./blueprints/ViewSelectorTabs"
     }
   },
   "secondAttribute": {
-    "type": "./blueprints/ViewSelectorTabs",
-    "name": ""
+    "name": "",
+    "type": "./blueprints/ViewSelectorTabs"
   },
   "thirdAttribute": {
-    "type": "./blueprints/ViewSelectorTabs",
     "name": "third attribute",
+    "type": "./blueprints/ViewSelectorTabs",
     "firstAttribute": {
-      "type": "./blueprints/ViewSelectorTabs",
       "name": "first attribute",
-      "label": "First attribute label ½¡@£",
+      "type": "./blueprints/ViewSelectorTabs",
+      "label": "First attribute label \u00bd\u00a1@\u00a3",
       "firstAttribute": {
-        "type": "./blueprints/ViewSelectorTabs",
         "name": "first attribute",
+        "type": "./blueprints/ViewSelectorTabs",
         "aStringValue": "Something here"
       }
     },
     "secondAttribute": {
-      "type": "./blueprints/ViewSelectorTabs",
-      "name": "a"
+      "name": "a",
+      "type": "./blueprints/ViewSelectorTabs"
     },
     "thirdAttribute": {
-      "type": "./blueprints/ViewSelectorTabs",
       "name": "_third-attribute_test_name------____",
+      "type": "./blueprints/ViewSelectorTabs",
       "aStringValue": "Hallo World!"
     }
   }

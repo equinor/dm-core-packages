@@ -15,8 +15,8 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Edit",
+              "type": "CORE:UiRecipe",
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form"
             },
@@ -28,8 +28,8 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Edit",
+              "type": "CORE:UiRecipe",
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form"
             },
@@ -42,8 +42,8 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Edit",
+              "type": "CORE:UiRecipe",
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form"
             },
@@ -61,8 +61,8 @@
       "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "Edit",
+      "type": "CORE:UiRecipe",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
     }

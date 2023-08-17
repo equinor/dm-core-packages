@@ -1,51 +1,51 @@
 {
-  "type": "CORE:Blueprint",
   "name": "TableFunctionalityConfig",
+  "type": "CORE:Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute"
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "openAsTab",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": true,
       "default": true
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "openAsExpandable",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": true,
       "default": false
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "delete",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": true,
       "default": false
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "add",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": true,
       "default": false
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "edit",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": true,
       "default": false
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "sort",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": true,
       "default": false
     }

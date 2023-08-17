@@ -1,6 +1,6 @@
 {
-  "type": "./blueprints/Employee",
   "name": "employee1",
+  "type": "./blueprints/Employee",
   "description": "This is a description...",
   "profilePicture": {
     "type": "dmss://system/SIMOS/Reference",

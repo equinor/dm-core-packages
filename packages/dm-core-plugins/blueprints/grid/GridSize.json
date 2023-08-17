@@ -1,35 +1,35 @@
 {
-  "type": "dmss://system/SIMOS/Blueprint",
   "name": "GridSize",
+  "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute"
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     },
     {
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
       "name": "columns",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
       "default": 5
     },
     {
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
       "name": "rows",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
       "default": 5
     },
     {
+      "name": "rowGap",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
-      "name": "rowGap",
       "optional": true,
       "default": 16
     },
     {
+      "name": "columnGap",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
-      "name": "columnGap",
       "optional": true,
       "default": 16
     }

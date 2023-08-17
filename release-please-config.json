@@ -5,7 +5,9 @@
   "bump-patch-for-minor-pre-major": true,
   "prerelease": true,
   "separate-pull-requests": false,
-  "plugins": ["node-workspace"],
+  "plugins": [
+    "node-workspace"
+  ],
   "always-link-local": true,
   "packages": {
     "packages/dm-core": {

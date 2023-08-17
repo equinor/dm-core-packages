@@ -3,19 +3,19 @@
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
-      "attributeType": "number",
+      "name": "quantity",
       "type": "CORE:BlueprintAttribute",
-      "name": "quantity"
+      "attributeType": "number"
     },
     {
-      "attributeType": "./Product",
+      "name": "product",
       "type": "CORE:BlueprintAttribute",
-      "name": "product"
+      "attributeType": "./Product"
     }
   ]
 }

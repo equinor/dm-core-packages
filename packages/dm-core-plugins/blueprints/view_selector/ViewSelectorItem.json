@@ -1,21 +1,21 @@
 {
-  "type": "CORE:Blueprint",
   "name": "ViewSelectorItem",
+  "type": "CORE:Blueprint",
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "CORE:BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
-      "attributeType": "CORE:ViewConfig",
+      "name": "view",
       "type": "CORE:BlueprintAttribute",
-      "name": "view"
+      "attributeType": "CORE:ViewConfig"
     },
     {
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
       "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
       "optional": true
     }
   ]

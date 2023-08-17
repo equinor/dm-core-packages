@@ -5,26 +5,26 @@
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
       "optional": false
     },
     {
       "name": "name",
-      "label": "Manufacturer",
       "type": "CORE:BlueprintAttribute",
+      "label": "Manufacturer",
       "attributeType": "string"
     },
     {
       "name": "model",
-      "label": "Model",
       "type": "CORE:BlueprintAttribute",
+      "label": "Model",
       "attributeType": "string"
     },
     {
       "name": "color",
-      "label": "Color",
       "type": "CORE:BlueprintAttribute",
+      "label": "Color",
       "attributeType": "string",
       "optional": true
     }

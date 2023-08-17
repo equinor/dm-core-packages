@@ -30,31 +30,31 @@
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
         "attributes": [
           {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "owner",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "showInline": false,
             "uiRecipe": "defaultForm"
           },
           {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "trainee",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "showInline": true,
             "uiRecipe": "defaultForm"
           },
           {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "name": "accountant",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "showInline": true,
             "uiRecipe": "defaultYaml"
           },
           {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "name": "cars",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "showInline": true
           },
           {
-            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "name": "locations",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "showInline": true
           }
         ],

@@ -5,20 +5,20 @@
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
       "default": "",
       "optional": false
     },
     {
-      "attributeType": "string",
+      "name": "name",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "name"
+      "attributeType": "string"
     },
     {
       "name": "cars",
-      "dimensions": "*",
       "type": "CORE:BlueprintAttribute",
+      "dimensions": "*",
       "attributeType": "./Car"
     }
   ]

@@ -1,31 +1,31 @@
 {
-  "type": "dmss://system/SIMOS/Blueprint",
   "name": "GridArea",
+  "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute"
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     },
     {
+      "name": "rowStart",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "name": "rowStart"
+      "attributeType": "number"
     },
     {
+      "name": "rowEnd",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "name": "rowEnd"
+      "attributeType": "number"
     },
     {
+      "name": "columnStart",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "name": "columnStart"
+      "attributeType": "number"
     },
     {
+      "name": "columnEnd",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "name": "columnEnd"
+      "attributeType": "number"
     }
   ]
 }

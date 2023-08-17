@@ -1,31 +1,31 @@
 {
-  "type": "CORE:Blueprint",
   "name": "ViewSelectorConfig",
+  "type": "CORE:Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute"
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "childTabsOnRender",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": true,
       "default": true
     },
     {
-      "attributeType": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-      "type": "CORE:BlueprintAttribute",
       "name": "items",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
       "dimensions": "*",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "asSidebar",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": true,
       "default": false
     }

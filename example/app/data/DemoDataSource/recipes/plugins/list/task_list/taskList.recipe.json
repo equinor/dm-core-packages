@@ -29,7 +29,10 @@
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
         "views": [],
-        "headers": ["name", "assigned"],
+        "headers": [
+          "name",
+          "assigned"
+        ],
         "openInline": false,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",

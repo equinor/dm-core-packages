@@ -3,15 +3,15 @@
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
-      "attributeType": "./OrderItem",
-      "dimensions": "*",
+      "name": "items",
       "type": "CORE:BlueprintAttribute",
-      "name": "items"
+      "attributeType": "./OrderItem",
+      "dimensions": "*"
     }
   ]
 }

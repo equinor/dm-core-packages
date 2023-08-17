@@ -1,16 +1,18 @@
 {
   "_id": "4483c9b0-d505-46c9-a157-94c79f4d7a6a",
-  "type": "AppModels:SignalApp",
   "name": "signalApp",
+  "type": "AppModels:SignalApp",
   "description": "This is an app for generating and plotting sin signals.",
   "label": "",
-  "dataSources": ["AppStorage"],
+  "dataSources": [
+    "AppStorage"
+  ],
   "study": {
     "type": "AppModels:signals_simple/Study",
     "cases": [
       {
-        "type": "AppModels:signals_simple/Case",
         "name": "case1",
+        "type": "AppModels:signals_simple/Case",
         "description": "",
         "duration": 100,
         "timeStep": 0.1,
@@ -35,8 +37,8 @@
           }
         ],
         "signal": {
-          "type": "AppModels:containers/EquallySpacedSignal",
           "name": "signal",
+          "type": "AppModels:containers/EquallySpacedSignal",
           "value": [],
           "xname": "time",
           "xunit": "s",

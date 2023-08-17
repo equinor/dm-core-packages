@@ -6,8 +6,11 @@
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/header",
     "config": {
-      "uiRecipesList": ["Yaml", "Explorer"],
       "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
+      "uiRecipesList": [
+        "Yaml",
+        "Explorer"
+      ],
       "hideAbout": false,
       "hideUserInfo": false
     }
@@ -19,8 +22,8 @@
       "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "Edit",
+      "type": "CORE:UiRecipe",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
     },

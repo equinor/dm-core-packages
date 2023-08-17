@@ -3,20 +3,20 @@
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
-      "attributeType": "string",
+      "name": "name",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "name"
+      "attributeType": "string"
     },
     {
-      "attributeType": "./Task",
-      "dimensions": "*",
+      "name": "task list",
       "type": "CORE:BlueprintAttribute",
-      "name": "task list"
+      "attributeType": "./Task",
+      "dimensions": "*"
     }
   ]
 }

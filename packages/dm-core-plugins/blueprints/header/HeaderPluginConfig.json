@@ -1,29 +1,29 @@
 {
-  "type": "dmss://system/SIMOS/Blueprint",
   "name": "HeaderPluginConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute"
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
     },
     {
-      "attributeType": "boolean",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
       "name": "hideAbout",
-      "default": false
-    },
-    {
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "boolean",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "hideUserInfo",
       "default": false
     },
     {
-      "attributeType": "string",
+      "name": "hideUserInfo",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "dimensions": "*",
-      "name": "uiRecipesList"
+      "attributeType": "boolean",
+      "default": false
+    },
+    {
+      "name": "uiRecipesList",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*"
     }
   ]
 }

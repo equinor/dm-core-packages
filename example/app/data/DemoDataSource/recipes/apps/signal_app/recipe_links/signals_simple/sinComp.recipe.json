@@ -9,8 +9,16 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-        "columns": ["A", "T", "phase"],
-        "editableColumns": ["A", "T", "phase"],
+        "columns": [
+          "A",
+          "T",
+          "phase"
+        ],
+        "editableColumns": [
+          "A",
+          "T",
+          "phase"
+        ],
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
           "openAsTab": false,
