@@ -16,8 +16,8 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Edit",
+              "type": "CORE:UiRecipe",
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form"
             },
@@ -30,8 +30,8 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Yaml",
+              "type": "CORE:UiRecipe",
               "description": "Yaml view",
               "plugin": "@development-framework/dm-core-plugins/yaml"
             },
@@ -48,8 +48,8 @@
       "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "Edit",
+      "type": "CORE:UiRecipe",
       "description": "Default blueprint edit",
       "plugin": "@development-framework/dm-core-plugins/blueprint"
     },

@@ -3,19 +3,19 @@
   "type": "CORE:Blueprint",
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "CORE:BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
-      "attributeType": "string",
+      "name": "name",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "name"
+      "attributeType": "string"
     },
     {
-      "attributeType": "string",
+      "name": "description",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "description"
+      "attributeType": "string"
     },
     {
       "name": "profilePicture",

@@ -2,8 +2,8 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "AppModels:signals_simple/Case",
   "initialUiRecipe": {
-    "type": "CORE:UiRecipe",
     "name": "Dashboard",
+    "type": "CORE:UiRecipe",
     "description": "ESS Plot",
     "plugin": "@development-framework/dm-core-plugins/grid",
     "config": {
@@ -82,18 +82,24 @@
       }
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "Edit",
+      "type": "CORE:UiRecipe",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "fields": ["name", "description", "duration", "timeStep", "components"]
+        "fields": [
+          "name",
+          "description",
+          "duration",
+          "timeStep",
+          "components"
+        ]
       }
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "RunInt",
+      "type": "CORE:UiRecipe",
       "description": "running",
       "plugin": "signal-job-single"
     },
@@ -104,8 +110,13 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-        "columns": ["name", "description"],
-        "editableColumns": ["name"],
+        "columns": [
+          "name",
+          "description"
+        ],
+        "editableColumns": [
+          "name"
+        ],
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
           "delete": true,
@@ -117,8 +128,8 @@
           "type": "CORE:InlineRecipeViewConfig",
           "scope": "self",
           "recipe": {
-            "type": "CORE:UiRecipe",
             "name": "Edit",
+            "type": "CORE:UiRecipe",
             "description": "Default edit",
             "plugin": "@development-framework/dm-core-plugins/form"
           }

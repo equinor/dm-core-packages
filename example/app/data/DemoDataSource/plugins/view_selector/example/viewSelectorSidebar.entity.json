@@ -1,37 +1,37 @@
 {
-  "type": "./blueprints/ViewSelectorSidebar",
   "name": "viewSelectorSidebarEntity",
+  "type": "./blueprints/ViewSelectorSidebar",
   "firstAttribute": {
-    "type": "./blueprints/ViewSelectorSidebar",
     "name": "first attribute",
+    "type": "./blueprints/ViewSelectorSidebar",
     "firstAttribute": {
-      "type": "./blueprints/ViewSelectorSidebar",
-      "name": "first attribute"
+      "name": "first attribute",
+      "type": "./blueprints/ViewSelectorSidebar"
     }
   },
   "secondAttribute": {
-    "type": "./blueprints/ViewSelectorSidebar",
-    "name": "second attribute"
+    "name": "second attribute",
+    "type": "./blueprints/ViewSelectorSidebar"
   },
   "thirdAttribute": {
-    "type": "./blueprints/ViewSelectorSidebar",
     "name": "third attribute",
+    "type": "./blueprints/ViewSelectorSidebar",
     "firstAttribute": {
-      "type": "./blueprints/ViewSelectorSidebar",
       "name": "first attribute",
+      "type": "./blueprints/ViewSelectorSidebar",
       "firstAttribute": {
-        "type": "./blueprints/ViewSelectorSidebar",
         "name": "first attribute",
+        "type": "./blueprints/ViewSelectorSidebar",
         "aStringValue": "Something here"
       }
     },
     "secondAttribute": {
-      "type": "./blueprints/ViewSelectorSidebar",
-      "name": "second attribute"
+      "name": "second attribute",
+      "type": "./blueprints/ViewSelectorSidebar"
     },
     "thirdAttribute": {
-      "type": "./blueprints/ViewSelectorSidebar",
       "name": "third attribute",
+      "type": "./blueprints/ViewSelectorSidebar",
       "aStringValue": "Hallo World!"
     }
   }

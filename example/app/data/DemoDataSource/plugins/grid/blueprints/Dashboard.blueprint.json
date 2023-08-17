@@ -3,25 +3,25 @@
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
-      "attributeType": "string",
+      "name": "name",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "name"
+      "attributeType": "string"
     },
     {
-      "attributeType": "./OrderItem",
-      "dimensions": "*",
+      "name": "orders",
       "type": "CORE:BlueprintAttribute",
-      "name": "orders"
+      "attributeType": "./OrderItem",
+      "dimensions": "*"
     },
     {
-      "attributeType": "./OrderItem",
+      "name": "order",
       "type": "CORE:BlueprintAttribute",
-      "name": "order"
+      "attributeType": "./OrderItem"
     },
     {
       "name": "aNestedObjectWithCustomUI",

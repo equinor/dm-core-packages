@@ -1,5 +1,5 @@
 {
-  "type": "./blueprints/Employee",
   "name": "employee2",
+  "type": "./blueprints/Employee",
   "description": "This is a description..."
 }

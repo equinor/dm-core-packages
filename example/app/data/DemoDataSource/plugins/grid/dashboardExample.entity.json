@@ -1,15 +1,15 @@
 {
   "_id": "dashboardExample",
-  "type": "./blueprints/Dashboard",
   "name": "DashboardExample",
+  "type": "./blueprints/Dashboard",
   "orders": [
     {
       "type": "./blueprints/OrderItem",
       "quantity": 1,
       "product": {
         "_id": "product1",
-        "type": "./blueprints/Product",
         "name": "Product 1",
+        "type": "./blueprints/Product",
         "something": "Asdf"
       }
     }
@@ -18,8 +18,8 @@
     "type": "./blueprints/OrderItem",
     "quantity": 1,
     "product": {
-      "type": "./blueprints/Product",
       "name": "Product 1",
+      "type": "./blueprints/Product",
       "something": "Asdf"
     }
   },

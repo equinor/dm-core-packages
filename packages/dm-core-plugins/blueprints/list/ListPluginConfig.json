@@ -1,52 +1,54 @@
 {
-  "type": "CORE:Blueprint",
   "name": "ListPluginConfig",
+  "type": "CORE:Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute"
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "expanded",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Initial expand state for items in list",
+      "attributeType": "boolean",
       "optional": true,
-      "default": false,
-      "description": "Initial expand state for items in list"
+      "default": false
     },
     {
-      "attributeType": "string",
+      "name": "headers",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in item",
-      "name": "headers",
-      "default": ["name"],
+      "attributeType": "string",
+      "default": [
+        "name"
+      ],
       "dimensions": "*"
     },
     {
-      "attributeType": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
-      "type": "CORE:BlueprintAttribute",
       "name": "functionality",
+      "type": "CORE:BlueprintAttribute",
       "description": "List functionality config",
+      "attributeType": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
       "optional": true
     },
     {
-      "attributeType": "CORE:ViewConfig",
-      "type": "CORE:BlueprintAttribute",
       "name": "defaultView",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:ViewConfig",
       "optional": true
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "openInline",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "optional": false,
       "default": false
     },
     {
-      "attributeType": "CORE:ViewConfig",
-      "type": "CORE:BlueprintAttribute",
       "name": "views",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:ViewConfig",
       "dimensions": "*",
       "default": [],
       "optional": false

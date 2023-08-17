@@ -14,8 +14,8 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Edit",
+              "type": "CORE:UiRecipe",
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form"
             },
@@ -29,8 +29,8 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Download",
+              "type": "CORE:UiRecipe",
               "description": "",
               "plugin": "@development-framework/dm-core-plugins/file"
             },
@@ -43,8 +43,8 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Yaml",
+              "type": "CORE:UiRecipe",
               "description": "Yaml view",
               "plugin": "@development-framework/dm-core-plugins/yaml"
             },

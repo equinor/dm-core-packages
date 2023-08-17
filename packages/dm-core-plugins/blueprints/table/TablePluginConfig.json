@@ -1,41 +1,44 @@
 {
-  "type": "CORE:Blueprint",
   "name": "TablePluginConfig",
+  "type": "CORE:Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute"
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     },
     {
-      "attributeType": "string",
+      "name": "columns",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in header of item",
-      "name": "columns",
+      "attributeType": "string",
       "optional": true,
-      "default": ["name", "type"],
+      "default": [
+        "name",
+        "type"
+      ],
       "dimensions": "*"
     },
     {
-      "attributeType": "string",
+      "name": "editableColumns",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of column-headers that should have edit functionality if edit is activated. Array of strings.",
-      "name": "editableColumns",
+      "attributeType": "string",
       "optional": true,
       "default": [],
       "dimensions": "*"
     },
     {
-      "attributeType": "CORE:ViewConfig",
-      "type": "CORE:BlueprintAttribute",
       "name": "expandableRecipeViewConfig",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:ViewConfig",
       "optional": true
     },
     {
-      "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-      "type": "CORE:BlueprintAttribute",
       "name": "functionality",
+      "type": "CORE:BlueprintAttribute",
       "description": "Table functionality config",
+      "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
       "optional": true,
       "default": {
         "type": "./TableFunctionalityConfig",

@@ -10,7 +10,9 @@
       "tls": false,
       "database": "DemoDataSource",
       "collection": "default",
-      "data_types": ["blob"]
+      "data_types": [
+        "blob"
+      ]
     }
   }
 }

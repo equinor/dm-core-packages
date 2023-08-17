@@ -5,13 +5,13 @@
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute"
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     },
     {
       "name": "cases",
-      "label": "Cases",
       "type": "CORE:BlueprintAttribute",
+      "label": "Cases",
       "attributeType": "./Case",
       "dimensions": "*",
       "contained": true

@@ -34,15 +34,15 @@
             "type": "CORE:InlineRecipeViewConfig",
             "scope": "aNestedObjectWithCustomUI",
             "recipe": {
+              "name": "form",
               "type": "CORE:UiRecipe",
               "plugin": "@development-framework/dm-core-plugins/form",
-              "name": "form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "attributes": [
                   {
-                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
                     "name": "bar",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
                     "widget": "TextareaWidget"
                   }
                 ]
@@ -92,9 +92,9 @@
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
+              "name": "Json",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/json",
-              "name": "Json"
+              "plugin": "@development-framework/dm-core-plugins/json"
             }
           },
           "gridArea": {

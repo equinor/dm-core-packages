@@ -1,33 +1,35 @@
 {
-  "type": "CORE:Blueprint",
   "name": "ViewSelectorSidebar",
-  "extends": ["CORE:NamedEntity"],
+  "type": "CORE:Blueprint",
+  "extends": [
+    "CORE:NamedEntity"
+  ],
   "attributes": [
     {
-      "attributeType": "./ViewSelectorSidebar",
-      "type": "CORE:BlueprintAttribute",
       "name": "firstAttribute",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./ViewSelectorSidebar",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "./ViewSelectorSidebar",
-      "type": "CORE:BlueprintAttribute",
       "name": "secondAttribute",
-      "contained": true,
-      "optional": true
-    },
-    {
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "./ViewSelectorSidebar",
-      "type": "CORE:BlueprintAttribute",
-      "name": "thirdAttribute",
       "contained": true,
       "optional": true
     },
     {
-      "attributeType": "string",
+      "name": "thirdAttribute",
       "type": "CORE:BlueprintAttribute",
+      "attributeType": "./ViewSelectorSidebar",
+      "contained": true,
+      "optional": true
+    },
+    {
       "name": "aStringValue",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
       "optional": true
     }
   ]

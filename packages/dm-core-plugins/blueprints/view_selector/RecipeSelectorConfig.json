@@ -1,16 +1,16 @@
 {
-  "type": "CORE:Blueprint",
   "name": "RecipeSelectorConfig",
+  "type": "CORE:Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "dmss://system/SIMOS/BlueprintAttribute"
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
     },
     {
-      "attributeType": "CORE:ViewConfig",
-      "type": "CORE:BlueprintAttribute",
       "name": "views",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:ViewConfig",
       "dimensions": "*",
       "contained": true,
       "optional": true

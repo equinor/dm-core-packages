@@ -1,21 +1,21 @@
 {
-  "type": "dmss://system/SIMOS/Blueprint",
   "name": "GridPluginConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute"
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     },
     {
-      "attributeType": "PLUGINS:dm-core-plugins/grid/GridSize",
+      "name": "size",
       "type": "CORE:BlueprintAttribute",
-      "name": "size"
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridSize"
     },
     {
-      "attributeType": "PLUGINS:dm-core-plugins/grid/GridItem",
-      "type": "CORE:BlueprintAttribute",
       "name": "items",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridItem",
       "dimensions": "*"
     }
   ]

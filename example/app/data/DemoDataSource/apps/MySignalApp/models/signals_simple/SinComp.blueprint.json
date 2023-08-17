@@ -5,8 +5,8 @@
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute"
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     },
     {
       "name": "A",

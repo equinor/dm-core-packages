@@ -3,34 +3,34 @@
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
       "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
       "label": "Task title:"
     },
     {
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
       "name": "assigned",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
       "label": "Assigned to:",
       "optional": true
     },
     {
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
       "name": "description",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
       "label": "Task description:",
       "optional": true
     },
     {
-      "attributeType": "boolean",
-      "type": "CORE:BlueprintAttribute",
       "name": "complete",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
       "label": "Mark task as complete",
       "default": false
     }

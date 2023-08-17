@@ -3,25 +3,25 @@
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
-      "attributeType": "string",
+      "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "name": "type"
+      "attributeType": "string"
     },
     {
-      "attributeType": "string",
+      "name": "name",
       "type": "CORE:BlueprintAttribute",
-      "name": "name"
+      "attributeType": "string"
     },
     {
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
       "name": "something",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
       "optional": true
     },
     {
-      "attributeType": "number",
-      "type": "CORE:BlueprintAttribute",
       "name": "price",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
       "optional": true
     }
   ]

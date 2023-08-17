@@ -1,13 +1,15 @@
 {
   "name": "Case",
   "type": "CORE:Blueprint",
-  "extends": ["CORE:NamedEntity"],
   "description": "",
+  "extends": [
+    "CORE:NamedEntity"
+  ],
   "attributes": [
     {
       "name": "type",
-      "attributeType": "string",
-      "type": "CORE:BlueprintAttribute"
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     },
     {
       "name": "components",

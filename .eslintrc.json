@@ -21,7 +21,10 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "react/jsx-uses-react": "off",
