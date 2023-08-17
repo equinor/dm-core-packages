@@ -6,7 +6,7 @@
     {
       "attributeType": "string",
       "type": "CORE:BlueprintAttribute",
-      "name": "nameOwner",
+      "name": "name",
       "label": "Name of Owner",
       "optional": false
     },

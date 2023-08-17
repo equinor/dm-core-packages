@@ -22,7 +22,7 @@
               "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "fields": ["nameOwner", "DateOwned"]
+                "fields": ["name", "DateOwned"]
               }
             },
             "eds_icon": "person"
