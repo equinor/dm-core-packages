@@ -36,7 +36,7 @@ test('Simple form', async ({ page }) => {
 
   //Submitting form
   await page.getByTestId('form-submit').click()
-  await expect(page.getByTestId('form-submit')).toHaveText(['Submit'])
+  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
 
   //Reloading form, expecting entered values to be stored
   await page.reload()

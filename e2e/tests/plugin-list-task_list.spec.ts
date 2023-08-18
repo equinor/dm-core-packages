@@ -36,6 +36,8 @@ test('Add a new task', async ({ page }) => {
     .getByLabel('Task description: (optional)')
     .fill('Review and submit the tax return.')
   await page.getByTestId('form-submit').click()
+  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(page.getByText('Tax returnMaria Johnson').last()).toBeVisible() //TODO: Remove last() when saving issue is solved (#258)
   await page.getByRole('button', { name: 'Open item' }).last().click()
@@ -46,7 +48,10 @@ test('Add a new task', async ({ page }) => {
   await expect(page.getByLabel('Task description: (optional)')).toHaveValue(
     'Review and submit the tax return.'
   )
-  await page.getByRole('button', { name: 'Close item' }).last().click()
+  await page
+    .getByRole('button', { name: 'Close item', exact: true })
+    .last()
+    .click()
 
   //Temp workaround to clean up duplicates due to saving issue in #258.
   await page.getByRole('button', { name: 'Delete' }).last().click()
@@ -58,6 +63,8 @@ test('Mark task as complete', async ({ page }) => {
   await expect(page.getByLabel('Task title:')).toHaveValue('Wash the car')
   await page.getByText('Mark task as complete').click()
   await page.getByTestId('form-submit').click()
+  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await page.getByRole('button', { name: 'Open item' }).first().click()
   await expect(page.getByTestId('form-checkbox')).toBeChecked()
@@ -214,6 +221,8 @@ test('Edit a task', async ({ page }) => {
     .getByLabel('Task description: (optional)')
     .fill('Remember to buy new brush.')
   await page.getByTestId('form-submit').click()
+  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page.getByText('Paint the living room greenMark Johnson').last()

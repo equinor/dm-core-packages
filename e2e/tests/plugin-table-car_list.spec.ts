@@ -17,7 +17,8 @@ test('Table car list example', async ({ page }) => {
   await page.getByLabel('Model').fill('e-tron')
   await page.getByLabel('Color (optional)').fill('Black')
   await page.getByTestId('form-submit').click()
-  await page.waitForTimeout(5000)
+  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+  await page.getByRole('button', { name: 'close', exact: true }).click()
 
   //Currently we need to reload application to view saved values...
   await page.reload()
@@ -58,7 +59,6 @@ test('Table car list example', async ({ page }) => {
   await expect(page.locator('tr').nth(3)).toContainText('Polestar')
   await page.getByRole('button', { name: 'Move row up' }).last().click()
   await page.getByRole('button', { name: 'Save' }).click()
-  await page.waitForTimeout(5000)
   await page.reload()
   await page.getByText('plugins', { exact: true }).click()
   await page.getByText('form').click()
