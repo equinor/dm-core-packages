@@ -2031,3 +2031,8 @@ ref #276 (2023-08-04T08:38:38Z)
     * **DMSS VERSION**: 53e2911 2023-08-17 Eirik..ksnes refactor: add method to data source to get storage affinity grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.17
     * **JOB VERSION**: 2eef466 2023-08-16 Krist..rstad docs: add more documentation to job API endpoints grafted, HEAD -> main, origin/main
+* fix: use name attribute (2023-08-10T07:34:28Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5902229649/1)
+    * **DMSS VERSION**: f4cc6a8 2023-08-18 Eirik..ksnes refactor: move add document logic to use case instead of document service grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.17
+    * **JOB VERSION**: 2eef466 2023-08-16 Krist..rstad docs: add more documentation to job API endpoints grafted, HEAD -> main, origin/main
