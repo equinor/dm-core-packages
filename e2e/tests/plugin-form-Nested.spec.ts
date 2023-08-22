@@ -140,7 +140,7 @@ test('New car', async () => {
   await page.getByRole('button', { name: 'close' }).click()
   await page.reload()
   await navigate()
-  // await expect(cars.getByText('McLaren')).toBeVisible() Does not work because two instances are stored when submitting form... Known bug.
+  await expect(carsDiv.getByText('McLaren')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Open item' }).last().click()
   await expect(page.getByRole('tab', { name: 'McLaren' })).toBeVisible()
   await expect(lastTabPanel.getByLabel('Name')).toHaveValue('McLaren')
@@ -171,8 +171,8 @@ test('New customer', async () => {
     .getByText('CustomersOpen')
     .getByRole('button', { name: 'Open' })
     .click()
-  // await expect(page.getByText('Lewis')).toBeVisible() Does not work because two instances are stored when submitting form... Known bug.
-  await lastTabPanel.getByRole('button', { name: 'Open item' }).last().click()
+  await expect(page.getByText('Lewis')).toBeVisible()
+  await page.getByRole('button', { name: 'Open item' }).last().click()
   await expect(page.getByRole('tab', { name: 'Lewis' })).toBeVisible()
   await expect(lastTabPanel.getByLabel('Name')).toHaveValue('Lewis')
   await expect(lastTabPanel.getByLabel('Phone number (optional)')).toHaveValue(
