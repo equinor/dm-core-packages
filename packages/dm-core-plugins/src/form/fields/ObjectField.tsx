@@ -72,15 +72,14 @@ const AddObject = (props: {
         entity: { type: type as string },
       })
       .then((newEntity: AxiosResponse<any>) => {
-        const data = JSON.stringify(newEntity.data)
         dmssAPI
-          .documentUpdate({
-            idAddress: `${idReference}.${namePath}`,
-            data: data,
+          .documentAdd({
+            address: `${idReference}.${namePath}`,
+            document: JSON.stringify(newEntity.data),
             updateUncontained: false,
           })
-          .then((response: any) => {
-            setValue(namePath, response.data.data, options)
+          .then(() => {
+            setValue(namePath, newEntity.data, options)
           })
           .catch((error: AxiosError<ErrorResponse>) => {
             console.error(error)
