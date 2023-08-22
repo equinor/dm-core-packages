@@ -2036,3 +2036,20 @@ ref #276 (2023-08-04T08:38:38Z)
     * **DMSS VERSION**: f4cc6a8 2023-08-18 Eirik..ksnes refactor: move add document logic to use case instead of document service grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.17
     * **JOB VERSION**: 2eef466 2023-08-16 Krist..rstad docs: add more documentation to job API endpoints grafted, HEAD -> main, origin/main
+* fix(form): use documentAdd instead of Update (#433)
+
+* fix(form): use documentAdd instead of Update
+
+* fix(form): save when selecting reference
+
+* test(form): select last tab explicitly
+
+* fix: playwright tests
+
+---------
+
+Co-authored-by: Roar Larsen <roarla@equinor.com> (2023-08-21T07:34:30Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5938535592/1)
+    * **DMSS VERSION**: 802c16b 2023-08-22 Peter.. Hove refactor: renaming to be more clear grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.17
+    * **JOB VERSION**: 2eef466 2023-08-16 Krist..rstad docs: add more documentation to job API endpoints grafted, HEAD -> main, origin/main
