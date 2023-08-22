@@ -2058,3 +2058,34 @@ Co-authored-by: Roar Larsen <roarla@equinor.com> (2023-08-21T07:34:30Z)
     * **DMSS VERSION**: 802c16b 2023-08-22 Peter.. Hove refactor: renaming to be more clear grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.17
     * **JOB VERSION**: 2eef466 2023-08-16 Krist..rstad docs: add more documentation to job API endpoints grafted, HEAD -> main, origin/main
+* chore: update imports (#423)
+
+* chore(packages): update eds
+
+* chore(packages): update playwright
+
+* chore(packages): update dm-core and -plugins
+
+* chore(packages): update ts
+
+* chore(packages): update react
+
+* chore(packages): update styled-components
+
+* chore(packages): update jest
+
+* chore(packages): remove fs-extra
+
+* chore(packages): update axios
+
+* chore(packages): remove unused packages
+
+* chore(packages): update highlights
+
+* chore(packages): update react icons and router
+
+* chore(packages): update openapi generator (2023-08-21T07:34:30Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5938709045/1)
+    * **DMSS VERSION**: 802c16b 2023-08-22 Peter.. Hove refactor: renaming to be more clear grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.17
+    * **JOB VERSION**: 2eef466 2023-08-16 Krist..rstad docs: add more documentation to job API endpoints grafted, HEAD -> main, origin/main
