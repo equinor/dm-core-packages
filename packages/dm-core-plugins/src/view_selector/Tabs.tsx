@@ -1,9 +1,9 @@
-import * as React from 'react'
-import { Tooltip } from '@equinor/eds-core-react'
+import { Tabs as EdsTabs, Tooltip } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'
-import { TItemData } from './types'
+import * as React from 'react'
 import Icon from './Icon'
 import { StyledTabs } from './styles'
+import { TItemData } from './types'
 
 export const Tabs = (props: {
   selectedView: string
@@ -14,11 +14,11 @@ export const Tabs = (props: {
   const { selectedView, setSelectedView, items } = props
   return (
     <StyledTabs>
-      <StyledTabs.List>
+      <EdsTabs.List>
         {items.map((config: TItemData) => {
           return (
             <div key={config.viewId} className="tabs-group-wrapper">
-              <StyledTabs.Tab
+              <EdsTabs.Tab
                 key={config.viewId}
                 onClick={() => setSelectedView(config.viewId)}
                 active={selectedView === config.viewId}
@@ -32,22 +32,22 @@ export const Tabs = (props: {
                   />
                 )}
                 {config.label}
-              </StyledTabs.Tab>
+              </EdsTabs.Tab>
               {config.closeable && (
                 <Tooltip title={`Close ${config.label}`}>
-                  <StyledTabs.Tab
+                  <EdsTabs.Tab
                     active={selectedView === config.viewId}
                     onClick={() => props.removeView(config.viewId)}
                     className="tabs-group-close-button"
                   >
                     <Icon size={16} data={close} />
-                  </StyledTabs.Tab>
+                  </EdsTabs.Tab>
                 </Tooltip>
               )}
             </div>
           )
         })}
-      </StyledTabs.List>
+      </EdsTabs.List>
     </StyledTabs>
   )
 }

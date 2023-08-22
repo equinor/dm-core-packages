@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { TGridSize, TGridPluginConfig } from './types'
 import { GridItems } from './GridItems'
+import { TGridPluginConfig, TGridSize } from './types'
 
-const Grid = styled.div`
+const Grid = styled.div<TGridSize>`
   display: grid;
   grid-template-columns: repeat(${(props: TGridSize) => props.columns}, 1fr);
   grid-template-rows: repeat(${(props: TGridSize) => props.rows}, 1fr);

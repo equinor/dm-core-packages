@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
 import { Button, Input } from '@equinor/eds-core-react'
-import { AccessLevel, ACL } from '../../services'
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { ACL, AccessLevel } from '../../services'
 import { ACLSelect } from './ACLSelect'
 import { CenteredRow } from './AccessControlList'
-import styled from 'styled-components'
 
 interface IURPanelProps {
   entities: { [key: string]: AccessLevel }
@@ -15,16 +15,13 @@ type TGridContainerType = {
   even?: boolean
 }
 
-const ListRow = styled.div`
+const ListRow = styled.div<TGridContainerType>`
   display: flex;
   flex-flow: row;
   align-items: center;
   padding: 5px;
   justify-content: space-around;
-  background-color: ${(props: TGridContainerType) => {
-    if (props.even) return '#F7F7F7'
-    return 'inherit'
-  }};
+  background-color: ${(props) => (props.even ? '#F7F7F7' : 'inherit')};
 `
 
 const TableWrapper = styled.div`
@@ -40,10 +37,7 @@ const GridContainer = styled.div<TGridContainerType>`
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-items: center;
-  background-color: ${(props: TGridContainerType) => {
-    if (props.even) return '#F7F7F7'
-    return 'inherit'
-  }};
+  background-color: ${(props) => (props.even ? '#F7F7F7' : 'inherit')};
 `
 
 export const ACLUserRolesPanel = ({
