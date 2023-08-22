@@ -39,7 +39,7 @@ test('Add a new task', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
-  await expect(page.getByText('Tax returnMaria Johnson').last()).toBeVisible() //TODO: Remove last() when saving issue is solved (#258)
+  await expect(page.getByText('Tax returnMaria Johnson')).toBeVisible()
   await page.getByRole('button', { name: 'Open item' }).last().click()
   await expect(page.getByLabel('Task title:')).toHaveValue('Tax return')
   await expect(page.getByLabel('Assigned to: (optional)')).toHaveValue(
@@ -52,10 +52,6 @@ test('Add a new task', async ({ page }) => {
     .getByRole('button', { name: 'Close item', exact: true })
     .last()
     .click()
-
-  //Temp workaround to clean up duplicates due to saving issue in #258.
-  await page.getByRole('button', { name: 'Delete' }).last().click()
-  await page.getByRole('button', { name: 'Save' }).click()
 })
 
 test('Mark task as complete', async ({ page }) => {
@@ -69,10 +65,6 @@ test('Mark task as complete', async ({ page }) => {
   await page.getByRole('button', { name: 'Open item' }).first().click()
   await expect(page.getByTestId('form-checkbox')).toBeChecked()
   await page.getByRole('button', { name: 'Close item' }).first().click()
-
-  //Temp workaround to clean up duplicates due to saving issue in #258.
-  await page.getByRole('button', { name: 'Delete' }).last().click()
-  await page.getByRole('button', { name: 'Save' }).click()
 })
 
 test('Delete a task', async ({ page }) => {
@@ -225,8 +217,8 @@ test('Edit a task', async ({ page }) => {
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
-    page.getByText('Paint the living room greenMark Johnson').last()
-  ).toBeVisible() //TODO: Remove last() when saving issue is solved (#258)
+    page.getByText('Paint the living room greenMark Johnson')
+  ).toBeVisible()
   await page.getByRole('button', { name: 'Open item' }).last().click()
   await expect(page.getByLabel('Task title:')).toHaveValue(
     'Paint the living room green'
@@ -238,10 +230,6 @@ test('Edit a task', async ({ page }) => {
     'Remember to buy new brush.'
   )
   await page.getByRole('button', { name: 'Close item' }).last().click()
-
-  //Temp workaround to clean up duplicates due to saving issue in #258.
-  await page.getByRole('button', { name: 'Delete' }).last().click()
-  await page.getByRole('button', { name: 'Save' }).click()
 })
 
 test('Pagination', async ({ page }) => {

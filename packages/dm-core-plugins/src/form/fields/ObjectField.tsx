@@ -28,6 +28,8 @@ import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
   const { setValue } = useFormContext()
+  const dmssAPI = useDMSS()
+  const { idReference } = useRegistryContext()
   const onChange = (address: string, entity: TValidEntity) => {
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
@@ -39,7 +41,18 @@ const SelectReference = (props: { type: string; namePath: string }) => {
       shouldDirty: true,
       shouldTouch: true,
     }
-    setValue(props.namePath, reference, options)
+    dmssAPI
+      .documentAdd({
+        address: `${idReference}.${props.namePath}`,
+        document: JSON.stringify(reference),
+        updateUncontained: false,
+      })
+      .then(() => {
+        setValue(props.namePath, reference, options)
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+      })
   }
 
   return (
@@ -48,18 +61,16 @@ const SelectReference = (props: { type: string; namePath: string }) => {
       onChange={onChange}
       buttonVariant="outlined"
       typeFilter={props.type}
+      alternativeButtonText="Select and save"
     />
   )
 }
 
-const AddObject = (props: {
-  type: string
-  namePath: string
-  idReference: string
-}) => {
-  const { type, namePath, idReference } = props
+const AddObject = (props: { type: string; namePath: string }) => {
+  const { type, namePath } = props
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
+  const { idReference } = useRegistryContext()
   const handleAdd = () => {
     const options = {
       shouldValidate: true,
@@ -72,15 +83,14 @@ const AddObject = (props: {
         entity: { type: type as string },
       })
       .then((newEntity: AxiosResponse<any>) => {
-        const data = JSON.stringify(newEntity.data)
         dmssAPI
-          .documentUpdate({
-            idAddress: `${idReference}.${namePath}`,
-            data: data,
+          .documentAdd({
+            address: `${idReference}.${namePath}`,
+            document: JSON.stringify(newEntity.data),
             updateUncontained: false,
           })
-          .then((response: any) => {
-            setValue(namePath, response.data.data, options)
+          .then(() => {
+            setValue(namePath, newEntity.data, options)
           })
           .catch((error: AxiosError<ErrorResponse>) => {
             console.error(error)
@@ -98,9 +108,10 @@ const AddObject = (props: {
   )
 }
 
-const RemoveObject = (props: { namePath: string; idReference: string }) => {
-  const { namePath, idReference } = props
+const RemoveObject = (props: { namePath: string }) => {
+  const { namePath } = props
   const { setValue } = useFormContext()
+  const { idReference } = useRegistryContext()
   const dmssAPI = useDMSS()
 
   const onClick = () => {
@@ -150,13 +161,9 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
       <Typography bold={true}>{displayLabel}</Typography>
       {optional &&
         (isDefined ? (
-          <RemoveObject namePath={namePath} idReference={idReference} />
+          <RemoveObject namePath={namePath} />
         ) : (
-          <AddObject
-            idReference={idReference}
-            namePath={namePath}
-            type={type}
-          />
+          <AddObject namePath={namePath} type={type} />
         ))}
       {isDefined &&
         (onOpen && !uiAttribute?.showInline ? (
@@ -236,9 +243,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
       {address && <Typography>Address: {value.address}</Typography>}
       <Stack direction="row" spacing={0.5}>
         <SelectReference type={type} namePath={namePath} />
-        {optional && address && (
-          <RemoveObject namePath={namePath} idReference={idReference} />
-        )}
+        {optional && address && <RemoveObject namePath={namePath} />}
         {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
