@@ -24,7 +24,7 @@ import { TreeView } from '../TreeView'
  * @param typeFilter: optional filter that can be added. If this is included, it is only possible to select an entity with the type specified by typeFilter.
  * @param alternativeButtonText: optional attribute to override the Button text
  * @param variant: optional attribute to override the variant / styling used for the button
- * @param scope: optional attribute to define scope for tree view. The scope will be a path to a folder.
+ * @param scope: optional attribute to define scope for tree view. The scope must be on the format: <DataSource>/<rootPackage>/<pathToFolder>
  */
 export const EntityPickerButton = (props: {
   onChange: (address: string, entity?: TValidEntity) => void
