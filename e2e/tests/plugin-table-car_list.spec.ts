@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('Table car list example', async ({ page }) => {
   //Open form
@@ -38,7 +38,7 @@ test('Table car list example', async ({ page }) => {
   await page.getByLabel('Model').fill('2023')
   await page.getByLabel('Color (optional)').fill('Grey')
   await page.getByTestId('form-submit').click()
-  await page.getByRole('tab').last().click() //closing tab
+  await page.getByLabel('Close Audi').click()
   await expect(page.getByText('name')).toBeVisible()
 
   //Currently we need to reload application to view saved values...

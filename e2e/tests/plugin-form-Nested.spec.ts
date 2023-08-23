@@ -7,6 +7,10 @@ let page: Page
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage()
   await page.goto('http://localhost:3000/')
+})
+
+test.beforeEach(async () => {
+  await page.reload()
   await navigate()
 })
 
@@ -30,12 +34,12 @@ test('Change owner', async () => {
   await page.getByLabel('Name').fill('Jacob')
   await page.getByLabel('Phone Number (optional)').fill('1234')
   await page.getByRole('button', { name: 'Submit' }).click()
-  await page.getByRole('button', { name: 'close' }).click()
+  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.getByText('self').first().click()
   await page.getByRole('button', { name: 'Open' }).first().click()
   await expect(page.getByLabel('Name')).toHaveValue('Jacob')
   await expect(page.getByLabel('Phone Number (optional)')).toHaveValue('1234')
-  await page.getByRole('tab').nth(2).click()
 })
 
 test('Hiring a CEO', async () => {
@@ -43,18 +47,22 @@ test('Hiring a CEO', async () => {
     .getByTestId('ceo')
     .getByRole('button', { name: 'Add and save' })
     .click()
+  await expect(page.getByRole('tab')).toHaveCount(1)
   await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
+  await expect(page.getByRole('tab')).toHaveCount(2)
   await page.getByLabel('Name').fill('Donald')
   await page.getByLabel('Phone Number (optional)').fill('99887766')
   await page.getByRole('button', { name: 'Submit' }).click()
-  await page.getByRole('button', { name: 'close' }).click()
-  await page.getByRole('tab').nth(2).click()
+  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+  await page.getByRole('button', { name: 'close', exact: true }).click()
+  await page.getByLabel('Close ceo').click()
+  await expect(page.getByRole('tab')).toHaveCount(1)
   await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
   await expect(page.getByLabel('Name')).toHaveValue('Donald')
   await expect(page.getByLabel('Phone Number (optional)')).toHaveValue(
     '99887766'
   )
-  await page.getByRole('tab').nth(2).click()
+  await page.getByLabel('Close ceo').click()
   await page
     .getByTestId('ceo')
     .getByRole('button', { name: 'Remove and save' })
@@ -86,7 +94,7 @@ test('Adding a trainee', async () => {
     .fill('123')
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-  await page.getByRole('button', { name: 'close' }).click()
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
   await navigate()
   await expect(page.getByTestId('trainee').getByLabel('Name')).toHaveValue(
@@ -106,7 +114,7 @@ test('Locations', async () => {
   await locationsDiv.getByRole('textbox').last().fill('Oslo')
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-  await page.getByRole('button', { name: 'close' }).click()
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
   await navigate()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
@@ -118,7 +126,7 @@ test('Locations', async () => {
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-  await page.getByRole('button', { name: 'close' }).click()
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
   await navigate()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
@@ -137,7 +145,7 @@ test('New car', async () => {
   await lastTabPanel.getByLabel('Plate Number').fill('3000')
   await lastTabPanel.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-  await page.getByRole('button', { name: 'close' }).click()
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
   await navigate()
   await expect(carsDiv.getByText('McLaren')).toBeVisible()
@@ -145,7 +153,6 @@ test('New car', async () => {
   await expect(page.getByRole('tab', { name: 'McLaren' })).toBeVisible()
   await expect(lastTabPanel.getByLabel('Name')).toHaveValue('McLaren')
   await expect(lastTabPanel.getByLabel('Plate Number')).toHaveValue('3000')
-  await page.getByRole('tab').last().click()
 })
 
 test('New customer', async () => {
@@ -164,7 +171,7 @@ test('New customer', async () => {
   await lastTabPanel.getByLabel('Phone number (optional)').fill('12345678')
   await lastTabPanel.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-  await page.getByRole('button', { name: 'close' }).click()
+  await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
   await navigate()
   await page
@@ -178,6 +185,4 @@ test('New customer', async () => {
   await expect(lastTabPanel.getByLabel('Phone number (optional)')).toHaveValue(
     '12345678'
   )
-  await page.getByRole('tab').last().click()
-  await page.getByRole('tab').last().click()
 })

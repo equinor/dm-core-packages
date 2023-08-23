@@ -1,8 +1,7 @@
-import { Tabs as EdsTabs, Tooltip } from '@equinor/eds-core-react'
+import { Button, Tabs as EdsTabs, Tooltip } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'
 import * as React from 'react'
 import Icon from './Icon'
-import { StyledTabs } from './styles'
 import { TItemData } from './types'
 
 export const Tabs = (props: {
@@ -13,41 +12,48 @@ export const Tabs = (props: {
 }): JSX.Element => {
   const { selectedView, setSelectedView, items } = props
   return (
-    <StyledTabs>
+    <EdsTabs activeTab={items.findIndex((x) => x.viewId == selectedView)}>
       <EdsTabs.List>
         {items.map((config: TItemData) => {
           return (
-            <div key={config.viewId} className="tabs-group-wrapper">
-              <EdsTabs.Tab
-                key={config.viewId}
+            <EdsTabs.Tab
+              key={config.viewId}
+              as="div"
+              style={{
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'row',
+                padding: 0,
+              }}
+            >
+              <Button
                 onClick={() => setSelectedView(config.viewId)}
-                active={selectedView === config.viewId}
-                className="tabs-group-tab"
+                variant="ghost"
+                style={{ fontSize: '16px' }}
               >
                 {config.view?.eds_icon && (
                   <Icon
-                    style={{ paddingRight: '4px' }}
                     name={config.view.eds_icon}
                     title={config.view.eds_icon}
                   />
                 )}
                 {config.label}
-              </EdsTabs.Tab>
+              </Button>
               {config.closeable && (
                 <Tooltip title={`Close ${config.label}`}>
-                  <EdsTabs.Tab
-                    active={selectedView === config.viewId}
+                  <Button
+                    aria-label={`Close ${config.label}`}
                     onClick={() => props.removeView(config.viewId)}
-                    className="tabs-group-close-button"
+                    variant="ghost_icon"
                   >
                     <Icon size={16} data={close} />
-                  </EdsTabs.Tab>
+                  </Button>
                 </Tooltip>
               )}
-            </div>
+            </EdsTabs.Tab>
           )
         })}
       </EdsTabs.List>
-    </StyledTabs>
+    </EdsTabs>
   )
 }
