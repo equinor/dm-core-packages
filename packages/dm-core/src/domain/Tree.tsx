@@ -4,6 +4,7 @@ import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
 import { TReference } from '../types'
 import { TAttribute, TBlueprint } from './types'
+import { splitAddress } from '../utils/addressUtilities'
 
 type TTreeMap = {
   [nodeId: string]: TreeNode
@@ -367,15 +368,27 @@ export class Tree {
     ).then(() => this.updateCallback(this))
   }
 
+  /**
+   * Initialize the Tree view from a given folder.
+   *
+   * @param folderPath: Define scope for tree view. The folderPath must be on the format: <DataSource>/<rootPackage>/<pathToFolder> and be an address to an entity of type Package.
+   *                    The folder specified by folderPath and all subfolders of folderPath will be included, but not anything else.
+   */
   async initFromFolder(folderPath: string) {
-    const dataSourceId = folderPath.split('/', 1)[0]
+    const { dataSource } = splitAddress(folderPath)
     this.dmssApi
       .documentGet({ address: folderPath })
       .then((response: any) => {
         const data = response.data
+        if (data['type'] !== EBlueprint.PACKAGE) {
+          throw new Error(
+            `Tried to initialize the tree from a path '${folderPath}' that does not refer to a package.`
+          )
+        }
+
         const folderNode = new TreeNode(
           this,
-          `${dataSourceId}/${data._id}`,
+          `${dataSource}/$${data._id}`,
           0,
           data,
           packageAttribute,
@@ -384,11 +397,12 @@ export class Tree {
           true,
           false
         )
+        folderNode.expand()
         if (data.type !== EBlueprint.PACKAGE)
           throw new Error('Path does not resolve to a package')
 
         folderNode.children = createFolderChildren(data, folderNode)
-        this.index = { [`${dataSourceId}/$${data._id}`]: folderNode }
+        this.index = { [`${dataSource}/$${data._id}`]: folderNode }
       })
       .catch((error: Error) => {
         const folderNode = new TreeNode(
