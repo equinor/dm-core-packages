@@ -1,13 +1,12 @@
 import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Dialog } from './Dialog'
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { useDMSS } from '../context/DMSSContext'
 import { TGenericObject, TReference, TValidEntity } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
+import { Dialog } from './Dialog'
 import {
   BlueprintPicker,
   DestinationPicker,
@@ -70,11 +69,7 @@ export function NewEntityButton(props: {
       })
       .catch((error: AxiosError) => {
         console.error(error)
-        NotificationManager.error(
-          // @ts-ignore
-          JSON.stringify(error?.response?.data?.message || error.message),
-          'Failed to create'
-        )
+        toast.error('Failed to create')
       })
   }
 

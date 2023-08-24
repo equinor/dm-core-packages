@@ -13,17 +13,15 @@ import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React, { useState } from 'react'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
+import { toast } from 'react-toastify'
 import './../../style.css'
-
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { SingleTextInput } from './utils/SingleTextInput'
 import {
   DeleteAction,
   NewFolderAction,
   NewRootPackageAction,
 } from './utils/contextMenuActions'
 import { createContextMenuItems } from './utils/createContextMenuItmes'
-import { SingleTextInput } from './utils/SingleTextInput'
 import { DialogContent, edsButtonStyleConfig } from './utils/styles'
 
 //Component that can be used when a context menu action requires one text (string) input.
@@ -55,7 +53,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
       setScrimToShow('')
       setFormData('')
     } else {
-      NotificationManager.error('Form data cannot be empty!')
+      toast.error('Form data cannot be empty!')
     }
   }
 
@@ -170,10 +168,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
                   })
                   .catch((error: AxiosError<ErrorResponse>) => {
                     console.error(error)
-                    NotificationManager.error(
-                      error.response?.data.message,
-                      'Failed to create entity'
-                    )
+                    toast.error('Failed to create entity')
                   })
                   .finally(() => setLoading(false))
               }}
@@ -218,11 +213,11 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
                   )
                   .then(() => {
                     setScrimToShow('')
-                    NotificationManager.success(`New entity created`, 'Success')
+                    toast.success(`New entity created`)
                   })
                   .catch((error: AxiosError<ErrorResponse>) => {
                     console.error(error)
-                    NotificationManager.error(error.response?.data.message)
+                    toast.error(error.response?.data.message)
                   })
                   .finally(() => setLoading(false))
               }}
@@ -270,7 +265,7 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
                   })
                   .catch((error: AxiosError<ErrorResponse>) => {
                     console.error(error)
-                    NotificationManager.error(error.response?.data.message)
+                    toast.error(error.response?.data.message)
                   })
                   .finally(() => setLoading(false))
               }}

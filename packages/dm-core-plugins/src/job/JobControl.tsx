@@ -12,10 +12,9 @@ import {
 import { Button, Label, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import Icons from './Icons'
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
 
 const StyledPre = styled.pre`
   display: flex;
@@ -116,20 +115,14 @@ export const JobControl = (props: {
     dmtApi
       .startJob({ jobDmssId: jobId })
       .then((result: any) => {
-        NotificationManager.success(
-          JSON.stringify(result.data.message),
-          'Simulation job started'
-        )
+        toast.success('Simulation job started')
         setJobUID(result.data.uid)
         setJobLogs(result.data.message)
         setJobStatus(JobStatus.Starting)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
-        NotificationManager.error(
-          error.response?.data.message,
-          'Failed to start job'
-        )
+        toast.error('Failed to start job')
       })
       .finally(() => setLoading(false))
   }
@@ -144,10 +137,7 @@ export const JobControl = (props: {
     } catch (error: AxiosError<ErrorResponse> | any) {
       if (isAxiosError(error)) {
         console.error(error.response?.data)
-        NotificationManager.error(
-          error.response?.data.message,
-          'Failed to remove job'
-        )
+        toast.error('Failed to remove job')
       } else {
         console.log(error)
       }
