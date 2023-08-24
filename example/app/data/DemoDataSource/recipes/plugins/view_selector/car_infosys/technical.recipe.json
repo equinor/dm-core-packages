@@ -16,13 +16,16 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Edit",
+              "type": "CORE:UiRecipe",
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "fields": ["controlDate", "nextControl"]
+                "fields": [
+                  "controlDate",
+                  "nextControl"
+                ]
               }
             },
             "eds_icon": "check"
@@ -34,13 +37,17 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Edit",
+              "type": "CORE:UiRecipe",
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "fields": ["width", "length", "heigth"]
+                "fields": [
+                  "width",
+                  "length",
+                  "heigth"
+                ]
               }
             },
             "eds_icon": "car"
@@ -57,8 +64,8 @@
       "category": "container"
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "Edit",
+      "type": "CORE:UiRecipe",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
     }
