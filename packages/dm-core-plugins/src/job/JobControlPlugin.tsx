@@ -5,12 +5,14 @@ import {
   useDocument,
   TJob,
   Loading,
+  splitAddress,
 } from '@development-framework/dm-core'
 import { JobControl } from './JobControl'
 
 export const JobControlPlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const [dataSourceId, documentId] = idReference.split('/', 2)
+
+  const { dataSource } = splitAddress(idReference)
   const [document, documentLoading, updateDocument, error] =
     useDocument<TJob>(idReference)
   if (error) throw new Error(JSON.stringify(error, null, 2))
@@ -19,7 +21,7 @@ export const JobControlPlugin = (props: IUIPlugin) => {
   return (
     <JobControl
       document={document}
-      jobId={`${dataSourceId}/${document}`} //TODO fix input: this will fail since document is of type TJob and not any
+      jobId={`${dataSource}/${document}`} //TODO fix input: this will fail since document is of type TJob and not any
       updateDocument={updateDocument}
     />
   )

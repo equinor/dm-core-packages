@@ -10,6 +10,7 @@ import { useDocument } from '@development-framework/dm-core'
 
 export const PdfPlugin = (props: IUIPlugin) => {
   const { idReference } = props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [document, loading, _, error] = useDocument<TGenericObject>(
     idReference,
     999

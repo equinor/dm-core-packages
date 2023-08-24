@@ -7,7 +7,6 @@ import {
   Stack,
   TBlueprint,
   TLinkReference,
-  TValidEntity,
   getKey,
   resolveRelativeAddress,
   splitAddress,
@@ -30,7 +29,8 @@ const SelectReference = (props: { type: string; namePath: string }) => {
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
   const { idReference } = useRegistryContext()
-  const onChange = (address: string, entity: TValidEntity) => {
+
+  const onChange = (address: string) => {
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',

@@ -3,7 +3,6 @@ import {
   isReferenceViewConfig,
   isViewConfig,
   IUIPlugin,
-  TGenericObject,
   TInlineRecipeViewConfig,
   TReferenceViewConfig,
   TViewConfig,

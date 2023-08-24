@@ -27,7 +27,7 @@ import { TreeView } from '../TreeView'
  * @param scope: optional attribute to define scope for tree view. The scope will be a path to a folder.
  */
 export const EntityPickerButton = (props: {
-  onChange: (address: string, entity: TValidEntity) => void
+  onChange: (address: string, entity?: TValidEntity) => void
   typeFilter?: string
   alternativeButtonText?: string
   buttonVariant?: 'contained' | 'outlined' | 'ghost' | 'ghost_icon'

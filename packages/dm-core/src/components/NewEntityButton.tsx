@@ -178,7 +178,7 @@ export function NewEntityButton(props: {
                 buttonVariant="outlined"
                 typeFilter={typeToCreate}
                 alternativeButtonText="Copy existing"
-                onChange={(address: string, entity: TValidEntity) =>
+                onChange={(address: string, entity?: TValidEntity) =>
                   setDocumentToCopy(entity)
                 }
               />

@@ -71,7 +71,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
         idAddress: jobEntityDestination,
         data: JSON.stringify(jobEntityFormData),
       })
-        .then((response: AxiosResponse<any>) => {
+        .then(() => {
           onCreate(jobEntityDestination)
           setCreatedJobEntity(jobEntityFormData)
         })

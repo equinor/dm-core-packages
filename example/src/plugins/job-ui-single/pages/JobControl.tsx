@@ -4,7 +4,7 @@ import {
   Loading,
   useJob,
 } from '@development-framework/dm-core'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Chip, Icon } from '@equinor/eds-core-react'
 import { stop, play } from '@equinor/eds-icons'
 

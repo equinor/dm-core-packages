@@ -26,7 +26,7 @@ const DownloadBinary = (props: {
   displayLabel: string
   initialValue: TGenericObject & { address: string }
 }) => {
-  const { fileId, namePath, displayLabel, initialValue } = props
+  const { namePath, displayLabel, initialValue } = props
   const dmssAPI = useDMSS()
   const [data_source_id, blob_id] = getTarget(initialValue)
 
