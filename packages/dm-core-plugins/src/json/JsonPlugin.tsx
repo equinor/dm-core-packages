@@ -1,37 +1,30 @@
-import React from 'react'
 import {
-  JsonView,
-  Button,
-  useDocument,
-  Loading,
   IUIPlugin,
+  JsonView,
+  Loading,
   TGenericObject,
+  useDocument,
 } from '@development-framework/dm-core'
-
-// @ts-ignore
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { Button } from '@equinor/eds-core-react'
+import React from 'react'
+import { toast } from 'react-toastify'
 
 export default (props: IUIPlugin) => {
   const { idReference } = props
   const [document, loading] = useDocument<TGenericObject>(idReference)
-  const infoText: string = ''
   if (loading || document === null) {
     return <Loading />
   }
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          color: '#9e4949',
+      <Button
+        onClick={() => {
+          navigator.clipboard.writeText(JSON.stringify(document))
+          toast.success('Copied!')
         }}
       >
-        {infoText && <small>{infoText}</small>}
-        <CopyToClipboard text={JSON.stringify(document)}>
-          <Button style={{ marginBottom: '5px' }}>Copy</Button>
-        </CopyToClipboard>
-      </div>
+        Copy
+      </Button>
 
       <JsonView data={document} />
     </div>

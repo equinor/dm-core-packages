@@ -1,5 +1,5 @@
-import { Button, Dialog, useDMSS } from '@development-framework/dm-core'
-import { Radio } from '@equinor/eds-core-react'
+import { Dialog, useDMSS } from '@development-framework/dm-core'
+import { Button, Radio } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
@@ -59,7 +59,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
           Roles:
           <UserInfoLabel>{JSON.stringify(tokenData?.roles)}</UserInfoLabel>
         </Row>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div style={{ display: 'flex', gap: '1rem', margin: '0.5rem 0' }}>
           <Button
             onClick={() => {
               navigator.clipboard.writeText(token)
