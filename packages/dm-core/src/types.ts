@@ -20,6 +20,12 @@ export type TLinkReference = {
   address: string
 }
 
+export type TStorageReference = {
+  type: string
+  referenceType: 'storage'
+  address: string
+}
+
 export type TBlob = {
   _blob_id?: string
   name: string
@@ -114,6 +120,23 @@ export type TUiRecipe = {
   config?: TGenericObject
   roles?: string[]
   dimensions?: string
+}
+
+export type TStorageRecipe = {
+  type: string
+  name: string
+  description?: string
+  storageAffinity: string
+  attributes: TStorageAttribute[]
+}
+
+export type TStorageAttribute = {
+  type: string
+  name: string
+  description?: string
+  contained?: boolean
+  storageAffinity?: boolean
+  label?: string
 }
 
 export type TPlugin = {

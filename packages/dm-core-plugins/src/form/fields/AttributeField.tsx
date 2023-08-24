@@ -36,8 +36,7 @@ const getDisplayLabel = (attribute: any): string => {
 }
 
 export const AttributeField = (props: TAttributeFieldProps) => {
-  const { namePath, attribute, uiAttribute } = props
-
+  const { namePath, attribute, uiAttribute, storageRecipe } = props
   const fieldType = getFieldType(attribute)
 
   const displayLabel = getDisplayLabel(attribute)
@@ -61,6 +60,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           contained={attribute.contained ?? true}
+          storageContained={storageRecipe === undefined ? true : false} // TODO find out if storageContained should be put in here...
           type={attribute.attributeType}
           optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}

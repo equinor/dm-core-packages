@@ -13,6 +13,7 @@ import {
   splitAddress,
   useBlueprint,
   useDMSS,
+  TStorageReference,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -26,14 +27,18 @@ import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
-const SelectReference = (props: { type: string; namePath: string }) => {
+const SelectReference = (props: {
+  type: string
+  namePath: string
+  referenceType: 'link' | 'storage'
+}) => {
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
   const { idReference } = useRegistryContext()
   const onChange = (address: string, entity: TValidEntity) => {
-    const reference: TLinkReference = {
+    const reference: TLinkReference | TStorageReference = {
       type: EBlueprint.REFERENCE,
-      referenceType: 'link',
+      referenceType: props.referenceType,
       address: address,
     }
     const options = {
@@ -225,24 +230,70 @@ const Indent = styled.div`
   padding-left: 1rem;
 `
 
-export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
-  const { type, namePath, displayLabel, uiAttribute, uiRecipe, optional } =
-    props
+/*
+
+* possible combinations of model and storage contained:
+  - contained true, storageContained false
+  - contained true, storageContained true
+  - contained false, storageContained false
+  - contained false, storageContained true
+*/
+
+const getCorrectReferenceType = (
+  contained: boolean,
+  storageContained: boolean
+): 'link' | 'storage' => {
+  if (!contained && storageContained) {
+    return 'link'
+  } else if (contained && !storageContained) {
+    return 'storage'
+  } else {
+    throw new Error(
+      `Not supported combination: contained=${contained} and storageContained=${storageContained}`
+    )
+    // TODO are there more valid combinations????
+  }
+}
+
+export const UncontainedAttribute = (
+  props: TContentProps & { contained: boolean; storageContained: boolean }
+): JSX.Element => {
+  const {
+    type,
+    namePath,
+    displayLabel,
+    uiAttribute,
+    uiRecipe,
+    optional,
+    contained,
+    storageContained,
+  } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
   const { dataSource, documentPath } = splitAddress(idReference)
+
   const address =
-    value && value.address && value.referenceType === 'link'
+    value &&
+    value.address &&
+    (value.referenceType === 'link' || value.referenceType === 'storage')
       ? resolveRelativeAddress(value.address, documentPath, dataSource)
       : undefined
-
+  console.log('value', value)
   return (
     <Stack spacing={0.5}>
       <Typography bold={true}>{displayLabel}</Typography>
       {address && <Typography>Address: {value.address}</Typography>}
       <Stack direction="row" spacing={0.5}>
-        <SelectReference type={type} namePath={namePath} />
+        <SelectReference
+          type={type}
+          namePath={namePath}
+          referenceType={
+            value && value.referenceType
+              ? value.referenceType
+              : getCorrectReferenceType(contained, storageContained)
+          }
+        />
         {optional && address && <RemoveObject namePath={namePath} />}
         {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
@@ -291,8 +342,15 @@ export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
 }
 
 export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
-  const { type, namePath, displayLabel, optional, contained, uiAttribute } =
-    props
+  const {
+    type,
+    namePath,
+    displayLabel,
+    optional,
+    contained,
+    storageContained,
+    uiAttribute,
+  } = props
 
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
 
@@ -306,7 +364,10 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
     .map((x) => ({ ...x, config: { ...defaultConfig, ...x.config } }))
     .find((uiRecipe) => uiRecipe.name === uiRecipeName)
 
-  const Content = contained ? ContainedAttribute : UncontainedAttribute
+  const Content =
+    contained === true && storageContained === true
+      ? ContainedAttribute
+      : UncontainedAttribute
   return (
     <Content
       type={type}
@@ -316,6 +377,8 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
       blueprint={blueprint}
       uiRecipe={uiRecipe}
       uiAttribute={uiAttribute}
+      contained={contained}
+      storageContained={storageContained}
     />
   )
 }

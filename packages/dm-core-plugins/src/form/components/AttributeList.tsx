@@ -1,4 +1,9 @@
-import { Stack, TAttribute, TBlueprint } from '@development-framework/dm-core'
+import {
+  Stack,
+  TAttribute,
+  TBlueprint,
+  TStorageRecipe,
+} from '@development-framework/dm-core'
 import React from 'react'
 import { AttributeField } from '../fields/AttributeField'
 import { TConfig } from '../types'
@@ -7,8 +12,9 @@ export const AttributeList = (props: {
   namePath: string
   config: TConfig | undefined
   blueprint: TBlueprint | undefined
+  storageRecipes?: TStorageRecipe[]
 }) => {
-  const { namePath, config, blueprint } = props
+  const { namePath, config, blueprint, storageRecipes } = props
 
   const prefix = namePath === '' ? `` : `${namePath}.`
 
@@ -26,12 +32,20 @@ export const AttributeList = (props: {
     const uiAttribute = config?.attributes.find(
       (uiAttribute) => uiAttribute.name === attribute.name
     )
+    let storageRecipeForAttribute: TStorageRecipe | undefined = undefined
+    if (storageRecipes) {
+      storageRecipeForAttribute = storageRecipes.find((storageRecipe) => {
+        return storageRecipe.name === attribute.name
+      })
+    }
+
     return (
       <div
         data-testid={`${prefix}${attribute.name}`}
         key={`${prefix}${attribute.name}`}
       >
         <AttributeField
+          storageRecipe={storageRecipeForAttribute}
           namePath={`${prefix}${attribute.name}`}
           attribute={attribute}
           uiAttribute={uiAttribute}

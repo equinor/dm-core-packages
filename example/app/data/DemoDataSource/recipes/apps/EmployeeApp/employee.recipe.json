@@ -16,5 +16,20 @@
         }
       ]
     }
-  }
+  },
+  "storageRecipes": [
+    {
+      "name": "profilePicture",
+      "type": "dmss://system/SIMOS/StorageRecipe",
+      "description": "",
+      "attributes": [
+        {
+          "name": "profilePicture",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "storageAffinity": "blob",
+          "contained": false
+        }
+      ]
+    }
+  ]
 }

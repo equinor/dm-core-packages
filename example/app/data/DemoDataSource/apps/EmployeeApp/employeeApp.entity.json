@@ -12,7 +12,7 @@
       "profilePicture": {
         "type": "dmss://system/SIMOS/Reference",
         "address": "./assets/businessman",
-        "referenceType": "link"
+        "referenceType": "storage"
       }
     },
     {
@@ -22,7 +22,7 @@
       "profilePicture": {
         "type": "dmss://system/SIMOS/Reference",
         "address": "./assets/positive",
-        "referenceType": "link"
+        "referenceType": "storage"
       }
     }
   ]

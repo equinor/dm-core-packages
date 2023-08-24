@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
 export const Form = (props: TFormProps) => {
   const { type, formData, config, onSubmit, idReference, onOpen } = props
-  const { blueprint } = useBlueprint(type)
+  const { blueprint, storageRecipes } = useBlueprint(type)
 
   const methods = useForm({
     // Set initial state.
@@ -50,6 +50,7 @@ export const Form = (props: TFormProps) => {
           <form onSubmit={handleSubmit}>
             <Stack spacing={2} style={{ padding: '1rem 0' }}>
               <AttributeList
+                storageRecipes={storageRecipes}
                 namePath={namePath}
                 config={config}
                 blueprint={blueprint}

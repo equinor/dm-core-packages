@@ -2,6 +2,7 @@ import {
   TAttribute,
   TBlueprint,
   TOnOpen,
+  TStorageRecipe,
   TUiRecipe,
 } from '@development-framework/dm-core'
 
@@ -15,7 +16,9 @@ export type TFormProps = {
 }
 
 export type TObjectFieldProps = {
-  contained: boolean
+  contained: boolean // TODO rename to modelContained
+  storageContained: boolean
+
   namePath: string
   type: string
   displayLabel: string
@@ -45,6 +48,7 @@ export type TAttributeFieldProps = {
   namePath: string
   attribute: TAttribute
   uiAttribute?: TAttributeConfig
+  storageRecipe?: TStorageRecipe | undefined
 }
 
 export type TStringFieldProps = {

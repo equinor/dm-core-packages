@@ -5,6 +5,6 @@
   "profilePicture": {
     "type": "dmss://system/SIMOS/Reference",
     "address": "./assets/positive",
-    "referenceType": "link"
+    "referenceType": "storage"
   }
 }

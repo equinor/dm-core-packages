@@ -1,17 +1,20 @@
 import { AxiosError } from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { TBlueprint } from 'src/domain/types'
-import { TUiRecipe } from 'src/types'
+import { TStorageRecipe, TStorageReference, TUiRecipe } from 'src/types'
 import { ApplicationContext } from '../context/ApplicationContext'
 import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
+
 interface IUseBlueprint {
   blueprint: TBlueprint | undefined
   initialUiRecipe: TUiRecipe | undefined
   uiRecipes: TUiRecipe[]
+  storageRecipes: TStorageRecipe[]
   isLoading: boolean
   error: ErrorResponse | null
 }
+
 /**
  * Hook to fetch a Blueprint from the DMSS API
  *
@@ -37,6 +40,7 @@ interface IUseBlueprint {
 export const useBlueprint = (typeRef: string): IUseBlueprint => {
   const [blueprint, setBlueprint] = useState<TBlueprint>()
   const [uiRecipes, setUiRecipes] = useState<TUiRecipe[]>([])
+  const [storageRecipes, setStorageRecipes] = useState<TStorageRecipe[]>([])
   const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
@@ -49,6 +53,7 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
         setInitialUiRecipe(response.data.initialUiRecipe)
+        setStorageRecipes(response.data.storageRecipes ?? [])
         setUiRecipes(response.data.uiRecipes ?? [])
         setError(null)
       })
@@ -58,5 +63,12 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
       .finally(() => setLoading(false))
   }, [typeRef])
 
-  return { blueprint, initialUiRecipe, uiRecipes, isLoading, error }
+  return {
+    blueprint,
+    initialUiRecipe,
+    uiRecipes,
+    storageRecipes,
+    isLoading,
+    error,
+  }
 }
