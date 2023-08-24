@@ -1,19 +1,21 @@
 {
-  "type": "./blueprints/CarGarage",
   "name": "CarGarage",
+  "type": "./blueprints/CarGarage",
   "description": "Here you will find detailed information about the cars in our garage",
   "Audi": {
-    "type": "./blueprints/CarBlueprint",
     "name": "Audi",
+    "type": "./blueprints/CarBlueprint",
     "model": "2023",
     "Owner": {
-      "type": "./blueprints/OwnerBlueprint",
       "name": "Aiden",
-      "earlierOwners": ["Melissa"]
+      "type": "./blueprints/OwnerBlueprint",
+      "earlierOwners": [
+        "Melissa"
+      ]
     },
     "Technical": {
-      "type": "./blueprints/TechBlueprint",
       "name": "Technical",
+      "type": "./blueprints/TechBlueprint",
       "controlDate": "2023-06-01",
       "nextControl": "2025-06-01",
       "width": 1800,
@@ -22,18 +24,21 @@
     }
   },
   "Volvo": {
-    "type": "./blueprints/CarBlueprint",
     "name": "Volvo",
+    "type": "./blueprints/CarBlueprint",
     "model": "2023",
     "Owner": {
-      "type": "./blueprints/OwnerBlueprint",
       "name": "Devon",
+      "type": "./blueprints/OwnerBlueprint",
       "DateOwned": "2023-06-01",
-      "earlierOwners": ["Jack", "Maria"]
+      "earlierOwners": [
+        "Jack",
+        "Maria"
+      ]
     },
     "Technical": {
-      "type": "./blueprints/TechBlueprint",
       "name": "Technical",
+      "type": "./blueprints/TechBlueprint",
       "controlDate": "2023-06-01",
       "nextControl": "2025-06-01",
       "width": 1800,

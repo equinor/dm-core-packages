@@ -15,13 +15,16 @@
           "view": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "type": "CORE:UiRecipe",
               "name": "Edit",
+              "type": "CORE:UiRecipe",
               "description": "Default edit",
               "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "fields": ["name", "description"]
+                "fields": [
+                  "name",
+                  "description"
+                ]
               }
             },
             "scope": "self",
@@ -54,8 +57,8 @@
       "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
-      "type": "CORE:UiRecipe",
       "name": "Edit",
+      "type": "CORE:UiRecipe",
       "description": "Default edit",
       "plugin": "@development-framework/dm-core-plugins/form"
     }
