@@ -2109,3 +2109,8 @@ Co-authored-by: Roar Larsen <roarla@equinor.com> (2023-08-21T07:34:30Z)
     * **DMSS VERSION**: 2347ec9 2023-08-22 Krist..rstad docs: update reset command in readme grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.17
     * **JOB VERSION**: b537ebf 2023-08-23 Krist..rstad fix: bug in split_address() grafted, HEAD -> main, origin/main
+* refactor: remove button, header and clipboard copy (2023-08-21T07:34:30Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/5964271405/1)
+    * **DMSS VERSION**: 2347ec9 2023-08-22 Krist..rstad docs: update reset command in readme grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.17
+    * **JOB VERSION**: b537ebf 2023-08-23 Krist..rstad fix: bug in split_address() grafted, HEAD -> main, origin/main
