@@ -8,6 +8,7 @@ import {
   TFileEntity,
   splitAddress,
   TLinkReference,
+  TStorageReference,
 } from '@development-framework/dm-core'
 import { DownloadFileButton } from './DownloadFileButton'
 import { UploadFileButton } from './UploadFileButton'
@@ -23,9 +24,9 @@ export const FilePlugin = (props: IUIPlugin) => {
   if (loading || fileEntity === null) return <Loading />
   if (fileEntity.type !== EBlueprint.FILE) return <>Error: Not File type</>
 
-  const handleUpload = (file: File, reference: TLinkReference) => {
+  const handleUpload = (file: File, reference: TStorageReference) => {
     // Need to remove the file extension since name has strict validation rules.
-    //  TODO renaming of an exisitng entity does not work
+    //  TODO consider removing the fileEntity.name update altogether: renaming of an existing entity does not work in dmss
     //fileEntity.name =
     //  file.name.split('/').slice(-1).join().split('.').shift() ?? ''
     fileEntity.size = file.size
