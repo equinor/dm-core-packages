@@ -25,6 +25,7 @@ export const ViewSelectorPlugin = (
     items: [],
     ...config,
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [entity, isLoading, _, error] = useDocument<TGenericObject>(idReference)
   const [selectedView, setSelectedView] = useState<string | undefined>()
   const [views, setViews] = useState<TItemData[]>([])

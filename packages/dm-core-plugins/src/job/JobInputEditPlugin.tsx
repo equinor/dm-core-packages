@@ -5,13 +5,14 @@ import {
   TJob,
   EntityView,
   useDocument,
+  splitAddress,
 } from '@development-framework/dm-core'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
 export const JobInputEditPlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const [dataSourceId, documentId] = idReference.split('/', 2)
+  const { dataSource } = splitAddress(idReference)
   const [document, documentLoading, updateDocument, error] =
     useDocument<TJob>(idReference)
   const [formData, setFormData] = useState<TJob | null>(null)
@@ -48,7 +49,7 @@ export const JobInputEditPlugin = (props: IUIPlugin) => {
         {Object.keys(formData.applicationInput || {}).length ? (
           <EntityView
             type={formData.applicationInput?.type}
-            idReference={`${dataSourceId}/${formData.applicationInput?._id}`}
+            idReference={`${dataSource}/${formData.applicationInput?._id}`}
             onSubmit={(data: any) =>
               updateDocument({ ...formData, applicationInput: data }, true)
             }

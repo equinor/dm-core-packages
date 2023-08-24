@@ -37,6 +37,7 @@ export const JobPlugin = (props: IUIPlugin) => {
   }
 
   // example of a default azure container job entity for signal app.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const defaultContainerJobEntity: TJob = {
     label: 'Example azure container job',
     type: EBlueprint.JOB,

@@ -97,7 +97,7 @@ export const JobForm = (props: {
                   </p>
                 </div>
                 <EntityPickerButton
-                  onChange={(address: string, entity: TValidEntity) => {
+                  onChange={(address: string) => {
                     const linkReference: TLinkReference = {
                       type: EBlueprint.REFERENCE,
                       referenceType: 'link',

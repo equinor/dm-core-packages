@@ -76,6 +76,7 @@ export function useDocument<T>(
       .finally(() => setLoading(false))
   }, [idReference])
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function updateDocument(newDocument: T, notify: boolean): void {
     setLoading(true)
     dmssAPI

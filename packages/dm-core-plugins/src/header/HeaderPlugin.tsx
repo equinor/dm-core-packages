@@ -66,7 +66,7 @@ export default (props: IUIPlugin): JSX.Element => {
   const { getUiPlugin } = useUiPlugins()
 
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
-    component: (props: IUIPlugin) => <div></div>,
+    component: () => <div></div>,
     config: {},
   })
 

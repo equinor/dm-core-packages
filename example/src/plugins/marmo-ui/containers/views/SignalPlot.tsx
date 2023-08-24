@@ -60,6 +60,7 @@ const ESSPlotPlugin = (props: { document: TGenericObject }) => {
 
 const SignalPlot_Component = (props: IUIPlugin) => {
   const { idReference } = props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [document, loading, updateDocument, error] =
     useDocument<TGenericObject>(idReference, 999)
 
