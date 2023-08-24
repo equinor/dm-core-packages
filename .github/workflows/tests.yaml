@@ -14,12 +14,12 @@ jobs:
         run: pip install pre-commit
 
       - name: Run prettier formatting
-        run: pre-commit run prettier --all-files
+        run: pre-commit run --all-files
 
   tests:
     strategy:
       matrix:
-        package: [dm-core, dm-core-plugins]
+        package: [ dm-core, dm-core-plugins ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
