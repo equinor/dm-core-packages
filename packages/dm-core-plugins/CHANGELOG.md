@@ -6,6 +6,40 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.1.0 to ^1.1.1
 
+## [1.3.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.2.0...dm-core-plugins-v1.3.0) (2023-08-24)
+
+
+### Features
+
+* **form:** add inline flag ([e85ecb0](https://github.com/equinor/dm-core-packages/commit/e85ecb0347e95ff1cfc4ac714838514688a3ded0))
+* **form:** allow inline presentation of list of non-primitives ([#411](https://github.com/equinor/dm-core-packages/issues/411)) ([3dbe737](https://github.com/equinor/dm-core-packages/commit/3dbe737984298c8c7a5fbc8e4fe9a647e522c1e3)), closes [#276](https://github.com/equinor/dm-core-packages/issues/276)
+
+
+### Bug Fixes
+
+* add correct titles to list item buttons ([bb94ccc](https://github.com/equinor/dm-core-packages/commit/bb94ccc0cc26d96d9b9bd1d3078a463b6d81e8cf))
+* added title to expand-minimize button ([f67d7a3](https://github.com/equinor/dm-core-packages/commit/f67d7a3cf6cb69dafa8b2b6cea9a13426771a112))
+* bug with creating link reference in addUncontained component ([f54dcc4](https://github.com/equinor/dm-core-packages/commit/f54dcc49d7710231e5b3f2534c671994ddb620a0))
+* export plugins by default ([e82bbd4](https://github.com/equinor/dm-core-packages/commit/e82bbd48249e1d205383b2818f576656b80c6ebe))
+* **form:** handle uncontained and mandatory object ([f8ae0eb](https://github.com/equinor/dm-core-packages/commit/f8ae0eb41d8d680aaff1ead4df38a595ead5a1e1))
+* **form:** show remove button even if onOpen exist ([49c958a](https://github.com/equinor/dm-core-packages/commit/49c958a5ddf81097d003f8e1972835ec19f9c7e1))
+* **form:** update db when pressing Remove button ([45b152d](https://github.com/equinor/dm-core-packages/commit/45b152d61faafcbf1f2a1dc608887584d06c8d22))
+* **form:** use documentAdd instead of Update ([#433](https://github.com/equinor/dm-core-packages/issues/433)) ([55e8c62](https://github.com/equinor/dm-core-packages/commit/55e8c62f57eda491eeedd87918d00cf5b9b7c235))
+* **form:** use recipe when opening in tab ([765630f](https://github.com/equinor/dm-core-packages/commit/765630f177a505e3b2e2c184cd47832f51e48aad))
+* modeling errors in documents ([ec05bbf](https://github.com/equinor/dm-core-packages/commit/ec05bbf802fcfa21e5072b8cd710ede9ed208df3))
+* modeling issues ([4897a1d](https://github.com/equinor/dm-core-packages/commit/4897a1d2dad52dfa0efc5bd22871654c1a5c2134))
+* raise error on missing uiPluginContext ([308598c](https://github.com/equinor/dm-core-packages/commit/308598cbb0736138c8e47d4559c1d252d8e067c7))
+* remove pluginName from TPlugin type ([45ac86b](https://github.com/equinor/dm-core-packages/commit/45ac86be4490bbb118e659cd3b43086aaf803309))
+* set wait for timeout after submit form ([9747bc3](https://github.com/equinor/dm-core-packages/commit/9747bc38d5e57aa679d425f6a0e3d584f5988063))
+* types in packages.json for MySignalApp ([cc1cdfc](https://github.com/equinor/dm-core-packages/commit/cc1cdfc13d424685a99e6236288c61de836a1656))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.2.0 to ^1.3.0
+
 ## [1.2.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.1.2...dm-core-plugins-v1.2.0) (2023-07-10)
 
 

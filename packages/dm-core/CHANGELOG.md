@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.3.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.2.0...dm-core-v1.3.0) (2023-08-24)
+
+
+### Features
+
+* add option to select attribute in entity picker ([d010261](https://github.com/equinor/dm-core-packages/commit/d010261c95af7dff3ecf2a1fc1afce17c8e19fff))
+* run azure container jobs in signal app ([2293577](https://github.com/equinor/dm-core-packages/commit/229357722942996bb904ebb8d10ddf7dde83f464))
+
+
+### Bug Fixes
+
+* added pagination button title ([215522c](https://github.com/equinor/dm-core-packages/commit/215522cfabcdf9a333833b5b9bce72a76fb687fe))
+* do not add primitive types as separate nodes in tree ([aa1827b](https://github.com/equinor/dm-core-packages/commit/aa1827b9fef3a26345e88f8e34f883f15b68bc47))
+* export plugins by default ([e82bbd4](https://github.com/equinor/dm-core-packages/commit/e82bbd48249e1d205383b2818f576656b80c6ebe))
+* raise error on missing uiPluginContext ([308598c](https://github.com/equinor/dm-core-packages/commit/308598cbb0736138c8e47d4559c1d252d8e067c7))
+* remove pluginName from TPlugin type ([45ac86b](https://github.com/equinor/dm-core-packages/commit/45ac86be4490bbb118e659cd3b43086aaf803309))
+* removing notificationmanager and replacing with toast ([08155c4](https://github.com/equinor/dm-core-packages/commit/08155c400dd522483ad82d30346cdbb6b9dfc87f))
+* set wait for timeout after submit form ([9747bc3](https://github.com/equinor/dm-core-packages/commit/9747bc38d5e57aa679d425f6a0e3d584f5988063))
+* update docs in subcomponents of JobPlugin ([99324f6](https://github.com/equinor/dm-core-packages/commit/99324f69ca17238344ae6c7c8a43c064f0a58e3c))
+* use correct address when returning link reference from  EntityPickerButton ([0030b52](https://github.com/equinor/dm-core-packages/commit/0030b520ceed700b60e576bf4bb239c1b59b14a7))
+
 ## [1.2.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.1.2...dm-core-v1.2.0) (2023-07-10)
 
 
