@@ -1,20 +1,19 @@
 import React, { useContext, useState } from 'react'
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { toast } from 'react-toastify'
+import { EBlueprint } from '../../Enums'
 import {
   PATH_INPUT_FIELD_WIDTH,
   TREE_DIALOG_HEIGHT,
   TREE_DIALOG_WIDTH,
 } from '../../utils/variables'
-import { EBlueprint } from '../../Enums'
 
 import { Input, Label, Progress, Tooltip } from '@equinor/eds-core-react'
+import { Variants } from '@equinor/eds-core-react/dist/types/components/types'
 import { FSTreeContext } from '../../context/FileSystemTreeContext'
+import { TreeNode } from '../../domain/Tree'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
 import { TreeView } from '../TreeView'
-import { TreeNode } from '../../domain/Tree'
-import { Variants } from '@equinor/eds-core-react/dist/types/components/types'
 
 export type TBlueprintPickerProps = {
   /** A function to trigger with the onChange event */
@@ -87,7 +86,7 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
             nodes={treeNodes}
             onSelect={(node: TreeNode) => {
               if (node.type !== EBlueprint.BLUEPRINT) {
-                NotificationManager.warning('You can only select a blueprint')
+                toast.warning('You can only select a blueprint')
                 return
               } // Only allowed to select blueprints
               setShowModal(false)

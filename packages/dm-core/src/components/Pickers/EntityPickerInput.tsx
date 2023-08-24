@@ -1,18 +1,17 @@
 import React, { useContext, useState } from 'react'
 
 import { Input, Label } from '@equinor/eds-core-react'
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { toast } from 'react-toastify'
+import { FSTreeContext } from '../../context/FileSystemTreeContext'
+import { TreeNode } from '../../domain/Tree'
+import { TReference } from '../../types'
 import {
   INPUT_FIELD_WIDTH,
   TREE_DIALOG_HEIGHT,
   TREE_DIALOG_WIDTH,
 } from '../../utils/variables'
-import { TReference } from '../../types'
 import { Dialog } from '../Dialog'
 import { TreeView } from '../TreeView'
-import { TreeNode } from '../../domain/Tree'
-import { FSTreeContext } from '../../context/FileSystemTreeContext'
 
 export const EntityPickerInput = (props: {
   onChange: (ref: TReference) => void
@@ -46,7 +45,7 @@ export const EntityPickerInput = (props: {
             nodes={treeNodes}
             onSelect={(node: TreeNode) => {
               if (node.type !== typeFilter) {
-                NotificationManager.warning('Wrong type')
+                toast.warning('Wrong type')
                 return
               }
               node
@@ -57,7 +56,7 @@ export const EntityPickerInput = (props: {
                 })
                 .catch((error: any) => {
                   console.error(error)
-                  NotificationManager.error('Failed to fetch')
+                  toast.error('Failed to fetch')
                 })
             }}
           />

@@ -1,8 +1,7 @@
 import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { toast } from 'react-toastify'
 import { useDMSS } from '../context/DMSSContext'
 import { TGenericObject, TReference, TValidEntity } from '../types'
 import { getKey } from '../utils/objectUtilities'
@@ -31,9 +30,7 @@ export function UploadFileButton(props: {
     const file = event.target.files[0]
     const suffix = file.name.split('.')[file.name.split('.').length - 1]
     if (!fileSuffix.includes(suffix)) {
-      NotificationManager.error(
-        `Only files of type '${fileSuffix}' can be uploaded here`
-      )
+      toast.error(`Only files of type '${fileSuffix}' can be uploaded here`)
     } else {
       const newDocumentBody = getBody(file.name)
       setLoading(true)

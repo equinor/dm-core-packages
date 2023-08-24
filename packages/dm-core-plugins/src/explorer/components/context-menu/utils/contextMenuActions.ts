@@ -1,11 +1,10 @@
 import {
+  DmssAPI,
   ErrorResponse,
   TreeNode,
-  DmssAPI,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { toast } from 'react-toastify'
 
 export const DeleteAction = async (
   node: TreeNode,
@@ -19,14 +18,11 @@ export const DeleteAction = async (
     })
     .then(() => {
       node.remove()
-      NotificationManager.success('Deleted')
+      toast.success('Deleted')
     })
     .catch((error: AxiosError<ErrorResponse>) => {
       console.error(error)
-      NotificationManager.error(
-        error.response?.data.message,
-        'Failed to delete'
-      )
+      toast.error('Failed to delete')
     })
     .finally(() => setLoading(false))
 }
@@ -53,7 +49,7 @@ export const NewFolderAction = (
     .then(() => node.expand())
     .catch((error: AxiosError<ErrorResponse>) => {
       console.error(error)
-      NotificationManager.error(error.response?.data.message)
+      toast.error(error.response?.data.message)
     })
 }
 export const NewRootPackageAction = (
@@ -79,9 +75,7 @@ export const NewRootPackageAction = (
       node.expand()
     })
     .catch((error: AxiosError<ErrorResponse>) => {
-      NotificationManager.error(
-        JSON.stringify(error.response?.data.message),
-        'Failed to create new root package'
-      )
+      console.error(error)
+      toast.error('Failed to create new root package')
     })
 }

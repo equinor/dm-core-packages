@@ -1,22 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
 import { Button, Checkbox, Icon, Progress, Tabs } from '@equinor/eds-core-react'
-import styled from 'styled-components'
 import { edit_text, save } from '@equinor/eds-icons'
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
+import { AxiosError, AxiosResponse } from 'axios'
+import { toast } from 'react-toastify'
+import { useDMSS } from '../../context/DMSSContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
-//@ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { ACL, AccessLevel } from '../../services'
+import { TUserIdMapping } from '../../types'
 import {
   getTokenWithUserReadAccess,
   getUsernameMappingFromUserId,
   getUsernameMappingFromUsername,
 } from '../../utils/UsernameConversion'
-import { AxiosError, AxiosResponse } from 'axios'
-import { ACLUserRolesPanel } from './ACLUserRolesPanel'
 import { ACLOwnerPanel } from './ACLOwnerPanel'
-import { TUserIdMapping } from '../../types'
-import { AccessLevel, ACL } from '../../services'
-import { useDMSS } from '../../context/DMSSContext'
+import { ACLUserRolesPanel } from './ACLUserRolesPanel'
 
 Icon.add({ edit_text, save })
 
@@ -72,7 +71,7 @@ export const AccessControlList = (props: {
     const newUsers: { [key: string]: AccessLevel } = {}
     const users = aclCopy.users
     if (!users) {
-      NotificationManager.error('No users in ACL object!')
+      toast.error('No users in ACL object!')
       return Promise.reject()
     } else {
       return Promise.all(
@@ -109,7 +108,7 @@ export const AccessControlList = (props: {
     const newUsers: { [key: string]: AccessLevel } = {}
     const users = acl.users
     if (!users) {
-      NotificationManager.error('No users in ACL object!')
+      toast.error('No users in ACL object!')
       return Promise.reject()
     } else {
       return Promise.all(
@@ -151,7 +150,7 @@ export const AccessControlList = (props: {
               setDocumentACL(newACL)
             })
             .catch((error) => {
-              NotificationManager.error(
+              toast.error(
                 `Could not convert username ID to username (${error})`
               )
             })
@@ -161,7 +160,7 @@ export const AccessControlList = (props: {
         })
         .catch((error: AxiosError<any>) => {
           if (error.response) {
-            NotificationManager.error(
+            toast.error(
               `Could not fetch ACL for this document (${
                 error.response.data || error.message
               })`
@@ -195,11 +194,11 @@ export const AccessControlList = (props: {
             recursively: storeACLRecursively,
           })
           .then(() => {
-            NotificationManager.success('ACL saved!')
+            toast.success('ACL saved!')
           })
       })
       .catch((error) => {
-        NotificationManager.error(`Could not save ACL (${error})`)
+        toast.error(`Could not save ACL (${error})`)
       })
       .finally(() => setLoading(false))
   }

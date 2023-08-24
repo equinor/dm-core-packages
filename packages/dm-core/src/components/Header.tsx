@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
 import { Icon, Radio, TopBar } from '@equinor/eds-core-react'
-import { grid_on, info_circle, account_circle } from '@equinor/eds-icons'
-import styled from 'styled-components'
+import { account_circle, grid_on, info_circle } from '@equinor/eds-icons'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
-import { APP_ROLES, DMSS_ADMIN_ROLE } from '../utils/appRoles'
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
 import axios, { AxiosResponse } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import { useLocalStorage } from '../hooks/useLocalStorage'
-import { sortApplications } from '../utils/applicationHelperFunctions'
-import { Dialog } from './Dialog'
-import { Button } from './Button'
+import { toast } from 'react-toastify'
 import { useDMSS } from '../context/DMSSContext'
+import { useLocalStorage } from '../hooks/useLocalStorage'
+import { APP_ROLES, DMSS_ADMIN_ROLE } from '../utils/appRoles'
+import { sortApplications } from '../utils/applicationHelperFunctions'
+import { Button } from './Button'
+import { Dialog } from './Dialog'
 
 Icon.add({
   grid_on,
@@ -188,7 +187,7 @@ export const Header = (props: {
             <Button
               onClick={() => {
                 navigator.clipboard.writeText(token)
-                NotificationManager.success('Copied token to clipboard')
+                toast.success('Copied token to clipboard')
               }}
             >
               Copy token to clipboard
@@ -200,9 +199,7 @@ export const Header = (props: {
                   .then((response: any) => setAPIKey(response.data))
                   .catch((error: any) => {
                     console.error(error)
-                    NotificationManager.error(
-                      'Failed to create personal access token'
-                    )
+                    toast.error('Failed to create personal access token')
                   })
               }
             >

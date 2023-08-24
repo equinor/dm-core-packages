@@ -1,6 +1,5 @@
 import axios from 'axios'
-//@ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { toast } from 'react-toastify'
 import { TUserIdMapping } from '../types'
 
 const GRAPH_API = 'https://graph.microsoft.com/v1.0'
@@ -63,7 +62,7 @@ export const getUsernameMappingFromUserId = (
       }
     })
     .catch(() => {
-      NotificationManager.error(`Failed to get username from username ID.`)
+      toast.error(`Failed to get username from username ID.`)
       return { username: '', userId: userId }
     })
 }

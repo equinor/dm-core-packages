@@ -1,11 +1,10 @@
 import { Button, Dialog, useDMSS } from '@development-framework/dm-core'
 import { Radio } from '@equinor/eds-core-react'
+import { AxiosResponse } from 'axios'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
-// @ts-ignore
-import { AxiosResponse } from 'axios'
-import { NotificationManager } from 'react-notifications'
 import { TApplication } from '../types'
 import { useLocalStorage } from '../useLocalStorage'
 
@@ -64,7 +63,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
           <Button
             onClick={() => {
               navigator.clipboard.writeText(token)
-              NotificationManager.success('Copied token to clipboard')
+              toast.success('Copied token to clipboard')
             }}
           >
             Copy token to clipboard
@@ -78,9 +77,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
                 )
                 .catch((error: any) => {
                   console.error(error)
-                  NotificationManager.error(
-                    'Failed to create personal access token'
-                  )
+                  toast.error('Failed to create personal access token')
                 })
             }
           >

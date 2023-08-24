@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import { Button, Progress } from '@equinor/eds-core-react'
-// @ts-ignore
-import { NotificationManager } from 'react-notifications'
+import { toast } from 'react-toastify'
 import { EBlueprint } from '../../Enums'
 import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
@@ -69,7 +68,7 @@ export const EntityPickerButton = (props: {
       })
       .catch((error: any) => {
         console.error(error)
-        NotificationManager.error('Failed to fetch')
+        toast.error('Failed to fetch')
       })
       .finally(() => {
         setSelectedTreeNode(undefined)
@@ -107,7 +106,7 @@ export const EntityPickerButton = (props: {
                 nodes={treeNodes}
                 onSelect={(node: TreeNode) => {
                   if (typeFilter && node.type !== typeFilter) {
-                    NotificationManager.warning(
+                    toast.warning(
                       `Type must be '${truncatePathString(typeFilter, 43)}'`
                     )
                     setSelectedTreeNode(undefined)
