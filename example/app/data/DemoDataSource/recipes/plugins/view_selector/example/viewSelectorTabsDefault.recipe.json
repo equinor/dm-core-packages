@@ -1,9 +1,0 @@
-{
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/view_selector/example/blueprints/ViewSelectorTabsDefault",
-  "initialUiRecipe": {
-    "name": "ViewSelector",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector"
-  }
-}
