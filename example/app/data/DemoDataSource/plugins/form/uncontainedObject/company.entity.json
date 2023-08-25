@@ -1,0 +1,26 @@
+{
+  "_id": "UncontainedObject",
+  "type": "./blueprints/Company",
+  "employees": [
+    {
+      "name": "Miranda",
+      "type": "./blueprints/Person",
+      "phoneNumber": 1337
+    },
+    {
+      "name": "John",
+      "type": "./blueprints/Person",
+      "phoneNumber": 1234
+    }
+  ],
+  "ceo": {
+    "type": "CORE:Reference",
+    "address": "^.employees[0]",
+    "referenceType": "link"
+  },
+  "accountant": {
+    "type": "CORE:Reference",
+    "address": "^.employees[0]",
+    "referenceType": "link"
+  }
+}
