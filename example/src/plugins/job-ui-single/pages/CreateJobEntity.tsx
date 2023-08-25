@@ -41,9 +41,6 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   } = props
 
   const DmssApi = useDMSS()
-  const destinationIsAPackage: boolean = !(
-    jobEntityDestination.includes('.') || jobEntityDestination.includes('[')
-  )
   const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
   const [createdJobEntity, setCreatedJobEntity] = useState<TGenericObject>()
 
@@ -54,19 +51,11 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
         outputTarget: defaultJobOutputTarget,
       }
     }
-    if (destinationIsAPackage) {
-      DmssApi.documentAdd({
-        address: jobEntityDestination,
-        document: JSON.stringify(jobEntityFormData),
-      })
-        .then((response: AxiosResponse) => {
-          onCreate(`${dataSourceId}/$${response.data.uid}`)
-          setCreatedJobEntity(jobEntityFormData)
-        })
-        .catch((error: AxiosError<ErrorResponse>) => {
-          console.error(error.response?.data)
-        })
-    } else {
+
+    const updateDocument = (
+      jobEntityDestination: string,
+      jobEntityFormData: TJob
+    ) => {
       DmssApi.documentUpdate({
         idAddress: jobEntityDestination,
         data: JSON.stringify(jobEntityFormData),
@@ -79,6 +68,46 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
           console.error(error.response?.data)
         })
     }
+
+    const addDocument = (
+      jobEntityDestination: string,
+      jobEntityFormData: TJob
+    ) => {
+      DmssApi.documentAdd({
+        address: jobEntityDestination,
+        document: JSON.stringify(jobEntityFormData),
+      })
+        .then((response: AxiosResponse) => {
+          onCreate(`${dataSourceId}/$${response.data.uid}`)
+          setCreatedJobEntity(jobEntityFormData)
+        })
+        .catch((error: AxiosError<ErrorResponse>) => {
+          console.error(error.response?.data)
+        })
+    }
+
+    const addOrUpdateDocument = (
+      jobExists: boolean,
+      jobEntityDestination,
+      jobEntityFormData
+    ) => {
+      if (jobExists) {
+        updateDocument(jobEntityDestination, jobEntityFormData)
+      } else {
+        addDocument(jobEntityDestination, jobEntityFormData)
+      }
+    }
+
+    // TODO: Implement document check
+    DmssApi.documentCheck({
+      address: jobEntityDestination,
+    }).then((response: AxiosResponse) =>
+      addOrUpdateDocument(
+        response.data,
+        jobEntityDestination,
+        jobEntityFormData
+      )
+    )
   }
 
   if (createdJobEntity) {

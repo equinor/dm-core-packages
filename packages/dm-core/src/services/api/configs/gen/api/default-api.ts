@@ -602,6 +602,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+         * @summary Check Existence
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentCheck: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('documentCheck', 'address', address)
+            const localVarPath = `/api/documents-existence/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {string} address 
@@ -1035,47 +1076,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication APIKeyHeader required
-            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
-
-            // authentication OAuth2AuthorizationCodeBearer required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Delete Reference
-         * @param {string} address 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        referenceDelete: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'address' is not null or undefined
-            assertParamExists('referenceDelete', 'address', address)
-            const localVarPath = `/api/reference/{address}`
-                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -1598,6 +1598,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+         * @summary Check Existence
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentCheck(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentCheck(address, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {string} address 
@@ -1712,17 +1723,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async metaById(dataSourceId: string, documentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.metaById(dataSourceId, documentId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Delete Reference
-         * @param {string} address 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async referenceDelete(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1948,6 +1948,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.documentAddSimple(requestParameters.dataSourceId, requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
+         * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+         * @summary Check Existence
+         * @param {DefaultApiDocumentCheckRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentCheck(requestParameters: DefaultApiDocumentCheckRequest, options?: AxiosRequestConfig): AxiosPromise<boolean> {
+            return localVarFp.documentCheck(requestParameters.address, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
@@ -2045,16 +2055,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         metaById(requestParameters: DefaultApiMetaByIdRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
             return localVarFp.metaById(requestParameters.dataSourceId, requestParameters.documentId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-         * @summary Delete Reference
-         * @param {DefaultApiReferenceDeleteRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        referenceDelete(requestParameters: DefaultApiReferenceDeleteRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
-            return localVarFp.referenceDelete(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
          * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
@@ -2362,6 +2362,20 @@ export interface DefaultApiDocumentAddSimpleRequest {
 }
 
 /**
+ * Request parameters for documentCheck operation in DefaultApi.
+ * @export
+ * @interface DefaultApiDocumentCheckRequest
+ */
+export interface DefaultApiDocumentCheckRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DefaultApiDocumentCheck
+     */
+    readonly address: string
+}
+
+/**
  * Request parameters for documentGet operation in DefaultApi.
  * @export
  * @interface DefaultApiDocumentGetRequest
@@ -2541,20 +2555,6 @@ export interface DefaultApiMetaByIdRequest {
      * @memberof DefaultApiMetaById
      */
     readonly documentId: string
-}
-
-/**
- * Request parameters for referenceDelete operation in DefaultApi.
- * @export
- * @interface DefaultApiReferenceDeleteRequest
- */
-export interface DefaultApiReferenceDeleteRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof DefaultApiReferenceDelete
-     */
-    readonly address: string
 }
 
 /**
@@ -2841,6 +2841,18 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
+     * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+     * @summary Check Existence
+     * @param {DefaultApiDocumentCheckRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public documentCheck(requestParameters: DefaultApiDocumentCheckRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).documentCheck(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
      * @summary Get
      * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
@@ -2957,18 +2969,6 @@ export class DefaultApi extends BaseAPI {
      */
     public metaById(requestParameters: DefaultApiMetaByIdRequest, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).metaById(requestParameters.dataSourceId, requestParameters.documentId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-     * @summary Delete Reference
-     * @param {DefaultApiReferenceDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public referenceDelete(requestParameters: DefaultApiReferenceDeleteRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).referenceDelete(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
