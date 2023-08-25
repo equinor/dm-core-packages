@@ -141,6 +141,47 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
+         * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+         * @summary Check Existence
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentCheck: async (address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('documentCheck', 'address', address)
+            const localVarPath = `/api/documents-existence/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication APIKeyHeader required
+            await setApiKeyToObject(localVarHeaderParameter, "Access-Key", configuration)
+
+            // authentication OAuth2AuthorizationCodeBearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2AuthorizationCodeBearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {string} address 
@@ -328,6 +369,17 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+         * @summary Check Existence
+         * @param {string} address 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async documentCheck(address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.documentCheck(address, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {string} address 
@@ -393,6 +445,16 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
          */
         documentAddSimple(requestParameters: DocumentApiDocumentAddSimpleRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
             return localVarFp.documentAddSimple(requestParameters.dataSourceId, requestParameters.body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+         * @summary Check Existence
+         * @param {DocumentApiDocumentCheckRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        documentCheck(requestParameters: DocumentApiDocumentCheckRequest, options?: AxiosRequestConfig): AxiosPromise<boolean> {
+            return localVarFp.documentCheck(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
          * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
@@ -481,6 +543,20 @@ export interface DocumentApiDocumentAddSimpleRequest {
      * @memberof DocumentApiDocumentAddSimple
      */
     readonly body: object
+}
+
+/**
+ * Request parameters for documentCheck operation in DocumentApi.
+ * @export
+ * @interface DocumentApiDocumentCheckRequest
+ */
+export interface DocumentApiDocumentCheckRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof DocumentApiDocumentCheck
+     */
+    readonly address: string
 }
 
 /**
@@ -582,6 +658,18 @@ export class DocumentApi extends BaseAPI {
      */
     public documentAddSimple(requestParameters: DocumentApiDocumentAddSimpleRequest, options?: AxiosRequestConfig) {
         return DocumentApiFp(this.configuration).documentAddSimple(requestParameters.dataSourceId, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+     * @summary Check Existence
+     * @param {DocumentApiDocumentCheckRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentApi
+     */
+    public documentCheck(requestParameters: DocumentApiDocumentCheckRequest, options?: AxiosRequestConfig) {
+        return DocumentApiFp(this.configuration).documentCheck(requestParameters.address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
