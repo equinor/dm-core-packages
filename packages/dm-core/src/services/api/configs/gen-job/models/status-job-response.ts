@@ -13,6 +13,8 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
 import { JobStatus } from './job-status';
 
 /**
@@ -26,19 +28,20 @@ export interface StatusJobResponse {
      * @type {JobStatus}
      * @memberof StatusJobResponse
      */
-    status: JobStatus;
+    'status': JobStatus;
     /**
      * 
      * @type {string}
      * @memberof StatusJobResponse
      */
-    log?: string;
+    'log'?: string;
     /**
      * 
      * @type {string}
      * @memberof StatusJobResponse
      */
-    message: string;
+    'message': string;
 }
+
 
 

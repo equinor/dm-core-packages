@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -29,7 +30,7 @@ import { ErrorResponse } from '../models';
 export const FileApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
+         * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
          * @summary Upload File
          * @param {string} dataSourceId 
          * @param {string} data 
@@ -98,7 +99,7 @@ export const FileApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = FileApiAxiosParamCreator(configuration)
     return {
         /**
-         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
+         * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
          * @summary Upload File
          * @param {string} dataSourceId 
          * @param {string} data 
@@ -121,16 +122,14 @@ export const FileApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = FileApiFp(configuration)
     return {
         /**
-         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
+         * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
          * @summary Upload File
-         * @param {string} dataSourceId 
-         * @param {string} data 
-         * @param {File} file 
+         * @param {FileApiFileUploadRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fileUpload(dataSourceId: string, data: string, file: File, options?: any): AxiosPromise<object> {
-            return localVarFp.fileUpload(dataSourceId, data, file, options).then((request) => request(axios, basePath));
+        fileUpload(requestParameters: FileApiFileUploadRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.fileUpload(requestParameters.dataSourceId, requestParameters.data, requestParameters.file, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -171,7 +170,7 @@ export interface FileApiFileUploadRequest {
  */
 export class FileApi extends BaseAPI {
     /**
-     * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
+     * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
      * @summary Upload File
      * @param {FileApiFileUploadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

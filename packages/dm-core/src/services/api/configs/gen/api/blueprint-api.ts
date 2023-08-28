@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -31,7 +32,7 @@ import { GetBlueprintResponse } from '../models';
 export const BlueprintApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
+         * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -77,7 +78,7 @@ export const BlueprintApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
+         * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
          * @summary Resolve Blueprint Id
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -128,7 +129,7 @@ export const BlueprintApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BlueprintApiAxiosParamCreator(configuration)
     return {
         /**
-         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
+         * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -140,7 +141,7 @@ export const BlueprintApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
+         * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
          * @summary Resolve Blueprint Id
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -161,25 +162,24 @@ export const BlueprintApiFactory = function (configuration?: Configuration, base
     const localVarFp = BlueprintApiFp(configuration)
     return {
         /**
-         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
+         * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
          * @summary Get Blueprint
-         * @param {string} typeRef 
-         * @param {string} [context] 
+         * @param {BlueprintApiBlueprintGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintGet(typeRef: string, context?: string, options?: any): AxiosPromise<GetBlueprintResponse> {
-            return localVarFp.blueprintGet(typeRef, context, options).then((request) => request(axios, basePath));
+        blueprintGet(requestParameters: BlueprintApiBlueprintGetRequest, options?: AxiosRequestConfig): AxiosPromise<GetBlueprintResponse> {
+            return localVarFp.blueprintGet(requestParameters.typeRef, requestParameters.context, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
+         * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
          * @summary Resolve Blueprint Id
-         * @param {string} address 
+         * @param {BlueprintApiBlueprintResolveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintResolve(address: string, options?: any): AxiosPromise<string> {
-            return localVarFp.blueprintResolve(address, options).then((request) => request(axios, basePath));
+        blueprintResolve(requestParameters: BlueprintApiBlueprintResolveRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.blueprintResolve(requestParameters.address, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -227,7 +227,7 @@ export interface BlueprintApiBlueprintResolveRequest {
  */
 export class BlueprintApi extends BaseAPI {
     /**
-     * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
+     * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
      * @summary Get Blueprint
      * @param {BlueprintApiBlueprintGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -239,7 +239,7 @@ export class BlueprintApi extends BaseAPI {
     }
 
     /**
-     * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
+     * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
      * @summary Resolve Blueprint Id
      * @param {BlueprintApiBlueprintResolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

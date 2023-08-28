@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -29,17 +30,15 @@ import { ErrorResponse } from '../models';
 export const SearchApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
+         * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
          * @summary Search
-         * @param {object} body 
          * @param {Array<string>} [dataSources] 
          * @param {string} [sortByAttribute] 
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        search: async (body: object, dataSources?: Array<string>, sortByAttribute?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('search', 'body', body)
+        search: async (dataSources?: Array<string>, sortByAttribute?: string, body?: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -92,16 +91,16 @@ export const SearchApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = SearchApiAxiosParamCreator(configuration)
     return {
         /**
-         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
+         * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
          * @summary Search
-         * @param {object} body 
          * @param {Array<string>} [dataSources] 
          * @param {string} [sortByAttribute] 
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async search(body: object, dataSources?: Array<string>, sortByAttribute?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.search(body, dataSources, sortByAttribute, options);
+        async search(dataSources?: Array<string>, sortByAttribute?: string, body?: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.search(dataSources, sortByAttribute, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -115,16 +114,14 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = SearchApiFp(configuration)
     return {
         /**
-         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
+         * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
          * @summary Search
-         * @param {object} body 
-         * @param {Array<string>} [dataSources] 
-         * @param {string} [sortByAttribute] 
+         * @param {SearchApiSearchRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        search(body: object, dataSources?: Array<string>, sortByAttribute?: string, options?: any): AxiosPromise<object> {
-            return localVarFp.search(body, dataSources, sortByAttribute, options).then((request) => request(axios, basePath));
+        search(requestParameters: SearchApiSearchRequest = {}, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.search(requestParameters.dataSources, requestParameters.sortByAttribute, requestParameters.body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -135,13 +132,6 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
  * @interface SearchApiSearchRequest
  */
 export interface SearchApiSearchRequest {
-    /**
-     * 
-     * @type {object}
-     * @memberof SearchApiSearch
-     */
-    readonly body: object
-
     /**
      * 
      * @type {Array<string>}
@@ -155,6 +145,13 @@ export interface SearchApiSearchRequest {
      * @memberof SearchApiSearch
      */
     readonly sortByAttribute?: string
+
+    /**
+     * 
+     * @type {object}
+     * @memberof SearchApiSearch
+     */
+    readonly body?: object
 }
 
 /**
@@ -165,14 +162,14 @@ export interface SearchApiSearchRequest {
  */
 export class SearchApi extends BaseAPI {
     /**
-     * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
+     * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
      * @summary Search
      * @param {SearchApiSearchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public search(requestParameters: SearchApiSearchRequest, options?: AxiosRequestConfig) {
-        return SearchApiFp(this.configuration).search(requestParameters.body, requestParameters.dataSources, requestParameters.sortByAttribute, options).then((request) => request(this.axios, this.basePath));
+    public search(requestParameters: SearchApiSearchRequest = {}, options?: AxiosRequestConfig) {
+        return SearchApiFp(this.configuration).search(requestParameters.dataSources, requestParameters.sortByAttribute, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
     }
 }

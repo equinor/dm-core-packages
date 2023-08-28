@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -29,7 +30,7 @@ import { ErrorResponse } from '../models';
 export const WhoamiApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
+         * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -76,7 +77,7 @@ export const WhoamiApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = WhoamiApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
+         * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -96,12 +97,12 @@ export const WhoamiApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = WhoamiApiFp(configuration)
     return {
         /**
-         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
+         * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        whoami(options?: any): AxiosPromise<any> {
+        whoami(options?: AxiosRequestConfig): AxiosPromise<any> {
             return localVarFp.whoami(options).then((request) => request(axios, basePath));
         },
     };
@@ -115,7 +116,7 @@ export const WhoamiApiFactory = function (configuration?: Configuration, basePat
  */
 export class WhoamiApi extends BaseAPI {
     /**
-     * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
+     * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
      * @summary Get Information On Authenticated User
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

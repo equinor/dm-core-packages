@@ -25,13 +25,12 @@ export interface GetJobResultResponse {
      * @type {string}
      * @memberof GetJobResultResponse
      */
-    message: string;
+    'message': string;
     /**
      * 
      * @type {string}
      * @memberof GetJobResultResponse
      */
-    result: string;
+    'result': string;
 }
-
 

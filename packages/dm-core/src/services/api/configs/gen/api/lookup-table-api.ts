@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -31,7 +32,7 @@ import { Lookup } from '../models';
 export const LookupTableApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
+         * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
          * @summary Create Lookup
          * @param {string} application 
          * @param {Array<string>} recipePackage 
@@ -79,7 +80,7 @@ export const LookupTableApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Fetch a single lookup table.  - **application**: name of application
+         * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
          * @summary Get Lookup
          * @param {string} application 
          * @param {*} [options] Override http request option.
@@ -130,7 +131,7 @@ export const LookupTableApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = LookupTableApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
+         * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
          * @summary Create Lookup
          * @param {string} application 
          * @param {Array<string>} recipePackage 
@@ -142,7 +143,7 @@ export const LookupTableApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Fetch a single lookup table.  - **application**: name of application
+         * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
          * @summary Get Lookup
          * @param {string} application 
          * @param {*} [options] Override http request option.
@@ -163,25 +164,24 @@ export const LookupTableApiFactory = function (configuration?: Configuration, ba
     const localVarFp = LookupTableApiFp(configuration)
     return {
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
+         * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
          * @summary Create Lookup
-         * @param {string} application 
-         * @param {Array<string>} recipePackage 
+         * @param {LookupTableApiCreateLookupRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createLookup(application: string, recipePackage: Array<string>, options?: any): AxiosPromise<void> {
-            return localVarFp.createLookup(application, recipePackage, options).then((request) => request(axios, basePath));
+        createLookup(requestParameters: LookupTableApiCreateLookupRequest, options?: AxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.createLookup(requestParameters.application, requestParameters.recipePackage, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch a single lookup table.  - **application**: name of application
+         * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
          * @summary Get Lookup
-         * @param {string} application 
+         * @param {LookupTableApiGetLookupRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLookup(application: string, options?: any): AxiosPromise<Lookup> {
-            return localVarFp.getLookup(application, options).then((request) => request(axios, basePath));
+        getLookup(requestParameters: LookupTableApiGetLookupRequest, options?: AxiosRequestConfig): AxiosPromise<Lookup> {
+            return localVarFp.getLookup(requestParameters.application, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -229,7 +229,7 @@ export interface LookupTableApiGetLookupRequest {
  */
 export class LookupTableApi extends BaseAPI {
     /**
-     * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
+     * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
      * @summary Create Lookup
      * @param {LookupTableApiCreateLookupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -241,7 +241,7 @@ export class LookupTableApi extends BaseAPI {
     }
 
     /**
-     * Fetch a single lookup table.  - **application**: name of application
+     * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
      * @summary Get Lookup
      * @param {LookupTableApiGetLookupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

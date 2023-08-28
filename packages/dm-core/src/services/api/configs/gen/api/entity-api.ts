@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -31,7 +32,7 @@ import { ErrorResponse } from '../models';
 export const EntityApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns a default entity of specified type. This entity is not stored in the database.  Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
+         * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
@@ -74,7 +75,7 @@ export const EntityApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
          * @summary Validate
          * @param {Entity} entity 
          * @param {string} [asType] 
@@ -122,7 +123,7 @@ export const EntityApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Validate Existing
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -173,18 +174,18 @@ export const EntityApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = EntityApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns a default entity of specified type. This entity is not stored in the database.  Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
+         * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async instantiateEntity(entity: Entity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Entity>> {
+        async instantiateEntity(entity: Entity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(entity, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
          * @summary Validate
          * @param {Entity} entity 
          * @param {string} [asType] 
@@ -196,7 +197,7 @@ export const EntityApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Validate Existing
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -217,35 +218,34 @@ export const EntityApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = EntityApiFp(configuration)
     return {
         /**
-         * Returns a default entity of specified type. This entity is not stored in the database.  Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
+         * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
          * @summary Instantiate
-         * @param {Entity} entity 
+         * @param {EntityApiInstantiateEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        instantiateEntity(entity: Entity, options?: any): AxiosPromise<Entity> {
-            return localVarFp.instantiateEntity(entity, options).then((request) => request(axios, basePath));
+        instantiateEntity(requestParameters: EntityApiInstantiateEntityRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.instantiateEntity(requestParameters.entity, options).then((request) => request(axios, basePath));
         },
         /**
-         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
          * @summary Validate
-         * @param {Entity} entity 
-         * @param {string} [asType] 
+         * @param {EntityApiValidateEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateEntity(entity: Entity, asType?: string, options?: any): AxiosPromise<any> {
-            return localVarFp.validateEntity(entity, asType, options).then((request) => request(axios, basePath));
+        validateEntity(requestParameters: EntityApiValidateEntityRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.validateEntity(requestParameters.entity, requestParameters.asType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Validate Existing
-         * @param {string} address 
+         * @param {EntityApiValidateExistingEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateExistingEntity(address: string, options?: any): AxiosPromise<any> {
-            return localVarFp.validateExistingEntity(address, options).then((request) => request(axios, basePath));
+        validateExistingEntity(requestParameters: EntityApiValidateExistingEntityRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.validateExistingEntity(requestParameters.address, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -307,7 +307,7 @@ export interface EntityApiValidateExistingEntityRequest {
  */
 export class EntityApi extends BaseAPI {
     /**
-     * Returns a default entity of specified type. This entity is not stored in the database.  Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
+     * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
      * @summary Instantiate
      * @param {EntityApiInstantiateEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -319,7 +319,7 @@ export class EntityApi extends BaseAPI {
     }
 
     /**
-     * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+     * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
      * @summary Validate
      * @param {EntityApiValidateEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -331,7 +331,7 @@ export class EntityApi extends BaseAPI {
     }
 
     /**
-     * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+     * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
      * @summary Validate Existing
      * @param {EntityApiValidateExistingEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

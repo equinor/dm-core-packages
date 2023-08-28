@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -33,7 +34,7 @@ import { PATData } from '../models';
 export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
+         * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -77,7 +78,7 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
             };
         },
         /**
-         * Delete a personal access token (PAT).
+         * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -115,7 +116,7 @@ export const PersonalAccessTokenApiAxiosParamCreator = function (configuration?:
             };
         },
         /**
-         * Get a list of all personal access tokens (PATs).
+         * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -159,7 +160,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
     const localVarAxiosParamCreator = PersonalAccessTokenApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
+         * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -171,7 +172,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Delete a personal access token (PAT).
+         * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -182,7 +183,7 @@ export const PersonalAccessTokenApiFp = function(configuration?: Configuration) 
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get a list of all personal access tokens (PATs).
+         * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -202,33 +203,32 @@ export const PersonalAccessTokenApiFactory = function (configuration?: Configura
     const localVarFp = PersonalAccessTokenApiFp(configuration)
     return {
         /**
-         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
+         * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
          * @summary New Personal Access Token
-         * @param {AccessLevel} [scope] 
-         * @param {number} [timeToLive] 
+         * @param {PersonalAccessTokenApiTokenCreateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenCreate(scope?: AccessLevel, timeToLive?: number, options?: any): AxiosPromise<string> {
-            return localVarFp.tokenCreate(scope, timeToLive, options).then((request) => request(axios, basePath));
+        tokenCreate(requestParameters: PersonalAccessTokenApiTokenCreateRequest = {}, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.tokenCreate(requestParameters.scope, requestParameters.timeToLive, options).then((request) => request(axios, basePath));
         },
         /**
-         * Delete a personal access token (PAT).
+         * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
          * @summary Revoke Personal Access Token
-         * @param {string} tokenId 
+         * @param {PersonalAccessTokenApiTokenDeleteRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenDelete(tokenId: string, options?: any): AxiosPromise<string> {
-            return localVarFp.tokenDelete(tokenId, options).then((request) => request(axios, basePath));
+        tokenDelete(requestParameters: PersonalAccessTokenApiTokenDeleteRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.tokenDelete(requestParameters.tokenId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a list of all personal access tokens (PATs).
+         * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenListAll(options?: any): AxiosPromise<Array<PATData>> {
+        tokenListAll(options?: AxiosRequestConfig): AxiosPromise<Array<PATData>> {
             return localVarFp.tokenListAll(options).then((request) => request(axios, basePath));
         },
     };
@@ -277,7 +277,7 @@ export interface PersonalAccessTokenApiTokenDeleteRequest {
  */
 export class PersonalAccessTokenApi extends BaseAPI {
     /**
-     * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
+     * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
      * @summary New Personal Access Token
      * @param {PersonalAccessTokenApiTokenCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -289,7 +289,7 @@ export class PersonalAccessTokenApi extends BaseAPI {
     }
 
     /**
-     * Delete a personal access token (PAT).
+     * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
      * @summary Revoke Personal Access Token
      * @param {PersonalAccessTokenApiTokenDeleteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -301,7 +301,7 @@ export class PersonalAccessTokenApi extends BaseAPI {
     }
 
     /**
-     * Get a list of all personal access tokens (PATs).
+     * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
      * @summary List All Pats
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

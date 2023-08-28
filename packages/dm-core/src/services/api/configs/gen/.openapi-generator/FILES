@@ -23,12 +23,14 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/access-control-list.ts
 models/access-level.ts
-models/acl.ts
 models/data-source-information.ts
 models/data-source-request.ts
+models/dependency.ts
 models/entity.ts
 models/error-response.ts
+models/export-meta-response.ts
 models/get-blueprint-response.ts
 models/index.ts
 models/lookup.ts

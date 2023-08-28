@@ -25,13 +25,12 @@ export interface StartJobResponse {
      * @type {string}
      * @memberof StartJobResponse
      */
-    message: string;
+    'message': string;
     /**
      * 
      * @type {string}
      * @memberof StartJobResponse
      */
-    uid: string;
+    'uid': string;
 }
-
 

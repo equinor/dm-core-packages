@@ -19,16 +19,19 @@
  * @export
  * @enum {string}
  */
-export enum JobStatus {
-    Registered = 'registered',
-    NotStarted = 'not started',
-    Starting = 'starting',
-    Running = 'running',
-    Failed = 'failed',
-    Completed = 'completed',
-    Removed = 'removed',
-    Unknown = 'unknown'
-}
+
+export const JobStatus = {
+    Registered: 'registered',
+    NotStarted: 'not started',
+    Starting: 'starting',
+    Running: 'running',
+    Failed: 'failed',
+    Completed: 'completed',
+    Removed: 'removed',
+    Unknown: 'unknown'
+} as const;
+
+export type JobStatus = typeof JobStatus[keyof typeof JobStatus];
 
 
 

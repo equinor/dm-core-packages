@@ -13,15 +13,16 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { ACL } from '../models';
+import { AccessControlList } from '../models';
 // @ts-ignore
 import { AccessLevel } from '../models';
 // @ts-ignore
@@ -32,6 +33,8 @@ import { DataSourceRequest } from '../models';
 import { Entity } from '../models';
 // @ts-ignore
 import { ErrorResponse } from '../models';
+// @ts-ignore
+import { ExportMetaResponse } from '../models';
 // @ts-ignore
 import { GetBlueprintResponse } from '../models';
 // @ts-ignore
@@ -45,7 +48,7 @@ import { PATData } from '../models';
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
          * @summary Export
          * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
@@ -86,7 +89,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Fetch the attribute from a address.
+         * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
          * @summary Get Attribute
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -127,7 +130,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -172,7 +175,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
+         * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -228,7 +231,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
+         * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -274,7 +277,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
+         * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
          * @summary Resolve Blueprint Id
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -315,7 +318,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
+         * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
          * @summary Create Lookup
          * @param {string} application 
          * @param {Array<string>} recipePackage 
@@ -363,7 +366,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get configuration of a single data source.
+         * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -404,7 +407,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get list of all data sources found in DMSS (name and id for each data source).
+         * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -441,7 +444,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Create or update a data source configuration.
+         * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -488,7 +491,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
+         * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -552,7 +555,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+         * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
          * @summary Add Raw
          * @param {string} dataSourceId 
          * @param {object} body 
@@ -599,7 +602,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
@@ -645,7 +648,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Remove a document from DMSS.
+         * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Remove
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -686,7 +689,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
          * @summary Update
          * @param {string} idAddress 
          * @param {string} data 
@@ -750,7 +753,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
          * @summary Export Meta
          * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
@@ -791,7 +794,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
+         * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
          * @summary Upload File
          * @param {string} dataSourceId 
          * @param {string} data 
@@ -850,7 +853,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -895,7 +898,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Healthcheck endpoint. Responds with \"OK\" - 200.
+         * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -925,7 +928,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Fetch a single lookup table.  - **application**: name of application
+         * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
          * @summary Get Lookup
          * @param {string} application 
          * @param {*} [options] Override http request option.
@@ -966,7 +969,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns a default entity of specified type. This entity is not stored in the database.  Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
+         * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
@@ -1009,7 +1012,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get meta information from data source id.
+         * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
          * @summary Get Meta By Id
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -1095,17 +1098,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
+         * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
          * @summary Search
-         * @param {object} body 
          * @param {Array<string>} [dataSources] 
          * @param {string} [sortByAttribute] 
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        search: async (body: object, dataSources?: Array<string>, sortByAttribute?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('search', 'body', body)
+        search: async (dataSources?: Array<string>, sortByAttribute?: string, body?: object, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1148,22 +1149,22 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
-         * @param {ACL} aCL 
+         * @param {AccessControlList} accessControlList 
          * @param {boolean} [recursively] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setAcl: async (dataSourceId: string, documentId: string, aCL: ACL, recursively?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        setAcl: async (dataSourceId: string, documentId: string, accessControlList: AccessControlList, recursively?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
             assertParamExists('setAcl', 'dataSourceId', dataSourceId)
             // verify required parameter 'documentId' is not null or undefined
             assertParamExists('setAcl', 'documentId', documentId)
-            // verify required parameter 'aCL' is not null or undefined
-            assertParamExists('setAcl', 'aCL', aCL)
+            // verify required parameter 'accessControlList' is not null or undefined
+            assertParamExists('setAcl', 'accessControlList', accessControlList)
             const localVarPath = `/api/acl/{data_source_id}/{document_id}`
                 .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
                 .replace(`{${"document_id"}}`, encodeURIComponent(String(documentId)));
@@ -1196,7 +1197,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(aCL, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(accessControlList, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1204,7 +1205,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
+         * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -1248,7 +1249,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Delete a personal access token (PAT).
+         * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -1286,7 +1287,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get a list of all personal access tokens (PATs).
+         * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1320,7 +1321,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
          * @summary Validate
          * @param {Entity} entity 
          * @param {string} [asType] 
@@ -1368,7 +1369,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Validate Existing
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -1409,7 +1410,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
+         * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1456,7 +1457,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
          * @summary Export
          * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
@@ -1467,7 +1468,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Fetch the attribute from a address.
+         * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
          * @summary Get Attribute
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -1478,7 +1479,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -1490,7 +1491,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
+         * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -1503,7 +1504,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
+         * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
          * @summary Get Blueprint
          * @param {string} typeRef 
          * @param {string} [context] 
@@ -1515,7 +1516,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
+         * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
          * @summary Resolve Blueprint Id
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -1526,7 +1527,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
+         * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
          * @summary Create Lookup
          * @param {string} application 
          * @param {Array<string>} recipePackage 
@@ -1538,7 +1539,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get configuration of a single data source.
+         * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -1549,7 +1550,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get list of all data sources found in DMSS (name and id for each data source).
+         * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1559,7 +1560,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create or update a data source configuration.
+         * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -1571,7 +1572,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
+         * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -1585,7 +1586,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+         * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
          * @summary Add Raw
          * @param {string} dataSourceId 
          * @param {object} body 
@@ -1597,7 +1598,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
@@ -1609,7 +1610,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Remove a document from DMSS.
+         * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Remove
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -1620,7 +1621,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
          * @summary Update
          * @param {string} idAddress 
          * @param {string} data 
@@ -1634,18 +1635,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
          * @summary Export Meta
          * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async exportMeta(pathAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async exportMeta(pathAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExportMetaResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(pathAddress, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
+         * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
          * @summary Upload File
          * @param {string} dataSourceId 
          * @param {string} data 
@@ -1658,19 +1659,19 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAcl(dataSourceId: string, documentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ACL>> {
+        async getAcl(dataSourceId: string, documentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessControlList>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAcl(dataSourceId, documentId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Healthcheck endpoint. Responds with \"OK\" - 200.
+         * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1680,7 +1681,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Fetch a single lookup table.  - **application**: name of application
+         * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
          * @summary Get Lookup
          * @param {string} application 
          * @param {*} [options] Override http request option.
@@ -1691,18 +1692,18 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Returns a default entity of specified type. This entity is not stored in the database.  Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
+         * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
          * @summary Instantiate
          * @param {Entity} entity 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async instantiateEntity(entity: Entity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Entity>> {
+        async instantiateEntity(entity: Entity, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(entity, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get meta information from data source id.
+         * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
          * @summary Get Meta By Id
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -1725,34 +1726,34 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
+         * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
          * @summary Search
-         * @param {object} body 
          * @param {Array<string>} [dataSources] 
          * @param {string} [sortByAttribute] 
+         * @param {object} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async search(body: object, dataSources?: Array<string>, sortByAttribute?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.search(body, dataSources, sortByAttribute, options);
+        async search(dataSources?: Array<string>, sortByAttribute?: string, body?: object, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.search(dataSources, sortByAttribute, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
-         * @param {ACL} aCL 
+         * @param {AccessControlList} accessControlList 
          * @param {boolean} [recursively] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setAcl(dataSourceId: string, documentId: string, aCL: ACL, recursively?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setAcl(dataSourceId, documentId, aCL, recursively, options);
+        async setAcl(dataSourceId: string, documentId: string, accessControlList: AccessControlList, recursively?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setAcl(dataSourceId, documentId, accessControlList, recursively, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
+         * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
          * @summary New Personal Access Token
          * @param {AccessLevel} [scope] 
          * @param {number} [timeToLive] 
@@ -1764,7 +1765,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Delete a personal access token (PAT).
+         * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
          * @summary Revoke Personal Access Token
          * @param {string} tokenId 
          * @param {*} [options] Override http request option.
@@ -1775,7 +1776,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get a list of all personal access tokens (PATs).
+         * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1785,7 +1786,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
          * @summary Validate
          * @param {Entity} entity 
          * @param {string} [asType] 
@@ -1797,7 +1798,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Validate Existing
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -1808,7 +1809,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
+         * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1828,334 +1829,309 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = DefaultApiFp(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
          * @summary Export
-         * @param {string} pathAddress 
+         * @param {DefaultApiExportRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        _export(pathAddress: string, options?: any): AxiosPromise<void> {
-            return localVarFp._export(pathAddress, options).then((request) => request(axios, basePath));
+        _export(requestParameters: DefaultApiExportRequest, options?: AxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp._export(requestParameters.pathAddress, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch the attribute from a address.
+         * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
          * @summary Get Attribute
-         * @param {string} address 
+         * @param {DefaultApiAttributeGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attributeGet(address: string, options?: any): AxiosPromise<object> {
-            return localVarFp.attributeGet(address, options).then((request) => request(axios, basePath));
+        attributeGet(requestParameters: DefaultApiAttributeGetRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.attributeGet(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
          * @summary Get By Id
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
+         * @param {DefaultApiBlobGetByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blobGetById(dataSourceId: string, blobId: string, options?: any): AxiosPromise<File> {
-            return localVarFp.blobGetById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
+        blobGetById(requestParameters: DefaultApiBlobGetByIdRequest, options?: AxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.blobGetById(requestParameters.dataSourceId, requestParameters.blobId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
+         * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
          * @summary Upload
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
-         * @param {File} file 
+         * @param {DefaultApiBlobUploadRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blobUpload(dataSourceId: string, blobId: string, file: File, options?: any): AxiosPromise<string> {
-            return localVarFp.blobUpload(dataSourceId, blobId, file, options).then((request) => request(axios, basePath));
+        blobUpload(requestParameters: DefaultApiBlobUploadRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.blobUpload(requestParameters.dataSourceId, requestParameters.blobId, requestParameters.file, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
+         * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
          * @summary Get Blueprint
-         * @param {string} typeRef 
-         * @param {string} [context] 
+         * @param {DefaultApiBlueprintGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintGet(typeRef: string, context?: string, options?: any): AxiosPromise<GetBlueprintResponse> {
-            return localVarFp.blueprintGet(typeRef, context, options).then((request) => request(axios, basePath));
+        blueprintGet(requestParameters: DefaultApiBlueprintGetRequest, options?: AxiosRequestConfig): AxiosPromise<GetBlueprintResponse> {
+            return localVarFp.blueprintGet(requestParameters.typeRef, requestParameters.context, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
+         * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
          * @summary Resolve Blueprint Id
-         * @param {string} address 
+         * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blueprintResolve(address: string, options?: any): AxiosPromise<string> {
-            return localVarFp.blueprintResolve(address, options).then((request) => request(axios, basePath));
+        blueprintResolve(requestParameters: DefaultApiBlueprintResolveRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.blueprintResolve(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
+         * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
          * @summary Create Lookup
-         * @param {string} application 
-         * @param {Array<string>} recipePackage 
+         * @param {DefaultApiCreateLookupRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createLookup(application: string, recipePackage: Array<string>, options?: any): AxiosPromise<void> {
-            return localVarFp.createLookup(application, recipePackage, options).then((request) => request(axios, basePath));
+        createLookup(requestParameters: DefaultApiCreateLookupRequest, options?: AxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.createLookup(requestParameters.application, requestParameters.recipePackage, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get configuration of a single data source.
+         * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
          * @summary Get
-         * @param {string} dataSourceId 
+         * @param {DefaultApiDataSourceGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceGet(dataSourceId: string, options?: any): AxiosPromise<object> {
-            return localVarFp.dataSourceGet(dataSourceId, options).then((request) => request(axios, basePath));
+        dataSourceGet(requestParameters: DefaultApiDataSourceGetRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.dataSourceGet(requestParameters.dataSourceId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get list of all data sources found in DMSS (name and id for each data source).
+         * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceGetAll(options?: any): AxiosPromise<Array<DataSourceInformation>> {
+        dataSourceGetAll(options?: AxiosRequestConfig): AxiosPromise<Array<DataSourceInformation>> {
             return localVarFp.dataSourceGetAll(options).then((request) => request(axios, basePath));
         },
         /**
-         * Create or update a data source configuration.
+         * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
          * @summary Save
-         * @param {string} dataSourceId 
-         * @param {DataSourceRequest} dataSourceRequest 
+         * @param {DefaultApiDataSourceSaveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceSave(dataSourceId: string, dataSourceRequest: DataSourceRequest, options?: any): AxiosPromise<string> {
-            return localVarFp.dataSourceSave(dataSourceId, dataSourceRequest, options).then((request) => request(axios, basePath));
+        dataSourceSave(requestParameters: DefaultApiDataSourceSaveRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.dataSourceSave(requestParameters.dataSourceId, requestParameters.dataSourceRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
+         * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
          * @summary Add Document
-         * @param {string} address 
-         * @param {string} document 
-         * @param {boolean} [updateUncontained] 
-         * @param {Array<File>} [files] 
+         * @param {DefaultApiDocumentAddRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAdd(address: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<object> {
-            return localVarFp.documentAdd(address, document, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentAdd(requestParameters: DefaultApiDocumentAddRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.documentAdd(requestParameters.address, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(axios, basePath));
         },
         /**
-         * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+         * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
          * @summary Add Raw
-         * @param {string} dataSourceId 
-         * @param {object} body 
+         * @param {DefaultApiDocumentAddSimpleRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAddSimple(dataSourceId: string, body: object, options?: any): AxiosPromise<string> {
-            return localVarFp.documentAddSimple(dataSourceId, body, options).then((request) => request(axios, basePath));
+        documentAddSimple(requestParameters: DefaultApiDocumentAddSimpleRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.documentAddSimple(requestParameters.dataSourceId, requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
-         * @param {string} address 
-         * @param {number} [depth] 
+         * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet(address: string, depth?: number, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGet(address, depth, options).then((request) => request(axios, basePath));
+        documentGet(requestParameters: DefaultApiDocumentGetRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.documentGet(requestParameters.address, requestParameters.depth, options).then((request) => request(axios, basePath));
         },
         /**
-         * Remove a document from DMSS.
+         * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Remove
-         * @param {string} address 
+         * @param {DefaultApiDocumentRemoveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove(address: string, options?: any): AxiosPromise<any> {
-            return localVarFp.documentRemove(address, options).then((request) => request(axios, basePath));
+        documentRemove(requestParameters: DefaultApiDocumentRemoveRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.documentRemove(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
          * @summary Update
-         * @param {string} idAddress 
-         * @param {string} data 
-         * @param {boolean} [updateUncontained] 
-         * @param {Array<File>} [files] 
+         * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentUpdate(idAddress: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<any> {
-            return localVarFp.documentUpdate(idAddress, data, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentUpdate(requestParameters: DefaultApiDocumentUpdateRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.documentUpdate(requestParameters.idAddress, requestParameters.data, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(axios, basePath));
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
          * @summary Export Meta
-         * @param {string} pathAddress 
+         * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        exportMeta(pathAddress: string, options?: any): AxiosPromise<any> {
-            return localVarFp.exportMeta(pathAddress, options).then((request) => request(axios, basePath));
+        exportMeta(requestParameters: DefaultApiExportMetaRequest, options?: AxiosRequestConfig): AxiosPromise<ExportMetaResponse> {
+            return localVarFp.exportMeta(requestParameters.pathAddress, options).then((request) => request(axios, basePath));
         },
         /**
-         * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
+         * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
          * @summary Upload File
-         * @param {string} dataSourceId 
-         * @param {string} data 
-         * @param {File} file 
+         * @param {DefaultApiFileUploadRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fileUpload(dataSourceId: string, data: string, file: File, options?: any): AxiosPromise<object> {
-            return localVarFp.fileUpload(dataSourceId, data, file, options).then((request) => request(axios, basePath));
+        fileUpload(requestParameters: DefaultApiFileUploadRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.fileUpload(requestParameters.dataSourceId, requestParameters.data, requestParameters.file, options).then((request) => request(axios, basePath));
         },
         /**
-         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
          * @summary Get Acl
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
+         * @param {DefaultApiGetAclRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAcl(dataSourceId: string, documentId: string, options?: any): AxiosPromise<ACL> {
-            return localVarFp.getAcl(dataSourceId, documentId, options).then((request) => request(axios, basePath));
+        getAcl(requestParameters: DefaultApiGetAclRequest, options?: AxiosRequestConfig): AxiosPromise<AccessControlList> {
+            return localVarFp.getAcl(requestParameters.dataSourceId, requestParameters.documentId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Healthcheck endpoint. Responds with \"OK\" - 200.
+         * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getApiHealthcheckGet(options?: any): AxiosPromise<string> {
+        getApiHealthcheckGet(options?: AxiosRequestConfig): AxiosPromise<string> {
             return localVarFp.getApiHealthcheckGet(options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch a single lookup table.  - **application**: name of application
+         * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
          * @summary Get Lookup
-         * @param {string} application 
+         * @param {DefaultApiGetLookupRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLookup(application: string, options?: any): AxiosPromise<Lookup> {
-            return localVarFp.getLookup(application, options).then((request) => request(axios, basePath));
+        getLookup(requestParameters: DefaultApiGetLookupRequest, options?: AxiosRequestConfig): AxiosPromise<Lookup> {
+            return localVarFp.getLookup(requestParameters.application, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a default entity of specified type. This entity is not stored in the database.  Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
+         * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
          * @summary Instantiate
-         * @param {Entity} entity 
+         * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        instantiateEntity(entity: Entity, options?: any): AxiosPromise<Entity> {
-            return localVarFp.instantiateEntity(entity, options).then((request) => request(axios, basePath));
+        instantiateEntity(requestParameters: DefaultApiInstantiateEntityRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.instantiateEntity(requestParameters.entity, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get meta information from data source id.
+         * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
          * @summary Get Meta By Id
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
+         * @param {DefaultApiMetaByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metaById(dataSourceId: string, documentId: string, options?: any): AxiosPromise<object> {
-            return localVarFp.metaById(dataSourceId, documentId, options).then((request) => request(axios, basePath));
+        metaById(requestParameters: DefaultApiMetaByIdRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.metaById(requestParameters.dataSourceId, requestParameters.documentId, options).then((request) => request(axios, basePath));
         },
         /**
          * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Delete Reference
-         * @param {string} address 
+         * @param {DefaultApiReferenceDeleteRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        referenceDelete(address: string, options?: any): AxiosPromise<object> {
-            return localVarFp.referenceDelete(address, options).then((request) => request(axios, basePath));
+        referenceDelete(requestParameters: DefaultApiReferenceDeleteRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.referenceDelete(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
+         * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
          * @summary Search
-         * @param {object} body 
-         * @param {Array<string>} [dataSources] 
-         * @param {string} [sortByAttribute] 
+         * @param {DefaultApiSearchRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        search(body: object, dataSources?: Array<string>, sortByAttribute?: string, options?: any): AxiosPromise<object> {
-            return localVarFp.search(body, dataSources, sortByAttribute, options).then((request) => request(axios, basePath));
+        search(requestParameters: DefaultApiSearchRequest = {}, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.search(requestParameters.dataSources, requestParameters.sortByAttribute, requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Set Acl
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
-         * @param {ACL} aCL 
-         * @param {boolean} [recursively] 
+         * @param {DefaultApiSetAclRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setAcl(dataSourceId: string, documentId: string, aCL: ACL, recursively?: boolean, options?: any): AxiosPromise<string> {
-            return localVarFp.setAcl(dataSourceId, documentId, aCL, recursively, options).then((request) => request(axios, basePath));
+        setAcl(requestParameters: DefaultApiSetAclRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.setAcl(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.accessControlList, requestParameters.recursively, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
+         * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
          * @summary New Personal Access Token
-         * @param {AccessLevel} [scope] 
-         * @param {number} [timeToLive] 
+         * @param {DefaultApiTokenCreateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenCreate(scope?: AccessLevel, timeToLive?: number, options?: any): AxiosPromise<string> {
-            return localVarFp.tokenCreate(scope, timeToLive, options).then((request) => request(axios, basePath));
+        tokenCreate(requestParameters: DefaultApiTokenCreateRequest = {}, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.tokenCreate(requestParameters.scope, requestParameters.timeToLive, options).then((request) => request(axios, basePath));
         },
         /**
-         * Delete a personal access token (PAT).
+         * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
          * @summary Revoke Personal Access Token
-         * @param {string} tokenId 
+         * @param {DefaultApiTokenDeleteRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenDelete(tokenId: string, options?: any): AxiosPromise<string> {
-            return localVarFp.tokenDelete(tokenId, options).then((request) => request(axios, basePath));
+        tokenDelete(requestParameters: DefaultApiTokenDeleteRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.tokenDelete(requestParameters.tokenId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a list of all personal access tokens (PATs).
+         * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
          * @summary List All Pats
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tokenListAll(options?: any): AxiosPromise<Array<PATData>> {
+        tokenListAll(options?: AxiosRequestConfig): AxiosPromise<Array<PATData>> {
             return localVarFp.tokenListAll(options).then((request) => request(axios, basePath));
         },
         /**
-         * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+         * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
          * @summary Validate
-         * @param {Entity} entity 
-         * @param {string} [asType] 
+         * @param {DefaultApiValidateEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateEntity(entity: Entity, asType?: string, options?: any): AxiosPromise<any> {
-            return localVarFp.validateEntity(entity, asType, options).then((request) => request(axios, basePath));
+        validateEntity(requestParameters: DefaultApiValidateEntityRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.validateEntity(requestParameters.entity, requestParameters.asType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+         * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Validate Existing
-         * @param {string} address 
+         * @param {DefaultApiValidateExistingEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateExistingEntity(address: string, options?: any): AxiosPromise<any> {
-            return localVarFp.validateExistingEntity(address, options).then((request) => request(axios, basePath));
+        validateExistingEntity(requestParameters: DefaultApiValidateExistingEntityRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.validateExistingEntity(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
+         * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
          * @summary Get Information On Authenticated User
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        whoami(options?: any): AxiosPromise<any> {
+        whoami(options?: AxiosRequestConfig): AxiosPromise<any> {
             return localVarFp.whoami(options).then((request) => request(axios, basePath));
         },
     };
@@ -2589,13 +2565,6 @@ export interface DefaultApiReferenceDeleteRequest {
 export interface DefaultApiSearchRequest {
     /**
      * 
-     * @type {object}
-     * @memberof DefaultApiSearch
-     */
-    readonly body: object
-
-    /**
-     * 
      * @type {Array<string>}
      * @memberof DefaultApiSearch
      */
@@ -2607,6 +2576,13 @@ export interface DefaultApiSearchRequest {
      * @memberof DefaultApiSearch
      */
     readonly sortByAttribute?: string
+
+    /**
+     * 
+     * @type {object}
+     * @memberof DefaultApiSearch
+     */
+    readonly body?: object
 }
 
 /**
@@ -2631,10 +2607,10 @@ export interface DefaultApiSetAclRequest {
 
     /**
      * 
-     * @type {ACL}
+     * @type {AccessControlList}
      * @memberof DefaultApiSetAcl
      */
-    readonly aCL: ACL
+    readonly accessControlList: AccessControlList
 
     /**
      * 
@@ -2722,7 +2698,7 @@ export interface DefaultApiValidateExistingEntityRequest {
  */
 export class DefaultApi extends BaseAPI {
     /**
-     * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+     * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
      * @summary Export
      * @param {DefaultApiExportRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2734,7 +2710,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Fetch the attribute from a address.
+     * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
      * @summary Get Attribute
      * @param {DefaultApiAttributeGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2746,7 +2722,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get blob from id. A blob (binary large object) can be anything from video to text file.
+     * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
      * @summary Get By Id
      * @param {DefaultApiBlobGetByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2758,7 +2734,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Upload a new blob. A blob (binary large object) can be anything from video to text file.
+     * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
      * @summary Upload
      * @param {DefaultApiBlobUploadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2770,7 +2746,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Fetch the Blueprint and Recipes from a type reference (including inherited attributes).  - **type_ref**: <protocol>://<data_source>/<path_to_blueprint> - **context**: name of application that has Ui-/StorageRecipe lookup table (optional attribute)
+     * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
      * @summary Get Blueprint
      * @param {DefaultApiBlueprintGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2782,7 +2758,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Resolve address of a blueprint to its type path.  - **address**: <protocol>://<data_source</$<blueprint_uuid>
+     * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
      * @summary Resolve Blueprint Id
      * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2794,7 +2770,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Create a recipe lookup table from a package containing RecipeLinks. Associate it with an application. This can be used for setting Ui- and StorageRecipes for specific applications.  - **application**: name of application - **recipe_package**: List with one or more paths to package(s) that contain recipe links. (Example: \'system/SIMOS/recipe_links\')
+     * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
      * @summary Create Lookup
      * @param {DefaultApiCreateLookupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2806,7 +2782,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get configuration of a single data source.
+     * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
      * @summary Get
      * @param {DefaultApiDataSourceGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2818,7 +2794,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get list of all data sources found in DMSS (name and id for each data source).
+     * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
      * @summary Get All
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2829,7 +2805,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Create or update a data source configuration.
+     * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
      * @summary Save
      * @param {DefaultApiDataSourceSaveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2841,7 +2817,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
+     * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
      * @summary Add Document
      * @param {DefaultApiDocumentAddRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2853,7 +2829,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+     * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
      * @summary Add Raw
      * @param {DefaultApiDocumentAddSimpleRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2865,7 +2841,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+     * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
      * @summary Get
      * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2877,7 +2853,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Remove a document from DMSS.
+     * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
      * @summary Remove
      * @param {DefaultApiDocumentRemoveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2889,7 +2865,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+     * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
      * @summary Update
      * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2901,7 +2877,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+     * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
      * @summary Export Meta
      * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2913,7 +2889,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Upload a new binary file and create a file entity with the binary data as content.  **file_id** The data source ID to be used for the file entity that will be created.
+     * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
      * @summary Upload File
      * @param {DefaultApiFileUploadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2925,7 +2901,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+     * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
      * @summary Get Acl
      * @param {DefaultApiGetAclRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2937,7 +2913,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Healthcheck endpoint. Responds with \"OK\" - 200.
+     * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
      * @summary Get
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2948,7 +2924,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Fetch a single lookup table.  - **application**: name of application
+     * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
      * @summary Get Lookup
      * @param {DefaultApiGetLookupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2960,7 +2936,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Returns a default entity of specified type. This entity is not stored in the database.  Rules for instantiation: - all required attributes, as defined in the blueprint, are included.   If the required attribute has a default value, that value will be used.   If not, an \'empty\' value will be used. For example empty string,   an empty list, the number 0, etc. - optional attributes are not included (also true if optional attribute has a default value)
+     * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
      * @summary Instantiate
      * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2972,7 +2948,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get meta information from data source id.
+     * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
      * @summary Get Meta By Id
      * @param {DefaultApiMetaByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2996,19 +2972,19 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Takes a list of data source id\'s as a query parameter, and search those data sources for the posted dictionary. If data source list is empty, search all databases.  - **data**: a JSON document, must include a \"type\" attribute. Can also include other attributes like \"name\". - **data_sources**: List of data sources to search in. - **sort_by_attribute**: which attribute to sort the result by
+     * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
      * @summary Search
      * @param {DefaultApiSearchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public search(requestParameters: DefaultApiSearchRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).search(requestParameters.body, requestParameters.dataSources, requestParameters.sortByAttribute, options).then((request) => request(this.axios, this.basePath));
+    public search(requestParameters: DefaultApiSearchRequest = {}, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).search(requestParameters.dataSources, requestParameters.sortByAttribute, requestParameters.body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+     * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
      * @summary Set Acl
      * @param {DefaultApiSetAclRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3016,11 +2992,11 @@ export class DefaultApi extends BaseAPI {
      * @memberof DefaultApi
      */
     public setAcl(requestParameters: DefaultApiSetAclRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).setAcl(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.aCL, requestParameters.recursively, options).then((request) => request(this.axios, this.basePath));
+        return DefaultApiFp(this.configuration).setAcl(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.accessControlList, requestParameters.recursively, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Create a personal access token (PAT).  - **scope**: WRITE, READ or NONE - **time_to_live**: Optional parameter to set time to life in seconds (default is 30 days)
+     * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
      * @summary New Personal Access Token
      * @param {DefaultApiTokenCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3032,7 +3008,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Delete a personal access token (PAT).
+     * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
      * @summary Revoke Personal Access Token
      * @param {DefaultApiTokenDeleteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3044,7 +3020,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get a list of all personal access tokens (PATs).
+     * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
      * @summary List All Pats
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3055,7 +3031,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Validate an entity. Will return detailed error messages and status code 422 if the entity is invalid.  \"as_type\": Optional. Validate the root entity against this type instead of the one defined in the entity.
+     * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
      * @summary Validate
      * @param {DefaultApiValidateEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3067,7 +3043,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Validate an existing entity in dmss. Will return detailed error messages and status code 422 if an entity is invalid.
+     * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
      * @summary Validate Existing
      * @param {DefaultApiValidateExistingEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3079,7 +3055,7 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
-     * Get information about the user sending the request.  If no user is authenticated, a default \"nologin\" user is returned.
+     * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
      * @summary Get Information On Authenticated User
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

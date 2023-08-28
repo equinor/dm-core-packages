@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -35,13 +36,13 @@ import { StatusJobResponse } from '../models';
 export const DMJobsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         * Get the results from a completed job, by calling the result() function in the job handler for a given job.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Result
          * @param {string} jobUid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        jobResult: async (jobUid: string, options: any = {}): Promise<RequestArgs> => {
+        jobResult: async (jobUid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'jobUid' is not null or undefined
             assertParamExists('jobResult', 'jobUid', jobUid)
             const localVarPath = `/{job_uid}/result`
@@ -63,7 +64,7 @@ export const DMJobsApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -73,13 +74,13 @@ export const DMJobsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * 
+         * Get the status for an existing job.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Status
          * @param {string} jobUid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        jobStatus: async (jobUid: string, options: any = {}): Promise<RequestArgs> => {
+        jobStatus: async (jobUid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'jobUid' is not null or undefined
             assertParamExists('jobStatus', 'jobUid', jobUid)
             const localVarPath = `/{job_uid}`
@@ -101,7 +102,7 @@ export const DMJobsApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -111,13 +112,13 @@ export const DMJobsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * 
+         * Remove an existing job by calling the remove() function in the job handler for a given job. The job will then be deleted from the redis database used for storing jobs.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Remove
          * @param {string} jobUid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        removeJob: async (jobUid: string, options: any = {}): Promise<RequestArgs> => {
+        removeJob: async (jobUid: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'jobUid' is not null or undefined
             assertParamExists('removeJob', 'jobUid', jobUid)
             const localVarPath = `/{job_uid}`
@@ -139,7 +140,7 @@ export const DMJobsApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -149,13 +150,13 @@ export const DMJobsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * 
+         * Start a job.  To start the job, a job handler needs to be implemented for the job entity referenced with \'job_dmss_id\'. After the job is started, the internal job uid is included in the response. This uid can be used to get status, remove the job or get the result.  - **job_dmss_id**: an address to a job entity stored in DMSS:    - By id: PROTOCOL://DATA SOURCE/$ID.Attribute    - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute  The PROTOCOL is optional, and the default is dmss.
          * @summary Start
          * @param {string} jobDmssId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        startJob: async (jobDmssId: string, options: any = {}): Promise<RequestArgs> => {
+        startJob: async (jobDmssId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'jobDmssId' is not null or undefined
             assertParamExists('startJob', 'jobDmssId', jobDmssId)
             const localVarPath = `/{job_dmss_id}`
@@ -177,7 +178,7 @@ export const DMJobsApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -197,46 +198,46 @@ export const DMJobsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DMJobsApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         * Get the results from a completed job, by calling the result() function in the job handler for a given job.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Result
          * @param {string} jobUid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async jobResult(jobUid: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetJobResultResponse>> {
+        async jobResult(jobUid: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetJobResultResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.jobResult(jobUid, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Get the status for an existing job.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Status
          * @param {string} jobUid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async jobStatus(jobUid: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusJobResponse>> {
+        async jobStatus(jobUid: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusJobResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.jobStatus(jobUid, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Remove an existing job by calling the remove() function in the job handler for a given job. The job will then be deleted from the redis database used for storing jobs.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Remove
          * @param {string} jobUid 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeJob(jobUid: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async removeJob(jobUid: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.removeJob(jobUid, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * Start a job.  To start the job, a job handler needs to be implemented for the job entity referenced with \'job_dmss_id\'. After the job is started, the internal job uid is included in the response. This uid can be used to get status, remove the job or get the result.  - **job_dmss_id**: an address to a job entity stored in DMSS:    - By id: PROTOCOL://DATA SOURCE/$ID.Attribute    - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute  The PROTOCOL is optional, and the default is dmss.
          * @summary Start
          * @param {string} jobDmssId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async startJob(jobDmssId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StartJobResponse>> {
+        async startJob(jobDmssId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StartJobResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.startJob(jobDmssId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -251,44 +252,44 @@ export const DMJobsApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = DMJobsApiFp(configuration)
     return {
         /**
-         * 
+         * Get the results from a completed job, by calling the result() function in the job handler for a given job.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Result
-         * @param {string} jobUid 
+         * @param {DMJobsApiJobResultRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        jobResult(jobUid: string, options?: any): AxiosPromise<GetJobResultResponse> {
-            return localVarFp.jobResult(jobUid, options).then((request) => request(axios, basePath));
+        jobResult(requestParameters: DMJobsApiJobResultRequest, options?: AxiosRequestConfig): AxiosPromise<GetJobResultResponse> {
+            return localVarFp.jobResult(requestParameters.jobUid, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Get the status for an existing job.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Status
-         * @param {string} jobUid 
+         * @param {DMJobsApiJobStatusRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        jobStatus(jobUid: string, options?: any): AxiosPromise<StatusJobResponse> {
-            return localVarFp.jobStatus(jobUid, options).then((request) => request(axios, basePath));
+        jobStatus(requestParameters: DMJobsApiJobStatusRequest, options?: AxiosRequestConfig): AxiosPromise<StatusJobResponse> {
+            return localVarFp.jobStatus(requestParameters.jobUid, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Remove an existing job by calling the remove() function in the job handler for a given job. The job will then be deleted from the redis database used for storing jobs.  - **job_uid**: the job API\'s internal uid for the job.
          * @summary Remove
-         * @param {string} jobUid 
+         * @param {DMJobsApiRemoveJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        removeJob(jobUid: string, options?: any): AxiosPromise<any> {
-            return localVarFp.removeJob(jobUid, options).then((request) => request(axios, basePath));
+        removeJob(requestParameters: DMJobsApiRemoveJobRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.removeJob(requestParameters.jobUid, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Start a job.  To start the job, a job handler needs to be implemented for the job entity referenced with \'job_dmss_id\'. After the job is started, the internal job uid is included in the response. This uid can be used to get status, remove the job or get the result.  - **job_dmss_id**: an address to a job entity stored in DMSS:    - By id: PROTOCOL://DATA SOURCE/$ID.Attribute    - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute  The PROTOCOL is optional, and the default is dmss.
          * @summary Start
-         * @param {string} jobDmssId 
+         * @param {DMJobsApiStartJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        startJob(jobDmssId: string, options?: any): AxiosPromise<StartJobResponse> {
-            return localVarFp.startJob(jobDmssId, options).then((request) => request(axios, basePath));
+        startJob(requestParameters: DMJobsApiStartJobRequest, options?: AxiosRequestConfig): AxiosPromise<StartJobResponse> {
+            return localVarFp.startJob(requestParameters.jobDmssId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -357,50 +358,50 @@ export interface DMJobsApiStartJobRequest {
  */
 export class DMJobsApi extends BaseAPI {
     /**
-     * 
+     * Get the results from a completed job, by calling the result() function in the job handler for a given job.  - **job_uid**: the job API\'s internal uid for the job.
      * @summary Result
      * @param {DMJobsApiJobResultRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DMJobsApi
      */
-    public jobResult(requestParameters: DMJobsApiJobResultRequest, options?: any) {
+    public jobResult(requestParameters: DMJobsApiJobResultRequest, options?: AxiosRequestConfig) {
         return DMJobsApiFp(this.configuration).jobResult(requestParameters.jobUid, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * 
+     * Get the status for an existing job.  - **job_uid**: the job API\'s internal uid for the job.
      * @summary Status
      * @param {DMJobsApiJobStatusRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DMJobsApi
      */
-    public jobStatus(requestParameters: DMJobsApiJobStatusRequest, options?: any) {
+    public jobStatus(requestParameters: DMJobsApiJobStatusRequest, options?: AxiosRequestConfig) {
         return DMJobsApiFp(this.configuration).jobStatus(requestParameters.jobUid, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * 
+     * Remove an existing job by calling the remove() function in the job handler for a given job. The job will then be deleted from the redis database used for storing jobs.  - **job_uid**: the job API\'s internal uid for the job.
      * @summary Remove
      * @param {DMJobsApiRemoveJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DMJobsApi
      */
-    public removeJob(requestParameters: DMJobsApiRemoveJobRequest, options?: any) {
+    public removeJob(requestParameters: DMJobsApiRemoveJobRequest, options?: AxiosRequestConfig) {
         return DMJobsApiFp(this.configuration).removeJob(requestParameters.jobUid, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * 
+     * Start a job.  To start the job, a job handler needs to be implemented for the job entity referenced with \'job_dmss_id\'. After the job is started, the internal job uid is included in the response. This uid can be used to get status, remove the job or get the result.  - **job_dmss_id**: an address to a job entity stored in DMSS:    - By id: PROTOCOL://DATA SOURCE/$ID.Attribute    - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute  The PROTOCOL is optional, and the default is dmss.
      * @summary Start
      * @param {DMJobsApiStartJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DMJobsApi
      */
-    public startJob(requestParameters: DMJobsApiStartJobRequest, options?: any) {
+    public startJob(requestParameters: DMJobsApiStartJobRequest, options?: AxiosRequestConfig) {
         return DMJobsApiFp(this.configuration).startJob(requestParameters.jobDmssId, options).then((request) => request(this.axios, this.basePath));
     }
 }

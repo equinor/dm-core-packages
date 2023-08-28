@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -29,7 +30,7 @@ import { ErrorResponse } from '../models';
 export const MetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get meta information from data source id.
+         * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
          * @summary Get Meta By Id
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -84,7 +85,7 @@ export const MetaApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = MetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get meta information from data source id.
+         * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
          * @summary Get Meta By Id
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -106,15 +107,14 @@ export const MetaApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = MetaApiFp(configuration)
     return {
         /**
-         * Get meta information from data source id.
+         * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
          * @summary Get Meta By Id
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
+         * @param {MetaApiMetaByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metaById(dataSourceId: string, documentId: string, options?: any): AxiosPromise<object> {
-            return localVarFp.metaById(dataSourceId, documentId, options).then((request) => request(axios, basePath));
+        metaById(requestParameters: MetaApiMetaByIdRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.metaById(requestParameters.dataSourceId, requestParameters.documentId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -148,7 +148,7 @@ export interface MetaApiMetaByIdRequest {
  */
 export class MetaApi extends BaseAPI {
     /**
-     * Get meta information from data source id.
+     * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
      * @summary Get Meta By Id
      * @param {MetaApiMetaByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
