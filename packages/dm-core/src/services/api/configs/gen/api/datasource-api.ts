@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -33,7 +34,7 @@ import { ErrorResponse } from '../models';
 export const DatasourceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get configuration of a single data source.
+         * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -74,7 +75,7 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Get list of all data sources found in DMSS (name and id for each data source).
+         * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -111,7 +112,7 @@ export const DatasourceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Create or update a data source configuration.
+         * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -168,7 +169,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DatasourceApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get configuration of a single data source.
+         * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
          * @summary Get
          * @param {string} dataSourceId 
          * @param {*} [options] Override http request option.
@@ -179,7 +180,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get list of all data sources found in DMSS (name and id for each data source).
+         * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -189,7 +190,7 @@ export const DatasourceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create or update a data source configuration.
+         * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
          * @summary Save
          * @param {string} dataSourceId 
          * @param {DataSourceRequest} dataSourceRequest 
@@ -211,34 +212,33 @@ export const DatasourceApiFactory = function (configuration?: Configuration, bas
     const localVarFp = DatasourceApiFp(configuration)
     return {
         /**
-         * Get configuration of a single data source.
+         * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
          * @summary Get
-         * @param {string} dataSourceId 
+         * @param {DatasourceApiDataSourceGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceGet(dataSourceId: string, options?: any): AxiosPromise<object> {
-            return localVarFp.dataSourceGet(dataSourceId, options).then((request) => request(axios, basePath));
+        dataSourceGet(requestParameters: DatasourceApiDataSourceGetRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.dataSourceGet(requestParameters.dataSourceId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get list of all data sources found in DMSS (name and id for each data source).
+         * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
          * @summary Get All
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceGetAll(options?: any): AxiosPromise<Array<DataSourceInformation>> {
+        dataSourceGetAll(options?: AxiosRequestConfig): AxiosPromise<Array<DataSourceInformation>> {
             return localVarFp.dataSourceGetAll(options).then((request) => request(axios, basePath));
         },
         /**
-         * Create or update a data source configuration.
+         * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
          * @summary Save
-         * @param {string} dataSourceId 
-         * @param {DataSourceRequest} dataSourceRequest 
+         * @param {DatasourceApiDataSourceSaveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dataSourceSave(dataSourceId: string, dataSourceRequest: DataSourceRequest, options?: any): AxiosPromise<string> {
-            return localVarFp.dataSourceSave(dataSourceId, dataSourceRequest, options).then((request) => request(axios, basePath));
+        dataSourceSave(requestParameters: DatasourceApiDataSourceSaveRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.dataSourceSave(requestParameters.dataSourceId, requestParameters.dataSourceRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -286,7 +286,7 @@ export interface DatasourceApiDataSourceSaveRequest {
  */
 export class DatasourceApi extends BaseAPI {
     /**
-     * Get configuration of a single data source.
+     * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
      * @summary Get
      * @param {DatasourceApiDataSourceGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -298,7 +298,7 @@ export class DatasourceApi extends BaseAPI {
     }
 
     /**
-     * Get list of all data sources found in DMSS (name and id for each data source).
+     * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
      * @summary Get All
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -309,7 +309,7 @@ export class DatasourceApi extends BaseAPI {
     }
 
     /**
-     * Create or update a data source configuration.
+     * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
      * @summary Save
      * @param {DatasourceApiDataSourceSaveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

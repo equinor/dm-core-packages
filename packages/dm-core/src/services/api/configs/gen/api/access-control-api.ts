@@ -13,15 +13,16 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { ACL } from '../models';
+import { AccessControlList } from '../models';
 // @ts-ignore
 import { ErrorResponse } from '../models';
 /**
@@ -31,7 +32,7 @@ import { ErrorResponse } from '../models';
 export const AccessControlApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
@@ -76,22 +77,22 @@ export const AccessControlApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
-         * @param {ACL} aCL 
+         * @param {AccessControlList} accessControlList 
          * @param {boolean} [recursively] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setAcl: async (dataSourceId: string, documentId: string, aCL: ACL, recursively?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        setAcl: async (dataSourceId: string, documentId: string, accessControlList: AccessControlList, recursively?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'dataSourceId' is not null or undefined
             assertParamExists('setAcl', 'dataSourceId', dataSourceId)
             // verify required parameter 'documentId' is not null or undefined
             assertParamExists('setAcl', 'documentId', documentId)
-            // verify required parameter 'aCL' is not null or undefined
-            assertParamExists('setAcl', 'aCL', aCL)
+            // verify required parameter 'accessControlList' is not null or undefined
+            assertParamExists('setAcl', 'accessControlList', accessControlList)
             const localVarPath = `/api/acl/{data_source_id}/{document_id}`
                 .replace(`{${"data_source_id"}}`, encodeURIComponent(String(dataSourceId)))
                 .replace(`{${"document_id"}}`, encodeURIComponent(String(documentId)));
@@ -124,7 +125,7 @@ export const AccessControlApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(aCL, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(accessControlList, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -142,29 +143,29 @@ export const AccessControlApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AccessControlApiAxiosParamCreator(configuration)
     return {
         /**
-         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
          * @summary Get Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAcl(dataSourceId: string, documentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ACL>> {
+        async getAcl(dataSourceId: string, documentId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessControlList>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAcl(dataSourceId, documentId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Set Acl
          * @param {string} dataSourceId 
          * @param {string} documentId 
-         * @param {ACL} aCL 
+         * @param {AccessControlList} accessControlList 
          * @param {boolean} [recursively] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setAcl(dataSourceId: string, documentId: string, aCL: ACL, recursively?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setAcl(dataSourceId, documentId, aCL, recursively, options);
+        async setAcl(dataSourceId: string, documentId: string, accessControlList: AccessControlList, recursively?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setAcl(dataSourceId, documentId, accessControlList, recursively, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -178,28 +179,24 @@ export const AccessControlApiFactory = function (configuration?: Configuration, 
     const localVarFp = AccessControlApiFp(configuration)
     return {
         /**
-         * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
          * @summary Get Acl
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
+         * @param {AccessControlApiGetAclRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAcl(dataSourceId: string, documentId: string, options?: any): AxiosPromise<ACL> {
-            return localVarFp.getAcl(dataSourceId, documentId, options).then((request) => request(axios, basePath));
+        getAcl(requestParameters: AccessControlApiGetAclRequest, options?: AxiosRequestConfig): AxiosPromise<AccessControlList> {
+            return localVarFp.getAcl(requestParameters.dataSourceId, requestParameters.documentId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+         * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Set Acl
-         * @param {string} dataSourceId 
-         * @param {string} documentId 
-         * @param {ACL} aCL 
-         * @param {boolean} [recursively] 
+         * @param {AccessControlApiSetAclRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setAcl(dataSourceId: string, documentId: string, aCL: ACL, recursively?: boolean, options?: any): AxiosPromise<string> {
-            return localVarFp.setAcl(dataSourceId, documentId, aCL, recursively, options).then((request) => request(axios, basePath));
+        setAcl(requestParameters: AccessControlApiSetAclRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.setAcl(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.accessControlList, requestParameters.recursively, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -247,10 +244,10 @@ export interface AccessControlApiSetAclRequest {
 
     /**
      * 
-     * @type {ACL}
+     * @type {AccessControlList}
      * @memberof AccessControlApiSetAcl
      */
-    readonly aCL: ACL
+    readonly accessControlList: AccessControlList
 
     /**
      * 
@@ -268,7 +265,7 @@ export interface AccessControlApiSetAclRequest {
  */
 export class AccessControlApi extends BaseAPI {
     /**
-     * get access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+     * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
      * @summary Get Acl
      * @param {AccessControlApiGetAclRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -280,7 +277,7 @@ export class AccessControlApi extends BaseAPI {
     }
 
     /**
-     * Update access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).
+     * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
      * @summary Set Acl
      * @param {AccessControlApiSetAclRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -288,6 +285,6 @@ export class AccessControlApi extends BaseAPI {
      * @memberof AccessControlApi
      */
     public setAcl(requestParameters: AccessControlApiSetAclRequest, options?: AxiosRequestConfig) {
-        return AccessControlApiFp(this.configuration).setAcl(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.aCL, requestParameters.recursively, options).then((request) => request(this.axios, this.basePath));
+        return AccessControlApiFp(this.configuration).setAcl(requestParameters.dataSourceId, requestParameters.documentId, requestParameters.accessControlList, requestParameters.recursively, options).then((request) => request(this.axios, this.basePath));
     }
 }

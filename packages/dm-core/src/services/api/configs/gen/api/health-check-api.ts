@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -29,7 +30,7 @@ import { ErrorResponse } from '../models';
 export const HealthCheckApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Healthcheck endpoint. Responds with \"OK\" - 200.
+         * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -69,7 +70,7 @@ export const HealthCheckApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = HealthCheckApiAxiosParamCreator(configuration)
     return {
         /**
-         * Healthcheck endpoint. Responds with \"OK\" - 200.
+         * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -89,12 +90,12 @@ export const HealthCheckApiFactory = function (configuration?: Configuration, ba
     const localVarFp = HealthCheckApiFp(configuration)
     return {
         /**
-         * Healthcheck endpoint. Responds with \"OK\" - 200.
+         * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
          * @summary Get
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getApiHealthcheckGet(options?: any): AxiosPromise<string> {
+        getApiHealthcheckGet(options?: AxiosRequestConfig): AxiosPromise<string> {
             return localVarFp.getApiHealthcheckGet(options).then((request) => request(axios, basePath));
         },
     };
@@ -108,7 +109,7 @@ export const HealthCheckApiFactory = function (configuration?: Configuration, ba
  */
 export class HealthCheckApi extends BaseAPI {
     /**
-     * Healthcheck endpoint. Responds with \"OK\" - 200.
+     * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
      * @summary Get
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

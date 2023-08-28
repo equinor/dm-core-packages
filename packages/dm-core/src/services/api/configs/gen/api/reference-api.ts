@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -103,12 +104,12 @@ export const ReferenceApiFactory = function (configuration?: Configuration, base
         /**
          * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
          * @summary Delete Reference
-         * @param {string} address 
+         * @param {ReferenceApiReferenceDeleteRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        referenceDelete(address: string, options?: any): AxiosPromise<object> {
-            return localVarFp.referenceDelete(address, options).then((request) => request(axios, basePath));
+        referenceDelete(requestParameters: ReferenceApiReferenceDeleteRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.referenceDelete(requestParameters.address, options).then((request) => request(axios, basePath));
         },
     };
 };

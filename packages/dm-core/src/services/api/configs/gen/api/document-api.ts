@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -29,7 +30,7 @@ import { ErrorResponse } from '../models';
 export const DocumentApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
+         * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -93,7 +94,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+         * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
          * @summary Add Raw
          * @param {string} dataSourceId 
          * @param {object} body 
@@ -140,7 +141,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
@@ -186,7 +187,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Remove a document from DMSS.
+         * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Remove
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -227,7 +228,7 @@ export const DocumentApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
          * @summary Update
          * @param {string} idAddress 
          * @param {string} data 
@@ -301,7 +302,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = DocumentApiAxiosParamCreator(configuration)
     return {
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
+         * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
          * @summary Add Document
          * @param {string} address 
          * @param {string} document 
@@ -315,7 +316,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+         * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
          * @summary Add Raw
          * @param {string} dataSourceId 
          * @param {object} body 
@@ -327,7 +328,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
          * @param {string} address 
          * @param {number} [depth] 
@@ -339,7 +340,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Remove a document from DMSS.
+         * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Remove
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -350,7 +351,7 @@ export const DocumentApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
          * @summary Update
          * @param {string} idAddress 
          * @param {string} data 
@@ -374,62 +375,54 @@ export const DocumentApiFactory = function (configuration?: Configuration, baseP
     const localVarFp = DocumentApiFp(configuration)
     return {
         /**
-         * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
+         * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
          * @summary Add Document
-         * @param {string} address 
-         * @param {string} document 
-         * @param {boolean} [updateUncontained] 
-         * @param {Array<File>} [files] 
+         * @param {DocumentApiDocumentAddRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAdd(address: string, document: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<object> {
-            return localVarFp.documentAdd(address, document, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentAdd(requestParameters: DocumentApiDocumentAddRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.documentAdd(requestParameters.address, requestParameters.document, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(axios, basePath));
         },
         /**
-         * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+         * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
          * @summary Add Raw
-         * @param {string} dataSourceId 
-         * @param {object} body 
+         * @param {DocumentApiDocumentAddSimpleRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentAddSimple(dataSourceId: string, body: object, options?: any): AxiosPromise<string> {
-            return localVarFp.documentAddSimple(dataSourceId, body, options).then((request) => request(axios, basePath));
+        documentAddSimple(requestParameters: DocumentApiDocumentAddSimpleRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.documentAddSimple(requestParameters.dataSourceId, requestParameters.body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+         * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
          * @summary Get
-         * @param {string} address 
-         * @param {number} [depth] 
+         * @param {DocumentApiDocumentGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentGet(address: string, depth?: number, options?: any): AxiosPromise<object> {
-            return localVarFp.documentGet(address, depth, options).then((request) => request(axios, basePath));
+        documentGet(requestParameters: DocumentApiDocumentGetRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.documentGet(requestParameters.address, requestParameters.depth, options).then((request) => request(axios, basePath));
         },
         /**
-         * Remove a document from DMSS.
+         * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
          * @summary Remove
-         * @param {string} address 
+         * @param {DocumentApiDocumentRemoveRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentRemove(address: string, options?: any): AxiosPromise<any> {
-            return localVarFp.documentRemove(address, options).then((request) => request(axios, basePath));
+        documentRemove(requestParameters: DocumentApiDocumentRemoveRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.documentRemove(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+         * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
          * @summary Update
-         * @param {string} idAddress 
-         * @param {string} data 
-         * @param {boolean} [updateUncontained] 
-         * @param {Array<File>} [files] 
+         * @param {DocumentApiDocumentUpdateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        documentUpdate(idAddress: string, data: string, updateUncontained?: boolean, files?: Array<File>, options?: any): AxiosPromise<any> {
-            return localVarFp.documentUpdate(idAddress, data, updateUncontained, files, options).then((request) => request(axios, basePath));
+        documentUpdate(requestParameters: DocumentApiDocumentUpdateRequest, options?: AxiosRequestConfig): AxiosPromise<any> {
+            return localVarFp.documentUpdate(requestParameters.idAddress, requestParameters.data, requestParameters.updateUncontained, requestParameters.files, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -568,7 +561,7 @@ export interface DocumentApiDocumentUpdateRequest {
  */
 export class DocumentApi extends BaseAPI {
     /**
-     * Add a document to a package (or a data source) using an address.  - **address**:   - Reference to data source: PROTOCOL://DATA SOURCE   - Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   The PROTOCOL is optional, and the default is dmss.  This endpoint can be used for: - Adding elements to a list attribute in an entity. - Adding a new document to a package / data source - Adding an object to an entity (for example filling in an optional, complex attribute)
+     * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
      * @summary Add Document
      * @param {DocumentApiDocumentAddRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -580,7 +573,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Adds the document \'as-is\' to the datasource. NOTE: The \'explorer-add\' operation is to be preferred. This is mainly for bootstrapping and imports. Blueprint need not exist, and so there is no validation or splitting of entities. Posted document must be a valid Entity.
+     * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
      * @summary Add Raw
      * @param {DocumentApiDocumentAddSimpleRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -592,7 +585,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Get document as JSON string.  - **address**: An address to a package or a data source   - By id: PROTOCOL://DATA SOURCE/$ID.Attribute   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY.Attribute   - By query: PROTOCOL://DATA SOURCE/$ID.list(key=value)  The PROTOCOL is optional, and the default is dmss.  - **depth**: Maximum depth for resolving nested documents.
+     * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
      * @summary Get
      * @param {DocumentApiDocumentGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -604,7 +597,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Remove a document from DMSS.
+     * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
      * @summary Remove
      * @param {DocumentApiDocumentRemoveRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -616,7 +609,7 @@ export class DocumentApi extends BaseAPI {
     }
 
     /**
-     * Update document - **id_address**: <protocol>://<data_source>/$<document_uuid> (can also include an optional .<attribute> after <document_uuid>)
+     * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - update_uncontained (bool): Optional flag specifying whether to also update uncontained attributes in the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
      * @summary Update
      * @param {DocumentApiDocumentUpdateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

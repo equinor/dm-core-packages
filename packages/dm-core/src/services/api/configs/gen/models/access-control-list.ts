@@ -18,47 +18,35 @@
 import { AccessLevel } from './access-level';
 
 /**
- * 
+ * acl:   owner: \'user_id\'   roles:     \'role\': WRITE   users:     \'user_id\': WRITE   others: READ
  * @export
- * @interface PATData
+ * @interface AccessControlList
  */
-export interface PATData {
+export interface AccessControlList {
     /**
      * 
      * @type {string}
-     * @memberof PATData
+     * @memberof AccessControlList
      */
-    'pat_hash'?: string;
+    'owner': string;
     /**
      * 
-     * @type {string}
-     * @memberof PATData
+     * @type {{ [key: string]: AccessLevel; }}
+     * @memberof AccessControlList
      */
-    'uuid'?: string;
+    'roles'?: { [key: string]: AccessLevel; };
     /**
      * 
-     * @type {string}
-     * @memberof PATData
+     * @type {{ [key: string]: AccessLevel; }}
+     * @memberof AccessControlList
      */
-    'user_id': string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PATData
-     */
-    'roles'?: Array<string>;
+    'users'?: { [key: string]: AccessLevel; };
     /**
      * 
      * @type {AccessLevel}
-     * @memberof PATData
+     * @memberof AccessControlList
      */
-    'scope': AccessLevel;
-    /**
-     * 
-     * @type {string}
-     * @memberof PATData
-     */
-    'expire': string;
+    'others'?: AccessLevel;
 }
 
 

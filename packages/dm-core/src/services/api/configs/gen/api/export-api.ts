@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -22,6 +23,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
 import { ErrorResponse } from '../models';
+// @ts-ignore
+import { ExportMetaResponse } from '../models';
 /**
  * ExportApi - axios parameter creator
  * @export
@@ -29,7 +32,7 @@ import { ErrorResponse } from '../models';
 export const ExportApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
          * @summary Export
          * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
@@ -70,7 +73,7 @@ export const ExportApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
          * @summary Export Meta
          * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
@@ -121,7 +124,7 @@ export const ExportApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ExportApiAxiosParamCreator(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
          * @summary Export
          * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
@@ -132,13 +135,13 @@ export const ExportApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
          * @summary Export Meta
          * @param {string} pathAddress 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async exportMeta(pathAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async exportMeta(pathAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExportMetaResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(pathAddress, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -153,24 +156,24 @@ export const ExportApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = ExportApiFp(configuration)
     return {
         /**
-         * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
          * @summary Export
-         * @param {string} pathAddress 
+         * @param {ExportApiExportRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        _export(pathAddress: string, options?: any): AxiosPromise<void> {
-            return localVarFp._export(pathAddress, options).then((request) => request(axios, basePath));
+        _export(requestParameters: ExportApiExportRequest, options?: AxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp._export(requestParameters.pathAddress, options).then((request) => request(axios, basePath));
         },
         /**
-         * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+         * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
          * @summary Export Meta
-         * @param {string} pathAddress 
+         * @param {ExportApiExportMetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        exportMeta(pathAddress: string, options?: any): AxiosPromise<any> {
-            return localVarFp.exportMeta(pathAddress, options).then((request) => request(axios, basePath));
+        exportMeta(requestParameters: ExportApiExportMetaRequest, options?: AxiosRequestConfig): AxiosPromise<ExportMetaResponse> {
+            return localVarFp.exportMeta(requestParameters.pathAddress, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -211,7 +214,7 @@ export interface ExportApiExportMetaRequest {
  */
 export class ExportApi extends BaseAPI {
     /**
-     * Download a zip-folder with one or more documents as json file(s).  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+     * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
      * @summary Export
      * @param {ExportApiExportRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -223,7 +226,7 @@ export class ExportApi extends BaseAPI {
     }
 
     /**
-     * Export only the metadata of an entity. An entities metadata is concatenated from the \"top down\". Inheriting parents meta, and overriding for any specified further down.  If no metadata is defined anywhere in the tree, an empty object is returned.  - **address**:   - By path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY    The PROTOCOL is optional, and the default is dmss.
+     * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
      * @summary Export Meta
      * @param {ExportApiExportMetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

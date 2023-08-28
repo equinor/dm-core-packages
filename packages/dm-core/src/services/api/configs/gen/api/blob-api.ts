@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -29,7 +30,7 @@ import { ErrorResponse } from '../models';
 export const BlobApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -74,7 +75,7 @@ export const BlobApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
+         * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -140,7 +141,7 @@ export const BlobApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BlobApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
          * @summary Get By Id
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -152,7 +153,7 @@ export const BlobApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
+         * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
          * @summary Upload
          * @param {string} dataSourceId 
          * @param {string} blobId 
@@ -175,27 +176,24 @@ export const BlobApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = BlobApiFp(configuration)
     return {
         /**
-         * Get blob from id. A blob (binary large object) can be anything from video to text file.
+         * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
          * @summary Get By Id
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
+         * @param {BlobApiBlobGetByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blobGetById(dataSourceId: string, blobId: string, options?: any): AxiosPromise<File> {
-            return localVarFp.blobGetById(dataSourceId, blobId, options).then((request) => request(axios, basePath));
+        blobGetById(requestParameters: BlobApiBlobGetByIdRequest, options?: AxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.blobGetById(requestParameters.dataSourceId, requestParameters.blobId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Upload a new blob. A blob (binary large object) can be anything from video to text file.
+         * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
          * @summary Upload
-         * @param {string} dataSourceId 
-         * @param {string} blobId 
-         * @param {File} file 
+         * @param {BlobApiBlobUploadRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        blobUpload(dataSourceId: string, blobId: string, file: File, options?: any): AxiosPromise<string> {
-            return localVarFp.blobUpload(dataSourceId, blobId, file, options).then((request) => request(axios, basePath));
+        blobUpload(requestParameters: BlobApiBlobUploadRequest, options?: AxiosRequestConfig): AxiosPromise<string> {
+            return localVarFp.blobUpload(requestParameters.dataSourceId, requestParameters.blobId, requestParameters.file, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -257,7 +255,7 @@ export interface BlobApiBlobUploadRequest {
  */
 export class BlobApi extends BaseAPI {
     /**
-     * Get blob from id. A blob (binary large object) can be anything from video to text file.
+     * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
      * @summary Get By Id
      * @param {BlobApiBlobGetByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -269,7 +267,7 @@ export class BlobApi extends BaseAPI {
     }
 
     /**
-     * Upload a new blob. A blob (binary large object) can be anything from video to text file.
+     * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
      * @summary Upload
      * @param {BlobApiBlobUploadRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

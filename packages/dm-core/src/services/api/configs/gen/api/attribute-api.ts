@@ -13,8 +13,9 @@
  */
 
 
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
@@ -29,7 +30,7 @@ import { ErrorResponse } from '../models';
 export const AttributeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Fetch the attribute from a address.
+         * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
          * @summary Get Attribute
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -80,7 +81,7 @@ export const AttributeApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AttributeApiAxiosParamCreator(configuration)
     return {
         /**
-         * Fetch the attribute from a address.
+         * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
          * @summary Get Attribute
          * @param {string} address 
          * @param {*} [options] Override http request option.
@@ -101,14 +102,14 @@ export const AttributeApiFactory = function (configuration?: Configuration, base
     const localVarFp = AttributeApiFp(configuration)
     return {
         /**
-         * Fetch the attribute from a address.
+         * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
          * @summary Get Attribute
-         * @param {string} address 
+         * @param {AttributeApiAttributeGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attributeGet(address: string, options?: any): AxiosPromise<object> {
-            return localVarFp.attributeGet(address, options).then((request) => request(axios, basePath));
+        attributeGet(requestParameters: AttributeApiAttributeGetRequest, options?: AxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.attributeGet(requestParameters.address, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -135,7 +136,7 @@ export interface AttributeApiAttributeGetRequest {
  */
 export class AttributeApi extends BaseAPI {
     /**
-     * Fetch the attribute from a address.
+     * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
      * @summary Get Attribute
      * @param {AttributeApiAttributeGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
