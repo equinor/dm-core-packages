@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.0...dm-core-v1.3.1) (2023-08-29)
+
+
+### Bug Fixes
+
+* gen-job-api runs on port 5001 ([c076026](https://github.com/equinor/dm-core-packages/commit/c0760269d016f05b64fea427042b3d73af8fa300))
+* initFromFolder in tree not working ([374e2c7](https://github.com/equinor/dm-core-packages/commit/374e2c752bade855dc881a56d281ae0d7068c422))
+* ran genereate apis ([3083e7e](https://github.com/equinor/dm-core-packages/commit/3083e7e210dbcdc3f352cbeddbe9c354f2148363))
+* rename accesscontrollist to fix double naming issue ([501873a](https://github.com/equinor/dm-core-packages/commit/501873a19181cd3afba9f7a223cf495535d928b1))
+
 ## [1.3.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.2.0...dm-core-v1.3.0) (2023-08-24)
 
 
