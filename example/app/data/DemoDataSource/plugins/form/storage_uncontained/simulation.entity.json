@@ -1,0 +1,11 @@
+{
+  "_id": "simulation1",
+  "name": "simulation1",
+  "type": "./blueprints/Simulation",
+  "description": "Example simulation",
+  "bestSimulationResult": {
+    "type": "CORE:Reference",
+    "address": "./bestResult2023",
+    "referenceType": "storage"
+  }
+}
