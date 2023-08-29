@@ -1,13 +1,13 @@
 import { Button, Input } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { ACL, AccessLevel } from '../../services'
+import { AccessControlList, AccessLevel } from '../../services'
 import { ACLSelect } from './ACLSelect'
-import { CenteredRow } from './AccessControlList'
+import { CenteredRow } from './AccessControlListComponent'
 
 interface IURPanelProps {
   entities: { [key: string]: AccessLevel }
-  handleChange: (data: Partial<ACL>) => void
+  handleChange: (data: Partial<AccessControlList>) => void
   aclKey: string
 }
 

@@ -1,4 +1,4 @@
-export * from './AccessControl/AccessControlList'
+export * from './AccessControl/AccessControlListComponent'
 export * from './Dialog'
 export * from './DynamicTable'
 export * from './EntityView'
