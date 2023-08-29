@@ -1,0 +1,14 @@
+{
+  "name": "Result",
+  "type": "CORE:Blueprint",
+  "extends": [
+    "CORE:NamedEntity"
+  ],
+  "attributes": [
+    {
+      "name": "value",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number"
+    }
+  ]
+}

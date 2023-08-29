@@ -1,0 +1,15 @@
+{
+  "name": "Simulation",
+  "type": "CORE:Blueprint",
+  "extends": [
+    "CORE:NamedEntity"
+  ],
+  "attributes": [
+    {
+      "name": "bestSimulationResult",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Result",
+      "optional": true
+    }
+  ]
+}
