@@ -2144,3 +2144,8 @@ Co-authored-by: Roar Larsen <roarla@equinor.com> (2023-08-21T07:34:30Z)
     * **DMSS VERSION**: 2347ec9 2023-08-22 Krist..rstad docs: update reset command in readme grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.0.17
     * **JOB VERSION**: b537ebf 2023-08-23 Krist..rstad fix: bug in split_address() grafted, HEAD -> main, origin/main
+* ci: testing with 1.3.0 (2023-08-25T11:40:50Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6013134170/1)
+    * **DMSS VERSION**: b7362dc 2023-08-29 githu..[bot] chore(master): release 1.3.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.0.17
+    * **JOB VERSION**: a519bf1 2023-08-29 Inger..ellen ci: avoid running no-commit-to-branch on PR merge grafted, HEAD -> main, origin/main
