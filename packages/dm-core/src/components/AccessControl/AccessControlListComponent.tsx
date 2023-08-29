@@ -7,7 +7,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
 import { useDMSS } from '../../context/DMSSContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
-import { ACL, AccessLevel } from '../../services'
+import { AccessControlList, AccessLevel } from '../../services'
 import { TUserIdMapping } from '../../types'
 import {
   getTokenWithUserReadAccess,
@@ -44,7 +44,7 @@ export const CenteredRow = styled.div<CenteredRowType>`
   }};
 `
 
-export const AccessControlList = (props: {
+export const AccessControlListComponent = (props: {
   documentId: string
   dataSourceId: string
 }): JSX.Element => {
@@ -58,15 +58,17 @@ export const AccessControlList = (props: {
   const [refreshToken] = useLocalStorage('ROCP_refreshToken', '')
   const dmssAPI = useDMSS()
 
-  const [documentACL, setDocumentACL] = useState<ACL>({
+  const [documentACL, setDocumentACL] = useState<AccessControlList>({
     owner: '',
     roles: {},
     users: {},
     others: AccessLevel.READ,
   })
 
-  const convertACLFromUserIdToUsername = async (acl: ACL): Promise<ACL> => {
-    const aclCopy: ACL = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
+  const convertACLFromUserIdToUsername = async (
+    acl: AccessControlList
+  ): Promise<AccessControlList> => {
+    const aclCopy: AccessControlList = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
 
     const newUsers: { [key: string]: AccessLevel } = {}
     const users = aclCopy.users
@@ -102,8 +104,10 @@ export const AccessControlList = (props: {
     }
   }
 
-  const convertACLFromUsernameToUserId = (acl: ACL): Promise<ACL> => {
-    const aclCopy: ACL = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
+  const convertACLFromUsernameToUserId = (
+    acl: AccessControlList
+  ): Promise<AccessControlList> => {
+    const aclCopy: AccessControlList = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
 
     const newUsers: { [key: string]: AccessLevel } = {}
     const users = acl.users
@@ -143,10 +147,10 @@ export const AccessControlList = (props: {
           dataSourceId: dataSourceId,
           documentId: documentId,
         })
-        .then((response: AxiosResponse<ACL>) => {
+        .then((response: AxiosResponse<AccessControlList>) => {
           const acl = response.data
           convertACLFromUserIdToUsername(acl)
-            .then((newACL: ACL) => {
+            .then((newACL: AccessControlList) => {
               setDocumentACL(newACL)
             })
             .catch((error) => {
@@ -182,7 +186,7 @@ export const AccessControlList = (props: {
     }
   }, [documentId])
 
-  async function saveACL(acl: ACL) {
+  async function saveACL(acl: AccessControlList) {
     setLoading(true)
     convertACLFromUsernameToUserId(acl)
       .then((newACL) => {
@@ -190,7 +194,7 @@ export const AccessControlList = (props: {
           .setAcl({
             dataSourceId: dataSourceId,
             documentId: documentId,
-            aCL: newACL,
+            accessControlList: newACL,
             recursively: storeACLRecursively,
           })
           .then(() => {
@@ -203,7 +207,7 @@ export const AccessControlList = (props: {
       .finally(() => setLoading(false))
   }
 
-  function handleChange(value: Partial<ACL>) {
+  function handleChange(value: Partial<AccessControlList>) {
     setDocumentACL({ ...documentACL, ...value })
   }
 
@@ -271,4 +275,4 @@ export const AccessControlList = (props: {
   )
 }
 
-export default AccessControlList
+export default AccessControlListComponent
