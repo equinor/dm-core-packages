@@ -7,7 +7,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
 import { useDMSS } from '../../context/DMSSContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
-import { ACL, AccessLevel } from '../../services'
+import { AccessControlList, AccessLevel } from '../../services'
 import { TUserIdMapping } from '../../types'
 import {
   getTokenWithUserReadAccess,
@@ -44,7 +44,7 @@ export const CenteredRow = styled.div<CenteredRowType>`
   }};
 `
 
-export const AccessControlList = (props: {
+export const AccessControlListComponent = (props: {
   documentId: string
   dataSourceId: string
 }): JSX.Element => {
@@ -58,20 +58,22 @@ export const AccessControlList = (props: {
   const [refreshToken] = useLocalStorage('ROCP_refreshToken', '')
   const dmssAPI = useDMSS()
 
-  const [documentACL, setDocumentACL] = useState<ACL>({
+  const [documentACL, setDocumentACL] = useState<AccessControlList>({
     owner: '',
     roles: {},
     users: {},
     others: AccessLevel.READ,
   })
 
-  const convertACLFromUserIdToUsername = async (acl: ACL): Promise<ACL> => {
-    const aclCopy: ACL = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
+  const convertACLFromUserIdToUsername = async (
+    acl: AccessControlList
+  ): Promise<AccessControlList> => {
+    const aclCopy: AccessControlList = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
 
     const newUsers: { [key: string]: AccessLevel } = {}
     const users = aclCopy.users
     if (!users) {
-      toast.error('No users in ACL object!')
+      toast.error('No users in AccessControlList object!')
       return Promise.reject()
     } else {
       return Promise.all(
@@ -102,13 +104,15 @@ export const AccessControlList = (props: {
     }
   }
 
-  const convertACLFromUsernameToUserId = (acl: ACL): Promise<ACL> => {
-    const aclCopy: ACL = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
+  const convertACLFromUsernameToUserId = (
+    acl: AccessControlList
+  ): Promise<AccessControlList> => {
+    const aclCopy: AccessControlList = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
 
     const newUsers: { [key: string]: AccessLevel } = {}
     const users = acl.users
     if (!users) {
-      toast.error('No users in ACL object!')
+      toast.error('No users in AccessControlList object!')
       return Promise.reject()
     } else {
       return Promise.all(
@@ -143,10 +147,10 @@ export const AccessControlList = (props: {
           dataSourceId: dataSourceId,
           documentId: documentId,
         })
-        .then((response: AxiosResponse<ACL>) => {
+        .then((response: AxiosResponse<AccessControlList>) => {
           const acl = response.data
           convertACLFromUserIdToUsername(acl)
-            .then((newACL: ACL) => {
+            .then((newACL: AccessControlList) => {
               setDocumentACL(newACL)
             })
             .catch((error) => {
@@ -161,7 +165,7 @@ export const AccessControlList = (props: {
         .catch((error: AxiosError<any>) => {
           if (error.response) {
             toast.error(
-              `Could not fetch ACL for this document (${
+              `Could not fetch AccessControlList for this document (${
                 error.response.data || error.message
               })`
             )
@@ -182,7 +186,7 @@ export const AccessControlList = (props: {
     }
   }, [documentId])
 
-  async function saveACL(acl: ACL) {
+  async function saveAccessControlList(acl: AccessControlList) {
     setLoading(true)
     convertACLFromUsernameToUserId(acl)
       .then((newACL) => {
@@ -190,20 +194,20 @@ export const AccessControlList = (props: {
           .setAcl({
             dataSourceId: dataSourceId,
             documentId: documentId,
-            aCL: newACL,
+            accessControlList: newACL,
             recursively: storeACLRecursively,
           })
           .then(() => {
-            toast.success('ACL saved!')
+            toast.success('AccessControlList saved!')
           })
       })
       .catch((error) => {
-        toast.error(`Could not save ACL (${error})`)
+        toast.error(`Could not save AccessControlList (${error})`)
       })
       .finally(() => setLoading(false))
   }
 
-  function handleChange(value: Partial<ACL>) {
+  function handleChange(value: Partial<AccessControlList>) {
     setDocumentACL({ ...documentACL, ...value })
   }
 
@@ -257,7 +261,7 @@ export const AccessControlList = (props: {
       </Tabs>
 
       <CenteredRow>
-        <Button onClick={() => saveACL(documentACL)}>
+        <Button onClick={() => saveAccessControlList(documentACL)}>
           {(loading && <Progress.Dots color="neutral" />) || 'Save'}
           {!loading && <Icon name="save" title="save" size={24} />}
         </Button>
@@ -271,4 +275,4 @@ export const AccessControlList = (props: {
   )
 }
 
-export default AccessControlList
+export default AccessControlListComponent

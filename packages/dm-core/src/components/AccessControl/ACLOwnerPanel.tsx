@@ -1,12 +1,12 @@
 import { Icon, Input } from '@equinor/eds-core-react'
 import { ACLSelect } from './ACLSelect'
-import { AccessLevel, ACL } from '../../services'
+import { AccessLevel, AccessControlList } from '../../services'
 import React from 'react'
-import { CenteredRow } from './AccessControlList'
+import { CenteredRow } from './AccessControlListComponent'
 
 interface IACLOwnerPanelProps {
-  acl: ACL
-  handleChange: (data: Partial<ACL>) => void
+  acl: AccessControlList
+  handleChange: (data: Partial<AccessControlList>) => void
 }
 
 export const ACLOwnerPanel = ({
