@@ -1,0 +1,39 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "dmss://DemoDataSource/apps/SimulationApp/blueprints/Simulation",
+  "initialUiRecipe": {
+    "name": "Edit",
+    "type": "CORE:UiRecipe",
+    "description": "Default edit",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "attributes": [
+        {
+          "name": "description",
+          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+          "widget": "TextareaWidget"
+        }
+      ]
+    }
+  },
+  "storageRecipes": [
+    {
+      "name": "DEFAULT",
+      "type": "dmss://system/SIMOS/StorageRecipe",
+      "description": "",
+      "attributes": [
+        {
+          "name": "simulationResultList",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "contained": false
+        },
+        {
+          "name": "bestSimulationResult",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "contained": false
+        }
+      ]
+    }
+  ]
+}

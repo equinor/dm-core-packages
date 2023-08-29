@@ -1,0 +1,7 @@
+{
+  "_id": "result1",
+  "name": "result1",
+  "type": "dmss://DemoDataSource/apps/SimulationApp/blueprints/SimulationResult",
+  "description": "Example simulation",
+  "value": 22
+}

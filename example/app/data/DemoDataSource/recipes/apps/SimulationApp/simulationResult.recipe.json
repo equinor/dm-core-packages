@@ -1,0 +1,51 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "dmss://DemoDataSource/apps/SimulationApp/blueprints/SimulationResult",
+  "initialUiRecipe": {
+    "name": "Edit",
+    "type": "CORE:UiRecipe",
+    "description": "Default edit",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "attributes": [
+        {
+          "name": "description",
+          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+          "widget": "TextareaWidget"
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "List",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/list",
+      "dimensions": "*",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "views": [],
+        "headers": [
+          "name",
+          "description"
+        ],
+        "openInline": true,
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
+          "delete": true
+        }
+      }
+    }
+  ]
+}

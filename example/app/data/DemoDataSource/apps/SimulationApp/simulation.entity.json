@@ -1,0 +1,23 @@
+{
+  "_id": "simulation1",
+  "name": "simulation1",
+  "type": "dmss://DemoDataSource/apps/SimulationApp/blueprints/Simulation",
+  "description": "Example simulation",
+  "simulationResultList": [
+    {
+      "type": "dmss://system/SIMOS/Reference",
+      "address": "dmss://DemoDataSource/apps/SimulationApp/results/result1",
+      "referenceType": "storage"
+    },
+    {
+      "type": "dmss://system/SIMOS/Reference",
+      "address": "dmss://DemoDataSource/apps/SimulationApp/results/result2",
+      "referenceType": "storage"
+    }
+  ],
+  "bestSimulationResult": {
+    "type": "dmss://system/SIMOS/Reference",
+    "address": "dmss://DemoDataSource/apps/SimulationApp/results/bestResult2023",
+    "referenceType": "storage"
+  }
+}

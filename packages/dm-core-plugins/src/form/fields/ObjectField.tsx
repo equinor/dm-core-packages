@@ -141,6 +141,10 @@ const RemoveObject = (props: { namePath: string }) => {
   )
 }
 
+/*
+ * Display a model contained attribute in the Form.
+ * Note: if the model contained attribute is storage uncontained, it needs to be handled in a special way.
+ */
 export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const {
     type,
@@ -155,7 +159,18 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
   const isDefined = value && Object.keys(value).length > 0
-
+  const attributeIsStorageReference =
+    value !== undefined &&
+    'referenceType' in value &&
+    value['referenceType'] === 'storage'
+  // console.log('attributeIsStorageReference', attributeIsStorageReference)
+  // console.log('contained props', props)
+  // console.log(
+  //   'id red',
+  //   attributeIsStorageReference
+  //     ? value['address']
+  //     : `${idReference}.${namePath}`
+  // )
   return (
     <Stack spacing={0.25} alignItems="flex-start">
       <Typography bold={true}>{displayLabel}</Typography>
@@ -179,7 +194,11 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
         ) : (
           <Inline
             type={type}
-            namePath={namePath}
+            idReference={
+              attributeIsStorageReference
+                ? value['address']
+                : `${idReference}.${namePath}`
+            }
             blueprint={blueprint}
             uiRecipe={uiRecipe}
           />
@@ -190,29 +209,31 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
 
 const Inline = (props: {
   type: string
-  namePath: string
+  idReference: string
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm | undefined
 }): JSX.Element => {
-  const { idReference, onOpen } = useRegistryContext()
-  const { type, namePath, uiRecipe, blueprint } = props
+  const { onOpen } = useRegistryContext()
+  const { type, idReference, uiRecipe, blueprint } = props
   if (
     uiRecipe &&
     uiRecipe.plugin !== '@development-framework/dm-core-plugins/form'
   ) {
+    console.log('return entity view')
     return (
       <EntityView
         recipeName={uiRecipe.name}
-        idReference={`${idReference}.${namePath}`}
+        idReference={idReference}
         type={type}
         onOpen={onOpen}
       />
     )
   }
+  console.log('return entity attr list')
   return (
     <Indent>
       <AttributeList
-        namePath={namePath}
+        namePath={idReference}
         config={uiRecipe?.config}
         blueprint={blueprint}
       />
