@@ -26,9 +26,10 @@ import { getWidget } from '../context/WidgetContext'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
-  const { setValue } = useFormContext()
+  const { setValue, watch } = useFormContext()
   const dmssAPI = useDMSS()
   const { idReference } = useRegistryContext()
+  const value = watch(props.namePath)
 
   const onChange = (address: string) => {
     const reference: TLinkReference = {
@@ -41,12 +42,19 @@ const SelectReference = (props: { type: string; namePath: string }) => {
       shouldDirty: true,
       shouldTouch: true,
     }
-    dmssAPI
-      .documentAdd({
-        address: `${idReference}.${props.namePath}`,
-        document: JSON.stringify(reference),
-        updateUncontained: false,
-      })
+
+    const request = value
+      ? dmssAPI.documentUpdate({
+          idAddress: `${idReference}.${props.namePath}`,
+          data: JSON.stringify(reference),
+          updateUncontained: false,
+        })
+      : dmssAPI.documentAdd({
+          address: `${idReference}.${props.namePath}`,
+          document: JSON.stringify(reference),
+          updateUncontained: false,
+        })
+    request
       .then(() => {
         setValue(props.namePath, reference, options)
       })

@@ -1,5 +1,5 @@
 {
-  "name": "OneWomanCompany",
+  "name": "Company",
   "type": "CORE:Blueprint",
   "attributes": [
     {
@@ -8,10 +8,11 @@
       "attributeType": "string"
     },
     {
-      "name": "owner",
+      "name": "employees",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
-      "label": "Owner"
+      "dimensions": "*",
+      "label": "Employees"
     },
     {
       "name": "ceo",
