@@ -2,6 +2,7 @@
   "_id": "Simple",
   "type": "./blueprints/Simple",
   "stringRequired": "",
+  "numberRequired": 2,
   "stringOptional": "a prefilled optional string",
   "requiredCheckbox": false
 }
