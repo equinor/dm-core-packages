@@ -95,8 +95,14 @@ jobs:
         run: mv package/ node_modules/@development-framework/dm-core-plugins
         working-directory: example/
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
       - name: Install dm-cli package
-        run: pip install dm-cli
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
         working-directory: example/
 
       - name: Capture dm-cli version

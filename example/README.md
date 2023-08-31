@@ -5,7 +5,7 @@
 - Node and yarn
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
-- Make sure you have Python installed. version 3.10 or higher is required.
+- Make sure you have Python installed. version 3.11 or higher is required.
 
 ## Running (Mac / Linux)
 
