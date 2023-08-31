@@ -22,22 +22,21 @@
 
    #### Backend
 
-   Install dm-cli locally
+   Navigate to the `example` folder:  
 
     - Initialize and activate virtual env
         - `python3 -m venv .venv`
         - `source .venv/bin/activate`
-    - Install dm-cli package by running `pip install dm-cli`
+        - Install dm-cli package by running `pip install -r requirements.txt`. 
 
-2. Build the required packages locally (dm-core and dm-core-plugins).
+2. Navigate to the root of the project, and build the local packages. 
     - Run `yarn build:dm-core && yarn build:dm-core-plugins`
-3. Navigate to the `example` folder, then pull and start API services
-    - `docker-compose pull && docker-compose up -d`
-4. Navigate to the `example` folder, then run shell script to load dmss data. If the command fails, try updating dm-cli
-   before retrying.
-    - `./reset-all.sh validate-entities`
-5. Start the test app
-    - `yarn start:example`
+3. Navigate to the `example` folder, then pull and start API services.  
+    - Run `docker-compose pull && docker-compose up -d`
+4. From the `example` folder, load data into the database.    
+    - Run `./reset-all.sh`
+5. Start the test app.  
+    - Run `yarn start:example`
 
 ## Running (Windows)
 
@@ -59,13 +58,12 @@
 5. In the WSL terminal navigate to `dm-core-packages/example` and run
    ```
    python3 -m venv .venv && 
-   source .venv/bin/activate
+   source .venv/bin/activate &&
+   pip install -r requirements.txt
    ```
-   This may take a few minutes to run, so now grab a coffee and strech your legs. ☕
-6. Run
+6. Upload entities to the database by running
    ```
-   pip install dm-cli &&
-   dm reset app validate-entities &&
+   dm reset app &&
    dm import-plugin-blueprints ../node_modules/@development-framework/dm-core-plugins &&
    dm create-lookup example DemoDataSource/recipes
    ```
