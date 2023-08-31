@@ -13,7 +13,7 @@ test('Simple form', async ({ page }) => {
 
   //Fill out required string
   await page.getByTestId('form-submit').click()
-  await expect(page.getByText('required', { exact: true })).toBeVisible()
+  await expect(page.getByText('Required', { exact: true })).toBeVisible()
   await page.getByLabel('Required string').fill('Foo')
 
   //Fill out number field
