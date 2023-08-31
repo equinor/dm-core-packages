@@ -16,7 +16,7 @@ export const StringField = (props: TStringFieldProps) => {
     <Controller
       name={namePath}
       rules={{
-        required: !optional,
+        required: optional ? false : 'Required',
       }}
       defaultValue={defaultValue ?? ''}
       render={({

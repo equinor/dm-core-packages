@@ -31,7 +31,7 @@ export const NumberField = (props: TNumberFieldProps) => {
     <Controller
       name={namePath}
       rules={{
-        required: !optional,
+        required: optional ? false : 'Required',
         pattern: {
           value: isInteger ? REGEX_INTEGER : REGEX_FLOAT,
           message: isInteger ? 'Only integers allowed' : 'Only numbers allowed',
@@ -50,7 +50,7 @@ export const NumberField = (props: TNumberFieldProps) => {
             id={namePath}
             label={displayLabel}
             inputRef={ref}
-            helperText={error?.message}
+            helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
           />
         )
