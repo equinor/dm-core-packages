@@ -61,6 +61,7 @@ export type TNumberFieldProps = {
   defaultValue: string
   optional: boolean
   uiAttribute: TAttributeConfig | undefined
+  isInteger: boolean
 }
 
 export type TBooleanFieldProps = {
@@ -97,13 +98,12 @@ export declare type Variants = 'error' | 'success' | 'warning'
 export type TWidget = {
   label: string
   value?: any
-  onChange?: (value: any) => void
+  onChange?: (value: unknown) => void
   onClick?: (value: any) => void
   id: string
   inputRef?: any
   helperText?: string
   variant?: Variants
-  type?: string
   readOnly?: boolean
 }
 

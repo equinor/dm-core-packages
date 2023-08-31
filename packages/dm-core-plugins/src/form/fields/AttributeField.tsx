@@ -105,6 +105,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           defaultValue={attribute.default}
           optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
+          isInteger={fieldType == 'integer'}
         />
       )
     default:

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('Simple form', async ({ page }) => {
   //Open simple form
@@ -18,18 +18,18 @@ test('Simple form', async ({ page }) => {
 
   //Fill out number field
   await page.getByLabel('Numbers only (optional)').fill('Text')
-  await expect(page.getByText('Only digits allowed')).toBeVisible()
+  await expect(page.getByText('Only numbers allowed')).toBeVisible()
   await page.getByLabel('Numbers only (optional)').fill('3.14')
 
   //Fill out integer field
-  //await page.getByLabel('Integer only (optional)').fill('3.14') //Known bug (itemid:31708452)
-  //await expect(page.getByText('Only integer allowed')).toBeVisible()
+  await page.getByLabel('Integer only (optional)').fill('3.14')
+  await expect(page.getByText('Only integers allowed')).toBeVisible()
   await page.getByLabel('Integer only (optional)').fill('123')
 
   //Check checkbox
   await page.getByLabel('An optional checkbox (optional)').check()
   //await page.getByTestId('form-submit').click()
-  //await expect(page.getByText('<Field is mandatory>')).toBeVisible() //Known bug (itemid:31708452)
+  //await expect(page.getByText('<Field is mandatory>')).toBeVisible() //Known bug (itemid:37251754)
   await page
     .getByLabel('A required checbox (e.g. for confirmation purposes)')
     .check()
