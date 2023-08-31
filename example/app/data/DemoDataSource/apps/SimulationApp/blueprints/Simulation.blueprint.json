@@ -6,12 +6,6 @@
   ],
   "attributes": [
     {
-      "name": "simulationResultList",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "dmss://DemoDataSource/apps/SimulationApp/blueprints/SimulationResult",
-      "dimensions": "*"
-    },
-    {
       "name": "bestSimulationResult",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "dmss://DemoDataSource/apps/SimulationApp/blueprints/SimulationResult",

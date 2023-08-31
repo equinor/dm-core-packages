@@ -61,6 +61,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     ...config,
     functionality: { ...defaultConfig.functionality, ...config.functionality },
   }
+  console.log('lp prop', props)
   const [document, loading, , error] = useDocument<TGenericObject[]>(
     idReference,
     1
@@ -157,7 +158,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   }
 
   function expandItem(index: number) {
-    console.log('itemcopy', 'itemsCopy')
     const itemsCopy = [...items]
     itemsCopy[index].expanded = !itemsCopy[index].expanded
 
@@ -188,7 +188,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     ? item.expanded
                       ? 'Minimize'
                       : 'Expand'
-                    : 'xx Open in new tab'
+                    : 'Open in new tab'
                 }
               >
                 <Button

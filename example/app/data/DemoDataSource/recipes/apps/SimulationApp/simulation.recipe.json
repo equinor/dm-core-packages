@@ -24,11 +24,6 @@
       "description": "",
       "attributes": [
         {
-          "name": "simulationResultList",
-          "type": "dmss://system/SIMOS/StorageAttribute",
-          "contained": false
-        },
-        {
           "name": "bestSimulationResult",
           "type": "dmss://system/SIMOS/StorageAttribute",
           "contained": false

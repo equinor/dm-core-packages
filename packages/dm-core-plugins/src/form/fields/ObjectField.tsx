@@ -12,6 +12,8 @@ import {
   splitAddress,
   useBlueprint,
   useDMSS,
+  TStorageReference,
+  TUiRecipe,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -23,7 +25,14 @@ import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
-import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
+import {
+  TContentProps,
+  TObjectFieldProps,
+  TUiRecipeForm,
+  TAttributeConfig,
+} from '../types'
+import dmssAPI from '@development-framework/dm-core/dist/services/api/DmssAPI'
+import { add } from '@equinor/eds-icons'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
   const { setValue } = useFormContext()
@@ -141,6 +150,34 @@ const RemoveObject = (props: { namePath: string }) => {
   )
 }
 
+export const StorageUncontainedAndModelContainedAttribute = (props: {
+  type: string
+  address: string
+  displayLabel: string
+  optional: boolean
+  blueprint: TBlueprint
+  uiRecipe?: TUiRecipeForm
+  uiAttribute?: TAttributeConfig
+}) => {
+  const { type, address, blueprint, uiRecipe } = props
+  const { watch } = useFormContext()
+  const { idReference, onOpen } = useRegistryContext()
+  const value = watch(address)
+  //console.log('value'f, value)
+  // storageReferenceEntity: TStorageReference
+  return (
+    <Stack>
+      <Inline
+        type={type}
+        address={address}
+        blueprint={blueprint}
+        uiRecipe={uiRecipe}
+      />
+      <p>Lol</p>
+    </Stack>
+  )
+}
+
 /*
  * Display a model contained attribute in the Form.
  * Note: if the model contained attribute is storage uncontained, it needs to be handled in a special way.
@@ -148,7 +185,7 @@ const RemoveObject = (props: { namePath: string }) => {
 export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const {
     type,
-    namePath,
+    address,
     displayLabel = '',
     optional = false,
     uiAttribute,
@@ -157,7 +194,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
-  const value = watch(namePath)
+  const value = watch(address)
   const isDefined = value && Object.keys(value).length > 0
   const attributeIsStorageReference =
     value !== undefined &&
@@ -176,29 +213,25 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
       <Typography bold={true}>{displayLabel}</Typography>
       {optional &&
         (isDefined ? (
-          <RemoveObject namePath={namePath} />
+          <RemoveObject namePath={address} />
         ) : (
-          <AddObject namePath={namePath} type={type} />
+          <AddObject namePath={address} type={type} />
         ))}
       {isDefined &&
         (onOpen && !uiAttribute?.showInline ? (
           <OpenObjectButton
-            viewId={namePath}
+            viewId={address}
             idReference={idReference}
             view={{
               type: 'ReferenceViewConfig',
-              scope: namePath,
+              scope: address,
               recipe: uiRecipe?.name,
             }}
           />
         ) : (
           <Inline
             type={type}
-            idReference={
-              attributeIsStorageReference
-                ? value['address']
-                : `${idReference}.${namePath}`
-            }
+            address={address}
             blueprint={blueprint}
             uiRecipe={uiRecipe}
           />
@@ -209,31 +242,31 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
 
 const Inline = (props: {
   type: string
-  idReference: string
+  address: string
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm | undefined
 }): JSX.Element => {
-  const { onOpen } = useRegistryContext()
-  const { type, idReference, uiRecipe, blueprint } = props
+  const { idReference, onOpen } = useRegistryContext()
+  const { type, address, uiRecipe, blueprint } = props
   if (
     uiRecipe &&
     uiRecipe.plugin !== '@development-framework/dm-core-plugins/form'
   ) {
-    console.log('return entity view')
+    //console.log('return entity view')
     return (
       <EntityView
         recipeName={uiRecipe.name}
-        idReference={idReference}
+        idReference={`${idReference}.${address}`}
         type={type}
         onOpen={onOpen}
       />
     )
   }
-  console.log('return entity attr list')
+  //console.log('return entity attr list')
   return (
     <Indent>
       <AttributeList
-        namePath={idReference}
+        namePath={address}
         config={uiRecipe?.config}
         blueprint={blueprint}
       />
@@ -247,27 +280,26 @@ const Indent = styled.div`
 `
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
-  const { type, namePath, displayLabel, uiAttribute, uiRecipe, optional } =
-    props
+  const { type, address, displayLabel, uiAttribute, uiRecipe, optional } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
-  const value = watch(namePath)
+  const value = watch(address)
   const { dataSource, documentPath } = splitAddress(idReference)
-  const address =
-    value && value.address && value.referenceType === 'link'
-      ? resolveRelativeAddress(value.address, documentPath, dataSource)
-      : undefined
+  // const address =
+  //   value && value.address && value.referenceType === 'link'
+  //     ? resolveRelativeAddress(value.address, documentPath, dataSource)
+  //     : undefined
 
   return (
     <Stack spacing={0.5}>
       <Typography bold={true}>{displayLabel}</Typography>
       {address && <Typography>Address: {value.address}</Typography>}
       <Stack direction="row" spacing={0.5}>
-        <SelectReference type={type} namePath={namePath} />
-        {optional && address && <RemoveObject namePath={namePath} />}
+        <SelectReference type={type} namePath={address} />
+        {optional && address && <RemoveObject namePath={address} />}
         {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
-            viewId={namePath}
+            viewId={address}
             view={{
               type: 'ReferenceViewConfig',
               scope: '',
@@ -290,21 +322,41 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
 }
 
 export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
-  const { type, namePath, uiAttribute, displayLabel } = props
+  const { type, address, uiAttribute, displayLabel } = props
   const { getValues } = useFormContext()
-
+  const { idReference } = useRegistryContext()
+  const DmssApi = useDMSS()
+  console.log('objf address', address)
   // Be able to override the object field
   const Widget =
     uiAttribute && uiAttribute.widget
       ? getWidget(uiAttribute.widget)
       : ObjectTypeSelector
+  console.log('obj f props', props)
+  const values = getValues(address)
+  const valuesIsStorageReference =
+    values !== undefined &&
+    'referenceType' in values &&
+    values['referenceType'] === 'storage'
 
-  const values = getValues(namePath)
+  // if (valuesIsStorageReference) {
+  //   DmssApi.documentGet({
+  //     address: values['address'],
+  //     depth: 2,
+  //   }).then((response: any) => {
+  //     console.log('got ', response.data)
+  //   })
+  // }
+
   // If the attribute type is an object, we need to find the correct type from the values.
   return (
     <Widget
       {...props}
-      id={namePath}
+      id={
+        valuesIsStorageReference
+          ? values['address']
+          : `${idReference}.${props.address}`
+      }
       label={displayLabel}
       type={type === 'object' && values ? values.type : type}
     />
@@ -312,11 +364,12 @@ export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
 }
 
 export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
-  const { type, namePath, displayLabel, optional, contained, uiAttribute } =
+  const { type, address, displayLabel, optional, contained, uiAttribute } =
     props
 
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
-
+  const { watch } = useFormContext()
+  const value = watch(address)
   if (isLoading) return <Loading />
   if (error) throw new Error(`Failed to fetch blueprint for '${type}'`)
   if (blueprint === undefined) return <div>Could not find the blueprint</div>
@@ -326,12 +379,21 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
   const uiRecipe: TUiRecipeForm | undefined = uiRecipes
     .map((x) => ({ ...x, config: { ...defaultConfig, ...x.config } }))
     .find((uiRecipe) => uiRecipe.name === uiRecipeName)
+  const attributeIsStorageReference =
+    value !== undefined &&
+    'referenceType' in value &&
+    value['referenceType'] === 'storage'
 
-  const Content = contained ? ContainedAttribute : UncontainedAttribute
+  const Content =
+    attributeIsStorageReference && contained
+      ? StorageUncontainedAndModelContainedAttribute
+      : contained
+      ? ContainedAttribute
+      : UncontainedAttribute
   return (
     <Content
       type={type}
-      namePath={namePath}
+      address={address}
       displayLabel={displayLabel}
       optional={optional}
       blueprint={blueprint}

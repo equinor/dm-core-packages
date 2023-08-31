@@ -3,7 +3,6 @@ version: '3.4'
 services:
   dmss:
     image: datamodelingtool.azurecr.io/dmss:latest
-    platform: linux/amd64
     restart: unless-stopped
     environment:
       AUTH_ENABLED: 0
@@ -29,7 +28,6 @@ services:
 
   job-api:
     image: datamodelingtool.azurecr.io/dm-job
-    platform: linux/amd64
     restart: unless-stopped
     environment:
       SCHEDULER_ENVS_TO_EXPORT: 'PUBLIC_DMSS_API,SIMA_LICENSE'

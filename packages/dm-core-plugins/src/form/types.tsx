@@ -16,7 +16,7 @@ export type TFormProps = {
 
 export type TObjectFieldProps = {
   contained: boolean
-  namePath: string
+  address: string
   type: string
   displayLabel: string
   optional: boolean
@@ -25,7 +25,7 @@ export type TObjectFieldProps = {
 
 export type TContentProps = {
   type: string
-  namePath: string
+  address: string
   displayLabel: string
   optional: boolean
   blueprint: TBlueprint | undefined
@@ -42,7 +42,7 @@ export type TArrayFieldProps = {
 }
 
 export type TAttributeFieldProps = {
-  namePath: string
+  address: string
   attribute: TAttribute
   uiAttribute?: TAttributeConfig
 }
@@ -84,7 +84,10 @@ type TAttributeObject = TAttributeBasis & {
   widget?: string
   uiRecipe?: string
 }
-type TAttributeConfig = TAttributeArray | TAttributeObject | TAttributeString
+export type TAttributeConfig =
+  | TAttributeArray
+  | TAttributeObject
+  | TAttributeString
 export type TConfig = {
   attributes: TAttributeConfig[]
   fields: string[]

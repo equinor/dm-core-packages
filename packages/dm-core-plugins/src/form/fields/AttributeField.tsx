@@ -36,17 +36,16 @@ const getDisplayLabel = (attribute: any): string => {
 }
 
 export const AttributeField = (props: TAttributeFieldProps) => {
-  const { namePath, attribute, uiAttribute } = props
+  const { address, attribute, uiAttribute } = props
 
   const fieldType = getFieldType(attribute)
 
   const displayLabel = getDisplayLabel(attribute)
-
   switch (fieldType) {
     case 'binary':
       return (
         <BinaryField
-          namePath={namePath}
+          namePath={address}
           displayLabel={displayLabel}
           defaultValue={attribute.default}
           optional={attribute.optional ?? false}
@@ -58,7 +57,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
       // Get the ui recipe name that should be used for nested
       return (
         <ObjectField
-          namePath={namePath}
+          address={address}
           displayLabel={displayLabel}
           contained={attribute.contained ?? true}
           type={attribute.attributeType}
@@ -70,7 +69,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
     case 'array':
       return (
         <ArrayField
-          namePath={namePath}
+          namePath={address}
           displayLabel={displayLabel}
           type={attribute.attributeType}
           uiAttribute={uiAttribute}
@@ -80,7 +79,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
     case 'string':
       return (
         <StringField
-          namePath={namePath}
+          namePath={address}
           displayLabel={displayLabel}
           defaultValue={attribute.default}
           optional={attribute.optional ?? false}
@@ -90,7 +89,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
     case 'boolean':
       return (
         <BooleanField
-          namePath={namePath}
+          namePath={address}
           displayLabel={displayLabel}
           defaultValue={attribute.default}
           uiAttribute={uiAttribute}
@@ -100,7 +99,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
     case 'number':
       return (
         <NumberField
-          namePath={namePath}
+          namePath={address}
           displayLabel={displayLabel}
           defaultValue={attribute.default}
           optional={attribute.optional ?? false}

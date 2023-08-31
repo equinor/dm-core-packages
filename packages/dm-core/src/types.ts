@@ -20,6 +20,12 @@ export type TLinkReference = {
   address: string
 }
 
+export type TStorageReference = {
+  type: string
+  referenceType: 'storage'
+  address: string
+}
+
 export type TBlob = {
   _blob_id?: string
   name: string

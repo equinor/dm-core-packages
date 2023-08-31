@@ -100,7 +100,7 @@ export default function ArrayField(props: TArrayFieldProps) {
           >
             <Stack grow={1}>
               <AttributeField
-                namePath={`${namePath}.${index}`}
+                address={`${namePath}.${index}`}
                 attribute={{
                   attributeType: type,
                   dimensions: '',
