@@ -24,7 +24,7 @@ test('uncontainedObject', async ({ page }) => {
   ).toBeVisible()
   await expect(page.getByRole('code').getByText('1337')).toBeVisible()
 
-  // Legge til en optional assistant
+  // Add assistant
   await page
     .getByTestId('assistant')
     .getByRole('button', { name: 'Select and save' })
@@ -53,7 +53,7 @@ test('uncontainedObject', async ({ page }) => {
   await expect(page.getByText('1234')).toBeVisible()
   await page.getByRole('button', { name: 'Close assistant' }).click()
 
-  // Legge til en optional accountant og sjekke inline innhold
+  // Add trainee
   await page
     .getByTestId('trainee')
     .getByRole('button', { name: 'Select and save' })
@@ -81,7 +81,7 @@ test('uncontainedObject', async ({ page }) => {
     page.getByTestId('trainee').getByRole('code').getByText('1234')
   ).toBeVisible()
 
-  // Bytt ut enten CEO eller accountant
+  // Change accountant
   await page
     .getByTestId('accountant')
     .getByRole('button', { name: 'Select and save' })
@@ -108,7 +108,7 @@ test('uncontainedObject', async ({ page }) => {
     page.getByTestId('accountant').getByRole('code').getByText('1234')
   ).toBeVisible()
 
-  //Fjerne trainee optional
+  //Remove trainee
   await page.getByTestId('remove-trainee').click()
   await expect(
     page.getByTestId('trainee').getByRole('code').getByText('John')
@@ -117,7 +117,7 @@ test('uncontainedObject', async ({ page }) => {
     page.getByTestId('trainee').getByRole('code').getByText('1234')
   ).not.toBeVisible()
 
-  // Submit skjema
+  // Submit form
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert').last()).toHaveText(['Document updated'])
 })
