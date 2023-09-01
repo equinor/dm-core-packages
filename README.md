@@ -2183,3 +2183,8 @@ ref #466 (2023-08-25T11:40:50Z)
     * **DMSS VERSION**: b7362dc 2023-08-29 githu..[bot] chore(master): release 1.3.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.0
     * **JOB VERSION**: 693c711 2023-08-29 githu..[bot] chore(main): release 1.0.6 grafted, HEAD -> main, origin/main
+* fix(form): show helpertext on missing required (2023-08-25T11:40:50Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6047995968/1)
+    * **DMSS VERSION**: b7362dc 2023-08-29 githu..[bot] chore(master): release 1.3.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.0
+    * **JOB VERSION**: 693c711 2023-08-29 githu..[bot] chore(main): release 1.0.6 grafted, HEAD -> main, origin/main
