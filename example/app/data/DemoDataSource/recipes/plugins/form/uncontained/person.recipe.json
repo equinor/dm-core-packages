@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/uncontainedObject/blueprints/Person",
+  "_blueprintPath_": "/plugins/form/uncontained_object/blueprints/Person",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",

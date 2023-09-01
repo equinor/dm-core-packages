@@ -8,6 +8,11 @@
       "attributeType": "string"
     },
     {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
       "name": "employees",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",

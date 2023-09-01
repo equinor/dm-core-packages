@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/uncontainedObject/blueprints/Company",
+  "_blueprintPath_": "/plugins/form/uncontained_object/blueprints/Company",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
@@ -54,12 +54,7 @@
             "uiRecipe": "defaultYaml"
           }
         ],
-        "fields": [
-          "ceo",
-          "accountant",
-          "assistant",
-          "trainee"
-        ]
+        "fields": ["ceo", "accountant", "assistant", "trainee"]
       }
     }
   ]
