@@ -47,7 +47,7 @@
       "name": "trainee",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
-      "label": "Accountant",
+      "label": "Trainee",
       "contained": false,
       "optional": true
     }
