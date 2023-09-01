@@ -12,6 +12,22 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.3.0 to ^1.3.1
 
+## [1.3.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.3.1...dm-core-plugins-v1.3.2) (2023-09-01)
+
+
+### Bug Fixes
+
+* **form:** add validation for integers ([4949e6c](https://github.com/equinor/dm-core-packages/commit/4949e6cd9ced13e7590b877cebd2e3aa09b127da)), closes [#466](https://github.com/equinor/dm-core-packages/issues/466)
+* **form:** show helpertext on missing required ([07fe8de](https://github.com/equinor/dm-core-packages/commit/07fe8de871c569c1d7c8e84208d29ea081480a1e))
+* **form:** use documentUpdate to update reference ([4d1cd95](https://github.com/equinor/dm-core-packages/commit/4d1cd95000fb1de26724953c01694bdb830e8364))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.3.1 to ^1.3.2
+
 ## [1.3.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.2.0...dm-core-plugins-v1.3.0) (2023-08-24)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.1...dm-core-v1.3.2) (2023-09-01)
+
+
+### Bug Fixes
+
+* **job:** use check document existence endpoint to verify existence of job before updating, and add it if the job does not exist ([1e13f8c](https://github.com/equinor/dm-core-packages/commit/1e13f8cfdc6fc511b3fe4cccfefe0499ad0eb3ce))
+
 ## [1.3.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.0...dm-core-v1.3.1) (2023-08-29)
 
 
