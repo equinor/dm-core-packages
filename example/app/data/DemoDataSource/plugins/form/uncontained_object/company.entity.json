@@ -1,6 +1,7 @@
 {
   "_id": "UncontainedObject",
   "type": "./blueprints/Company",
+  "name": "UncontainedObject",
   "employees": [
     {
       "name": "Miranda",
