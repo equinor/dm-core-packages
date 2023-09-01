@@ -6,15 +6,6 @@ import { TNumberFieldProps } from '../types'
 const REGEX_INTEGER = /^\d+([eE][-+]?\d+)?$/
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
-const parse = (value: unknown, isInteger: boolean): number | string | null => {
-  if (value == null) return null
-  const valueAsString = String(value)
-  const valid = isInteger
-    ? REGEX_INTEGER.test(valueAsString)
-    : REGEX_FLOAT.test(valueAsString)
-  return valid ? Number(valueAsString) : valueAsString
-}
-
 export const NumberField = (props: TNumberFieldProps) => {
   const {
     namePath,
@@ -45,7 +36,7 @@ export const NumberField = (props: TNumberFieldProps) => {
         return (
           <Widget
             {...props}
-            onChange={(v) => onChange(parse(v, isInteger))}
+            onChange={(v) => onChange(invalid ? v : Number(v))}
             value={props.value ?? ''}
             id={namePath}
             label={displayLabel}
