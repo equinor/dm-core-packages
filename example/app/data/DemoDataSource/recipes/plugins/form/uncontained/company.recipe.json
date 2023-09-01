@@ -54,7 +54,12 @@
             "uiRecipe": "defaultYaml"
           }
         ],
-        "fields": ["ceo", "accountant", "assistant", "trainee"]
+        "fields": [
+          "ceo",
+          "accountant",
+          "assistant",
+          "trainee"
+        ]
       }
     }
   ]
