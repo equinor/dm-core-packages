@@ -1,19 +1,31 @@
-import { test } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 
-test('signalApp', async ({ page }) => {
-  //Starting app
+test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3000/')
   await page.getByText('apps').click()
   await page.getByText('MySignalApp').click()
   await page.getByText('signalApp', { exact: true }).click()
+})
 
-  //Open Explorer
-  await page.getByRole('banner').locator('svg').first().click()
-  await page.getByText('Explorer').click()
-  await page.getByRole('banner').locator('svg').first().click()
-  await page.getByText('View study').click()
+test('Start SignalApp', async ({ page }) => {
+  await expect(page.getByRole('tab', { name: 'Home' })).toBeVisible()
+})
 
-  //Open case
+test('run Create job', async ({ page }) => {
   await page.getByRole('button', { name: 'Open' }).click()
-  // await page.getByRole('button', { name: 'Expand' }).click()
+  await page.getByRole('button', { name: 'Open' }).click()
+  await page.getByRole('button', { name: 'Create' }).click()
+
+  await expect(page.getByText('Status: not started')).toBeVisible()
+  await page.getByRole('button', { name: 'Start' }).click()
+  await expect(page.getByText('Status: registered')).toBeVisible()
+
+  await page.getByRole('button', { name: 'Get results' }).click()
+  await expect(page.getByText('12345')).toBeVisible()
+
+  await page.getByRole('button', { name: 'Close case1' }).click()
+  await page.getByRole('button', { name: 'Open' }).click()
+  await expect(page.locator('.nsewdrag')).toHaveScreenshot({
+    maxDiffPixelRatio: 0.25,
+  })
 })
