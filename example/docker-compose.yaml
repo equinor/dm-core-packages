@@ -28,7 +28,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: maf
 
   job-api:
-    image: datamodelingtool.azurecr.io/dm-job:v1.0.6
+    image: datamodelingtool.azurecr.io/dm-job:v1.0.7
     platform: linux/amd64
     restart: unless-stopped
     environment:
