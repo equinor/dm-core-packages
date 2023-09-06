@@ -18,7 +18,7 @@ export const AboutDialog = (props: AboutDialogProps) => {
       header={`About ${applicationEntity.label}`}
       width={'40vw'}
     >
-      <p style={{ padding: '0 15px' }}>{applicationEntity.description}</p>
+      {applicationEntity.description}
     </Dialog>
   )
 }
