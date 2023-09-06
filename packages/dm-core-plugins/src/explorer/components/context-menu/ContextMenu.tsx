@@ -15,14 +15,12 @@ import React, { useState } from 'react'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import { toast } from 'react-toastify'
 import './../../style.css'
-import { SingleTextInput } from './utils/SingleTextInput'
 import {
   DeleteAction,
   NewFolderAction,
   NewRootPackageAction,
 } from './utils/contextMenuActions'
 import { createContextMenuItems } from './utils/createContextMenuItmes'
-import { DialogContent, edsButtonStyleConfig } from './utils/styles'
 
 //Component that can be used when a context menu action requires one text (string) input.
 
@@ -73,17 +71,26 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
           setFormData(undefined)
           setScrimToShow('')
         }}
-      >
-        <DialogContent>
-          <SingleTextInput
-            label={'Folder name'}
-            setFormData={setFormData}
-            handleSubmit={() =>
+        actions={[
+          <Button
+            key="create"
+            disabled={formData === undefined || formData === ''}
+            onClick={() => {
               handleFormDataSubmit(node, formData, NewFolderAction)
-            }
-            buttonisDisabled={formData === undefined || formData === ''}
-          />
-        </DialogContent>
+            }}
+          >
+            Create
+          </Button>,
+        ]}
+      >
+        <Label label={'Folder name'} />
+        <Input
+          type={'string'}
+          style={{ width: INPUT_FIELD_WIDTH }}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setFormData(event.target.value)
+          }
+        />
       </Dialog>
 
       <Dialog
@@ -92,31 +99,30 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         height={STANDARD_DIALOG_HEIGHT}
         closeScrim={() => setScrimToShow('')}
         header={'Confirm Deletion'}
-      >
-        <DialogContent>
-          <div style={{ paddingBottom: '18px' }}>
-            Are you sure you want to delete the entity <b>{node.name}</b> of
-            type <b>{node.type}</b>?
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
+        actions={[
+          <Button
+            key="delete"
+            color="danger"
+            onClick={async () => {
+              await DeleteAction(node, dmssAPI, setLoading)
+              await node.remove()
+              setScrimToShow('')
             }}
           >
-            <Button onClick={() => setScrimToShow('')}>Cancel</Button>
-            <Button
-              color="danger"
-              onClick={async () => {
-                await DeleteAction(node, dmssAPI, setLoading)
-                await node.remove()
-                setScrimToShow('')
-              }}
-            >
-              {loading ? <Progress.Dots /> : 'Delete'}
-            </Button>
-          </div>
-        </DialogContent>
+            {loading ? <Progress.Dots /> : 'Delete'}
+          </Button>,
+        ]}
+      >
+        <div style={{ paddingBottom: '18px' }}>
+          Are you sure you want to delete the entity <b>{node.name}</b> of type{' '}
+          <b>{node.type}</b>?
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+          }}
+        ></div>
       </Dialog>
 
       <Dialog
@@ -128,17 +134,26 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
           setScrimToShow('')
         }}
         header={'New root package'}
-      >
-        <DialogContent>
-          <SingleTextInput
-            label={'Root package name'}
-            handleSubmit={() =>
+        actions={[
+          <Button
+            key="create"
+            disabled={formData === undefined || formData === ''}
+            onClick={() => {
               handleFormDataSubmit(node, formData, NewRootPackageAction)
-            }
-            setFormData={setFormData}
-            buttonisDisabled={formData === undefined || formData === ''}
-          />
-        </DialogContent>
+            }}
+          >
+            Create
+          </Button>,
+        ]}
+      >
+        <Label label={'Root package name'} />
+        <Input
+          type={'string'}
+          style={{ width: INPUT_FIELD_WIDTH }}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setFormData(event.target.value)
+          }
+        />
       </Dialog>
 
       <Dialog
@@ -146,38 +161,39 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         closeScrim={() => setScrimToShow('')}
         header={`Append new entity to list`}
         width={STANDARD_DIALOG_WIDTH}
-      >
-        <DialogContent>
-          {loading ? (
-            <Button style={edsButtonStyleConfig}>
-              <Progress.Dots />
-            </Button>
-          ) : (
-            <Button
-              style={edsButtonStyleConfig}
-              onClick={() => {
-                setLoading(true)
-                node
-                  .addEntityToPackage(
-                    node.attribute.attributeType,
-                    `${node.entity.length}`
-                  )
-                  .then(() => {
-                    node.expand()
-                    setScrimToShow('')
-                  })
-                  .catch((error: AxiosError<ErrorResponse>) => {
-                    console.error(error)
-                    toast.error('Failed to create entity')
-                  })
-                  .finally(() => setLoading(false))
-              }}
-            >
-              Create
-            </Button>
-          )}
-        </DialogContent>
-      </Dialog>
+        actions={
+          loading
+            ? [
+                <Button key="progress">
+                  <Progress.Dots />
+                </Button>,
+              ]
+            : [
+                <Button
+                  key="create"
+                  onClick={() => {
+                    setLoading(true)
+                    node
+                      .addEntityToPackage(
+                        node.attribute.attributeType,
+                        `${node.entity.length}`
+                      )
+                      .then(() => {
+                        node.expand()
+                        setScrimToShow('')
+                      })
+                      .catch((error: AxiosError<ErrorResponse>) => {
+                        console.error(error)
+                        toast.error('Failed to create entity')
+                      })
+                      .finally(() => setLoading(false))
+                  }}
+                >
+                  Create
+                </Button>,
+              ]
+        }
+      ></Dialog>
 
       <Dialog
         isOpen={scrimToShow === 'new-entity'}
@@ -185,47 +201,47 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         header={`Create new entity`}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
+        actions={
+          loading
+            ? [
+                <Button key="loading">
+                  <Progress.Dots />
+                </Button>,
+              ]
+            : [
+                <Button
+                  key="create"
+                  disabled={formData?.type === undefined}
+                  onClick={() => {
+                    setLoading(true)
+                    node
+                      .addEntityToPackage(
+                        `dmss://${formData?.type}`,
+                        formData?.name || 'Created_entity'
+                      )
+                      .then(() => {
+                        setScrimToShow('')
+                        toast.success(`New entity created`)
+                      })
+                      .catch((error: AxiosError<ErrorResponse>) => {
+                        console.error(error)
+                        toast.error(error.response?.data.message)
+                      })
+                      .finally(() => setLoading(false))
+                  }}
+                >
+                  Create
+                </Button>,
+              ]
+        }
       >
-        <DialogContent>
-          <div style={{ display: 'block' }}>
-            <BlueprintPicker
-              label={'Blueprint'}
-              onChange={(selectedType: string) =>
-                setFormData({ type: selectedType })
-              }
-              formData={formData?.type || ''}
-            />
-          </div>
-          {loading ? (
-            <Button style={edsButtonStyleConfig}>
-              <Progress.Dots />
-            </Button>
-          ) : (
-            <Button
-              disabled={formData?.type === undefined}
-              style={edsButtonStyleConfig}
-              onClick={() => {
-                setLoading(true)
-                node
-                  .addEntityToPackage(
-                    `dmss://${formData?.type}`,
-                    formData?.name || 'Created_entity'
-                  )
-                  .then(() => {
-                    setScrimToShow('')
-                    toast.success(`New entity created`)
-                  })
-                  .catch((error: AxiosError<ErrorResponse>) => {
-                    console.error(error)
-                    toast.error(error.response?.data.message)
-                  })
-                  .finally(() => setLoading(false))
-              }}
-            >
-              Create
-            </Button>
-          )}
-        </DialogContent>
+        <BlueprintPicker
+          label={'Blueprint'}
+          onChange={(selectedType: string) =>
+            setFormData({ type: selectedType })
+          }
+          formData={formData?.type || ''}
+        />
       </Dialog>
 
       <Dialog
@@ -234,46 +250,46 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         header={`Create new blueprint`}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
+        actions={
+          loading
+            ? [
+                <Button key="loading">
+                  <Progress.Dots />
+                </Button>,
+              ]
+            : [
+                <Button
+                  key="create"
+                  disabled={formData?.name === undefined}
+                  onClick={() => {
+                    setLoading(true)
+                    node
+                      .addEntityToPackage(EBlueprint.BLUEPRINT, formData?.name)
+                      .then(() => {
+                        setScrimToShow('')
+                      })
+                      .catch((error: AxiosError<ErrorResponse>) => {
+                        console.error(error)
+                        toast.error(error.response?.data.message)
+                      })
+                      .finally(() => setLoading(false))
+                  }}
+                >
+                  Create
+                </Button>,
+              ]
+        }
       >
-        <DialogContent>
-          <div style={{ display: 'block' }}>
-            <Label label={'Name'} />
-            <Input
-              style={{ width: INPUT_FIELD_WIDTH }}
-              type="string"
-              value={formData?.name || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setFormData({ ...formData, name: event.target.value })
-              }
-              placeholder="Name for new blueprint"
-            />
-          </div>
-          {loading ? (
-            <Button style={edsButtonStyleConfig}>
-              <Progress.Dots />
-            </Button>
-          ) : (
-            <Button
-              disabled={formData?.name === undefined}
-              style={edsButtonStyleConfig}
-              onClick={() => {
-                setLoading(true)
-                node
-                  .addEntityToPackage(EBlueprint.BLUEPRINT, formData?.name)
-                  .then(() => {
-                    setScrimToShow('')
-                  })
-                  .catch((error: AxiosError<ErrorResponse>) => {
-                    console.error(error)
-                    toast.error(error.response?.data.message)
-                  })
-                  .finally(() => setLoading(false))
-              }}
-            >
-              Create
-            </Button>
-          )}
-        </DialogContent>
+        <Label label={'Name'} />
+        <Input
+          style={{ width: INPUT_FIELD_WIDTH }}
+          type="string"
+          value={formData?.name || ''}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setFormData({ ...formData, name: event.target.value })
+          }
+          placeholder="Name for new blueprint"
+        />
       </Dialog>
     </div>
   )
