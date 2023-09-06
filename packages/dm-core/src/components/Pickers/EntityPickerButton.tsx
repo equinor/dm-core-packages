@@ -76,6 +76,12 @@ export const EntityPickerButton = (props: {
       })
   }
 
+  const selectButton = (
+    <Button disabled={!selectedTreeNode} onClick={handleSelectEntityInTree}>
+      Select
+    </Button>
+  )
+
   return (
     <div>
       <Button
@@ -93,6 +99,7 @@ export const EntityPickerButton = (props: {
         header={`Select an Entity ${typeFilter ? `of type ${typeFilter}` : ''}`}
         width={TREE_DIALOG_WIDTH}
         height={TREE_DIALOG_HEIGHT}
+        actions={[selectButton]}
       >
         {loading ? (
           <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -100,6 +107,13 @@ export const EntityPickerButton = (props: {
           </div>
         ) : (
           <div style={{ padding: '8px' }}>
+            <p>
+              {selectedTreeNode
+                ? `Selected: ${
+                    selectedTreeNode?.name ?? selectedTreeNode.nodeId
+                  }`
+                : 'No entity selected'}
+            </p>
             <div style={{ height: '30vh' }}>
               <TreeView
                 ignoredTypes={[EBlueprint.BLUEPRINT]}
@@ -116,19 +130,6 @@ export const EntityPickerButton = (props: {
                 }}
               />
             </div>
-            <p>
-              {selectedTreeNode
-                ? `Selected: ${
-                    selectedTreeNode?.name ?? selectedTreeNode.nodeId
-                  }`
-                : 'No entity selected'}
-            </p>
-            <Button
-              disabled={!selectedTreeNode}
-              onClick={handleSelectEntityInTree}
-            >
-              Select
-            </Button>
           </div>
         )}
       </Dialog>

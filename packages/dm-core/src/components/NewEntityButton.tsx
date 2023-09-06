@@ -114,6 +114,37 @@ export function NewEntityButton(props: {
     }
   }
 
+  const copyButton = !documentToCopy ? (
+    <EntityPickerButton
+      buttonVariant="outlined"
+      typeFilter={typeToCreate}
+      alternativeButtonText="Copy existing"
+      onChange={(address: string, entity?: TValidEntity) =>
+        setDocumentToCopy(entity)
+      }
+    />
+  ) : (
+    <Button
+      onClick={() => setDocumentToCopy(undefined)}
+      variant="outlined"
+      color="danger"
+    >
+      Don't copy
+    </Button>
+  )
+
+  const createButton = (
+    <Button
+      disabled={
+        !(newName && saveDestination && (typeToCreate || documentToCopy))
+      }
+      type="submit"
+      onClick={onCreateEntity}
+    >
+      {loading ? <Progress.Dots /> : 'Create'}
+    </Button>
+  )
+
   return (
     <div style={{ margin: '0 10px' }}>
       <Button onClick={() => setShowScrim(true)}>New</Button>
@@ -123,6 +154,7 @@ export function NewEntityButton(props: {
         header={`Create new entity`}
         width={'600px'}
         height={'370px'}
+        actions={[createButton, copyButton]}
       >
         <DialogWrapper>
           {!type && (
@@ -165,46 +197,6 @@ export function NewEntityButton(props: {
           {!!documentToCopy && (
             <div>{`Copying entity named '${documentToCopy.name}'`}</div>
           )}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-around',
-              marginTop: '40px',
-            }}
-          >
-            {!documentToCopy ? (
-              <EntityPickerButton
-                buttonVariant="outlined"
-                typeFilter={typeToCreate}
-                alternativeButtonText="Copy existing"
-                onChange={(address: string, entity?: TValidEntity) =>
-                  setDocumentToCopy(entity)
-                }
-              />
-            ) : (
-              <Button
-                onClick={() => setDocumentToCopy(undefined)}
-                variant="outlined"
-                color="danger"
-              >
-                Don't copy
-              </Button>
-            )}
-            <Button
-              disabled={
-                !(
-                  newName &&
-                  saveDestination &&
-                  (typeToCreate || documentToCopy)
-                )
-              }
-              type="submit"
-              onClick={onCreateEntity}
-            >
-              {loading ? <Progress.Dots /> : 'Create'}
-            </Button>
-          </div>
         </DialogWrapper>
       </Dialog>
     </div>
