@@ -63,45 +63,65 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
       {/*@ts-ignore*/}
       <ContextMenu id={node.nodeId}>{menuItems}</ContextMenu>
       <Dialog
-        isOpen={scrimToShow === 'new-folder'}
+        isDismissable
+        open={scrimToShow === 'new-folder'}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
-        header={'Create new folder'}
-        closeScrim={() => {
+        onClose={() => {
           setFormData(undefined)
           setScrimToShow('')
         }}
-        actions={[
+      >
+        <Dialog.Header>
+          <Dialog.Title>Create new folder</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <Label label={'Folder name'} />
+          <Input
+            type={'string'}
+            style={{ width: INPUT_FIELD_WIDTH }}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setFormData(event.target.value)
+            }
+          />
+        </Dialog.CustomContent>
+        <Dialog.Actions>
           <Button
-            key="create"
             disabled={formData === undefined || formData === ''}
             onClick={() => {
               handleFormDataSubmit(node, formData, NewFolderAction)
             }}
           >
             Create
-          </Button>,
-        ]}
-      >
-        <Label label={'Folder name'} />
-        <Input
-          type={'string'}
-          style={{ width: INPUT_FIELD_WIDTH }}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setFormData(event.target.value)
-          }
-        />
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setFormData(undefined)
+              setScrimToShow('')
+            }}
+          >
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
 
       <Dialog
-        isOpen={scrimToShow === 'delete'}
+        open={scrimToShow === 'delete'}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
-        closeScrim={() => setScrimToShow('')}
-        header={'Confirm Deletion'}
-        actions={[
+        isDismissable
+        onClose={() => setScrimToShow('')}
+      >
+        <Dialog.Header>
+          <Dialog.Title>Confirm Deletion</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          Are you sure you want to delete the entity <b>{node.name}</b> of type{' '}
+          <b>{node.type}</b>?
+        </Dialog.CustomContent>
+        <Dialog.Actions>
           <Button
-            key="delete"
             color="danger"
             onClick={async () => {
               await DeleteAction(node, dmssAPI, setLoading)
@@ -110,186 +130,205 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
             }}
           >
             {loading ? <Progress.Dots /> : 'Delete'}
-          </Button>,
-        ]}
-      >
-        <div style={{ paddingBottom: '18px' }}>
-          Are you sure you want to delete the entity <b>{node.name}</b> of type{' '}
-          <b>{node.type}</b>?
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-          }}
-        ></div>
+          </Button>
+          <Button variant="outlined" onClick={() => setScrimToShow('')}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
 
       <Dialog
-        isOpen={scrimToShow === 'new-root-package'}
+        open={scrimToShow === 'new-root-package'}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
-        closeScrim={() => {
+        isDismissable
+        onClose={() => {
           setFormData(undefined)
           setScrimToShow('')
         }}
-        header={'New root package'}
-        actions={[
+      >
+        <Dialog.Header>
+          <Dialog.Title>New root package</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <Label label={'Root package name'} />
+          <Input
+            type={'string'}
+            style={{ width: INPUT_FIELD_WIDTH }}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setFormData(event.target.value)
+            }
+          />
+        </Dialog.CustomContent>
+        <Dialog.Actions>
           <Button
-            key="create"
             disabled={formData === undefined || formData === ''}
             onClick={() => {
               handleFormDataSubmit(node, formData, NewRootPackageAction)
             }}
           >
             Create
-          </Button>,
-        ]}
-      >
-        <Label label={'Root package name'} />
-        <Input
-          type={'string'}
-          style={{ width: INPUT_FIELD_WIDTH }}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setFormData(event.target.value)
-          }
-        />
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setFormData(undefined)
+              setScrimToShow('')
+            }}
+          >
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
 
       <Dialog
-        isOpen={scrimToShow === 'append-entity'}
-        closeScrim={() => setScrimToShow('')}
-        header={`Append new entity to list`}
+        open={scrimToShow === 'append-entity'}
+        isDismissable
+        onClose={() => setScrimToShow('')}
         width={STANDARD_DIALOG_WIDTH}
-        actions={
-          loading
-            ? [
-                <Button key="progress">
-                  <Progress.Dots />
-                </Button>,
-              ]
-            : [
-                <Button
-                  key="create"
-                  onClick={() => {
-                    setLoading(true)
-                    node
-                      .addEntityToPackage(
-                        node.attribute.attributeType,
-                        `${node.entity.length}`
-                      )
-                      .then(() => {
-                        node.expand()
-                        setScrimToShow('')
-                      })
-                      .catch((error: AxiosError<ErrorResponse>) => {
-                        console.error(error)
-                        toast.error('Failed to create entity')
-                      })
-                      .finally(() => setLoading(false))
-                  }}
-                >
-                  Create
-                </Button>,
-              ]
-        }
-      ></Dialog>
-
-      <Dialog
-        isOpen={scrimToShow === 'new-entity'}
-        closeScrim={() => setScrimToShow('')}
-        header={`Create new entity`}
-        width={STANDARD_DIALOG_WIDTH}
-        height={STANDARD_DIALOG_HEIGHT}
-        actions={
-          loading
-            ? [
-                <Button key="loading">
-                  <Progress.Dots />
-                </Button>,
-              ]
-            : [
-                <Button
-                  key="create"
-                  disabled={formData?.type === undefined}
-                  onClick={() => {
-                    setLoading(true)
-                    node
-                      .addEntityToPackage(
-                        `dmss://${formData?.type}`,
-                        formData?.name || 'Created_entity'
-                      )
-                      .then(() => {
-                        setScrimToShow('')
-                        toast.success(`New entity created`)
-                      })
-                      .catch((error: AxiosError<ErrorResponse>) => {
-                        console.error(error)
-                        toast.error(error.response?.data.message)
-                      })
-                      .finally(() => setLoading(false))
-                  }}
-                >
-                  Create
-                </Button>,
-              ]
-        }
       >
-        <BlueprintPicker
-          label={'Blueprint'}
-          onChange={(selectedType: string) =>
-            setFormData({ type: selectedType })
-          }
-          formData={formData?.type || ''}
-        />
+        <Dialog.Header>
+          <Dialog.Title>Append new entity to list</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Actions>
+          {loading ? (
+            <Button>
+              <Progress.Dots />
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                setLoading(true)
+                node
+                  .addEntityToPackage(
+                    node.attribute.attributeType,
+                    `${node.entity.length}`
+                  )
+                  .then(() => {
+                    node.expand()
+                    setScrimToShow('')
+                  })
+                  .catch((error: AxiosError<ErrorResponse>) => {
+                    console.error(error)
+                    toast.error('Failed to create entity')
+                  })
+                  .finally(() => setLoading(false))
+              }}
+            >
+              Create
+            </Button>
+          )}
+          <Button variant="outlined" onClick={() => setScrimToShow('')}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
 
       <Dialog
-        isOpen={scrimToShow === 'new-blueprint'}
-        closeScrim={() => setScrimToShow('')}
-        header={`Create new blueprint`}
+        open={scrimToShow === 'new-entity'}
+        isDismissable
+        onClose={() => setScrimToShow('')}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
-        actions={
-          loading
-            ? [
-                <Button key="loading">
-                  <Progress.Dots />
-                </Button>,
-              ]
-            : [
-                <Button
-                  key="create"
-                  disabled={formData?.name === undefined}
-                  onClick={() => {
-                    setLoading(true)
-                    node
-                      .addEntityToPackage(EBlueprint.BLUEPRINT, formData?.name)
-                      .then(() => {
-                        setScrimToShow('')
-                      })
-                      .catch((error: AxiosError<ErrorResponse>) => {
-                        console.error(error)
-                        toast.error(error.response?.data.message)
-                      })
-                      .finally(() => setLoading(false))
-                  }}
-                >
-                  Create
-                </Button>,
-              ]
-        }
       >
-        <Label label={'Name'} />
-        <Input
-          style={{ width: INPUT_FIELD_WIDTH }}
-          type="string"
-          value={formData?.name || ''}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setFormData({ ...formData, name: event.target.value })
-          }
-          placeholder="Name for new blueprint"
-        />
+        <Dialog.Header>
+          <Dialog.Title>Create new entity</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <BlueprintPicker
+            label={'Blueprint'}
+            onChange={(selectedType: string) =>
+              setFormData({ type: selectedType })
+            }
+            formData={formData?.type || ''}
+          />
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          {loading ? (
+            <Button>
+              <Progress.Dots />
+            </Button>
+          ) : (
+            <Button
+              disabled={formData?.type === undefined}
+              onClick={() => {
+                setLoading(true)
+                node
+                  .addEntityToPackage(
+                    `dmss://${formData?.type}`,
+                    formData?.name || 'Created_entity'
+                  )
+                  .then(() => {
+                    setScrimToShow('')
+                    toast.success(`New entity created`)
+                  })
+                  .catch((error: AxiosError<ErrorResponse>) => {
+                    console.error(error)
+                    toast.error(error.response?.data.message)
+                  })
+                  .finally(() => setLoading(false))
+              }}
+            >
+              Create
+            </Button>
+          )}
+          <Button variant="outlined" onClick={() => setScrimToShow('')}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+
+      <Dialog
+        open={scrimToShow === 'new-blueprint'}
+        isDismissable
+        onClose={() => setScrimToShow('')}
+        width={STANDARD_DIALOG_WIDTH}
+        height={STANDARD_DIALOG_HEIGHT}
+      >
+        <Dialog.Header>
+          <Dialog.Title>Create new blueprint</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <Label label={'Name'} />
+          <Input
+            style={{ width: INPUT_FIELD_WIDTH }}
+            type="string"
+            value={formData?.name || ''}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setFormData({ ...formData, name: event.target.value })
+            }
+            placeholder="Name for new blueprint"
+          />
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          {loading ? (
+            <Button>
+              <Progress.Dots />
+            </Button>
+          ) : (
+            <Button
+              disabled={formData?.name === undefined}
+              onClick={() => {
+                setLoading(true)
+                node
+                  .addEntityToPackage(EBlueprint.BLUEPRINT, formData?.name)
+                  .then(() => {
+                    setScrimToShow('')
+                  })
+                  .catch((error: AxiosError<ErrorResponse>) => {
+                    console.error(error)
+                    toast.error(error.response?.data.message)
+                  })
+                  .finally(() => setLoading(false))
+              }}
+            >
+              Create
+            </Button>
+          )}
+          <Button variant="outlined" onClick={() => setScrimToShow('')}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
     </div>
   )
