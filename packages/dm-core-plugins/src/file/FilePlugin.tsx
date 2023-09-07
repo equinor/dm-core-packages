@@ -1,14 +1,13 @@
 import * as React from 'react'
 
 import {
+  EBlueprint,
   IUIPlugin,
   Loading,
-  useDocument,
-  EBlueprint,
   TFileEntity,
-  splitAddress,
-  TLinkReference,
   TStorageReference,
+  splitAddress,
+  useDocument,
 } from '@development-framework/dm-core'
 import { DownloadFileButton } from './DownloadFileButton'
 import { UploadFileButton } from './UploadFileButton'
