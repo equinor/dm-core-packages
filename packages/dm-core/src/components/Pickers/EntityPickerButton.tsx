@@ -7,7 +7,7 @@ import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { TValidEntity } from '../../types'
 import { truncatePathString } from '../../utils/truncatePathString'
-import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
+import { TREE_DIALOG_WIDTH } from '../../utils/variables'
 import { Dialog } from '../Dialog'
 import { TreeView } from '../TreeView'
 
@@ -76,12 +76,6 @@ export const EntityPickerButton = (props: {
       })
   }
 
-  const selectButton = (
-    <Button disabled={!selectedTreeNode} onClick={handleSelectEntityInTree}>
-      Select
-    </Button>
-  )
-
   return (
     <div>
       <Button
@@ -91,47 +85,69 @@ export const EntityPickerButton = (props: {
         {alternativeButtonText || 'Select'}
       </Button>
       <Dialog
-        isOpen={showModal}
-        closeScrim={() => {
+        isDismissable
+        open={showModal}
+        onClose={() => {
           setSelectedTreeNode(undefined)
           setShowModal(false)
         }}
-        header={`Select an Entity ${typeFilter ? `of type ${typeFilter}` : ''}`}
         width={TREE_DIALOG_WIDTH}
-        height={TREE_DIALOG_HEIGHT}
-        actions={[selectButton]}
       >
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Progress.Circular />
-          </div>
-        ) : (
-          <div style={{ padding: '8px' }}>
-            <p>
-              {selectedTreeNode
-                ? `Selected: ${
-                    selectedTreeNode?.name ?? selectedTreeNode.nodeId
-                  }`
-                : 'No entity selected'}
-            </p>
-            <div style={{ height: '30vh' }}>
-              <TreeView
-                ignoredTypes={[EBlueprint.BLUEPRINT]}
-                nodes={treeNodes}
-                onSelect={(node: TreeNode) => {
-                  if (typeFilter && node.type !== typeFilter) {
-                    toast.warning(
-                      `Type must be '${truncatePathString(typeFilter, 43)}'`
-                    )
-                    setSelectedTreeNode(undefined)
-                    return
-                  }
-                  setSelectedTreeNode(node)
-                }}
-              />
+        <Dialog.Header>
+          <Dialog.Title>
+            {`Select an Entity ${typeFilter ? `of type ${typeFilter}` : ''}`}
+          </Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Progress.Circular />
             </div>
-          </div>
-        )}
+          ) : (
+            <div>
+              <div style={{ height: '40vh' }}>
+                <TreeView
+                  ignoredTypes={[EBlueprint.BLUEPRINT]}
+                  nodes={treeNodes}
+                  onSelect={(node: TreeNode) => {
+                    if (typeFilter && node.type !== typeFilter) {
+                      toast.warning(
+                        `Type must be '${truncatePathString(typeFilter, 43)}'`
+                      )
+                      setSelectedTreeNode(undefined)
+                      return
+                    }
+                    setSelectedTreeNode(node)
+                  }}
+                />
+              </div>
+              <p>
+                {selectedTreeNode
+                  ? `Selected: ${
+                      selectedTreeNode?.name ?? selectedTreeNode.nodeId
+                    }`
+                  : 'No entity selected'}
+              </p>
+            </div>
+          )}
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button
+            disabled={!selectedTreeNode}
+            onClick={handleSelectEntityInTree}
+          >
+            Select
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setSelectedTreeNode(undefined)
+              setShowModal(false)
+            }}
+          >
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
     </div>
   )

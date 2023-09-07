@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 
-import { Input, Label } from '@equinor/eds-core-react'
+import { Button, Input, Label } from '@equinor/eds-core-react'
 import { toast } from 'react-toastify'
 import { FSTreeContext } from '../../context/FileSystemTreeContext'
 import { TreeNode } from '../../domain/Tree'
@@ -35,31 +35,39 @@ export const EntityPickerInput = (props: {
           style={{ width: INPUT_FIELD_WIDTH, cursor: 'pointer' }}
         />
         <Dialog
-          isOpen={showModal}
-          closeScrim={() => setShowModal(false)}
-          header={'Select an Entity'}
+          isDismissable
+          open={showModal}
+          onClose={() => setShowModal(false)}
           width={TREE_DIALOG_WIDTH}
           height={TREE_DIALOG_HEIGHT}
         >
-          <TreeView
-            nodes={treeNodes}
-            onSelect={(node: TreeNode) => {
-              if (node.type !== typeFilter) {
-                toast.warning('Wrong type')
-                return
-              }
-              node
-                .fetch()
-                .then((doc: any) => {
-                  setShowModal(false)
-                  onChange(doc)
-                })
-                .catch((error: any) => {
-                  console.error(error)
-                  toast.error('Failed to fetch')
-                })
-            }}
-          />
+          <Dialog.Header>
+            <Dialog.Header>Select an Entity</Dialog.Header>
+          </Dialog.Header>
+          <Dialog.CustomContent>
+            <TreeView
+              nodes={treeNodes}
+              onSelect={(node: TreeNode) => {
+                if (node.type !== typeFilter) {
+                  toast.warning('Wrong type')
+                  return
+                }
+                node
+                  .fetch()
+                  .then((doc: any) => {
+                    setShowModal(false)
+                    onChange(doc)
+                  })
+                  .catch((error: any) => {
+                    console.error(error)
+                    toast.error('Failed to fetch')
+                  })
+              }}
+            />
+          </Dialog.CustomContent>
+          <Dialog.Actions>
+            <Button onClick={() => setShowModal(false)}>Cancel</Button>
+          </Dialog.Actions>
         </Dialog>
       </div>
     </div>
