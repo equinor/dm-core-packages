@@ -108,11 +108,11 @@ export function TableRow(props: TTableRow) {
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     let newValue: string | number | boolean = event.target.value
                     if (attributeType === 'number') {
-                      const tempArray = Array.from(newValue)
+                      const numberArray = Array.from(newValue)
                       if (
-                        !tempArray.includes('.') &&
-                        tempArray.length > 1 &&
-                        Number(tempArray.at(0)) === 0
+                        !numberArray.includes('.') &&
+                        numberArray.length > 1 &&
+                        Number(numberArray.at(0)) === 0
                       ) {
                         newValue = newValue.slice(1)
                         event.target.value = newValue
