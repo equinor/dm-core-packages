@@ -22,6 +22,7 @@ export type TObjectFieldProps = {
   optional: boolean
   uiAttribute: TAttributeConfig | undefined
   readOnly?: boolean
+  defaultValue?: any
 }
 
 export type TContentProps = {
@@ -33,6 +34,7 @@ export type TContentProps = {
   uiRecipe: TUiRecipeForm | undefined
   uiAttribute: TAttributeConfig | undefined
   readOnly?: boolean
+  defaultValue?: any
 }
 
 export type TArrayFieldProps = {
