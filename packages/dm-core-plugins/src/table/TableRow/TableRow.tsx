@@ -7,15 +7,15 @@ import {
   Tooltip,
 } from '@equinor/eds-core-react'
 import React, {ChangeEvent} from 'react'
-import { TTableRow } from '../types'
-import { TGenericObject, ViewCreator } from '@development-framework/dm-core'
+import {TTableRow} from '../types'
+import {TGenericObject, ViewCreator} from '@development-framework/dm-core'
 import {
   chevron_down,
   chevron_up,
   delete_to_trash,
   open_in_browser,
 } from '@equinor/eds-icons'
-import { moveItem } from '../../list/utils'
+import {moveItem} from '../../list/utils'
 
 export function TableRow(props: TTableRow) {
   const {
@@ -51,7 +51,7 @@ export function TableRow(props: TTableRow) {
   }
 
   function openItemAsTab(item: TGenericObject, index: number) {
-    const view = { label: item?.data?.name, type: 'ViewConfig' }
+    const view = {label: item?.data?.name, type: 'ViewConfig'}
     onOpen(crypto.randomUUID(), view, `${idReference}[${index}]`)
   }
 
@@ -85,7 +85,7 @@ export function TableRow(props: TTableRow) {
                 disabled={!item.isSaved}
                 onClick={() => expandItem(index)}
               >
-                <Icon data={item.expanded ? chevron_up : chevron_down} />
+                <Icon data={item.expanded ? chevron_up : chevron_down}/>
               </Button>
             </Tooltip>
           </Table.Cell>
@@ -115,7 +115,7 @@ export function TableRow(props: TTableRow) {
                         && Number(tempArray.at(0)) === 0
                       ) {
                         newValue = newValue.slice(1)
-                        event.target.value=newValue
+                        event.target.value = newValue
                       }
                       newValue = Number(newValue)
                     }
@@ -129,31 +129,31 @@ export function TableRow(props: TTableRow) {
           )
         })}
         {config.functionality?.openAsTab && (
-          <Table.Cell style={{ textAlign: 'center' }}>
+          <Table.Cell style={{textAlign: 'center'}}>
             <Button
               disabled={!item.isSaved}
               variant="ghost"
               onClick={() => openItemAsTab(item, index)}
             >
-              <Icon data={open_in_browser} aria-hidden /> Open
+              <Icon data={open_in_browser} aria-hidden/> Open
             </Button>
           </Table.Cell>
         )}
         <EdsProvider density="compact">
           {config.functionality?.delete && (
-            <Table.Cell style={{ textAlign: 'center' }}>
+            <Table.Cell style={{textAlign: 'center'}}>
               <Button
                 title="Delete row"
                 color="danger"
                 variant="ghost_icon"
                 onClick={() => deleteItem(`${idReference}[${index}]`, item.key)}
               >
-                <Icon data={delete_to_trash} aria-hidden />
+                <Icon data={delete_to_trash} aria-hidden/>
               </Button>
             </Table.Cell>
           )}
           {config.functionality?.sort && (
-            <Table.Cell style={{ width: '48px' }}>
+            <Table.Cell style={{width: '48px'}}>
               <>
                 <Button
                   aria-label="Move row up"
@@ -164,7 +164,7 @@ export function TableRow(props: TTableRow) {
                     setDirtyState(true)
                   }}
                 >
-                  <Icon data={chevron_up} aria-hidden />
+                  <Icon data={chevron_up} aria-hidden/>
                 </Button>
                 <Button
                   aria-label="Move row down"
@@ -177,7 +177,7 @@ export function TableRow(props: TTableRow) {
                     setDirtyState(true)
                   }}
                 >
-                  <Icon data={chevron_down} aria-hidden />
+                  <Icon data={chevron_down} aria-hidden/>
                 </Button>
               </>
             </Table.Cell>
@@ -192,7 +192,7 @@ export function TableRow(props: TTableRow) {
               viewConfig={
                 config.expandableRecipeViewConfig
                   ? config.expandableRecipeViewConfig
-                  : { type: 'ViewConfig', scope: 'self' }
+                  : {type: 'ViewConfig', scope: 'self'}
               }
             />
           </Table.Cell>
