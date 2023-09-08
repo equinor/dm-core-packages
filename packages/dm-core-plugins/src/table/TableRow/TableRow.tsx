@@ -6,7 +6,7 @@ import {
   Table,
   Tooltip,
 } from '@equinor/eds-core-react'
-import React, { ChangeEvent } from 'react'
+import React, {ChangeEvent} from 'react'
 import { TTableRow } from '../types'
 import { TGenericObject, ViewCreator } from '@development-framework/dm-core'
 import {
@@ -107,7 +107,18 @@ export function TableRow(props: TTableRow) {
                   type={attributeType}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     let newValue: string | number | boolean = event.target.value
-                    if (attributeType === 'number') newValue = Number(newValue)
+                    if (attributeType === 'number') {
+                      const tempArray = Array.from(newValue);
+                      if (
+                        !tempArray.includes(".")
+                        && tempArray.length > 1
+                        && Number(tempArray.at(0)) === 0
+                      ) {
+                        newValue = newValue.slice(1)
+                        event.target.value=newValue
+                      }
+                      newValue = Number(newValue)
+                    }
                     updateItem(index, attribute, newValue)
                   }}
                 />
