@@ -4,7 +4,7 @@ import { getWidget } from '../context/WidgetContext'
 import { TBooleanFieldProps } from '../types'
 
 export const BooleanField = (props: TBooleanFieldProps) => {
-  const { namePath, displayLabel, defaultValue, uiAttribute } = props
+  const { namePath, displayLabel, defaultValue, uiAttribute, readOnly } = props
 
   // We need to convert default values coming from the API since they are always strings
   const usedDefaultValue = defaultValue == 'True' ? true : false
@@ -21,6 +21,7 @@ export const BooleanField = (props: TBooleanFieldProps) => {
       }) => (
         <Widget
           {...props}
+          readOnly={readOnly}
           id={namePath}
           value={value}
           inputRef={ref}

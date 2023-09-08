@@ -1,0 +1,17 @@
+{
+  "name": "Customer",
+  "type": "CORE:Blueprint",
+  "extends": [
+    "./Person"
+  ],
+  "attributes": [
+    {
+      "name": "car",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Car",
+      "label": "Rented Car",
+      "contained": false,
+      "optional": true
+    }
+  ]
+}
