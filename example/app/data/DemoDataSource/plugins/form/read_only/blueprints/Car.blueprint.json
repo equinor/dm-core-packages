@@ -1,0 +1,16 @@
+{
+  "name": "Car",
+  "type": "CORE:Blueprint",
+  "extends": [
+    "CORE:NamedEntity"
+  ],
+  "attributes": [
+    {
+      "name": "plateNumber",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Plate Number",
+      "optional": false
+    }
+  ]
+}

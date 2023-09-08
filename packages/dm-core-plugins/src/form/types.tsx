@@ -21,6 +21,7 @@ export type TObjectFieldProps = {
   displayLabel: string
   optional: boolean
   uiAttribute: TAttributeConfig | undefined
+  readOnly?: boolean
 }
 
 export type TContentProps = {
@@ -31,6 +32,7 @@ export type TContentProps = {
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm | undefined
   uiAttribute: TAttributeConfig | undefined
+  readOnly?: boolean
 }
 
 export type TArrayFieldProps = {
@@ -39,12 +41,14 @@ export type TArrayFieldProps = {
   type: string
   uiAttribute: TAttributeConfig | undefined
   dimensions: string | undefined
+  readOnly?: boolean
 }
 
 export type TAttributeFieldProps = {
   namePath: string
   attribute: TAttribute
   uiAttribute?: TAttributeConfig
+  readOnly?: boolean
 }
 
 export type TStringFieldProps = {
@@ -53,6 +57,7 @@ export type TStringFieldProps = {
   defaultValue: string
   optional: boolean
   uiAttribute: TAttributeConfig | undefined
+  readOnly?: boolean
 }
 
 export type TNumberFieldProps = {
@@ -62,6 +67,7 @@ export type TNumberFieldProps = {
   optional: boolean
   uiAttribute: TAttributeConfig | undefined
   isInteger: boolean
+  readOnly?: boolean
 }
 
 export type TBooleanFieldProps = {
@@ -69,6 +75,7 @@ export type TBooleanFieldProps = {
   displayLabel: string
   defaultValue: string
   uiAttribute: TAttributeConfig | undefined
+  readOnly?: boolean
 }
 
 type TAttributeBasis = {
@@ -89,6 +96,8 @@ type TAttributeConfig = TAttributeArray | TAttributeObject | TAttributeString
 export type TConfig = {
   attributes: TAttributeConfig[]
   fields: string[]
+  readOnly?: boolean
+  editToggle?: boolean
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & { config: TConfig }

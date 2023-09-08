@@ -8,7 +8,14 @@ const formatDate = (date: string) => {
 }
 
 export const StringField = (props: TStringFieldProps) => {
-  const { namePath, displayLabel, defaultValue, optional, uiAttribute } = props
+  const {
+    namePath,
+    displayLabel,
+    defaultValue,
+    optional,
+    uiAttribute,
+    readOnly,
+  } = props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
 
@@ -23,15 +30,13 @@ export const StringField = (props: TStringFieldProps) => {
         field: { ref, value, ...props },
         fieldState: { invalid, error },
       }) => {
-        // Support date-time format, and make it default to readonly
-        let readOnly = false
+        // Support date-time format
         if (
           uiAttribute &&
           'format' in uiAttribute &&
           uiAttribute.format === 'date-time'
         ) {
           value = formatDate(value)
-          readOnly = true
         }
         return (
           <Widget

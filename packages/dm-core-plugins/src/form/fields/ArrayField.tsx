@@ -22,7 +22,8 @@ const isPrimitiveType = (value: string): boolean => {
 }
 
 export default function ArrayField(props: TArrayFieldProps) {
-  const { namePath, displayLabel, type, uiAttribute, dimensions } = props
+  const { namePath, displayLabel, type, uiAttribute, dimensions, readOnly } =
+    props
 
   const { idReference, onOpen } = useRegistryContext()
   const dmssAPI = useDMSS()
@@ -107,9 +108,11 @@ export default function ArrayField(props: TArrayFieldProps) {
                   name: item.id,
                   type: EBlueprint.ATTRIBUTE,
                 }}
+                readOnly={readOnly}
               />
             </Stack>
             <Button
+              disabled={readOnly}
               variant="outlined"
               type="button"
               onClick={() => remove(index)}
@@ -120,6 +123,7 @@ export default function ArrayField(props: TArrayFieldProps) {
         )
       })}
       <Button
+        disabled={readOnly}
         variant="outlined"
         data-testid={`add-${namePath}`}
         onClick={() => {

@@ -23,6 +23,7 @@ export const NumberField = (props: TNumberFieldProps) => {
     optional,
     uiAttribute,
     isInteger,
+    readOnly,
   } = props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
@@ -45,6 +46,7 @@ export const NumberField = (props: TNumberFieldProps) => {
         return (
           <Widget
             {...props}
+            readOnly={readOnly}
             onChange={(v) => onChange(parse(v, isInteger))}
             value={props.value ?? ''}
             id={namePath}

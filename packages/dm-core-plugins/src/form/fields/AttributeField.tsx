@@ -36,7 +36,7 @@ const getDisplayLabel = (attribute: any): string => {
 }
 
 export const AttributeField = (props: TAttributeFieldProps) => {
-  const { namePath, attribute, uiAttribute } = props
+  const { namePath, attribute, uiAttribute, readOnly } = props
 
   const fieldType = getFieldType(attribute)
 
@@ -75,6 +75,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           type={attribute.attributeType}
           uiAttribute={uiAttribute}
           dimensions={attribute.dimensions}
+          readOnly={readOnly}
         />
       )
     case 'string':
@@ -85,6 +86,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           defaultValue={attribute.default}
           optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
+          readOnly={readOnly}
         />
       )
     case 'boolean':
@@ -94,6 +96,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           displayLabel={displayLabel}
           defaultValue={attribute.default}
           uiAttribute={uiAttribute}
+          readOnly={readOnly}
         />
       )
     case 'integer':
@@ -106,6 +109,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
           isInteger={fieldType == 'integer'}
+          readOnly={readOnly}
         />
       )
     default:
