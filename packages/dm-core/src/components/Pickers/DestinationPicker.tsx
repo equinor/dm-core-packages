@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { EBlueprint } from '../../Enums'
 import {
   PATH_INPUT_FIELD_WIDTH,
   TREE_DIALOG_HEIGHT,
   TREE_DIALOG_WIDTH,
 } from '../../utils/variables'
-import { EBlueprint } from '../../Enums'
 import { TNodeWrapperProps, TreeView } from '../TreeView'
 
 import {
@@ -16,8 +16,8 @@ import {
 } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import { ApplicationContext } from '../../context/ApplicationContext'
-import { truncatePathString } from '../../utils/truncatePathString'
 import { Tree, TreeNode } from '../../domain/Tree'
+import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
 
 type TDestinationPickerProps = {
@@ -70,25 +70,33 @@ export const DestinationPicker = (props: TDestinationPickerProps) => {
         />
       </Tooltip>
       <Dialog
-        isOpen={showModal}
-        closeScrim={() => setShowModal(false)}
-        header={'Select a folder'}
+        isDismissable
+        open={showModal}
+        onClose={() => setShowModal(false)}
         width={TREE_DIALOG_WIDTH}
         height={TREE_DIALOG_HEIGHT}
       >
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Progress.Circular />
-          </div>
-        ) : (
-          <TreeView
-            nodes={treeNodes}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onSelect={() => {}}
-            NodeWrapper={SelectPackageButton}
-            NodeWrapperOnClick={onSelect}
-          />
-        )}
+        <Dialog.Header>
+          <Dialog.Title>Select a folder</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Progress.Circular />
+            </div>
+          ) : (
+            <TreeView
+              nodes={treeNodes}
+              // eslint-disable-next-line @typescript-eslint/no-empty-function
+              onSelect={() => {}}
+              NodeWrapper={SelectPackageButton}
+              NodeWrapperOnClick={onSelect}
+            />
+          )}
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button onClick={() => setShowModal(false)}>Cancel</Button>
+        </Dialog.Actions>
       </Dialog>
     </div>
   )

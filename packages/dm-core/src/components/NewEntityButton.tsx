@@ -2,7 +2,6 @@ import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import styled from 'styled-components'
 import { useDMSS } from '../context/DMSSContext'
 import { TGenericObject, TReference, TValidEntity } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
@@ -12,17 +11,6 @@ import {
   DestinationPicker,
   EntityPickerButton,
 } from './Pickers'
-
-const DialogWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justifycontent: space-between;
-  margin: 20px;
-
-  & > * {
-    padding-top: 8px;
-  }
-`
 
 // TODO fix this component - the component is not working due to a hook error somewhere, probably in the context
 export function NewEntityButton(props: {
@@ -118,13 +106,16 @@ export function NewEntityButton(props: {
     <div style={{ margin: '0 10px' }}>
       <Button onClick={() => setShowScrim(true)}>New</Button>
       <Dialog
-        isOpen={showScrim}
-        closeScrim={() => setShowScrim(false)}
-        header={`Create new entity`}
+        isDismissable
+        open={showScrim}
+        onClose={() => setShowScrim(false)}
         width={'600px'}
         height={'370px'}
       >
-        <DialogWrapper>
+        <Dialog.Header>
+          <Dialog.Header>Create new entity</Dialog.Header>
+        </Dialog.Header>
+        <Dialog.CustomContent>
           {!type && (
             <div style={{ display: 'block' }}>
               <BlueprintPicker
@@ -165,47 +156,39 @@ export function NewEntityButton(props: {
           {!!documentToCopy && (
             <div>{`Copying entity named '${documentToCopy.name}'`}</div>
           )}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-around',
-              marginTop: '40px',
-            }}
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button
+            disabled={
+              !(newName && saveDestination && (typeToCreate || documentToCopy))
+            }
+            type="submit"
+            onClick={onCreateEntity}
           >
-            {!documentToCopy ? (
-              <EntityPickerButton
-                buttonVariant="outlined"
-                typeFilter={typeToCreate}
-                alternativeButtonText="Copy existing"
-                onChange={(address: string, entity?: TValidEntity) =>
-                  setDocumentToCopy(entity)
-                }
-              />
-            ) : (
-              <Button
-                onClick={() => setDocumentToCopy(undefined)}
-                variant="outlined"
-                color="danger"
-              >
-                Don't copy
-              </Button>
-            )}
-            <Button
-              disabled={
-                !(
-                  newName &&
-                  saveDestination &&
-                  (typeToCreate || documentToCopy)
-                )
+            {loading ? <Progress.Dots /> : 'Create'}
+          </Button>
+          {!documentToCopy ? (
+            <EntityPickerButton
+              buttonVariant="outlined"
+              typeFilter={typeToCreate}
+              alternativeButtonText="Copy existing"
+              onChange={(address: string, entity?: TValidEntity) =>
+                setDocumentToCopy(entity)
               }
-              type="submit"
-              onClick={onCreateEntity}
+            />
+          ) : (
+            <Button
+              onClick={() => setDocumentToCopy(undefined)}
+              variant="outlined"
+              color="danger"
             >
-              {loading ? <Progress.Dots /> : 'Create'}
+              Don't copy
             </Button>
-          </div>
-        </DialogWrapper>
+          )}
+          <Button variant="ghost" onClick={() => setShowScrim(false)}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
     </div>
   )

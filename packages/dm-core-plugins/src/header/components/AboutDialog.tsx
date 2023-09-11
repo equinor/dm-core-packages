@@ -1,4 +1,5 @@
 import { Dialog } from '@development-framework/dm-core'
+import { Button } from '@equinor/eds-core-react'
 import React from 'react'
 import { TApplication } from '../types'
 
@@ -13,12 +14,20 @@ export const AboutDialog = (props: AboutDialogProps) => {
 
   return (
     <Dialog
-      isOpen={isOpen}
-      closeScrim={() => setIsOpen(false)}
-      header={`About ${applicationEntity.label}`}
+      isDismissable
+      open={isOpen}
+      onClose={() => setIsOpen(false)}
       width={'40vw'}
     >
-      <p style={{ padding: '0 15px' }}>{applicationEntity.description}</p>
+      <Dialog.Header>
+        <Dialog.Title>About {applicationEntity.label}</Dialog.Title>
+      </Dialog.Header>
+      <Dialog.CustomContent>
+        {applicationEntity.description}
+      </Dialog.CustomContent>
+      <Dialog.Actions>
+        <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+      </Dialog.Actions>
     </Dialog>
   )
 }

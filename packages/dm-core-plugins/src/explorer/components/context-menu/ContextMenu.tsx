@@ -15,14 +15,12 @@ import React, { useState } from 'react'
 import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import { toast } from 'react-toastify'
 import './../../style.css'
-import { SingleTextInput } from './utils/SingleTextInput'
 import {
   DeleteAction,
   NewFolderAction,
   NewRootPackageAction,
 } from './utils/contextMenuActions'
 import { createContextMenuItems } from './utils/createContextMenuItmes'
-import { DialogContent, edsButtonStyleConfig } from './utils/styles'
 
 //Component that can be used when a context menu action requires one text (string) input.
 
@@ -65,96 +63,140 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
       {/*@ts-ignore*/}
       <ContextMenu id={node.nodeId}>{menuItems}</ContextMenu>
       <Dialog
-        isOpen={scrimToShow === 'new-folder'}
+        isDismissable
+        open={scrimToShow === 'new-folder'}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
-        header={'Create new folder'}
-        closeScrim={() => {
+        onClose={() => {
           setFormData(undefined)
           setScrimToShow('')
         }}
       >
-        <DialogContent>
-          <SingleTextInput
-            label={'Folder name'}
-            setFormData={setFormData}
-            handleSubmit={() =>
-              handleFormDataSubmit(node, formData, NewFolderAction)
+        <Dialog.Header>
+          <Dialog.Title>Create new folder</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <Label label={'Folder name'} />
+          <Input
+            type={'string'}
+            style={{ width: INPUT_FIELD_WIDTH }}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setFormData(event.target.value)
             }
-            buttonisDisabled={formData === undefined || formData === ''}
           />
-        </DialogContent>
-      </Dialog>
-
-      <Dialog
-        isOpen={scrimToShow === 'delete'}
-        width={STANDARD_DIALOG_WIDTH}
-        height={STANDARD_DIALOG_HEIGHT}
-        closeScrim={() => setScrimToShow('')}
-        header={'Confirm Deletion'}
-      >
-        <DialogContent>
-          <div style={{ paddingBottom: '18px' }}>
-            Are you sure you want to delete the entity <b>{node.name}</b> of
-            type <b>{node.type}</b>?
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-around',
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button
+            disabled={formData === undefined || formData === ''}
+            onClick={() => {
+              handleFormDataSubmit(node, formData, NewFolderAction)
             }}
           >
-            <Button onClick={() => setScrimToShow('')}>Cancel</Button>
-            <Button
-              color="danger"
-              onClick={async () => {
-                await DeleteAction(node, dmssAPI, setLoading)
-                await node.remove()
-                setScrimToShow('')
-              }}
-            >
-              {loading ? <Progress.Dots /> : 'Delete'}
-            </Button>
-          </div>
-        </DialogContent>
+            Create
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setFormData(undefined)
+              setScrimToShow('')
+            }}
+          >
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
 
       <Dialog
-        isOpen={scrimToShow === 'new-root-package'}
+        open={scrimToShow === 'delete'}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
-        closeScrim={() => {
+        isDismissable
+        onClose={() => setScrimToShow('')}
+      >
+        <Dialog.Header>
+          <Dialog.Title>Confirm Deletion</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          Are you sure you want to delete the entity <b>{node.name}</b> of type{' '}
+          <b>{node.type}</b>?
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button
+            color="danger"
+            onClick={async () => {
+              await DeleteAction(node, dmssAPI, setLoading)
+              await node.remove()
+              setScrimToShow('')
+            }}
+          >
+            {loading ? <Progress.Dots /> : 'Delete'}
+          </Button>
+          <Button variant="outlined" onClick={() => setScrimToShow('')}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
+
+      <Dialog
+        open={scrimToShow === 'new-root-package'}
+        width={STANDARD_DIALOG_WIDTH}
+        height={STANDARD_DIALOG_HEIGHT}
+        isDismissable
+        onClose={() => {
           setFormData(undefined)
           setScrimToShow('')
         }}
-        header={'New root package'}
       >
-        <DialogContent>
-          <SingleTextInput
-            label={'Root package name'}
-            handleSubmit={() =>
-              handleFormDataSubmit(node, formData, NewRootPackageAction)
+        <Dialog.Header>
+          <Dialog.Title>New root package</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <Label label={'Root package name'} />
+          <Input
+            type={'string'}
+            style={{ width: INPUT_FIELD_WIDTH }}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setFormData(event.target.value)
             }
-            setFormData={setFormData}
-            buttonisDisabled={formData === undefined || formData === ''}
           />
-        </DialogContent>
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button
+            disabled={formData === undefined || formData === ''}
+            onClick={() => {
+              handleFormDataSubmit(node, formData, NewRootPackageAction)
+            }}
+          >
+            Create
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              setFormData(undefined)
+              setScrimToShow('')
+            }}
+          >
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
 
       <Dialog
-        isOpen={scrimToShow === 'append-entity'}
-        closeScrim={() => setScrimToShow('')}
-        header={`Append new entity to list`}
+        open={scrimToShow === 'append-entity'}
+        isDismissable
+        onClose={() => setScrimToShow('')}
         width={STANDARD_DIALOG_WIDTH}
       >
-        <DialogContent>
+        <Dialog.Header>
+          <Dialog.Title>Append new entity to list</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Actions>
           {loading ? (
-            <Button style={edsButtonStyleConfig}>
+            <Button>
               <Progress.Dots />
             </Button>
           ) : (
             <Button
-              style={edsButtonStyleConfig}
               onClick={() => {
                 setLoading(true)
                 node
@@ -176,34 +218,39 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
               Create
             </Button>
           )}
-        </DialogContent>
+          <Button variant="outlined" onClick={() => setScrimToShow('')}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
 
       <Dialog
-        isOpen={scrimToShow === 'new-entity'}
-        closeScrim={() => setScrimToShow('')}
-        header={`Create new entity`}
+        open={scrimToShow === 'new-entity'}
+        isDismissable
+        onClose={() => setScrimToShow('')}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
       >
-        <DialogContent>
-          <div style={{ display: 'block' }}>
-            <BlueprintPicker
-              label={'Blueprint'}
-              onChange={(selectedType: string) =>
-                setFormData({ type: selectedType })
-              }
-              formData={formData?.type || ''}
-            />
-          </div>
+        <Dialog.Header>
+          <Dialog.Title>Create new entity</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <BlueprintPicker
+            label={'Blueprint'}
+            onChange={(selectedType: string) =>
+              setFormData({ type: selectedType })
+            }
+            formData={formData?.type || ''}
+          />
+        </Dialog.CustomContent>
+        <Dialog.Actions>
           {loading ? (
-            <Button style={edsButtonStyleConfig}>
+            <Button>
               <Progress.Dots />
             </Button>
           ) : (
             <Button
               disabled={formData?.type === undefined}
-              style={edsButtonStyleConfig}
               onClick={() => {
                 setLoading(true)
                 node
@@ -225,37 +272,42 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
               Create
             </Button>
           )}
-        </DialogContent>
+          <Button variant="outlined" onClick={() => setScrimToShow('')}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
 
       <Dialog
-        isOpen={scrimToShow === 'new-blueprint'}
-        closeScrim={() => setScrimToShow('')}
-        header={`Create new blueprint`}
+        open={scrimToShow === 'new-blueprint'}
+        isDismissable
+        onClose={() => setScrimToShow('')}
         width={STANDARD_DIALOG_WIDTH}
         height={STANDARD_DIALOG_HEIGHT}
       >
-        <DialogContent>
-          <div style={{ display: 'block' }}>
-            <Label label={'Name'} />
-            <Input
-              style={{ width: INPUT_FIELD_WIDTH }}
-              type="string"
-              value={formData?.name || ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setFormData({ ...formData, name: event.target.value })
-              }
-              placeholder="Name for new blueprint"
-            />
-          </div>
+        <Dialog.Header>
+          <Dialog.Title>Create new blueprint</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <Label label={'Name'} />
+          <Input
+            style={{ width: INPUT_FIELD_WIDTH }}
+            type="string"
+            value={formData?.name || ''}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setFormData({ ...formData, name: event.target.value })
+            }
+            placeholder="Name for new blueprint"
+          />
+        </Dialog.CustomContent>
+        <Dialog.Actions>
           {loading ? (
-            <Button style={edsButtonStyleConfig}>
+            <Button>
               <Progress.Dots />
             </Button>
           ) : (
             <Button
               disabled={formData?.name === undefined}
-              style={edsButtonStyleConfig}
               onClick={() => {
                 setLoading(true)
                 node
@@ -273,7 +325,10 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
               Create
             </Button>
           )}
-        </DialogContent>
+          <Button variant="outlined" onClick={() => setScrimToShow('')}>
+            Cancel
+          </Button>
+        </Dialog.Actions>
       </Dialog>
     </div>
   )

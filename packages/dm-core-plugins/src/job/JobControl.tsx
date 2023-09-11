@@ -153,38 +153,54 @@ export const JobControl = (props: {
       }}
     >
       <Dialog
-        isOpen={runnerModal}
-        closeScrim={() => setRunnerModal(false)}
-        header={'Jobs runner configuration'}
+        isDismissable
+        open={runnerModal}
+        onClose={() => setRunnerModal(false)}
         width={'50vw'}
         height={'70vh'}
       >
-        {document.runner ? (
-          <EntityView
-            type={document.runner.type}
-            idReference={`${jobId}.runner`}
-          />
-        ) : (
-          <pre>None</pre>
-        )}
+        <Dialog.Header>
+          <Dialog.Title>Jobs runner configuration</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          {document.runner ? (
+            <EntityView
+              type={document.runner.type}
+              idReference={`${jobId}.runner`}
+            />
+          ) : (
+            <pre>None</pre>
+          )}
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button onClick={() => setRunnerModal(false)}>Cancel</Button>
+        </Dialog.Actions>
       </Dialog>
       <Dialog
-        isOpen={inputModal}
-        closeScrim={() => setInputModal(false)}
-        header={'Jobs input'}
+        isDismissable
+        open={inputModal}
+        onClose={() => setInputModal(false)}
         height={'80vh'}
         width={'50vw'}
       >
-        {document.applicationInput ? (
-          <EntityView
-            type={document.applicationInput.type}
-            idReference={`${jobId.split('/', 1)[0]}/${
-              document.applicationInput._id
-            }`}
-          />
-        ) : (
-          <pre>None</pre>
-        )}
+        <Dialog.Header>
+          <Dialog.Title>Jobs input</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          {document.applicationInput ? (
+            <EntityView
+              type={document.applicationInput.type}
+              idReference={`${jobId.split('/', 1)[0]}/${
+                document.applicationInput._id
+              }`}
+            />
+          ) : (
+            <pre>None</pre>
+          )}
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button onClick={() => setInputModal(false)}>Cancel</Button>
+        </Dialog.Actions>
       </Dialog>
 
       <div

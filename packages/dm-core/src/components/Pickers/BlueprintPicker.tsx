@@ -7,7 +7,13 @@ import {
   TREE_DIALOG_WIDTH,
 } from '../../utils/variables'
 
-import { Input, Label, Progress, Tooltip } from '@equinor/eds-core-react'
+import {
+  Button,
+  Input,
+  Label,
+  Progress,
+  Tooltip,
+} from '@equinor/eds-core-react'
 import { Variants } from '@equinor/eds-core-react/dist/types/components/types'
 import { FSTreeContext } from '../../context/FileSystemTreeContext'
 import { TreeNode } from '../../domain/Tree'
@@ -71,29 +77,37 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
         />
       </Tooltip>
       <Dialog
-        isOpen={showModal}
-        closeScrim={() => setShowModal(false)}
-        header={`Select a blueprint as type`}
+        isDismissable
+        open={showModal}
+        onClose={() => setShowModal(false)}
         width={TREE_DIALOG_WIDTH}
         height={TREE_DIALOG_HEIGHT}
       >
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Progress.Circular />
-          </div>
-        ) : (
-          <TreeView
-            nodes={treeNodes}
-            onSelect={(node: TreeNode) => {
-              if (node.type !== EBlueprint.BLUEPRINT) {
-                toast.warning('You can only select a blueprint')
-                return
-              } // Only allowed to select blueprints
-              setShowModal(false)
-              onChange(node.getPath())
-            }}
-          />
-        )}
+        <Dialog.Header>
+          <Dialog.Title>Select a blueprint as type</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Progress.Circular />
+            </div>
+          ) : (
+            <TreeView
+              nodes={treeNodes}
+              onSelect={(node: TreeNode) => {
+                if (node.type !== EBlueprint.BLUEPRINT) {
+                  toast.warning('You can only select a blueprint')
+                  return
+                } // Only allowed to select blueprints
+                setShowModal(false)
+                onChange(node.getPath())
+              }}
+            />
+          )}
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button onClick={() => setShowModal(false)}>Cancel</Button>
+        </Dialog.Actions>
       </Dialog>
     </div>
   )

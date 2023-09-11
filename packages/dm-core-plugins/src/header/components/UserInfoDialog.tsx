@@ -42,12 +42,15 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
 
   return (
     <Dialog
-      isOpen={isOpen}
-      header={'User info'}
-      closeScrim={() => setIsOpen(false)}
+      isDismissable
+      open={isOpen}
+      onClose={() => setIsOpen(false)}
       width={'720px'}
     >
-      <div style={{ margin: '20px' }}>
+      <Dialog.Header>
+        <Dialog.Title>User info</Dialog.Title>
+      </Dialog.Header>
+      <Dialog.CustomContent>
         <Row>
           Name:<UserInfoLabel>{tokenData?.name}</UserInfoLabel>
         </Row>
@@ -59,32 +62,6 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
           Roles:
           <UserInfoLabel>{JSON.stringify(tokenData?.roles)}</UserInfoLabel>
         </Row>
-        <div style={{ display: 'flex', gap: '1rem', margin: '0.5rem 0' }}>
-          <Button
-            onClick={() => {
-              navigator.clipboard.writeText(token)
-              toast.success('Copied token to clipboard')
-            }}
-          >
-            Copy token to clipboard
-          </Button>
-          <Button
-            onClick={() =>
-              dmssAPI
-                .tokenCreate()
-                .then((response: AxiosResponse<string>) =>
-                  setAPIKey(response.data)
-                )
-                .catch((error: any) => {
-                  console.error(error)
-                  toast.error('Failed to create personal access token')
-                })
-            }
-          >
-            Create API-Key
-          </Button>
-          <Button onClick={() => logOut()}>Log out</Button>
-        </div>
         {apiKey && <pre>{apiKey}</pre>}
 
         {tokenData?.roles.includes(applicationEntity.adminRole) && (
@@ -106,7 +83,36 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
             </UnstyledList>
           </>
         )}
-      </div>
+      </Dialog.CustomContent>
+      <Dialog.Actions>
+        <Button
+          onClick={() => {
+            navigator.clipboard.writeText(token)
+            toast.success('Copied token to clipboard')
+          }}
+        >
+          Copy token to clipboard
+        </Button>
+        <Button
+          onClick={() =>
+            dmssAPI
+              .tokenCreate()
+              .then((response: AxiosResponse<string>) =>
+                setAPIKey(response.data)
+              )
+              .catch((error: any) => {
+                console.error(error)
+                toast.error('Failed to create personal access token')
+              })
+          }
+        >
+          Create API-Key
+        </Button>
+        <Button onClick={() => logOut()}>Log out</Button>
+        <Button variant="outlined" onClick={() => setIsOpen(false)}>
+          Cancel
+        </Button>
+      </Dialog.Actions>
     </Dialog>
   )
 }
