@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import { ModalProvider } from './context/modal/ModalContext'
 import styled from 'styled-components'
 import {
   FSTreeContext,
@@ -27,7 +26,6 @@ export default () => {
   const [selectedEntity, setSelectedEntity] = useState<string>()
 
   return (
-    <ModalProvider>
       <div style={{ display: 'flex' }}>
         <TreeWrapper>
           {loading ? (
@@ -49,6 +47,5 @@ export default () => {
           <EntityView type={selectedType} idReference={selectedEntity} />
         )}
       </div>
-    </ModalProvider>
   )
 }
