@@ -101,8 +101,8 @@ export default (props: IUIPlugin): JSX.Element => {
 
   return (
     <div>
-      <TopBar style={{display: 'flex', alignItems:'center', justifyContent: 'space-between'}}>
-        <TopBar.Header style={{display: 'flex', alignItems: 'center'}}>
+      <TopBar>
+        <TopBar.Header>
           <ClickableIcon
             onClick={() => {
               setAppSelectorOpen(!appSelectorOpen)
@@ -110,7 +110,7 @@ export default (props: IUIPlugin): JSX.Element => {
           >
             <Icon data={grid_on} size={32} />
           </ClickableIcon>
-          <h4 style={{ paddingLeft: 10 }}>{entity.label}</h4>
+          <h4 style={{ paddingTop: 9, paddingLeft: 10 }}>{entity.label}</h4>
           {appSelectorOpen && (
             <RecipeSelector
               selectableUiRecipeNames={
@@ -141,17 +141,19 @@ export default (props: IUIPlugin): JSX.Element => {
             </ClickableIcon>
           </Icons>
         </TopBar.Actions>
+        <TopBar.CustomContent>
+          <AboutDialog
+            isOpen={aboutOpen}
+            setIsOpen={setAboutOpen}
+            applicationEntity={entity}
+          />
+          <UserInfoDialog
+            isOpen={visibleUserInfo}
+            setIsOpen={setVisibleUserInfo}
+            applicationEntity={entity}
+          />
+        </TopBar.CustomContent>
       </TopBar>
-      <AboutDialog
-        isOpen={aboutOpen}
-        setIsOpen={setAboutOpen}
-        applicationEntity={entity}
-      />
-      <UserInfoDialog
-        isOpen={visibleUserInfo}
-        setIsOpen={setVisibleUserInfo}
-        applicationEntity={entity}
-      />
       <UIPlugin
         idReference={idReference}
         type={entity.type}
