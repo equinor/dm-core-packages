@@ -26,26 +26,26 @@ export default () => {
   const [selectedEntity, setSelectedEntity] = useState<string>()
 
   return (
-      <div style={{ display: 'flex' }}>
-        <TreeWrapper>
-          {loading ? (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Progress.Circular />
-            </div>
-          ) : (
-            <TreeView
-              nodes={treeNodes}
-              onSelect={(node) => {
-                setSelectedType(node.type)
-                setSelectedEntity(node.nodeId)
-              }}
-              NodeWrapper={NodeRightClickMenu}
-            />
-          )}
-        </TreeWrapper>
-        {selectedType && selectedEntity && (
-          <EntityView type={selectedType} idReference={selectedEntity} />
+    <div style={{ display: 'flex' }}>
+      <TreeWrapper>
+        {loading ? (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Progress.Circular />
+          </div>
+        ) : (
+          <TreeView
+            nodes={treeNodes}
+            onSelect={(node) => {
+              setSelectedType(node.type)
+              setSelectedEntity(node.nodeId)
+            }}
+            NodeWrapper={NodeRightClickMenu}
+          />
         )}
-      </div>
+      </TreeWrapper>
+      {selectedType && selectedEntity && (
+        <EntityView type={selectedType} idReference={selectedEntity} />
+      )}
+    </div>
   )
 }
