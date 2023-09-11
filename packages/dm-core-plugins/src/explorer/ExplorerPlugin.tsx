@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, { useContext, useState } from 'react'
 import { ModalProvider } from './context/modal/ModalContext'
 import styled from 'styled-components'
 import {
@@ -45,7 +45,9 @@ export default () => {
             />
           )}
         </TreeWrapper>
-        {selectedType && selectedEntity && (<EntityView type={selectedType} idReference={selectedEntity}/>)}
+        {selectedType && selectedEntity && (
+          <EntityView type={selectedType} idReference={selectedEntity} />
+        )}
       </div>
     </ModalProvider>
   )
