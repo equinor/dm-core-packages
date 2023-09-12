@@ -74,35 +74,43 @@ const SelectReference = (props: { type: string; namePath: string }) => {
   )
 }
 
-const AddObject = (props: { type: string; namePath: string }) => {
-  const { type, namePath } = props
+const AddObject = (props: {
+  type: string
+  namePath: string
+  defaultValue: any
+}) => {
+  const { type, namePath, defaultValue } = props
   const { setValue } = useFormContext()
   const dmssAPI = useDMSS()
   const { idReference } = useRegistryContext()
   const handleAdd = () => {
+    if (!defaultValue) {
+      dmssAPI
+        .instantiateEntity({
+          entity: { type: type as string },
+        })
+        .then((newEntity: AxiosResponse<any>) => addDocument(newEntity.data))
+    } else {
+      addDocument(defaultValue)
+    }
+  }
+  const addDocument = (document: any) => {
     const options = {
       shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,
     }
-
     dmssAPI
-      .instantiateEntity({
-        entity: { type: type as string },
+      .documentAdd({
+        address: `${idReference}.${namePath}`,
+        document: JSON.stringify(document),
+        updateUncontained: false,
       })
-      .then((newEntity: AxiosResponse<any>) => {
-        dmssAPI
-          .documentAdd({
-            address: `${idReference}.${namePath}`,
-            document: JSON.stringify(newEntity.data),
-            updateUncontained: false,
-          })
-          .then(() => {
-            setValue(namePath, newEntity.data, options)
-          })
-          .catch((error: AxiosError<ErrorResponse>) => {
-            console.error(error)
-          })
+      .then(() => {
+        setValue(namePath, document, options)
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
       })
   }
   return (
@@ -158,6 +166,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
     uiAttribute,
     uiRecipe,
     blueprint,
+    defaultValue,
   } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
@@ -171,7 +180,11 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
         (isDefined ? (
           <RemoveObject namePath={namePath} />
         ) : (
-          <AddObject namePath={namePath} type={type} />
+          <AddObject
+            namePath={namePath}
+            type={type}
+            defaultValue={defaultValue}
+          />
         ))}
       {isDefined &&
         (onOpen && !uiAttribute?.showInline ? (
@@ -277,7 +290,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
 }
 
 export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
-  const { type, namePath, uiAttribute, displayLabel } = props
+  const { type, namePath, uiAttribute, displayLabel, defaultValue } = props
   const { getValues } = useFormContext()
 
   // Be able to override the object field
@@ -294,16 +307,23 @@ export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
       id={namePath}
       label={displayLabel}
       type={type === 'object' && values ? values.type : type}
+      defaultValue={defaultValue}
     />
   )
 }
 
 export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
-  const { type, namePath, displayLabel, optional, contained, uiAttribute } =
-    props
+  const {
+    type,
+    namePath,
+    displayLabel,
+    optional,
+    contained,
+    uiAttribute,
+    defaultValue,
+  } = props
 
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
-
   if (isLoading) return <Loading />
   if (error) throw new Error(`Failed to fetch blueprint for '${type}'`)
   if (blueprint === undefined) return <div>Could not find the blueprint</div>
@@ -324,6 +344,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
       blueprint={blueprint}
       uiRecipe={uiRecipe}
       uiAttribute={uiAttribute}
+      defaultValue={defaultValue}
     />
   )
 }

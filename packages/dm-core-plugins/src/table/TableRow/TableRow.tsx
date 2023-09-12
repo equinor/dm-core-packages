@@ -107,7 +107,18 @@ export function TableRow(props: TTableRow) {
                   type={attributeType}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     let newValue: string | number | boolean = event.target.value
-                    if (attributeType === 'number') newValue = Number(newValue)
+                    if (attributeType === 'number') {
+                      const numberArray = Array.from(newValue)
+                      if (
+                        !numberArray.includes('.') &&
+                        numberArray.length > 1 &&
+                        Number(numberArray.at(0)) === 0
+                      ) {
+                        newValue = newValue.slice(1)
+                        event.target.value = newValue
+                      }
+                      newValue = Number(newValue)
+                    }
                     updateItem(index, attribute, newValue)
                   }}
                 />
