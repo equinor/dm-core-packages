@@ -1,16 +1,7 @@
-import React, { useContext } from 'react'
-import {
-  ELayoutComponents,
-  ILayout,
-  useLayout,
-} from './context/dashboard/useLayout'
-import { ModalProvider } from './context/modal/ModalContext'
-import { GoldenLayoutComponent } from './components/golden-layout/GoldenLayoutComponent'
-import GoldenLayoutPanel from './components/golden-layout/GoldenLayoutPanel'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import {
   FSTreeContext,
-  TreeNode,
   TreeView,
   EntityView,
 } from '@development-framework/dm-core'
@@ -29,84 +20,32 @@ export const TreeWrapper = styled.div`
   overflow: auto;
 `
 
-function wrapComponent(Component: any) {
-  class Wrapped extends React.Component {
-    render() {
-      return (
-        // @ts-ignore
-        <GoldenLayoutPanel {...this.props}>
-          <Component />
-        </GoldenLayoutPanel>
-      )
-    }
-  }
-
-  return Wrapped
-}
-
-const LAYOUT_CONFIG = {
-  dimensions: {
-    headerHeight: 46,
-  },
-  content: [
-    {
-      type: 'stack',
-      isClosable: false,
-    },
-  ],
-}
-
 export default () => {
   const { treeNodes, loading } = useContext(FSTreeContext)
-  const layout: ILayout = useLayout()
-
-  const open = (node: TreeNode) => {
-    if (Array.isArray(node.entity)) {
-      return
-    }
-    layout.operations.add(
-      node.nodeId,
-      node?.name || 'None',
-      ELayoutComponents.blueprint,
-      {
-        idReference: node.nodeId,
-        type: node.entity.type,
-      }
-    )
-    layout.operations.focus(node.nodeId)
-  }
+  const [selectedType, setSelectedType] = useState<string>()
+  const [selectedEntity, setSelectedEntity] = useState<string>()
 
   return (
-    <ModalProvider>
-      <div style={{ display: 'flex' }}>
-        <TreeWrapper>
-          {loading ? (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Progress.Circular />
-            </div>
-          ) : (
-            <TreeView
-              nodes={treeNodes}
-              onSelect={(node: TreeNode) => open(node)}
-              NodeWrapper={NodeRightClickMenu}
-            />
-          )}
-        </TreeWrapper>
-        {/*@ts-ignore*/}
-        <GoldenLayoutComponent
-          htmlAttrs={{ style: { height: '100vh', width: '100%' } }}
-          config={LAYOUT_CONFIG}
-          registerComponents={(myLayout: any) => {
-            myLayout.registerComponent(
-              ELayoutComponents.blueprint,
-              wrapComponent(EntityView)
-            )
-            layout.operations.registerLayout({
-              myLayout,
-            })
-          }}
-        />
-      </div>
-    </ModalProvider>
+    <div style={{ display: 'flex' }}>
+      <TreeWrapper>
+        {loading ? (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Progress.Circular />
+          </div>
+        ) : (
+          <TreeView
+            nodes={treeNodes}
+            onSelect={(node) => {
+              setSelectedType(node.type)
+              setSelectedEntity(node.nodeId)
+            }}
+            NodeWrapper={NodeRightClickMenu}
+          />
+        )}
+      </TreeWrapper>
+      {selectedType && selectedEntity && (
+        <EntityView type={selectedType} idReference={selectedEntity} />
+      )}
+    </div>
   )
 }

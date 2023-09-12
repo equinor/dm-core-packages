@@ -3,7 +3,7 @@
   "name": "signalApp",
   "type": "AppModels:SignalApp",
   "description": "This is an app for generating and plotting sin signals.",
-  "label": "",
+  "label": "Signal App",
   "dataSources": [
     "AppStorage"
   ],
