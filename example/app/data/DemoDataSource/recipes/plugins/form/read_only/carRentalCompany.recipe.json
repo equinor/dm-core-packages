@@ -36,6 +36,12 @@
             "uiRecipe": "defaultForm"
           },
           {
+            "name": "ceo",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "showInline": false,
+            "uiRecipe": "defaultForm"
+          },
+          {
             "name": "trainee",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "showInline": true,
@@ -56,6 +62,11 @@
             "name": "locations",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "showInline": true
+          },
+          {
+            "name": "customers",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
+            "showInline": false
           }
         ],
         "fields": [
@@ -68,8 +79,7 @@
           "customers",
           "isBankrupt"
         ],
-        "readOnly": true,
-        "editToggle": true
+        "readOnly": true
       }
     }
   ]

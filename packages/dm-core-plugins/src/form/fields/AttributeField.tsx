@@ -65,6 +65,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
           defaultValue={attribute.default}
+          readOnly={readOnly}
         />
       )
 

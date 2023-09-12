@@ -167,16 +167,17 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
     uiRecipe,
     blueprint,
     defaultValue,
+    readOnly,
   } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
   const isDefined = value && Object.keys(value).length > 0
-
   return (
     <Stack spacing={0.25} alignItems="flex-start">
       <Typography bold={true}>{displayLabel}</Typography>
       {optional &&
+        !readOnly &&
         (isDefined ? (
           <RemoveObject namePath={namePath} />
         ) : (
@@ -247,8 +248,15 @@ const Indent = styled.div`
 `
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
-  const { type, namePath, displayLabel, uiAttribute, uiRecipe, optional } =
-    props
+  const {
+    type,
+    namePath,
+    displayLabel,
+    uiAttribute,
+    uiRecipe,
+    optional,
+    readOnly,
+  } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
@@ -263,8 +271,10 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
       <Typography bold={true}>{displayLabel}</Typography>
       {address && <Typography>Address: {value.address}</Typography>}
       <Stack direction="row" spacing={0.5}>
-        <SelectReference type={type} namePath={namePath} />
-        {optional && address && <RemoveObject namePath={namePath} />}
+        {!readOnly && <SelectReference type={type} namePath={namePath} />}
+        {optional && address && !readOnly && (
+          <RemoveObject namePath={namePath} />
+        )}
         {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
@@ -321,6 +331,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
     contained,
     uiAttribute,
     defaultValue,
+    readOnly,
   } = props
 
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
@@ -345,6 +356,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
       uiRecipe={uiRecipe}
       uiAttribute={uiAttribute}
       defaultValue={defaultValue}
+      readOnly={readOnly}
     />
   )
 }
