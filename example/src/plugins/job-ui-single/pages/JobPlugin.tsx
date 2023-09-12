@@ -2,9 +2,9 @@ import {
   EBlueprint,
   JobStatus,
   TJob,
-  IUIPlugin,
+  IUIPlugin, splitAddress, useDMSS,
 } from '@development-framework/dm-core'
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 
 import { JobControl } from './JobControl'
 import { CreateJobEntity } from './CreateJobEntity'
@@ -12,7 +12,9 @@ import { CreateJobEntity } from './CreateJobEntity'
 export const JobPlugin = (props: IUIPlugin) => {
   // TODO make this plugin general and move to dm-core-packages/packages/dm-core-plugins. Right now, it can only be used in the SignalApp due to hard coded values.
 
+  const DmssApi = useDMSS();
   const [jobEntityId, setJobEntityId] = useState<string>('')
+  const [jobExists, setJobExists] = useState(false)
   const jobEntityDestination = `DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].job`
 
   // Example of another value for jobEntityDestination
@@ -64,16 +66,37 @@ export const JobPlugin = (props: IUIPlugin) => {
     started: 'Not started',
   }
 
+
+  function fetchJobIfExists(): void {
+    const addressObject =splitAddress(jobEntityDestination)
+    const addressPath = `${addressObject.dataSource}/${addressObject.documentPath}`
+    DmssApi.documentCheck({
+      address: addressPath,
+    }).then((res) => {
+      console.log(res)
+      if (res.data) {
+        DmssApi.documentGet({ address: addressPath }).then((resp) => {
+          console.log(resp)
+          setJobEntityId(addressPath)
+          setJobExists(true)
+        })
+      }
+    })
+  }
+  useEffect(fetchJobIfExists, [])
+
+
+
   return (
     <div>
       {/*// TODO do not include CreateJobEntity component if entity exists in destination*/}
       {/*TODO have a way to check if an entity of type job already exists in 'jobEntityDestination'. Must scan content of entire package if jobEntityDestination is a package, but its simpler to check if jobEntityDestination is refering to an object's attribute. */}
-      <CreateJobEntity
-        jobEntityDestination={jobEntityDestination}
-        onCreate={(jobEntityId: string) => setJobEntityId(jobEntityId)}
-        defaultJobOutputTarget={props.idReference + '.signal'}
-        defaultJobEntity={defaultJobEntity}
-      />
+      {!jobExists && <CreateJobEntity
+          jobEntityDestination={jobEntityDestination}
+          onCreate={(jobEntityId: string) => setJobEntityId(jobEntityId)}
+          defaultJobOutputTarget={props.idReference + '.signal'}
+          defaultJobEntity={defaultJobEntity}
+      />}
       {jobEntityId && <JobControl jobEntityId={jobEntityId} />}
     </div>
   )

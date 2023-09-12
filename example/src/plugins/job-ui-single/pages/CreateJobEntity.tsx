@@ -7,9 +7,9 @@ import {
   splitAddress,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import { Button, Card, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { JobForm } from './JobForm'
 
 type TCreateJobEntityProps = {
@@ -88,8 +88,8 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
 
     const addOrUpdateDocument = (
       jobExists: boolean,
-      jobEntityDestination,
-      jobEntityFormData
+      jobEntityDestination: string,
+      jobEntityFormData: TJob
     ) => {
       if (jobExists) {
         updateDocument(jobEntityDestination, jobEntityFormData)
@@ -110,13 +110,23 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
     )
   }
 
-  if (createdJobEntity) {
-    return (
-      <>
-        <p>Job entity already created at location {jobEntityDestination} </p>
-      </>
-    )
-  }
+  // Not sure if we need to show a message about existing jobs, should suffice with the proper UI controls?
+  // if (createdJobEntity) {
+  //   return (
+  //     <Card variant="info" style={{ marginBottom: '1rem' }}>
+  //       <Card.Header>
+  //         <Typography variant="h6">Existing job</Typography>
+  //       </Card.Header>
+  //       <Card.Content>
+  //         <Typography>
+  //           A job with this ID already exists at location{' '}
+  //           <span style={{ fontWeight: 500 }}>{jobEntityDestination}</span>
+  //         </Typography>
+  //       </Card.Content>
+  //     </Card>
+  //   )
+  // }
+  if (createdJobEntity) return <></>
 
   return (
     <div>
