@@ -154,6 +154,8 @@ export default (props: IUIPlugin): JSX.Element => {
               <Icon data={account_circle} size={24} title="User" />
             </ClickableIcon>
           </Icons>
+        </TopBar.Actions>
+      </TopBar>
           <AboutDialog
             isOpen={aboutOpen}
             setIsOpen={setAboutOpen}
@@ -164,8 +166,6 @@ export default (props: IUIPlugin): JSX.Element => {
             setIsOpen={setVisibleUserInfo}
             applicationEntity={entity}
           />
-        </TopBar.Actions>
-      </TopBar>
       <UIPlugin
         idReference={idReference}
         type={entity.type}
