@@ -1,0 +1,11 @@
+{
+  "_id": "readOnlyPrimitives",
+  "name": "ReadOnlyPrimitives",
+  "type": "./blueprints/ReadOnlyPrimitives",
+  "stringRequired": "A required string",
+  "stringOptional": "an optional string",
+  "numberRequired": 2,
+  "numberOptional": 3.14,
+  "checkboxOptional": false,
+  "checkboxRequired": true
+}
