@@ -4,7 +4,7 @@ import {
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import { Button, Icon } from '@equinor/eds-core-react'
 import hljs from 'highlight.js'
 import yaml from 'highlight.js/lib/languages/yaml'
 import jsyaml from 'js-yaml'
@@ -49,7 +49,15 @@ const YamlView = (props: { document: TGenericObject }) => {
           </Button>
         </div>
       </div>
-      <pre style={{ backgroundColor: '#193549', color: 'coral', margin: '0' }}>
+      <pre
+        style={{
+          backgroundColor: '#193549',
+          color: 'coral',
+          margin: '0',
+          padding: '1rem',
+          borderRadius: '.5rem',
+        }}
+      >
         <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
       </pre>
     </div>

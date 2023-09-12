@@ -7,14 +7,13 @@ import {
   useDocument,
   useUiPlugins,
 } from '@development-framework/dm-core'
-import { Icon, TopBar } from '@equinor/eds-core-react'
+import { Icon, Menu, TopBar } from '@equinor/eds-core-react'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { account_circle, grid_on, info_circle } from '@equinor/eds-icons'
+import { account_circle, apps, info_circle } from '@equinor/eds-icons'
 
 import { AboutDialog } from './components/AboutDialog'
-import { RecipeSelector } from './components/RecipeSelector'
 import { UserInfoDialog } from './components/UserInfoDialog'
 import { TApplication } from './types'
 
@@ -28,7 +27,10 @@ const Icons = styled.div`
   }
 `
 
-const ClickableIcon = styled.div`
+const ClickableIcon = styled.button`
+  appearance: none;
+  border: none;
+  background-color: transparent;
   &:hover {
     color: gray;
     cursor: pointer;
@@ -63,6 +65,7 @@ export default (props: IUIPlugin): JSX.Element => {
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const { getUiPlugin } = useUiPlugins()
 
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
@@ -99,31 +102,42 @@ export default (props: IUIPlugin): JSX.Element => {
     return <Loading />
   }
 
+  const recipeNames =
+    config.uiRecipesList.length > 0
+      ? config.uiRecipesList
+      : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
+
   return (
     <div>
-      <TopBar>
-        <TopBar.Header>
+      <TopBar
+        style={{
+          display: 'flex',
+          justifyItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <TopBar.Header style={{ position: 'relative' }}>
           <ClickableIcon
+            ref={setAnchorEl}
             onClick={() => {
               setAppSelectorOpen(!appSelectorOpen)
             }}
           >
-            <Icon data={grid_on} size={32} />
+            <Icon data={apps} size={32} />
           </ClickableIcon>
-          <h4 style={{ paddingTop: 9, paddingLeft: 10 }}>{entity.label}</h4>
-          {appSelectorOpen && (
-            <RecipeSelector
-              selectableUiRecipeNames={
-                config.uiRecipesList.length > 0
-                  ? config.uiRecipesList
-                  : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
-              }
-              setSelectedUiRecipe={(uiRecipeName: string) => {
-                setAppSelectorOpen(false)
-                setSelectedRecipe(getRecipeConfigAndPlugin(uiRecipeName))
-              }}
-            />
-          )}
+          <Menu open={appSelectorOpen} anchorEl={anchorEl}>
+            {recipeNames.map((recipe, index) => (
+              <Menu.Item
+                key={index}
+                onClick={() =>
+                  setSelectedRecipe(getRecipeConfigAndPlugin(recipe))
+                }
+              >
+                {recipe}
+              </Menu.Item>
+            ))}
+          </Menu>
+          <h4 style={{ paddingLeft: 10 }}>{entity.label}</h4>
         </TopBar.Header>
         <TopBar.Actions>
           <Icons>
@@ -140,8 +154,6 @@ export default (props: IUIPlugin): JSX.Element => {
               <Icon data={account_circle} size={24} title="User" />
             </ClickableIcon>
           </Icons>
-        </TopBar.Actions>
-        <TopBar.CustomContent>
           <AboutDialog
             isOpen={aboutOpen}
             setIsOpen={setAboutOpen}
@@ -152,7 +164,7 @@ export default (props: IUIPlugin): JSX.Element => {
             setIsOpen={setVisibleUserInfo}
             applicationEntity={entity}
           />
-        </TopBar.CustomContent>
+        </TopBar.Actions>
       </TopBar>
       <UIPlugin
         idReference={idReference}
