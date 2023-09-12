@@ -54,13 +54,15 @@ export const Form = (props: TFormProps) => {
                 config={config}
                 blueprint={blueprint}
               />
-              <Button
-                type="submit"
-                data-testid="form-submit"
-                style={{ alignSelf: 'flex-start' }}
-              >
-                Submit
-              </Button>
+              {!config?.readOnly && (
+                <Button
+                  type="submit"
+                  data-testid="form-submit"
+                  style={{ alignSelf: 'flex-start' }}
+                >
+                  Submit
+                </Button>
+              )}
             </Stack>
           </form>
         </RegistryProvider>

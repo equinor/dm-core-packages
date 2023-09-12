@@ -32,14 +32,6 @@
       "optional": true,
       "contained": true,
       "default": false
-    },
-    {
-      "name": "editToggle",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true,
-      "contained": true,
-      "default": false
     }
   ]
 }

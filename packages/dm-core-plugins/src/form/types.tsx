@@ -99,7 +99,6 @@ export type TConfig = {
   attributes: TAttributeConfig[]
   fields: string[]
   readOnly?: boolean
-  editToggle?: boolean
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & { config: TConfig }

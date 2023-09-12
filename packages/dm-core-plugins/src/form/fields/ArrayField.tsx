@@ -111,32 +111,34 @@ export default function ArrayField(props: TArrayFieldProps) {
                 readOnly={readOnly}
               />
             </Stack>
-            <Button
-              disabled={readOnly}
-              variant="outlined"
-              type="button"
-              onClick={() => remove(index)}
-            >
-              Remove
-            </Button>
+            {!readOnly && (
+              <Button
+                variant="outlined"
+                type="button"
+                onClick={() => remove(index)}
+              >
+                Remove
+              </Button>
+            )}
           </Stack>
         )
       })}
-      <Button
-        disabled={readOnly}
-        variant="outlined"
-        data-testid={`add-${namePath}`}
-        onClick={() => {
-          if (isPrimitiveType(type)) {
-            const defaultValue = isPrimitive(type) ? ' ' : {}
-            append(defaultValue)
-          } else {
-            handleAddObject()
-          }
-        }}
-      >
-        Add
-      </Button>
+      {!readOnly && (
+        <Button
+          variant="outlined"
+          data-testid={`add-${namePath}`}
+          onClick={() => {
+            if (isPrimitiveType(type)) {
+              const defaultValue = isPrimitive(type) ? ' ' : {}
+              append(defaultValue)
+            } else {
+              handleAddObject()
+            }
+          }}
+        >
+          Add
+        </Button>
+      )}
     </Stack>
   )
 }
