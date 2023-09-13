@@ -5,7 +5,7 @@ import {
   useJob,
 } from '@development-framework/dm-core'
 import React, { useState } from 'react'
-import {Button, Card, Icon} from '@equinor/eds-core-react'
+import { Button, Card, Icon } from '@equinor/eds-core-react'
 import { stop, play, refresh, autorenew } from '@equinor/eds-icons'
 import styled from 'styled-components'
 
@@ -90,10 +90,8 @@ export const JobControl = (props: { jobEntityId: string }) => {
           Get results
         </Button>
       </JobButtonWrapper>
-      <Card variant={'info'} style={{marginTop: '8px'}}>
-        <Card.Header>
-          Job status: {status}
-        </Card.Header>
+      <Card variant={'info'} style={{ marginTop: '8px' }}>
+        <Card.Header>Job status: {status}</Card.Header>
       </Card>
       {(error || logs) && (
         <>
