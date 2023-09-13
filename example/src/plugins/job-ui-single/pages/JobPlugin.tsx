@@ -2,9 +2,10 @@ import {
   EBlueprint,
   JobStatus,
   TJob,
-  IUIPlugin, splitAddress, useDMSS,
+  IUIPlugin,
+  useDMSS,
 } from '@development-framework/dm-core'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { JobControl } from './JobControl'
 import { CreateJobEntity } from './CreateJobEntity'
@@ -12,7 +13,7 @@ import { CreateJobEntity } from './CreateJobEntity'
 export const JobPlugin = (props: IUIPlugin) => {
   // TODO make this plugin general and move to dm-core-packages/packages/dm-core-plugins. Right now, it can only be used in the SignalApp due to hard coded values.
 
-  const DmssApi = useDMSS();
+  const DmssApi = useDMSS()
   const [jobEntityId, setJobEntityId] = useState<string>('')
   const [jobExists, setJobExists] = useState(false)
   const jobEntityDestination = `DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].job`
@@ -66,18 +67,15 @@ export const JobPlugin = (props: IUIPlugin) => {
     started: 'Not started',
   }
 
-
   function fetchJobIfExists(): void {
-    const addressObject =splitAddress(jobEntityDestination)
-    const addressPath = `${addressObject.dataSource}/${addressObject.documentPath}`
+    // const addressObject =splitAddress(jobEntityDestination)
+    // const addressPath = `${addressObject.dataSource}/${addressObject.documentPath}`
     DmssApi.documentCheck({
-      address: addressPath,
+      address: jobEntityDestination,
     }).then((res) => {
-      console.log(res)
       if (res.data) {
-        DmssApi.documentGet({ address: addressPath }).then((resp) => {
-          console.log(resp)
-          setJobEntityId(addressPath)
+        DmssApi.documentGet({ address: jobEntityDestination }).then((resp) => {
+          setJobEntityId(jobEntityDestination)
           setJobExists(true)
         })
       }
@@ -85,18 +83,18 @@ export const JobPlugin = (props: IUIPlugin) => {
   }
   useEffect(fetchJobIfExists, [])
 
-
-
   return (
     <div>
       {/*// TODO do not include CreateJobEntity component if entity exists in destination*/}
       {/*TODO have a way to check if an entity of type job already exists in 'jobEntityDestination'. Must scan content of entire package if jobEntityDestination is a package, but its simpler to check if jobEntityDestination is refering to an object's attribute. */}
-      {!jobExists && <CreateJobEntity
+      {!jobExists && (
+        <CreateJobEntity
           jobEntityDestination={jobEntityDestination}
           onCreate={(jobEntityId: string) => setJobEntityId(jobEntityId)}
           defaultJobOutputTarget={props.idReference + '.signal'}
           defaultJobEntity={defaultJobEntity}
-      />}
+        />
+      )}
       {jobEntityId && <JobControl jobEntityId={jobEntityId} />}
     </div>
   )

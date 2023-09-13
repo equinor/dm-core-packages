@@ -4,8 +4,8 @@ import {
   Loading,
   useJob,
 } from '@development-framework/dm-core'
-import React, {useContext, useState} from 'react'
-import { Button, Chip, Icon } from '@equinor/eds-core-react'
+import React, { useState } from 'react'
+import {Button, Card, Icon} from '@equinor/eds-core-react'
 import { stop, play, refresh, autorenew } from '@equinor/eds-icons'
 import styled from 'styled-components'
 
@@ -21,7 +21,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
     start,
     error,
     isLoading,
-    // fetchResult,
+    fetchResult,
     fetchStatusAndLogs,
     logs,
     status,
@@ -34,8 +34,8 @@ export const JobControl = (props: { jobEntityId: string }) => {
   if (error) console.error(error)
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-      <Chip>Status: {status}</Chip>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {/*<Chip>Status: {status}</Chip>*/}
       <JobButtonWrapper>
         {jobIsStarted ? (
           <Button
@@ -60,34 +60,55 @@ export const JobControl = (props: { jobEntityId: string }) => {
             Start
           </Button>
         )}
-        {(status === JobStatus.Completed || status === JobStatus.Failed) && <Button
+
+        {(status === JobStatus.Completed || status === JobStatus.Failed) && (
+          <Button
             onClick={() => fetchStatusAndLogs()}
             variant={'outlined'}
-            aria-label='Re-run job'
-        >
-          <Icon data={autorenew}/>
-        </Button>}
+            aria-label="Re-run job"
+          >
+            <Icon data={autorenew} />
+          </Button>
+        )}
         {/* TODO: Make this button query the API for an update on the running job */}
-        {status === JobStatus.Running && <Button variant='outlined' onClick={() => fetchStatusAndLogs()} aria-label='Get job status'>
-          <Icon data={refresh}/>
-        </Button>}
-        {/* The results should be loaded automatically when the job is finished, and loaded initially if a result is available */}
-        {/*<Button*/}
-        {/*  onClick={() =>*/}
-        {/*    fetchResult().then((res: GetJobResultResponse) => setResult(res))*/}
-        {/*  }*/}
-        {/*  variant={'outlined'}*/}
-        {/*  disabled={status === JobStatus.NotStarted}*/}
-        {/*>*/}
-        {/*  Get results*/}
-        {/*</Button>*/}
+        {status === JobStatus.Running && (
+          <Button
+            variant="outlined"
+            onClick={() => fetchStatusAndLogs()}
+            aria-label="Get job status"
+          >
+            <Icon data={refresh} />
+          </Button>
+        )}
+        <Button
+          onClick={() =>
+            fetchResult().then((res: GetJobResultResponse) => setResult(res))
+          }
+          variant={'outlined'}
+          disabled={status === JobStatus.NotStarted}
+        >
+          Get results
+        </Button>
       </JobButtonWrapper>
+      <Card variant={'info'} style={{marginTop: '8px'}}>
+        <Card.Header>
+          Job status: {status}
+        </Card.Header>
+      </Card>
+      {(error || logs) && (
+        <>
+          <h4>Logs:</h4>
+          {error ? (
+            <pre>{JSON.stringify(error, null, 2)}</pre>
+          ) : (
+            <pre>{logs}</pre>
+          )}
+        </>
+      )}
 
-      <h4>Logs:</h4>
-      {error ? <pre>{JSON.stringify(error, null, 2)}</pre> : <pre>{logs}</pre>}
-      <h4>Result:</h4>
       {result && (
         <>
+          <h4>Result:</h4>
           <pre>{result.message}</pre>
           <pre>{result.result}</pre>
         </>
