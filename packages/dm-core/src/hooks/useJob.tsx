@@ -114,22 +114,29 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         debug: 'No entity Id provided',
         message: 'Failed to start job',
       })
+      setStatus(JobStatus.Failed)
       return null
     }
     setIsLoading(true)
+    setStatus(JobStatus.Starting)
     return dmJobApi
       .startJob({ jobDmssId: entityId })
       .then((response: AxiosResponse<StartJobResponse>) => {
+        console.log(response)
         setHookJobId(response.data.uid)
         setLogs(response.data.message)
-        setStatus(JobStatus.Starting)
+        setStatus(JobStatus.Running)
         return response.data
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         setError(error.response?.data)
+        setStatus(JobStatus.Failed)
         return null
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setIsLoading(false)
+        if (status !== JobStatus.Failed) setStatus(JobStatus.Completed)
+      })
   }
 
   async function fetchStatusAndLogs(): Promise<StatusJobResponse | null> {

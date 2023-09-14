@@ -8,6 +8,7 @@ import React, { useState } from 'react'
 import { Button, Card, Icon } from '@equinor/eds-core-react'
 import { stop, play, refresh, autorenew } from '@equinor/eds-icons'
 import styled from 'styled-components'
+import { JobControlButton } from './JobControlButton'
 
 const JobButtonWrapper = styled.div`
   display: flex;
@@ -30,47 +31,19 @@ export const JobControl = (props: { jobEntityId: string }) => {
   const [result, setResult] = useState<GetJobResultResponse>()
   const [jobIsStarted, setJobIsStarted] = useState<boolean>(false)
 
-  if (isLoading) return <Loading />
+  // if (isLoading) return <Loading />
   if (error) console.error(error)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {/*<Chip>Status: {status}</Chip>*/}
       <JobButtonWrapper>
-        {jobIsStarted ? (
-          <Button
-            onClick={() => {
-              setJobIsStarted(false)
-              remove()
-            }}
-            variant="contained"
-          >
-            <Icon data={stop}></Icon>
-            Stop
-          </Button>
-        ) : (
-          <Button
-            onClick={() => {
-              start()
-              setJobIsStarted(true)
-            }}
-            variant="contained"
-          >
-            <Icon data={play}></Icon>
-            Start
-          </Button>
-        )}
-
-        {(status === JobStatus.Completed || status === JobStatus.Failed) && (
-          <Button
-            onClick={() => start()}
-            variant={'outlined'}
-            aria-label="Re-run job"
-          >
-            <Icon data={autorenew} />
-          </Button>
-        )}
-        {/* TODO: Make this button query the API for an update on the running job */}
+        <JobControlButton
+          jobStatus={status}
+          isRunning={isLoading}
+          start={start}
+          halt={remove}
+        />
         {status === JobStatus.Running && (
           <Button
             variant="outlined"
@@ -90,7 +63,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
           Get results
         </Button>
       </JobButtonWrapper>
-      <Card variant={'info'} style={{ marginTop: '8px' }}>
+      <Card variant={status === JobStatus.Failed ? 'danger' : 'info'} style={{ marginTop: '8px' }}>
         <Card.Header>Job status: {status}</Card.Header>
       </Card>
       {(error || logs) && (
