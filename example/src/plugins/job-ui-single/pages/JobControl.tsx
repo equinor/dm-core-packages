@@ -20,7 +20,6 @@ export const JobControl = (props: { jobEntityId: string }) => {
   const {
     start,
     error,
-    isLoading,
     fetchResult,
     fetchStatusAndLogs,
     logs,
@@ -34,12 +33,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <JobButtonWrapper>
-        <JobControlButton
-          jobStatus={status}
-          isRunning={isLoading}
-          start={start}
-          halt={remove}
-        />
+        <JobControlButton jobStatus={status} start={start} halt={remove} />
         {status === JobStatus.Running && (
           <Button
             variant="outlined"

@@ -5,31 +5,34 @@ import React, { MutableRefObject, useRef, useState } from 'react'
 
 export const JobControlButton = (props: {
   jobStatus: JobStatus
-  isRunning: boolean
   start: () => Promise<StartJobResponse | null>
   halt: () => void
 }) => {
+  const { jobStatus, start, halt } = props
   const [hovering, setHovering] = useState(false)
   const buttonRef: MutableRefObject<HTMLButtonElement | undefined> = useRef()
   buttonRef.current?.addEventListener('mouseenter', () => setHovering(true))
   buttonRef.current?.addEventListener('mouseleave', () => setHovering(false))
 
   function handleClick(): void {
-    if (props.jobStatus === JobStatus.Running) props.halt()
+    if (jobStatus === JobStatus.Running) halt()
     else {
-      props.start()
+      start()
     }
   }
 
   return (
-    <Button ref={buttonRef} onClick={handleClick}>
-      {props.isRunning ? (
+    <Button ref={buttonRef} onClick={handleClick} style={{ width: '7rem' }}>
+      {jobStatus === JobStatus.Running ? (
         <CircularProgress size={16} variant="indeterminate" />
       ) : (
-        <Icon data={props.jobStatus === JobStatus.Running ? stop : play} />
+        <Icon data={hovering ? stop : play} />
       )}
-      {props.isRunning ? (hovering ? 'Stop' : 'Running') : 'Start'}
-      {/*<Icon data={play}/> Start*/}
+      {jobStatus === JobStatus.Running
+        ? hovering
+          ? 'Stop'
+          : 'Running'
+        : 'Start'}
     </Button>
   )
 }

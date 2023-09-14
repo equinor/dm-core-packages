@@ -72,7 +72,7 @@ export const JobPlugin = (props: IUIPlugin) => {
       address: jobEntityDestination,
     }).then((res) => {
       if (res.data) {
-        DmssApi.documentGet({ address: jobEntityDestination }).then(() => {
+        DmssApi.documentGet({ address: jobEntityDestination }).then((r) => {
           setJobEntityId(jobEntityDestination)
           setJobExists(true)
         })

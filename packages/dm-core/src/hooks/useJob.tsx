@@ -95,7 +95,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         .then((response: AxiosResponse<TJob>) => {
           if (response.data?.uid) {
             // The job must be started before it has an UID
-            setHookJobId(response.data._id)
+            setHookJobId(response.data.uid)
             setStatus(response.data.status)
           }
         })
@@ -125,7 +125,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     return dmJobApi
       .startJob({ jobDmssId: entityId })
       .then((response: AxiosResponse<StartJobResponse>) => {
-        console.log(response)
         setHookJobId(response.data.uid)
         setLogs(response.data.message)
         setStatus(JobStatus.Running)
@@ -161,7 +160,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .jobStatus({ jobUid: hookJobId })
       .then((response: AxiosResponse<StatusJobResponse>) => {
         setLogs(response.data.log ?? '')
-        setStatus(response.data.status)
+        if (response.data.status !== status) setStatus(response.data.status)
         setError(undefined)
         return response.data
       })
@@ -181,7 +180,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
 
     stopJobPing()
     return dmJobApi
-      .removeJob({ jobUid: hookJobId })
+      .removeJob({ jobUid: jobId })
       .then((response: AxiosResponse<string>) => {
         setStatus(JobStatus.Removed)
         return response.data
