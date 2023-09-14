@@ -78,6 +78,9 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   const [logs, setLogs] = useState<string>('No logs fetched')
   const [status, setStatus] = useState<JobStatus>(JobStatus.Unknown)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [jobPinger, setJobPinger] = useState<ReturnType<
+    typeof setInterval
+  > | null>(null)
   const [error, setError] = useState<ErrorResponse>()
   const { token } = useContext(AuthContext)
   const dmJobApi = new DmJobAPI(token)
@@ -126,6 +129,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         setHookJobId(response.data.uid)
         setLogs(response.data.message)
         setStatus(JobStatus.Running)
+        startJobPing()
         return response.data
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -175,6 +179,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
 
     setIsLoading(true)
 
+    stopJobPing()
     return dmJobApi
       .removeJob({ jobUid: hookJobId })
       .then((response: AxiosResponse<string>) => {
@@ -205,6 +210,14 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         return null
       })
       .finally(() => setIsLoading(false))
+  }
+
+  function startJobPing(): void {
+    setJobPinger(setInterval(fetchStatusAndLogs, 2000))
+  }
+  function stopJobPing(): void {
+    // @ts-ignore
+    clearInterval(jobPinger)
   }
 
   return {

@@ -74,7 +74,7 @@ export const JobForm = (props: {
               <>
                 <p>Pick job runner entity:</p>
                 <EntityPickerButton
-                  onChange={(address: string, entity: TValidEntity) => {
+                  onChange={(address: string, entity?: TValidEntity) => {
                     setFormData({ ...formData, runner: entity })
                   }}
                 />
@@ -127,7 +127,9 @@ export const JobForm = (props: {
                     [attribute.name]: event.target.value,
                   })
                 }}
-                value={formData[attribute.name]}
+                value={
+                  formData[attribute.name as keyof TJob] as string | number
+                }
               />
             </>
           )

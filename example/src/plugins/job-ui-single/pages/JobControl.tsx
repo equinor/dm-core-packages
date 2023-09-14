@@ -6,7 +6,7 @@ import {
 } from '@development-framework/dm-core'
 import React, { useState } from 'react'
 import { Button, Card, Icon } from '@equinor/eds-core-react'
-import { stop, play, refresh, autorenew } from '@equinor/eds-icons'
+import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { JobControlButton } from './JobControlButton'
 
@@ -29,14 +29,11 @@ export const JobControl = (props: { jobEntityId: string }) => {
     remove,
   } = useJob(jobEntityId)
   const [result, setResult] = useState<GetJobResultResponse>()
-  const [jobIsStarted, setJobIsStarted] = useState<boolean>(false)
 
-  // if (isLoading) return <Loading />
   if (error) console.error(error)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {/*<Chip>Status: {status}</Chip>*/}
       <JobButtonWrapper>
         <JobControlButton
           jobStatus={status}
@@ -63,12 +60,14 @@ export const JobControl = (props: { jobEntityId: string }) => {
           Get results
         </Button>
       </JobButtonWrapper>
-      <Card
-        variant={status === JobStatus.Failed ? 'danger' : 'info'}
-        style={{ marginTop: '8px' }}
-      >
-        <Card.Header>Job status: {status}</Card.Header>
-      </Card>
+      {status === JobStatus.Failed && (
+        <Card
+          variant={status === JobStatus.Failed ? 'danger' : 'info'}
+          style={{ marginTop: '8px' }}
+        >
+          <Card.Header>Job status: {status}</Card.Header>
+        </Card>
+      )}
       {(error || logs) && (
         <>
           <h4>Logs:</h4>
