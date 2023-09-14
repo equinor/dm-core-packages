@@ -180,7 +180,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
 
     stopJobPing()
     return dmJobApi
-      .removeJob({ jobUid: jobId })
+      .removeJob({ jobUid: hookJobId })
       .then((response: AxiosResponse<string>) => {
         setStatus(JobStatus.Removed)
         return response.data
