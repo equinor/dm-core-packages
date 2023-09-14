@@ -63,7 +63,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
 
         {(status === JobStatus.Completed || status === JobStatus.Failed) && (
           <Button
-            onClick={() => fetchStatusAndLogs()}
+            onClick={() => start()}
             variant={'outlined'}
             aria-label="Re-run job"
           >
