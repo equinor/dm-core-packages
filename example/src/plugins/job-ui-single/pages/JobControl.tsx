@@ -54,10 +54,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
         </Button>
       </JobButtonWrapper>
       {status === JobStatus.Failed && (
-        <Card
-          variant='danger'
-          style={{ marginTop: '8px' }}
-        >
+        <Card variant="danger" style={{ marginTop: '8px' }}>
           <Card.Header>Job status: {status}</Card.Header>
         </Card>
       )}
