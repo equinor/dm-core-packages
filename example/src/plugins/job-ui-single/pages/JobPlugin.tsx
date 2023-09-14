@@ -68,13 +68,11 @@ export const JobPlugin = (props: IUIPlugin) => {
   }
 
   function fetchJobIfExists(): void {
-    // const addressObject =splitAddress(jobEntityDestination)
-    // const addressPath = `${addressObject.dataSource}/${addressObject.documentPath}`
     DmssApi.documentCheck({
       address: jobEntityDestination,
     }).then((res) => {
       if (res.data) {
-        DmssApi.documentGet({ address: jobEntityDestination }).then((resp) => {
+        DmssApi.documentGet({ address: jobEntityDestination }).then(() => {
           setJobEntityId(jobEntityDestination)
           setJobExists(true)
         })
