@@ -1,6 +1,6 @@
 import {
   EBlueprint,
-  EntityPickerButton,
+  EntityPickerDialog,
   EntityView,
   ErrorResponse,
   Loading,
@@ -15,7 +15,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { defaultConfig } from '../FormPlugin'
@@ -26,6 +26,7 @@ import { getWidget } from '../context/WidgetContext'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
+  const [showModal, setShowModal] = useState<boolean>(false)
   const { setValue, watch } = useFormContext()
   const dmssAPI = useDMSS()
   const { idReference } = useRegistryContext()
@@ -64,13 +65,18 @@ const SelectReference = (props: { type: string; namePath: string }) => {
   }
 
   return (
-    <EntityPickerButton
-      data-testid={`select-${props.namePath}`}
-      onChange={onChange}
-      buttonVariant="outlined"
-      typeFilter={props.type}
-      alternativeButtonText="Select and save"
-    />
+    <>
+      <Button variant="outlined" onClick={() => setShowModal(true)}>
+        Select and save
+      </Button>
+      <EntityPickerDialog
+        data-testid={`select-${props.namePath}`}
+        onChange={onChange}
+        typeFilter={props.type}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
+    </>
   )
 }
 

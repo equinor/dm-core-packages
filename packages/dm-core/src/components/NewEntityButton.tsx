@@ -9,7 +9,7 @@ import { Dialog } from './Dialog'
 import {
   BlueprintPicker,
   DestinationPicker,
-  EntityPickerButton,
+  EntityPickerDialog,
 } from './Pickers'
 
 // TODO fix this component - the component is not working due to a hook error somewhere, probably in the context
@@ -19,7 +19,9 @@ export function NewEntityButton(props: {
   defaultDestination?: string
 }) {
   const { type, onCreated, defaultDestination } = props
-  const [showScrim, setShowScrim] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const [showCopyDocumentModal, setShowCopyDocumentModal] =
+    useState<boolean>(false)
   const [saveDestination, setSaveDestination] = useState<string>(
     defaultDestination ? defaultDestination : ''
   )
@@ -72,7 +74,7 @@ export function NewEntityButton(props: {
       delete newDocumentToCopy._id
 
       addEntityToPath({ ...newDocumentToCopy })
-        .then(() => setShowScrim(false))
+        .then(() => setShowModal(false))
         .finally(() => {
           setDocumentToCopy(undefined)
           setNewName('')
@@ -92,7 +94,7 @@ export function NewEntityButton(props: {
           addEntityToPath({
             ...newEntity,
             name: newName as string,
-          }).then(() => setShowScrim(false))
+          }).then(() => setShowModal(false))
         })
         .finally(() => {
           setLoading(false)
@@ -104,11 +106,11 @@ export function NewEntityButton(props: {
 
   return (
     <div style={{ margin: '0 10px' }}>
-      <Button onClick={() => setShowScrim(true)}>New</Button>
+      <Button onClick={() => setShowModal(true)}>New</Button>
       <Dialog
         isDismissable
-        open={showScrim}
-        onClose={() => setShowScrim(false)}
+        open={showModal}
+        onClose={() => setShowModal(false)}
         width={'600px'}
         height={'370px'}
       >
@@ -168,14 +170,22 @@ export function NewEntityButton(props: {
             {loading ? <Progress.Dots /> : 'Create'}
           </Button>
           {!documentToCopy ? (
-            <EntityPickerButton
-              buttonVariant="outlined"
-              typeFilter={typeToCreate}
-              alternativeButtonText="Copy existing"
-              onChange={(address: string, entity?: TValidEntity) =>
-                setDocumentToCopy(entity)
-              }
-            />
+            <>
+              <Button
+                variant="outlined"
+                onClick={() => setShowCopyDocumentModal(true)}
+              >
+                Copy existing
+              </Button>
+              <EntityPickerDialog
+                showModal={showCopyDocumentModal}
+                setShowModal={setShowCopyDocumentModal}
+                typeFilter={typeToCreate}
+                onChange={(address: string, entity?: TValidEntity) =>
+                  setDocumentToCopy(entity)
+                }
+              />
+            </>
           ) : (
             <Button
               onClick={() => setDocumentToCopy(undefined)}
@@ -185,7 +195,7 @@ export function NewEntityButton(props: {
               Don't copy
             </Button>
           )}
-          <Button variant="ghost" onClick={() => setShowScrim(false)}>
+          <Button variant="ghost" onClick={() => setShowModal(false)}>
             Cancel
           </Button>
         </Dialog.Actions>

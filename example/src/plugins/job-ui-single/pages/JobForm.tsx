@@ -1,6 +1,6 @@
 import {
   EBlueprint,
-  EntityPickerButton,
+  EntityPickerDialog,
   JobStatus,
   Loading,
   Stack,
@@ -36,6 +36,8 @@ export const JobForm = (props: {
     started: 'Not started',
   }
   const [formData, setFormData] = useState<TJob>(defaultJobValues)
+  const [showJobRunnerModal, setShowJobRunnerModal] = useState<boolean>(false)
+  const [showInputModal, setShowInputModal] = useState<boolean>(false)
   const {
     blueprint: jobBlueprint,
     isLoading: isBlueprintLoading,
@@ -73,8 +75,13 @@ export const JobForm = (props: {
             return (
               <>
                 <p>Pick job runner entity:</p>
-                <EntityPickerButton
-                  onChange={(address: string, entity: TValidEntity) => {
+                <Button onClick={() => setShowJobRunnerModal(true)}>
+                  Select
+                </Button>
+                <EntityPickerDialog
+                  showModal={showJobRunnerModal}
+                  setShowModal={setShowJobRunnerModal}
+                  onChange={(address: string, entity?: TValidEntity) => {
                     setFormData({ ...formData, runner: entity })
                   }}
                 />
@@ -96,7 +103,10 @@ export const JobForm = (props: {
                         JSON.stringify(formData.applicationInput.address)}
                   </p>
                 </div>
-                <EntityPickerButton
+                <Button onClick={() => setShowInputModal(true)}>Select</Button>
+                <EntityPickerDialog
+                  showModal={showInputModal}
+                  setShowModal={setShowInputModal}
                   onChange={(address: string) => {
                     const linkReference: TLinkReference = {
                       type: EBlueprint.REFERENCE,
