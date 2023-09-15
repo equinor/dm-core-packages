@@ -4,7 +4,11 @@
   "initialUiRecipe": {
     "name": "form",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/form"
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "readOnly": true
+    }
   },
   "uiRecipes": [
     {
