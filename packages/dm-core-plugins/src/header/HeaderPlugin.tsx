@@ -131,6 +131,7 @@ export default (props: IUIPlugin): JSX.Element => {
                 key={index}
                 onClick={() =>
                   setSelectedRecipe(getRecipeConfigAndPlugin(recipe))
+                  setAppSelectorOpen(false)
                 }
               >
                 {recipe}
