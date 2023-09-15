@@ -129,10 +129,10 @@ export default (props: IUIPlugin): JSX.Element => {
             {recipeNames.map((recipe, index) => (
               <Menu.Item
                 key={index}
-                onClick={() =>
+                onClick={() => {
                   setSelectedRecipe(getRecipeConfigAndPlugin(recipe))
                   setAppSelectorOpen(false)
-                }
+                }}
               >
                 {recipe}
               </Menu.Item>
