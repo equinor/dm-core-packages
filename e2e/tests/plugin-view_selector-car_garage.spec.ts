@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('View selector - car garage', async ({ page }) => {
   // Open self and verify page content and the sidebar:
@@ -30,10 +30,7 @@ test('View selector - car garage', async ({ page }) => {
   await page.locator('a').filter({ hasText: 'Audi' }).click()
   await expect(page.getByRole('tab', { name: 'home Home' })).toBeVisible()
   await expect(page.getByRole('tabpanel').locator('#name')).toHaveValue('Audi')
-  await page
-    .getByText('View owner details and historyOpen')
-    .getByRole('button', { name: 'Open' })
-    .click()
+  await page.getByTestId('Owner').getByRole('button', { name: 'Open' }).click()
   await expect(
     page.getByRole('tab', { name: 'person Owner details' })
   ).toHaveAttribute('aria-selected', 'true')
@@ -49,7 +46,7 @@ test('View selector - car garage', async ({ page }) => {
   ).toHaveAttribute('aria-selected', 'true')
 
   //Add earlier owner:
-  await page.getByTestId('add-earlierOwners').click()
+  await page.getByRole('button', { name: 'Add' }).click()
   await page.getByRole('textbox').last().fill(' Joanna')
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -58,7 +55,7 @@ test('View selector - car garage', async ({ page }) => {
   // Select "home" and then open "technical". Verify that both owner and techincal tabs are open and selectable. Check also sub-tabs
   await page.getByRole('tab', { name: 'home Home' }).click()
   await page
-    .getByText('View technical informationOpen')
+    .getByTestId('Technical')
     .getByRole('button', { name: 'Open' })
     .click()
   await expect(
@@ -113,7 +110,7 @@ test('View selector - car garage', async ({ page }) => {
   // Testing that saving one car does not ovveride the other car:
   await page.locator('a').filter({ hasText: 'Volvo' }).click()
   await page
-    .getByText('View technical informationOpen')
+    .getByTestId('Technical')
     .getByRole('button', { name: 'Open' })
     .click()
 
@@ -125,10 +122,7 @@ test('View selector - car garage', async ({ page }) => {
     '4500'
   )
   await page.getByRole('tab', { name: 'home Home' }).click()
-  await page
-    .getByText('View owner details and historyOpen')
-    .getByRole('button', { name: 'Open' })
-    .click()
+  await page.getByTestId('Owner').getByRole('button', { name: 'Open' }).click()
   await page.getByRole('tab', { name: 'group Owner history' }).click()
   await expect(page.getByRole('textbox').first()).toHaveValue('Jack')
   await expect(page.getByRole('textbox').last()).toHaveValue('Maria')
