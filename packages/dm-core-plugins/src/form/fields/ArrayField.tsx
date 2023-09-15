@@ -6,13 +6,15 @@ import {
   getKey,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Typography } from '@equinor/eds-core-react'
+import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
+import { add, delete_forever } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
+import { ButtonRow } from '../styles'
 import { TArrayFieldProps } from '../types'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
@@ -59,7 +61,7 @@ export default function ArrayField(props: TArrayFieldProps) {
 
   if (onOpen && !uiAttribute?.showInline && !isPrimitiveType(type)) {
     return (
-      <Stack spacing={0.25} alignItems="flex-start">
+      <ButtonRow>
         <Typography bold={true}>{displayLabel}</Typography>
         <OpenObjectButton
           viewId={namePath}
@@ -69,7 +71,7 @@ export default function ArrayField(props: TArrayFieldProps) {
             recipe: uiRecipeName,
           }}
         />
-      </Stack>
+      </ButtonRow>
     )
   }
 
@@ -90,7 +92,28 @@ export default function ArrayField(props: TArrayFieldProps) {
 
   return (
     <Stack spacing={0.5} alignItems="flex-start">
-      <Typography bold={true}>{displayLabel}</Typography>
+      <ButtonRow>
+        <Typography bold={true}>{displayLabel}</Typography>
+        {!readOnly && (
+          <Tooltip title="Add">
+            <Button
+              variant="ghost_icon"
+              aria-label="Add"
+              data-testid={`add-${namePath}`}
+              onClick={() => {
+                if (isPrimitiveType(type)) {
+                  const defaultValue = isPrimitive(type) ? ' ' : {}
+                  append(defaultValue)
+                } else {
+                  handleAddObject()
+                }
+              }}
+            >
+              <Icon data={add} />
+            </Button>
+          </Tooltip>
+        )}
+      </ButtonRow>
       {fields.map((item: any, index: number) => {
         return (
           <Stack
@@ -98,6 +121,7 @@ export default function ArrayField(props: TArrayFieldProps) {
             direction="row"
             spacing={0.5}
             alignSelf="stretch"
+            alignItems="flex-end"
           >
             <Stack grow={1}>
               <AttributeField
@@ -112,33 +136,20 @@ export default function ArrayField(props: TArrayFieldProps) {
               />
             </Stack>
             {!readOnly && (
-              <Button
-                variant="outlined"
-                type="button"
-                onClick={() => remove(index)}
-              >
-                Remove
-              </Button>
+              <Tooltip title="Remove">
+                <Button
+                  variant="ghost_icon"
+                  type="button"
+                  aria-label="Remove"
+                  onClick={() => remove(index)}
+                >
+                  <Icon data={delete_forever} />
+                </Button>
+              </Tooltip>
             )}
           </Stack>
         )
       })}
-      {!readOnly && (
-        <Button
-          variant="outlined"
-          data-testid={`add-${namePath}`}
-          onClick={() => {
-            if (isPrimitiveType(type)) {
-              const defaultValue = isPrimitive(type) ? ' ' : {}
-              append(defaultValue)
-            } else {
-              handleAddObject()
-            }
-          }}
-        >
-          Add
-        </Button>
-      )}
     </Stack>
   )
 }

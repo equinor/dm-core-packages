@@ -13,7 +13,8 @@ import {
   useBlueprint,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Typography } from '@equinor/eds-core-react'
+import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
+import { add, delete_forever, edit } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -23,6 +24,7 @@ import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
+import { ButtonRow } from '../styles'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
@@ -66,9 +68,15 @@ const SelectReference = (props: { type: string; namePath: string }) => {
 
   return (
     <>
-      <Button variant="outlined" onClick={() => setShowModal(true)}>
-        Select and save
-      </Button>
+      <Tooltip title={`${value ? 'Edit' : 'Add'} and save`}>
+        <Button
+          variant="ghost_icon"
+          onClick={() => setShowModal(true)}
+          aria-label={`${value ? 'Edit' : 'Add'} and save`}
+        >
+          <Icon data={value ? edit : add} />
+        </Button>
+      </Tooltip>
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
         onChange={onChange}
@@ -120,13 +128,16 @@ const AddObject = (props: {
       })
   }
   return (
-    <Button
-      variant="outlined"
-      data-testid={`add-${namePath}`}
-      onClick={handleAdd}
-    >
-      Add and save
-    </Button>
+    <Tooltip title="Add and save">
+      <Button
+        variant="ghost_icon"
+        data-testid={`add-${namePath}`}
+        onClick={handleAdd}
+        aria-label="Add and save"
+      >
+        <Icon data={add} />
+      </Button>
+    </Tooltip>
   )
 }
 
@@ -153,13 +164,16 @@ const RemoveObject = (props: { namePath: string }) => {
       })
   }
   return (
-    <Button
-      variant="outlined"
-      data-testid={`remove-${namePath}`}
-      onClick={onClick}
-    >
-      Remove and save
-    </Button>
+    <Tooltip title="Remove and save">
+      <Button
+        variant="ghost_icon"
+        data-testid={`remove-${namePath}`}
+        onClick={onClick}
+        aria-label="Remove and save"
+      >
+        <Icon data={delete_forever} />
+      </Button>
+    </Tooltip>
   )
 }
 
@@ -181,20 +195,20 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const isDefined = value && Object.keys(value).length > 0
   return (
     <Stack spacing={0.25} alignItems="flex-start">
-      <Typography bold={true}>{displayLabel}</Typography>
-      {optional &&
-        !readOnly &&
-        (isDefined ? (
-          <RemoveObject namePath={namePath} />
-        ) : (
-          <AddObject
-            namePath={namePath}
-            type={type}
-            defaultValue={defaultValue}
-          />
-        ))}
-      {isDefined &&
-        (onOpen && !uiAttribute?.showInline ? (
+      <ButtonRow>
+        <Typography bold={true}>{displayLabel}</Typography>
+        {optional &&
+          !readOnly &&
+          (isDefined ? (
+            <RemoveObject namePath={namePath} />
+          ) : (
+            <AddObject
+              namePath={namePath}
+              type={type}
+              defaultValue={defaultValue}
+            />
+          ))}
+        {isDefined && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
             idReference={idReference}
@@ -204,14 +218,16 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
               recipe: uiRecipe?.name,
             }}
           />
-        ) : (
-          <Inline
-            type={type}
-            namePath={namePath}
-            blueprint={blueprint}
-            uiRecipe={uiRecipe}
-          />
-        ))}
+        )}
+      </ButtonRow>
+      {isDefined && !(onOpen && !uiAttribute?.showInline) && (
+        <Inline
+          type={type}
+          namePath={namePath}
+          blueprint={blueprint}
+          uiRecipe={uiRecipe}
+        />
+      )}
     </Stack>
   )
 }
@@ -274,9 +290,8 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
 
   return (
     <Stack spacing={0.5}>
-      <Typography bold={true}>{displayLabel}</Typography>
-      {address && <Typography>Address: {value.address}</Typography>}
-      <Stack direction="row" spacing={0.5}>
+      <ButtonRow>
+        <Typography bold={true}>{displayLabel}</Typography>
         {!readOnly && <SelectReference type={type} namePath={namePath} />}
         {optional && address && !readOnly && (
           <RemoveObject namePath={namePath} />
@@ -292,7 +307,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
             idReference={address}
           />
         )}
-      </Stack>
+      </ButtonRow>
       {address && !(onOpen && !uiAttribute?.showInline) && (
         <EntityView
           idReference={address}
