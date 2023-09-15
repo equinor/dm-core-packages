@@ -37,8 +37,7 @@
           "checkboxOptional",
           "checkboxRequired"
         ],
-        "readOnly": true,
-        "editToggle": true
+        "readOnly": true
       }
     }
   ]
