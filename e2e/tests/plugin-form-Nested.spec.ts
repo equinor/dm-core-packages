@@ -27,10 +27,7 @@ const navigate = async () => {
 
 test('Change owner', async () => {
   await expect(page.getByText('Owner', { exact: true })).toBeVisible
-  await page
-    .getByText('OwnerOpen')
-    .getByRole('button', { name: 'Open' })
-    .click()
+  await page.getByTestId('owner').getByRole('button', { name: 'Open' }).click()
   await page.getByLabel('Name').fill('Jacob')
   await page.getByLabel('Phone Number (optional)').fill('1234')
   await page.getByRole('button', { name: 'Submit' }).click()
@@ -156,10 +153,8 @@ test('New car', async () => {
 })
 
 test('New customer', async () => {
-  await page
-    .getByText('CustomersOpen')
-    .getByRole('button', { name: 'Open' })
-    .click()
+  const customersDiv = page.getByTestId('customers')
+  await customersDiv.getByRole('button', { name: 'Open' }).click()
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
   await expect.soft(lastTabPanel.getByText('1 - 2 of 2')).toBeVisible()
@@ -174,10 +169,7 @@ test('New customer', async () => {
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
   await navigate()
-  await page
-    .getByText('CustomersOpen')
-    .getByRole('button', { name: 'Open' })
-    .click()
+  await customersDiv.getByRole('button', { name: 'Open' }).click()
   await expect(page.getByText('Lewis')).toBeVisible()
   await page.getByRole('button', { name: 'Open item' }).last().click()
   await expect(page.getByRole('tab', { name: 'Lewis' })).toBeVisible()
