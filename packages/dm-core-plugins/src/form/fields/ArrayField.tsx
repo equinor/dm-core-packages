@@ -6,7 +6,7 @@ import {
   getKey,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Icon, Typography } from '@equinor/eds-core-react'
+import { Typography } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
@@ -107,9 +107,8 @@ export default function ArrayField(props: TArrayFieldProps) {
                 handleAddObject()
               }
             }}
-          >
-            <Icon data={add} />
-          </TooltipButton>
+            icon={add}
+          />
         )}
       </ButtonRow>
       {fields.map((item: any, index: number) => {
@@ -138,9 +137,8 @@ export default function ArrayField(props: TArrayFieldProps) {
                 title="Remove"
                 button-variant="ghost_icon"
                 button-onClick={() => remove(index)}
-              >
-                <Icon data={delete_forever} />
-              </TooltipButton>
+                icon={delete_forever}
+              />
             )}
           </Stack>
         )

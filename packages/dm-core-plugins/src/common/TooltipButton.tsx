@@ -1,4 +1,5 @@
-import { Button, Tooltip } from '@equinor/eds-core-react'
+import { Button, Icon, Tooltip } from '@equinor/eds-core-react'
+import { IconData } from '@equinor/eds-icons'
 import React from 'react'
 
 type Prefix<T, P extends string> = {
@@ -12,8 +13,16 @@ type PrefixedTooltip = Prefix<
   Omit<React.ComponentProps<typeof Tooltip>, 'title' | 'children'>,
   'tooltip'
 >
-type TProps = PrefixedButton &
-  PrefixedTooltip & { title: string; children: React.ReactElement }
+type TContent =
+  | {
+      icon?: IconData
+      buttonText: string
+    }
+  | {
+      icon: IconData
+      buttonText?: string
+    }
+type TProps = PrefixedButton & PrefixedTooltip & TContent & { title: string }
 
 const getProps = (prefix: string, dict: { [k: string]: any }) => {
   return Object.fromEntries(
@@ -25,14 +34,15 @@ const getProps = (prefix: string, dict: { [k: string]: any }) => {
 
 /**
  * Tests can access the components through getByRole('button', { name: title })) or getByLabel(title)
- * @param props Component accepts all props used by EDS Button and EDS Tooltip. However, to avoid interfering with each other, you'll have to prefix the prop with "button-" or "tooltip-". Ex: button-onChange. In addition, it has a mandatory title prop, which is used both as aria-label and tooltip title
+ * @param props Component accepts all props used by EDS Button and EDS Tooltip. However, to avoid interfering with each other, you'll have to prefix the prop with "button-" or "tooltip-". Ex: button-onChange. In addition, it has a mandatory title prop, which is used both as aria-label and tooltip title. You must also supply it with a buttonText and/or an icon.
  * @returns An EDS button with EDS tooltip.
  */
 const TooltipButton = (props: TProps) => {
   return (
     <Tooltip title={props.title} {...getProps('tooltip-', props)}>
       <Button {...getProps('button-', props)} aria-label={props.title}>
-        {props.children}
+        {props.icon && <Icon data={props.icon} />}
+        {props.buttonText}
       </Button>
     </Tooltip>
   )

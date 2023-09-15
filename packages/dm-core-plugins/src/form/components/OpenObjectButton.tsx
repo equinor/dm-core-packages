@@ -3,7 +3,6 @@ import {
   TReferenceViewConfig,
   TViewConfig,
 } from '@development-framework/dm-core'
-import { Icon } from '@equinor/eds-core-react'
 import { external_link } from '@equinor/eds-icons'
 import React from 'react'
 import TooltipButton from '../../common/TooltipButton'
@@ -25,8 +24,7 @@ export const OpenObjectButton = ({
       title="Open in tab"
       button-variant="ghost_icon"
       button-onClick={() => onOpen?.(viewId, view, idReference)}
-    >
-      <Icon data={external_link} />
-    </TooltipButton>
+      icon={external_link}
+    />
   )
 }

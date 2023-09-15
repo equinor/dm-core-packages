@@ -13,7 +13,7 @@ import {
   useBlueprint,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Icon, Typography } from '@equinor/eds-core-react'
+import { Typography } from '@equinor/eds-core-react'
 import { add, delete_forever, edit } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
@@ -73,9 +73,8 @@ const SelectReference = (props: { type: string; namePath: string }) => {
         title={`${value ? 'Edit' : 'Add'} and save`}
         button-variant="ghost_icon"
         button-onClick={() => setShowModal(true)}
-      >
-        <Icon data={value ? edit : add} />
-      </TooltipButton>
+        icon={value ? edit : add}
+      />
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
         onChange={onChange}
@@ -131,9 +130,8 @@ const AddObject = (props: {
       title="Add and save"
       button-variant="ghost_icon"
       button-onClick={handleAdd}
-    >
-      <Icon data={add} />
-    </TooltipButton>
+      icon={add}
+    />
   )
 }
 
@@ -164,9 +162,8 @@ const RemoveObject = (props: { namePath: string }) => {
       title="Remove and save"
       button-variant="ghost_icon"
       button-onClick={onClick}
-    >
-      <Icon data={delete_forever} />
-    </TooltipButton>
+      icon={delete_forever}
+    />
   )
 }
 
