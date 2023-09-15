@@ -156,16 +156,16 @@ export default (props: IUIPlugin): JSX.Element => {
           </Icons>
         </TopBar.Actions>
       </TopBar>
-          <AboutDialog
-            isOpen={aboutOpen}
-            setIsOpen={setAboutOpen}
-            applicationEntity={entity}
-          />
-          <UserInfoDialog
-            isOpen={visibleUserInfo}
-            setIsOpen={setVisibleUserInfo}
-            applicationEntity={entity}
-          />
+      <AboutDialog
+        isOpen={aboutOpen}
+        setIsOpen={setAboutOpen}
+        applicationEntity={entity}
+      />
+      <UserInfoDialog
+        isOpen={visibleUserInfo}
+        setIsOpen={setVisibleUserInfo}
+        applicationEntity={entity}
+      />
       <UIPlugin
         idReference={idReference}
         type={entity.type}

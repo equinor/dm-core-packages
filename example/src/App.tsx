@@ -19,13 +19,13 @@ function App() {
       style={{
         display: 'flex',
         padding: '20px',
-          height: '100vh'
+        height: '100vh',
       }}
     >
       <div
         style={{
           width: '500px',
-            overflow: 'auto'
+          overflow: 'auto',
         }}
       >
         <Typography variant="h3">Examples</Typography>
@@ -41,7 +41,7 @@ function App() {
         style={{
           padding: '20px',
           width: '100%',
-            overflow: 'auto'
+          overflow: 'auto',
         }}
       >
         {selectedType && selectedEntity && (
