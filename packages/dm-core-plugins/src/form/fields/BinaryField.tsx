@@ -15,7 +15,8 @@ const getTarget = (initialValue: any) => {
   const { idReference } = useRegistryContext()
   if (initialValue['address'].includes('blob')) {
     const address = initialValue['address'].replace('blob://', '')
-    return splitAddress(address).dataSource
+    const split = splitAddress(address)
+    return [split.dataSource, split.documentPath]
   } else {
     return [splitAddress(idReference).dataSource, initialValue['address']]
   }
