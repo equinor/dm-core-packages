@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.2...dm-core-v1.3.3) (2023-09-15)
+
+
+### Bug Fixes
+
+* **dialog:** improve layout ([608166e](https://github.com/equinor/dm-core-packages/commit/608166e736a7d934abc8eddc25c9027d97381e32))
+* update types in FilePlugin.tsx ([b076717](https://github.com/equinor/dm-core-packages/commit/b07671748c4a98a8d41f0cad5096b75b2c932c51))
+
 ## [1.3.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.1...dm-core-v1.3.2) (2023-09-01)
 
 
