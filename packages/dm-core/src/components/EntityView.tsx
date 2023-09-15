@@ -5,7 +5,7 @@ import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { useRecipe } from '../hooks'
 import { IUIPlugin } from '../types'
 import { Loading } from './Loading'
-import {Typography} from "@equinor/eds-core-react";
+import { Typography } from '@equinor/eds-core-react'
 
 const Wrapper = styled.div`
   align-self: start;

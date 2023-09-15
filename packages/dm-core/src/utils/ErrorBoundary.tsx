@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import {Typography} from "@equinor/eds-core-react";
+import { Typography } from '@equinor/eds-core-react'
 
 export const ErrorGroup = styled.div`
   display: flex;
@@ -39,7 +39,9 @@ export class ErrorBoundary extends React.Component<
 
   fallBack: (error: Error) => ReactNode = (error: Error) => (
     <ErrorGroup>
-      <Typography variant="h5" color="red">{this.message}</Typography>
+      <Typography variant="h5" color="red">
+        {this.message}
+      </Typography>
       <Message>{error.message}</Message>
     </ErrorGroup>
   )

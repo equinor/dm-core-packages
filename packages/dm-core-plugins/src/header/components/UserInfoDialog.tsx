@@ -1,5 +1,5 @@
 import { Dialog, useDMSS } from '@development-framework/dm-core'
-import {Button, Radio, Typography} from '@equinor/eds-core-react'
+import { Button, Radio, Typography } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'

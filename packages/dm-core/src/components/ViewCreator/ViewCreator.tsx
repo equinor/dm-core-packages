@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget } from './utils'
 import { AxiosResponse } from 'axios'
-import {Typography} from "@equinor/eds-core-react";
+import { Typography } from '@equinor/eds-core-react'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig

@@ -1,4 +1,4 @@
-import {Button, Input, Typography} from '@equinor/eds-core-react'
+import { Button, Input, Typography } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { AccessControlList, AccessLevel } from '../../services'

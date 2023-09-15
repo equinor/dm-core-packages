@@ -10,7 +10,7 @@ import {
   TValidEntity,
   useBlueprint,
 } from '@development-framework/dm-core'
-import {Button, TextField, Typography} from '@equinor/eds-core-react'
+import { Button, TextField, Typography } from '@equinor/eds-core-react'
 
 import React, { ChangeEvent, useState } from 'react'
 

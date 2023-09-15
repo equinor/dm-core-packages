@@ -9,7 +9,7 @@ import {
 } from '@development-framework/dm-core'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import {Typography} from "@equinor/eds-core-react";
+import { Typography } from '@equinor/eds-core-react'
 
 export const JobInputEditPlugin = (props: IUIPlugin) => {
   const { idReference } = props
@@ -39,7 +39,9 @@ export const JobInputEditPlugin = (props: IUIPlugin) => {
           padding: '30px',
         }}
       >
-        <Typography variant="body_short_bold">Can't edit job parameters after job has been started</Typography>
+        <Typography variant="body_short_bold">
+          Can't edit job parameters after job has been started
+        </Typography>
       </div>
     )
   }

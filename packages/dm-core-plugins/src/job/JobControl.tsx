@@ -9,7 +9,7 @@ import {
   TJob,
   useDMSS,
 } from '@development-framework/dm-core'
-import {Button, Label, Progress, Typography} from '@equinor/eds-core-react'
+import { Button, Label, Progress, Typography } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -290,7 +290,12 @@ export const JobControl = (props: {
           marginTop: '25px',
         }}
       >
-        <Typography variant="h4" style={{ alignSelf: 'self-end', marginRight: '10px' }}>Logs:</Typography>
+        <Typography
+          variant="h4"
+          style={{ alignSelf: 'self-end', marginRight: '10px' }}
+        >
+          Logs:
+        </Typography>
         <Button
           style={{ height: '20px' }}
           variant="outlined"

@@ -5,7 +5,7 @@ import {
   useJob,
 } from '@development-framework/dm-core'
 import React, { useState } from 'react'
-import {Button, Chip, Icon, Typography} from '@equinor/eds-core-react'
+import { Button, Chip, Icon, Typography } from '@equinor/eds-core-react'
 import { stop, play } from '@equinor/eds-icons'
 
 export const JobControl = (props: { jobEntityId: string }) => {

@@ -147,7 +147,12 @@ export const ViewSelectorPlugin = (
         />
       )}
       <Content
-        style={{...(internalConfig.asSidebar ? {paddingLeft: '8px'} : {paddingTop: '8px'}), paddingRight: '8px'}}
+        style={{
+          ...(internalConfig.asSidebar
+            ? { paddingLeft: '8px' }
+            : { paddingTop: '8px' }),
+          paddingRight: '8px',
+        }}
         type={type}
         onOpen={addView}
         formData={formData}
