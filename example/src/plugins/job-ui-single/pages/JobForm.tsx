@@ -10,7 +10,7 @@ import {
   TValidEntity,
   useBlueprint,
 } from '@development-framework/dm-core'
-import { Button, TextField } from '@equinor/eds-core-react'
+import {Button, TextField, Typography} from '@equinor/eds-core-react'
 
 import React, { ChangeEvent, useState } from 'react'
 
@@ -74,7 +74,7 @@ export const JobForm = (props: {
           if (attribute.name === 'runner') {
             return (
               <>
-                <p>Pick job runner entity:</p>
+                <Typography>Pick job runner entity:</Typography>
                 <Button onClick={() => setShowJobRunnerModal(true)}>
                   Select
                 </Button>
@@ -85,10 +85,10 @@ export const JobForm = (props: {
                     setFormData({ ...formData, runner: entity })
                   }}
                 />
-                <p>
+                <Typography>
                   {formData?.runner &&
                     'Selected: ' + JSON.stringify(formData.runner)}
-                </p>
+                </Typography>
               </>
             )
           }
@@ -96,12 +96,12 @@ export const JobForm = (props: {
             return (
               <>
                 <div>
-                  <p>Select reference to applicationInput</p>
-                  <p>
+                  <Typography>Select reference to applicationInput</Typography>
+                  <Typography>
                     {formData?.applicationInput &&
                       'Selected: ' +
                         JSON.stringify(formData.applicationInput.address)}
-                  </p>
+                  </Typography>
                 </div>
                 <Button onClick={() => setShowInputModal(true)}>Select</Button>
                 <EntityPickerDialog

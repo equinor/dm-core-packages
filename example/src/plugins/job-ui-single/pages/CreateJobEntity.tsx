@@ -7,7 +7,7 @@ import {
   splitAddress,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import {Button, Typography} from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { JobForm } from './JobForm'
@@ -112,22 +112,20 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
 
   if (createdJobEntity) {
     return (
-      <>
-        <p>Job entity already created at location {jobEntityDestination} </p>
-      </>
+        <Typography>Job entity already created at location {jobEntityDestination} </Typography>
     )
   }
 
   return (
     <div>
       <Stack spacing={1}>
-        <h3>Create new object of type: {EBlueprint.JOB}</h3>
+        <Typography variant="h3">Create new object of type: {EBlueprint.JOB}</Typography>
         {defaultJobEntity ? (
           <>
-            <p>
+            <Typography>
               Using default job entity. Will be saved to destination{' '}
               {jobEntityDestination}
-            </p>
+            </Typography>
             <Button
               onClick={() => {
                 createJobEntity(defaultJobEntity)

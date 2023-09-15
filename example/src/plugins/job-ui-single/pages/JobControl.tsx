@@ -5,7 +5,7 @@ import {
   useJob,
 } from '@development-framework/dm-core'
 import React, { useState } from 'react'
-import { Button, Chip, Icon } from '@equinor/eds-core-react'
+import {Button, Chip, Icon, Typography} from '@equinor/eds-core-react'
 import { stop, play } from '@equinor/eds-icons'
 
 export const JobControl = (props: { jobEntityId: string }) => {
@@ -68,9 +68,9 @@ export const JobControl = (props: { jobEntityId: string }) => {
         Get results
       </button>
 
-      <h4>Logs:</h4>
+      <Typography variant="h4">Logs:</Typography>
       {error ? <pre>{JSON.stringify(error, null, 2)}</pre> : <pre>{logs}</pre>}
-      <h4>Result:</h4>
+      <Typography variant="h4">Result:</Typography>
       {result && (
         <>
           <pre>{result.message}</pre>
