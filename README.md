@@ -2311,3 +2311,16 @@ ref #466 (2023-08-25T11:40:50Z)
     * **DMSS VERSION**: b7362dc 2023-08-29 githu..[bot] chore(master): release 1.3.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.1
     * **JOB VERSION**: 132aa8f 2023-09-05 githu..[bot] chore(main): release 1.0.7 grafted, HEAD -> main, origin/main
+* fix(form): use icons for form buttons 
+
+* fix(form): switch to icon buttons
+
+* refactor: create TooltipButton
+
+* test(form): fix integration test
+
+* fix: add icon to TooltipButton (2023-09-05T08:25:02Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6198623397/1)
+    * **DMSS VERSION**: b7362dc 2023-08-29 githu..[bot] chore(master): release 1.3.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.1
+    * **JOB VERSION**: 132aa8f 2023-09-05 githu..[bot] chore(main): release 1.0.7 grafted, HEAD -> main, origin/main
