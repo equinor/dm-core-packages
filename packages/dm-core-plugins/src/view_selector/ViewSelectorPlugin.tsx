@@ -14,6 +14,7 @@ import { Content } from './Content'
 import { Sidebar } from './Sidebar'
 import { Tabs } from './Tabs'
 import { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
+import styled from "styled-components";
 
 export const ViewSelectorPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
@@ -146,13 +147,15 @@ export const ViewSelectorPlugin = (
           removeView={removeView}
         />
       )}
-      <Content
+      <div
         style={{
           ...(internalConfig.asSidebar
             ? { paddingLeft: '8px' }
             : { paddingTop: '8px' }),
           paddingRight: '8px',
         }}
+      >
+      <Content
         type={type}
         onOpen={addView}
         formData={formData}
@@ -160,6 +163,7 @@ export const ViewSelectorPlugin = (
         items={views}
         setFormData={setFormData}
       />
+      </div>
     </div>
   )
 }
