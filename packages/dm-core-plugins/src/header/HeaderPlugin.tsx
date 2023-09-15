@@ -101,7 +101,7 @@ export default (props: IUIPlugin): JSX.Element => {
 
   return (
     <div>
-      <TopBar style={{marginBottom: '8px'}}>
+      <TopBar style={{ marginBottom: '8px' }}>
         <TopBar.Header>
           <ClickableIcon
             onClick={() => {
