@@ -13,12 +13,13 @@ import {
   useBlueprint,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
+import { Icon, Typography } from '@equinor/eds-core-react'
 import { add, delete_forever, edit } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
+import TooltipButton from '../../common/TooltipButton'
 import { defaultConfig } from '../FormPlugin'
 import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
@@ -68,15 +69,13 @@ const SelectReference = (props: { type: string; namePath: string }) => {
 
   return (
     <>
-      <Tooltip title={`${value ? 'Edit' : 'Add'} and save`}>
-        <Button
-          variant="ghost_icon"
-          onClick={() => setShowModal(true)}
-          aria-label={`${value ? 'Edit' : 'Add'} and save`}
-        >
-          <Icon data={value ? edit : add} />
-        </Button>
-      </Tooltip>
+      <TooltipButton
+        title={`${value ? 'Edit' : 'Add'} and save`}
+        button-variant="ghost_icon"
+        button-onClick={() => setShowModal(true)}
+      >
+        <Icon data={value ? edit : add} />
+      </TooltipButton>
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
         onChange={onChange}
@@ -128,16 +127,13 @@ const AddObject = (props: {
       })
   }
   return (
-    <Tooltip title="Add and save">
-      <Button
-        variant="ghost_icon"
-        data-testid={`add-${namePath}`}
-        onClick={handleAdd}
-        aria-label="Add and save"
-      >
-        <Icon data={add} />
-      </Button>
-    </Tooltip>
+    <TooltipButton
+      title="Add and save"
+      button-variant="ghost_icon"
+      button-onClick={handleAdd}
+    >
+      <Icon data={add} />
+    </TooltipButton>
   )
 }
 
@@ -164,16 +160,13 @@ const RemoveObject = (props: { namePath: string }) => {
       })
   }
   return (
-    <Tooltip title="Remove and save">
-      <Button
-        variant="ghost_icon"
-        data-testid={`remove-${namePath}`}
-        onClick={onClick}
-        aria-label="Remove and save"
-      >
-        <Icon data={delete_forever} />
-      </Button>
-    </Tooltip>
+    <TooltipButton
+      title="Remove and save"
+      button-variant="ghost_icon"
+      button-onClick={onClick}
+    >
+      <Icon data={delete_forever} />
+    </TooltipButton>
   )
 }
 

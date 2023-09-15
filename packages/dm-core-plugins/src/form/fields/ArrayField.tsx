@@ -6,12 +6,13 @@ import {
   getKey,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
+import { Icon, Typography } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
 import { add, delete_forever } from '@equinor/eds-icons'
+import TooltipButton from '../../common/TooltipButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { ButtonRow } from '../styles'
@@ -95,23 +96,20 @@ export default function ArrayField(props: TArrayFieldProps) {
       <ButtonRow>
         <Typography bold={true}>{displayLabel}</Typography>
         {!readOnly && (
-          <Tooltip title="Add">
-            <Button
-              variant="ghost_icon"
-              aria-label="Add"
-              data-testid={`add-${namePath}`}
-              onClick={() => {
-                if (isPrimitiveType(type)) {
-                  const defaultValue = isPrimitive(type) ? ' ' : {}
-                  append(defaultValue)
-                } else {
-                  handleAddObject()
-                }
-              }}
-            >
-              <Icon data={add} />
-            </Button>
-          </Tooltip>
+          <TooltipButton
+            title="Add"
+            button-variant="ghost_icon"
+            button-onClick={() => {
+              if (isPrimitiveType(type)) {
+                const defaultValue = isPrimitive(type) ? ' ' : {}
+                append(defaultValue)
+              } else {
+                handleAddObject()
+              }
+            }}
+          >
+            <Icon data={add} />
+          </TooltipButton>
         )}
       </ButtonRow>
       {fields.map((item: any, index: number) => {
@@ -136,16 +134,13 @@ export default function ArrayField(props: TArrayFieldProps) {
               />
             </Stack>
             {!readOnly && (
-              <Tooltip title="Remove">
-                <Button
-                  variant="ghost_icon"
-                  type="button"
-                  aria-label="Remove"
-                  onClick={() => remove(index)}
-                >
-                  <Icon data={delete_forever} />
-                </Button>
-              </Tooltip>
+              <TooltipButton
+                title="Remove"
+                button-variant="ghost_icon"
+                button-onClick={() => remove(index)}
+              >
+                <Icon data={delete_forever} />
+              </TooltipButton>
             )}
           </Stack>
         )

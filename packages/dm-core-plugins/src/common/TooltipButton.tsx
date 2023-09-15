@@ -1,0 +1,41 @@
+import { Button, Tooltip } from '@equinor/eds-core-react'
+import React from 'react'
+
+type Prefix<T, P extends string> = {
+  [K in keyof T as `${P}-${string & K}`]: T[K]
+}
+type PrefixedButton = Prefix<
+  Omit<React.ComponentProps<typeof Button>, 'aria-label' | 'children'>,
+  'button'
+>
+type PrefixedTooltip = Prefix<
+  Omit<React.ComponentProps<typeof Tooltip>, 'title' | 'children'>,
+  'tooltip'
+>
+type TProps = PrefixedButton &
+  PrefixedTooltip & { title: string; children: React.ReactElement }
+
+const getProps = (prefix: string, dict: { [k: string]: any }) => {
+  return Object.fromEntries(
+    Object.entries(dict)
+      .filter(([k]) => k.startsWith(prefix))
+      .map(([k, v]) => [k.slice(prefix.length), v])
+  )
+}
+
+/**
+ * Tests can access the components through getByRole('button', { name: title })) or getByLabel(title)
+ * @param props Component accepts all props used by EDS Button and EDS Tooltip. However, to avoid interfering with each other, you'll have to prefix the prop with "button-" or "tooltip-". Ex: button-onChange. In addition, it has a mandatory title prop, which is used both as aria-label and tooltip title
+ * @returns An EDS button with EDS tooltip.
+ */
+const TooltipButton = (props: TProps) => {
+  return (
+    <Tooltip title={props.title} {...getProps('tooltip-', props)}>
+      <Button {...getProps('button-', props)} aria-label={props.title}>
+        {props.children}
+      </Button>
+    </Tooltip>
+  )
+}
+
+export default TooltipButton
