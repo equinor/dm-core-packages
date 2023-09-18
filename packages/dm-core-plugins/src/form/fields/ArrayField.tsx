@@ -15,7 +15,7 @@ import { add, delete_forever } from '@equinor/eds-icons'
 import TooltipButton from '../../common/TooltipButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
-import { ButtonRow } from '../styles'
+import { ButtonRow, Indent } from '../styles'
 import { TArrayFieldProps } from '../types'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
@@ -78,21 +78,23 @@ export default function ArrayField(props: TArrayFieldProps) {
 
   if (!isPrimitiveType(type)) {
     return (
-      <Stack spacing={0.5} alignItems="flex-start">
+      <Stack spacing={0.25}>
         <Typography bold={true}>{displayLabel}</Typography>
-        <EntityView
-          recipeName={uiRecipeName}
-          idReference={`${idReference}.${namePath}`}
-          type={type}
-          onOpen={onOpen}
-          dimensions={dimensions}
-        />
+        <Indent>
+          <EntityView
+            recipeName={uiRecipeName}
+            idReference={`${idReference}.${namePath}`}
+            type={type}
+            onOpen={onOpen}
+            dimensions={dimensions}
+          />
+        </Indent>
       </Stack>
     )
   }
 
   return (
-    <Stack spacing={0.5} alignItems="flex-start">
+    <Stack spacing={0.25}>
       <ButtonRow>
         <Typography bold={true}>{displayLabel}</Typography>
         {!readOnly && (
@@ -111,38 +113,40 @@ export default function ArrayField(props: TArrayFieldProps) {
           />
         )}
       </ButtonRow>
-      {fields.map((item: any, index: number) => {
-        return (
-          <Stack
-            key={item.id}
-            direction="row"
-            spacing={0.5}
-            alignSelf="stretch"
-            alignItems="flex-end"
-          >
-            <Stack grow={1}>
-              <AttributeField
-                namePath={`${namePath}.${index}`}
-                attribute={{
-                  attributeType: type,
-                  dimensions: '',
-                  name: item.id,
-                  type: EBlueprint.ATTRIBUTE,
-                }}
-                readOnly={readOnly}
-              />
+      <Indent>
+        {fields.map((item: any, index: number) => {
+          return (
+            <Stack
+              key={item.id}
+              direction="row"
+              spacing={0.5}
+              alignSelf="stretch"
+              alignItems="flex-end"
+            >
+              <Stack grow={1}>
+                <AttributeField
+                  namePath={`${namePath}.${index}`}
+                  attribute={{
+                    attributeType: type,
+                    dimensions: '',
+                    name: item.id,
+                    type: EBlueprint.ATTRIBUTE,
+                  }}
+                  readOnly={readOnly}
+                />
+              </Stack>
+              {!readOnly && (
+                <TooltipButton
+                  title="Remove"
+                  button-variant="ghost_icon"
+                  button-onClick={() => remove(index)}
+                  icon={delete_forever}
+                />
+              )}
             </Stack>
-            {!readOnly && (
-              <TooltipButton
-                title="Remove"
-                button-variant="ghost_icon"
-                button-onClick={() => remove(index)}
-                icon={delete_forever}
-              />
-            )}
-          </Stack>
-        )
-      })}
+          )
+        })}
+      </Indent>
     </Stack>
   )
 }

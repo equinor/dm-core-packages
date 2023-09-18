@@ -18,14 +18,13 @@ import { add, delete_forever, edit } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import styled from 'styled-components'
 import TooltipButton from '../../common/TooltipButton'
 import { defaultConfig } from '../FormPlugin'
 import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
-import { ButtonRow } from '../styles'
+import { ButtonRow, Indent } from '../styles'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
@@ -184,7 +183,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const value = watch(namePath)
   const isDefined = value && Object.keys(value).length > 0
   return (
-    <Stack spacing={0.25} alignItems="flex-start">
+    <Stack spacing={0.25}>
       <ButtonRow>
         <Typography bold={true}>{displayLabel}</Typography>
         {optional &&
@@ -211,12 +210,14 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
         )}
       </ButtonRow>
       {isDefined && !(onOpen && !uiAttribute?.showInline) && (
-        <Inline
-          type={type}
-          namePath={namePath}
-          blueprint={blueprint}
-          uiRecipe={uiRecipe}
-        />
+        <Indent>
+          <Inline
+            type={type}
+            namePath={namePath}
+            blueprint={blueprint}
+            uiRecipe={uiRecipe}
+          />
+        </Indent>
       )}
     </Stack>
   )
@@ -244,20 +245,13 @@ const Inline = (props: {
     )
   }
   return (
-    <Indent>
-      <AttributeList
-        namePath={namePath}
-        config={uiRecipe?.config}
-        blueprint={blueprint}
-      />
-    </Indent>
+    <AttributeList
+      namePath={namePath}
+      config={uiRecipe?.config}
+      blueprint={blueprint}
+    />
   )
 }
-
-const Indent = styled.div`
-  border-left: 1px solid black;
-  padding-left: 1rem;
-`
 
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   const {
@@ -279,7 +273,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
       : undefined
 
   return (
-    <Stack spacing={0.5}>
+    <Stack spacing={0.25}>
       <ButtonRow>
         <Typography bold={true}>{displayLabel}</Typography>
         {!readOnly && <SelectReference type={type} namePath={namePath} />}
@@ -299,12 +293,14 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
         )}
       </ButtonRow>
       {address && !(onOpen && !uiAttribute?.showInline) && (
-        <EntityView
-          idReference={address}
-          type={type}
-          recipeName={uiRecipe?.name}
-          onOpen={onOpen}
-        />
+        <Indent>
+          <EntityView
+            idReference={address}
+            type={type}
+            recipeName={uiRecipe?.name}
+            onOpen={onOpen}
+          />
+        </Indent>
       )}
     </Stack>
   )
