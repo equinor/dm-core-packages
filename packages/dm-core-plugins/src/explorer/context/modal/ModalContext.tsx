@@ -2,6 +2,7 @@
 
 import React from 'react'
 import styled from 'styled-components'
+import { Typography } from '@equinor/eds-core-react'
 
 /*
  * This component is from https://javascript.plainenglish.io/architecting-and-making-a-modal-with-react-75bf652ccc70
@@ -65,7 +66,7 @@ const ModalInner = ({
   return (
     <>
       <ModalHeader>
-        <h2>{data.dialog.title}</h2>
+        <Typography variant="h2">{data.dialog.title}</Typography>
       </ModalHeader>
       <ModalContent {...data.props} />
     </>

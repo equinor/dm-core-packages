@@ -7,7 +7,7 @@ import {
   useDocument,
   useUiPlugins,
 } from '@development-framework/dm-core'
-import { Icon, Menu, TopBar } from '@equinor/eds-core-react'
+import { Icon, Menu, TopBar, Typography } from '@equinor/eds-core-react'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -21,7 +21,6 @@ const Icons = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
-
   > * {
     margin-left: 40px;
   }
@@ -114,6 +113,7 @@ export default (props: IUIPlugin): JSX.Element => {
           display: 'flex',
           justifyItems: 'center',
           justifyContent: 'space-between',
+          marginBottom: '8px'
         }}
       >
         <TopBar.Header style={{ position: 'relative' }}>
