@@ -5,6 +5,7 @@ import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { useRecipe } from '../hooks'
 import { IUIPlugin } from '../types'
 import { Loading } from './Loading'
+import { Typography } from '@equinor/eds-core-react'
 
 const Wrapper = styled.div`
   align-self: start;
@@ -37,10 +38,10 @@ export const EntityView = (props: IEntityView): JSX.Element => {
   if (error)
     return (
       <ErrorGroup>
-        <p>{`Failed to find UiRecipe for type "${
+        <Typography>{`Failed to find UiRecipe for type "${
           type || '(unknown type)'
-        }"`}</p>
-        <p>{JSON.stringify(error)}</p>
+        }"`}</Typography>
+        <pre>{JSON.stringify(error)}</pre>
       </ErrorGroup>
     )
 

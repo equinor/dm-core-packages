@@ -20,10 +20,11 @@ export const Content = (props: {
   setFormData: (v: TGenericObject) => void
   onOpen: TOnOpen
   formData: TGenericObject
+  style?: Record<string, string | number>
 }): JSX.Element => {
   const { selectedView, items, setFormData, formData, onOpen } = props
   return (
-    <div style={{ width: '100%' }}>
+    <div style={props.style}>
       {items.map((config: TItemData) => (
         <HidableWrapper
           key={config.viewId}
