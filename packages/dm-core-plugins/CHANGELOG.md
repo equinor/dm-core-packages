@@ -12,6 +12,29 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.3.0 to ^1.3.1
 
+## [1.4.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.3.2...dm-core-plugins-v1.4.0) (2023-09-15)
+
+
+### Features
+
+* view only mode for form plugin ([412ea32](https://github.com/equinor/dm-core-packages/commit/412ea3263c9ff45e1b9ddc7e437a4c975b110838))
+
+
+### Bug Fixes
+
+* **dialog:** improve layout ([608166e](https://github.com/equinor/dm-core-packages/commit/608166e736a7d934abc8eddc25c9027d97381e32))
+* disables all edit form buttons when in readOnly mode ([0c702de](https://github.com/equinor/dm-core-packages/commit/0c702de3a756be6170406bcd99501dfa103190a0))
+* **form:** ObjectField use default value if defined ([c72d62a](https://github.com/equinor/dm-core-packages/commit/c72d62a0ef967051c2fa297d839bf57a0df9b28b))
+* **form:** use icons for form buttons  ([56bcd79](https://github.com/equinor/dm-core-packages/commit/56bcd79226426e28ae509d8b239621e0b560446b))
+* update types in FilePlugin.tsx ([b076717](https://github.com/equinor/dm-core-packages/commit/b07671748c4a98a8d41f0cad5096b75b2c932c51))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.3.2 to ^1.3.3
+
 ## [1.3.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.3.1...dm-core-plugins-v1.3.2) (2023-09-01)
 
 
