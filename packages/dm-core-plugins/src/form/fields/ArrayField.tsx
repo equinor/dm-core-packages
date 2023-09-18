@@ -15,7 +15,7 @@ import { add, delete_forever } from '@equinor/eds-icons'
 import TooltipButton from '../../common/TooltipButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
-import { ButtonRow, Indent } from '../styles'
+import { Fieldset, Legend } from '../styles'
 import { TArrayFieldProps } from '../types'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
@@ -62,40 +62,42 @@ export default function ArrayField(props: TArrayFieldProps) {
 
   if (onOpen && !uiAttribute?.showInline && !isPrimitiveType(type)) {
     return (
-      <ButtonRow>
-        <Typography bold={true}>{displayLabel}</Typography>
-        <OpenObjectButton
-          viewId={namePath}
-          view={{
-            type: 'ReferenceViewConfig',
-            scope: namePath,
-            recipe: uiRecipeName,
-          }}
-        />
-      </ButtonRow>
+      <Fieldset>
+        <Legend>
+          <Typography bold={true}>{displayLabel}</Typography>
+          <OpenObjectButton
+            viewId={namePath}
+            view={{
+              type: 'ReferenceViewConfig',
+              scope: namePath,
+              recipe: uiRecipeName,
+            }}
+          />
+        </Legend>
+      </Fieldset>
     )
   }
 
   if (!isPrimitiveType(type)) {
     return (
-      <Stack spacing={0.25}>
-        <Typography bold={true}>{displayLabel}</Typography>
-        <Indent>
-          <EntityView
-            recipeName={uiRecipeName}
-            idReference={`${idReference}.${namePath}`}
-            type={type}
-            onOpen={onOpen}
-            dimensions={dimensions}
-          />
-        </Indent>
-      </Stack>
+      <Fieldset>
+        <Legend>
+          <Typography bold={true}>{displayLabel}</Typography>
+        </Legend>
+        <EntityView
+          recipeName={uiRecipeName}
+          idReference={`${idReference}.${namePath}`}
+          type={type}
+          onOpen={onOpen}
+          dimensions={dimensions}
+        />
+      </Fieldset>
     )
   }
 
   return (
-    <Stack spacing={0.25}>
-      <ButtonRow>
+    <Fieldset>
+      <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
         {!readOnly && (
           <TooltipButton
@@ -112,41 +114,39 @@ export default function ArrayField(props: TArrayFieldProps) {
             icon={add}
           />
         )}
-      </ButtonRow>
-      <Indent>
-        {fields.map((item: any, index: number) => {
-          return (
-            <Stack
-              key={item.id}
-              direction="row"
-              spacing={0.5}
-              alignSelf="stretch"
-              alignItems="flex-end"
-            >
-              <Stack grow={1}>
-                <AttributeField
-                  namePath={`${namePath}.${index}`}
-                  attribute={{
-                    attributeType: type,
-                    dimensions: '',
-                    name: item.id,
-                    type: EBlueprint.ATTRIBUTE,
-                  }}
-                  readOnly={readOnly}
-                />
-              </Stack>
-              {!readOnly && (
-                <TooltipButton
-                  title="Remove"
-                  button-variant="ghost_icon"
-                  button-onClick={() => remove(index)}
-                  icon={delete_forever}
-                />
-              )}
+      </Legend>
+      {fields.map((item: any, index: number) => {
+        return (
+          <Stack
+            key={item.id}
+            direction="row"
+            spacing={0.5}
+            alignSelf="stretch"
+            alignItems="flex-end"
+          >
+            <Stack grow={1}>
+              <AttributeField
+                namePath={`${namePath}.${index}`}
+                attribute={{
+                  attributeType: type,
+                  dimensions: '',
+                  name: item.id,
+                  type: EBlueprint.ATTRIBUTE,
+                }}
+                readOnly={readOnly}
+              />
             </Stack>
-          )
-        })}
-      </Indent>
-    </Stack>
+            {!readOnly && (
+              <TooltipButton
+                title="Remove"
+                button-variant="ghost_icon"
+                button-onClick={() => remove(index)}
+                icon={delete_forever}
+              />
+            )}
+          </Stack>
+        )
+      })}
+    </Fieldset>
   )
 }

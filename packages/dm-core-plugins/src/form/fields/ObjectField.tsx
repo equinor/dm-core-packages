@@ -4,7 +4,6 @@ import {
   EntityView,
   ErrorResponse,
   Loading,
-  Stack,
   TBlueprint,
   TLinkReference,
   getKey,
@@ -24,7 +23,7 @@ import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
-import { ButtonRow, Indent } from '../styles'
+import { Fieldset, Legend } from '../styles'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
@@ -183,8 +182,8 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
   const value = watch(namePath)
   const isDefined = value && Object.keys(value).length > 0
   return (
-    <Stack spacing={0.25}>
-      <ButtonRow>
+    <Fieldset>
+      <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
         {optional &&
           !readOnly &&
@@ -208,18 +207,16 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
             }}
           />
         )}
-      </ButtonRow>
+      </Legend>
       {isDefined && !(onOpen && !uiAttribute?.showInline) && (
-        <Indent>
-          <Inline
-            type={type}
-            namePath={namePath}
-            blueprint={blueprint}
-            uiRecipe={uiRecipe}
-          />
-        </Indent>
+        <Inline
+          type={type}
+          namePath={namePath}
+          blueprint={blueprint}
+          uiRecipe={uiRecipe}
+        />
       )}
-    </Stack>
+    </Fieldset>
   )
 }
 
@@ -273,8 +270,8 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
       : undefined
 
   return (
-    <Stack spacing={0.25}>
-      <ButtonRow>
+    <Fieldset>
+      <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
         {!readOnly && <SelectReference type={type} namePath={namePath} />}
         {optional && address && !readOnly && (
@@ -291,18 +288,16 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
             idReference={address}
           />
         )}
-      </ButtonRow>
+      </Legend>
       {address && !(onOpen && !uiAttribute?.showInline) && (
-        <Indent>
-          <EntityView
-            idReference={address}
-            type={type}
-            recipeName={uiRecipe?.name}
-            onOpen={onOpen}
-          />
-        </Indent>
+        <EntityView
+          idReference={address}
+          type={type}
+          recipeName={uiRecipe?.name}
+          onOpen={onOpen}
+        />
       )}
-    </Stack>
+    </Fieldset>
   )
 }
 
