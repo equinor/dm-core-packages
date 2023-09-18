@@ -4,7 +4,7 @@ import {
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
-import { Button, Icon } from '@equinor/eds-core-react'
+import { Button } from '@equinor/eds-core-react'
 import hljs from 'highlight.js'
 import yaml from 'highlight.js/lib/languages/yaml'
 import jsyaml from 'js-yaml'
