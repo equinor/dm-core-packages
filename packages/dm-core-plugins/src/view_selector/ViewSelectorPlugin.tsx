@@ -14,7 +14,6 @@ import { Content } from './Content'
 import { Sidebar } from './Sidebar'
 import { Tabs } from './Tabs'
 import { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
-import styled from "styled-components";
 
 export const ViewSelectorPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
