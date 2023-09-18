@@ -7,7 +7,7 @@ import {
   useDocument,
   useUiPlugins,
 } from '@development-framework/dm-core'
-import { Icon, TopBar } from '@equinor/eds-core-react'
+import { Icon, TopBar, Typography } from '@equinor/eds-core-react'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -101,7 +101,7 @@ export default (props: IUIPlugin): JSX.Element => {
 
   return (
     <div>
-      <TopBar>
+      <TopBar style={{ marginBottom: '8px' }}>
         <TopBar.Header>
           <ClickableIcon
             onClick={() => {
@@ -110,7 +110,9 @@ export default (props: IUIPlugin): JSX.Element => {
           >
             <Icon data={grid_on} size={32} />
           </ClickableIcon>
-          <h4 style={{ paddingTop: 9, paddingLeft: 10 }}>{entity.label}</h4>
+          <Typography variant="h4" style={{ paddingLeft: 10 }}>
+            {entity.label}
+          </Typography>
           {appSelectorOpen && (
             <RecipeSelector
               selectableUiRecipeNames={

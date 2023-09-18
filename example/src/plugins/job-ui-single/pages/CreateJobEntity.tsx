@@ -107,22 +107,6 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
     )
   }
 
-  // Not sure if we need to show a message about existing jobs, should suffice with the proper UI controls?
-  // if (createdJobEntity) {
-  //   return (
-  //     <Card variant="info" style={{ marginBottom: '1rem' }}>
-  //       <Card.Header>
-  //         <Typography variant="h6">Existing job</Typography>
-  //       </Card.Header>
-  //       <Card.Content>
-  //         <Typography>
-  //           A job with this ID already exists at location{' '}
-  //           <span style={{ fontWeight: 500 }}>{jobEntityDestination}</span>
-  //         </Typography>
-  //       </Card.Content>
-  //     </Card>
-  //   )
-  // }
   if (createdJobEntity) return <></>
 
   return (

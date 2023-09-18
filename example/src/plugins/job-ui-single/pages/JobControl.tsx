@@ -8,6 +8,8 @@ import { Button, Card, Icon } from '@equinor/eds-core-react'
 import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { JobControlButton } from './JobControlButton'
+import { Button, Chip, Icon, Typography } from '@equinor/eds-core-react'
+import { stop, play } from '@equinor/eds-icons'
 
 const JobButtonWrapper = styled.div`
   display: flex;

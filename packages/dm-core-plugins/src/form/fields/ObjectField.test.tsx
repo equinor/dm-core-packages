@@ -138,6 +138,6 @@ test('should handle optional', async () => {
     // Show optional in label
     expect(screen.getByText('nested (optional)')).toBeDefined()
     // Add button
-    expect(screen.getByTestId('add-nested')).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Add and save' })).toBeDefined()
   })
 })
