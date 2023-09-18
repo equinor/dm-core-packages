@@ -18,10 +18,9 @@ test('run Create job', async ({ page }) => {
 
   await expect(page.getByText('The job has not been started')).toBeVisible()
   await page.getByRole('button', { name: 'Start' }).click()
-  await expect(page.getByText('Progress tracking not implemented')).toBeVisible()
-
-  // await page.getByRole('button', { name: 'Get results' }).click()
-  // await expect(page.getByText('12345')).toBeVisible()
+  await expect(
+    page.getByText('Progress tracking not implemented')
+  ).toBeVisible()
 
   await page.getByRole('button', { name: 'Close case1' }).click()
   await page.getByRole('button', { name: 'Open' }).click()
