@@ -4,12 +4,10 @@ import {
   useJob,
 } from '@development-framework/dm-core'
 import React, { useState } from 'react'
-import { Button, Card, Icon } from '@equinor/eds-core-react'
+import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { JobControlButton } from './JobControlButton'
-import { Button, Chip, Icon, Typography } from '@equinor/eds-core-react'
-import { stop, play } from '@equinor/eds-icons'
 
 const JobButtonWrapper = styled.div`
   display: flex;
@@ -62,7 +60,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
       )}
       {(error || logs) && (
         <>
-          <h4>Logs:</h4>
+          <Typography variant="h4">Logs:</Typography>
           {error ? (
             <pre>{JSON.stringify(error, null, 2)}</pre>
           ) : (
@@ -73,7 +71,7 @@ export const JobControl = (props: { jobEntityId: string }) => {
 
       {result && (
         <>
-          <h4>Result:</h4>
+          <Typography variant="h4">Result:</Typography>
           <pre>{result.message}</pre>
           <pre>{result.result}</pre>
         </>
