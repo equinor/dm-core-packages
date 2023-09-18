@@ -1,4 +1,4 @@
-import { Button, Input } from '@equinor/eds-core-react'
+import { Button, Input, Typography } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { AccessControlList, AccessLevel } from '../../services'
@@ -58,7 +58,7 @@ export const ACLUserRolesPanel = ({
   return (
     <>
       {aclKey === 'users' && (
-        <p style={{ fontStyle: 'italic' }}>Use short name</p>
+        <Typography variant="body_short_italic">Use short name</Typography>
       )}
       <CenteredRow>
         <Input

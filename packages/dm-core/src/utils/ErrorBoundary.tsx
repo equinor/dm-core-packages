@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
+import { Typography } from '@equinor/eds-core-react'
 
 export const ErrorGroup = styled.div`
   display: flex;
@@ -20,12 +21,6 @@ export class ErrorBoundary extends React.Component<
   any,
   { hasError: boolean; error: Error }
 > {
-  fallBack: (error: Error) => ReactNode = (error: Error) => (
-    <ErrorGroup>
-      <h4 style={{ color: 'red' }}>{this.message}</h4>
-      <Message>{error.message}</Message>
-    </ErrorGroup>
-  )
   message = 'unknown'
 
   constructor(props: { message: string }) {
@@ -41,6 +36,15 @@ export class ErrorBoundary extends React.Component<
       error: error,
     }
   }
+
+  fallBack: (error: Error) => ReactNode = (error: Error) => (
+    <ErrorGroup>
+      <Typography variant="h5" color="red">
+        {this.message}
+      </Typography>
+      <Message>{error.message}</Message>
+    </ErrorGroup>
+  )
 
   render() {
     if (this.state.hasError) {
