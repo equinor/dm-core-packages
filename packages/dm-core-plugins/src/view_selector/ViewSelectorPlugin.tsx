@@ -9,16 +9,16 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
-import { Content } from './Content'
-import { Sidebar } from './Sidebar'
-import { Tabs } from './Tabs'
-import { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
+import {useEffect, useState} from 'react'
+import {Content} from './Content'
+import {Sidebar} from './Sidebar'
+import {Tabs} from './Tabs'
+import {TItemData, TViewSelectorConfig, TViewSelectorItem} from './types'
 
 export const ViewSelectorPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
 ): JSX.Element => {
-  const { idReference, config, type } = props
+  const {idReference, config, type} = props
   const internalConfig: TViewSelectorConfig = {
     childTabsOnRender: true,
     asSidebar: false,
@@ -63,7 +63,7 @@ export const ViewSelectorPlugin = (
 
   useEffect(() => {
     if (!entity) return
-    setFormData({ ...entity })
+    setFormData({...entity})
 
     const newViews: TItemData[] = []
     if (internalConfig.items && internalConfig.items.length) {
@@ -121,7 +121,7 @@ export const ViewSelectorPlugin = (
     throw new Error(JSON.stringify(error, null, 2))
   }
   if (isLoading || !views.length || !selectedView) {
-    return <Loading />
+    return <Loading/>
   }
 
   return (
@@ -149,16 +149,16 @@ export const ViewSelectorPlugin = (
       <div
         style={{
           ...(internalConfig.asSidebar
-            ? { paddingLeft: '8px' }
-            : { paddingTop: '8px' }),
+            ? {paddingLeft: '8px'}
+            : {paddingTop: '8px'}),
           paddingRight: '8px',
         }}
       >
         <Content
           style={{
             ...(internalConfig.asSidebar
-              ? { paddingLeft: '8px' }
-              : { paddingTop: '8px' }),
+              ? {paddingLeft: '8px'}
+              : {paddingTop: '8px'}),
             paddingRight: '8px',
           }}
           type={type}
