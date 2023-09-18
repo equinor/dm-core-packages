@@ -171,6 +171,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         <React.Fragment key={item?.key}>
           <Stack
             direction="row"
+            role="row"
             spacing={1}
             justifyContent="space-between"
             alignItems="center"
