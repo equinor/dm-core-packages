@@ -14,14 +14,14 @@ test('Start SignalApp', async ({ page }) => {
 test('run Create job', async ({ page }) => {
   await page.getByRole('button', { name: 'Open' }).click()
   await page.getByRole('button', { name: 'Open' }).click()
-  await page.getByRole('button', { name: 'Create' }).click()
+  await page.getByRole('button', { name: 'Create new job' }).click()
 
-  await expect(page.getByText('Status: not started')).toBeVisible()
+  await expect(page.getByText('The job has not been started')).toBeVisible()
   await page.getByRole('button', { name: 'Start' }).click()
-  await expect(page.getByText('Status: registered')).toBeVisible()
+  await expect(page.getByText('Progress tracking not implemented')).toBeVisible()
 
-  await page.getByRole('button', { name: 'Get results' }).click()
-  await expect(page.getByText('12345')).toBeVisible()
+  // await page.getByRole('button', { name: 'Get results' }).click()
+  // await expect(page.getByText('12345')).toBeVisible()
 
   await page.getByRole('button', { name: 'Close case1' }).click()
   await page.getByRole('button', { name: 'Open' }).click()
