@@ -7,20 +7,21 @@ import {
   useDocument,
   useUiPlugins,
 } from '@development-framework/dm-core'
-import { Icon, Menu, TopBar, Typography } from '@equinor/eds-core-react'
-import React, { useEffect, useState } from 'react'
+import {Icon, Menu, TopBar} from '@equinor/eds-core-react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 
-import { account_circle, apps, info_circle } from '@equinor/eds-icons'
+import {account_circle, apps, info_circle} from '@equinor/eds-icons'
 
-import { AboutDialog } from './components/AboutDialog'
-import { UserInfoDialog } from './components/UserInfoDialog'
-import { TApplication } from './types'
+import {AboutDialog} from './components/AboutDialog'
+import {UserInfoDialog} from './components/UserInfoDialog'
+import {TApplication} from './types'
 
 const Icons = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
+
   > * {
     margin-left: 40px;
   }
@@ -30,6 +31,7 @@ const ClickableIcon = styled.button`
   appearance: none;
   border: none;
   background-color: transparent;
+
   &:hover {
     color: gray;
     cursor: pointer;
@@ -54,18 +56,18 @@ type TRecipeConfigAndPlugin = {
 }
 
 export default (props: IUIPlugin): JSX.Element => {
-  const { idReference, config: passedConfig, type } = props
+  const {idReference, config: passedConfig, type} = props
   const config: THeaderPluginConfig = {
     ...defaultHeaderPluginConfig,
     ...passedConfig,
   }
   const [entity, isApplicationLoading] = useDocument<TApplication>(idReference)
-  const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
+  const {uiRecipes, isLoading: isBlueprintLoading} = useBlueprint(type)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-  const { getUiPlugin } = useUiPlugins()
+  const {getUiPlugin} = useUiPlugins()
 
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
     component: () => <div></div>,
@@ -89,8 +91,8 @@ export default (props: IUIPlugin): JSX.Element => {
       const defaultRecipe: TUiRecipe =
         config.uiRecipesList.length > 0
           ? uiRecipes.find(
-              (recipe: TUiRecipe) => recipe.name === config.uiRecipesList[0]
-            )
+            (recipe: TUiRecipe) => recipe.name === config.uiRecipesList[0]
+          )
           : uiRecipes[0]
       setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))
     }
@@ -98,10 +100,10 @@ export default (props: IUIPlugin): JSX.Element => {
 
   const UIPlugin: (props: IUIPlugin) => JSX.Element = selectedRecipe.component
   if (isApplicationLoading || !entity || isBlueprintLoading) {
-    return <Loading />
+    return <Loading/>
   }
 
-  const recipeNames =
+  const recipeNames: string[] =
     config.uiRecipesList.length > 0
       ? config.uiRecipesList
       : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
@@ -113,20 +115,20 @@ export default (props: IUIPlugin): JSX.Element => {
           display: 'flex',
           justifyItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '8px'
+          marginBottom: '8px',
         }}
       >
-        <TopBar.Header style={{ position: 'relative' }}>
+        <TopBar.Header style={{position: 'relative'}}>
           <ClickableIcon
             ref={setAnchorEl}
             onClick={() => {
               setAppSelectorOpen(!appSelectorOpen)
             }}
           >
-            <Icon data={apps} size={32} />
+            <Icon data={apps} size={32}/>
           </ClickableIcon>
           <Menu open={appSelectorOpen} anchorEl={anchorEl}>
-            {recipeNames.map((recipe, index) => (
+            {recipeNames.map((recipe, index: number) => (
               <Menu.Item
                 key={index}
                 onClick={() => {
@@ -138,7 +140,7 @@ export default (props: IUIPlugin): JSX.Element => {
               </Menu.Item>
             ))}
           </Menu>
-          <h4 style={{ paddingLeft: 10 }}>{entity.label}</h4>
+          <h4 style={{paddingLeft: 10}}>{entity.label}</h4>
         </TopBar.Header>
         <TopBar.Actions>
           <Icons>
@@ -146,13 +148,13 @@ export default (props: IUIPlugin): JSX.Element => {
               onClick={() => setAboutOpen(true)}
               hidden={config.hideAbout}
             >
-              <Icon data={info_circle} size={24} title="About" />
+              <Icon data={info_circle} size={24} title="About"/>
             </ClickableIcon>
             <ClickableIcon
               onClick={() => setVisibleUserInfo(true)}
               hidden={config.hideUserInfo}
             >
-              <Icon data={account_circle} size={24} title="User" />
+              <Icon data={account_circle} size={24} title="User"/>
             </ClickableIcon>
           </Icons>
         </TopBar.Actions>
