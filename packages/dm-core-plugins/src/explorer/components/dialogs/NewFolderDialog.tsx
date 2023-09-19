@@ -1,10 +1,12 @@
 import {
   Dialog,
+  ErrorResponse,
   INPUT_FIELD_WIDTH,
   TreeNode,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button, Input, Label } from '@equinor/eds-core-react'
+import { AxiosError } from 'axios'
 import React from 'react'
 import { toast } from 'react-toastify'
 import { EDialog } from '../../types'
@@ -12,7 +14,6 @@ import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,
 } from '../context-menu/NodeRightClickMenu'
-import { NewFolderAction } from '../context-menu/utils/contextMenuActions'
 
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
@@ -24,6 +25,28 @@ type TProps = {
 const NewFolderDialog = (props: TProps) => {
   const { setDialogId, formData, setFormData, node } = props
   const dmssAPI = useDMSS()
+
+  const handleCreate = (folderName: string) => {
+    const newFolder = {
+      name: folderName,
+      type: 'dmss://system/SIMOS/Package',
+      isRoot: false,
+      content: [],
+    }
+    const address = `${node.nodeId}.content`
+    dmssAPI
+      .documentAdd({
+        address: address,
+        document: JSON.stringify(newFolder),
+        updateUncontained: true,
+      })
+      .then(() => node.expand())
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        toast.error(error.response?.data.message)
+      })
+  }
+
   return (
     <Dialog
       isDismissable
@@ -53,7 +76,7 @@ const NewFolderDialog = (props: TProps) => {
           disabled={formData === undefined || formData === ''}
           onClick={() => {
             if (formData) {
-              NewFolderAction(node, formData, dmssAPI)
+              handleCreate(formData)
               setDialogId(undefined)
               setFormData('')
             } else {

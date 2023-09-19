@@ -1,10 +1,12 @@
 import {
   Dialog,
+  ErrorResponse,
   INPUT_FIELD_WIDTH,
   TreeNode,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button, Input, Label } from '@equinor/eds-core-react'
+import { AxiosError } from 'axios'
 import React from 'react'
 import { toast } from 'react-toastify'
 import { EDialog } from '../../types'
@@ -12,7 +14,6 @@ import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,
 } from '../context-menu/NodeRightClickMenu'
-import { NewRootPackageAction } from '../context-menu/utils/contextMenuActions'
 
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
@@ -24,6 +25,30 @@ type TProps = {
 const NewRootPackageDialog = (props: TProps) => {
   const { setDialogId, formData, setFormData, node } = props
   const dmssAPI = useDMSS()
+
+  const NewRootPackageAction = (packageName: string) => {
+    const newPackage = {
+      name: packageName,
+      type: 'dmss://system/SIMOS/Package',
+      isRoot: true,
+      content: [],
+    }
+    const ref: string = node.dataSource
+    dmssAPI
+      .documentAdd({
+        address: ref,
+        document: JSON.stringify(newPackage),
+        updateUncontained: true,
+      })
+      .then(() => {
+        node.expand()
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        toast.error('Failed to create new root package')
+      })
+  }
+
   return (
     <Dialog
       open={true}
@@ -53,7 +78,7 @@ const NewRootPackageDialog = (props: TProps) => {
           disabled={formData === undefined || formData === ''}
           onClick={() => {
             if (formData) {
-              NewRootPackageAction(node, formData, dmssAPI)
+              NewRootPackageAction(formData)
               setDialogId(undefined)
               setFormData('')
             } else {
