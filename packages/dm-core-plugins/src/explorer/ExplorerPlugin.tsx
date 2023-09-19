@@ -1,13 +1,12 @@
-import React, { useContext, useState } from 'react'
-import styled from 'styled-components'
 import {
+  EntityView,
   FSTreeContext,
   TreeView,
-  EntityView,
 } from '@development-framework/dm-core'
-import { NodeRightClickMenu } from './components/context-menu/ContextMenu'
-import './style.css'
 import { Progress } from '@equinor/eds-core-react'
+import React, { useContext, useState } from 'react'
+import styled from 'styled-components'
+import { NodeRightClickMenu } from './components/context-menu/ContextMenu'
 
 export const TreeWrapper = styled.div`
   width: 25%;
