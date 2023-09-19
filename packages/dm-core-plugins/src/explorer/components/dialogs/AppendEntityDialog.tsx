@@ -1,20 +1,19 @@
 import { Dialog, ErrorResponse, TreeNode } from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { EDialog } from '../../types'
 import { STANDARD_DIALOG_WIDTH } from '../context-menu/NodeRightClickMenu'
 
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
-  loading: boolean
-  setLoading: (isLoading: boolean) => void
   node: TreeNode
 }
 
 const AppendEntityDialog = (props: TProps) => {
-  const { setDialogId, loading, setLoading, node } = props
+  const { setDialogId, node } = props
+  const [loading, setLoading] = useState<boolean>(false)
   return (
     <Dialog
       open={true}

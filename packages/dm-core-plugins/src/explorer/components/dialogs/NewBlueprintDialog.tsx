@@ -7,7 +7,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { EDialog } from '../../types'
 import {
@@ -17,16 +17,13 @@ import {
 
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
-  formData: any
-  setFormData: (id: any) => void
-  loading: boolean
-  setLoading: (isLoading: boolean) => void
   node: TreeNode
 }
 
 const NewBlueprintDialog = (props: TProps) => {
-  const { setDialogId, formData, setFormData, loading, setLoading, node } =
-    props
+  const { setDialogId, node } = props
+  const [formData, setFormData] = useState<any>('')
+  const [loading, setLoading] = useState<boolean>(false)
   return (
     <Dialog
       open={true}

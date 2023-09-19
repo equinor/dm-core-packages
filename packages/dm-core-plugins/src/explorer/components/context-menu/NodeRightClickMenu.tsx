@@ -16,8 +16,6 @@ export const STANDARD_DIALOG_HEIGHT = '300px'
 const NodeRightClickMenu = (props: TNodeWrapperProps) => {
   const { node, children } = props
   const [dialogId, setDialogId] = useState<EDialog | undefined>()
-  const [formData, setFormData] = useState<any>('')
-  const [loading, setLoading] = useState<boolean>(false)
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
@@ -45,61 +43,27 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
       </Menu>
 
       {dialogId === EDialog.NewFolder && (
-        <NewFolderDialog
-          setDialogId={setDialogId}
-          formData={formData}
-          setFormData={setFormData}
-          node={node}
-        />
+        <NewFolderDialog setDialogId={setDialogId} node={node} />
       )}
 
       {dialogId === EDialog.Delete && (
-        <DeleteDialog
-          setDialogId={setDialogId}
-          loading={loading}
-          setLoading={setLoading}
-          node={node}
-        />
+        <DeleteDialog setDialogId={setDialogId} node={node} />
       )}
 
       {dialogId === EDialog.NewRootPackage && (
-        <NewRootPackageDialog
-          setDialogId={setDialogId}
-          formData={formData}
-          setFormData={setFormData}
-          node={node}
-        />
+        <NewRootPackageDialog setDialogId={setDialogId} node={node} />
       )}
 
       {dialogId === EDialog.AppendEntity && (
-        <AppendEntityDialog
-          setDialogId={setDialogId}
-          loading={loading}
-          setLoading={setLoading}
-          node={node}
-        />
+        <AppendEntityDialog setDialogId={setDialogId} node={node} />
       )}
 
       {dialogId === EDialog.NewEntity && (
-        <NewEntityDialog
-          setDialogId={setDialogId}
-          formData={formData}
-          setFormData={setFormData}
-          loading={loading}
-          setLoading={setLoading}
-          node={node}
-        />
+        <NewEntityDialog setDialogId={setDialogId} node={node} />
       )}
 
       {dialogId === EDialog.NewBlueprint && (
-        <NewBlueprintDialog
-          setDialogId={setDialogId}
-          formData={formData}
-          setFormData={setFormData}
-          loading={loading}
-          setLoading={setLoading}
-          node={node}
-        />
+        <NewBlueprintDialog setDialogId={setDialogId} node={node} />
       )}
     </>
   )
