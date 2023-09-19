@@ -9,7 +9,7 @@ import hljs from 'highlight.js'
 import React from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
-import { stringify } from 'yaml'
+import YAML from 'yaml'
 
 const CodeContainer = styled.pre`
   background-color: #193549;
@@ -40,28 +40,22 @@ const ButtonRow = styled.div`
 
 const YamlView = (props: { document: TGenericObject }) => {
   const { document } = props
-  const asYAML: string = stringify(document)
+  const asYAML: string = YAML.stringify(document)
+  const asJSON: string = JSON.stringify(document)
   const highlighted = hljs.highlight(asYAML, { language: 'yaml' })
+
+  const onClick = (text: string) => {
+    navigator.clipboard.writeText(text)
+    toast.success('Copied!')
+  }
 
   return (
     <div>
       <ButtonRow>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            navigator.clipboard.writeText(asYAML)
-            toast.success('Copied!')
-          }}
-        >
+        <Button variant="outlined" onClick={() => onClick(asYAML)}>
           Copy as YAML
         </Button>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            navigator.clipboard.writeText(JSON.stringify(document))
-            toast.success('Copied!')
-          }}
-        >
+        <Button variant="outlined" onClick={() => onClick(asJSON)}>
           Copy as JSON
         </Button>
       </ButtonRow>
