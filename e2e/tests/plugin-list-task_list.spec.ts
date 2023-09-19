@@ -71,11 +71,10 @@ test('Delete a task', async ({ page }) => {
   await expect(
     page.getByRole('paragraph').getByText('Tax return')
   ).toBeVisible()
+
   await page
-    .locator('div')
-    .filter({
-      hasText: /^Open itemTax returnMaria JohnsonMove upMove DownDelete$/,
-    })
+    .getByRole('row')
+    .filter({ has: page.getByText('Tax return', { exact: true }) })
     .getByRole('button', { name: 'Delete' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
@@ -88,118 +87,92 @@ test('Delete a task', async ({ page }) => {
 test('Move task up and down', async ({ page }) => {
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move down' })
   ).toBeDisabled()
+
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move up' })
   ).toBeEnabled()
+
   await page
-    .locator('div')
-    .filter({
-      hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-    })
+    .getByRole('row')
+    .filter({ has: page.getByText('Paint the living room', { exact: true }) })
     .getByRole('button', { name: 'Move up' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move down' })
   ).toBeEnabled()
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move up' })
   ).toBeEnabled()
   await page
-    .locator('div')
-    .filter({
-      hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-    })
+    .getByRole('row')
+    .filter({ has: page.getByText('Paint the living room', { exact: true }) })
     .getByRole('button', { name: 'Move up' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move down' })
   ).toBeEnabled()
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move up' })
   ).toBeDisabled()
   await page
-    .locator('div')
-    .filter({
-      hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-    })
+    .getByRole('row')
+    .filter({ has: page.getByText('Paint the living room', { exact: true }) })
     .getByRole('button', { name: 'Move down' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move down' })
   ).toBeEnabled()
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move up' })
   ).toBeEnabled()
   await page
-    .locator('div')
-    .filter({
-      hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-    })
+    .getByRole('row')
+    .filter({ has: page.getByText('Paint the living room', { exact: true }) })
     .getByRole('button', { name: 'Move down' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move down' })
   ).toBeDisabled()
   await expect(
     page
-      .locator('div')
-      .filter({
-        hasText: /^Open itemPaint the living roomMove upMove DownDelete$/,
-      })
+      .getByRole('row')
+      .filter({ has: page.getByText('Paint the living room', { exact: true }) })
       .getByRole('button', { name: 'Move up' })
   ).toBeEnabled()
 })
