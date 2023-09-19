@@ -1,7 +1,6 @@
 import {
   EBlueprint,
   ErrorResponse,
-  splitAddress,
   Stack,
   TGenericObject,
   TJob,
@@ -41,7 +40,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   } = props
 
   const DmssApi = useDMSS()
-  const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
+  // const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
   const [createdJobEntity, setCreatedJobEntity] = useState<TGenericObject>()
 
   const createJobEntity = (jobEntityFormData: TJob) => {
@@ -77,7 +76,8 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
         address: jobEntityDestination,
         document: JSON.stringify(jobEntityFormData),
       })
-        .then((response: AxiosResponse) => {
+        .then(() => {
+          // UID cannot be used until the job has been started
           // onCreate(`${dataSourceId}/$${response.data.uid}`)
           onCreate(jobEntityDestination)
           setCreatedJobEntity(jobEntityFormData)
