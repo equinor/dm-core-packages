@@ -2389,3 +2389,8 @@ ref #466 (2023-08-25T11:40:50Z)
     * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
+* chore: remove react-test-renderer (2023-09-05T08:25:02Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6234825023/1)
+    * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
