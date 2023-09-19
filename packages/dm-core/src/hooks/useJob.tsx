@@ -87,7 +87,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   const dmssAPI = useDMSS()
 
   useEffect(() => {
-    console.log('effect is triggered')
     if (entityId) {
       setIsLoading(true)
       dmssAPI
@@ -112,7 +111,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   }, [hookJobId])
 
   async function start(): Promise<StartJobResponse | null> {
-    console.log('starting job...')
     if (!entityId) {
       setError({
         status: 500,
@@ -122,7 +120,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       setStatus(JobStatus.Failed)
       return null
     }
-    console.log(entityId)
     setIsLoading(true)
     setStatus(JobStatus.Starting)
     return dmJobApi
@@ -164,6 +161,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .then((response: AxiosResponse<StatusJobResponse>) => {
         setLogs(response.data.log ?? '')
         if (response.data.status !== status) setStatus(response.data.status)
+        if (status !== JobStatus.Running) stopJobPing()
         setError(undefined)
         return response.data
       })

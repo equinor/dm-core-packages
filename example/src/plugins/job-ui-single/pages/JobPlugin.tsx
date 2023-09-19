@@ -4,7 +4,6 @@ import {
   GetJobResultResponse,
   IUIPlugin,
   JobStatus,
-  splitAddress,
   TJob,
   useDMSS,
   useJob,
@@ -27,11 +26,12 @@ export const JobPlugin = (props: IUIPlugin) => {
   // TODO make this plugin general and move to dm-core-packages/packages/dm-core-plugins. Right now, it can only be used in the SignalApp due to hard coded values.
   const DmssApi = useDMSS()
   const [jobEntityId, setJobEntityId] = useState<string>('')
+  const [jobId, setJobId] = useState<string | undefined>(undefined)
   const [jobExists, setJobExists] = useState(false)
   const jobEntityDestination = `DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].job`
   const [result, setResult] = useState<GetJobResultResponse>()
   const defaultJobOutputTarget = props.idReference + '.signal'
-  const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
+  // const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
   const [allowStartJob, setAllowJobStart] = useState(false)
 
   const {
@@ -42,7 +42,7 @@ export const JobPlugin = (props: IUIPlugin) => {
     logs,
     status,
     remove,
-  } = useJob(jobEntityId)
+  } = useJob(jobEntityId, jobId)
 
   // Example of another value for jobEntityDestination
   // const jobEntityDestination = `DemoDataSource/apps/MySignalApp/instances`
@@ -122,7 +122,7 @@ export const JobPlugin = (props: IUIPlugin) => {
       address: jobEntityDestination,
       document: JSON.stringify(jobEntityFormData),
     })
-      .then((_response: AxiosResponse) => {
+      .then((response: AxiosResponse) => {
         // The UID cannot be used as ID before the job has been started.
         // Also, the uid returned from the addDocument endpoint differs
         // from the one returned from the startJob endpoint.
@@ -137,7 +137,8 @@ export const JobPlugin = (props: IUIPlugin) => {
   useEffect(() => {
     if (jobEntityId.length > 0 && allowStartJob) {
       start().then((res) => {
-        console.log(res)
+        setJobId(res?.uid)
+        setJobExists(true)
       })
     }
   }, [jobEntityId])
@@ -157,7 +158,7 @@ export const JobPlugin = (props: IUIPlugin) => {
     }).then((res) => {
       if (res.data) {
         DmssApi.documentGet({ address: jobEntityDestination }).then(() => {
-          setJobEntityId(jobEntityDestination)
+          if (jobEntityId === null) setJobEntityId(jobEntityDestination)
           setJobExists(true)
         })
       }
@@ -168,6 +169,7 @@ export const JobPlugin = (props: IUIPlugin) => {
 
   return (
     <div>
+      {status}
       <JobButtonWrapper>
         {jobExists ? (
           <>
