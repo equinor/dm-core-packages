@@ -1,12 +1,13 @@
 import { EBlueprint, TreeNode } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import React from 'react'
-import { EDialog } from '../../../types'
+import { EDialog } from '../../types'
 
-export function createContextMenuItems(
-  node: TreeNode,
+export function MenuItems(props: {
+  node: TreeNode
   setDialogId: (id: EDialog | undefined) => void
-): JSX.Element[] {
+}): JSX.Element[] {
+  const { node, setDialogId } = props
   const menuItems = []
   const MenuItem = (props: { id: EDialog; text: string }) => {
     return (

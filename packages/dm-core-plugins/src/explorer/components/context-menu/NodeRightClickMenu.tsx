@@ -8,7 +8,7 @@ import NewBlueprintDialog from '../dialogs/NewBlueprintDialog'
 import NewEntityDialog from '../dialogs/NewEntityDialog'
 import NewFolderDialog from '../dialogs/NewFolderDialog'
 import NewRootPackageDialog from '../dialogs/NewRootPackageDialog'
-import { createContextMenuItems } from './utils/createContextMenuItmes'
+import { MenuItems } from './MenuItems'
 
 export const STANDARD_DIALOG_WIDTH = '100%'
 export const STANDARD_DIALOG_HEIGHT = '300px'
@@ -20,8 +20,6 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-
-  const menuItems = createContextMenuItems(node, setDialogId)
 
   //TODO when the tree changes by adding new package or deleting something, the tree should be updated to give consistent UI to user
   return (
@@ -43,7 +41,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         placement="bottom-start"
         matchAnchorWidth={true}
       >
-        {menuItems}
+        <MenuItems node={node} setDialogId={setDialogId} />
       </Menu>
 
       {dialogId === EDialog.NewFolder && (
