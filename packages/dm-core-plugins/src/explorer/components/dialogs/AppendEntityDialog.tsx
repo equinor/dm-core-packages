@@ -3,10 +3,11 @@ import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React from 'react'
 import { toast } from 'react-toastify'
+import { EDialog } from '../../types'
 import { STANDARD_DIALOG_WIDTH } from '../context-menu/NodeRightClickMenu'
 
 type TProps = {
-  setDialogId: (id: string) => void
+  setDialogId: (id: EDialog | undefined) => void
   loading: boolean
   setLoading: (isLoading: boolean) => void
   node: TreeNode
@@ -18,7 +19,7 @@ const AppendEntityDialog = (props: TProps) => {
     <Dialog
       open={true}
       isDismissable
-      onClose={() => setDialogId('')}
+      onClose={() => setDialogId(undefined)}
       width={STANDARD_DIALOG_WIDTH}
     >
       <Dialog.Header>
@@ -40,7 +41,7 @@ const AppendEntityDialog = (props: TProps) => {
                 )
                 .then(() => {
                   node.expand()
-                  setDialogId('')
+                  setDialogId(undefined)
                 })
                 .catch((error: AxiosError<ErrorResponse>) => {
                   console.error(error)
@@ -52,7 +53,7 @@ const AppendEntityDialog = (props: TProps) => {
             Create
           </Button>
         )}
-        <Button variant="outlined" onClick={() => setDialogId('')}>
+        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>

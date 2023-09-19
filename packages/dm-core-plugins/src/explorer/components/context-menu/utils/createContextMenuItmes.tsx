@@ -1,15 +1,16 @@
 import { EBlueprint, TreeNode } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import React from 'react'
+import { EDialog } from '../../../types'
 
 export function createContextMenuItems(
   node: TreeNode,
-  setScrimId: (id: string) => void
+  setDialogId: (id: EDialog | undefined) => void
 ): JSX.Element[] {
   const menuItems = []
-  const MenuItem = (props: { id: string; text: string }) => {
+  const MenuItem = (props: { id: EDialog; text: string }) => {
     return (
-      <Menu.Item key={props.id} onClick={() => setScrimId(props.id)}>
+      <Menu.Item key={props.id} onClick={() => setDialogId(props.id)}>
         {props.text}
       </Menu.Item>
     )
@@ -17,21 +18,23 @@ export function createContextMenuItems(
 
   // dataSources get a "new root package"
   if (node.type === 'dataSource') {
-    menuItems.push(<MenuItem id="new-root-package" text="New package" />)
+    menuItems.push(<MenuItem id={EDialog.NewRootPackage} text="New package" />)
   }
 
   // Append to lists
   if (node.attribute.dimensions !== '') {
-    menuItems.push(<MenuItem id="append-entity" text={`Append ${node.name}`} />)
+    menuItems.push(
+      <MenuItem id={EDialog.AppendEntity} text={`Append ${node.name}`} />
+    )
   }
 
   // Packages get a "new folder"
   // and "new entity"
   // and "new blueprint"
   if (node.type == EBlueprint.PACKAGE) {
-    menuItems.push(<MenuItem id="new-entity" text="New entity" />)
-    menuItems.push(<MenuItem id="new-blueprint" text="New blueprint" />)
-    menuItems.push(<MenuItem id="new-folder" text="New folder" />)
+    menuItems.push(<MenuItem id={EDialog.NewEntity} text="New entity" />)
+    menuItems.push(<MenuItem id={EDialog.NewBlueprint} text="New blueprint" />)
+    menuItems.push(<MenuItem id={EDialog.NewFolder} text="New folder" />)
   }
 
   // Everything besides dataSources and folders can be viewed
@@ -50,7 +53,7 @@ export function createContextMenuItems(
 
   // Everything besides dataSources can be deleted
   if (node.type !== 'dataSource') {
-    menuItems.push(<MenuItem id="delete" text="Delete" />)
+    menuItems.push(<MenuItem id={EDialog.Delete} text="Delete" />)
   }
 
   return menuItems

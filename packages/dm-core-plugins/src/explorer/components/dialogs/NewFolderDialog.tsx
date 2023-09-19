@@ -7,6 +7,7 @@ import {
 import { Button, Input, Label } from '@equinor/eds-core-react'
 import React from 'react'
 import { toast } from 'react-toastify'
+import { EDialog } from '../../types'
 import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,
@@ -14,7 +15,7 @@ import {
 import { NewFolderAction } from '../context-menu/utils/contextMenuActions'
 
 type TProps = {
-  setDialogId: (id: string) => void
+  setDialogId: (id: EDialog | undefined) => void
   formData: any
   setFormData: (id: any) => void
   node: TreeNode
@@ -31,7 +32,7 @@ const NewFolderDialog = (props: TProps) => {
       height={STANDARD_DIALOG_HEIGHT}
       onClose={() => {
         setFormData(undefined)
-        setDialogId('')
+        setDialogId(undefined)
       }}
     >
       <Dialog.Header>
@@ -53,7 +54,7 @@ const NewFolderDialog = (props: TProps) => {
           onClick={() => {
             if (formData) {
               NewFolderAction(node, formData, dmssAPI)
-              setDialogId('')
+              setDialogId(undefined)
               setFormData('')
             } else {
               toast.error('Form data cannot be empty!')
@@ -66,7 +67,7 @@ const NewFolderDialog = (props: TProps) => {
           variant="outlined"
           onClick={() => {
             setFormData(undefined)
-            setDialogId('')
+            setDialogId(undefined)
           }}
         >
           Cancel

@@ -9,13 +9,14 @@ import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React from 'react'
 import { toast } from 'react-toastify'
+import { EDialog } from '../../types'
 import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,
 } from '../context-menu/NodeRightClickMenu'
 
 type TProps = {
-  setDialogId: (id: string) => void
+  setDialogId: (id: EDialog | undefined) => void
   formData: any
   setFormData: (id: any) => void
   loading: boolean
@@ -30,7 +31,7 @@ const NewBlueprintDialog = (props: TProps) => {
     <Dialog
       open={true}
       isDismissable
-      onClose={() => setDialogId('')}
+      onClose={() => setDialogId(undefined)}
       width={STANDARD_DIALOG_WIDTH}
       height={STANDARD_DIALOG_HEIGHT}
     >
@@ -62,7 +63,7 @@ const NewBlueprintDialog = (props: TProps) => {
               node
                 .addEntityToPackage(EBlueprint.BLUEPRINT, formData?.name)
                 .then(() => {
-                  setDialogId('')
+                  setDialogId(undefined)
                 })
                 .catch((error: AxiosError<ErrorResponse>) => {
                   console.error(error)
@@ -74,7 +75,7 @@ const NewBlueprintDialog = (props: TProps) => {
             Create
           </Button>
         )}
-        <Button variant="outlined" onClick={() => setDialogId('')}>
+        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>
