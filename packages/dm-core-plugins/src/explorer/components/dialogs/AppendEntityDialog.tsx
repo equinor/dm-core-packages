@@ -3,7 +3,7 @@ import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React from 'react'
 import { toast } from 'react-toastify'
-import { STANDARD_DIALOG_WIDTH } from '../context-menu/ContextMenu'
+import { STANDARD_DIALOG_WIDTH } from '../context-menu/NodeRightClickMenu'
 
 type TProps = {
   setDialogId: (id: string) => void

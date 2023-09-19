@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,
-} from '../context-menu/ContextMenu'
+} from '../context-menu/NodeRightClickMenu'
 import { NewFolderAction } from '../context-menu/utils/contextMenuActions'
 
 type TProps = {

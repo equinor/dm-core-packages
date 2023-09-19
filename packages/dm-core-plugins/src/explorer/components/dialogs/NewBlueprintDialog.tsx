@@ -12,7 +12,7 @@ import { toast } from 'react-toastify'
 import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,
-} from '../context-menu/ContextMenu'
+} from '../context-menu/NodeRightClickMenu'
 
 type TProps = {
   setDialogId: (id: string) => void

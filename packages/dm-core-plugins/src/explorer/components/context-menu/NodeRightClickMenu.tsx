@@ -12,7 +12,7 @@ import { createContextMenuItems } from './utils/createContextMenuItmes'
 export const STANDARD_DIALOG_WIDTH = '100%'
 export const STANDARD_DIALOG_HEIGHT = '300px'
 
-export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
+const NodeRightClickMenu = (props: TNodeWrapperProps) => {
   const { node, children } = props
   const [dialogId, setDialogId] = useState<string>('')
   const [formData, setFormData] = useState<any>('')
@@ -105,3 +105,5 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
     </>
   )
 }
+
+export default NodeRightClickMenu

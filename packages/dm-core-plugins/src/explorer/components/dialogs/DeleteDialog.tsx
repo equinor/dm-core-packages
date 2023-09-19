@@ -4,7 +4,7 @@ import React from 'react'
 import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,
-} from '../context-menu/ContextMenu'
+} from '../context-menu/NodeRightClickMenu'
 import { DeleteAction } from '../context-menu/utils/contextMenuActions'
 
 type TProps = {

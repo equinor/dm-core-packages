@@ -6,7 +6,7 @@ import {
 import { Progress } from '@equinor/eds-core-react'
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
-import { NodeRightClickMenu } from './components/context-menu/ContextMenu'
+import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
 
 export const TreeWrapper = styled.div`
   width: 25%;
