@@ -14,7 +14,6 @@ import { JobControlButton } from './JobControlButton'
 import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios/index'
-import { AxiosResponse } from 'axios'
 
 const JobButtonWrapper = styled.div`
   display: flex;
@@ -122,7 +121,7 @@ export const JobPlugin = (props: IUIPlugin) => {
       address: jobEntityDestination,
       document: JSON.stringify(jobEntityFormData),
     })
-      .then((response: AxiosResponse) => {
+      .then(() => {
         // The UID cannot be used as ID before the job has been started.
         // Also, the uid returned from the addDocument endpoint differs
         // from the one returned from the startJob endpoint.
