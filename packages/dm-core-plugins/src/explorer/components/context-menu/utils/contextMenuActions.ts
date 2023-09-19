@@ -30,9 +30,7 @@ export const DeleteAction = async (
 export const NewFolderAction = (
   node: TreeNode,
   folderName: string,
-  dmssAPI: DmssAPI,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setLoading: (isLoading: boolean) => void
+  dmssAPI: DmssAPI
 ) => {
   const newFolder = {
     name: folderName,
@@ -56,9 +54,7 @@ export const NewFolderAction = (
 export const NewRootPackageAction = (
   node: TreeNode,
   packageName: string,
-  dmssAPI: DmssAPI,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setLoading: (isLoading: boolean) => void
+  dmssAPI: DmssAPI
 ) => {
   const newPackage = {
     name: packageName,
