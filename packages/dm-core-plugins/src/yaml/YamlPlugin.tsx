@@ -7,16 +7,16 @@ import {
 import { Button } from '@equinor/eds-core-react'
 import hljs from 'highlight.js'
 import yaml from 'highlight.js/lib/languages/yaml'
-import jsyaml from 'js-yaml'
 import React from 'react'
 import { toast } from 'react-toastify'
+import { stringify } from 'yaml'
 import './index.css'
 
 hljs.registerLanguage('yaml', yaml)
 
 const YamlView = (props: { document: TGenericObject }) => {
   const { document } = props
-  const asYAML: string = jsyaml.dump(document)
+  const asYAML: string = stringify(document)
   const highlighted = hljs.highlight(asYAML, { language: 'yaml' })
 
   return (
