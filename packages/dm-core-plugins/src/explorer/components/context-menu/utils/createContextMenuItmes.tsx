@@ -11,7 +11,6 @@ export function createContextMenuItems(
   // dataSources get a "new root package"
   if (node.type === 'dataSource') {
     menuItems.push(
-      // @ts-ignore
       <Menu.Item
         key={'new-root-package'}
         onClick={() => setScrimId('new-root-package')}
@@ -24,7 +23,6 @@ export function createContextMenuItems(
   // Append to lists
   if (node.attribute.dimensions !== '') {
     menuItems.push(
-      // @ts-ignore
       <Menu.Item
         key={'append-entity'}
         onClick={() => setScrimId('append-entity')}
@@ -39,13 +37,11 @@ export function createContextMenuItems(
   // and "new blueprint"
   if (node.type == EBlueprint.PACKAGE) {
     menuItems.push(
-      // @ts-ignore
       <Menu.Item key={'new-entity'} onClick={() => setScrimId('new-entity')}>
         New entity
       </Menu.Item>
     )
     menuItems.push(
-      // @ts-ignore
       <Menu.Item
         key={'new-blueprint'}
         onClick={() => setScrimId('new-blueprint')}
@@ -54,7 +50,6 @@ export function createContextMenuItems(
       </Menu.Item>
     )
     menuItems.push(
-      // @ts-ignore
       <Menu.Item key={'new-folder'} onClick={() => setScrimId('new-folder')}>
         New folder
       </Menu.Item>
@@ -64,7 +59,6 @@ export function createContextMenuItems(
   // Everything besides dataSources and folders can be viewed
   if (!['dataSource', EBlueprint.PACKAGE].includes(node.type)) {
     menuItems.push(
-      // @ts-ignore
       <Menu.Item
         key={'view'}
         onClick={() => {
@@ -80,7 +74,6 @@ export function createContextMenuItems(
   // Everything besides dataSources can be deleted
   if (node.type !== 'dataSource') {
     menuItems.push(
-      //@ts-ignore
       <Menu.Item
         key={'delete'}
         onClick={() => {
