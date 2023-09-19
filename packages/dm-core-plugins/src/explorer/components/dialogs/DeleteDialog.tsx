@@ -1,6 +1,7 @@
 import { Dialog, TreeNode, useDMSS } from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
 import React from 'react'
+import { EDialog } from '../../types'
 import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,
@@ -8,7 +9,7 @@ import {
 import { DeleteAction } from '../context-menu/utils/contextMenuActions'
 
 type TProps = {
-  setDialogId: (id: string) => void
+  setDialogId: (id: EDialog | undefined) => void
   loading: boolean
   setLoading: (isLoading: boolean) => void
   node: TreeNode
@@ -23,7 +24,7 @@ const DeleteDialog = (props: TProps) => {
       width={STANDARD_DIALOG_WIDTH}
       height={STANDARD_DIALOG_HEIGHT}
       isDismissable
-      onClose={() => setDialogId('')}
+      onClose={() => setDialogId(undefined)}
     >
       <Dialog.Header>
         <Dialog.Title>Confirm Deletion</Dialog.Title>
@@ -38,12 +39,12 @@ const DeleteDialog = (props: TProps) => {
           onClick={async () => {
             await DeleteAction(node, dmssAPI, setLoading)
             await node.remove()
-            setDialogId('')
+            setDialogId(undefined)
           }}
         >
           {loading ? <Progress.Dots /> : 'Delete'}
         </Button>
-        <Button variant="outlined" onClick={() => setDialogId('')}>
+        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>

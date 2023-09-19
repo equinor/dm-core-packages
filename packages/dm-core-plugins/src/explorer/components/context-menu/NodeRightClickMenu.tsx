@@ -1,6 +1,7 @@
 import { TNodeWrapperProps } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
+import { EDialog } from '../../types'
 import AppendEntityDialog from '../dialogs/AppendEntityDialog'
 import DeleteDialog from '../dialogs/DeleteDialog'
 import NewBlueprintDialog from '../dialogs/NewBlueprintDialog'
@@ -14,7 +15,7 @@ export const STANDARD_DIALOG_HEIGHT = '300px'
 
 const NodeRightClickMenu = (props: TNodeWrapperProps) => {
   const { node, children } = props
-  const [dialogId, setDialogId] = useState<string>('')
+  const [dialogId, setDialogId] = useState<EDialog | undefined>()
   const [formData, setFormData] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [showMenu, setShowMenu] = useState<boolean>(false)
@@ -45,7 +46,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         {menuItems}
       </Menu>
 
-      {dialogId === 'new-folder' && (
+      {dialogId === EDialog.NewFolder && (
         <NewFolderDialog
           setDialogId={setDialogId}
           formData={formData}
@@ -54,7 +55,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         />
       )}
 
-      {dialogId == 'delete' && (
+      {dialogId === EDialog.Delete && (
         <DeleteDialog
           setDialogId={setDialogId}
           loading={loading}
@@ -63,7 +64,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         />
       )}
 
-      {dialogId === 'new-root-package' && (
+      {dialogId === EDialog.NewRootPackage && (
         <NewRootPackageDialog
           setDialogId={setDialogId}
           formData={formData}
@@ -72,7 +73,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         />
       )}
 
-      {dialogId === 'append-entity' && (
+      {dialogId === EDialog.AppendEntity && (
         <AppendEntityDialog
           setDialogId={setDialogId}
           loading={loading}
@@ -81,7 +82,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         />
       )}
 
-      {dialogId === 'new-entity' && (
+      {dialogId === EDialog.NewEntity && (
         <NewEntityDialog
           setDialogId={setDialogId}
           formData={formData}
@@ -92,7 +93,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         />
       )}
 
-      {dialogId === 'new-blueprint' && (
+      {dialogId === EDialog.NewBlueprint && (
         <NewBlueprintDialog
           setDialogId={setDialogId}
           formData={formData}
