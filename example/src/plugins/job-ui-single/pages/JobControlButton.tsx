@@ -23,10 +23,12 @@ export const JobControlButton = (props: {
 
   return (
     <Button ref={buttonRef} onClick={handleClick} style={{ width: '7rem' }}>
-      {jobStatus === JobStatus.Running ? (
+      {jobStatus === JobStatus.Running && !hovering ? (
         <CircularProgress size={16} variant="indeterminate" />
       ) : (
-        <Icon data={hovering ? stop : play} />
+        <Icon
+          data={hovering && jobStatus === JobStatus.Running ? stop : play}
+        />
       )}
       {jobStatus === JobStatus.Running
         ? hovering
