@@ -18,10 +18,11 @@ import {
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
   node: TreeNode
+  isRoot: boolean
 }
 
 const NewFolderDialog = (props: TProps) => {
-  const { setDialogId, node } = props
+  const { setDialogId, node, isRoot } = props
   const [formData, setFormData] = useState<any>('')
   const dmssAPI = useDMSS()
 
@@ -29,10 +30,10 @@ const NewFolderDialog = (props: TProps) => {
     const newFolder = {
       name: folderName,
       type: 'dmss://system/SIMOS/Package',
-      isRoot: false,
+      isRoot: isRoot,
       content: [],
     }
-    const address = `${node.nodeId}.content`
+    const address = isRoot ? node.dataSource : `${node.nodeId}.content`
     dmssAPI
       .documentAdd({
         address: address,
@@ -58,10 +59,12 @@ const NewFolderDialog = (props: TProps) => {
       }}
     >
       <Dialog.Header>
-        <Dialog.Title>Create new folder</Dialog.Title>
+        <Dialog.Title>
+          Create new {isRoot ? 'root package' : 'folder'}
+        </Dialog.Title>
       </Dialog.Header>
       <Dialog.CustomContent>
-        <Label label={'Folder name'} />
+        <Label label={'Name'} />
         <Input
           type={'string'}
           style={{ width: INPUT_FIELD_WIDTH }}

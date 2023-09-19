@@ -7,7 +7,6 @@ import DeleteDialog from '../dialogs/DeleteDialog'
 import NewBlueprintDialog from '../dialogs/NewBlueprintDialog'
 import NewEntityDialog from '../dialogs/NewEntityDialog'
 import NewFolderDialog from '../dialogs/NewFolderDialog'
-import NewRootPackageDialog from '../dialogs/NewRootPackageDialog'
 import { MenuItems } from './MenuItems'
 
 export const STANDARD_DIALOG_WIDTH = '100%'
@@ -43,7 +42,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
       </Menu>
 
       {dialogId === EDialog.NewFolder && (
-        <NewFolderDialog setDialogId={setDialogId} node={node} />
+        <NewFolderDialog setDialogId={setDialogId} node={node} isRoot={false} />
       )}
 
       {dialogId === EDialog.Delete && (
@@ -51,7 +50,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
       )}
 
       {dialogId === EDialog.NewRootPackage && (
-        <NewRootPackageDialog setDialogId={setDialogId} node={node} />
+        <NewFolderDialog setDialogId={setDialogId} node={node} isRoot={true} />
       )}
 
       {dialogId === EDialog.AppendEntity && (
