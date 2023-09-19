@@ -45,8 +45,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",
-    "copy-yaml-css-file": "shx cp src/yaml/index.css ./dist/yaml",
-    "build": "tsc && yarn copy-yaml-css-file",
+    "build": "tsc",
     "test": "jest test",
     "test-watch": "jest test --watchAll"
   }
