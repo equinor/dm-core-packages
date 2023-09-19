@@ -7,53 +7,31 @@ export function createContextMenuItems(
   setScrimId: (id: string) => void
 ): JSX.Element[] {
   const menuItems = []
-
-  // dataSources get a "new root package"
-  if (node.type === 'dataSource') {
-    menuItems.push(
-      <Menu.Item
-        key={'new-root-package'}
-        onClick={() => setScrimId('new-root-package')}
-      >
-        New package
+  const MenuItem = (props: { id: string; text: string }) => {
+    return (
+      <Menu.Item key={props.id} onClick={() => setScrimId(props.id)}>
+        {props.text}
       </Menu.Item>
     )
   }
 
+  // dataSources get a "new root package"
+  if (node.type === 'dataSource') {
+    menuItems.push(<MenuItem id="new-root-package" text="New package" />)
+  }
+
   // Append to lists
   if (node.attribute.dimensions !== '') {
-    menuItems.push(
-      <Menu.Item
-        key={'append-entity'}
-        onClick={() => setScrimId('append-entity')}
-      >
-        Append {node.name}
-      </Menu.Item>
-    )
+    menuItems.push(<MenuItem id="append-entity" text={`Append ${node.name}`} />)
   }
 
   // Packages get a "new folder"
   // and "new entity"
   // and "new blueprint"
   if (node.type == EBlueprint.PACKAGE) {
-    menuItems.push(
-      <Menu.Item key={'new-entity'} onClick={() => setScrimId('new-entity')}>
-        New entity
-      </Menu.Item>
-    )
-    menuItems.push(
-      <Menu.Item
-        key={'new-blueprint'}
-        onClick={() => setScrimId('new-blueprint')}
-      >
-        New blueprint
-      </Menu.Item>
-    )
-    menuItems.push(
-      <Menu.Item key={'new-folder'} onClick={() => setScrimId('new-folder')}>
-        New folder
-      </Menu.Item>
-    )
+    menuItems.push(<MenuItem id="new-entity" text="New entity" />)
+    menuItems.push(<MenuItem id="new-blueprint" text="New blueprint" />)
+    menuItems.push(<MenuItem id="new-folder" text="New folder" />)
   }
 
   // Everything besides dataSources and folders can be viewed
@@ -61,10 +39,9 @@ export function createContextMenuItems(
     menuItems.push(
       <Menu.Item
         key={'view'}
-        onClick={() => {
-          // @ts-ignore
-          window.open(`dmt/view/${node.nodeId}`, '_blank').focus()
-        }}
+        as="a"
+        href={`dmt/view/${node.nodeId}`}
+        target="_blank"
       >
         View in new tab
       </Menu.Item>
@@ -73,16 +50,7 @@ export function createContextMenuItems(
 
   // Everything besides dataSources can be deleted
   if (node.type !== 'dataSource') {
-    menuItems.push(
-      <Menu.Item
-        key={'delete'}
-        onClick={() => {
-          setScrimId('delete')
-        }}
-      >
-        Delete
-      </Menu.Item>
-    )
+    menuItems.push(<MenuItem id="delete" text="Delete" />)
   }
 
   return menuItems
