@@ -15,7 +15,7 @@ import { add, delete_forever } from '@equinor/eds-icons'
 import TooltipButton from '../../common/TooltipButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
-import { ButtonRow } from '../styles'
+import { Fieldset, Legend } from '../styles'
 import { TArrayFieldProps } from '../types'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
@@ -62,24 +62,28 @@ export default function ArrayField(props: TArrayFieldProps) {
 
   if (onOpen && !uiAttribute?.showInline && !isPrimitiveType(type)) {
     return (
-      <ButtonRow>
-        <Typography bold={true}>{displayLabel}</Typography>
-        <OpenObjectButton
-          viewId={namePath}
-          view={{
-            type: 'ReferenceViewConfig',
-            scope: namePath,
-            recipe: uiRecipeName,
-          }}
-        />
-      </ButtonRow>
+      <Fieldset>
+        <Legend>
+          <Typography bold={true}>{displayLabel}</Typography>
+          <OpenObjectButton
+            viewId={namePath}
+            view={{
+              type: 'ReferenceViewConfig',
+              scope: namePath,
+              recipe: uiRecipeName,
+            }}
+          />
+        </Legend>
+      </Fieldset>
     )
   }
 
   if (!isPrimitiveType(type)) {
     return (
-      <Stack spacing={0.5} alignItems="flex-start">
-        <Typography bold={true}>{displayLabel}</Typography>
+      <Fieldset>
+        <Legend>
+          <Typography bold={true}>{displayLabel}</Typography>
+        </Legend>
         <EntityView
           recipeName={uiRecipeName}
           idReference={`${idReference}.${namePath}`}
@@ -87,13 +91,13 @@ export default function ArrayField(props: TArrayFieldProps) {
           onOpen={onOpen}
           dimensions={dimensions}
         />
-      </Stack>
+      </Fieldset>
     )
   }
 
   return (
-    <Stack spacing={0.5} alignItems="flex-start">
-      <ButtonRow>
+    <Fieldset>
+      <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
         {!readOnly && (
           <TooltipButton
@@ -110,7 +114,7 @@ export default function ArrayField(props: TArrayFieldProps) {
             icon={add}
           />
         )}
-      </ButtonRow>
+      </Legend>
       {fields.map((item: any, index: number) => {
         return (
           <Stack
@@ -143,6 +147,6 @@ export default function ArrayField(props: TArrayFieldProps) {
           </Stack>
         )
       })}
-    </Stack>
+    </Fieldset>
   )
 }
