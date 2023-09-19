@@ -1,11 +1,10 @@
-import { DmssAPI, EBlueprint, TreeNode } from '@development-framework/dm-core'
-import { MenuItem } from 'react-contextmenu'
+import { EBlueprint, TreeNode } from '@development-framework/dm-core'
+import { Menu } from '@equinor/eds-core-react'
 import React from 'react'
 
 export function createContextMenuItems(
   node: TreeNode,
-  dmssAPI: DmssAPI,
-  setShowScrimId: (id: string) => void
+  setScrimId: (id: string) => void
 ): JSX.Element[] {
   const menuItems = []
 
@@ -13,12 +12,12 @@ export function createContextMenuItems(
   if (node.type === 'dataSource') {
     menuItems.push(
       // @ts-ignore
-      <MenuItem
+      <Menu.Item
         key={'new-root-package'}
-        onClick={() => setShowScrimId('new-root-package')}
+        onClick={() => setScrimId('new-root-package')}
       >
         New package
-      </MenuItem>
+      </Menu.Item>
     )
   }
 
@@ -26,12 +25,12 @@ export function createContextMenuItems(
   if (node.attribute.dimensions !== '') {
     menuItems.push(
       // @ts-ignore
-      <MenuItem
+      <Menu.Item
         key={'append-entity'}
-        onClick={() => setShowScrimId('append-entity')}
+        onClick={() => setScrimId('append-entity')}
       >
         Append {node.name}
-      </MenuItem>
+      </Menu.Item>
     )
   }
 
@@ -41,24 +40,24 @@ export function createContextMenuItems(
   if (node.type == EBlueprint.PACKAGE) {
     menuItems.push(
       // @ts-ignore
-      <MenuItem key={'new-entity'} onClick={() => setShowScrimId('new-entity')}>
+      <Menu.Item key={'new-entity'} onClick={() => setScrimId('new-entity')}>
         New entity
-      </MenuItem>
+      </Menu.Item>
     )
     menuItems.push(
       // @ts-ignore
-      <MenuItem
+      <Menu.Item
         key={'new-blueprint'}
-        onClick={() => setShowScrimId('new-blueprint')}
+        onClick={() => setScrimId('new-blueprint')}
       >
         New blueprint
-      </MenuItem>
+      </Menu.Item>
     )
     menuItems.push(
       // @ts-ignore
-      <MenuItem key={'new-folder'} onClick={() => setShowScrimId('new-folder')}>
+      <Menu.Item key={'new-folder'} onClick={() => setScrimId('new-folder')}>
         New folder
-      </MenuItem>
+      </Menu.Item>
     )
   }
 
@@ -66,7 +65,7 @@ export function createContextMenuItems(
   if (!['dataSource', EBlueprint.PACKAGE].includes(node.type)) {
     menuItems.push(
       // @ts-ignore
-      <MenuItem
+      <Menu.Item
         key={'view'}
         onClick={() => {
           // @ts-ignore
@@ -74,7 +73,7 @@ export function createContextMenuItems(
         }}
       >
         View in new tab
-      </MenuItem>
+      </Menu.Item>
     )
   }
 
@@ -82,14 +81,14 @@ export function createContextMenuItems(
   if (node.type !== 'dataSource') {
     menuItems.push(
       //@ts-ignore
-      <MenuItem
+      <Menu.Item
         key={'delete'}
         onClick={() => {
-          setShowScrimId('delete')
+          setScrimId('delete')
         }}
       >
         Delete
-      </MenuItem>
+      </Menu.Item>
     )
   }
 

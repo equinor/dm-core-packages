@@ -12,7 +12,6 @@
     "highlight.js": "^11.8.0",
     "js-yaml": "^4.1.0",
     "mermaid": "^10.0.0",
-    "react-contextmenu": "^2.11.0",
     "react-hook-form": "^7.31.2",
     "react-toastify": "^9.1.3"
   },
