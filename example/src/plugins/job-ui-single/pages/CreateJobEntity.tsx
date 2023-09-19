@@ -1,10 +1,10 @@
 import {
   EBlueprint,
   ErrorResponse,
+  splitAddress,
   Stack,
   TGenericObject,
   TJob,
-  splitAddress,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
@@ -78,7 +78,8 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
         document: JSON.stringify(jobEntityFormData),
       })
         .then((response: AxiosResponse) => {
-          onCreate(`${dataSourceId}/$${response.data.uid}`)
+          // onCreate(`${dataSourceId}/$${response.data.uid}`)
+          onCreate(jobEntityDestination)
           setCreatedJobEntity(jobEntityFormData)
         })
         .catch((error: AxiosError<ErrorResponse>) => {
@@ -88,8 +89,8 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
 
     const addOrUpdateDocument = (
       jobExists: boolean,
-      jobEntityDestination,
-      jobEntityFormData
+      jobEntityDestination: string,
+      jobEntityFormData: TJob
     ) => {
       if (jobExists) {
         updateDocument(jobEntityDestination, jobEntityFormData)
