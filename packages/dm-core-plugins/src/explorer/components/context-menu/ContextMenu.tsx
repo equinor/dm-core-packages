@@ -9,12 +9,10 @@ import {
   TreeNode,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
+import { Button, Input, Label, Menu, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React, { useState } from 'react'
-import { ContextMenu, ContextMenuTrigger } from 'react-contextmenu'
 import { toast } from 'react-toastify'
-import './../../style.css'
 import {
   DeleteAction,
   NewFolderAction,
@@ -30,11 +28,13 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
   const [scrimToShow, setScrimToShow] = useState<string>('')
   const [formData, setFormData] = useState<any>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const [showMenu, setShowMenu] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
   const STANDARD_DIALOG_WIDTH = '100%'
   const STANDARD_DIALOG_HEIGHT = '300px'
 
-  const menuItems = createContextMenuItems(node, dmssAPI, setScrimToShow)
+  const menuItems = createContextMenuItems(node, setScrimToShow)
 
   const handleFormDataSubmit = (
     node: TreeNode,
@@ -58,10 +58,25 @@ export const NodeRightClickMenu = (props: TNodeWrapperProps) => {
   //TODO when the tree changes by adding new package or deleting something, the tree should be updated to give consistent UI to user
   return (
     <div>
-      {/*@ts-ignore*/}
-      <ContextMenuTrigger id={node.nodeId}>{children}</ContextMenuTrigger>
-      {/*@ts-ignore*/}
-      <ContextMenu id={node.nodeId}>{menuItems}</ContextMenu>
+      <div
+        style={{ width: 'fit-content' }}
+        ref={setAnchorEl}
+        onContextMenu={(e) => {
+          e.preventDefault()
+          setShowMenu(!showMenu)
+        }}
+      >
+        {children}
+      </div>
+      <Menu
+        open={showMenu}
+        onClose={() => setShowMenu(false)}
+        anchorEl={anchorEl}
+        placement="bottom-start"
+        matchAnchorWidth={true}
+      >
+        {menuItems}
+      </Menu>
       <Dialog
         isDismissable
         open={scrimToShow === 'new-folder'}
