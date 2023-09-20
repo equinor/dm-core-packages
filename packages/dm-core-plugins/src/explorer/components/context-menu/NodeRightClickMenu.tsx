@@ -7,7 +7,7 @@ import DeleteDialog from '../dialogs/DeleteDialog'
 import NewBlueprintDialog from '../dialogs/NewBlueprintDialog'
 import NewEntityDialog from '../dialogs/NewEntityDialog'
 import NewFolderDialog from '../dialogs/NewFolderDialog'
-import { MenuItems } from './MenuItems'
+import { getMenuItems } from './getMenuItems'
 
 export const STANDARD_DIALOG_WIDTH = '100%'
 export const STANDARD_DIALOG_HEIGHT = '300px'
@@ -38,7 +38,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         placement="bottom-start"
         matchAnchorWidth={true}
       >
-        <MenuItems node={node} setDialogId={setDialogId} />
+        {getMenuItems(node, setDialogId)}
       </Menu>
 
       {dialogId === EDialog.NewFolder && (
