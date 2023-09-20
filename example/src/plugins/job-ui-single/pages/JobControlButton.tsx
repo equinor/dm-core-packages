@@ -21,6 +21,17 @@ export const JobControlButton = (props: {
     }
   }
 
+  const buttonText = () => {
+    switch (jobStatus) {
+      case 'completed':
+        return 'Re-run'
+      case 'running':
+        return hovering ? 'Stop' : 'Running'
+      default:
+        return 'Start'
+    }
+  }
+
   return (
     <Button ref={buttonRef} onClick={handleClick} style={{ width: '7rem' }}>
       {jobStatus === JobStatus.Running && !hovering ? (
@@ -30,11 +41,7 @@ export const JobControlButton = (props: {
           data={hovering && jobStatus === JobStatus.Running ? stop : play}
         />
       )}
-      {jobStatus === JobStatus.Running
-        ? hovering
-          ? 'Stop'
-          : 'Running'
-        : 'Start'}
+      {buttonText()}
     </Button>
   )
 }

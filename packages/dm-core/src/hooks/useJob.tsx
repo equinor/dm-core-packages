@@ -125,6 +125,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     return dmJobApi
       .startJob({ jobDmssId: entityId })
       .then((response: AxiosResponse<StartJobResponse>) => {
+        console.log(response)
         setHookJobId(response.data.uid)
         setLogs(response.data.message)
         setStatus(JobStatus.Running)
@@ -138,7 +139,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       })
       .finally(() => {
         setIsLoading(false)
-        if (status !== JobStatus.Failed) setStatus(JobStatus.Completed)
       })
   }
 
@@ -193,7 +193,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .finally(() => setIsLoading(false))
   }
 
-  function fetchResult(): Promise<GetJobResultResponse | null> {
+  async function fetchResult(): Promise<GetJobResultResponse | null> {
     if (!hookJobId) {
       return Promise.resolve(null)
     }
