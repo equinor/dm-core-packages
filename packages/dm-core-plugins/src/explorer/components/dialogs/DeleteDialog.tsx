@@ -24,9 +24,9 @@ const DeleteDialog = (props: TProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const dmssAPI = useDMSS()
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     setLoading(true)
-    await dmssAPI
+    dmssAPI
       .documentRemove({
         address: `${node.dataSource}/${node.pathFromRootPackage()}`,
       })
@@ -36,7 +36,7 @@ const DeleteDialog = (props: TProps) => {
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
-        toast.error('Failed to delete')
+        toast.error(error.response?.data.message)
       })
       .finally(() => {
         setLoading(false)

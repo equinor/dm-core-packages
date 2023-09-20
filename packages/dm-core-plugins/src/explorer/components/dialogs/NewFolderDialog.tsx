@@ -5,7 +5,7 @@ import {
   TreeNode,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Input, Label } from '@equinor/eds-core-react'
+import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
@@ -23,10 +23,11 @@ type TProps = {
 
 const NewFolderDialog = (props: TProps) => {
   const { setDialogId, node, isRoot } = props
-  const [formData, setFormData] = useState<any>('')
+  const [folderName, setFolderName] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
   const dmssAPI = useDMSS()
 
-  const handleCreate = (folderName: string) => {
+  const handleCreate = () => {
     const newFolder = {
       name: folderName,
       type: 'dmss://system/SIMOS/Package',
@@ -34,16 +35,24 @@ const NewFolderDialog = (props: TProps) => {
       content: [],
     }
     const address = isRoot ? node.dataSource : `${node.nodeId}.content`
+    setLoading(true)
     dmssAPI
       .documentAdd({
         address: address,
         document: JSON.stringify(newFolder),
         updateUncontained: true,
       })
-      .then(() => node.expand())
+      .then(() => {
+        node.expand()
+        toast.success('Folder is created')
+      })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
         toast.error(error.response?.data.message)
+      })
+      .finally(() => {
+        setLoading(false)
+        setDialogId(undefined)
       })
   }
 
@@ -53,10 +62,7 @@ const NewFolderDialog = (props: TProps) => {
       open={true}
       width={STANDARD_DIALOG_WIDTH}
       height={STANDARD_DIALOG_HEIGHT}
-      onClose={() => {
-        setFormData(undefined)
-        setDialogId(undefined)
-      }}
+      onClose={() => setDialogId(undefined)}
     >
       <Dialog.Header>
         <Dialog.Title>
@@ -64,37 +70,21 @@ const NewFolderDialog = (props: TProps) => {
         </Dialog.Title>
       </Dialog.Header>
       <Dialog.CustomContent>
-        <Label label={'Name'} />
-        <Input
-          type={'string'}
+        <TextField
+          id="folderName"
+          label="Name"
+          value={folderName}
           style={{ width: INPUT_FIELD_WIDTH }}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setFormData(event.target.value)
+            setFolderName(event.target.value)
           }
         />
       </Dialog.CustomContent>
       <Dialog.Actions>
-        <Button
-          disabled={formData === undefined || formData === ''}
-          onClick={() => {
-            if (formData) {
-              handleCreate(formData)
-              setDialogId(undefined)
-              setFormData('')
-            } else {
-              toast.error('Form data cannot be empty!')
-            }
-          }}
-        >
-          Create
+        <Button disabled={folderName === ''} onClick={handleCreate}>
+          {loading ? <Progress.Dots /> : 'Create'}
         </Button>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            setFormData(undefined)
-            setDialogId(undefined)
-          }}
-        >
+        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>

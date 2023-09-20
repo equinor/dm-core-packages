@@ -14,6 +14,25 @@ type TProps = {
 const AppendEntityDialog = (props: TProps) => {
   const { setDialogId, node } = props
   const [loading, setLoading] = useState<boolean>(false)
+
+  const handleAppend = () => {
+    setLoading(true)
+    node
+      .addEntityToPackage(node.attribute.attributeType, `${node.entity.length}`)
+      .then(() => {
+        node.expand()
+        toast.success('The new entity has been appended to the list')
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        toast.error(error.response?.data.message)
+      })
+      .finally(() => {
+        setLoading(false)
+        setDialogId(undefined)
+      })
+  }
+
   return (
     <Dialog
       open={true}
@@ -25,33 +44,9 @@ const AppendEntityDialog = (props: TProps) => {
         <Dialog.Title>Append new entity to list</Dialog.Title>
       </Dialog.Header>
       <Dialog.Actions>
-        {loading ? (
-          <Button>
-            <Progress.Dots />
-          </Button>
-        ) : (
-          <Button
-            onClick={() => {
-              setLoading(true)
-              node
-                .addEntityToPackage(
-                  node.attribute.attributeType,
-                  `${node.entity.length}`
-                )
-                .then(() => {
-                  node.expand()
-                  setDialogId(undefined)
-                })
-                .catch((error: AxiosError<ErrorResponse>) => {
-                  console.error(error)
-                  toast.error('Failed to create entity')
-                })
-                .finally(() => setLoading(false))
-            }}
-          >
-            Create
-          </Button>
-        )}
+        <Button onClick={handleAppend}>
+          {loading ? <Progress.Dots /> : 'Create'}
+        </Button>
         <Button variant="outlined" onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
