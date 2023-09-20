@@ -193,7 +193,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .finally(() => setIsLoading(false))
   }
 
-  async function fetchResult(): Promise<GetJobResultResponse | null> {
+  function fetchResult(): Promise<GetJobResultResponse | null> {
     if (!hookJobId) {
       return Promise.resolve(null)
     }
