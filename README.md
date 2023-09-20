@@ -2418,3 +2418,20 @@ ref #521 (2023-09-05T08:25:02Z)
     * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
+* refactor(explorer): move actions into dialogs (#525)
+
+* refactor(explorer): move actions to user dialog
+
+* refactor(explorer): rename createContextMenu
+
+* refactor(explorer): move formData and loading
+
+* refactor(explorer): remove rootpackagedialog
+
+* refactor(explorer): make the dialogs more similar
+
+* fix(explorer): avoid menu double-click (2023-09-05T08:25:02Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6248764744/2)
+    * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
