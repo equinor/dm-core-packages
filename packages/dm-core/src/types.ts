@@ -7,6 +7,29 @@ export type TDataSource = {
   host?: string
 }
 
+export type TAttribute = {
+  name: string
+  type: string
+  attributeType: string
+  dimensions?: string
+  optional?: boolean
+  contained?: boolean
+  description?: string
+  label?: string
+  enumType?: string
+  default?: any
+}
+
+export type TBlueprint = {
+  name: string
+  type: string
+  description?: string
+  extends?: string[]
+  attributes?: TAttribute[]
+  _meta_?: any[]
+  abstract?: boolean
+}
+
 // TODO check if TReference is used instead of TLinkReference
 export type TReference = {
   type: string
