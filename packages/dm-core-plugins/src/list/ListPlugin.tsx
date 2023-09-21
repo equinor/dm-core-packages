@@ -209,7 +209,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               {internalConfig.headers.map(
                 (attribute: string, index: number) => {
                   if (item.data && item.data?.[attribute]) {
-                    console.log(item.data.name)
                     if (typeof item.data[attribute] === 'object')
                       throw new Error(
                         `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`

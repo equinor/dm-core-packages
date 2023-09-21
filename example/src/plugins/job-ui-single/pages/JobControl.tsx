@@ -1,19 +1,25 @@
 import {
   GetJobResultResponse,
   JobStatus,
-  Loading,
   useJob,
 } from '@development-framework/dm-core'
 import React, { useState } from 'react'
-import { Button, Chip, Icon, Typography } from '@equinor/eds-core-react'
-import { stop, play } from '@equinor/eds-icons'
+import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
+import { refresh } from '@equinor/eds-icons'
+import styled from 'styled-components'
+import { JobControlButton } from './JobControlButton'
+
+const JobButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+`
 
 export const JobControl = (props: { jobEntityId: string }) => {
   const { jobEntityId } = props
   const {
     start,
     error,
-    isLoading,
     fetchResult,
     fetchStatusAndLogs,
     logs,
@@ -21,58 +27,51 @@ export const JobControl = (props: { jobEntityId: string }) => {
     remove,
   } = useJob(jobEntityId)
   const [result, setResult] = useState<GetJobResultResponse>()
-  const [jobIsStarted, setJobIsStarted] = useState<boolean>(false)
 
-  if (isLoading) return <Loading />
   if (error) console.error(error)
 
   return (
-    <div>
-      <Chip>Status: {status}</Chip>
-
-      {jobIsStarted ? (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <JobButtonWrapper>
+        <JobControlButton jobStatus={status} start={start} halt={remove} />
+        {status === JobStatus.Running && (
+          <Button
+            variant="outlined"
+            onClick={() => fetchStatusAndLogs()}
+            aria-label="Get job status"
+          >
+            <Icon data={refresh} />
+          </Button>
+        )}
         <Button
-          onClick={() => {
-            setJobIsStarted(false)
-            remove()
-          }}
-          variant="contained"
+          onClick={() =>
+            fetchResult().then((res: GetJobResultResponse) => setResult(res))
+          }
+          variant={'outlined'}
+          disabled={status === JobStatus.NotStarted}
         >
-          <Icon data={stop}></Icon>
-          Stop
+          Get results
         </Button>
-      ) : (
-        <Button
-          onClick={() => {
-            start()
-            setJobIsStarted(true)
-          }}
-          variant="contained"
-        >
-          <Icon data={play}></Icon>
-          Start
-        </Button>
+      </JobButtonWrapper>
+      {status === JobStatus.Failed && (
+        <Card variant="danger" style={{ marginTop: '8px' }}>
+          <Card.Header>Job status: {status}</Card.Header>
+        </Card>
       )}
-      <button
-        onClick={() => fetchStatusAndLogs()}
-        disabled={status === JobStatus.NotStarted}
-      >
-        Refresh status and logs
-      </button>
-      <button
-        onClick={() =>
-          fetchResult().then((res: GetJobResultResponse) => setResult(res))
-        }
-        disabled={status === JobStatus.NotStarted}
-      >
-        Get results
-      </button>
+      {(error || logs) && (
+        <>
+          <Typography variant="h4">Logs:</Typography>
+          {error ? (
+            <pre>{JSON.stringify(error, null, 2)}</pre>
+          ) : (
+            <pre>{logs}</pre>
+          )}
+        </>
+      )}
 
-      <Typography variant="h4">Logs:</Typography>
-      {error ? <pre>{JSON.stringify(error, null, 2)}</pre> : <pre>{logs}</pre>}
-      <Typography variant="h4">Result:</Typography>
       {result && (
         <>
+          <Typography variant="h4">Result:</Typography>
           <pre>{result.message}</pre>
           <pre>{result.result}</pre>
         </>

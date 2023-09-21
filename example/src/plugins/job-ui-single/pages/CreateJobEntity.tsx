@@ -1,7 +1,5 @@
 import {
-  EBlueprint,
   ErrorResponse,
-  Stack,
   TGenericObject,
   TJob,
   splitAddress,
@@ -88,8 +86,8 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
 
     const addOrUpdateDocument = (
       jobExists: boolean,
-      jobEntityDestination,
-      jobEntityFormData
+      jobEntityDestination: string,
+      jobEntityFormData: TJob
     ) => {
       if (jobExists) {
         updateDocument(jobEntityDestination, jobEntityFormData)
@@ -98,7 +96,6 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
       }
     }
 
-    // TODO: Implement document check
     DmssApi.documentCheck({
       address: jobEntityDestination,
     }).then((response: AxiosResponse) =>
@@ -110,43 +107,38 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
     )
   }
 
-  if (createdJobEntity) {
-    return (
-      <Typography>
-        Job entity already created at location {jobEntityDestination}{' '}
-      </Typography>
-    )
-  }
+  if (createdJobEntity) return <></>
 
   return (
     <div>
-      <Stack spacing={1}>
-        <Typography variant="h3">
-          Create new object of type: {EBlueprint.JOB}
-        </Typography>
-        {defaultJobEntity ? (
-          <>
-            <Typography>
-              Using default job entity. Will be saved to destination{' '}
-              {jobEntityDestination}
-            </Typography>
-            <Button
-              onClick={() => {
-                createJobEntity(defaultJobEntity)
-              }}
-            >
-              Create
-            </Button>
-          </>
-        ) : (
-          <JobForm
-            onSubmit={(jobEntityFormData: TJob) => {
-              createJobEntity(jobEntityFormData as TJob)
+      {defaultJobEntity ? (
+        <div style={{ padding: '1rem' }}>
+          <Typography variant={'h5'}>Create new job</Typography>
+
+          <div>
+            <p>
+              This will create a new job with a default job entity. The job will
+              be saved to the following destination:
+            </p>
+
+            <pre>{jobEntityDestination}</pre>
+          </div>
+          <Button
+            onClick={() => {
+              createJobEntity(defaultJobEntity)
             }}
-            defaultJobOutputTarget={defaultJobOutputTarget}
-          />
-        )}
-      </Stack>
+          >
+            Create new job
+          </Button>
+        </div>
+      ) : (
+        <JobForm
+          onSubmit={(jobEntityFormData: TJob) => {
+            createJobEntity(jobEntityFormData as TJob)
+          }}
+          defaultJobOutputTarget={defaultJobOutputTarget}
+        />
+      )}
     </div>
   )
 }
