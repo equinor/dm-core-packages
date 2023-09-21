@@ -35,7 +35,7 @@ export const JobPlugin = (props: IUIPlugin) => {
   const [jobId, setJobId] = useState<string | undefined>(undefined)
   const [jobExists, setJobExists] = useState(false)
   const jobEntityDestination = `DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].job`
-  const [result, setResult] = useState<GetJobResultResponse>()
+  const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const defaultJobOutputTarget = props.idReference + '.signal'
   // const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
   const [allowStartJob, setAllowJobStart] = useState(false)
@@ -185,7 +185,14 @@ export const JobPlugin = (props: IUIPlugin) => {
       <JobButtonWrapper>
         {jobExists ? (
           <>
-            <JobControlButton jobStatus={status} start={start} halt={remove} />
+            <JobControlButton
+              jobStatus={status}
+              start={() => {
+                setResult(null)
+                return start()
+              }}
+              halt={remove}
+            />
             {status === JobStatus.Running && (
               <Button
                 variant="outlined"
