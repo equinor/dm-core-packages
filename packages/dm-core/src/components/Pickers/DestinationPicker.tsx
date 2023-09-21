@@ -53,6 +53,31 @@ export const DestinationPicker = (props: TDestinationPickerProps) => {
     setShowModal(false)
   }
 
+  const SelectPackageButton = (props: TNodeWrapperProps) => {
+    const { node, children } = props
+
+    return (
+      <Wrapper>
+        {children}
+        {node.type === EBlueprint.PACKAGE && (
+          <div style={{ padding: '0 5px', backgroundColor: 'white' }}>
+            <Button
+              style={{ height: '22px' }}
+              variant="ghost"
+              onClick={() => {
+                if (onSelect) {
+                  return onSelect(node)
+                }
+              }}
+            >
+              Select
+            </Button>
+          </div>
+        )}
+      </Wrapper>
+    )
+  }
+
   return (
     <div>
       <Label label={label || 'Destination'} />
@@ -90,7 +115,6 @@ export const DestinationPicker = (props: TDestinationPickerProps) => {
               // eslint-disable-next-line @typescript-eslint/no-empty-function
               onSelect={() => {}}
               NodeWrapper={SelectPackageButton}
-              NodeWrapperOnClick={onSelect}
             />
           )}
         </Dialog.CustomContent>
@@ -108,27 +132,3 @@ const Wrapper = styled.div`
     background-color: #acb7da;
   }
 `
-export const SelectPackageButton = (props: TNodeWrapperProps) => {
-  const { node, children, onSelect } = props
-
-  return (
-    <Wrapper>
-      {children}
-      {node.type === EBlueprint.PACKAGE && (
-        <div style={{ padding: '0 5px', backgroundColor: 'white' }}>
-          <Button
-            style={{ height: '22px' }}
-            variant="ghost"
-            onClick={() => {
-              if (onSelect) {
-                return onSelect(node)
-              }
-            }}
-          >
-            Select
-          </Button>
-        </div>
-      )}
-    </Wrapper>
-  )
-}
