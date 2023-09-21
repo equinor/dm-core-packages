@@ -2449,3 +2449,72 @@ ref #521 (2023-09-05T08:25:02Z)
     * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
+* Feat/job UI (#502)
+
+* Make changes to the Job plugin UI
+
+* Make changes to the Job plugin UI
+
+* lint
+
+* change function call on refresh
+
+* remove comment
+
+* Add running indicator on run job button
+
+* lint
+
+* ping job
+
+* lint
+
+* tweaks
+
+* init file
+
+* remove redundant check
+
+* lint
+
+* remove unused var
+
+* lint....
+
+* fix issues from merge
+
+* tweak test
+
+* remove comment
+
+* Refactor/merge job actions (#523)
+
+* chore: push to switch machine
+
+* refactor: merge job components in sample app
+
+* refactor: remove unused var
+
+* refactor: maybe make it work
+
+* refactor: remove async prefix
+
+* fix: fix test
+
+* Update packages/dm-core/src/hooks/useJob.tsx
+
+Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.github.com>
+
+* feat: clear logs on start job
+
+---------
+
+Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.github.com>
+
+---------
+
+Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.github.com> (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6261139105/1)
+    * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
