@@ -118,6 +118,15 @@ export type TValidEntity = {
   [key: string]: TValidAttribute
 }
 
+export type TPackage = {
+  _id?: string
+  name: string
+  type: string
+  isRoot: boolean
+  content?: TStorageReference[]
+  description?: string
+}
+
 export interface IUIPlugin {
   type: string
   idReference: string
