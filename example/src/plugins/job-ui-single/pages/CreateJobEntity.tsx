@@ -2,7 +2,6 @@ import {
   ErrorResponse,
   TGenericObject,
   TJob,
-  splitAddress,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
@@ -39,7 +38,7 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
   } = props
 
   const DmssApi = useDMSS()
-  const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
+  // const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
   const [createdJobEntity, setCreatedJobEntity] = useState<TGenericObject>()
 
   const createJobEntity = (jobEntityFormData: TJob) => {
@@ -75,8 +74,10 @@ export const CreateJobEntity = (props: TCreateJobEntityProps) => {
         address: jobEntityDestination,
         document: JSON.stringify(jobEntityFormData),
       })
-        .then((response: AxiosResponse) => {
-          onCreate(`${dataSourceId}/$${response.data.uid}`)
+        .then(() => {
+          // UID cannot be used until the job has been started
+          // onCreate(`${dataSourceId}/$${response.data.uid}`)
+          onCreate(jobEntityDestination)
           setCreatedJobEntity(jobEntityFormData)
         })
         .catch((error: AxiosError<ErrorResponse>) => {

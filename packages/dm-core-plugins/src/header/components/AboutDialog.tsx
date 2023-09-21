@@ -26,7 +26,7 @@ export const AboutDialog = (props: AboutDialogProps) => {
         {applicationEntity.description}
       </Dialog.CustomContent>
       <Dialog.Actions>
-        <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+        <Button onClick={() => setIsOpen(false)}>Ok</Button>
       </Dialog.Actions>
     </Dialog>
   )

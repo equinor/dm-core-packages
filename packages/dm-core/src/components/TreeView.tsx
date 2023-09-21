@@ -179,7 +179,7 @@ export const TreeView = (props: {
   }
 
   return (
-    <div style={{ height: '100%', overflow: 'auto' }}>
+    <div style={{ height: 'auto', overflow: 'auto' }}>
       {nodes.map((node: TreeNode) => {
         // If it has a parent, and the parent is not expanded, hide node
         if (ignoredTypes?.length && ignoredTypes.includes(node.type))

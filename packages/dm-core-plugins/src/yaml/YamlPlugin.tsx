@@ -14,7 +14,8 @@ import YAML from 'yaml'
 const CodeContainer = styled.pre`
   background-color: #193549;
   margin: 0;
-  padding: 0.25rem 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
 
   & .hljs-string {
     color: #a5ff90;
