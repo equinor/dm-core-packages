@@ -3,8 +3,9 @@ import {
   TReferenceViewConfig,
   TViewConfig,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import { external_link } from '@equinor/eds-icons'
 import React from 'react'
+import TooltipButton from '../../common/TooltipButton'
 import { useRegistryContext } from '../context/RegistryContext'
 
 export const OpenObjectButton = ({
@@ -19,11 +20,11 @@ export const OpenObjectButton = ({
   const { onOpen } = useRegistryContext()
 
   return (
-    <Button
-      variant="outlined"
-      onClick={() => onOpen?.(viewId, view, idReference)}
-    >
-      Open
-    </Button>
+    <TooltipButton
+      title="Open in tab"
+      button-variant="ghost_icon"
+      button-onClick={() => onOpen?.(viewId, view, idReference)}
+      icon={external_link}
+    />
   )
 }

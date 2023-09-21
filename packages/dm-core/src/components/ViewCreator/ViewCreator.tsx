@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget } from './utils'
 import { AxiosResponse } from 'axios'
+import { Typography } from '@equinor/eds-core-react'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
@@ -60,10 +61,10 @@ export const ViewCreator = (props: TViewCreator): JSX.Element => {
   if (isLoading) return <Loading />
   if (error)
     return (
-      <p>
+      <Typography>
         Could not find attribute for document with id {reference} (
         {error.message})
-      </p>
+      </Typography>
     )
   if (attribute === undefined)
     throw new Error('Unable to find type and dimensions for view')

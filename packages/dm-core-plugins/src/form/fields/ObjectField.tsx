@@ -1,10 +1,9 @@
 import {
   EBlueprint,
-  EntityPickerButton,
+  EntityPickerDialog,
   EntityView,
   ErrorResponse,
   Loading,
-  Stack,
   TBlueprint,
   TLinkReference,
   getKey,
@@ -13,19 +12,22 @@ import {
   useBlueprint,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Typography } from '@equinor/eds-core-react'
+import { Typography } from '@equinor/eds-core-react'
+import { add, delete_forever, edit } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import styled from 'styled-components'
+import TooltipButton from '../../common/TooltipButton'
 import { defaultConfig } from '../FormPlugin'
 import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
+import { Fieldset, Legend } from '../styles'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
+  const [showModal, setShowModal] = useState<boolean>(false)
   const { setValue, watch } = useFormContext()
   const dmssAPI = useDMSS()
   const { idReference } = useRegistryContext()
@@ -64,13 +66,21 @@ const SelectReference = (props: { type: string; namePath: string }) => {
   }
 
   return (
-    <EntityPickerButton
-      data-testid={`select-${props.namePath}`}
-      onChange={onChange}
-      buttonVariant="outlined"
-      typeFilter={props.type}
-      alternativeButtonText="Select and save"
-    />
+    <>
+      <TooltipButton
+        title={`${value ? 'Edit' : 'Add'} and save`}
+        button-variant="ghost_icon"
+        button-onClick={() => setShowModal(true)}
+        icon={value ? edit : add}
+      />
+      <EntityPickerDialog
+        data-testid={`select-${props.namePath}`}
+        onChange={onChange}
+        typeFilter={props.type}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
+    </>
   )
 }
 
@@ -114,13 +124,12 @@ const AddObject = (props: {
       })
   }
   return (
-    <Button
-      variant="outlined"
-      data-testid={`add-${namePath}`}
-      onClick={handleAdd}
-    >
-      Add and save
-    </Button>
+    <TooltipButton
+      title="Add and save"
+      button-variant="ghost_icon"
+      button-onClick={handleAdd}
+      icon={add}
+    />
   )
 }
 
@@ -147,13 +156,12 @@ const RemoveObject = (props: { namePath: string }) => {
       })
   }
   return (
-    <Button
-      variant="outlined"
-      data-testid={`remove-${namePath}`}
-      onClick={onClick}
-    >
-      Remove and save
-    </Button>
+    <TooltipButton
+      title="Remove and save"
+      button-variant="ghost_icon"
+      button-onClick={onClick}
+      icon={delete_forever}
+    />
   )
 }
 
@@ -167,27 +175,28 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
     uiRecipe,
     blueprint,
     defaultValue,
+    readOnly,
   } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
   const isDefined = value && Object.keys(value).length > 0
-
   return (
-    <Stack spacing={0.25} alignItems="flex-start">
-      <Typography bold={true}>{displayLabel}</Typography>
-      {optional &&
-        (isDefined ? (
-          <RemoveObject namePath={namePath} />
-        ) : (
-          <AddObject
-            namePath={namePath}
-            type={type}
-            defaultValue={defaultValue}
-          />
-        ))}
-      {isDefined &&
-        (onOpen && !uiAttribute?.showInline ? (
+    <Fieldset>
+      <Legend>
+        <Typography bold={true}>{displayLabel}</Typography>
+        {optional &&
+          !readOnly &&
+          (isDefined ? (
+            <RemoveObject namePath={namePath} />
+          ) : (
+            <AddObject
+              namePath={namePath}
+              type={type}
+              defaultValue={defaultValue}
+            />
+          ))}
+        {isDefined && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
             idReference={idReference}
@@ -197,15 +206,17 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
               recipe: uiRecipe?.name,
             }}
           />
-        ) : (
-          <Inline
-            type={type}
-            namePath={namePath}
-            blueprint={blueprint}
-            uiRecipe={uiRecipe}
-          />
-        ))}
-    </Stack>
+        )}
+      </Legend>
+      {isDefined && !(onOpen && !uiAttribute?.showInline) && (
+        <Inline
+          type={type}
+          namePath={namePath}
+          blueprint={blueprint}
+          uiRecipe={uiRecipe}
+        />
+      )}
+    </Fieldset>
   )
 }
 
@@ -231,24 +242,24 @@ const Inline = (props: {
     )
   }
   return (
-    <Indent>
-      <AttributeList
-        namePath={namePath}
-        config={uiRecipe?.config}
-        blueprint={blueprint}
-      />
-    </Indent>
+    <AttributeList
+      namePath={namePath}
+      config={uiRecipe?.config}
+      blueprint={blueprint}
+    />
   )
 }
 
-const Indent = styled.div`
-  border-left: 1px solid black;
-  padding-left: 1rem;
-`
-
 export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
-  const { type, namePath, displayLabel, uiAttribute, uiRecipe, optional } =
-    props
+  const {
+    type,
+    namePath,
+    displayLabel,
+    uiAttribute,
+    uiRecipe,
+    optional,
+    readOnly,
+  } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const value = watch(namePath)
@@ -259,12 +270,13 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
       : undefined
 
   return (
-    <Stack spacing={0.5}>
-      <Typography bold={true}>{displayLabel}</Typography>
-      {address && <Typography>Address: {value.address}</Typography>}
-      <Stack direction="row" spacing={0.5}>
-        <SelectReference type={type} namePath={namePath} />
-        {optional && address && <RemoveObject namePath={namePath} />}
+    <Fieldset>
+      <Legend>
+        <Typography bold={true}>{displayLabel}</Typography>
+        {!readOnly && <SelectReference type={type} namePath={namePath} />}
+        {optional && address && !readOnly && (
+          <RemoveObject namePath={namePath} />
+        )}
         {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
@@ -276,7 +288,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
             idReference={address}
           />
         )}
-      </Stack>
+      </Legend>
       {address && !(onOpen && !uiAttribute?.showInline) && (
         <EntityView
           idReference={address}
@@ -285,7 +297,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
           onOpen={onOpen}
         />
       )}
-    </Stack>
+    </Fieldset>
   )
 }
 
@@ -321,6 +333,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
     contained,
     uiAttribute,
     defaultValue,
+    readOnly,
   } = props
 
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
@@ -345,6 +358,7 @@ export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
       uiRecipe={uiRecipe}
       uiAttribute={uiAttribute}
       defaultValue={defaultValue}
+      readOnly={readOnly}
     />
   )
 }

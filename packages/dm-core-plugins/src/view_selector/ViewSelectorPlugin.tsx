@@ -146,14 +146,29 @@ export const ViewSelectorPlugin = (
           removeView={removeView}
         />
       )}
-      <Content
-        type={type}
-        onOpen={addView}
-        formData={formData}
-        selectedView={selectedView}
-        items={views}
-        setFormData={setFormData}
-      />
+      <div
+        style={{
+          ...(internalConfig.asSidebar
+            ? { paddingLeft: '8px' }
+            : { paddingTop: '8px' }),
+          paddingRight: '8px',
+        }}
+      >
+        <Content
+          style={{
+            ...(internalConfig.asSidebar
+              ? { paddingLeft: '8px' }
+              : { paddingTop: '8px' }),
+            paddingRight: '8px',
+          }}
+          type={type}
+          onOpen={addView}
+          formData={formData}
+          selectedView={selectedView}
+          items={views}
+          setFormData={setFormData}
+        />
+      </div>
     </div>
   )
 }

@@ -1,10 +1,6 @@
 import * as React from 'react'
 
-import {
-  Stack,
-  TGenericObject,
-  useBlueprint,
-} from '@development-framework/dm-core'
+import { TGenericObject, useBlueprint } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
@@ -12,9 +8,13 @@ import { RegistryProvider } from '../context/RegistryContext'
 import { TFormProps } from '../types'
 import { AttributeList } from './AttributeList'
 
-const Wrapper = styled.div`
+const StyledForm = styled.form`
   max-width: 650px;
   width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 `
 
 export const Form = (props: TFormProps) => {
@@ -44,27 +44,25 @@ export const Form = (props: TFormProps) => {
   })
 
   return (
-    <Wrapper>
-      <FormProvider {...methods}>
-        <RegistryProvider onOpen={onOpen} idReference={idReference}>
-          <form onSubmit={handleSubmit}>
-            <Stack spacing={2} style={{ padding: '1rem 0' }}>
-              <AttributeList
-                namePath={namePath}
-                config={config}
-                blueprint={blueprint}
-              />
-              <Button
-                type="submit"
-                data-testid="form-submit"
-                style={{ alignSelf: 'flex-start' }}
-              >
-                Submit
-              </Button>
-            </Stack>
-          </form>
-        </RegistryProvider>
-      </FormProvider>
-    </Wrapper>
+    <FormProvider {...methods}>
+      <RegistryProvider onOpen={onOpen} idReference={idReference}>
+        <StyledForm onSubmit={handleSubmit}>
+          <AttributeList
+            namePath={namePath}
+            config={config}
+            blueprint={blueprint}
+          />
+          {!config?.readOnly && (
+            <Button
+              type="submit"
+              data-testid="form-submit"
+              style={{ alignSelf: 'flex-start' }}
+            >
+              Submit
+            </Button>
+          )}
+        </StyledForm>
+      </RegistryProvider>
+    </FormProvider>
   )
 }

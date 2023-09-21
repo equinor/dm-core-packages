@@ -1,6 +1,6 @@
 import {
   EBlueprint,
-  EntityPickerButton,
+  EntityPickerDialog,
   JobStatus,
   Loading,
   Stack,
@@ -10,7 +10,7 @@ import {
   TValidEntity,
   useBlueprint,
 } from '@development-framework/dm-core'
-import { Button, TextField } from '@equinor/eds-core-react'
+import { Button, TextField, Typography } from '@equinor/eds-core-react'
 
 import React, { ChangeEvent, useState } from 'react'
 
@@ -36,6 +36,8 @@ export const JobForm = (props: {
     started: 'Not started',
   }
   const [formData, setFormData] = useState<TJob>(defaultJobValues)
+  const [showJobRunnerModal, setShowJobRunnerModal] = useState<boolean>(false)
+  const [showInputModal, setShowInputModal] = useState<boolean>(false)
   const {
     blueprint: jobBlueprint,
     isLoading: isBlueprintLoading,
@@ -72,16 +74,21 @@ export const JobForm = (props: {
           if (attribute.name === 'runner') {
             return (
               <>
-                <p>Pick job runner entity:</p>
-                <EntityPickerButton
-                  onChange={(address: string, entity: TValidEntity) => {
+                <Typography>Pick job runner entity:</Typography>
+                <Button onClick={() => setShowJobRunnerModal(true)}>
+                  Select
+                </Button>
+                <EntityPickerDialog
+                  showModal={showJobRunnerModal}
+                  setShowModal={setShowJobRunnerModal}
+                  onChange={(address: string, entity?: TValidEntity) => {
                     setFormData({ ...formData, runner: entity })
                   }}
                 />
-                <p>
+                <Typography>
                   {formData?.runner &&
                     'Selected: ' + JSON.stringify(formData.runner)}
-                </p>
+                </Typography>
               </>
             )
           }
@@ -89,14 +96,17 @@ export const JobForm = (props: {
             return (
               <>
                 <div>
-                  <p>Select reference to applicationInput</p>
-                  <p>
+                  <Typography>Select reference to applicationInput</Typography>
+                  <Typography>
                     {formData?.applicationInput &&
                       'Selected: ' +
                         JSON.stringify(formData.applicationInput.address)}
-                  </p>
+                  </Typography>
                 </div>
-                <EntityPickerButton
+                <Button onClick={() => setShowInputModal(true)}>Select</Button>
+                <EntityPickerDialog
+                  showModal={showInputModal}
+                  setShowModal={setShowInputModal}
                   onChange={(address: string) => {
                     const linkReference: TLinkReference = {
                       type: EBlueprint.REFERENCE,

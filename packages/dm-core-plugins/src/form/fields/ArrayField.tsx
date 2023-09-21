@@ -6,13 +6,16 @@ import {
   getKey,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Typography } from '@equinor/eds-core-react'
+import { Typography } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import React from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
+import { add, delete_forever } from '@equinor/eds-icons'
+import TooltipButton from '../../common/TooltipButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
+import { Fieldset, Legend } from '../styles'
 import { TArrayFieldProps } from '../types'
 import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
@@ -59,24 +62,28 @@ export default function ArrayField(props: TArrayFieldProps) {
 
   if (onOpen && !uiAttribute?.showInline && !isPrimitiveType(type)) {
     return (
-      <Stack spacing={0.25} alignItems="flex-start">
-        <Typography bold={true}>{displayLabel}</Typography>
-        <OpenObjectButton
-          viewId={namePath}
-          view={{
-            type: 'ReferenceViewConfig',
-            scope: namePath,
-            recipe: uiRecipeName,
-          }}
-        />
-      </Stack>
+      <Fieldset>
+        <Legend>
+          <Typography bold={true}>{displayLabel}</Typography>
+          <OpenObjectButton
+            viewId={namePath}
+            view={{
+              type: 'ReferenceViewConfig',
+              scope: namePath,
+              recipe: uiRecipeName,
+            }}
+          />
+        </Legend>
+      </Fieldset>
     )
   }
 
   if (!isPrimitiveType(type)) {
     return (
-      <Stack spacing={0.5} alignItems="flex-start">
-        <Typography bold={true}>{displayLabel}</Typography>
+      <Fieldset>
+        <Legend>
+          <Typography bold={true}>{displayLabel}</Typography>
+        </Legend>
         <EntityView
           recipeName={uiRecipeName}
           idReference={`${idReference}.${namePath}`}
@@ -84,13 +91,30 @@ export default function ArrayField(props: TArrayFieldProps) {
           onOpen={onOpen}
           dimensions={dimensions}
         />
-      </Stack>
+      </Fieldset>
     )
   }
 
   return (
-    <Stack spacing={0.5} alignItems="flex-start">
-      <Typography bold={true}>{displayLabel}</Typography>
+    <Fieldset>
+      <Legend>
+        <Typography bold={true}>{displayLabel}</Typography>
+        {!readOnly && (
+          <TooltipButton
+            title="Add"
+            button-variant="ghost_icon"
+            button-onClick={() => {
+              if (isPrimitiveType(type)) {
+                const defaultValue = isPrimitive(type) ? ' ' : {}
+                append(defaultValue)
+              } else {
+                handleAddObject()
+              }
+            }}
+            icon={add}
+          />
+        )}
+      </Legend>
       {fields.map((item: any, index: number) => {
         return (
           <Stack
@@ -98,6 +122,7 @@ export default function ArrayField(props: TArrayFieldProps) {
             direction="row"
             spacing={0.5}
             alignSelf="stretch"
+            alignItems="flex-end"
           >
             <Stack grow={1}>
               <AttributeField
@@ -111,32 +136,17 @@ export default function ArrayField(props: TArrayFieldProps) {
                 readOnly={readOnly}
               />
             </Stack>
-            <Button
-              disabled={readOnly}
-              variant="outlined"
-              type="button"
-              onClick={() => remove(index)}
-            >
-              Remove
-            </Button>
+            {!readOnly && (
+              <TooltipButton
+                title="Remove"
+                button-variant="ghost_icon"
+                button-onClick={() => remove(index)}
+                icon={delete_forever}
+              />
+            )}
           </Stack>
         )
       })}
-      <Button
-        disabled={readOnly}
-        variant="outlined"
-        data-testid={`add-${namePath}`}
-        onClick={() => {
-          if (isPrimitiveType(type)) {
-            const defaultValue = isPrimitive(type) ? ' ' : {}
-            append(defaultValue)
-          } else {
-            handleAddObject()
-          }
-        }}
-      >
-        Add
-      </Button>
-    </Stack>
+    </Fieldset>
   )
 }

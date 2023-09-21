@@ -1,0 +1,65 @@
+{
+  "name": "ReadOnlyPrimitives",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "stringOptional",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "An optional string",
+      "optional": true
+    },
+    {
+      "name": "stringRequired",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "A required string",
+      "optional": false
+    },
+    {
+      "name": "numberRequired",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "A required number",
+      "optional": false
+    },
+    {
+      "name": "numberOptional",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Numbers only",
+      "optional": true
+    },
+    {
+      "name": "integer",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "label": "Integer only",
+      "optional": true
+    },
+    {
+      "name": "checkboxOptional",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "An optional checkbox",
+      "optional": true
+    },
+    {
+      "name": "checkboxRequired",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "A required checbox (e.g. for confirmation purposes)",
+      "optional": false
+    }
+  ]
+}
