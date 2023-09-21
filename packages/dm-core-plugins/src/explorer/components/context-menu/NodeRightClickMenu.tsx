@@ -1,26 +1,22 @@
 import { TNodeWrapperProps } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
+import { EDialog } from '../../types'
 import AppendEntityDialog from '../dialogs/AppendEntityDialog'
 import DeleteDialog from '../dialogs/DeleteDialog'
 import NewBlueprintDialog from '../dialogs/NewBlueprintDialog'
 import NewEntityDialog from '../dialogs/NewEntityDialog'
 import NewFolderDialog from '../dialogs/NewFolderDialog'
-import NewRootPackageDialog from '../dialogs/NewRootPackageDialog'
-import { createContextMenuItems } from './utils/createContextMenuItmes'
+import { getMenuItems } from './getMenuItems'
 
 export const STANDARD_DIALOG_WIDTH = '100%'
 export const STANDARD_DIALOG_HEIGHT = '300px'
 
 const NodeRightClickMenu = (props: TNodeWrapperProps) => {
   const { node, children } = props
-  const [dialogId, setDialogId] = useState<string>('')
-  const [formData, setFormData] = useState<any>('')
-  const [loading, setLoading] = useState<boolean>(false)
+  const [dialogId, setDialogId] = useState<EDialog | undefined>()
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-
-  const menuItems = createContextMenuItems(node, setDialogId)
 
   //TODO when the tree changes by adding new package or deleting something, the tree should be updated to give consistent UI to user
   return (
@@ -42,65 +38,31 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         placement="bottom-start"
         matchAnchorWidth={true}
       >
-        {menuItems}
+        {getMenuItems(node, setDialogId)}
       </Menu>
 
-      {dialogId === 'new-folder' && (
-        <NewFolderDialog
-          setDialogId={setDialogId}
-          formData={formData}
-          setFormData={setFormData}
-          node={node}
-        />
+      {dialogId === EDialog.NewFolder && (
+        <NewFolderDialog setDialogId={setDialogId} node={node} isRoot={false} />
       )}
 
-      {dialogId == 'delete' && (
-        <DeleteDialog
-          setDialogId={setDialogId}
-          loading={loading}
-          setLoading={setLoading}
-          node={node}
-        />
+      {dialogId === EDialog.Delete && (
+        <DeleteDialog setDialogId={setDialogId} node={node} />
       )}
 
-      {dialogId === 'new-root-package' && (
-        <NewRootPackageDialog
-          setDialogId={setDialogId}
-          formData={formData}
-          setFormData={setFormData}
-          node={node}
-        />
+      {dialogId === EDialog.NewRootPackage && (
+        <NewFolderDialog setDialogId={setDialogId} node={node} isRoot={true} />
       )}
 
-      {dialogId === 'append-entity' && (
-        <AppendEntityDialog
-          setDialogId={setDialogId}
-          loading={loading}
-          setLoading={setLoading}
-          node={node}
-        />
+      {dialogId === EDialog.AppendEntity && (
+        <AppendEntityDialog setDialogId={setDialogId} node={node} />
       )}
 
-      {dialogId === 'new-entity' && (
-        <NewEntityDialog
-          setDialogId={setDialogId}
-          formData={formData}
-          setFormData={setFormData}
-          loading={loading}
-          setLoading={setLoading}
-          node={node}
-        />
+      {dialogId === EDialog.NewEntity && (
+        <NewEntityDialog setDialogId={setDialogId} node={node} />
       )}
 
-      {dialogId === 'new-blueprint' && (
-        <NewBlueprintDialog
-          setDialogId={setDialogId}
-          formData={formData}
-          setFormData={setFormData}
-          loading={loading}
-          setLoading={setLoading}
-          node={node}
-        />
+      {dialogId === EDialog.NewBlueprint && (
+        <NewBlueprintDialog setDialogId={setDialogId} node={node} />
       )}
     </>
   )

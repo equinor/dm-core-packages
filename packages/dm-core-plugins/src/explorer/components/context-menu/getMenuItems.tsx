@@ -1,37 +1,40 @@
 import { EBlueprint, TreeNode } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import React from 'react'
+import { EDialog } from '../../types'
 
-export function createContextMenuItems(
+// This function must return a list of Menu.Item, ie not wrapped in a <></>.
+// See https://github.com/equinor/design-system/issues/2659
+export function getMenuItems(
   node: TreeNode,
-  setScrimId: (id: string) => void
+  setDialogId: (id: EDialog | undefined) => void
 ): JSX.Element[] {
   const menuItems = []
-  const MenuItem = (props: { id: string; text: string }) => {
+  const getMenuItem = (id: EDialog, text: string) => {
     return (
-      <Menu.Item key={props.id} onClick={() => setScrimId(props.id)}>
-        {props.text}
+      <Menu.Item key={id} onClick={() => setDialogId(id)}>
+        {text}
       </Menu.Item>
     )
   }
 
   // dataSources get a "new root package"
   if (node.type === 'dataSource') {
-    menuItems.push(<MenuItem id="new-root-package" text="New package" />)
+    menuItems.push(getMenuItem(EDialog.NewRootPackage, 'New package'))
   }
 
   // Append to lists
   if (node.attribute.dimensions !== '') {
-    menuItems.push(<MenuItem id="append-entity" text={`Append ${node.name}`} />)
+    menuItems.push(getMenuItem(EDialog.AppendEntity, `Append ${node.name}`))
   }
 
   // Packages get a "new folder"
   // and "new entity"
   // and "new blueprint"
   if (node.type == EBlueprint.PACKAGE) {
-    menuItems.push(<MenuItem id="new-entity" text="New entity" />)
-    menuItems.push(<MenuItem id="new-blueprint" text="New blueprint" />)
-    menuItems.push(<MenuItem id="new-folder" text="New folder" />)
+    menuItems.push(getMenuItem(EDialog.NewEntity, 'New entity'))
+    menuItems.push(getMenuItem(EDialog.NewBlueprint, 'New blueprint'))
+    menuItems.push(getMenuItem(EDialog.NewFolder, 'New folder'))
   }
 
   // Everything besides dataSources and folders can be viewed
@@ -50,7 +53,7 @@ export function createContextMenuItems(
 
   // Everything besides dataSources can be deleted
   if (node.type !== 'dataSource') {
-    menuItems.push(<MenuItem id="delete" text="Delete" />)
+    menuItems.push(getMenuItem(EDialog.Delete, 'Delete'))
   }
 
   return menuItems
