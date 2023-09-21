@@ -31,6 +31,7 @@ test('uncontainedObject', async ({ page }) => {
   await dialog.getByText('UncontainedObject').click()
   await dialog.getByText('employees').click()
   await dialog.getByText('John').click()
+  await expect(dialog.getByText('Selected: John')).toBeVisible()
   await dialog.getByRole('button', { name: 'Select', exact: true }).click()
   await expect(dialog).not.toBeVisible()
 
@@ -53,7 +54,9 @@ test('uncontainedObject', async ({ page }) => {
   await dialog.getByText('uncontained_object', { exact: true }).click()
   await dialog.getByText('UncontainedObject').click()
   await dialog.getByText('employees').click()
+  await expect(dialog.getByText('John')).toHaveCount(2)
   await dialog.getByText('John').first().click()
+  await expect(dialog.getByText('Selected: John')).toBeVisible()
   await dialog.getByRole('button', { name: 'Select', exact: true }).click()
 
   await expect(dialog).not.toBeVisible()
@@ -75,7 +78,9 @@ test('uncontainedObject', async ({ page }) => {
   await dialog.getByText('uncontained_object', { exact: true }).click()
   await dialog.getByText('UncontainedObject').click()
   await dialog.getByText('employees', { exact: true }).click()
+  await expect(dialog.getByText('John')).toHaveCount(3)
   await dialog.getByText('John').first().click()
+  await expect(dialog.getByText('Selected: John')).toBeVisible()
   await dialog.getByRole('button', { name: 'Select', exact: true }).click()
   await expect(dialog).not.toBeVisible()
   await expect(
