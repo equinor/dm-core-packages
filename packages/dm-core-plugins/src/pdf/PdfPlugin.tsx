@@ -4,6 +4,7 @@ import { ViewerPDFPlugin } from './PDFViewer'
 import {
   IUIPlugin,
   Loading,
+  splitAddress,
   TGenericObject,
 } from '@development-framework/dm-core'
 import { useDocument } from '@development-framework/dm-core'
@@ -15,7 +16,7 @@ export const PdfPlugin = (props: IUIPlugin) => {
     idReference,
     999
   )
-  const dataSource = idReference.split('/')[0]
+  const dataSource = splitAddress(idReference).dataSource
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (loading || document === null) return <Loading />

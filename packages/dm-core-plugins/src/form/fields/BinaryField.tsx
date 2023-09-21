@@ -1,5 +1,6 @@
 import {
   ErrorResponse,
+  splitAddress,
   TGenericObject,
   useDMSS,
 } from '@development-framework/dm-core'
@@ -14,9 +15,10 @@ const getTarget = (initialValue: any) => {
   const { idReference } = useRegistryContext()
   if (initialValue['address'].includes('blob')) {
     const address = initialValue['address'].replace('blob://', '')
-    return address.split('/', 2)
+    const split = splitAddress(address)
+    return [split.dataSource, split.documentPath]
   } else {
-    return [idReference?.split('/', 2)[0], initialValue['address']]
+    return [splitAddress(idReference).dataSource, initialValue['address']]
   }
 }
 
