@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios'
 import { useContext, useEffect, useState } from 'react'
-import { TBlueprint } from 'src/domain/types'
-import { TUiRecipe } from 'src/types'
+import { TBlueprint, TUiRecipe } from 'src/types'
 import { ApplicationContext } from '../context/ApplicationContext'
 import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
