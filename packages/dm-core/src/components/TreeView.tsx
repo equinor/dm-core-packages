@@ -44,7 +44,6 @@ export type TNodeWrapperProps = {
   node: TreeNode
   removeNode?: () => void
   children: any
-  onSelect?: (node: TreeNode) => void
 }
 
 const GetIcon = (props: { node: TreeNode; expanded: boolean }) => {
@@ -136,11 +135,9 @@ export const TreeView = (props: {
   nodes: TreeNode[]
   onSelect: (node: TreeNode) => void
   NodeWrapper?: React.FunctionComponent<TNodeWrapperProps>
-  NodeWrapperOnClick?: (node: TreeNode) => void
   ignoredTypes?: string[] // Types to hide in the tree
 }) => {
-  const { nodes, onSelect, NodeWrapper, NodeWrapperOnClick, ignoredTypes } =
-    props
+  const { nodes, onSelect, NodeWrapper, ignoredTypes } = props
 
   // Use a per TreeView state to keep track of expanded nodes.
   // This is so clicking in one tree will not affect other TreeViews
@@ -187,11 +184,7 @@ export const TreeView = (props: {
         if (node?.parent && !expandedNodes[node.parent?.nodeId]) return null
         if (NodeWrapper) {
           return (
-            <NodeWrapper
-              node={node}
-              key={node.nodeId}
-              onSelect={NodeWrapperOnClick}
-            >
+            <NodeWrapper node={node} key={node.nodeId}>
               <TreeNodeComponent
                 node={node}
                 expanded={expandedNodes[node.nodeId]}
