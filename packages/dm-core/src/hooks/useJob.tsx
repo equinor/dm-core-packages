@@ -138,7 +138,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       })
       .finally(() => {
         setIsLoading(false)
-        if (status !== JobStatus.Failed) setStatus(JobStatus.Completed)
       })
   }
 
@@ -161,6 +160,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .then((response: AxiosResponse<StatusJobResponse>) => {
         setLogs(response.data.log ?? '')
         if (response.data.status !== status) setStatus(response.data.status)
+        if (status !== JobStatus.Running) stopJobPing()
         setError(undefined)
         return response.data
       })
@@ -214,6 +214,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   function startJobPing(): void {
     setJobPinger(setInterval(fetchStatusAndLogs, 2000))
   }
+
   function stopJobPing(): void {
     // @ts-ignore
     clearInterval(jobPinger)

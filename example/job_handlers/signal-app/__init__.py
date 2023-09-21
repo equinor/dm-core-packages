@@ -38,7 +38,6 @@ class JobHandler(JobHandlerInterface):
     def start(self) -> str:
         logger.info("Job started")
         self.job.status = JobStatus.RUNNING
-        time.sleep(10)
         logger.info("after sleep")
         application_input_reference = self.job.entity['applicationInput']['address']
         input_entity = self._get_by_id(application_input_reference)
