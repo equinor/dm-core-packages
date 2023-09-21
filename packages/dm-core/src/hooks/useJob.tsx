@@ -125,7 +125,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     return dmJobApi
       .startJob({ jobDmssId: entityId })
       .then((response: AxiosResponse<StartJobResponse>) => {
-        console.log(response)
         setHookJobId(response.data.uid)
         setLogs(response.data.message)
         setStatus(JobStatus.Running)
