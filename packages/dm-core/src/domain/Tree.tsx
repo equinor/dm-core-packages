@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import { EBlueprint } from '../Enums'
 import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
-import { TAttribute, TBlueprint, TReference } from '../types'
+import { TAttribute, TBlueprint, TPackage, TReference } from '../types'
 import { splitAddress } from '../utils/addressUtilities'
 
 type TTreeMap = {
@@ -103,17 +103,19 @@ const createFolderChildren = (
 }
 
 const updateRootPackagesInTree = (
-  rootPackages: any,
+  rootPackages: TPackage[],
   tree: Tree,
   dataSource: string
 ) => {
   // Update content in a datasource. Search the DMSS database for root packages in a given datasource
   // and update the tree only if any packages from DMSS is missing in the tree.
 
-  Object.values(rootPackages).forEach((rootPackage: any) => {
+  Object.values(rootPackages).forEach((rootPackage: TPackage) => {
     //Only update tree if package is missing.
     if (
-      !Object.keys(tree.index[dataSource].children).includes(rootPackage['_id'])
+      !Object.keys(tree.index[dataSource].children).includes(
+        rootPackage._id ?? ''
+      )
     ) {
       const rootPackageNode = new TreeNode( // Add the rootPackage nodes to the dataSource
         tree,
@@ -127,25 +129,21 @@ const updateRootPackagesInTree = (
         false
       )
       const children: TTreeMap = {}
-      rootPackage?.content.forEach(
-        (
-          ref: any // Add the rootPackages children
-        ) => {
-          children[ref?._id] = new TreeNode(
-            tree,
-            `${dataSource}/$${ref?._id}`,
-            2,
-            ref,
-            packageAttribute,
-            rootPackageNode,
-            ref.name,
-            false,
-            false
-          )
-        }
-      )
+      rootPackage?.content?.forEach((ref) => {
+        children[ref.address] = new TreeNode(
+          tree,
+          `${dataSource}/${ref.address}`,
+          2,
+          ref,
+          packageAttribute,
+          rootPackageNode,
+          undefined,
+          false,
+          false
+        )
+      })
       rootPackageNode.children = children
-      tree.index[dataSource].children[rootPackage._id] = rootPackageNode
+      tree.index[dataSource].children[rootPackage._id ?? ''] = rootPackageNode
     }
   })
 }
@@ -355,7 +353,11 @@ export class Tree {
             dataSources: [dataSource],
           })
           .then((response) => {
-            updateRootPackagesInTree(response.data, this, dataSource)
+            updateRootPackagesInTree(
+              response.data as TPackage[],
+              this,
+              dataSource
+            )
           })
           .catch((error: Error) => {
             // If the search fail, set the DataSource as an error node.
