@@ -2,8 +2,7 @@ import { AxiosResponse } from 'axios'
 import { EBlueprint } from '../Enums'
 import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
-import { TReference } from '../types'
-import { TAttribute, TBlueprint } from './types'
+import { TAttribute, TBlueprint, TReference } from '../types'
 import { splitAddress } from '../utils/addressUtilities'
 
 type TTreeMap = {
