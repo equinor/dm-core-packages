@@ -6,60 +6,63 @@ import {
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import hljs from 'highlight.js'
-import yaml from 'highlight.js/lib/languages/yaml'
 import React from 'react'
 import { toast } from 'react-toastify'
-import { stringify } from 'yaml'
-import './index.css'
+import styled from 'styled-components'
+import YAML from 'yaml'
 
-hljs.registerLanguage('yaml', yaml)
+const CodeContainer = styled.pre`
+  background-color: #193549;
+  margin: 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  & .hljs-string {
+    color: #a5ff90;
+  }
+
+  & .hljs-literal,
+  & .hljs-number {
+    color: #f53b6e;
+  }
+
+  & .hljs-attr,
+  & .hljs-bullet {
+    color: #99ffff;
+  }
+`
+
+const ButtonRow = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  justify-content: flex-end;
+`
 
 const YamlView = (props: { document: TGenericObject }) => {
   const { document } = props
-  const asYAML: string = stringify(document)
+  const asYAML: string = YAML.stringify(document)
+  const asJSON: string = JSON.stringify(document)
   const highlighted = hljs.highlight(asYAML, { language: 'yaml' })
+
+  const onClick = (text: string) => {
+    navigator.clipboard.writeText(text)
+    toast.success('Copied!')
+  }
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'flex-end',
-          flexDirection: 'column',
-        }}
-      >
-        <div style={{ display: 'flex', gap: '1rem', margin: '0.5rem 0' }}>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              navigator.clipboard.writeText(asYAML)
-              toast.success('Copied!')
-            }}
-          >
-            Copy as YAML
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              navigator.clipboard.writeText(JSON.stringify(document))
-              toast.success('Copied!')
-            }}
-          >
-            Copy as JSON
-          </Button>
-        </div>
-      </div>
-      <pre
-        style={{
-          backgroundColor: '#193549',
-          color: 'coral',
-          margin: '0',
-          padding: '1rem',
-          borderRadius: '.5rem',
-        }}
-      >
+      <ButtonRow>
+        <Button variant="outlined" onClick={() => onClick(asYAML)}>
+          Copy as YAML
+        </Button>
+        <Button variant="outlined" onClick={() => onClick(asJSON)}>
+          Copy as JSON
+        </Button>
+      </ButtonRow>
+      <CodeContainer>
         <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
-      </pre>
+      </CodeContainer>
     </div>
   )
 }
