@@ -22,6 +22,7 @@ export const Sidebar = (props: {
                 : EdsIcons.subdirectory_arrow_right
             }
             label={config.label}
+            role="tab"
             onClick={() => setSelectedView(config.viewId)}
             active={selectedView === config.viewId}
           />
