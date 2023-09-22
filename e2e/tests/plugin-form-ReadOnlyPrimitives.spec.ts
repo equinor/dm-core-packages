@@ -2,10 +2,11 @@ import { expect, test } from '@playwright/test'
 
 test('Read only primitives', async ({ page }) => {
   await page.goto('http://localhost:3000/')
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('read_only_primitives').click()
-  await page.getByText('ReadOnlyPrimitives').click()
+  await page.getByRole('button', { name: 'DemoDataSource' }).click()
+  await page.getByRole('button', { name: 'plugins' }).click()
+  await page.getByRole('button', { name: 'form' }).click()
+  await page.getByRole('button', { name: 'read_only_primitives' }).click()
+  await page.getByRole('button', { name: 'ReadOnlyPrimitives' }).click()
 
   await expect(page.getByLabel('A required string')).not.toBeEditable()
 

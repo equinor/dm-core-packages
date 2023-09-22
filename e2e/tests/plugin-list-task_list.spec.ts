@@ -1,4 +1,4 @@
-import { test, expect, Page } from '@playwright/test'
+import { Page, expect, test } from '@playwright/test'
 
 //As the tests are building on each other, we need to run in serial mode.
 test.describe.configure({ mode: 'serial' })
@@ -6,22 +6,22 @@ test.describe.configure({ mode: 'serial' })
 //Open the TaskList plugin before each test
 test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3000/')
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('list').click()
-  await page.getByText('task_list').click()
-  await page.getByText('TaskList').click()
+  await page.getByRole('button', { name: 'DemoDataSource' }).click()
+  await page.getByRole('button', { name: 'plugins' }).click()
+  await page.getByRole('button', { name: 'list' }).click()
+  await page.getByRole('button', { name: 'task_list' }).click()
+  await page.getByRole('button', { name: 'TaskList' }).click()
   await page.getByRole('tab', { name: 'task list' }).click()
 })
 
 //TODO REMOVE: Temporary function to reload page as we currently need to reload page to view saved itmes... (#153)
 async function reloadPage(page: Page) {
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('list').click()
-  await page.getByText('task_list').click()
-  await page.getByText('TaskList').click()
+  await page.getByRole('button', { name: 'DemoDataSource' }).click()
+  await page.getByRole('button', { name: 'plugins' }).click()
+  await page.getByRole('button', { name: 'list' }).click()
+  await page.getByRole('button', { name: 'task_list' }).click()
+  await page.getByRole('button', { name: 'TaskList' }).click()
   await page.getByRole('tab', { name: 'task list' }).click()
 }
 

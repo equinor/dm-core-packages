@@ -1,12 +1,17 @@
 import { expect, test } from '@playwright/test'
 
 test('Simple form', async ({ page }) => {
+  const navigate = async () => {
+    await page.getByRole('button', { name: 'DemoDataSource' }).click()
+    await page.getByRole('button', { name: 'plugins' }).click()
+    await page.getByRole('button', { name: 'form' }).click()
+    await page.getByRole('button', { name: 'simple' }).click()
+    await page.getByRole('button', { name: 'DemoDataSource/$Simple' }).click()
+  }
+
   //Open simple form
   await page.goto('http://localhost:3000/')
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('simple', { exact: true }).click()
-  await page.getByText('DemoDataSource/$Simple').click()
+  await navigate()
 
   //Remove prefilled optional string
   await page.getByLabel('An optional string (optional)').fill('')
@@ -40,10 +45,7 @@ test('Simple form', async ({ page }) => {
 
   //Reloading form, expecting entered values to be stored
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('simple', { exact: true }).click()
-  await page.getByText('DemoDataSource/$Simple').click()
+  await navigate()
   await expect(page.getByLabel('Optional string (optional)')).toHaveValue('')
   await expect(page.getByLabel('Required string')).toHaveValue('Foo')
   await expect(page.getByLabel('Numbers only (optional)')).toHaveValue('3.14')

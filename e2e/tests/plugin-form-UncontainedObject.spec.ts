@@ -2,19 +2,29 @@ import { expect, test } from '@playwright/test'
 
 test('uncontainedObject', async ({ page }) => {
   await page.goto('http://localhost:3000/')
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('uncontained_object', { exact: true }).click()
-  await page.getByText('UncontainedObject').click()
+  await page.getByRole('button', { name: 'DemoDataSource' }).click()
+  await page.getByRole('button', { name: 'plugins' }).click()
+  await page.getByRole('button', { name: 'form' }).click()
+  await page.getByRole('button', { name: 'uncontained_object' }).click()
+  await page.getByRole('button', { name: 'UncontainedObject' }).click()
 
   const dialog = page.getByRole('dialog')
-  const navigateDialog = async () => {
+  const selectJohn = async () => {
     await expect(dialog).toBeVisible()
-    await dialog.getByText('plugins', { exact: true }).click()
-    await dialog.getByText('form', { exact: true }).click()
-    await dialog.getByText('uncontained_object', { exact: true }).click()
-    await dialog.getByText('UncontainedObject', { exact: true }).click()
-    await dialog.getByText('employees', { exact: true }).click()
+    await dialog.getByRole('button', { name: 'DemoDataSource' }).click()
+    await dialog.getByRole('button', { name: 'plugins' }).click()
+    await dialog.getByRole('button', { name: 'form' }).click()
+    await dialog.getByRole('button', { name: 'uncontained_object' }).click()
+    await dialog.getByRole('button', { name: 'UncontainedObject' }).click()
+    await dialog.getByRole('button', { name: 'employees' }).click()
+    await dialog
+      .getByRole('listitem')
+      .filter({ hasText: /^employees/ })
+      .getByRole('button', { name: 'John' })
+      .click()
+    await expect(dialog.getByText('Selected: John')).toBeVisible()
+    await dialog.getByRole('button', { name: 'Select', exact: true }).click()
+    await expect(dialog).not.toBeVisible()
   }
 
   await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
@@ -32,11 +42,7 @@ test('uncontainedObject', async ({ page }) => {
     .getByTestId('assistant')
     .getByRole('button', { name: 'Add and save' })
     .click()
-  await navigateDialog()
-  await dialog.getByText('John').click()
-  await expect(dialog.getByText('Selected: John')).toBeVisible()
-  await dialog.getByRole('button', { name: 'Select', exact: true }).click()
-  await expect(dialog).not.toBeVisible()
+  await selectJohn()
 
   await page
     .getByTestId('assistant')
@@ -51,13 +57,7 @@ test('uncontainedObject', async ({ page }) => {
     .getByTestId('trainee')
     .getByRole('button', { name: 'Add and save' })
     .click()
-  await navigateDialog()
-  await expect(dialog.getByText('John')).toHaveCount(2)
-  await dialog.getByText('John').first().click()
-  await expect(dialog.getByText('Selected: John')).toBeVisible()
-  await dialog.getByRole('button', { name: 'Select', exact: true }).click()
-
-  await expect(dialog).not.toBeVisible()
+  await selectJohn()
   await expect(
     page.getByTestId('trainee').getByRole('code').getByText('John')
   ).toBeVisible()
@@ -70,12 +70,7 @@ test('uncontainedObject', async ({ page }) => {
     .getByTestId('accountant')
     .getByRole('button', { name: 'Edit and save' })
     .click()
-  await navigateDialog()
-  await expect(dialog.getByText('John')).toHaveCount(3)
-  await dialog.getByText('John').first().click()
-  await expect(dialog.getByText('Selected: John')).toBeVisible()
-  await dialog.getByRole('button', { name: 'Select', exact: true }).click()
-  await expect(dialog).not.toBeVisible()
+  await selectJohn()
   await expect(
     page.getByTestId('accountant').getByRole('code').getByText('John')
   ).toBeVisible()

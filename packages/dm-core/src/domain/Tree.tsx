@@ -432,15 +432,8 @@ export class Tree {
   // "*" describes a generator function
   // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator
   *[Symbol.iterator]() {
-    function* recursiveYieldChildren(node: TreeNode): any {
-      yield node
-      for (const child of Object.values<TreeNode>(node?.children || {})) {
-        yield* recursiveYieldChildren(child)
-      }
-    }
-
     for (const node of Object.values<TreeNode>(this.index)) {
-      yield* recursiveYieldChildren(node)
+      yield node
     }
   }
 }
