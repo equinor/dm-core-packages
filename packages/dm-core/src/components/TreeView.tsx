@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { TreeNode } from '../domain/Tree'
 
-import { Progress, Tooltip } from '@equinor/eds-core-react'
+import { Button, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
+import { chevron_down, chevron_right } from '@equinor/eds-icons'
 import React from 'react'
 import {
-  FaChevronDown,
-  FaChevronRight,
   FaDatabase,
   FaExclamationTriangle,
   FaFileArchive,
@@ -19,25 +18,19 @@ import {
 } from 'react-icons/fa'
 import { EBlueprint } from '../Enums'
 
-type TStyledTreeNode = {
-  level: number
-}
-
-const ExpandButton = styled.div`
-  margin: 0 3px;
-  width: 15px;
+const StyledButton = styled(Button)`
+  padding: 0 8px 0 0;
 `
 
-const StyledTreeNode = styled.div<TStyledTreeNode>`
-  align-items: center;
-  display: flex;
-  padding-left: ${(props: TStyledTreeNode) => props.level * 20}px;
-  cursor: pointer;
-  width: -webkit-fill-available;
-
-  &:hover {
-    background-color: #acb7da;
+const StyledUl = styled.ul`
+  padding: 0;
+  & & {
+    padding-left: 1rem;
   }
+`
+
+const StyledLi = styled.li`
+  list-style: none;
 `
 
 export type TNodeWrapperProps = {
@@ -46,7 +39,7 @@ export type TNodeWrapperProps = {
   children: any
 }
 
-const GetIcon = (props: { node: TreeNode; expanded: boolean }) => {
+const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
   const { node, expanded } = props
   if (Array.isArray(node.entity)) {
     return <FaList />
@@ -88,46 +81,89 @@ const GetIcon = (props: { node: TreeNode; expanded: boolean }) => {
   }
 }
 
-const TreeNodeComponent = (props: {
+const TreeButton = (props: {
   node: TreeNode
   expanded: boolean
-  onClick: (node: TreeNode, setLoading: (l: boolean) => void) => void
+  loading: boolean
+  onClick: () => void
 }) => {
-  const { node, expanded, onClick } = props
-  const [loading, setLoading] = useState<boolean>(false)
+  const { node, expanded, loading, onClick } = props
+
   return (
-    <StyledTreeNode
-      key={node.nodeId}
-      level={node.level}
-      onClick={() => {
-        if (node.type !== 'error') onClick(node, setLoading)
-      }}
+    <Tooltip
+      enterDelay={600}
+      title={node?.message || node?.type || ''}
+      placement="right"
     >
-      {[EBlueprint.PACKAGE, 'dataSource'].includes(node.type || '') ? (
-        <ExpandButton>
-          {expanded ? <FaChevronDown /> : <FaChevronRight />}
-        </ExpandButton>
-      ) : (
-        <div style={{ width: '18px' }} />
-      )}
-      <div>
-        <GetIcon node={node} expanded={expanded} />
-      </div>
-      <Tooltip
-        enterDelay={600}
-        title={node?.message || node?.type || ''}
-        placement="top-start"
+      <StyledButton
+        key={node.nodeId}
+        variant="ghost"
+        color="secondary"
+        onClick={() => {
+          if (node.type !== 'error') onClick()
+        }}
       >
-        <div style={{ paddingLeft: '5px' }}>{node.name || node.nodeId}</div>
-      </Tooltip>
-      {loading && (
-        <Progress.Circular
-          color={'primary'}
-          size={16}
-          style={{ marginLeft: '5px' }}
+        <Icon data={expanded ? chevron_down : chevron_right} />
+        <TypeIcon node={node} expanded={expanded} />
+        {node.name || node.nodeId}
+        {loading && <Progress.Circular size={16} />}
+      </StyledButton>
+    </Tooltip>
+  )
+}
+
+const TreeListItem = (props: {
+  node: TreeNode
+  onSelect: (node: TreeNode) => void
+  NodeWrapper?: React.FunctionComponent<TNodeWrapperProps>
+  ignoredTypes?: string[]
+}) => {
+  const { node, onSelect, NodeWrapper, ignoredTypes } = props
+  const [loading, setLoading] = useState<boolean>(false)
+  const [expanded, setExpanded] = useState<boolean>(false)
+
+  const clickHandler = async () => {
+    if (expanded) {
+      setExpanded(false)
+    } else {
+      setLoading(true)
+      await node.expand()
+      setLoading(false)
+      setExpanded(true)
+    }
+    if (![EBlueprint.PACKAGE, 'dataSource'].includes(node.type)) {
+      onSelect(node)
+    }
+  }
+
+  return (
+    <StyledLi>
+      {NodeWrapper ? (
+        <NodeWrapper node={node} key={node.nodeId}>
+          <TreeButton
+            node={node}
+            expanded={expanded}
+            loading={loading}
+            onClick={clickHandler}
+          />
+        </NodeWrapper>
+      ) : (
+        <TreeButton
+          node={node}
+          expanded={expanded}
+          loading={loading}
+          onClick={clickHandler}
         />
       )}
-    </StyledTreeNode>
+      {expanded && (
+        <TreeView
+          nodes={Object.values(node.children)}
+          onSelect={onSelect}
+          NodeWrapper={NodeWrapper}
+          ignoredTypes={ignoredTypes}
+        />
+      )}
+    </StyledLi>
   )
 }
 
@@ -139,74 +175,19 @@ export const TreeView = (props: {
 }) => {
   const { nodes, onSelect, NodeWrapper, ignoredTypes } = props
 
-  // Use a per TreeView state to keep track of expanded nodes.
-  // This is so clicking in one tree will not affect other TreeViews
-  const [expandedNodes, setExpandedNodes] = useState<{ [k: string]: boolean }>(
-    {}
-  )
-
-  useEffect(() => {
-    const expandedNodes: { [k: string]: boolean } = {}
-    nodes.forEach((node: TreeNode) => {
-      // Initialize expanded state where only top level nodes are expanded
-      expandedNodes[node.nodeId] = node.level === 0
-    })
-    setExpandedNodes(expandedNodes)
-  }, [])
-
-  const _onClick = async (node: TreeNode, setLoading: (l: boolean) => void) => {
-    const newExpandedNodes: { [k: string]: boolean } = {}
-    if (!expandedNodes[node.nodeId]) {
-      setLoading(true)
-      await node.expand()
-      setLoading(false)
-      newExpandedNodes[node.nodeId] = true
-    } else {
-      // Set all children nodes as collapsed recursively
-      // @ts-ignore
-      for (const child of node) {
-        newExpandedNodes[child.nodeId] = false
-      }
-      newExpandedNodes[node.nodeId] = false
-    }
-    setExpandedNodes({ ...expandedNodes, ...newExpandedNodes })
-    if (![EBlueprint.PACKAGE, 'dataSource'].includes(node.type)) {
-      onSelect(node)
-    }
-  }
-
   return (
-    <div style={{ height: 'auto', overflow: 'auto' }}>
-      {nodes.map((node: TreeNode) => {
-        // If it has a parent, and the parent is not expanded, hide node
-        if (ignoredTypes?.length && ignoredTypes.includes(node.type))
-          return null
-        if (node?.parent && !expandedNodes[node.parent?.nodeId]) return null
-        if (NodeWrapper) {
-          return (
-            <NodeWrapper node={node} key={node.nodeId}>
-              <TreeNodeComponent
-                node={node}
-                expanded={expandedNodes[node.nodeId]}
-                onClick={(node: TreeNode, setLoading: (l: boolean) => void) =>
-                  _onClick(node, setLoading)
-                }
-              />
-            </NodeWrapper>
-          )
-        } else {
-          return (
-            <TreeNodeComponent
-              key={node.nodeId}
-              node={node}
-              expanded={expandedNodes[node.nodeId]}
-              onClick={(node: TreeNode, setLoading: (l: boolean) => void) =>
-                _onClick(node, setLoading)
-              }
-            />
-          )
-        }
-      })}
-    </div>
+    <StyledUl>
+      {nodes
+        .filter((node) => !(ignoredTypes ?? []).includes(node.type))
+        .map((node) => (
+          <TreeListItem
+            key={node.nodeId}
+            node={node}
+            onSelect={onSelect}
+            NodeWrapper={NodeWrapper}
+            ignoredTypes={ignoredTypes}
+          />
+        ))}
+    </StyledUl>
   )
 }
