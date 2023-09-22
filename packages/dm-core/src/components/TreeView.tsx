@@ -42,7 +42,7 @@ export type TNodeWrapperProps = {
 const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
   const { node, expanded } = props
   if (Array.isArray(node.entity)) {
-    return <FaList />
+    return <FaList title="list" />
   }
   if (Array.isArray(node?.parent?.entity)) {
     return <label>{'{}'}</label>
@@ -51,33 +51,40 @@ const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
     case EBlueprint.FILE: {
       const fileColor = '#2965FF'
       if (node.entity['filetype'] == 'application/pdf')
-        return <FaFilePdf style={{ color: fileColor }} />
+        return <FaFilePdf style={{ color: fileColor }} title="pdf" />
       if (node.entity['filetype'].startsWith('image'))
-        return <FaFileImage style={{ color: fileColor }} />
-      return <FaFileArchive style={{ color: fileColor }} />
+        return <FaFileImage style={{ color: fileColor }} title="image" />
+      return <FaFileArchive style={{ color: fileColor }} title="zip" />
     }
     case 'dataSource':
-      return <FaDatabase style={{ color: 'gray' }} />
+      return <FaDatabase style={{ color: 'gray' }} title="data source" />
     case 'error':
-      return <FaExclamationTriangle style={{ color: 'orange' }} />
+      return (
+        <FaExclamationTriangle
+          style={{ color: 'orange' }}
+          title="failed to load"
+        />
+      )
     case EBlueprint.BLUEPRINT:
-      return <FaRegFileAlt style={{ color: '#2966FF' }} />
+      return <FaRegFileAlt style={{ color: '#2966FF' }} title="blueprint" />
     case EBlueprint.PACKAGE:
       if (expanded) {
         if (node.isRoot) {
-          return <FaFolderOpen style={{ color: '#8531A3' }} />
+          return (
+            <FaFolderOpen style={{ color: '#8531A3' }} title="root package" />
+          )
         } else {
-          return <FaFolderOpen />
+          return <FaFolderOpen title="package" />
         }
       } else {
         if (node.isRoot) {
-          return <FaFolder style={{ color: '#8531A3' }} />
+          return <FaFolder style={{ color: '#8531A3' }} title="root package" />
         } else {
-          return <FaFolder />
+          return <FaFolder title="package" />
         }
       }
     default:
-      return <FaRegFileAlt />
+      return <FaRegFileAlt title="file" />
   }
 }
 
