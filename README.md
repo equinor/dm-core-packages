@@ -2539,3 +2539,10 @@ Co-authored-by: Ingerid Gjeitnes Hellen <64828956+ingeridhellen@users.noreply.gi
     * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
+* fix(tree): switch html structure from div to ul
+
+ref #534 (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6274846562/1)
+    * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
