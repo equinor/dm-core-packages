@@ -13,6 +13,7 @@ test('View selector - car garage', async ({ page }) => {
   )
 
   // Collapse and expand sidebar:
+  await page.getByRole('tab', { name: 'Self' }).click()
   await page.getByRole('button').first().click() //Needs improvement, PR made to EDS #3066
   await expect(page.getByRole('tab', { name: 'Self' })).not.toBeVisible()
   await expect(page.getByRole('tab', { name: 'Audi' })).not.toBeVisible()
