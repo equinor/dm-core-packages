@@ -19,10 +19,11 @@ test.afterAll(async () => {
 })
 
 const navigate = async () => {
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('nested', { exact: true }).click()
-  await page.getByText('DemoDataSource/$Nested').click()
+  await page.getByRole('button', { name: 'DemoDataSource' }).click()
+  await page.getByRole('button', { name: 'plugins' }).click()
+  await page.getByRole('button', { name: 'form' }).click()
+  await page.getByRole('button', { name: 'nested' }).click()
+  await page.getByRole('button', { name: 'DemoDataSource/$Nested' }).click()
 }
 
 test('Change owner', async () => {

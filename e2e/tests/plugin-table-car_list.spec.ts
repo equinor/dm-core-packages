@@ -1,13 +1,17 @@
 import { expect, test } from '@playwright/test'
 
 test('Table car list example', async ({ page }) => {
+  const navigate = async () => {
+    await page.getByRole('button', { name: 'DemoDataSource' }).click()
+    await page.getByRole('button', { name: 'plugins' }).click()
+    await page.getByRole('button', { name: 'table' }).click()
+    await page.getByRole('button', { name: 'car_list' }).click()
+    await page.getByRole('button', { name: 'CarList' }).click()
+  }
+
   //Open form
   await page.goto('http://localhost:3000/')
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('table').click()
-  await page.getByText('car_list').click()
-  await page.getByText('CarList').click()
+  await navigate()
 
   //Add a new car by using expand (not "open")
   await page.getByRole('button', { name: 'Add row' }).click()
@@ -22,11 +26,7 @@ test('Table car list example', async ({ page }) => {
 
   //Currently we need to reload application to view saved values...
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('table').click()
-  await page.getByText('car_list').click()
-  await page.getByText('CarList').click()
+  await navigate()
   await expect(page.getByText('1 - 2 of 2')).toBeVisible()
   await expect(page.getByText('Audi')).toBeVisible()
   await expect(page.getByText('e-tron')).toBeVisible()
@@ -43,11 +43,7 @@ test('Table car list example', async ({ page }) => {
 
   //Currently we need to reload application to view saved values...
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('table').click()
-  await page.getByText('car_list').click()
-  await page.getByText('CarList').click()
+  await navigate()
   await expect(page.getByText('1 - 2 of 2')).toBeVisible()
   await expect(page.getByText('Polestar')).toBeVisible()
   await expect(page.getByText('2023')).toBeVisible()
@@ -59,11 +55,7 @@ test('Table car list example', async ({ page }) => {
   await page.getByRole('button', { name: 'Move row up' }).last().click()
   await page.getByRole('button', { name: 'Save' }).click()
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('table').click()
-  await page.getByText('car_list').click()
-  await page.getByText('CarList').click()
+  await navigate()
   await expect(page.locator('tr').nth(1)).toContainText('Polestar')
   await expect(page.locator('tr').nth(2)).toContainText('Volvo')
 
@@ -71,11 +63,7 @@ test('Table car list example', async ({ page }) => {
   await page.getByRole('button', { name: 'Move row down' }).first().click()
   await page.getByRole('button', { name: 'Save' }).click()
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('table').click()
-  await page.getByText('car_list').click()
-  await page.getByText('CarList').click()
+  await navigate()
   await expect(page.locator('tr').nth(1)).toContainText('Volvo')
   await expect(page.locator('tr').nth(2)).toContainText('Polestar')
 
@@ -83,11 +71,7 @@ test('Table car list example', async ({ page }) => {
   await page.getByRole('button', { name: 'Delete row' }).last().click()
   await page.getByRole('button', { name: 'Save' }).click()
   await page.reload()
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('form').click()
-  await page.getByText('table').click()
-  await page.getByText('car_list').click()
-  await page.getByText('CarList').click()
+  await navigate()
   await expect(page.getByText('1 - 1 of 1')).toBeVisible()
 
   //Adding several cars to test pagination

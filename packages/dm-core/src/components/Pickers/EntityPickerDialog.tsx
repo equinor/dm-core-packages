@@ -96,7 +96,7 @@ export const EntityPickerDialog = (props: {
           </div>
         ) : (
           <div>
-            <div style={{ height: '40vh' }}>
+            <div style={{ height: '40vh', overflow: 'auto' }}>
               <TreeView
                 ignoredTypes={[EBlueprint.BLUEPRINT]}
                 nodes={treeNodes}

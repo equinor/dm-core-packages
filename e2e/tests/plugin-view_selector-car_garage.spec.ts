@@ -3,10 +3,11 @@ import { expect, test } from '@playwright/test'
 test('View selector - car garage', async ({ page }) => {
   // Open self and verify page content and the sidebar:
   await page.goto('http://localhost:3000/')
-  await page.getByText('plugins', { exact: true }).click()
-  await page.getByText('view_selector').click()
-  await page.getByText('car_garage').click()
-  await page.getByText('carGarage').click()
+  await page.getByRole('button', { name: 'DemoDataSource' }).click()
+  await page.getByRole('button', { name: 'plugins' }).click()
+  await page.getByRole('button', { name: 'view_selector' }).click()
+  await page.getByRole('button', { name: 'car_garage' }).click()
+  await page.getByRole('button', { name: 'carGarage' }).click()
   await expect(page.getByLabel('Name')).toHaveValue('CarGarage')
   await expect(page.getByLabel('Description')).toHaveValue(
     'Here you will find detailed information about the cars in our garage'
@@ -14,7 +15,11 @@ test('View selector - car garage', async ({ page }) => {
 
   // Collapse and expand sidebar:
   await page.getByRole('tab', { name: 'Self' }).click()
-  await page.getByRole('button').first().click() //Needs improvement, PR made to EDS #3066
+  await page
+    .locator(
+      '.SideBarToggle__ToggleContainer-sc-1w5e44y-0 > .Button__ButtonBase-sc-1hs0myn-1'
+    )
+    .click() //Needs improvement, PR made to EDS #3066
   await expect(page.getByRole('tab', { name: 'Self' })).not.toBeVisible()
   await expect(page.getByRole('tab', { name: 'Audi' })).not.toBeVisible()
   await expect(page.getByRole('tab', { name: 'Volvo' })).not.toBeVisible()
@@ -22,7 +27,11 @@ test('View selector - car garage', async ({ page }) => {
   await expect(page.getByRole('tabpanel').locator('#name')).toHaveValue('Audi')
   await page.getByRole('tab').first().click()
   await expect(page.getByLabel('Name')).toHaveValue('CarGarage')
-  await page.getByRole('button').first().click() //Needs improvement, PR made to EDS #3066
+  await page
+    .locator(
+      '.SideBarToggle__ToggleContainer-sc-1w5e44y-0 > .Button__ButtonBase-sc-1hs0myn-1'
+    )
+    .click() //Needs improvement, PR made to EDS #3066
   await expect(page.getByRole('tab', { name: 'Self' })).toBeVisible()
   await expect(page.getByRole('tab', { name: 'Audi' })).toBeVisible()
   await expect(page.getByRole('tab', { name: 'Volvo' })).toBeVisible()
