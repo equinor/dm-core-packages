@@ -13,7 +13,7 @@ MODE=${1:-local}
 # Load environment (mode) specific environment values
 source .env.$MODE
 # Load token (not needed locally)
-TOKEN=${2,""}
+TOKEN=${2:-""}
 
 echo "RESET ENVIRONMENT: $MODE"
 echo "DMSS URL: $VITE_DMSS_URL"

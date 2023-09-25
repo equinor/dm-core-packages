@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   dmss:
-    image: datamodelingtool.azurecr.io/dmss:experimental
+    image: datamodelingtool.azurecr.io/dmss:v1.5.0
     platform: linux/amd64
     restart: unless-stopped
     environment:
@@ -29,7 +29,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: xd7wCEhEx4kszsecYFfC
 
   job-api:
-    image: datamodelingtool.azurecr.io/dm-job:experimental
+    image: datamodelingtool.azurecr.io/dm-job:v1.2.1
     platform: linux/amd64
     restart: unless-stopped
     environment:

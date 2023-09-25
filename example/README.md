@@ -12,7 +12,7 @@
 > **Note**
 > Run all these commands from the `dm-core-packages/` (main project) folder unless otherwise stated
 
-1. Install dependecies.
+1. Install dependencies.
 
    #### Frontend
 
@@ -86,10 +86,10 @@ In the example app, folders are named according to the naming convention:
 
 ## Aliasing dm-core-packages
 
-To support watching and live-reload of dm-core dependencies start the application by running this command:
+The application watching and live-reload of dm-core dependencies, to turn this off, start the application by running this command:
 
 ```bash
-ALIAS=on yarn start
+ALIAS=off yarn start
 ```
 
 The configuration to support this hot reloading is in the `vite.local.config.ts` and `tsconfig.local.json`.

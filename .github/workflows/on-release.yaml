@@ -1,0 +1,17 @@
+name: Deploy to Radix on new releases
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-latest:
+    uses: ./.github/workflows/publish-image.yaml
+    with:
+      image-tags: latest
+
+  deploy-test:
+    needs: publish-latest
+    uses: ./.github/workflows/deploy-to-radix.yaml
+    with:
+      radix-environment: "dev"

@@ -1,0 +1,39 @@
+name: "Publish container images"
+on:
+  workflow_dispatch:
+  workflow_call: # Workflow is meant to be called from another workflow, with the image tag as input
+    inputs:
+      image-tags:
+        description: "Which tag to give the images. Supports multiple tags if comma separated, ie 'tag1,tag2'"
+        required: true
+        type: string
+
+env:
+  IMAGE_REGISTRY: ghcr.io
+  REGISTRY_USER: $GITHUB_ACTOR
+  APPLICATION_IMAGE: ghcr.io/equinor/dm-core-packages/example
+
+jobs:
+  build-and-publish-application:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 2
+
+      - name: "Login to image registry"
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $IMAGE_REGISTRY -u $GITHUB_ACTOR --password-stdin
+
+      - name: "Build web"
+        run: |
+          docker build --tag $APPLICATION_IMAGE example
+
+      - name: "Publish web"
+        run: |
+          IFS=','
+          for IMAGE_TAG in $(echo ${{ inputs.image-tags }})
+          do
+            echo "Tagging with $APPLICATION_IMAGE"
+            docker tag $APPLICATION_IMAGE $APPLICATION_IMAGE:$IMAGE_TAG
+            docker push $APPLICATION_IMAGE:$IMAGE_TAG
+          done

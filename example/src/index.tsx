@@ -6,7 +6,7 @@ import {
 } from '@development-framework/dm-core'
 import React from 'react'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.min.css'
 import App from './App'
 import plugins from './plugins'
 import ReactDOM from 'react-dom/client'

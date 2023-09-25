@@ -1,0 +1,93 @@
+name: "Deploy image to radix"
+on:
+  workflow_dispatch:
+    inputs:
+      radix-environment:
+        description: "Which radix environment to deploy into"
+        default: "dev"
+        required: true
+        type: string
+  workflow_call: # Workflow is meant to be called from another workflow
+    inputs:
+      radix-environment:
+        description: "Which radix environment to deploy into"
+        default: "dev"
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  RADIX_APP: dm-demos
+  RADIX_USER: heracles@equinor.com
+
+jobs:
+  deploy-on-radix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      # You'll need an app registration with a Federated Credential for this to
+      # work. Note that the credential will need to specify a branch name. This
+      # step will therefore fail for all branches not mentioned in the credentials
+      - name: Az CLI login
+        uses: azure/login@v1
+        with:
+          client-id: 9bc1cfd7-c616-45d2-8827-22ae9d1e0567 # app registration Application ID
+          tenant-id: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
+          allow-no-subscriptions: true
+
+      - name: Get Azure principal token for Radix
+        # The resource 6dae42f8-4368-4678-94ff-3960e28e3630 is a fixed Application ID,
+        # corresponding to the Azure Kubernetes Service AAD Server.
+        run: |
+          token=$(az account get-access-token --resource 6dae42f8-4368-4678-94ff-3960e28e3630 --query=accessToken -otsv)
+          echo "::add-mask::$token"
+          echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
+
+      - name: Deploy on Radix
+        uses: equinor/radix-github-actions@master
+        env:
+          APP_SERVICE_ACCOUNT_TOKEN: ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}
+        with:
+          args: >
+            create job
+            deploy
+            --application $RADIX_APP
+            --environment ${{ inputs.radix-environment }}
+            --user $RADIX_USER
+            --context production
+            --token-environment
+            --follow
+
+      - name: Get Azure principal token for Azure application
+        run: |
+          token=$(az account get-access-token --resource 9bc1cfd7-c616-45d2-8827-22ae9d1e0567 --query=accessToken -otsv)
+          echo "::add-mask::$token"
+          echo "RESET_APP_TOKEN=$token" >> $GITHUB_ENV
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dm-cli
+        working-directory: ./example
+        run: pip install -r requirements.txt
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: ./example
+        run: yarn install
+
+      - name: Reset application
+        working-directory: ./example
+        env:
+          RESET_APP_TOKEN: ${{ env.RESET_APP_TOKEN }}
+        run: |
+          sleep 30 # Wait for the services to be restarted
+          ./reset-app.sh dev ${{ env.RESET_APP_TOKEN }}

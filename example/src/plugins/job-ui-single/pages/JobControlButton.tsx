@@ -5,8 +5,8 @@ import React, { MutableRefObject, useRef, useState } from 'react'
 
 export const JobControlButton = (props: {
   jobStatus: JobStatus
-  jobExists: boolean
-  createJob: () => Promise<unknown>
+  jobExists?: boolean
+  createJob?: () => Promise<unknown>
   start: () => Promise<StartJobResponse | null>
   halt: () => void
 }) => {
@@ -19,7 +19,7 @@ export const JobControlButton = (props: {
   function handleClick(): void {
     if (jobStatus === JobStatus.Running) halt()
     else {
-      if (!jobExists) {
+      if (!jobExists && createJob) {
         createJob().then(() => {
           start()
         })
