@@ -1,7 +1,7 @@
 import * as path from 'path'
 
 export const localConfig = () => {
-  if ((process.env.ALIAS || '').trim() === 'on') {
+  if ((process.env.ALIAS || 'on').trim() === 'on') {
     // This is to support hot-reloading of locally linked dm-core dependencies
     console.info('Adding alias to enable hot-reloading of dm-core packages')
     const alias_config = {

@@ -23,7 +23,7 @@ export default defineConfig({
     host: true,
   },
   resolve: {
-    ...localConfig(),
     preserveSymlinks: true, // Yarn uses symbolic links to link to local workspaces.
+    ...localConfig(),
   },
 })

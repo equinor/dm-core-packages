@@ -1,4 +1,4 @@
-import { Page, expect, test } from '@playwright/test'
+import { expect, Page, test } from '@playwright/test'
 
 test.describe.configure({ mode: 'serial' })
 
@@ -159,7 +159,7 @@ test('New customer', async () => {
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
   await expect.soft(lastTabPanel.getByText('1 - 2 of 2')).toBeVisible()
-  await lastTabPanel.getByRole('button', { name: 'Append Add Item' }).click()
+  await lastTabPanel.getByRole('button', { name: 'Add Item' }).click()
   await expect.soft(lastTabPanel.getByText('1 - 3 of 3')).toBeVisible()
   await lastTabPanel.getByRole('button', { name: 'Save' }).click()
   await lastTabPanel.getByRole('button', { name: 'Open item' }).last().click()
