@@ -19,7 +19,8 @@ test('uncontainedObject', async ({ page }) => {
     await dialog.getByRole('button', { name: 'employees' }).click()
     await dialog
       .getByRole('listitem')
-      .filter({ hasText: /^employees/ })
+      .filter({ hasText: 'employees' })
+      .last() // Get innermost list
       .getByRole('button', { name: 'John' })
       .click()
     await expect(dialog.getByText('Selected: John')).toBeVisible()
