@@ -216,7 +216,7 @@ export const JobPlugin = (props: IUIPlugin) => {
           </>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <Button onClick={() => createNewJob()} style={{ width: '8rem' }}>
+            <Button onClick={() => createNewJob()} style={{ width: '7rem' }}>
               {creatingJob ? (
                 <>
                   <CircularProgress size={16} variant="indeterminate" />
@@ -225,7 +225,7 @@ export const JobPlugin = (props: IUIPlugin) => {
               ) : (
                 <>
                   <Icon data={play} />
-                  <span>Start job</span>
+                  <span>Start</span>
                 </>
               )}
             </Button>
