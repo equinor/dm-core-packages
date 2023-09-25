@@ -125,7 +125,7 @@ export default (props: IUIPlugin): JSX.Element => {
               setAppSelectorOpen(!appSelectorOpen)
             }}
           >
-            <Icon data={apps} size={32} />
+            <Icon data={apps} size={32} title="Menu" />
           </ClickableIcon>
           <Menu open={appSelectorOpen} anchorEl={anchorEl}>
             {recipeNames.map((recipe, index: number) => (
