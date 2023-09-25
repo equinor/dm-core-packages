@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.3...dm-core-v1.3.4) (2023-09-25)
+
+
+### Bug Fixes
+
+* **tree:** add svg title ([7480921](https://github.com/equinor/dm-core-packages/commit/7480921a9403a4888a93c7e7da134d04a3c23661))
+* **tree:** allow node wrappers to open/close node ([db873c7](https://github.com/equinor/dm-core-packages/commit/db873c7da90ecc7c7d4e85a38387c087e89d3db3)), closes [#534](https://github.com/equinor/dm-core-packages/issues/534)
+* **tree:** switch html structure from div to ul ([6120fa9](https://github.com/equinor/dm-core-packages/commit/6120fa983400c3f7adf66d8f3b531f243b1d8fac)), closes [#534](https://github.com/equinor/dm-core-packages/issues/534)
+
 ## [1.3.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.2...dm-core-v1.3.3) (2023-09-15)
 
 

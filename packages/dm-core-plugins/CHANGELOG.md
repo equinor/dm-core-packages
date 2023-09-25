@@ -12,6 +12,21 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.3.0 to ^1.3.1
 
+## [1.4.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.4.0...dm-core-plugins-v1.4.1) (2023-09-25)
+
+
+### Bug Fixes
+
+* **form:** use indent on all non-primitives ([74ee2f6](https://github.com/equinor/dm-core-packages/commit/74ee2f62e1cc07eac58247b469c3d18d2c5763bc)), closes [#488](https://github.com/equinor/dm-core-packages/issues/488)
+* **tree:** allow node wrappers to open/close node ([db873c7](https://github.com/equinor/dm-core-packages/commit/db873c7da90ecc7c7d4e85a38387c087e89d3db3)), closes [#534](https://github.com/equinor/dm-core-packages/issues/534)
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.3.3 to ^1.3.4
+
 ## [1.4.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.3.2...dm-core-plugins-v1.4.0) (2023-09-15)
 
 
