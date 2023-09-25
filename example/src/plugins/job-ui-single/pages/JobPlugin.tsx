@@ -17,7 +17,7 @@ import {
   Typography,
 } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
-import { refresh } from '@equinor/eds-icons'
+import { play, refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios/index'
 
@@ -216,14 +216,17 @@ export const JobPlugin = (props: IUIPlugin) => {
           </>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <Button onClick={() => createNewJob()} style={{ width: '7rem' }}>
+            <Button onClick={() => createNewJob()} style={{ width: '8rem' }}>
               {creatingJob ? (
                 <>
                   <CircularProgress size={16} variant="indeterminate" />
-                  <span>Creating</span>
+                  <span>Starting</span>
                 </>
               ) : (
-                <span>Create job</span>
+                <>
+                  <Icon data={play} />
+                  <span>Start job</span>
+                </>
               )}
             </Button>
             <Typography>
