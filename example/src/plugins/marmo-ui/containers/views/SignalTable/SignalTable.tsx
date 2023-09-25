@@ -85,7 +85,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
         <Table.Body>
           {rows
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row) => (
+            .map((row: any) => (
               <Table.Row role="checkbox" tabIndex={-1} key={row.index}>
                 {columns.map((column) => {
                   const value = row[column.id]
