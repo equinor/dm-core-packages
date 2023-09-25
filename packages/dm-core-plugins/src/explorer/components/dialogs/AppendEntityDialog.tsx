@@ -9,10 +9,11 @@ import { STANDARD_DIALOG_WIDTH } from '../context-menu/NodeRightClickMenu'
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
   node: TreeNode
+  setNodeOpen: (x: boolean) => void
 }
 
 const AppendEntityDialog = (props: TProps) => {
-  const { setDialogId, node } = props
+  const { setDialogId, node, setNodeOpen } = props
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleAppend = () => {
@@ -20,7 +21,7 @@ const AppendEntityDialog = (props: TProps) => {
     node
       .addEntityToPackage(node.attribute.attributeType, `${node.entity.length}`)
       .then(() => {
-        node.expand()
+        setNodeOpen(true)
         toast.success('The new entity has been appended to the list')
       })
       .catch((error: AxiosError<ErrorResponse>) => {

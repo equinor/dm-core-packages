@@ -17,10 +17,11 @@ import {
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
   node: TreeNode
+  setNodeOpen: (x: boolean) => void
 }
 
 const NewEntityDialog = (props: TProps) => {
-  const { setDialogId, node } = props
+  const { setDialogId, node, setNodeOpen } = props
   const [blueprint, setBlueprint] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -28,7 +29,10 @@ const NewEntityDialog = (props: TProps) => {
     setLoading(true)
     node
       .addEntityToPackage(`dmss://${blueprint}`, 'Created_entity')
-      .then(() => toast.success(`Entity is created`))
+      .then(() => {
+        setNodeOpen(true)
+        toast.success(`Entity is created`)
+      })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
         toast.error(error.response?.data.message)
