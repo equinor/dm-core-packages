@@ -2,10 +2,10 @@ import { expect, test } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3000/')
-  await page.getByRole('button', { name: 'DemoDataSource' }).click()
-  await page.getByRole('button', { name: 'apps' }).click()
-  await page.getByRole('button', { name: 'MySignalApp' }).click()
-  await page.getByRole('button', { name: 'signalApp', exact: true }).click()
+  await page.getByRole('button', { name: 'data source DemoDataSource' }).click()
+  await page.getByRole('button', { name: 'root package apps' }).click()
+  await page.getByRole('button', { name: 'package MySignalApp' }).click()
+  await page.getByRole('button', { name: 'file signalApp' }).click()
 })
 
 test('Start SignalApp', async ({ page }) => {
