@@ -13,7 +13,7 @@ export const STANDARD_DIALOG_WIDTH = '100%'
 export const STANDARD_DIALOG_HEIGHT = '300px'
 
 const NodeRightClickMenu = (props: TNodeWrapperProps) => {
-  const { node, children } = props
+  const { node, children, setNodeOpen } = props
   const [dialogId, setDialogId] = useState<EDialog | undefined>()
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -42,7 +42,12 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
       </Menu>
 
       {dialogId === EDialog.NewFolder && (
-        <NewFolderDialog setDialogId={setDialogId} node={node} isRoot={false} />
+        <NewFolderDialog
+          setDialogId={setDialogId}
+          node={node}
+          setNodeOpen={setNodeOpen}
+          isRoot={false}
+        />
       )}
 
       {dialogId === EDialog.Delete && (
@@ -50,19 +55,36 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
       )}
 
       {dialogId === EDialog.NewRootPackage && (
-        <NewFolderDialog setDialogId={setDialogId} node={node} isRoot={true} />
+        <NewFolderDialog
+          setDialogId={setDialogId}
+          node={node}
+          setNodeOpen={setNodeOpen}
+          isRoot={true}
+        />
       )}
 
       {dialogId === EDialog.AppendEntity && (
-        <AppendEntityDialog setDialogId={setDialogId} node={node} />
+        <AppendEntityDialog
+          setDialogId={setDialogId}
+          node={node}
+          setNodeOpen={setNodeOpen}
+        />
       )}
 
       {dialogId === EDialog.NewEntity && (
-        <NewEntityDialog setDialogId={setDialogId} node={node} />
+        <NewEntityDialog
+          setDialogId={setDialogId}
+          node={node}
+          setNodeOpen={setNodeOpen}
+        />
       )}
 
       {dialogId === EDialog.NewBlueprint && (
-        <NewBlueprintDialog setDialogId={setDialogId} node={node} />
+        <NewBlueprintDialog
+          setDialogId={setDialogId}
+          node={node}
+          setNodeOpen={setNodeOpen}
+        />
       )}
     </>
   )

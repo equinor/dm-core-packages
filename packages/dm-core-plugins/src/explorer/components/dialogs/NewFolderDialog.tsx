@@ -18,11 +18,12 @@ import {
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
   node: TreeNode
+  setNodeOpen: (x: boolean) => void
   isRoot: boolean
 }
 
 const NewFolderDialog = (props: TProps) => {
-  const { setDialogId, node, isRoot } = props
+  const { setDialogId, node, setNodeOpen, isRoot } = props
   const [folderName, setFolderName] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const dmssAPI = useDMSS()
@@ -43,7 +44,7 @@ const NewFolderDialog = (props: TProps) => {
         updateUncontained: true,
       })
       .then(() => {
-        node.expand()
+        setNodeOpen(true)
         toast.success('Folder is created')
       })
       .catch((error: AxiosError<ErrorResponse>) => {

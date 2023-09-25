@@ -18,10 +18,11 @@ import {
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void
   node: TreeNode
+  setNodeOpen: (x: boolean) => void
 }
 
 const NewBlueprintDialog = (props: TProps) => {
-  const { setDialogId, node } = props
+  const { setDialogId, node, setNodeOpen } = props
   const [blueprintName, setBlueprintName] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -29,7 +30,10 @@ const NewBlueprintDialog = (props: TProps) => {
     setLoading(true)
     node
       .addEntityToPackage(EBlueprint.BLUEPRINT, blueprintName)
-      .then(() => toast.success('Blueprint is created'))
+      .then(() => {
+        setNodeOpen(true)
+        toast.success('Blueprint is created')
+      })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
         toast.error(error.response?.data.message)

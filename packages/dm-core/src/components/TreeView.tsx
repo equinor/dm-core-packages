@@ -35,7 +35,7 @@ const StyledLi = styled.li`
 
 export type TNodeWrapperProps = {
   node: TreeNode
-  removeNode?: () => void
+  setNodeOpen: (x: boolean) => void
   children: any
 }
 
@@ -129,15 +129,16 @@ const TreeListItem = (props: {
   const [loading, setLoading] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<boolean>(false)
 
+  const open = async () => {
+    setLoading(true)
+    await node.expand()
+    setLoading(false)
+    setExpanded(true)
+  }
+  const close = () => setExpanded(false)
+  const setOpen = async (x: boolean) => (x ? await open() : close())
   const clickHandler = async () => {
-    if (expanded) {
-      setExpanded(false)
-    } else {
-      setLoading(true)
-      await node.expand()
-      setLoading(false)
-      setExpanded(true)
-    }
+    setOpen(!expanded)
     if (![EBlueprint.PACKAGE, 'dataSource'].includes(node.type)) {
       onSelect(node)
     }
@@ -146,7 +147,7 @@ const TreeListItem = (props: {
   return (
     <StyledLi>
       {NodeWrapper ? (
-        <NodeWrapper node={node} key={node.nodeId}>
+        <NodeWrapper node={node} key={node.nodeId} setNodeOpen={setOpen}>
           <TreeButton
             node={node}
             expanded={expanded}
