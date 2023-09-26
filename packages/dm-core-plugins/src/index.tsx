@@ -3,8 +3,10 @@ import { TUiPluginMap } from '@development-framework/dm-core'
 import { YamlPlugin } from './yaml/YamlPlugin'
 import { ViewSelectorPlugin } from './view_selector/ViewSelectorPlugin'
 import { BlueprintHierarchyPlugin } from './blueprint-hierarchy/BlueprintHierarchyPlugin'
-import { JobInputEditPlugin } from './job/JobInputEditPlugin'
-import { JobControlPlugin } from './job/JobControlPlugin'
+// Deprecated?
+// import { JobInputEditPlugin } from './job_old/JobInputEditPlugin'
+// import { JobControlPlugin } from './job_old/JobControlPlugin'
+import { JobPlugin } from './job/JobPlugin'
 import { FormPlugin } from './form/FormPlugin'
 import HeaderPlugin from './header/HeaderPlugin'
 import JsonPlugin from './json/JsonPlugin'
@@ -42,11 +44,14 @@ export default {
     component: BlueprintHierarchyPlugin,
   },
   '@development-framework/dm-core-plugins/jobControl': {
-    component: JobControlPlugin,
+    component: JobPlugin,
   },
-  '@development-framework/dm-core-plugins/jobInputEdit': {
-    component: JobInputEditPlugin,
-  },
+  // '@development-framework/dm-core-plugins/jobControl': {
+  //   component: JobControlPlugin,
+  // },
+  // '@development-framework/dm-core-plugins/jobInputEdit': {
+  //   component: JobInputEditPlugin,
+  // },
   '@development-framework/dm-core-plugins/form': {
     component: FormPlugin,
   },
