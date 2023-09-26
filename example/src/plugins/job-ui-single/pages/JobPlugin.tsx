@@ -9,15 +9,9 @@ import {
   useJob,
 } from '@development-framework/dm-core'
 import React, { useEffect, useState } from 'react'
-import {
-  Button,
-  Card,
-  CircularProgress,
-  Icon,
-  Typography,
-} from '@equinor/eds-core-react'
+import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
-import { play, refresh } from '@equinor/eds-icons'
+import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios/index'
 
@@ -37,9 +31,7 @@ export const JobPlugin = (props: IUIPlugin) => {
   const jobEntityDestination = `DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].job`
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const defaultJobOutputTarget = props.idReference + '.signal'
-  // const { dataSource: dataSourceId } = splitAddress(jobEntityDestination)
   const [allowStartJob, setAllowJobStart] = useState(false)
-  const [creatingJob, setCreatingJob] = useState(false)
 
   const {
     start,
@@ -105,38 +97,38 @@ export const JobPlugin = (props: IUIPlugin) => {
     outputTarget: defaultJobOutputTarget,
   }
 
-  const updateDocument = (
+  const updateDocument = async (
     jobEntityDestination: string,
     jobEntityFormData: TJob
-  ) => {
-    DmssApi.documentUpdate({
+  ): Promise<unknown> => {
+    return DmssApi.documentUpdate({
       idAddress: jobEntityDestination,
       data: JSON.stringify(jobEntityFormData),
     })
       .then(() => {
         setJobEntityId(jobEntityDestination)
-        setCreatingJob(false)
+        return Promise.resolve()
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error.response?.data)
       })
   }
 
-  const addDocument = (
+  const addDocument = async (
     jobEntityDestination: string,
     jobEntityFormData: TJob
-  ) => {
-    DmssApi.documentAdd({
+  ): Promise<unknown> => {
+    return DmssApi.documentAdd({
       address: jobEntityDestination,
       document: JSON.stringify(jobEntityFormData),
     })
-      .then(() => {
+      .then((res) => {
         // The UID cannot be used as ID before the job has been started.
         // Also, the uid returned from the addDocument endpoint differs
         // from the one returned from the startJob endpoint.
         // setJobEntityId(`${dataSourceId}/$${response.data.uid}`)
         setJobEntityId(jobEntityDestination)
-        setCreatingJob(false)
+        return Promise.resolve(res)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error.response?.data)
@@ -152,13 +144,12 @@ export const JobPlugin = (props: IUIPlugin) => {
     }
   }, [jobEntityId])
 
-  function createNewJob(): void {
-    setCreatingJob(true)
+  function createNewJob(): Promise<unknown> {
     setAllowJobStart(true)
     if (jobExists) {
-      updateDocument(jobEntityDestination, jobEntityFormData)
+      return updateDocument(jobEntityDestination, jobEntityFormData)
     } else {
-      addDocument(jobEntityDestination, jobEntityFormData)
+      return addDocument(jobEntityDestination, jobEntityFormData)
     }
   }
 
@@ -183,57 +174,34 @@ export const JobPlugin = (props: IUIPlugin) => {
   return (
     <Card elevation={'raised'} style={{ padding: '1.25rem' }}>
       <JobButtonWrapper>
-        {jobExists ? (
-          <>
-            <JobControlButton
-              jobStatus={status}
-              start={() => {
-                setResult(null)
-                return start()
-              }}
-              halt={remove}
-            />
-            {status === JobStatus.Running && (
-              <Button
-                variant="outlined"
-                onClick={() => fetchStatusAndLogs()}
-                aria-label="Get job status"
-              >
-                <Icon data={refresh} />
-              </Button>
-            )}
-            <Button
-              onClick={() =>
-                fetchResult().then((res: GetJobResultResponse) =>
-                  setResult(res)
-                )
-              }
-              variant={'outlined'}
-              disabled={status === JobStatus.NotStarted}
-            >
-              Get results
-            </Button>
-          </>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <Button onClick={() => createNewJob()} style={{ width: '7rem' }}>
-              {creatingJob ? (
-                <>
-                  <CircularProgress size={16} variant="indeterminate" />
-                  <span>Starting</span>
-                </>
-              ) : (
-                <>
-                  <Icon data={play} />
-                  <span>Start</span>
-                </>
-              )}
-            </Button>
-            <Typography>
-              Once a job has been created, it will automatically run once.
-            </Typography>
-          </div>
+        <JobControlButton
+          jobStatus={status}
+          jobExists={jobExists}
+          createJob={createNewJob}
+          start={() => {
+            setResult(null)
+            return start()
+          }}
+          halt={remove}
+        />
+        {status === JobStatus.Running && (
+          <Button
+            variant="outlined"
+            onClick={() => fetchStatusAndLogs()}
+            aria-label="Get job status"
+          >
+            <Icon data={refresh} />
+          </Button>
         )}
+        <Button
+          onClick={() =>
+            fetchResult().then((res: GetJobResultResponse) => setResult(res))
+          }
+          variant={'outlined'}
+          disabled={status === JobStatus.NotStarted}
+        >
+          Get results
+        </Button>
       </JobButtonWrapper>
 
       {status === JobStatus.Failed && (
