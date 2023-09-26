@@ -2573,3 +2573,16 @@ ref #534 (2023-09-21T10:17:57Z)
     * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
+* refactor: change the text on the job button to be start job (#543)
+
+* refactor: change the text on the job button to be start job
+
+* refactor: alter text and test
+
+* refactor: remove create job button and move functionality to JobControlButton.tsx
+
+* refactor: adjust test to reflect changes in UI (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6309618445/1)
+    * **DMSS VERSION**: 04e50cf 2023-09-15 githu..[bot] chore(master): release 1.4.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: a4b1b11 2023-09-15 githu..[bot] chore(main): release 1.1.0 grafted, HEAD -> main, origin/main
