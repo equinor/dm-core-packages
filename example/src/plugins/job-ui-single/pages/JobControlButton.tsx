@@ -5,10 +5,12 @@ import React, { MutableRefObject, useRef, useState } from 'react'
 
 export const JobControlButton = (props: {
   jobStatus: JobStatus
+  jobExists: boolean
+  createJob: () => Promise<unknown>
   start: () => Promise<StartJobResponse | null>
   halt: () => void
 }) => {
-  const { jobStatus, start, halt } = props
+  const { jobStatus, start, halt, jobExists, createJob } = props
   const [hovering, setHovering] = useState(false)
   const buttonRef: MutableRefObject<HTMLButtonElement | undefined> = useRef()
   buttonRef.current?.addEventListener('mouseenter', () => setHovering(true))
@@ -17,7 +19,13 @@ export const JobControlButton = (props: {
   function handleClick(): void {
     if (jobStatus === JobStatus.Running) halt()
     else {
-      start()
+      if (!jobExists) {
+        createJob().then(() => {
+          start()
+        })
+      } else {
+        start()
+      }
     }
   }
 
