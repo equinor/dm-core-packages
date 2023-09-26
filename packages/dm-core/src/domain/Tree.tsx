@@ -55,7 +55,6 @@ const createContainedChildren = (
       newChildren[childNodeId] = new TreeNode(
         parentNode.tree,
         childNodeId,
-        parentNode.level + 1,
         value,
         attribute,
         parentNode,
@@ -82,7 +81,6 @@ const createFolderChildren = (
     newChildren[newChildId] = new TreeNode(
       parentNode.tree,
       newChildId,
-      parentNode.level + 1,
       ref,
       {
         attributeType: ref.type,
@@ -120,7 +118,6 @@ const updateRootPackagesInTree = (
       const rootPackageNode = new TreeNode( // Add the rootPackage nodes to the dataSource
         tree,
         `${dataSource}/$${rootPackage._id}`,
-        1,
         rootPackage,
         packageAttribute,
         tree.index[dataSource],
@@ -133,7 +130,6 @@ const updateRootPackagesInTree = (
         children[ref.address] = new TreeNode(
           tree,
           `${dataSource}/${ref.address}`,
-          2,
           ref,
           packageAttribute,
           rootPackageNode,
@@ -152,7 +148,6 @@ export class TreeNode {
   tree: Tree
   type: string
   nodeId: string
-  level: number
   dataSource: string
   children: TTreeMap = {}
   attribute: TAttribute
@@ -166,7 +161,6 @@ export class TreeNode {
   constructor(
     tree: Tree,
     nodeId: string,
-    level: number = 0,
     entity: any = {},
     attribute: TAttribute,
     parent: TreeNode | undefined = undefined,
@@ -178,7 +172,6 @@ export class TreeNode {
     this.tree = tree
     this.nodeId = nodeId
     this.dataSource = nodeId.split('/', 1)[0]
-    this.level = level
     this.parent = parent
     this.isRoot = isRoot
     this.isDataSource = isDataSource
@@ -335,7 +328,6 @@ export class Tree {
       this.index[dataSourceId] = new TreeNode(
         this,
         dataSourceId,
-        0,
         { name: dataSourceId, type: 'dataSource' },
         dataSourceAttribute,
         undefined,
@@ -390,7 +382,6 @@ export class Tree {
         const folderNode = new TreeNode(
           this,
           `${dataSource}/$${data._id}`,
-          0,
           data,
           packageAttribute,
           undefined,
@@ -409,7 +400,6 @@ export class Tree {
         const folderNode = new TreeNode(
           this,
           folderPath,
-          0,
           {
             type: EBlueprint.PACKAGE,
             name: 'failed',
