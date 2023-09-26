@@ -7,7 +7,8 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole('button', { name: 'DemoDataSource' }).click()
   await page.getByRole('button', { name: 'plugins' }).click()
   await page.getByRole('button', { name: 'header' }).click()
-  await page.getByRole('button', { name: 'example' }).click()
+  await page.getByRole('button', { name: 'package example_app' }).click()
+  await page.getByRole('button', { name: 'file example' }).click()
 })
 
 test('Load header', async ({ page }) => {

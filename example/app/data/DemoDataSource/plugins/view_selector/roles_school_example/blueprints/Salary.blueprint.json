@@ -1,0 +1,21 @@
+{
+  "name": "Salary",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "teacher",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Person"
+    },
+    {
+      "name": "salary",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer"
+    }
+  ]
+}
