@@ -1,0 +1,85 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/view_selector/roles_school_example/blueprints/SchoolDistrict",
+  "initialUiRecipe": {
+    "name": "RoleFilter",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/role_filter",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/role_filter/RoleFilterConfig",
+      "viewConfigs": [
+        {
+          "type": "CORE:ReferenceViewConfig",
+          "recipe": "AdminViewSelector",
+          "roles": [
+            "admin",
+            "developer"
+          ]
+        },
+        {
+          "type": "CORE:ReferenceViewConfig",
+          "recipe": "OperatorViewSelector",
+          "roles": [
+            "operator"
+          ]
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "AdminViewSelector",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/view_selector",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+        "childTabsOnRender": true,
+        "asSidebar": true,
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+            "label": "Hogwarts Admin",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "scope": "school",
+              "eds_icon": "home",
+              "recipe": "AdminView"
+            }
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+            "label": "Hogwarts All",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "scope": "school",
+              "eds_icon": "home",
+              "recipe": "OperatorView"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "OperatorViewSelector",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/view_selector",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+        "childTabsOnRender": true,
+        "asSidebar": true,
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+            "label": "Hogwarts All",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "scope": "school",
+              "eds_icon": "home",
+              "recipe": "OperatorView"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

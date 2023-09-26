@@ -1,0 +1,25 @@
+{
+  "name": "SchoolDistrict",
+  "type": "CORE:Blueprint",
+  "description": "Meta information about a school",
+  "extends": [
+    "CORE:NamedEntity"
+  ],
+  "attributes": [
+    {
+      "name": "country",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "ministry",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "school",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./School"
+    }
+  ]
+}

@@ -73,11 +73,7 @@ export const ViewSelectorPlugin = (
     if (internalConfig.items && internalConfig.items.length) {
       internalConfig.items.forEach((viewItem: TViewSelectorItem) => {
         const backupKey: string = viewItem.viewConfig?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
-        const viewId = newViews.find(
-          (viewSelectorItem) => viewSelectorItem.viewId === backupKey
-        )
-          ? crypto.randomUUID()
-          : backupKey
+        const viewId = crypto.randomUUID()
         newViews.push({
           ...viewItem,
           label: viewItem.label ?? backupKey,
