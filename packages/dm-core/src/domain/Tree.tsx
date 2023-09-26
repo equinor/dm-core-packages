@@ -323,29 +323,7 @@ export class Tree {
         true
       )
     })
-    await Promise.all(
-      dataSources.map((dataSource: string) =>
-        this.dmssApi
-          .search({
-            // Find all rootPackages in every dataSource
-            body: { type: EBlueprint.PACKAGE, isRoot: 'true' },
-            dataSources: [dataSource],
-          })
-          .then((response) => {
-            updateRootPackagesInTree(
-              response.data as TPackage[],
-              this,
-              dataSource
-            )
-          })
-          .catch((error: Error) => {
-            // If the search fail, set the DataSource as an error node.
-            console.error(error)
-            this.index[dataSource].type = 'error'
-            this.index[dataSource].message = error.message
-          })
-      )
-    ).then(() => this.updateCallback(this))
+    this.updateCallback(this)
   }
 
   /**
