@@ -185,19 +185,6 @@ export class TreeNode {
     this.children = children
   }
 
-  *[Symbol.iterator]() {
-    function* recursiveYieldChildren(node: TreeNode): any {
-      yield node
-      for (const child of Object.values<TreeNode>(node?.children || {})) {
-        yield* recursiveYieldChildren(child)
-      }
-    }
-
-    for (const node of Object.values<TreeNode>(Object.values(this.children))) {
-      yield* recursiveYieldChildren(node)
-    }
-  }
-
   // Fetches the unresolved document of the node
   async fetch() {
     return this.tree.dmssApi
