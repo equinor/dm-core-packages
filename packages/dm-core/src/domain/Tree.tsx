@@ -2,29 +2,11 @@ import { AxiosResponse } from 'axios'
 import { EBlueprint } from '../Enums'
 import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
-import { TAttribute, TBlueprint, TPackage, TReference } from '../types'
+import { TAttribute, TBlueprint, TPackage } from '../types'
 import { splitAddress } from '../utils/addressUtilities'
 
 type TTreeMap = {
   [nodeId: string]: TreeNode
-}
-
-const dataSourceAttribute: TAttribute = {
-  attributeType: 'dataSource',
-  name: 'dataSource',
-  type: EBlueprint.ATTRIBUTE,
-  contained: false,
-  optional: false,
-  dimensions: '',
-}
-
-const packageAttribute: TAttribute = {
-  attributeType: EBlueprint.PACKAGE,
-  name: 'package',
-  type: EBlueprint.ATTRIBUTE,
-  contained: false,
-  optional: false,
-  dimensions: '',
 }
 
 const createContainedChildren = (
@@ -34,17 +16,14 @@ const createContainedChildren = (
 ): TTreeMap => {
   const newChildren: TTreeMap = {}
   Object.entries(document).forEach(([key, value]: [string, any]) => {
-    let attribute = blueprint.attributes?.find(
-      (attr: TAttribute) => attr.name === key
-    ) as TAttribute
-    if (Array.isArray(document)) {
-      // If the passed document was an array, use attribute from parent
-      attribute = parentNode.attribute
-    }
-    if (!attribute) return false // If no attribute, there likely where some invalid keys. Ignore those
+    const type = Array.isArray(document)
+      ? parentNode.type
+      : blueprint.attributes?.find((attr: TAttribute) => attr.name === key)
+          ?.attributeType
+    if (!type) return false // If no attribute, there likely where some invalid keys. Ignore those
     // Skip adding nodes for primitives
     const PRIMITIVE_TYPES_TO_HIDE = ['string', 'number', 'boolean', 'integer']
-    if (!PRIMITIVE_TYPES_TO_HIDE.includes(attribute.attributeType)) {
+    if (!PRIMITIVE_TYPES_TO_HIDE.includes(type)) {
       let childNodeId: string
       if (Number.isInteger(Number(key))) {
         // For arrays, bracket syntax is used to construct the node id: [key]
@@ -56,7 +35,7 @@ const createContainedChildren = (
         parentNode.tree,
         childNodeId,
         value,
-        attribute,
+        type,
         parentNode,
         value?.name || key,
         false,
@@ -76,22 +55,15 @@ const createFolderChildren = (
   parentNode: TreeNode
 ): TTreeMap => {
   const newChildren: TTreeMap = {}
-  document.content.forEach((ref: TReference) => {
-    const newChildId = `${parentNode.dataSource}/$${ref?._id}`
+  document.content?.forEach((resolvedChild: any) => {
+    const newChildId = `${parentNode.dataSource}/$${resolvedChild?._id}`
     newChildren[newChildId] = new TreeNode(
       parentNode.tree,
       newChildId,
-      ref,
-      {
-        attributeType: ref.type,
-        name: ref?.name || ref?._id,
-        type: EBlueprint.ATTRIBUTE,
-        contained: false,
-        optional: false,
-        dimensions: '',
-      },
+      resolvedChild,
+      resolvedChild.type,
       parentNode,
-      undefined,
+      resolvedChild.name,
       false,
       false,
       parentNode.children?.[newChildId]?.children || {}
@@ -119,26 +91,12 @@ const updateRootPackagesInTree = (
         tree,
         `${dataSource}/$${rootPackage._id}`,
         rootPackage,
-        packageAttribute,
+        EBlueprint.PACKAGE,
         tree.index[dataSource],
         rootPackage.name,
         true,
         false
       )
-      const children: TTreeMap = {}
-      rootPackage?.content?.forEach((ref) => {
-        children[ref.address] = new TreeNode(
-          tree,
-          `${dataSource}/${ref.address}`,
-          ref,
-          packageAttribute,
-          rootPackageNode,
-          undefined,
-          false,
-          false
-        )
-      })
-      rootPackageNode.children = children
       tree.index[dataSource].children[rootPackage._id ?? ''] = rootPackageNode
     }
   })
@@ -150,19 +108,18 @@ export class TreeNode {
   nodeId: string
   dataSource: string
   children: TTreeMap = {}
-  attribute: TAttribute
   parent?: TreeNode
   isRoot: boolean = false
   isDataSource: boolean = false
-  entity?: any
+  entity: any
   name?: string
   message: string = ''
 
   constructor(
     tree: Tree,
     nodeId: string,
-    entity: any = {},
-    attribute: TAttribute,
+    entity: any,
+    type: string,
     parent: TreeNode | undefined = undefined,
     name: string | undefined = undefined,
     isRoot = false,
@@ -176,12 +133,8 @@ export class TreeNode {
     this.isRoot = isRoot
     this.isDataSource = isDataSource
     this.entity = entity
-    this.name = name || entity?.name
-    this.type =
-      entity && Object.hasOwn(entity, 'type')
-        ? entity.type
-        : attribute.attributeType
-    this.attribute = attribute
+    this.name = name
+    this.type = type
     this.children = children
   }
 
@@ -316,7 +269,7 @@ export class Tree {
         this,
         dataSourceId,
         { name: dataSourceId, type: 'dataSource' },
-        dataSourceAttribute,
+        'dataSource',
         undefined,
         dataSourceId,
         false,
@@ -348,7 +301,7 @@ export class Tree {
           this,
           `${dataSource}/$${data._id}`,
           data,
-          packageAttribute,
+          data.type,
           undefined,
           data?.name || data._id,
           true,
@@ -370,7 +323,7 @@ export class Tree {
             name: 'failed',
             description: error.message,
           },
-          packageAttribute,
+          EBlueprint.PACKAGE,
           undefined,
           'unknown',
           true,
