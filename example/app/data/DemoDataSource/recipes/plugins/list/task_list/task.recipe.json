@@ -11,7 +11,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Edit",
-          "view": {
+          "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "Edit",
@@ -53,7 +53,7 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-        "views": [],
+        "viewConfigs": [],
         "openInline": true,
         "headers": [
           "name",

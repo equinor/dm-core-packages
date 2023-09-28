@@ -11,7 +11,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Plot",
-          "view": {
+          "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "recipe": "Plot",
             "scope": "self"
@@ -20,7 +20,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Table",
-          "view": {
+          "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "recipe": "Table",
             "scope": "self"

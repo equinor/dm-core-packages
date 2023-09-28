@@ -5,16 +5,18 @@ import Icon from './Icon'
 import { TItemData } from './types'
 
 export const Tabs = (props: {
-  selectedView: string
-  setSelectedView: (viewId: string) => void
-  items: TItemData[]
+  selectedViewId: string
+  setSelectedViewId: (viewId: string) => void
+  viewSelectorItems: TItemData[]
   removeView: (viewId: string) => void
 }): JSX.Element => {
-  const { selectedView, setSelectedView, items } = props
+  const { selectedViewId, setSelectedViewId, viewSelectorItems } = props
   return (
-    <EdsTabs activeTab={items.findIndex((x) => x.viewId == selectedView)}>
+    <EdsTabs
+      activeTab={viewSelectorItems.findIndex((x) => x.viewId == selectedViewId)}
+    >
       <EdsTabs.List>
-        {items.map((config: TItemData) => {
+        {viewSelectorItems.map((config: TItemData) => {
           return (
             <EdsTabs.Tab
               key={config.viewId}
@@ -27,14 +29,14 @@ export const Tabs = (props: {
               }}
             >
               <Button
-                onClick={() => setSelectedView(config.viewId)}
+                onClick={() => setSelectedViewId(config.viewId)}
                 variant="ghost"
                 style={{ fontSize: '16px' }}
               >
-                {config.view?.eds_icon && (
+                {config.viewConfig?.eds_icon && (
                   <Icon
-                    name={config.view.eds_icon}
-                    title={config.view.eds_icon}
+                    name={config.viewConfig.eds_icon}
+                    title={config.viewConfig.eds_icon}
                   />
                 )}
                 {config.label}

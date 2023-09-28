@@ -39,7 +39,7 @@
           {
             "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
             "label": "Study",
-            "view": {
+            "viewConfig": {
               "type": "CORE:ReferenceViewConfig",
               "recipe": "Tabs",
               "scope": "study",

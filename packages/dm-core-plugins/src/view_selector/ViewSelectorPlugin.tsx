@@ -27,38 +27,42 @@ export const ViewSelectorPlugin = (
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [entity, isLoading, _, error] = useDocument<TGenericObject>(idReference)
-  const [selectedView, setSelectedView] = useState<string | undefined>()
-  const [views, setViews] = useState<TItemData[]>([])
+  const [selectedViewId, setSelectedViewId] = useState<string | undefined>()
+  const [viewSelectorItems, setViewSelectorItems] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
 
   const addView: TOnOpen = (
     viewId: string,
-    view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
+    viewConfig: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
     rootId?: string
   ) => {
-    if (!views.find((view: TItemData) => view.viewId === viewId)) {
+    if (!viewSelectorItems.find((view: TItemData) => view.viewId === viewId)) {
       // View does not exist, add it
       const newView: TItemData = {
         viewId: viewId,
-        view: view,
-        label: view.label ?? viewId,
+        viewConfig: viewConfig,
+        label: viewConfig.label ?? viewId,
         rootEntityId: rootId || idReference,
         onSubmit: () => undefined,
         closeable: true,
       }
-      setViews([...views, newView])
+      setViewSelectorItems([...viewSelectorItems, newView])
     }
-    setSelectedView(viewId)
+    setSelectedViewId(viewId)
   }
 
   function removeView(viewId: string) {
-    const viewIndex = views.findIndex((view) => view.viewId === viewId)
+    const viewIndex = viewSelectorItems.findIndex(
+      (viewSelectorItem) => viewSelectorItem.viewId === viewId
+    )
     const newSelectedView =
-      views[viewIndex + 1]?.viewId || views[viewIndex - 1]?.viewId || 'self'
-    const viewsCopy: TItemData[] = [...views]
+      viewSelectorItems[viewIndex + 1]?.viewId ||
+      viewSelectorItems[viewIndex - 1]?.viewId ||
+      'self'
+    const viewsCopy: TItemData[] = [...viewSelectorItems]
     viewsCopy.splice(viewIndex, 1)
-    setViews(viewsCopy)
-    setSelectedView(newSelectedView)
+    setViewSelectorItems(viewsCopy)
+    setSelectedViewId(newSelectedView)
   }
 
   useEffect(() => {
@@ -68,8 +72,10 @@ export const ViewSelectorPlugin = (
     const newViews: TItemData[] = []
     if (internalConfig.items && internalConfig.items.length) {
       internalConfig.items.forEach((viewItem: TViewSelectorItem) => {
-        const backupKey: string = viewItem.view?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
-        const viewId = newViews.find((v) => v.viewId === backupKey)
+        const backupKey: string = viewItem.viewConfig?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
+        const viewId = newViews.find(
+          (viewSelectorItem) => viewSelectorItem.viewId === backupKey
+        )
           ? crypto.randomUUID()
           : backupKey
         newViews.push({
@@ -85,7 +91,7 @@ export const ViewSelectorPlugin = (
       newViews.push({
         label: 'self',
         viewId: 'self',
-        view: {
+        viewConfig: {
           type: 'InlineRecipeViewConfig',
           scope: 'self',
           recipe: {
@@ -103,7 +109,7 @@ export const ViewSelectorPlugin = (
             newViews.push({
               viewId: key,
               label: key,
-              view: {
+              viewConfig: {
                 type: 'ViewConfig',
                 scope: key,
               },
@@ -113,14 +119,14 @@ export const ViewSelectorPlugin = (
         }
       )
     }
-    setViews(newViews)
-    setSelectedView(newViews[0].viewId)
+    setViewSelectorItems(newViews)
+    setSelectedViewId(newViews[0].viewId)
   }, [entity])
 
   if (error) {
     throw new Error(JSON.stringify(error, null, 2))
   }
-  if (isLoading || !views.length || !selectedView) {
+  if (isLoading || !viewSelectorItems.length || !selectedViewId) {
     return <Loading />
   }
 
@@ -134,15 +140,15 @@ export const ViewSelectorPlugin = (
     >
       {internalConfig.asSidebar ? (
         <Sidebar
-          items={views}
-          selectedView={selectedView}
-          setSelectedView={setSelectedView}
+          viewSelectorItems={viewSelectorItems}
+          selectedViewId={selectedViewId}
+          setSelectedViewId={setSelectedViewId}
         />
       ) : (
         <Tabs
-          items={views}
-          selectedView={selectedView}
-          setSelectedView={setSelectedView}
+          viewSelectorItems={viewSelectorItems}
+          selectedViewId={selectedViewId}
+          setSelectedViewId={setSelectedViewId}
           removeView={removeView}
         />
       )}
@@ -164,8 +170,8 @@ export const ViewSelectorPlugin = (
           type={type}
           onOpen={addView}
           formData={formData}
-          selectedView={selectedView}
-          items={views}
+          selectedViewId={selectedViewId}
+          viewSelectorItems={viewSelectorItems}
           setFormData={setFormData}
         />
       </div>

@@ -13,7 +13,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "EU control",
-          "view": {
+          "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "Edit",
@@ -34,7 +34,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Dimensions",
-          "view": {
+          "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "Edit",
