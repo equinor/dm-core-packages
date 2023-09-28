@@ -5,7 +5,7 @@ import {
 } from '@development-framework/dm-core'
 
 export type TViewSelectorItem = {
-  view: TReferenceViewConfig | TInlineRecipeViewConfig | TViewConfig
+  viewConfig: TReferenceViewConfig | TInlineRecipeViewConfig | TViewConfig
   label?: string
 }
 

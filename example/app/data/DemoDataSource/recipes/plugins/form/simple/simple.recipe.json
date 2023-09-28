@@ -12,7 +12,7 @@
       "items": [
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "view": {
+          "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "Edit",

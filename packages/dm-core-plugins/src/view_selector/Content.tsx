@@ -15,25 +15,26 @@ const HidableWrapper = styled.div<any>`
 
 export const Content = (props: {
   type: string
-  selectedView: string
-  items: TItemData[]
+  selectedViewId: string
+  viewSelectorItems: TItemData[]
   setFormData: (v: TGenericObject) => void
   onOpen: TOnOpen
   formData: TGenericObject
   style?: Record<string, string | number>
 }): JSX.Element => {
-  const { selectedView, items, setFormData, formData, onOpen } = props
+  const { selectedViewId, viewSelectorItems, setFormData, formData, onOpen } =
+    props
   return (
     <div style={props.style}>
-      {items.map((config: TItemData) => (
+      {viewSelectorItems.map((config: TItemData) => (
         <HidableWrapper
           key={config.viewId}
-          hidden={config.viewId !== selectedView}
+          hidden={config.viewId !== selectedViewId}
           role="tabpanel"
         >
           <ViewCreator
             idReference={config.rootEntityId}
-            viewConfig={config.view}
+            viewConfig={config.viewConfig}
             onOpen={onOpen}
             onSubmit={(data: TGenericObject) => {
               setFormData({

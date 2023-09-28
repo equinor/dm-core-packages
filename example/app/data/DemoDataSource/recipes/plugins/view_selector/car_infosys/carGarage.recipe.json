@@ -12,7 +12,7 @@
       "items": [
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "view": {
+          "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "Edit",
@@ -33,7 +33,7 @@
         },
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "view": {
+          "viewConfig": {
             "type": "CORE:ViewConfig",
             "scope": "Audi",
             "eds_icon": "car"
@@ -41,7 +41,7 @@
         },
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "view": {
+          "viewConfig": {
             "type": "CORE:ViewConfig",
             "scope": "Volvo",
             "eds_icon": "car"

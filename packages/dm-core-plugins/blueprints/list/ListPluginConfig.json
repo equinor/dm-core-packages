@@ -46,7 +46,7 @@
       "default": false
     },
     {
-      "name": "views",
+      "name": "viewConfigs",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "CORE:ViewConfig",
       "dimensions": "*",

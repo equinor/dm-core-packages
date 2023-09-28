@@ -4,27 +4,27 @@ import * as EdsIcons from '@equinor/eds-icons'
 import { TItemData } from './types'
 
 export const Sidebar = (props: {
-  selectedView: string
-  setSelectedView: (k: string) => void
-  items: TItemData[]
+  selectedViewId: string
+  setSelectedViewId: (k: string) => void
+  viewSelectorItems: TItemData[]
 }): JSX.Element => {
-  const { selectedView, setSelectedView, items } = props
+  const { selectedViewId, setSelectedViewId, viewSelectorItems } = props
 
   return (
     <SideBar open style={{ height: 'auto' }}>
       <SideBar.Content>
-        {items.map((config: TItemData) => (
+        {viewSelectorItems.map((config: TItemData) => (
           <SideBar.Link
             key={config.viewId}
             icon={
-              config.view.eds_icon
-                ? EdsIcons[config.view.eds_icon as keyof typeof EdsIcons]
+              config.viewConfig.eds_icon
+                ? EdsIcons[config.viewConfig.eds_icon as keyof typeof EdsIcons]
                 : EdsIcons.subdirectory_arrow_right
             }
             label={config.label}
             role="tab"
-            onClick={() => setSelectedView(config.viewId)}
-            active={selectedView === config.viewId}
+            onClick={() => setSelectedViewId(config.viewId)}
+            active={selectedViewId === config.viewId}
           />
         ))}
       </SideBar.Content>
