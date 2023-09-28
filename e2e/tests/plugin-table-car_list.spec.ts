@@ -90,7 +90,7 @@ test('Table car list example', async ({ page }) => {
   await page.getByRole('button', { name: 'Save' }).click()
   await page.getByRole('button', { name: 'Next page' }).click()
   await expect(page.getByText('6 - 6 of 6')).toBeVisible()
-  //await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled() //BUG #258
+  await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
   await page.getByRole('button', { name: 'Previous page' }).click()
   await expect(page.getByText('1 - 5 of 6')).toBeVisible()
   await expect(
