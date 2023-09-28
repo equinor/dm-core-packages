@@ -12,7 +12,7 @@
 > **Note**
 > Run all these commands from the `dm-core-packages/` (main project) folder unless otherwise stated
 
-1. Install dependecies.
+1. Install dependencies.
 
    #### Frontend
 
@@ -34,7 +34,7 @@
 3. Navigate to the `example` folder, then pull and start API services.  
     - Run `docker-compose pull && docker-compose up -d`
 4. From the `example` folder, load data into the database.    
-    - Run `./reset-all.sh`
+    - Run `./reset-app.sh`
 5. Start the test app.  
     - Run `yarn start:example`
 
@@ -82,4 +82,14 @@ In the example app, json files are named according to what type they are.
 In the example app, folders are named according to the naming convention:
 
 - Apps are to have the PascalCase notation
-- All other folders are to have the snake_case notation. 
+- All other folders are to have the snake_case notation.
+
+## Aliasing dm-core-packages
+
+The application watching and live-reload of dm-core dependencies, to turn this off, start the application by running this command:
+
+```bash
+ALIAS=off yarn start
+```
+
+The configuration to support this hot reloading is in the `vite.local.config.ts` and `tsconfig.local.json`.

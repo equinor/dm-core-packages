@@ -46,7 +46,7 @@ jobs:
         working-directory: ./
 
       - name: Start example application
-        run: pm2 start "yarn start:example" --name web --wait-ready --listen-timeout 10000 # wait for 10 seconds
+        run: pm2 start "yarn start:example --mode test" --name web --wait-ready --listen-timeout 10000 # wait for 10 seconds
         working-directory: ./
 
       - name: Pull docker images
@@ -71,12 +71,6 @@ jobs:
 
       - name: Run docker images
         run: docker-compose up -d
-        working-directory: example/
-
-      - name: Run reset app script
-        run: |
-          sleep 60
-          docker-compose run --rm dmss reset-app
         working-directory: example/
 
       - name: Pack core plugins
@@ -110,8 +104,8 @@ jobs:
         run: echo "version=$(dm --version)" >> "$GITHUB_OUTPUT"
         working-directory: example/
 
-      - name: Run reset-all script
-        run: ./reset-all.sh validate-entities
+      - name: Run reset-app script
+        run: ./reset-app.sh
         working-directory: example/
 
       - name: Install dependencies

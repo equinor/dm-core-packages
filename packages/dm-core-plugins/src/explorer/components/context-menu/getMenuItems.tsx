@@ -24,7 +24,7 @@ export function getMenuItems(
   }
 
   // Append to lists
-  if (node.attribute.dimensions !== '') {
+  if (Array.isArray(node.entity)) {
     menuItems.push(getMenuItem(EDialog.AppendEntity, `Append ${node.name}`))
   }
 

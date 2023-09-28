@@ -1,13 +1,14 @@
 import '@development-framework/dm-core/dist/main.css'
 import {
   EntityView,
-  FSTreeContext,
   TreeView,
+  FSTreeContext,
 } from '@development-framework/dm-core'
 import React, { useContext, useState } from 'react'
 import { Typography } from '@equinor/eds-core-react'
 
 function App() {
+  // @ts-ignore
   const { treeNodes, loading } = useContext(FSTreeContext)
   const [selectedType, setSelectedType] = useState<string>()
   const [selectedEntity, setSelectedEntity] = useState<string>()
