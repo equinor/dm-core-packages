@@ -15,11 +15,7 @@ test('View selector - car garage', async ({ page }) => {
 
   // Collapse and expand sidebar:
   await page.getByRole('tab', { name: 'Self' }).click()
-  await page
-    .locator(
-      '.SideBarToggle__ToggleContainer-sc-1w5e44y-0 > .Button__ButtonBase-sc-1hs0myn-1'
-    )
-    .click() //Needs improvement, PR made to EDS #3066
+  await page.getByRole('button', { name: 'Collapse' }).click()
   await expect(page.getByRole('tab', { name: 'Self' })).not.toBeVisible()
   await expect(page.getByRole('tab', { name: 'Audi' })).not.toBeVisible()
   await expect(page.getByRole('tab', { name: 'Volvo' })).not.toBeVisible()
@@ -27,11 +23,7 @@ test('View selector - car garage', async ({ page }) => {
   await expect(page.getByRole('tabpanel').locator('#name')).toHaveValue('Audi')
   await page.getByRole('tab').first().click()
   await expect(page.getByLabel('Name')).toHaveValue('CarGarage')
-  await page
-    .locator(
-      '.SideBarToggle__ToggleContainer-sc-1w5e44y-0 > .Button__ButtonBase-sc-1hs0myn-1'
-    )
-    .click() //Needs improvement, PR made to EDS #3066
+  await page.getByRole('button', { name: 'Expand' }).click()
   await expect(page.getByRole('tab', { name: 'Self' })).toBeVisible()
   await expect(page.getByRole('tab', { name: 'Audi' })).toBeVisible()
   await expect(page.getByRole('tab', { name: 'Volvo' })).toBeVisible()
