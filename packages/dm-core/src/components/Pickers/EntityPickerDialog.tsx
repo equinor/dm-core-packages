@@ -46,7 +46,7 @@ export const EntityPickerDialog = (props: {
   useEffect(() => {
     setLoading(true)
     if (scope) {
-      tree.initFromFolder(scope).finally(() => setLoading(false))
+      tree.initFromPath(scope).finally(() => setLoading(false))
     } else {
       tree
         .initFromDataSources(appConfig.visibleDataSources)
