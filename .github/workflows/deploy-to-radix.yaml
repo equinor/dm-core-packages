@@ -1,4 +1,4 @@
-name: "Deploy image to radix"
+name: "Deploy to radix"
 on:
   workflow_dispatch:
     inputs:
@@ -54,12 +54,10 @@ jobs:
         with:
           args: >
             create job
-            build-deploy
-            --application $RADIX_APP
-            --environment ${{ inputs.radix-environment }}
-            --user $RADIX_USER
+            build-deploy                        
             --context production
-            --token-environment
+            --from-config
+            --branch main
             --follow
 
       - name: Get Azure principal token for Azure application
