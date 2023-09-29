@@ -13,7 +13,7 @@ import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
 import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
-import { AxiosError } from 'axios/index'
+import { AxiosError } from 'axios'
 
 const JobButtonWrapper = styled.div`
   display: flex;
