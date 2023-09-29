@@ -19,6 +19,13 @@
         "address": "system/Plugins",
         "version": "0.0.1",
         "protocol": "dmss"
+      },
+      {
+        "type": "CORE:Dependency",
+        "alias": "JOBCORE",
+        "address": "WorkflowDS/Blueprints",
+        "version": "0.0.1",
+        "protocol": "dmss"
       }
     ]
   }

@@ -26,8 +26,8 @@ const JobButtonWrapper = styled.div`
 interface JobPluginConfig {
   jobTargetAddress: {
     type: string
-    address: string
-    addressScope: string
+    jobAddress: string
+    jobAddressScope: string
   }
   label: string
   runner: {
@@ -38,8 +38,8 @@ interface JobPluginConfig {
     type: string
     _type: string
     referenceType: string
-    address: string
-    addressScope: string
+    jobInputAddress: string
+    jobInputAddressScope: string
   }
 }
 
@@ -49,8 +49,22 @@ export const JobPlugin = (props: IUIPlugin) => {
     idReference,
   }: { config?: JobPluginConfig; idReference: string } = props
   const DmssApi = useDMSS()
-  const jobAddress = idReference + config?.jobTargetAddress
-  const defaultJobOutputTarget = idReference + config?.outputTarget
+  // const jobAddress = idReference + config?.jobTargetAddress
+  const defaultTargetOutput = idReference + config?.outputTarget
+
+  const jobTargetAddress = (): string => {
+    if (config?.jobTargetAddress.jobAddressScope === 'local') {
+      return idReference + config?.jobTargetAddress.jobAddress
+    }
+    return config?.jobTargetAddress.jobAddress ?? ''
+  }
+
+  const jobInputAddress = (): string | undefined => {
+    if (config?.jobInput.jobInputAddressScope === 'local') {
+      return 'dmss://' + idReference + config?.jobInput.jobInputAddress
+    }
+    return config?.jobInput.jobInputAddress
+  }
 
   const { tokenData } = useContext(AuthContext)
   const username = tokenData?.preferred_username
@@ -61,6 +75,7 @@ export const JobPlugin = (props: IUIPlugin) => {
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const [allowStartJob, setAllowJobStart] = useState(false)
 
+  console.log(config)
   console.log(idReference)
 
   const {
@@ -78,22 +93,19 @@ export const JobPlugin = (props: IUIPlugin) => {
     type: EBlueprint.JOB,
     status: JobStatus.NotStarted,
     triggeredBy: username ?? 'unknown user', // TODO: Add propper fallback
-    // TODO: Can this one also be extracted?
     applicationInput: {
-      type: EBlueprint.REFERENCE,
-      referenceType: 'link',
-      address: {
-        ...config?.jobInput,
-        address: `dmss://${idReference}${config?.jobInput.address}`,
-      },
+      type: config?.jobInput._type,
+      referenceType: config?.jobInput.referenceType,
+      address: jobInputAddress(),
     },
     runner: config?.runner,
   }
-
+  console.log(jobEntity)
   const jobEntityFormData = {
     ...jobEntity,
-    outputTarget: defaultJobOutputTarget,
+    outputTarget: defaultTargetOutput,
   }
+  console.log(jobEntityFormData)
 
   const updateDocument = async (
     jobAddress: string,
@@ -145,20 +157,20 @@ export const JobPlugin = (props: IUIPlugin) => {
   function createNewJob(): Promise<unknown> {
     setAllowJobStart(true)
     if (jobExists) {
-      return updateDocument(jobAddress, jobEntityFormData)
+      return updateDocument(jobTargetAddress(), jobEntityFormData)
     } else {
-      return addDocument(jobAddress, jobEntityFormData)
+      return addDocument(jobTargetAddress(), jobEntityFormData)
     }
   }
 
   function fetchJobIfExists(): void {
     DmssApi.documentCheck({
-      address: jobAddress,
+      address: jobTargetAddress(),
     }).then((res) => {
       if (res.data) {
         // TODO: Type this endpoint properly
-        DmssApi.documentGet({ address: jobAddress }).then((res) => {
-          if (!jobEntityId.length) setJobEntityId(jobAddress)
+        DmssApi.documentGet({ address: jobTargetAddress() }).then((res) => {
+          if (!jobEntityId.length) setJobEntityId(jobTargetAddress)
           // @ts-ignore
           setJobId(res.data.uid)
           setJobExists(true)

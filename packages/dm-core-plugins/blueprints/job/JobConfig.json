@@ -16,7 +16,7 @@
     {
       "name": "runner",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "dmss://WorkflowDS/Blueprints/JobHandler"
+      "attributeType": "JOBCORE:JobHandler"
     },
     {
       "name": "jobTargetAddress",

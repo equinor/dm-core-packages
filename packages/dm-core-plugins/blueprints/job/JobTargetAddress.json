@@ -9,12 +9,12 @@
       "attributeType": "string"
     },
     {
-      "name": "addressScope",
+      "name": "jobAddressScope",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     },
     {
-      "name": "address",
+      "name": "jobAddress",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     }

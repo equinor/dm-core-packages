@@ -19,12 +19,12 @@
       "attributeType": "string"
     },
     {
-      "name": "address",
+      "name": "jobInputAddress",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     },
     {
-      "name": "addressScope",
+      "name": "jobInputAddressScope",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     }
