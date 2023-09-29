@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios'
+import { splitAddress } from 'src/utils/addressUtilities'
 import { EBlueprint } from '../Enums'
 import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
@@ -266,6 +267,18 @@ export class Tree {
   constructor(updateCallback: (t: Tree) => void) {
     this.dmssApi = useDMSS()
     this.updateCallback = updateCallback
+  }
+
+  async init(path?: string[]) {
+    if (!path) {
+      this.initFromDataSources()
+      return
+    }
+    path
+      .filter((x) => splitAddress(x).documentPath)
+      .forEach((x) => this.initFromPath(x))
+    const dataSources = path.filter((x) => !splitAddress(x).documentPath)
+    if (dataSources.length) this.initFromDataSources(dataSources)
   }
 
   async initFromDataSources(dataSources?: string[]) {
