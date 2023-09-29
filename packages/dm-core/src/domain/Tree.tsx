@@ -30,19 +30,15 @@ const createContainedChildren = (
       } else {
         childNodeId = `${parentNode.nodeId}.${key}`
       }
-      newChildren[childNodeId] = new TreeNode(
-        parentNode.tree,
-        childNodeId,
-        value,
+      newChildren[childNodeId] = new TreeNode({
+        tree: parentNode.tree,
+        nodeId: childNodeId,
+        entity: value,
         type,
-        parentNode,
-        value?.name || key,
-        false,
-        false,
-        // If this "new" node already exists on parent, instantiate the node with the same old children.
-        // If not the tree will lose already loaded children whenever a node is expanded()
-        parentNode.children?.[childNodeId]?.children || {}
-      )
+        parent: parentNode,
+        name: value?.name || key,
+        children: parentNode.children?.[childNodeId]?.children || {},
+      })
     }
   })
 
@@ -56,17 +52,15 @@ const createFolderChildren = (
   const newChildren: TTreeMap = {}
   document.content?.forEach((resolvedChild: any) => {
     const newChildId = `${parentNode.dataSource}/$${resolvedChild?._id}`
-    newChildren[newChildId] = new TreeNode(
-      parentNode.tree,
-      newChildId,
-      resolvedChild,
-      resolvedChild.type,
-      parentNode,
-      resolvedChild.name,
-      false,
-      false,
-      parentNode.children?.[newChildId]?.children || {}
-    )
+    newChildren[newChildId] = new TreeNode({
+      tree: parentNode.tree,
+      nodeId: newChildId,
+      entity: resolvedChild,
+      type: resolvedChild.type,
+      parent: parentNode,
+      name: resolvedChild.name,
+      children: parentNode.children?.[newChildId]?.children || {},
+    })
   })
   return newChildren
 }
@@ -86,16 +80,16 @@ const updateRootPackagesInTree = (
         rootPackage._id ?? ''
       )
     ) {
-      const rootPackageNode = new TreeNode( // Add the rootPackage nodes to the dataSource
+      const rootPackageNode = new TreeNode({
+        // Add the rootPackage nodes to the dataSource
         tree,
-        `${dataSource}/$${rootPackage._id}`,
-        rootPackage,
-        EBlueprint.PACKAGE,
-        tree.index[dataSource],
-        rootPackage.name,
-        true,
-        false
-      )
+        nodeId: `${dataSource}/$${rootPackage._id}`,
+        entity: rootPackage,
+        type: EBlueprint.PACKAGE,
+        parent: tree.index[dataSource],
+        name: rootPackage.name,
+        isRoot: true,
+      })
       tree.index[dataSource].children[rootPackage._id ?? ''] = rootPackageNode
     }
   })
@@ -106,26 +100,37 @@ export class TreeNode {
   type: string
   nodeId: string
   dataSource: string
-  children: TTreeMap = {}
-  parent?: TreeNode
-  isRoot: boolean = false
-  isDataSource: boolean = false
+  children: TTreeMap
+  parent: TreeNode | undefined
+  isRoot: boolean
+  isDataSource: boolean
   entity: any
-  name?: string
+  name: string | undefined
   message: string
 
-  constructor(
-    tree: Tree,
-    nodeId: string,
-    entity: any,
-    type: string,
-    parent: TreeNode | undefined = undefined,
-    name: string | undefined = undefined,
+  constructor({
+    tree,
+    nodeId,
+    entity,
+    type,
+    parent = undefined,
+    name = undefined,
     isRoot = false,
     isDataSource = false,
-    children: TTreeMap = {},
-    message: string = ''
-  ) {
+    children = {},
+    message = '',
+  }: {
+    tree: Tree
+    nodeId: string
+    entity: any
+    type: string
+    parent?: TreeNode
+    name?: string
+    isRoot?: boolean
+    isDataSource?: boolean
+    children?: TTreeMap
+    message?: string
+  }) {
     this.tree = tree
     this.nodeId = nodeId
     this.dataSource = nodeId.split('/', 1)[0]
@@ -273,34 +278,29 @@ export class Tree {
       : allDataSources
     validDataSources.forEach(
       (ds) =>
-        (this.index[ds.id] = new TreeNode(
-          this,
-          ds.id,
-          { name: ds.name, type: 'dataSource' },
-          'dataSource',
-          undefined,
-          ds.name,
-          false,
-          true
-        ))
+        (this.index[ds.id] = new TreeNode({
+          tree: this,
+          nodeId: ds.id,
+          entity: { name: ds.name, type: 'dataSource' },
+          type: 'dataSource',
+          name: ds.name,
+          isDataSource: true,
+        }))
     )
     const invalidDataSources = dataSources?.filter((ds) =>
       allDataSources.every((x) => x.id !== ds)
     )
     invalidDataSources?.forEach(
       (ds) =>
-        (this.index[ds] = new TreeNode(
-          this,
-          ds,
-          { name: ds, type: 'dataSource' },
-          'error',
-          undefined,
-          ds,
-          false,
-          true,
-          {},
-          `${ds} does not exist`
-        ))
+        (this.index[ds] = new TreeNode({
+          tree: this,
+          nodeId: ds,
+          entity: { name: ds, type: 'dataSource' },
+          type: 'error',
+          name: ds,
+          isDataSource: true,
+          message: `${ds} does not exist`,
+        }))
     )
     this.updateCallback(this)
   }
@@ -321,40 +321,31 @@ export class Tree {
       data == undefined || (Array.isArray(data) && data.length == 0)
     let node: TreeNode
     if (isEmpty) {
-      node = new TreeNode(
-        this,
-        path,
-        {},
-        'error',
-        undefined,
-        path,
-        true,
-        false,
-        {},
-        `${path} ${data == undefined ? 'does not exist' : 'is empty'}`
-      )
+      node = new TreeNode({
+        tree: this,
+        nodeId: path,
+        entity: {},
+        type: 'error',
+        name: path,
+        message: `${path} ${data == undefined ? 'does not exist' : 'is empty'}`,
+      })
     } else if (Array.isArray(data)) {
-      node = new TreeNode(
-        this,
-        path,
-        data,
-        data[0].type,
-        undefined,
-        path,
-        false,
-        false
-      )
+      node = new TreeNode({
+        tree: this,
+        nodeId: path,
+        entity: data,
+        type: data[0].type,
+        name: path,
+      })
     } else {
-      node = new TreeNode(
-        this,
-        path,
-        data,
-        data.type,
-        undefined,
-        data?.name || data._id,
-        data?.isRoot ?? false,
-        false
-      )
+      node = new TreeNode({
+        tree: this,
+        nodeId: path,
+        entity: data,
+        type: data.type,
+        name: data?.name || data._id,
+        isRoot: data?.isRoot ?? false,
+      })
     }
     this.index[path] = node
     this.updateCallback(this)
