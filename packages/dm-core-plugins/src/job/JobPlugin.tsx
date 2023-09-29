@@ -8,12 +8,13 @@ import {
   useDMSS,
   useJob,
 } from '@development-framework/dm-core'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
 import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
+import { AuthContext } from 'react-oauth2-code-pkce'
 
 const JobButtonWrapper = styled.div`
   display: flex;
@@ -27,6 +28,9 @@ export const JobPlugin = (props: IUIPlugin) => {
   const DmssApi = useDMSS()
   const jobAddress = idReference + config.jobAddress
   const defaultJobOutputTarget = idReference + config.outputTarget
+
+  const { tokenData } = useContext(AuthContext)
+  const username = tokenData?.preferred_username
 
   const [jobEntityId, setJobEntityId] = useState<string>('')
   const [jobId, setJobId] = useState<string | undefined>(undefined)
@@ -48,7 +52,7 @@ export const JobPlugin = (props: IUIPlugin) => {
     label: config.label,
     type: EBlueprint.JOB,
     status: JobStatus.NotStarted,
-    triggeredBy: 'me', // TODO: Get current user
+    triggeredBy: username ?? 'unknown user', // TODO: Add propper fallback
     // TODO: Can this one also be extracted?
     applicationInput: {
       type: EBlueprint.REFERENCE,
