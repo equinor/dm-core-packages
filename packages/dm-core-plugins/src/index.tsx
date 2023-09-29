@@ -43,7 +43,7 @@ export default {
   '@development-framework/dm-core-plugins/blueprint-hierarchy': {
     component: BlueprintHierarchyPlugin,
   },
-  '@development-framework/dm-core-plugins/jobControl': {
+  '@development-framework/dm-core-plugins/job/single_job': {
     component: JobPlugin,
   },
   // '@development-framework/dm-core-plugins/jobControl': {

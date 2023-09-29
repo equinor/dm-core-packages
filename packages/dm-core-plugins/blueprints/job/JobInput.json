@@ -1,0 +1,22 @@
+{
+  "name": "JobInput",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "referenceType",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "address",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}
