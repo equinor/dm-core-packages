@@ -19,9 +19,9 @@
       "attributeType": "dmss://WorkflowDS/Blueprints/JobHandler"
     },
     {
-      "name": "jobAddress",
+      "name": "jobTargetAddress",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
+      "attributeType": "PLUGINS:dm-core-plugins/job/JobTargetAddress"
     },
     {
       "name": "jobInput",

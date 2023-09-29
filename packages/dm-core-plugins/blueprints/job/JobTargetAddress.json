@@ -1,5 +1,5 @@
 {
-  "name": "JobInput",
+  "name": "JobTargetAddress",
   "type": "CORE:Blueprint",
   "description": "",
   "attributes": [
@@ -9,22 +9,12 @@
       "attributeType": "string"
     },
     {
-      "name": "_type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "referenceType",
+      "name": "addressScope",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     },
     {
       "name": "address",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "addressScope",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     }

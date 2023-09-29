@@ -23,11 +23,34 @@ const JobButtonWrapper = styled.div`
   gap: 8px;
 `
 
+interface JobPluginConfig {
+  jobTargetAddress: {
+    type: string
+    address: string
+    addressScope: string
+  }
+  label: string
+  runner: {
+    type: string
+  }
+  outputTarget: string
+  jobInput: {
+    type: string
+    _type: string
+    referenceType: string
+    address: string
+    addressScope: string
+  }
+}
+
 export const JobPlugin = (props: IUIPlugin) => {
-  const { config, idReference } = props
+  const {
+    config,
+    idReference,
+  }: { config?: JobPluginConfig; idReference: string } = props
   const DmssApi = useDMSS()
-  const jobAddress = idReference + config.jobAddress
-  const defaultJobOutputTarget = idReference + config.outputTarget
+  const jobAddress = idReference + config?.jobTargetAddress
+  const defaultJobOutputTarget = idReference + config?.outputTarget
 
   const { tokenData } = useContext(AuthContext)
   const username = tokenData?.preferred_username
@@ -37,6 +60,8 @@ export const JobPlugin = (props: IUIPlugin) => {
   const [jobExists, setJobExists] = useState(false)
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const [allowStartJob, setAllowJobStart] = useState(false)
+
+  console.log(idReference)
 
   const {
     start,
@@ -49,7 +74,7 @@ export const JobPlugin = (props: IUIPlugin) => {
   } = useJob(jobEntityId, jobId)
 
   const jobEntity: TJob = {
-    label: config.label,
+    label: config?.label,
     type: EBlueprint.JOB,
     status: JobStatus.NotStarted,
     triggeredBy: username ?? 'unknown user', // TODO: Add propper fallback
@@ -57,10 +82,12 @@ export const JobPlugin = (props: IUIPlugin) => {
     applicationInput: {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
-      address:
-        'dmss://DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0]', // TODO support relative syntax: ^.cases[0]
+      address: {
+        ...config?.jobInput,
+        address: `dmss://${idReference}${config?.jobInput.address}`,
+      },
     },
-    runner: config.runner,
+    runner: config?.runner,
   }
 
   const jobEntityFormData = {

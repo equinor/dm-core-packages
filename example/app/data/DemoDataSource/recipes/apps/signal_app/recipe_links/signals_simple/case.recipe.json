@@ -104,12 +104,23 @@
       "plugin": "@development-framework/dm-core-plugins/job/single_job",
       "config": {
         "type": "PLUGINS:dm-core-plugins/job/JobConfig",
-        "outputTarget": ".signal",
+        "jobTargetAddress": {
+          "type": "PLUGINS:dm-core-plugins/job/JobTargetAddress",
+          "address": ".job",
+          "addressScope": "local"
+        },
         "label": "signal job",
         "runner": {
           "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob"
         },
-        "jobAddress": ".job"
+        "outputTarget": ".signal",
+        "jobInput": {
+          "type": "PLUGINS:dm-core-plugins/job/JobInput",
+          "_type": "CORE:Reference",
+          "referenceType": "link",
+          "address": ".study.cases[0]",
+          "addressScope": "local"
+        }
       }
     },
     {
