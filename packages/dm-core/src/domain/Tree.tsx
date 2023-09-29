@@ -306,16 +306,16 @@ export class Tree {
   }
 
   /**
-   * Initialize the Tree view from a given folder.
+   * Initialize the Tree view from a given path.
    *
-   * @param folderPath: Define scope for tree view. The folderPath must be on the format: <DataSource>/<rootPackage>/<pathToFolder> and be an address to an entity of type Package.
-   *                    The folder specified by folderPath and all subfolders of folderPath will be included, but not anything else.
+   * @param path: Define scope for tree view. The path can point to either a package, a document or a complex attribute.
+   *
+   * The object specified by path and all subfolders of path will be included, but not anything else.
    */
-  async initFromFolder(folderPath: string) {
-    const exists = (await this.dmssApi.documentCheck({ address: folderPath }))
-      .data
+  async initFromPath(path: string) {
+    const exists = (await this.dmssApi.documentCheck({ address: path })).data
     const data: any = exists
-      ? (await this.dmssApi.documentGet({ address: folderPath })).data
+      ? (await this.dmssApi.documentGet({ address: path })).data
       : undefined
     const isEmpty =
       data == undefined || (Array.isArray(data) && data.length == 0)
@@ -323,31 +323,31 @@ export class Tree {
     if (isEmpty) {
       node = new TreeNode(
         this,
-        folderPath,
+        path,
         {},
         'error',
         undefined,
-        folderPath,
+        path,
         true,
         false,
         {},
-        `${folderPath} ${data == undefined ? 'does not exist' : 'is empty'}`
+        `${path} ${data == undefined ? 'does not exist' : 'is empty'}`
       )
     } else if (Array.isArray(data)) {
       node = new TreeNode(
         this,
-        folderPath,
+        path,
         data,
         data[0].type,
         undefined,
-        folderPath,
+        path,
         false,
         false
       )
     } else {
       node = new TreeNode(
         this,
-        folderPath,
+        path,
         data,
         data.type,
         undefined,
@@ -356,7 +356,7 @@ export class Tree {
         false
       )
     }
-    this.index[folderPath] = node
+    this.index[path] = node
     this.updateCallback(this)
   }
 
