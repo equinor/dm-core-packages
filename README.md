@@ -2641,3 +2641,16 @@ ref #534 (2023-09-21T10:17:57Z)
     * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
+* feat(tree): make one init for everything (#564)
+
+* feat(tree): make one init for everything
+
+* refactor: maybe fix test
+
+---------
+
+Co-authored-by: Henrik Bossart <henrikbossart@users.noreply.github.com> (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6377785479/1)
+    * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
