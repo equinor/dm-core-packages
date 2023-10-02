@@ -2659,3 +2659,8 @@ Co-authored-by: Henrik Bossart <henrikbossart@users.noreply.github.com> (2023-09
     * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
+* chore: release main (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6380499190/2)
+    * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
