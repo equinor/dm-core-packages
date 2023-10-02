@@ -12,6 +12,25 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.3.0 to ^1.3.1
 
+## [1.5.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.4.1...dm-core-plugins-v1.5.0) (2023-10-02)
+
+
+### Features
+
+* use Vite ([e70c2e8](https://github.com/equinor/dm-core-packages/commit/e70c2e82319ee5e8c29972faeaf0bd6ec4024a5f))
+
+
+### Bug Fixes
+
+* remove unsued import ([cc0d7b1](https://github.com/equinor/dm-core-packages/commit/cc0d7b15948014e87b750c63ffdad0c0e3eddcda))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.3.4 to ^1.4.0
+
 ## [1.4.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.4.0...dm-core-plugins-v1.4.1) (2023-09-25)
 
 
