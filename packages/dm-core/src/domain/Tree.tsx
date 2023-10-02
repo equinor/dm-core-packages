@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { splitAddress } from 'src/utils/addressUtilities'
+import { splitAddress } from '../utils/addressUtilities'
 import { EBlueprint } from '../Enums'
 import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
