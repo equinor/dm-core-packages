@@ -6,11 +6,13 @@
     {
       "name": "type",
       "type": "CORE:BlueprintAttribute",
+      "description": "Required field",
       "attributeType": "string"
     },
     {
       "name": "_type",
       "type": "CORE:BlueprintAttribute",
+      "description": "The type of the job input",
       "attributeType": "string"
     },
     {
