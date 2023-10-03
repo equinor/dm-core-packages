@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/grid/blueprints/Dashboard",
+  "_blueprintPath_": "/plugins/grid/example/blueprints/Dashboard",
   "initialUiRecipe": {
     "name": "Dashboard",
     "type": "CORE:UiRecipe",

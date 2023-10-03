@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/grid/blueprints/Nested",
+  "_blueprintPath_": "/plugins/grid/example/blueprints/Nested",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
