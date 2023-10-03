@@ -56,8 +56,7 @@
           "dimensions": {
             "type": "string"
           },
-          "default": {
-          }
+          "default": true
         },
         "required": [
           "type",
