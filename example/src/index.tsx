@@ -1,16 +1,17 @@
 import {
   ApplicationContext,
   DMSSProvider,
-  FSTreeProvider,
+  RoleProvider,
   UiPluginProvider,
 } from '@development-framework/dm-core'
 import React from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
-import App from './App'
+
 import plugins from './plugins'
 import ReactDOM from 'react-dom/client'
 import { AuthProvider } from 'react-oauth2-code-pkce'
+import App from './App'
 
 const fullCurrentURL = () =>
   `${window.location.pathname}${window.location.search}${window.location.hash}`
@@ -52,12 +53,12 @@ const Content = () => {
   return (
     <DMSSProvider dmssBasePath={import.meta.env.VITE_DMSS_URL}>
       <ApplicationContext.Provider value={APP_SETTINGS}>
-        <FSTreeProvider visibleDataSources={APP_SETTINGS.visibleDataSources}>
-          <UiPluginProvider pluginsToLoad={plugins}>
+        <UiPluginProvider pluginsToLoad={plugins}>
+          <RoleProvider>
             <App />
-            <ToastContainer />
-          </UiPluginProvider>
-        </FSTreeProvider>
+          </RoleProvider>
+          <ToastContainer />
+        </UiPluginProvider>
       </ApplicationContext.Provider>
     </DMSSProvider>
   )

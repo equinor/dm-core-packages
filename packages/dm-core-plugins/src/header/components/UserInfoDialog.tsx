@@ -1,4 +1,4 @@
-import { Dialog, useDMSS } from '@development-framework/dm-core'
+import { Dialog, RoleContext, useDMSS } from '@development-framework/dm-core'
 import { Button, Radio, Typography } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
 import React, { useContext, useState } from 'react'
@@ -6,7 +6,6 @@ import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { TApplication } from '../types'
-import { useLocalStorage } from '../useLocalStorage'
 
 const UnstyledList = styled.ul`
   margin: 0;
@@ -31,14 +30,11 @@ type UserInfoDialogProps = {
 }
 
 export const UserInfoDialog = (props: UserInfoDialogProps) => {
-  const { isOpen, setIsOpen, applicationEntity } = props
+  const { isOpen, setIsOpen } = props
   const [apiKey, setAPIKey] = useState<string | null>(null)
   const { tokenData, token, logOut } = useContext(AuthContext)
   const dmssAPI = useDMSS()
-  const [checked, updateChecked] = useLocalStorage<string | null>(
-    'impersonateRoles',
-    null
-  )
+  const { selectedRole, setSelectedRole } = useContext(RoleContext)
 
   return (
     <Dialog
@@ -64,22 +60,23 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         </Row>
         {apiKey && <pre>{apiKey}</pre>}
 
-        {tokenData?.roles?.includes(applicationEntity.adminRole) && (
+        {tokenData?.roles.length && (
           <>
-            <Typography>Impersonate a role (UI only)</Typography>
+            <Typography>Chose role (UI only)</Typography>
             <UnstyledList>
-              {applicationEntity.roles &&
-                applicationEntity.roles.map((role: string) => (
-                  <li key={role}>
-                    <Radio
-                      label={role}
-                      name="impersonate-role"
-                      value={role}
-                      checked={checked === role}
-                      onChange={(e: any) => updateChecked(e.target.value)}
-                    />
-                  </li>
-                ))}
+              {tokenData.roles.map((role: string) => (
+                <li key={role}>
+                  <Radio
+                    label={role}
+                    name="impersonate-role"
+                    value={role}
+                    checked={
+                      selectedRole != 'anonymous' && role == selectedRole
+                    }
+                    onChange={(e: any) => setSelectedRole(e.target.value)}
+                  />
+                </li>
+              ))}
             </UnstyledList>
           </>
         )}

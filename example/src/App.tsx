@@ -1,59 +1,35 @@
 import '@development-framework/dm-core/dist/main.css'
 import {
+  useDocument,
   EntityView,
-  TreeView,
-  FSTreeContext,
+  TGenericObject,
+  FSTreeProvider,
+  Loading,
 } from '@development-framework/dm-core'
-import React, { useContext, useState } from 'react'
-import { Typography } from '@equinor/eds-core-react'
+import React from 'react'
 
 function App() {
-  // @ts-ignore
-  const { treeNodes, loading } = useContext(FSTreeContext)
-  const [selectedType, setSelectedType] = useState<string>()
-  const [selectedEntity, setSelectedEntity] = useState<string>()
+  const idReference: string = `${import.meta.env.VITE_DATA_SOURCE}/$${
+    import.meta.env.VITE_APPLICATION_ID
+  }`
+  const [application, isLoading, , error] =
+    useDocument<TGenericObject>(idReference)
 
-  if (loading) return <div>Loading</div>
+  if (isLoading) return <Loading />
+
+  if (error) {
+    console.error(error)
+    return (
+      <div style={{ color: 'red' }}>
+        <b>Error:</b>Failed to load data, see web console for details
+      </div>
+    )
+  }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        padding: '20px',
-        height: '100vh',
-      }}
-    >
-      <div
-        style={{
-          width: '500px',
-          overflow: 'auto',
-        }}
-      >
-        <Typography variant="h3">Examples</Typography>
-        <TreeView
-          nodes={treeNodes}
-          onSelect={(node) => {
-            setSelectedType(node.type)
-            setSelectedEntity(node.nodeId)
-          }}
-        />
-      </div>
-      <div
-        style={{
-          padding: '20px',
-          width: '100%',
-          overflow: 'auto',
-        }}
-      >
-        {selectedType && selectedEntity && (
-          <EntityView
-            type={selectedType}
-            idReference={selectedEntity}
-            key={selectedEntity}
-          />
-        )}
-      </div>
-    </div>
+    <FSTreeProvider visibleDataSources={application?.dataSources}>
+      <EntityView idReference={idReference} type={application?.type} />
+    </FSTreeProvider>
   )
 }
 
