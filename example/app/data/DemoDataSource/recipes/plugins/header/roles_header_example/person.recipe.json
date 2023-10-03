@@ -12,7 +12,7 @@
           "type": "CORE:ReferenceViewConfig",
           "recipe": "AdminHeader",
           "roles": [
-            "admin",
+            "dmss-admin",
             "developer"
           ]
         },
