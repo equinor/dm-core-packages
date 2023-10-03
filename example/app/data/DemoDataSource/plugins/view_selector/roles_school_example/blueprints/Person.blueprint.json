@@ -1,0 +1,14 @@
+{
+  "name": "Person",
+  "type": "CORE:Blueprint",
+  "extends": [
+    "CORE:NamedEntity"
+  ],
+  "attributes": [
+    {
+      "name": "age",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer"
+    }
+  ]
+}
