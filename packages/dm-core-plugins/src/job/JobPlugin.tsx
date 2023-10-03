@@ -4,6 +4,7 @@ import {
   GetJobResultResponse,
   IUIPlugin,
   JobStatus,
+  splitAddress,
   TJob,
   useDMSS,
   useJob,
@@ -49,7 +50,6 @@ export const JobPlugin = (props: IUIPlugin) => {
     idReference,
   }: { config?: JobPluginConfig; idReference: string } = props
   const DmssApi = useDMSS()
-  // const jobAddress = idReference + config?.jobTargetAddress
   const defaultTargetOutput = idReference + config?.outputTarget
 
   const jobTargetAddress = (): string => {
@@ -61,11 +61,12 @@ export const JobPlugin = (props: IUIPlugin) => {
 
   const jobInputAddress = (): string | undefined => {
     if (config?.jobInput.jobInputAddressScope === 'local') {
-      return 'dmss://' + idReference + config?.jobInput.jobInputAddress
+      const { dataSource, documentPath } = splitAddress(idReference)
+      return `dmss://${dataSource}/${documentPath}${config?.jobInput.jobInputAddress}`
     }
     return config?.jobInput.jobInputAddress
   }
-
+  console.log(jobInputAddress())
   const { tokenData } = useContext(AuthContext)
   const username = tokenData?.preferred_username
 
@@ -74,9 +75,6 @@ export const JobPlugin = (props: IUIPlugin) => {
   const [jobExists, setJobExists] = useState(false)
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const [allowStartJob, setAllowJobStart] = useState(false)
-
-  console.log(config)
-  console.log(idReference)
 
   const {
     start,
@@ -100,12 +98,11 @@ export const JobPlugin = (props: IUIPlugin) => {
     },
     runner: config?.runner,
   }
-  console.log(jobEntity)
+
   const jobEntityFormData = {
     ...jobEntity,
     outputTarget: defaultTargetOutput,
   }
-  console.log(jobEntityFormData)
 
   const updateDocument = async (
     jobAddress: string,
@@ -170,7 +167,7 @@ export const JobPlugin = (props: IUIPlugin) => {
       if (res.data) {
         // TODO: Type this endpoint properly
         DmssApi.documentGet({ address: jobTargetAddress() }).then((res) => {
-          if (!jobEntityId.length) setJobEntityId(jobTargetAddress)
+          if (!jobEntityId.length) setJobEntityId(jobTargetAddress())
           // @ts-ignore
           setJobId(res.data.uid)
           setJobExists(true)
