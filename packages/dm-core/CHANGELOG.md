@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.4...dm-core-v1.4.0) (2023-10-02)
+
+
+### Features
+
+* **tree:** allow attribute paths as input ([#562](https://github.com/equinor/dm-core-packages/issues/562)) ([6a842e3](https://github.com/equinor/dm-core-packages/commit/6a842e3a276eec2683744b0b36af611cb4371cae)), closes [#534](https://github.com/equinor/dm-core-packages/issues/534)
+* **tree:** make one init for everything ([#564](https://github.com/equinor/dm-core-packages/issues/564)) ([8510162](https://github.com/equinor/dm-core-packages/commit/851016217df16c2fd791f5279abfa55f4ae450aa))
+
+
+### Bug Fixes
+
+* don't allow switching table pages beyond what's available ([#553](https://github.com/equinor/dm-core-packages/issues/553)) ([e1f42bb](https://github.com/equinor/dm-core-packages/commit/e1f42bbde1a979964852e35a6a6a027cc9316924))
+
 ## [1.3.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.3...dm-core-v1.3.4) (2023-09-25)
 
 

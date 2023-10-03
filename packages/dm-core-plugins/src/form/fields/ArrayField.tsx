@@ -67,7 +67,7 @@ export default function ArrayField(props: TArrayFieldProps) {
           <Typography bold={true}>{displayLabel}</Typography>
           <OpenObjectButton
             viewId={namePath}
-            view={{
+            viewConfig={{
               type: 'ReferenceViewConfig',
               scope: namePath,
               recipe: uiRecipeName,

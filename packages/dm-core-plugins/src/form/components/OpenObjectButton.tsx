@@ -10,11 +10,11 @@ import { useRegistryContext } from '../context/RegistryContext'
 
 export const OpenObjectButton = ({
   viewId,
-  view,
+  viewConfig,
   idReference,
 }: {
   viewId: string
-  view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig
+  viewConfig: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig
   idReference?: string
 }) => {
   const { onOpen } = useRegistryContext()
@@ -23,7 +23,7 @@ export const OpenObjectButton = ({
     <TooltipButton
       title="Open in tab"
       button-variant="ghost_icon"
-      button-onClick={() => onOpen?.(viewId, view, idReference)}
+      button-onClick={() => onOpen?.(viewId, viewConfig, idReference)}
       icon={external_link}
     />
   )

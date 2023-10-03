@@ -8,7 +8,7 @@
       "attributeType": "string"
     },
     {
-      "name": "views",
+      "name": "viewConfig",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "CORE:ViewConfig",
       "dimensions": "*",

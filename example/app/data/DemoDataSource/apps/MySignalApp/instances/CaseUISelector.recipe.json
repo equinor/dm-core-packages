@@ -11,7 +11,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Tabs",
-          "view": {
+          "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "recipe": "Tabs",
             "scope": "self"
@@ -20,7 +20,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Run",
-          "view": {
+          "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "recipe": "Run",
             "scope": "self"

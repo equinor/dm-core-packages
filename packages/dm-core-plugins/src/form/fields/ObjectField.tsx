@@ -200,7 +200,7 @@ export const ContainedAttribute = (props: TContentProps): JSX.Element => {
           <OpenObjectButton
             viewId={namePath}
             idReference={idReference}
-            view={{
+            viewConfig={{
               type: 'ReferenceViewConfig',
               scope: namePath,
               recipe: uiRecipe?.name,
@@ -280,7 +280,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
         {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
-            view={{
+            viewConfig={{
               type: 'ReferenceViewConfig',
               scope: '',
               recipe: uiRecipe?.name,

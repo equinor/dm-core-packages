@@ -28,7 +28,7 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-        "views": [],
+        "viewConfigs": [],
         "headers": [
           "name",
           "assigned"

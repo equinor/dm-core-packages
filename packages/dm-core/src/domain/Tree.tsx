@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios'
+import { splitAddress } from '../utils/addressUtilities'
 import { EBlueprint } from '../Enums'
 import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
 import { TAttribute, TBlueprint, TPackage } from '../types'
-import { splitAddress } from '../utils/addressUtilities'
 
 type TTreeMap = {
   [nodeId: string]: TreeNode
@@ -31,19 +31,15 @@ const createContainedChildren = (
       } else {
         childNodeId = `${parentNode.nodeId}.${key}`
       }
-      newChildren[childNodeId] = new TreeNode(
-        parentNode.tree,
-        childNodeId,
-        value,
+      newChildren[childNodeId] = new TreeNode({
+        tree: parentNode.tree,
+        nodeId: childNodeId,
+        entity: value,
         type,
-        parentNode,
-        value?.name || key,
-        false,
-        false,
-        // If this "new" node already exists on parent, instantiate the node with the same old children.
-        // If not the tree will lose already loaded children whenever a node is expanded()
-        parentNode.children?.[childNodeId]?.children || {}
-      )
+        parent: parentNode,
+        name: value?.name || key,
+        children: parentNode.children?.[childNodeId]?.children || {},
+      })
     }
   })
 
@@ -57,23 +53,21 @@ const createFolderChildren = (
   const newChildren: TTreeMap = {}
   document.content?.forEach((resolvedChild: any) => {
     const newChildId = `${parentNode.dataSource}/$${resolvedChild?._id}`
-    newChildren[newChildId] = new TreeNode(
-      parentNode.tree,
-      newChildId,
-      resolvedChild,
-      resolvedChild.type,
-      parentNode,
-      resolvedChild.name,
-      false,
-      false,
-      parentNode.children?.[newChildId]?.children || {}
-    )
+    newChildren[newChildId] = new TreeNode({
+      tree: parentNode.tree,
+      nodeId: newChildId,
+      entity: resolvedChild,
+      type: resolvedChild.type,
+      parent: parentNode,
+      name: resolvedChild.name,
+      children: parentNode.children?.[newChildId]?.children || {},
+    })
   })
   return newChildren
 }
 
 const updateRootPackagesInTree = (
-  rootPackages: TPackage[],
+  rootPackages: { [key: string]: TPackage },
   tree: Tree,
   dataSource: string
 ) => {
@@ -87,16 +81,16 @@ const updateRootPackagesInTree = (
         rootPackage._id ?? ''
       )
     ) {
-      const rootPackageNode = new TreeNode( // Add the rootPackage nodes to the dataSource
+      const rootPackageNode = new TreeNode({
+        // Add the rootPackage nodes to the dataSource
         tree,
-        `${dataSource}/$${rootPackage._id}`,
-        rootPackage,
-        EBlueprint.PACKAGE,
-        tree.index[dataSource],
-        rootPackage.name,
-        true,
-        false
-      )
+        nodeId: `${dataSource}/$${rootPackage._id}`,
+        entity: rootPackage,
+        type: EBlueprint.PACKAGE,
+        parent: tree.index[dataSource],
+        name: rootPackage.name,
+        isRoot: true,
+      })
       tree.index[dataSource].children[rootPackage._id ?? ''] = rootPackageNode
     }
   })
@@ -107,25 +101,37 @@ export class TreeNode {
   type: string
   nodeId: string
   dataSource: string
-  children: TTreeMap = {}
-  parent?: TreeNode
-  isRoot: boolean = false
-  isDataSource: boolean = false
+  children: TTreeMap
+  parent: TreeNode | undefined
+  isRoot: boolean
+  isDataSource: boolean
   entity: any
-  name?: string
-  message: string = ''
+  name: string | undefined
+  message: string
 
-  constructor(
-    tree: Tree,
-    nodeId: string,
-    entity: any,
-    type: string,
-    parent: TreeNode | undefined = undefined,
-    name: string | undefined = undefined,
+  constructor({
+    tree,
+    nodeId,
+    entity,
+    type,
+    parent = undefined,
+    name = undefined,
     isRoot = false,
     isDataSource = false,
-    children: TTreeMap = {}
-  ) {
+    children = {},
+    message = '',
+  }: {
+    tree: Tree
+    nodeId: string
+    entity: any
+    type: string
+    parent?: TreeNode
+    name?: string
+    isRoot?: boolean
+    isDataSource?: boolean
+    children?: TTreeMap
+    message?: string
+  }) {
     this.tree = tree
     this.nodeId = nodeId
     this.dataSource = nodeId.split('/', 1)[0]
@@ -136,6 +142,7 @@ export class TreeNode {
     this.name = name
     this.type = type
     this.children = children
+    this.message = message
   }
 
   // Fetches the unresolved document of the node
@@ -262,78 +269,99 @@ export class Tree {
     this.updateCallback = updateCallback
   }
 
-  async initFromDataSources(dataSources: string[]) {
+  async init(path?: string[]) {
+    if (!path) {
+      this.initFromDataSources()
+      return
+    }
+    path
+      .filter((x) => splitAddress(x).documentPath)
+      .forEach((x) => this.initFromPath(x))
+    const dataSources = path.filter((x) => !splitAddress(x).documentPath)
+    if (dataSources.length) this.initFromDataSources(dataSources)
+  }
+
+  async initFromDataSources(dataSources?: string[]) {
     // Add the dataSources as the top-level nodes
-    dataSources.forEach((dataSourceId: string) => {
-      this.index[dataSourceId] = new TreeNode(
-        this,
-        dataSourceId,
-        { name: dataSourceId, type: 'dataSource' },
-        'dataSource',
-        undefined,
-        dataSourceId,
-        false,
-        true
-      )
-    })
+    const allDataSources = await this.dmssApi
+      .dataSourceGetAll()
+      .then((response) => response.data)
+    const validDataSources = dataSources
+      ? allDataSources.filter((ds) => dataSources.includes(ds.name))
+      : allDataSources
+    validDataSources.forEach(
+      (ds) =>
+        (this.index[ds.id] = new TreeNode({
+          tree: this,
+          nodeId: ds.id,
+          entity: { name: ds.name, type: 'dataSource' },
+          type: 'dataSource',
+          name: ds.name,
+          isDataSource: true,
+        }))
+    )
+    const invalidDataSources = dataSources?.filter((ds) =>
+      allDataSources.every((x) => x.id !== ds)
+    )
+    invalidDataSources?.forEach(
+      (ds) =>
+        (this.index[ds] = new TreeNode({
+          tree: this,
+          nodeId: ds,
+          entity: { name: ds, type: 'dataSource' },
+          type: 'error',
+          name: ds,
+          isDataSource: true,
+          message: `${ds} does not exist`,
+        }))
+    )
     this.updateCallback(this)
   }
 
   /**
-   * Initialize the Tree view from a given folder.
+   * Initialize the Tree view from a given path.
    *
-   * @param folderPath: Define scope for tree view. The folderPath must be on the format: <DataSource>/<rootPackage>/<pathToFolder> and be an address to an entity of type Package.
-   *                    The folder specified by folderPath and all subfolders of folderPath will be included, but not anything else.
+   * @param path: Define scope for tree view. The path can point to either a package, a document or a complex attribute.
+   *
+   * The object specified by path and all subfolders of path will be included, but not anything else.
    */
-  async initFromFolder(folderPath: string) {
-    const { dataSource } = splitAddress(folderPath)
-    this.dmssApi
-      .documentGet({ address: folderPath })
-      .then((response: any) => {
-        const data = response.data
-        if (data['type'] !== EBlueprint.PACKAGE) {
-          throw new Error(
-            `Tried to initialize the tree from a path '${folderPath}' that does not refer to a package.`
-          )
-        }
-
-        const folderNode = new TreeNode(
-          this,
-          `${dataSource}/$${data._id}`,
-          data,
-          data.type,
-          undefined,
-          data?.name || data._id,
-          true,
-          false
-        )
-        folderNode.expand()
-        if (data.type !== EBlueprint.PACKAGE)
-          throw new Error('Path does not resolve to a package')
-
-        folderNode.children = createFolderChildren(data, folderNode)
-        this.index = { [`${dataSource}/$${data._id}`]: folderNode }
+  async initFromPath(path: string) {
+    const exists = (await this.dmssApi.documentCheck({ address: path })).data
+    const data: any = exists
+      ? (await this.dmssApi.documentGet({ address: path })).data
+      : undefined
+    const isEmpty =
+      data == undefined || (Array.isArray(data) && data.length == 0)
+    let node: TreeNode
+    if (isEmpty) {
+      node = new TreeNode({
+        tree: this,
+        nodeId: path,
+        entity: {},
+        type: 'error',
+        name: path,
+        message: `${path} ${data == undefined ? 'does not exist' : 'is empty'}`,
       })
-      .catch((error: Error) => {
-        const folderNode = new TreeNode(
-          this,
-          folderPath,
-          {
-            type: EBlueprint.PACKAGE,
-            name: 'failed',
-            description: error.message,
-          },
-          EBlueprint.PACKAGE,
-          undefined,
-          'unknown',
-          true,
-          false
-        )
-        folderNode.type = 'error'
-        folderNode.message = error.message
-        this.index = { [folderPath]: folderNode }
+    } else if (Array.isArray(data)) {
+      node = new TreeNode({
+        tree: this,
+        nodeId: path,
+        entity: data,
+        type: data[0].type,
+        name: path,
       })
-      .finally(() => this.updateCallback(this))
+    } else {
+      node = new TreeNode({
+        tree: this,
+        nodeId: path,
+        entity: data,
+        type: data.type,
+        name: data?.name || data._id,
+        isRoot: data?.isRoot ?? false,
+      })
+    }
+    this.index[path] = node
+    this.updateCallback(this)
   }
 
   // "[Symbol.iterator]" is similar to "__next__" in a python class.
