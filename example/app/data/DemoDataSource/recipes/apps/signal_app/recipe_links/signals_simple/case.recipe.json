@@ -47,7 +47,7 @@
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
-            "recipe": "RunInt"
+            "recipe": "RunJob"
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
@@ -98,10 +98,30 @@
       }
     },
     {
-      "name": "RunInt",
+      "name": "RunJob",
       "type": "CORE:UiRecipe",
       "description": "running",
-      "plugin": "signal-job-single"
+      "plugin": "@development-framework/dm-core-plugins/job/single_job",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/job/JobConfig",
+        "jobTargetAddress": {
+          "type": "PLUGINS:dm-core-plugins/job/JobTargetAddress",
+          "jobAddress": ".job",
+          "jobAddressScope": "local"
+        },
+        "label": "signal job",
+        "runner": {
+          "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob"
+        },
+        "outputTarget": ".signal",
+        "jobInput": {
+          "type": "PLUGINS:dm-core-plugins/job/JobInput",
+          "_type": "dmss://system/SIMOS/Reference",
+          "referenceType": "link",
+          "jobInputAddress": ".study.cases[0]",
+          "jobInputAddressScope": "local"
+        }
+      }
     },
     {
       "name": "List",

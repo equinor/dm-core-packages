@@ -1,0 +1,34 @@
+{
+  "name": "JobInput",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Required field",
+      "attributeType": "string"
+    },
+    {
+      "name": "_type",
+      "type": "CORE:BlueprintAttribute",
+      "description": "The type of the job input",
+      "attributeType": "string"
+    },
+    {
+      "name": "referenceType",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "jobInputAddress",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "jobInputAddressScope",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}

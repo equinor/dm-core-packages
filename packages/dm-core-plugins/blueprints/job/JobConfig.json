@@ -1,0 +1,32 @@
+{
+  "name": "JobConfig",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "outputTarget",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "runner",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "JOBCORE:JobHandler"
+    },
+    {
+      "name": "jobTargetAddress",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/job/JobTargetAddress"
+    },
+    {
+      "name": "jobInput",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/job/JobInput"
+    }
+  ]
+}
