@@ -14,7 +14,12 @@
       "description": "",
       "attributes": [
         {
-          "name": "bestSimulationResult",
+          "name": "result",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "contained": false
+        },
+        {
+          "name": "plot",
           "type": "dmss://system/SIMOS/StorageAttribute",
           "contained": false
         }

@@ -3,9 +3,14 @@
   "name": "simulation1",
   "type": "./blueprints/Simulation",
   "description": "Example simulation",
-  "bestSimulationResult": {
+  "result": {
     "type": "CORE:Reference",
-    "address": "./bestResult2023",
+    "address": "/global/result.entity.json",
+    "referenceType": "storage"
+  },
+  "plot": {
+    "type": "CORE:Reference",
+    "address": "/global/businessman.jpg",
     "referenceType": "storage"
   }
 }

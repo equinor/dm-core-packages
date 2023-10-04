@@ -1,0 +1,7 @@
+{
+  "_id": "bestResult20232",
+  "name": "SimulationResult",
+  "type": "/plugins/form/storage_uncontained/blueprints/Result",
+  "description": "Example simulation",
+  "value": 10000000000
+}
