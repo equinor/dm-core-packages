@@ -2684,3 +2684,28 @@ Co-authored-by: Henrik Bossart <henrikbossart@users.noreply.github.com> (2023-09
     * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
+* Feat: more generalized job plugin (#565)
+
+* refactor: Move old job components into _old dir, and new ones into job
+
+* refactor: generalize the job plugin
+
+* refactor: simplify import
+
+* feat: add user to job
+
+* chore: try signing
+
+* refactor: change some names and keys in config
+
+* fix: use correct job address format
+
+* refactor: helper description on blueprint
+
+* refactor: fix requested changes from PR
+
+* refactor: fix requested changes from PR (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6406206688/1)
+    * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
