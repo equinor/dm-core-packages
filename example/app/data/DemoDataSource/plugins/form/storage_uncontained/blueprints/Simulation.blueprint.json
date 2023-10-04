@@ -6,7 +6,13 @@
   ],
   "attributes": [
     {
-      "name": "bestSimulationResult",
+      "name": "plot",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "binary",
+      "optional": true
+    },
+    {
+      "name": "result",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Result",
       "optional": true

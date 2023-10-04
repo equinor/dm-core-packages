@@ -14,6 +14,11 @@
       "attributeType": "string"
     },
     {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
       "name": "runner",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "JOBCORE:JobHandler"
