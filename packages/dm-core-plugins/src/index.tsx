@@ -14,6 +14,7 @@ import { GridPlugin } from './grid/GridPlugin'
 import { ListPlugin } from './list/ListPlugin'
 import { TablePlugin } from './table/TablePlugin'
 import { FilePlugin } from './file/FilePlugin'
+import { RoleFilterPlugin } from './role_filter/RoleFilterPlugin'
 
 export default {
   '@development-framework/dm-core-plugins/explorer': {
@@ -57,5 +58,8 @@ export default {
   },
   '@development-framework/dm-core-plugins/blueprint': {
     component: BlueprintPlugin,
+  },
+  '@development-framework/dm-core-plugins/role_filter': {
+    component: RoleFilterPlugin,
   },
 } as TUiPluginMap

@@ -88,12 +88,11 @@ export default (props: IUIPlugin): JSX.Element => {
 
   useEffect(() => {
     if (!isBlueprintLoading) {
-      const defaultRecipe: TUiRecipe =
-        config.uiRecipesList.length > 0
-          ? uiRecipes.find(
-              (recipe: TUiRecipe) => recipe.name === config.uiRecipesList[0]
-            )
-          : uiRecipes[0]
+      const defaultRecipe: TUiRecipe = config.uiRecipesList.length
+        ? uiRecipes.find(
+            (recipe: TUiRecipe) => recipe.name === config.uiRecipesList[0]
+          )
+        : uiRecipes[0]
       setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))
     }
   }, [isBlueprintLoading])
@@ -128,7 +127,7 @@ export default (props: IUIPlugin): JSX.Element => {
             <Icon data={apps} size={32} title="Menu" />
           </ClickableIcon>
           <Menu open={appSelectorOpen} anchorEl={anchorEl}>
-            {recipeNames.map((recipe, index: number) => (
+            {recipeNames.map((recipe: string, index: number) => (
               <Menu.Item
                 key={index}
                 onClick={() => {

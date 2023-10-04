@@ -29,9 +29,6 @@ jobs:
     needs: release-please
     if: ${{ needs.release-please.outputs.releases_created }}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        package: [dm-core, dm-core-plugins]
     steps:
       - uses: actions/checkout@v3
 

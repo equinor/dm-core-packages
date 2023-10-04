@@ -167,6 +167,7 @@ export type TViewConfig = {
   scope?: string
   label?: string
   eds_icon?: string
+  roles?: string[]
 }
 
 export type TReferenceViewConfig = TViewConfig & {

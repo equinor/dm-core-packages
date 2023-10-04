@@ -1,14 +1,30 @@
-name: Deploy to Radix on new releases
+name: New release
 
 on:
-  release:
-    types: [published]
+  # Workflow dispatch is used for manual triggers
+  workflow_dispatch:
+    inputs:
+      release-tag:
+        description: 'GitHub release tag'
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      release-tag:
+        description: 'GitHub release tag'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
 
 jobs:
   publish-latest:
     uses: ./.github/workflows/publish-image.yaml
     with:
-      image-tags: latest
+      image-tags: latest,${{ inputs.release-tag }}
 
   deploy-test:
     needs: publish-latest
