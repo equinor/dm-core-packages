@@ -64,7 +64,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         </Row>
         {apiKey && <pre>{apiKey}</pre>}
 
-        {tokenData?.roles.includes(applicationEntity.adminRole) && (
+        {tokenData?.roles?.includes(applicationEntity.adminRole) && (
           <>
             <Typography>Impersonate a role (UI only)</Typography>
             <UnstyledList>
