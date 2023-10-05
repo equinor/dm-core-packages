@@ -2709,3 +2709,12 @@ Co-authored-by: Henrik Bossart <henrikbossart@users.noreply.github.com> (2023-09
     * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
+* parent 6e98a92689669e26c33827545f0c21ed14dfaed3
+author Christopher Collin Løkken <chcl@equinor.com> 1696330210 +0200
+committer Christopher Collin Løkken <chcl@equinor.com> 1696489620 +0200
+
+feat: Example application with role selector and role filter (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6416417067/1)
+    * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
