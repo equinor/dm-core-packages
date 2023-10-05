@@ -1,7 +1,10 @@
-import { IUIPlugin, ViewCreator } from '@development-framework/dm-core'
-import React, { useEffect, useState } from 'react'
-import { intersection } from 'lodash'
-import { Autocomplete, Banner, Icon } from '@equinor/eds-core-react'
+import {
+  IUIPlugin,
+  RoleContext,
+  ViewCreator,
+} from '@development-framework/dm-core'
+import React, { useContext, useEffect, useState } from 'react'
+import { Banner, Icon } from '@equinor/eds-core-react'
 
 type FilteredView = {
   type: string
@@ -17,13 +20,8 @@ export const RoleFilterPlugin = (props: IUIPlugin): JSX.Element => {
     []
   )
   const [openViewConfigs, setOpenViewConfigs] = useState<FilteredView[]>([])
-  const [selectedRole, setSelectedRole] = useState<string>()
   const [allowedRoles, setAllowedRoles] = useState<string[]>([])
-
-  // TODO: Implement real roles when User login is in place
-  const User = {
-    roles: ['admin', 'operator'],
-  }
+  const { selectedRole } = useContext(RoleContext)
 
   useEffect(() => {
     let roles: string[] = []
@@ -32,12 +30,9 @@ export const RoleFilterPlugin = (props: IUIPlugin): JSX.Element => {
       viewConfig.viewId = crypto.randomUUID()
     })
     setAllowedRoles(roles)
-    if (User.roles.length == 1) setSelectedRole(User.roles[0])
   }, [])
 
   useEffect(() => {
-    if (!selectedRole) return
-
     const allowedViewConfigs: FilteredView[] = []
     const openViewConfigs: FilteredView[] = []
     config.viewConfigs.forEach((viewConfig: FilteredView) => {
@@ -54,15 +49,8 @@ export const RoleFilterPlugin = (props: IUIPlugin): JSX.Element => {
 
   return (
     <>
-      {intersection(User.roles, allowedRoles).length ? (
+      {allowedRoles.includes(selectedRole) ? (
         <>
-          {intersection(User.roles, allowedRoles).length > 1 && (
-            <Autocomplete
-              options={intersection(User.roles, allowedRoles)}
-              label={'Select a role'}
-              onInputChange={setSelectedRole}
-            />
-          )}
           {allowedViewConfigs?.map((viewConfig) => (
             <ViewCreator
               key={viewConfig.viewId}
@@ -87,7 +75,7 @@ export const RoleFilterPlugin = (props: IUIPlugin): JSX.Element => {
             <Icon name="thumbs_down" />
           </Banner.Icon>
           <Banner.Message>
-            {`No views found, since you currently have roles [${User.roles}]. Please switch to one of these roles: [${allowedRoles}]`}
+            {`No views found, since you currently have role [${selectedRole}]. Please switch to one of these roles: [${allowedRoles}]`}
           </Banner.Message>
         </Banner>
       )}

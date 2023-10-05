@@ -16,12 +16,12 @@ test('Load header', async ({ page }) => {
   await expect(
     page.getByRole('heading', { name: 'Data Modelling Example App' })
   ).toBeVisible()
-  await expect(page.getByRole('button', { name: 'User' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'About' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'User' }).nth(1)).toBeVisible()
+  await expect(page.getByRole('button', { name: 'About' }).nth(1)).toBeVisible()
 })
 
 test('User info', async ({ page }) => {
-  await page.getByRole('button', { name: 'User' }).click()
+  await page.getByRole('button', { name: 'User' }).nth(1).click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(
     page.getByRole('dialog').getByText('User info', { exact: true })
@@ -34,7 +34,7 @@ test('User info', async ({ page }) => {
 })
 
 test('About', async ({ page }) => {
-  await page.getByRole('button', { name: 'About' }).click()
+  await page.getByRole('button', { name: 'About' }).nth(1).click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(
     page
@@ -49,7 +49,7 @@ test('About', async ({ page }) => {
 })
 
 test('Recipe list', async ({ page }) => {
-  await page.getByRole('button', { name: 'Menu' }).click()
+  await page.getByRole('button', { name: 'Menu' }).nth(1).click()
   await page.getByRole('menuitem', { name: 'Edit' }).click()
   await expect(
     page.getByTestId('name').getByTestId('form-textfield')
