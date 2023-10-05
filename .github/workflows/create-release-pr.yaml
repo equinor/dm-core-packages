@@ -49,4 +49,4 @@ jobs:
     uses: ./.github/workflows/on-release.yaml
     with:
       release-tag: ${{ needs.release-please.outputs.tag_name }}
-    if: ${{ needs.release-please.outputs.release_created }}
+    if: ${{ needs.release-please.outputs.releases_created }}
