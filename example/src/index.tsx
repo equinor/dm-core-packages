@@ -1,5 +1,6 @@
 import {
   ApplicationContext,
+  DMJobProvider,
   DMSSProvider,
   FSTreeProvider,
   UiPluginProvider,
@@ -48,17 +49,21 @@ const APP_SETTINGS = {
   name: 'example',
 }
 
+console.log(import.meta.env.VITE_DM_JOB_URL)
+
 const Content = () => {
   return (
     <DMSSProvider dmssBasePath={import.meta.env.VITE_DMSS_URL}>
-      <ApplicationContext.Provider value={APP_SETTINGS}>
-        <FSTreeProvider visibleDataSources={APP_SETTINGS.visibleDataSources}>
-          <UiPluginProvider pluginsToLoad={plugins}>
-            <App />
-            <ToastContainer />
-          </UiPluginProvider>
-        </FSTreeProvider>
-      </ApplicationContext.Provider>
+      <DMJobProvider dmJobPath={import.meta.env.VITE_DM_JOB_URL}>
+        <ApplicationContext.Provider value={APP_SETTINGS}>
+          <FSTreeProvider visibleDataSources={APP_SETTINGS.visibleDataSources}>
+            <UiPluginProvider pluginsToLoad={plugins}>
+              <App />
+              <ToastContainer />
+            </UiPluginProvider>
+          </FSTreeProvider>
+        </ApplicationContext.Provider>
+      </DMJobProvider>
     </DMSSProvider>
   )
 }
