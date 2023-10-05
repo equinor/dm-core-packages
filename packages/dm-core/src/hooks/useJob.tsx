@@ -81,8 +81,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     typeof setInterval
   > | null>(null)
   const [error, setError] = useState<ErrorResponse>()
-  // const { token } = useContext(AuthContext)
-  // const dmJobApi = new DmJobAPI(token)
   const dmJobApi = useDmJob()
   const dmssAPI = useDMSS()
 
