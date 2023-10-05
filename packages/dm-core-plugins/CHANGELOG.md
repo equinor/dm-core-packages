@@ -12,6 +12,26 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.3.0 to ^1.3.1
 
+## [1.6.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.5.0...dm-core-plugins-v1.6.0) (2023-10-05)
+
+
+### Features
+
+* more generalized job plugin ([#565](https://github.com/equinor/dm-core-packages/issues/565)) ([6e98a92](https://github.com/equinor/dm-core-packages/commit/6e98a92689669e26c33827545f0c21ed14dfaed3))
+* role based views ([243d3f4](https://github.com/equinor/dm-core-packages/commit/243d3f42db01d396eb93c97a7dbc9bf6ff51eda8))
+
+
+### Bug Fixes
+
+* UserInfoDialog crash when no roles in token ([2f34b0f](https://github.com/equinor/dm-core-packages/commit/2f34b0f54dc13da546cb8a2a69d25b13f72a682d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.4.0 to ^1.5.0
+
 ## [1.5.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.4.1...dm-core-plugins-v1.5.0) (2023-10-02)
 
 
