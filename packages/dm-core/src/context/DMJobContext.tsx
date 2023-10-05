@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext } from 'react'
-import { DmJobAPI } from 'src/services'
+import { DmJobAPI } from '../services'
 import { AuthContext } from 'react-oauth2-code-pkce'
 
 const DMJobContext = createContext<DmJobAPI | undefined>(undefined)

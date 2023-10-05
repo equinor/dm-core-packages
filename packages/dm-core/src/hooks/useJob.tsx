@@ -9,7 +9,7 @@ import {
 } from '../services/api/configs/gen-job'
 import { TJob } from '../types'
 import { useDMSS } from '../context/DMSSContext'
-import { useDmJob } from 'src/context/DMJobContext'
+import { useDmJob } from '../context/DMJobContext'
 
 interface IUseJob {
   start: () => Promise<StartJobResponse | null>
