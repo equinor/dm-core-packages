@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.4.0...dm-core-v1.5.0) (2023-10-05)
+
+
+### Features
+
+* more generalized job plugin ([#565](https://github.com/equinor/dm-core-packages/issues/565)) ([6e98a92](https://github.com/equinor/dm-core-packages/commit/6e98a92689669e26c33827545f0c21ed14dfaed3))
+* role based views ([243d3f4](https://github.com/equinor/dm-core-packages/commit/243d3f42db01d396eb93c97a7dbc9bf6ff51eda8))
+
 ## [1.4.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.3.4...dm-core-v1.4.0) (2023-10-02)
 
 
