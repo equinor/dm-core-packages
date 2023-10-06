@@ -34,7 +34,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const [apiKey, setAPIKey] = useState<string | null>(null)
   const { tokenData, token, logOut } = useContext(AuthContext)
   const dmssAPI = useDMSS()
-  const { selectedRole, setSelectedRole } = useContext(RoleContext)
+  const { selectedRole, setSelectedRole, roles } = useContext(RoleContext)
 
   return (
     <Dialog
@@ -56,15 +56,15 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         </Row>
         <Row>
           Roles:
-          <UserInfoLabel>{JSON.stringify(tokenData?.roles)}</UserInfoLabel>
+          <UserInfoLabel>{JSON.stringify(roles)}</UserInfoLabel>
         </Row>
         {apiKey && <pre>{apiKey}</pre>}
 
-        {tokenData?.roles.length && (
+        {roles.length && (
           <>
             <Typography>Chose role (UI only)</Typography>
             <UnstyledList>
-              {tokenData.roles.map((role: string) => (
+              {roles.map((role: string) => (
                 <li key={role}>
                   <Radio
                     label={role}
