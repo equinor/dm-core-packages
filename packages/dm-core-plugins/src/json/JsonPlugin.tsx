@@ -11,8 +11,8 @@ import { toast } from 'react-toastify'
 
 export default (props: IUIPlugin) => {
   const { idReference } = props
-  const [document, loading] = useDocument<TGenericObject>(idReference)
-  if (loading || document === null) {
+  const { document, isLoading } = useDocument<TGenericObject>(idReference)
+  if (isLoading || document === null) {
     return <Loading />
   }
   return (

@@ -11,11 +11,11 @@ export const defaultConfig: TConfig = {
 
 export const FormPlugin = (props: IUIPlugin) => {
   const config: TConfig = { ...defaultConfig, ...props.config }
-  const [document, loading, updateDocument, error] = useDocument<any>(
+  const { document, isLoading, updateDocument, error } = useDocument<any>(
     props.idReference,
     1
   )
-  if (loading) return <Loading />
+  if (isLoading) return <Loading />
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 

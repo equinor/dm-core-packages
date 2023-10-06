@@ -80,7 +80,7 @@ export const BlueprintHierarchyPlugin = (props: IUIPlugin) => {
 
   const [chart, setChart] = useState<string | undefined>(undefined)
 
-  const [document, isLoading] = useDocument(idReference)
+  const { document, isLoading } = useDocument(idReference)
 
   useEffect(() => {
     loader(explorer, document).then(async (tree: Node) => {

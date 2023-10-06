@@ -2,8 +2,8 @@ import React from 'react'
 import {
   IUIPlugin,
   Loading,
-  useDocument,
   TGenericObject,
+  useDocument,
 } from '@development-framework/dm-core'
 import Plot from 'react-plotly.js'
 
@@ -60,11 +60,12 @@ const ESSPlotPlugin = (props: { document: TGenericObject }) => {
 
 const SignalPlot_Component = (props: IUIPlugin) => {
   const { idReference } = props
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [document, loading, updateDocument, error] =
-    useDocument<TGenericObject>(idReference, 1)
+  const { document, isLoading, error } = useDocument<TGenericObject>(
+    idReference,
+    1
+  )
 
-  if (loading) return <Loading />
+  if (isLoading) return <Loading />
   if (error) {
     throw new Error(JSON.stringify(error))
   }

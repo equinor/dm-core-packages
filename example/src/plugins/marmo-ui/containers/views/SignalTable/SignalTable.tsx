@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import {
-  Table,
-  Typography,
   Button,
   Icon,
   NativeSelect,
+  Table,
+  Typography,
 } from '@equinor/eds-core-react'
-import { chevron_right, chevron_left } from '@equinor/eds-icons'
+import { chevron_left, chevron_right } from '@equinor/eds-icons'
 
 import {
   IUIPlugin,
   Loading,
-  useDocument,
   TGenericObject,
+  useDocument,
 } from '@development-framework/dm-core'
 import { PaginationWrapper, SectionWrapper } from './styles'
 
@@ -147,11 +147,12 @@ const SignalTable = (props: { document: TGenericObject }) => {
 /****************************************************************/
 const SignalTable_Component = (props: IUIPlugin) => {
   const { idReference } = props
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [document, loading, updateDocument, error] =
-    useDocument<TGenericObject>(idReference, 1)
+  const { document, isLoading, error } = useDocument<TGenericObject>(
+    idReference,
+    1
+  )
 
-  if (loading) return <Loading />
+  if (isLoading) return <Loading />
   if (error) {
     throw new Error(JSON.stringify(error))
   }
