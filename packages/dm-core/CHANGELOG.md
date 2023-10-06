@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.5.0...dm-core-v1.6.0) (2023-10-06)
+
+
+### Features
+
+* .env variable and context for dm-job api ([#580](https://github.com/equinor/dm-core-packages/issues/580)) ([5dfd08e](https://github.com/equinor/dm-core-packages/commit/5dfd08ee16f4c7da90c278965c8bc51fdb3f20c8))
+* test roles in test mode ([5c9b447](https://github.com/equinor/dm-core-packages/commit/5c9b447100c036482b9365f469797664a653f03f))
+
 ## [1.5.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.4.0...dm-core-v1.5.0) (2023-10-05)
 
 
