@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
   ErrorResponse,
@@ -7,10 +7,9 @@ import {
   StartJobResponse,
   StatusJobResponse,
 } from '../services/api/configs/gen-job'
-import { DmJobAPI } from '../services'
 import { TJob } from '../types'
-import { AuthContext } from 'react-oauth2-code-pkce'
 import { useDMSS } from '../context/DMSSContext'
+import { useDmJob } from '../context/DMJobContext'
 
 interface IUseJob {
   start: () => Promise<StartJobResponse | null>
@@ -82,8 +81,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     typeof setInterval
   > | null>(null)
   const [error, setError] = useState<ErrorResponse>()
-  const { token } = useContext(AuthContext)
-  const dmJobApi = new DmJobAPI(token)
+  const dmJobApi = useDmJob()
   const dmssAPI = useDMSS()
 
   useEffect(() => {
