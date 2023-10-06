@@ -61,7 +61,7 @@ export default (props: IUIPlugin): React.ReactElement => {
     ...defaultHeaderPluginConfig,
     ...passedConfig,
   }
-  const [entity, isApplicationLoading] = useDocument<TApplication>(idReference)
+  const { document: entity, isLoading } = useDocument<TApplication>(idReference)
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
@@ -99,7 +99,7 @@ export default (props: IUIPlugin): React.ReactElement => {
 
   const UIPlugin: (props: IUIPlugin) => React.ReactElement =
     selectedRecipe.component
-  if (isApplicationLoading || !entity || isBlueprintLoading) {
+  if (isLoading || !entity || isBlueprintLoading) {
     return <Loading />
   }
 
