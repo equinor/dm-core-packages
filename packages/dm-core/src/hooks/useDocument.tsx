@@ -5,6 +5,13 @@ import { ErrorResponse } from '../services'
 
 import { toast } from 'react-toastify'
 
+interface IUseDocumentReturnType<T> {
+  document: T | null
+  isLoading: boolean
+  updateDocument: (newDocument: T, notify: boolean) => void
+  error: ErrorResponse | null
+}
+
 /**
  * A hook for asynchronously working with documents.
  *
@@ -15,12 +22,12 @@ import { toast } from 'react-toastify'
  * ```
  * import { useDocument } from '@data-modelling-tool/core'
  *
- * const [
+ * const {
  *   document,
  *   loading,
  *   updateDocument,
  *   error,
- * ] = useDocument(dataSourceId, documentId)
+ * } = useDocument(dataSourceId, documentId)
  *
  * if (loading) return <div>Loading...</div>
  *
@@ -39,12 +46,7 @@ import { toast } from 'react-toastify'
 export function useDocument<T>(
   idReference: string,
   depth?: number | undefined
-): [
-  T | null,
-  boolean,
-  (newDocument: T, notify: boolean) => void,
-  ErrorResponse | null,
-] {
+): IUseDocumentReturnType<T> {
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
@@ -98,5 +100,5 @@ export function useDocument<T>(
       .finally(() => setLoading(false))
   }
 
-  return [document, isLoading, updateDocument, error]
+  return { document, isLoading, updateDocument, error }
 }

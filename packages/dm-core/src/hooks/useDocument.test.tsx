@@ -1,7 +1,5 @@
-import { renderHook } from '@testing-library/react'
+import { renderHook, waitFor } from '@testing-library/react'
 import { useDocument } from './useDocument'
-
-import { waitFor } from '@testing-library/react'
 import React from 'react'
 import { DMSSProvider } from '../context/DMSSContext'
 import { mockGetDocument } from '../utils/test-utils-dm-core'
@@ -28,7 +26,7 @@ describe('useDocumentHook', () => {
       const { result } = renderHook(() => useDocument('testDS/1'), { wrapper })
 
       await waitFor(() => {
-        expect(result.current[0]).toEqual(mockDocument)
+        expect(result.current.document).toEqual(mockDocument)
         expect(mock).toHaveBeenCalledTimes(1)
         expect(mock).toHaveBeenCalledWith({
           address: 'testDS/1',
@@ -41,9 +39,12 @@ describe('useDocumentHook', () => {
       const { result } = renderHook(() => useDocument('testDS/-1'), { wrapper })
 
       await waitFor(() => {
-        expect(result.current[0]).toEqual(null)
-        expect(result.current[1]).toEqual(false)
-        expect(result.current[3]).toEqual({ message: undefined, data: 'error' })
+        expect(result.current.document).toEqual(null)
+        expect(result.current.isLoading).toEqual(false)
+        expect(result.current.error).toEqual({
+          message: undefined,
+          data: 'error',
+        })
         expect(mock).toHaveBeenCalledTimes(1)
       })
     })

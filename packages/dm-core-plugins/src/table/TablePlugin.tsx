@@ -13,7 +13,7 @@ import { Button, Icon, Table } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
 import { SaveButton } from '../list/Components'
-import { TTableRowItem, TTablePluginConfig, defaultConfig } from './types'
+import { defaultConfig, TTablePluginConfig, TTableRowItem } from './types'
 import { TableRow } from './TableRow/TableRow'
 
 export const TablePlugin = (props: IUIPlugin) => {
@@ -31,7 +31,7 @@ export const TablePlugin = (props: IUIPlugin) => {
   const [dirtyState, setDirtyState] = useState<boolean>(false)
   const [paginationPage, setPaginationPage] = useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [document, loading, , error] = useDocument<TGenericObject[]>(
+  const { document, isLoading, error } = useDocument<TGenericObject[]>(
     idReference,
     1
   )
@@ -42,7 +42,7 @@ export const TablePlugin = (props: IUIPlugin) => {
   )
 
   useEffect(() => {
-    if (loading || !document) return
+    if (isLoading || !document) return
     else if (!Array.isArray(document)) {
       throw new Error(
         `Generic table plugin cannot be used on document that is not an array! Got document ${JSON.stringify(
@@ -61,7 +61,7 @@ export const TablePlugin = (props: IUIPlugin) => {
       : []
 
     setItems(itemsWithIds)
-  }, [document, loading])
+  }, [document, isLoading])
 
   function addItem() {
     dmssAPI
@@ -108,7 +108,7 @@ export const TablePlugin = (props: IUIPlugin) => {
   }
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
-  if (loading) return <Loading />
+  if (isLoading) return <Loading />
 
   return (
     <Stack spacing={1}>

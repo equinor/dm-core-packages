@@ -4,9 +4,9 @@ import {
   EBlueprint,
   IUIPlugin,
   Loading,
+  splitAddress,
   TFileEntity,
   TStorageReference,
-  splitAddress,
   useDocument,
 } from '@development-framework/dm-core'
 import { DownloadFileButton } from './DownloadFileButton'
@@ -14,13 +14,15 @@ import { UploadFileButton } from './UploadFileButton'
 
 export const FilePlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const [fileEntity, loading, updateDocument, error] = useDocument<TFileEntity>(
-    idReference,
-    999
-  )
+  const {
+    document: fileEntity,
+    isLoading,
+    updateDocument,
+    error,
+  } = useDocument<TFileEntity>(idReference, 999)
   const { dataSource } = splitAddress(idReference)
   if (error) throw new Error(JSON.stringify(error, null, 2))
-  if (loading || fileEntity === null) return <Loading />
+  if (isLoading || fileEntity === null) return <Loading />
   if (fileEntity.type !== EBlueprint.FILE) return <>Error: Not File type</>
 
   const handleUpload = (file: File, reference: TStorageReference) => {
