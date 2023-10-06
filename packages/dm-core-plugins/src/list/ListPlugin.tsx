@@ -61,10 +61,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     ...config,
     functionality: { ...defaultConfig.functionality, ...config.functionality },
   }
-  const { document, isLoading, error } = useDocument<TGenericObject[]>(
-    idReference,
-    1
-  )
+  const {
+    document,
+    isLoading: isLoadingDocument,
+    error,
+  } = useDocument<TGenericObject[]>(idReference, 1)
   const [items, setItems] = useState<ItemRow[]>([])
   const [paginationPage, setPaginationPage] = useState(0)
   const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(10)
@@ -78,7 +79,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   )
 
   useEffect(() => {
-    if (isLoading || !document) return
+    if (isLoadingDocument || !document) return
     else if (!Array.isArray(document)) {
       throw new Error(
         `Generic table plugin cannot be used on document that is not an array! Got document ${JSON.stringify(
@@ -98,7 +99,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       : []
 
     setItems(itemsWithIds)
-  }, [document, isLoading])
+  }, [document, isLoadingDocument])
 
   function deleteItem(reference: string, key: string) {
     const itemIndex = items.findIndex((item) => item.key === key)
@@ -163,7 +164,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   }
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
-  if (isLoading) return <Loading />
+  if (isLoadingDocument) return <Loading />
 
   return (
     <Stack>
