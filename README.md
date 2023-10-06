@@ -2757,3 +2757,20 @@ feat: Example application with role selector and role filter (2023-09-21T10:17:5
     * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.1.2
     * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
+* refactor: change return type of useDocument (#587)
+
+* refactor: change return type of useDocument
+
+* fix: fix some issues
+
+* fix: fix some issues
+
+* fix: more fixes
+
+* refactor: merge main
+
+* refactor: change useDocument in app (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6432397195/1)
+    * **DMSS VERSION**: 60ffa86 2023-09-25 githu..[bot] chore(master): release 1.5.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.1.2
+    * **JOB VERSION**: 33748bd 2023-09-26 githu..[bot] chore(main): release 1.2.1 grafted, HEAD -> main, origin/main
