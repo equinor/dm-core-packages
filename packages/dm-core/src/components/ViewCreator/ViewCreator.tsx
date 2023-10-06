@@ -37,7 +37,7 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
  * @returns React component
  * @param props
  */
-export const ViewCreator = (props: TViewCreator): JSX.Element => {
+export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   const { idReference, viewConfig, onOpen } = props
   const dmssAPI = useDMSS()
   const [isLoading, setIsLoading] = useState<boolean>(true)

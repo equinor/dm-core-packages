@@ -165,7 +165,9 @@ const RemoveObject = (props: { namePath: string }) => {
   )
 }
 
-export const ContainedAttribute = (props: TContentProps): JSX.Element => {
+export const ContainedAttribute = (
+  props: TContentProps
+): React.ReactElement => {
   const {
     type,
     namePath,
@@ -225,7 +227,7 @@ const Inline = (props: {
   namePath: string
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm | undefined
-}): JSX.Element => {
+}): React.ReactElement => {
   const { idReference, onOpen } = useRegistryContext()
   const { type, namePath, uiRecipe, blueprint } = props
   if (
@@ -250,7 +252,9 @@ const Inline = (props: {
   )
 }
 
-export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
+export const UncontainedAttribute = (
+  props: TContentProps
+): React.ReactElement => {
   const {
     type,
     namePath,
@@ -301,7 +305,7 @@ export const UncontainedAttribute = (props: TContentProps): JSX.Element => {
   )
 }
 
-export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
+export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
   const { type, namePath, uiAttribute, displayLabel, defaultValue } = props
   const { getValues } = useFormContext()
 
@@ -324,7 +328,9 @@ export const ObjectField = (props: TObjectFieldProps): JSX.Element => {
   )
 }
 
-export const ObjectTypeSelector = (props: TObjectFieldProps): JSX.Element => {
+export const ObjectTypeSelector = (
+  props: TObjectFieldProps
+): React.ReactElement => {
   const {
     type,
     namePath,

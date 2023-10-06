@@ -21,7 +21,7 @@ export const Content = (props: {
   onOpen: TOnOpen
   formData: TGenericObject
   style?: Record<string, string | number>
-}): JSX.Element => {
+}): React.ReactElement => {
   const { selectedViewId, viewSelectorItems, setFormData, formData, onOpen } =
     props
   return (

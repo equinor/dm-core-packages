@@ -20,7 +20,7 @@ export const ACLSelect = ({
 }: {
   value: AccessLevel
   handleChange: (newValue: AccessLevel) => void
-}): JSX.Element => {
+}): React.ReactElement => {
   const accessLevelKeys: string[] = []
   for (const enumMember in AccessLevel) {
     accessLevelKeys.push(enumMember)

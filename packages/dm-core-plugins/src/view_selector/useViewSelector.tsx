@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-import { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
 import {
   ErrorResponse,
   TGenericObject,
@@ -9,6 +7,9 @@ import {
   TViewConfig,
   useDocument,
 } from '@development-framework/dm-core'
+import * as React from 'react'
+import { useEffect, useState } from 'react'
+import { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
 
 interface IUseViewSelector {
   addView: TOnOpen
@@ -27,12 +28,14 @@ export function useViewSelector(
   idReference: string,
   config: Record<string, any>
 ): IUseViewSelector {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [entity, isLoading, _, error] = useDocument<TGenericObject>(idReference)
+  const {
+    document: entity,
+    isLoading,
+    error,
+  } = useDocument<TGenericObject>(idReference)
   const [selectedViewId, setSelectedViewId] = useState<string | undefined>()
   const [viewSelectorItems, setViewSelectorItems] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
-
   const internalConfig: TViewSelectorConfig = {
     childTabsOnRender: true,
     items: [],

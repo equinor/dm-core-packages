@@ -44,7 +44,7 @@ export const ACLUserRolesPanel = ({
   entities,
   handleChange,
   aclKey,
-}: IURPanelProps): JSX.Element => {
+}: IURPanelProps): React.ReactElement => {
   const [newRole, setNewRole] = useState<string>('')
   const getPlaceholderText = () => {
     if (aclKey === 'users') {

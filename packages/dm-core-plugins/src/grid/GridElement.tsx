@@ -14,7 +14,7 @@ type TGridItemProps = {
   type: string
 }
 
-export const GridElement = (props: TGridItemProps): JSX.Element => {
+export const GridElement = (props: TGridItemProps): React.ReactElement => {
   const { idReference, item } = props
 
   return (
