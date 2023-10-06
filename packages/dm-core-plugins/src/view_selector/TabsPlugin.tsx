@@ -1,14 +1,13 @@
 import { IUIPlugin, Loading } from '@development-framework/dm-core'
-import * as React from 'react'
-import { Content } from './Content'
-import { Sidebar } from './Sidebar'
-import { Tabs } from './Tabs'
 import { TViewSelectorConfig } from './types'
+import * as React from 'react'
+import { Tabs } from './Tabs'
+import { Content } from './Content'
 import { useViewSelector } from './useViewSelector'
 
-export const ViewSelectorPlugin = (
+export const TabsPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
-): JSX.Element => {
+): React.ReactElement => {
   const { idReference, config, type } = props
 
   const {
@@ -16,7 +15,6 @@ export const ViewSelectorPlugin = (
     removeView,
     isLoading,
     error,
-    internalConfig,
     viewSelectorItems,
     selectedViewId,
     formData,
@@ -35,37 +33,25 @@ export const ViewSelectorPlugin = (
     <div
       style={{
         display: 'flex',
-        flexDirection: internalConfig.asSidebar ? 'row' : 'column',
+        flexDirection: 'column',
         width: '100%',
       }}
     >
-      {internalConfig.asSidebar ? (
-        <Sidebar
-          viewSelectorItems={viewSelectorItems}
-          selectedViewId={selectedViewId}
-          setSelectedViewId={setSelectedViewId}
-        />
-      ) : (
-        <Tabs
-          viewSelectorItems={viewSelectorItems}
-          selectedViewId={selectedViewId}
-          setSelectedViewId={setSelectedViewId}
-          removeView={removeView}
-        />
-      )}
+      <Tabs
+        viewSelectorItems={viewSelectorItems}
+        selectedViewId={selectedViewId}
+        setSelectedViewId={setSelectedViewId}
+        removeView={removeView}
+      />
       <div
         style={{
-          ...(internalConfig.asSidebar
-            ? { paddingLeft: '8px' }
-            : { paddingTop: '8px' }),
+          paddingTop: '8px',
           paddingRight: '8px',
         }}
       >
         <Content
           style={{
-            ...(internalConfig.asSidebar
-              ? { paddingLeft: '8px' }
-              : { paddingTop: '8px' }),
+            paddingTop: '8px',
             paddingRight: '8px',
           }}
           type={type}
