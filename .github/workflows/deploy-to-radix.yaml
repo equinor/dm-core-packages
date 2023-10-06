@@ -54,9 +54,9 @@ jobs:
         with:
           args: >
             create job
-            build-deploy                        
+            build-deploy
+            --application dm-demos
             --context production
-            --from-config
             --branch main
             --follow
 

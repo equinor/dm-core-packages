@@ -21,13 +21,13 @@ permissions:
   id-token: write
 
 jobs:
-  publish-latest:
+  publish-image:
     uses: ./.github/workflows/publish-image.yaml
     with:
       image-tags: latest,${{ inputs.release-tag }}
 
-  deploy-test:
-    needs: publish-latest
+  deploy:
+    needs: publish-image
     uses: ./.github/workflows/deploy-to-radix.yaml
     with:
       radix-environment: "dev"

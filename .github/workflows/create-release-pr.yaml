@@ -39,14 +39,3 @@ jobs:
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
-
-  deploy-dev:
-    permissions:
-      packages: write
-      contents: read
-      id-token: write
-    needs: release-please
-    uses: ./.github/workflows/on-release.yaml
-    with:
-      release-tag: ${{ needs.release-please.outputs.tag_name }}
-    if: ${{ needs.release-please.outputs.releases_created }}
