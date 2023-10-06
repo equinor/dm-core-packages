@@ -50,11 +50,15 @@ const APP_SETTINGS = {
 }
 
 const Content = () => {
+  const overrideRoles = import.meta.env.VITE_TEST_ROLES
+    ? JSON.parse(import.meta.env.VITE_TEST_ROLES)
+    : []
+
   return (
     <DMSSProvider dmssBasePath={import.meta.env.VITE_DMSS_URL}>
       <ApplicationContext.Provider value={APP_SETTINGS}>
         <UiPluginProvider pluginsToLoad={plugins}>
-          <RoleProvider>
+          <RoleProvider overrideRoles={overrideRoles}>
             <App />
           </RoleProvider>
           <ToastContainer />
