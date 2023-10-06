@@ -17,7 +17,7 @@ import { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
 
 export const ViewSelectorPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
-): JSX.Element => {
+): React.ReactElement => {
   const { idReference, config, type } = props
   const internalConfig: TViewSelectorConfig = {
     childTabsOnRender: true,

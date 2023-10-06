@@ -16,7 +16,7 @@ const DynamicTable = (props: {
   columns: Array<string>
   rows: Array<any>
   onRowClicked?: MouseEventHandler
-}): JSX.Element => {
+}): React.ReactElement => {
   const { columns, rows, onRowClicked } = props
   const cols = prepareColumns(columns)
 

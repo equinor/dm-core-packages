@@ -11,7 +11,7 @@ const Grid = styled.div<TGridSize>`
   row-gap: ${({ rowGap }) => rowGap || 16}px;
 `
 
-export const GridPlugin = (props: TGridPluginConfig): JSX.Element => {
+export const GridPlugin = (props: TGridPluginConfig): React.ReactElement => {
   const { config, idReference, type } = props
 
   return (

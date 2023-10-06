@@ -14,7 +14,7 @@ type FilteredView = {
   roles: string[]
   viewId?: string
 }
-export const RoleFilterPlugin = (props: IUIPlugin): JSX.Element => {
+export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
   const { idReference, config } = props
   const [allowedViewConfigs, setAllowedViewConfigs] = useState<FilteredView[]>(
     []

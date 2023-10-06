@@ -4,7 +4,7 @@ import { ErrorGroup } from '../utils/ErrorBoundary'
 
 type TUiPluginContext = {
   plugins: TUiPluginMap
-  getUiPlugin: (pluginName: string) => (props: IUIPlugin) => JSX.Element
+  getUiPlugin: (pluginName: string) => (props: IUIPlugin) => React.ReactElement
 }
 
 const UiPluginContext = createContext<TUiPluginContext | undefined>(undefined)
@@ -24,7 +24,9 @@ export const UiPluginProvider = ({
   pluginsToLoad: TUiPluginMap
   children: any
 }) => {
-  function getUiPlugin(pluginName: string): (props: IUIPlugin) => JSX.Element {
+  function getUiPlugin(
+    pluginName: string
+  ): (props: IUIPlugin) => React.ReactElement {
     if (Object.keys(plugins).includes(pluginName))
       return plugins[pluginName].component
     return () => <ErrorGroup>Did not find the plugin: {pluginName}</ErrorGroup>

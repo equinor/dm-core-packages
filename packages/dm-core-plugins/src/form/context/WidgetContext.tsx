@@ -27,7 +27,7 @@ export const getWidget = (widgetName: string) => {
  */
 export const WidgetProvider = (props: {
   widgets?: TWidgets
-  children: JSX.Element | JSX.Element[]
+  children: React.ReactElement | React.ReactElement[]
 }) => {
   const { widgets, children } = props
   return (
