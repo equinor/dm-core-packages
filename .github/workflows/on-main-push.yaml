@@ -52,3 +52,13 @@ jobs:
         run: yarn workspace @development-framework/dm-core-plugins publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  new-release:
+    needs: publish-packages
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/on-release.yaml
+    with:
+      release-tag: ${{ needs.release-please.outputs.tag_name }}
