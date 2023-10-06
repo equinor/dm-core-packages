@@ -35,7 +35,6 @@ export function useViewSelector(
 
   const internalConfig: TViewSelectorConfig = {
     childTabsOnRender: true,
-    asSidebar: false,
     items: [],
     ...config,
   }
