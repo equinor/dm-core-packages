@@ -1,5 +1,6 @@
 import {
   ApplicationContext,
+  DMJobProvider,
   DMSSProvider,
   RoleProvider,
   UiPluginProvider,
@@ -56,14 +57,16 @@ const Content = () => {
 
   return (
     <DMSSProvider dmssBasePath={import.meta.env.VITE_DMSS_URL}>
-      <ApplicationContext.Provider value={APP_SETTINGS}>
-        <UiPluginProvider pluginsToLoad={plugins}>
-          <RoleProvider overrideRoles={overrideRoles}>
-            <App />
-          </RoleProvider>
-          <ToastContainer />
-        </UiPluginProvider>
-      </ApplicationContext.Provider>
+      <DMJobProvider dmJobPath={import.meta.env.VITE_DM_JOB_URL}>
+        <ApplicationContext.Provider value={APP_SETTINGS}>
+          <UiPluginProvider pluginsToLoad={plugins}>
+            <RoleProvider overrideRoles={overrideRoles}>
+              <App />
+            </RoleProvider>
+            <ToastContainer />
+          </UiPluginProvider>
+        </ApplicationContext.Provider>
+      </DMJobProvider>
     </DMSSProvider>
   )
 }
