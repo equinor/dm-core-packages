@@ -1,10 +1,10 @@
 import '@development-framework/dm-core/dist/main.css'
 import {
-  useDocument,
   EntityView,
-  TGenericObject,
   FSTreeProvider,
   Loading,
+  TGenericObject,
+  useDocument,
 } from '@development-framework/dm-core'
 import React from 'react'
 
@@ -12,8 +12,11 @@ function App() {
   const idReference: string = `${import.meta.env.VITE_DATA_SOURCE}/$${
     import.meta.env.VITE_APPLICATION_ID
   }`
-  const [application, isLoading, , error] =
-    useDocument<TGenericObject>(idReference)
+  const {
+    document: application,
+    isLoading,
+    error,
+  } = useDocument<TGenericObject>(idReference)
 
   if (isLoading) return <Loading />
 
