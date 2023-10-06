@@ -12,6 +12,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.3.0 to ^1.3.1
 
+## [1.7.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.6.0...dm-core-plugins-v1.7.0) (2023-10-06)
+
+
+### Features
+
+* test roles in test mode ([5c9b447](https://github.com/equinor/dm-core-packages/commit/5c9b447100c036482b9365f469797664a653f03f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.5.0 to ^1.6.0
+
 ## [1.6.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.5.0...dm-core-plugins-v1.6.0) (2023-10-05)
 
 
