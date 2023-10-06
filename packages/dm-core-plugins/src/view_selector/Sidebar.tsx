@@ -7,7 +7,7 @@ export const Sidebar = (props: {
   selectedViewId: string
   setSelectedViewId: (k: string) => void
   viewSelectorItems: TItemData[]
-}): JSX.Element => {
+}): React.ReactElement => {
   const { selectedViewId, setSelectedViewId, viewSelectorItems } = props
 
   return (

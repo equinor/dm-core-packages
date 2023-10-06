@@ -155,7 +155,7 @@ export type TUiRecipe = {
 }
 
 export type TPlugin = {
-  component: (props: IUIPlugin) => JSX.Element
+  component: (props: IUIPlugin) => React.ReactElement
 }
 
 export type TUserIdMapping = { userId: string; username: string }

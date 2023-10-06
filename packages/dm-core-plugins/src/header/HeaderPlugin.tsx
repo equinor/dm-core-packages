@@ -52,10 +52,10 @@ const defaultHeaderPluginConfig = {
 
 type TRecipeConfigAndPlugin = {
   config?: TGenericObject
-  component: (props: IUIPlugin) => JSX.Element
+  component: (props: IUIPlugin) => React.ReactElement
 }
 
-export default (props: IUIPlugin): JSX.Element => {
+export default (props: IUIPlugin): React.ReactElement => {
   const { idReference, config: passedConfig, type } = props
   const config: THeaderPluginConfig = {
     ...defaultHeaderPluginConfig,
@@ -97,7 +97,8 @@ export default (props: IUIPlugin): JSX.Element => {
     }
   }, [isBlueprintLoading])
 
-  const UIPlugin: (props: IUIPlugin) => JSX.Element = selectedRecipe.component
+  const UIPlugin: (props: IUIPlugin) => React.ReactElement =
+    selectedRecipe.component
   if (isApplicationLoading || !entity || isBlueprintLoading) {
     return <Loading />
   }

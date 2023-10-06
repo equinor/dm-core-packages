@@ -16,7 +16,9 @@ export const useRegistryContext = () => {
   return context
 }
 
-export const RegistryProvider = (props: Props & { children: JSX.Element }) => {
+export const RegistryProvider = (
+  props: Props & { children: React.ReactElement }
+) => {
   const { children, ...value } = props
 
   return (

@@ -18,7 +18,7 @@ type IEntityView = IUIPlugin & {
   dimensions?: string
 }
 
-export const EntityView = (props: IEntityView): JSX.Element => {
+export const EntityView = (props: IEntityView): React.ReactElement => {
   const { idReference, type, onSubmit, onOpen, recipeName, dimensions } = props
   if (!type)
     throw new Error(`<EntityView> must be called with a type. Got "${type}"`)

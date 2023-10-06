@@ -58,7 +58,7 @@ interface IUseRecipe {
   recipe: TUiRecipe | undefined
   isLoading: boolean
   error: ErrorResponse | null
-  getUiPlugin: (pluginName: string) => (props: IUIPlugin) => JSX.Element
+  getUiPlugin: (pluginName: string) => (props: IUIPlugin) => React.ReactElement
 }
 
 /**

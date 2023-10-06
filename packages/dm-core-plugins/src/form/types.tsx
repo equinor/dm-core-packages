@@ -118,5 +118,5 @@ export type TWidget = {
 }
 
 export type TWidgets = {
-  [key: string]: (props: TWidget) => JSX.Element
+  [key: string]: (props: TWidget) => React.ReactElement
 }

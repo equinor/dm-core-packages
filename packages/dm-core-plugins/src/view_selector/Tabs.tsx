@@ -9,7 +9,7 @@ export const Tabs = (props: {
   setSelectedViewId: (viewId: string) => void
   viewSelectorItems: TItemData[]
   removeView: (viewId: string) => void
-}): JSX.Element => {
+}): React.ReactElement => {
   const { selectedViewId, setSelectedViewId, viewSelectorItems } = props
   return (
     <EdsTabs
