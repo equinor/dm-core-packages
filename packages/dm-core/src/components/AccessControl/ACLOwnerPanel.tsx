@@ -12,7 +12,7 @@ interface IACLOwnerPanelProps {
 export const ACLOwnerPanel = ({
   acl,
   handleChange,
-}: IACLOwnerPanelProps): JSX.Element => {
+}: IACLOwnerPanelProps): React.ReactElement => {
   return (
     <>
       <CenteredRow width={'230px'}>

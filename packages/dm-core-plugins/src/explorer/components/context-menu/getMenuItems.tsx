@@ -8,7 +8,7 @@ import { EDialog } from '../../types'
 export function getMenuItems(
   node: TreeNode,
   setDialogId: (id: EDialog | undefined) => void
-): JSX.Element[] {
+): React.ReactElement[] {
   const menuItems = []
   const getMenuItem = (id: EDialog, text: string) => {
     return (

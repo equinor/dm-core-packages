@@ -47,7 +47,7 @@ export const CenteredRow = styled.div<CenteredRowType>`
 export const AccessControlListComponent = (props: {
   documentId: string
   dataSourceId: string
-}): JSX.Element => {
+}): React.ReactElement => {
   const { documentId, dataSourceId } = props
 
   const [activeTab, setActiveTab] = useState<number>(0)
