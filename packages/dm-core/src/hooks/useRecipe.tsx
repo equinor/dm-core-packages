@@ -117,7 +117,7 @@ export const useRecipe = (
       }
       setFindRecipeError(errorResponse)
     }
-  }, [isBlueprintLoading])
+  }, [uiRecipes, initialUiRecipe, recipeName, dimensions])
 
   return {
     recipe: isBlueprintLoading ? undefined : foundRecipe,
