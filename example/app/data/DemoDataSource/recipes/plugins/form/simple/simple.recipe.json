@@ -2,27 +2,9 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "/plugins/form/simple/blueprints/Simple",
   "initialUiRecipe": {
-    "name": "ViewSelector",
+    "name": "Edit",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-      "childTabsOnRender": true,
-      "items": [
-        {
-          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "viewConfig": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "Edit",
-              "type": "CORE:UiRecipe",
-              "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form"
-            },
-            "scope": "self"
-          }
-        }
-      ]
-    }
+    "description": "Default edit",
+    "plugin": "@development-framework/dm-core-plugins/form"
   }
 }
