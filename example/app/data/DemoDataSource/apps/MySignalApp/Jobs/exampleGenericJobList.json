@@ -1,0 +1,5 @@
+{
+  "name": "fetch_omniaTS_signal_jobs",
+  "type": "dmss://DemoDataSource/apps/MySignalApp/models/JobList",
+  "jobs": []
+}
