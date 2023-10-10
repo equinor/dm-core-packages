@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.1...dm-core-v1.6.2) (2023-10-10)
+
+
+### Bug Fixes
+
+* better style ([485cc1c](https://github.com/equinor/dm-core-packages/commit/485cc1c166f3ffbff473b6ec487af71c40b5ff99))
+
 ## [1.6.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.0...dm-core-v1.6.1) (2023-10-10)
 
 
