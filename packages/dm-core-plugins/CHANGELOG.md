@@ -18,6 +18,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.0 to ^1.6.1
 
+## [1.7.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.7.1...dm-core-plugins-v1.7.2) (2023-10-10)
+
+
+### Bug Fixes
+
+* better style ([485cc1c](https://github.com/equinor/dm-core-packages/commit/485cc1c166f3ffbff473b6ec487af71c40b5ff99))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.6.1 to ^1.6.2
+
 ## [1.7.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.6.0...dm-core-plugins-v1.7.0) (2023-10-06)
 
 
