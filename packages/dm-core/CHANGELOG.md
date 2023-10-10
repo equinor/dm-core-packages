@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.0...dm-core-v1.6.1) (2023-10-10)
+
+
+### Bug Fixes
+
+* add missing readme file ([008da81](https://github.com/equinor/dm-core-packages/commit/008da81ee849c47ef98d6b4d07d1886637f295c3))
+
 ## [1.6.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.5.0...dm-core-v1.6.0) (2023-10-06)
 
 
