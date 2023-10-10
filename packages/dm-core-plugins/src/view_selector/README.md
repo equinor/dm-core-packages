@@ -11,7 +11,6 @@ The view_selector UI plugin can accept a config of type `ViewSelectorConfig` wit
 * `items` (required): A list of ViewSelectorItem with a ViewConfig for each attribute/recipe to display.
 * `childTabsOnRender` (optional): If false the tab/sidebar will only show the home button until "onOpen()" is called on
   an attribute. Defaults to true.
-* `asSidebar` (optional): Specify if attributes should be displayed in a sidebar view. The alternative is a tab view.
 
 An `ViewSelectorItem` has the following attributes:
 
