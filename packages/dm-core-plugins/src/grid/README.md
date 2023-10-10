@@ -6,10 +6,10 @@ The layout can be specified inside a RecipleLink document.
 
 This plugin has some blueprints, that are needed for specifying the UI recipe config:
 
-* GridArea.json
-* GridItem.json
-* GridPluginConfig.json
-* GridSize.json
+* `GridArea.json`
+* `GridItem.json`
+* `GridPluginConfig.json`
+* `GridSize.json`
 
 The blueprints are available in the npm package in the
 folder `node_modules/@development-framework/dm-core-plugins/blueprint/grid`
