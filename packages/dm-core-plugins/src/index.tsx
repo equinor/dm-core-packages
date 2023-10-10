@@ -1,6 +1,7 @@
 import { TUiPluginMap } from '@development-framework/dm-core'
 
 import { YamlPlugin } from './yaml/YamlPlugin'
+import { ViewSelectorPlugin } from './view_selector/ViewSelectorPlugin'
 import { BlueprintHierarchyPlugin } from './blueprint-hierarchy/BlueprintHierarchyPlugin'
 import { JobPlugin } from './job/JobPlugin'
 import { FormPlugin } from './form/FormPlugin'
@@ -14,8 +15,6 @@ import { ListPlugin } from './list/ListPlugin'
 import { TablePlugin } from './table/TablePlugin'
 import { FilePlugin } from './file/FilePlugin'
 import { RoleFilterPlugin } from './role_filter/RoleFilterPlugin'
-import { SidebarPlugin } from './view_selector/SidebarPlugin'
-import { TabsPlugin } from './view_selector/TabsPlugin'
 
 export default {
   '@development-framework/dm-core-plugins/explorer': {
@@ -36,11 +35,8 @@ export default {
   '@development-framework/dm-core-plugins/grid': {
     component: GridPlugin,
   },
-  '@development-framework/dm-core-plugins/view_selector/sidebar': {
-    component: SidebarPlugin,
-  },
-  '@development-framework/dm-core-plugins/view_selector/tabs': {
-    component: TabsPlugin,
+  '@development-framework/dm-core-plugins/view_selector': {
+    component: ViewSelectorPlugin,
   },
   '@development-framework/dm-core-plugins/blueprint-hierarchy': {
     component: BlueprintHierarchyPlugin,

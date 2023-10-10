@@ -21,6 +21,13 @@
       "dimensions": "*",
       "contained": true,
       "optional": true
+    },
+    {
+      "name": "asSidebar",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
     }
   ]
 }

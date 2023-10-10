@@ -4,7 +4,7 @@
   "initialUiRecipe": {
     "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "plugin": "@development-framework/dm-core-plugins/view_selector",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "items": [
@@ -38,10 +38,11 @@
     {
       "name": "Tabs",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+      "plugin": "@development-framework/dm-core-plugins/view_selector",
       "config": {
         "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-        "childTabsOnRender": true
+        "childTabsOnRender": true,
+        "asSidebar": false
       }
     },
     {

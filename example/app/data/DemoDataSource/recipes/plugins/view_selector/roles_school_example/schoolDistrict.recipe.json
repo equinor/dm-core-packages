@@ -30,10 +30,11 @@
     {
       "name": "AdminViewSelector",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
+      "plugin": "@development-framework/dm-core-plugins/view_selector",
       "config": {
         "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
         "childTabsOnRender": true,
+        "asSidebar": true,
         "items": [
           {
             "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
@@ -61,10 +62,11 @@
     {
       "name": "OperatorViewSelector",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
+      "plugin": "@development-framework/dm-core-plugins/view_selector",
       "config": {
         "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
         "childTabsOnRender": true,
+        "asSidebar": true,
         "items": [
           {
             "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
