@@ -44,12 +44,24 @@ jobs:
         run: yarn build:packages
 
       - name: Publish dm-core package
-        run: yarn workspace @development-framework/dm-core publish --access public
+        run: |
+          PACKAGE_VERSION=$(cat packages/dm-core/package.json | jq '.["version"]' | tr -d '"')
+          PACKAGE_NAME=$(cat packages/dm-core/package.json | jq '.["name"]' | tr -d '"')
+          VERSION_EXISTS=$(curl --HEAD --output /dev/null --silent -w "%{http_code}" https://registry.npmjs.org/$PACKAGE_NAME/$PACKAGE_VERSION)
+          if [[ $VERSION_EXISTS == 404 ]]; then
+            yarn workspace @development-framework/dm-core publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish dm-core-plugins package
-        run: yarn workspace @development-framework/dm-core-plugins publish --access public
+        run: |
+          PACKAGE_VERSION=$(cat packages/dm-core-plugins/package.json | jq '.["version"]' | tr -d '"')
+          PACKAGE_NAME=$(cat packages/dm-core-plugins/package.json | jq '.["name"]' | tr -d '"')
+          VERSION_EXISTS=$(curl --HEAD --output /dev/null --silent -w "%{http_code}" https://registry.npmjs.org/$PACKAGE_NAME/$PACKAGE_VERSION)
+          if [[ $VERSION_EXISTS == 404 ]]; then
+            yarn workspace @development-framework/dm-core-plugins publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
