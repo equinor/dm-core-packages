@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
+  ApplicationContext,
   ErrorResponse,
   IUIPlugin,
   TUiRecipe,
-  useBlueprint,
+  useDMSS,
   useUiPlugins,
 } from '../index'
+import { AxiosError } from 'axios'
 
 const findRecipe = (
   recipes: TUiRecipe[],
@@ -82,7 +84,7 @@ interface IUseRecipe {
  *
  * @param typeRef - The reference to the blueprint to retrieve a recipe for
  * @param recipeName - Name of recipe to find (optional)
- * @param noInit - Do not return any initialRecipes
+ * @param dimensions - The recipes dimensions
  * @returns A list containing the blueprint document, a boolean representing the loading state, and an Error, if any.
  */
 export const useRecipe = (
@@ -90,38 +92,51 @@ export const useRecipe = (
   recipeName?: string,
   dimensions: string = ''
 ): IUseRecipe => {
-  const {
-    initialUiRecipe,
-    uiRecipes,
-    isLoading: isBlueprintLoading,
-    error,
-  } = useBlueprint(typeRef)
   const { getUiPlugin } = useUiPlugins()
   const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
   const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
     null
   )
+  const [isLoading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<ErrorResponse | null>(null)
 
+  const dmssAPI = useDMSS()
+  const { name } = useContext(ApplicationContext)
   useEffect(() => {
-    if (isBlueprintLoading) return
-    try {
-      setFoundRecipe(
-        findRecipe(uiRecipes, initialUiRecipe, recipeName, dimensions)
+    setLoading(true)
+    dmssAPI
+      .blueprintGet({ typeRef: typeRef, context: name })
+      .then((response: any) => {
+        try {
+          setFoundRecipe(
+            findRecipe(
+              response.data.uiRecipes,
+              response.data.initialUiRecipe,
+              recipeName,
+              dimensions
+            )
+          )
+        } catch (error) {
+          console.error(error)
+          const errorResponse: ErrorResponse = {
+            type: 'RecipeSelectionError',
+            debug: `type: "${typeRef}"`,
+            message: error.message,
+          }
+          setFindRecipeError(errorResponse)
+        }
+      })
+      .catch((error: AxiosError<ErrorResponse>) =>
+        setError(error.response?.data || null)
       )
-    } catch (error) {
-      console.error(error)
-      const errorResponse: ErrorResponse = {
-        type: 'RecipeSelectionError',
-        debug: `type: "${typeRef}"`,
-        message: error.message,
-      }
-      setFindRecipeError(errorResponse)
-    }
-  }, [isBlueprintLoading])
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [typeRef, recipeName, dimensions])
 
   return {
-    recipe: isBlueprintLoading ? undefined : foundRecipe,
-    isLoading: isBlueprintLoading,
+    recipe: isLoading ? undefined : foundRecipe,
+    isLoading,
     error: error ?? findRecipeError,
     getUiPlugin,
   }

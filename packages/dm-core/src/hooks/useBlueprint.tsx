@@ -4,6 +4,7 @@ import { TBlueprint, TUiRecipe } from 'src/types'
 import { ApplicationContext } from '../context/ApplicationContext'
 import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
+
 interface IUseBlueprint {
   blueprint: TBlueprint | undefined
   initialUiRecipe: TUiRecipe | undefined
@@ -11,6 +12,7 @@ interface IUseBlueprint {
   isLoading: boolean
   error: ErrorResponse | null
 }
+
 /**
  * Hook to fetch a Blueprint from the DMSS API
  *
@@ -48,14 +50,22 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
         setInitialUiRecipe(response.data.initialUiRecipe)
-        setUiRecipes(response.data.uiRecipes ?? [])
+        setUiRecipes(response.data.uiRecipes)
         setError(null)
       })
-      .catch((error: AxiosError<ErrorResponse>) =>
+      .catch((error: AxiosError<ErrorResponse>) => {
         setError(error.response?.data || null)
-      )
-      .finally(() => setLoading(false))
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [typeRef])
 
-  return { blueprint, initialUiRecipe, uiRecipes, isLoading, error }
+  return {
+    blueprint,
+    initialUiRecipe,
+    uiRecipes,
+    isLoading,
+    error,
+  }
 }
