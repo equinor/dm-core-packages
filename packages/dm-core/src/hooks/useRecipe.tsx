@@ -92,21 +92,11 @@ export const useRecipe = (
   recipeName?: string,
   dimensions: string = ''
 ): IUseRecipe => {
-  // const {
-  // 	initialUiRecipe,
-  // 	uiRecipes,
-  // 	isLoading: isBlueprintLoading,
-  // 	error,
-  // } = useBlueprint(typeRef)
   const { getUiPlugin } = useUiPlugins()
   const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
   const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
     null
   )
-
-  // const [blueprint, setBlueprint] = useState<TBlueprint>()
-  // const [uiRecipes, setUiRecipes] = useState<TUiRecipe[]>([])
-  // const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
 
