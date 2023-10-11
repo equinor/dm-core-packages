@@ -18,6 +18,12 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.0 to ^1.6.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.6.3 to ^1.6.4
+
 ## [1.8.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.7.2...dm-core-plugins-v1.8.0) (2023-10-10)
 
 
