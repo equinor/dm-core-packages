@@ -18,10 +18,6 @@ const findRecipe = (
   if (dimensions) {
     initialUiRecipe = undefined
   }
-  console.log('findRecipe (recipes)', recipes)
-  console.log('findRecipe (initialUiRecipe)', initialUiRecipe)
-  console.log('findRecipe (recipe name)', recipeName)
-  console.log('findRecipe (dimensions)', dimensions)
   // If recipe is defined, find and return the ui recipe from available recipes.
   if (recipeName) {
     const recipesToSearch = initialUiRecipe

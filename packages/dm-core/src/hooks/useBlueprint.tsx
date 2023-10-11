@@ -41,15 +41,8 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
   const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
-
   const { name } = useContext(ApplicationContext)
   const dmssAPI = useDMSS()
-
-  console.log('useBlueprint (blueprint): ', blueprint)
-  console.log('useBlueprint (initialUiRecipe): ', initialUiRecipe)
-  console.log('useBlueprint (uiRecipes): ', uiRecipes)
-  console.log('useBlueprint (isLoading): ', isLoading)
-  console.log('useBlueprint (error): ', error)
 
   useEffect(() => {
     dmssAPI
@@ -57,14 +50,22 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
         setInitialUiRecipe(response.data.initialUiRecipe)
-        setUiRecipes(response.data.uiRecipes ?? [])
+        setUiRecipes(response.data.uiRecipes)
         setError(null)
       })
-      .catch((error: AxiosError<ErrorResponse>) =>
+      .catch((error: AxiosError<ErrorResponse>) => {
         setError(error.response?.data || null)
-      )
-      .finally(() => setLoading(false))
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [typeRef])
 
-  return { blueprint, initialUiRecipe, uiRecipes, isLoading, error }
+  return {
+    blueprint,
+    initialUiRecipe,
+    uiRecipes,
+    isLoading,
+    error,
+  }
 }
