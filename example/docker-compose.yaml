@@ -29,7 +29,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: xd7wCEhEx4kszsecYFfC
 
   job-api:
-    image: datamodelingtool.azurecr.io/dm-job:v1.2.1
+    image: datamodelingtool.azurecr.io/dm-job:v1.2.2
     platform: linux/amd64
     restart: unless-stopped
     environment:
