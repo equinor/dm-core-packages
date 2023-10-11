@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import {
   ApplicationContext,
   ErrorResponse,
@@ -7,7 +7,7 @@ import {
   useDMSS,
   useUiPlugins,
 } from '../index'
-import { AxiosError } from 'axios'
+import { useQuery } from '@tanstack/react-query'
 
 const findRecipe = (
   recipes: TUiRecipe[],
@@ -93,51 +93,25 @@ export const useRecipe = (
   dimensions: string = ''
 ): IUseRecipe => {
   const { getUiPlugin } = useUiPlugins()
-  const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
-  const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
-    null
-  )
-  const [isLoading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<ErrorResponse | null>(null)
 
   const dmssAPI = useDMSS()
   const { name } = useContext(ApplicationContext)
-  useEffect(() => {
-    setLoading(true)
-    dmssAPI
-      .blueprintGet({ typeRef: typeRef, context: name })
-      .then((response: any) => {
-        try {
-          setFoundRecipe(
-            findRecipe(
-              response.data.uiRecipes,
-              response.data.initialUiRecipe,
-              recipeName,
-              dimensions
-            )
-          )
-        } catch (error) {
-          console.error(error)
-          const errorResponse: ErrorResponse = {
-            type: 'RecipeSelectionError',
-            debug: `type: "${typeRef}"`,
-            message: error.message,
-          }
-          setFindRecipeError(errorResponse)
-        }
-      })
-      .catch((error: AxiosError<ErrorResponse>) =>
-        setError(error.response?.data || null)
-      )
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [typeRef, recipeName, dimensions])
-
+  const { isLoading, data, error } = useQuery({
+    queryKey: ['recipe', typeRef, recipeName, dimensions],
+    queryFn: () =>
+      dmssAPI.blueprintGet({ typeRef, context: name }).then((response: any) => {
+        return findRecipe(
+          response.data.uiRecipes,
+          response.data.initialUiRecipe,
+          recipeName,
+          dimensions
+        )
+      }),
+  })
   return {
-    recipe: isLoading ? undefined : foundRecipe,
+    recipe: isLoading ? undefined : data,
     isLoading,
-    error: error ?? findRecipeError,
+    error: error as ErrorResponse | null,
     getUiPlugin,
   }
 }

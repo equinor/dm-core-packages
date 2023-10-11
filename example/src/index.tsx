@@ -12,7 +12,9 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import plugins from './plugins'
 import ReactDOM from 'react-dom/client'
 import { AuthProvider } from 'react-oauth2-code-pkce'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import App from './App'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const fullCurrentURL = () =>
   `${window.location.pathname}${window.location.search}${window.location.hash}`
@@ -49,25 +51,28 @@ const APP_SETTINGS = {
   ],
   name: 'example',
 }
-
+const queryClient = new QueryClient()
 const Content = () => {
   const overrideRoles = import.meta.env.VITE_TEST_ROLES
     ? JSON.parse(import.meta.env.VITE_TEST_ROLES)
     : []
 
   return (
-    <DMSSProvider dmssBasePath={import.meta.env.VITE_DMSS_URL}>
-      <DMJobProvider dmJobPath={import.meta.env.VITE_DM_JOB_URL}>
-        <ApplicationContext.Provider value={APP_SETTINGS}>
-          <UiPluginProvider pluginsToLoad={plugins}>
-            <RoleProvider overrideRoles={overrideRoles}>
-              <App />
-            </RoleProvider>
-            <ToastContainer />
-          </UiPluginProvider>
-        </ApplicationContext.Provider>
-      </DMJobProvider>
-    </DMSSProvider>
+    <QueryClientProvider client={queryClient}>
+      <DMSSProvider dmssBasePath={import.meta.env.VITE_DMSS_URL}>
+        <DMJobProvider dmJobPath={import.meta.env.VITE_DM_JOB_URL}>
+          <ApplicationContext.Provider value={APP_SETTINGS}>
+            <UiPluginProvider pluginsToLoad={plugins}>
+              <RoleProvider overrideRoles={overrideRoles}>
+                <App />
+              </RoleProvider>
+              <ToastContainer />
+            </UiPluginProvider>
+          </ApplicationContext.Provider>
+        </DMJobProvider>
+      </DMSSProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   )
 }
 

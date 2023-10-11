@@ -1,9 +1,9 @@
-import { AxiosError } from 'axios'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { TBlueprint, TUiRecipe } from 'src/types'
 import { ApplicationContext } from '../context/ApplicationContext'
 import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
+import { useQuery } from '@tanstack/react-query'
 
 interface IUseBlueprint {
   blueprint: TBlueprint | undefined
@@ -36,36 +36,19 @@ interface IUseBlueprint {
  * @returns A list containing the blueprint document, a boolean representing the loading state, and an Error, if any.
  */
 export const useBlueprint = (typeRef: string): IUseBlueprint => {
-  const [blueprint, setBlueprint] = useState<TBlueprint>()
-  const [uiRecipes, setUiRecipes] = useState<TUiRecipe[]>([])
-  const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
-  const [isLoading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<ErrorResponse | null>(null)
+  const dmssApi = useDMSS()
   const { name } = useContext(ApplicationContext)
-  const dmssAPI = useDMSS()
-
-  useEffect(() => {
-    dmssAPI
-      .blueprintGet({ typeRef: typeRef, context: name })
-      .then((response: any) => {
-        setBlueprint(response.data.blueprint)
-        setInitialUiRecipe(response.data.initialUiRecipe)
-        setUiRecipes(response.data.uiRecipes)
-        setError(null)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        setError(error.response?.data || null)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [typeRef])
+  const { isLoading, data, error } = useQuery({
+    queryKey: ['blueprint', typeRef],
+    queryFn: () =>
+      dmssApi.blueprintGet({ typeRef, context: name }).then((res) => res.data),
+  })
 
   return {
-    blueprint,
-    initialUiRecipe,
-    uiRecipes,
+    blueprint: (data?.blueprint as TBlueprint) || undefined,
+    initialUiRecipe: (data?.initialUiRecipe as TUiRecipe) || undefined,
+    uiRecipes: (data?.uiRecipes as TUiRecipe[]) || [],
     isLoading,
-    error,
+    error: (error as ErrorResponse) || null,
   }
 }
