@@ -7,7 +7,7 @@ import {
   useDMSS,
   useUiPlugins,
 } from '../index'
-import { AxiosError } from 'axios/index'
+import { AxiosError } from 'axios'
 
 const findRecipe = (
   recipes: TUiRecipe[],
