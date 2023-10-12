@@ -46,6 +46,6 @@ fi
 echo "Upload plugins blueprints to DMSS"
 dm --token "$TOKEN" --url $VITE_DMSS_URL import-plugin-blueprints ../node_modules/@development-framework/dm-core-plugins
 echo "Upload app/ to DMSS"
-dm --token "$TOKEN" --url $VITE_DMSS_URL reset app
+dm --force --token "$TOKEN" --url $VITE_DMSS_URL reset app
 echo "Creating lookup table"
 dm --token "$TOKEN" --url $VITE_DMSS_URL create-lookup example DemoDataSource/recipes
