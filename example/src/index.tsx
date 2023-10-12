@@ -6,13 +6,17 @@ import {
   UiPluginProvider,
 } from '@development-framework/dm-core'
 import React from 'react'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 
 import plugins from './plugins'
 import ReactDOM from 'react-dom/client'
 import { AuthProvider } from 'react-oauth2-code-pkce'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import App from './App'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
@@ -51,7 +55,11 @@ const APP_SETTINGS = {
   ],
   name: 'example',
 }
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error) => toast.error(`An error occured. Message: ${error}`),
+  }),
+})
 const Content = () => {
   const overrideRoles = import.meta.env.VITE_TEST_ROLES
     ? JSON.parse(import.meta.env.VITE_TEST_ROLES)
