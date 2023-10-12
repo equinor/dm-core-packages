@@ -104,9 +104,9 @@
       "config": {
         "type": "PLUGINS:dm-core-plugins/job/JobConfig",
         "jobTargetAddress": {
-          "type": "PLUGINS:dm-core-plugins/job/JobTargetAddress",
-          "jobAddress": ".job",
-          "jobAddressScope": "local"
+          "type": "PLUGINS:dm-core-plugins/job/TargetAddress",
+          "targetAddress": ".job",
+          "addressScope": "local"
         },
         "label": "signal job",
         "runner": {
@@ -114,11 +114,8 @@
         },
         "outputTarget": ".signal",
         "jobInput": {
-          "type": "PLUGINS:dm-core-plugins/job/JobInput",
-          "_type": "dmss://system/SIMOS/Reference",
-          "referenceType": "link",
-          "jobInputAddress": ".study.cases[0]",
-          "jobInputAddressScope": "local"
+          "type": "PLUGINS:dm-core-plugins/job/TargetAddress",
+          "targetAddress": "."
         }
       }
     },
