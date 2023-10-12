@@ -4,8 +4,8 @@ import {
   GetJobResultResponse,
   IUIPlugin,
   JobStatus,
-  splitAddress,
   TJob,
+  TJobHandler,
   useDMSS,
   useJob,
 } from '@development-framework/dm-core'
@@ -24,49 +24,45 @@ const JobButtonWrapper = styled.div`
   gap: 8px;
 `
 
-interface JobPluginConfig {
-  jobTargetAddress: {
-    type: string
-    jobAddress: string
-    jobAddressScope: string
-  }
-  label: string
-  runner: {
-    type: string
-  }
-  outputTarget: string
-  jobInput: {
-    type: string
-    _type: string
-    referenceType: string
-    jobInputAddress: string
-    jobInputAddressScope: string
-  }
+interface ITargetAddress {
+  targetAddress: string
+  addressScope?: 'local' | 'global'
 }
 
-export const JobPlugin = (props: IUIPlugin) => {
+interface JobPluginConfig {
+  jobTargetAddress: ITargetAddress
+  label: string
+  runner: TJobHandler
+  outputTarget: string
+  jobInput: ITargetAddress
+}
+
+export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   const {
     config,
     idReference,
-  }: { config?: JobPluginConfig; idReference: string } = props
+  }: { config: JobPluginConfig; idReference: string } = props
   const DmssApi = useDMSS()
-  const defaultTargetOutput = idReference + config?.outputTarget
 
   const jobTargetAddress = (): string => {
-    if (config?.jobTargetAddress.jobAddressScope === 'local') {
-      return idReference + config?.jobTargetAddress.jobAddress
+    if (config.jobTargetAddress.addressScope !== 'local') {
+      return config.jobTargetAddress.targetAddress
     }
-    return config?.jobTargetAddress.jobAddress ?? ''
+    if (['self', '.'].includes(config?.jobTargetAddress.targetAddress)) {
+      return idReference
+    }
+    return idReference + config.jobTargetAddress.targetAddress
   }
 
-  const jobInputAddress = (): string | undefined => {
-    if (config?.jobInput.jobInputAddressScope === 'local') {
-      const { dataSource, documentPath } = splitAddress(idReference)
-      return `dmss://${dataSource}/${documentPath}${config?.jobInput.jobInputAddress}`
+  const jobInputAddress = (): string => {
+    if (config.jobInput.addressScope !== 'local') {
+      return config.jobInput.targetAddress
     }
-    return config?.jobInput.jobInputAddress
+    if (['self', '.'].includes(config.jobInput.targetAddress)) {
+      return idReference
+    }
+    return idReference + config.jobInput.targetAddress
   }
-  console.log(jobInputAddress())
   const { tokenData } = useContext(AuthContext)
   const username = tokenData?.preferred_username
 
@@ -90,19 +86,16 @@ export const JobPlugin = (props: IUIPlugin) => {
     label: config?.label,
     type: EBlueprint.JOB,
     status: JobStatus.NotStarted,
-    triggeredBy: username ?? 'unknown user', // TODO: Add propper fallback
+    triggeredBy: username ?? 'unknown user', // TODO: Add proper fallback
     applicationInput: {
-      type: config?.jobInput._type,
-      referenceType: config?.jobInput.referenceType,
+      type: EBlueprint.REFERENCE,
+      referenceType: 'link',
       address: jobInputAddress(),
     },
     runner: config?.runner,
   }
 
-  const jobEntityFormData = {
-    ...jobEntity,
-    outputTarget: defaultTargetOutput,
-  }
+  if (config?.outputTarget) jobEntity.outputTarget = config.outputTarget
 
   const updateDocument = async (
     jobAddress: string,
@@ -154,9 +147,9 @@ export const JobPlugin = (props: IUIPlugin) => {
   function createNewJob(): Promise<unknown> {
     setAllowJobStart(true)
     if (jobExists) {
-      return updateDocument(jobTargetAddress(), jobEntityFormData)
+      return updateDocument(jobTargetAddress(), jobEntity)
     } else {
-      return addDocument(jobTargetAddress(), jobEntityFormData)
+      return addDocument(jobTargetAddress(), jobEntity)
     }
   }
 
