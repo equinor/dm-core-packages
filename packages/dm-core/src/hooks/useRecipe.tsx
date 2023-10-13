@@ -107,6 +107,11 @@ export const useRecipe = (
           dimensions
         )
       }),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchIntervalInBackground: false,
+    keepPreviousData: true,
   })
   return {
     recipe: isLoading ? undefined : data,

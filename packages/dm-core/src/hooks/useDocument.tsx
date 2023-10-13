@@ -7,7 +7,6 @@ import {
   UseMutateFunction,
   useMutation,
   useQuery,
-  useQueryClient,
 } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 
@@ -93,12 +92,19 @@ export function useDocument<T>(
     isLoading,
     data: document,
     error,
+    refetch,
   } = useQuery({
     queryKey: ['document', idReference, documentDepth],
-    queryFn: () =>
-      dmssAPI
+    queryFn: async () => {
+      return dmssAPI
         .documentGet({ address: idReference, depth: documentDepth })
-        .then((res) => res.data),
+        .then((res) => res.data)
+    },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchIntervalInBackground: false,
+    keepPreviousData: true,
   })
 
   if (error) {
@@ -108,9 +114,9 @@ export function useDocument<T>(
         (error as AxiosError<ErrorResponse>).message
     )
   }
-  const queryClient = useQueryClient()
+
   const updateDocument = useMutation({
-    mutationKey: ['document'],
+    mutationKey: ['document', idReference],
     mutationFn: (newDocument: T) => {
       return dmssAPI.documentUpdate({
         idAddress: idReference,
@@ -119,13 +125,11 @@ export function useDocument<T>(
       })
     },
     onSuccess: () => {
-      console.log(
-        `Invalidating query: [document${idReference}${documentDepth}]`
-      )
-      queryClient.invalidateQueries({
-        queryKey: ['document', idReference, documentDepth],
-        exact: true,
-      })
+      refetch()
+      // queryClient.refetchQueries({
+      //   queryKey: ['document', idReference, documentDepth],
+      //   exact: true,
+      // })
     },
     onError: (error: AxiosError<ErrorResponse>) => {
       console.error(error)
@@ -133,9 +137,12 @@ export function useDocument<T>(
     },
   })
 
-  const isMutatingDocument = useIsMutating({ mutationKey: ['document'] })
+  const isMutatingDocument = useIsMutating({
+    mutationKey: ['document', idReference],
+    exact: true,
+  })
 
-  // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // function updateDocument(newDocument: T, notify: boolean): void {
   //   setLoading(true)
   //   dmssAPI
@@ -145,14 +152,15 @@ export function useDocument<T>(
   //     updateUncontained: false,
   //   })
   //   .then(() => {
-  //     setDocument(newDocument)
-  //     setError(null)
+  //     refetch();
+  //     // setDocument(newDocument)
+  //     // setError(null)
   //     toast.success('Document updated')
   //   })
   //   .catch((error: AxiosError<ErrorResponse>) => {
   //     console.error(error)
   //     toast.error('Unable to update document, with message: ' + error.message)
-  //     setError(error.response?.data || {message: error.name, data: error})
+  //     // setError(error.response?.data || {message: error.name, data: error})
   //   })
   //   .finally(() => setLoading(false))
   // }

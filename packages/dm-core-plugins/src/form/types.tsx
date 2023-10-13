@@ -12,6 +12,7 @@ export type TFormProps = {
   config?: TConfig
   onOpen?: TOnOpen
   onSubmit?: (data: any) => void
+  loading?: boolean
 }
 
 export type TObjectFieldProps = {

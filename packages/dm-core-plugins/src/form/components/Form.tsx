@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { TGenericObject, useBlueprint } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import { Button, CircularProgress } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { RegistryProvider } from '../context/RegistryContext'
@@ -18,7 +18,8 @@ const StyledForm = styled.form`
 `
 
 export const Form = (props: TFormProps) => {
-  const { type, formData, config, onSubmit, idReference, onOpen } = props
+  const { type, formData, config, onSubmit, idReference, onOpen, loading } =
+    props
   const { blueprint } = useBlueprint(type)
 
   const methods = useForm({
@@ -58,7 +59,8 @@ export const Form = (props: TFormProps) => {
               data-testid="form-submit"
               style={{ alignSelf: 'flex-start' }}
             >
-              Submit
+              {loading && <CircularProgress size={16} />}
+              Submit {loading}
             </Button>
           )}
         </StyledForm>

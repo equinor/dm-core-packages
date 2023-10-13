@@ -34,7 +34,8 @@ export const FilePlugin = (props: IUIPlugin) => {
     fileEntity.filetype = file.type
     fileEntity.date = new Date().toDateString()
     fileEntity.content = reference
-    updateDocument(fileEntity, false)
+    updateDocument(fileEntity)
+    // updateDocument(fileEntity, false)
   }
 
   return (

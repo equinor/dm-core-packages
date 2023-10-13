@@ -3,16 +3,17 @@ import {
   isReferenceViewConfig,
   isViewConfig,
   IUIPlugin,
+  TAttribute,
   TInlineRecipeViewConfig,
   TReferenceViewConfig,
   TViewConfig,
 } from '../../types'
-import { EntityView, Loading, TAttribute, useDMSS } from '../../index'
-import React, { useEffect, useState } from 'react'
+import { EntityView, Loading, useDMSS } from '../../index'
+import React from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget } from './utils'
-import { AxiosResponse } from 'axios'
 import { Typography } from '@equinor/eds-core-react'
+import { useQuery } from '@tanstack/react-query'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
@@ -40,30 +41,54 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
 export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   const { idReference, viewConfig, onOpen } = props
   const dmssAPI = useDMSS()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [error, setError] = useState<Error>()
-  const [attribute, setAttribute] = useState<TAttribute>()
+  // const [isLoading, setIsLoading] = useState<boolean>(true)
+  // const [error, setError] = useState<Error>()
+  // const [attribute, setAttribute] = useState<TAttribute>()
 
   const reference = getTarget(idReference, viewConfig)
 
-  useEffect(() => {
-    dmssAPI
-      .attributeGet({
-        address: reference,
-      })
-      .then((response: AxiosResponse) => {
-        setAttribute(response.data)
-      })
-      .catch((error) => setError(error))
-      .finally(() => setIsLoading(false))
-  }, [])
+  // useEffect(() => {
+  //   dmssAPI
+  //   .attributeGet({
+  //     address: reference,
+  //   })
+  //   .then((response: AxiosResponse) => {
+  //     setAttribute(response.data)
+  //   })
+  //   .catch((error) => setError(error))
+  //   .finally(() => setIsLoading(false))
+  // }, [])
 
-  if (isLoading) return <Loading />
+  const {
+    data: attribute,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['attribute', reference],
+    queryFn: () =>
+      dmssAPI.attributeGet({ address: reference }).then((res) => {
+        console.log(res)
+        return res.data as TAttribute
+      }),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchIntervalInBackground: false,
+    keepPreviousData: true,
+  })
+
+  if (isLoading && !attribute)
+    return (
+      <>
+        <p>"løaping"</p>
+        <Loading />
+      </>
+    )
   if (error)
     return (
       <Typography>
         Could not find attribute for document with id {reference} (
-        {error.message})
+        {(error as Error).message})
       </Typography>
     )
   if (attribute === undefined)

@@ -25,7 +25,7 @@ export const TabsPlugin = (
   if (error) {
     throw new Error(JSON.stringify(error, null, 2))
   }
-  if (isLoading || !viewSelectorItems.length || !selectedViewId) {
+  if (isLoading && !viewSelectorItems.length && !selectedViewId) {
     return <Loading />
   }
 

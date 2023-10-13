@@ -28,7 +28,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     dimensions
   )
 
-  if (isLoading)
+  if (isLoading && !recipe)
     return (
       <div style={{ alignSelf: 'center', padding: '50px' }}>
         <Loading />

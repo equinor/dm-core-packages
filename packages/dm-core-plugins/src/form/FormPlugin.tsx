@@ -15,12 +15,13 @@ export const FormPlugin = (props: IUIPlugin) => {
     props.idReference,
     1
   )
-  if (isLoading) return <Loading />
+  if (isLoading && !document) return <Loading />
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
   const handleOnSubmit = (formData: any) => {
-    updateDocument(formData, true)
+    updateDocument(formData)
+    // updateDocument(formData, true)
   }
 
   return (
@@ -31,6 +32,7 @@ export const FormPlugin = (props: IUIPlugin) => {
       config={config}
       formData={document}
       onSubmit={handleOnSubmit}
+      loading={isLoading}
     />
   )
 }

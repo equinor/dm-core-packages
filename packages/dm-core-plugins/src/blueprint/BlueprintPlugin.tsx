@@ -339,7 +339,8 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
         >
           Reset
         </Button>
-        <Button as="button" onClick={() => updateDocument(formData, true)}>
+        <Button as="button" onClick={() => updateDocument(formData)}>
+          {/*<Button as="button" onClick={() => updateDocument(formData, true)}>*/}
           Update
         </Button>
       </div>
