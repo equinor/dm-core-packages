@@ -1,6 +1,7 @@
 import {
   EntityView,
   FSTreeContext,
+  TreeNode,
   TreeView,
 } from '@development-framework/dm-core'
 import { Progress } from '@equinor/eds-core-react'
@@ -23,6 +24,9 @@ export default () => {
   const { treeNodes, loading } = useContext(FSTreeContext)
   const [selectedType, setSelectedType] = useState<string>()
   const [selectedEntity, setSelectedEntity] = useState<string>()
+  const [nodeDimensions, setNodeDimensions] = useState<string | undefined>(
+    undefined
+  )
 
   return (
     <div style={{ display: 'flex' }}>
@@ -34,16 +38,21 @@ export default () => {
         ) : (
           <TreeView
             nodes={treeNodes}
-            onSelect={(node) => {
+            onSelect={(node: TreeNode) => {
               setSelectedType(node.type)
               setSelectedEntity(node.nodeId)
+              setNodeDimensions(Array.isArray(node.entity) ? '*' : undefined)
             }}
             NodeWrapper={NodeRightClickMenu}
           />
         )}
       </TreeWrapper>
       {selectedType && selectedEntity && (
-        <EntityView type={selectedType} idReference={selectedEntity} />
+        <EntityView
+          type={selectedType}
+          idReference={selectedEntity}
+          dimensions={nodeDimensions}
+        />
       )}
     </div>
   )
