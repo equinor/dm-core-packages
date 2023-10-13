@@ -1,0 +1,38 @@
+{
+  "name": "Car",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
+    },
+    {
+      "name": "position",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Position",
+      "attributeType": "number"
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Manufacturer",
+      "attributeType": "string"
+    },
+    {
+      "name": "team",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Team",
+      "attributeType": "string"
+    },
+    {
+      "name": "lap time",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Lap Time",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
+}

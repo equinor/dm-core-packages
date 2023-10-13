@@ -1,0 +1,41 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/grid/car_grid/blueprints/Car",
+  "initialUiRecipe": {
+    "name": "form",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/form"
+  },
+  "uiRecipes": [
+    {
+      "name": "cars",
+      "type": "CORE:UiRecipe",
+      "description": "List of cars",
+      "plugin": "@development-framework/dm-core-plugins/table",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+        "columns": [
+          "position",
+          "name",
+          "team",
+          "lap time"
+        ],
+        "editableColumns": [],
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+          "openAsTab": false,
+          "openAsExpandable": false,
+          "delete": false,
+          "edit": false,
+          "sort": false,
+          "add": false
+        }
+      }
+    },
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    }
+  ]
+}
