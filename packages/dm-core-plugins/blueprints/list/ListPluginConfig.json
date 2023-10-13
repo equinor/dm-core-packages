@@ -16,12 +16,20 @@
       "default": false
     },
     {
+      "name": "openAsTab",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
       "name": "headers",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in item",
       "attributeType": "string",
       "default": [
-        "name"
+        "name",
+        "type"
       ],
       "dimensions": "*"
     },
@@ -35,15 +43,9 @@
     {
       "name": "defaultView",
       "type": "CORE:BlueprintAttribute",
+      "description": "Which ViewConfig to render when expanding the list item. Defaults to the types default UiRecipe",
       "attributeType": "CORE:ViewConfig",
       "optional": true
-    },
-    {
-      "name": "openInline",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": false,
-      "default": false
     },
     {
       "name": "viewConfigs",
