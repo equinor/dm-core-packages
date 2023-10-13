@@ -18,6 +18,31 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.0 to ^1.6.1
 
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.6.3 to ^1.6.4
+
+## [1.8.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.7.2...dm-core-plugins-v1.8.0) (2023-10-10)
+
+
+### Features
+
+* storage uncontained ([e8f3c13](https://github.com/equinor/dm-core-packages/commit/e8f3c13e99e29570d5c25a0abc3d230a0a7044e9))
+
+
+### Bug Fixes
+
+* make it possible to append to lists in explorer plugin ([4ce8bd2](https://github.com/equinor/dm-core-packages/commit/4ce8bd2bf1073b68b3ed940be42520228510a1fe))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.6.2 to ^1.6.3
+
 ## [1.7.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.7.1...dm-core-plugins-v1.7.2) (2023-10-10)
 
 

@@ -1,22 +1,24 @@
 {
-  "name": "JobTargetAddress",
+  "name": "JobList",
   "type": "CORE:Blueprint",
-  "description": "",
   "attributes": [
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
     {
       "name": "type",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     },
     {
-      "name": "jobAddressScope",
+      "name": "jobs",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "jobAddress",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
+      "label": "Jobs",
+      "attributeType": "JOBCORE:Job",
+      "optional": false,
+      "dimensions": "*"
     }
   ]
 }

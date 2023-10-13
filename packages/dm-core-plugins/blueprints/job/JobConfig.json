@@ -6,7 +6,8 @@
     {
       "name": "outputTarget",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
+      "attributeType": "string",
+      "optional": true
     },
     {
       "name": "label",
@@ -26,12 +27,12 @@
     {
       "name": "jobTargetAddress",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "PLUGINS:dm-core-plugins/job/JobTargetAddress"
+      "attributeType": "PLUGINS:dm-core-plugins/job/TargetAddress"
     },
     {
       "name": "jobInput",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "PLUGINS:dm-core-plugins/job/JobInput"
+      "attributeType": "PLUGINS:dm-core-plugins/job/TargetAddress"
     }
   ]
 }

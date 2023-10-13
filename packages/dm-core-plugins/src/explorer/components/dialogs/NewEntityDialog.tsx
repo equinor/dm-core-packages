@@ -28,7 +28,7 @@ const NewEntityDialog = (props: TProps) => {
   const handleCreate = () => {
     setLoading(true)
     node
-      .addEntityToPackage(`dmss://${blueprint}`, 'Created_entity')
+      .appendEntity(`dmss://${blueprint}`, 'Created_entity')
       .then(() => {
         setNodeOpen(true)
         toast.success(`Entity is created`)

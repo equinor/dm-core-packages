@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.3...dm-core-v1.6.4) (2023-10-11)
+
+
+### Bug Fixes
+
+* Select correct recipes when switching views ([#610](https://github.com/equinor/dm-core-packages/issues/610)) ([88b8c8c](https://github.com/equinor/dm-core-packages/commit/88b8c8ca22238db2b0f033b90d63e79422c52a5f))
+
+## [1.6.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.2...dm-core-v1.6.3) (2023-10-10)
+
+
+### Bug Fixes
+
+* make it possible to append to lists in explorer plugin ([4ce8bd2](https://github.com/equinor/dm-core-packages/commit/4ce8bd2bf1073b68b3ed940be42520228510a1fe))
+
 ## [1.6.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.1...dm-core-v1.6.2) (2023-10-10)
 
 

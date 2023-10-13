@@ -94,6 +94,11 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   if (attribute === undefined)
     throw new Error('Unable to find type and dimensions for view')
 
+  if (viewConfig === undefined)
+    throw new Error(
+      'Cannot create a View without a "viewConfig". Sure the attribute is properly named?'
+    )
+
   if (isInlineRecipeViewConfig(viewConfig)) {
     return (
       <InlineRecipeView

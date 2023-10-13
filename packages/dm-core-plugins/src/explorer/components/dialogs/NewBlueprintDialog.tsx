@@ -29,7 +29,7 @@ const NewBlueprintDialog = (props: TProps) => {
   const handleCreate = () => {
     setLoading(true)
     node
-      .addEntityToPackage(EBlueprint.BLUEPRINT, blueprintName)
+      .appendEntity(EBlueprint.BLUEPRINT, blueprintName)
       .then(() => {
         setNodeOpen(true)
         toast.success('Blueprint is created')

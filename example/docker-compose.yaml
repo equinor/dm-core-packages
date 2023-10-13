@@ -29,7 +29,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: xd7wCEhEx4kszsecYFfC
 
   job-api:
-    image: datamodelingtool.azurecr.io/dm-job:v1.2.1
+    image: datamodelingtool.azurecr.io/dm-job:v1.2.2
     platform: linux/amd64
     restart: unless-stopped
     environment:
@@ -55,16 +55,16 @@ services:
     ports:
       - '5001:5000'
 
-  #  db-ui:
-  #    image: mongo-express:1.0.0-alpha
-  #    restart: unless-stopped
-  #    ports:
-  #      - "8082:8081"
-  #    environment:
-  #      ME_CONFIG_MONGODB_SERVER: db
-  #      ME_CONFIG_MONGODB_ADMINUSERNAME: maf
-  #      ME_CONFIG_MONGODB_ADMINPASSWORD: maf
-  #      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+#  db-ui:
+#    image: mongo-express:1.0.0-alpha
+#    restart: unless-stopped
+#    ports:
+#      - "8082:8081"
+#    environment:
+#      ME_CONFIG_MONGODB_SERVER: db
+#      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+#      ME_CONFIG_MONGODB_ADMINPASSWORD: xd7wCEhEx4kszsecYFfC
+#      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
 
   job-store:
     image: redis:6.2.5-alpine

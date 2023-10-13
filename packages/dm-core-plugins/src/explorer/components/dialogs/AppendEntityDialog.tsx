@@ -19,7 +19,7 @@ const AppendEntityDialog = (props: TProps) => {
   const handleAppend = () => {
     setLoading(true)
     node
-      .addEntityToPackage(node.type, `${node.entity.length}`)
+      .appendEntity(node.type, `${node.entity.length}`)
       .then(() => {
         setNodeOpen(true)
         toast.success('The new entity has been appended to the list')

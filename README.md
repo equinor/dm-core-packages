@@ -31,13 +31,21 @@ See under `packages/` for list of available plugins or [NPM](https://www.npmjs.c
 <a id="quickstart"></a>
 ## :zap: Quickstart
 
-First, install the plugin:
+First, install the plugins:
 
 ```
-yarn install @development-framework/<plugin>
+yarn install @development-framework/dm-core-plugins
 ```
 
-Add the installed plugin to the `src/plugins.js` file.
+Add the installed plugins to the `src/plugins.js` file.
+
+```
+import dmCorePlugins from '@development-framework/dm-core-plugins'
+
+export default {
+  ...dmCorePlugins
+}
+```
 
 <a id="development"></a>
 ## :dizzy: Development
