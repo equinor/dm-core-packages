@@ -42,9 +42,7 @@ test('View selector - car garage', async ({ page }) => {
     page.getByRole('tab', { name: 'Owner details' })
   ).toHaveAttribute('aria-selected', 'true')
   await expect(page.getByRole('tab', { name: 'Owner history' })).toBeVisible()
-  await expect(
-    page.locator('form').filter({ hasText: 'Name of Owner' }).locator('#name')
-  ).toHaveValue('Aiden')
+  await expect(page.locator('#name').nth(2)).toHaveValue('Aiden')
   await page.getByText('Owner history').click()
   await expect(
     page.getByRole('tab', { name: 'group Owner history' })

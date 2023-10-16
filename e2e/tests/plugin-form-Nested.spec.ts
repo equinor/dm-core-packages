@@ -137,20 +137,16 @@ test('New car', async () => {
   await expect.soft(carsDiv.getByText('1 - 3 of 3')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Save' }).click()
   await carsDiv.getByRole('button', { name: 'Open item' }).last().click()
-  const lastTabPanel = page.getByRole('tabpanel').last()
-  await expect(lastTabPanel).toBeVisible()
-  await lastTabPanel.getByLabel('Name').fill('McLaren')
-  await lastTabPanel.getByLabel('Plate Number').fill('3000')
-  await lastTabPanel.getByRole('button', { name: 'Submit' }).click()
-  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-  await page.getByRole('button', { name: 'close', exact: true }).click()
+  await page.getByLabel('Name').nth(1).fill('McLaren')
+  await page.getByLabel('Plate Number').fill('3000')
+  await page.getByRole('button', { name: 'Submit' }).first().click()
+  await page.getByText('Document updated').click()
   await page.reload()
   await navigate()
   await expect(carsDiv.getByText('McLaren')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Open item' }).last().click()
-  await expect(page.getByRole('tab', { name: 'McLaren' })).toBeVisible()
-  await expect(lastTabPanel.getByLabel('Name')).toHaveValue('McLaren')
-  await expect(lastTabPanel.getByLabel('Plate Number')).toHaveValue('3000')
+  await expect(page.getByLabel('Name').nth(1)).toHaveValue('McLaren')
+  await expect(page.getByLabel('Plate Number')).toHaveValue('3000')
 })
 
 test('New customer', async () => {
@@ -173,9 +169,15 @@ test('New customer', async () => {
   await customersDiv.getByRole('button', { name: 'Open' }).click()
   await expect(page.getByText('Lewis')).toBeVisible()
   await page.getByRole('button', { name: 'Open item' }).last().click()
-  await expect(page.getByRole('tab', { name: 'Lewis' })).toBeVisible()
-  await expect(lastTabPanel.getByLabel('Name')).toHaveValue('Lewis')
-  await expect(lastTabPanel.getByLabel('Phone number (optional)')).toHaveValue(
-    '12345678'
-  )
+  await expect(
+    page.getByTestId('name').getByTestId('form-textfield')
+  ).toBeVisible()
+  // await expect(page.getByTestId('name').getByTestId('form-textfield')).toBeVisible()
+  await expect(
+    page.getByTestId('name').getByTestId('form-textfield')
+  ).toHaveValue('Lewis')
+  // await expect(lastTabPanel.getByLabel('Name')).toHaveValue('Lewis')
+  await expect(
+    lastTabPanel.getByTestId('phoneNumber').getByTestId('form-textfield')
+  ).toHaveValue('12345678')
 })
