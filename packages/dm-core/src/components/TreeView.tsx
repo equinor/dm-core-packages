@@ -15,6 +15,7 @@ import {
   FaFolderOpen,
   FaList,
   FaRegFileAlt,
+  FaLink,
 } from 'react-icons/fa'
 import { EBlueprint } from '../Enums'
 
@@ -41,6 +42,19 @@ export type TNodeWrapperProps = {
 
 const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
   const { node, expanded } = props
+
+  const showAsReference =
+    node.parent?.type != EBlueprint.PACKAGE &&
+    node?.type != EBlueprint.PACKAGE &&
+    node?.type != 'dataSource' &&
+    !Array.isArray(node?.entity) && // Lists can not be uncontained
+    !node?.attribute?.contained &&
+    !node?.parent?.attribute?.contained // For items in a list we need to check the parent
+
+  if (showAsReference) {
+    return <FaLink style={{ color: '#2966FF' }} title="blueprint" />
+  }
+
   if (Array.isArray(node.entity)) {
     return <FaList title="list" />
   }
@@ -96,6 +110,13 @@ const TreeButton = (props: {
 }) => {
   const { node, expanded, loading, onClick } = props
 
+  let isExpandable = true
+  if (node.type != 'dataSource' && node.entity instanceof Object) {
+    isExpandable = Object.values(node?.entity).some(
+      (value: any) => value instanceof Array || value instanceof Object
+    )
+  }
+
   return (
     <Tooltip
       enterDelay={600}
@@ -110,7 +131,11 @@ const TreeButton = (props: {
           if (node.type !== 'error') onClick()
         }}
       >
-        <Icon data={expanded ? chevron_down : chevron_right} />
+        {isExpandable ? (
+          <Icon data={expanded ? chevron_down : chevron_right} />
+        ) : (
+          <span style={{ width: '25px' }}></span>
+        )}
         <TypeIcon node={node} expanded={expanded} />
         {node.name || node.nodeId}
         {loading && <Progress.Circular size={16} />}
