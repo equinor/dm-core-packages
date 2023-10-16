@@ -41,23 +41,7 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
 export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   const { idReference, viewConfig, onOpen } = props
   const dmssAPI = useDMSS()
-  // const [isLoading, setIsLoading] = useState<boolean>(true)
-  // const [error, setError] = useState<Error>()
-  // const [attribute, setAttribute] = useState<TAttribute>()
-
   const reference = getTarget(idReference, viewConfig)
-
-  // useEffect(() => {
-  //   dmssAPI
-  //   .attributeGet({
-  //     address: reference,
-  //   })
-  //   .then((response: AxiosResponse) => {
-  //     setAttribute(response.data)
-  //   })
-  //   .catch((error) => setError(error))
-  //   .finally(() => setIsLoading(false))
-  // }, [])
 
   const {
     data: attribute,
@@ -67,7 +51,6 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
     queryKey: ['attribute', reference],
     queryFn: () =>
       dmssAPI.attributeGet({ address: reference }).then((res) => {
-        console.log(res)
         return res.data as TAttribute
       }),
     refetchOnMount: false,
@@ -80,7 +63,6 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   if (isLoading && !attribute)
     return (
       <>
-        <p>"løaping"</p>
         <Loading />
       </>
     )
