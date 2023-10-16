@@ -8,7 +8,7 @@ import { RegistryProvider } from '../context/RegistryContext'
 import { TFormProps } from '../types'
 import { AttributeList } from './AttributeList'
 
-const StyledForm = styled.form`
+const Wrapper = styled.div`
   max-width: 650px;
   width: 100%;
   padding: 1rem 0;
@@ -46,7 +46,7 @@ export const Form = (props: TFormProps) => {
   return (
     <FormProvider {...methods}>
       <RegistryProvider onOpen={onOpen} idReference={idReference}>
-        <StyledForm onSubmit={handleSubmit}>
+        <Wrapper>
           <AttributeList
             namePath={namePath}
             config={config}
@@ -57,11 +57,12 @@ export const Form = (props: TFormProps) => {
               type="submit"
               data-testid="form-submit"
               style={{ alignSelf: 'flex-start' }}
+              onClick={handleSubmit}
             >
               Submit
             </Button>
           )}
-        </StyledForm>
+        </Wrapper>
       </RegistryProvider>
     </FormProvider>
   )
