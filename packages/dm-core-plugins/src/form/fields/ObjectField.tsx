@@ -134,8 +134,8 @@ const AddObject = (props: {
   )
 }
 
-const RemoveObject = (props: { namePath: string }) => {
-  const { namePath } = props
+const RemoveObject = (props: { namePath: string; address?: string }) => {
+  const { namePath, address } = props
   const { setValue } = useFormContext()
   const { idReference } = useRegistryContext()
   const dmssAPI = useDMSS()
@@ -147,10 +147,12 @@ const RemoveObject = (props: { namePath: string }) => {
       shouldTouch: true,
     }
     dmssAPI
-      .documentRemove({ address: `${idReference}.${namePath}` })
+      .documentRemove({
+        address: address ? address : `${idReference}.${namePath}`,
+      })
       .then(() => {
         // TODO: Fill with default values using createEntity?
-        setValue(namePath, null, options)
+        setValue(namePath, {}, options)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
@@ -173,10 +175,20 @@ export const StorageUncontainedAndModelContainedAttribute = (props: {
   optional: boolean
   blueprint: TBlueprint
   uiRecipe?: TUiRecipeForm
+  readOnly?: boolean
+  uiAttribute?: TAttributeConfig
 }) => {
-  const { namePath, blueprint, uiRecipe } = props
+  const {
+    namePath,
+    uiRecipe,
+    displayLabel,
+    optional,
+    type,
+    readOnly,
+    uiAttribute,
+  } = props
   const { watch, setValue } = useFormContext()
-  const { idReference } = useRegistryContext()
+  const { idReference, onOpen } = useRegistryContext()
   const { dataSource, documentPath } = splitAddress(idReference)
 
   const value = watch(namePath)
@@ -192,11 +204,34 @@ export const StorageUncontainedAndModelContainedAttribute = (props: {
   }, [document])
 
   return (
-    <AttributeList
-      namePath={address}
-      config={uiRecipe?.config}
-      blueprint={blueprint}
-    />
+    <Fieldset>
+      <Legend>
+        <Typography bold={true}>{displayLabel}</Typography>
+        {!readOnly && <SelectReference type={type} namePath={namePath} />}
+        {optional && address && !readOnly && (
+          <RemoveObject address={address} namePath={namePath} />
+        )}
+        {address && onOpen && !uiAttribute?.showInline && (
+          <OpenObjectButton
+            viewId={namePath}
+            viewConfig={{
+              type: 'ReferenceViewConfig',
+              scope: '',
+              recipe: uiRecipe?.name,
+            }}
+            idReference={address}
+          />
+        )}
+      </Legend>
+      {address && !(onOpen && !uiAttribute?.showInline) && (
+        <EntityView
+          idReference={address}
+          type={type}
+          recipeName={uiRecipe?.name}
+          onOpen={onOpen}
+        />
+      )}
+    </Fieldset>
   )
 }
 
@@ -352,7 +387,7 @@ export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
   const values = getValues(namePath)
   const valuesIsStorageReference =
     values !== undefined &&
-    'referencetype' in values &&
+    'referenceType' in values &&
     values['referenceType'] === 'storage'
   // If the attribute type is an object, we need to find the correct type from the values.
   return (
