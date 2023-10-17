@@ -54,7 +54,7 @@ export function useDocument<T>(
 
   useEffect(() => {
     setLoading(true)
-    const documentDepth: number = depth || 0
+    const documentDepth: number = depth ?? 0
     if (documentDepth < 0 || documentDepth > 999)
       throw new Error('Depth must be a positive number < 999')
     dmssAPI
