@@ -25,7 +25,12 @@ import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { Fieldset, Legend } from '../styles'
-import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
+import {
+  TAttributeConfig,
+  TContentProps,
+  TObjectFieldProps,
+  TUiRecipeForm,
+} from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -168,7 +173,7 @@ const RemoveObject = (props: { namePath: string; address?: string }) => {
   )
 }
 
-export const StorageUncontainedAndModelContainedAttribute = (props: {
+export const StorageUncontainedAttribute = (props: {
   type: string
   namePath: string
   displayLabel: string
@@ -435,7 +440,7 @@ export const ObjectTypeSelector = (
 
   const Content =
     attributeIsStorageReference && contained
-      ? StorageUncontainedAndModelContainedAttribute
+      ? StorageUncontainedAttribute
       : contained
       ? ContainedAttribute
       : UncontainedAttribute
