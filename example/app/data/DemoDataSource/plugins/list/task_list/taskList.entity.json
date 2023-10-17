@@ -2,7 +2,7 @@
   "_id": "taskList",
   "name": "TaskList",
   "type": "./blueprints/TaskList",
-  "task list": [
+  "task_list": [
     {
       "name": "Wash the car",
       "type": "./blueprints/Task",
