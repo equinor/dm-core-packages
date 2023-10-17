@@ -98,7 +98,10 @@ type TAttributeObject = TAttributeBasis & {
   widget?: string
   uiRecipe?: string
 }
-type TAttributeConfig = TAttributeArray | TAttributeObject | TAttributeString
+export type TAttributeConfig =
+  | TAttributeArray
+  | TAttributeObject
+  | TAttributeString
 export type TConfig = {
   attributes: TAttributeConfig[]
   fields: string[]
