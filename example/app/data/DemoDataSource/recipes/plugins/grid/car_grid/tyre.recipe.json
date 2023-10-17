@@ -54,16 +54,16 @@
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
         "viewConfigs": [],
-        "openInline": true,
+        "openAsTab": false,
         "headers": [
           "name",
           "compound"
         ],
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
-          "delete": false,
-          "add": false,
-          "sort": false
+          "delete": true,
+          "add": true,
+          "sort": true
         }
       }
     }
