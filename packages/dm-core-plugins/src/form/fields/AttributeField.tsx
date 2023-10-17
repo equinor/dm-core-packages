@@ -81,6 +81,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
         />
       )
     case 'string':
+    case 'datetime':
       return (
         <StringField
           namePath={namePath}
@@ -114,6 +115,17 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           readOnly={readOnly}
         />
       )
+    // case "datetime":
+    //   return (
+    //     <DatePicker
+    //       namePath={namePath}
+    //       displayLabel={displayLabel}
+    //       defaultValue={attribute.default}
+    //       optional={attribute.optional ?? false}
+    //       uiAttribute={uiAttribute}
+    //       readOnly={readOnly}
+    //     />
+    //   )
     default:
       return <>UnknownField</>
   }

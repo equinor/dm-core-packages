@@ -53,7 +53,13 @@
       "name": "requiredCheckbox",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "label": "A required checbox (e.g. for confirmation purposes)",
+      "label": "A required checkbox (e.g. for confirmation purposes)",
+      "optional": false
+    },
+    {
+      "name": "requiredDate",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
       "optional": false
     }
   ]

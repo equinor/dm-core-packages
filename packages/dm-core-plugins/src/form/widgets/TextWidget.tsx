@@ -27,6 +27,7 @@ const TextWidget = (props: TWidget) => {
       helperText={props.helperText}
       onChange={onChangeHandler}
       label={label}
+      type={props.config?.format ?? 'string'}
       data-testid="form-textfield"
     />
   )

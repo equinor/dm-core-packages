@@ -3,10 +3,6 @@ import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TStringFieldProps } from '../types'
 
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleString(navigator.language)
-}
-
 export const StringField = (props: TStringFieldProps) => {
   const {
     namePath,
@@ -16,7 +12,6 @@ export const StringField = (props: TStringFieldProps) => {
     uiAttribute,
     readOnly,
   } = props
-
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
 
   return (
@@ -30,14 +25,6 @@ export const StringField = (props: TStringFieldProps) => {
         field: { ref, value, ...props },
         fieldState: { invalid, error },
       }) => {
-        // Support date-time format
-        if (
-          uiAttribute &&
-          'format' in uiAttribute &&
-          uiAttribute.format === 'date-time'
-        ) {
-          value = formatDate(value)
-        }
         return (
           <Widget
             readOnly={readOnly}
@@ -48,6 +35,12 @@ export const StringField = (props: TStringFieldProps) => {
             inputRef={ref}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
+            config={{
+              format:
+                uiAttribute && 'format' in uiAttribute
+                  ? uiAttribute.format
+                  : 'string',
+            }}
           />
         )
       }}
