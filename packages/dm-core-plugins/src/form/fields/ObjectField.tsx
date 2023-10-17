@@ -438,12 +438,11 @@ export const ObjectTypeSelector = (
     .map((x) => ({ ...x, config: { ...defaultConfig, ...x.config } }))
     .find((uiRecipe) => uiRecipe.name === uiRecipeName)
 
-  const Content =
-    attributeIsStorageReference && contained
-      ? StorageUncontainedAttribute
-      : contained
-      ? ContainedAttribute
-      : UncontainedAttribute
+  const Content = attributeIsStorageReference
+    ? StorageUncontainedAttribute
+    : contained
+    ? ContainedAttribute
+    : UncontainedAttribute
 
   return (
     <Content
