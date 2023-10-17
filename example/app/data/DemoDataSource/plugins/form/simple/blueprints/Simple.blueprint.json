@@ -57,7 +57,7 @@
       "optional": false
     },
     {
-      "name": "requiredDate",
+      "name": "date",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "optional": false

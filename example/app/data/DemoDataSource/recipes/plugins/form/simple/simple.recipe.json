@@ -10,7 +10,7 @@
       "type": "PLUGINS:dm-core-plugins/form/FormInput",
       "attributes": [
         {
-          "name": "requiredDate",
+          "name": "date",
           "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
           "format": "datetime-local"
         }
