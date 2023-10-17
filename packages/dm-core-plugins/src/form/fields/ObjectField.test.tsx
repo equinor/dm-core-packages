@@ -101,7 +101,7 @@ test('should handle submit', async () => {
     onSubmit: onSubmit,
   })
   await waitFor(() => {
-    fireEvent.submit(utils.submit)
+    fireEvent.click(screen.getByRole<HTMLButtonElement>('button'))
     expect(onSubmit).toHaveBeenCalled()
     expect(onSubmit).toHaveBeenCalledWith({ foo: 'beep', bar: false })
   })

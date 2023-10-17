@@ -20,9 +20,6 @@ jobs:
         run: pre-commit run --all-files
 
   tests:
-    strategy:
-      matrix:
-        package: [ dm-core, dm-core-plugins ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main

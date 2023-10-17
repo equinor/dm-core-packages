@@ -33,7 +33,6 @@
           "name",
           "description"
         ],
-        "openInline": false,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
           "delete": true

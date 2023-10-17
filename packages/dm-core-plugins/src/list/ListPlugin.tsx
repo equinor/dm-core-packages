@@ -11,6 +11,7 @@ import {
   useDocument,
   ViewCreator,
 } from '@development-framework/dm-core'
+import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AppendButton, ListItemButton, SaveButton } from './Components'
@@ -19,13 +20,11 @@ import { add, minimize } from '@equinor/eds-icons'
 
 type TListConfig = {
   expanded?: boolean
-  openInline: boolean
   headers: string[]
   defaultView: TViewConfig
   views: TViewConfig[]
+  openAsTab: boolean
   functionality: {
-    openAsTab: boolean
-    openAsExpandable: boolean
     add: boolean
     sort: boolean
     delete: boolean
@@ -33,16 +32,14 @@ type TListConfig = {
 }
 const defaultConfig: TListConfig = {
   expanded: false,
-  openInline: false,
   headers: ['name', 'type'],
   defaultView: { type: 'ViewConfig', scope: 'self' },
   views: [],
+  openAsTab: false,
   functionality: {
-    openAsTab: true,
-    openAsExpandable: false,
-    add: false,
-    sort: false,
-    delete: false,
+    add: true,
+    sort: true,
+    delete: true,
   },
 }
 
@@ -55,7 +52,7 @@ type ItemRow = {
 }
 
 export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
-  const { idReference, config, type, onOpen = () => null } = props
+  const { idReference, config, type, onOpen } = props
   const internalConfig: TListConfig = {
     ...defaultConfig,
     ...config,
@@ -129,7 +126,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
-        alert(JSON.stringify(error.response?.data, null, 2))
+        toast.error(JSON.stringify(error.response?.data, null, 2))
       })
   }
 
@@ -148,12 +145,18 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         setItems(updatedItems)
         setUnsavedChanges(false)
       })
-      .catch((e: Error) => alert(JSON.stringify(e, null, 2)))
+      .catch((e: Error) => toast.error(JSON.stringify(e, null, 2)))
       .finally(() => setIsLoading(false))
   }
 
   function openItemAsTab(item: TGenericObject) {
     const view = { label: item?.data?.name, type: 'ViewConfig' }
+    if (!onOpen) {
+      toast.error(
+        'Invalid UiRecipes. The list plugin was not passed an "onOpen()"-function.'
+      )
+      return
+    }
     onOpen(crypto.randomUUID(), view, `${idReference}[${item.index}]`)
   }
 
@@ -184,7 +187,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             <Stack direction="row" spacing={1} alignItems="center">
               <Tooltip
                 title={
-                  internalConfig.openInline
+                  !internalConfig.openAsTab
                     ? item.expanded
                       ? 'Minimize'
                       : 'Expand'
@@ -196,7 +199,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   color="secondary"
                   disabled={!item.isSaved}
                   onClick={
-                    internalConfig.openInline
+                    !internalConfig.openAsTab
                       ? () => expandItem(index)
                       : () => openItemAsTab(item)
                   }
@@ -228,7 +231,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               )}
             </Stack>
             <Stack direction="row" alignItems="center">
-              {internalConfig?.functionality?.delete && (
+              {internalConfig.functionality.sort && (
                 <>
                   <ListItemButton
                     disabled={index === 0}
@@ -249,13 +252,15 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       setUnsavedChanges(true)
                     }}
                   />
-                  <ListItemButton
-                    type="delete"
-                    onClick={() =>
-                      deleteItem(`${idReference}[${item.index}]`, item.key)
-                    }
-                  />
                 </>
+              )}
+              {internalConfig.functionality.delete && (
+                <ListItemButton
+                  type="delete"
+                  onClick={() =>
+                    deleteItem(`${idReference}[${item.index}]`, item.key)
+                  }
+                />
               )}
             </Stack>
           </Stack>
@@ -286,7 +291,9 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           setRowsPerPage={setPaginationRowsPerPage}
         />
         <Stack direction="row" spacing={1}>
-          <AppendButton onClick={() => addItem()} />
+          {internalConfig.functionality.add && (
+            <AppendButton onClick={() => addItem()} />
+          )}
           <SaveButton
             onClick={save}
             disabled={!unsavedChanges}
