@@ -27,7 +27,6 @@ export const NumberField = (props: TNumberFieldProps) => {
   } = props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
-
   return (
     <Controller
       name={namePath}

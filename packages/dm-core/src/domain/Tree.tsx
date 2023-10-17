@@ -37,8 +37,11 @@ const createContainedChildren = (
         entity: value,
         type,
         parent: parentNode,
-        name: value?.name || key,
+        name: Array.isArray(document) ? value?.name || key : key,
         children: parentNode.children?.[childNodeId]?.children || {},
+        attribute: blueprint.attributes?.find(
+          (attribute: TAttribute) => attribute.name == key
+        ),
       })
     }
   })
@@ -108,6 +111,7 @@ export class TreeNode {
   entity: any
   name: string | undefined
   message: string
+  attribute: TAttribute | undefined
 
   constructor({
     tree,
@@ -120,6 +124,7 @@ export class TreeNode {
     isDataSource = false,
     children = {},
     message = '',
+    attribute = undefined,
   }: {
     tree: Tree
     nodeId: string
@@ -131,6 +136,7 @@ export class TreeNode {
     isDataSource?: boolean
     children?: TTreeMap
     message?: string
+    attribute?: TAttribute
   }) {
     this.tree = tree
     this.nodeId = nodeId
@@ -143,6 +149,7 @@ export class TreeNode {
     this.type = type
     this.children = children
     this.message = message
+    this.attribute = attribute
   }
 
   // Fetches the unresolved document of the node

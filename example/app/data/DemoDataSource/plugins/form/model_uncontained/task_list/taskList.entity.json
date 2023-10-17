@@ -1,0 +1,11 @@
+{
+  "name": "TaskList",
+  "type": "./blueprints/TaskList",
+  "tasks": [
+    {
+      "type": "CORE:Reference",
+      "address": "./WashTheCar",
+      "referenceType": "link"
+    }
+  ]
+}
