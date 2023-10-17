@@ -8,46 +8,32 @@
       "attributeType": "string"
     },
     {
-      "name": "openAsTab",
+      "name": "delete",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
       "optional": true,
       "default": true
     },
     {
-      "name": "openAsExpandable",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true,
-      "default": false
-    },
-    {
-      "name": "delete",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true,
-      "default": false
-    },
-    {
       "name": "add",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
       "optional": true,
-      "default": false
+      "default": true
     },
     {
       "name": "edit",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
       "optional": true,
-      "default": false
+      "default": true
     },
     {
       "name": "sort",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
       "optional": true,
-      "default": false
+      "default": true
     }
   ]
 }

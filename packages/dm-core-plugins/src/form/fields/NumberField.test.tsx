@@ -45,7 +45,7 @@ const setup = async (props: {
     const setValue = (value: string) =>
       fireEvent.change(inputElement, { target: { value: value } })
     const submit = () =>
-      fireEvent.submit(screen.getByRole<HTMLButtonElement>('button'))
+      fireEvent.click(screen.getByRole<HTMLButtonElement>('button'))
     return { ...utils, inputElement, setValue, submit, onSubmit }
   })
 }
