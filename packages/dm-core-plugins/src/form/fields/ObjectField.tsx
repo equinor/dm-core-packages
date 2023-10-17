@@ -156,7 +156,6 @@ const RemoveObject = (props: { namePath: string; address?: string }) => {
         address: address ? address : `${idReference}.${namePath}`,
       })
       .then(() => {
-        // TODO: Fill with default values using createEntity?
         setValue(namePath, {}, options)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
