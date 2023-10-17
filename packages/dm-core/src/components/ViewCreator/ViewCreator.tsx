@@ -57,7 +57,6 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     refetchIntervalInBackground: false,
-    keepPreviousData: true,
   })
 
   if (isLoading && !attribute)

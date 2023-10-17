@@ -111,7 +111,6 @@ export const useRecipe = (
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     refetchIntervalInBackground: false,
-    keepPreviousData: true,
   })
   return {
     recipe: isLoading ? undefined : data,

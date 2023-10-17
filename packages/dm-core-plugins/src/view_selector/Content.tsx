@@ -15,7 +15,7 @@ const HidableWrapper = styled.div<any>`
 
 export const Content = (props: {
   type: string
-  selectedViewId: string
+  selectedViewId: string | undefined
   viewSelectorItems: TItemData[]
   setFormData: (v: TGenericObject) => void
   onOpen: TOnOpen

@@ -104,7 +104,6 @@ export function useDocument<T>(
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     refetchIntervalInBackground: false,
-    keepPreviousData: true,
   })
 
   if (error) {

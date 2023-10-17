@@ -5,7 +5,7 @@ import Icon from './Icon'
 import { TItemData } from './types'
 
 export const Tabs = (props: {
-  selectedViewId: string
+  selectedViewId: string | undefined
   setSelectedViewId: (viewId: string) => void
   viewSelectorItems: TItemData[]
   removeView: (viewId: string) => void
