@@ -1,0 +1,9 @@
+{
+  "name": "TheBlackPearl",
+  "type": "./blueprints/Ship",
+  "captain": {
+    "type": "CORE:Reference",
+    "address": "./CaptainJackSparrow",
+    "referenceType": "link"
+  }
+}

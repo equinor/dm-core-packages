@@ -1,0 +1,76 @@
+{
+  "_id": "gridRaceCenter",
+  "name": "RaceCenter",
+  "type": "./blueprints/RaceCenter",
+  "carsOnGrid": {
+    "name": "carsOnGrid",
+    "type": "./blueprints/CarList",
+    "Q1": [
+      {
+        "name": "Lando Norris",
+        "type": "./blueprints/Car",
+        "position": 1,
+        "team": "McLaren",
+        "lap time": "1:29.03"
+      },
+      {
+        "name": "Kevin Magnussen",
+        "type": "./blueprints/Car",
+        "position": 2,
+        "team": "Haas",
+        "lap time": "+ 0.103"
+      }
+    ],
+    "Q2": [
+      {
+        "name": "Kevin Magnussen",
+        "type": "./blueprints/Car",
+        "position": 1,
+        "team": "Haas",
+        "lap time": "1:30.231"
+      }
+    ]
+  },
+  "tyreList": {
+    "name": "tyreList",
+    "type": "./blueprints/TyreList",
+    "tyre list": [
+      {
+        "name": "Hard",
+        "type": "./blueprints/Tyre",
+        "description": "Slower, but more durable.",
+        "compound": "C1"
+      },
+      {
+        "name": "Medium",
+        "type": "./blueprints/Tyre",
+        "description": "Balanced between pace and degradation",
+        "compound": "C2"
+      },
+      {
+        "name": "Soft",
+        "type": "./blueprints/Tyre",
+        "description": "Faster, but wears quicker.",
+        "compound": "C4"
+      },
+      {
+        "name": "Intermediate",
+        "type": "./blueprints/Tyre",
+        "description": "For damp conditions.",
+        "compound": "Int"
+      },
+      {
+        "name": "Extremes",
+        "type": "./blueprints/Tyre",
+        "description": "For heavy rain.",
+        "compound": "Wet"
+      }
+    ]
+  },
+  "aNestedObjectWithCustomUI": {
+    "type": "./blueprints/Nested",
+    "foo": 1337,
+    "bar": "hello",
+    "baz": "testing"
+  }
+}

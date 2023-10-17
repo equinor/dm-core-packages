@@ -1,0 +1,32 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/grid/car_grid/blueprints/CarList",
+  "uiRecipes": [
+    {
+      "name": "CarList",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "cars",
+              "scope": "Q1"
+            }
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "cars",
+              "scope": "Q2"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

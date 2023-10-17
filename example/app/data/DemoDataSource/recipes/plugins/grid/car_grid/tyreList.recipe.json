@@ -1,8 +1,8 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/list/order_example/blueprints/Order",
+  "_blueprintPath_": "/plugins/grid/car_grid/blueprints/TyreList",
   "initialUiRecipe": {
-    "name": "ViewSelector",
+    "name": "TyreList",
     "type": "CORE:UiRecipe",
     "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
@@ -31,13 +31,8 @@
         "viewConfigs": [],
         "headers": [
           "name",
-          "description"
-        ],
-        "openAsTab": true,
-        "functionality": {
-          "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
-          "delete": true
-        }
+          "compound"
+        ]
       }
     }
   ]

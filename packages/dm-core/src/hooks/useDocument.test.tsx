@@ -30,7 +30,7 @@ describe('useDocumentHook', () => {
         expect(mock).toHaveBeenCalledTimes(1)
         expect(mock).toHaveBeenCalledWith({
           address: 'testDS/1',
-          depth: 1,
+          depth: 0,
         })
       })
     })

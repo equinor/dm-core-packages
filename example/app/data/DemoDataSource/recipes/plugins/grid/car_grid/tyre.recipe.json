@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/list/task_list/blueprints/Task",
+  "_blueprintPath_": "/plugins/grid/car_grid/blueprints/Tyre",
   "initialUiRecipe": {
     "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
@@ -57,7 +57,7 @@
         "openAsTab": false,
         "headers": [
           "name",
-          "assigned"
+          "compound"
         ],
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",

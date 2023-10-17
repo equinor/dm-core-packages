@@ -76,7 +76,7 @@ test('should assign a default value', async () => {
   })
   await waitFor(() => {
     expect(utils.textbox.value).toBe('boo')
-    fireEvent.submit(utils.submit)
+    fireEvent.click(utils.submit)
     expect(onSubmit).toHaveBeenCalled()
     expect(onSubmit).toHaveBeenCalledWith({
       foo: 'boo',
@@ -131,7 +131,7 @@ test('should default submit value to empty object', async () => {
     onSubmit: onSubmit,
   })
 
-  fireEvent.submit(utils.submit)
+  fireEvent.click(utils.submit)
   waitFor(() => {
     expect(onSubmit).toHaveBeenCalled()
     expect(onSubmit).toHaveBeenCalledWith({})
@@ -164,7 +164,7 @@ test('should handle optional', async () => {
     />,
     { wrapper }
   )
-  fireEvent.submit(screen.getByRole('button', { name: 'Submit' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
   // The useForm "methods.handleSubmit" seems to be async, and needs to be awaited
   await waitFor(() => expect(onSubmit).toHaveBeenCalled())
   expect(onSubmit).toHaveBeenCalledWith({})
@@ -190,7 +190,7 @@ test.skip('should not call onSubmit if non-optional field are missing value', as
   render(<Form idReference="ds/$1" type="SingleField" onSubmit={onSubmit} />, {
     wrapper,
   })
-  fireEvent.submit(screen.getByRole('button'))
+  fireEvent.click(screen.getByRole('button'))
   await waitFor(() => {
     expect(onSubmit).not.toHaveBeenCalled()
     expect(onSubmit).toHaveBeenCalledTimes(0)

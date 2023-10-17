@@ -1,0 +1,22 @@
+{
+  "name": "TyreList",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "tyre list",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Tyre",
+      "dimensions": "*"
+    }
+  ]
+}

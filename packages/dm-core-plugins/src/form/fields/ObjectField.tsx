@@ -3,19 +3,20 @@ import {
   EntityPickerDialog,
   EntityView,
   ErrorResponse,
-  Loading,
-  TBlueprint,
-  TLinkReference,
   getKey,
+  Loading,
   resolveRelativeAddress,
   splitAddress,
+  TBlueprint,
+  TLinkReference,
   useBlueprint,
   useDMSS,
+  useDocument,
 } from '@development-framework/dm-core'
 import { Typography } from '@equinor/eds-core-react'
 import { add, delete_forever, edit } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import TooltipButton from '../../common/TooltipButton'
 import { defaultConfig } from '../FormPlugin'
@@ -24,7 +25,12 @@ import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { Fieldset, Legend } from '../styles'
-import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
+import {
+  TAttributeConfig,
+  TContentProps,
+  TObjectFieldProps,
+  TUiRecipeForm,
+} from '../types'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -133,8 +139,8 @@ const AddObject = (props: {
   )
 }
 
-const RemoveObject = (props: { namePath: string }) => {
-  const { namePath } = props
+const RemoveObject = (props: { namePath: string; address?: string }) => {
+  const { namePath, address } = props
   const { setValue } = useFormContext()
   const { idReference } = useRegistryContext()
   const dmssAPI = useDMSS()
@@ -146,10 +152,11 @@ const RemoveObject = (props: { namePath: string }) => {
       shouldTouch: true,
     }
     dmssAPI
-      .documentRemove({ address: `${idReference}.${namePath}` })
+      .documentRemove({
+        address: address ? address : `${idReference}.${namePath}`,
+      })
       .then(() => {
-        // TODO: Fill with default values using createEntity?
-        setValue(namePath, null, options)
+        setValue(namePath, {}, options)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
@@ -162,6 +169,73 @@ const RemoveObject = (props: { namePath: string }) => {
       button-onClick={onClick}
       icon={delete_forever}
     />
+  )
+}
+
+export const StorageUncontainedAttribute = (props: {
+  type: string
+  namePath: string
+  displayLabel: string
+  optional: boolean
+  blueprint: TBlueprint
+  uiRecipe?: TUiRecipeForm
+  readOnly?: boolean
+  uiAttribute?: TAttributeConfig
+}) => {
+  const {
+    namePath,
+    uiRecipe,
+    displayLabel,
+    optional,
+    type,
+    readOnly,
+    uiAttribute,
+  } = props
+  const { watch, setValue } = useFormContext()
+  const { idReference, onOpen } = useRegistryContext()
+  const { dataSource, documentPath } = splitAddress(idReference)
+
+  const value = watch(namePath)
+  const address = resolveRelativeAddress(
+    value.address,
+    documentPath,
+    dataSource
+  )
+  const { document, isLoading } = useDocument<any>(address, 1)
+
+  useEffect(() => {
+    if (!isLoading && document) setValue(namePath, document)
+  }, [document])
+
+  return (
+    <Fieldset>
+      <Legend>
+        <Typography bold={true}>{displayLabel}</Typography>
+        {!readOnly && <SelectReference type={type} namePath={namePath} />}
+        {optional && address && !readOnly && (
+          <RemoveObject address={address} namePath={namePath} />
+        )}
+        {address && onOpen && !uiAttribute?.showInline && (
+          <OpenObjectButton
+            viewId={namePath}
+            viewConfig={{
+              type: 'ReferenceViewConfig',
+              scope: '',
+              recipe: uiRecipe?.name,
+            }}
+            idReference={address}
+          />
+        )}
+      </Legend>
+      {address && !(onOpen && !uiAttribute?.showInline) && (
+        <EntityView
+          idReference={address}
+          type={type}
+          recipeName={uiRecipe?.name}
+          onOpen={onOpen}
+        />
+      )}
+    </Fieldset>
   )
 }
 
@@ -314,17 +388,22 @@ export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
     uiAttribute && uiAttribute.widget
       ? getWidget(uiAttribute.widget)
       : ObjectTypeSelector
-
   const values = getValues(namePath)
+  const valuesIsStorageReference =
+    values !== undefined &&
+    'referenceType' in values &&
+    values['referenceType'] === 'storage'
   // If the attribute type is an object, we need to find the correct type from the values.
   return (
-    <Widget
-      {...props}
-      id={namePath}
-      label={displayLabel}
-      type={type === 'object' && values ? values.type : type}
-      defaultValue={defaultValue}
-    />
+    <>
+      <Widget
+        {...props}
+        id={valuesIsStorageReference ? values['address'] : namePath}
+        label={displayLabel}
+        type={type === 'object' && values ? values.type : type}
+        defaultValue={defaultValue}
+      />
+    </>
   )
 }
 
@@ -341,11 +420,16 @@ export const ObjectTypeSelector = (
     defaultValue,
     readOnly,
   } = props
-
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
+  const { watch } = useFormContext()
+  const value = watch(namePath)
   if (isLoading) return <Loading />
   if (error) throw new Error(`Failed to fetch blueprint for '${type}'`)
   if (blueprint === undefined) return <div>Could not find the blueprint</div>
+  const attributeIsStorageReference =
+    value !== undefined &&
+    'referenceType' in value &&
+    value['referenceType'] === 'storage'
 
   // The nested objects uses ui recipes names that are passed down from parent configs.
   const uiRecipeName = getKey<string>(uiAttribute, 'uiRecipe', 'string')
@@ -353,7 +437,12 @@ export const ObjectTypeSelector = (
     .map((x) => ({ ...x, config: { ...defaultConfig, ...x.config } }))
     .find((uiRecipe) => uiRecipe.name === uiRecipeName)
 
-  const Content = contained ? ContainedAttribute : UncontainedAttribute
+  const Content = attributeIsStorageReference
+    ? StorageUncontainedAttribute
+    : contained
+    ? ContainedAttribute
+    : UncontainedAttribute
+
   return (
     <Content
       type={type}
