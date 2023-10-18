@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.4...dm-core-v1.7.0) (2023-10-18)
+
+
+### Features
+
+* **list:** handle lists with uncontained items ([1ccd02b](https://github.com/equinor/dm-core-packages/commit/1ccd02bb5c746c9f0e617cf6065f7bf0a0dd5903))
+* tree reference icon ([b5de37c](https://github.com/equinor/dm-core-packages/commit/b5de37c7a31dc858656c6f2063f10106ee8c99f0))
+
 ## [1.6.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.3...dm-core-v1.6.4) (2023-10-11)
 
 
