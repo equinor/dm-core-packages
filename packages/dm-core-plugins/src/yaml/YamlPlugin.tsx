@@ -4,7 +4,7 @@ import {
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
-import { Button, Input } from '@equinor/eds-core-react'
+import { Button, Input, Label } from '@equinor/eds-core-react'
 import hljs from 'highlight.js'
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -37,6 +37,7 @@ const ButtonRow = styled.div`
   gap: 0.5rem;
   margin: 0.5rem 0;
   justify-content: flex-end;
+  place-items: end;
 `
 
 const YamlView = (props: {
@@ -56,7 +57,7 @@ const YamlView = (props: {
 
   function setDepth(event: ChangeEvent<HTMLInputElement>): void {
     const newDepth = Number(event.target.value)
-    if (_setDepth && newDepth >= 0) {
+    if (_setDepth && newDepth >= 0 && newDepth <= 999) {
       _setDepth(newDepth)
     }
   }
@@ -70,7 +71,16 @@ const YamlView = (props: {
         <Button variant="outlined" onClick={() => onClick(asJSON)}>
           Copy as JSON
         </Button>
-        <Input type="number" value={depth} onChange={setDepth} />
+        <div style={{ width: '5rem' }}>
+          <Label htmlFor="yaml-depth-input" label="Depth" />
+          <Input
+            id="yaml-depth-input"
+            type="number"
+            value={depth}
+            onChange={setDepth}
+            label="Depth"
+          />
+        </div>
       </ButtonRow>
       <CodeContainer>
         <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
