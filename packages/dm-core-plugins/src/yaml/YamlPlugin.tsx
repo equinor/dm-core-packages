@@ -4,9 +4,9 @@ import {
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import { Button, Input } from '@equinor/eds-core-react'
 import hljs from 'highlight.js'
-import React from 'react'
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import YAML from 'yaml'
@@ -39,8 +39,12 @@ const ButtonRow = styled.div`
   justify-content: flex-end;
 `
 
-const YamlView = (props: { document: TGenericObject }) => {
-  const { document } = props
+const YamlView = (props: {
+  document: TGenericObject
+  depth?: number
+  _setDepth?: Dispatch<SetStateAction<number>>
+}) => {
+  const { document, depth, _setDepth } = props
   const asYAML: string = YAML.stringify(document)
   const asJSON: string = JSON.stringify(document)
   const highlighted = hljs.highlight(asYAML, { language: 'yaml' })
@@ -48,6 +52,13 @@ const YamlView = (props: { document: TGenericObject }) => {
   const onClick = (text: string) => {
     navigator.clipboard.writeText(text)
     toast.success('Copied!')
+  }
+
+  function setDepth(event: ChangeEvent<HTMLInputElement>): void {
+    const newDepth = Number(event.target.value)
+    if (_setDepth && newDepth >= 0) {
+      _setDepth(newDepth)
+    }
   }
 
   return (
@@ -59,6 +70,7 @@ const YamlView = (props: { document: TGenericObject }) => {
         <Button variant="outlined" onClick={() => onClick(asJSON)}>
           Copy as JSON
         </Button>
+        <Input type="number" value={depth} onChange={setDepth} />
       </ButtonRow>
       <CodeContainer>
         <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
@@ -69,13 +81,16 @@ const YamlView = (props: { document: TGenericObject }) => {
 
 export const YamlPlugin = (props: IUIPlugin) => {
   const { idReference } = props
+  const [depth, setDepth] = useState(0)
   const { document, isLoading, error } = useDocument<TGenericObject>(
     idReference,
-    999
+    depth
   )
   if (isLoading) return <Loading />
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
-  return <YamlView document={document || {}} />
+  return (
+    <YamlView document={document || {}} _setDepth={setDepth} depth={depth} />
+  )
 }

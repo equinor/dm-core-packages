@@ -76,7 +76,7 @@ export function useDocument<T>(
         setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
-  }, [idReference])
+  }, [idReference, depth])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function updateDocument(newDocument: T, notify: boolean): void {
