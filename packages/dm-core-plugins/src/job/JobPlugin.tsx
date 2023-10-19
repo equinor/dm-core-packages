@@ -6,12 +6,20 @@ import {
   JobStatus,
   TJob,
   TJobHandler,
+  TSchedule,
   useDMSS,
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
+import React, { useContext, useEffect, useMemo, useState, ChangeEvent} from 'react'
+import {
+  Button,
+  Card,
+  Icon,
+  Switch,
+  TextField,
+  Typography,
+} from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
 import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
@@ -69,6 +77,13 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
 
   const [jobExists, setJobExists] = useState(false)
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
+  const [asCronJob, setAsCronJob] = useState<boolean>(false)
+  const [jobSchedule, setJobSchedule] = useState<TSchedule>({
+    type: EBlueprint.CRON_JOB,
+    cron: '',
+    startDate: '',
+    endDate: '',
+  })
   const {
     document: jobDocument,
     isLoading,
@@ -93,6 +108,13 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   }
 
   if (config?.outputTarget) jobEntity.outputTarget = config.outputTarget
+  if (asCronJob)
+    jobEntity.schedule = {
+      type: EBlueprint.CRON_JOB,
+      cron: jobSchedule.cron,
+      startDate: jobSchedule.startDate,
+      endDate: jobSchedule.endDate,
+    }
 
   const addDocument = async (): Promise<unknown> => {
     return DmssApi.documentAdd({
@@ -121,8 +143,47 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
 
   return (
     <Card elevation={'raised'} style={{ padding: '1.25rem' }}>
+      <Switch
+        size="small"
+        label="As cron job"
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setAsCronJob(e.target.checked)
+        }
+        checked={asCronJob}
+      />
+      {asCronJob && (
+        <>
+          <TextField
+            id="cronString"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setJobSchedule({ ...jobSchedule, cron: e.target.value })
+            }
+            placeholder="String with cron syntax, e.g. '30 12 * * 3'"
+            defaultValue={'0 8 * * *'}
+            label={'Cron string'}
+          />
+          <TextField
+            id="startDate"
+            defaultValue={jobSchedule.startDate}
+            type="datetime-local"
+            onChange={(e: any) =>
+              setJobSchedule({ ...jobSchedule, startDate: e.target.value })
+            }
+            label={'Valid from'}
+          />
+          <TextField
+            id="endDate"
+            defaultValue={jobSchedule.startDate}
+            type="datetime-local"
+            onChange={(e: any) =>
+              setJobSchedule({ ...jobSchedule, endDate: e.target.value })
+            }
+            label={'Valid to'}
+          />
+        </>
+      )}
       <JobButtonWrapper>
-        <JobControlButton jobStatus={status} createJob={createAndStartJob} />
+        <JobControlButton jobStatus={status} createJob={createAndStartJob} asCronJob={asCronJob}/>
         {status === JobStatus.Running && (
           <Button
             variant="outlined"
@@ -158,7 +219,6 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           )}
         </>
       )}
-
       {result && (
         <>
           <Typography variant="h6">Result:</Typography>

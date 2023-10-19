@@ -100,6 +100,14 @@ export type TJob = {
   ended?: string
   outputTarget?: string
   referenceTarget?: string
+  schedule?: TSchedule
+}
+
+export type TSchedule = {
+  type: string
+  cron: string
+  startDate: string
+  endDate: string
 }
 
 export type TJobWithRunner = TJob & {
