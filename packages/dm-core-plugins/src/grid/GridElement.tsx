@@ -8,7 +8,6 @@ const Element = styled.div<TGridArea>`
     `${props.rowStart} / ${props.columnStart} / ${props.rowEnd + 1} / ${
       props.columnEnd + 1
     } `};
-  border: 1px solid black;
 `
 
 type TGridItemProps = {
