@@ -24,6 +24,29 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.3 to ^1.6.4
 
+## [1.9.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.8.1...dm-core-plugins-v1.9.0) (2023-10-18)
+
+
+### Features
+
+* **list:** handle lists with uncontained items ([1ccd02b](https://github.com/equinor/dm-core-packages/commit/1ccd02bb5c746c9f0e617cf6065f7bf0a0dd5903))
+* support storage uncontained in object field ([#633](https://github.com/equinor/dm-core-packages/issues/633)) ([a35836c](https://github.com/equinor/dm-core-packages/commit/a35836cbf60e238fa8e8024b689fe18b02e805f7))
+
+
+### Bug Fixes
+
+* allow nested forms ([c6172ca](https://github.com/equinor/dm-core-packages/commit/c6172ca4839087366476904539d248a605a5497f))
+* **listPLugin:** sane default config ([b2e8bfd](https://github.com/equinor/dm-core-packages/commit/b2e8bfdcba359170034f8a0b7437d6b43360698e))
+* render lists as lists ([0cedd33](https://github.com/equinor/dm-core-packages/commit/0cedd3318c9a9e2e3540f3b1a71529ceed6183bc))
+* **single_job:** fix multiple minor issues ([3535cb6](https://github.com/equinor/dm-core-packages/commit/3535cb63840383aa58097b69050c246e9a9dda13))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.6.4 to ^1.7.0
+
 ## [1.8.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.7.2...dm-core-plugins-v1.8.0) (2023-10-10)
 
 

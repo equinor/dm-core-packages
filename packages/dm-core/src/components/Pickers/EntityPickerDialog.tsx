@@ -27,7 +27,7 @@ import { TreeView } from '../TreeView'
  * @param scope: optional attribute to define scope for tree view. The scope must be on the format: <DataSource>/<rootPackage>/<pathToFolder>
  */
 export const EntityPickerDialog = (props: {
-  onChange: (address: string, entity?: TValidEntity) => void
+  onChange: (address: string, entity: TValidEntity) => void
   showModal: boolean
   setShowModal: (x: boolean) => void
   typeFilter?: string

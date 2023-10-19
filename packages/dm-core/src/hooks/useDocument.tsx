@@ -54,7 +54,7 @@ export function useDocument<T>(
 
   useEffect(() => {
     setLoading(true)
-    const documentDepth: number = depth || 0
+    const documentDepth: number = depth ?? 0
     if (documentDepth < 0 || documentDepth > 999)
       throw new Error('Depth must be a positive number < 999')
     dmssAPI
@@ -76,7 +76,7 @@ export function useDocument<T>(
         setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
-  }, [idReference])
+  }, [idReference, depth])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function updateDocument(newDocument: T, notify: boolean): void {
