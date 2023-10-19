@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
   ErrorResponse,
@@ -77,9 +77,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   const [logs, setLogs] = useState<string>('No logs fetched')
   const [status, setStatus] = useState<JobStatus>(JobStatus.Unknown)
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [jobPinger, setJobPinger] = useState<ReturnType<
-    typeof setInterval
-  > | null>(null)
+  const jobPinger = useRef<number | null>(null)
   const [error, setError] = useState<ErrorResponse>()
   const dmJobApi = useDmJob()
   const dmssAPI = useDMSS()
@@ -158,7 +156,9 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .then((response: AxiosResponse<StatusJobResponse>) => {
         setLogs(response.data.log ?? '')
         if (response.data.status !== status) setStatus(response.data.status)
-        if (status !== JobStatus.Running) stopJobPing()
+        if (status !== JobStatus.Running) {
+          stopJobPing()
+        }
         setError(undefined)
         return response.data
       })
@@ -210,12 +210,13 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   }
 
   function startJobPing(): void {
-    setJobPinger(setInterval(fetchStatusAndLogs, 2000))
+    const intervalId = setInterval(fetchStatusAndLogs, 2000)
+    jobPinger.current = Number(intervalId)
   }
 
   function stopJobPing(): void {
-    // @ts-ignore
-    clearInterval(jobPinger)
+    clearInterval(Number(jobPinger.current))
+    jobPinger.current = null
   }
 
   return {
