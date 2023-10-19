@@ -21,6 +21,9 @@ export const GridPlugin = (props: TGridPluginConfig): React.ReactElement => {
       rowGap={config.size.rowGap}
       columnGap={config.size.columnGap}
     >
+      {config.items.forEach(() => (
+        <div style={{ backgroundColor: 'hotpink' }}></div>
+      ))}
       <GridItems idReference={idReference} items={config.items} type={type} />
     </Grid>
   )
