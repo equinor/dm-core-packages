@@ -6,8 +6,9 @@ import React, { MutableRefObject, useRef, useState } from 'react'
 export const JobControlButton = (props: {
   jobStatus: JobStatus
   createJob: () => void
+  asCronJob: boolean
 }) => {
-  const { jobStatus, createJob } = props
+  const { jobStatus, createJob, asCronJob } = props
   const [hovering, setHovering] = useState(false)
   const buttonRef: MutableRefObject<HTMLButtonElement | undefined> = useRef()
   buttonRef.current?.addEventListener('mouseenter', () => setHovering(true))
@@ -22,7 +23,7 @@ export const JobControlButton = (props: {
       case 'failed':
         return 'Re-run'
       default:
-        return 'Start'
+        return asCronJob ? 'Schedule' : 'Run'
     }
   }
 
