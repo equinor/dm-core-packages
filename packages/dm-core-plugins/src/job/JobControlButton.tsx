@@ -1,13 +1,13 @@
 import { Button, CircularProgress, Icon } from '@equinor/eds-core-react'
 import { play, stop } from '@equinor/eds-icons'
-import { JobStatus, StartJobResponse } from '@development-framework/dm-core'
+import { JobStatus } from '@development-framework/dm-core'
 import React, { MutableRefObject, useRef, useState } from 'react'
 
 export const JobControlButton = (props: {
   jobStatus: JobStatus
   jobExists: boolean
-  createJob: () => Promise<unknown>
-  start: () => Promise<StartJobResponse | null>
+  createJob: () => void
+  start: () => void
   halt: () => void
 }) => {
   const { jobStatus, start, halt, jobExists, createJob } = props
@@ -20,9 +20,7 @@ export const JobControlButton = (props: {
     if (jobStatus === JobStatus.Running) halt()
     else {
       if (!jobExists) {
-        createJob().then(() => {
-          start()
-        })
+        createJob()
       } else {
         start()
       }

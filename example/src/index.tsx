@@ -56,6 +56,15 @@ const APP_SETTINGS = {
   name: 'example',
 }
 const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchInterval: false,
+      refetchIntervalInBackground: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    },
+  },
   queryCache: new QueryCache({
     onError: (error) => toast.error(`An error occured. Message: ${error}`),
   }),

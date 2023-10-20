@@ -104,9 +104,9 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     }
   }, [entityId])
 
-  useEffect(() => {
-    fetchStatusAndLogs()
-  }, [hookJobId])
+  // useEffect(() => {
+  //   fetchStatusAndLogs()
+  // }, [hookJobId])
 
   async function start(): Promise<StartJobResponse | null> {
     if (!entityId) {
@@ -118,6 +118,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       setStatus(JobStatus.Failed)
       return null
     }
+    console.log('starting job! ', entityId)
     setIsLoading(true)
     setStatus(JobStatus.Starting)
     return dmJobApi

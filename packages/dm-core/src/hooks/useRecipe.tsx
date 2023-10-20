@@ -8,6 +8,8 @@ import {
   useUiPlugins,
 } from '../index'
 import { useQuery } from '@tanstack/react-query'
+import { toast } from 'react-toastify'
+import { AxiosError } from 'axios/index'
 
 const findRecipe = (
   recipes: TUiRecipe[],
@@ -112,6 +114,13 @@ export const useRecipe = (
     refetchOnReconnect: false,
     refetchIntervalInBackground: false,
   })
+  if (error) {
+    console.error(error)
+    toast.error(
+      'Unable to retrieve document, with message: ' +
+        (error as AxiosError<ErrorResponse>).message
+    )
+  }
   return {
     recipe: isLoading ? undefined : data,
     isLoading,
