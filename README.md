@@ -2943,3 +2943,16 @@ Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.
     * **DMSS VERSION**: bc86a4e 2023-10-16 githu..[bot] chore(master): release 1.6.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.2.0
     * **JOB VERSION**: 9bd5041 2023-10-11 githu..[bot] chore(main): release 1.2.2 grafted, HEAD -> main, origin/main
+* fix: make grid columns span correctly (#645)
+
+* fix: make grid columns span correctly
+
+* refactor: remove border
+
+* refactor: tweak examples
+
+* Update packages/dm-core-plugins/src/grid/GridPlugin.tsx (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6584683871/1)
+    * **DMSS VERSION**: bc86a4e 2023-10-16 githu..[bot] chore(master): release 1.6.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.2.0
+    * **JOB VERSION**: 9bd5041 2023-10-11 githu..[bot] chore(main): release 1.2.2 grafted, HEAD -> main, origin/main
