@@ -5,7 +5,9 @@ import { TGridArea, TGridItem } from './types'
 
 const Element = styled.div<TGridArea>`
   grid-area: ${(props: TGridArea) =>
-    `${props.rowStart} / ${props.columnStart} / ${props.rowEnd} / ${props.columnEnd} `};
+    `${props.rowStart} / ${props.columnStart} / ${props.rowEnd + 1} / ${
+      props.columnEnd + 1
+    } `};
 `
 
 type TGridItemProps = {
