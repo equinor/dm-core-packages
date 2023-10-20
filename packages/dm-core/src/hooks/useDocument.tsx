@@ -67,7 +67,9 @@ export function useDocument<T>(
     refetch,
   } = useQuery({
     queryKey: ['document', idReference, documentDepth],
-    queryFn: async () => {
+    queryFn: () => {
+      if (documentDepth < 0 || documentDepth > 999)
+        throw new Error('Depth must be a positive number < 999')
       return dmssAPI
         .documentGet({ address: idReference, depth: documentDepth })
         .then((res) => res.data)

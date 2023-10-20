@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import {
+  ApplicationContext,
+  EBlueprint,
+  EntityPickerDialog,
   ErrorResponse,
   IUIPlugin,
   Loading,
   Pagination,
   Stack,
   TGenericObject,
+  TValidEntity,
   TViewConfig,
   useDMSS,
   useDocument,
@@ -16,8 +20,7 @@ import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AppendButton, ListItemButton, SaveButton } from './Components'
 import { moveItem } from './utils'
-import { add, minimize } from '@equinor/eds-icons'
-
+import { add, link, minimize } from '@equinor/eds-icons'
 type TListConfig = {
   expanded?: boolean
   headers: string[]
@@ -45,7 +48,8 @@ const defaultConfig: TListConfig = {
 
 type ItemRow = {
   key: string
-  data: TGenericObject
+  resolvedData: TGenericObject // Document fetched with depth=1 (need data for showing headers)
+  rawData: TGenericObject // Document fetched with depth=0 (need references to modify the list)
   index: number
   expanded: boolean
   isSaved: boolean
@@ -58,6 +62,9 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     ...config,
     functionality: { ...defaultConfig.functionality, ...config.functionality },
   }
+  // Get the list, without resolving references. Need these when saving the list.
+  const { document: rawDocument, isLoading: isRawDocumentLoading } =
+    useDocument<TGenericObject[]>(idReference, 0)
   const {
     document,
     isLoading: isLoadingDocument,
@@ -68,15 +75,35 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(10)
   const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isAttributeLoading, setIsAttributeLoading] = useState<boolean>(false)
+  const [showModal, setShowModal] = useState<boolean>(false)
   const dmssAPI = useDMSS()
+  const { name: applicationContext } = useContext(ApplicationContext)
+  const [isListOfReferences, setIsListOfReferences] = useState<boolean>(false)
 
-  const paginatedRows = items.slice(
-    paginationPage * paginationRowsPerPage,
-    paginationPage * paginationRowsPerPage + paginationRowsPerPage
+  const paginatedRows = useMemo(
+    () =>
+      items.slice(
+        paginationPage * paginationRowsPerPage,
+        paginationPage * paginationRowsPerPage + paginationRowsPerPage
+      ),
+    [paginationPage, paginationRowsPerPage, items]
   )
+  useEffect(() => {
+    setIsAttributeLoading(true)
+    dmssAPI
+      .attributeGet({
+        address: idReference,
+      })
+      .then((response: AxiosResponse) => {
+        setIsListOfReferences(!response.data.contained ?? false)
+      })
+      .catch((error) => toast.error(error))
+      .finally(() => setIsAttributeLoading(false))
+  }, [dmssAPI, applicationContext, idReference])
 
   useEffect(() => {
-    if (isLoadingDocument || !document) return
+    if (isLoadingDocument || !document || !rawDocument) return
     else if (!Array.isArray(document)) {
       throw new Error(
         `Generic table plugin cannot be used on document that is not an array! Got document ${JSON.stringify(
@@ -84,17 +111,17 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         )} `
       )
     }
-    // Need to generate a uuid for each item in the list to be used for reacts "key" property
+    // Need to generate an uuid for each item in the list to be used for reacts "key" property
     const itemsWithIds = document
       ? Object.values(document).map((data, index) => ({
-          data,
+          resolvedData: data,
+          rawData: rawDocument[index],
           expanded: internalConfig.expanded ?? false,
           isSaved: true,
           index,
           key: crypto.randomUUID(),
         }))
       : []
-
     setItems(itemsWithIds)
   }, [document, isLoadingDocument])
 
@@ -106,7 +133,12 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     setUnsavedChanges(true)
   }
 
-  function addItem() {
+  async function addItem() {
+    if (isListOfReferences) {
+      setShowModal(true)
+      return
+    }
+
     setUnsavedChanges(true)
     dmssAPI
       .instantiateEntity({
@@ -117,7 +149,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           ...items,
           {
             key: crypto.randomUUID(),
-            data: newEntity.data,
+            resolvedData: newEntity.data,
+            rawData: newEntity.data,
             index: Object.keys(items).length,
             expanded: internalConfig.expanded ?? false,
             isSaved: false,
@@ -132,7 +165,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   function save() {
     setIsLoading(true)
-    const payload = items.map((item) => item.data)
+    const payload = items.map((item) => item.rawData) // Make sure we save with "rawDate" i.e. references
     dmssAPI
       .documentUpdate({
         idAddress: idReference,
@@ -164,13 +197,38 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     const itemsCopy = [...items]
     itemsCopy[index].expanded = !itemsCopy[index].expanded
     setItems(itemsCopy)
+    console.log(items[index])
   }
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
-  if (isLoadingDocument) return <Loading />
+  if (isLoadingDocument || isAttributeLoading || isRawDocumentLoading)
+    return <Loading />
 
   return (
     <Stack>
+      <EntityPickerDialog
+        showModal={showModal}
+        setShowModal={setShowModal}
+        typeFilter={type}
+        onChange={(address: string, entity: TValidEntity) => {
+          setUnsavedChanges(true)
+          setItems([
+            ...items,
+            {
+              key: crypto.randomUUID(),
+              resolvedData: entity,
+              rawData: {
+                type: EBlueprint.REFERENCE,
+                referenceType: 'link',
+                address: address,
+              },
+              index: Object.keys(items).length,
+              expanded: internalConfig.expanded ?? false,
+              isSaved: false,
+            },
+          ])
+        }}
+      />
       {paginatedRows.map((item, index) => (
         <React.Fragment key={item?.key}>
           <Stack
@@ -184,7 +242,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               borderBottom: '1px solid #ccc',
             }}
           >
-            <Stack direction="row" spacing={1} alignItems="center">
+            <Stack direction="row" spacing={0.5} alignItems="center">
               <Tooltip
                 title={
                   !internalConfig.openAsTab
@@ -210,10 +268,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   />
                 </Button>
               </Tooltip>
+              {isListOfReferences && <Icon data={link} />}
               {internalConfig.headers.map(
                 (attribute: string, index: number) => {
-                  if (item.data && item.data?.[attribute]) {
-                    if (typeof item.data[attribute] === 'object')
+                  if (item.resolvedData && item.resolvedData?.[attribute]) {
+                    if (typeof item.resolvedData[attribute] === 'object')
                       throw new Error(
                         `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
                       )
@@ -223,7 +282,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                         variant="body_short"
                         bold={index === 0}
                       >
-                        {item?.data[attribute]}
+                        {item?.resolvedData[attribute]}
                       </Typography>
                     )
                   }
@@ -267,7 +326,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           <Stack>
             {item?.expanded && (
               <ViewCreator
-                idReference={`${idReference}[${item.index}]`}
+                idReference={
+                  isListOfReferences
+                    ? item.rawData.address
+                    : `${idReference}[${item.index}]`
+                }
                 viewConfig={
                   internalConfig.views[item.index] ?? internalConfig.defaultView
                 }
@@ -276,7 +339,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           </Stack>
         </React.Fragment>
       ))}
-
       <Stack
         direction="row"
         justifyContent="space-between"
