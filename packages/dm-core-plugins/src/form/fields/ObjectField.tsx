@@ -394,13 +394,14 @@ export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
     'referenceType' in values &&
     values['referenceType'] === 'storage'
   // If the attribute type is an object, we need to find the correct type from the values.
+
   return (
     <>
       <Widget
         {...props}
         id={valuesIsStorageReference ? values['address'] : namePath}
         label={displayLabel}
-        type={type === 'object' && values ? values.type : type}
+        type={values ? values.type : type}
         defaultValue={defaultValue}
       />
     </>

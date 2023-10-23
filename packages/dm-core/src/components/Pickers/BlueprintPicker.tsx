@@ -1,11 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import { EBlueprint } from '../../Enums'
-import {
-  PATH_INPUT_FIELD_WIDTH,
-  TREE_DIALOG_HEIGHT,
-  TREE_DIALOG_WIDTH,
-} from '../../utils/variables'
+import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
 
 import {
   Button,
@@ -67,7 +63,6 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
           disabled={disabled}
           variant={variant || undefined}
           style={{
-            width: PATH_INPUT_FIELD_WIDTH,
             cursor: 'pointer',
           }}
           type="string"

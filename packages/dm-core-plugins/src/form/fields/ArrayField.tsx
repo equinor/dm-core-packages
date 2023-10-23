@@ -133,6 +133,7 @@ export default function ArrayField(props: TArrayFieldProps) {
                   name: item.id,
                   type: EBlueprint.ATTRIBUTE,
                 }}
+                uiAttribute={uiAttribute}
                 readOnly={readOnly}
               />
             </Stack>

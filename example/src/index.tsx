@@ -13,6 +13,8 @@ import plugins from './plugins'
 import ReactDOM from 'react-dom/client'
 import { AuthProvider } from 'react-oauth2-code-pkce'
 import App from './App'
+import localWidgets from './widgets'
+import { WidgetProvider } from '@development-framework/dm-core-plugins'
 
 const fullCurrentURL = () =>
   `${window.location.pathname}${window.location.search}${window.location.hash}`
@@ -61,7 +63,9 @@ const Content = () => {
         <ApplicationContext.Provider value={APP_SETTINGS}>
           <UiPluginProvider pluginsToLoad={plugins}>
             <RoleProvider overrideRoles={overrideRoles}>
-              <App />
+              <WidgetProvider widgets={localWidgets}>
+                <App />
+              </WidgetProvider>
             </RoleProvider>
             <ToastContainer />
           </UiPluginProvider>

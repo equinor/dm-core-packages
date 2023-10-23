@@ -9,7 +9,6 @@ import { TFormProps } from '../types'
 import { AttributeList } from './AttributeList'
 
 const Wrapper = styled.div`
-  max-width: 650px;
   width: 100%;
   padding: 1rem 0;
   display: flex;

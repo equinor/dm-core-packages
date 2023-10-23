@@ -13,7 +13,7 @@
           "label": "Employees",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
-            "recipe": "Edit",
+            "recipe": "List",
             "scope": "employees"
           }
         }

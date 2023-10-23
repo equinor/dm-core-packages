@@ -4,7 +4,7 @@
   "initialUiRecipe": {
     "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
@@ -18,7 +18,34 @@
               "name": "Edit",
               "type": "CORE:UiRecipe",
               "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form"
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "attributes": [
+                  {
+                    "name": "description",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "widget": "TextareaWidget"
+                  },
+                  {
+                    "name": "attributes",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+                    "uiRecipe": "AttributeList",
+                    "showInline": true
+                  },
+                  {
+                    "name": "extends",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "widget": "BlueprintPickerWidget"
+                  }
+                ],
+                "fields": [
+                  "name",
+                  "description",
+                  "extends",
+                  "attributes"
+                ]
+              }
             },
             "scope": "self"
           }
@@ -33,6 +60,20 @@
               "type": "CORE:UiRecipe",
               "description": "Yaml view",
               "plugin": "@development-framework/dm-core-plugins/yaml"
+            },
+            "scope": "self"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Blueprint",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Blueprint",
+              "type": "CORE:UiRecipe",
+              "description": "",
+              "plugin": "@development-framework/dm-core-plugins/blueprint"
             },
             "scope": "self"
           }
