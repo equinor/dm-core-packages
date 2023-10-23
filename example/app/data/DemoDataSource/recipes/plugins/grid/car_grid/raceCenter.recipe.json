@@ -33,7 +33,7 @@
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "scope": "tyreList",
-            "recipe": "TyreList"
+            "recipe": "Edit"
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",

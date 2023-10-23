@@ -32,40 +32,9 @@
     ]
   },
   "tyreList": {
-    "name": "tyreList",
-    "type": "./blueprints/TyreList",
-    "tyre list": [
-      {
-        "name": "Hard",
-        "type": "./blueprints/Tyre",
-        "description": "Slower, but more durable.",
-        "compound": "C1"
-      },
-      {
-        "name": "Medium",
-        "type": "./blueprints/Tyre",
-        "description": "Balanced between pace and degradation",
-        "compound": "C2"
-      },
-      {
-        "name": "Soft",
-        "type": "./blueprints/Tyre",
-        "description": "Faster, but wears quicker.",
-        "compound": "C4"
-      },
-      {
-        "name": "Intermediate",
-        "type": "./blueprints/Tyre",
-        "description": "For damp conditions.",
-        "compound": "Int"
-      },
-      {
-        "name": "Extremes",
-        "type": "./blueprints/Tyre",
-        "description": "For heavy rain.",
-        "compound": "Wet"
-      }
-    ]
+    "type": "CORE:Reference",
+    "address": "dmss://DemoDataSource/$gridTyreList",
+    "referenceType": "link"
   },
   "aNestedObjectWithCustomUI": {
     "type": "./blueprints/Nested",
