@@ -7,9 +7,10 @@ import {
   TJob,
   TJobHandler,
   useDMSS,
+  useDocument,
   useJob,
 } from '@development-framework/dm-core'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
 import { refresh } from '@equinor/eds-icons'
@@ -44,43 +45,39 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   }: { config: JobPluginConfig; idReference: string } = props
   const DmssApi = useDMSS()
 
-  const jobTargetAddress = (): string => {
-    if (config.jobTargetAddress.addressScope !== 'local') {
+  const jobTargetAddress = useMemo((): string => {
+    if ((config.jobTargetAddress.addressScope ?? 'local') !== 'local') {
       return config.jobTargetAddress.targetAddress
     }
     if (['self', '.'].includes(config?.jobTargetAddress.targetAddress)) {
       return idReference
     }
     return idReference + config.jobTargetAddress.targetAddress
-  }
+  }, [config])
 
-  const jobInputAddress = (): string => {
-    if (config.jobInput.addressScope !== 'local') {
+  const jobInputAddress = useMemo((): string => {
+    if ((config.jobInput.addressScope ?? 'local') !== 'local') {
       return config.jobInput.targetAddress
     }
     if (['self', '.'].includes(config.jobInput.targetAddress)) {
       return idReference
     }
     return idReference + config.jobInput.targetAddress
-  }
+  }, [config])
   const { tokenData } = useContext(AuthContext)
   const username = tokenData?.preferred_username
 
-  const [jobEntityId, setJobEntityId] = useState<string>('')
-  const [jobId, setJobId] = useState<string | undefined>(undefined)
   const [jobExists, setJobExists] = useState(false)
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
-  const [allowStartJob, setAllowJobStart] = useState(false)
-
   const {
-    start,
-    error,
-    fetchResult,
-    fetchStatusAndLogs,
-    logs,
-    status,
-    remove,
-  } = useJob(jobEntityId, jobId)
+    document: jobDocument,
+    isLoading,
+    error: jobEntityError,
+    updateDocument,
+  } = useDocument(jobTargetAddress, 0, false)
+
+  const { start, error, fetchResult, fetchStatusAndLogs, logs, status } =
+    useJob(jobTargetAddress)
 
   const jobEntity: TJob = {
     label: config?.label,
@@ -90,86 +87,34 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     applicationInput: {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
-      address: jobInputAddress(),
+      address: jobInputAddress,
     },
     runner: config?.runner,
   }
 
   if (config?.outputTarget) jobEntity.outputTarget = config.outputTarget
 
-  const updateDocument = async (
-    jobAddress: string,
-    jobEntityFormData: TJob
-  ): Promise<unknown> => {
-    return DmssApi.documentUpdate({
-      idAddress: jobAddress,
-      data: JSON.stringify(jobEntityFormData),
+  const addDocument = async (): Promise<unknown> => {
+    return DmssApi.documentAdd({
+      address: jobTargetAddress,
+      document: JSON.stringify(jobEntity),
+    }).catch((error: AxiosError<ErrorResponse>) => {
+      console.error(error.response?.data)
     })
-      .then(() => {
-        setJobEntityId(jobAddress)
-        return Promise.resolve()
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error.response?.data)
-      })
   }
 
-  const addDocument = async (
-    jobAddress: string,
-    jobEntityFormData: TJob
-  ): Promise<unknown> => {
-    return DmssApi.documentAdd({
-      address: jobAddress,
-      document: JSON.stringify(jobEntityFormData),
-    })
-      .then((res) => {
-        // The UID cannot be used as ID before the job has been started.
-        // Also, the uid returned from the addDocument endpoint differs
-        // from the one returned from the startJob endpoint.
-        // setJobEntityId(`${dataSourceId}/$${response.data.uid}`)
-        setJobEntityId(jobAddress)
-        return Promise.resolve(res)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error.response?.data)
-      })
+  function createNewJob(): Promise<unknown> {
+    if (jobExists) {
+      return updateDocument(jobEntity, false).then(() => setJobExists(true))
+    } else {
+      return addDocument().then(() => setJobExists(true))
+    }
   }
 
   useEffect(() => {
-    if (jobEntityId.length > 0 && allowStartJob) {
-      start().then((res) => {
-        setJobId(res?.uid)
-        setJobExists(true)
-      })
-    }
-  }, [jobEntityId])
-
-  function createNewJob(): Promise<unknown> {
-    setAllowJobStart(true)
-    if (jobExists) {
-      return updateDocument(jobTargetAddress(), jobEntity)
-    } else {
-      return addDocument(jobTargetAddress(), jobEntity)
-    }
-  }
-
-  function fetchJobIfExists(): void {
-    DmssApi.documentCheck({
-      address: jobTargetAddress(),
-    }).then((res) => {
-      if (res.data) {
-        // TODO: Type this endpoint properly
-        DmssApi.documentGet({ address: jobTargetAddress() }).then((res) => {
-          if (!jobEntityId.length) setJobEntityId(jobTargetAddress())
-          // @ts-ignore
-          setJobId(res.data.uid)
-          setJobExists(true)
-        })
-      }
-    })
-  }
-
-  useEffect(fetchJobIfExists, [])
+    if (!jobDocument) return
+    if (Object.keys(jobDocument).length) setJobExists(true)
+  }, [isLoading, jobEntityError, jobDocument])
 
   return (
     <Card elevation={'raised'} style={{ padding: '1.25rem' }}>
@@ -180,9 +125,8 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           createJob={createNewJob}
           start={() => {
             setResult(null)
-            return start()
+            start()
           }}
-          halt={remove}
         />
         {status === JobStatus.Running && (
           <Button

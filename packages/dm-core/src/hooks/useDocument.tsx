@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 interface IUseDocumentReturnType<T> {
   document: T | null
   isLoading: boolean
-  updateDocument: (newDocument: T, notify: boolean) => void
+  updateDocument: (newDocument: T, notify: boolean) => Promise<void>
   error: ErrorResponse | null
 }
 
@@ -41,11 +41,13 @@ interface IUseDocumentReturnType<T> {
  *
  * @param idReference The ID reference of the document on format DATA_SOURCE/UUID.Attribute
  * @param depth The maximum depth level of nested objects to resolve
+ * @param notify Show a pop-up on failed/successful requests
  * @returns A list containing the document, a boolean representing the loading state, a function to update the document, and an Error, if any.
  */
 export function useDocument<T>(
   idReference: string,
-  depth?: number | undefined
+  depth?: number | undefined,
+  notify: boolean = true
 ): IUseDocumentReturnType<T> {
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
@@ -69,19 +71,23 @@ export function useDocument<T>(
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
-        toast.error(
-          'Unable to retrieve document, with message: ' +
-            error.response?.data.message ?? error.message
-        )
+        if (notify)
+          toast.error(
+            'Unable to retrieve document, with message: ' +
+              error.response?.data.message ?? error.message
+          )
         setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
   }, [idReference, depth])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function updateDocument(newDocument: T, notify: boolean): void {
+  async function updateDocument(
+    newDocument: T,
+    notify: boolean = true
+  ): Promise<void> {
     setLoading(true)
-    dmssAPI
+    return dmssAPI
       .documentUpdate({
         idAddress: idReference,
         data: JSON.stringify(newDocument),
@@ -90,11 +96,14 @@ export function useDocument<T>(
       .then(() => {
         setDocument(newDocument)
         setError(null)
-        toast.success('Document updated')
+        if (notify) toast.success('Document updated')
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
-        toast.error('Unable to update document, with message: ' + error.message)
+        if (notify)
+          toast.error(
+            'Unable to update document, with message: ' + error.message
+          )
         setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
