@@ -112,7 +112,7 @@
         "runner": {
           "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob"
         },
-        "outputTarget": ".signal",
+        "outputTarget": "dmss://DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].signal",
         "jobInput": {
           "type": "PLUGINS:dm-core-plugins/job/TargetAddress",
           "targetAddress": "."
