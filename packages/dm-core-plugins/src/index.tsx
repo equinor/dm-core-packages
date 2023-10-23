@@ -17,6 +17,8 @@ import { RoleFilterPlugin } from './role_filter/RoleFilterPlugin'
 import { SidebarPlugin } from './view_selector/SidebarPlugin'
 import { TabsPlugin } from './view_selector/TabsPlugin'
 
+export { WidgetProvider } from './form/context/WidgetContext'
+
 export default {
   '@development-framework/dm-core-plugins/explorer': {
     component: ExplorerPlugin,
