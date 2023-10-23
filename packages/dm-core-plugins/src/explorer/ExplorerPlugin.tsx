@@ -11,7 +11,7 @@ import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
 
 export const TreeWrapper = styled.div`
   width: 25%;
-  min-width: 15vw;
+  min-width: 25vw;
   padding-left: 15px;
   padding-top: 15px;
   height: 100vh;
@@ -48,11 +48,17 @@ export default () => {
         )}
       </TreeWrapper>
       {selectedType && selectedEntity && (
-        <EntityView
-          type={selectedType}
-          idReference={selectedEntity}
-          dimensions={nodeDimensions}
-        />
+        <div
+          style={{
+            padding: '1rem',
+          }}
+        >
+          <EntityView
+            type={selectedType}
+            idReference={selectedEntity}
+            dimensions={nodeDimensions}
+          />
+        </div>
       )}
     </div>
   )
