@@ -13,7 +13,7 @@
       "attributeType": "string"
     },
     {
-      "name": "tyre list",
+      "name": "tyre",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Tyre",
       "dimensions": "*"
