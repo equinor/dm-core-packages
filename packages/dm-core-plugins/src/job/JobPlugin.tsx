@@ -153,7 +153,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           <Card.Header>Job status: {status}</Card.Header>
         </Card>
       )}
-      {jobExists && (error || logs) && (
+      {jobExists && (
         <>
           <Typography variant="h6">Logs:</Typography>
           {error ? (

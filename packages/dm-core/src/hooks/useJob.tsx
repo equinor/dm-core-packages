@@ -129,6 +129,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .then((response: AxiosResponse<StartJobResponse>) => {
         setHookJobId(response.data.uid)
         setLogs(response.data.message)
+        setError(undefined)
         setStatus(JobStatus.Running)
         return response.data
       })
@@ -193,7 +194,10 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         setError(error.response?.data)
         return null
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setError(undefined)
+        setIsLoading(false)
+      })
   }
 
   function fetchResult(): Promise<GetJobResultResponse | null> {
