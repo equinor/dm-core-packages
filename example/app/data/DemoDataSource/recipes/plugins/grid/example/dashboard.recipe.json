@@ -24,7 +24,7 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
             "columnStart": 1,
-            "rowEnd": 3,
+            "rowEnd": 1,
             "columnEnd": 6
           }
         },
@@ -51,9 +51,9 @@
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 1,
+            "rowStart": 2,
             "columnStart": 4,
-            "rowEnd": 3,
+            "rowEnd": 2,
             "columnEnd": 6
           }
         },
@@ -66,10 +66,10 @@
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 5,
-            "columnStart": 3,
-            "rowEnd": 6,
-            "columnEnd": 7
+            "rowStart": 4,
+            "columnStart": 1,
+            "rowEnd": 5,
+            "columnEnd": 3
           }
         },
         {
@@ -81,10 +81,10 @@
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 3,
-            "columnStart": 3,
-            "rowEnd": 6,
-            "columnEnd": 5
+            "rowStart": 4,
+            "columnStart": 4,
+            "rowEnd": 5,
+            "columnEnd": 6
           }
         },
         {
@@ -99,10 +99,10 @@
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 3,
+            "rowStart": 5,
             "columnStart": 1,
             "rowEnd": 6,
-            "columnEnd": 3
+            "columnEnd": 6
           }
         }
       ]
