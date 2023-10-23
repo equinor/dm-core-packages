@@ -103,12 +103,15 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     })
   }
 
-  function createNewJob(): Promise<unknown> {
+  function createAndStartJob() {
+    setResult(null)
     if (jobExists) {
-      return updateDocument(jobEntity, false).then(() => setJobExists(true))
-    } else {
-      return addDocument().then(() => setJobExists(true))
+      updateDocument(jobEntity, false).then(() => start())
+      return
     }
+    addDocument().then(() => {
+      start().then(() => setJobExists(true))
+    })
   }
 
   useEffect(() => {
@@ -119,15 +122,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   return (
     <Card elevation={'raised'} style={{ padding: '1.25rem' }}>
       <JobButtonWrapper>
-        <JobControlButton
-          jobStatus={status}
-          jobExists={jobExists}
-          createJob={createNewJob}
-          start={() => {
-            setResult(null)
-            start()
-          }}
-        />
+        <JobControlButton jobStatus={status} createJob={createAndStartJob} />
         {status === JobStatus.Running && (
           <Button
             variant="outlined"
