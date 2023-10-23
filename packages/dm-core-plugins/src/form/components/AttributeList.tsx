@@ -16,12 +16,12 @@ export const AttributeList = (props: {
     config && config.fields.length
       ? config.fields
           .map((name: string) =>
-            attributes.find((attribute) => attribute.name == name)
+            attributes.find((attribute: TAttribute) => attribute.name == name)
           )
           .filter((attribute): attribute is TAttribute => !!attribute)
       : attributes
 
-  const attributeFields = filteredAttributes.map((attribute) => {
+  const attributeFields = filteredAttributes.map((attribute: TAttribute) => {
     const uiAttribute = config?.attributes.find(
       (uiAttribute) => uiAttribute.name === attribute.name
     )

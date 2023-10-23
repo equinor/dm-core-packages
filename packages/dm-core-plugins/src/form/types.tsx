@@ -60,6 +60,7 @@ export type TStringFieldProps = {
   optional: boolean
   uiAttribute: TAttributeConfig | undefined
   readOnly?: boolean
+  format?: 'string' | 'date' | 'datetime'
 }
 
 export type TNumberFieldProps = {
@@ -85,7 +86,10 @@ type TAttributeBasis = {
   type: string
   showInline?: boolean
 }
-type TAttributeString = TAttributeBasis & { widget: string; format: string }
+type TAttributeString = TAttributeBasis & {
+  widget: string
+  format: string
+}
 type TAttributeArray = TAttributeBasis & {
   widget?: string
   uiRecipe?: string
@@ -104,7 +108,9 @@ export type TConfig = {
   readOnly?: boolean
 }
 
-export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & { config: TConfig }
+export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & {
+  config: TConfig
+}
 
 export declare type Variants = 'error' | 'success' | 'warning'
 
@@ -118,6 +124,7 @@ export type TWidget = {
   helperText?: string
   variant?: Variants
   readOnly?: boolean
+  config?: Record<any, any>
 }
 
 export type TWidgets = {

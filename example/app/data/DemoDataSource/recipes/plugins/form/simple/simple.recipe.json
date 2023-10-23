@@ -5,6 +5,16 @@
     "name": "Edit",
     "type": "CORE:UiRecipe",
     "description": "Default edit",
-    "plugin": "@development-framework/dm-core-plugins/form"
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "attributes": [
+        {
+          "name": "date",
+          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+          "format": "datetime-local"
+        }
+      ]
+    }
   }
 }

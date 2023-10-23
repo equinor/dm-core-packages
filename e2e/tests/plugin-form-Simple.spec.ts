@@ -34,10 +34,13 @@ test('Simple form', async ({ page }) => {
   //Check checkbox
   await page.getByLabel('An optional checkbox (optional)').check()
   //await page.getByTestId('form-submit').click()
-  //await expect(page.getByText('<Field is mandatory>')).toBeVisible() //Known bug (itemid:37251754)
+  // await expect(page.getByText('<Field is mandatory>')).toBeVisible() //Known bug (itemid:37251754)
   await page
-    .getByLabel('A required checbox (e.g. for confirmation purposes)')
+    .getByLabel('A required checkbox (e.g. for confirmation purposes)')
     .check()
+
+  // Fill out date field
+  await page.getByLabel('date').fill('2023-01-01T13:00')
 
   //Submitting form
   await page.getByTestId('form-submit').click()
@@ -52,6 +55,7 @@ test('Simple form', async ({ page }) => {
   await expect(page.getByLabel('Integer only (optional)')).toHaveValue('123')
   await expect(page.getByLabel('An optional checkbox (optional)')).toBeChecked()
   await expect(
-    page.getByLabel('A required checbox (e.g. for confirmation purposes)')
+    page.getByLabel('A required checkbox (e.g. for confirmation purposes)')
   ).toBeChecked()
+  await expect(page.getByLabel('date')).toHaveValue('2023-01-01T13:00')
 })

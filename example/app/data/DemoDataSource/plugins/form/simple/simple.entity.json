@@ -4,5 +4,6 @@
   "stringRequired": "",
   "numberRequired": 2,
   "stringOptional": "a prefilled optional string",
-  "requiredCheckbox": false
+  "requiredCheckbox": false,
+  "date": "2023-10-17T13:30"
 }

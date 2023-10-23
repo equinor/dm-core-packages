@@ -38,9 +38,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "fields"
-        ]
+        "required": []
       }
     },
     {
