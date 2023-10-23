@@ -12,8 +12,19 @@ const TextWidget = (props: TWidget) => {
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
-    const formattedValue = value === '' ? null : value
+    let formattedValue
+    if (props.config?.format === 'datetime') {
+      formattedValue = new Date(value).toISOString()
+    } else {
+      formattedValue = value === '' ? null : value
+    }
     onChange?.(formattedValue)
+  }
+
+  const fieldType = (format?: string): string => {
+    if (format && format === 'datetime') return 'datetime-local'
+    else if (format) return format
+    return 'string'
   }
 
   return (
@@ -27,7 +38,7 @@ const TextWidget = (props: TWidget) => {
       helperText={props.helperText}
       onChange={onChangeHandler}
       label={label}
-      type={props.config?.format ?? 'string'}
+      type={fieldType(props.config?.format)}
       data-testid="form-textfield"
     />
   )
