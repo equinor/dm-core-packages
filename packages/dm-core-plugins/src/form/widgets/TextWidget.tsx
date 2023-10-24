@@ -4,12 +4,12 @@ import { Icon, TextField } from '@equinor/eds-core-react'
 
 import { error_filled } from '@equinor/eds-icons'
 import { TWidget } from '../types'
+import { DateTime } from 'luxon'
 
 Icon.add({ error_filled })
 
 const TextWidget = (props: TWidget) => {
   const { label, onChange } = props
-
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
     let formattedValue
@@ -26,12 +26,15 @@ const TextWidget = (props: TWidget) => {
     else if (format) return format
     return 'string'
   }
-
   return (
     <TextField
       id={props.id}
       readOnly={props.readOnly}
-      defaultValue={props.value}
+      defaultValue={
+        fieldType(props.config?.format) === 'datetime-local'
+          ? DateTime.fromISO(props.value).toFormat("yyyy-MM-dd'T'T")
+          : props.value
+      }
       onClick={props.onClick}
       inputRef={props.inputRef}
       variant={props.variant}
