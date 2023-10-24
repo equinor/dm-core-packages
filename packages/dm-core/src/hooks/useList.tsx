@@ -19,7 +19,7 @@ export type TItem<T> = {
 }
 
 interface IUseListReturnType<T> {
-  list: TItem<T>[] | null
+  items: TItem<T>[] | null
   attribute: TAttribute | null
   isLoading: boolean
   addItem: () => Promise<void>
@@ -32,7 +32,7 @@ interface IUseListReturnType<T> {
 
 export function useList<T>(idReference: string): IUseListReturnType<T> {
   const [attribute, setAttribute] = useState<TAttribute | null>(null)
-  const [list, setList] = useState<TItem<T>[] | null>(null)
+  const [items, setItems] = useState<TItem<T>[] | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
   const dmssAPI = useDMSS()
@@ -70,7 +70,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
             reference: data,
           }))
           // @ts-ignore
-          setList(items)
+          setItems(items)
           setError(null)
         } else {
           const items = Object.values(response.data).map((data, index) => ({
@@ -80,7 +80,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
             reference: null,
           }))
           // @ts-ignore
-          setList(items)
+          setItems(items)
           setError(null)
         }
       })
@@ -92,7 +92,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
   }, [attribute])
 
   const addItem = async () => {
-    if (!attribute?.type || !list) return
+    if (!attribute?.type || !items) return
     dmssAPI
       .instantiateEntity({
         entity: { type: attribute?.attributeType },
@@ -105,16 +105,16 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
           })
           .then(() => {
             const newList = [
-              ...list,
+              ...items,
               {
                 key: crypto.randomUUID(),
-                index: list?.length,
+                index: items?.length,
                 data: newEntity.data,
                 reference: null,
               },
             ]
             // @ts-ignore
-            setList(newList)
+            setItems(newList)
           })
       })
       .catch((error: AxiosError<ErrorResponse>) =>
@@ -123,8 +123,8 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
   }
 
   const removeItem = async (itemToDelete: TItem<T>) => {
-    if (!attribute?.type || !list) return
-    const index = list.findIndex(
+    if (!attribute?.type || !items) return
+    const index = items.findIndex(
       (item: TItem<T>) => item.key === itemToDelete.key
     )
     dmssAPI
@@ -132,9 +132,9 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
         address: `${idReference}[${index}]`,
       })
       .then(() => {
-        const newList = [...list]
+        const newList = [...items]
         newList.splice(index, 1)
-        setList(newList)
+        setItems(newList)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
@@ -142,7 +142,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
   }
 
   const addReference = async (address: string, entity: TValidEntity) => {
-    if (!attribute?.type || !list) return
+    if (!attribute?.type || !items) return
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
@@ -155,16 +155,16 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       })
       .then(() => {
         const newList = [
-          ...list,
+          ...items,
           {
             key: crypto.randomUUID(),
-            index: list?.length,
+            index: items?.length,
             data: entity,
             reference: reference,
           },
         ]
         // @ts-ignore
-        setList(newList)
+        setItems(newList)
       })
       .catch((error: AxiosError<ErrorResponse>) =>
         alert(JSON.stringify(error.response?.data))
@@ -173,8 +173,8 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
 
   const updateItem = async (itemToUpdate: TItem<T>, newDocument: T) => {
     console.log(newDocument)
-    if (!list) return
-    const index = list.findIndex(
+    if (!items) return
+    const index = items.findIndex(
       (item: TItem<T>) => item.key === itemToUpdate.key
     )
     return dmssAPI
@@ -182,14 +182,14 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
         // @ts-ignore
         idAddress: attribute?.contained
           ? `${idReference}[${index}]`
-          : list[index].reference?.address,
+          : items[index].reference?.address,
         data: JSON.stringify(newDocument),
         updateUncontained: false,
       })
       .then(() => {
-        const newList = [...list]
+        const newList = [...items]
         newList[index].data = newDocument
-        setList(newList)
+        setItems(newList)
         setError(null)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -200,9 +200,9 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
   }
 
   const save = async () => {
-    if (!list) return
+    if (!items) return
     setLoading(true)
-    const payload = list.map((item) =>
+    const payload = items.map((item) =>
       attribute?.contained ? item.data : item.reference
     )
     dmssAPI
@@ -211,17 +211,17 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
         data: JSON.stringify(Object.values(payload)),
       })
       .then(() => {
-        const updatedItems: TItem<T>[] = list.map((item) => {
+        const updatedItems: TItem<T>[] = items.map((item) => {
           return { ...item }
         })
-        setList(updatedItems)
+        setItems(updatedItems)
       })
       .catch((e: Error) => toast.error(JSON.stringify(e, null, 2)))
       .finally(() => setLoading(false))
   }
 
   return {
-    list,
+    items: items,
     attribute,
     isLoading,
     error,

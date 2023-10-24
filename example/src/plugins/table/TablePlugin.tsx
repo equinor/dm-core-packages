@@ -14,7 +14,7 @@ const TablePlugin = (props: IUIPlugin) => {
   const { idReference } = props
 
   const {
-    list,
+    items,
     attribute,
     isLoading,
     error,
@@ -42,7 +42,7 @@ const TablePlugin = (props: IUIPlugin) => {
     <>
       <h2>Attribute</h2>
       <pre>{JSON.stringify(attribute, null, 2)}</pre>
-      <h2>Items ({list?.length})</h2>
+      <h2>Items ({items?.length})</h2>
       {attribute && !attribute.contained && (
         <Button onClick={() => handleAddReference()}>Add reference</Button>
       )}
@@ -59,7 +59,7 @@ const TablePlugin = (props: IUIPlugin) => {
       )}
       <Button onClick={() => save()}>Save</Button>
       <ul>
-        {list?.map((item: TItem<TGenericObject>) => {
+        {items?.map((item: TItem<TGenericObject>) => {
           return (
             <li key={item.key}>
               <pre>{JSON.stringify(item.data, null, 2)}</pre>
