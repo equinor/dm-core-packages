@@ -51,6 +51,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
 
   useEffect(() => {
     if (!attribute) return
+    setLoading(true)
     dmssAPI
       .documentGet({
         address: idReference,
@@ -93,6 +94,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
 
   const addItem = async () => {
     if (!attribute?.type || !items) return
+    setLoading(true)
     dmssAPI
       .instantiateEntity({
         entity: { type: attribute?.attributeType },
@@ -120,10 +122,12 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       .catch((error: AxiosError<ErrorResponse>) =>
         alert(JSON.stringify(error.response?.data))
       )
+      .finally(() => setLoading(false))
   }
 
   const removeItem = async (itemToDelete: TItem<T>) => {
     if (!attribute?.type || !items) return
+    setLoading(true)
     const index = items.findIndex(
       (item: TItem<T>) => item.key === itemToDelete.key
     )
@@ -139,10 +143,12 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
       })
+      .finally(() => setLoading(false))
   }
 
   const addReference = async (address: string, entity: TValidEntity) => {
     if (!attribute?.type || !items) return
+    setLoading(true)
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
@@ -169,11 +175,12 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       .catch((error: AxiosError<ErrorResponse>) =>
         alert(JSON.stringify(error.response?.data))
       )
+      .finally(() => setLoading(false))
   }
 
   const updateItem = async (itemToUpdate: TItem<T>, newDocument: T) => {
-    console.log(newDocument)
     if (!items) return
+    setLoading(true)
     const index = items.findIndex(
       (item: TItem<T>) => item.key === itemToUpdate.key
     )
