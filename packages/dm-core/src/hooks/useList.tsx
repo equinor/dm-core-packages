@@ -64,23 +64,8 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
         address: idReference,
         depth: 0,
       })
-      .then(async (response: any) => {
-        if (!attribute.contained) {
-          const resolved = await dmssAPI.documentGet({
-            address: idReference,
-            depth: 1,
-          })
-          const items = Object.values(response.data).map((data, index) => ({
-            key: crypto.randomUUID(),
-            index: index,
-            // @ts-ignore
-            data: resolved.data[index],
-            reference: data,
-          }))
-          // @ts-ignore
-          setItems(items)
-          setError(null)
-        } else {
+      .then(async (response: AxiosResponse) => {
+        if (attribute.contained) {
           const items = Object.values(response.data).map((data, index) => ({
             key: crypto.randomUUID(),
             index: index,
@@ -90,6 +75,23 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
           // @ts-ignore
           setItems(items)
           setError(null)
+        } else {
+          const resolved = await dmssAPI.documentGet({
+            address: idReference,
+            depth: 1,
+          })
+          if (Array.isArray(resolved.data)) {
+            const items = Object.values(response.data).map((data, index) => ({
+              key: crypto.randomUUID(),
+              index: index,
+              // @ts-ignore
+              data: resolved.data[index],
+              reference: data,
+            }))
+            // @ts-ignore
+            setItems(items)
+            setError(null)
+          }
         }
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -199,12 +201,13 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
     const index = items.findIndex(
       (item: TItem<T>) => item.key === itemToUpdate.key
     )
+    const address = attribute?.contained
+      ? `${idReference}[${index}]`
+      : items[index].reference?.address
+    if (!address) return
     return dmssAPI
       .documentUpdate({
-        // @ts-ignore
-        idAddress: attribute?.contained
-          ? `${idReference}[${index}]`
-          : items[index].reference?.address,
+        idAddress: address,
         data: JSON.stringify(newDocument),
         updateUncontained: false,
       })
@@ -261,16 +264,16 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
   }
 
   return {
-    items: items,
+    items,
     attribute,
     isLoading,
     error,
+    dirtyState,
     addItem,
     removeItem,
     addReference,
     updateItem,
     save,
-    dirtyState,
     updateAttribute,
   }
 }
