@@ -2,12 +2,13 @@ import {
   EntityPickerDialog,
   IUIPlugin,
   Loading,
+  Pagination,
   TGenericObject,
   TItem,
   TValidEntity,
   useList,
 } from '@development-framework/dm-core'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Button } from '@equinor/eds-core-react'
 
 const TablePlugin = (props: IUIPlugin) => {
@@ -27,6 +28,18 @@ const TablePlugin = (props: IUIPlugin) => {
     updateAttribute,
   } = useList<TGenericObject>(idReference)
 
+  const [paginationPage, setPaginationPage] = useState(0)
+  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(10)
+  const paginatedRows = useMemo(
+    () =>
+      items &&
+      items.slice(
+        paginationPage * paginationRowsPerPage,
+        paginationPage * paginationRowsPerPage + paginationRowsPerPage
+      ),
+    [paginationPage, paginationRowsPerPage, items]
+  )
+
   const [showAddReferenceModal, setShowAddReferenceModal] =
     useState<boolean>(false)
 
@@ -44,7 +57,7 @@ const TablePlugin = (props: IUIPlugin) => {
     <>
       <h2>Attribute</h2>
       <pre>{JSON.stringify(attribute, null, 2)}</pre>
-      <h2>Items ({items?.length})</h2>
+      <h2>Items ({paginatedRows?.length})</h2>
       {attribute && !attribute.contained && (
         <Button onClick={() => handleAddReference()}>Add reference</Button>
       )}
@@ -61,7 +74,7 @@ const TablePlugin = (props: IUIPlugin) => {
       )}
       {dirtyState && <Button onClick={() => save()}>Save</Button>}
       <ul>
-        {items?.map((item: TItem<TGenericObject>) => {
+        {paginatedRows?.map((item: TItem<TGenericObject>) => {
           return (
             <li key={item.key}>
               <pre>{JSON.stringify(item.data, null, 2)}</pre>
@@ -87,6 +100,15 @@ const TablePlugin = (props: IUIPlugin) => {
           )
         })}
       </ul>
+      {items && (
+        <Pagination
+          count={Object.keys(items).length}
+          page={paginationPage}
+          setPage={setPaginationPage}
+          rowsPerPage={paginationRowsPerPage}
+          setRowsPerPage={setPaginationRowsPerPage}
+        />
+      )}
     </>
   )
 }

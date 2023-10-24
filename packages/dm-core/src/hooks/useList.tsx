@@ -38,7 +38,7 @@ interface IUseListReturnType<T> {
 
 export function useList<T>(idReference: string): IUseListReturnType<T> {
   const [attribute, setAttribute] = useState<TAttribute | null>(null)
-  const [items, setItems] = useState<TItem<T>[] | null>(null)
+  const [items, setItems] = useState<TItem<T>[] | null>([])
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
   const [dirtyState, setDirtyState] = useState<boolean>(false)
