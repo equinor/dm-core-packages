@@ -22,7 +22,9 @@ const TablePlugin = (props: IUIPlugin) => {
     removeItem,
     addReference,
     updateItem,
+    save,
   } = useList<TGenericObject>(idReference)
+
   const [showAddReferenceModal, setShowAddReferenceModal] =
     useState<boolean>(false)
 
@@ -55,6 +57,7 @@ const TablePlugin = (props: IUIPlugin) => {
       {attribute && attribute.contained && (
         <Button onClick={() => addItem()}>Add item</Button>
       )}
+      <Button onClick={() => save()}>Save</Button>
       <ul>
         {list?.map((item: TItem<TGenericObject>) => {
           return (
@@ -65,7 +68,7 @@ const TablePlugin = (props: IUIPlugin) => {
               )}
               <Button
                 onClick={() =>
-                  updateItem(item, { ...item.data, name: 'new name' })
+                  updateItem(item, { ...item.data, name: 'NewName' })
                 }
               >
                 Update name
