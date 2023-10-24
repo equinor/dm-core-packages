@@ -55,7 +55,7 @@ const createFolderChildren = (
 ): TTreeMap => {
   const newChildren: TTreeMap = {}
   document.content?.forEach((resolvedChild: any) => {
-    const newChildId = `${parentNode.dataSource}/$${resolvedChild?._id}`
+    const newChildId = `dmss://${parentNode.dataSource}/$${resolvedChild?._id}`
     newChildren[newChildId] = new TreeNode({
       tree: parentNode.tree,
       nodeId: newChildId,
@@ -87,7 +87,7 @@ const updateRootPackagesInTree = (
       const rootPackageNode = new TreeNode({
         // Add the rootPackage nodes to the dataSource
         tree,
-        nodeId: `${dataSource}/$${rootPackage._id}`,
+        nodeId: `dmss://${dataSource}/$${rootPackage._id}`,
         entity: rootPackage,
         type: EBlueprint.PACKAGE,
         parent: tree.index[dataSource],
@@ -140,7 +140,7 @@ export class TreeNode {
   }) {
     this.tree = tree
     this.nodeId = nodeId
-    this.dataSource = nodeId.split('/', 1)[0]
+    this.dataSource = nodeId.replace(/^(dmss:\/\/)/, '').split('/', 1)[0]
     this.parent = parent
     this.isRoot = isRoot
     this.isDataSource = isDataSource

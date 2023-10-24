@@ -62,7 +62,7 @@ export const EntityPickerDialog = (props: {
       .fetch()
       .then((doc: any) => {
         setShowModal(false)
-        onChange(`dmss://${selectedTreeNode.nodeId}`, doc)
+        onChange(selectedTreeNode.nodeId, doc)
       })
       .catch((error: any) => {
         console.error(error)
