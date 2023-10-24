@@ -11,8 +11,8 @@ import {
 import React, { useMemo, useState } from 'react'
 import { Button } from '@equinor/eds-core-react'
 
-const TablePlugin = (props: IUIPlugin) => {
-  const { idReference } = props
+const TestUseListPlugin = (props: IUIPlugin) => {
+  const { idReference: address } = props
 
   const {
     items,
@@ -26,7 +26,7 @@ const TablePlugin = (props: IUIPlugin) => {
     save,
     dirtyState,
     updateAttribute,
-  } = useList<TGenericObject>(idReference)
+  } = useList<TGenericObject>(address)
 
   const [paginationPage, setPaginationPage] = useState(0)
   const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(10)
@@ -113,4 +113,4 @@ const TablePlugin = (props: IUIPlugin) => {
   )
 }
 
-export { TablePlugin }
+export { TestUseListPlugin }

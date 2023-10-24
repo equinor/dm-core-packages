@@ -1,9 +1,9 @@
 import { TUiPluginMap } from '@development-framework/dm-core'
 
-import { TablePlugin } from './TablePlugin'
+import { TestUseListPlugin } from './TestUseListPlugin'
 
 export default {
-  'table-plugin': {
-    component: TablePlugin,
+  'test-use-list-plugin': {
+    component: TestUseListPlugin,
   },
 } as TUiPluginMap
