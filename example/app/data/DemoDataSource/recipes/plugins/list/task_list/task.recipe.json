@@ -49,7 +49,7 @@
     {
       "name": "List",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/list",
+      "plugin": "table-plugin",
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
