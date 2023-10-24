@@ -27,6 +27,7 @@ interface IUseListReturnType<T> {
   removeItem: (itemToDelete: TItem<T>) => Promise<void>
   error: ErrorResponse | null
   addReference: (address: string, entity: TValidEntity) => Promise<void>
+  save: () => Promise<void>
 }
 
 export function useList<T>(idReference: string): IUseListReturnType<T> {
@@ -178,7 +179,10 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
     )
     return dmssAPI
       .documentUpdate({
-        idAddress: `${idReference}[${index}]`,
+        // @ts-ignore
+        idAddress: attribute?.contained
+          ? `${idReference}[${index}]`
+          : list[index].reference?.address,
         data: JSON.stringify(newDocument),
         updateUncontained: false,
       })
@@ -195,6 +199,27 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       .finally(() => setLoading(false))
   }
 
+  const save = async () => {
+    if (!list) return
+    setLoading(true)
+    const payload = list.map((item) =>
+      attribute?.contained ? item.data : item.reference
+    )
+    dmssAPI
+      .documentUpdate({
+        idAddress: idReference,
+        data: JSON.stringify(Object.values(payload)),
+      })
+      .then(() => {
+        const updatedItems: TItem<T>[] = list.map((item) => {
+          return { ...item }
+        })
+        setList(updatedItems)
+      })
+      .catch((e: Error) => toast.error(JSON.stringify(e, null, 2)))
+      .finally(() => setLoading(false))
+  }
+
   return {
     list,
     attribute,
@@ -204,5 +229,6 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
     removeItem,
     addReference,
     updateItem,
+    save,
   }
 }
