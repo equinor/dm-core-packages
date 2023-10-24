@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.8.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.7.0...dm-core-v1.8.0) (2023-10-24)
+
+
+### Features
+
+* **yaml:** interactive depth ([#640](https://github.com/equinor/dm-core-packages/issues/640)) ([2f50f8a](https://github.com/equinor/dm-core-packages/commit/2f50f8a6b4ad7f820150de9e16a80a5db3f91eba))
+
+
+### Bug Fixes
+
+* job pinger never stops ([#642](https://github.com/equinor/dm-core-packages/issues/642)) ([29715dd](https://github.com/equinor/dm-core-packages/commit/29715ddc0a53c236bf7abae78ad4a223c21fcecf))
+* **jobPlugin:** multiple issues with jobPlugin ([405ca24](https://github.com/equinor/dm-core-packages/commit/405ca247d89e5f580617e05b444687b5319bb666))
+* reset error in useJob after starting ([7012dfc](https://github.com/equinor/dm-core-packages/commit/7012dfcd316416158cd8841615fc2e32ba569d8c))
+
 ## [1.7.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.6.4...dm-core-v1.7.0) (2023-10-18)
 
 
