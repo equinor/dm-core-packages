@@ -2,28 +2,35 @@ import { ErrorResponse } from '../services'
 import { useEffect, useState } from 'react'
 import { useDMSS } from '../context/DMSSContext'
 import { AxiosError, AxiosResponse } from 'axios'
-import { TAttribute, TGenericObject } from '../types'
+import {
+  TAttribute,
+  TGenericObject,
+  TLinkReference,
+  TValidEntity,
+} from '../types'
 import { toast } from 'react-toastify'
+import { EBlueprint } from '../Enums'
 
-/*type TItem = {
+export type TItem<T> = {
   key: string
   index: number
-  data: TGenericObject
-}*/
+  data: T
+  reference: TLinkReference | null
+}
 
 interface IUseListReturnType<T> {
-  list: T | null
+  list: TItem<T>[] | null
   attribute: TAttribute | null
   isLoading: boolean
   addItem: () => Promise<void>
-  removeItem: (index: number) => Promise<void>
-  // updateDocument: (newDocument: T, notify: boolean) => Promise<void>
+  removeItem: (item: TItem<T>) => Promise<void>
   error: ErrorResponse | null
+  addReference: (address: string, entity: TValidEntity) => Promise<void>
 }
 
 export function useList<T>(idReference: string): IUseListReturnType<T> {
   const [attribute, setAttribute] = useState<TAttribute | null>(null)
-  const [list, setList] = useState<T | null>(null)
+  const [list, setList] = useState<TItem<T>[] | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
   const dmssAPI = useDMSS()
@@ -45,12 +52,35 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
     dmssAPI
       .documentGet({
         address: idReference,
-        depth: 1,
+        depth: 0,
       })
-      .then((response: any) => {
-        const data = response.data
-        setList(data)
-        setError(null)
+      .then(async (response: any) => {
+        if (!attribute.contained) {
+          const resolved = await dmssAPI.documentGet({
+            address: idReference,
+            depth: 1,
+          })
+          const items = Object.values(response.data).map((data, index) => ({
+            key: crypto.randomUUID(),
+            index: index,
+            // @ts-ignore
+            data: resolved.data[index],
+            reference: data,
+          }))
+          // @ts-ignore
+          setList(items)
+          setError(null)
+        } else {
+          const items = Object.values(response.data).map((data, index) => ({
+            key: crypto.randomUUID(),
+            index: index,
+            data: data,
+            reference: null,
+          }))
+          // @ts-ignore
+          setList(items)
+          setError(null)
+        }
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
@@ -60,25 +90,31 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
   }, [attribute])
 
   const addItem = async () => {
-    if (!attribute?.type) return
+    if (!attribute?.type || !list) return
     dmssAPI
       .instantiateEntity({
         entity: { type: attribute?.attributeType },
       })
       .then((newEntity: AxiosResponse<object, TGenericObject>) => {
-        if (attribute.contained) {
-          dmssAPI
-            .documentAdd({
-              address: idReference,
-              document: JSON.stringify(newEntity.data),
-            })
-            .then(() => {
-              // @ts-ignore
-              const newList = [...list, newEntity.data]
-              // @ts-ignore
-              setList(newList)
-            })
-        }
+        dmssAPI
+          .documentAdd({
+            address: idReference,
+            document: JSON.stringify(newEntity.data),
+          })
+          .then(() => {
+            const newList = [
+              ...list,
+              {
+                key: crypto.randomUUID(),
+                index: list?.length,
+                data: newEntity.data,
+                reference: null,
+              },
+            ]
+            // @ts-ignore
+            setList(newList)
+          })
+
         console.log(newEntity)
       })
       .catch((error: AxiosError<ErrorResponse>) =>
@@ -86,18 +122,18 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       )
   }
 
-  const removeItem = async (index: number) => {
-    if (!attribute?.type) return
+  const removeItem = async (itemToDelete: TItem<T>) => {
+    if (!attribute?.type || !list) return
+    const index = list.findIndex(
+      (item: TItem<T>) => item.key === itemToDelete.key
+    )
     dmssAPI
       .documentRemove({
         address: `${idReference}[${index}]`,
       })
       .then(() => {
-        // const itemIndex = items.findIndex((item) => item.key === key)
-        // @ts-ignore
         const newList = [...list]
         newList.splice(index, 1)
-        // @ts-ignore
         setList(newList)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -105,5 +141,43 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       })
   }
 
-  return { list, attribute, isLoading, error, addItem, removeItem }
+  const addReference = async (address: string, entity: TValidEntity) => {
+    if (!attribute?.type || !list) return
+    const reference: TLinkReference = {
+      type: EBlueprint.REFERENCE,
+      referenceType: 'link',
+      address: address,
+    }
+    dmssAPI
+      .documentAdd({
+        address: idReference,
+        document: JSON.stringify(reference),
+      })
+      .then(() => {
+        const newList = [
+          ...list,
+          {
+            key: crypto.randomUUID(),
+            index: list?.length,
+            data: entity,
+            reference: reference,
+          },
+        ]
+        // @ts-ignore
+        setList(newList)
+      })
+      .catch((error: AxiosError<ErrorResponse>) =>
+        alert(JSON.stringify(error.response?.data))
+      )
+  }
+
+  return {
+    list,
+    attribute,
+    isLoading,
+    error,
+    addItem,
+    removeItem,
+    addReference,
+  }
 }

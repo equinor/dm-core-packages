@@ -1,17 +1,29 @@
 import {
+  EntityPickerDialog,
   IUIPlugin,
   Loading,
   TGenericObject,
+  TItem,
+  TValidEntity,
   useList,
 } from '@development-framework/dm-core'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from '@equinor/eds-core-react'
 
 const TablePlugin = (props: IUIPlugin) => {
   const { idReference } = props
 
-  const { list, attribute, isLoading, error, addItem, removeItem } =
-    useList<TGenericObject[]>(idReference)
+  const {
+    list,
+    attribute,
+    isLoading,
+    error,
+    addItem,
+    removeItem,
+    addReference,
+  } = useList<TGenericObject>(idReference)
+  const [showAddReferenceModal, setShowAddReferenceModal] =
+    useState<boolean>(false)
 
   if (isLoading) return <Loading />
 
@@ -19,12 +31,42 @@ const TablePlugin = (props: IUIPlugin) => {
     throw new Error(JSON.stringify(error))
   }
 
+  const handleAddReference = () => {
+    setShowAddReferenceModal(true)
+  }
+
   return (
     <>
-      <Button onClick={() => addItem()}>Add</Button>
-      <Button onClick={() => removeItem(2)}>Remove item 2</Button>
-      <div>{attribute?.attributeType || ''}</div>
-      <div>{list?.length}</div>
+      <h2>Attribute</h2>
+      <pre>{JSON.stringify(attribute, null, 2)}</pre>
+      <h2>Items ({list?.length})</h2>
+      {attribute && !attribute.contained && (
+        <Button onClick={() => handleAddReference()}>Add reference</Button>
+      )}
+      <EntityPickerDialog
+        showModal={showAddReferenceModal}
+        setShowModal={setShowAddReferenceModal}
+        typeFilter={attribute?.attributeType}
+        onChange={(address: string, entity: TValidEntity) => {
+          addReference(address, entity)
+        }}
+      />
+      {attribute && attribute.contained && (
+        <Button onClick={() => addItem()}>Add item</Button>
+      )}
+      <ul>
+        {list?.map((item: TItem<TGenericObject>) => {
+          return (
+            <li key={item.key}>
+              <pre>{JSON.stringify(item.data, null, 2)}</pre>
+              {attribute && !attribute?.contained && (
+                <pre>{JSON.stringify(item.reference, null, 2)}</pre>
+              )}
+              <Button onClick={() => removeItem(item)}>Remove</Button>
+            </li>
+          )
+        })}
+      </ul>
     </>
   )
 }
