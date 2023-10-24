@@ -28,6 +28,12 @@ interface IUseListReturnType<T> {
   error: ErrorResponse | null
   addReference: (address: string, entity: TValidEntity) => Promise<void>
   save: () => Promise<void>
+  updateAttribute: (
+    itemToUpdate: TItem<T>,
+    attribute: string,
+    newValue: any
+  ) => void
+  dirtyState: boolean
 }
 
 export function useList<T>(idReference: string): IUseListReturnType<T> {
@@ -35,6 +41,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
   const [items, setItems] = useState<TItem<T>[] | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
+  const [dirtyState, setDirtyState] = useState<boolean>(false)
   const dmssAPI = useDMSS()
 
   useEffect(() => {
@@ -94,6 +101,10 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
 
   const addItem = async () => {
     if (!attribute?.type || !items) return
+    if (!attribute.contained)
+      throw new Error(
+        "Can't add item to a list that has uncontained items, need to use addReference method instead"
+      )
     setLoading(true)
     dmssAPI
       .instantiateEntity({
@@ -148,6 +159,10 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
 
   const addReference = async (address: string, entity: TValidEntity) => {
     if (!attribute?.type || !items) return
+    if (attribute.contained)
+      throw new Error(
+        "Can't add reference to a list that has contained items, need to use addItem method instead"
+      )
     setLoading(true)
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
@@ -207,6 +222,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
   }
 
   const save = async () => {
+    // TODO: Updating data of uncontained items
     if (!items) return
     setLoading(true)
     const payload = items.map((item) =>
@@ -222,9 +238,26 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
           return { ...item }
         })
         setItems(updatedItems)
+        setDirtyState(false)
       })
       .catch((e: Error) => toast.error(JSON.stringify(e, null, 2)))
       .finally(() => setLoading(false))
+  }
+
+  const updateAttribute = (
+    itemToUpdate: TItem<T>,
+    attribute: string,
+    newValue: any
+  ) => {
+    if (!items) return
+    const newList = [...items]
+    const index = items.findIndex(
+      (item: TItem<T>) => item.key === itemToUpdate.key
+    )
+    // @ts-ignore
+    newList[index].data[attribute] = newValue
+    setItems(newList)
+    setDirtyState(true)
   }
 
   return {
@@ -237,5 +270,7 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
     addReference,
     updateItem,
     save,
+    dirtyState,
+    updateAttribute,
   }
 }
