@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
   ErrorResponse,
@@ -77,12 +77,14 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   const [logs, setLogs] = useState<string>('No logs fetched')
   const [status, setStatus] = useState<JobStatus>(JobStatus.Unknown)
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const jobPinger = useRef<number | null>(null)
   const [error, setError] = useState<ErrorResponse>()
   const dmJobApi = useDmJob()
   const dmssAPI = useDMSS()
 
+  let statusIntervalId: NodeJS.Timeout
+
   useEffect(() => {
+    if (hookJobId) return
     if (entityId) {
       setIsLoading(true)
       dmssAPI
@@ -102,8 +104,12 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     }
   }, [entityId])
 
+  // When jobId changes, we register an interval to check status.
+  // The interval is deregistered if the status of the job is not "Running"
   useEffect(() => {
-    fetchStatusAndLogs()
+    if (!hookJobId) return
+    statusIntervalId = setInterval(fetchStatusAndLogs, 2000)
+    return () => clearInterval(statusIntervalId)
   }, [hookJobId])
 
   async function start(): Promise<StartJobResponse | null> {
@@ -123,8 +129,8 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .then((response: AxiosResponse<StartJobResponse>) => {
         setHookJobId(response.data.uid)
         setLogs(response.data.message)
+        setError(undefined)
         setStatus(JobStatus.Running)
-        startJobPing()
         return response.data
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -139,6 +145,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
 
   async function fetchStatusAndLogs(): Promise<StatusJobResponse | null> {
     if (!hookJobId) {
+      clearInterval(statusIntervalId)
       const message = 'The job has not been started'
       setLogs(message)
       setStatus(JobStatus.NotStarted)
@@ -156,8 +163,8 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .then((response: AxiosResponse<StatusJobResponse>) => {
         setLogs(response.data.log ?? '')
         if (response.data.status !== status) setStatus(response.data.status)
-        if (status !== JobStatus.Running) {
-          stopJobPing()
+        if (response.data.status !== JobStatus.Running) {
+          clearInterval(statusIntervalId)
         }
         setError(undefined)
         return response.data
@@ -175,8 +182,8 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     }
 
     setIsLoading(true)
+    clearInterval(statusIntervalId)
 
-    stopJobPing()
     return dmJobApi
       .removeJob({ jobUid: hookJobId })
       .then((response: AxiosResponse<string>) => {
@@ -187,7 +194,10 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         setError(error.response?.data)
         return null
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setError(undefined)
+        setIsLoading(false)
+      })
   }
 
   function fetchResult(): Promise<GetJobResultResponse | null> {
@@ -207,16 +217,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         return null
       })
       .finally(() => setIsLoading(false))
-  }
-
-  function startJobPing(): void {
-    const intervalId = setInterval(fetchStatusAndLogs, 2000)
-    jobPinger.current = Number(intervalId)
-  }
-
-  function stopJobPing(): void {
-    clearInterval(Number(jobPinger.current))
-    jobPinger.current = null
   }
 
   return {
