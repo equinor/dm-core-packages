@@ -23,7 +23,8 @@ interface IUseListReturnType<T> {
   attribute: TAttribute | null
   isLoading: boolean
   addItem: () => Promise<void>
-  removeItem: (item: TItem<T>) => Promise<void>
+  updateItem: (itemToUpdate: TItem<T>, newDocument: T) => Promise<void>
+  removeItem: (itemToDelete: TItem<T>) => Promise<void>
   error: ErrorResponse | null
   addReference: (address: string, entity: TValidEntity) => Promise<void>
 }
@@ -114,8 +115,6 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
             // @ts-ignore
             setList(newList)
           })
-
-        console.log(newEntity)
       })
       .catch((error: AxiosError<ErrorResponse>) =>
         alert(JSON.stringify(error.response?.data))
@@ -171,6 +170,31 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       )
   }
 
+  const updateItem = async (itemToUpdate: TItem<T>, newDocument: T) => {
+    console.log(newDocument)
+    if (!list) return
+    const index = list.findIndex(
+      (item: TItem<T>) => item.key === itemToUpdate.key
+    )
+    return dmssAPI
+      .documentUpdate({
+        idAddress: `${idReference}[${index}]`,
+        data: JSON.stringify(newDocument),
+        updateUncontained: false,
+      })
+      .then(() => {
+        const newList = [...list]
+        newList[index].data = newDocument
+        setList(newList)
+        setError(null)
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        setError(error.response?.data || { message: error.name, data: error })
+      })
+      .finally(() => setLoading(false))
+  }
+
   return {
     list,
     attribute,
@@ -179,5 +203,6 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
     addItem,
     removeItem,
     addReference,
+    updateItem,
   }
 }
