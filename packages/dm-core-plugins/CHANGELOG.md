@@ -24,6 +24,19 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.3 to ^1.6.4
 
+## [1.11.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.10.0...dm-core-plugins-v1.11.0) (2023-10-24)
+
+
+### Features
+
+* add padding to content ([8aa9153](https://github.com/equinor/dm-core-packages/commit/8aa915369be99e27c9e857792d043bd9bcf01a46))
+* **form:** switch widget ([afc16b7](https://github.com/equinor/dm-core-packages/commit/afc16b7b0fbfc09b31015e4006bec957a848a9c9))
+
+
+### Bug Fixes
+
+* export widget provider ([58abe1d](https://github.com/equinor/dm-core-packages/commit/58abe1dd61c7c408280aae4fe1824802850dcb78))
+
 ## [1.10.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.9.0...dm-core-plugins-v1.10.0) (2023-10-24)
 
 
