@@ -27,6 +27,7 @@ type TListConfig = {
   defaultView: TViewConfig
   views: TViewConfig[]
   openAsTab: boolean
+  selectFromScope?: string
   functionality: {
     add: boolean
     sort: boolean
@@ -39,6 +40,7 @@ const defaultConfig: TListConfig = {
   defaultView: { type: 'ViewConfig', scope: 'self' },
   views: [],
   openAsTab: false,
+  selectFromScope: undefined,
   functionality: {
     add: true,
     sort: true,
@@ -210,6 +212,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         showModal={showModal}
         setShowModal={setShowModal}
         typeFilter={type}
+        scope={config.selectFromScope}
         onChange={(address: string, entity: TValidEntity) => {
           setUnsavedChanges(true)
           setItems([

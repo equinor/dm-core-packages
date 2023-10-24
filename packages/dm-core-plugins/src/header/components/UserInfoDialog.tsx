@@ -60,7 +60,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         </Row>
         {apiKey && <pre>{apiKey}</pre>}
 
-        {roles.length && (
+        {roles?.length && (
           <>
             <Typography>Chose role (UI only)</Typography>
             <UnstyledList>

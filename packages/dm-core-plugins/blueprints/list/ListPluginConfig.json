@@ -16,6 +16,13 @@
       "default": false
     },
     {
+      "name": "selectFromScope",
+      "type": "CORE:BlueprintAttribute",
+      "description": "An address for where the user should be able to select entities from, when adding to the list",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "openAsTab",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",

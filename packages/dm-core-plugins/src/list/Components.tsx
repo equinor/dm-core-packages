@@ -20,7 +20,11 @@ export const SaveButton = (props: {
   disabled: boolean
   isLoading: boolean
 }) => (
-  <Button disabled={props.disabled} onClick={props.onClick}>
+  <Button
+    disabled={props.disabled}
+    onClick={props.onClick}
+    data-testid="SaveList"
+  >
     {props.isLoading ? <Progress.Dots color={'primary'} /> : 'Save'}
   </Button>
 )
