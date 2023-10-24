@@ -4,6 +4,7 @@ import CheckboxWidget from './CheckboxWidget'
 import TextWidget from './TextWidget'
 import TextareaWidget from './TextareaWidget'
 import TypeWidget from './TypeWidget'
+import SwitchWidget from './SwitchWidget'
 
 const widgets: TWidgets = {
   CheckboxWidget,
@@ -11,6 +12,7 @@ const widgets: TWidgets = {
   TextareaWidget,
   BlueprintPickerWidget,
   TypeWidget,
+  SwitchWidget,
 }
 
 export default widgets
