@@ -11,7 +11,13 @@ import {
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
-import React, { useContext, useEffect, useMemo, useState, ChangeEvent} from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  ChangeEvent,
+} from 'react'
 import {
   Button,
   Card,
@@ -173,7 +179,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           />
           <TextField
             id="endDate"
-            defaultValue={jobSchedule.startDate}
+            defaultValue={jobSchedule.endDate}
             type="datetime-local"
             onChange={(e: any) =>
               setJobSchedule({ ...jobSchedule, endDate: e.target.value })
@@ -183,7 +189,11 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         </>
       )}
       <JobButtonWrapper>
-        <JobControlButton jobStatus={status} createJob={createAndStartJob} asCronJob={asCronJob}/>
+        <JobControlButton
+          jobStatus={status}
+          createJob={createAndStartJob}
+          asCronJob={asCronJob}
+        />
         {status === JobStatus.Running && (
           <Button
             variant="outlined"
