@@ -24,6 +24,27 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.3 to ^1.6.4
 
+## [1.10.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.9.0...dm-core-plugins-v1.10.0) (2023-10-24)
+
+
+### Features
+
+* **yaml:** interactive depth ([#640](https://github.com/equinor/dm-core-packages/issues/640)) ([2f50f8a](https://github.com/equinor/dm-core-packages/commit/2f50f8a6b4ad7f820150de9e16a80a5db3f91eba))
+
+
+### Bug Fixes
+
+* **jobPlugin:** multiple issues with jobPlugin ([405ca24](https://github.com/equinor/dm-core-packages/commit/405ca247d89e5f580617e05b444687b5319bb666))
+* make grid columns span correctly ([#645](https://github.com/equinor/dm-core-packages/issues/645)) ([a62be98](https://github.com/equinor/dm-core-packages/commit/a62be989594d8f9b507c40c24fcf401138b29b63))
+* reset error in useJob after starting ([7012dfc](https://github.com/equinor/dm-core-packages/commit/7012dfcd316416158cd8841615fc2e32ba569d8c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.7.0 to ^1.8.0
+
 ## [1.9.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.8.1...dm-core-plugins-v1.9.0) (2023-10-18)
 
 
