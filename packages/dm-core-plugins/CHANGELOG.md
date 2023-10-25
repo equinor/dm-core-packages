@@ -24,6 +24,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.3 to ^1.6.4
 
+## [1.12.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.11.0...dm-core-plugins-v1.12.0) (2023-10-25)
+
+
+### Features
+
+* **ListPlugin:** expose 'selectFromScope' config parameter ([07b9429](https://github.com/equinor/dm-core-packages/commit/07b9429dde7ee7885ecf9712117f38609fe7f6f8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.8.0 to ^1.9.0
+
 ## [1.11.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.10.0...dm-core-plugins-v1.11.0) (2023-10-24)
 
 
