@@ -259,6 +259,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   variant="ghost_icon"
                   color="secondary"
                   disabled={!item.isSaved}
+                  data-testid={`expandListItem-${index}`}
                   onClick={
                     !internalConfig.openAsTab
                       ? () => expandItem(index)

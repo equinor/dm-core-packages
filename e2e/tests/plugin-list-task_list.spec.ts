@@ -78,6 +78,7 @@ test('Delete a task', async ({ page }) => {
     .getByRole('button', { name: 'Delete' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page.getByRole('paragraph').getByText('Wash the car')
@@ -107,7 +108,8 @@ test('Move task up and down', async ({ page }) => {
     .filter({ has: page.getByText('Paint the living room', { exact: true }) })
     .getByRole('button', { name: 'Move up' })
     .click()
-  await page.getByRole('button', { name: 'Save' }).click()
+  await page.getByTestId('SaveList').click()
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
@@ -181,7 +183,7 @@ test('Move task up and down', async ({ page }) => {
 })
 
 test('Edit a task', async ({ page }) => {
-  await page.getByRole('button', { name: 'Open item' }).last().click()
+  await page.getByTestId('expandListItem-2').click()
   await expect(page.getByRole('tab', { name: 'Edit' })).toBeVisible()
   await page.getByLabel('Task title:').fill('Paint the living room green')
   await page.getByLabel('Assigned to: (optional)').fill('Mark Johnson')
