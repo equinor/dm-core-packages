@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.9.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.8.0...dm-core-v1.9.0) (2023-10-25)
+
+
+### Features
+
+* **ListPlugin:** expose 'selectFromScope' config parameter ([07b9429](https://github.com/equinor/dm-core-packages/commit/07b9429dde7ee7885ecf9712117f38609fe7f6f8))
+
+
+### Bug Fixes
+
+* **Tree:** ensure correct nodeID prefix ([e9019f0](https://github.com/equinor/dm-core-packages/commit/e9019f0b0723101477e3d511941682f941d99766))
+
 ## [1.8.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.7.0...dm-core-v1.8.0) (2023-10-24)
 
 
