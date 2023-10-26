@@ -36,6 +36,7 @@ interface IUseListReturnType<T> {
   ) => void
   dirtyState: boolean
   moveItem: (itemToMove: TItem<T>, direction: 'up' | 'down') => void
+  reloadData: () => void
 }
 
 function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
@@ -54,6 +55,7 @@ export function useList<T extends object>(
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
   const [dirtyState, setDirtyState] = useState<boolean>(false)
+  const [refresh, reloadData] = useState()
   const dmssAPI = useDMSS()
 
   useEffect(() => {
@@ -74,6 +76,7 @@ export function useList<T extends object>(
     setLoading(true)
 
     const effect = async () => {
+      setDirtyState(false)
       dmssAPI
         .documentGet({
           address: idReference,
@@ -125,7 +128,7 @@ export function useList<T extends object>(
     }
 
     effect()
-  }, [attribute])
+  }, [attribute, refresh])
 
   const addItem = async (saveOnAdd: boolean = true) => {
     if (!attribute) throw new Error('Missing attribute')
@@ -338,6 +341,7 @@ export function useList<T extends object>(
     const itemIndex = items.findIndex((item) => item.key === itemToMove.key)
     const toIndex = direction === 'up' ? itemIndex - 1 : itemIndex + 1
     const updatedList = arrayMove(items, itemIndex, toIndex)
+    setDirtyState(true)
     setItems(updatedList)
   }
 
@@ -354,5 +358,6 @@ export function useList<T extends object>(
     save,
     updateAttribute,
     moveItem,
+    reloadData,
   }
 }
