@@ -55,12 +55,10 @@ const SelectReference = (props: { type: string; namePath: string }) => {
       ? dmssAPI.documentUpdate({
           idAddress: `${idReference}.${props.namePath}`,
           data: JSON.stringify(reference),
-          updateUncontained: false,
         })
       : dmssAPI.documentAdd({
           address: `${idReference}.${props.namePath}`,
           document: JSON.stringify(reference),
-          updateUncontained: false,
         })
     request
       .then(() => {
@@ -120,7 +118,6 @@ const AddObject = (props: {
       .documentAdd({
         address: `${idReference}.${namePath}`,
         document: JSON.stringify(document),
-        updateUncontained: false,
       })
       .then(() => {
         setValue(namePath, document, options)

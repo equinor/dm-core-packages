@@ -46,7 +46,6 @@ export function NewEntityButton(props: {
       .documentAdd({
         address: saveDestination,
         document: JSON.stringify(entity),
-        updateUncontained: false,
       })
       .then((response: AxiosResponse<TGenericObject>) => {
         const idForNewEntity = response.data.uid
