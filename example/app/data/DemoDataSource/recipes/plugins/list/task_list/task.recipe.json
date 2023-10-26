@@ -58,7 +58,8 @@
         "selectFromScope": "dmss://DemoDataSource/plugins/list/task_list",
         "headers": [
           "name",
-          "assigned"
+          "assigned",
+          "address"
         ],
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",

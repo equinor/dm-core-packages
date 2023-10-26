@@ -48,7 +48,8 @@ function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
 }
 
 export function useList<T extends object>(
-  idReference: string
+  idReference: string,
+  resolveReferences: boolean = true
 ): IUseListReturnType<T> {
   const [attribute, setAttribute] = useState<TAttribute | null>(null)
   const [items, setItems] = useState<TItem<T>[]>([])
@@ -101,23 +102,23 @@ export function useList<T extends object>(
             setItems(items)
             setError(null)
           } else {
-            const resolved = await dmssAPI.documentGet({
-              address: idReference,
-              depth: 1,
-            })
-            if (Array.isArray(resolved.data)) {
-              const items = Object.values(response.data).map((data, index) => ({
-                key: crypto.randomUUID(),
-                index: index,
-                // @ts-ignore
-                data: resolved.data[index],
-                reference: data,
-                isSaved: true,
-              }))
+            const resolved = resolveReferences
+              ? await dmssAPI.documentGet({
+                  address: idReference,
+                  depth: 1,
+                })
+              : []
+            const items = Object.values(response.data).map((data, index) => ({
+              key: crypto.randomUUID(),
+              index: index,
               // @ts-ignore
-              setItems(items)
-              setError(null)
-            }
+              data: resolveReferences ? resolved.data[index] : data,
+              reference: data,
+              isSaved: true,
+            }))
+            // @ts-ignore
+            setItems(items)
+            setError(null)
           }
         })
         .catch((error: AxiosError<ErrorResponse>) => {
