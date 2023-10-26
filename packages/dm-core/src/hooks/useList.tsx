@@ -209,7 +209,6 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
       .documentUpdate({
         idAddress: address,
         data: JSON.stringify(newDocument),
-        updateUncontained: false,
       })
       .then(() => {
         const newList = [...items]

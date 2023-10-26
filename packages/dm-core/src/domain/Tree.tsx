@@ -257,7 +257,6 @@ export class TreeNode {
       await this.tree.dmssApi.documentAdd({
         address: targetAddress,
         document: JSON.stringify(newEntity),
-        updateUncontained: true,
       })
     await this.expand()
     return createResponse.data.uid

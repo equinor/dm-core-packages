@@ -91,7 +91,6 @@ export function useDocument<T>(
       .documentUpdate({
         idAddress: idReference,
         data: JSON.stringify(newDocument),
-        updateUncontained: false,
       })
       .then(() => {
         setDocument(newDocument)

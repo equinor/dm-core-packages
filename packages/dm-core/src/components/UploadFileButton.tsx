@@ -38,7 +38,6 @@ export function UploadFileButton(props: {
         .documentAdd({
           address: `${dataSourceId}/Data/STasks`,
           document: JSON.stringify(newDocumentBody),
-          updateUncontained: true,
         })
         .then((response: AxiosResponse<TGenericObject>) =>
           onUpload({
