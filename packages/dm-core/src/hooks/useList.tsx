@@ -36,7 +36,7 @@ interface IUseListReturnType<T> {
   ) => void
   dirtyState: boolean
   moveItem: (itemToMove: TItem<T>, direction: 'up' | 'down') => void
-  reloadData: () => void
+  reloadData: any
 }
 
 function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
