@@ -70,7 +70,7 @@ const TestUseListPlugin = (props: IUIPlugin) => {
         }}
       />
       {attribute && attribute.contained && (
-        <Button onClick={() => addItem()}>Add item</Button>
+        <Button onClick={() => addItem(true)}>Add item</Button>
       )}
       {dirtyState && <Button onClick={() => save()}>Save</Button>}
       <ul>
