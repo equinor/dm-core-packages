@@ -23,6 +23,7 @@ const JobButtonWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 8px;
+  margin-bottom: 0.5rem;
 `
 
 interface ITargetAddress {
@@ -120,7 +121,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   }, [isLoading, jobEntityError, jobDocument])
 
   return (
-    <Card elevation={'raised'} style={{ padding: '1.25rem' }}>
+    <div>
       <JobButtonWrapper>
         <JobControlButton jobStatus={status} createJob={createAndStartJob} />
         {status === JobStatus.Running && (
@@ -166,6 +167,6 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           <pre>{result.result}</pre>
         </>
       )}
-    </Card>
+    </div>
   )
 }
