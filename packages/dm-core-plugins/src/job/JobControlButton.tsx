@@ -7,8 +7,9 @@ export const JobControlButton = (props: {
   jobStatus: JobStatus
   createJob: () => void
   asCronJob: boolean
+  disabled: boolean
 }) => {
-  const { jobStatus, createJob, asCronJob } = props
+  const { jobStatus, createJob, asCronJob, disabled } = props
   const [hovering, setHovering] = useState(false)
   const buttonRef: MutableRefObject<HTMLButtonElement | undefined> = useRef()
   buttonRef.current?.addEventListener('mouseenter', () => setHovering(true))
@@ -41,7 +42,12 @@ export const JobControlButton = (props: {
   }
 
   return (
-    <Button ref={buttonRef} onClick={createJob} style={{ width: '7rem' }}>
+    <Button
+      ref={buttonRef}
+      onClick={createJob}
+      style={{ width: '7rem' }}
+      disabled={disabled}
+    >
       {jobStatus === JobStatus.Running && !hovering ? (
         <CircularProgress size={16} variant="indeterminate" />
       ) : (
