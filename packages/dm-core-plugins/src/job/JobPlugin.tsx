@@ -52,8 +52,12 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     idReference,
   }: { config: JobPluginConfig; idReference: string } = props
   const DmssApi = useDMSS()
-  const defaultCron = '0 8 * * *'
-
+  const emptyJob: TSchedule = {
+    type: EBlueprint.CRON_JOB,
+    cron: '0 8 * * *',
+    startDate: '',
+    endDate: '',
+  }
   const jobTargetAddress = useMemo((): string => {
     if ((config.jobTargetAddress.addressScope ?? 'local') !== 'local') {
       return config.jobTargetAddress.targetAddress
@@ -79,12 +83,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   const [jobExists, setJobExists] = useState(false)
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const [asCronJob, setAsCronJob] = useState<boolean>(false)
-  const [jobSchedule, setJobSchedule] = useState<TSchedule>({
-    type: EBlueprint.CRON_JOB,
-    cron: defaultCron,
-    startDate: '',
-    endDate: '',
-  })
+  const [jobSchedule, setJobSchedule] = useState<TSchedule>(emptyJob)
   const canSubmit =
     !asCronJob || Boolean(jobSchedule.startDate && jobSchedule.endDate)
   const {
@@ -157,8 +156,9 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
       />
       {asCronJob && (
         <CreateReoccurringJob
-          close={() => console.log('close')}
-          removeJob={() => console.log('remove')}
+          cronJob={jobSchedule}
+          close={() => setAsCronJob(false)}
+          removeJob={() => setJobSchedule(emptyJob)}
           setCronJob={(e: TSchedule) => {
             console.log(e)
             setJobSchedule(e)

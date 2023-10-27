@@ -3,7 +3,7 @@ import { Button, Label } from '@equinor/eds-core-react'
 import { StyledSelect } from './Input'
 import DateRangePicker from './DateRangePicker'
 import styled from 'styled-components'
-import { TGenericObject, TSchedule } from '@development-framework/dm-core'
+import { TSchedule } from '@development-framework/dm-core'
 
 enum EInterval {
   HOURLY = 'Hourly',
@@ -40,14 +40,14 @@ export function CreateReoccurringJob(props: {
   removeJob: () => void
   // TODO: Export TCronJob from dm-core
   setCronJob: (job: TSchedule) => void
-  cronJob?: TGenericObject | undefined
+  cronJob?: TSchedule | undefined
 }) {
   const { close, removeJob, setCronJob, cronJob } = props
   const [schedule, setSchedule] = useState<string | null>(null)
   const [dateRange, setDateRange] = useState<{
     startDate: string
     endDate: string
-  }>({ startDate: '', endDate: '' })
+  }>({ startDate: cronJob?.startDate ?? '', endDate: cronJob?.endDate ?? '' })
   const [interval, setInterval] = useState<EInterval>(EInterval.HOURLY)
   const [hour, setHour] = useState<string>('23')
   const [hourStep, setHourStep] = useState<string>('1')
@@ -176,7 +176,6 @@ export function CreateReoccurringJob(props: {
               //@ts-ignore
               endDate: dateRange.endDate,
             })
-            close()
           }}
         >
           Set
