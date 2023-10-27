@@ -29,20 +29,6 @@ export const SaveButton = (props: {
   </Button>
 )
 
-export const ReloadButton = (props: {
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void
-  disabled: boolean
-  isLoading: boolean
-}) => (
-  <Button
-    disabled={props.disabled}
-    onClick={props.onClick}
-    data-testid="ReloadData"
-  >
-    {props.isLoading ? <Progress.Dots color={'primary'} /> : 'Undo'}
-  </Button>
-)
-
 export const ListItemButton = (props: {
   onClick: () => void
   disabled?: boolean

@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { useDMSS } from '../context/DMSSContext'
 import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
 import { TAttribute, TLinkReference } from '../types'
-import { toast } from 'react-toastify'
 import { EBlueprint } from '../Enums'
+import { v4 as uuidv4 } from 'uuid'
 
 export type TItem<T> = {
   key: string
@@ -67,13 +67,14 @@ export function useList<T extends object>(
       .then((response: AxiosResponse) => {
         setAttribute(response.data.attribute)
       })
-      .catch((error) => toast.error(error))
+      .catch((error: AxiosError<ErrorResponse>) => {
+        setError(error.response?.data || { message: error.name, data: error })
+      })
       .finally(() => setLoading(false))
   }, [dmssAPI, idReference])
 
   useEffect(() => {
     if (!attribute) return
-    if (!items) throw new Error('Missing items')
     setLoading(true)
 
     const effect = async () => {
@@ -92,7 +93,7 @@ export function useList<T extends object>(
             }
 
             const items = Object.values(response.data).map((data, index) => ({
-              key: crypto.randomUUID(),
+              key: uuidv4(),
               index: index,
               data: data,
               reference: null,
@@ -109,7 +110,7 @@ export function useList<T extends object>(
                 })
               : []
             const items = Object.values(response.data).map((data, index) => ({
-              key: crypto.randomUUID(),
+              key: uuidv4(),
               index: index,
               // @ts-ignore
               data: resolveReferences ? resolved.data[index] : data,
@@ -122,7 +123,6 @@ export function useList<T extends object>(
           }
         })
         .catch((error: AxiosError<ErrorResponse>) => {
-          console.error(error)
           setError(error.response?.data || { message: error.name, data: error })
         })
         .finally(() => setLoading(false))
@@ -156,7 +156,7 @@ export function useList<T extends object>(
       const newList = [
         ...items,
         {
-          key: crypto.randomUUID(),
+          key: uuidv4(),
           index: items?.length,
           data: newEntity.data,
           reference: null,
@@ -167,7 +167,6 @@ export function useList<T extends object>(
       setItems(newList)
     } catch (error) {
       if (isAxiosError(error)) {
-        alert(JSON.stringify(error.response?.data))
         setError(error.response?.data || { message: error.name, data: error })
       }
       throw error
@@ -199,7 +198,6 @@ export function useList<T extends object>(
       setItems(newList)
     } catch (error) {
       if (isAxiosError(error)) {
-        alert(JSON.stringify(error.response?.data))
         setError(error.response?.data || { message: error.name, data: error })
       }
       throw error
@@ -225,7 +223,7 @@ export function useList<T extends object>(
       referenceType: 'link',
       address: address,
     }
-    const newKey = crypto.randomUUID() as string
+    const newKey = uuidv4() as string
     try {
       if (saveOnAdd) {
         await dmssAPI.documentAdd({
@@ -249,7 +247,6 @@ export function useList<T extends object>(
       setItems(newList)
     } catch (error) {
       if (isAxiosError(error)) {
-        alert(JSON.stringify(error.response?.data))
         setError(error.response?.data || { message: error.name, data: error })
       }
       throw error
@@ -289,7 +286,6 @@ export function useList<T extends object>(
       setError(null)
     } catch (error) {
       if (isAxiosError(error)) {
-        alert(JSON.stringify(error.response?.data))
         setError(error.response?.data || { message: error.name, data: error })
       }
       throw error
@@ -305,20 +301,24 @@ export function useList<T extends object>(
     const payload = items.map((item) =>
       attribute?.contained ? item.data : item.reference
     )
-    dmssAPI
-      .documentUpdate({
+    try {
+      await dmssAPI.documentUpdate({
         idAddress: idReference,
         data: JSON.stringify(Object.values(payload)),
       })
-      .then(() => {
-        const updatedItems: TItem<T>[] = items.map((item) => {
-          return { ...item, isSaved: true }
-        })
-        setItems(updatedItems)
-        setDirtyState(false)
+      const updatedItems: TItem<T>[] = items.map((item) => {
+        return { ...item, isSaved: true }
       })
-      .catch((e: Error) => toast.error(JSON.stringify(e, null, 2)))
-      .finally(() => setLoading(false))
+      setItems(updatedItems)
+      setDirtyState(false)
+    } catch (error) {
+      if (isAxiosError(error)) {
+        setError(error.response?.data || { message: error.name, data: error })
+      }
+      throw error
+    } finally {
+      setLoading(false)
+    }
   }
 
   const updateAttribute = (
