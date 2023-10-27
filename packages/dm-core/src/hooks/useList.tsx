@@ -48,9 +48,10 @@ export function useList<T>(idReference: string): IUseListReturnType<T> {
     dmssAPI
       .attributeGet({
         address: idReference,
+        resolve: false,
       })
       .then((response: AxiosResponse) => {
-        setAttribute(response.data)
+        setAttribute(response.data.attribute)
       })
       .catch((error) => toast.error(error))
       .finally(() => setLoading(false))

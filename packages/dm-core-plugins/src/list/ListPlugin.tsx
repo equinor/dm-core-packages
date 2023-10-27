@@ -96,9 +96,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     dmssAPI
       .attributeGet({
         address: idReference,
+        resolve: false,
       })
       .then((response: AxiosResponse) => {
-        setIsListOfReferences(!response.data.contained ?? false)
+        setIsListOfReferences(!response.data.attribute.contained ?? false)
       })
       .catch((error) => toast.error(error))
       .finally(() => setIsAttributeLoading(false))
@@ -205,7 +206,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoadingDocument || isAttributeLoading || isRawDocumentLoading)
     return <Loading />
-
+  console.log(isListOfReferences)
   return (
     <Stack>
       <EntityPickerDialog

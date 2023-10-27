@@ -43,6 +43,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error>()
   const [attribute, setAttribute] = useState<TAttribute>()
+  const [directAddress, setDirectAddress] = useState<string>(idReference)
 
   const reference = getTarget(idReference, viewConfig)
 
@@ -50,9 +51,11 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
     dmssAPI
       .attributeGet({
         address: reference,
+        resolve: props.viewConfig.resolve,
       })
       .then((response: AxiosResponse) => {
-        setAttribute(response.data)
+        setAttribute(response.data.attribute)
+        setDirectAddress(response.data.address)
       })
       .catch((error) => setError(error))
       .finally(() => setIsLoading(false))
@@ -77,7 +80,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   if (isInlineRecipeViewConfig(viewConfig)) {
     return (
       <InlineRecipeView
-        idReference={reference}
+        idReference={directAddress}
         type={attribute.attributeType}
         viewConfig={viewConfig}
         onOpen={onOpen}
@@ -89,7 +92,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
     return (
       <EntityView
         type={attribute.attributeType}
-        idReference={reference}
+        idReference={directAddress}
         recipeName={viewConfig.recipe}
         onOpen={onOpen}
         dimensions={attribute.dimensions}
@@ -98,7 +101,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   } else if (isViewConfig(viewConfig)) {
     return (
       <EntityView
-        idReference={reference}
+        idReference={directAddress}
         type={attribute.attributeType}
         onOpen={onOpen}
         dimensions={attribute.dimensions}

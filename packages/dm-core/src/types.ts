@@ -165,6 +165,7 @@ export type TUserIdMapping = { userId: string; username: string }
 export type TViewConfig = {
   type: string
   scope?: string
+  resolve?: boolean
   label?: string
   eds_icon?: string
   roles?: string[]

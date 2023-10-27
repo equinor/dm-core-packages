@@ -12,7 +12,7 @@
   },
   "uiRecipes": [
     {
-      "name": "Form",
+      "name": "Edit",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/form"
     },
