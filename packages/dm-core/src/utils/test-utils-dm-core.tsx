@@ -18,12 +18,17 @@ export const mockGetDocument = (documents: any) => {
   return mock
 }
 
-export const mockGetList = (documents: list | null = null) => {
+export const mockGetList = (documents: dict | null = null) => {
   const mock = jest.spyOn(DmssAPI.prototype, 'documentGet')
-
-  mock.mockImplementation(() => {
-    return documents
-      ? Promise.resolve({ data: documents })
+  mock.mockImplementation((parameters) => {
+    const list =
+      parameters['address'] in documents
+        ? documents[parameters['address']][parameters['depth']]
+        : null
+    return list
+      ? Promise.resolve({
+          data: list,
+        })
       : Promise.reject('error')
   })
 
@@ -34,7 +39,7 @@ export const mockAttributeGet = (attribute: dict | null = null) => {
   const mock = jest.spyOn(DmssAPI.prototype, 'attributeGet')
   mock.mockImplementation(() => {
     return attribute
-      ? Promise.resolve({ data: attribute })
+      ? Promise.resolve({ data: { attribute: attribute } })
       : Promise.reject('error')
   })
   return mock

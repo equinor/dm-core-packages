@@ -71,7 +71,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
-  // @ts-ignore
   const paginatedRows = useMemo(
     () =>
       items &&
