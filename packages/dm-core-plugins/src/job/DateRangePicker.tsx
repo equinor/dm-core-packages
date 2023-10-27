@@ -1,5 +1,5 @@
 import React from 'react'
-import { Label, TextField } from '@equinor/eds-core-react'
+import { TextField } from '@equinor/eds-core-react'
 
 const DateRangePicker = (props: {
   setDateRange: (dateRange: { startDate: string; endDate: string }) => void
@@ -7,9 +7,14 @@ const DateRangePicker = (props: {
 }): JSX.Element => {
   const { setDateRange, value } = props
 
+  console.log(value)
   return (
-    <div>
-      <Label label="Specify date range" />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+      }}
+    >
       <TextField
         id="startDate"
         defaultValue={value.startDate}
