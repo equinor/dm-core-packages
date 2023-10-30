@@ -148,7 +148,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     <Card elevation={'raised'} style={{ padding: '1.25rem' }}>
       <Switch
         size="small"
-        label="As cron job"
+        label="Reoccurring"
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setAsCronJob(e.target.checked)
         }
