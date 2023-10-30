@@ -54,11 +54,17 @@ export function CreateReoccurringJob(props: {
 
   const getLabel = () => {
     if (interval === 'Weekly') {
-      return <small>Will run on sunday in every week</small>
+      return (
+        <small>Will run every sunday at {hour + ':' + minute} O'clock</small>
+      )
     } else if (interval === 'Monthly') {
-      return <small>Will run on the 1st on every month</small>
+      return (
+        <small>
+          Will run on the 1st on every month at {hour + ':' + minute} O'clock
+        </small>
+      )
     } else if (interval === 'Daily') {
-      return <small>Will run at {hour + ':' + minute} o'clock every day</small>
+      return <small>Will run at {hour + ':' + minute} O'clock every day</small>
     } else if (interval === 'Hourly') {
       return <small>Will run every {hourStep} hour</small>
     }
