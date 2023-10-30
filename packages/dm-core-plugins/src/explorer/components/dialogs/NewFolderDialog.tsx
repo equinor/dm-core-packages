@@ -41,7 +41,6 @@ const NewFolderDialog = (props: TProps) => {
       .documentAdd({
         address: address,
         document: JSON.stringify(newFolder),
-        updateUncontained: true,
       })
       .then(() => {
         setNodeOpen(true)

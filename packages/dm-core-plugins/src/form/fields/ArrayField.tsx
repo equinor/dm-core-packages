@@ -49,7 +49,6 @@ export default function ArrayField(props: TArrayFieldProps) {
           .documentUpdate({
             idAddress: `${idReference}.${namePath}`,
             data: data,
-            updateUncontained: false,
           })
           .then(() => {
             append(newEntity.data)

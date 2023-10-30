@@ -5,6 +5,7 @@ import {
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
+// @ts-ignore
 import Plot from 'react-plotly.js'
 
 const ESSPlotPlugin = (props: { document: TGenericObject }) => {
