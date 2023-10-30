@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.10.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.9.0...dm-core-v1.10.0) (2023-10-30)
+
+
+### Features
+
+* add list hook ([6eaea15](https://github.com/equinor/dm-core-packages/commit/6eaea1559f08d793186c00a8901c60523573afa7))
+* add loading to actions ([d91a8b4](https://github.com/equinor/dm-core-packages/commit/d91a8b4f7ef789f1c1eb4fbe171b92dd1c383eec))
+* add pagination ([98346d1](https://github.com/equinor/dm-core-packages/commit/98346d194e82f00c002a4d4c963a815dc3d1f970))
+* save list ([9d35daf](https://github.com/equinor/dm-core-packages/commit/9d35dafe2b69e5fc4ae86de270ca01463e226ec1))
+* support references ([ca909f0](https://github.com/equinor/dm-core-packages/commit/ca909f08a18028da4b9db53a9155cd3ae09d7aba))
+* update attribute ([0e13cfb](https://github.com/equinor/dm-core-packages/commit/0e13cfbe18ff925497dc5f6ffaf28a10ea0563d7))
+* update item ([db60b3b](https://github.com/equinor/dm-core-packages/commit/db60b3b6fbcc469223a598ba88dad1f149f4795b))
+* **ViewCreator:** default to resolve target if it's a reference ([455f055](https://github.com/equinor/dm-core-packages/commit/455f05538e4b4b841c5d2f1fc247ab7823678fb5))
+
 ## [1.9.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.8.0...dm-core-v1.9.0) (2023-10-25)
 
 
