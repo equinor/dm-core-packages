@@ -5,23 +5,9 @@ import {
   TreeView,
 } from '@development-framework/dm-core'
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components'
 import Sidebar from './components/Sidebar'
 import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
 import { Progress } from '@equinor/eds-core-react'
-
-export const TreeWrapper = styled.div`
-  min-width: 10vw;
-  padding-left: 15px;
-  padding-top: 15px;
-  height: 100vh;
-  border-right: black solid 1px;
-  border-radius: 2px;
-  overflow: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`
 
 export default () => {
   const { treeNodes, loading } = useContext(FSTreeContext)

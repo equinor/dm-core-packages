@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import { useLocalStorage } from '@development-framework/dm-core'
 
 const [minWidth, maxWidth, defaultWidth] = [200, 500, 250]
 
@@ -8,8 +9,9 @@ type TProps = {
 
 export default function Sidebar(props: TProps) {
   const { children } = props
+  const sideBarWidth = useLocalStorage('explorerWidth', defaultWidth)
   const [width, setWidth] = useState<number>(
-    parseInt(String(localStorage.getItem('explorerWidth'))) ?? defaultWidth
+    parseInt(String(sideBarWidth)) ?? defaultWidth
   )
   const isResized = useRef<boolean>(false)
 
@@ -44,8 +46,8 @@ export default function Sidebar(props: TProps) {
       {/* Handle */}
       <div
         style={{
-          width: '.1rem',
-          backgroundColor: 'gray',
+          width: '.3rem',
+          borderRight: '.1rem solid gray',
           cursor: 'col-resize',
         }}
         onMouseDown={() => {
