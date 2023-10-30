@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Label } from '@equinor/eds-core-react'
-import { StyledSelect } from './Input'
+import { Autocomplete, Button } from '@equinor/eds-core-react'
 import DateRangePicker from './DateRangePicker'
 import styled from 'styled-components'
-import { TSchedule } from '@development-framework/dm-core'
+import { EBlueprint, TSchedule } from '@development-framework/dm-core'
 
 enum EInterval {
   HOURLY = 'Hourly',
@@ -58,6 +57,8 @@ export function CreateReoccurringJob(props: {
       return <small>Will run on sunday in every week</small>
     } else if (interval === 'Monthly') {
       return <small>Will run on the 1st on every month</small>
+    } else if (interval === 'Daily') {
+      return <small>Will run at {hour + ':' + minute} o'clock every day</small>
     } else if (interval === 'Hourly') {
       return <small>Will run every {hourStep} hour</small>
     }
@@ -79,10 +80,12 @@ export function CreateReoccurringJob(props: {
         dayOfMonth = '1'
         break
       case EInterval.HOURLY:
-        newHour = `*/${hourStep}`
+        newHour = hourStep ? `*/${hourStep}` : '*'
     }
     setSchedule(`${newMinute} ${newHour} ${dayOfMonth} ${month} ${dayOfWeek}`)
   }, [interval, hour, minute, hourStep])
+
+  console.log(schedule)
   return (
     <div>
       <div>
@@ -97,57 +100,41 @@ export function CreateReoccurringJob(props: {
         />
         <InputWrapper>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Label label="Interval" />
-            <StyledSelect
-              onChange={(e) => {
-                //@ts-ignore
-                // TODO fix type
-                setInterval(e.target.value)
+            <Autocomplete
+              options={Object.entries(EInterval).map((entry) => entry[1])}
+              label={'Interval'}
+              onInputChange={(label: string) => {
+                const chosenIntervalType = Object.entries(EInterval)
+                  .filter((l) => l.length > 0 && l[1] == label)
+                  .pop()
+                chosenIntervalType
+                  ? setInterval(chosenIntervalType[1])
+                  : setInterval(EInterval.HOURLY)
               }}
-              value={interval}
-            >
-              {Object.entries(EInterval).map(([key, value]: any) => (
-                <option key={key} value={value}>
-                  {value}
-                </option>
-              ))}
-            </StyledSelect>
+            />
           </div>
           {interval !== EInterval.HOURLY && (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <Label label="Time" />
-              <StyledSelect
-                onChange={(e) => {
-                  const hourAndMinute = e.target.value
-                  const [newHour, newMinute] = hourAndMinute.split(':')
+              <Autocomplete
+                options={generateSelectableTimes().map(
+                  (value: string) => value
+                )}
+                label={'Time'}
+                onInputChange={(timestamp) => {
+                  const [newHour, newMinute] = timestamp.split(':')
                   setMinute(newMinute)
                   setHour(newHour)
                 }}
-              >
-                {generateSelectableTimes().map((value: string, index) => (
-                  <option key={index} value={value}>
-                    {value}
-                  </option>
-                ))}
-              </StyledSelect>
+              />
             </div>
           )}
           {interval === EInterval.HOURLY && (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <Label label="Hour step" />
-              <StyledSelect
-                onChange={(e) => {
-                  setHourStep(e.target.value)
-                }}
-              >
-                {/*TODO fix type error*/}
-                {/*@ts-ignore*/}
-                {[...Array(12).keys()].map((value: number, index) => (
-                  <option key={index} value={value + 1}>
-                    {value + 1}
-                  </option>
-                ))}
-              </StyledSelect>
+              <Autocomplete
+                options={[...Array(12).keys()].map((i) => i + 1)}
+                label={'Hour step'}
+                onInputChange={(step) => setHourStep(step)}
+              />
             </div>
           )}
         </InputWrapper>
@@ -166,14 +153,12 @@ export function CreateReoccurringJob(props: {
           Remove
         </Button>
         <Button
+          disabled={!schedule}
           onClick={() => {
             setCronJob({
-              //TODO fix type error
-              //@ts-ignore
-              cron: schedule,
-              //@ts-ignore
+              type: EBlueprint.CRON_JOB,
+              cron: schedule ?? '* * * * *',
               startDate: dateRange.startDate,
-              //@ts-ignore
               endDate: dateRange.endDate,
             })
           }}

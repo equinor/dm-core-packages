@@ -159,10 +159,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           cronJob={jobSchedule}
           close={() => setAsCronJob(false)}
           removeJob={() => setJobSchedule(emptyJob)}
-          setCronJob={(e: TSchedule) => {
-            console.log(e)
-            setJobSchedule(e)
-          }}
+          setCronJob={(e: TSchedule) => setJobSchedule(e)}
         />
       )}
       <JobButtonWrapper>

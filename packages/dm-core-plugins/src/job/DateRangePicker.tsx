@@ -7,7 +7,6 @@ const DateRangePicker = (props: {
 }): JSX.Element => {
   const { setDateRange, value } = props
 
-  console.log(value)
   return (
     <div
       style={{
