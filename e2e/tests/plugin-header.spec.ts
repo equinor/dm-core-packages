@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('Load header', async ({ page }) => {
-  await expect(page.getByRole('button', { name: 'Menu' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Menu' }).nth(1)).toBeVisible()
   await expect(
     page.getByRole('heading', { name: 'Data Modelling Example App' })
   ).toBeVisible()

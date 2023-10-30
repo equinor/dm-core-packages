@@ -168,7 +168,10 @@ test('New customer', async () => {
   await navigate()
   await customersDiv.getByRole('button', { name: 'Open' }).click()
   await expect(page.getByText('Lewis')).toBeVisible()
-  await page.getByRole('button', { name: 'Open item' }).last().click()
+  await page
+    .getByRole('button', { name: 'Open item', exact: true })
+    .last()
+    .click()
   await expect(
     page.getByTestId('name').getByTestId('form-textfield')
   ).toBeVisible()
