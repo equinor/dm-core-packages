@@ -29,7 +29,11 @@ test('Add a new task', async ({ page }) => {
   await page.getByRole('button', { name: 'Add item' }).click()
   await expect(page.getByText('1 - 4 of 4')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()
-  await page.getByRole('button', { name: 'Open item' }).last().click()
+  await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
+  await page
+    .getByRole('button', { name: 'Open item', exact: true })
+    .last()
+    .click()
   await page.getByLabel('Task title:').fill('Tax return')
   await page.getByLabel('Assigned to: (optional)').fill('Maria Johnson')
   await page
@@ -40,7 +44,10 @@ test('Add a new task', async ({ page }) => {
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(page.getByText('Tax return', { exact: true })).toBeVisible()
-  await page.getByRole('button', { name: 'Open item' }).last().click()
+  await page
+    .getByRole('button', { name: 'Open item', exact: true })
+    .last()
+    .click()
   await expect(page.getByLabel('Task title:')).toHaveValue('Tax return')
   await expect(page.getByLabel('Assigned to: (optional)')).toHaveValue(
     'Maria Johnson'
@@ -55,16 +62,25 @@ test('Add a new task', async ({ page }) => {
 })
 
 test('Mark task as complete', async ({ page }) => {
-  await page.getByRole('button', { name: 'Open item' }).first().click()
+  await page
+    .getByRole('button', { name: 'Open item', exact: true })
+    .first()
+    .click()
   await expect(page.getByLabel('Task title:')).toHaveValue('Wash the car')
   await page.getByText('Mark task as complete').click()
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
-  await page.getByRole('button', { name: 'Open item' }).first().click()
+  await page
+    .getByRole('button', { name: 'Open item', exact: true })
+    .first()
+    .click()
   await expect(page.getByTestId('form-checkbox')).toBeChecked()
-  await page.getByRole('button', { name: 'Close item' }).first().click()
+  await page
+    .getByRole('button', { name: 'Close item', exact: true })
+    .first()
+    .click()
 })
 
 test('Delete a task', async ({ page }) => {
@@ -78,7 +94,7 @@ test('Delete a task', async ({ page }) => {
     .getByRole('button', { name: 'Delete' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page.getByRole('paragraph').getByText('Wash the car')
@@ -109,7 +125,7 @@ test('Move task up and down', async ({ page }) => {
     .getByRole('button', { name: 'Move up' })
     .click()
   await page.getByTestId('SaveList').click()
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
@@ -129,6 +145,7 @@ test('Move task up and down', async ({ page }) => {
     .getByRole('button', { name: 'Move up' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
+  await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
@@ -148,6 +165,7 @@ test('Move task up and down', async ({ page }) => {
     .getByRole('button', { name: 'Move down' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
+  await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
@@ -167,6 +185,7 @@ test('Move task up and down', async ({ page }) => {
     .getByRole('button', { name: 'Move down' })
     .click()
   await page.getByRole('button', { name: 'Save' }).click()
+  await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(
     page
@@ -198,7 +217,10 @@ test('Edit a task', async ({ page }) => {
   await expect(
     page.getByText('Paint the living room green', { exact: true })
   ).toBeVisible()
-  await page.getByRole('button', { name: 'Open item' }).last().click()
+  await page
+    .getByRole('button', { name: 'Open item', exact: true })
+    .last()
+    .click()
   await expect(page.getByLabel('Task title:')).toHaveValue(
     'Paint the living room green'
   )
@@ -224,6 +246,7 @@ test('Pagination', async ({ page }) => {
   await page.getByRole('button', { name: 'Add item' }).click()
   await expect(page.getByText('1 - 5 of 6')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()
+  await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await page.getByRole('button', { name: 'Next page' }).click()
   await expect(page.getByText('6 - 6 of 6')).toBeVisible()
   await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
