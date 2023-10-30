@@ -8,8 +8,14 @@ type TProps = {
 
 export default function Sidebar(props: TProps) {
   const { children } = props
-  const [width, setWidth] = useState<number>(defaultWidth)
+  const [width, setWidth] = useState<number>(
+    parseInt(String(localStorage.getItem('explorerWidth'))) ?? defaultWidth
+  )
   const isResized = useRef<boolean>(false)
+
+  useEffect(() => {
+    localStorage.setItem('explorerWidth', String(width))
+  }, [width])
 
   useEffect(() => {
     window.addEventListener('mousemove', (e) => {
