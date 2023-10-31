@@ -24,6 +24,31 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.3 to ^1.6.4
 
+## [1.14.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.13.0...dm-core-plugins-v1.14.0) (2023-10-31)
+
+
+### Features
+
+* cron job picker support in JobPlugin ([8af5495](https://github.com/equinor/dm-core-packages/commit/8af5495b6eb0ed59bfa73f96589bab62cac097ab))
+* support for scheduling of cron jobs in JobPlugin ([8314879](https://github.com/equinor/dm-core-packages/commit/831487978af0666cce28feeaf51b8c318fe3462d))
+
+
+### Bug Fixes
+
+* change as cron job label to reoccurring ([ef3d108](https://github.com/equinor/dm-core-packages/commit/ef3d1086fa17405e599f14ba973ad599b4a104a3))
+* default value of datetime picker ([94c46e1](https://github.com/equinor/dm-core-packages/commit/94c46e1d323496f42e10ecb590af67829c2c8a87))
+* implemented remove job and persistent dates ([2dde308](https://github.com/equinor/dm-core-packages/commit/2dde308f4a62767085f2783a8e1bee545bc284c9))
+* integration test ([b4f71ad](https://github.com/equinor/dm-core-packages/commit/b4f71add3f34a8df02419e1c994a38862a34a846))
+* timestamp in cron result label ([ea88e85](https://github.com/equinor/dm-core-packages/commit/ea88e858e14263512e4d3092379a84a49a1aa063))
+* ts-ignore in CronJob component ([b72024c](https://github.com/equinor/dm-core-packages/commit/b72024c5fa483ea74ed81f397e4661320c22ad98))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.10.0 to ^1.11.0
+
 ## [1.13.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.12.0...dm-core-plugins-v1.13.0) (2023-10-30)
 
 

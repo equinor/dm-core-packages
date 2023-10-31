@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.11.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.10.0...dm-core-v1.11.0) (2023-10-31)
+
+
+### Features
+
+* support for scheduling of cron jobs in JobPlugin ([8314879](https://github.com/equinor/dm-core-packages/commit/831487978af0666cce28feeaf51b8c318fe3462d))
+
+
+### Bug Fixes
+
+* integration test ([b4f71ad](https://github.com/equinor/dm-core-packages/commit/b4f71add3f34a8df02419e1c994a38862a34a846))
+
 ## [1.10.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.9.0...dm-core-v1.10.0) (2023-10-30)
 
 
