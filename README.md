@@ -3011,3 +3011,22 @@ Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.
     * **DMSS VERSION**: a831dc2 2023-10-27 githu..[bot] chore(master): release 1.7.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.2.0
     * **JOB VERSION**: 9bd5041 2023-10-11 githu..[bot] chore(main): release 1.2.2 grafted, HEAD -> main, origin/main
+* Feat/resizable explorer (#667)
+
+* feat: resizable explorer sidebar
+
+* feat: persistent width
+
+* refactor: remove unused and make it easier to grab sidebar
+
+* fixup: suggestion on sidebar width state
+
+* refactor: tweak useLocalStorage
+
+---------
+
+Co-authored-by: Stig Ofstad <stigofstad@gmail.com> (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6704556328/1)
+    * **DMSS VERSION**: a831dc2 2023-10-27 githu..[bot] chore(master): release 1.7.1 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.2.0
+    * **JOB VERSION**: 9bd5041 2023-10-11 githu..[bot] chore(main): release 1.2.2 grafted, HEAD -> main, origin/main
