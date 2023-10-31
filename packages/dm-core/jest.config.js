@@ -5,4 +5,5 @@ module.exports = {
   ...base,
   testEnvironment: 'jsdom',
   displayName: packageJson.name,
+  setupFilesAfterEnv: ['./jestSetup.js'],
 }
