@@ -24,6 +24,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.6.3 to ^1.6.4
 
+## [1.13.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.12.0...dm-core-plugins-v1.13.0) (2023-10-30)
+
+
+### Features
+
+* **ViewCreator:** default to resolve target if it's a reference ([455f055](https://github.com/equinor/dm-core-packages/commit/455f05538e4b4b841c5d2f1fc247ab7823678fb5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.9.0 to ^1.10.0
+
 ## [1.12.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.11.0...dm-core-plugins-v1.12.0) (2023-10-25)
 
 

@@ -4,21 +4,10 @@ import {
   TreeNode,
   TreeView,
 } from '@development-framework/dm-core'
-import { Progress } from '@equinor/eds-core-react'
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components'
+import Sidebar from './components/Sidebar'
 import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
-
-export const TreeWrapper = styled.div`
-  width: 25%;
-  min-width: 25vw;
-  padding-left: 15px;
-  padding-top: 15px;
-  height: 100vh;
-  border-right: black solid 1px;
-  border-radius: 2px;
-  overflow: auto;
-`
+import { Progress } from '@equinor/eds-core-react'
 
 export default () => {
   const { treeNodes, loading } = useContext(FSTreeContext)
@@ -27,15 +16,14 @@ export default () => {
   const [nodeDimensions, setNodeDimensions] = useState<string | undefined>(
     undefined
   )
-
   return (
-    <div style={{ display: 'flex' }}>
-      <TreeWrapper>
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Progress.Circular />
-          </div>
-        ) : (
+    <div style={{ display: 'flex', height: '100vh' }}>
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Progress.Circular />
+        </div>
+      ) : (
+        <Sidebar>
           <TreeView
             nodes={treeNodes}
             onSelect={(node: TreeNode) => {
@@ -45,14 +33,10 @@ export default () => {
             }}
             NodeWrapper={NodeRightClickMenu}
           />
-        )}
-      </TreeWrapper>
+        </Sidebar>
+      )}
       {selectedType && selectedEntity && (
-        <div
-          style={{
-            padding: '1rem',
-          }}
-        >
+        <div style={{ width: '100%' }}>
           <EntityView
             type={selectedType}
             idReference={selectedEntity}
