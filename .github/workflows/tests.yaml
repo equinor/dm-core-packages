@@ -27,6 +27,14 @@ jobs:
       - uses: actions/setup-node@v3
 
       # TODO: Cache yarn install
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./packages/dm-core/package.json')}}-${{ hashFiles('./packages/dm-core-packages/package.json') }}
 
       - name: 'Install dependencies'
         run: yarn install
