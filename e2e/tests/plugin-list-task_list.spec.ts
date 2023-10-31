@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole('button', { name: 'list' }).click()
   await page.getByRole('button', { name: 'task_list' }).click()
   await page.getByRole('button', { name: 'file TaskList' }).click()
-  await page.getByRole('button', { name: 'list task_list' }).click()
+  await page.getByRole('tab', { name: 'task_list' }).click()
 })
 
 //TODO REMOVE: Temporary function to reload page as we currently need to reload page to view saved itmes... (#153)
@@ -22,7 +22,7 @@ async function reloadPage(page: Page) {
   await page.getByRole('button', { name: 'list' }).click()
   await page.getByRole('button', { name: 'task_list' }).click()
   await page.getByRole('button', { name: 'file TaskList' }).click()
-  await page.getByRole('button', { name: 'list task_list' }).click()
+  await page.getByRole('tab', { name: 'task_list' }).click()
 }
 
 test('Add a new task', async ({ page }) => {
