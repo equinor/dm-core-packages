@@ -2,6 +2,14 @@ import { TViewConfig } from '../../types'
 
 export const getTarget = (idReference: string, viewConfig: TViewConfig) => {
   if (viewConfig?.scope && viewConfig.scope !== 'self')
-    return `${idReference}.${viewConfig.scope}`
+    if (viewConfig.scope.slice(0, 5) == 'self.') {
+      return `${idReference}.${viewConfig.scope.slice(5, -1)}`
+    } else if (viewConfig.scope.slice(0, 1) == '^') {
+      return `${idReference}.${viewConfig.scope.slice(1, -1)}`
+    } else if (viewConfig.scope.slice(0, 1) == '.') {
+      return `${idReference}${viewConfig.scope}`
+    } else {
+      return `${idReference}.${viewConfig.scope}`
+    }
   return idReference
 }
