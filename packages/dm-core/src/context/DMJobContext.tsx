@@ -9,6 +9,8 @@ export const DMJobProvider = (props: {
   dmJobPath?: string
 }) => {
   const { token } = useContext(AuthContext)
+  if (!props.dmJobPath)
+    throw new Error('DMJobProvider is missing a job api url')
   const dmJobApi = new DmJobAPI(token, props.dmJobPath)
   return (
     <DMJobContext.Provider value={dmJobApi}>
