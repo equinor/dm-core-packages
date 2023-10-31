@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { TreeNode } from '../domain/Tree'
 
 import { Button, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
 import { chevron_down, chevron_right } from '@equinor/eds-icons'
-import React from 'react'
 import {
   FaDatabase,
   FaExclamationTriangle,
@@ -13,18 +12,20 @@ import {
   FaFilePdf,
   FaFolder,
   FaFolderOpen,
+  FaLink,
   FaList,
   FaRegFileAlt,
-  FaLink,
 } from 'react-icons/fa'
 import { EBlueprint } from '../Enums'
 
 const StyledButton = styled(Button)`
   padding: 0 8px 0 0;
+  text-align: left;
 `
 
 const StyledUl = styled.ul`
   padding: 0;
+
   & & {
     padding-left: 1rem;
   }
