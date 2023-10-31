@@ -28,64 +28,72 @@ test('uncontainedObject', async ({ page }) => {
     await expect(dialog).not.toBeVisible()
   }
 
-  await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
-  await expect(page.getByRole('code').getByText('Miranda')).toBeVisible()
-  await expect(page.getByRole('code').getByText('1337')).toBeVisible()
-  await page.getByRole('button', { name: 'Close ceo' }).click()
+  await test.step('Assert CEO and accountant', async () => {
+    await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
+    await expect(page.getByRole('code').getByText('Miranda')).toBeVisible()
+    await expect(page.getByRole('code').getByText('1337')).toBeVisible()
+    await page.getByRole('button', { name: 'Close ceo' }).click()
 
-  await expect(
-    page.getByTestId('accountant').getByRole('code').getByText('Miranda')
-  ).toBeVisible()
-  await expect(page.getByRole('code').getByText('1337')).toBeVisible()
+    await expect(
+      page.getByTestId('accountant').getByRole('code').getByText('Miranda')
+    ).toBeVisible()
+    await expect(page.getByRole('code').getByText('1337')).toBeVisible()
+  })
 
-  // Add assistant
-  await page
-    .getByTestId('assistant')
-    .getByRole('button', { name: 'Add and save' })
-    .click()
-  await selectJohn()
+  await test.step('Add assistant', async () => {
+    await page
+      .getByTestId('assistant')
+      .getByRole('button', { name: 'Add and save' })
+      .click()
+    await selectJohn()
+    await page
+      .getByTestId('assistant')
+      .getByRole('button', { name: 'Open' })
+      .click()
+    await expect(page.getByText('John')).toBeVisible()
+    await expect(page.getByText('1234')).toBeVisible()
+    await page.getByRole('button', { name: 'Close assistant' }).click()
+  })
 
-  await page
-    .getByTestId('assistant')
-    .getByRole('button', { name: 'Open' })
-    .click()
-  await expect(page.getByText('John')).toBeVisible()
-  await expect(page.getByText('1234')).toBeVisible()
-  await page.getByRole('button', { name: 'Close assistant' }).click()
+  await test.step('Add trainee', async () => {
+    await page
+      .getByTestId('trainee')
+      .getByRole('button', { name: 'Add and save' })
+      .click()
+    await selectJohn()
+    await expect(
+      page.getByTestId('trainee').getByRole('code').getByText('John')
+    ).toBeVisible()
+    await expect(
+      page.getByTestId('trainee').getByRole('code').getByText('1234')
+    ).toBeVisible()
+  })
 
-  // Add trainee
-  await page
-    .getByTestId('trainee')
-    .getByRole('button', { name: 'Add and save' })
-    .click()
-  await selectJohn()
-  await expect(
-    page.getByTestId('trainee').getByRole('code').getByText('John')
-  ).toBeVisible()
-  await expect(
-    page.getByTestId('trainee').getByRole('code').getByText('1234')
-  ).toBeVisible()
+  await test.step('Change accountant', async () => {
+    await page
+      .getByTestId('accountant')
+      .getByRole('button', { name: 'Edit and save' })
+      .click()
+    await selectJohn()
+    await expect(
+      page.getByTestId('accountant').getByRole('code').getByText('John')
+    ).toBeVisible()
+    await expect(
+      page.getByTestId('accountant').getByRole('code').getByText('1234')
+    ).toBeVisible()
+  })
 
-  // Change accountant
-  await page
-    .getByTestId('accountant')
-    .getByRole('button', { name: 'Edit and save' })
-    .click()
-  await selectJohn()
-  await expect(
-    page.getByTestId('accountant').getByRole('code').getByText('John')
-  ).toBeVisible()
-  await expect(
-    page.getByTestId('accountant').getByRole('code').getByText('1234')
-  ).toBeVisible()
+  await test.step('Remove trainee', async () => {
+    const trainee = page.getByTestId('trainee')
+    await trainee.getByRole('button', { name: 'Remove and save' }).click()
+    await expect(trainee.getByRole('code').getByText('John')).not.toBeVisible()
+    await expect(trainee.getByRole('code').getByText('1234')).not.toBeVisible()
+  })
 
-  //Remove trainee
-  const trainee = page.getByTestId('trainee')
-  await trainee.getByRole('button', { name: 'Remove and save' }).click()
-  await expect(trainee.getByRole('code').getByText('John')).not.toBeVisible()
-  await expect(trainee.getByRole('code').getByText('1234')).not.toBeVisible()
-
-  // Submit form
-  await page.getByRole('button', { name: 'Submit' }).click()
-  await expect(page.getByRole('alert').last()).toHaveText(['Document updated'])
+  await test.step('Submit form', async () => {
+    await page.getByRole('button', { name: 'Submit' }).click()
+    await expect(page.getByRole('alert').last()).toHaveText([
+      'Document updated',
+    ])
+  })
 })
