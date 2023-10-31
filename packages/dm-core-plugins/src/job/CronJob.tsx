@@ -34,7 +34,7 @@ const ButtonWrapper = styled.div`
   margin-top: 30px;
 `
 
-export function CreateReoccurringJob(props: {
+export function CreateRecurringJob(props: {
   close: () => void
   removeJob: () => void
   // TODO: Export TCronJob from dm-core

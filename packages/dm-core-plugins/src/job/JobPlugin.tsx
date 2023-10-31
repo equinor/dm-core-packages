@@ -12,11 +12,11 @@ import {
   useJob,
 } from '@development-framework/dm-core'
 import React, {
+  ChangeEvent,
   useContext,
   useEffect,
   useMemo,
   useState,
-  ChangeEvent,
 } from 'react'
 import { Button, Card, Icon, Switch, Typography } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
@@ -24,7 +24,7 @@ import { refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import { CreateReoccurringJob } from './CronJob'
+import { CreateRecurringJob } from './CronJob'
 
 const JobButtonWrapper = styled.div`
   display: flex;
@@ -149,14 +149,14 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     <div>
       <Switch
         size="small"
-        label="Reoccurring"
+        label="Recurring"
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setAsCronJob(e.target.checked)
         }
         checked={asCronJob}
       />
       {asCronJob && (
-        <CreateReoccurringJob
+        <CreateRecurringJob
           cronJob={jobSchedule}
           close={() => setAsCronJob(false)}
           removeJob={() => setJobSchedule(emptyJob)}
