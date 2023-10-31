@@ -15,7 +15,7 @@ test('Start SignalApp', async ({ page }) => {
 test('run Create job', async ({ page }) => {
   await page.getByRole('button', { name: 'Open' }).click()
   await page.getByRole('button', { name: 'Open' }).click()
-  await page.getByRole('button', { name: 'Start' }).click()
+  await page.getByRole('button', { name: 'Run' }).click()
   await expect(
     page.getByText('Progress tracking not implemented')
   ).toBeVisible()
