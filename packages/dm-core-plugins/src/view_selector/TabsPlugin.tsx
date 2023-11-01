@@ -1,4 +1,4 @@
-import { IUIPlugin, Loading } from '@development-framework/dm-core'
+import { IUIPlugin } from '@development-framework/dm-core'
 import { TViewSelectorConfig } from './types'
 import * as React from 'react'
 import { Tabs } from './Tabs'
@@ -7,7 +7,7 @@ import { useViewSelector } from './useViewSelector'
 
 export const TabsPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
-): React.ReactElement => {
+): React.ReactElement | null => {
   const { idReference, config, type } = props
 
   const {
@@ -26,7 +26,7 @@ export const TabsPlugin = (
     throw new Error(JSON.stringify(error, null, 2))
   }
   if (isLoading || !viewSelectorItems.length || !selectedViewId) {
-    return <Loading />
+    return null
   }
 
   return (

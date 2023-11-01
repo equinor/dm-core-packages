@@ -26,6 +26,8 @@ async function reloadPage(page: Page) {
 }
 
 test('Add a new task', async ({ page }) => {
+  const lastTabPanel = page.getByRole('tabpanel').last()
+  await expect(lastTabPanel).toBeVisible()
   await page.getByRole('button', { name: 'Add item' }).click()
   await expect(page.getByText('1 - 4 of 4')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()
@@ -43,6 +45,7 @@ test('Add a new task', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
+  await expect(lastTabPanel).toBeVisible()
   await expect(page.getByText('Tax return', { exact: true })).toBeVisible()
   await page
     .getByRole('button', { name: 'Open item', exact: true })
@@ -62,10 +65,13 @@ test('Add a new task', async ({ page }) => {
 })
 
 test('Mark task as complete', async ({ page }) => {
+  const lastTabPanel = page.getByRole('tabpanel').last()
+  await expect(lastTabPanel).toBeVisible()
   await page
     .getByRole('button', { name: 'Open item', exact: true })
     .first()
     .click()
+  await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible()
   await expect(page.getByLabel('Task title:')).toHaveValue('Wash the car')
   await page.getByText('Mark task as complete').click()
   await page.getByRole('button', { name: 'Submit' }).click()
@@ -76,6 +82,7 @@ test('Mark task as complete', async ({ page }) => {
     .getByRole('button', { name: 'Open item', exact: true })
     .first()
     .click()
+  await expect(page.getByTestId('form-checkbox')).toBeVisible()
   await expect(page.getByTestId('form-checkbox')).toBeChecked()
   await page
     .getByRole('button', { name: 'Close item', exact: true })
@@ -84,6 +91,8 @@ test('Mark task as complete', async ({ page }) => {
 })
 
 test('Delete a task', async ({ page }) => {
+  const lastTabPanel = page.getByRole('tabpanel').last()
+  await expect(lastTabPanel).toBeVisible()
   await expect(
     page.getByRole('paragraph').getByText('Tax return')
   ).toBeVisible()
@@ -96,6 +105,7 @@ test('Delete a task', async ({ page }) => {
   await page.getByRole('button', { name: 'Save' }).click()
   await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await reloadPage(page) //TODO: Remove when #153 is solved.
+  await expect(lastTabPanel).toBeVisible()
   await expect(
     page.getByRole('paragraph').getByText('Wash the car')
   ).toBeVisible()
