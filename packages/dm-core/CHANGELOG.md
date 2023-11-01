@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.11.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.11.0...dm-core-v1.11.1) (2023-11-01)
+
+
+### Bug Fixes
+
+* allow multiple ways of defining scope ([884fe36](https://github.com/equinor/dm-core-packages/commit/884fe363e79f5a5f4f9abb9a07eb8736ac9b53a6))
+* make job api provider use dm job api url from vite ([b553286](https://github.com/equinor/dm-core-packages/commit/b5532865b1633bb0f0980d49927618edef0aa3a2))
+
 ## [1.11.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.10.0...dm-core-v1.11.0) (2023-10-31)
 
 
