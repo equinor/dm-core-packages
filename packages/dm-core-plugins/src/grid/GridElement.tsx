@@ -25,6 +25,7 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       rowEnd={item.gridArea.rowEnd}
       columnStart={item.gridArea.columnStart}
       columnEnd={item.gridArea.columnEnd}
+      data-testid={item.viewConfig.scope}
     >
       <ViewCreator idReference={idReference} viewConfig={item.viewConfig} />
     </Element>
