@@ -20,3 +20,9 @@ export enum EBlueprint {
   REFERENCE = 'dmss://system/SIMOS/Reference',
   FILE = 'dmss://system/SIMOS/File',
 }
+
+export enum EPrimitiveTypes {
+  string,
+  number,
+  boolean,
+}
