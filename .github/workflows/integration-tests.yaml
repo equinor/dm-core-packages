@@ -44,6 +44,7 @@ jobs:
           for img in $(docker compose config --images); do
             images="$images ~/image-cache/$img"
           done
+          echo "images: $images"
           docker save -o services.img $images
         working-directory: example/
 
