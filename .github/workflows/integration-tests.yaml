@@ -53,7 +53,7 @@ jobs:
         run: yarn build:packages
 
       - name: Start example application
-        run: pm2 start "yarn build --mode test && yarn serve" --name web --wait-ready #--listen-timeout 10000 # wait for 10 seconds
+        run: pm2 start "yarn preview --port 3000" --name web --wait-ready
         working-directory: example/
 
       - name: Pull docker images
