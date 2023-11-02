@@ -30,6 +30,25 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.15.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.14.1...dm-core-plugins-v1.15.0) (2023-11-02)
+
+
+### Features
+
+* **grid:** added test-id to gridelement ([51451f6](https://github.com/equinor/dm-core-packages/commit/51451f663d05c39336c54e223b6cb0f9433605e1))
+
+
+### Bug Fixes
+
+* sidebar scrolling ([#685](https://github.com/equinor/dm-core-packages/issues/685)) ([53f1165](https://github.com/equinor/dm-core-packages/commit/53f1165edb0b3ab2c03d41a7b9e8d4e9f902d513))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.11.1 to ^1.11.2
+
 ## [1.14.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.13.0...dm-core-plugins-v1.14.0) (2023-10-31)
 
 
