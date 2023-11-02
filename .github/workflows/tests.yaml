@@ -16,6 +16,14 @@ jobs:
       - name: Install pre-commit
         run: pip install pre-commit
 
+      - name: Cache pre-commit environment
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-pre-commit
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./.pre-commit-config.yaml')}}
+
       - name: Run pre-commit
         run: pre-commit run --all-files
 
@@ -26,7 +34,19 @@ jobs:
 
       - uses: actions/setup-node@v3
 
-      # TODO: Cache yarn install
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            ./node_modules
+            ./example/node_modules
+            ./packages/dm-core/node_modules
+            ./packages/dm-core-plugins/node_modules
+            ./yarn.lock
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./packages/dm-core/package.json')}}-${{ hashFiles('./packages/dm-core-plugins/package.json') }}
 
       - name: 'Install dependencies'
         run: yarn install

@@ -24,7 +24,7 @@ import { expand_screen, refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import { CreateReoccurringJob } from './CronJob'
+import { CreateRecurringJob } from './CronJob'
 import hljs from 'highlight.js'
 import { JobLogsDialog } from './JobLogsDialog'
 
@@ -197,14 +197,14 @@ export const JobPlugin = (
     <div>
       <Switch
         size="small"
-        label="Reoccurring"
+        label="Recurring"
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           setAsCronJob(e.target.checked)
         }
         checked={asCronJob}
       />
       {asCronJob && (
-        <CreateReoccurringJob
+        <CreateRecurringJob
           cronJob={jobSchedule}
           close={() => setAsCronJob(false)}
           removeJob={() => setJobSchedule(emptyJob)}

@@ -78,6 +78,14 @@ jobs:
         with:
           node-version: 18
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-example-node-modules
+        with:
+          path: ./example/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./example/package.json')}}
+
       - name: Install dependencies
         working-directory: ./example
         run: yarn install
