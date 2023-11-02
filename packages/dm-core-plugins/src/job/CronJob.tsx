@@ -29,9 +29,9 @@ const InputWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  column-gap: 30px;
-  margin-top: 30px;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
 `
 
 export function CreateReoccurringJob(props: {
@@ -91,9 +91,14 @@ export function CreateReoccurringJob(props: {
     setSchedule(`${newMinute} ${newHour} ${dayOfMonth} ${month} ${dayOfWeek}`)
   }, [interval, hour, minute, hourStep])
 
-  console.log(schedule)
   return (
-    <div>
+    <div
+      style={{
+        border: '1px solid lightgray',
+        borderRadius: '5px',
+        padding: '1rem',
+      }}
+    >
       <div>
         <div style={{ paddingBottom: '10px' }}>
           {cronJob && Object.keys(cronJob).length > 0
