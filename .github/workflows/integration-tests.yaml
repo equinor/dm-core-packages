@@ -42,10 +42,10 @@ jobs:
         run: |
           docker-compose pull
           for img in $(docker compose config --images); do
-            images="$images ~/image-cache/$img"
+            images="$images $img"
           done
           echo "images: $images"
-          docker save -o services.img $images
+          docker save -o ~/image-cache/services.img $images
         working-directory: example/
 
       - name: Load docker images
@@ -53,7 +53,7 @@ jobs:
          for img in $(docker compose config --images); do
             images="$images ~/image-cache/$img"
           done
-          docker load -i services.img $images
+          docker load < ~/image-cache/services.img
         working-directory: example/
 
       - name: Capture output DMSS version
