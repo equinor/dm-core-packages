@@ -26,8 +26,33 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Pull docker images
-        run: docker-compose pull
+      - run: mkdir -p ~/image-cache
+
+      - id: image-cache
+        uses: actions/cache@v1
+        with:
+          path: ~/image-cache
+          # Adjust key to meet your cache time requirements e.g.
+          # ${{ hashFiles(*) }} can be useful here to invalidate
+          # cache on file changes
+          key: image-cache-${{ runner.os }}
+
+      - name: Pull and save docker images
+        if: steps.image-cache.outputs.cache-hit != 'true'
+        run: |
+          docker-compose pull
+          for img in $(docker compose config --images); do
+            images="$images ~/image-cache/$img"
+          done
+          docker save -o services.img $images
+        working-directory: example/
+
+      - name: Load docker images
+        run: |
+         for img in $(docker compose config --images); do
+            images="$images ~/image-cache/$img"
+          done
+          docker load -i services.img $images
         working-directory: example/
 
       - name: Capture output DMSS version
@@ -51,12 +76,7 @@ jobs:
         run: echo "version=$(tail -n 1 requirements.txt)" >> "$GITHUB_OUTPUT"
         working-directory: example/
 
-      - uses: docker/setup-buildx-action@v1
-      - uses: docker/build-push-action@v2
-        with:
-          context: .
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+
 
   integration-tests:
     needs: capture-versions
