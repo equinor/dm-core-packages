@@ -48,6 +48,7 @@ const JobLogBox = styled.div`
 
 export const FormattedLogContainer = styled.pre`
   font-size: 0.8rem;
+  line-height: normal;
   position: relative;
   background-color: #193549;
   margin: 0;
@@ -273,7 +274,9 @@ export const JobPlugin = (
               {/*<Button variant="ghost_icon" size={16} label='Expand logs' onClick={() => setShowLogDialog(true)}><Icon*/}
               {/*  data={expand_screen}/></Button>*/}
             </div>
-            <FormattedLogContainer>
+            <FormattedLogContainer
+              style={{ maxWidth: '40rem', maxHeight: '20rem' }}
+            >
               <code
                 dangerouslySetInnerHTML={
                   error
