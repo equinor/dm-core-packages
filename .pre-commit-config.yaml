@@ -23,6 +23,20 @@ repos:
         args: [--branch, main]
         stages: [commit-msg]
 
+  - repo: local
+    hooks:
+      - id: type_check_core
+        name: Run typecheck on dm-core
+        language: system
+        pass_filenames: false
+        entry: bash -c "cd packages/dm-core && tsc"
+
+      - id: type_check_plugins
+        name: Run typecheck on dm-core-plugins
+        language: system
+        pass_filenames: false
+        entry: bash -c "cd packages/dm-core-plugins && tsc --noEmit"
+
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.3.0
     hooks:
