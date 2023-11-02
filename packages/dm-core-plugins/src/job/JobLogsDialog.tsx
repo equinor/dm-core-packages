@@ -25,7 +25,7 @@ export const JobLogsDialog = (props: AboutDialogProps) => {
       open={isOpen}
       onClose={() => setIsOpen(false)}
       width={'60vw'}
-      height={'70vh'}
+      style={{ maxHeight: '70vh' }}
     >
       <Dialog.Header>
         <Dialog.Title>Job logs</Dialog.Title>
@@ -45,7 +45,7 @@ export const JobLogsDialog = (props: AboutDialogProps) => {
               Logs:
             </Typography>
           </div>
-          <FormattedLogContainer style={{ height: '25rem' }}>
+          <FormattedLogContainer style={{ maxHeight: '25rem' }}>
             <code
               dangerouslySetInnerHTML={
                 error
@@ -66,7 +66,7 @@ export const JobLogsDialog = (props: AboutDialogProps) => {
             <Typography variant="h6" style={{ paddingBottom: '.4rem' }}>
               Result:
             </Typography>
-            <FormattedLogContainer style={{ height: '25rem' }}>
+            <FormattedLogContainer style={{ maxHeight: '25rem' }}>
               <code
                 dangerouslySetInnerHTML={{
                   __html: hljs.highlight(JSON.stringify(result), {
