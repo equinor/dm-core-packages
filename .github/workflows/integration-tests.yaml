@@ -50,11 +50,7 @@ jobs:
 
       - name: Load docker images
         if: steps.image-cache.outputs.cache-hit == 'true'
-        run: |
-         for img in $(docker compose config --images); do
-            images="$images ~/image-cache/$img"
-          done
-          docker load < ~/image-cache/services.img
+        run: docker load < ~/image-cache/services.img
         working-directory: example/
 
       - name: Capture output DMSS version
@@ -79,7 +75,6 @@ jobs:
         working-directory: example/
 
 
-
   integration-tests:
     needs: capture-versions
     timeout-minutes: 60
@@ -87,7 +82,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [ 1/2, 2/2 ]
+        shard: [ 1/3, 2/3, 3/3 ]
     steps:
       - uses: actions/checkout@v3
 
@@ -131,11 +126,7 @@ jobs:
           key: image-cache-${{ hashFiles('./docker-compose.yaml')}}
 
       - name: Load docker images
-        run: |
-          for img in $(docker compose config --images); do
-             images="$images ~/image-cache/$img"
-           done
-           docker load < ~/image-cache/services.img
+        run: docker load < ~/image-cache/services.img
         working-directory: example/
 
       - name: Run docker images
