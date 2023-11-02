@@ -23,8 +23,8 @@ function generateSelectableTimes(): string[] {
 const InputWrapper = styled.div`
   flex-direction: row;
   display: flex;
-  column-gap: 10px;
-  padding-top: 20px;
+  column-gap: 0.5rem;
+  padding-top: 1rem;
 `
 
 const ButtonWrapper = styled.div`
@@ -95,7 +95,7 @@ export function CreateRecurringJob(props: {
     <div
       style={{
         border: '1px solid lightgray',
-        borderRadius: '5px',
+        borderRadius: '.4rem',
         padding: '1rem',
       }}
     >
@@ -110,47 +110,39 @@ export function CreateRecurringJob(props: {
           value={dateRange}
         />
         <InputWrapper>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <Autocomplete
+            options={Object.values(EInterval)}
+            label={'Interval'}
+            onInputChange={(label: string) => {
+              const chosenIntervalType = Object.entries(EInterval)
+                .filter((l) => l.length > 0 && l[1] == label)
+                .pop()
+              setInterval(
+                chosenIntervalType ? chosenIntervalType[1] : EInterval.HOURLY
+              )
+            }}
+          />
+          {interval !== EInterval.HOURLY && (
             <Autocomplete
-              options={Object.entries(EInterval).map((entry) => entry[1])}
-              label={'Interval'}
-              onInputChange={(label: string) => {
-                const chosenIntervalType = Object.entries(EInterval)
-                  .filter((l) => l.length > 0 && l[1] == label)
-                  .pop()
-                chosenIntervalType
-                  ? setInterval(chosenIntervalType[1])
-                  : setInterval(EInterval.HOURLY)
+              options={generateSelectableTimes().map((value: string) => value)}
+              label={'Time'}
+              onInputChange={(timestamp) => {
+                const [newHour, newMinute] = timestamp.split(':')
+                setMinute(newMinute)
+                setHour(newHour)
               }}
             />
-          </div>
-          {interval !== EInterval.HOURLY && (
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <Autocomplete
-                options={generateSelectableTimes().map(
-                  (value: string) => value
-                )}
-                label={'Time'}
-                onInputChange={(timestamp) => {
-                  const [newHour, newMinute] = timestamp.split(':')
-                  setMinute(newMinute)
-                  setHour(newHour)
-                }}
-              />
-            </div>
           )}
           {interval === EInterval.HOURLY && (
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <Autocomplete
-                options={[...Array(12).keys()].map((i) => i + 1)}
-                label={'Hour step'}
-                onInputChange={(step) => setHourStep(step)}
-              />
-            </div>
+            <Autocomplete
+              options={[...Array(12).keys()].map((i) => i + 1)}
+              label={'Hour step'}
+              onInputChange={(step) => setHourStep(step)}
+            />
           )}
         </InputWrapper>
       </div>
-      <div style={{ paddingTop: '10px', height: '20px' }}>{getLabel()}</div>
+      <div style={{ paddingTop: '.5rem', height: '1rem' }}>{getLabel()}</div>
       <ButtonWrapper>
         <Button
           disabled={cronJob && Object.keys(cronJob).length === 0}
@@ -174,7 +166,7 @@ export function CreateRecurringJob(props: {
             })
           }}
         >
-          Set
+          Schedule
         </Button>
       </ButtonWrapper>
     </div>
