@@ -66,9 +66,7 @@ export const FormattedLogContainer = styled.pre`
     color: #f53b6e;
   }
 
-  & . hljs,
-  & . hljs-attr,
-  & . hljs-bullet {
+  & .hljs-bullet {
     color: #99ffff;
   }
 `
