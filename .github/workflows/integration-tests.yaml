@@ -51,9 +51,12 @@ jobs:
         run: echo "version=$(tail -n 1 requirements.txt)" >> "$GITHUB_OUTPUT"
         working-directory: example/
 
-      - name: Run docker images
-        run: docker-compose up -d
-        working-directory: example/
+      - uses: docker/setup-buildx-action@v1
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   integration-tests:
     needs: capture-versions
@@ -94,6 +97,10 @@ jobs:
 
       - name: Start example application
         run: pm2 start "yarn build --mode test && yarn serve" --name web --wait-ready
+        working-directory: example/
+
+      - name: Run docker images
+        run: docker-compose up -d
         working-directory: example/
 
       - name: Pack core plugins
