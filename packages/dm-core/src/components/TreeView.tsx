@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { TreeNode } from '../domain/Tree'
 
 import { Button, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
-import { chevron_down, chevron_right } from '@equinor/eds-icons'
+import { chevron_right } from '@equinor/eds-icons'
 import {
   FaDatabase,
   FaExclamationTriangle,
@@ -133,7 +133,11 @@ const TreeButton = (props: {
         }}
       >
         {isExpandable ? (
-          <Icon data={expanded ? chevron_down : chevron_right} />
+          <Icon
+            data={chevron_right}
+            className="transition-all"
+            style={{ transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
+          />
         ) : (
           <span style={{ width: '25px' }}></span>
         )}
