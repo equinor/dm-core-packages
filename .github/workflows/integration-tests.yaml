@@ -51,6 +51,9 @@ jobs:
         run: echo "version=$(tail -n 1 requirements.txt)" >> "$GITHUB_OUTPUT"
         working-directory: example/
 
+      - name: Run docker images
+        run: docker-compose up -d
+        working-directory: example/
 
   integration-tests:
     needs: capture-versions
@@ -91,10 +94,6 @@ jobs:
 
       - name: Start example application
         run: pm2 start "yarn build --mode test && yarn serve" --name web --wait-ready
-        working-directory: example/
-
-      - name: Run docker images
-        run: docker-compose up -d
         working-directory: example/
 
       - name: Pack core plugins
