@@ -35,7 +35,7 @@ jobs:
           # Adjust key to meet your cache time requirements e.g.
           # ${{ hashFiles(*) }} can be useful here to invalidate
           # cache on file changes
-          key: image-cache-${{ runner.os }}
+          key: image-cache-${{ hashFiles('./docker-compose.yaml')}}
 
       - name: Pull and save docker images
         if: steps.image-cache.outputs.cache-hit != 'true'
@@ -49,6 +49,7 @@ jobs:
         working-directory: example/
 
       - name: Load docker images
+        if: steps.image-cache.outputs.cache-hit == 'true'
         run: |
          for img in $(docker compose config --images); do
             images="$images ~/image-cache/$img"
@@ -118,6 +119,23 @@ jobs:
 
       - name: Start example application
         run: pm2 start "yarn build --mode test && yarn serve" --name web --wait-ready
+        working-directory: example/
+
+      - id: image-cache
+        uses: actions/cache@v1
+        with:
+          path: ~/image-cache
+          # Adjust key to meet your cache time requirements e.g.
+          # ${{ hashFiles(*) }} can be useful here to invalidate
+          # cache on file changes
+          key: image-cache-${{ hashFiles('./docker-compose.yaml')}}
+
+      - name: Load docker images
+        run: |
+          for img in $(docker compose config --images); do
+             images="$images ~/image-cache/$img"
+           done
+           docker load < ~/image-cache/services.img
         working-directory: example/
 
       - name: Run docker images
