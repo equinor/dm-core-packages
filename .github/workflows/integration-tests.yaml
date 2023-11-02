@@ -6,16 +6,16 @@ on:
     outputs:
       dm_cli_version:
         description: 'DM CLI version used in test'
-        value: ${{ jobs.integration-tests.outputs.dm_cli_version }}
+        value: ${{ jobs.capture-versions.outputs.dm_cli_version }}
       dmss_version:
         description: 'DMSS version used in test'
-        value: ${{ jobs.integration-tests.outputs.dmss_version }}
+        value: ${{ jobs.capture-versions.outputs.dmss_version }}
       job_version:
         description: 'Job version used in test'
-        value: ${{ jobs.integration-tests.outputs.job_version }}
+        value: ${{ jobs.capture-versions.outputs.job_version }}
 
 jobs:
-  integration-tests:
+  capture-versions:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     # Map a step output to a job output
@@ -23,6 +23,42 @@ jobs:
       dm_cli_version: ${{ steps.capture_dm_cli_version.outputs.version }}
       dmss_version: ${{ steps.capture_dmss_version.outputs.dmss_version }}
       job_version: ${{ steps.capture_job_version.outputs.job_version }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Pull docker images
+        run: docker-compose pull
+        working-directory: example/
+
+      - name: Capture output DMSS version
+        id: capture_dmss_version
+        run: |
+          docker-compose run --rm dmss cat src/version.txt > dmss_version.txt
+          dmss_version=$(tail -n 1 dmss_version.txt)
+          echo "dmss_version=$dmss_version" >> "$GITHUB_OUTPUT"
+        working-directory: example/
+
+      - name: Capture job-api version
+        id: capture_job_version
+        run: |
+          docker-compose run --rm job-api cat version.txt > job_version.txt
+          job_version=$(tail -n 1 job_version.txt)
+          echo "job_version=$job_version" >> "$GITHUB_OUTPUT"
+        working-directory: example/
+
+      - name: Capture dm-cli version
+        id: capture_dm_cli_version
+        run: echo "version=$(tail -n 1 requirements.txt)" >> "$GITHUB_OUTPUT"
+        working-directory: example/
+
+
+  integration-tests:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [ 1/4, 2/4, 3/4, 4/4 ]
     steps:
       - uses: actions/checkout@v3
 
@@ -53,27 +89,7 @@ jobs:
         run: yarn build:packages
 
       - name: Start example application
-        run: pm2 start "yarn preview --port 3000" --name web --wait-ready
-        working-directory: example/
-
-      - name: Pull docker images
-        run: docker-compose pull
-        working-directory: example/
-
-      - name: Capture output DMSS version
-        id: capture_dmss_version
-        run: |
-          docker-compose run --rm dmss cat src/version.txt > dmss_version.txt
-          dmss_version=$(tail -n 1 dmss_version.txt)
-          echo "dmss_version=$dmss_version" >> "$GITHUB_OUTPUT"
-        working-directory: example/
-
-      - name: Capture job-api version
-        id: capture_job_version
-        run: |
-          docker-compose run --rm job-api cat version.txt > job_version.txt
-          job_version=$(tail -n 1 job_version.txt)
-          echo "job_version=$job_version" >> "$GITHUB_OUTPUT"
+        run: pm2 start "yarn build --mode test && yarn serve" --name web --wait-ready
         working-directory: example/
 
       - name: Run docker images
@@ -107,11 +123,6 @@ jobs:
           pip install -r requirements.txt
         working-directory: example/
 
-      - name: Capture dm-cli version
-        id: capture_dm_cli_version
-        run: echo "version=$(dm --version)" >> "$GITHUB_OUTPUT"
-        working-directory: example/
-
       - name: Run reset-app script
         run: ./reset-app.sh
         working-directory: example/
@@ -141,8 +152,16 @@ jobs:
       - name: Run e2e tests
         run: |
           pm2 ps
-          npx playwright test
+          npx playwright test --shard ${{ matrix.shard }}
         working-directory: e2e/
+
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-blob-reports
+          path: blob-report
+          retention-days: 1
 
       - uses: actions/upload-artifact@v3
         if: always()
