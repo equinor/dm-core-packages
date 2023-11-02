@@ -25,6 +25,9 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./.pre-commit-config.yaml')}}
 
       - name: Run pre-commit
+        env:
+          # These need node_modules, and will be covered in the build step anyway
+          SKIP: type_check_core,type_check_plugins
         run: pre-commit run --all-files
 
   tests:
