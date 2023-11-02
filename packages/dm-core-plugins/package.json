@@ -1,10 +1,10 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.14.1",
+  "version": "1.15.0",
   "main": "dist/index.js",
   "dependencies": {
-    "@development-framework/dm-core": "^1.11.1",
+    "@development-framework/dm-core": "^1.11.2",
     "@equinor/eds-core-react": "^0.33.0",
     "@equinor/eds-icons": "^0.19.3",
     "@equinor/eds-tokens": "^0.9.0",

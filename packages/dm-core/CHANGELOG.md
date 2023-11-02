@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.11.1...dm-core-v1.11.2) (2023-11-02)
+
+
+### Bug Fixes
+
+* disallow hat operator in scope ([6050d82](https://github.com/equinor/dm-core-packages/commit/6050d82a383fc7c45231a93134de138b39174bb7))
+
 ## [1.11.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.11.0...dm-core-v1.11.1) (2023-11-01)
 
 
