@@ -25,7 +25,7 @@
             "rowStart": 1,
             "columnStart": 1,
             "rowEnd": 5,
-            "columnEnd": 3
+            "columnEnd": 2
           }
         },
         {
@@ -39,7 +39,23 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 3,
             "columnStart": 1,
-            "rowEnd": 10,
+            "rowEnd": 6,
+            "columnEnd": 3
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "scope": "tyreList",
+            "recipe": "Edit",
+            "resolve": false
+          },
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "rowStart": 7,
+            "columnStart": 1,
+            "rowEnd": 8,
             "columnEnd": 3
           }
         },
