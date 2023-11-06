@@ -41,7 +41,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
         <Typography>{`Failed to find UiRecipe for type "${
           type || '(unknown type)'
         }"`}</Typography>
-        <pre>{JSON.stringify(error)}</pre>
+        <pre>{JSON.stringify(error, null, 2)}</pre>
       </ErrorGroup>
     )
 
