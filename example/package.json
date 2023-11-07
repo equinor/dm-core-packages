@@ -25,7 +25,6 @@
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "@vitejs/plugin-react-swc": "^3.3.2",
-    "cross-env": "7.0.3",
     "eslint": "^8.42.0",
     "eslint-plugin-react": "^7.33.2",
     "serve": "14.2.1",
@@ -37,8 +36,8 @@
     "vitest": "^0.34.3"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_DM_JOB_URL=http://localhost:5001 vite",
-    "build": "cross-env REACT_APP_DM_JOB_URL=http://localhost:5001 vite build -d",
+    "start": "vite",
+    "build": "vite build -d",
     "lint:fix": "eslint --fix --ext .js,.jsx,.tsx,.ts .",
     "preview": "vite preview",
     "serve": "serve -s dist -p 3000 --no-clipboard",
