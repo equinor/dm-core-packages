@@ -69,7 +69,6 @@ export function useList<T extends object>(
       .catch((error: AxiosError<ErrorResponse>) => {
         setError(error.response?.data || { message: error.name, data: error })
       })
-      .finally(() => setLoading(false))
   }, [dmssAPI, idReference])
 
   useEffect(() => {

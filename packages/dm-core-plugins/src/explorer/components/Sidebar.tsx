@@ -32,7 +32,13 @@ export default function Sidebar(props: TProps) {
 
   return (
     <div style={{ display: 'flex' }}>
-      <div style={{ width: `${width / 16}rem`, overflow: 'hidden' }}>
+      <div
+        style={{
+          width: `${width / 16}rem`,
+          overflowX: 'hidden',
+          overflowY: 'auto',
+        }}
+      >
         {children}
       </div>
 

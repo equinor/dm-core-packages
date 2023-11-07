@@ -56,7 +56,7 @@ test('View selector - car garage', async ({ page }) => {
   })
 
   await test.step('Add earlier owner', async () => {
-    await page.getByRole('button', { name: 'Add' }).click()
+    await page.getByRole('button', { name: 'Add', exact: true }).click()
     await page.getByRole('textbox').last().fill(' Joanna')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])

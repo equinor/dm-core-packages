@@ -4,14 +4,35 @@ import {
   ViewCreator,
 } from '@development-framework/dm-core'
 import * as React from 'react'
-import styled from 'styled-components'
 import { TItemData } from './types'
+import { PropsWithChildren, useRef } from 'react'
+import styled from 'styled-components'
 
-const HidableWrapper = styled.div<any>`
+type LazyProps = {
+  visible: boolean
+}
+
+const HideContentWrapper = styled.div<any>`
   display: ${(props: { hidden: boolean }) => (props.hidden && 'none') || 'flex'}
   align-self: normal;
   width: 100%;
 `
+
+const Lazy = ({ visible, children }: PropsWithChildren<LazyProps>) => {
+  const rendered = useRef(visible)
+
+  if (visible && !rendered.current) {
+    rendered.current = true
+  }
+
+  if (!rendered.current) return null
+
+  return (
+    <HideContentWrapper hidden={!visible} role="tabpanel">
+      {children}
+    </HideContentWrapper>
+  )
+}
 
 export const Content = (props: {
   type: string
@@ -24,14 +45,11 @@ export const Content = (props: {
 }): React.ReactElement => {
   const { selectedViewId, viewSelectorItems, setFormData, formData, onOpen } =
     props
+
   return (
     <div style={props.style}>
       {viewSelectorItems.map((config: TItemData) => (
-        <HidableWrapper
-          key={config.viewId}
-          hidden={config.viewId !== selectedViewId}
-          role="tabpanel"
-        >
+        <Lazy key={config.viewId} visible={selectedViewId == config.viewId}>
           <ViewCreator
             idReference={config.rootEntityId}
             viewConfig={config.viewConfig}
@@ -43,7 +61,7 @@ export const Content = (props: {
               })
             }}
           />
-        </HidableWrapper>
+        </Lazy>
       ))}
     </div>
   )

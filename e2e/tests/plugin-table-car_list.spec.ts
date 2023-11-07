@@ -7,6 +7,8 @@ test('Table car list example', async ({ page }) => {
     await page.getByRole('button', { name: 'table' }).click()
     await page.getByRole('button', { name: 'car_list' }).click()
     await page.getByRole('button', { name: 'CarList' }).click()
+    const lastTabPanel = page.getByRole('tabpanel').last()
+    await expect(lastTabPanel).toBeVisible()
   }
 
   await page.goto('http://localhost:3000/')
