@@ -18,7 +18,7 @@
               "name": "Edit",
               "type": "CORE:UiRecipe",
               "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form"
+              "plugin": "@development-framework/dm-core-plugins/blueprint"
             },
             "scope": "self"
           }

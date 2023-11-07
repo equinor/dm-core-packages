@@ -22,6 +22,10 @@ export default defineConfig({
     port: 3000,
     host: true,
   },
+  preview: {
+    port: 3000,
+    host: true,
+  },
   resolve: {
     preserveSymlinks: true, // Yarn uses symbolic links to link to local workspaces.
     ...localConfig(),

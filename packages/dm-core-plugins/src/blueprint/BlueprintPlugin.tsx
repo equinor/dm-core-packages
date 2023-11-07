@@ -5,7 +5,9 @@ import {
   Loading,
   Select,
   TBlueprint,
+  TGenericObject,
   truncatePathString,
+  EPrimitiveTypes,
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
@@ -14,11 +16,12 @@ import {
   Accordion,
   Button,
   Icon,
+  Input,
   Label,
   Switch,
   TextField,
 } from '@equinor/eds-core-react'
-import { close_circle_outlined } from '@equinor/eds-icons'
+import { delete_to_trash } from '@equinor/eds-icons'
 import styled from 'styled-components'
 
 const Spacer = styled.div`
@@ -31,7 +34,7 @@ type TAttribute = {
   attributeType: EAttributeTypes | string
   dimensions: string
   label: string
-  default?: string
+  default?: string | number | boolean | TGenericObject
   optional: boolean
   contained: boolean
 }
@@ -71,8 +74,8 @@ const Extends = (props: {
                 }
               >
                 <Icon
-                  data={close_circle_outlined}
-                  title="save action"
+                  data={delete_to_trash}
+                  title="remove extend item"
                   size={18}
                 />
               </Button>
@@ -136,12 +139,14 @@ const BlueprintAttribute = (props: {
           <Label label={'Type'} />
           <Select
             value={truncatePathString(attribute.attributeType || '')}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+              const newType = e.target.value
               setAttribute({
                 ...attribute,
-                attributeType: e.target.value,
+                attributeType: newType,
+                default: newType === 'boolean' ? true : undefined,
               })
-            }
+            }}
           >
             {Object.keys(EAttributeTypes).map((key) => {
               // Avoid duplication, as we are explicitly adding the formData value as well
@@ -169,15 +174,30 @@ const BlueprintAttribute = (props: {
         )}
       </div>
       <Spacer />
-      <TextField
-        id="default"
-        label={'Default value'}
-        value={attribute?.default || ''}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          setAttribute({ ...attribute, default: event.target.value })
-        }
-        style={{ width: INPUT_FIELD_WIDTH }}
-      />
+      <Label htmlFor="default" label="Default value" />
+      {attribute.attributeType === 'boolean' ? (
+        <>
+          <Switch
+            defaultChecked={!!attribute?.default ?? false}
+            onChange={(e: any) =>
+              setAttribute({ ...attribute, default: e.target.checked })
+            }
+          />
+          {attribute.default ? String(attribute.default) : 'false'}
+        </>
+      ) : (
+        <Input
+          type={attribute.attributeType === 'number' ? 'number' : 'text'}
+          id="default"
+          value={attribute?.default || ''}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            let value: string | number = event.target.value
+            if (attribute.attributeType == 'number') value = Number(value)
+            setAttribute({ ...attribute, default: value })
+          }}
+          style={{ width: INPUT_FIELD_WIDTH }}
+        />
+      )}
       <Spacer />
       <div style={{ display: 'flex', alignItems: 'flex-end' }}>
         <TextField
@@ -191,16 +211,18 @@ const BlueprintAttribute = (props: {
         />
         <Label label='Example: "*,2,99"' />
       </div>
-      <Switch
-        label="Contained"
-        defaultChecked={attribute?.contained}
-        onChange={(e: any) =>
-          setAttribute({ ...attribute, contained: e.target.checked })
-        }
-      />
+      {!Object.values(EPrimitiveTypes).includes(attribute.attributeType) && (
+        <Switch
+          label="Contained"
+          defaultChecked={attribute?.contained ?? true}
+          onChange={(e: any) =>
+            setAttribute({ ...attribute, contained: e.target.checked })
+          }
+        />
+      )}
       <Switch
         label="Optional"
-        defaultChecked={attribute?.optional}
+        defaultChecked={attribute?.optional ?? false}
         onChange={(e: any) =>
           setAttribute({ ...attribute, optional: e.target.checked })
         }
@@ -282,7 +304,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
                   }}
                 >
                   <Icon
-                    data={close_circle_outlined}
+                    data={delete_to_trash}
                     title="remove attribute"
                     size={24}
                   />
