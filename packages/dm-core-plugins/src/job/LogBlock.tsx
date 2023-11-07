@@ -1,8 +1,6 @@
 import React from 'react'
 import { Typography } from '@equinor/eds-core-react'
-import DOMPurify from 'dompurify'
 import styled from 'styled-components'
-import hljs from 'highlight.js'
 
 export interface LogBlockProps {
   title?: string
@@ -54,17 +52,7 @@ export const LogBlock = (props: LogBlockProps) => {
         </Typography>
       </div>
       <FormattedLogContainer style={style}>
-        <code
-          dangerouslySetInnerHTML={{
-            __html:
-              typeof content === 'object'
-                ? hljs.highlight(
-                    DOMPurify.sanitize(JSON.stringify(content, null, 2)),
-                    { language: 'json' }
-                  ).value
-                : DOMPurify.sanitize(content),
-          }}
-        />
+        <pre>{JSON.stringify(content, null, 2)}</pre>
       </FormattedLogContainer>
     </>
   )
