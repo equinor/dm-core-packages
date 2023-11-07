@@ -14,8 +14,8 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { Typography } from '@equinor/eds-core-react'
-import { add, delete_forever, edit } from '@equinor/eds-icons'
-import { AxiosError, AxiosResponse } from 'axios'
+import { add, edit } from '@equinor/eds-icons'
+import { AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import TooltipButton from '../../common/TooltipButton'
@@ -31,6 +31,8 @@ import {
   TObjectFieldProps,
   TUiRecipeForm,
 } from '../types'
+import RemoveObject from '../components/RemoveObjectButton'
+import AddObject from '../components/AddObjectButton'
 
 const SelectReference = (props: { type: string; namePath: string }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -85,87 +87,6 @@ const SelectReference = (props: { type: string; namePath: string }) => {
         setShowModal={setShowModal}
       />
     </>
-  )
-}
-
-const AddObject = (props: {
-  type: string
-  namePath: string
-  defaultValue: any
-}) => {
-  const { type, namePath, defaultValue } = props
-  const { setValue } = useFormContext()
-  const dmssAPI = useDMSS()
-  const { idReference } = useRegistryContext()
-  const handleAdd = () => {
-    if (!defaultValue) {
-      dmssAPI
-        .instantiateEntity({
-          entity: { type: type as string },
-        })
-        .then((newEntity: AxiosResponse<any>) => addDocument(newEntity.data))
-    } else {
-      addDocument(defaultValue)
-    }
-  }
-  const addDocument = (document: any) => {
-    const options = {
-      shouldValidate: true,
-      shouldDirty: true,
-      shouldTouch: true,
-    }
-    dmssAPI
-      .documentAdd({
-        address: `${idReference}.${namePath}`,
-        document: JSON.stringify(document),
-      })
-      .then(() => {
-        setValue(namePath, document, options)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-      })
-  }
-  return (
-    <TooltipButton
-      title="Add and save"
-      button-variant="ghost_icon"
-      button-onClick={handleAdd}
-      icon={add}
-    />
-  )
-}
-
-const RemoveObject = (props: { namePath: string; address?: string }) => {
-  const { namePath, address } = props
-  const { setValue } = useFormContext()
-  const { idReference } = useRegistryContext()
-  const dmssAPI = useDMSS()
-
-  const onClick = () => {
-    const options = {
-      shouldValidate: true,
-      shouldDirty: true,
-      shouldTouch: true,
-    }
-    dmssAPI
-      .documentRemove({
-        address: address ? address : `${idReference}.${namePath}`,
-      })
-      .then(() => {
-        setValue(namePath, {}, options)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-      })
-  }
-  return (
-    <TooltipButton
-      title="Remove and save"
-      button-variant="ghost_icon"
-      button-onClick={onClick}
-      icon={delete_forever}
-    />
   )
 }
 
@@ -343,7 +264,6 @@ export const UncontainedAttribute = (
     value && value.address && value.referenceType === 'link'
       ? resolveRelativeAddress(value.address, documentPath, dataSource)
       : undefined
-
   return (
     <Fieldset>
       <Legend>
