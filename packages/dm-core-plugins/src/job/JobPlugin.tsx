@@ -18,15 +18,15 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { Button, Card, Icon, Switch, Typography } from '@equinor/eds-core-react'
+import { Button, Card, Icon, Switch } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
 import { expand_screen, refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { CreateRecurringJob } from './CronJob'
-import hljs from 'highlight.js'
 import { JobLogsDialog } from './JobLogsDialog'
+import { LogBlock } from './LogBlock'
 
 const JobButtonWrapper = styled.div`
   margin-top: 0.5rem;
@@ -44,31 +44,6 @@ const JobLogBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`
-
-export const FormattedLogContainer = styled.pre`
-  font-size: 0.8rem;
-  line-height: normal;
-  position: relative;
-  background-color: #193549;
-  margin: 0;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  color: #dcdde0;
-  overflow: auto;
-
-  & .hljs-string {
-    color: #a5ff90;
-  }
-
-  & .hljs-literal,
-  & .hljs-number {
-    color: #f53b6e;
-  }
-
-  & .hljs-bullet {
-    color: #99ffff;
-  }
 `
 
 interface ITargetAddress {
@@ -247,7 +222,14 @@ export const JobPlugin = (
       )}
       {showLogs && (
         <JobLogBox>
-          <div style={{ position: 'relative' }}>
+          <div
+            style={{
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '.5rem',
+            }}
+          >
             <Button
               variant="ghost_icon"
               size={16}
@@ -257,55 +239,19 @@ export const JobPlugin = (
             >
               <Icon data={expand_screen} />
             </Button>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '100%',
-              }}
-            >
-              <Typography variant="h6" style={{ paddingBottom: '.4rem' }}>
-                Logs:
-              </Typography>
-              {/*<Button variant="ghost_icon" size={16} label='Expand logs' onClick={() => setShowLogDialog(true)}><Icon*/}
-              {/*  data={expand_screen}/></Button>*/}
-            </div>
-            <FormattedLogContainer
+            <LogBlock
+              title="Logs"
+              content={error ? error : logs}
               style={{ maxWidth: '40rem', maxHeight: '20rem' }}
-            >
-              <code
-                dangerouslySetInnerHTML={
-                  error
-                    ? {
-                        __html: hljs.highlight(JSON.stringify(error, null, 2), {
-                          language: 'json',
-                        }).value,
-                      }
-                    : {
-                        __html: hljs.highlightAuto(logs).value,
-                      }
-                }
+            />
+            {result && (
+              <LogBlock
+                title="Result"
+                content={result}
+                style={{ maxWidth: '40rem', maxHeight: '20rem' }}
               />
-            </FormattedLogContainer>
+            )}
           </div>
-          {result && (
-            <div>
-              <Typography variant="h6" style={{ paddingBottom: '.4rem' }}>
-                Result:
-              </Typography>
-              <FormattedLogContainer>
-                <code
-                  dangerouslySetInnerHTML={{
-                    __html: hljs.highlight(JSON.stringify(result), {
-                      language: 'json',
-                    }).value,
-                  }}
-                />
-              </FormattedLogContainer>
-            </div>
-          )}
         </JobLogBox>
       )}
       <JobLogsDialog
