@@ -3130,3 +3130,8 @@ Co-authored-by: Stig Ofstad <stigofstad@gmail.com> (2023-09-21T10:17:57Z)
     * **DMSS VERSION**: edd6d90 2023-11-07 Stig Ofstad tests: fix test grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.2.0
     * **JOB VERSION**: 9bd5041 2023-10-11 githu..[bot] chore(main): release 1.2.2 grafted, HEAD -> main, origin/main
+* fix(blueprint): fix several minor bugs in blueprint plugin (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6785840235/1)
+    * **DMSS VERSION**: edd6d90 2023-11-07 Stig Ofstad tests: fix test grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.2.0
+    * **JOB VERSION**: 9bd5041 2023-10-11 githu..[bot] chore(main): release 1.2.2 grafted, HEAD -> main, origin/main
