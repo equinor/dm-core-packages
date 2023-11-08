@@ -47,12 +47,15 @@ export const TabsPlugin = (
         style={{
           paddingTop: '8px',
           paddingRight: '8px',
+          width: '100%',
+          marginRight: '.5rem',
         }}
       >
         <Content
           style={{
             paddingTop: '8px',
             paddingRight: '8px',
+            width: '100%',
           }}
           type={type}
           onOpen={addView}
