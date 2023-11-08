@@ -23,10 +23,10 @@
     ],
     "Q2": [
       {
-        "name": "Kevin Magnussen",
+        "name": "Alexander Albon",
         "type": "./blueprints/Car",
         "position": 1,
-        "team": "Haas",
+        "team": "Williams",
         "lap time": "1:30.231"
       }
     ]
@@ -36,7 +36,7 @@
     "address": "dmss://DemoDataSource/$gridTyreList",
     "referenceType": "link"
   },
-  "aNestedObjectWithCustomUI": {
+  "nestedForm": {
     "type": "./blueprints/Nested",
     "foo": 1337,
     "bar": "hello",
