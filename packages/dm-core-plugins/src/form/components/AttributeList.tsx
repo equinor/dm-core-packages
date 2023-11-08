@@ -11,8 +11,9 @@ export const AttributeList = (props: {
   const { namePath, config, blueprint } = props
   const prefix = namePath === '' ? `` : `${namePath}.`
 
-  const attributes = blueprint?.attributes ?? []
-  const filteredAttributes =
+  const attributes: TAttribute[] = blueprint?.attributes ?? []
+
+  let filteredAttributes =
     config && config.fields.length
       ? config.fields
           .map((name: string) =>
@@ -21,6 +22,12 @@ export const AttributeList = (props: {
           .filter((attribute): attribute is TAttribute => !!attribute)
       : attributes
 
+  const hideByDefaultFields: string[] = ['type', '_meta_']
+  if (!(config && config.fields.length)) {
+    filteredAttributes = filteredAttributes.filter(
+      (attribute) => !hideByDefaultFields.includes(attribute.name)
+    )
+  }
   const attributeFields = filteredAttributes.map((attribute: TAttribute) => {
     const uiAttribute = config?.attributes.find(
       (uiAttribute) => uiAttribute.name === attribute.name
