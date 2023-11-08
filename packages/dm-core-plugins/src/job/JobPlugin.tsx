@@ -241,7 +241,7 @@ export const JobPlugin = (
             </Button>
             <LogBlock
               title="Logs"
-              content={error ? error : logs}
+              content={error ?? logs}
               style={{ maxWidth: '40rem', maxHeight: '20rem' }}
             />
             {result && (
