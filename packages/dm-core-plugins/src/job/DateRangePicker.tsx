@@ -12,6 +12,7 @@ const DateRangePicker = (props: {
       style={{
         display: 'flex',
         flexDirection: 'row',
+        gap: '.5rem',
       }}
     >
       <TextField

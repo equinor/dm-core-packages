@@ -18,20 +18,32 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { Button, Card, Icon, Switch, Typography } from '@equinor/eds-core-react'
+import { Button, Card, Icon, Switch } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
-import { refresh } from '@equinor/eds-icons'
+import { expand_screen, refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { CreateRecurringJob } from './CronJob'
+import { JobLogsDialog } from './JobLogsDialog'
+import { LogBlock } from './LogBlock'
 
 const JobButtonWrapper = styled.div`
+  margin-top: 0.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
   margin-bottom: 0.5rem;
+`
+
+const JobLogBox = styled.div`
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `
 
 interface ITargetAddress {
@@ -47,11 +59,18 @@ interface JobPluginConfig {
   jobInput: ITargetAddress
 }
 
-export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
+export const JobPlugin = (
+  props: IUIPlugin & {
+    config: JobPluginConfig
+  }
+) => {
   const {
     config,
     idReference,
-  }: { config: JobPluginConfig; idReference: string } = props
+  }: {
+    config: JobPluginConfig
+    idReference: string
+  } = props
   const DmssApi = useDMSS()
   const emptyJob: TSchedule = {
     type: EBlueprint.CRON_JOB,
@@ -85,6 +104,9 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const [asCronJob, setAsCronJob] = useState<boolean>(false)
   const [jobSchedule, setJobSchedule] = useState<TSchedule>(emptyJob)
+  const [showLogs, setShowLogs] = useState(false)
+  const [showLogDialog, setShowLogDialog] = useState(false)
+
   const canSubmit =
     !asCronJob || Boolean(jobSchedule.startDate && jobSchedule.endDate)
   const {
@@ -188,6 +210,9 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         >
           Get results
         </Button>
+        <Button onClick={() => setShowLogs(!showLogs)} variant="ghost">
+          {showLogs ? 'Hide' : 'Show'} logs
+        </Button>
       </JobButtonWrapper>
 
       {status === JobStatus.Failed && (
@@ -195,23 +220,47 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           <Card.Header>Job status: {status}</Card.Header>
         </Card>
       )}
-      {jobExists && (
-        <>
-          <Typography variant="h6">Logs:</Typography>
-          {error ? (
-            <pre>{JSON.stringify(error, null, 2)}</pre>
-          ) : (
-            <pre>{logs}</pre>
-          )}
-        </>
+      {showLogs && (
+        <JobLogBox>
+          <div
+            style={{
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '.5rem',
+            }}
+          >
+            <Button
+              variant="ghost_icon"
+              size={16}
+              label="Expand logs"
+              onClick={() => setShowLogDialog(true)}
+              style={{ position: 'absolute', right: 0, top: -8 }}
+            >
+              <Icon data={expand_screen} />
+            </Button>
+            <LogBlock
+              title="Logs"
+              content={error ?? logs}
+              style={{ maxWidth: '40rem', maxHeight: '20rem' }}
+            />
+            {result && (
+              <LogBlock
+                title="Result"
+                content={result}
+                style={{ maxWidth: '40rem', maxHeight: '20rem' }}
+              />
+            )}
+          </div>
+        </JobLogBox>
       )}
-      {result && (
-        <>
-          <Typography variant="h6">Result:</Typography>
-          <pre>{result.message}</pre>
-          <pre>{result.result}</pre>
-        </>
-      )}
+      <JobLogsDialog
+        isOpen={showLogDialog}
+        setIsOpen={setShowLogDialog}
+        logs={logs}
+        error={error}
+        result={result}
+      />
     </div>
   )
 }

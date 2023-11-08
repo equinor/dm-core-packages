@@ -10,6 +10,7 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import YAML from 'yaml'
+import DOMPurify from 'dompurify'
 
 const CodeContainer = styled.pre`
   background-color: #193549;
@@ -83,7 +84,11 @@ const YamlView = (props: {
         </div>
       </ButtonRow>
       <CodeContainer>
-        <code dangerouslySetInnerHTML={{ __html: highlighted.value }} />
+        <code
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(highlighted.value),
+          }}
+        />
       </CodeContainer>
     </div>
   )
