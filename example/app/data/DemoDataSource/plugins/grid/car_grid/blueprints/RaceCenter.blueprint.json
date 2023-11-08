@@ -23,7 +23,7 @@
       "attributeType": "./TyreList"
     },
     {
-      "name": "aNestedObjectWithCustomUI",
+      "name": "nestedForm",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Nested",
       "label": "A nested object with custom ui"
