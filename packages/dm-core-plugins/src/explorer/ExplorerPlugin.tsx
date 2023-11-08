@@ -17,7 +17,7 @@ export default () => {
     undefined
   )
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    <div style={{ display: 'flex', height: '100vh', width: '100%' }}>
       {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Progress.Circular />
