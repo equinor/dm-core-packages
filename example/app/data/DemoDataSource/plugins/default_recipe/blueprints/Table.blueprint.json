@@ -1,0 +1,32 @@
+{
+  "name": "Table",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Manufacturer",
+      "attributeType": "string"
+    },
+    {
+      "name": "model",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Model",
+      "attributeType": "string"
+    },
+    {
+      "name": "color",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Color",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
+}

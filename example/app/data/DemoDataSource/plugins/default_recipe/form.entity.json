@@ -1,0 +1,10 @@
+{
+  "_id": "Form",
+  "name": "Form",
+  "type": "./blueprints/Form",
+  "stringRequired": "This form has no dedicated UI Recipe",
+  "numberRequired": 2,
+  "stringOptional": "This form uses the default UI Recipe",
+  "requiredCheckbox": false,
+  "date": "2023-10-17T13:30"
+}
