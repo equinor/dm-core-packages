@@ -25,13 +25,24 @@ export type TBlueprintPickerProps = {
   /** A function to trigger with the onChange event */
   onChange: (type: string) => void
   /** The value of the input field */
-  formData: string | undefined
+  formData?: string | undefined
   /** The variant to use for the input ('error', 'warning', 'success', 'default') */
   variant?: Variants
   /** Whether the input should be disabled */
   disabled?: boolean
   /** A title for the picker */
   label?: string
+  /** Render a input element or just a button */
+  type?: 'button' | 'input'
+}
+
+const defaults: TBlueprintPickerProps = {
+  formData: '',
+  variant: undefined,
+  disabled: false,
+  label: 'Blueprint',
+  type: 'input',
+  onChange: () => null,
 }
 
 /**
@@ -53,29 +64,38 @@ export type TBlueprintPickerProps = {
  * @returns A React component
  */
 export const BlueprintPicker = (props: TBlueprintPickerProps) => {
-  const { onChange, formData, variant, disabled, label } = props
+  const { onChange, formData, variant, disabled, label, type } = {
+    ...defaults,
+    ...props,
+  }
   const [showModal, setShowModal] = useState<boolean>(false)
   const { treeNodes, loading } = useContext(FSTreeContext)
 
   return (
     <div>
-      <Label label={label || 'Blueprint'} />
-      <Tooltip
-        title={truncatePathString(formData) === formData ? '' : formData}
-      >
-        <Input
-          disabled={disabled}
-          variant={variant || undefined}
-          style={{
-            width: PATH_INPUT_FIELD_WIDTH,
-            cursor: 'pointer',
-          }}
-          type="string"
-          value={truncatePathString(formData)}
-          placeholder="Select"
-          onClick={() => setShowModal(true)}
-        />
-      </Tooltip>
+      {type === 'input' ? (
+        <>
+          <Label label={label ?? ''} />
+          <Tooltip title={truncatePathString(formData)}>
+            <Input
+              disabled={disabled}
+              variant={variant}
+              style={{
+                width: PATH_INPUT_FIELD_WIDTH,
+                cursor: 'pointer',
+              }}
+              type="string"
+              value={truncatePathString(formData)}
+              placeholder="Select"
+              onClick={() => setShowModal(true)}
+            />
+          </Tooltip>
+        </>
+      ) : (
+        <Button onClick={() => setShowModal(true)} variant={'outlined'}>
+          {label ?? 'Select Blueprint'}
+        </Button>
+      )}
       <Dialog
         isDismissable
         open={showModal}
