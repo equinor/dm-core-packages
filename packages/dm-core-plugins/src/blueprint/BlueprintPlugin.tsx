@@ -1,5 +1,6 @@
 import {
   BlueprintPicker,
+  EPrimitiveTypes,
   INPUT_FIELD_WIDTH,
   IUIPlugin,
   Loading,
@@ -7,7 +8,6 @@ import {
   TBlueprint,
   TGenericObject,
   truncatePathString,
-  EPrimitiveTypes,
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
@@ -21,7 +21,7 @@ import {
   Switch,
   TextField,
 } from '@equinor/eds-core-react'
-import { delete_to_trash } from '@equinor/eds-icons'
+import { add, delete_to_trash, save, undo } from '@equinor/eds-icons'
 import styled from 'styled-components'
 
 const Spacer = styled.div`
@@ -51,55 +51,45 @@ const Extends = (props: {
   setExtends: (data: any) => void
 }) => {
   const { formData, setExtends } = props
-  const [newBlueprint, setNewBlueprint] = useState<string>('')
-
   return (
     <>
       <Label label="Extends" />
       <ul>
-        {formData.map((typeRef: string, index: number) => (
-          <li key={index}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              {typeRef}
-              <Button
-                variant="ghost_icon"
-                color="danger"
-                style={{ width: '24px', height: '24px' }}
-                onClick={() =>
-                  setExtends(
-                    formData.filter(
-                      (typeToRemove: string) => typeToRemove !== typeRef
-                    )
-                  )
-                }
-              >
-                <Icon
-                  data={delete_to_trash}
-                  title="remove extend item"
-                  size={18}
-                />
-              </Button>
-            </div>
-          </li>
-        ))}
+        {formData.length ? (
+          <>
+            {formData.map((typeRef: string, index: number) => (
+              <li key={index}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {typeRef}
+                  <Button
+                    variant="ghost_icon"
+                    color="danger"
+                    onClick={() =>
+                      setExtends(
+                        formData.filter(
+                          (typeToRemove: string) => typeToRemove !== typeRef
+                        )
+                      )
+                    }
+                  >
+                    <Icon data={delete_to_trash} title="remove extend item" />
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </>
+        ) : (
+          <li>None</li>
+        )}
       </ul>
       <div style={{ display: 'flex' }}>
         <BlueprintPicker
-          onChange={(selectedBlueprint: string) =>
-            setNewBlueprint(selectedBlueprint)
-          }
-          formData={newBlueprint}
-        />
-        <Button
-          disabled={!newBlueprint || formData.includes(newBlueprint)}
-          style={{ marginLeft: '10px' }}
-          onClick={() => {
+          onChange={(newBlueprint: string) =>
             setExtends([...formData, newBlueprint])
-            setNewBlueprint('')
-          }}
-        >
-          Add
-        </Button>
+          }
+          type={'button'}
+          label={'Add extends'}
+        />
       </div>
     </>
   )
@@ -134,11 +124,11 @@ const BlueprintAttribute = (props: {
         style={{ width: INPUT_FIELD_WIDTH }}
       />
       <Spacer />
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'self-end' }}>
         <div style={{ display: 'block' }}>
           <Label label={'Type'} />
           <Select
-            value={truncatePathString(attribute.attributeType || '')}
+            value={truncatePathString(attribute.attributeType)}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => {
               const newType = e.target.value
               setAttribute({
@@ -161,14 +151,14 @@ const BlueprintAttribute = (props: {
         {!['string', 'number', 'boolean'].includes(attribute.attributeType) && (
           <div style={{ marginLeft: '10px' }}>
             <BlueprintPicker
-              label={'Select blueprint'}
+              label={'Select'}
               onChange={(selectedBlueprint: string) =>
                 setAttribute({
                   ...attribute,
                   attributeType: selectedBlueprint,
                 })
               }
-              formData={attribute.attributeType}
+              type={'button'}
             />
           </div>
         )}
@@ -249,7 +239,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
   if (!document || isLoading) return <Loading />
 
   return (
-    <div style={{ margin: '10px' }}>
+    <div style={{ margin: '10px', width: '100%' }}>
       <Spacer />
       <TextField
         id="name"
@@ -285,7 +275,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
           formData.attributes.map((attribute: any, index: number) => (
             <Accordion.Item key={index}>
               <Accordion.Header>
-                {attribute.name} {attribute.attributeType}{' '}
+                {attribute.name} {truncatePathString(attribute.attributeType)}{' '}
                 {attribute?.dimensions || '-'}
                 {attribute?.contained === undefined ||
                 attribute?.contained === true
@@ -294,20 +284,16 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
                 <Button
                   variant="ghost_icon"
                   color="danger"
-                  style={{ width: '24px', height: '24px' }}
-                  onClick={() => {
+                  onClick={(event) => {
                     formData.attributes.splice(index, 1)
                     setFormData({
                       ...formData,
                       attributes: [...formData.attributes],
                     })
+                    event.stopPropagation() // Stop the Accordion header from registering the click event
                   }}
                 >
-                  <Icon
-                    data={delete_to_trash}
-                    title="remove attribute"
-                    size={24}
-                  />
+                  <Icon data={delete_to_trash} title="remove attribute" />
                 </Button>
               </Accordion.Header>
               <Accordion.Panel>
@@ -343,6 +329,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
             })
           }
         >
+          <Icon data={add}></Icon>
           Add attribute
         </Button>
       </div>
@@ -359,10 +346,12 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
           color="danger"
           onClick={() => setFormData({ ...document })}
         >
+          <Icon data={undo} title="save action"></Icon>
           Reset
         </Button>
         <Button as="button" onClick={() => updateDocument(formData, true)}>
-          Update
+          <Icon data={save} title="save action"></Icon>
+          Save
         </Button>
       </div>
     </div>

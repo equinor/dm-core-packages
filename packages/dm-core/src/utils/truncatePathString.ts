@@ -1,6 +1,6 @@
 export function truncatePathString(
   path: string | undefined,
-  maxLength: number | undefined = 55
+  maxLength: number | undefined = 40
 ): string {
   if (!path) return ''
   /*
