@@ -5,6 +5,9 @@ import {
 } from '@development-framework/dm-core'
 import React, { useContext, useEffect, useState } from 'react'
 import { Banner, Icon } from '@equinor/eds-core-react'
+import { edit_text, save, thumbs_down } from '@equinor/eds-icons'
+
+Icon.add({ thumbs_down, save, edit_text })
 
 type FilteredView = {
   type: string
