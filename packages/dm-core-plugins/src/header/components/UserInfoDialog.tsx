@@ -1,7 +1,7 @@
 import { Dialog, RoleContext, useDMSS } from '@development-framework/dm-core'
 import { Button, Radio, Typography } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
@@ -23,6 +23,13 @@ const UserInfoLabel = styled.b`
   margin-left: 5px;
 `
 
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+`
+
 type UserInfoDialogProps = {
   isOpen: boolean
   setIsOpen: (newValue: boolean) => void
@@ -35,7 +42,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const { tokenData, token, logOut } = useContext(AuthContext)
   const dmssAPI = useDMSS()
   const { selectedRole, setSelectedRole, roles } = useContext(RoleContext)
-
+  const originalRole = useRef(selectedRole)
   return (
     <Dialog
       isDismissable
@@ -82,33 +89,43 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         )}
       </Dialog.CustomContent>
       <Dialog.Actions>
-        <Button
-          onClick={() => {
-            navigator.clipboard.writeText(token)
-            toast.success('Copied token to clipboard')
-          }}
-        >
-          Copy token to clipboard
-        </Button>
-        <Button
-          onClick={() =>
-            dmssAPI
-              .tokenCreate()
-              .then((response: AxiosResponse<string>) =>
-                setAPIKey(response.data)
-              )
-              .catch((error: any) => {
-                console.error(error)
-                toast.error('Failed to create personal access token')
-              })
-          }
-        >
-          Create API-Key
-        </Button>
-        <Button onClick={() => logOut()}>Log out</Button>
-        <Button variant="outlined" onClick={() => setIsOpen(false)}>
-          Cancel
-        </Button>
+        <FlexRow style={{ justifyContent: 'space-between', width: '100%' }}>
+          <FlexRow>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                navigator.clipboard.writeText(token)
+                toast.success('Copied token to clipboard')
+              }}
+            >
+              Copy token to clipboard
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() =>
+                dmssAPI
+                  .tokenCreate()
+                  .then((response: AxiosResponse<string>) =>
+                    setAPIKey(response.data)
+                  )
+                  .catch((error: any) => {
+                    console.error(error)
+                    toast.error('Failed to create personal access token')
+                  })
+              }
+            >
+              Create API-Key
+            </Button>
+          </FlexRow>
+          <FlexRow>
+            <Button variant="ghost" color="danger" onClick={() => logOut()}>
+              Log out
+            </Button>
+            <Button onClick={() => setIsOpen(false)}>
+              {selectedRole !== originalRole.current ? 'Save' : 'Cancel'}
+            </Button>
+          </FlexRow>
+        </FlexRow>
       </Dialog.Actions>
     </Dialog>
   )
