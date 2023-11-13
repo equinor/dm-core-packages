@@ -1,7 +1,7 @@
 import { Dialog, RoleContext, useDMSS } from '@development-framework/dm-core'
 import { Button, Radio, Typography } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
@@ -42,7 +42,8 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const { tokenData, token, logOut } = useContext(AuthContext)
   const dmssAPI = useDMSS()
   const { selectedRole, setSelectedRole, roles } = useContext(RoleContext)
-  const originalRole = useRef(selectedRole)
+  const [tempSelectedRole, setTempSelectedRole] = useState<string>(selectedRole)
+
   return (
     <Dialog
       isDismissable
@@ -69,7 +70,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
 
         {roles?.length && (
           <>
-            <Typography>Chose role (UI only)</Typography>
+            <Typography>Chose role (UI only) {tempSelectedRole}</Typography>
             <UnstyledList>
               {roles.map((role: string) => (
                 <li key={role}>
@@ -78,9 +79,10 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
                     name="impersonate-role"
                     value={role}
                     checked={
-                      selectedRole != 'anonymous' && role == selectedRole
+                      tempSelectedRole != 'anonymous' &&
+                      role == tempSelectedRole
                     }
-                    onChange={(e: any) => setSelectedRole(e.target.value)}
+                    onChange={(e: any) => setTempSelectedRole(e.target.value)}
                   />
                 </li>
               ))}
@@ -121,8 +123,13 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
             <Button variant="ghost" color="danger" onClick={() => logOut()}>
               Log out
             </Button>
-            <Button onClick={() => setIsOpen(false)}>
-              {selectedRole !== originalRole.current ? 'Save' : 'Cancel'}
+            <Button
+              onClick={() => {
+                setSelectedRole(tempSelectedRole)
+                setIsOpen(false)
+              }}
+            >
+              {selectedRole !== tempSelectedRole ? 'Save' : 'Cancel'}
             </Button>
           </FlexRow>
         </FlexRow>
