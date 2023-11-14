@@ -1,6 +1,10 @@
 import * as React from 'react'
 
-import { TGenericObject, useBlueprint } from '@development-framework/dm-core'
+import {
+  Loading,
+  TGenericObject,
+  useBlueprint,
+} from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
@@ -19,7 +23,7 @@ const Wrapper = styled.div`
 
 export const Form = (props: TFormProps) => {
   const { type, formData, config, onSubmit, idReference, onOpen } = props
-  const { blueprint } = useBlueprint(type)
+  const { blueprint, isLoading, error } = useBlueprint(type)
 
   const methods = useForm({
     // Set initial state.
@@ -42,6 +46,10 @@ export const Form = (props: TFormProps) => {
     // since react-hook-form cannot handle undefined values, we have to convert null values to undefined before submitting.
     if (onSubmit !== undefined) onSubmit(convertNullToUndefined(data))
   })
+
+  if (isLoading) return <Loading />
+
+  if (error) throw new Error(JSON.stringify(error, null, 2))
 
   return (
     <FormProvider {...methods}>

@@ -25,7 +25,7 @@ export type TBlueprint = {
   type: string
   description?: string
   extends?: string[]
-  attributes?: TAttribute[]
+  attributes: TAttribute[]
   _meta_?: any[]
   abstract?: boolean
 }

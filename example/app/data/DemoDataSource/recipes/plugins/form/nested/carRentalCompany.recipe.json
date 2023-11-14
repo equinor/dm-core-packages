@@ -43,8 +43,7 @@
           {
             "name": "accountant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
-            "uiRecipe": "defaultYaml"
+            "showInline": true
           },
           {
             "name": "cars",

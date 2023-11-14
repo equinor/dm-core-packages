@@ -20,7 +20,6 @@ import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import TooltipButton from '../../common/TooltipButton'
 import { defaultConfig } from '../FormPlugin'
-import { AttributeList } from '../components/AttributeList'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
@@ -167,7 +166,6 @@ export const ContainedAttribute = (
     optional = false,
     uiAttribute,
     uiRecipe,
-    blueprint,
     defaultValue,
     readOnly,
   } = props
@@ -203,44 +201,14 @@ export const ContainedAttribute = (
         )}
       </Legend>
       {isDefined && !(onOpen && !uiAttribute?.showInline) && (
-        <Inline
+        <EntityView
+          recipeName={uiRecipe.name}
+          idReference={`${idReference}.${namePath}`}
           type={type}
-          namePath={namePath}
-          blueprint={blueprint}
-          uiRecipe={uiRecipe}
+          onOpen={onOpen}
         />
       )}
     </Fieldset>
-  )
-}
-
-const Inline = (props: {
-  type: string
-  namePath: string
-  blueprint: TBlueprint | undefined
-  uiRecipe: TUiRecipeForm | undefined
-}): React.ReactElement => {
-  const { idReference, onOpen } = useRegistryContext()
-  const { type, namePath, uiRecipe, blueprint } = props
-  if (
-    uiRecipe &&
-    uiRecipe.plugin !== '@development-framework/dm-core-plugins/form'
-  ) {
-    return (
-      <EntityView
-        recipeName={uiRecipe.name}
-        idReference={`${idReference}.${namePath}`}
-        type={type}
-        onOpen={onOpen}
-      />
-    )
-  }
-  return (
-    <AttributeList
-      namePath={namePath}
-      config={uiRecipe?.config}
-      blueprint={blueprint}
-    />
   )
 }
 
@@ -350,10 +318,24 @@ export const ObjectTypeSelector = (
 
   // The nested objects uses ui recipes names that are passed down from parent configs.
   const uiRecipeName = getKey<string>(uiAttribute, 'uiRecipe', 'string')
-  const uiRecipe: TUiRecipeForm | undefined = uiRecipes
-    .map((x) => ({ ...x, config: { ...defaultConfig, ...x.config } }))
-    .find((uiRecipe) => uiRecipe.name === uiRecipeName)
+  const uiRecipesWithDefaultConfig: TUiRecipeForm[] = uiRecipes.map((x) => ({
+    ...x,
+    config: { ...defaultConfig, ...x.config },
+  }))
 
+  let uiRecipe: TUiRecipeForm | undefined = uiRecipesWithDefaultConfig[0] // By default, use the first recipe in the list
+
+  if (uiRecipeName) {
+    // If there is a recipe specified in the config, select that.
+    uiRecipe = uiRecipesWithDefaultConfig.find(
+      (uiRecipe) => uiRecipe.name === uiRecipeName
+    )
+  }
+
+  if (!uiRecipe)
+    throw new Error(
+      `No UiRecipe named "${uiRecipeName}" could be found for type "${type}"`
+    )
   const Content = attributeIsStorageReference
     ? StorageUncontainedAttribute
     : contained

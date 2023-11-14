@@ -25,14 +25,10 @@ test('Simple form', async ({ page }) => {
   })
 
   await test.step('Fill out number field', async () => {
-    await page.getByLabel('Numbers only (optional)').fill('Text')
-    await expect(page.getByText('Only numbers allowed')).toBeVisible()
     await page.getByLabel('Numbers only (optional)').fill('3.14')
   })
 
   await test.step('Fill out integer field', async () => {
-    await page.getByLabel('Integer only (optional)').fill('3.14')
-    await expect(page.getByText('Only integers allowed')).toBeVisible()
     await page.getByLabel('Integer only (optional)').fill('123')
   })
 

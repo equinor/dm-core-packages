@@ -1,5 +1,11 @@
-import { DmssAPI, DMSSProvider } from '@development-framework/dm-core'
+import {
+  DmssAPI,
+  DMSSProvider,
+  TUiPluginMap,
+  UiPluginProvider,
+} from '@development-framework/dm-core'
 import React from 'react'
+import { FormPlugin } from './FormPlugin'
 
 export const mockBlueprintGet = (blueprints: Array<any>) => {
   const mock = jest.spyOn(DmssAPI.prototype, 'blueprintGet')
@@ -29,6 +35,14 @@ export const mockBlueprintGet = (blueprints: Array<any>) => {
   return mock
 }
 
+const plugins = {
+  '@development-framework/dm-core-plugins/form': {
+    component: FormPlugin,
+  },
+} as TUiPluginMap
+
 export const wrapper = (props: { children: React.ReactNode }) => (
-  <DMSSProvider>{props.children}</DMSSProvider>
+  <UiPluginProvider pluginsToLoad={plugins}>
+    <DMSSProvider>{props.children}</DMSSProvider>
+  </UiPluginProvider>
 )

@@ -31,7 +31,7 @@ export type TContentProps = {
   displayLabel: string
   optional: boolean
   blueprint: TBlueprint | undefined
-  uiRecipe: TUiRecipeForm | undefined
+  uiRecipe: TUiRecipeForm
   uiAttribute: TAttributeConfig | undefined
   readOnly?: boolean
   defaultValue?: any

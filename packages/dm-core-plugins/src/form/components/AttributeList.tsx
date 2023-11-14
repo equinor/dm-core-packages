@@ -6,12 +6,12 @@ import { TConfig } from '../types'
 export const AttributeList = (props: {
   namePath: string
   config: TConfig | undefined
-  blueprint: TBlueprint | undefined
+  blueprint: TBlueprint
 }) => {
   const { namePath, config, blueprint } = props
   const prefix = namePath === '' ? `` : `${namePath}.`
 
-  const attributes: TAttribute[] = blueprint?.attributes ?? []
+  const attributes: TAttribute[] = blueprint.attributes
 
   let filteredAttributes =
     config && config.fields.length
@@ -28,24 +28,26 @@ export const AttributeList = (props: {
       (attribute) => !hideByDefaultFields.includes(attribute.name)
     )
   }
-  const attributeFields = filteredAttributes.map((attribute: TAttribute) => {
-    const uiAttribute = config?.attributes.find(
-      (uiAttribute) => uiAttribute.name === attribute.name
-    )
-    return (
-      <div
-        data-testid={`${prefix}${attribute.name}`}
-        key={`${prefix}${attribute.name}`}
-      >
-        <AttributeField
-          namePath={`${prefix}${attribute.name}`}
-          attribute={attribute}
-          uiAttribute={uiAttribute}
-          readOnly={config?.readOnly}
-        />
-      </div>
-    )
-  })
-
-  return <>{attributeFields}</>
+  return (
+    <>
+      {filteredAttributes.map((attribute: TAttribute) => {
+        const uiAttribute = config?.attributes.find(
+          (uiAttribute) => uiAttribute.name === attribute.name
+        )
+        return (
+          <div
+            data-testid={`${prefix}${attribute.name}`}
+            key={`${prefix}${attribute.name}`}
+          >
+            <AttributeField
+              namePath={`${prefix}${attribute.name}`}
+              attribute={attribute}
+              uiAttribute={uiAttribute}
+              readOnly={config?.readOnly}
+            />
+          </div>
+        )
+      })}
+    </>
+  )
 }

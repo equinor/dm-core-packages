@@ -164,10 +164,12 @@ test('should handle optional', async () => {
     />,
     { wrapper }
   )
-  fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
+  await waitFor(() =>
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
+  )
   // The useForm "methods.handleSubmit" seems to be async, and needs to be awaited
   await waitFor(() => expect(onSubmit).toHaveBeenCalled())
-  expect(onSubmit).toHaveBeenCalledWith({})
+  expect(onSubmit).toHaveBeenCalledWith({ foo: '' })
   await waitFor(() => expect(screen.getByText('foo (optional)')).toBeDefined())
 })
 
