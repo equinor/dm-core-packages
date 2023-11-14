@@ -16,6 +16,7 @@ import { FilePlugin } from './file/FilePlugin'
 import { RoleFilterPlugin } from './role_filter/RoleFilterPlugin'
 import { SidebarPlugin } from './view_selector/SidebarPlugin'
 import { TabsPlugin } from './view_selector/TabsPlugin'
+import { MediaViewerPlugin } from './mediaViewer/MediaViewerPlugin'
 
 export { WidgetProvider } from './form/context/WidgetContext'
 
@@ -67,5 +68,8 @@ export default {
   },
   '@development-framework/dm-core-plugins/role_filter': {
     component: RoleFilterPlugin,
+  },
+  '@development-framework/dm-core-plugins/media-viewer': {
+    component: MediaViewerPlugin,
   },
 } as TUiPluginMap

@@ -25,6 +25,21 @@
         },
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "View",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "View",
+              "type": "CORE:UiRecipe",
+              "description": "view media",
+              "plugin": "@development-framework/dm-core-plugins/media-viewer"
+            },
+            "scope": "self",
+            "eds_icon": "visibility"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "File",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
