@@ -29,7 +29,7 @@ test('Change role to operator and back', async ({ page }) => {
   ).toBeVisible()
   await page.getByRole('button', { name: 'User' }).click()
   await page.getByLabel('operator').check()
-  await page.getByRole('button', { name: 'Cancel' }).click() //We need a save or close button here. "Cancel" is misleading.
+  await page.getByRole('button', { name: 'Save' }).click()
   await expect(
     page.getByRole('tab', { name: 'Hogwarts All', exact: true })
   ).toBeVisible()
@@ -41,7 +41,7 @@ test('Change role to operator and back', async ({ page }) => {
   ).not.toBeEditable()
   await page.getByRole('button', { name: 'User' }).click()
   await page.getByLabel('admin').check()
-  await page.getByRole('button', { name: 'Cancel' }).click()
+  await page.getByRole('button', { name: 'Save', exact: true }).click()
   await page.getByRole('tab', { name: 'Hogwarts Admin', exact: true }).click()
   await expect(
     page.getByTestId('name').getByTestId('form-textfield')

@@ -24,7 +24,7 @@ test('Change to operator role and back', async ({ page }) => {
   await test.step('Change role to operator', async () => {
     await page.getByRole('button', { name: 'User' }).click()
     await page.getByLabel('operator').check()
-    await page.getByRole('button', { name: 'Cancel' }).click() //We need a save or close button here. "Cancel" is misleading.
+    await page.getByRole('button', { name: 'Save' }).click()
   })
 
   await test.step('Edit option not visible', async () => {
@@ -68,7 +68,7 @@ test('Change to operator role and back', async ({ page }) => {
     await page.getByRole('menuitem', { name: 'Yaml' }).first().click()
     await page.getByRole('button', { name: 'User' }).click()
     await page.getByLabel('admin').check()
-    await page.getByRole('button', { name: 'Cancel' }).click() //We need a save or close button here. "Cancel" is misleading.
+    await page.getByRole('button', { name: 'Save' }).click()
     await page.getByRole('button', { name: 'Menu' }).nth(1).click()
     await expect(page.getByRole('menuitem', { name: 'Edit' })).toBeVisible()
   })
