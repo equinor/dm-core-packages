@@ -29,7 +29,7 @@ test('Change role to operator and back', async ({ page }) => {
   ).toBeVisible()
   await page.getByRole('button', { name: 'User' }).click()
   await page.getByLabel('operator').check()
-  await page.getByRole('button', { name: 'Save' }).click()
+  await page.getByRole('button', { name: 'Save', exact: true }).click()
   await expect(
     page.getByRole('tab', { name: 'Hogwarts All', exact: true })
   ).toBeVisible()
