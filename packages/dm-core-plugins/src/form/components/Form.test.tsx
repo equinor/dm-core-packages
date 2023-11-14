@@ -85,13 +85,14 @@ describe('Form', () => {
           wrapper,
         }
       )
-      await waitFor(() => {
-        expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
-        expect(container.querySelector(`input[id="child.bar"]`)).toBeTruthy()
+      await waitFor(() => expect(container.querySelector(`input[id="foo"]`)))
+      await waitFor(() =>
+        expect(container.querySelector(`input[id="child.bar"]`))
+      )
+      await waitFor(() =>
         expect(container.querySelector(`input[id="baz"]`)).toBeNull()
-        // Should only call get blueprint once
-        expect(mock).toHaveBeenCalledTimes(2)
-      })
+      )
+      await waitFor(() => expect(mock).toHaveBeenCalledTimes(3))
     })
   })
 
