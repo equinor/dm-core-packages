@@ -9,7 +9,7 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { AxiosError, AxiosRequestConfig } from 'axios'
-import { Button } from '@equinor/eds-core-react'
+import { MediaContent } from './MediaContent'
 
 interface MediaObject {
   type: string
@@ -66,33 +66,22 @@ export function MediaViewerPlugin(props: IUIPlugin): ReactElement {
   if (documentError) throw new Error(JSON.stringify(documentError, null, 2))
   if (isLoading || document === null) return <Loading />
   if (document.data.type !== EBlueprint.FILE) return <>Error: Not File type</>
-
   return (
-    <div>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <h3>{document.name}</h3>
-        <Button variant="ghost">Download</Button>
-      </div>
-
-      {['image/jpeg', 'image/gif'].includes(document.data.filetype) ? (
-        <img
-          src={blobUrl}
-          style={{ height: `${window.screen.height * 0.8}px` }}
+    <>
+      {blobUrl ? (
+        <MediaContent
+          blobUrl={blobUrl}
+          meta={{
+            author: document.data.author,
+            fileSize: document.data.size,
+            title: document.data.name,
+            filetype: document.data.filetype,
+            date: document.data.date,
+          }}
         />
-      ) : document.data.filetype.includes('video') ? (
-        <video src={blobUrl} style={{ width: '60%' }} controls />
       ) : (
-        <iframe
-          src={blobUrl}
-          style={{ width: '100%', height: `${window.screen.height * 0.8}px` }}
-        />
+        <p>Media not found</p>
       )}
-    </div>
+    </>
   )
 }
