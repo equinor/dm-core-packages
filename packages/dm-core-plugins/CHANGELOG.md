@@ -30,6 +30,29 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.16.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.15.0...dm-core-plugins-v1.16.0) (2023-11-15)
+
+
+### Features
+
+* expandable job log ([#687](https://github.com/equinor/dm-core-packages/issues/687)) ([5895527](https://github.com/equinor/dm-core-packages/commit/5895527f0b992b975a2ff02cb894fd0dadc67154))
+* make type and meta hidden ([dbdf10e](https://github.com/equinor/dm-core-packages/commit/dbdf10ea79f5aa1aad81a540da57742eb23e8bef))
+
+
+### Bug Fixes
+
+* **blueprint:** fix several minor bugs in blueprint plugin ([eb4fba1](https://github.com/equinor/dm-core-packages/commit/eb4fba10cb0880aada8e9249c49ea27cc949e270))
+* **blueprint:** some more pimpin of the blueprint plugin ([21da6d1](https://github.com/equinor/dm-core-packages/commit/21da6d1d1a850cef4ffa960fec3d49fff5337add))
+* optional list ([931abd2](https://github.com/equinor/dm-core-packages/commit/931abd2b07176b518a2ddd685f11ad88fe7a65d4))
+* stop job poll on failed or completed status ([ccf833b](https://github.com/equinor/dm-core-packages/commit/ccf833b9dee4a76bb470108ea820363d4b1e456d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.11.2 to ^1.12.0
+
 ## [1.15.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.14.1...dm-core-plugins-v1.15.0) (2023-11-02)
 
 
