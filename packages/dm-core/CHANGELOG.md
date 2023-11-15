@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.12.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.11.2...dm-core-v1.12.0) (2023-11-15)
+
+
+### Features
+
+* expandable job log ([#687](https://github.com/equinor/dm-core-packages/issues/687)) ([5895527](https://github.com/equinor/dm-core-packages/commit/5895527f0b992b975a2ff02cb894fd0dadc67154))
+
+
+### Bug Fixes
+
+* **blueprint:** fix several minor bugs in blueprint plugin ([eb4fba1](https://github.com/equinor/dm-core-packages/commit/eb4fba10cb0880aada8e9249c49ea27cc949e270))
+* **blueprint:** some more pimpin of the blueprint plugin ([21da6d1](https://github.com/equinor/dm-core-packages/commit/21da6d1d1a850cef4ffa960fec3d49fff5337add))
+* stop job poll on failed or completed status ([ccf833b](https://github.com/equinor/dm-core-packages/commit/ccf833b9dee4a76bb470108ea820363d4b1e456d))
+* wrap recipe errors message in EntityView ([a81d8c4](https://github.com/equinor/dm-core-packages/commit/a81d8c49c1bdd4bfdfe9b9130ed148d1fbb3b6e3))
+
 ## [1.11.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.11.1...dm-core-v1.11.2) (2023-11-02)
 
 
