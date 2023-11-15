@@ -1,17 +1,14 @@
 import {
   EBlueprint,
   EntityView,
-  ErrorResponse,
   getKey,
   Stack,
-  useDMSS,
 } from '@development-framework/dm-core'
-import { Typography } from '@equinor/eds-core-react'
-import { AxiosError } from 'axios'
+import { Icon, Pagination, Typography } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
-import { add, delete_forever } from '@equinor/eds-icons'
+import { add, remove_outlined } from '@equinor/eds-icons'
 import TooltipButton from '../../common/TooltipButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
@@ -49,35 +46,14 @@ const InlineList = (props: TArrayFieldProps) => {
 const PrimitiveList = (props: TArrayFieldProps) => {
   const { namePath, displayLabel, type, readOnly } = props
 
-  const { idReference } = useRegistryContext()
-  const dmssAPI = useDMSS()
   const { control } = useFormContext()
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: namePath,
   })
-
-  const handleAddObject = () => {
-    dmssAPI
-      .instantiateEntity({
-        entity: { type: type as string },
-      })
-      .then((newEntity: any) => {
-        const data = JSON.stringify([...fields, newEntity.data])
-        dmssAPI
-          .documentUpdate({
-            idAddress: `${idReference}.${namePath}`,
-            data: data,
-          })
-          .then(() => {
-            append(newEntity.data)
-          })
-          .catch((error: AxiosError<ErrorResponse>) => {
-            console.error(error)
-          })
-      })
-  }
+  const [currentPageIndex, setCurrentPageIndex] = useState(0)
+  const itemsPerPage = 30
 
   return (
     <Fieldset>
@@ -88,49 +64,76 @@ const PrimitiveList = (props: TArrayFieldProps) => {
             title="Add"
             button-variant="ghost_icon"
             button-onClick={() => {
-              if (isPrimitiveType(type)) {
-                const defaultValue = isPrimitive(type) ? ' ' : {}
-                append(defaultValue)
-              } else {
-                handleAddObject()
+              if (type === 'boolean') {
+                append(true)
+                return
               }
+              append(isPrimitive(type) ? ' ' : {})
             }}
             icon={add}
           />
         )}
       </Legend>
-      {fields.map((item: any, index: number) => {
-        return (
-          <Stack
-            key={item.id}
-            direction="row"
-            spacing={0.5}
-            alignSelf="stretch"
-            alignItems="flex-end"
-          >
-            <Stack grow={1}>
-              <AttributeField
-                namePath={`${namePath}.${index}`}
-                attribute={{
-                  attributeType: type,
-                  dimensions: '',
-                  name: '',
-                  type: EBlueprint.ATTRIBUTE,
-                }}
-                readOnly={readOnly}
-              />
-            </Stack>
-            {!readOnly && (
-              <TooltipButton
-                title="Remove"
-                button-variant="ghost_icon"
-                button-onClick={() => remove(index)}
-                icon={delete_forever}
-              />
-            )}
-          </Stack>
-        )
-      })}
+      <div
+        style={{
+          display: 'flex',
+          flexFlow: 'column wrap',
+          maxHeight: '23em',
+          alignContent: 'flex-start',
+        }}
+      >
+        {fields
+          .slice(
+            currentPageIndex * itemsPerPage,
+            currentPageIndex * itemsPerPage + itemsPerPage
+          )
+          .map((item: any, index: number) => {
+            const pagedIndex = itemsPerPage * currentPageIndex + index
+            return (
+              <Stack
+                key={item.id}
+                direction="row"
+                spacing={0.5}
+                alignSelf="stretch"
+                alignItems="flex-end"
+              >
+                <Stack grow={1}>
+                  <AttributeField
+                    namePath={`${namePath}.${pagedIndex}`}
+                    attribute={{
+                      attributeType: type,
+                      dimensions: '',
+                      name: '',
+                      type: EBlueprint.ATTRIBUTE,
+                    }}
+                    readOnly={readOnly}
+                    leftAdornments={String(pagedIndex)}
+                    rightAdornments={
+                      <Icon
+                        data={remove_outlined}
+                        size={18}
+                        // @ts-ignore
+                        onClick={() => remove(pagedIndex)}
+                        style={{ cursor: 'pointer' }}
+                        data-testid={`form-text-widget-remove-${pagedIndex}`}
+                      />
+                    }
+                  />
+                </Stack>
+              </Stack>
+            )
+          })}
+      </div>
+      {fields.length > itemsPerPage && (
+        <div>
+          <Pagination
+            totalItems={fields.length}
+            itemsPerPage={itemsPerPage}
+            defaultPage={currentPageIndex + 1}
+            onChange={(e, p) => setCurrentPageIndex(p - 1)}
+          />
+        </div>
+      )}
     </Fieldset>
   )
 }

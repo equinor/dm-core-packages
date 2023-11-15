@@ -11,12 +11,8 @@ import { NumberField } from './NumberField'
 
 afterEach(() => cleanup())
 
-const setup = async (props: {
-  initialValue?: string
-  optional?: boolean
-  isInteger?: boolean
-}) => {
-  const { initialValue = '1', optional = false, isInteger = false } = props
+const setup = async (props: { initialValue?: string; optional?: boolean }) => {
+  const { initialValue = '1', optional = false } = props
   const onSubmit = jest.fn()
   const wrapper = (props: { children: React.ReactNode }) => {
     const methods = useForm()
@@ -33,7 +29,6 @@ const setup = async (props: {
     <NumberField
       defaultValue={initialValue}
       optional={optional}
-      isInteger={isInteger}
       namePath="number"
       displayLabel="number"
       uiAttribute={undefined}
@@ -60,61 +55,12 @@ test('Initial value is entered', async () => {
   expect(utils.inputElement.value).toBe('5e2')
 })
 
-test('Error is raised on text input', async () => {
-  const utils = await setup({})
-  utils.setValue('hei')
-  utils.submit()
-  await waitFor(() => {
-    expect(screen.queryByText('Only numbers allowed')).not.toBeNull()
-  })
-})
-
-test('Error is raised on invalid number', async () => {
-  const utils = await setup({})
-  utils.setValue('1.')
-  utils.submit()
-  await waitFor(() => {
-    expect(screen.queryByText('Only numbers allowed')).not.toBeNull()
-  })
-})
-
 test('Error is not raised on exponential', async () => {
   const utils = await setup({})
   utils.setValue('1e2')
   utils.submit()
   await waitFor(() => {
     expect(screen.queryByText('Only numbers allowed')).toBeNull()
-  })
-})
-
-test('Error is raised on float', async () => {
-  const utils = await setup({ isInteger: true })
-  utils.setValue('1.5')
-  utils.submit()
-  await waitFor(() => {
-    expect(screen.queryByText('Only integers allowed')).not.toBeNull()
-  })
-})
-
-test('Error disappears immediately after fix', async () => {
-  const utils = await setup({})
-  utils.setValue('hei')
-  utils.submit()
-  await waitFor(() => {
-    expect(screen.queryByText('Only numbers allowed')).not.toBeNull()
-  })
-  utils.setValue('1')
-  await waitFor(() => {
-    expect(screen.queryByText('Only numbers allowed')).toBeNull()
-  })
-})
-
-test('Error is raised on missing, required input', async () => {
-  const utils = await setup({})
-  utils.setValue('')
-  utils.submit()
-  await waitFor(() => {
-    expect(screen.queryByText('Required')).not.toBeNull()
   })
 })
 

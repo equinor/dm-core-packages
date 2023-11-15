@@ -4,13 +4,20 @@ import { getWidget } from '../context/WidgetContext'
 import { TBooleanFieldProps } from '../types'
 
 export const BooleanField = (props: TBooleanFieldProps) => {
-  const { namePath, displayLabel, defaultValue, uiAttribute, readOnly } = props
+  const {
+    namePath,
+    displayLabel,
+    defaultValue,
+    uiAttribute,
+    leftAdornments,
+    rightAdornments,
+    readOnly,
+  } = props
 
   // We need to convert default values coming from the API since they are always strings
   const usedDefaultValue = defaultValue == 'True' ? true : false
 
   const Widget = getWidget(uiAttribute?.widget ?? 'CheckboxWidget')
-
   return (
     <Controller
       name={namePath}
@@ -21,6 +28,8 @@ export const BooleanField = (props: TBooleanFieldProps) => {
       }) => (
         <Widget
           {...props}
+          leftAdornments={leftAdornments}
+          rightAdornments={rightAdornments}
           readOnly={readOnly}
           id={namePath}
           value={value}

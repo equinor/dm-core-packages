@@ -1,5 +1,9 @@
 export const isArray = (dimensions: string) => {
-  return dimensions && dimensions === '*'
+  return dimensions && dimensions !== ''
+}
+
+export const isMultiDimensional = (dimensions: string) => {
+  return dimensions && dimensions.includes(',')
 }
 
 export const isPrimitive = (attributeType: string): boolean => {
