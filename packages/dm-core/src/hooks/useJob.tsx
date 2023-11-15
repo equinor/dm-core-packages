@@ -104,7 +104,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     }
   }, [entityId])
 
-  // When jobId changes, we register an interval to check status.
+  // When hookJobId changes, we register an interval to check status.
   // The interval is deregistered if the status of the job is not "Running"
   useEffect(() => {
     if (!hookJobId) return
@@ -163,7 +163,11 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .then((response: AxiosResponse<StatusJobResponse>) => {
         setLogs(response.data.log ?? '')
         if (response.data.status !== status) setStatus(response.data.status)
-        if (response.data.status !== JobStatus.Running) {
+        if (
+          ([JobStatus.Failed, JobStatus.Completed] as JobStatus[]).includes(
+            response.data.status
+          )
+        ) {
           clearInterval(statusIntervalId)
         }
         setError(undefined)
