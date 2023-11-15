@@ -4,6 +4,7 @@ import {
   TOnOpen,
   TUiRecipe,
 } from '@development-framework/dm-core'
+import React from 'react'
 
 export type TFormProps = {
   idReference: string
@@ -51,6 +52,8 @@ export type TAttributeFieldProps = {
   attribute: TAttribute
   uiAttribute?: TAttributeConfig
   readOnly?: boolean
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
 }
 
 export type TStringFieldProps = {
@@ -61,6 +64,8 @@ export type TStringFieldProps = {
   uiAttribute: TAttributeConfig | undefined
   readOnly?: boolean
   format?: 'string' | 'date' | 'datetime'
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
 }
 
 export type TNumberFieldProps = {
@@ -69,8 +74,9 @@ export type TNumberFieldProps = {
   defaultValue: string
   optional: boolean
   uiAttribute: TAttributeConfig | undefined
-  isInteger: boolean
   readOnly?: boolean
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
 }
 
 export type TBooleanFieldProps = {
@@ -79,6 +85,8 @@ export type TBooleanFieldProps = {
   defaultValue: string
   uiAttribute: TAttributeConfig | undefined
   readOnly?: boolean
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
 }
 
 type TAttributeBasis = {
@@ -117,7 +125,7 @@ export declare type Variants = 'error' | 'success' | 'warning'
 export type TWidget = {
   label: string
   value?: any
-  onChange?: (value: unknown) => void
+  onChange: (value: unknown) => void
   onClick?: (value: any) => void
   id: string
   inputRef?: any
@@ -125,6 +133,9 @@ export type TWidget = {
   variant?: Variants
   readOnly?: boolean
   config?: Record<any, any>
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
+  style?: any
 }
 
 export type TWidgets = {
