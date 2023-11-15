@@ -23,6 +23,13 @@ const UserInfoLabel = styled.b`
   margin-left: 5px;
 `
 
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+`
+
 type UserInfoDialogProps = {
   isOpen: boolean
   setIsOpen: (newValue: boolean) => void
@@ -35,6 +42,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const { tokenData, token, logOut } = useContext(AuthContext)
   const dmssAPI = useDMSS()
   const { selectedRole, setSelectedRole, roles } = useContext(RoleContext)
+  const [tempSelectedRole, setTempSelectedRole] = useState<string>(selectedRole)
 
   return (
     <Dialog
@@ -62,7 +70,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
 
         {roles?.length && (
           <>
-            <Typography>Chose role (UI only)</Typography>
+            <Typography>Chose role (UI only) {tempSelectedRole}</Typography>
             <UnstyledList>
               {roles.map((role: string) => (
                 <li key={role}>
@@ -71,9 +79,10 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
                     name="impersonate-role"
                     value={role}
                     checked={
-                      selectedRole != 'anonymous' && role == selectedRole
+                      tempSelectedRole != 'anonymous' &&
+                      role == tempSelectedRole
                     }
-                    onChange={(e: any) => setSelectedRole(e.target.value)}
+                    onChange={(e: any) => setTempSelectedRole(e.target.value)}
                   />
                 </li>
               ))}
@@ -82,33 +91,48 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         )}
       </Dialog.CustomContent>
       <Dialog.Actions>
-        <Button
-          onClick={() => {
-            navigator.clipboard.writeText(token)
-            toast.success('Copied token to clipboard')
-          }}
-        >
-          Copy token to clipboard
-        </Button>
-        <Button
-          onClick={() =>
-            dmssAPI
-              .tokenCreate()
-              .then((response: AxiosResponse<string>) =>
-                setAPIKey(response.data)
-              )
-              .catch((error: any) => {
-                console.error(error)
-                toast.error('Failed to create personal access token')
-              })
-          }
-        >
-          Create API-Key
-        </Button>
-        <Button onClick={() => logOut()}>Log out</Button>
-        <Button variant="outlined" onClick={() => setIsOpen(false)}>
-          Cancel
-        </Button>
+        <FlexRow style={{ justifyContent: 'space-between', width: '100%' }}>
+          <FlexRow>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                navigator.clipboard.writeText(token)
+                toast.success('Copied token to clipboard')
+              }}
+            >
+              Copy token to clipboard
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() =>
+                dmssAPI
+                  .tokenCreate()
+                  .then((response: AxiosResponse<string>) =>
+                    setAPIKey(response.data)
+                  )
+                  .catch((error: any) => {
+                    console.error(error)
+                    toast.error('Failed to create personal access token')
+                  })
+              }
+            >
+              Create API-Key
+            </Button>
+          </FlexRow>
+          <FlexRow>
+            <Button variant="ghost" color="danger" onClick={() => logOut()}>
+              Log out
+            </Button>
+            <Button
+              onClick={() => {
+                setSelectedRole(tempSelectedRole)
+                setIsOpen(false)
+              }}
+            >
+              {selectedRole !== tempSelectedRole ? 'Save' : 'Cancel'}
+            </Button>
+          </FlexRow>
+        </FlexRow>
       </Dialog.Actions>
     </Dialog>
   )
