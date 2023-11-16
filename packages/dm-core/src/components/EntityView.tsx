@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import styled from 'styled-components'
 import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
@@ -52,16 +52,18 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
 
   return (
     <Wrapper>
-      {/*@ts-ignore*/}
-      <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
-        <UiPlugin
-          idReference={idReference}
-          type={type}
-          onSubmit={onSubmit}
-          onOpen={onOpen}
-          config={recipe.config || {}}
-        />
-      </ErrorBoundary>
+      <Suspense fallback={<Loading />}>
+        {/*@ts-ignore*/}
+        <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
+          <UiPlugin
+            idReference={idReference}
+            type={type}
+            onSubmit={onSubmit}
+            onOpen={onOpen}
+            config={recipe.config || {}}
+          />
+        </ErrorBoundary>
+      </Suspense>
     </Wrapper>
   )
 }
