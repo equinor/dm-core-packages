@@ -114,7 +114,7 @@ const PrimitiveList = (props: TArrayFieldProps) => {
                 attribute={{
                   attributeType: type,
                   dimensions: '',
-                  name: item.id,
+                  name: '',
                   type: EBlueprint.ATTRIBUTE,
                 }}
                 readOnly={readOnly}

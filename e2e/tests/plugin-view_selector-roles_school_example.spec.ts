@@ -16,9 +16,7 @@ test('Admin role', async ({ page }) => {
   await expect(
     page.getByRole('tab', { name: 'Hogwarts All', exact: true })
   ).toBeVisible()
-  await expect(
-    page.getByTestId('name').getByTestId('form-textfield')
-  ).toBeEditable()
+  await expect(page.getByTestId('form-text-widget-Name')).toBeEditable()
   await page.getByRole('tab', { name: 'Hogwarts All', exact: true }).click()
   await expect(page.getByRole('tabpanel').locator('#name')).not.toBeEditable()
 })
@@ -36,14 +34,10 @@ test('Change role to operator and back', async ({ page }) => {
   await expect(
     page.getByRole('tab', { name: 'Hogwarts Admin', exact: true })
   ).not.toBeVisible()
-  await expect(
-    page.getByTestId('name').getByTestId('form-textfield')
-  ).not.toBeEditable()
+  await expect(page.getByTestId('form-text-widget-Name')).not.toBeEditable()
   await page.getByRole('button', { name: 'User' }).click()
   await page.getByLabel('admin').check()
   await page.getByRole('button', { name: 'Save', exact: true }).click()
   await page.getByRole('tab', { name: 'Hogwarts Admin', exact: true }).click()
-  await expect(
-    page.getByTestId('name').getByTestId('form-textfield')
-  ).toBeEditable()
+  await expect(page.getByTestId('form-text-widget-Name')).toBeEditable()
 })
