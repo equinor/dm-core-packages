@@ -1,5 +1,4 @@
 import { TUiPluginMap } from '@development-framework/dm-core'
-import { MediaViewerPlugin } from './mediaViewer/MediaViewerPlugin'
 import { lazy } from 'react'
 
 export { WidgetProvider } from './form/context/WidgetContext'
@@ -106,6 +105,10 @@ export default {
     ),
   },
   '@development-framework/dm-core-plugins/media-viewer': {
-    component: MediaViewerPlugin,
+    component: lazy(() =>
+      import('./mediaViewer/MediaViewerPlugin').then((module) => ({
+        default: module.MediaViewerPlugin,
+      }))
+    ),
   },
 } as TUiPluginMap
