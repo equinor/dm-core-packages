@@ -53,6 +53,7 @@ interface ITargetAddress {
 
 interface JobPluginConfig {
   jobTargetAddress: ITargetAddress
+  recurring?: boolean
   label: string
   runner: TJobHandler
   outputTarget: string
@@ -78,6 +79,7 @@ export const JobPlugin = (
     startDate: '',
     endDate: '',
   }
+  console.log(config)
   const jobTargetAddress = useMemo((): string => {
     if ((config.jobTargetAddress.addressScope ?? 'local') !== 'local') {
       return config.jobTargetAddress.targetAddress
@@ -102,7 +104,7 @@ export const JobPlugin = (
 
   const [jobExists, setJobExists] = useState(false)
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
-  const [asCronJob, setAsCronJob] = useState<boolean>(false)
+  const [asCronJob, setAsCronJob] = useState<boolean>(config.recurring ?? false)
   const [jobSchedule, setJobSchedule] = useState<TSchedule>(emptyJob)
   const [showLogs, setShowLogs] = useState(false)
   const [showLogDialog, setShowLogDialog] = useState(false)
@@ -169,14 +171,16 @@ export const JobPlugin = (
 
   return (
     <div>
-      <Switch
-        size="small"
-        label="Recurring"
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setAsCronJob(e.target.checked)
-        }
-        checked={asCronJob}
-      />
+      {config.recurring === undefined && (
+        <Switch
+          size="small"
+          label="Recurring"
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setAsCronJob(e.target.checked)
+          }
+          checked={asCronJob}
+        />
+      )}
       {asCronJob && (
         <CreateRecurringJob
           cronJob={jobSchedule}
