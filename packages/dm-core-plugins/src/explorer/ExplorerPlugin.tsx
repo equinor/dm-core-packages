@@ -36,7 +36,7 @@ export default () => {
         </Sidebar>
       )}
       {selectedType && selectedEntity && (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%', padding: '20px' }}>
           <EntityView
             type={selectedType}
             idReference={selectedEntity}

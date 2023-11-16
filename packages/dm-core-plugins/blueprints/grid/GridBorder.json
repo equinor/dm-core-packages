@@ -1,5 +1,5 @@
 {
-  "name": "GridSize",
+  "name": "GridBorder",
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
@@ -8,46 +8,32 @@
       "attributeType": "string"
     },
     {
-      "name": "columns",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "default": 5
-    },
-    {
-      "name": "columnSizes",
+      "name": "size",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "optional": true,
-      "dimensions": "*"
+      "default": "1px"
     },
     {
-      "name": "rows",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "default": 5,
-      "optional": true
-    },
-    {
-      "name": "rowSizes",
-      "type": "CORE:BlueprintAttribute",
-      "description": "Defines row sizes in relation to each other.",
-      "attributeType": "string",
-      "optional": true,
-      "dimensions": "*"
-    },
-    {
-      "name": "rowGap",
+      "name": "color",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "optional": true,
-      "default": "16px"
+      "default": "black"
     },
     {
-      "name": "columnGap",
+      "name": "style",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "optional": true,
-      "default": "16px"
+      "default": "solid"
+    },
+    {
+      "name": "radius",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": "solid"
     }
   ]
 }
