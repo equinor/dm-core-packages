@@ -27,8 +27,6 @@ const MetaPopoverButton = styled(Button)`
   top: 0;
   z-index: 50;
   color: #595959;
-  //filter: invert(1);
-  //mix-blend-mode: difference;
 `
 
 const MetaWrapper = styled.div`
@@ -45,6 +43,38 @@ export function MediaContent(props: MediaContentProps): ReactElement {
   const { blobUrl, meta } = props
   const [showMeta, setShowMeta] = useState(false)
   const referenceElement = useRef()
+
+  function renderMediaElement(filetype: string) {
+    console.log(filetype)
+    switch (filetype) {
+      case 'image/jpeg':
+      case 'image/gif':
+        return (
+          <img
+            src={blobUrl}
+            alt={meta.title}
+            style={{ width: '100%', height: 'auto' }}
+          />
+        )
+      case 'video/quicktime':
+      case 'video/mov':
+      case 'video/mp3':
+      case 'video/mpeg':
+        return (
+          <video
+            src={blobUrl}
+            controls
+            autoPlay={false}
+            style={{ width: '100% ', height: 'auto' }}
+          />
+        )
+      default:
+        return (
+          <iframe src={blobUrl} style={{ width: '100%', height: 'auto' }} />
+        )
+    }
+  }
+
   return (
     <>
       <MediaWrapper>
@@ -59,22 +89,7 @@ export function MediaContent(props: MediaContentProps): ReactElement {
             <Icon data={info_circle} />
           </MetaPopoverButton>
         )}
-        {meta.filetype.includes('image') ? (
-          <img
-            src={blobUrl}
-            alt={meta.title}
-            style={{ width: '100%', height: 'auto' }}
-          />
-        ) : meta.filetype.includes('video') ? (
-          <video
-            src={blobUrl}
-            controls
-            autoPlay={false}
-            style={{ width: '100% ', height: 'auto' }}
-          />
-        ) : (
-          <iframe src={blobUrl} style={{ width: '100%', height: 'auto' }} />
-        )}
+        {renderMediaElement(meta.filetype)}
       </MediaWrapper>
       <Popover
         open={showMeta}

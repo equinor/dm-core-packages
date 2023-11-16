@@ -65,7 +65,8 @@ export function MediaViewerPlugin(props: IUIPlugin): ReactElement {
 
   if (documentError) throw new Error(JSON.stringify(documentError, null, 2))
   if (isLoading || document === null) return <Loading />
-  if (document.data.type !== EBlueprint.FILE) return <>Error: Not File type</>
+  if (document.data.type !== EBlueprint.FILE)
+    throw new Error('This is not a file')
   return (
     <>
       {blobUrl ? (
