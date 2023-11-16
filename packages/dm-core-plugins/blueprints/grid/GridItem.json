@@ -8,6 +8,12 @@
       "attributeType": "string"
     },
     {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "gridArea",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/grid/GridArea"

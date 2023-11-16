@@ -13,6 +13,19 @@
       "attributeType": "PLUGINS:dm-core-plugins/grid/GridSize"
     },
     {
+      "name": "itemBorder",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridBorder",
+      "optional": true
+    },
+    {
+      "name": "showItemBorders",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
+    },
+    {
       "name": "items",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/grid/GridItem",

@@ -9,12 +9,30 @@
       "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
       "size": {
         "type": "PLUGINS:dm-core-plugins/grid/GridSize",
-        "columns": 6,
-        "rows": 10
+        "columns": 2,
+        "rows": 3,
+        "rowSizes": [
+          "2fr",
+          "2fr",
+          "1fr"
+        ],
+        "columnSizes": [
+          "4fr",
+          "1fr"
+        ]
       },
+      "itemBorder": {
+        "type": "PLUGINS:dm-core-plugins/grid/GridBorder",
+        "size": "1px",
+        "color": "#bbb",
+        "style": "solid",
+        "radius": "5px"
+      },
+      "showItemBorders": true,
       "items": [
         {
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "title": "List of cars",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "scope": "carsOnGrid",
@@ -24,12 +42,13 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
             "columnStart": 1,
-            "rowEnd": 5,
-            "columnEnd": 2
+            "rowEnd": 1,
+            "columnEnd": 1
           }
         },
         {
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "title": "List of tires",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "scope": "tyreList",
@@ -37,14 +56,15 @@
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 3,
+            "rowStart": 2,
             "columnStart": 1,
-            "rowEnd": 6,
-            "columnEnd": 3
+            "rowEnd": 2,
+            "columnEnd": 1
           }
         },
         {
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "title": "Reference to list of tires",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "scope": "tyreList",
@@ -53,14 +73,15 @@
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 7,
+            "rowStart": 3,
             "columnStart": 1,
-            "rowEnd": 8,
-            "columnEnd": 3
+            "rowEnd": 3,
+            "columnEnd": 1
           }
         },
         {
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "title": "Some nested form to show",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "scope": "nestedForm",
@@ -83,9 +104,9 @@
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
-            "columnStart": 4,
+            "columnStart": 2,
             "rowEnd": 3,
-            "columnEnd": 6
+            "columnEnd": 2
           }
         }
       ]

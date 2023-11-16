@@ -1,32 +1,48 @@
 import { ViewCreator } from '@development-framework/dm-core'
 import React from 'react'
 import styled from 'styled-components'
-import { TGridArea, TGridItem } from './types'
+import { TItemBorder, TGridItem } from './types'
+import { Typography } from '@equinor/eds-core-react'
 
-const Element = styled.div<TGridArea>`
-  grid-area: ${(props: TGridArea) =>
-    `${props.rowStart} / ${props.columnStart} / ${props.rowEnd + 1} / ${
-      props.columnEnd + 1
-    } `};
+type TElementProps = {
+  item: TGridItem
+  itemBorder: TItemBorder
+  showItemBorders: boolean
+}
+
+const Element = styled.div<TElementProps>`
+  grid-area: ${(props: TElementProps) =>
+    `${props.item.gridArea.rowStart} / ${props.item.gridArea.columnStart} / ${
+      props.item.gridArea.rowEnd + 1
+    } / ${props.item.gridArea.columnEnd + 1} `};
+
+  border: ${(props: TElementProps) =>
+    props.showItemBorders &&
+    `${props.itemBorder.size} ${props.itemBorder.style} ${props.itemBorder.color}`};
+  border-radius: ${(props: TElementProps) =>
+    props.showItemBorders && props.itemBorder.radius};
+  padding: 10px;
 `
 
 type TGridItemProps = {
   idReference: string
   item: TGridItem
   type: string
+  itemBorder: TItemBorder
+  showItemBorders: boolean
 }
 
 export const GridElement = (props: TGridItemProps): React.ReactElement => {
-  const { idReference, item } = props
+  const { idReference, item, itemBorder, showItemBorders } = props
 
   return (
     <Element
-      rowStart={item.gridArea.rowStart}
-      rowEnd={item.gridArea.rowEnd}
-      columnStart={item.gridArea.columnStart}
-      columnEnd={item.gridArea.columnEnd}
       data-testid={item.viewConfig.scope}
+      item={item}
+      showItemBorders={showItemBorders}
+      itemBorder={itemBorder}
     >
+      {item?.title && <Typography variant="h4">{item.title}</Typography>}
       <ViewCreator idReference={idReference} viewConfig={item.viewConfig} />
     </Element>
   )
