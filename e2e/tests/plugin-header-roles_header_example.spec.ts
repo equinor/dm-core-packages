@@ -15,9 +15,9 @@ test('Admin role', async ({ page }) => {
   await expect(page.getByRole('menuitem', { name: 'Edit' })).toBeVisible()
   await expect(page.getByRole('menuitem', { name: 'Explorer' })).toBeVisible()
   await page.getByRole('menuitem', { name: 'Edit' }).click()
-  await expect(
-    page.getByTestId('name').getByTestId('form-textfield')
-  ).toHaveValue('elonMusk')
+  await expect(page.getByTestId('form-text-widget-Name')).toHaveValue(
+    'elonMusk'
+  )
 })
 
 test('Change to operator role and back', async ({ page }) => {

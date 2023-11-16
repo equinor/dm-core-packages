@@ -82,8 +82,8 @@ test('View selector - car garage', async ({ page }) => {
     ).toBeVisible()
 
     await page
-      .getByTestId('nextControl')
-      .getByTestId('form-textfield')
+      .getByTestId('form-text-widget-Next control date')
+
       .fill('2025-06-31')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -92,7 +92,10 @@ test('View selector - car garage', async ({ page }) => {
       .first()
       .click()
     await page.getByRole('tab', { name: 'Dimensions' }).click()
-    await page.getByTestId('length').getByTestId('form-textfield').fill('4250')
+    await page
+      .getByTestId('form-text-widget-Length (mm) (optional)')
+      .last()
+      .fill('4250')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page
@@ -137,12 +140,12 @@ test('View selector - car garage', async ({ page }) => {
       .click()
 
     await expect(
-      page.getByTestId('nextControl').getByRole('textbox')
+      page.getByTestId('form-text-widget-Next control date').last()
     ).toHaveValue('2025-06-01')
     await page.getByRole('tab', { name: 'Dimensions' }).click()
-    await expect(page.getByTestId('length').getByRole('textbox')).toHaveValue(
-      '4500'
-    )
+    await expect(
+      page.getByTestId('form-text-widget-Length (mm) (optional)').last()
+    ).toHaveValue('4500')
     await page.getByRole('tab', { name: 'Home' }).click()
     await page
       .getByRole('group', { name: 'View owner details and history' })

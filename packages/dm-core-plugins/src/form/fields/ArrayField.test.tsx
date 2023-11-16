@@ -65,9 +65,10 @@ describe('List of strings', () => {
 
   it('should add a new field when clicking the add button', async () => {
     const utils = await setup()
+    fireEvent.click(utils.addButton)
     await waitFor(() => {
-      const inputs = screen.queryAllByTestId('form-textfield')
-      fireEvent.click(utils.addButton)
+      screen.debug()
+      const inputs = screen.queryAllByTestId('form-text-widget-')
       expect(inputs.length).toBe(1)
     })
   })
@@ -78,7 +79,7 @@ describe('List of strings', () => {
     }
     await setup(formData)
     await waitFor(() => {
-      const inputs = screen.queryAllByTestId('form-textfield')
+      const inputs = screen.queryAllByTestId('form-text-widget-')
       expect(inputs.length).toBe(2)
       expect(inputs[0].getAttribute('value')).toBe('foo')
       expect(inputs[1].getAttribute('value')).toBe('bar')
@@ -91,7 +92,7 @@ describe('List of strings', () => {
     }
     await setup(formData)
     await waitFor(() => {
-      const inputs = screen.queryAllByTestId('form-textfield')
+      const inputs = screen.queryAllByTestId('form-text-widget-')
       expect(inputs.length).toBe(2)
       expect(inputs[0].id).toBe('array.0')
       expect(inputs[1].id).toBe('array.1')

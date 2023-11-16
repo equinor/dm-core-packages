@@ -40,7 +40,7 @@ test('TableList default DMSS UI Recipe', async ({ page }) => {
       page.getByRole('button', { name: 'Copy as YAML' })
     ).toBeVisible()
     await page.getByRole('tab', { name: 'Edit' }).last().click()
-    await expect(page.getByTestId('name').getByRole('textbox')).toHaveValue(
+    await expect(page.getByTestId('form-text-widget-Manufacturer')).toHaveValue(
       'Volvo'
     )
   })

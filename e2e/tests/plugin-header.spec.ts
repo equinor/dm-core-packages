@@ -51,7 +51,5 @@ test('About', async ({ page }) => {
 test('Recipe list', async ({ page }) => {
   await page.getByRole('button', { name: 'Menu' }).nth(1).click()
   await page.getByRole('menuitem', { name: 'Edit' }).click()
-  await expect(
-    page.getByTestId('name').getByTestId('form-textfield')
-  ).toHaveValue('example')
+  await expect(page.getByTestId('form-text-widget-Name')).toHaveValue('example')
 })

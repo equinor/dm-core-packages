@@ -42,7 +42,7 @@ const TextWidget = (props: TWidget) => {
       onChange={onChangeHandler}
       label={label}
       type={fieldType(props.config?.format)}
-      data-testid="form-textfield"
+      data-testid={`form-text-widget-${label}`}
     />
   )
 }
