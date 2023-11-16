@@ -1,73 +1,109 @@
 import { TUiPluginMap } from '@development-framework/dm-core'
-
-import { YamlPlugin } from './yaml/YamlPlugin'
-import { BlueprintHierarchyPlugin } from './blueprint-hierarchy/BlueprintHierarchyPlugin'
-import { JobPlugin } from './job/JobPlugin'
-import { FormPlugin } from './form/FormPlugin'
-import HeaderPlugin from './header/HeaderPlugin'
-import JsonPlugin from './json/JsonPlugin'
-import { PdfPlugin } from './pdf/PdfPlugin'
-import { BlueprintPlugin } from './blueprint/BlueprintPlugin'
-import ExplorerPlugin from './explorer/ExplorerPlugin'
-import { GridPlugin } from './grid/GridPlugin'
-import { ListPlugin } from './list/ListPlugin'
-import { TablePlugin } from './table/TablePlugin'
-import { FilePlugin } from './file/FilePlugin'
-import { RoleFilterPlugin } from './role_filter/RoleFilterPlugin'
-import { SidebarPlugin } from './view_selector/SidebarPlugin'
-import { TabsPlugin } from './view_selector/TabsPlugin'
 import { MediaViewerPlugin } from './mediaViewer/MediaViewerPlugin'
+import { lazy } from 'react'
 
 export { WidgetProvider } from './form/context/WidgetContext'
 
 export default {
   '@development-framework/dm-core-plugins/explorer': {
-    component: ExplorerPlugin,
+    component: lazy(() => import('./explorer/ExplorerPlugin')),
   },
   '@development-framework/dm-core-plugins/list': {
-    component: ListPlugin,
+    component: lazy(() =>
+      import('./list/ListPlugin').then((module) => ({
+        default: module.ListPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/table': {
-    component: TablePlugin,
+    component: lazy(() =>
+      import('./table/TablePlugin').then((module) => ({
+        default: module.TablePlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/yaml': {
-    component: YamlPlugin,
+    component: lazy(() =>
+      import('./yaml/YamlPlugin').then((module) => ({
+        default: module.YamlPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/file': {
-    component: FilePlugin,
+    component: lazy(() =>
+      import('./file/FilePlugin').then((module) => ({
+        default: module.FilePlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/grid': {
-    component: GridPlugin,
+    component: lazy(() =>
+      import('./grid/GridPlugin').then((module) => ({
+        default: module.GridPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/view_selector/sidebar': {
-    component: SidebarPlugin,
+    component: lazy(() =>
+      import('./view_selector/SidebarPlugin').then((module) => ({
+        default: module.SidebarPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/view_selector/tabs': {
-    component: TabsPlugin,
+    component: lazy(() =>
+      import('./view_selector/TabsPlugin').then((module) => ({
+        default: module.TabsPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/blueprint-hierarchy': {
-    component: BlueprintHierarchyPlugin,
+    component: lazy(() =>
+      import('./blueprint-hierarchy/BlueprintHierarchyPlugin').then(
+        (module) => ({ default: module.BlueprintHierarchyPlugin })
+      )
+    ),
   },
   '@development-framework/dm-core-plugins/job/single_job': {
-    component: JobPlugin,
+    component: lazy(() =>
+      import('./job/JobPlugin').then((module) => ({
+        default: module.JobPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/form': {
-    component: FormPlugin,
+    component: lazy(() =>
+      import('./form/FormPlugin').then((module) => ({
+        default: module.FormPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/header': {
-    component: HeaderPlugin,
+    component: lazy(() => import('./header/HeaderPlugin')),
   },
   '@development-framework/dm-core-plugins/json': {
-    component: JsonPlugin,
+    component: lazy(() => import('./json/JsonPlugin')),
   },
   '@development-framework/dm-core-plugins/pdf': {
-    component: PdfPlugin,
+    component: lazy(() =>
+      import('./pdf/PdfPlugin').then((module) => ({
+        default: module.PdfPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/blueprint': {
-    component: BlueprintPlugin,
+    component: lazy(() =>
+      import('./blueprint/BlueprintPlugin').then((module) => ({
+        default: module.BlueprintPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/role_filter': {
-    component: RoleFilterPlugin,
+    component: lazy(() =>
+      import('./role_filter/RoleFilterPlugin').then((module) => ({
+        default: module.RoleFilterPlugin,
+      }))
+    ),
   },
   '@development-framework/dm-core-plugins/media-viewer': {
     component: MediaViewerPlugin,

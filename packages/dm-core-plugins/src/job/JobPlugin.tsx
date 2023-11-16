@@ -117,7 +117,7 @@ export const JobPlugin = (
   } = useDocument<TJob>(jobTargetAddress, 0, false)
 
   const { start, error, fetchResult, fetchStatusAndLogs, logs, status } =
-    useJob(jobTargetAddress)
+    useJob(jobTargetAddress, jobDocument?.uid)
 
   const jobEntity: TJob = {
     label: config?.label,
