@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, Suspense, useEffect, useState } from 'react'
 import {
   EBlueprint,
   ErrorResponse,
@@ -13,21 +13,16 @@ import { MediaContent } from './MediaContent'
 
 interface MediaObject {
   type: string
+  _id: string
   name: string
-  description: string
-  data: {
+  author: string
+  date: string
+  size: number
+  filetype: string
+  content: {
     type: string
-    _id: string
-    name: string
-    author: string
-    date: string
-    size: number
-    filetype: string
-    content: {
-      type: string
-      referenceType: string
-      address: string
-    }
+    referenceType: string
+    address: string
   }
 }
 
@@ -43,18 +38,18 @@ export function MediaViewerPlugin(props: IUIPlugin): ReactElement {
   const { dataSource } = splitAddress(idReference)
   const options: AxiosRequestConfig = { responseType: 'blob' }
   useEffect(() => {
-    if (document?.data.content?.address)
+    if (document?.content?.address)
       dmssAPI
         .blobGetById(
           {
             dataSourceId: dataSource,
-            blobId: document?.data.content?.address.slice(1),
+            blobId: document?.content?.address.slice(1),
           },
           options
         )
         .then((response: any) => {
           const blob = new Blob([response.data], {
-            type: document.data.filetype,
+            type: document.filetype,
           })
           setBlobUrl(window.URL.createObjectURL(blob))
         })
@@ -65,24 +60,23 @@ export function MediaViewerPlugin(props: IUIPlugin): ReactElement {
 
   if (documentError) throw new Error(JSON.stringify(documentError, null, 2))
   if (isLoading || document === null) return <Loading />
-  if (document.data.type !== EBlueprint.FILE)
-    throw new Error('This is not a file')
+  if (document.type !== EBlueprint.FILE) throw new Error('This is not a file')
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       {blobUrl ? (
         <MediaContent
           blobUrl={blobUrl}
           meta={{
-            author: document.data.author,
-            fileSize: document.data.size,
-            title: document.data.name,
-            filetype: document.data.filetype,
-            date: document.data.date,
+            author: document.author,
+            fileSize: document.size,
+            title: document.name,
+            filetype: document.filetype,
+            date: document.date,
           }}
         />
       ) : (
         <p>Media not found</p>
       )}
-    </>
+    </Suspense>
   )
 }

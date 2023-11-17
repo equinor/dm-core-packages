@@ -40,12 +40,6 @@
           }
         ]
       }
-    },
-    {
-      "name": "ViewMedia",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/media-viewer",
-      "config": {}
     }
   ]
 }

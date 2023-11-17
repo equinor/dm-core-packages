@@ -45,7 +45,6 @@ export function MediaContent(props: MediaContentProps): ReactElement {
   const referenceElement = useRef()
 
   function renderMediaElement(filetype: string) {
-    console.log(filetype)
     switch (filetype) {
       case 'image/jpeg':
       case 'image/gif':

@@ -7,47 +7,5 @@
     "DemoDataSource",
     "system",
     "WorkflowDS"
-  ],
-  "mediaObjects": [
-    {
-      "name": "SF-75 at Spa",
-      "type": "./blueprints/MediaObject",
-      "description": "",
-      "data": {
-        "type": "CORE:Reference",
-        "address": "./assets/beauty",
-        "referenceType": "link"
-      }
-    },
-    {
-      "name": "Engine compartment",
-      "type": "./blueprints/MediaObject",
-      "description": "",
-      "data": {
-        "type": "CORE:Reference",
-        "address": "./assets/engine_compartment",
-        "referenceType": "link"
-      }
-    },
-    {
-      "name": "Leclerc crash",
-      "type": "./blueprints/MediaObject",
-      "description": "",
-      "data": {
-        "type": "CORE:Reference",
-        "address": "./assets/pain",
-        "referenceType": "link"
-      }
-    },
-    {
-      "name": "Down the straight",
-      "type": "./blueprints/MediaObject",
-      "description": "",
-      "data": {
-        "type": "CORE:Reference",
-        "address": "./assets/fast",
-        "referenceType": "link"
-      }
-    }
   ]
 }

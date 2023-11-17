@@ -17,13 +17,6 @@
       "attributeType": "string",
       "dimensions": "*",
       "optional": false
-    },
-    {
-      "name": "mediaObjects",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./MediaObject",
-      "dimensions": "*",
-      "contained": false
     }
   ]
 }
