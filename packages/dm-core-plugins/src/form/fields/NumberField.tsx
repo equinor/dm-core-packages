@@ -30,7 +30,7 @@ export const NumberField = (props: TNumberFieldProps) => {
       defaultValue={defaultValue || null}
       render={({
         field: { ref, onChange, ...props },
-        fieldState: { invalid },
+        fieldState: { invalid, error, isDirty },
       }) => {
         return (
           <Widget
@@ -40,12 +40,16 @@ export const NumberField = (props: TNumberFieldProps) => {
             rightAdornments={rightAdornments}
             readOnly={readOnly}
             style={{ textAlignLast: 'right' }}
-            onChange={(event: unknown) => onChange(Number(event))}
+            onChange={(event: unknown) =>
+              onChange(event ? Number(event) : null)
+            }
             value={props.value ?? ''}
             id={namePath}
             label={displayLabel}
             inputRef={ref}
+            helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
+            isDirty={props.value !== null ? isDirty : false}
           />
         )
       }}

@@ -25,10 +25,11 @@ export const StringField = (props: TStringFieldProps) => {
       defaultValue={defaultValue ?? ''}
       render={({
         field: { ref, value, ...props },
-        fieldState: { invalid, error },
+        fieldState: { invalid, error, isDirty },
       }) => {
         return (
           <Widget
+            isDirty={value !== null ? isDirty : false}
             readOnly={readOnly}
             {...props}
             value={value ?? ''}
