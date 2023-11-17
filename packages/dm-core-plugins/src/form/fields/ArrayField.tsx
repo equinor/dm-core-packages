@@ -142,6 +142,7 @@ const OpenList = (props: TArrayFieldProps) => {
   const [initialValue, setInitialValue] = useState(getValues(namePath))
   const uiRecipeName = getKey<string>(uiAttribute, 'uiRecipe', 'string')
   const isDefined = initialValue !== undefined
+  const { idReference } = useRegistryContext()
 
   return (
     <Fieldset>
@@ -167,6 +168,7 @@ const OpenList = (props: TArrayFieldProps) => {
         {!readOnly && isDefined && (
           <OpenObjectButton
             viewId={namePath}
+            idReference={idReference}
             viewConfig={{
               type: 'ReferenceViewConfig',
               scope: namePath,
