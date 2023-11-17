@@ -143,6 +143,7 @@ export type TWidget = {
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string
   style?: any
+  isDirty?: boolean
 }
 
 export type TWidgets = {
