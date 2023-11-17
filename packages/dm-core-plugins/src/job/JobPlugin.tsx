@@ -79,7 +79,6 @@ export const JobPlugin = (
     startDate: '',
     endDate: '',
   }
-  console.log(config)
   const jobTargetAddress = useMemo((): string => {
     if ((config.jobTargetAddress.addressScope ?? 'local') !== 'local') {
       return config.jobTargetAddress.targetAddress
