@@ -4,6 +4,8 @@ import {
   IUIPlugin,
   Loading,
   Pagination,
+  resolveRelativeAddress,
+  splitAddress,
   Stack,
   TGenericObject,
   TItem,
@@ -99,6 +101,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading) return <Loading />
+
+  const { documentPath, dataSource } = splitAddress(idReference)
 
   return (
     <Stack>
@@ -220,7 +224,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 <ViewCreator
                   idReference={
                     attribute && !attribute.contained
-                      ? item?.reference?.address || ''
+                      ? resolveRelativeAddress(
+                          item?.reference?.address || '',
+                          documentPath,
+                          dataSource
+                        )
                       : `${idReference}[${item.index}]`
                   }
                   viewConfig={
