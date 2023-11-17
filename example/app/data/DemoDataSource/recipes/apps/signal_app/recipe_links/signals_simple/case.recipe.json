@@ -112,6 +112,7 @@
       "plugin": "@development-framework/dm-core-plugins/job/single_job",
       "config": {
         "type": "PLUGINS:dm-core-plugins/job/JobConfig",
+        "recurring": false,
         "jobTargetAddress": {
           "type": "PLUGINS:dm-core-plugins/job/TargetAddress",
           "targetAddress": ".job",
