@@ -124,6 +124,7 @@ export default (props: IUIPlugin): React.ReactElement => {
             onClick={() => {
               setAppSelectorOpen(!appSelectorOpen)
             }}
+            style={{ paddingTop: '5px' }}
           >
             <Icon data={menu} size={32} title="Menu" />
           </ClickableIcon>
