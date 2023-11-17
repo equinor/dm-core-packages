@@ -1,4 +1,5 @@
 export * from './hooks'
+import '../dist/main.css'
 
 export { AuthContext, AuthProvider } from 'react-oauth2-code-pkce'
 export * from './Enums'

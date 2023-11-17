@@ -1,6 +1,7 @@
 import { TUiPluginMap } from '@development-framework/dm-core'
 
 import { lazy } from 'react'
+import '../dist/main.css'
 
 export { WidgetProvider } from './form/context/WidgetContext'
 

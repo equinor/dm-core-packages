@@ -140,7 +140,7 @@ export default (props: IUIPlugin): React.ReactElement => {
               </Menu.Item>
             ))}
           </Menu>
-          <h4 style={{ paddingLeft: 10 }}>{entity.label}</h4>
+          <h4 className="font-bold">{entity.label}</h4>
         </TopBar.Header>
         <TopBar.Actions>
           <Icons>
