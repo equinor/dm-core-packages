@@ -21,9 +21,10 @@ export type TObjectFieldProps = {
   type: string
   displayLabel: string
   optional: boolean
-  uiAttribute: TAttributeConfig | undefined
+  uiAttribute: TAttributeObject | undefined
   readOnly?: boolean
   defaultValue?: any
+  showExpanded?: boolean
 }
 
 export type TContentProps = {
@@ -33,18 +34,20 @@ export type TContentProps = {
   optional: boolean
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm
-  uiAttribute: TAttributeConfig | undefined
+  uiAttribute: TAttributeObject | undefined
   readOnly?: boolean
   defaultValue?: any
+  showExpanded?: boolean
 }
 
 export type TArrayFieldProps = {
   namePath: string
   displayLabel: string
   type: string
-  uiAttribute: TAttributeConfig | undefined
+  uiAttribute: TAttributeArray | undefined
   dimensions: string | undefined
   readOnly?: boolean
+  showExpanded?: boolean
 }
 
 export type TAttributeFieldProps = {
@@ -52,6 +55,7 @@ export type TAttributeFieldProps = {
   attribute: TAttribute
   uiAttribute?: TAttributeConfig
   readOnly?: boolean
+  showExpanded?: boolean
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string
 }
@@ -101,10 +105,12 @@ type TAttributeString = TAttributeBasis & {
 type TAttributeArray = TAttributeBasis & {
   widget?: string
   uiRecipe?: string
+  showExpanded?: boolean
 }
 type TAttributeObject = TAttributeBasis & {
   widget?: string
   uiRecipe?: string
+  showExpanded?: boolean
 }
 export type TAttributeConfig =
   | TAttributeArray
@@ -114,6 +120,7 @@ export type TConfig = {
   attributes: TAttributeConfig[]
   fields: string[]
   readOnly?: boolean
+  showExpanded?: boolean
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & {

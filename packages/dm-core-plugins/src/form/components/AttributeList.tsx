@@ -44,6 +44,7 @@ export const AttributeList = (props: {
               attribute={attribute}
               uiAttribute={uiAttribute}
               readOnly={config?.readOnly}
+              showExpanded={config?.showExpanded || true}
             />
           </div>
         )
