@@ -17,7 +17,6 @@ const StyledRefreshButton = styled.button`
   border-radius: 100%;
   height: 24px;
   width: 24px;
-  overflow: scroll;
   padding: 0;
   color: rgba(0, 112, 121, 1); // eds green color
   transition: opacity 0.2s;
