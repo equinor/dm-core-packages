@@ -16,6 +16,8 @@ export type TItemData = TViewSelectorItem & {
   rootEntityId: string
   // onSubmit is not yet supported
   onSubmit?: (data: TItemData) => void
+  subItems?: TItemData[]
+  isSubItem?: boolean
 }
 
 export type TViewSelectorConfig = {

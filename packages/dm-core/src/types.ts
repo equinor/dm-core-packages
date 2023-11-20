@@ -147,7 +147,8 @@ export interface IUIPlugin {
 export type TOnOpen = (
   viewId: string,
   view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
-  rootId?: string
+  rootId?: string,
+  isSubItem?: boolean
 ) => void
 
 export type TUiPluginMap = { [pluginName: string]: TPlugin }

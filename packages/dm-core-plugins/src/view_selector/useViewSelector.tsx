@@ -45,7 +45,8 @@ export function useViewSelector(
   const addView: TOnOpen = (
     viewId: string,
     viewConfig: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
-    rootId?: string
+    rootId?: string,
+    isSubItem?: boolean
   ) => {
     if (!viewSelectorItems.find((view: TItemData) => view.viewId === viewId)) {
       // View does not exist, add it
@@ -56,6 +57,7 @@ export function useViewSelector(
         rootEntityId: rootId || idReference,
         onSubmit: () => undefined,
         closeable: true,
+        isSubItem: isSubItem,
       }
       setViewSelectorItems([...viewSelectorItems, newView])
     }
