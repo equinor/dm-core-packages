@@ -27,12 +27,13 @@ export const FormButton = (props: {
   children: ReactNode
   variant?: 'contained' | 'contained_icon' | 'outlined' | 'ghost' | 'ghost_icon'
   tooltip: string
+  dataTestid: string
 }) => (
   <Tooltip title={props.tooltip}>
     <Button
       disabled={props.disabled}
       onClick={props.onClick}
-      data-testid="SaveList"
+      data-testid={props.dataTestid}
       variant={props.variant ?? undefined}
     >
       {props.isLoading ? <Progress.Dots color={'primary'} /> : props.children}
