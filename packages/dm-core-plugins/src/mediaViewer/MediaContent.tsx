@@ -45,32 +45,25 @@ export function MediaContent(props: MediaContentProps): ReactElement {
   const referenceElement = useRef()
 
   function renderMediaElement(filetype: string) {
-    switch (filetype) {
-      case 'image/jpeg':
-      case 'image/gif':
-        return (
-          <img
-            src={blobUrl}
-            alt={meta.title}
-            style={{ width: '100%', height: 'auto' }}
-          />
-        )
-      case 'video/quicktime':
-      case 'video/mov':
-      case 'video/mp3':
-      case 'video/mpeg':
-        return (
-          <video
-            src={blobUrl}
-            controls
-            autoPlay={false}
-            style={{ width: '100% ', height: 'auto' }}
-          />
-        )
-      default:
-        return (
-          <iframe src={blobUrl} style={{ width: '100%', height: 'auto' }} />
-        )
+    if (filetype.includes('image')) {
+      return (
+        <img
+          src={blobUrl}
+          alt={meta.title}
+          style={{ width: '100%', height: 'auto' }}
+        />
+      )
+    } else if (filetype.includes('video')) {
+      return (
+        <video
+          src={blobUrl}
+          controls
+          autoPlay={false}
+          style={{ width: '100% ', height: 'auto' }}
+        />
+      )
+    } else {
+      return <iframe src={blobUrl} style={{ width: '100%', height: 'auto' }} />
     }
   }
 
