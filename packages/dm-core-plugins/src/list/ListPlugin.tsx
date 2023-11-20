@@ -15,7 +15,7 @@ import {
 import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { AppendButton, ListItemButton, SaveButton } from './Components'
-import { add, chevron_down, link } from '@equinor/eds-icons'
+import { external_link, chevron_down, link } from '@equinor/eds-icons'
 
 type TListConfig = {
   expanded?: boolean
@@ -153,7 +153,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     }
                   >
                     <Icon
-                      data={internalConfig.openAsTab ? add : chevron_down}
+                      data={
+                        internalConfig.openAsTab ? external_link : chevron_down
+                      }
+                      size={internalConfig.openAsTab ? 18 : 24}
                       title={expanded[item.key] ? 'Close item' : 'Open item'}
                       className="transition-all"
                       style={{
