@@ -8,7 +8,9 @@
     "config": {
       "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
       "uiRecipesList": [
-        "ExampleApplication"
+        "ExampleApplication",
+        "Example",
+        "ViewMedia"
       ],
       "hideAbout": false,
       "hideUserInfo": false
@@ -19,6 +21,25 @@
       "name": "ExampleApplication",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/explorer"
+    },
+    {
+      "name": "Example",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+            "label": "Example",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "ViewMedia",
+              "scope": "mediaObjects"
+            }
+          }
+        ]
+      }
     }
   ]
 }
