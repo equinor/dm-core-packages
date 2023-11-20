@@ -12,7 +12,7 @@ import {
 import { Button, Icon, Table } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { AxiosError, AxiosResponse } from 'axios'
-import { SaveButton } from '../list/Components'
+import { FormButton } from '../list/Components'
 import { defaultConfig, TTablePluginConfig, TTableRowItem } from './types'
 import { TableRow } from './TableRow/TableRow'
 
@@ -168,11 +168,14 @@ export const TablePlugin = (props: IUIPlugin) => {
             </Button>
           )}
           {(config.functionality?.edit || config.functionality?.add) && (
-            <SaveButton
+            <FormButton
               onClick={() => saveTable()}
               disabled={isSaveLoading || !dirtyState}
               isLoading={isSaveLoading}
-            />
+              tooltip={'Save'}
+            >
+              Save
+            </FormButton>
           )}
         </Stack>
       </Stack>

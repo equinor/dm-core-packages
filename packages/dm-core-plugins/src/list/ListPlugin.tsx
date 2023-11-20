@@ -16,8 +16,8 @@ import {
 } from '@development-framework/dm-core'
 import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
-import { AppendButton, ListItemButton, SaveButton } from './Components'
-import { external_link, chevron_right, link } from '@equinor/eds-icons'
+import { external_link, undo, chevron_right, link } from '@equinor/eds-icons'
+import { AppendButton, ListItemButton, FormButton } from './Components'
 
 type TListConfig = {
   expanded?: boolean
@@ -66,6 +66,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     removeItem,
     save,
     moveItem,
+    reloadData,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
   const [paginationPage, setPaginationPage] = useState(0)
@@ -265,11 +266,23 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               }}
             />
           )}
-          <SaveButton
+          <FormButton
+            onClick={reloadData}
+            disabled={!dirtyState}
+            tooltip={'Revert changes'}
+            variant={'outlined'}
+            isLoading={isLoading}
+          >
+            <Icon data={undo} size={16} />
+          </FormButton>
+          <FormButton
             onClick={save}
             disabled={!dirtyState}
             isLoading={isLoading}
-          />
+            tooltip={'Save'}
+          >
+            Save
+          </FormButton>
         </Stack>
       </Stack>
     </Stack>
