@@ -272,6 +272,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             tooltip={'Revert changes'}
             variant={'outlined'}
             isLoading={isLoading}
+            dataTestid="RevertList"
           >
             <Icon data={undo} size={16} />
           </FormButton>
@@ -280,6 +281,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             disabled={!dirtyState}
             isLoading={isLoading}
             tooltip={'Save'}
+            dataTestid="SaveList"
           >
             Save
           </FormButton>

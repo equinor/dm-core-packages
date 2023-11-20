@@ -173,6 +173,7 @@ export const TablePlugin = (props: IUIPlugin) => {
               disabled={isSaveLoading || !dirtyState}
               isLoading={isSaveLoading}
               tooltip={'Save'}
+              dataTestid={'SaveList'}
             >
               Save
             </FormButton>
