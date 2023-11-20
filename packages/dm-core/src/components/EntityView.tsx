@@ -67,7 +67,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
               setHoverOver({ refreshButton: false, component: false })
             }
             style={
-              hoverOver.refreshButton
+              recipe.showRefreshButton && hoverOver.refreshButton
                 ? {
                     outline: '1px solid rgba(220,220,220)',
                     outlineOffset: '10px',
@@ -76,8 +76,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
                 : {}
             }
           >
-            {(recipe.showRefreshButton === undefined ||
-              recipe.showRefreshButton) && (
+            {recipe.showRefreshButton && (
               <RefreshButton
                 hidden={!hoverOver.component}
                 tooltip={recipe.plugin.split('/').at(-1)}
