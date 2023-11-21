@@ -1,4 +1,4 @@
-FROM node:19-bullseye-slim as base
+FROM node:21-bullseye-slim as base
 WORKDIR /code
 COPY package.json ./
 RUN yarn install  --immutable --immutable-cache
