@@ -56,9 +56,6 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     return <Wrapper>No compatible uiRecipes for entity</Wrapper>
 
   const UiPlugin = getUiPlugin(recipe.plugin)
-  console.log(recipe.name + ' ' + recipe.showRefreshButton)
-  console.log(recipe.description + ' ' + recipe.showRefreshButton)
-  console.log(recipe)
   return (
     <Wrapper>
       <Suspense fallback={<Loading />}>
