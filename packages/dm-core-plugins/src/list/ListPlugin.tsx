@@ -17,7 +17,7 @@ import {
 import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { AppendButton, ListItemButton, SaveButton } from './Components'
-import { external_link, chevron_down, link } from '@equinor/eds-icons'
+import { chevron_down, external_link, link } from '@equinor/eds-icons'
 
 type TListConfig = {
   expanded?: boolean

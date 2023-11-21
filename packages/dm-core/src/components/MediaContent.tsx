@@ -2,10 +2,13 @@ import React, { ReactElement, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Button, Icon, Popover } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
-import { formatBytes } from '../pdf/formatBytes'
+
+// import { formatBytes } from '@development-framework/dm-core-plugins/dist/pdf/formatBytes'
 
 interface MediaContentProps {
   blobUrl: string
+  height?: number
+  width?: number
   meta: {
     author: string
     fileSize: number
@@ -15,7 +18,9 @@ interface MediaContentProps {
   }
 }
 
-const MediaWrapper = styled.div`
+const MediaWrapper = styled.div<{ $height?: number; $width?: number }>`
+  height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
+  width: ${(props) => (props.$width ? props.$width + 'px' : undefined)};
   max-width: 30rem;
   max-height: 20rem;
   position: relative;
@@ -39,8 +44,8 @@ const MetaWrapper = styled.div`
   }
 `
 
-export function MediaContent(props: MediaContentProps): ReactElement {
-  const { blobUrl, meta } = props
+export const MediaContent = (props: MediaContentProps): ReactElement => {
+  const { blobUrl, meta, height, width } = props
   const [showMeta, setShowMeta] = useState(false)
   const referenceElement = useRef()
 
@@ -50,7 +55,7 @@ export function MediaContent(props: MediaContentProps): ReactElement {
         <img
           src={blobUrl}
           alt={meta.title}
-          style={{ width: '100%', height: 'auto' }}
+          style={{ width: width ?? '100%', height: height ?? 'auto' }}
         />
       )
     } else if (filetype.includes('video')) {
@@ -59,7 +64,7 @@ export function MediaContent(props: MediaContentProps): ReactElement {
           src={blobUrl}
           controls
           autoPlay={false}
-          style={{ width: '100% ', height: 'auto' }}
+          style={{ width: width ?? '100% ', height: height ?? 'auto' }}
         />
       )
     } else {
@@ -69,7 +74,7 @@ export function MediaContent(props: MediaContentProps): ReactElement {
 
   return (
     <>
-      <MediaWrapper>
+      <MediaWrapper $height={height} $width={width}>
         {meta.filetype !== 'application/pdf' && (
           <MetaPopoverButton
             onClick={() => setShowMeta(!showMeta)}
@@ -102,7 +107,7 @@ export function MediaContent(props: MediaContentProps): ReactElement {
             <label className="meta-label">Filetype:</label>
             <span> {meta.filetype}</span>
             <label className="meta-label">Filesize:</label>
-            <span> {formatBytes(meta.fileSize)}</span>
+            {/*<span> {formatBytes(meta.fileSize)}</span>*/}
           </MetaWrapper>
         </Popover.Content>
         <Popover.Actions>
