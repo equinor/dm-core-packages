@@ -30,6 +30,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.18.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.17.0...dm-core-plugins-v1.18.0) (2023-11-21)
+
+
+### Features
+
+* **form:** show if widget state is dirty ([c372154](https://github.com/equinor/dm-core-packages/commit/c3721547b46bd383f27df7203c0ad209018b6224))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.13.0 to ^1.14.0
+
 ## [1.17.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.16.0...dm-core-plugins-v1.17.0) (2023-11-21)
 
 
