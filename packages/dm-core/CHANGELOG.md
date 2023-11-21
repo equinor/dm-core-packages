@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.14.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.13.0...dm-core-v1.14.0) (2023-11-21)
+
+
+### Features
+
+* hotfix on wrong negation ([f08fb49](https://github.com/equinor/dm-core-packages/commit/f08fb4983d58e581968d1c87218ffa68568676ca))
+
+
+### Bug Fixes
+
+* bump dmss version to fix refresh button config ([f7e3137](https://github.com/equinor/dm-core-packages/commit/f7e3137ae401393064fba9dc0b06f9791c3fa8d9))
+
+
+### Performance Improvements
+
+* **EntityView:** stop plugin rerender on mouseEnter ([a70a174](https://github.com/equinor/dm-core-packages/commit/a70a174ef6f39371ed85c7126c051e069c3c8bdf))
+
+## [1.13.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.12.0...dm-core-v1.13.0) (2023-11-21)
+
+
+### Features
+
+* default to false with refresh ([8027f6c](https://github.com/equinor/dm-core-packages/commit/8027f6c4ab8ace582199d7f73e9725c94848f129))
+* refresh button ([386ef58](https://github.com/equinor/dm-core-packages/commit/386ef58b885a2685be2ae5652853fae486ff72c0))
+* show loading when lazy load plugins ([072799c](https://github.com/equinor/dm-core-packages/commit/072799c8ab785848807ed939285fd12775fb215f))
+* **view_select:** add sub menu ([cc76b64](https://github.com/equinor/dm-core-packages/commit/cc76b647c353c62efbf608664171bccd64f5a45b))
+
+
+### Bug Fixes
+
+* **form:** recipe name should be optional in ObjectField ([08adeb7](https://github.com/equinor/dm-core-packages/commit/08adeb743da6be25493066205f968d9af3227422))
+* **style:** remove scroll overflow from refresh button ([2e00135](https://github.com/equinor/dm-core-packages/commit/2e00135d345cbd0ee1fc0f7a5ec305323ba8fd04))
+* update dmss to make refreshButtonConfig work ([c22c285](https://github.com/equinor/dm-core-packages/commit/c22c28571cf484b44a7063ffc9c7cfe30a1e261b))
+
 ## [1.12.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.11.2...dm-core-v1.12.0) (2023-11-15)
 
 

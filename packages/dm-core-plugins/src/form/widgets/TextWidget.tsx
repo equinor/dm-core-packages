@@ -6,7 +6,7 @@ import { TWidget } from '../types'
 import { DateTime } from 'luxon'
 
 const TextWidget = (props: TWidget) => {
-  const { label, onChange, leftAdornments, rightAdornments } = props
+  const { label, onChange, leftAdornments, rightAdornments, isDirty } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     let formattedValue
@@ -43,6 +43,14 @@ const TextWidget = (props: TWidget) => {
       label={label}
       type={fieldType(props.config?.format)}
       data-testid={`form-text-widget-${label}`}
+      style={
+        isDirty && props.variant !== 'error'
+          ? {
+              // @ts-ignore
+              '--eds-input-background': '#85babf5e',
+            }
+          : {}
+      }
     />
   )
 }

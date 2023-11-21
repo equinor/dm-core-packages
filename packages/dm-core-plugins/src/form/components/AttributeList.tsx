@@ -11,26 +11,29 @@ export const AttributeList = (props: {
   const { namePath, config, blueprint } = props
   const prefix = namePath === '' ? `` : `${namePath}.`
 
-  const attributes: TAttribute[] = blueprint.attributes
+  const attributes: TAttribute[] | undefined = blueprint.attributes
 
   let filteredAttributes =
     config && config.fields.length
       ? config.fields
-          .map((name: string) =>
-            attributes.find((attribute: TAttribute) => attribute.name == name)
+          .map(
+            (name: string) =>
+              attributes?.find(
+                (attribute: TAttribute) => attribute.name == name
+              )
           )
           .filter((attribute): attribute is TAttribute => !!attribute)
       : attributes
 
   const hideByDefaultFields: string[] = ['type', '_meta_']
   if (!(config && config.fields.length)) {
-    filteredAttributes = filteredAttributes.filter(
+    filteredAttributes = filteredAttributes?.filter(
       (attribute) => !hideByDefaultFields.includes(attribute.name)
     )
   }
   return (
     <>
-      {filteredAttributes.map((attribute: TAttribute) => {
+      {filteredAttributes?.map((attribute: TAttribute) => {
         const uiAttribute = config?.attributes.find(
           (uiAttribute) => uiAttribute.name === attribute.name
         )

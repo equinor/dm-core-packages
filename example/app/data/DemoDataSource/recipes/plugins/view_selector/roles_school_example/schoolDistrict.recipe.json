@@ -43,7 +43,33 @@
               "scope": "school",
               "eds_icon": "home",
               "recipe": "AdminView"
-            }
+            },
+            "subItems": [
+              {
+                "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+                "label": "Students",
+                "viewConfig": {
+                  "type": "CORE:ViewConfig",
+                  "scope": "school.students"
+                }
+              },
+              {
+                "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+                "label": "Headmaster",
+                "viewConfig": {
+                  "type": "CORE:ViewConfig",
+                  "scope": "school.headmaster"
+                }
+              },
+              {
+                "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+                "label": "Teachers",
+                "viewConfig": {
+                  "type": "CORE:ViewConfig",
+                  "scope": "school.teachers"
+                }
+              }
+            ]
           },
           {
             "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",

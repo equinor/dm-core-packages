@@ -1,15 +1,15 @@
-import React, { ReactElement, Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import {
   EBlueprint,
   ErrorResponse,
   IUIPlugin,
   Loading,
+  MediaContent,
   splitAddress,
   useDMSS,
   useDocument,
 } from '@development-framework/dm-core'
 import { AxiosError, AxiosRequestConfig } from 'axios'
-import { MediaContent } from './MediaContent'
 
 interface MediaObject {
   type: string
@@ -26,7 +26,7 @@ interface MediaObject {
   }
 }
 
-export function MediaViewerPlugin(props: IUIPlugin): ReactElement {
+export const MediaViewerPlugin = (props: IUIPlugin): React.ReactElement => {
   const { idReference } = props
   const [blobUrl, setBlobUrl] = useState<string>()
   const dmssAPI = useDMSS()
