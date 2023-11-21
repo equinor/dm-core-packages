@@ -7,11 +7,11 @@ import {
   useDocument,
   useUiPlugins,
 } from '@development-framework/dm-core'
-import { Button, Icon, Popover, TopBar } from '@equinor/eds-core-react'
+import { Icon, Popover, TopBar } from '@equinor/eds-core-react'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import { account_circle, menu, info_circle } from '@equinor/eds-icons'
+import { account_circle, info_circle, menu } from '@equinor/eds-icons'
 
 import { AboutDialog } from './components/AboutDialog'
 import { UserInfoDialog } from './components/UserInfoDialog'
@@ -24,6 +24,23 @@ const Icons = styled.div`
 
   > * {
     margin-left: 40px;
+  }
+`
+
+const MenuButton = styled.button<{ $active: boolean }>`
+  appearance: none;
+  padding: 1rem 1rem;
+  background-color: ${(props) =>
+    props.$active ? 'rgba(222, 237, 238, 1)' : 'transparent'};
+  color: ${(props) => (props.$active ? 'rgba(0, 79, 85, 1)' : 'black')};
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Equinor', sans-serif;
+
+  &:hover {
+    background-color: rgba(222, 237, 238, 1);
+    color: rgba(0, 79, 85, 1);
   }
 `
 
@@ -145,32 +162,21 @@ export default (props: IUIPlugin): React.ReactElement => {
             trapFocus
             onClose={() => setAppSelectorOpen(false)}
           >
-            <Popover.Content>
-              <div
-                style={{
-                  maxWidth: '300px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                }}
-              >
-                {recipeNames.map((recipe: string, index: number) => (
-                  <Button
-                    style={{ flexBasis: '100%', marginTop: '5px' }}
-                    variant={
-                      selectedRecipeName == recipe ? 'contained' : 'outlined'
-                    }
-                    key={index}
-                    onClick={() => {
-                      setSelectedRecipe(getRecipeConfigAndPlugin(recipe))
-                      setSelectedRecipeName(recipe)
-                      setAppSelectorOpen(false)
-                    }}
-                  >
-                    {recipe}
-                  </Button>
-                ))}
-              </div>
-            </Popover.Content>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {recipeNames.map((recipe: string, index: number) => (
+                <MenuButton
+                  $active={selectedRecipeName === recipe}
+                  key={index}
+                  onClick={() => {
+                    setSelectedRecipe(getRecipeConfigAndPlugin(recipe))
+                    setSelectedRecipeName(recipe)
+                    setAppSelectorOpen(false)
+                  }}
+                >
+                  {recipe}
+                </MenuButton>
+              ))}
+            </div>
           </Popover>
           <h4 style={{ paddingLeft: 10 }}>{entity.label}</h4>
         </TopBar.Header>
