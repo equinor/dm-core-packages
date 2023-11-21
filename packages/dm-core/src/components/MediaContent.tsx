@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Button, Icon, Popover } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
 
-// import { formatBytes } from '@development-framework/dm-core-plugins/dist/pdf/formatBytes'
+import { formatBytes } from '../utils/stringUtilities'
 
 interface MediaContentProps {
   blobUrl: string
@@ -22,7 +22,6 @@ const MediaWrapper = styled.div<{ $height?: number; $width?: number }>`
   height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
   width: ${(props) => (props.$width ? props.$width + 'px' : undefined)};
   max-width: 30rem;
-  max-height: 20rem;
   position: relative;
 `
 
@@ -107,7 +106,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             <label className="meta-label">Filetype:</label>
             <span> {meta.filetype}</span>
             <label className="meta-label">Filesize:</label>
-            {/*<span> {formatBytes(meta.fileSize)}</span>*/}
+            <span> {formatBytes(meta.fileSize)}</span>
           </MetaWrapper>
         </Popover.Content>
         <Popover.Actions>
