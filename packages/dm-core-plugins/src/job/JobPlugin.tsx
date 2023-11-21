@@ -18,7 +18,7 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { Button, Card, Icon, Switch } from '@equinor/eds-core-react'
+import { Button, Chip, Icon, Switch } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
 import { expand_screen, refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
@@ -168,6 +168,16 @@ export const JobPlugin = (
     if (jobDocument.schedule) setJobSchedule(jobDocument.schedule)
   }, [isLoading, jobEntityError, jobDocument])
 
+  const getVariant = (status: JobStatus) => {
+    switch (status) {
+      case JobStatus.Failed:
+        return 'error'
+      case JobStatus.Completed:
+        return 'active'
+      default:
+        return 'default'
+    }
+  }
   return (
     <div>
       {config.recurring === undefined && (
@@ -216,13 +226,8 @@ export const JobPlugin = (
         <Button onClick={() => setShowLogs(!showLogs)} variant="ghost">
           {showLogs ? 'Hide' : 'Show'} logs
         </Button>
+        <Chip variant={getVariant(status)}>{status}</Chip>
       </JobButtonWrapper>
-
-      {status === JobStatus.Failed && (
-        <Card variant="danger" style={{ marginTop: '8px' }}>
-          <Card.Header>Job status: {status}</Card.Header>
-        </Card>
-      )}
       {showLogs && (
         <JobLogBox>
           <div
