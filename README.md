@@ -3297,3 +3297,8 @@ Co-authored-by: Stig Oskar Ofstad <stigofstad@gmail.com> (2023-09-21T10:17:57Z)
     * **DMSS VERSION**: 1340294 2023-11-21 githu..[bot] chore(master): release 1.11.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.2.0
     * **JOB VERSION**: 3ff232a 2023-11-17 githu..[bot] chore(main): release 1.3.5 grafted, HEAD -> main, origin/main
+* feat(view_select): add sub menu (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6940798208/1)
+    * **DMSS VERSION**: 1340294 2023-11-21 githu..[bot] chore(master): release 1.11.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.2.0
+    * **JOB VERSION**: 3ff232a 2023-11-17 githu..[bot] chore(main): release 1.3.5 grafted, HEAD -> main, origin/main
