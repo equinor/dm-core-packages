@@ -103,7 +103,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
                 : {}
             }
           >
-            {!recipe.showRefreshButton && (
+            {recipe.showRefreshButton && (
               <RefreshButton
                 hidden={!hoverOver.component}
                 tooltip={recipe.plugin.split('/').at(-1)}
