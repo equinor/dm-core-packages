@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.14.0...dm-core-v1.15.0) (2023-11-21)
+
+
+### Features
+
+* add dropdown component ([#773](https://github.com/equinor/dm-core-packages/issues/773)) ([ec208de](https://github.com/equinor/dm-core-packages/commit/ec208debe8d53f0b80bb21f7cdfccb5169095d8c))
+
 ## [1.14.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.13.0...dm-core-v1.14.0) (2023-11-21)
 
 
