@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.14.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.13.0...dm-core-v1.14.0) (2023-11-21)
+
+
+### Features
+
+* hotfix on wrong negation ([f08fb49](https://github.com/equinor/dm-core-packages/commit/f08fb4983d58e581968d1c87218ffa68568676ca))
+
+
+### Bug Fixes
+
+* bump dmss version to fix refresh button config ([f7e3137](https://github.com/equinor/dm-core-packages/commit/f7e3137ae401393064fba9dc0b06f9791c3fa8d9))
+
+
+### Performance Improvements
+
+* **EntityView:** stop plugin rerender on mouseEnter ([a70a174](https://github.com/equinor/dm-core-packages/commit/a70a174ef6f39371ed85c7126c051e069c3c8bdf))
+
 ## [1.13.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.12.0...dm-core-v1.13.0) (2023-11-21)
 
 
