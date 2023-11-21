@@ -30,6 +30,38 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.17.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.16.0...dm-core-plugins-v1.17.0) (2023-11-21)
+
+
+### Features
+
+* configure if object or array should be expanded by default ([18de693](https://github.com/equinor/dm-core-packages/commit/18de693e3de5dce8c77c560ec320431a117e8442))
+* fix integration test data is ([465963c](https://github.com/equinor/dm-core-packages/commit/465963c455cd1bb30e3d87d74ddc6e7e5b542434))
+* **form:** better primitive arrays ([c7cea16](https://github.com/equinor/dm-core-packages/commit/c7cea16bc29b4b655454805863fa604f79f180b4))
+* **grid:** add border and title ([b6f9cc9](https://github.com/equinor/dm-core-packages/commit/b6f9cc9d9a185b52563484c0c55efc157ce80d26))
+* hamburger menu ([aba8de1](https://github.com/equinor/dm-core-packages/commit/aba8de17b42a1ddd8de4b544ef87facabf69026f))
+* list clickable and chevron change ([d1b286d](https://github.com/equinor/dm-core-packages/commit/d1b286d1f498a8a254c58d7b43aa0b8573aa1e21))
+* list plugin open-in-tab icon changed ([a854e3b](https://github.com/equinor/dm-core-packages/commit/a854e3be66f17dff585e70768ee0ec641b550414))
+* make recurring switch configurable ([#740](https://github.com/equinor/dm-core-packages/issues/740)) ([81c1bfe](https://github.com/equinor/dm-core-packages/commit/81c1bfee1c1e98029e98dacb5afa82a80f1342ee))
+* rebase revert button ([2de4174](https://github.com/equinor/dm-core-packages/commit/2de4174f49c0720ec2f62443d21c09ff3e904dd4))
+* shift down 5px ([035d849](https://github.com/equinor/dm-core-packages/commit/035d849381c8ed2fbecb83a22633e3a9e9adc14f))
+* show loading when lazy load plugins ([072799c](https://github.com/equinor/dm-core-packages/commit/072799c8ab785848807ed939285fd12775fb215f))
+* **view_select:** add sub menu ([cc76b64](https://github.com/equinor/dm-core-packages/commit/cc76b647c353c62efbf608664171bccd64f5a45b))
+* when click away from header menu it goes away ([275eb3c](https://github.com/equinor/dm-core-packages/commit/275eb3cc157c7ae122027e8b19ed4ab9ddb70fc1))
+
+
+### Bug Fixes
+
+* **form:** recipe name should be optional in ObjectField ([08adeb7](https://github.com/equinor/dm-core-packages/commit/08adeb743da6be25493066205f968d9af3227422))
+* resolve relative references ([4fa5b65](https://github.com/equinor/dm-core-packages/commit/4fa5b65615a647a0deb7bf5fa349459a9c0481df))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.12.0 to ^1.13.0
+
 ## [1.16.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.15.0...dm-core-plugins-v1.16.0) (2023-11-15)
 
 
