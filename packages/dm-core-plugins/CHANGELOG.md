@@ -30,6 +30,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.19.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.18.0...dm-core-plugins-v1.19.0) (2023-11-21)
+
+
+### Features
+
+* add dropdown component ([#773](https://github.com/equinor/dm-core-packages/issues/773)) ([ec208de](https://github.com/equinor/dm-core-packages/commit/ec208debe8d53f0b80bb21f7cdfccb5169095d8c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.14.0 to ^1.15.0
+
 ## [1.18.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.17.0...dm-core-plugins-v1.18.0) (2023-11-21)
 
 
