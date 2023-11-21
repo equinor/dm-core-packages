@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react'
+import React, { useState, Suspense, memo } from 'react'
 
 import styled from 'styled-components'
 import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
@@ -19,6 +19,35 @@ type IEntityView = IUIPlugin & {
   recipeName?: string
   dimensions?: string
 }
+
+function UiPlugin({
+  getPlugin,
+  pluginName,
+  idReference,
+  type,
+  onSubmit,
+  onOpen,
+  config,
+  key,
+}: IUIPlugin & {
+  key: number
+  getPlugin: (name: string) => (p: IUIPlugin) => React.ReactElement
+  pluginName: string
+}) {
+  const UiPlugin = getPlugin(pluginName)
+  return (
+    <UiPlugin
+      idReference={idReference}
+      type={type}
+      onSubmit={onSubmit}
+      onOpen={onOpen}
+      config={config || {}}
+      key={key}
+    />
+  )
+}
+
+const MemoizedUiPlugin = memo(UiPlugin)
 
 export const EntityView = (props: IEntityView): React.ReactElement => {
   const { idReference, type, onSubmit, onOpen, recipeName, dimensions } = props
@@ -55,10 +84,6 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
   if (!recipe || !Object.keys(recipe).length)
     return <Wrapper>No compatible uiRecipes for entity</Wrapper>
 
-  const UiPlugin = getUiPlugin(recipe.plugin)
-  console.log(recipe.name + ' ' + recipe.showRefreshButton)
-  console.log(recipe.description + ' ' + recipe.showRefreshButton)
-  console.log(recipe)
   return (
     <Wrapper>
       <Suspense fallback={<Loading />}>
@@ -91,7 +116,9 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
                 onClick={() => setReloadCounter(reloadCounter + 1)}
               />
             )}
-            <UiPlugin
+            <MemoizedUiPlugin
+              getPlugin={getUiPlugin}
+              pluginName={recipe.plugin}
               idReference={idReference}
               type={type}
               onSubmit={onSubmit}
