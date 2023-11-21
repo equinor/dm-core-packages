@@ -7,7 +7,7 @@ import {
   useDocument,
   useUiPlugins,
 } from '@development-framework/dm-core'
-import { Icon, Menu, TopBar } from '@equinor/eds-core-react'
+import { Button, Icon, Popover, TopBar } from '@equinor/eds-core-react'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
@@ -73,6 +73,7 @@ export default (props: IUIPlugin): React.ReactElement => {
     component: () => <div></div>,
     config: {},
   })
+  const [selectedRecipeName, setSelectedRecipeName] = useState<string>('')
 
   function getRecipeConfigAndPlugin(
     recipeName: string
@@ -85,6 +86,7 @@ export default (props: IUIPlugin): React.ReactElement => {
       config: recipe?.config ?? {},
     }
   }
+
   const menuRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!isBlueprintLoading) {
@@ -94,6 +96,7 @@ export default (props: IUIPlugin): React.ReactElement => {
           )
         : uiRecipes[0]
       setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))
+      setSelectedRecipeName(defaultRecipe.name)
     }
     const handleMouseDown = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node))
@@ -115,7 +118,6 @@ export default (props: IUIPlugin): React.ReactElement => {
     config.uiRecipesList.length > 0
       ? config.uiRecipesList
       : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
-
   return (
     <div>
       <TopBar
@@ -136,19 +138,40 @@ export default (props: IUIPlugin): React.ReactElement => {
           >
             <Icon data={menu} size={32} title="Menu" />
           </ClickableIcon>
-          <Menu open={appSelectorOpen} anchorEl={anchorEl} ref={menuRef}>
-            {recipeNames.map((recipe: string, index: number) => (
-              <Menu.Item
-                key={index}
-                onClick={() => {
-                  setSelectedRecipe(getRecipeConfigAndPlugin(recipe))
-                  setAppSelectorOpen(false)
+          <Popover
+            open={appSelectorOpen}
+            anchorEl={anchorEl}
+            ref={menuRef}
+            trapFocus
+            onClose={() => setAppSelectorOpen(false)}
+          >
+            <Popover.Content>
+              <div
+                style={{
+                  maxWidth: '300px',
+                  display: 'flex',
+                  flexWrap: 'wrap',
                 }}
               >
-                {recipe}
-              </Menu.Item>
-            ))}
-          </Menu>
+                {recipeNames.map((recipe: string, index: number) => (
+                  <Button
+                    style={{ flexBasis: '100%', marginTop: '5px' }}
+                    variant={
+                      selectedRecipeName == recipe ? 'contained' : 'outlined'
+                    }
+                    key={index}
+                    onClick={() => {
+                      setSelectedRecipe(getRecipeConfigAndPlugin(recipe))
+                      setSelectedRecipeName(recipe)
+                      setAppSelectorOpen(false)
+                    }}
+                  >
+                    {recipe}
+                  </Button>
+                ))}
+              </div>
+            </Popover.Content>
+          </Popover>
           <h4 style={{ paddingLeft: 10 }}>{entity.label}</h4>
         </TopBar.Header>
         <TopBar.Actions>
