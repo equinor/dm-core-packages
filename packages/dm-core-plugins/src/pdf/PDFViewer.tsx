@@ -1,5 +1,7 @@
+// import { formatBytes } from './formatBytes'
 import {
   ErrorResponse,
+  formatBytes,
   Loading,
   TGenericObject,
   useDMSS,
@@ -7,7 +9,6 @@ import {
 import { AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { formatBytes } from './formatBytes'
 
 export const ErrorGroup = styled.div`
   display: flex;
