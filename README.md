@@ -3287,3 +3287,8 @@ Co-authored-by: Stig Oskar Ofstad <stigofstad@gmail.com> (2023-09-21T10:17:57Z)
     * **DMSS VERSION**: 8968c2a 2023-11-17 githu..[bot] chore(master): release 1.10.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.2.0
     * **JOB VERSION**: 3ff232a 2023-11-17 githu..[bot] chore(main): release 1.3.5 grafted, HEAD -> main, origin/main
+* fix(style): remove scroll overflow from refresh button (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/6940206010/1)
+    * **DMSS VERSION**: 8968c2a 2023-11-17 githu..[bot] chore(master): release 1.10.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.2.0
+    * **JOB VERSION**: 3ff232a 2023-11-17 githu..[bot] chore(main): release 1.3.5 grafted, HEAD -> main, origin/main
