@@ -1,12 +1,17 @@
-import React, { MouseEvent } from 'react'
-import { Button, EdsProvider, Icon, Progress } from '@equinor/eds-core-react'
+import React, { ReactNode, MouseEvent } from 'react'
+import {
+  Button,
+  EdsProvider,
+  Icon,
+  Progress,
+  Tooltip,
+} from '@equinor/eds-core-react'
 import {
   chevron_down,
   chevron_up,
   delete_to_trash,
   add,
 } from '@equinor/eds-icons'
-
 export const AppendButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
 }) => (
@@ -15,18 +20,25 @@ export const AppendButton = (props: {
   </Button>
 )
 
-export const SaveButton = (props: {
+export const FormButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
   disabled: boolean
   isLoading: boolean
+  children: ReactNode
+  variant?: 'contained' | 'contained_icon' | 'outlined' | 'ghost' | 'ghost_icon'
+  tooltip: string
+  dataTestid: string
 }) => (
-  <Button
-    disabled={props.disabled}
-    onClick={props.onClick}
-    data-testid="SaveList"
-  >
-    {props.isLoading ? <Progress.Dots color={'primary'} /> : 'Save'}
-  </Button>
+  <Tooltip title={props.tooltip}>
+    <Button
+      disabled={props.disabled}
+      onClick={props.onClick}
+      data-testid={props.dataTestid}
+      variant={props.variant ?? undefined}
+    >
+      {props.isLoading ? <Progress.Dots color={'primary'} /> : props.children}
+    </Button>
+  </Tooltip>
 )
 
 export const ListItemButton = (props: {
