@@ -8,10 +8,10 @@ import {
   useUiPlugins,
 } from '@development-framework/dm-core'
 import { Icon, Menu, TopBar } from '@equinor/eds-core-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import { account_circle, apps, info_circle } from '@equinor/eds-icons'
+import { account_circle, menu, info_circle } from '@equinor/eds-icons'
 
 import { AboutDialog } from './components/AboutDialog'
 import { UserInfoDialog } from './components/UserInfoDialog'
@@ -85,7 +85,7 @@ export default (props: IUIPlugin): React.ReactElement => {
       config: recipe?.config ?? {},
     }
   }
-
+  const menuRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!isBlueprintLoading) {
       const defaultRecipe: TUiRecipe = config.uiRecipesList.length
@@ -94,6 +94,14 @@ export default (props: IUIPlugin): React.ReactElement => {
           )
         : uiRecipes[0]
       setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))
+    }
+    const handleMouseDown = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node))
+        setAppSelectorOpen(false)
+    }
+    document.addEventListener('mousedown', handleMouseDown)
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown)
     }
   }, [isBlueprintLoading])
 
@@ -124,10 +132,11 @@ export default (props: IUIPlugin): React.ReactElement => {
             onClick={() => {
               setAppSelectorOpen(!appSelectorOpen)
             }}
+            style={{ paddingTop: '5px' }}
           >
-            <Icon data={apps} size={32} title="Menu" />
+            <Icon data={menu} size={32} title="Menu" />
           </ClickableIcon>
-          <Menu open={appSelectorOpen} anchorEl={anchorEl}>
+          <Menu open={appSelectorOpen} anchorEl={anchorEl} ref={menuRef}>
             {recipeNames.map((recipe: string, index: number) => (
               <Menu.Item
                 key={index}

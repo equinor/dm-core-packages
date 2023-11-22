@@ -1,17 +1,14 @@
 import React from 'react'
 
-import { Icon, TextField } from '@equinor/eds-core-react'
+import { TextField } from '@equinor/eds-core-react'
 
-import { error_filled } from '@equinor/eds-icons'
 import { TWidget } from '../types'
 import { DateTime } from 'luxon'
 
-Icon.add({ error_filled })
-
 const TextWidget = (props: TWidget) => {
-  const { label, onChange } = props
+  const { label, onChange, leftAdornments, rightAdornments, isDirty } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
+    const value = event.target.value
     let formattedValue
     if (props.config?.format === 'datetime') {
       formattedValue = new Date(value).toISOString()
@@ -35,6 +32,9 @@ const TextWidget = (props: TWidget) => {
           ? DateTime.fromISO(props.value).toFormat("yyyy-MM-dd'T'T")
           : props.value
       }
+      //@ts-ignore
+      leftAdornments={leftAdornments}
+      rightAdornments={rightAdornments}
       onClick={props.onClick}
       inputRef={props.inputRef}
       variant={props.variant}
@@ -43,6 +43,14 @@ const TextWidget = (props: TWidget) => {
       label={label}
       type={fieldType(props.config?.format)}
       data-testid={`form-text-widget-${label}`}
+      style={
+        isDirty && props.variant !== 'error'
+          ? {
+              // @ts-ignore
+              '--eds-input-background': '#85babf5e',
+            }
+          : {}
+      }
     />
   )
 }

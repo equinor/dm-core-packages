@@ -17,6 +17,13 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "subItems",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+      "optional": true,
+      "dimensions": "*"
     }
   ]
 }

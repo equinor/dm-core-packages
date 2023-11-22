@@ -40,6 +40,7 @@ export const SidebarPlugin = (
         viewSelectorItems={viewSelectorItems}
         selectedViewId={selectedViewId}
         setSelectedViewId={setSelectedViewId}
+        addView={addView}
       />
       <div
         style={{

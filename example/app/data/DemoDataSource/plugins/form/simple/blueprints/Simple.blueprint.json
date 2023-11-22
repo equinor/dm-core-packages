@@ -36,6 +36,48 @@
       "optional": true
     },
     {
+      "name": "listOfNumbers",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Numbers only",
+      "dimensions": "*"
+    },
+    {
+      "name": "2DListOfNumbers",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Numbers only",
+      "dimensions": "*,*"
+    },
+    {
+      "name": "listOfStrings",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Many Strings",
+      "dimensions": "*"
+    },
+    {
+      "name": "2DListOfStrings",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Table of strings",
+      "dimensions": "*,*"
+    },
+    {
+      "name": "listOfBooleans",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "Many booleans",
+      "dimensions": "*"
+    },
+    {
+      "name": "2DListOfBooleans",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "Table of booleans",
+      "dimensions": "*,*"
+    },
+    {
       "name": "integer",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "integer",

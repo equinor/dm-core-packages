@@ -141,12 +141,14 @@ export interface IUIPlugin {
   onSubmit?: (data: any) => void
   onOpen?: TOnOpen
   config?: any
+  refresh?: boolean
 }
 
 export type TOnOpen = (
   viewId: string,
   view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
-  rootId?: string
+  rootId?: string,
+  isSubItem?: boolean
 ) => void
 
 export type TUiPluginMap = { [pluginName: string]: TPlugin }
@@ -156,6 +158,7 @@ export type TUiRecipe = {
   name: string
   plugin: string
   description?: string
+  showRefreshButton?: boolean
   category?: string
   config?: TGenericObject
   roles?: string[]

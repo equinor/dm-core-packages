@@ -11,6 +11,8 @@ export const StringField = (props: TStringFieldProps) => {
     optional,
     uiAttribute,
     readOnly,
+    leftAdornments,
+    rightAdornments,
   } = props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
 
@@ -23,14 +25,17 @@ export const StringField = (props: TStringFieldProps) => {
       defaultValue={defaultValue ?? ''}
       render={({
         field: { ref, value, ...props },
-        fieldState: { invalid, error },
+        fieldState: { invalid, error, isDirty },
       }) => {
         return (
           <Widget
+            isDirty={value !== null ? isDirty : false}
             readOnly={readOnly}
             {...props}
             value={value ?? ''}
             id={namePath}
+            leftAdornments={leftAdornments}
+            rightAdornments={rightAdornments}
             label={displayLabel}
             inputRef={ref}
             helperText={error?.message || error?.type}

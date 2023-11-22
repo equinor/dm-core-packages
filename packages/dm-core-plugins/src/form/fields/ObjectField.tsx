@@ -14,7 +14,7 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { Typography } from '@equinor/eds-core-react'
-import { add, edit } from '@equinor/eds-icons'
+import { add, chevron_down, chevron_up, edit } from '@equinor/eds-icons'
 import { AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -168,9 +168,15 @@ export const ContainedAttribute = (
     uiRecipe,
     defaultValue,
     readOnly,
+    showExpanded,
   } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
+  const [isExpanded, setIsExpanded] = useState(
+    uiAttribute?.showExpanded !== undefined
+      ? uiAttribute?.showExpanded
+      : showExpanded
+  )
   const value = watch(namePath)
   const isDefined = value && Object.keys(value).length > 0
   return (
@@ -188,6 +194,14 @@ export const ContainedAttribute = (
               defaultValue={defaultValue}
             />
           ))}
+        {isDefined && !(onOpen && !uiAttribute?.showInline) && (
+          <TooltipButton
+            title="Expand"
+            button-variant="ghost_icon"
+            button-onClick={() => setIsExpanded(!isExpanded)}
+            icon={isExpanded ? chevron_up : chevron_down}
+          />
+        )}
         {isDefined && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
@@ -200,7 +214,7 @@ export const ContainedAttribute = (
           />
         )}
       </Legend>
-      {isDefined && !(onOpen && !uiAttribute?.showInline) && (
+      {isDefined && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
         <EntityView
           recipeName={uiRecipe.name}
           idReference={`${idReference}.${namePath}`}
@@ -223,9 +237,15 @@ export const UncontainedAttribute = (
     uiRecipe,
     optional,
     readOnly,
+    showExpanded,
   } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
+  const [isExpanded, setIsExpanded] = useState(
+    uiAttribute?.showExpanded !== undefined
+      ? uiAttribute?.showExpanded
+      : showExpanded
+  )
   const value = watch(namePath)
   const { dataSource, documentPath } = splitAddress(idReference)
   const address =
@@ -240,6 +260,14 @@ export const UncontainedAttribute = (
         {optional && address && !readOnly && (
           <RemoveObject namePath={namePath} />
         )}
+        {address && !(onOpen && !uiAttribute?.showInline) && (
+          <TooltipButton
+            title="Expand"
+            button-variant="ghost_icon"
+            button-onClick={() => setIsExpanded(!isExpanded)}
+            icon={isExpanded ? chevron_up : chevron_down}
+          />
+        )}
         {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton
             viewId={namePath}
@@ -252,7 +280,7 @@ export const UncontainedAttribute = (
           />
         )}
       </Legend>
-      {address && !(onOpen && !uiAttribute?.showInline) && (
+      {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
         <EntityView
           idReference={address}
           type={type}
@@ -280,15 +308,14 @@ export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
     values['referenceType'] === 'storage'
   // If the attribute type is an object, we need to find the correct type from the values.
   return (
-    <>
-      <Widget
-        {...props}
-        id={valuesIsStorageReference ? values['address'] : namePath}
-        label={displayLabel}
-        type={type === 'object' && values ? values.type : type}
-        defaultValue={defaultValue}
-      />
-    </>
+    <Widget
+      {...props}
+      onChange={() => null}
+      id={valuesIsStorageReference ? values['address'] : namePath}
+      label={displayLabel}
+      type={type === 'object' && values ? values.type : type}
+      defaultValue={defaultValue}
+    />
   )
 }
 
@@ -304,6 +331,7 @@ export const ObjectTypeSelector = (
     uiAttribute,
     defaultValue,
     readOnly,
+    showExpanded,
   } = props
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
   const { watch } = useFormContext()
@@ -353,6 +381,7 @@ export const ObjectTypeSelector = (
       uiAttribute={uiAttribute}
       defaultValue={defaultValue}
       readOnly={readOnly}
+      showExpanded={showExpanded}
     />
   )
 }

@@ -1,6 +1,7 @@
 import {
   EntityView,
   FSTreeContext,
+  Tree,
   TreeNode,
   TreeView,
 } from '@development-framework/dm-core'
@@ -10,7 +11,11 @@ import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
 import { Progress } from '@equinor/eds-core-react'
 
 export default () => {
-  const { treeNodes, loading } = useContext(FSTreeContext)
+  const { treeNodes, loading } = useContext<{
+    tree: null | Tree
+    treeNodes: TreeNode[]
+    loading: boolean
+  }>(FSTreeContext)
   const [selectedType, setSelectedType] = useState<string>()
   const [selectedEntity, setSelectedEntity] = useState<string>()
   const [nodeDimensions, setNodeDimensions] = useState<string | undefined>(

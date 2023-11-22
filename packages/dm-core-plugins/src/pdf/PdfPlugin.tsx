@@ -15,7 +15,7 @@ export const PdfPlugin = (props: IUIPlugin) => {
     idReference,
     999
   )
-  const dataSource = splitAddress(idReference).dataSource
+  const { dataSource } = splitAddress(idReference)
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading || document === null) return <Loading />

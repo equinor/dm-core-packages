@@ -4,6 +4,8 @@ import {
   IUIPlugin,
   Loading,
   Pagination,
+  resolveRelativeAddress,
+  splitAddress,
   Stack,
   TGenericObject,
   TItem,
@@ -14,8 +16,8 @@ import {
 } from '@development-framework/dm-core'
 import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
-import { AppendButton, ListItemButton, SaveButton } from './Components'
-import { add, chevron_down, link } from '@equinor/eds-icons'
+import { external_link, undo, chevron_right, link } from '@equinor/eds-icons'
+import { AppendButton, ListItemButton, FormButton } from './Components'
 
 type TListConfig = {
   expanded?: boolean
@@ -64,6 +66,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     removeItem,
     save,
     moveItem,
+    reloadData,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
   const [paginationPage, setPaginationPage] = useState(0)
@@ -80,25 +83,26 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       ),
     [paginationPage, paginationRowsPerPage, items]
   )
-
-  function openItemAsTab(item: TGenericObject) {
-    const view = { label: item?.data?.name, type: 'ViewConfig' }
-    if (!onOpen) {
-      toast.error(
-        'Invalid UiRecipes. The list plugin was not passed an "onOpen()"-function.'
-      )
+  function expandOrOpen(item: TGenericObject) {
+    if (internalConfig.openAsTab) {
+      const view = { label: item?.data?.name, type: 'ViewConfig' }
+      if (!onOpen) {
+        toast.error(
+          'Invalid UiRecipes. The list plugin was not passed an "onOpen()"-function.'
+        )
+        return
+      }
+      onOpen(crypto.randomUUID(), view, `${idReference}[${item.index}]`)
       return
     }
-    onOpen(crypto.randomUUID(), view, `${idReference}[${item.index}]`)
-  }
-
-  function expandItem(item: TItem<any>) {
     const isExpanded = expanded[item.key] || false
     setExpanded({ ...expanded, [item.key]: !isExpanded })
   }
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading) return <Loading />
+
+  const { documentPath, dataSource } = splitAddress(idReference)
 
   return (
     <Stack>
@@ -146,19 +150,18 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     color="secondary"
                     disabled={!item.isSaved}
                     data-testid={`expandListItem-${index}`}
-                    onClick={
-                      !internalConfig.openAsTab
-                        ? () => expandItem(item)
-                        : () => openItemAsTab(item)
-                    }
+                    onClick={() => expandOrOpen(item)}
                   >
                     <Icon
-                      data={internalConfig.openAsTab ? add : chevron_down}
+                      data={
+                        internalConfig.openAsTab ? external_link : chevron_right
+                      }
+                      size={internalConfig.openAsTab ? 18 : 24}
                       title={expanded[item.key] ? 'Close item' : 'Open item'}
                       className="transition-all"
                       style={{
                         transform: expanded[item.key]
-                          ? 'rotate(180deg)'
+                          ? 'rotate(90deg)'
                           : 'rotate(0deg)',
                       }}
                     />
@@ -177,6 +180,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                           key={attribute}
                           variant="body_short"
                           bold={index === 0}
+                          onClick={() => expandOrOpen(item)}
+                          style={{ cursor: 'pointer' }}
                         >
                           {item?.data[attribute]}
                         </Typography>
@@ -220,7 +225,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 <ViewCreator
                   idReference={
                     attribute && !attribute.contained
-                      ? item?.reference?.address || ''
+                      ? resolveRelativeAddress(
+                          item?.reference?.address || '',
+                          documentPath,
+                          dataSource
+                        )
                       : `${idReference}[${item.index}]`
                   }
                   viewConfig={
@@ -257,11 +266,25 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               }}
             />
           )}
-          <SaveButton
+          <FormButton
+            onClick={reloadData}
+            disabled={!dirtyState}
+            tooltip={'Revert changes'}
+            variant={'outlined'}
+            isLoading={isLoading}
+            dataTestid="RevertList"
+          >
+            <Icon data={undo} size={16} />
+          </FormButton>
+          <FormButton
             onClick={save}
             disabled={!dirtyState}
             isLoading={isLoading}
-          />
+            tooltip={'Save'}
+            dataTestid="SaveList"
+          >
+            Save
+          </FormButton>
         </Stack>
       </Stack>
     </Stack>

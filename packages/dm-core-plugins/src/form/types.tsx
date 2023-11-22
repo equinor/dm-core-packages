@@ -4,6 +4,7 @@ import {
   TOnOpen,
   TUiRecipe,
 } from '@development-framework/dm-core'
+import React from 'react'
 
 export type TFormProps = {
   idReference: string
@@ -20,9 +21,10 @@ export type TObjectFieldProps = {
   type: string
   displayLabel: string
   optional: boolean
-  uiAttribute: TAttributeConfig | undefined
+  uiAttribute: TAttributeObject | undefined
   readOnly?: boolean
   defaultValue?: any
+  showExpanded?: boolean
 }
 
 export type TContentProps = {
@@ -32,18 +34,20 @@ export type TContentProps = {
   optional: boolean
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm
-  uiAttribute: TAttributeConfig | undefined
+  uiAttribute: TAttributeObject | undefined
   readOnly?: boolean
   defaultValue?: any
+  showExpanded?: boolean
 }
 
 export type TArrayFieldProps = {
   namePath: string
   displayLabel: string
   type: string
-  uiAttribute: TAttributeConfig | undefined
+  uiAttribute: TAttributeArray | undefined
   dimensions: string | undefined
   readOnly?: boolean
+  showExpanded?: boolean
 }
 
 export type TAttributeFieldProps = {
@@ -51,6 +55,9 @@ export type TAttributeFieldProps = {
   attribute: TAttribute
   uiAttribute?: TAttributeConfig
   readOnly?: boolean
+  showExpanded?: boolean
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
 }
 
 export type TStringFieldProps = {
@@ -61,6 +68,8 @@ export type TStringFieldProps = {
   uiAttribute: TAttributeConfig | undefined
   readOnly?: boolean
   format?: 'string' | 'date' | 'datetime'
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
 }
 
 export type TNumberFieldProps = {
@@ -69,8 +78,9 @@ export type TNumberFieldProps = {
   defaultValue: string
   optional: boolean
   uiAttribute: TAttributeConfig | undefined
-  isInteger: boolean
   readOnly?: boolean
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
 }
 
 export type TBooleanFieldProps = {
@@ -79,6 +89,8 @@ export type TBooleanFieldProps = {
   defaultValue: string
   uiAttribute: TAttributeConfig | undefined
   readOnly?: boolean
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
 }
 
 type TAttributeBasis = {
@@ -93,10 +105,12 @@ type TAttributeString = TAttributeBasis & {
 type TAttributeArray = TAttributeBasis & {
   widget?: string
   uiRecipe?: string
+  showExpanded?: boolean
 }
 type TAttributeObject = TAttributeBasis & {
   widget?: string
   uiRecipe?: string
+  showExpanded?: boolean
 }
 export type TAttributeConfig =
   | TAttributeArray
@@ -106,6 +120,7 @@ export type TConfig = {
   attributes: TAttributeConfig[]
   fields: string[]
   readOnly?: boolean
+  showExpanded?: boolean
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & {
@@ -117,7 +132,7 @@ export declare type Variants = 'error' | 'success' | 'warning'
 export type TWidget = {
   label: string
   value?: any
-  onChange?: (value: unknown) => void
+  onChange: (value: unknown) => void
   onClick?: (value: any) => void
   id: string
   inputRef?: any
@@ -125,6 +140,10 @@ export type TWidget = {
   variant?: Variants
   readOnly?: boolean
   config?: Record<any, any>
+  leftAdornments?: React.ReactElement | string
+  rightAdornments?: React.ReactElement | string
+  style?: any
+  isDirty?: boolean
 }
 
 export type TWidgets = {

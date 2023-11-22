@@ -1,5 +1,4 @@
 import { TUiPluginMap } from '@development-framework/dm-core'
-
 import { lazy } from 'react'
 import '../dist/main.css'
 
@@ -103,6 +102,13 @@ export default {
     component: lazy(() =>
       import('./role_filter/RoleFilterPlugin').then((module) => ({
         default: module.RoleFilterPlugin,
+      }))
+    ),
+  },
+  '@development-framework/dm-core-plugins/media-viewer': {
+    component: lazy(() =>
+      import('./mediaViewer/MediaViewerPlugin').then((module) => ({
+        default: module.MediaViewerPlugin,
       }))
     ),
   },
