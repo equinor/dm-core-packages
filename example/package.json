@@ -16,6 +16,7 @@
     "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.3.0",
     "@types/node": "^16.11.58",
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.7",
@@ -36,15 +37,12 @@
     "vitest": "^0.34.6"
   },
   "scripts": {
-    "start": "vite",
-    "build": "vite build -d",
-    "lint:fix": "eslint --fix --ext .js,.jsx,.tsx,.ts .",
+    "dev": "dotenv -e .env.dev -- vite",
+    "build": "dotenv -e .env -- vite build",
+    "lint": "eslint --fix --ext .js,.jsx,.tsx,.ts .",
     "preview": "vite preview",
     "serve": "serve -s dist -p 3000 --no-clipboard",
-    "test": "vitest",
-    "build-all-packages": "for package in ../packages/*/; do echo $package && cd $package && yarn install --no-lockfile && yarn build && rm -rf ./node_modules && cd ../../example; done",
-    "symlinks": "for package in ../packages/*/; do echo $package && cd $package && mkdir -p dist && cd dist && ln -sf ../src/index.tsx index.js && cd ../../../example; done",
-    "remove-symlinks": "for package in ../packages/*/; do echo $package && rm -rf dist && cd ../example; done"
+    "test": "vitest"
   },
   "browserslist": {
     "production": [
