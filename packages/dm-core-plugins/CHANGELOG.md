@@ -30,6 +30,25 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.20.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.19.1...dm-core-plugins-v1.20.0) (2023-11-22)
+
+
+### Features
+
+* **job:** create recurring job ([67f053b](https://github.com/equinor/dm-core-packages/commit/67f053b77438f2101102c52d1bbc7e05e8bac936))
+
+
+### Bug Fixes
+
+* always show status as chip in job plugin ([5110039](https://github.com/equinor/dm-core-packages/commit/5110039245238a67f42c100321ec5f0fa4f57d4b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.15.0 to ^1.16.0
+
 ## [1.19.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.19.0...dm-core-plugins-v1.19.1) (2023-11-22)
 
 
