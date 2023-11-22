@@ -7,7 +7,7 @@ import {
   useDocument,
   useUiPlugins,
 } from '@development-framework/dm-core'
-import { Icon, Popover, TopBar } from '@equinor/eds-core-react'
+import { Icon, Popover, TopBar, Typography } from '@equinor/eds-core-react'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
@@ -29,18 +29,21 @@ const Icons = styled.div`
 
 const MenuButton = styled.button<{ $active: boolean }>`
   appearance: none;
-  padding: 1rem 1rem;
   background-color: ${(props) =>
-    props.$active ? 'rgba(222, 237, 238, 1)' : 'transparent'};
+    props.$active ? 'rgba(230,250,236,1)' : 'transparent'};
   color: ${(props) => (props.$active ? 'rgba(0, 79, 85, 1)' : 'black')};
   border: 0;
   cursor: pointer;
+  min-width: 150px;
   text-align: left;
+  padding: 1rem 3rem 1rem 3rem;
   font-family: 'Equinor', sans-serif;
 
   &:hover {
-    background-color: rgba(222, 237, 238, 1);
-    color: rgba(0, 79, 85, 1);
+    background-color: ${(props) =>
+      !props.$active ? 'rgba(220,220,220,255)' : 'rgba(230,250,236,1)'};
+    color: ${(props) =>
+      !props.$active ? 'rgba(61,61,61,255)' : 'rgba(0, 79, 85, 1)'};
   }
 `
 
@@ -173,7 +176,7 @@ export default (props: IUIPlugin): React.ReactElement => {
                     setAppSelectorOpen(false)
                   }}
                 >
-                  {recipe}
+                  <Typography>{recipe}</Typography>
                 </MenuButton>
               ))}
             </div>
