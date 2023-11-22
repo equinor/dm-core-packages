@@ -148,13 +148,12 @@ export default (props: IUIPlugin): React.ReactElement => {
           marginBottom: '8px',
         }}
       >
-        <TopBar.Header style={{ position: 'relative' }}>
+        <TopBar.Header className="relative">
           <ClickableIcon
             ref={setAnchorEl}
             onClick={() => {
               setAppSelectorOpen(!appSelectorOpen)
             }}
-            style={{ paddingTop: '5px' }}
           >
             <Icon data={menu} size={32} title="Menu" />
           </ClickableIcon>
