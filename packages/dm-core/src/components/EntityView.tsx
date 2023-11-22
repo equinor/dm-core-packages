@@ -28,9 +28,7 @@ function UiPlugin({
   onSubmit,
   onOpen,
   config,
-  key,
 }: IUIPlugin & {
-  key: number
   getPlugin: (name: string) => (p: IUIPlugin) => React.ReactElement
   pluginName: string
 }) {
@@ -42,7 +40,6 @@ function UiPlugin({
       onSubmit={onSubmit}
       onOpen={onOpen}
       config={config || {}}
-      key={key}
     />
   )
 }

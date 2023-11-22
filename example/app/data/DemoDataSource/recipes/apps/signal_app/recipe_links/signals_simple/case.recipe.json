@@ -5,21 +5,14 @@
     "name": "Dashboard",
     "type": "CORE:UiRecipe",
     "description": "ESS Plot",
+    "showRefreshButton": true,
     "plugin": "@development-framework/dm-core-plugins/grid",
     "config": {
       "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
       "size": {
         "type": "PLUGINS:dm-core-plugins/grid/GridSize",
         "columns": 2,
-        "rows": 2,
-        "rowSizes": [
-          "4fr",
-          "1fr"
-        ],
-        "columnSizes": [
-          "1fr",
-          "2fr"
-        ]
+        "rows": 4
       },
       "showItemBorders": false,
       "items": [
@@ -33,7 +26,7 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
             "columnStart": 1,
-            "rowEnd": 1,
+            "rowEnd": 3,
             "columnEnd": 1
           }
         },
@@ -48,7 +41,7 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 1,
             "columnStart": 2,
-            "rowEnd": 1,
+            "rowEnd": 3,
             "columnEnd": 2
           }
         },
@@ -60,9 +53,9 @@
           },
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 2,
+            "rowStart": 4,
             "columnStart": 1,
-            "rowEnd": 2,
+            "rowEnd": 4,
             "columnEnd": 2
           }
         }
@@ -112,7 +105,6 @@
       "plugin": "@development-framework/dm-core-plugins/job/single_job",
       "config": {
         "type": "PLUGINS:dm-core-plugins/job/JobConfig",
-        "recurring": false,
         "jobTargetAddress": {
           "type": "PLUGINS:dm-core-plugins/job/TargetAddress",
           "targetAddress": ".job",

@@ -39,11 +39,11 @@ class JobHandler(JobHandlerInterface):
         logger.info("Job started")
         self.job.status = JobStatus.RUNNING
         logger.info("after sleep")
-        application_input_reference = self.job.entity['applicationInput']['address']
+        application_input_reference = self.job.application_input['address']
         input_entity = self._get_by_id(application_input_reference)
         signal_length = int(input_entity["duration"] / input_entity["timeStep"])
         new_signal_value = [random.randint(-50, 50) for value in range(signal_length)]
-        signal_reference: str = self.job.entity['outputTarget']
+        signal_reference: str = self.job.outputTarget
         signal_entity = self._get_by_id(signal_reference)
         signal_entity["value"] = new_signal_value
         self._update(f"{signal_reference}", {"data": signal_entity})

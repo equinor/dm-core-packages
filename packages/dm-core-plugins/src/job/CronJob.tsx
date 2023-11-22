@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Autocomplete, Button } from '@equinor/eds-core-react'
+import { Autocomplete } from '@equinor/eds-core-react'
 import DateRangePicker from './DateRangePicker'
 import styled from 'styled-components'
-import { EBlueprint, TSchedule } from '@development-framework/dm-core'
+import { TSchedule } from '@development-framework/dm-core'
 
 enum EInterval {
   HOURLY = 'Hourly',
@@ -27,26 +27,22 @@ const InputWrapper = styled.div`
   padding-top: 1rem;
 `
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 1rem;
-`
+const getIntervall = ({ cron }: { cron: string }): EInterval => {
+  const [, hour, dayOfMonth, , dayOfWeek] = cron.split(' ')
+  if (hour.includes('/')) return EInterval.HOURLY
+  if (dayOfMonth !== '*') return EInterval.MONTHLY
+  if (dayOfWeek !== '*') return EInterval.WEEKLY
+  if (dayOfWeek == '*') return EInterval.DAILY
+  return EInterval.DAILY
+}
 
-export function CreateRecurringJob(props: {
-  close: () => void
-  removeJob: () => void
+export function ConfigureSchedule(props: {
+  isRegistered: boolean
   // TODO: Export TCronJob from dm-core
-  setCronJob: (job: TSchedule) => void
-  cronJob?: TSchedule | undefined
+  setSchedule: (s: TSchedule) => void
+  schedule: TSchedule
 }) {
-  const { close, removeJob, setCronJob, cronJob } = props
-  const [schedule, setSchedule] = useState<string | null>(null)
-  const [dateRange, setDateRange] = useState<{
-    startDate: string
-    endDate: string
-  }>({ startDate: cronJob?.startDate ?? '', endDate: cronJob?.endDate ?? '' })
+  const { setSchedule, schedule, isRegistered } = props
   const [interval, setInterval] = useState<EInterval>(EInterval.HOURLY)
   const [hour, setHour] = useState<string>('23')
   const [hourStep, setHourStep] = useState<string>('1')
@@ -88,7 +84,10 @@ export function CreateRecurringJob(props: {
       case EInterval.HOURLY:
         newHour = hourStep ? `*/${hourStep}` : '*'
     }
-    setSchedule(`${newMinute} ${newHour} ${dayOfMonth} ${month} ${dayOfWeek}`)
+    setSchedule({
+      ...schedule,
+      cron: `${newMinute} ${newHour} ${dayOfMonth} ${month} ${dayOfWeek}`,
+    })
   }, [interval, hour, minute, hourStep])
 
   return (
@@ -100,19 +99,26 @@ export function CreateRecurringJob(props: {
       }}
     >
       <div>
-        <div style={{ paddingBottom: '10px' }}>
-          {cronJob && Object.keys(cronJob).length > 0
-            ? 'A job is already scheduled. You can update it here.'
-            : ''}
-        </div>
+        {isRegistered && (
+          <div style={{ paddingBottom: '10px' }}>
+            A job is already scheduled. You can update it here.
+          </div>
+        )}
         <DateRangePicker
-          setDateRange={(dateRange) => setDateRange(dateRange)}
-          value={dateRange}
+          setDateRange={(dateRange) =>
+            setSchedule({
+              ...schedule,
+              startDate: dateRange.startDate,
+              endDate: dateRange.endDate,
+            })
+          }
+          value={{ startDate: schedule.startDate, endDate: schedule.endDate }}
         />
         <InputWrapper>
           <Autocomplete
             options={Object.values(EInterval)}
             label={'Interval'}
+            initialSelectedOptions={[getIntervall({ cron: schedule.cron })]}
             onInputChange={(label: string) => {
               const chosenIntervalType = Object.entries(EInterval)
                 .filter((l) => l.length > 0 && l[1] == label)
@@ -143,32 +149,6 @@ export function CreateRecurringJob(props: {
         </InputWrapper>
       </div>
       <div style={{ paddingTop: '.5rem', height: '1rem' }}>{getLabel()}</div>
-      <ButtonWrapper>
-        <Button
-          disabled={cronJob && Object.keys(cronJob).length === 0}
-          color="danger"
-          variant="outlined"
-          onClick={() => {
-            removeJob()
-            close()
-          }}
-        >
-          Remove
-        </Button>
-        <Button
-          disabled={!schedule}
-          onClick={() => {
-            setCronJob({
-              type: EBlueprint.CRON_JOB,
-              cron: schedule ?? '* * * * *',
-              startDate: dateRange.startDate,
-              endDate: dateRange.endDate,
-            })
-          }}
-        >
-          Schedule
-        </Button>
-      </ButtonWrapper>
     </div>
   )
 }

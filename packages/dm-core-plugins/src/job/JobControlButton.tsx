@@ -6,10 +6,12 @@ import React, { MutableRefObject, useRef, useState } from 'react'
 export const JobControlButton = (props: {
   jobStatus: JobStatus
   createJob: () => void
+  remove: () => void
   asCronJob: boolean
   disabled: boolean
+  exists: boolean
 }) => {
-  const { jobStatus, createJob, asCronJob, disabled } = props
+  const { jobStatus, createJob, asCronJob, disabled, exists, remove } = props
   const [hovering, setHovering] = useState(false)
   const buttonRef: MutableRefObject<HTMLButtonElement | undefined> = useRef()
   buttonRef.current?.addEventListener('mouseenter', () => setHovering(true))
@@ -17,12 +19,13 @@ export const JobControlButton = (props: {
 
   const buttonText = () => {
     switch (jobStatus) {
-      case 'running':
+      case JobStatus.Running:
         return hovering ? 'Stop' : 'Running'
-      case 'completed':
+      case JobStatus.Failed:
+      case JobStatus.Completed:
         return 'Re-run'
-      case 'failed':
-        return 'Re-run'
+      case JobStatus.Registered:
+        return 'Remove'
       default:
         return asCronJob ? 'Schedule' : 'Run'
     }
@@ -30,11 +33,13 @@ export const JobControlButton = (props: {
 
   const buttonIcon = () => {
     switch (jobStatus) {
+      case JobStatus.Removed:
       case JobStatus.Failed:
         return <Icon data={refresh} />
       case JobStatus.Running:
+      case JobStatus.Registered:
         return <Icon data={stop} />
-      case JobStatus.Removed || JobStatus.NotStarted:
+      case JobStatus.NotStarted:
         return <Icon data={play} />
       default:
         return <Icon data={play} />
@@ -44,7 +49,10 @@ export const JobControlButton = (props: {
   return (
     <Button
       ref={buttonRef}
-      onClick={createJob}
+      onClick={() => {
+        if (exists) return remove()
+        createJob()
+      }}
       style={{ width: '7rem' }}
       disabled={disabled}
     >
