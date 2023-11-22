@@ -26,9 +26,6 @@ export const JobLogsDialog = (props: AboutDialogProps) => {
       width={'60vw'}
       style={{ maxHeight: '70vh' }}
     >
-      <Dialog.Header>
-        <Dialog.Title>Job logs</Dialog.Title>
-      </Dialog.Header>
       <Dialog.CustomContent style={{ overflow: 'auto' }}>
         <LogBlock
           title={error ? 'Error' : 'Logs'}

@@ -6,6 +6,7 @@ import {
   JobStatus,
   TJob,
   TJobHandler,
+  TRecurringJob,
   TSchedule,
   useDMSS,
   useDocument,
@@ -24,9 +25,9 @@ import { expand_screen, refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import { CreateRecurringJob } from './CronJob'
+import { ConfigureSchedule } from './CronJob'
 import { JobLogsDialog } from './JobLogsDialog'
-import { LogBlock } from './LogBlock'
+import { getNewJobDocument, scheduleTemplate } from './templateEntities'
 
 const JobButtonWrapper = styled.div`
   margin-top: 0.5rem;
@@ -35,15 +36,6 @@ const JobButtonWrapper = styled.div`
   align-items: center;
   gap: 8px;
   margin-bottom: 0.5rem;
-`
-
-const JobLogBox = styled.div`
-  padding: 1rem;
-  border-radius: 5px;
-  border: 1px solid lightgray;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 `
 
 interface ITargetAddress {
@@ -58,27 +50,16 @@ interface JobPluginConfig {
   runner: TJobHandler
   outputTarget: string
   jobInput: ITargetAddress
+  showGetResult?: boolean
 }
 
-export const JobPlugin = (
-  props: IUIPlugin & {
-    config: JobPluginConfig
-  }
-) => {
+export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   const {
     config,
     idReference,
-  }: {
-    config: JobPluginConfig
-    idReference: string
-  } = props
+  }: { config: JobPluginConfig; idReference: string } = props
   const DmssApi = useDMSS()
-  const emptyJob: TSchedule = {
-    type: EBlueprint.CRON_JOB,
-    cron: '0 8 * * *',
-    startDate: '',
-    endDate: '',
-  }
+
   const jobTargetAddress = useMemo((): string => {
     if ((config.jobTargetAddress.addressScope ?? 'local') !== 'local') {
       return config.jobTargetAddress.targetAddress
@@ -89,58 +70,43 @@ export const JobPlugin = (
     return idReference + config.jobTargetAddress.targetAddress
   }, [config])
 
-  const jobInputAddress = useMemo((): string => {
-    if ((config.jobInput.addressScope ?? 'local') !== 'local') {
-      return config.jobInput.targetAddress
-    }
-    if (['self', '.'].includes(config.jobInput.targetAddress)) {
-      return idReference
-    }
-    return idReference + config.jobInput.targetAddress
-  }, [config])
   const { tokenData } = useContext(AuthContext)
-  const username = tokenData?.preferred_username
+  const username = tokenData?.preferred_username ?? 'unknown user'
 
-  const [jobExists, setJobExists] = useState(false)
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const [asCronJob, setAsCronJob] = useState<boolean>(config.recurring ?? false)
-  const [jobSchedule, setJobSchedule] = useState<TSchedule>(emptyJob)
+  const [schedule, setSchedule] = useState<TSchedule>(scheduleTemplate())
   const [showLogs, setShowLogs] = useState(false)
-  const [showLogDialog, setShowLogDialog] = useState(false)
 
-  const canSubmit =
-    !asCronJob || Boolean(jobSchedule.startDate && jobSchedule.endDate)
+  const jobEntity: TJob | TRecurringJob = useMemo(
+    () =>
+      getNewJobDocument({
+        config,
+        username,
+        idReference,
+        asCronJob,
+        schedule,
+      }),
+    [asCronJob, schedule]
+  )
+
   const {
     document: jobDocument,
     isLoading,
     error: jobEntityError,
     updateDocument,
-  } = useDocument<TJob>(jobTargetAddress, 0, false)
+  } = useDocument<TJob | TRecurringJob>(jobTargetAddress, 0, false)
 
-  const { start, error, fetchResult, fetchStatusAndLogs, logs, status } =
-    useJob(jobTargetAddress, jobDocument?.uid)
-
-  const jobEntity: TJob = {
-    label: config?.label,
-    type: EBlueprint.JOB,
-    status: JobStatus.NotStarted,
-    triggeredBy: username ?? 'unknown user', // TODO: Add proper fallback
-    applicationInput: {
-      type: EBlueprint.REFERENCE,
-      referenceType: 'link',
-      address: jobInputAddress,
-    },
-    runner: config?.runner,
-  }
-
-  if (config?.outputTarget) jobEntity.outputTarget = config.outputTarget
-  if (asCronJob)
-    jobEntity.schedule = {
-      type: EBlueprint.CRON_JOB,
-      cron: jobSchedule.cron,
-      startDate: jobSchedule.startDate,
-      endDate: jobSchedule.endDate,
-    }
+  const {
+    start,
+    error,
+    fetchResult,
+    fetchStatusAndLogs,
+    logs,
+    status,
+    exists,
+    remove,
+  } = useJob(jobTargetAddress, jobDocument?.uid)
 
   const addDocument = async (): Promise<unknown> => {
     return DmssApi.documentAdd({
@@ -153,19 +119,19 @@ export const JobPlugin = (
 
   function createAndStartJob() {
     setResult(null)
-    if (jobExists) {
+    if (jobDocument) {
       updateDocument(jobEntity, false).then(() => start())
       return
     }
-    addDocument().then(() => {
-      start().then(() => setJobExists(true))
-    })
+    addDocument().then(() => start())
   }
 
   useEffect(() => {
     if (!jobDocument) return
-    if (Object.keys(jobDocument).length) setJobExists(true)
-    if (jobDocument.schedule) setJobSchedule(jobDocument.schedule)
+    if (asCronJob || jobDocument.type == EBlueprint.RECURRING_JOB)
+      // @ts-ignore
+      setSchedule(jobDocument?.schedule)
+    if (jobDocument.type == EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [isLoading, jobEntityError, jobDocument])
 
   const getVariant = (status: JobStatus) => {
@@ -191,19 +157,22 @@ export const JobPlugin = (
         />
       )}
       {asCronJob && (
-        <CreateRecurringJob
-          cronJob={jobSchedule}
-          close={() => setAsCronJob(false)}
-          removeJob={() => setJobSchedule(emptyJob)}
-          setCronJob={(e: TSchedule) => setJobSchedule(e)}
+        <ConfigureSchedule
+          schedule={schedule}
+          setSchedule={setSchedule}
+          isRegistered={
+            !!jobDocument && jobDocument?.status !== JobStatus.NotStarted
+          }
         />
       )}
       <JobButtonWrapper>
         <JobControlButton
           jobStatus={status}
           createJob={createAndStartJob}
+          remove={remove}
           asCronJob={asCronJob}
-          disabled={!canSubmit}
+          disabled={false}
+          exists={exists}
         />
         {status === JobStatus.Running && (
           <Button
@@ -214,57 +183,26 @@ export const JobPlugin = (
             <Icon data={refresh} />
           </Button>
         )}
-        <Button
-          onClick={() =>
-            fetchResult().then((res: GetJobResultResponse) => setResult(res))
-          }
-          variant={'outlined'}
-          disabled={status === JobStatus.NotStarted}
-        >
-          Get results
-        </Button>
+        {config.showGetResult && (
+          <Button
+            onClick={() =>
+              fetchResult().then((res: GetJobResultResponse) => setResult(res))
+            }
+            variant={'outlined'}
+            disabled={status !== JobStatus.Completed}
+          >
+            Get results
+          </Button>
+        )}
         <Button onClick={() => setShowLogs(!showLogs)} variant="ghost">
           {showLogs ? 'Hide' : 'Show'} logs
+          <Icon data={expand_screen} />
         </Button>
         <Chip variant={getVariant(status)}>{status}</Chip>
       </JobButtonWrapper>
-      {showLogs && (
-        <JobLogBox>
-          <div
-            style={{
-              position: 'relative',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '.5rem',
-            }}
-          >
-            <Button
-              variant="ghost_icon"
-              size={16}
-              label="Expand logs"
-              onClick={() => setShowLogDialog(true)}
-              style={{ position: 'absolute', right: 0, top: -8 }}
-            >
-              <Icon data={expand_screen} />
-            </Button>
-            <LogBlock
-              title="Logs"
-              content={error ?? logs}
-              style={{ maxWidth: '40rem', maxHeight: '20rem' }}
-            />
-            {result && (
-              <LogBlock
-                title="Result"
-                content={result}
-                style={{ maxWidth: '40rem', maxHeight: '20rem' }}
-              />
-            )}
-          </div>
-        </JobLogBox>
-      )}
       <JobLogsDialog
-        isOpen={showLogDialog}
-        setIsOpen={setShowLogDialog}
+        isOpen={showLogs}
+        setIsOpen={setShowLogs}
         logs={logs}
         error={error}
         result={result}

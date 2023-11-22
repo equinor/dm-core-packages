@@ -20,6 +20,7 @@ interface IUseJob {
   logs: string
   isLoading: boolean
   error: ErrorResponse | undefined
+  exists: boolean
 }
 
 /**
@@ -92,9 +93,11 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         // @ts-ignore
         .then((response: AxiosResponse<TJob>) => {
           if (response.data?.uid) {
-            // The job must be started before it has an UID
-            setHookJobId(response.data.uid)
             setStatus(response.data.status)
+            if (response.data.status !== JobStatus.Removed) {
+              // The job must be started before it has an UID
+              setHookJobId(response.data.uid)
+            }
           }
         })
         .catch((error: AxiosError<ErrorResponse>) => {
@@ -108,7 +111,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   // The interval is deregistered if the status of the job is not "Running"
   useEffect(() => {
     if (!hookJobId) return
-    statusIntervalId = setInterval(fetchStatusAndLogs, 2000)
+    statusIntervalId = setInterval(fetchStatusAndLogs, 5000)
     return () => clearInterval(statusIntervalId)
   }, [hookJobId])
 
@@ -161,7 +164,11 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     return dmJobApi
       .jobStatus({ jobUid: hookJobId })
       .then((response: AxiosResponse<StatusJobResponse>) => {
-        setLogs(response.data.log ?? '')
+        setLogs(
+          response.data.log ??
+            response.data.message ??
+            'No logs or status returned from job handler'
+        )
         if (response.data.status !== status) setStatus(response.data.status)
         if (
           ([JobStatus.Failed, JobStatus.Completed] as JobStatus[]).includes(
@@ -175,6 +182,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         setError(error.response?.data)
+        clearInterval(statusIntervalId)
         return null
       })
       .finally(() => setIsLoading(false))
@@ -232,5 +240,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     logs,
     isLoading,
     error,
+    exists: !!hookJobId,
   }
 }

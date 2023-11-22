@@ -16,6 +16,9 @@ export enum EBlueprint {
   ENUM = 'dmss://system/SIMOS/Enum',
   /** Path to the Job blueprint */
   JOB = 'dmss://WorkflowDS/Blueprints/Job',
+  RECURRING_JOB = 'dmss://WorkflowDS/Blueprints/RecurringJob',
+  RECURRING_JOB_HANDLER = 'dmss://WorkflowDS/Blueprints/RecurringJobHandler',
+
   CRON_JOB = 'dmss://WorkflowDS/Blueprints/CronJob',
   REFERENCE = 'dmss://system/SIMOS/Reference',
   FILE = 'dmss://system/SIMOS/File',

@@ -11,8 +11,6 @@ import Plot from 'react-plotly.js'
 const ESSPlotPlugin = (props: { document: TGenericObject }) => {
   const { document } = props
 
-  console.log(document)
-
   const yData = document.value
   const xData: number[] = []
 
