@@ -30,6 +30,15 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.19.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.19.0...dm-core-plugins-v1.19.1) (2023-11-22)
+
+
+### Bug Fixes
+
+* header not work ([a8888d4](https://github.com/equinor/dm-core-packages/commit/a8888d45cea3b731911c8be90ebba78a8e4080a1))
+* Rebase ([37d8115](https://github.com/equinor/dm-core-packages/commit/37d8115987222b8167d6f824b1e29459de623b91))
+* update tests with new menu button ([6767ab0](https://github.com/equinor/dm-core-packages/commit/6767ab07d335c8861ae58799f5127fb57f4085c0))
+
 ## [1.19.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.18.0...dm-core-plugins-v1.19.0) (2023-11-21)
 
 
