@@ -8,6 +8,8 @@ import {
 } from '@development-framework/dm-core'
 import React from 'react'
 
+import './index.css'
+
 function App() {
   const idReference: string = `${import.meta.env.VITE_DATA_SOURCE}/$${
     import.meta.env.VITE_APPLICATION_ID

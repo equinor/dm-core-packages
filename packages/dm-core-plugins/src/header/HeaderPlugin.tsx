@@ -148,13 +148,12 @@ export default (props: IUIPlugin): React.ReactElement => {
           marginBottom: '8px',
         }}
       >
-        <TopBar.Header style={{ position: 'relative' }}>
+        <TopBar.Header className="relative flex items-center bg-pink-400">
           <ClickableIcon
             ref={setAnchorEl}
             onClick={() => {
               setAppSelectorOpen(!appSelectorOpen)
             }}
-            style={{ paddingTop: '5px' }}
           >
             <Icon data={menu} size={32} title="Menu" />
           </ClickableIcon>
@@ -181,7 +180,7 @@ export default (props: IUIPlugin): React.ReactElement => {
               ))}
             </div>
           </Popover>
-          <h4 style={{ paddingLeft: 10 }}>{entity.label}</h4>
+          <h4 className="pl-1">{entity.label}</h4>
         </TopBar.Header>
         <TopBar.Actions>
           <Icons>

@@ -3,7 +3,8 @@
   "workspaces": [
     "example",
     "packages/dm-core",
-    "packages/dm-core-plugins"
+    "packages/dm-core-plugins",
+    "packages/configs"
   ],
   "scripts": {
     "start:example": "yarn workspace example start",
