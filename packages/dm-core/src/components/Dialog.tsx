@@ -13,6 +13,7 @@ Dialog.Header = styled(EdsDialog.Header)``
 Dialog.Title = styled(EdsDialog.Title)``
 Dialog.CustomContent = styled(EdsDialog.CustomContent)`
   flex-grow: 2;
+  min-height: auto;
 `
 Dialog.Actions = styled(EdsDialog.Actions)`
   display: flex;
