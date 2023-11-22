@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.16.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.15.0...dm-core-v1.16.0) (2023-11-22)
+
+
+### Features
+
+* **job:** create recurring job ([67f053b](https://github.com/equinor/dm-core-packages/commit/67f053b77438f2101102c52d1bbc7e05e8bac936))
+
+
+### Bug Fixes
+
+* **Dialog:** DialogActions float over content ([edf5460](https://github.com/equinor/dm-core-packages/commit/edf54602bb64692033a16f3039e893dd19b6834b))
+
 ## [1.15.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.14.0...dm-core-v1.15.0) (2023-11-21)
 
 
