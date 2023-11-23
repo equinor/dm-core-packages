@@ -8,24 +8,28 @@
       "attributeType": "string"
     },
     {
-      "name": "columns",
+      "name": "variant",
       "type": "CORE:BlueprintAttribute",
-      "description": "Name of primitive child attributes to display in header of item",
+      "description": "Define table variants. Initial variant will be decided by which variant is passed first. Variants are 'view' and 'edit'",
       "attributeType": "string",
       "optional": true,
       "default": [
-        "name",
-        "type"
-      ],
-      "dimensions": "*"
+        {
+          "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
+          "name": "view"
+        }
+      ]
     },
     {
-      "name": "editableColumns",
+      "name": "columns",
       "type": "CORE:BlueprintAttribute",
-      "description": "Name of column-headers that should have edit functionality if edit is activated. Array of strings.",
-      "attributeType": "string",
+      "description": "Name of primitive child attributes to display in header of item",
+      "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
       "optional": true,
-      "default": [],
+      "default": [
+        { "type": "./TableColumnConfig", "data": "name", "label": "Name" },
+        { "type": "./TableColumnConfig", "data": "type", "editable": false }
+      ],
       "dimensions": "*"
     },
     {
@@ -33,21 +37,6 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "CORE:ViewConfig",
       "optional": true
-    },
-    {
-      "name": "functionality",
-      "type": "CORE:BlueprintAttribute",
-      "description": "Table functionality config",
-      "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-      "optional": true,
-      "default": {
-        "type": "./TableFunctionalityConfig",
-        "openAsTab": true,
-        "openAsExpandable": false,
-        "delete": false,
-        "edit": false,
-        "sort": false
-      }
     }
   ]
 }
