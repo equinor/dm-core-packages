@@ -34,8 +34,6 @@ export const Sidebar = (props: {
                   }
                   label={config.label}
                   role="tab"
-                  onClick={() => setSelectedViewId(config.viewId)}
-                  active={selectedViewId === config.viewId}
                 >
                   {config.subItems.map((subConfig: TItemData, index) => {
                     const subViewId = config.viewId + subConfig.viewConfig.scope
