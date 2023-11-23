@@ -52,7 +52,11 @@ export const LogBlock = (props: LogBlockProps) => {
         </Typography>
       </div>
       <FormattedLogContainer style={style}>
-        <pre>{JSON.stringify(content, null, 2)}</pre>
+        {content.constructor === Array ? (
+          content.map((line) => <pre key={line}>{line}</pre>)
+        ) : (
+          <pre>{JSON.stringify(content, null, 2)}</pre>
+        )}
       </FormattedLogContainer>
     </>
   )
