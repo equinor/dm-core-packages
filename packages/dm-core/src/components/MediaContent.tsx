@@ -67,7 +67,13 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         />
       )
     } else {
-      return <iframe src={blobUrl} style={{ width: '100%', height: 'auto' }} />
+      return (
+        <iframe
+          src={blobUrl}
+          style={{ width: '100%', height: 'auto' }}
+          role="document"
+        />
+      )
     }
   }
 
@@ -82,7 +88,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             aria-expanded={showMeta}
             ref={referenceElement}
           >
-            <Icon data={info_circle} />
+            <Icon data={info_circle} title="view meta info" />
           </MetaPopoverButton>
         )}
         {renderMediaElement(meta.filetype)}
@@ -91,6 +97,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         open={showMeta}
         anchorEl={referenceElement.current}
         onClose={() => setShowMeta(false)}
+        role="dialog"
       >
         <Popover.Header>
           <Popover.Title>Meta</Popover.Title>
