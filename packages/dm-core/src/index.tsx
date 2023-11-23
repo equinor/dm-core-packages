@@ -1,3 +1,5 @@
+import '../build.css'
+
 export * from './hooks'
 
 export { AuthContext, AuthProvider } from 'react-oauth2-code-pkce'
