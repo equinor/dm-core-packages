@@ -1,0 +1,55 @@
+{
+  "name": "TableColumnConfig",
+  "type": "CORE:Blueprint",
+  "description": "In addition to adding columns that extract fields from data, you can also pass predefined fields like ^tab and ^expandable as data name to add predefined functionality to your table. The order of columns you pass is the order it will be printed in.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "data",
+      "description": "Name of field you want to extract from data object",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "dataType",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": "string"
+    },
+    {
+      "name": "presentAs",
+      "description": "If dataType is of type boolean. Available values: checkbox, text",
+      "attributeType": "string",
+      "type": "CORE:BlueprintAttribute",
+      "default": "checkbox",
+      "optional": true
+    },
+    {
+      "name": "label",
+      "description": "Column label. Label will be name of data field by default",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "editable",
+      "description": "Should data be editable in table edit mode.",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    },
+    {
+      "name": "sortable",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    }
+  ]
+}

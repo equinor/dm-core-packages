@@ -8,20 +8,6 @@
       "attributeType": "string"
     },
     {
-      "name": "openAsTab",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true,
-      "default": true
-    },
-    {
-      "name": "openAsExpandable",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true,
-      "default": false
-    },
-    {
       "name": "delete",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
@@ -30,20 +16,6 @@
     },
     {
       "name": "add",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true,
-      "default": false
-    },
-    {
-      "name": "edit",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true,
-      "default": false
-    },
-    {
-      "name": "sort",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
       "optional": true,
