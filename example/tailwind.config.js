@@ -11,6 +11,7 @@ module.exports = {
       colors: {
         current: 'currentColor',
         'equinor-green': '#007079',
+        'equinor-green-light': 'rgba(230, 250, 236, 1)',
       },
     },
   },
