@@ -89,13 +89,7 @@
       "plugin": "@development-framework/dm-core-plugins/form",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "fields": [
-          "name",
-          "description",
-          "duration",
-          "timeStep",
-          "components"
-        ]
+        "fields": ["name", "description", "duration", "timeStep", "components"]
       }
     },
     {
@@ -122,26 +116,40 @@
       }
     },
     {
-      "name": "List",
+      "name": "Table",
       "type": "CORE:UiRecipe",
       "plugin": "@development-framework/dm-core-plugins/table",
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+        "variant": [
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
+            "name": "view"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
+            "name": "edit"
+          }
+        ],
         "columns": [
-          "name",
-          "description"
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "^expandable"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "name"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "description"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "^tab"
+          }
         ],
-        "editableColumns": [
-          "name"
-        ],
-        "functionality": {
-          "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-          "delete": true,
-          "sort": true,
-          "add": true,
-          "edit": true
-        },
         "expandableRecipeViewConfig": {
           "type": "CORE:InlineRecipeViewConfig",
           "scope": "self",
