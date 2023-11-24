@@ -17,7 +17,8 @@ interface IUseJob {
   status: JobStatus
   remove: () => Promise<string | null>
   fetchResult: () => any // TODO: Type set this return value
-  logs: string
+  logs: string[]
+  progress: GLfloat
   isLoading: boolean
   error: ErrorResponse | undefined
   exists: boolean
@@ -75,7 +76,8 @@ interface IUseJob {
  */
 export function useJob(entityId?: string, jobId?: string): IUseJob {
   const [hookJobId, setHookJobId] = useState<string | undefined>(jobId)
-  const [logs, setLogs] = useState<string>('No logs fetched')
+  const [logs, setLogs] = useState<string[]>(['No logs fetched'])
+  const [progress, setProgress] = useState<GLfloat>(0.0)
   const [status, setStatus] = useState<JobStatus>(JobStatus.Unknown)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse>()
@@ -110,6 +112,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   // When hookJobId changes, we register an interval to check status.
   // The interval is deregistered if the status of the job is not "Running"
   useEffect(() => {
+    console.log(hookJobId)
     if (!hookJobId) return
     statusIntervalId = setInterval(fetchStatusAndLogs, 5000)
     return () => clearInterval(statusIntervalId)
@@ -131,7 +134,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .startJob({ jobDmssId: entityId })
       .then((response: AxiosResponse<StartJobResponse>) => {
         setHookJobId(response.data.uid)
-        setLogs(response.data.message)
+        setLogs([response.data.message])
         setError(undefined)
         setStatus(JobStatus.Running)
         return response.data
@@ -149,25 +152,25 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   async function fetchStatusAndLogs(): Promise<StatusJobResponse | null> {
     if (!hookJobId) {
       clearInterval(statusIntervalId)
-      const message = 'The job has not been started'
-      setLogs(message)
+      const log = ['The job has not been started']
+      setLogs(log)
       setStatus(JobStatus.NotStarted)
       return Promise.resolve({
         status: JobStatus.NotStarted,
-        log: message,
-        message: message,
+        log: log,
+        percentage: 0.0,
       })
     }
 
     setIsLoading(true)
-
     return dmJobApi
       .jobStatus({ jobUid: hookJobId })
       .then((response: AxiosResponse<StatusJobResponse>) => {
+        if (response.data.percentage) {
+          setProgress(response.data.percentage)
+        }
         setLogs(
-          response.data.log ??
-            response.data.message ??
-            'No logs or status returned from job handler'
+          response.data.log ?? ['No logs or status returned from job handler']
         )
         if (response.data.status !== status) setStatus(response.data.status)
         if (
@@ -209,6 +212,8 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .finally(() => {
         setError(undefined)
         setIsLoading(false)
+        setLogs([])
+        setProgress(0.0)
       })
   }
 
@@ -238,6 +243,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
     remove,
     fetchResult,
     logs,
+    progress,
     isLoading,
     error,
     exists: !!hookJobId,

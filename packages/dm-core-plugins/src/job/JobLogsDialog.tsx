@@ -10,7 +10,7 @@ import { LogBlock } from './LogBlock'
 type AboutDialogProps = {
   isOpen: boolean
   setIsOpen: (newValue: boolean) => void
-  logs: string
+  logs: string[]
   error: ErrorResponse | undefined
   result: GetJobResultResponse | null
 }

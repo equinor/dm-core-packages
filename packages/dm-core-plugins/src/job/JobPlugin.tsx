@@ -19,7 +19,13 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { Button, Chip, Icon, Switch } from '@equinor/eds-core-react'
+import {
+  Button,
+  Chip,
+  Icon,
+  LinearProgress,
+  Switch,
+} from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
 import { expand_screen, refresh } from '@equinor/eds-icons'
 import styled from 'styled-components'
@@ -103,6 +109,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     fetchResult,
     fetchStatusAndLogs,
     logs,
+    progress,
     status,
     exists,
     remove,
@@ -200,6 +207,14 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         </Button>
         <Chip variant={getVariant(status)}>{status}</Chip>
       </JobButtonWrapper>
+      <div style={{ display: 'flex', alignItems: 'center', width: '50%' }}>
+        <LinearProgress
+          aria-label="Progress bar label"
+          value={progress * 100}
+          variant="determinate"
+        />
+        <pre>{progress * 100}</pre>
+      </div>
       <JobLogsDialog
         isOpen={showLogs}
         setIsOpen={setShowLogs}

@@ -13,24 +13,35 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { JobStatus } from './job-status';
 
 /**
  * 
  * @export
- * @interface GetJobResultResponse
+ * @interface Progress
  */
-export interface GetJobResultResponse {
+export interface Progress {
     /**
      * 
-     * @type {string}
-     * @memberof GetJobResultResponse
+     * @type {number}
+     * @memberof Progress
      */
-    'message': string;
+    'percentage'?: number;
     /**
      * 
-     * @type {string}
-     * @memberof GetJobResultResponse
+     * @type {Array<string>}
+     * @memberof Progress
      */
-    'result': string;
+    'logs'?: Array<string>;
+    /**
+     * 
+     * @type {JobStatus}
+     * @memberof Progress
+     */
+    'status'?: JobStatus;
 }
+
+
 
