@@ -21,12 +21,12 @@
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
                 "variant": [
                   {
-                    "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
-                    "name": "view"
+                    "name": "view",
+                    "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
                   },
                   {
-                    "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
-                    "name": "edit"
+                    "name": "edit",
+                    "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
                   }
                 ],
                 "columns": [

@@ -10,8 +10,8 @@
     },
     {
       "name": "data",
-      "description": "Name of field you want to extract from data object",
       "type": "CORE:BlueprintAttribute",
+      "description": "Name of field you want to extract from data object",
       "attributeType": "string"
     },
     {
@@ -23,23 +23,23 @@
     },
     {
       "name": "presentAs",
+      "type": "CORE:BlueprintAttribute",
       "description": "If dataType is of type boolean. Available values: checkbox, text",
       "attributeType": "string",
-      "type": "CORE:BlueprintAttribute",
       "default": "checkbox",
       "optional": true
     },
     {
       "name": "label",
-      "description": "Column label. Label will be name of data field by default",
       "type": "CORE:BlueprintAttribute",
+      "description": "Column label. Label will be name of data field by default",
       "attributeType": "string",
       "optional": true
     },
     {
       "name": "editable",
-      "description": "Should data be editable in table edit mode.",
       "type": "CORE:BlueprintAttribute",
+      "description": "Should data be editable in table edit mode.",
       "attributeType": "boolean",
       "optional": true,
       "default": true
