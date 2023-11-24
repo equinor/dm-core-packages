@@ -15,8 +15,8 @@
       "optional": true,
       "default": [
         {
-          "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
-          "name": "view"
+          "name": "view",
+          "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
         }
       ]
     },
@@ -27,8 +27,16 @@
       "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
       "optional": true,
       "default": [
-        { "type": "./TableColumnConfig", "data": "name", "label": "Name" },
-        { "type": "./TableColumnConfig", "data": "type", "editable": false }
+        {
+          "type": "./TableColumnConfig",
+          "data": "name",
+          "label": "Name"
+        },
+        {
+          "type": "./TableColumnConfig",
+          "data": "type",
+          "editable": false
+        }
       ],
       "dimensions": "*"
     },

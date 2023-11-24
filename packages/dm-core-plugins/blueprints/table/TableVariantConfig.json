@@ -10,14 +10,14 @@
     {
       "name": "name",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "description": "Available variants: view, edit"
+      "description": "Available variants: view, edit",
+      "attributeType": "string"
     },
     {
       "name": "density",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
       "description": "Available values: compact, comfortable",
+      "attributeType": "string",
       "default": "compact",
       "optional": true
     },
