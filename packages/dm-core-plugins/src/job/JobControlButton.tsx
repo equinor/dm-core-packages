@@ -50,7 +50,9 @@ export const JobControlButton = (props: {
     <Button
       ref={buttonRef}
       onClick={() => {
-        if (exists) return remove()
+        if (exists) {
+          remove()
+        }
         createJob()
       }}
       style={{ width: '7rem' }}

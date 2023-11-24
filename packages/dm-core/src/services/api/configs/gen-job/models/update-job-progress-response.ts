@@ -14,5 +14,17 @@
 
 
 
-export * from './api/dmjobs-api';
+/**
+ * 
+ * @export
+ * @interface UpdateJobProgressResponse
+ */
+export interface UpdateJobProgressResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateJobProgressResponse
+     */
+    'result': string;
+}
 
