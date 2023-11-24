@@ -13,3 +13,6 @@ venv
 .DS_Store
 __pycache__
 *.pyc
+
+packages/dm-core/build.css
+packages/dm-core-plugins/build.css
