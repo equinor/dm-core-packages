@@ -13,6 +13,7 @@ export const StringField = (props: TStringFieldProps) => {
     readOnly,
     leftAdornments,
     rightAdornments,
+    attribute,
   } = props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
 
@@ -29,6 +30,7 @@ export const StringField = (props: TStringFieldProps) => {
       }) => {
         return (
           <Widget
+            enumType={attribute.enumType || undefined}
             isDirty={value !== null ? isDirty : false}
             readOnly={readOnly}
             {...props}
@@ -46,6 +48,7 @@ export const StringField = (props: TStringFieldProps) => {
                   ? uiAttribute.format
                   : 'string',
             }}
+            widgetConfig={uiAttribute?.widgetConfig}
           />
         )
       }}

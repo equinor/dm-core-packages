@@ -48,6 +48,8 @@ export type TArrayFieldProps = {
   dimensions: string | undefined
   readOnly?: boolean
   showExpanded?: boolean
+  attribute: TAttribute
+  widgetConfig?: any
 }
 
 export type TAttributeFieldProps = {
@@ -70,6 +72,8 @@ export type TStringFieldProps = {
   format?: 'string' | 'date' | 'datetime'
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string
+  attribute: TAttribute
+  widgetConfig?: any
 }
 
 export type TNumberFieldProps = {
@@ -97,6 +101,7 @@ type TAttributeBasis = {
   name: string
   type: string
   showInline?: boolean
+  widgetConfig?: any
 }
 type TAttributeString = TAttributeBasis & {
   widget: string
@@ -106,6 +111,7 @@ type TAttributeArray = TAttributeBasis & {
   widget?: string
   uiRecipe?: string
   showExpanded?: boolean
+  widgetConfig?: any
 }
 type TAttributeObject = TAttributeBasis & {
   widget?: string
@@ -121,6 +127,7 @@ export type TConfig = {
   fields: string[]
   readOnly?: boolean
   showExpanded?: boolean
+  widgetConfig?: any
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & {
@@ -144,6 +151,8 @@ export type TWidget = {
   rightAdornments?: React.ReactElement | string
   style?: any
   isDirty?: boolean
+  enumType?: any
+  widgetConfig?: any
 }
 
 export type TWidgets = {

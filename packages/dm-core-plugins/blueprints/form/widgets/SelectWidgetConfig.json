@@ -1,0 +1,19 @@
+{
+  "name": "SelectWidgetConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": false,
+      "attributeType": "string"
+    },
+    {
+      "name": "multiline",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true,
+      "default": false,
+      "attributeType": "boolean"
+    }
+  ]
+}

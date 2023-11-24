@@ -59,6 +59,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           defaultValue={attribute.default}
           optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
+          attribute={attribute}
         />
       )
 
@@ -88,6 +89,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           dimensions={attribute.dimensions}
           readOnly={readOnly}
           showExpanded={showExpanded}
+          attribute={attribute}
         />
       )
     case 'string':
@@ -102,6 +104,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           readOnly={readOnly}
           leftAdornments={leftAdornments}
           rightAdornments={rightAdornments}
+          attribute={attribute}
         />
       )
     case 'boolean':

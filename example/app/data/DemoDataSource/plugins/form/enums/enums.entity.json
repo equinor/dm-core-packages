@@ -1,0 +1,8 @@
+{
+  "_id": "StringEnums",
+  "type": "./blueprints/Enums",
+  "singleString": "option2",
+  "manyStrings": [
+    "option3"
+  ]
+}

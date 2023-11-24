@@ -22,6 +22,7 @@ import { isPrimitive } from '../utils'
 import { AttributeField } from './AttributeField'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
+import { getWidget } from '../context/WidgetContext'
 
 const isPrimitiveType = (value: string): boolean => {
   return ['string', 'number', 'integer', 'boolean'].includes(value)
@@ -221,11 +222,29 @@ const OpenList = (props: TArrayFieldProps) => {
 }
 
 export default function ArrayField(props: TArrayFieldProps) {
-  const { type, uiAttribute } = props
+  const { type, uiAttribute, namePath, attribute, displayLabel } = props
 
   const { onOpen } = useRegistryContext()
 
-  if (isPrimitiveType(type)) return <PrimitiveList {...props} />
+  if (isPrimitiveType(type)) {
+    const { getValues, setValue } = useFormContext()
+    const value = getValues(namePath)
+    const Widget =
+      uiAttribute && uiAttribute.widget
+        ? getWidget(uiAttribute.widget)
+        : PrimitiveList
+    return (
+      <Widget
+        id={namePath}
+        label={displayLabel}
+        onChange={(values) => setValue(namePath, values)}
+        widgetConfig={uiAttribute?.widgetConfig}
+        enumType={attribute.enumType || undefined}
+        value={value}
+        {...props}
+      />
+    )
+  }
 
   if (onOpen && !uiAttribute?.showInline) {
     return <OpenList {...props} />
