@@ -231,6 +231,7 @@ export default function ArrayField(props: TArrayFieldProps) {
       uiAttribute && uiAttribute.widget
         ? getWidget(uiAttribute.widget)
         : PrimitiveList
+
     return (
       <Widget
         id={namePath}

@@ -18,7 +18,6 @@ import { AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import TooltipButton from '../../common/TooltipButton'
-import { defaultConfig } from '../FormPlugin'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
@@ -26,6 +25,7 @@ import { Fieldset, Legend } from '../styles'
 import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
+import { defaultConfig } from '../components/Form'
 
 const SelectReference = (props: {
   attributeType: string
