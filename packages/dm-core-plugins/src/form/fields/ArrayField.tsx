@@ -29,14 +29,7 @@ const isPrimitiveType = (value: string): boolean => {
 }
 
 const InlineList = (props: TArrayFieldProps) => {
-  const {
-    namePath,
-    displayLabel,
-    type,
-    uiAttribute,
-    dimensions,
-    showExpanded,
-  } = props
+  const { namePath, displayLabel, uiAttribute, showExpanded, attribute } = props
   const { idReference, onOpen } = useRegistryContext()
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
@@ -59,9 +52,9 @@ const InlineList = (props: TArrayFieldProps) => {
         <EntityView
           recipeName={uiRecipeName}
           idReference={`${idReference}.${namePath}`}
-          type={type}
+          type={attribute.attributeType}
           onOpen={onOpen}
-          dimensions={dimensions}
+          dimensions={attribute.dimensions}
         />
       )}
     </Fieldset>
@@ -69,8 +62,14 @@ const InlineList = (props: TArrayFieldProps) => {
 }
 
 const PrimitiveList = (props: TArrayFieldProps) => {
-  const { namePath, displayLabel, type, readOnly, uiAttribute, showExpanded } =
-    props
+  const {
+    namePath,
+    displayLabel,
+    attribute,
+    readOnly,
+    uiAttribute,
+    showExpanded,
+  } = props
 
   const { control } = useFormContext()
   const [isExpanded, setIsExpanded] = useState(
@@ -101,11 +100,11 @@ const PrimitiveList = (props: TArrayFieldProps) => {
             title="Add"
             button-variant="ghost_icon"
             button-onClick={() => {
-              if (type === 'boolean') {
+              if (attribute.attributeType === 'boolean') {
                 append(true)
                 return
               }
-              append(isPrimitive(type) ? ' ' : {})
+              append(isPrimitive(attribute.attributeType) ? ' ' : {})
             }}
             icon={add}
           />
@@ -139,7 +138,7 @@ const PrimitiveList = (props: TArrayFieldProps) => {
                     <AttributeField
                       namePath={`${namePath}.${pagedIndex}`}
                       attribute={{
-                        attributeType: type,
+                        attributeType: attribute.attributeType,
                         dimensions: '',
                         name: '',
                         type: EBlueprint.ATTRIBUTE,
@@ -178,7 +177,7 @@ const PrimitiveList = (props: TArrayFieldProps) => {
 }
 
 const OpenList = (props: TArrayFieldProps) => {
-  const { namePath, displayLabel, type, uiAttribute, readOnly } = props
+  const { namePath, displayLabel, attribute, uiAttribute, readOnly } = props
 
   const { getValues, setValue } = useFormContext()
   const [initialValue, setInitialValue] = useState(getValues(namePath))
@@ -201,7 +200,7 @@ const OpenList = (props: TArrayFieldProps) => {
           ) : (
             <AddObject
               namePath={namePath}
-              type={type}
+              type={attribute.attributeType}
               defaultValue={[]}
               onAdd={() => setInitialValue([])}
             />
@@ -222,11 +221,11 @@ const OpenList = (props: TArrayFieldProps) => {
 }
 
 export default function ArrayField(props: TArrayFieldProps) {
-  const { type, uiAttribute, namePath, attribute, displayLabel } = props
+  const { uiAttribute, namePath, attribute, displayLabel } = props
 
   const { onOpen } = useRegistryContext()
 
-  if (isPrimitiveType(type)) {
+  if (isPrimitiveType(attribute.attributeType)) {
     const { getValues, setValue } = useFormContext()
     const value = getValues(namePath)
     const Widget =
@@ -238,7 +237,7 @@ export default function ArrayField(props: TArrayFieldProps) {
         id={namePath}
         label={displayLabel}
         onChange={(values) => setValue(namePath, values)}
-        widgetConfig={uiAttribute?.widgetConfig}
+        config={uiAttribute?.config}
         enumType={attribute.enumType || undefined}
         value={value}
         {...props}

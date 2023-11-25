@@ -12,11 +12,13 @@ type TOption = {
 }
 
 const SelectWidget = (props: TWidget) => {
-  const { label, onChange, isDirty, enumType, widgetConfig } = props
+  const { label, onChange, isDirty, enumType, config } = props
 
   const { document, isLoading } = useDocument<TEnum>(enumType)
 
-  const isMultiselect = widgetConfig && widgetConfig.multiline
+  if (isLoading) return <></>
+
+  const isMultiselect = config && config.multiline
 
   const onChangeHandler = (value: AutocompleteChanges<TOption>) => {
     if (isMultiselect) {
@@ -47,7 +49,6 @@ const SelectWidget = (props: TWidget) => {
       loading={isLoading}
       readOnly={props.readOnly}
       initialSelectedOptions={initialSelectedOptions}
-      onClick={props.onClick}
       inputRef={props.inputRef}
       variant={props.variant}
       helperText={props.helperText}

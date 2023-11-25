@@ -56,8 +56,6 @@ export const AttributeField = (props: TAttributeFieldProps) => {
         <BinaryField
           namePath={namePath}
           displayLabel={displayLabel}
-          defaultValue={attribute.default}
-          optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
           attribute={attribute}
         />
@@ -69,13 +67,10 @@ export const AttributeField = (props: TAttributeFieldProps) => {
         <ObjectField
           namePath={namePath}
           displayLabel={displayLabel}
-          contained={attribute.contained ?? true}
-          type={attribute.attributeType}
-          optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
-          defaultValue={attribute.default}
           readOnly={readOnly}
           showExpanded={showExpanded}
+          attribute={attribute}
         />
       )
 
@@ -84,9 +79,7 @@ export const AttributeField = (props: TAttributeFieldProps) => {
         <ArrayField
           namePath={namePath}
           displayLabel={displayLabel}
-          type={attribute.attributeType}
           uiAttribute={uiAttribute}
-          dimensions={attribute.dimensions}
           readOnly={readOnly}
           showExpanded={showExpanded}
           attribute={attribute}
@@ -98,8 +91,6 @@ export const AttributeField = (props: TAttributeFieldProps) => {
         <StringField
           namePath={namePath}
           displayLabel={displayLabel}
-          defaultValue={attribute.default}
-          optional={attribute.optional ?? false}
           uiAttribute={uiAttribute}
           readOnly={readOnly}
           leftAdornments={leftAdornments}
@@ -112,11 +103,11 @@ export const AttributeField = (props: TAttributeFieldProps) => {
         <BooleanField
           namePath={namePath}
           displayLabel={displayLabel}
-          defaultValue={attribute.default}
           uiAttribute={uiAttribute}
           readOnly={readOnly}
           leftAdornments={leftAdornments}
           rightAdornments={rightAdornments}
+          attribute={attribute}
         />
       )
     case 'integer':
@@ -126,11 +117,10 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           uiAttribute={uiAttribute}
-          defaultValue={attribute.default}
-          optional={attribute.optional ?? false}
           readOnly={readOnly}
           leftAdornments={leftAdornments}
           rightAdornments={rightAdornments}
+          attribute={attribute}
         />
       )
     default:

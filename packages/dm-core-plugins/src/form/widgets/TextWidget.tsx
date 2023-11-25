@@ -35,7 +35,6 @@ const TextWidget = (props: TWidget) => {
       //@ts-ignore
       leftAdornments={leftAdornments}
       rightAdornments={rightAdornments}
-      onClick={props.onClick}
       inputRef={props.inputRef}
       variant={props.variant}
       helperText={props.helperText}

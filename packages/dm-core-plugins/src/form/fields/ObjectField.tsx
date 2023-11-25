@@ -7,7 +7,6 @@ import {
   Loading,
   resolveRelativeAddress,
   splitAddress,
-  TBlueprint,
   TLinkReference,
   useBlueprint,
   useDMSS,
@@ -24,16 +23,14 @@ import { OpenObjectButton } from '../components/OpenObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { Fieldset, Legend } from '../styles'
-import {
-  TAttributeConfig,
-  TContentProps,
-  TObjectFieldProps,
-  TUiRecipeForm,
-} from '../types'
+import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
 
-const SelectReference = (props: { type: string; namePath: string }) => {
+const SelectReference = (props: {
+  attributeType: string
+  namePath: string
+}) => {
   const [showModal, setShowModal] = useState<boolean>(false)
   const { setValue, watch } = useFormContext()
   const dmssAPI = useDMSS()
@@ -81,7 +78,7 @@ const SelectReference = (props: { type: string; namePath: string }) => {
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
         onChange={onChange}
-        typeFilter={props.type}
+        typeFilter={props.attributeType}
         showModal={showModal}
         setShowModal={setShowModal}
       />
@@ -89,25 +86,9 @@ const SelectReference = (props: { type: string; namePath: string }) => {
   )
 }
 
-export const StorageUncontainedAttribute = (props: {
-  type: string
-  namePath: string
-  displayLabel: string
-  optional: boolean
-  blueprint: TBlueprint
-  uiRecipe?: TUiRecipeForm
-  readOnly?: boolean
-  uiAttribute?: TAttributeConfig
-}) => {
-  const {
-    namePath,
-    uiRecipe,
-    displayLabel,
-    optional,
-    type,
-    readOnly,
-    uiAttribute,
-  } = props
+export const StorageUncontainedAttribute = (props: TContentProps) => {
+  const { namePath, uiRecipe, displayLabel, attribute, readOnly, uiAttribute } =
+    props
   const { watch, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const { dataSource, documentPath } = splitAddress(idReference)
@@ -128,8 +109,13 @@ export const StorageUncontainedAttribute = (props: {
     <Fieldset>
       <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
-        {!readOnly && <SelectReference type={type} namePath={namePath} />}
-        {optional && address && !readOnly && (
+        {!readOnly && (
+          <SelectReference
+            attributeType={attribute.attributeType}
+            namePath={namePath}
+          />
+        )}
+        {attribute.optional && address && !readOnly && (
           <RemoveObject address={address} namePath={namePath} />
         )}
         {address && onOpen && !uiAttribute?.showInline && (
@@ -147,7 +133,7 @@ export const StorageUncontainedAttribute = (props: {
       {address && !(onOpen && !uiAttribute?.showInline) && (
         <EntityView
           idReference={address}
-          type={type}
+          type={attribute.attributeType}
           recipeName={uiRecipe?.name}
           onOpen={onOpen}
         />
@@ -160,15 +146,13 @@ export const ContainedAttribute = (
   props: TContentProps
 ): React.ReactElement => {
   const {
-    type,
     namePath,
     displayLabel = '',
-    optional = false,
     uiAttribute,
     uiRecipe,
-    defaultValue,
     readOnly,
     showExpanded,
+    attribute,
   } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
@@ -183,15 +167,15 @@ export const ContainedAttribute = (
     <Fieldset>
       <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
-        {optional &&
+        {attribute.optional &&
           !readOnly &&
           (isDefined ? (
             <RemoveObject namePath={namePath} />
           ) : (
             <AddObject
               namePath={namePath}
-              type={type}
-              defaultValue={defaultValue}
+              type={attribute.attributeType}
+              defaultValue={attribute.default}
             />
           ))}
         {isDefined && !(onOpen && !uiAttribute?.showInline) && (
@@ -218,7 +202,7 @@ export const ContainedAttribute = (
         <EntityView
           recipeName={uiRecipe.name}
           idReference={`${idReference}.${namePath}`}
-          type={type}
+          type={attribute.attributeType}
           onOpen={onOpen}
         />
       )}
@@ -230,14 +214,13 @@ export const UncontainedAttribute = (
   props: TContentProps
 ): React.ReactElement => {
   const {
-    type,
     namePath,
     displayLabel,
     uiAttribute,
     uiRecipe,
-    optional,
     readOnly,
     showExpanded,
+    attribute,
   } = props
   const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
@@ -256,8 +239,13 @@ export const UncontainedAttribute = (
     <Fieldset>
       <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
-        {!readOnly && <SelectReference type={type} namePath={namePath} />}
-        {optional && address && !readOnly && (
+        {!readOnly && (
+          <SelectReference
+            attributeType={attribute.attributeType}
+            namePath={namePath}
+          />
+        )}
+        {attribute.optional && address && !readOnly && (
           <RemoveObject namePath={namePath} />
         )}
         {address && !(onOpen && !uiAttribute?.showInline) && (
@@ -283,7 +271,7 @@ export const UncontainedAttribute = (
       {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
         <EntityView
           idReference={address}
-          type={type}
+          type={attribute.attributeType}
           recipeName={uiRecipe?.name}
           onOpen={onOpen}
         />
@@ -293,7 +281,7 @@ export const UncontainedAttribute = (
 }
 
 export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
-  const { type, namePath, uiAttribute, displayLabel, defaultValue } = props
+  const { namePath, uiAttribute, displayLabel, attribute } = props
   const { getValues } = useFormContext()
 
   // Be able to override the object field
@@ -313,8 +301,9 @@ export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
       onChange={() => null}
       id={valuesIsStorageReference ? values['address'] : namePath}
       label={displayLabel}
-      type={type === 'object' && values ? values.type : type}
-      defaultValue={defaultValue}
+      //type={attribute.type === 'object' && values ? values.type : type}
+      //defaultValue={defaultValue}
+      attribute={attribute}
     />
   )
 }
@@ -323,21 +312,23 @@ export const ObjectTypeSelector = (
   props: TObjectFieldProps
 ): React.ReactElement => {
   const {
-    type,
     namePath,
     displayLabel,
-    optional,
-    contained,
     uiAttribute,
-    defaultValue,
+    attribute,
     readOnly,
     showExpanded,
   } = props
-  const { blueprint, uiRecipes, isLoading, error } = useBlueprint(type)
+  const { blueprint, uiRecipes, isLoading, error } = useBlueprint(
+    attribute.attributeType
+  )
   const { watch } = useFormContext()
   const value = watch(namePath)
   if (isLoading) return <Loading />
-  if (error) throw new Error(`Failed to fetch blueprint for '${type}'`)
+  if (error)
+    throw new Error(
+      `Failed to fetch blueprint for '${attribute.attributeType}'`
+    )
   if (blueprint === undefined) return <div>Could not find the blueprint</div>
   const attributeIsStorageReference =
     value !== undefined &&
@@ -362,24 +353,23 @@ export const ObjectTypeSelector = (
 
   if (!uiRecipe)
     throw new Error(
-      `No UiRecipe named "${uiRecipeName}" could be found for type "${type}"`
+      `No UiRecipe named "${uiRecipeName}" could be found for type "${attribute.attributeType}"`
     )
+
   const Content = attributeIsStorageReference
     ? StorageUncontainedAttribute
-    : contained
+    : attribute.contained ?? true
     ? ContainedAttribute
     : UncontainedAttribute
 
   return (
     <Content
-      type={type}
+      attribute={attribute}
       namePath={namePath}
       displayLabel={displayLabel}
-      optional={optional}
       blueprint={blueprint}
       uiRecipe={uiRecipe}
       uiAttribute={uiAttribute}
-      defaultValue={defaultValue}
       readOnly={readOnly}
       showExpanded={showExpanded}
     />
