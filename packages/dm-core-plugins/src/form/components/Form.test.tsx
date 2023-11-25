@@ -76,6 +76,7 @@ describe('Form', () => {
       ])
       const formData = {
         child: {
+          type: 'Child',
           bar: '',
         },
       }

@@ -24,7 +24,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
       'CaptainJackSparrow'
     )
     await expect(
-      page.getByTestId('form-text-widget-Phone Number (optional)')
+      page.getByTestId('form-number-widget-Phone Number (optional)')
     ).toBeEmpty()
     await page.getByLabel('Close captain').click()
   })
@@ -66,7 +66,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
       'Barbossa'
     )
     await expect(
-      page.getByTestId('form-text-widget-Phone Number (optional)')
+      page.getByTestId('form-number-widget-Phone Number (optional)')
     ).toHaveValue('12345678')
   })
 })

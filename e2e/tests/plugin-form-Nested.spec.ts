@@ -35,7 +35,7 @@ test('Change owner', async () => {
     .fill('Jacob')
   await page
     .getByRole('tabpanel')
-    .getByTestId('form-text-widget-Phone Number (optional)')
+    .getByTestId('form-number-widget-Phone Number (optional)')
     .fill('1234')
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -48,7 +48,7 @@ test('Change owner', async () => {
   await expect(
     page
       .getByRole('tabpanel')
-      .getByTestId('form-text-widget-Phone Number (optional)')
+      .getByTestId('form-number-widget-Phone Number (optional)')
   ).toHaveValue('1234')
 })
 
@@ -64,7 +64,7 @@ test('Hiring a CEO', async () => {
     .fill('Donald')
   await page
     .getByRole('tabpanel')
-    .getByTestId('form-text-widget-Phone Number (optional)')
+    .getByTestId('form-number-widget-Phone Number (optional)')
     .fill('99887766')
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -78,7 +78,7 @@ test('Hiring a CEO', async () => {
   await expect(
     page
       .getByRole('tabpanel')
-      .getByTestId('form-text-widget-Phone Number (optional)')
+      .getByTestId('form-number-widget-Phone Number (optional)')
   ).toHaveValue('99887766')
   await page.getByLabel('Close ceo').click()
   await page
@@ -106,7 +106,7 @@ test('Adding a trainee', async () => {
   await page.getByTestId('trainee').getByLabel('Add and save').click()
   await trainee.getByTestId('form-text-widget-Name').fill('Peter Pan')
   await trainee
-    .getByTestId('form-text-widget-Phone Number (optional)')
+    .getByTestId('form-number-widget-Phone Number (optional)')
     .fill('123')
   await trainee.getByTestId('form-submit').click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -117,7 +117,7 @@ test('Adding a trainee', async () => {
     'Peter Pan'
   )
   await expect(
-    trainee.getByTestId('form-text-widget-Phone Number (optional)')
+    trainee.getByTestId('form-number-widget-Phone Number (optional)')
   ).toHaveValue('123')
 })
 
@@ -185,7 +185,7 @@ test('New customer', async () => {
   await lastTabPanel.getByRole('button', { name: 'Open item' }).last().click()
   await lastTabPanel.getByTestId('form-text-widget-Name').fill('Lewis')
   await lastTabPanel
-    .getByTestId('form-text-widget-Phone Number (optional)')
+    .getByTestId('form-number-widget-Phone Number (optional)')
     .fill('12345678')
   await lastTabPanel.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -203,6 +203,6 @@ test('New customer', async () => {
     'Lewis'
   )
   await expect(
-    lastTabPanel.getByTestId('form-text-widget-Phone Number (optional)')
+    lastTabPanel.getByTestId('form-number-widget-Phone Number (optional)')
   ).toHaveValue('12345678')
 })

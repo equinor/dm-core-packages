@@ -1,6 +1,7 @@
 import {
   TAttribute,
   TBlueprint,
+  TGenericObject,
   TOnOpen,
   TUiRecipe,
 } from '@development-framework/dm-core'
@@ -20,6 +21,7 @@ export type TObjectFieldProps = {
   displayLabel: string
   uiAttribute: TAttributeObject | undefined
   attribute: TAttribute
+  value: TGenericObject
 }
 
 export type TContentProps = {

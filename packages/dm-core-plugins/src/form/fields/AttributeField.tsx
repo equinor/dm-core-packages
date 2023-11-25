@@ -35,81 +35,32 @@ const getDisplayLabel = (attribute: any): string => {
   return optional ? `${displayLabel} (optional)` : displayLabel
 }
 
+const ATTRIBUTE_FIELD_MAPPING: Record<string, any> = {
+  binary: BinaryField,
+  object: ObjectField,
+  array: ArrayField,
+  string: StringField,
+  boolean: BooleanField,
+  integer: NumberField,
+  number: NumberField,
+}
+
+const getField = (fieldType: string) => ATTRIBUTE_FIELD_MAPPING[fieldType]
+
 export const AttributeField = (props: TAttributeFieldProps) => {
   const { namePath, attribute, uiAttribute, leftAdornments, rightAdornments } =
     props
-
   const fieldType = getFieldType(attribute)
-
   const displayLabel = getDisplayLabel(attribute)
-
-  switch (fieldType) {
-    case 'binary':
-      return (
-        <BinaryField
-          namePath={namePath}
-          displayLabel={displayLabel}
-          uiAttribute={uiAttribute}
-          attribute={attribute}
-        />
-      )
-
-    case 'object':
-      // Get the ui recipe name that should be used for nested
-      return (
-        <ObjectField
-          namePath={namePath}
-          displayLabel={displayLabel}
-          uiAttribute={uiAttribute}
-          attribute={attribute}
-        />
-      )
-
-    case 'array':
-      return (
-        <ArrayField
-          namePath={namePath}
-          displayLabel={displayLabel}
-          uiAttribute={uiAttribute}
-          attribute={attribute}
-        />
-      )
-    case 'string':
-    case 'datetime':
-      return (
-        <StringField
-          namePath={namePath}
-          displayLabel={displayLabel}
-          uiAttribute={uiAttribute}
-          leftAdornments={leftAdornments}
-          rightAdornments={rightAdornments}
-          attribute={attribute}
-        />
-      )
-    case 'boolean':
-      return (
-        <BooleanField
-          namePath={namePath}
-          displayLabel={displayLabel}
-          uiAttribute={uiAttribute}
-          leftAdornments={leftAdornments}
-          rightAdornments={rightAdornments}
-          attribute={attribute}
-        />
-      )
-    case 'integer':
-    case 'number':
-      return (
-        <NumberField
-          namePath={namePath}
-          displayLabel={displayLabel}
-          uiAttribute={uiAttribute}
-          leftAdornments={leftAdornments}
-          rightAdornments={rightAdornments}
-          attribute={attribute}
-        />
-      )
-    default:
-      return <>UnknownField</>
-  }
+  const Field = getField(fieldType)
+  return (
+    <Field
+      namePath={namePath}
+      displayLabel={displayLabel}
+      uiAttribute={uiAttribute}
+      leftAdornments={leftAdornments}
+      rightAdornments={rightAdornments}
+      attribute={attribute}
+    />
+  )
 }
