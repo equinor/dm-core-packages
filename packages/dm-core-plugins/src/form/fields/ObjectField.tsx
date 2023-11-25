@@ -273,8 +273,6 @@ export const UncontainedAttribute = (
 export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
   const { namePath, uiAttribute, displayLabel, attribute } = props
   const { getValues } = useFormContext()
-
-  // Be able to override the object field
   const Widget =
     uiAttribute && uiAttribute.widget
       ? getWidget(uiAttribute.widget)
@@ -284,16 +282,19 @@ export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
     values !== undefined &&
     'referenceType' in values &&
     values['referenceType'] === 'storage'
-  // If the attribute type is an object, we need to find the correct type from the values.
   return (
     <Widget
       {...props}
       onChange={() => null}
       id={valuesIsStorageReference ? values['address'] : namePath}
       label={displayLabel}
-      //type={attribute.type === 'object' && values ? values.type : type}
-      //defaultValue={defaultValue}
-      attribute={attribute}
+      attribute={{
+        ...attribute,
+        attributeType:
+          values && values.type !== EBlueprint.REFERENCE && 'type' in values
+            ? values.type
+            : attribute.attributeType,
+      }} // if the attribute type is an object, we need to find the correct type from the values.
     />
   )
 }
