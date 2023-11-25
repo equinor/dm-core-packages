@@ -21,8 +21,15 @@ const Wrapper = styled.div`
   flex-direction: column;
 `
 
+export const defaultConfig: TFormConfig = {
+  attributes: [],
+  fields: [],
+  readOnly: false,
+  showExpanded: true,
+}
+
 export const Form = (props: TFormProps) => {
-  const { type, formData, config, onSubmit, idReference, onOpen } = props
+  const { type, formData, onSubmit, idReference, onOpen } = props
   const { blueprint, isLoading, error } = useBlueprint(type)
 
   const methods = useForm({
@@ -51,19 +58,14 @@ export const Form = (props: TFormProps) => {
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
-  const defaultConfig: TFormConfig = {
-    attributes: [],
-    fields: [],
-    readOnly: false,
-    showExpanded: true,
-  }
+  const config: TFormConfig = { ...defaultConfig, ...props.config }
 
   return (
     <FormProvider {...methods}>
       <RegistryProvider
         onOpen={onOpen}
         idReference={idReference}
-        config={config ?? defaultConfig}
+        config={{ ...defaultConfig, ...props.config }}
       >
         <Wrapper>
           <AttributeList
