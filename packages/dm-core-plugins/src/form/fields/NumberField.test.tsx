@@ -9,6 +9,8 @@ import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { NumberField } from './NumberField'
 import { EBlueprint } from '@development-framework/dm-core'
+import { RegistryProvider } from '../context/RegistryContext'
+import { defaultConfig } from '../components/Form'
 
 afterEach(() => cleanup())
 
@@ -19,10 +21,12 @@ const setup = async (props: { initialValue?: string; optional?: boolean }) => {
     const methods = useForm()
     return (
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          {props.children}
-          <button type="submit">Submit</button>
-        </form>
+        <RegistryProvider idReference="" config={defaultConfig}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            {props.children}
+            <button type="submit">Submit</button>
+          </form>
+        </RegistryProvider>
       </FormProvider>
     )
   }

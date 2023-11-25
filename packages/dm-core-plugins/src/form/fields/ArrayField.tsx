@@ -248,7 +248,19 @@ export default function ArrayField(props: TArrayFieldProps) {
   }
 
   if (onOpen && !uiAttribute?.showInline) {
-    return <OpenList {...props} />
+    return (
+      <OpenList
+        {...props}
+        readOnly={config.readOnly}
+        showExpanded={config.showExpanded}
+      />
+    )
   }
-  return <InlineList {...props} />
+  return (
+    <InlineList
+      {...props}
+      readOnly={config.readOnly}
+      showExpanded={config.showExpanded}
+    />
+  )
 }
