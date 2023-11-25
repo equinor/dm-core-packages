@@ -9,7 +9,7 @@ import { Button } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { RegistryProvider } from '../context/RegistryContext'
-import { TFormProps } from '../types'
+import { TFormConfig, TFormProps } from '../types'
 import { AttributeList } from './AttributeList'
 
 const Wrapper = styled.div`
@@ -51,9 +51,20 @@ export const Form = (props: TFormProps) => {
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
+  const defaultConfig: TFormConfig = {
+    attributes: [],
+    fields: [],
+    readOnly: false,
+    showExpanded: true,
+  }
+
   return (
     <FormProvider {...methods}>
-      <RegistryProvider onOpen={onOpen} idReference={idReference}>
+      <RegistryProvider
+        onOpen={onOpen}
+        idReference={idReference}
+        config={config ?? defaultConfig}
+      >
         <Wrapper>
           <AttributeList
             namePath={namePath}

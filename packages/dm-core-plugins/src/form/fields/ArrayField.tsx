@@ -143,7 +143,6 @@ const PrimitiveList = (props: TArrayFieldProps) => {
                         name: '',
                         type: EBlueprint.ATTRIBUTE,
                       }}
-                      readOnly={readOnly}
                       leftAdornments={String(pagedIndex)}
                       rightAdornments={
                         <Icon
@@ -223,7 +222,7 @@ const OpenList = (props: TArrayFieldProps) => {
 export default function ArrayField(props: TArrayFieldProps) {
   const { uiAttribute, namePath, attribute, displayLabel } = props
 
-  const { onOpen } = useRegistryContext()
+  const { onOpen, config } = useRegistryContext()
 
   if (isPrimitiveType(attribute.attributeType)) {
     const { getValues, setValue } = useFormContext()
@@ -240,6 +239,8 @@ export default function ArrayField(props: TArrayFieldProps) {
         config={uiAttribute?.config}
         enumType={attribute.enumType || undefined}
         value={value}
+        readOnly={config.readOnly}
+        showExpanded={config.showExpanded}
         {...props}
       />
     )

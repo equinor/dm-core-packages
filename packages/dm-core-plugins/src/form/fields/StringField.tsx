@@ -2,19 +2,19 @@ import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TStringFieldProps } from '../types'
+import { useRegistryContext } from '../context/RegistryContext'
 
 export const StringField = (props: TStringFieldProps) => {
   const {
     namePath,
     displayLabel,
     uiAttribute,
-    readOnly,
     leftAdornments,
     rightAdornments,
     attribute,
   } = props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
-
+  const { config } = useRegistryContext()
   return (
     <Controller
       name={namePath}
@@ -30,7 +30,7 @@ export const StringField = (props: TStringFieldProps) => {
           <Widget
             enumType={attribute.enumType || undefined}
             isDirty={value !== null ? isDirty : false}
-            readOnly={readOnly}
+            readOnly={config.readOnly}
             {...props}
             value={value ?? ''}
             id={namePath}

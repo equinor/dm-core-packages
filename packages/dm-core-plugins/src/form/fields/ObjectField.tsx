@@ -87,12 +87,11 @@ const SelectReference = (props: {
 }
 
 export const StorageUncontainedAttribute = (props: TContentProps) => {
-  const { namePath, uiRecipe, displayLabel, attribute, readOnly, uiAttribute } =
-    props
+  const { namePath, uiRecipe, displayLabel, attribute, uiAttribute } = props
   const { watch, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const { dataSource, documentPath } = splitAddress(idReference)
-
+  const { config } = useRegistryContext()
   const value = watch(namePath)
   const address = resolveRelativeAddress(
     value.address,
@@ -109,13 +108,13 @@ export const StorageUncontainedAttribute = (props: TContentProps) => {
     <Fieldset>
       <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
-        {!readOnly && (
+        {!config.readOnly && (
           <SelectReference
             attributeType={attribute.attributeType}
             namePath={namePath}
           />
         )}
-        {attribute.optional && address && !readOnly && (
+        {attribute.optional && address && !config.readOnly && (
           <RemoveObject address={address} namePath={namePath} />
         )}
         {address && onOpen && !uiAttribute?.showInline && (
@@ -150,16 +149,15 @@ export const ContainedAttribute = (
     displayLabel = '',
     uiAttribute,
     uiRecipe,
-    readOnly,
-    showExpanded,
     attribute,
   } = props
   const { watch } = useFormContext()
-  const { idReference, onOpen } = useRegistryContext()
+  const { idReference, onOpen, config } = useRegistryContext()
+
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
-      : showExpanded
+      : config.showExpanded
   )
   const value = watch(namePath)
   const isDefined = value && Object.keys(value).length > 0
@@ -168,7 +166,7 @@ export const ContainedAttribute = (
       <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
         {attribute.optional &&
-          !readOnly &&
+          !config.readOnly &&
           (isDefined ? (
             <RemoveObject namePath={namePath} />
           ) : (
@@ -213,21 +211,13 @@ export const ContainedAttribute = (
 export const UncontainedAttribute = (
   props: TContentProps
 ): React.ReactElement => {
-  const {
-    namePath,
-    displayLabel,
-    uiAttribute,
-    uiRecipe,
-    readOnly,
-    showExpanded,
-    attribute,
-  } = props
+  const { namePath, displayLabel, uiAttribute, uiRecipe, attribute } = props
   const { watch } = useFormContext()
-  const { idReference, onOpen } = useRegistryContext()
+  const { idReference, onOpen, config } = useRegistryContext()
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
-      : showExpanded
+      : config.showExpanded
   )
   const value = watch(namePath)
   const { dataSource, documentPath } = splitAddress(idReference)
@@ -239,13 +229,13 @@ export const UncontainedAttribute = (
     <Fieldset>
       <Legend>
         <Typography bold={true}>{displayLabel}</Typography>
-        {!readOnly && (
+        {!config.readOnly && (
           <SelectReference
             attributeType={attribute.attributeType}
             namePath={namePath}
           />
         )}
-        {attribute.optional && address && !readOnly && (
+        {attribute.optional && address && !config.readOnly && (
           <RemoveObject namePath={namePath} />
         )}
         {address && !(onOpen && !uiAttribute?.showInline) && (
@@ -311,14 +301,7 @@ export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
 export const ObjectTypeSelector = (
   props: TObjectFieldProps
 ): React.ReactElement => {
-  const {
-    namePath,
-    displayLabel,
-    uiAttribute,
-    attribute,
-    readOnly,
-    showExpanded,
-  } = props
+  const { namePath, displayLabel, uiAttribute, attribute } = props
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(
     attribute.attributeType
   )
@@ -370,8 +353,6 @@ export const ObjectTypeSelector = (
       blueprint={blueprint}
       uiRecipe={uiRecipe}
       uiAttribute={uiAttribute}
-      readOnly={readOnly}
-      showExpanded={showExpanded}
     />
   )
 }

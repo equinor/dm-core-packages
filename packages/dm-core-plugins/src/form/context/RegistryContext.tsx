@@ -1,9 +1,11 @@
 import { TOnOpen } from '@development-framework/dm-core'
 import React, { createContext, useContext } from 'react'
+import { TFormConfig } from '../types'
 
 type Props = {
   idReference: string
   onOpen?: TOnOpen
+  config: TFormConfig
 }
 
 const RegistryContext = createContext<Props | undefined>(undefined)

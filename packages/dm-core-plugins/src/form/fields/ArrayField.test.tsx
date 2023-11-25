@@ -9,7 +9,7 @@ import {
 import React from 'react'
 import { Form } from '../components/Form'
 import { mockBlueprintGet, wrapper } from '../test-utils'
-import { TConfig } from '../types'
+import { TFormConfig } from '../types'
 
 const EntityViewMock = jest.fn()
 jest.mock('@development-framework/dm-core', () => ({
@@ -105,7 +105,7 @@ describe('List of objects', () => {
     config,
     onOpen,
   }: {
-    config?: TConfig
+    config?: TFormConfig
     onOpen?: TOnOpen
   }) => {
     const outer = {

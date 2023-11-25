@@ -36,15 +36,8 @@ const getDisplayLabel = (attribute: any): string => {
 }
 
 export const AttributeField = (props: TAttributeFieldProps) => {
-  const {
-    namePath,
-    attribute,
-    uiAttribute,
-    readOnly,
-    leftAdornments,
-    rightAdornments,
-    showExpanded,
-  } = props
+  const { namePath, attribute, uiAttribute, leftAdornments, rightAdornments } =
+    props
 
   const fieldType = getFieldType(attribute)
 
@@ -68,8 +61,6 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           uiAttribute={uiAttribute}
-          readOnly={readOnly}
-          showExpanded={showExpanded}
           attribute={attribute}
         />
       )
@@ -80,8 +71,6 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           uiAttribute={uiAttribute}
-          readOnly={readOnly}
-          showExpanded={showExpanded}
           attribute={attribute}
         />
       )
@@ -92,7 +81,6 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           uiAttribute={uiAttribute}
-          readOnly={readOnly}
           leftAdornments={leftAdornments}
           rightAdornments={rightAdornments}
           attribute={attribute}
@@ -104,7 +92,6 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           uiAttribute={uiAttribute}
-          readOnly={readOnly}
           leftAdornments={leftAdornments}
           rightAdornments={rightAdornments}
           attribute={attribute}
@@ -117,7 +104,6 @@ export const AttributeField = (props: TAttributeFieldProps) => {
           namePath={namePath}
           displayLabel={displayLabel}
           uiAttribute={uiAttribute}
-          readOnly={readOnly}
           leftAdornments={leftAdornments}
           rightAdornments={rightAdornments}
           attribute={attribute}

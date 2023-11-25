@@ -2,6 +2,7 @@ import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TNumberFieldProps } from '../types'
+import { useRegistryContext } from '../context/RegistryContext'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
 export const NumberField = (props: TNumberFieldProps) => {
@@ -9,13 +10,13 @@ export const NumberField = (props: TNumberFieldProps) => {
     namePath,
     displayLabel,
     uiAttribute,
-    readOnly,
     leftAdornments,
     rightAdornments,
     attribute,
   } = props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
+  const { config } = useRegistryContext()
   return (
     <Controller
       name={namePath}
@@ -37,7 +38,7 @@ export const NumberField = (props: TNumberFieldProps) => {
             config={{ format: 'number' }}
             leftAdornments={leftAdornments}
             rightAdornments={rightAdornments}
-            readOnly={readOnly}
+            readOnly={config.readOnly}
             style={{ textAlignLast: 'right' }}
             onChange={(event: unknown) =>
               onChange(event ? Number(event) : null)
