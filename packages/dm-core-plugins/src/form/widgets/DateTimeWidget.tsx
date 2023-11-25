@@ -1,18 +1,22 @@
 import React from 'react'
-import { TextField } from '@equinor/eds-core-react'
-import { TWidget } from '../types'
 
-const TextWidget = (props: TWidget) => {
+import { TextField } from '@equinor/eds-core-react'
+
+import { TWidget } from '../types'
+import { DateTime } from 'luxon'
+
+const DateTimeWidget = (props: TWidget) => {
   const { label, onChange, leftAdornments, rightAdornments, isDirty } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(event.target.value === '' ? null : event.target.value)
+    onChange?.(new Date(event.target.value).toISOString())
   }
 
   return (
     <TextField
       id={props.id}
       readOnly={props.readOnly}
-      defaultValue={props.value}
+      defaultValue={DateTime.fromISO(props.value).toFormat("yyyy-MM-dd'T'T")}
+      //@ts-ignore
       leftAdornments={leftAdornments}
       rightAdornments={rightAdornments}
       inputRef={props.inputRef}
@@ -20,8 +24,8 @@ const TextWidget = (props: TWidget) => {
       helperText={props.helperText}
       onChange={onChangeHandler}
       label={label}
-      type="string"
-      data-testid={`form-text-widget-${label}`}
+      type="datetime-local"
+      data-testid={`form-datetime-widget-${label}`}
       style={
         isDirty && props.variant !== 'error'
           ? {
@@ -34,4 +38,4 @@ const TextWidget = (props: TWidget) => {
   )
 }
 
-export default TextWidget
+export default DateTimeWidget

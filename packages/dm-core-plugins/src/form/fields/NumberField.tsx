@@ -15,7 +15,7 @@ export const NumberField = (props: TNumberFieldProps) => {
     attribute,
   } = props
 
-  const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
+  const Widget = getWidget(uiAttribute?.widget ?? 'NumberWidget')
   const { config } = useRegistryContext()
   return (
     <Controller
@@ -35,11 +35,9 @@ export const NumberField = (props: TNumberFieldProps) => {
         return (
           <Widget
             {...props}
-            config={{ format: 'number' }}
             leftAdornments={leftAdornments}
             rightAdornments={rightAdornments}
             readOnly={config.readOnly}
-            style={{ textAlignLast: 'right' }}
             onChange={(event: unknown) =>
               onChange(event ? Number(event) : null)
             }
@@ -50,6 +48,7 @@ export const NumberField = (props: TNumberFieldProps) => {
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
             isDirty={props.value !== null ? isDirty : false}
+            config={uiAttribute?.config}
           />
         )
       }}

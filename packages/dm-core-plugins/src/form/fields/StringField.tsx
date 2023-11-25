@@ -40,12 +40,7 @@ export const StringField = (props: TStringFieldProps) => {
             inputRef={ref}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
-            config={{
-              format:
-                uiAttribute && 'format' in uiAttribute
-                  ? uiAttribute.format
-                  : 'string',
-            }}
+            config={uiAttribute?.config}
           />
         )
       }}

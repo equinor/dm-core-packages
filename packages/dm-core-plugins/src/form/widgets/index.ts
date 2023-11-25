@@ -6,6 +6,8 @@ import TextareaWidget from './TextareaWidget'
 import TypeWidget from './TypeWidget'
 import SwitchWidget from './SwitchWidget'
 import SelectWidget from './SelectWidget'
+import NumberWidget from './NumberWidget'
+import DateTimeWidget from './DateTimeWidget'
 
 const widgets: TWidgets = {
   CheckboxWidget,
@@ -15,6 +17,8 @@ const widgets: TWidgets = {
   TypeWidget,
   SwitchWidget,
   SelectWidget,
+  NumberWidget,
+  DateTimeWidget,
 }
 
 export default widgets
