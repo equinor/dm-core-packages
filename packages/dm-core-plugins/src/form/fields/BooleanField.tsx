@@ -38,6 +38,7 @@ export const BooleanField = (props: TBooleanFieldProps) => {
           label={displayLabel}
           helperText={error?.message}
           variant={invalid ? 'error' : undefined}
+          config={uiAttribute?.config}
         />
       )}
     />

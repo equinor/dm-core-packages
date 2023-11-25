@@ -1,11 +1,14 @@
 import React from 'react'
+
 import { TextField } from '@equinor/eds-core-react'
+
 import { TWidget } from '../types'
 
-const TextWidget = (props: TWidget) => {
+const NumberWidget = (props: TWidget) => {
   const { label, onChange, leftAdornments, rightAdornments, isDirty } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(event.target.value === '' ? null : event.target.value)
+    const value = event.target.value
+    onChange?.(value === '' ? null : value)
   }
 
   return (
@@ -20,8 +23,8 @@ const TextWidget = (props: TWidget) => {
       helperText={props.helperText}
       onChange={onChangeHandler}
       label={label}
-      type="string"
-      data-testid={`form-text-widget-${label}`}
+      type="number"
+      data-testid={`form-number-widget-${label}`}
       style={
         isDirty && props.variant !== 'error'
           ? {
@@ -34,4 +37,4 @@ const TextWidget = (props: TWidget) => {
   )
 }
 
-export default TextWidget
+export default NumberWidget
