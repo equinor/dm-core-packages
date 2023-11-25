@@ -1,18 +1,13 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TStringFieldProps } from '../types'
+import { TField } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
-export const StringField = (props: TStringFieldProps) => {
-  const {
-    namePath,
-    displayLabel,
-    uiAttribute,
-    leftAdornments,
-    rightAdornments,
-    attribute,
-  } = props
+export const StringField = (props: TField) => {
+  const { namePath, uiAttribute, leftAdornments, rightAdornments, attribute } =
+    props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
   const { config } = useRegistryContext()
   return (
@@ -36,7 +31,7 @@ export const StringField = (props: TStringFieldProps) => {
             id={namePath}
             leftAdornments={leftAdornments}
             rightAdornments={rightAdornments}
-            label={displayLabel}
+            label={getDisplayLabel(attribute)}
             inputRef={ref}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}

@@ -9,7 +9,8 @@ import { AxiosError, AxiosResponse } from 'axios'
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
-import { TStringFieldProps } from '../types'
+import { TField } from '../types'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 const getTarget = (initialValue: any) => {
   const { idReference } = useRegistryContext()
@@ -28,7 +29,7 @@ const DownloadBinary = (props: {
   displayLabel: string
   initialValue: TGenericObject & { address: string }
 }) => {
-  const { namePath, displayLabel, initialValue } = props
+  const { namePath, initialValue, displayLabel } = props
   const dmssAPI = useDMSS()
   const [data_source_id, blob_id] = getTarget(initialValue)
 
@@ -67,8 +68,8 @@ const DownloadBinary = (props: {
   )
 }
 
-export const BinaryField = (props: TStringFieldProps) => {
-  const { namePath } = props
+export const BinaryField = (props: TField) => {
+  const { namePath, attribute } = props
   const { getValues } = useFormContext()
 
   const fileId = getValues(namePath.split('.').slice(-1).join('.'))
@@ -80,6 +81,7 @@ export const BinaryField = (props: TStringFieldProps) => {
         <DownloadBinary
           {...props}
           fileId={fileId}
+          displayLabel={getDisplayLabel(attribute)}
           initialValue={initialValue}
         />
       )}
