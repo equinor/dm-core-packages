@@ -7,8 +7,6 @@ export const StringField = (props: TStringFieldProps) => {
   const {
     namePath,
     displayLabel,
-    defaultValue,
-    optional,
     uiAttribute,
     readOnly,
     leftAdornments,
@@ -21,9 +19,9 @@ export const StringField = (props: TStringFieldProps) => {
     <Controller
       name={namePath}
       rules={{
-        required: optional ? false : 'Required',
+        required: attribute.optional ? false : 'Required',
       }}
-      defaultValue={defaultValue ?? ''}
+      defaultValue={attribute.default ?? ''}
       render={({
         field: { ref, value, ...props },
         fieldState: { invalid, error, isDirty },
@@ -48,7 +46,6 @@ export const StringField = (props: TStringFieldProps) => {
                   ? uiAttribute.format
                   : 'string',
             }}
-            widgetConfig={uiAttribute?.widgetConfig}
           />
         )
       }}

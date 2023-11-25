@@ -23,7 +23,7 @@
       "attributeType": "boolean"
     },
     {
-      "name": "widgetConfig",
+      "name": "config",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "object",
       "contained": true,

@@ -8,6 +8,7 @@ import {
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { NumberField } from './NumberField'
+import { EBlueprint } from '@development-framework/dm-core'
 
 afterEach(() => cleanup())
 
@@ -27,8 +28,13 @@ const setup = async (props: { initialValue?: string; optional?: boolean }) => {
   }
   const utils = render(
     <NumberField
-      defaultValue={initialValue}
-      optional={optional}
+      attribute={{
+        name: '',
+        type: EBlueprint.ATTRIBUTE,
+        attributeType: 'number',
+        default: initialValue,
+        optional: optional,
+      }}
       namePath="number"
       displayLabel="number"
       uiAttribute={undefined}

@@ -47,7 +47,7 @@
             "name": "singleString",
             "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "widget": "SelectWidget",
-            "widgetConfig": {
+            "config": {
               "type": "PLUGINS:dm-core-plugins/form/widgets/SelectWidgetConfig",
               "multiline": false
             }
@@ -56,7 +56,7 @@
             "name": "manyStrings",
             "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "widget": "SelectWidget",
-            "widgetConfig": {
+            "config": {
               "type": "PLUGINS:dm-core-plugins/form/widgets/SelectWidgetConfig",
               "multiline": true
             }

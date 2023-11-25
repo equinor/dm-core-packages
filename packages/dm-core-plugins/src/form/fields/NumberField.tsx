@@ -8,12 +8,11 @@ export const NumberField = (props: TNumberFieldProps) => {
   const {
     namePath,
     displayLabel,
-    defaultValue,
-    optional,
     uiAttribute,
     readOnly,
     leftAdornments,
     rightAdornments,
+    attribute,
   } = props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
@@ -21,13 +20,13 @@ export const NumberField = (props: TNumberFieldProps) => {
     <Controller
       name={namePath}
       rules={{
-        required: optional ? false : 'Required',
+        required: attribute.optional ? false : 'Required',
         pattern: {
           value: REGEX_FLOAT,
           message: 'Only numbers allowed',
         },
       }}
-      defaultValue={defaultValue || null}
+      defaultValue={attribute.default || null}
       render={({
         field: { ref, onChange, ...props },
         fieldState: { invalid, error, isDirty },
