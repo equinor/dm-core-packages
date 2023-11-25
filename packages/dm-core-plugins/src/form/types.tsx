@@ -61,7 +61,6 @@ export type TNumberFieldProps = {
   namePath: string
   displayLabel: string
   uiAttribute: TAttributeConfig | undefined
-  readOnly?: boolean
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string
   attribute: TAttribute
@@ -71,7 +70,6 @@ export type TBooleanFieldProps = {
   namePath: string
   displayLabel: string
   uiAttribute: TAttributeConfig | undefined
-  readOnly?: boolean
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string
   attribute: TAttribute

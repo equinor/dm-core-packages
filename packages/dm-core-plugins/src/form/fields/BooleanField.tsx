@@ -14,15 +14,12 @@ export const BooleanField = (props: TBooleanFieldProps) => {
     attribute,
   } = props
 
-  // We need to convert default values coming from the API since they are always strings
-  const usedDefaultValue = attribute.default == 'True' ? true : false
-
   const Widget = getWidget(uiAttribute?.widget ?? 'CheckboxWidget')
   const { config } = useRegistryContext()
   return (
     <Controller
       name={namePath}
-      defaultValue={usedDefaultValue}
+      defaultValue={attribute.default == 'True'} // we need to convert default values coming from the API since they are always strings
       render={({
         field: { ref, value, ...props },
         fieldState: { invalid, error },

@@ -1,16 +1,15 @@
 import { TAttribute, TBlueprint } from '@development-framework/dm-core'
 import React from 'react'
 import { AttributeField } from '../fields/AttributeField'
-import { TFormConfig } from '../types'
+import { useRegistryContext } from '../context/RegistryContext'
 
 export const AttributeList = (props: {
   namePath: string
-  config: TFormConfig | undefined
   blueprint: TBlueprint
 }) => {
-  const { namePath, config, blueprint } = props
+  const { namePath, blueprint } = props
   const prefix = namePath === '' ? `` : `${namePath}.`
-
+  const { config } = useRegistryContext()
   const attributes: TAttribute[] | undefined = blueprint.attributes
 
   let filteredAttributes =

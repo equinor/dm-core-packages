@@ -68,11 +68,7 @@ export const Form = (props: TFormProps) => {
         config={{ ...defaultConfig, ...props.config }}
       >
         <Wrapper>
-          <AttributeList
-            namePath={namePath}
-            config={config}
-            blueprint={blueprint}
-          />
+          <AttributeList namePath={namePath} blueprint={blueprint} />
           {!config?.readOnly && (
             <Button
               type="submit"
