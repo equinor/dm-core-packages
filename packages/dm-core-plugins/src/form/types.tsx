@@ -10,7 +10,7 @@ export type TFormProps = {
   idReference: string
   type: string
   formData?: any
-  config?: TConfig
+  config?: TFormConfig
   onOpen?: TOnOpen
   onSubmit?: (data: any) => void
 }
@@ -19,8 +19,6 @@ export type TObjectFieldProps = {
   namePath: string
   displayLabel: string
   uiAttribute: TAttributeObject | undefined
-  readOnly?: boolean
-  showExpanded?: boolean
   attribute: TAttribute
 }
 
@@ -30,8 +28,6 @@ export type TContentProps = {
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm
   uiAttribute: TAttributeObject | undefined
-  readOnly?: boolean
-  showExpanded?: boolean
   attribute: TAttribute
 }
 
@@ -48,8 +44,6 @@ export type TAttributeFieldProps = {
   namePath: string
   attribute: TAttribute
   uiAttribute?: TAttributeConfig
-  readOnly?: boolean
-  showExpanded?: boolean
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string
 }
@@ -58,8 +52,6 @@ export type TStringFieldProps = {
   namePath: string
   displayLabel: string
   uiAttribute: TAttributeConfig | undefined
-  readOnly?: boolean
-  format?: 'string' | 'date' | 'datetime'
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string
   attribute: TAttribute
@@ -85,22 +77,22 @@ export type TBooleanFieldProps = {
   attribute: TAttribute
 }
 
-type TAttributeBasis = {
+type TAttributeBase = {
   name: string
   type: string
   showInline?: boolean
   config?: Record<any, any>
 }
-type TAttributeString = TAttributeBasis & {
+type TAttributeString = TAttributeBase & {
   widget: string
   format: string
 }
-type TAttributeArray = TAttributeBasis & {
+type TAttributeArray = TAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded?: boolean
 }
-type TAttributeObject = TAttributeBasis & {
+type TAttributeObject = TAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded?: boolean
@@ -109,7 +101,8 @@ export type TAttributeConfig =
   | TAttributeArray
   | TAttributeObject
   | TAttributeString
-export type TConfig = {
+
+export type TFormConfig = {
   attributes: TAttributeConfig[]
   fields: string[]
   readOnly?: boolean
@@ -117,7 +110,7 @@ export type TConfig = {
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & {
-  config: TConfig
+  config: TFormConfig
 }
 
 export declare type Variants = 'error' | 'success' | 'warning'

@@ -1,11 +1,11 @@
 import { TAttribute, TBlueprint } from '@development-framework/dm-core'
 import React from 'react'
 import { AttributeField } from '../fields/AttributeField'
-import { TConfig } from '../types'
+import { TFormConfig } from '../types'
 
 export const AttributeList = (props: {
   namePath: string
-  config: TConfig | undefined
+  config: TFormConfig | undefined
   blueprint: TBlueprint
 }) => {
   const { namePath, config, blueprint } = props
@@ -46,8 +46,6 @@ export const AttributeList = (props: {
               namePath={`${prefix}${attribute.name}`}
               attribute={attribute}
               uiAttribute={uiAttribute}
-              readOnly={config?.readOnly}
-              showExpanded={config?.showExpanded || true}
             />
           </div>
         )

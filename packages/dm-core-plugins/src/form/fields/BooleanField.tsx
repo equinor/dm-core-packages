@@ -2,6 +2,7 @@ import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TBooleanFieldProps } from '../types'
+import { useRegistryContext } from '../context/RegistryContext'
 
 export const BooleanField = (props: TBooleanFieldProps) => {
   const {
@@ -10,7 +11,6 @@ export const BooleanField = (props: TBooleanFieldProps) => {
     uiAttribute,
     leftAdornments,
     rightAdornments,
-    readOnly,
     attribute,
   } = props
 
@@ -18,6 +18,7 @@ export const BooleanField = (props: TBooleanFieldProps) => {
   const usedDefaultValue = attribute.default == 'True' ? true : false
 
   const Widget = getWidget(uiAttribute?.widget ?? 'CheckboxWidget')
+  const { config } = useRegistryContext()
   return (
     <Controller
       name={namePath}
@@ -30,7 +31,7 @@ export const BooleanField = (props: TBooleanFieldProps) => {
           {...props}
           leftAdornments={leftAdornments}
           rightAdornments={rightAdornments}
-          readOnly={readOnly}
+          readOnly={config.readOnly}
           id={namePath}
           value={value}
           inputRef={ref}

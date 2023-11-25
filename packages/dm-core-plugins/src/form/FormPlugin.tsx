@@ -2,15 +2,15 @@ import * as React from 'react'
 
 import { IUIPlugin, Loading, useDocument } from '@development-framework/dm-core'
 import { Form } from './components/Form'
-import { TConfig } from './types'
+import { TFormConfig } from './types'
 
-export const defaultConfig: TConfig = {
+export const defaultConfig: TFormConfig = {
   attributes: [],
   fields: [],
 }
 
 export const FormPlugin = (props: IUIPlugin) => {
-  const config: TConfig = { ...defaultConfig, ...props.config }
+  const config: TFormConfig = { ...defaultConfig, ...props.config }
   const { document, isLoading, updateDocument, error } = useDocument<any>(
     props.idReference,
     0
