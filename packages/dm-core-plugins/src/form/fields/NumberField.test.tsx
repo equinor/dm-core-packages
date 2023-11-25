@@ -33,20 +33,20 @@ const setup = async (props: { initialValue?: string; optional?: boolean }) => {
   const utils = render(
     <NumberField
       attribute={{
-        name: '',
+        name: 'number',
         type: EBlueprint.ATTRIBUTE,
         attributeType: 'number',
         default: initialValue,
         optional: optional,
       }}
       namePath="number"
-      displayLabel="number"
       uiAttribute={undefined}
     />,
     { wrapper }
   )
   return await waitFor(() => {
-    const inputElement = screen.getByLabelText<HTMLInputElement>('number')
+    const labelToFind = optional ? 'number (optional)' : 'number'
+    const inputElement = screen.getByLabelText<HTMLInputElement>(labelToFind)
     const setValue = (value: string) =>
       fireEvent.change(inputElement, { target: { value: value } })
     const submit = () =>

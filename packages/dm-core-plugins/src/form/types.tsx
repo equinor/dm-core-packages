@@ -1,7 +1,6 @@
 import {
   TAttribute,
   TBlueprint,
-  TGenericObject,
   TOnOpen,
   TUiRecipe,
 } from '@development-framework/dm-core'
@@ -18,15 +17,12 @@ export type TFormProps = {
 
 export type TObjectFieldProps = {
   namePath: string
-  displayLabel: string
   uiAttribute: TAttributeObject | undefined
   attribute: TAttribute
-  value: TGenericObject
 }
 
 export type TContentProps = {
   namePath: string
-  displayLabel: string
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm
   uiAttribute: TAttributeObject | undefined
@@ -35,42 +31,14 @@ export type TContentProps = {
 
 export type TArrayFieldProps = {
   namePath: string
-  displayLabel: string
   uiAttribute: TAttributeArray | undefined
   readOnly?: boolean
   showExpanded?: boolean
   attribute: TAttribute
 }
 
-export type TAttributeFieldProps = {
+export type TField = {
   namePath: string
-  attribute: TAttribute
-  uiAttribute?: TAttributeConfig
-  leftAdornments?: React.ReactElement | string
-  rightAdornments?: React.ReactElement | string
-}
-
-export type TStringFieldProps = {
-  namePath: string
-  displayLabel: string
-  uiAttribute: TAttributeConfig | undefined
-  leftAdornments?: React.ReactElement | string
-  rightAdornments?: React.ReactElement | string
-  attribute: TAttribute
-}
-
-export type TNumberFieldProps = {
-  namePath: string
-  displayLabel: string
-  uiAttribute: TAttributeConfig | undefined
-  leftAdornments?: React.ReactElement | string
-  rightAdornments?: React.ReactElement | string
-  attribute: TAttribute
-}
-
-export type TBooleanFieldProps = {
-  namePath: string
-  displayLabel: string
   uiAttribute: TAttributeConfig | undefined
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string

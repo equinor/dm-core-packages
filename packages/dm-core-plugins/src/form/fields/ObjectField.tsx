@@ -26,6 +26,7 @@ import { TContentProps, TObjectFieldProps, TUiRecipeForm } from '../types'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
 import { defaultConfig } from '../components/Form'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 const SelectReference = (props: {
   attributeType: string
@@ -87,7 +88,7 @@ const SelectReference = (props: {
 }
 
 export const StorageUncontainedAttribute = (props: TContentProps) => {
-  const { namePath, uiRecipe, displayLabel, attribute, uiAttribute } = props
+  const { namePath, uiRecipe, attribute, uiAttribute } = props
   const { watch, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const { dataSource, documentPath } = splitAddress(idReference)
@@ -107,7 +108,7 @@ export const StorageUncontainedAttribute = (props: TContentProps) => {
   return (
     <Fieldset>
       <Legend>
-        <Typography bold={true}>{displayLabel}</Typography>
+        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         {!config.readOnly && (
           <SelectReference
             attributeType={attribute.attributeType}
@@ -144,13 +145,7 @@ export const StorageUncontainedAttribute = (props: TContentProps) => {
 export const ContainedAttribute = (
   props: TContentProps
 ): React.ReactElement => {
-  const {
-    namePath,
-    displayLabel = '',
-    uiAttribute,
-    uiRecipe,
-    attribute,
-  } = props
+  const { namePath, uiAttribute, uiRecipe, attribute } = props
   const { watch } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
 
@@ -164,7 +159,7 @@ export const ContainedAttribute = (
   return (
     <Fieldset>
       <Legend>
-        <Typography bold={true}>{displayLabel}</Typography>
+        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         {attribute.optional &&
           !config.readOnly &&
           (isDefined ? (
@@ -211,7 +206,7 @@ export const ContainedAttribute = (
 export const UncontainedAttribute = (
   props: TContentProps
 ): React.ReactElement => {
-  const { namePath, displayLabel, uiAttribute, uiRecipe, attribute } = props
+  const { namePath, uiAttribute, uiRecipe, attribute } = props
   const { watch } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
   const [isExpanded, setIsExpanded] = useState(
@@ -228,7 +223,7 @@ export const UncontainedAttribute = (
   return (
     <Fieldset>
       <Legend>
-        <Typography bold={true}>{displayLabel}</Typography>
+        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         {!config.readOnly && (
           <SelectReference
             attributeType={attribute.attributeType}
@@ -271,30 +266,38 @@ export const UncontainedAttribute = (
 }
 
 export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
-  const { namePath, uiAttribute, displayLabel, attribute } = props
+  const { namePath, uiAttribute, attribute } = props
   const { getValues } = useFormContext()
-  const Widget =
-    uiAttribute && uiAttribute.widget
-      ? getWidget(uiAttribute.widget)
-      : ObjectTypeSelector
   const values = getValues(namePath)
   const valuesIsStorageReference =
     values !== undefined &&
     'referenceType' in values &&
     values['referenceType'] === 'storage'
+
+  if (uiAttribute?.widget) {
+    const Widget = getWidget(uiAttribute.widget)
+    return (
+      <Widget
+        {...props}
+        label={getDisplayLabel(attribute)}
+        onChange={() => null}
+        id={valuesIsStorageReference ? values['address'] : namePath}
+        // if the attribute type is an object, we need to find the correct type from the values.
+      />
+    )
+  }
+
   return (
-    <Widget
-      {...props}
-      onChange={() => null}
-      id={valuesIsStorageReference ? values['address'] : namePath}
-      label={displayLabel}
+    <ObjectTypeSelector
+      uiAttribute={uiAttribute}
       attribute={{
         ...attribute,
         attributeType:
           values && values.type !== EBlueprint.REFERENCE && 'type' in values
             ? values.type
             : attribute.attributeType,
-      }} // if the attribute type is an object, we need to find the correct type from the values.
+      }}
+      namePath={namePath}
     />
   )
 }
@@ -302,7 +305,7 @@ export const ObjectField = (props: TObjectFieldProps): React.ReactElement => {
 export const ObjectTypeSelector = (
   props: TObjectFieldProps
 ): React.ReactElement => {
-  const { namePath, displayLabel, uiAttribute, attribute } = props
+  const { namePath, uiAttribute, attribute } = props
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(
     attribute.attributeType
   )
@@ -350,7 +353,6 @@ export const ObjectTypeSelector = (
     <Content
       attribute={attribute}
       namePath={namePath}
-      displayLabel={displayLabel}
       blueprint={blueprint}
       uiRecipe={uiRecipe}
       uiAttribute={uiAttribute}

@@ -23,13 +23,14 @@ import { AttributeField } from './AttributeField'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
 import { getWidget } from '../context/WidgetContext'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 const isPrimitiveType = (value: string): boolean => {
   return ['string', 'number', 'integer', 'boolean'].includes(value)
 }
 
 const InlineList = (props: TArrayFieldProps) => {
-  const { namePath, displayLabel, uiAttribute, showExpanded, attribute } = props
+  const { namePath, uiAttribute, showExpanded, attribute } = props
   const { idReference, onOpen } = useRegistryContext()
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
@@ -40,7 +41,7 @@ const InlineList = (props: TArrayFieldProps) => {
   return (
     <Fieldset>
       <Legend>
-        <Typography bold={true}>{displayLabel}</Typography>
+        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         <TooltipButton
           title="Expand"
           button-variant="ghost_icon"
@@ -62,14 +63,7 @@ const InlineList = (props: TArrayFieldProps) => {
 }
 
 const PrimitiveList = (props: TArrayFieldProps) => {
-  const {
-    namePath,
-    displayLabel,
-    attribute,
-    readOnly,
-    uiAttribute,
-    showExpanded,
-  } = props
+  const { namePath, attribute, readOnly, uiAttribute, showExpanded } = props
 
   const { control } = useFormContext()
   const [isExpanded, setIsExpanded] = useState(
@@ -88,7 +82,7 @@ const PrimitiveList = (props: TArrayFieldProps) => {
   return (
     <Fieldset>
       <Legend>
-        <Typography bold={true}>{displayLabel}</Typography>
+        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         <TooltipButton
           title="Expand"
           button-variant="ghost_icon"
@@ -137,6 +131,7 @@ const PrimitiveList = (props: TArrayFieldProps) => {
                   <Stack grow={1}>
                     <AttributeField
                       namePath={`${namePath}.${pagedIndex}`}
+                      uiAttribute={uiAttribute}
                       attribute={{
                         attributeType: attribute.attributeType,
                         dimensions: '',
@@ -176,7 +171,7 @@ const PrimitiveList = (props: TArrayFieldProps) => {
 }
 
 const OpenList = (props: TArrayFieldProps) => {
-  const { namePath, displayLabel, attribute, uiAttribute, readOnly } = props
+  const { namePath, attribute, uiAttribute, readOnly } = props
 
   const { getValues, setValue } = useFormContext()
   const [initialValue, setInitialValue] = useState(getValues(namePath))
@@ -186,7 +181,7 @@ const OpenList = (props: TArrayFieldProps) => {
   return (
     <Fieldset>
       <Legend>
-        <Typography bold={true}>{displayLabel}</Typography>
+        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         {!readOnly &&
           (isDefined ? (
             <RemoveObject
@@ -220,29 +215,35 @@ const OpenList = (props: TArrayFieldProps) => {
 }
 
 export default function ArrayField(props: TArrayFieldProps) {
-  const { uiAttribute, namePath, attribute, displayLabel } = props
+  const { uiAttribute, namePath, attribute } = props
 
   const { onOpen, config } = useRegistryContext()
 
-  if (isPrimitiveType(attribute.attributeType)) {
+  if (isPrimitiveType(attribute.attributeType) && uiAttribute?.widget) {
     const { getValues, setValue } = useFormContext()
     const value = getValues(namePath)
-    const Widget =
-      uiAttribute && uiAttribute.widget
-        ? getWidget(uiAttribute.widget)
-        : PrimitiveList
-
+    const Widget = getWidget(uiAttribute.widget)
     return (
       <Widget
         id={namePath}
-        label={displayLabel}
         onChange={(values) => setValue(namePath, values)}
         config={uiAttribute?.config}
         enumType={attribute.enumType || undefined}
         value={value}
+        label={getDisplayLabel(attribute)}
+        {...props}
+      />
+    )
+  }
+
+  if (isPrimitiveType(attribute.attributeType)) {
+    return (
+      <PrimitiveList
+        namePath={namePath}
+        uiAttribute={uiAttribute}
+        attribute={attribute}
         readOnly={config.readOnly}
         showExpanded={config.showExpanded}
-        {...props}
       />
     )
   }
