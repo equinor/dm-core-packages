@@ -15,13 +15,7 @@ export type TFormProps = {
   onSubmit?: (data: any) => void
 }
 
-export type TObjectFieldProps = {
-  namePath: string
-  uiAttribute: TAttributeObject | undefined
-  attribute: TAttribute
-}
-
-export type TContentProps = {
+export type TObjectTemplate = {
   namePath: string
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm
@@ -29,11 +23,9 @@ export type TContentProps = {
   attribute: TAttribute
 }
 
-export type TArrayFieldProps = {
+export type TArrayTemplate = {
   namePath: string
   uiAttribute: TAttributeArray | undefined
-  readOnly?: boolean
-  showExpanded?: boolean
   attribute: TAttribute
 }
 
@@ -58,7 +50,7 @@ type TAttributeString = TAttributeBase & {
 type TAttributeArray = TAttributeBase & {
   widget?: string
   uiRecipe?: string
-  showExpanded?: boolean
+  showExpanded: boolean
 }
 type TAttributeObject = TAttributeBase & {
   widget?: string
