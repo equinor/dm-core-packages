@@ -30,6 +30,27 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.21.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.20.0...dm-core-plugins-v1.21.0) (2023-11-27)
+
+
+### Features
+
+* add enum support ([62e5c50](https://github.com/equinor/dm-core-packages/commit/62e5c5028fd99083c7ed497df1f487310e82d3c8))
+
+
+### Bug Fixes
+
+* format logs from job as lines ([200b18a](https://github.com/equinor/dm-core-packages/commit/200b18a9052cc000d5a2582cee6c996afee0b685))
+* generate new job api and update job plugin new api ([4d5b53f](https://github.com/equinor/dm-core-packages/commit/4d5b53fc45226e1bd999e8c992e54a2b6b22c729))
+* **Sidebar:** parnet menu items shouldn't be clickable ([8540d83](https://github.com/equinor/dm-core-packages/commit/8540d836ab9a5a3c533ab657c234c100b1ae4e2c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.16.0 to ^1.17.0
+
 ## [1.20.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.19.1...dm-core-plugins-v1.20.0) (2023-11-22)
 
 
