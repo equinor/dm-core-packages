@@ -26,7 +26,7 @@ interface CalendarProps {
 export const Calendar = (props: CalendarProps): ReactElement => {
   const { dateTime, setDatetime } = props
   // TODO: Change default to false
-  const [showMonthPicker, setShowMonthPicker] = useState(true)
+  const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [activeMonth, setActiveMonth] = useState(THIS_MONTH)
   const [activeYear, setActiveYear] = useState(THIS_YEAR)
   const cal = calendar(activeMonth, activeYear)

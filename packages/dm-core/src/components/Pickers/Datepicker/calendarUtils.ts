@@ -1,5 +1,8 @@
-export const THIS_YEAR = +new Date().getFullYear()
-export const THIS_MONTH = +new Date().getMonth() + 1
+import { DateTime } from 'luxon'
+
+const now = DateTime.now()
+export const THIS_YEAR = now.year
+export const THIS_MONTH = now.month
 export const CALENDAR_MONTHS = {
   January: 'Jan',
   February: 'Feb',

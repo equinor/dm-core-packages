@@ -15,9 +15,23 @@ export const Timefield = (props: TimefieldProps): ReactElement => {
     const [h, m] = String(newTime).split(':')
     if (Number(h) <= 23 && Number(h) >= 0) {
       if (useMinutes) {
-        setDateTime(datetime.set({ hour: Number(h), minute: Number(m) }))
+        setDateTime(
+          datetime.set({
+            hour: Number(h),
+            minute: Number(m),
+            second: 0,
+            millisecond: 0,
+          })
+        )
       } else {
-        setDateTime(datetime.set({ hour: Number(newTime) }))
+        setDateTime(
+          datetime.set({
+            hour: Number(newTime),
+            minute: 0,
+            second: 0,
+            millisecond: 0,
+          })
+        )
       }
     }
   }
