@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFormContext } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { TArrayTemplate } from '../types'
 import { getWidget } from '../context/WidgetContext'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
@@ -22,17 +22,25 @@ export default function ArrayField(props: TArrayTemplate) {
         enumType={attribute.enumType || undefined}
         value={value}
         label={getDisplayLabel(attribute)}
-        {...props}
       />
     )
   }
 
   if (isPrimitiveType(attribute.attributeType)) {
     return (
-      <ArrayPrimitiveTemplate
-        namePath={namePath}
-        uiAttribute={uiAttribute}
-        attribute={attribute}
+      <Controller
+        name={namePath}
+        render={({ field: { value, onChange } }) => {
+          return (
+            <ArrayPrimitiveTemplate
+              namePath={namePath}
+              onChange={onChange}
+              value={value ?? []}
+              uiAttribute={uiAttribute}
+              attribute={attribute}
+            />
+          )
+        }}
       />
     )
   }

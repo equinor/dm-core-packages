@@ -6,7 +6,7 @@ import { useRegistryContext } from '../context/RegistryContext'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 export const StringField = (props: TField) => {
-  const { namePath, uiAttribute, attribute } =props
+  const { namePath, uiAttribute, attribute } = props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
   const { config } = useRegistryContext()
   return (
@@ -28,7 +28,9 @@ export const StringField = (props: TField) => {
             {...props}
             value={value ?? ''}
             id={namePath}
-            label={getDisplayLabel(attribute)}
+            label={
+              !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
+            }
             inputRef={ref}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}

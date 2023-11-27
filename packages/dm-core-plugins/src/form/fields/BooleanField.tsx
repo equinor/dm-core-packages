@@ -24,7 +24,9 @@ export const BooleanField = (props: TField) => {
           id={namePath}
           value={value}
           inputRef={ref}
-          label={getDisplayLabel(attribute)}
+          label={
+            !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
+          }
           helperText={error?.message}
           variant={invalid ? 'error' : undefined}
           config={uiAttribute?.config}

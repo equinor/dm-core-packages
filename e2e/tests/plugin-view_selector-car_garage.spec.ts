@@ -82,7 +82,7 @@ test('View selector - car garage', async ({ page }) => {
     ).toBeVisible()
 
     await page
-      .getByTestId('form-text-widget-Next control date')
+      .getByTestId('form-text-widget-nextControl')
 
       .fill('2025-06-31')
     await page.getByRole('button', { name: 'Submit' }).click()
@@ -140,7 +140,7 @@ test('View selector - car garage', async ({ page }) => {
       .click()
 
     await expect(
-      page.getByTestId('form-text-widget-Next control date').last()
+      page.getByTestId('form-text-widget-nextControl').last()
     ).toHaveValue('2025-06-01')
     await page.getByRole('tab', { name: 'Dimensions' }).click()
     await expect(
