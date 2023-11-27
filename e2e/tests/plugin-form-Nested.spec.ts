@@ -138,7 +138,8 @@ test('Locations', async () => {
     'Trondheim'
   )
   await expect(locationsDiv.getByRole('textbox').last()).toHaveValue('Oslo')
-  await page.getByTestId('form-text-widget-remove-1').last().click()
+  await page.getByTestId('form-primitive-array-item-1').hover()
+  await page.getByTestId('form-primitive-array-remove-1').click()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
   await page.getByTestId('form-submit').nth(1).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])

@@ -68,7 +68,9 @@ describe('List of strings', () => {
     fireEvent.click(utils.addButton)
     await waitFor(() => {
       screen.debug()
-      const inputs = screen.queryAllByTestId('form-text-widget-')
+      const inputs = screen.queryAllByTestId('form-primitive-array-item-', {
+        exact: false,
+      })
       expect(inputs.length).toBe(1)
     })
   })
@@ -79,7 +81,9 @@ describe('List of strings', () => {
     }
     await setup(formData)
     await waitFor(() => {
-      const inputs = screen.queryAllByTestId('form-text-widget-')
+      const inputs = screen.queryAllByTestId('form-primitive-array-item-', {
+        exact: false,
+      })
       expect(inputs.length).toBe(2)
       expect(inputs[0].getAttribute('value')).toBe('foo')
       expect(inputs[1].getAttribute('value')).toBe('bar')
@@ -92,10 +96,12 @@ describe('List of strings', () => {
     }
     await setup(formData)
     await waitFor(() => {
-      const inputs = screen.queryAllByTestId('form-text-widget-')
+      const inputs = screen.queryAllByTestId('form-primitive-array-item-', {
+        exact: false,
+      })
       expect(inputs.length).toBe(2)
-      expect(inputs[0].id).toBe('array.0')
-      expect(inputs[1].id).toBe('array.1')
+      expect(inputs[0].id).toBe('array[0]')
+      expect(inputs[1].id).toBe('array[1]')
     })
   })
 })
