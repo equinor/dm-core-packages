@@ -36,10 +36,12 @@ function App() {
     <FSTreeProvider visibleDataSources={application?.dataSources}>
       <div className="p-10">
         <Datepicker
-          type="datetime"
+          variant="datetime"
           value={selectedDate}
           setValue={setSelectedDate}
+          useMinutes={false}
         />
+        <p className="h-10 text-red-600">{selectedDate.toISOString()}</p>
       </div>
       <EntityView idReference={idReference} type={application?.type} />
     </FSTreeProvider>

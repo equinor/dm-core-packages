@@ -75,7 +75,10 @@ export const getNextMonth = (month: number, year: number) => {
 // Calendar builder for a month in the specified year
 // Returns an array of the calendar dates.
 // Each calendar date is represented as an array => [YYYY, MM, DD]
-export const calendar = (month = THIS_MONTH, year = THIS_YEAR) => {
+export const calendar = (
+  month = THIS_MONTH,
+  year = THIS_YEAR
+): { year: number; month: number; day: number }[] => {
   // Get number of days in the month and the month's first day
 
   const monthDays = getMonthDays(month, year)
@@ -98,19 +101,22 @@ export const calendar = (month = THIS_MONTH, year = THIS_YEAR) => {
 
   const prevMonthDates = [...new Array(daysFromPrevMonth)].map((n, index) => {
     const day = index + 1 + (prevMonthDays - daysFromPrevMonth)
-    return [prevMonthYear, zeroPad(prevMonth, 2), zeroPad(day, 2)]
+    // return [ prevMonthYear, zeroPad(prevMonth, 2), zeroPad(day, 2) ]
+    return { year: prevMonthYear, month: prevMonthDays, day: day }
   })
   // Builds dates to be displayed from current month
 
   const thisMonthDates = [...new Array(monthDays)].map((n, index) => {
     const day = index + 1
-    return [year, zeroPad(month, 2), zeroPad(day, 2)]
+    // return [ year, zeroPad(month, 2), zeroPad(day, 2) ]
+    return { year: year, month: month, day: day }
   })
   // Builds dates to be displayed from next month
 
   const nextMonthDates = [...new Array(daysFromNextMonth)].map((n, index) => {
     const day = index + 1
-    return [nextMonthYear, zeroPad(nextMonth, 2), zeroPad(day, 2)]
+    // return [ nextMonthYear, zeroPad(nextMonth, 2), zeroPad(day, 2) ]
+    return { year: nextMonthYear, month: nextMonth, day: day }
   })
   // Combines all dates from previous, current and next months
   return [...prevMonthDates, ...thisMonthDates, ...nextMonthDates]

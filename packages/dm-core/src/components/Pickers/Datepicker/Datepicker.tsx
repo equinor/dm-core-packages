@@ -8,31 +8,49 @@ import React, {
 } from 'react'
 import { InputWrapper } from '@equinor/eds-core-react'
 import { Calendar } from './Calendar'
+import { Timefield } from './Timefield'
+import { useClickOutside } from '../../../hooks/useClickOutside'
+import { DateTime } from 'luxon'
 
 interface DatepickerProps {
-  type: 'date' | 'datetime'
+  variant: 'date' | 'datetime'
   value: Date
   setValue: Dispatch<SetStateAction<Date>>
+  useMinutes?: boolean
 }
 
 export const Datepicker = (props: DatepickerProps): ReactElement => {
-  const { type, value: selectedDate, setValue: setSelectedDate } = props
-  const [open, setOpen] = useState(false)
+  const {
+    variant,
+    value: selectedDate,
+    setValue: setSelectedDate,
+    useMinutes,
+  } = props
+  // TODO: Change the default state of this
+  const [open, setOpen] = useState(true)
   const datepickerRef = useRef<any | null>(null)
+  const [datetime, setDatetime] = useState(
+    DateTime.fromJSDate(selectedDate).toUTC()
+  )
+
   useEffect(() => {
-    const handleClickOutside = (event: Event) => {
-      if (
-        datepickerRef.current &&
-        !datepickerRef.current.contains(event.target)
-      ) {
-        open && setOpen(false)
-      }
-    }
-    document.addEventListener('click', handleClickOutside, true)
-    return () => {
-      document.removeEventListener('click', handleClickOutside, true)
-    }
-  }, [datepickerRef.current])
+    console.log('datetime: ', datetime.toISO())
+
+    setSelectedDate(datetime.toJSDate())
+    // if (variant === 'datetime') {
+    //   setSelectedDate(datetime.toISO())
+    // } else {
+    //   setSelectedDate(datetime.toISODate())
+    // }
+  }, [datetime])
+
+  useClickOutside(datepickerRef, () => {
+    open && setOpen(false)
+  })
+
+  useEffect(() => {
+    console.log(datetime)
+  }, [datetime])
 
   function handleDateInput(dateInput: string): void {
     if (dateInput.length > 0) setSelectedDate(new Date(dateInput))
@@ -42,12 +60,12 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     <div className="relative">
       <InputWrapper
         labelProps={{
-          label: type === 'datetime' ? 'Date & Time' : 'Date',
+          label: variant === 'datetime' ? 'Date & Time' : 'Date',
         }}
       >
         <input
-          type={type === 'datetime' ? 'datetime-local' : 'date'}
-          value={selectedDate.toISOString().slice(0, 16)}
+          type={variant === 'datetime' ? 'datetime-local' : 'date'}
+          value={datetime.toISO()?.slice(0, 16)}
           onClick={() => setOpen(!open)}
           onChange={(e) => handleDateInput(e.target.value)}
           onFocus={() => (open ? setOpen(true) : null)}
@@ -58,13 +76,23 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
         <div
           ref={datepickerRef}
           className="absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1"
-          style={{ zIndex: 9999 }}
+          style={{ zIndex: 9999, width: '25rem' }}
         >
-          <Calendar
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-          {type === 'datetime' && <p>time selector</p>}
+          <Calendar dateTime={datetime} setDatetime={setDatetime} />
+          <div className="w-full h-px bg-gray-300"></div>
+          {variant === 'datetime' && (
+            <Timefield
+              useMinutes={useMinutes}
+              datetime={datetime}
+              setDateTime={setDatetime}
+            />
+          )}
+          <span className="text-sm text-gray-600">
+            <span className="font-bold text-purple-600 bg-purple-100 py-1 px-1.5 rounded">
+              Note:
+            </span>{' '}
+            This datepicker uses UTC timing
+          </span>
         </div>
       )}
     </div>

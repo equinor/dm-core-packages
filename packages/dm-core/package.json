@@ -15,6 +15,7 @@
     "@equinor/eds-tokens": "^0.9.0",
     "axios": "^1.4.0",
     "dompurify": "^3.0.6",
+    "lodash.debounce": "^4.0.8",
     "luxon": "^3.4.3",
     "react-icons": "4.10.1",
     "react-oauth2-code-pkce": "^1.10.1",

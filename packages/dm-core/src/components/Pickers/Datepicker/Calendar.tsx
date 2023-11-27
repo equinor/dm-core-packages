@@ -16,23 +16,29 @@ import {
   chevron_left,
   chevron_right,
 } from '@equinor/eds-icons'
+import { DateTime } from 'luxon'
 
 interface CalendarProps {
-  selectedDate: Date
-  setSelectedDate: Dispatch<SetStateAction<Date>>
+  dateTime: DateTime
+  setDatetime: Dispatch<SetStateAction<DateTime>>
 }
 
 export const Calendar = (props: CalendarProps): ReactElement => {
-  const { selectedDate, setSelectedDate } = props
-  const [showMonthPicker, setShowMonthPicker] = useState(false)
+  const { dateTime, setDatetime } = props
+  // TODO: Change default to false
+  const [showMonthPicker, setShowMonthPicker] = useState(true)
   const [activeMonth, setActiveMonth] = useState(THIS_MONTH)
   const [activeYear, setActiveYear] = useState(THIS_YEAR)
   const cal = calendar(activeMonth, activeYear)
 
   const currentMonthName = Object.keys(CALENDAR_MONTHS)[activeMonth - 1]
 
-  function handleClickDate(dateArray: (string | number)[]): void {
-    setSelectedDate(new Date(dateArray.join('-')))
+  function handleClickDate(dateArray: {
+    year: number
+    month: number
+    day: number
+  }): void {
+    setDatetime(dateTime.set(dateArray))
   }
 
   function incrementMonth(): void {
@@ -48,13 +54,13 @@ export const Calendar = (props: CalendarProps): ReactElement => {
   }
 
   function goToToday(): void {
-    setSelectedDate(new Date())
+    setDatetime(DateTime.now())
     setActiveMonth(THIS_MONTH)
     setActiveYear(THIS_YEAR)
   }
 
   return (
-    <div>
+    <div className="w-full">
       <div className="flex justify-between items-center mb-3">
         <button
           onClick={() => setShowMonthPicker(!showMonthPicker)}
@@ -62,7 +68,10 @@ export const Calendar = (props: CalendarProps): ReactElement => {
         >
           {currentMonthName} {activeYear}
           <Icon
-            className="group-hover:bg-equinor-green-light rounded-full transition-all duration-250"
+            className={
+              'group-hover:bg-equinor-green-light rounded-full transition-all duration-250 ' +
+              (showMonthPicker ? 'rotate-180' : '')
+            }
             data={chevron_down}
           />
         </button>
@@ -92,37 +101,65 @@ export const Calendar = (props: CalendarProps): ReactElement => {
         </div>
       </div>
       {showMonthPicker ? (
-        <div className="grid grid-cols-3 gap-2.5">
-          {Object.keys(CALENDAR_MONTHS).map((month, index) => (
-            <span key={index}>{month}</span>
-          ))}
-        </div>
+        <>
+          <div className="flex flex-col mb-3">
+            <span className="text-sm text-gray-600">Year</span>
+            <input
+              className="border border-gray-300 rounded px-2 py-1"
+              type="number"
+              value={activeYear}
+              onChange={(event) => setActiveYear(Number(event.target.value))}
+            />
+          </div>
+          <div className="">
+            <span className="text-sm text-gray-600">Month</span>
+            <div className="grid grid-cols-3 gap-2.5 rounded py-2">
+              {Object.keys(CALENDAR_MONTHS).map((month, index) => (
+                <button
+                  onClick={() => setActiveMonth(index + 1)}
+                  className={
+                    'hover:bg-equinor-green-light hover:text-equinor-green px-2 rounded py-1 ' +
+                    (index + 1 === activeMonth
+                      ? 'bg-equinor-green-light text-equinor-green'
+                      : '')
+                  }
+                  key={index}
+                >
+                  {month}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
       ) : (
         <div className="grid grid-cols-7 gap-1">
           {cal.map((date, index) => (
             <button
               onClick={() => handleClickDate(date)}
               className={
-                'p-1 w-8 rounded-full appearance-none hover:bg-equinor-green-light hover:text-equinor-green ' +
-                (isSameDay(new Date(date.join('-')), selectedDate)
+                'p-1.5 w-9 rounded-full appearance-none hover:bg-equinor-green-light hover:text-equinor-green ' +
+                (isSameDay(
+                  DateTime.fromObject(date).toUTC().toJSDate(),
+                  dateTime.toJSDate()
+                )
                   ? 'bg-equinor-green-light text-equinor-green font-medium'
                   : isSameMonth(
-                      new Date(date.join('-')),
-                      new Date(`${activeYear}-${activeMonth}-01`)
+                      DateTime.fromObject(date).toJSDate(),
+                      DateTime.fromObject({
+                        year: activeYear,
+                        month: activeMonth,
+                      }).toJSDate()
                     )
                   ? ''
                   : 'text-slate-400')
               }
               key={index}
             >
-              {date[2]}
+              {date.day}
             </button>
           ))}
         </div>
       )}
-      <span className="text-xs text-gray-600">
-        <span className="font-bold">Note:</span> This datepicker uses UTC timing
-      </span>
     </div>
   )
 }
