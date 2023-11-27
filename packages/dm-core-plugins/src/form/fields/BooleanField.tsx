@@ -1,27 +1,20 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TBooleanFieldProps } from '../types'
+import { TField } from '../types'
+import { useRegistryContext } from '../context/RegistryContext'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
-export const BooleanField = (props: TBooleanFieldProps) => {
-  const {
-    namePath,
-    displayLabel,
-    defaultValue,
-    uiAttribute,
-    leftAdornments,
-    rightAdornments,
-    readOnly,
-  } = props
-
-  // We need to convert default values coming from the API since they are always strings
-  const usedDefaultValue = defaultValue == 'True' ? true : false
+export const BooleanField = (props: TField) => {
+  const { namePath, uiAttribute, leftAdornments, rightAdornments, attribute } =
+    props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'CheckboxWidget')
+  const { config } = useRegistryContext()
   return (
     <Controller
       name={namePath}
-      defaultValue={usedDefaultValue}
+      defaultValue={attribute.default == 'True'} // we need to convert default values coming from the API since they are always strings
       render={({
         field: { ref, value, ...props },
         fieldState: { invalid, error },
@@ -30,13 +23,14 @@ export const BooleanField = (props: TBooleanFieldProps) => {
           {...props}
           leftAdornments={leftAdornments}
           rightAdornments={rightAdornments}
-          readOnly={readOnly}
+          readOnly={config.readOnly}
           id={namePath}
           value={value}
           inputRef={ref}
-          label={displayLabel}
+          label={getDisplayLabel(attribute)}
           helperText={error?.message}
           variant={invalid ? 'error' : undefined}
+          config={uiAttribute?.config}
         />
       )}
     />

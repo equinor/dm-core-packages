@@ -7,15 +7,16 @@ import {
   useDocument,
   useUiPlugins,
 } from '@development-framework/dm-core'
-import { Icon, Popover, TopBar, Typography } from '@equinor/eds-core-react'
-import React, { useEffect, useRef, useState } from 'react'
+import { Icon, TopBar } from '@equinor/eds-core-react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { account_circle, info_circle, menu } from '@equinor/eds-icons'
+import { account_circle, info_circle } from '@equinor/eds-icons'
 
 import { AboutDialog } from './components/AboutDialog'
 import { UserInfoDialog } from './components/UserInfoDialog'
 import { TApplication } from './types'
+import { AppSelector } from './components/AppSelector'
 
 const Icons = styled.div`
   display: flex;
@@ -26,25 +27,12 @@ const Icons = styled.div`
     margin-left: 40px;
   }
 `
-
-const MenuButton = styled.button<{ $active: boolean }>`
-  appearance: none;
-  background-color: ${(props) =>
-    props.$active ? 'rgba(230,250,236,1)' : 'transparent'};
-  color: ${(props) => (props.$active ? 'rgba(0, 79, 85, 1)' : 'black')};
-  border: 0;
-  cursor: pointer;
-  min-width: 150px;
-  text-align: left;
-  padding: 1rem 3rem 1rem 3rem;
-  font-family: 'Equinor', sans-serif;
-
-  &:hover {
-    background-color: ${(props) =>
-      !props.$active ? 'rgba(220,220,220,255)' : 'rgba(230,250,236,1)'};
-    color: ${(props) =>
-      !props.$active ? 'rgba(61,61,61,255)' : 'rgba(0, 79, 85, 1)'};
-  }
+const Logo = styled.h2`
+  paddinginline: 10;
+  color: #007079;
+  font-weight: 500;
+  margin-right: 3rem;
+  margin-left: 0.5rem;
 `
 
 const ClickableIcon = styled.button`
@@ -73,6 +61,7 @@ const defaultHeaderPluginConfig = {
 type TRecipeConfigAndPlugin = {
   config?: TGenericObject
   component: (props: IUIPlugin) => React.ReactElement
+  name: string
 }
 
 export default (props: IUIPlugin): React.ReactElement => {
@@ -85,15 +74,12 @@ export default (props: IUIPlugin): React.ReactElement => {
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
-  const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const { getUiPlugin } = useUiPlugins()
-
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
     component: () => <div></div>,
     config: {},
+    name: '',
   })
-  const [selectedRecipeName, setSelectedRecipeName] = useState<string>('')
 
   function getRecipeConfigAndPlugin(
     recipeName: string
@@ -104,10 +90,10 @@ export default (props: IUIPlugin): React.ReactElement => {
     return {
       component: getUiPlugin(recipe.plugin),
       config: recipe?.config ?? {},
+      name: recipeName,
     }
   }
 
-  const menuRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!isBlueprintLoading) {
       const defaultRecipe: TUiRecipe = config.uiRecipesList.length
@@ -116,15 +102,6 @@ export default (props: IUIPlugin): React.ReactElement => {
           )
         : uiRecipes[0]
       setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))
-      setSelectedRecipeName(defaultRecipe.name)
-    }
-    const handleMouseDown = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node))
-        setAppSelectorOpen(false)
-    }
-    document.addEventListener('mousedown', handleMouseDown)
-    return () => {
-      document.removeEventListener('mousedown', handleMouseDown)
     }
   }, [isBlueprintLoading])
 

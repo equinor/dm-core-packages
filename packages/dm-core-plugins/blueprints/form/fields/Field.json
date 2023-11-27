@@ -21,6 +21,13 @@
       "optional": true,
       "default": false,
       "attributeType": "boolean"
+    },
+    {
+      "name": "config",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "object",
+      "contained": true,
+      "optional": true
     }
   ]
 }

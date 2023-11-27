@@ -10,104 +10,49 @@ export type TFormProps = {
   idReference: string
   type: string
   formData?: any
-  config?: TConfig
+  config?: TFormConfig
   onOpen?: TOnOpen
   onSubmit?: (data: any) => void
 }
 
-export type TObjectFieldProps = {
-  contained: boolean
+export type TObjectTemplate = {
   namePath: string
-  type: string
-  displayLabel: string
-  optional: boolean
-  uiAttribute: TAttributeObject | undefined
-  readOnly?: boolean
-  defaultValue?: any
-  showExpanded?: boolean
-}
-
-export type TContentProps = {
-  type: string
-  namePath: string
-  displayLabel: string
-  optional: boolean
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm
   uiAttribute: TAttributeObject | undefined
-  readOnly?: boolean
-  defaultValue?: any
-  showExpanded?: boolean
-}
-
-export type TArrayFieldProps = {
-  namePath: string
-  displayLabel: string
-  type: string
-  uiAttribute: TAttributeArray | undefined
-  dimensions: string | undefined
-  readOnly?: boolean
-  showExpanded?: boolean
-}
-
-export type TAttributeFieldProps = {
-  namePath: string
   attribute: TAttribute
-  uiAttribute?: TAttributeConfig
-  readOnly?: boolean
-  showExpanded?: boolean
-  leftAdornments?: React.ReactElement | string
-  rightAdornments?: React.ReactElement | string
 }
 
-export type TStringFieldProps = {
+export type TArrayTemplate = {
   namePath: string
-  displayLabel: string
-  defaultValue: string
-  optional: boolean
-  uiAttribute: TAttributeConfig | undefined
-  readOnly?: boolean
-  format?: 'string' | 'date' | 'datetime'
-  leftAdornments?: React.ReactElement | string
-  rightAdornments?: React.ReactElement | string
+  uiAttribute: TAttributeArray | undefined
+  attribute: TAttribute
 }
 
-export type TNumberFieldProps = {
+export type TField = {
   namePath: string
-  displayLabel: string
-  defaultValue: string
-  optional: boolean
   uiAttribute: TAttributeConfig | undefined
-  readOnly?: boolean
   leftAdornments?: React.ReactElement | string
   rightAdornments?: React.ReactElement | string
+  attribute: TAttribute
 }
 
-export type TBooleanFieldProps = {
-  namePath: string
-  displayLabel: string
-  defaultValue: string
-  uiAttribute: TAttributeConfig | undefined
-  readOnly?: boolean
-  leftAdornments?: React.ReactElement | string
-  rightAdornments?: React.ReactElement | string
-}
-
-type TAttributeBasis = {
+type TAttributeBase = {
   name: string
   type: string
   showInline?: boolean
+  config?: Record<any, any>
 }
-type TAttributeString = TAttributeBasis & {
+type TAttributeString = TAttributeBase & {
   widget: string
   format: string
 }
-type TAttributeArray = TAttributeBasis & {
+type TAttributeArray = TAttributeBase & {
   widget?: string
   uiRecipe?: string
-  showExpanded?: boolean
+  showExpanded: boolean
 }
-type TAttributeObject = TAttributeBasis & {
+type TAttributeObject = TAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded?: boolean
@@ -116,7 +61,8 @@ export type TAttributeConfig =
   | TAttributeArray
   | TAttributeObject
   | TAttributeString
-export type TConfig = {
+
+export type TFormConfig = {
   attributes: TAttributeConfig[]
   fields: string[]
   readOnly?: boolean
@@ -124,19 +70,18 @@ export type TConfig = {
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & {
-  config: TConfig
+  config: TFormConfig
 }
 
 export declare type Variants = 'error' | 'success' | 'warning'
 
 export type TWidget = {
   label: string
-  value?: any
-  onChange: (value: unknown) => void
-  onClick?: (value: any) => void
-  id: string
-  inputRef?: any
-  helperText?: string
+  value?: any // set up input initial and updated value
+  onChange: (value: unknown) => void // send data back to hook form
+  id: string // unique id to ensure accessibility
+  inputRef?: any // allow input to be focused with error
+  helperText?: string // show error messages as helper text
   variant?: Variants
   readOnly?: boolean
   config?: Record<any, any>
@@ -144,6 +89,7 @@ export type TWidget = {
   rightAdornments?: React.ReactElement | string
   style?: any
   isDirty?: boolean
+  enumType?: any
 }
 
 export type TWidgets = {

@@ -1,0 +1,28 @@
+{
+  "name": "Enums",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "singleString",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Select a single string option",
+      "enumType": "./StringOptions",
+      "optional": true
+    },
+    {
+      "name": "manyStrings",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Select one or many string options",
+      "enumType": "./StringOptions",
+      "optional": true,
+      "dimensions": "*"
+    }
+  ]
+}

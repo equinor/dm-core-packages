@@ -1,51 +1,41 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TStringFieldProps } from '../types'
+import { TField } from '../types'
+import { useRegistryContext } from '../context/RegistryContext'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
-export const StringField = (props: TStringFieldProps) => {
-  const {
-    namePath,
-    displayLabel,
-    defaultValue,
-    optional,
-    uiAttribute,
-    readOnly,
-    leftAdornments,
-    rightAdornments,
-  } = props
+export const StringField = (props: TField) => {
+  const { namePath, uiAttribute, leftAdornments, rightAdornments, attribute } =
+    props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
-
+  const { config } = useRegistryContext()
   return (
     <Controller
       name={namePath}
       rules={{
-        required: optional ? false : 'Required',
+        required: attribute.optional ? false : 'Required',
       }}
-      defaultValue={defaultValue ?? ''}
+      defaultValue={attribute.default ?? ''}
       render={({
         field: { ref, value, ...props },
         fieldState: { invalid, error, isDirty },
       }) => {
         return (
           <Widget
+            enumType={attribute.enumType || undefined}
             isDirty={value !== null ? isDirty : false}
-            readOnly={readOnly}
+            readOnly={config.readOnly}
             {...props}
             value={value ?? ''}
             id={namePath}
             leftAdornments={leftAdornments}
             rightAdornments={rightAdornments}
-            label={displayLabel}
+            label={getDisplayLabel(attribute)}
             inputRef={ref}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
-            config={{
-              format:
-                uiAttribute && 'format' in uiAttribute
-                  ? uiAttribute.format
-                  : 'string',
-            }}
+            config={uiAttribute?.config}
           />
         )
       }}

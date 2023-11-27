@@ -13,7 +13,7 @@
         {
           "name": "date",
           "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-          "format": "datetime"
+          "widget": "DateTimeWidget"
         }
       ]
     }
