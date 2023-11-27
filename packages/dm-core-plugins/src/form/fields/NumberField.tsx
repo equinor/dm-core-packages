@@ -7,8 +7,7 @@ import { getDisplayLabel } from '../utils/getDisplayLabel'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
 export const NumberField = (props: TField) => {
-  const { namePath, uiAttribute, attribute } =
-    props
+  const { namePath, uiAttribute, attribute } = props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'NumberWidget')
   const { config } = useRegistryContext()
@@ -22,7 +21,7 @@ export const NumberField = (props: TField) => {
           message: 'Only numbers allowed',
         },
       }}
-      defaultValue={attribute.default || null}
+      defaultValue={attribute.default || 0}
       render={({
         field: { ref, onChange, ...props },
         fieldState: { invalid, error, isDirty },
@@ -31,12 +30,12 @@ export const NumberField = (props: TField) => {
           <Widget
             {...props}
             readOnly={config.readOnly}
-            onChange={(event: unknown) =>
-              onChange(event ? Number(event) : null)
-            }
+            onChange={(event: unknown) => onChange(event ? Number(event) : 0)}
             value={props.value ?? ''}
             id={namePath}
-            label={getDisplayLabel(attribute)}
+            label={
+              !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
+            }
             inputRef={ref}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}

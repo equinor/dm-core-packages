@@ -19,7 +19,7 @@ const TextWidget = (props: TWidget) => {
       onChange={onChangeHandler}
       label={label}
       type="string"
-      data-testid={`form-text-widget-${label}`}
+      data-testid={`form-text-widget-${props.id}`}
       style={
         isDirty && props.variant !== 'error'
           ? {
