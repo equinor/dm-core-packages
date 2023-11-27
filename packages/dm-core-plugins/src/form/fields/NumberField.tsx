@@ -7,7 +7,7 @@ import { getDisplayLabel } from '../utils/getDisplayLabel'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
 export const NumberField = (props: TField) => {
-  const { namePath, uiAttribute, leftAdornments, rightAdornments, attribute } =
+  const { namePath, uiAttribute, attribute } =
     props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'NumberWidget')
@@ -30,8 +30,6 @@ export const NumberField = (props: TField) => {
         return (
           <Widget
             {...props}
-            leftAdornments={leftAdornments}
-            rightAdornments={rightAdornments}
             readOnly={config.readOnly}
             onChange={(event: unknown) =>
               onChange(event ? Number(event) : null)
