@@ -11,5 +11,7 @@ models/error-response.ts
 models/get-job-result-response.ts
 models/index.ts
 models/job-status.ts
+models/progress.ts
 models/start-job-response.ts
 models/status-job-response.ts
+models/update-job-progress-response.ts

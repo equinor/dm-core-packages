@@ -1,33 +1,28 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TNumberFieldProps } from '../types'
+import { TField } from '../types'
+import { useRegistryContext } from '../context/RegistryContext'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
-export const NumberField = (props: TNumberFieldProps) => {
-  const {
-    namePath,
-    displayLabel,
-    defaultValue,
-    optional,
-    uiAttribute,
-    readOnly,
-    leftAdornments,
-    rightAdornments,
-  } = props
+export const NumberField = (props: TField) => {
+  const { namePath, uiAttribute, leftAdornments, rightAdornments, attribute } =
+    props
 
-  const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
+  const Widget = getWidget(uiAttribute?.widget ?? 'NumberWidget')
+  const { config } = useRegistryContext()
   return (
     <Controller
       name={namePath}
       rules={{
-        required: optional ? false : 'Required',
+        required: attribute.optional ? false : 'Required',
         pattern: {
           value: REGEX_FLOAT,
           message: 'Only numbers allowed',
         },
       }}
-      defaultValue={defaultValue || null}
+      defaultValue={attribute.default || null}
       render={({
         field: { ref, onChange, ...props },
         fieldState: { invalid, error, isDirty },
@@ -35,21 +30,20 @@ export const NumberField = (props: TNumberFieldProps) => {
         return (
           <Widget
             {...props}
-            config={{ format: 'number' }}
             leftAdornments={leftAdornments}
             rightAdornments={rightAdornments}
-            readOnly={readOnly}
-            style={{ textAlignLast: 'right' }}
+            readOnly={config.readOnly}
             onChange={(event: unknown) =>
               onChange(event ? Number(event) : null)
             }
             value={props.value ?? ''}
             id={namePath}
-            label={displayLabel}
+            label={getDisplayLabel(attribute)}
             inputRef={ref}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
             isDirty={props.value !== null ? isDirty : false}
+            config={uiAttribute?.config}
           />
         )
       }}

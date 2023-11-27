@@ -9,7 +9,7 @@ import { Button } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { RegistryProvider } from '../context/RegistryContext'
-import { TFormProps } from '../types'
+import { TFormConfig, TFormProps } from '../types'
 import { AttributeList } from './AttributeList'
 
 const Wrapper = styled.div`
@@ -21,8 +21,15 @@ const Wrapper = styled.div`
   flex-direction: column;
 `
 
+export const defaultConfig: TFormConfig = {
+  attributes: [],
+  fields: [],
+  readOnly: false,
+  showExpanded: true,
+}
+
 export const Form = (props: TFormProps) => {
-  const { type, formData, config, onSubmit, idReference, onOpen } = props
+  const { type, formData, onSubmit, idReference, onOpen } = props
   const { blueprint, isLoading, error } = useBlueprint(type)
 
   const methods = useForm({
@@ -51,15 +58,17 @@ export const Form = (props: TFormProps) => {
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
+  const config: TFormConfig = { ...defaultConfig, ...props.config }
+
   return (
     <FormProvider {...methods}>
-      <RegistryProvider onOpen={onOpen} idReference={idReference}>
+      <RegistryProvider
+        onOpen={onOpen}
+        idReference={idReference}
+        config={{ ...defaultConfig, ...props.config }}
+      >
         <Wrapper>
-          <AttributeList
-            namePath={namePath}
-            config={config}
-            blueprint={blueprint}
-          />
+          <AttributeList namePath={namePath} blueprint={blueprint} />
           {!config?.readOnly && (
             <Button
               type="submit"

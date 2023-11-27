@@ -1,16 +1,15 @@
 import { TAttribute, TBlueprint } from '@development-framework/dm-core'
 import React from 'react'
 import { AttributeField } from '../fields/AttributeField'
-import { TConfig } from '../types'
+import { useRegistryContext } from '../context/RegistryContext'
 
 export const AttributeList = (props: {
   namePath: string
-  config: TConfig | undefined
   blueprint: TBlueprint
 }) => {
-  const { namePath, config, blueprint } = props
+  const { namePath, blueprint } = props
   const prefix = namePath === '' ? `` : `${namePath}.`
-
+  const { config } = useRegistryContext()
   const attributes: TAttribute[] | undefined = blueprint.attributes
 
   let filteredAttributes =
@@ -46,8 +45,6 @@ export const AttributeList = (props: {
               namePath={`${prefix}${attribute.name}`}
               attribute={attribute}
               uiAttribute={uiAttribute}
-              readOnly={config?.readOnly}
-              showExpanded={config?.showExpanded || true}
             />
           </div>
         )

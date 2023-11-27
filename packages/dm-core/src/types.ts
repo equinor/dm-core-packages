@@ -205,6 +205,11 @@ export type TFileEntity = {
   content?: TStorageReference
 }
 
+export type TEnum = {
+  values: string[]
+  labels: string[]
+}
+
 export function isViewConfig(
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
 ): viewConfig is TViewConfig {

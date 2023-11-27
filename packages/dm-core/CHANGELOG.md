@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.17.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.16.0...dm-core-v1.17.0) (2023-11-27)
+
+
+### Features
+
+* add enum support ([62e5c50](https://github.com/equinor/dm-core-packages/commit/62e5c5028fd99083c7ed497df1f487310e82d3c8))
+
+
+### Bug Fixes
+
+* added roles and titles ([0a84c2d](https://github.com/equinor/dm-core-packages/commit/0a84c2d2dc79591a4207e9b3b6aad837b322e8b5))
+* generate new job api and update job plugin new api ([4d5b53f](https://github.com/equinor/dm-core-packages/commit/4d5b53fc45226e1bd999e8c992e54a2b6b22c729))
+
 ## [1.16.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.15.0...dm-core-v1.16.0) (2023-11-22)
 
 

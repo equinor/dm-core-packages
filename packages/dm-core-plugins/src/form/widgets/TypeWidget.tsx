@@ -1,7 +1,7 @@
 import { Loading, useBlueprint } from '@development-framework/dm-core'
 import React from 'react'
 import { TWidget } from '../types'
-import TextWidget from './TextWidget'
+import { TextField } from '@equinor/eds-core-react'
 
 const TypeWidget = (props: TWidget) => {
   const { id, label, value } = props
@@ -14,22 +14,20 @@ const TypeWidget = (props: TWidget) => {
   const datasourceId = value.split('/')[0]
 
   return (
-    <>
-      <TextWidget
-        id={id}
-        label={label}
-        readOnly={true}
-        value={value}
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onChange={() => {}}
-        onClick={() => {
-          // @ts-ignore
-          window
-            .open(`dmt/view/${datasourceId}/${blueprint.uid}`, '_blank')
-            .focus()
-        }}
-      />
-    </>
+    <TextField
+      id={id}
+      label={label}
+      readOnly={true}
+      value={value}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onChange={() => {}}
+      onClick={() => {
+        // @ts-ignore
+        window
+          .open(`dmt/view/${datasourceId}/${blueprint.uid}`, '_blank')
+          .focus()
+      }}
+    />
   )
 }
 
