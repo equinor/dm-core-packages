@@ -20,12 +20,12 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await page.getByRole('button', { name: 'Open in tab', exact: true }).click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()
-    await expect(page.getByTestId('form-text-widget-Name').nth(1)).toHaveValue(
+    await expect(page.getByTestId('form-text-widget-name').nth(1)).toHaveValue(
       'CaptainJackSparrow'
     )
     await expect(
       page.getByTestId('form-number-widget-Phone Number (optional)')
-    ).toBeEmpty()
+    ).toHaveValue('0')
     await page.getByLabel('Close captain').click()
   })
 
@@ -62,7 +62,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await page.getByRole('button', { name: 'Open in tab', exact: true }).click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()
-    await expect(page.getByTestId('form-text-widget-Name').nth(1)).toHaveValue(
+    await expect(page.getByTestId('form-text-widget-name').nth(1)).toHaveValue(
       'Barbossa'
     )
     await expect(

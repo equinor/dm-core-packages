@@ -10,14 +10,14 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('Admin role', async ({ page }) => {
-  await page.getByRole('button', { name: 'Menu' }).nth(1).click()
+  await page.getByLabel('AppSelector').nth(1).click()
   await expect(
     page.getByRole('button', { name: 'Yaml', exact: true })
   ).toBeVisible()
   await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Explorer' })).toBeVisible()
   await page.getByRole('button', { name: 'Edit' }).click()
-  await expect(page.getByTestId('form-text-widget-Name')).toHaveValue(
+  await expect(page.getByTestId('form-text-widget-name')).toHaveValue(
     'elonMusk'
   )
 })
@@ -30,7 +30,8 @@ test('Change to operator role and back', async ({ page }) => {
   })
 
   await test.step('Edit option not visible', async () => {
-    await page.getByRole('button', { name: 'Menu' }).nth(1).click()
+    await page.getByLabel('AppSelector').nth(1).click()
+
     await expect(
       page.getByRole('button', { name: 'Yaml', exact: true })
     ).toBeVisible()
@@ -62,7 +63,7 @@ test('Change to operator role and back', async ({ page }) => {
       .click()
     await page.getByRole('button', { name: 'file elonMusk' }).nth(1).click()
     await expect(page.getByRole('code')).toBeVisible()
-    await page.getByRole('button', { name: 'Menu' }).nth(2).click()
+    await page.getByLabel('AppSelector').nth(2).click()
     await expect(
       page.getByRole('button', { name: 'Yaml', exact: true })
     ).toBeVisible()
@@ -72,7 +73,8 @@ test('Change to operator role and back', async ({ page }) => {
   })
 
   await test.step('Change back to admin', async () => {
-    await page.getByRole('button', { name: 'Menu' }).nth(1).click()
+    await page.getByLabel('AppSelector').nth(1).click()
+
     await page
       .getByRole('button', { name: 'Yaml', exact: true })
       .first()
@@ -80,7 +82,7 @@ test('Change to operator role and back', async ({ page }) => {
     await page.getByRole('button', { name: 'User' }).click()
     await page.getByLabel('admin').check()
     await page.getByRole('button', { name: 'Save' }).click()
-    await page.getByRole('button', { name: 'Menu' }).nth(1).click()
+    await page.getByLabel('AppSelector').nth(1).click()
     await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible()
   })
 })

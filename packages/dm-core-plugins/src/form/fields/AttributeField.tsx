@@ -40,16 +40,13 @@ const ATTRIBUTE_FIELD_MAPPING: Record<string, any> = {
 const getField = (fieldType: string) => ATTRIBUTE_FIELD_MAPPING[fieldType]
 
 export const AttributeField = (props: TField) => {
-  const { namePath, attribute, uiAttribute, leftAdornments, rightAdornments } =
-    props
+  const { namePath, attribute, uiAttribute } = props
   const fieldType = getFieldType(attribute)
   const Field = getField(fieldType)
   return (
     <Field
       namePath={namePath}
       uiAttribute={uiAttribute}
-      leftAdornments={leftAdornments}
-      rightAdornments={rightAdornments}
       attribute={attribute}
     />
   )
