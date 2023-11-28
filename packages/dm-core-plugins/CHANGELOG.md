@@ -30,6 +30,14 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.21.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.21.0...dm-core-plugins-v1.21.1) (2023-11-28)
+
+
+### Bug Fixes
+
+* simple job control button ([01b8746](https://github.com/equinor/dm-core-packages/commit/01b8746789b5671b60b2aaee87a474b9e04cc2d0))
+* tests by adding label ([4bb089a](https://github.com/equinor/dm-core-packages/commit/4bb089a8d1ea3c76c56f279ab17d80c7c9b2c603))
+
 ## [1.21.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.20.0...dm-core-plugins-v1.21.0) (2023-11-27)
 
 
