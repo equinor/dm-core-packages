@@ -16,6 +16,9 @@ test('Table car list example', async ({ page }) => {
 
   await test.step('Add a new car by using expand', async () => {
     await page.getByRole('button', { name: 'Add new row' }).click()
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(2)
     await page
       .getByRole('button', { name: 'Open expandable row' })
       .last()
@@ -66,18 +69,33 @@ test('Table car list example', async ({ page }) => {
   })
 
   await test.step('Adding several cars to test pagination', async () => {
-    await page.locator('#rowsPerPage').selectOption('5')
     await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
     await page.getByRole('button', { name: 'Add new row' }).click()
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(2)
     await expect(page.getByText('1 - 2 of 2')).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(3)
     await expect(page.getByText('1 - 3 of 3')).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(4)
     await expect(page.getByText('1 - 4 of 4')).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(5)
     await expect(page.getByText('1 - 5 of 5')).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
-    await expect(page.getByText('1 - 5 of 6')).toBeVisible()
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(6)
+    await expect(page.getByText('1 - 6 of 6')).toBeVisible()
+    await page.locator('#rowsPerPage').selectOption('5')
     await page.getByRole('button', { name: 'Next page' }).click()
     await expect(page.getByText('6 - 6 of 6')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
