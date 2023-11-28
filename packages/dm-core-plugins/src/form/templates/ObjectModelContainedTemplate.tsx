@@ -16,7 +16,7 @@ export const ObjectModelContainedTemplate = (
   props: TObjectTemplate
 ): React.ReactElement => {
   const { namePath, uiAttribute, uiRecipe, attribute } = props
-  const { watch } = useFormContext()
+  const { getValues, setValue } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
 
   const [isExpanded, setIsExpanded] = useState(
@@ -24,7 +24,7 @@ export const ObjectModelContainedTemplate = (
       ? uiAttribute?.showExpanded
       : config.showExpanded
   )
-  const value = watch(namePath)
+  const value = getValues(namePath)
   const isDefined = value && Object.keys(value).length > 0
   return (
     <Fieldset>
@@ -67,6 +67,7 @@ export const ObjectModelContainedTemplate = (
           idReference={`${idReference}.${namePath}`}
           type={attribute.attributeType}
           onOpen={onOpen}
+          onSubmit={(data: any) => setValue(namePath, data)}
         />
       )}
     </Fieldset>

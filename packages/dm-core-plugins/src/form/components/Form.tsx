@@ -37,6 +37,9 @@ export const Form = (props: TFormProps) => {
     defaultValues: formData || {},
   })
 
+  props?.onUpdate &&
+    methods.watch((data: any) => props?.onUpdate && props.onUpdate(data))
+
   // Every react hook form controller needs to have a unique name
   const namePath: string = ''
 
@@ -60,6 +63,8 @@ export const Form = (props: TFormProps) => {
 
   const config: TFormConfig = { ...defaultConfig, ...props.config }
 
+  const showSubmitButton = props.showSubmitButton ?? true
+
   return (
     <FormProvider {...methods}>
       <RegistryProvider
@@ -69,7 +74,7 @@ export const Form = (props: TFormProps) => {
       >
         <Wrapper>
           <AttributeList namePath={namePath} blueprint={blueprint} />
-          {!config?.readOnly && (
+          {showSubmitButton && !config?.readOnly && (
             <Button
               type="submit"
               data-testid="form-submit"

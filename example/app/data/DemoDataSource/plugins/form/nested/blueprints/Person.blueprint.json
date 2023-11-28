@@ -21,6 +21,13 @@
       "attributeType": "number",
       "label": "Phone Number",
       "optional": true
+    },
+    {
+      "name": "hasDrivingLicence",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "Has driving licence",
+      "optional": true
     }
   ]
 }
