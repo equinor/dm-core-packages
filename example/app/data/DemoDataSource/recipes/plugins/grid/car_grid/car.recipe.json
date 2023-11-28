@@ -16,8 +16,8 @@
         "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
         "variant": [
           {
-            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
             "name": "view",
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
               "delete": false,
