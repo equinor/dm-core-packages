@@ -11,8 +11,9 @@
       "name": "variant",
       "type": "CORE:BlueprintAttribute",
       "description": "Define table variants. Initial variant will be decided by which variant is passed first. Variants are 'view' and 'edit'",
-      "attributeType": "string",
+      "attributeType": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
       "optional": true,
+      "dimensions": "*",
       "default": [
         {
           "name": "view",
@@ -24,7 +25,7 @@
       "name": "columns",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in header of item",
-      "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+      "attributeType": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
       "optional": true,
       "default": [
         {
