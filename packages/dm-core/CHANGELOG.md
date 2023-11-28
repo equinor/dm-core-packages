@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.19.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.18.0...dm-core-v1.19.0) (2023-11-28)
+
+
+### Features
+
+* add helper component ConditionalWrapper ([a0cf32b](https://github.com/equinor/dm-core-packages/commit/a0cf32b8e4af875fd0e2cbf657b7c72eec32ec21))
+* add react-dnd to dm-core and create SortableList and SortableItem components ([7b85052](https://github.com/equinor/dm-core-packages/commit/7b850524bb6e022073d35129cb269aadd548588b))
+* add Table component to dm-core ([952fdc6](https://github.com/equinor/dm-core-packages/commit/952fdc69ab9dcecf2980c50432ed3ae287f41f99))
+
+
+### Bug Fixes
+
+* expect api calls on server to be slower ([5b85878](https://github.com/equinor/dm-core-packages/commit/5b85878c627c5b8a332b3a5bd5d6c14dcaffe2df))
+* unwanted div element in table, separated dnd context from list context ([328b764](https://github.com/equinor/dm-core-packages/commit/328b764607735414c50888ccdf1cf202e24a0fdd))
+
 ## [1.18.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.17.0...dm-core-v1.18.0) (2023-11-28)
 
 
