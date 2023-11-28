@@ -30,6 +30,29 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.23.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.22.0...dm-core-plugins-v1.23.0) (2023-11-28)
+
+
+### Features
+
+* expanded all Table config to match table functionality ([faed723](https://github.com/equinor/dm-core-packages/commit/faed7230095b7f52ffc1ef716b9731150b03ef80))
+* update on change in nested forms ([c1eb8e3](https://github.com/equinor/dm-core-packages/commit/c1eb8e346a2f3053366ebdaee2d2bd368d48d402))
+* update plugin TablePlugin to use Table component + update documentation and config ([2ec028f](https://github.com/equinor/dm-core-packages/commit/2ec028f301af2ad3bc426cab7a3d262a31807882))
+
+
+### Bug Fixes
+
+* expect api calls on server to be slower ([5b85878](https://github.com/equinor/dm-core-packages/commit/5b85878c627c5b8a332b3a5bd5d6c14dcaffe2df))
+* pre-commit prettier errors ([8d8299c](https://github.com/equinor/dm-core-packages/commit/8d8299c4b3e3632a4ec3f1d71efd62aeca83a632))
+* wrong type errors + missing update ([4c53bd9](https://github.com/equinor/dm-core-packages/commit/4c53bd9b9ccc80ad367607c2a1f74e6e4214a637))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.18.0 to ^1.19.0
+
 ## [1.22.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.21.1...dm-core-plugins-v1.22.0) (2023-11-28)
 
 
