@@ -87,6 +87,7 @@ export default (props: IUIPlugin): React.ReactElement => {
     const recipe = uiRecipes.find(
       (recipe: TUiRecipe) => recipe.name === recipeName
     )
+    if (!recipe) throw new Error(`Failed to find recipe named '${recipeName}'`)
     return {
       component: getUiPlugin(recipe.plugin),
       config: recipe?.config ?? {},
@@ -107,6 +108,7 @@ export default (props: IUIPlugin): React.ReactElement => {
 
   const UIPlugin: (props: IUIPlugin) => React.ReactElement =
     selectedRecipe.component
+
   if (isLoading || !entity || isBlueprintLoading) {
     return <Loading />
   }
@@ -168,6 +170,7 @@ export default (props: IUIPlugin): React.ReactElement => {
         applicationEntity={entity}
       />
       <UIPlugin
+        key={idReference + selectedRecipe.name}
         idReference={idReference}
         type={entity.type}
         config={selectedRecipe.config}
