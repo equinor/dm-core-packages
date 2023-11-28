@@ -5,7 +5,7 @@ import {
   useBlueprint,
 } from '@development-framework/dm-core'
 import React from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TField, TUiRecipeForm } from '../types'
 import { defaultConfig } from '../components/Form'
@@ -26,12 +26,29 @@ export const ObjectField = (props: TField): React.ReactElement => {
   if (uiAttribute?.widget) {
     const Widget = getWidget(uiAttribute.widget)
     return (
-      <Widget
-        {...props}
-        label={getDisplayLabel(attribute)}
-        onChange={() => null}
-        id={isStorageUncontained ? values['address'] : namePath}
-        // if the attribute type is an object, we need to find the correct type from the values.
+      <Controller
+        name={namePath}
+        rules={{
+          required: attribute.optional ? false : 'Required',
+        }}
+        defaultValue={attribute.default ?? ''}
+        render={({
+          field: { ref, value, onChange, ...props },
+          fieldState: { isDirty },
+        }) => {
+          return (
+            <Widget
+              {...props}
+              value={value}
+              onChange={onChange}
+              label={getDisplayLabel(attribute)}
+              isDirty={isDirty}
+              inputRef={ref}
+              id={isStorageUncontained ? values['address'] : namePath}
+              // if the attribute type is an object, we need to find the correct type from the values.
+            />
+          )
+        }}
       />
     )
   }
