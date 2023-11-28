@@ -1,3 +1,4 @@
+export * from './delete-job-response';
 export * from './error-response';
 export * from './get-job-result-response';
 export * from './job-status';
