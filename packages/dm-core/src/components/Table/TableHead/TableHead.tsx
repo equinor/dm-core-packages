@@ -75,7 +75,7 @@ export function TableHead(props: TableHeadProps) {
         <Table.Cell width="40">
           <>
             <Button
-              aria-label="Table row actions"
+              aria-label="Table actions"
               aria-haspopup="true"
               aria-expanded={isMenuOpen}
               aria-controls={`tablehead-menu`}
