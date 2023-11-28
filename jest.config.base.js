@@ -23,4 +23,7 @@ module.exports = {
     },
   },
   coverageReporters: ['json-summary', 'text', 'lcov'],
+  moduleNameMapper: {
+    '\\.(css|less)$': '<rootDir>/styleMock.js',
+  },
 }
