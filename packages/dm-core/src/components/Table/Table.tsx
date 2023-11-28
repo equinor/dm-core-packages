@@ -26,6 +26,7 @@ import {
 } from './types'
 import { TableHead } from './TableHead/TableHead'
 import { TableRow } from './TableRow/TableRow'
+import { SortableContext } from '../SortableList/SortableContext'
 
 export type { TTableRowItem, TTableConfig }
 
@@ -116,67 +117,69 @@ export function Table(props: TableProps) {
     setSortColumn(newSortColumn)
   }
 
+  function reorderItems(reorderedItems: TTableRowItem[]) {
+    setItems(reorderedItems)
+    setDirtyState(true)
+  }
+
   return (
     <Stack spacing={1}>
       <Stack>
-        <EDSTable
-          style={{
-            width: '100%',
-            paddingRight: tableVariant === TableVariantNameEnum.Edit ? 32 : 0,
-          }}
-        >
-          <TableHead
-            config={config}
-            tableVariant={tableVariant}
-            setTableVariant={setTableVariant}
-            sortColumn={sortColumn}
-            sortDirection={sortDirection}
-            sortByColumn={sortByColumn}
-          />
-          <EDSTable.Body>
-            <ConditionalWrapper
-              condition={tableVariant === TableVariantNameEnum.Edit}
-              wrapper={(children: React.ReactNode) => (
-                <SortableList
-                  items={paginatedRows}
-                  onReorder={(reorderedItems) => setItems(reorderedItems)}
-                >
-                  {children}
-                </SortableList>
-              )}
-            >
-              {paginatedRows?.map((item, index) => (
-                <ConditionalWrapper
-                  key={item?.key}
-                  condition={tableVariant === TableVariantNameEnum.Edit}
-                  wrapper={(children: React.ReactNode) => (
-                    <SortableItem item={item} key={item?.key}>
-                      {children}
-                    </SortableItem>
-                  )}
-                >
-                  <TableRow
+        <SortableContext items={items} onReorder={reorderItems}>
+          <EDSTable
+            style={{
+              width: '100%',
+              paddingRight: tableVariant === TableVariantNameEnum.Edit ? 32 : 0,
+            }}
+          >
+            <TableHead
+              config={config}
+              tableVariant={tableVariant}
+              setTableVariant={setTableVariant}
+              sortColumn={sortColumn}
+              sortDirection={sortDirection}
+              sortByColumn={sortByColumn}
+            />
+            <EDSTable.Body>
+              <ConditionalWrapper
+                condition={tableVariant === TableVariantNameEnum.Edit}
+                wrapper={(children: React.ReactNode) => (
+                  <SortableList items={paginatedRows}>{children}</SortableList>
+                )}
+              >
+                {paginatedRows?.map((item, index) => (
+                  <ConditionalWrapper
                     key={item?.key}
-                    addItem={instantiateAndAddItem}
-                    config={config}
-                    deleteItem={deleteItem}
-                    editMode={tableVariant === TableVariantNameEnum.Edit}
-                    functionalityConfig={functionalityConfig}
-                    idReference={props.idReference}
-                    index={index}
-                    item={item}
-                    items={items}
-                    onOpen={props.onOpen}
-                    rowsPerPage={rowsPerPage}
-                    setDirtyState={setDirtyState}
-                    setItems={setItems}
-                    tableVariant={tableVariant}
-                  />
-                </ConditionalWrapper>
-              ))}
-            </ConditionalWrapper>
-          </EDSTable.Body>
-        </EDSTable>
+                    condition={tableVariant === TableVariantNameEnum.Edit}
+                    wrapper={(children: React.ReactNode) => (
+                      <SortableItem item={item} key={item?.key}>
+                        {children}
+                      </SortableItem>
+                    )}
+                  >
+                    <TableRow
+                      key={item?.key}
+                      addItem={instantiateAndAddItem}
+                      config={config}
+                      deleteItem={deleteItem}
+                      editMode={tableVariant === TableVariantNameEnum.Edit}
+                      functionalityConfig={functionalityConfig}
+                      idReference={props.idReference}
+                      index={index}
+                      item={item}
+                      items={items}
+                      onOpen={props.onOpen}
+                      rowsPerPage={rowsPerPage}
+                      setDirtyState={setDirtyState}
+                      setItems={setItems}
+                      tableVariant={tableVariant}
+                    />
+                  </ConditionalWrapper>
+                ))}
+              </ConditionalWrapper>
+            </EDSTable.Body>
+          </EDSTable>
+        </SortableContext>
         {functionalityConfig.add && (
           <AddRowButton
             aria-label="Add new row"
