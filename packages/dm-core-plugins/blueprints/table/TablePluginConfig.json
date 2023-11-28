@@ -8,24 +8,37 @@
       "attributeType": "string"
     },
     {
+      "name": "variant",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Define table variants. Initial variant will be decided by which variant is passed first. Variants are 'view' and 'edit'",
+      "attributeType": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
+      "optional": true,
+      "dimensions": "*",
+      "default": [
+        {
+          "name": "view",
+          "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+        }
+      ]
+    },
+    {
       "name": "columns",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in header of item",
-      "attributeType": "string",
+      "attributeType": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
       "optional": true,
       "default": [
-        "name",
-        "type"
+        {
+          "type": "./TableColumnConfig",
+          "data": "name",
+          "label": "Name"
+        },
+        {
+          "type": "./TableColumnConfig",
+          "data": "type",
+          "editable": false
+        }
       ],
-      "dimensions": "*"
-    },
-    {
-      "name": "editableColumns",
-      "type": "CORE:BlueprintAttribute",
-      "description": "Name of column-headers that should have edit functionality if edit is activated. Array of strings.",
-      "attributeType": "string",
-      "optional": true,
-      "default": [],
       "dimensions": "*"
     },
     {
@@ -33,21 +46,6 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "CORE:ViewConfig",
       "optional": true
-    },
-    {
-      "name": "functionality",
-      "type": "CORE:BlueprintAttribute",
-      "description": "Table functionality config",
-      "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-      "optional": true,
-      "default": {
-        "type": "./TableFunctionalityConfig",
-        "openAsTab": true,
-        "openAsExpandable": false,
-        "delete": false,
-        "edit": false,
-        "sort": false
-      }
     }
   ]
 }

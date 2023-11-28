@@ -9,24 +9,27 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+        "variant": [
+          {
+            "name": "edit",
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+          }
+        ],
         "columns": [
-          "A",
-          "T",
-          "phase"
-        ],
-        "editableColumns": [
-          "A",
-          "T",
-          "phase"
-        ],
-        "functionality": {
-          "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-          "openAsTab": false,
-          "delete": true,
-          "add": true,
-          "edit": true,
-          "sort": true
-        }
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "A"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "T"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "phase",
+            "label": "Phase"
+          }
+        ]
       }
     }
   ]

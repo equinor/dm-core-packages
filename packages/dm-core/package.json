@@ -1,6 +1,6 @@
 {
   "name": "@development-framework/dm-core",
-  "version": "1.17.0",
+  "version": "1.19.0",
   "license": "MIT",
   "peerDependencies": {
     "@types/react": "^18.2.20",
@@ -10,6 +10,9 @@
     "styled-components": "^5.2.3"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/modifiers": "^6.0.1",
+    "@dnd-kit/sortable": "^7.0.2",
     "@equinor/eds-core-react": "^0.33.0",
     "@equinor/eds-icons": "^0.19.3",
     "@equinor/eds-tokens": "^0.9.0",

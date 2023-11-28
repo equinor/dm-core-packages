@@ -30,6 +30,50 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.23.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.22.0...dm-core-plugins-v1.23.0) (2023-11-28)
+
+
+### Features
+
+* expanded all Table config to match table functionality ([faed723](https://github.com/equinor/dm-core-packages/commit/faed7230095b7f52ffc1ef716b9731150b03ef80))
+* update on change in nested forms ([c1eb8e3](https://github.com/equinor/dm-core-packages/commit/c1eb8e346a2f3053366ebdaee2d2bd368d48d402))
+* update plugin TablePlugin to use Table component + update documentation and config ([2ec028f](https://github.com/equinor/dm-core-packages/commit/2ec028f301af2ad3bc426cab7a3d262a31807882))
+
+
+### Bug Fixes
+
+* expect api calls on server to be slower ([5b85878](https://github.com/equinor/dm-core-packages/commit/5b85878c627c5b8a332b3a5bd5d6c14dcaffe2df))
+* pre-commit prettier errors ([8d8299c](https://github.com/equinor/dm-core-packages/commit/8d8299c4b3e3632a4ec3f1d71efd62aeca83a632))
+* wrong type errors + missing update ([4c53bd9](https://github.com/equinor/dm-core-packages/commit/4c53bd9b9ccc80ad367607c2a1f74e6e4214a637))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.18.0 to ^1.19.0
+
+## [1.22.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.21.1...dm-core-plugins-v1.22.0) (2023-11-28)
+
+
+### Features
+
+* dimentional scalar ([60de16c](https://github.com/equinor/dm-core-packages/commit/60de16c887faee187a726713d5624f897745a663))
+* tailwindcss ([#786](https://github.com/equinor/dm-core-packages/issues/786)) ([1f8b5ef](https://github.com/equinor/dm-core-packages/commit/1f8b5ef5ee0dedb64f642a5a0c34d024458d441d))
+
+
+### Bug Fixes
+
+* **header:** Did not rerender views since key was not set on &lt;UiPlugin&gt; ([e7eb338](https://github.com/equinor/dm-core-packages/commit/e7eb3385187888a98486ac1f8b68309fc2ac667f))
+* style progressbar with percentage ([b02d80e](https://github.com/equinor/dm-core-packages/commit/b02d80e93543841518b737bb41406c0227991b49))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.17.0 to ^1.18.0
+
 ## [1.21.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.21.0...dm-core-plugins-v1.21.1) (2023-11-28)
 
 

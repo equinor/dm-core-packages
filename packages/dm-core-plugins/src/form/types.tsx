@@ -13,6 +13,8 @@ export type TFormProps = {
   config?: TFormConfig
   onOpen?: TOnOpen
   onSubmit?: (data: any) => void
+  onUpdate?: (data: any) => void
+  showSubmitButton?: boolean
 }
 
 export type TObjectTemplate = {

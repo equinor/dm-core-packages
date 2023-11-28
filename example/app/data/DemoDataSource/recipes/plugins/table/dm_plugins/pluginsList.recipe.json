@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/table/car_list/blueprints/CarList",
+  "_blueprintPath_": "/plugins/table/dm_plugins/blueprints/PluginsList",
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
@@ -13,9 +13,9 @@
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
-              "name": "cars",
+              "name": "plugins",
               "type": "CORE:UiRecipe",
-              "description": "List of cars",
+              "description": "List of plugins",
               "plugin": "@development-framework/dm-core-plugins/table",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
@@ -32,22 +32,30 @@
                 "columns": [
                   {
                     "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-                    "data": "^expandable"
-                  },
-                  {
-                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
                     "data": "name",
-                    "label": "Name"
+                    "label": "Name",
+                    "sortable": true
                   },
                   {
                     "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-                    "data": "model",
-                    "label": "Model"
+                    "data": "developed",
+                    "label": "Developed",
+                    "dataType": "boolean",
+                    "sortable": true
                   },
                   {
                     "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-                    "data": "color",
-                    "label": "Color"
+                    "data": "documented",
+                    "label": "Documented",
+                    "dataType": "boolean",
+                    "presentAs": "text"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "importance",
+                    "label": "Importance",
+                    "dataType": "number",
+                    "sortable": true
                   },
                   {
                     "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
@@ -56,7 +64,7 @@
                 ]
               }
             },
-            "scope": "cars"
+            "scope": "plugins"
           }
         }
       ]

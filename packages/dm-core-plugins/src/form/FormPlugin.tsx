@@ -16,6 +16,10 @@ export const FormPlugin = (props: IUIPlugin) => {
     updateDocument(formData, true)
   }
 
+  const handleOnUpdate = (formData: any) => {
+    if (props?.onSubmit) props.onSubmit(formData)
+  }
+
   return (
     <Form
       onOpen={props.onOpen}
@@ -24,6 +28,8 @@ export const FormPlugin = (props: IUIPlugin) => {
       config={props.config}
       formData={document}
       onSubmit={handleOnSubmit}
+      onUpdate={props?.onSubmit && handleOnUpdate}
+      showSubmitButton={!props?.onSubmit}
     />
   )
 }
