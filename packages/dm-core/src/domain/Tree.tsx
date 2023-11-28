@@ -22,7 +22,13 @@ const createContainedChildren = (
           ?.attributeType
     if (!type) return false // If no attribute, there likely where some invalid keys. Ignore those
     // Skip adding nodes for primitives
-    const PRIMITIVE_TYPES_TO_HIDE = ['string', 'number', 'boolean', 'integer']
+    const PRIMITIVE_TYPES_TO_HIDE = [
+      'string',
+      'number',
+      'boolean',
+      'integer',
+      'binary',
+    ]
     if (!PRIMITIVE_TYPES_TO_HIDE.includes(type)) {
       let childNodeId: string
       if (Number.isInteger(Number(key))) {
