@@ -8,6 +8,7 @@ import SwitchWidget from './SwitchWidget'
 import SelectWidget from './SelectWidget'
 import NumberWidget from './NumberWidget'
 import DateTimeWidget from './DateTimeWidget'
+import DimensionalScalarWidget from './DimensionalScalarWidget'
 
 const widgets: TWidgets = {
   CheckboxWidget,
@@ -19,6 +20,7 @@ const widgets: TWidgets = {
   SelectWidget,
   NumberWidget,
   DateTimeWidget,
+  DimensionalScalarWidget,
 }
 
 export default widgets
