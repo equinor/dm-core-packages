@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.17.0...dm-core-v1.18.0) (2023-11-28)
+
+
+### Features
+
+* tailwindcss ([#786](https://github.com/equinor/dm-core-packages/issues/786)) ([1f8b5ef](https://github.com/equinor/dm-core-packages/commit/1f8b5ef5ee0dedb64f642a5a0c34d024458d441d))
+
 ## [1.17.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.16.0...dm-core-v1.17.0) (2023-11-27)
 
 
