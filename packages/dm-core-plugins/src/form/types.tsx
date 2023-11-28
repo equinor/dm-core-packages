@@ -32,8 +32,6 @@ export type TArrayTemplate = {
 export type TField = {
   namePath: string
   uiAttribute: TAttributeConfig | undefined
-  leftAdornments?: React.ReactElement | string
-  rightAdornments?: React.ReactElement | string
   attribute: TAttribute
 }
 
@@ -85,9 +83,6 @@ export type TWidget = {
   variant?: Variants
   readOnly?: boolean
   config?: Record<any, any>
-  leftAdornments?: React.ReactElement | string
-  rightAdornments?: React.ReactElement | string
-  style?: any
   isDirty?: boolean
   enumType?: any
 }

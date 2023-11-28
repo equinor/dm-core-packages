@@ -5,19 +5,15 @@ import { TextField } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
 
 const NumberWidget = (props: TWidget) => {
-  const { label, onChange, leftAdornments, rightAdornments, isDirty } = props
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    onChange?.(value === '' ? null : value)
-  }
+  const { label, onChange, isDirty } = props
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
+    onChange?.(Number(event.target.value))
 
   return (
     <TextField
       id={props.id}
       readOnly={props.readOnly}
       defaultValue={props.value}
-      leftAdornments={leftAdornments}
-      rightAdornments={rightAdornments}
       inputRef={props.inputRef}
       variant={props.variant}
       helperText={props.helperText}

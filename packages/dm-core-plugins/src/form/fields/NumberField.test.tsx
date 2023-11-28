@@ -40,7 +40,7 @@ const setup = async (props: { initialValue?: string; optional?: boolean }) => {
         optional: optional,
       }}
       namePath="number"
-      uiAttribute={undefined}
+      uiAttribute={{ name: '', type: '' }}
     />,
     { wrapper }
   )

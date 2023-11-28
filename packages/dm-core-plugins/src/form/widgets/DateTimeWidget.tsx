@@ -6,7 +6,7 @@ import { TWidget } from '../types'
 import { DateTime } from 'luxon'
 
 const DateTimeWidget = (props: TWidget) => {
-  const { label, onChange, leftAdornments, rightAdornments, isDirty } = props
+  const { label, onChange, isDirty } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(new Date(event.target.value).toISOString())
   }
@@ -16,9 +16,6 @@ const DateTimeWidget = (props: TWidget) => {
       id={props.id}
       readOnly={props.readOnly}
       defaultValue={DateTime.fromISO(props.value).toFormat("yyyy-MM-dd'T'T")}
-      //@ts-ignore
-      leftAdornments={leftAdornments}
-      rightAdornments={rightAdornments}
       inputRef={props.inputRef}
       variant={props.variant}
       helperText={props.helperText}

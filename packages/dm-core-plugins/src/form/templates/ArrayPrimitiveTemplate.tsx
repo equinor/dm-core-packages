@@ -1,10 +1,8 @@
 import { TArrayTemplate } from '../types'
-import { useFieldArray, useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
 import { Fieldset, Legend } from '../styles'
-import { Icon, Pagination, Typography } from '@equinor/eds-core-react'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import TooltipButton from '../../common/TooltipButton'
 import {
   add,
@@ -12,28 +10,59 @@ import {
   chevron_up,
   remove_outlined,
 } from '@equinor/eds-icons'
-import { isPrimitive } from '../utils'
-import { EBlueprint, Stack } from '@development-framework/dm-core'
 import { AttributeField } from '../fields/AttributeField'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
-export const ArrayPrimitiveTemplate = (props: TArrayTemplate) => {
-  const { namePath, attribute, uiAttribute } = props
+function getDefaultValue(type: string): string | boolean | number {
+  switch (type) {
+    case 'boolean':
+      return true
+    case 'number':
+      return 0
+    default:
+      return ''
+  }
+}
 
-  const { control } = useFormContext()
+export const ArrayPrimitiveTemplate = (
+  props: TArrayTemplate & { value: unknown[]; onChange: (v: unknown[]) => void }
+) => {
+  const { namePath, attribute, uiAttribute, value, onChange } = props
+
   const { config } = useRegistryContext()
+  const [hovering, setHovering] = useState<number>(-1)
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
       : config.showExpanded
   )
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: namePath,
-  })
-  const [currentPageIndex, setCurrentPageIndex] = useState(0)
-  const itemsPerPage = 30
-
+  const updateValues = (
+    index: number,
+    newValue: boolean | string | number
+  ): void => {
+    const newValues = [...value]
+    switch (attribute.attributeType) {
+      case 'boolean':
+        newValues[index] = newValue
+        onChange(newValues)
+        break
+      case 'number':
+        newValues[index] = Number(newValue) ?? 0
+        onChange(newValues)
+        break
+      default:
+        newValues[index] = newValue
+        onChange(newValues)
+    }
+  }
+  const removeItem = (index: number) => {
+    const newValues = [...value]
+    newValues.splice(index, 1)
+    onChange(newValues)
+  }
+  // TODO:
+  // const insertItem = () => {}
   return (
     <Fieldset>
       <Legend>
@@ -48,13 +77,12 @@ export const ArrayPrimitiveTemplate = (props: TArrayTemplate) => {
           <TooltipButton
             title="Add"
             button-variant="ghost_icon"
-            button-onClick={() => {
-              if (attribute.attributeType === 'boolean') {
-                append(true)
-                return
-              }
-              append(isPrimitive(attribute.attributeType) ? ' ' : {})
-            }}
+            button-onClick={() =>
+              updateValues(
+                value.length,
+                getDefaultValue(attribute.attributeType)
+              )
+            }
             icon={add}
           />
         )}
@@ -63,62 +91,71 @@ export const ArrayPrimitiveTemplate = (props: TArrayTemplate) => {
         <div
           style={{
             display: 'flex',
-            flexFlow: 'column wrap',
-            maxHeight: '23em',
+            flexFlow: 'column',
+            maxHeight: '26em',
             alignContent: 'flex-start',
+            overflowY: 'auto',
+            padding: '0 0 7px 0',
+            overflowX: 'hidden',
+            width: 'fit-content',
           }}
         >
-          {fields
-            .slice(
-              currentPageIndex * itemsPerPage,
-              currentPageIndex * itemsPerPage + itemsPerPage
-            )
-            .map((item: any, index: number) => {
-              const pagedIndex = itemsPerPage * currentPageIndex + index
-              return (
-                <Stack
-                  key={item.id}
-                  direction="row"
-                  spacing={0.5}
-                  alignSelf="stretch"
-                  alignItems="flex-end"
+          {value.map((item: any, index: number) => (
+            <Tooltip
+              title={`Index: ${index}`}
+              placement={'right-start'}
+              enterDelay={300}
+              key={`${index}-${item}`}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  margin: '1px',
+                }}
+                onMouseEnter={() => setHovering(index)}
+                onMouseLeave={() => setHovering(-1)}
+              >
+                <Button
+                  onClick={() => removeItem(index)}
+                  style={{
+                    visibility: `${index === hovering ? 'visible' : 'hidden'}`,
+                  }}
+                  data-testid={`form-primitive-array-remove-${index}`}
+                  variant="ghost_icon"
+                  color="danger"
+                  aria-label="remove-action"
                 >
-                  <Stack grow={1}>
-                    <AttributeField
-                      namePath={`${namePath}.${pagedIndex}`}
-                      uiAttribute={uiAttribute}
-                      attribute={{
-                        attributeType: attribute.attributeType,
-                        dimensions: '',
-                        name: '',
-                        type: EBlueprint.ATTRIBUTE,
-                      }}
-                      leftAdornments={String(pagedIndex)}
-                      rightAdornments={
-                        <Icon
-                          data={remove_outlined}
-                          size={18}
-                          // @ts-ignore
-                          onClick={() => remove(pagedIndex)}
-                          style={{ cursor: 'pointer' }}
-                          data-testid={`form-text-widget-remove-${pagedIndex}`}
-                        />
-                      }
-                    />
-                  </Stack>
-                </Stack>
+                  <Icon data={remove_outlined} />
+                </Button>
+
+                <AttributeField
+                  namePath={`${namePath}.${index}`}
+                  uiAttribute={{
+                    name: '',
+                    type: '',
+                    ...uiAttribute,
+                    config: { hideLabel: true, ...uiAttribute?.config },
+                  }}
+                  attribute={{ ...attribute, dimensions: '' }}
+                />
+              </div>
+            </Tooltip>
+          ))}
+          <Button
+            style={{ marginLeft: '35px' }}
+            color="secondary"
+            variant="outlined"
+            onClick={() =>
+              updateValues(
+                value.length,
+                getDefaultValue(attribute.attributeType)
               )
-            })}
-        </div>
-      )}
-      {isExpanded && fields.length > itemsPerPage && (
-        <div>
-          <Pagination
-            totalItems={fields.length}
-            itemsPerPage={itemsPerPage}
-            defaultPage={currentPageIndex + 1}
-            onChange={(e, p) => setCurrentPageIndex(p - 1)}
-          />
+            }
+          >
+            <Icon data={add} />
+          </Button>
         </div>
       )}
     </Fieldset>

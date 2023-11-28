@@ -87,6 +87,7 @@ export default (props: IUIPlugin): React.ReactElement => {
     const recipe = uiRecipes.find(
       (recipe: TUiRecipe) => recipe.name === recipeName
     )
+    if (!recipe) throw new Error(`Failed to find recipe named '${recipeName}'`)
     return {
       component: getUiPlugin(recipe.plugin),
       config: recipe?.config ?? {},
@@ -107,6 +108,7 @@ export default (props: IUIPlugin): React.ReactElement => {
 
   const UIPlugin: (props: IUIPlugin) => React.ReactElement =
     selectedRecipe.component
+
   if (isLoading || !entity || isBlueprintLoading) {
     return <Loading />
   }
@@ -125,39 +127,20 @@ export default (props: IUIPlugin): React.ReactElement => {
           marginBottom: '8px',
         }}
       >
-        <TopBar.Header className="relative">
-          <ClickableIcon
-            ref={setAnchorEl}
-            onClick={() => {
-              setAppSelectorOpen(!appSelectorOpen)
-            }}
-          >
-            <Icon data={menu} size={32} title="Menu" />
-          </ClickableIcon>
-          <Popover
-            open={appSelectorOpen}
-            anchorEl={anchorEl}
-            ref={menuRef}
-            trapFocus
-            onClose={() => setAppSelectorOpen(false)}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {recipeNames.map((recipe: string, index: number) => (
-                <MenuButton
-                  $active={selectedRecipeName === recipe}
-                  key={index}
-                  onClick={() => {
-                    setSelectedRecipe(getRecipeConfigAndPlugin(recipe))
-                    setSelectedRecipeName(recipe)
-                    setAppSelectorOpen(false)
-                  }}
-                >
-                  <Typography>{recipe}</Typography>
-                </MenuButton>
-              ))}
-            </div>
-          </Popover>
-          <h4 style={{ paddingLeft: 10 }}>{entity.label}</h4>
+        <TopBar.Header
+          style={{
+            position: 'relative',
+            display: 'flex',
+          }}
+        >
+          <Logo>{entity.label}</Logo>
+          <AppSelector
+            items={recipeNames}
+            onSelectItem={(item) =>
+              setSelectedRecipe(getRecipeConfigAndPlugin(item))
+            }
+            currentItem={selectedRecipe.name}
+          />
         </TopBar.Header>
         <TopBar.Actions>
           <Icons>
@@ -187,6 +170,7 @@ export default (props: IUIPlugin): React.ReactElement => {
         applicationEntity={entity}
       />
       <UIPlugin
+        key={idReference + selectedRecipe.name}
         idReference={idReference}
         type={entity.type}
         config={selectedRecipe.config}

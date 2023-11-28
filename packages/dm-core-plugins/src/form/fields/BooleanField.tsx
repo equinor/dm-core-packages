@@ -6,8 +6,7 @@ import { useRegistryContext } from '../context/RegistryContext'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 export const BooleanField = (props: TField) => {
-  const { namePath, uiAttribute, leftAdornments, rightAdornments, attribute } =
-    props
+  const { namePath, uiAttribute, attribute } = props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'CheckboxWidget')
   const { config } = useRegistryContext()
@@ -21,13 +20,13 @@ export const BooleanField = (props: TField) => {
       }) => (
         <Widget
           {...props}
-          leftAdornments={leftAdornments}
-          rightAdornments={rightAdornments}
           readOnly={config.readOnly}
           id={namePath}
           value={value}
           inputRef={ref}
-          label={getDisplayLabel(attribute)}
+          label={
+            !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
+          }
           helperText={error?.message}
           variant={invalid ? 'error' : undefined}
           config={uiAttribute?.config}
