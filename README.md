@@ -3476,3 +3476,8 @@ Co-authored-by: Stig Oskar Ofstad <stigofstad@gmail.com> (2023-09-21T10:17:57Z)
     * **DMSS VERSION**: 490af50 2023-11-22 githu..[bot] chore(master): release 1.11.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.0
     * **JOB VERSION**: 3ff232a 2023-11-17 githu..[bot] chore(main): release 1.3.5 grafted, HEAD -> main, origin/main
+* fix: expect api calls on server to be slower (2023-09-21T10:17:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7020181967/4)
+    * **DMSS VERSION**: 490af50 2023-11-22 githu..[bot] chore(master): release 1.11.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.0
+    * **JOB VERSION**: 3ff232a 2023-11-17 githu..[bot] chore(main): release 1.3.5 grafted, HEAD -> main, origin/main
