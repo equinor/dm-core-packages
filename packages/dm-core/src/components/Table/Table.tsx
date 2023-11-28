@@ -57,8 +57,6 @@ export function Table(props: TableProps) {
           (variant: TTableVariant) => variant.name === tableVariant
         ).functionality
 
-  console.log(functionalityConfig)
-
   const paginatedRows =
     tableVariant === TableVariantNameEnum.Edit || !sortColumn
       ? items.slice(
