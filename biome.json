@@ -1,0 +1,44 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.4.0/schema.json",
+  "organizeImports": {
+    "enabled": false
+  },
+  "files": {
+    "ignore": [
+      "*.config.js",
+      "*.config.base.js",
+      "*.test.tsx",
+      "/packages/plugins/simpos-ui/src/*",
+      "/packages/plugins/simos-ui/src/*",
+      "/packages/plugins/marmo-ui/src/*",
+      "/packages/home/src/plugins.js",
+      "/packages/plugins/form/src/test-utils.tsx",
+      "dist"
+    ]
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "single"
+    }
+  },
+  "linter": {
+    "ignore": [
+      "packages/dm-core/src/services/api/configs",
+      "build",
+      "coverage",
+      "node_modules",
+      "dist",
+      ".release-please-manifest.json"
+    ],
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "off"
+      },
+      "style": {
+        "noInferrableTypes": "off"
+      }
+    }
+  }
+}
