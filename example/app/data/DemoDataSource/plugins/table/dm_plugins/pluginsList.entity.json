@@ -1,0 +1,31 @@
+{
+  "_id": "pluginsList",
+  "name": "PluginsList",
+  "type": "./blueprints/PluginsList",
+  "plugins": [
+    {
+      "name": "Table",
+      "type": "./blueprints/Plugin",
+      "path": "@development-framework/dm-core-plugins/table",
+      "developed": true,
+      "documented": false,
+      "importance": 5
+    },
+    {
+      "name": "Form",
+      "type": "./blueprints/Plugin",
+      "path": "@development-framework/dm-core-plugins/form",
+      "developed": true,
+      "documented": false,
+      "importance": 5
+    },
+    {
+      "name": "List",
+      "type": "./blueprints/Plugin",
+      "path": "@development-framework/dm-core-plugins/list",
+      "developed": false,
+      "documented": false,
+      "importance": 3
+    }
+  ]
+}

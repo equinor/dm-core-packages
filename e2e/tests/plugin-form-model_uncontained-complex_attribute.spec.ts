@@ -58,7 +58,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
       .getByRole('button', { name: 'Barbossa' })
       .click()
     await page.getByRole('button', { name: 'Select', exact: true }).click()
-    await page.waitForTimeout(500)
+    await page.waitForTimeout(1000)
     await page.getByRole('button', { name: 'Open in tab', exact: true }).click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()

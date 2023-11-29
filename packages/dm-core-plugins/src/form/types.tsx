@@ -13,55 +13,57 @@ export type TFormProps = {
   config?: TFormConfig
   onOpen?: TOnOpen
   onSubmit?: (data: any) => void
+  onUpdate?: (data: any) => void
+  showSubmitButton?: boolean
 }
 
 export type TObjectTemplate = {
   namePath: string
   blueprint: TBlueprint | undefined
   uiRecipe: TUiRecipeForm
-  uiAttribute: TAttributeObject | undefined
+  uiAttribute: TUiAttributeObject | undefined
   attribute: TAttribute
 }
 
 export type TArrayTemplate = {
   namePath: string
-  uiAttribute: TAttributeArray | undefined
+  uiAttribute: TUiAttributeArray | undefined
   attribute: TAttribute
 }
 
 export type TField = {
   namePath: string
-  uiAttribute: TAttributeConfig | undefined
+  uiAttribute: TUiAttribute | undefined
   attribute: TAttribute
 }
 
-type TAttributeBase = {
+type TUiAttributeBase = {
   name: string
   type: string
   showInline?: boolean
   config?: Record<any, any>
 }
-type TAttributeString = TAttributeBase & {
+type TUiAttributeString = TUiAttributeBase & {
   widget: string
   format: string
 }
-type TAttributeArray = TAttributeBase & {
+type TUiAttributeArray = TUiAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded: boolean
 }
-type TAttributeObject = TAttributeBase & {
+type TUiAttributeObject = TUiAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded?: boolean
 }
-export type TAttributeConfig =
-  | TAttributeArray
-  | TAttributeObject
-  | TAttributeString
+export type TUiAttribute =
+  | TUiAttributeArray
+  | TUiAttributeObject
+  | TUiAttributeString
 
 export type TFormConfig = {
-  attributes: TAttributeConfig[]
+  attributes: TUiAttribute[]
   fields: string[]
   readOnly?: boolean
   showExpanded?: boolean
