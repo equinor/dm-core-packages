@@ -49,7 +49,7 @@ repos:
         name: Run biome
         language: system
         pass_filenames: false
-        entry: yarn run biome check .
+        entry: yarn run biome check --apply .
 
 
 
