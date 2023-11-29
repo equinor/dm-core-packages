@@ -1,9 +1,9 @@
-import { ErrorResponse } from '../services'
+import { ErrorResponse } from '../../services'
 import { useEffect, useState } from 'react'
-import { useDMSS } from '../context/DMSSContext'
+import { useDMSS } from '../../context/DMSSContext'
 import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
-import { TAttribute, TLinkReference } from '../types'
-import { EBlueprint } from '../Enums'
+import { TAttribute, TLinkReference } from '../../types'
+import { EBlueprint } from '../../Enums'
 
 export type TItem<T> = {
   key: string
