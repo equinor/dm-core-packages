@@ -38,6 +38,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build -d",
+    "lint": "biome lint . --apply",
     "preview": "vite preview",
     "serve": "serve -s dist -p 3000 --no-clipboard",
     "test": "vitest",
