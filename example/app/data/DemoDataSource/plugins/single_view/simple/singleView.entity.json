@@ -1,0 +1,8 @@
+{
+  "name": "singleView",
+  "type": "./blueprints/SingleView",
+  "content": {
+    "name": "content",
+    "type": "./blueprints/SingleContent"
+  }
+}

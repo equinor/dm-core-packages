@@ -1,0 +1,7 @@
+{
+  "name": "SingleContent",
+  "type": "CORE:Blueprint",
+  "extends": [
+    "CORE:Entity"
+  ]
+}
