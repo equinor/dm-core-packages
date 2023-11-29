@@ -32,7 +32,6 @@ function App() {
 
   return (
     <FSTreeProvider visibleDataSources={application?.dataSources}>
-      <h1>test</h1>
       <EntityView idReference={idReference} type={application?.type} />
     </FSTreeProvider>
   )
