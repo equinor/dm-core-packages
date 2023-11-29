@@ -41,6 +41,7 @@ export const ObjectField = (props: TField): React.ReactElement => {
               {...props}
               value={value}
               onChange={onChange}
+              config={uiAttribute?.config}
               label={getDisplayLabel(attribute)}
               isDirty={isDirty}
               inputRef={ref}
