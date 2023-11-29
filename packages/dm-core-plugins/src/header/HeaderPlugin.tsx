@@ -27,12 +27,13 @@ const Icons = styled.div`
     margin-left: 40px;
   }
 `
-const Logo = styled.h2`
+const Logo = styled.span`
   paddinginline: 10;
   color: #007079;
   font-weight: 500;
   margin-right: 3rem;
   margin-left: 0.5rem;
+  font-size: 18px;
 `
 
 const ClickableIcon = styled.button`
@@ -129,11 +130,11 @@ export default (props: IUIPlugin): React.ReactElement => {
       >
         <TopBar.Header
           style={{
-            position: 'relative',
             display: 'flex',
+            alignContent: 'center',
           }}
         >
-          <Logo>{entity.label}</Logo>
+          <Logo aria-label="main-heading">{entity.label}</Logo>
           <AppSelector
             items={recipeNames}
             onSelectItem={(item) =>

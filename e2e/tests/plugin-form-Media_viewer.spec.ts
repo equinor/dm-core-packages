@@ -27,16 +27,16 @@ test('Media viewer', async ({ page }) => {
   })
   await test.step('gif', async () => {
     await page.getByRole('button', { name: 'fast' }).click()
+    await expect(page.locator('img')).toHaveJSProperty('complete', true)
+    await expect(page.locator('img')).not.toHaveJSProperty('naturalWidth', 0)
     await expect(page.getByRole('img', { name: 'fast' })).toBeVisible()
     await page.getByRole('button', { name: 'view meta info' }).click()
-
     const page1Promise = page.waitForEvent('popup')
     await expect(dialog.getByText('image/gif')).toBeVisible()
     await dialog.getByRole('link', { name: 'New tab' }).click()
     const newTab = await page1Promise
     await expect(newTab.getByRole('img')).toBeVisible()
     await newTab.close()
-
     const downloadPromise = page.waitForEvent('download')
     await page.getByRole('link', { name: 'Download' }).click()
     const download = await downloadPromise
@@ -45,6 +45,8 @@ test('Media viewer', async ({ page }) => {
 
   await test.step('image', async () => {
     await page.getByRole('button', { name: 'beauty' }).click()
+    await expect(page.locator('img')).toHaveJSProperty('complete', true)
+    await expect(page.locator('img')).not.toHaveJSProperty('naturalWidth', 0)
     await expect(page.getByRole('img', { name: 'beauty' })).toBeVisible()
     await page.getByRole('button', { name: 'view meta info' }).click()
 

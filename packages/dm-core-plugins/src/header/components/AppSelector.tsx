@@ -34,6 +34,7 @@ const AppSelectorButton = styled.button`
   marginleft: 60px;
   border: 0;
   appearance: none;
+  align-content: center;
   background-color: transparent;
   &:hover {
     color: gray;
@@ -55,9 +56,9 @@ export const AppSelector = ({
         onClick={() => setAppSelectorOpen(!appSelectorOpen)}
         aria-label='AppSelector'
       >
-        <h4>{currentItem}</h4>
+        <span className="text-xs font-bold self-center">{currentItem}</span>
         <Icon
-          style={{ marginTop: '13px' }}
+          className="mt-0.5"
           data={appSelectorOpen ? chevron_up : chevron_down}
         ></Icon>
       </AppSelectorButton>
