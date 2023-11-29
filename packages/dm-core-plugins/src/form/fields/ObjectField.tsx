@@ -22,7 +22,6 @@ export const ObjectField = (props: TField): React.ReactElement => {
     values !== undefined &&
     'referenceType' in values &&
     values['referenceType'] === 'storage'
-
   if (uiAttribute?.widget) {
     const Widget = getWidget(uiAttribute.widget)
     return (
@@ -41,6 +40,7 @@ export const ObjectField = (props: TField): React.ReactElement => {
               {...props}
               value={value}
               onChange={onChange}
+              config={uiAttribute?.config}
               label={getDisplayLabel(attribute)}
               isDirty={isDirty}
               inputRef={ref}
