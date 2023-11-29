@@ -1,10 +1,10 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.21.0",
+  "version": "1.23.0",
   "main": "dist/index.js",
   "dependencies": {
-    "@development-framework/dm-core": "^1.17.0",
+    "@development-framework/dm-core": "^1.19.0",
     "@equinor/eds-core-react": "^0.33.0",
     "@equinor/eds-icons": "^0.19.3",
     "@equinor/eds-tokens": "^0.9.0",
@@ -15,6 +15,7 @@
     "mermaid": "^10.0.0",
     "react-hook-form": "^7.48.2",
     "react-toastify": "^9.1.3",
+    "ts-node": "^10.9.1",
     "yaml": "^2.3.2"
   },
   "devDependencies": {
@@ -25,16 +26,20 @@
     "@types/jest": "^29.5.0",
     "@types/js-yaml": "^4.0.5",
     "@types/luxon": "^3.3.3",
+    "@types/node": "^20.10.0",
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
+    "autoprefixer": "^10.4.16",
     "eslint-plugin-react": "^7.33.2",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
+    "postcss": "^8.4.31",
     "react-router-dom": ">=5.1.2",
     "shx": " 0.3.4",
+    "tailwindcss": "^3.3.5",
     "ts-jest": "^29.1.0",
     "ts-loader": "^9.3.1",
     "typescript": "^5.1.6"
@@ -52,7 +57,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",
-    "build": "tsc",
+    "build": "tsc && npx tailwindcss -o build.css --minify && yarn copy-css-file",
+    "copy-css-file": "cp ./build.css ./dist/",
     "test": "jest test",
     "test-watch": "jest test --watchAll"
   }

@@ -7,6 +7,7 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import React from 'react'
+import './main.css'
 
 function App() {
   const idReference: string = `${import.meta.env.VITE_DATA_SOURCE}/$${

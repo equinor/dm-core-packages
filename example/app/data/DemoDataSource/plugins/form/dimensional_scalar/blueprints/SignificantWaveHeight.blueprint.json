@@ -1,0 +1,26 @@
+{
+  "name": "SignificantWaveHeight",
+  "type": "CORE:Blueprint",
+  "extends": [
+    "CORE:NamedEntity"
+  ],
+  "attributes": [
+    {
+      "name": "value",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number"
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "unit",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
+}

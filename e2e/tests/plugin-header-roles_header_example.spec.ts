@@ -17,7 +17,7 @@ test('Admin role', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Explorer' })).toBeVisible()
   await page.getByRole('button', { name: 'Edit' }).click()
-  await expect(page.getByTestId('form-text-widget-Name')).toHaveValue(
+  await expect(page.getByTestId('form-text-widget-name')).toHaveValue(
     'elonMusk'
   )
 })

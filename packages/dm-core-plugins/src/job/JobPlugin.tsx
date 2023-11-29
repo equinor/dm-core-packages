@@ -207,13 +207,23 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         </Button>
         <Chip variant={getVariant(status)}>{status}</Chip>
       </JobButtonWrapper>
-      <div style={{ display: 'flex', alignItems: 'center', width: '50%' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '50%',
+        }}
+      >
         <LinearProgress
           aria-label="Progress bar label"
           value={progress * 100}
           variant="determinate"
+          style={{
+            marginRight: '10px',
+          }}
         />
-        <pre>{progress * 100}</pre>
+        <pre>{progress * 100}%</pre>
       </div>
       <JobLogsDialog
         isOpen={showLogs}

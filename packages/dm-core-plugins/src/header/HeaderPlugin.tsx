@@ -27,12 +27,13 @@ const Icons = styled.div`
     margin-left: 40px;
   }
 `
-const Logo = styled.h2`
+const Logo = styled.span`
   paddinginline: 10;
   color: #007079;
   font-weight: 500;
   margin-right: 3rem;
   margin-left: 0.5rem;
+  font-size: 18px;
 `
 
 const ClickableIcon = styled.button`
@@ -87,6 +88,7 @@ export default (props: IUIPlugin): React.ReactElement => {
     const recipe = uiRecipes.find(
       (recipe: TUiRecipe) => recipe.name === recipeName
     )
+    if (!recipe) throw new Error(`Failed to find recipe named '${recipeName}'`)
     return {
       component: getUiPlugin(recipe.plugin),
       config: recipe?.config ?? {},
@@ -107,6 +109,7 @@ export default (props: IUIPlugin): React.ReactElement => {
 
   const UIPlugin: (props: IUIPlugin) => React.ReactElement =
     selectedRecipe.component
+
   if (isLoading || !entity || isBlueprintLoading) {
     return <Loading />
   }
@@ -127,11 +130,11 @@ export default (props: IUIPlugin): React.ReactElement => {
       >
         <TopBar.Header
           style={{
-            position: 'relative',
             display: 'flex',
+            alignContent: 'center',
           }}
         >
-          <Logo>{entity.label}</Logo>
+          <Logo aria-label="main-heading">{entity.label}</Logo>
           <AppSelector
             items={recipeNames}
             onSelectItem={(item) =>
@@ -168,6 +171,7 @@ export default (props: IUIPlugin): React.ReactElement => {
         applicationEntity={entity}
       />
       <UIPlugin
+        key={idReference + selectedRecipe.name}
         idReference={idReference}
         type={entity.type}
         config={selectedRecipe.config}
