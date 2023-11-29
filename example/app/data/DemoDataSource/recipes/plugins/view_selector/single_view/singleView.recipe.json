@@ -1,0 +1,9 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/single_view/simple/blueprints/SingleView",
+  "initialUiRecipe": {
+    "name": "SingleView",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/single"
+  }
+}

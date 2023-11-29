@@ -57,6 +57,13 @@ export default ({
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/view_selector/single': {
+    component: lazy(() =>
+      import('./view_selector/SingleViewPlugin').then((module) => ({
+        default: module.SingleViewPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/blueprint-hierarchy': {
     component: lazy(() =>
       import('./blueprint-hierarchy/BlueprintHierarchyPlugin').then(
@@ -83,6 +90,7 @@ export default ({
   '@development-framework/dm-core-plugins/header': {
     component: lazy(() => import('./header/HeaderPlugin')),
   },
+
   '@development-framework/dm-core-plugins/json': {
     component: lazy(() => import('./json/JsonPlugin')),
   },
