@@ -56,7 +56,7 @@ export function getColumnsLength(
 export function dynamicSort(direction: TTableSortDirection, property: string) {
   const sortOrder = direction === 'ascending' ? 1 : -1
 
-  return function (a: any, b: any) {
+  return (a: any, b: any) => {
     const result =
       a.data[property] < b.data[property]
         ? -1

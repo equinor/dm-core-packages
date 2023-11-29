@@ -34,10 +34,20 @@
     "rules": {
       "recommended": true,
       "suspicious": {
-        "noExplicitAny": "off"
+        "noExplicitAny": "off",
+        "noDoubleEquals": "off",
+        "noArrayIndexKey": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "useLiteralKeys": "off"
       },
       "style": {
-        "noInferrableTypes": "off"
+        "noInferrableTypes": "off",
+        "noUnusedTemplateLiteral": "off"
       }
     }
   }
