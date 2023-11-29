@@ -17,7 +17,7 @@ const classElement = (node: Node) => {
     .primitiveAttributes()
     .map(
       (attribute: TAttributeType) =>
-        `${attribute.attributeType} ${attribute.name}`
+        `${attribute.attributeType} ${attribute.name}`,
     )
   return `
         class ${node.entity['name']} {

@@ -30,13 +30,13 @@ export const SortableItem = <T extends { id: string | number }>({
       dragHandle: () => (
         <Button
           ref={setActivatorNodeRef}
-          variant="ghost_icon"
+          variant='ghost_icon'
           {...listeners}
           {...attributes}
         >
           <Icon data={drag_handle} />
         </Button>
       ),
-    })
+    }),
   )
 }

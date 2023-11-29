@@ -43,12 +43,12 @@ test('Change owner', async () => {
   await page.getByText('self').first().click()
   await page.getByRole('button', { name: 'Open' }).first().click()
   await expect(
-    page.getByRole('tabpanel').getByTestId('form-text-widget-name')
+    page.getByRole('tabpanel').getByTestId('form-text-widget-name'),
   ).toHaveValue('Jacob')
   await expect(
     page
       .getByRole('tabpanel')
-      .getByTestId('form-number-widget-Phone Number (optional)')
+      .getByTestId('form-number-widget-Phone Number (optional)'),
   ).toHaveValue('1234')
 })
 
@@ -73,12 +73,12 @@ test('Hiring a CEO', async () => {
   await expect(page.getByRole('tablist').first()).toHaveCount(1)
   await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
   await expect(
-    page.getByRole('tabpanel').getByTestId('form-text-widget-name')
+    page.getByRole('tabpanel').getByTestId('form-text-widget-name'),
   ).toHaveValue('Donald')
   await expect(
     page
       .getByRole('tabpanel')
-      .getByTestId('form-number-widget-Phone Number (optional)')
+      .getByTestId('form-number-widget-Phone Number (optional)'),
   ).toHaveValue('99887766')
   await page.getByLabel('Close ceo').click()
   await page
@@ -86,16 +86,20 @@ test('Hiring a CEO', async () => {
     .getByRole('button', { name: 'Remove and save' })
     .click()
   await expect(
-    page.getByTestId('ceo').getByRole('button', { name: 'Add and save' })
+    page.getByTestId('ceo').getByRole('button', { name: 'Add and save' }),
   ).toBeVisible()
 })
 
 test('View accountant yaml', async () => {
   await expect(
-    page.getByTestId('accountant').getByRole('button', { name: 'Copy as YAML' })
+    page
+      .getByTestId('accountant')
+      .getByRole('button', { name: 'Copy as YAML' }),
   ).toBeVisible()
   await expect(
-    page.getByTestId('accountant').getByRole('button', { name: 'Copy as JSON' })
+    page
+      .getByTestId('accountant')
+      .getByRole('button', { name: 'Copy as JSON' }),
   ).toBeVisible()
   await expect(page.getByTestId('accountant').getByRole('code')).toBeVisible()
 })
@@ -114,10 +118,10 @@ test('Adding a trainee', async () => {
   await page.reload()
   await navigate()
   await expect(trainee.getByTestId('form-text-widget-name')).toHaveValue(
-    'Peter Pan'
+    'Peter Pan',
   )
   await expect(
-    trainee.getByTestId('form-number-widget-Phone Number (optional)')
+    trainee.getByTestId('form-number-widget-Phone Number (optional)'),
   ).toHaveValue('123')
 })
 
@@ -135,7 +139,7 @@ test('Locations', async () => {
   await navigate()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
   await expect(locationsDiv.getByRole('textbox').first()).toHaveValue(
-    'Trondheim'
+    'Trondheim',
   )
   await expect(locationsDiv.getByRole('textbox').last()).toHaveValue('Oslo')
   await page.getByTestId('form-text-widget-locations.1').hover()
@@ -169,7 +173,7 @@ test('New car', async () => {
   await expect(carsDiv.getByText('McLaren')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Open item' }).last().click()
   await expect(
-    page.getByRole('tabpanel').getByTestId('form-text-widget-name').nth(1)
+    page.getByRole('tabpanel').getByTestId('form-text-widget-name').nth(1),
   ).toHaveValue('McLaren')
   await expect(page.getByLabel('Plate Number')).toHaveValue('3000')
 })
@@ -201,9 +205,9 @@ test('New customer', async () => {
     .click()
   await expect(lastTabPanel.getByTestId('form-text-widget-name')).toBeVisible()
   await expect(lastTabPanel.getByTestId('form-text-widget-name')).toHaveValue(
-    'Lewis'
+    'Lewis',
   )
   await expect(
-    lastTabPanel.getByTestId('form-number-widget-Phone Number (optional)')
+    lastTabPanel.getByTestId('form-number-widget-Phone Number (optional)'),
   ).toHaveValue('12345678')
 })

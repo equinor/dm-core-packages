@@ -23,7 +23,7 @@ export function NewEntityButton(props: {
   const [showCopyDocumentModal, setShowCopyDocumentModal] =
     useState<boolean>(false)
   const [saveDestination, setSaveDestination] = useState<string>(
-    defaultDestination ? defaultDestination : ''
+    defaultDestination ? defaultDestination : '',
   )
 
   const [newName, setNewName] = useState<string>('')
@@ -147,12 +147,12 @@ export function NewEntityButton(props: {
               width: INPUT_FIELD_WIDTH,
               cursor: 'text',
             }}
-            type="string"
+            type='string'
             value={newName}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setNewName(event.target.value)
             }
-            placeholder="Name for new entity"
+            placeholder='Name for new entity'
           />
           {!!documentToCopy && (
             <div>{`Copying entity named '${documentToCopy.name}'`}</div>
@@ -163,7 +163,7 @@ export function NewEntityButton(props: {
             disabled={
               !(newName && saveDestination && (typeToCreate || documentToCopy))
             }
-            type="submit"
+            type='submit'
             onClick={onCreateEntity}
           >
             {loading ? <Progress.Dots /> : 'Create'}
@@ -171,7 +171,7 @@ export function NewEntityButton(props: {
           {!documentToCopy ? (
             <>
               <Button
-                variant="outlined"
+                variant='outlined'
                 onClick={() => setShowCopyDocumentModal(true)}
               >
                 Copy existing
@@ -188,13 +188,13 @@ export function NewEntityButton(props: {
           ) : (
             <Button
               onClick={() => setDocumentToCopy(undefined)}
-              variant="outlined"
-              color="danger"
+              variant='outlined'
+              color='danger'
             >
               Don't copy
             </Button>
           )}
-          <Button variant="ghost" onClick={() => setShowModal(false)}>
+          <Button variant='ghost' onClick={() => setShowModal(false)}>
             Cancel
           </Button>
         </Dialog.Actions>

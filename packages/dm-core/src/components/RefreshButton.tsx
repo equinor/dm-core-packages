@@ -52,7 +52,7 @@ const RefreshButton = ({
         onMouseLeave={() => onMouseLeave()}
         onMouseEnter={() => onMouseEnter()}
       >
-        <Icon data={refresh} size={16} title="refresh" />
+        <Icon data={refresh} size={16} title='refresh' />
       </StyledRefreshButton>
     </Tooltip>
   )

@@ -103,7 +103,7 @@ export type TableCellProps = {
   updateItem: (
     attribute: string,
     newValue: string | number | boolean,
-    attributeType: string
+    attributeType: string,
   ) => void
 }
 

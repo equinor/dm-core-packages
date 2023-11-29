@@ -28,7 +28,7 @@ const Lazy = ({ visible, children }: PropsWithChildren<LazyProps>) => {
   if (!rendered.current) return null
 
   return (
-    <HideContentWrapper hidden={!visible} role="tabpanel">
+    <HideContentWrapper hidden={!visible} role='tabpanel'>
       {children}
     </HideContentWrapper>
   )

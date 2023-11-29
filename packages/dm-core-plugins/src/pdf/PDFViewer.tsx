@@ -99,7 +99,7 @@ export const ViewerPDFPlugin = (props: {
         </MetaDataWrapper>
       </div>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <a href={blobUrl} target={'_blank'} rel="noopener noreferrer">
+        <a href={blobUrl} target={'_blank'} rel='noopener noreferrer'>
           Open in new tab
         </a>
       </div>

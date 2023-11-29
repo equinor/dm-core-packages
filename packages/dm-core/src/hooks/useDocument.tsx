@@ -47,7 +47,7 @@ interface IUseDocumentReturnType<T> {
 export function useDocument<T>(
   idReference: string,
   depth?: number | undefined,
-  notify: boolean = true
+  notify: boolean = true,
 ): IUseDocumentReturnType<T> {
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
@@ -74,7 +74,7 @@ export function useDocument<T>(
         if (notify)
           toast.error(
             'Unable to retrieve document, with message: ' +
-              error.response?.data.message ?? error.message
+              error.response?.data.message ?? error.message,
           )
         setError(error.response?.data || { message: error.name, data: error })
       })
@@ -84,7 +84,7 @@ export function useDocument<T>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function updateDocument(
     newDocument: T,
-    notify: boolean = true
+    notify: boolean = true,
   ): Promise<void> {
     setLoading(true)
     return dmssAPI
@@ -101,7 +101,7 @@ export function useDocument<T>(
         console.error(error)
         if (notify)
           toast.error(
-            'Unable to update document, with message: ' + error.message
+            'Unable to update document, with message: ' + error.message,
           )
         setError(error.response?.data || { message: error.name, data: error })
       })

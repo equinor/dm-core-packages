@@ -34,7 +34,7 @@ export const DownloadFileButton = (props: DownloadButtonProps) => {
           dataSourceId: dataSourceId,
           blobId: fileEntity.content?.address ?? 'None',
         },
-        options
+        options,
       )
       .then((response: AxiosResponse) => {
         const data = response.data
@@ -67,7 +67,7 @@ export const DownloadFileButton = (props: DownloadButtonProps) => {
     <div style={{ padding: '10px' }}>
       <Button
         href={fileUrl}
-        rel="noopener noreferrer"
+        rel='noopener noreferrer'
         download={fileEntity['name']}
       >
         Download

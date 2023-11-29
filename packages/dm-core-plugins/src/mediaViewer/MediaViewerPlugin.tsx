@@ -45,7 +45,7 @@ export const MediaViewerPlugin = (props: IUIPlugin): React.ReactElement => {
             dataSourceId: dataSource,
             blobId: document?.content?.address.slice(1),
           },
-          options
+          options,
         )
         .then((response: any) => {
           const blob = new Blob([response.data], {

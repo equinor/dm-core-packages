@@ -10,7 +10,7 @@ test('View selector - car garage', async ({ page }) => {
     await page.getByRole('button', { name: 'carGarage' }).click()
     await expect(page.getByLabel('Name')).toHaveValue('CarGarage')
     await expect(page.getByLabel('Description')).toHaveValue(
-      'Here you will find detailed information about the cars in our garage'
+      'Here you will find detailed information about the cars in our garage',
     )
   })
 
@@ -22,7 +22,7 @@ test('View selector - car garage', async ({ page }) => {
     await expect(page.getByRole('tab', { name: 'Volvo' })).not.toBeVisible()
     await page.getByRole('tab').nth(1).click()
     await expect(page.getByRole('tabpanel').locator('#name')).toHaveValue(
-      'Audi'
+      'Audi',
     )
     await page.getByRole('tab').first().click()
     await expect(page.getByLabel('Name')).toHaveValue('CarGarage')
@@ -37,7 +37,7 @@ test('View selector - car garage', async ({ page }) => {
     await expect(page.getByRole('tab', { name: 'Home' })).toBeVisible()
 
     await expect(page.getByRole('tabpanel').locator('#name')).toHaveValue(
-      'Audi'
+      'Audi',
     )
 
     await page
@@ -45,13 +45,13 @@ test('View selector - car garage', async ({ page }) => {
       .getByRole('button', { name: 'Open in tab' })
       .click()
     await expect(
-      page.getByRole('tab', { name: 'Owner details' })
+      page.getByRole('tab', { name: 'Owner details' }),
     ).toHaveAttribute('aria-selected', 'true')
     await expect(page.getByRole('tab', { name: 'Owner history' })).toBeVisible()
     await expect(page.locator('#name').nth(2)).toHaveValue('Aiden')
     await page.getByText('Owner history').click()
     await expect(
-      page.getByRole('tab', { name: 'group Owner history' })
+      page.getByRole('tab', { name: 'group Owner history' }),
     ).toHaveAttribute('aria-selected', 'true')
   })
 
@@ -71,20 +71,19 @@ test('View selector - car garage', async ({ page }) => {
       .click()
     await expect(page.getByRole('tab', { name: 'Technical' })).toHaveAttribute(
       'aria-selected',
-      'true'
+      'true',
     )
     await expect(page.getByRole('tab', { name: 'EU control' })).toHaveAttribute(
       'aria-selected',
-      'true'
+      'true',
     )
     await expect(
-      page.getByRole('tab', { name: 'car Dimensions' })
+      page.getByRole('tab', { name: 'car Dimensions' }),
     ).toBeVisible()
 
-    await page
-      .getByTestId('form-text-widget-nextControl')
+    await page.getByTestId('form-text-widget-nextControl')
 
-      .fill('2025-06-31')
+    .fill('2025-06-31')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page
@@ -108,13 +107,13 @@ test('View selector - car garage', async ({ page }) => {
     await page.getByRole('tab', { name: 'Volvo' }).click()
     await expect(page.getByRole('tab', { name: 'Home' })).toBeVisible()
     await expect(
-      page.getByRole('tab', { name: 'Owner', exact: true })
+      page.getByRole('tab', { name: 'Owner', exact: true }),
     ).not.toBeVisible()
     await expect(
-      page.getByRole('tab', { name: 'Owner details' })
+      page.getByRole('tab', { name: 'Owner details' }),
     ).not.toBeVisible()
     await expect(
-      page.getByRole('tab', { name: 'Owner history' })
+      page.getByRole('tab', { name: 'Owner history' }),
     ).not.toBeVisible()
   })
 
@@ -123,12 +122,12 @@ test('View selector - car garage', async ({ page }) => {
     await expect(page.getByRole('tab', { name: 'Owner' })).toBeVisible()
     await expect(page.getByRole('tab', { name: 'Technical' })).toHaveAttribute(
       'aria-selected',
-      'true'
+      'true',
     )
     await expect(page.getByRole('tab', { name: 'EU control' })).toBeVisible()
     await expect(page.getByRole('tab', { name: 'Dimensions' })).toHaveAttribute(
       'aria-selected',
-      'true'
+      'true',
     )
   })
 
@@ -140,11 +139,11 @@ test('View selector - car garage', async ({ page }) => {
       .click()
 
     await expect(
-      page.getByTestId('form-text-widget-nextControl').last()
+      page.getByTestId('form-text-widget-nextControl').last(),
     ).toHaveValue('2025-06-01')
     await page.getByRole('tab', { name: 'Dimensions' }).click()
     await expect(
-      page.getByTestId('form-number-widget-Length (mm) (optional)').last()
+      page.getByTestId('form-number-widget-Length (mm) (optional)').last(),
     ).toHaveValue('4500')
     await page.getByRole('tab', { name: 'Home' }).click()
     await page
@@ -160,7 +159,7 @@ test('View selector - car garage', async ({ page }) => {
     await page.getByRole('button', { name: 'Close Owner' }).click()
     await expect(page.getByRole('tab', { name: 'Technical' })).toHaveAttribute(
       'aria-selected',
-      'true'
+      'true',
     )
     await expect(page.getByRole('tab', { name: 'Owner' })).not.toBeVisible()
   })

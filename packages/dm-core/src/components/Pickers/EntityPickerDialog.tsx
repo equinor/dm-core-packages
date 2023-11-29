@@ -103,7 +103,7 @@ export const EntityPickerDialog = (props: {
                 onSelect={(node: TreeNode) => {
                   if (typeFilter && node.type !== typeFilter) {
                     toast.warning(
-                      `Type must be '${truncatePathString(typeFilter, 43)}'`
+                      `Type must be '${truncatePathString(typeFilter, 43)}'`,
                     )
                     setSelectedTreeNode(undefined)
                     return
@@ -127,7 +127,7 @@ export const EntityPickerDialog = (props: {
           Select
         </Button>
         <Button
-          variant="ghost"
+          variant='ghost'
           onClick={() => {
             setSelectedTreeNode(undefined)
             setShowModal(false)

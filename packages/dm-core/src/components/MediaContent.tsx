@@ -71,7 +71,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         <iframe
           src={blobUrl}
           style={{ width: '100%', height: 'auto' }}
-          role="document"
+          role='document'
         />
       )
     }
@@ -83,12 +83,12 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         {meta.filetype !== 'application/pdf' && (
           <MetaPopoverButton
             onClick={() => setShowMeta(!showMeta)}
-            variant="ghost_icon"
+            variant='ghost_icon'
             aria-haspopup
             aria-expanded={showMeta}
             ref={referenceElement}
           >
-            <Icon data={info_circle} title="view meta info" />
+            <Icon data={info_circle} title='view meta info' />
           </MetaPopoverButton>
         )}
         {renderMediaElement(meta.filetype)}
@@ -97,22 +97,22 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         open={showMeta}
         anchorEl={referenceElement.current}
         onClose={() => setShowMeta(false)}
-        role="dialog"
+        role='dialog'
       >
         <Popover.Header>
           <Popover.Title>Meta</Popover.Title>
         </Popover.Header>
         <Popover.Content>
           <MetaWrapper>
-            <label className="meta-label">File name:</label>
+            <label className='meta-label'>File name:</label>
             <span> {meta.title}</span>
-            <label className="meta-label">Author:</label>
+            <label className='meta-label'>Author:</label>
             <span> {meta.author}</span>
-            <label className="meta-label">Date:</label>
+            <label className='meta-label'>Date:</label>
             <span> {new Date(meta.date).toLocaleDateString()} </span>
-            <label className="meta-label">Filetype:</label>
+            <label className='meta-label'>Filetype:</label>
             <span> {meta.filetype}</span>
-            <label className="meta-label">Filesize:</label>
+            <label className='meta-label'>Filesize:</label>
             <span> {formatBytes(meta.fileSize)}</span>
           </MetaWrapper>
         </Popover.Content>
@@ -125,17 +125,17 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             }}
           >
             <Button
-              variant="ghost"
-              as="a"
-              className="transition-all"
+              variant='ghost'
+              as='a'
+              className='transition-all'
               href={blobUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              target='_blank'
+              rel='noopener noreferrer'
             >
               <Icon size={16} data={external_link} />
               New tab
             </Button>
-            <Button download={meta.title} href={blobUrl} variant="ghost">
+            <Button download={meta.title} href={blobUrl} variant='ghost'>
               <Icon size={16} data={download} />
               Download
             </Button>

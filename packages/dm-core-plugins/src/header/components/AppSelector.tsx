@@ -53,7 +53,7 @@ export const AppSelector = ({
     <div ref={referenceElement}>
       <AppSelectorButton
         onClick={() => setAppSelectorOpen(!appSelectorOpen)}
-        aria-label="AppSelector"
+        aria-label='AppSelector'
       >
         <h4>{currentItem}</h4>
         <Icon

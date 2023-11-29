@@ -15,11 +15,8 @@ export const AttributeList = (props: {
   let filteredAttributes =
     config && config.fields.length
       ? config.fields
-          .map(
-            (name: string) =>
-              attributes?.find(
-                (attribute: TAttribute) => attribute.name == name
-              )
+          .map((name: string) =>
+            attributes?.find((attribute: TAttribute) => attribute.name == name),
           )
           .filter((attribute): attribute is TAttribute => !!attribute)
       : attributes
@@ -27,14 +24,14 @@ export const AttributeList = (props: {
   const hideByDefaultFields: string[] = ['type', '_meta_']
   if (!(config && config.fields.length)) {
     filteredAttributes = filteredAttributes?.filter(
-      (attribute) => !hideByDefaultFields.includes(attribute.name)
+      (attribute) => !hideByDefaultFields.includes(attribute.name),
     )
   }
   return (
     <>
       {filteredAttributes?.map((attribute: TAttribute) => {
         const uiAttribute = config?.attributes.find(
-          (uiAttribute) => uiAttribute.name === attribute.name
+          (uiAttribute) => uiAttribute.name === attribute.name,
         )
         return (
           <div

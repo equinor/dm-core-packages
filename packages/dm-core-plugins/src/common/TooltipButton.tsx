@@ -28,7 +28,7 @@ const getProps = (prefix: string, dict: { [k: string]: any }) => {
   return Object.fromEntries(
     Object.entries(dict)
       .filter(([k]) => k.startsWith(prefix))
-      .map(([k, v]) => [k.slice(prefix.length), v])
+      .map(([k, v]) => [k.slice(prefix.length), v]),
   )
 }
 

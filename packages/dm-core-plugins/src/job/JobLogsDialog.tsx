@@ -31,7 +31,7 @@ export const JobLogsDialog = (props: AboutDialogProps) => {
           title={error ? 'Error' : 'Logs'}
           content={error ? error : logs}
         />
-        {result && <LogBlock title="Result" content={result} />}
+        {result && <LogBlock title='Result' content={result} />}
       </Dialog.CustomContent>
       <Dialog.Actions
         style={{ display: 'flex', flexDirection: 'row', justifyContent: 'end' }}

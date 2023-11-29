@@ -57,21 +57,21 @@ const NewBlueprintDialog = (props: TProps) => {
       </Dialog.Header>
       <Dialog.CustomContent>
         <TextField
-          id="BlueprintName"
-          label="Name"
+          id='BlueprintName'
+          label='Name'
           style={{ width: INPUT_FIELD_WIDTH }}
           value={blueprintName}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setBlueprintName(event.target.value)
           }
-          placeholder="Name for new blueprint"
+          placeholder='Name for new blueprint'
         />
       </Dialog.CustomContent>
       <Dialog.Actions>
         <Button disabled={blueprintName === ''} onClick={handleCreate}>
           {loading ? <Progress.Dots /> : 'Create'}
         </Button>
-        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
+        <Button variant='outlined' onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>

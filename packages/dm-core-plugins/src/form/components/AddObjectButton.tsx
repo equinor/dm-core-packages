@@ -51,8 +51,8 @@ const AddObject = (props: {
   }
   return (
     <TooltipButton
-      title="Add and save"
-      button-variant="ghost_icon"
+      title='Add and save'
+      button-variant='ghost_icon'
       button-onClick={handleAdd}
       icon={add}
     />

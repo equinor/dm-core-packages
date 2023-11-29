@@ -14,7 +14,7 @@ test.beforeEach(async ({ page }) => {
 test('Load header', async ({ page }) => {
   await expect(page.getByLabel('AppSelector').nth(1)).toBeVisible()
   await expect(
-    page.getByRole('heading', { name: 'Data Modelling Example App' })
+    page.getByRole('heading', { name: 'Data Modelling Example App' }),
   ).toBeVisible()
   await expect(page.getByRole('button', { name: 'User' }).nth(1)).toBeVisible()
   await expect(page.getByRole('button', { name: 'About' }).nth(1)).toBeVisible()
@@ -24,10 +24,10 @@ test('User info', async ({ page }) => {
   await page.getByRole('button', { name: 'User' }).nth(1).click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(
-    page.getByRole('dialog').getByText('User info', { exact: true })
+    page.getByRole('dialog').getByText('User info', { exact: true }),
   ).toBeVisible()
   await expect(
-    page.getByRole('dialog').getByText('Name:', { exact: true })
+    page.getByRole('dialog').getByText('Name:', { exact: true }),
   ).toBeVisible()
   await page.getByRole('dialog').getByRole('button', { name: 'Cancel' }).click()
   await expect(page.getByRole('dialog')).not.toBeVisible()
@@ -41,8 +41,8 @@ test('About', async ({ page }) => {
       .getByRole('dialog')
       .getByText(
         "Application used to test and demo some '@development-framework' plugins",
-        { exact: true }
-      )
+        { exact: true },
+      ),
   ).toBeVisible()
   await page.getByRole('dialog').getByRole('button', { name: 'Ok' }).click()
   await expect(page.getByRole('dialog')).not.toBeVisible()

@@ -66,7 +66,7 @@ export const AccessControlListComponent = (props: {
   })
 
   const convertACLFromUserIdToUsername = async (
-    acl: AccessControlList
+    acl: AccessControlList,
   ): Promise<AccessControlList> => {
     const aclCopy: AccessControlList = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
 
@@ -79,7 +79,7 @@ export const AccessControlListComponent = (props: {
       return Promise.all(
         Object.keys(users).map((usernameId: string) => {
           return getUsernameMappingFromUserId(usernameId, tokenWithReadAccess)
-        })
+        }),
       )
         .then((userIdMappings: TUserIdMapping[]) => {
           userIdMappings.map((userIdMapping: TUserIdMapping) => {
@@ -90,7 +90,7 @@ export const AccessControlListComponent = (props: {
         .then(() => {
           return getUsernameMappingFromUserId(
             aclCopy.owner,
-            tokenWithReadAccess
+            tokenWithReadAccess,
           ).then((userIdMapping: TUserIdMapping) => {
             if (userIdMapping.username) {
               aclCopy.owner = userIdMapping.username
@@ -105,7 +105,7 @@ export const AccessControlListComponent = (props: {
   }
 
   const convertACLFromUsernameToUserId = (
-    acl: AccessControlList
+    acl: AccessControlList,
   ): Promise<AccessControlList> => {
     const aclCopy: AccessControlList = JSON.parse(JSON.stringify(acl)) //deep copy the acl object
 
@@ -118,7 +118,7 @@ export const AccessControlListComponent = (props: {
       return Promise.all(
         Object.keys(users).map((username: string) => {
           return getUsernameMappingFromUsername(username, tokenWithReadAccess)
-        })
+        }),
       ).then((userIdMappings: TUserIdMapping[]) => {
         userIdMappings.map((userIdMapping: TUserIdMapping) => {
           newUsers[userIdMapping.userId] = users[userIdMapping.username]
@@ -126,7 +126,7 @@ export const AccessControlListComponent = (props: {
         aclCopy.users = newUsers
         return getUsernameMappingFromUsername(
           aclCopy.owner,
-          tokenWithReadAccess
+          tokenWithReadAccess,
         ).then((userIdMapping: TUserIdMapping) => {
           if (userIdMapping.userId) {
             aclCopy.owner = userIdMapping.userId
@@ -155,7 +155,7 @@ export const AccessControlListComponent = (props: {
             })
             .catch((error) => {
               toast.error(
-                `Could not convert username ID to username (${error})`
+                `Could not convert username ID to username (${error})`,
               )
             })
             .finally(() => {
@@ -167,7 +167,7 @@ export const AccessControlListComponent = (props: {
             toast.error(
               `Could not fetch AccessControlList for this document (${
                 error.response.data || error.message
-              })`
+              })`,
             )
           } else {
             console.error(error)
@@ -232,7 +232,7 @@ export const AccessControlListComponent = (props: {
       <Tabs
         activeTab={activeTab}
         onChange={(index: number) => setActiveTab(index)}
-        variant="fullWidth"
+        variant='fullWidth'
       >
         <Tabs.List>
           <Tabs.Tab>Owner</Tabs.Tab>
@@ -245,14 +245,14 @@ export const AccessControlListComponent = (props: {
           </Tabs.Panel>
           <Tabs.Panel>
             <ACLUserRolesPanel
-              aclKey="roles"
+              aclKey='roles'
               entities={documentACL.roles}
               handleChange={handleChange}
             />
           </Tabs.Panel>
           <Tabs.Panel>
             <ACLUserRolesPanel
-              aclKey="users"
+              aclKey='users'
               entities={documentACL.users}
               handleChange={handleChange}
             />
@@ -262,12 +262,12 @@ export const AccessControlListComponent = (props: {
 
       <CenteredRow>
         <Button onClick={() => saveAccessControlList(documentACL)}>
-          {(loading && <Progress.Dots color="neutral" />) || 'Save'}
-          {!loading && <Icon name="save" title="save" size={24} />}
+          {(loading && <Progress.Dots color='neutral' />) || 'Save'}
+          {!loading && <Icon name='save' title='save' size={24} />}
         </Button>
         <Checkbox
           checked={storeACLRecursively}
-          label="Change access recursively"
+          label='Change access recursively'
           onClick={() => setStoreACLRecursively(!storeACLRecursively)}
         ></Checkbox>
       </CenteredRow>

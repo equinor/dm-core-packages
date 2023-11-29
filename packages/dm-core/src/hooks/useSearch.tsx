@@ -4,7 +4,7 @@ import { useDMSS } from '../context/DMSSContext'
 export function useSearch<T>(
   body: any,
   dataSourceId: string,
-  sortByAttribute?: string
+  sortByAttribute?: string,
 ): [T[], boolean, boolean] {
   const [searchResult, setSearchResult] = useState<T[]>([])
   const [isLoading, setIsLoading] = useState(true)

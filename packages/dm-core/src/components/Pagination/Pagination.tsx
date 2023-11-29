@@ -21,18 +21,18 @@ export function Pagination(props: PaginationProps) {
 
   return (
     <Stack
-      direction="row"
+      direction='row'
       spacing={1}
-      alignItems="center"
-      justifyContent="flex-end"
+      alignItems='center'
+      justifyContent='flex-end'
     >
-      <Stack spacing={0.5} direction="row" alignItems="center">
-        <Typography variant="label" group="input">
+      <Stack spacing={0.5} direction='row' alignItems='center'>
+        <Typography variant='label' group='input'>
           Rows per page:{' '}
         </Typography>
         <NativeSelect
-          id="rowsPerPage"
-          label=""
+          id='rowsPerPage'
+          label=''
           value={rowsPerPage}
           onChange={(event) => setRowsPerPage(Number(event.target.value))}
           style={{ width: '70px' }}
@@ -42,25 +42,25 @@ export function Pagination(props: PaginationProps) {
           ))}
         </NativeSelect>
       </Stack>
-      <Stack spacing={0.5} alignItems="center">
-        <Typography variant="meta">
+      <Stack spacing={0.5} alignItems='center'>
+        <Typography variant='meta'>
           {visibleFromLabel} - {visibleToLabel} of {count}
         </Typography>
       </Stack>
-      <Stack direction="row" spacing={0.5} alignItems="center">
+      <Stack direction='row' spacing={0.5} alignItems='center'>
         <Button
           disabled={page === 0}
-          variant="ghost_icon"
+          variant='ghost_icon'
           onClick={() => setPage((prevPage) => prevPage - 1)}
         >
-          <Icon data={chevron_left} title="Previous page" />
+          <Icon data={chevron_left} title='Previous page' />
         </Button>
         <Button
           disabled={page + 1 === availablePages}
-          variant="ghost_icon"
+          variant='ghost_icon'
           onClick={() => setPage((prevPage) => prevPage + 1)}
         >
-          <Icon data={chevron_right} title="Next page" />
+          <Icon data={chevron_right} title='Next page' />
         </Button>
       </Stack>
     </Stack>

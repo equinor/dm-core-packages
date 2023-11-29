@@ -21,7 +21,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
-      : config.showExpanded
+      : config.showExpanded,
   )
   const uiRecipeName = getKey<string>(uiAttribute, 'uiRecipe', 'string')
   const isDefined = initialValue !== undefined
@@ -50,8 +50,8 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
           ))}
         {isDefined && !(onOpen && !uiAttribute?.showInline) && (
           <TooltipButton
-            title="Expand"
-            button-variant="ghost_icon"
+            title='Expand'
+            button-variant='ghost_icon'
             button-onClick={() => setIsExpanded(!isExpanded)}
             icon={isExpanded ? chevron_up : chevron_down}
           />

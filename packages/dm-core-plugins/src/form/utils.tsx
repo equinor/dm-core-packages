@@ -8,6 +8,6 @@ export const isMultiDimensional = (dimensions: string) => {
 
 export const isPrimitive = (attributeType: string): boolean => {
   return ['string', 'number', 'integer', 'boolean'].includes(
-    attributeType as string
+    attributeType as string,
   )
 }

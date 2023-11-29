@@ -74,7 +74,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
 
   if (viewConfig === undefined)
     throw new Error(
-      'Cannot create a View without a "viewConfig". Sure the attribute is properly named?'
+      'Cannot create a View without a "viewConfig". Sure the attribute is properly named?',
     )
 
   if (isInlineRecipeViewConfig(viewConfig)) {

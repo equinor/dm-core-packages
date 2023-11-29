@@ -25,7 +25,7 @@ export const UiPluginProvider = ({
   children: any
 }) => {
   function getUiPlugin(
-    pluginName: string
+    pluginName: string,
   ): (props: IUIPlugin) => React.ReactElement {
     if (Object.keys(plugins).includes(pluginName))
       return plugins[pluginName].component

@@ -57,7 +57,8 @@ export const JobForm = (props: {
 
   const filteredJobBlueprintAttributes = jobBlueprint
     ? jobBlueprint.attributes.filter(
-        (attribute: TAttribute) => !jobAttributesToSkip.includes(attribute.name)
+        (attribute: TAttribute) =>
+          !jobAttributesToSkip.includes(attribute.name),
       )
     : []
 

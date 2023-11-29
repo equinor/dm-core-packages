@@ -13,9 +13,9 @@ export function TableRowActions(props: TableRowActionsProps) {
     <Table.Cell style={{ textAlign: 'center' }}>
       {editMode ? (
         <Button
-          aria-label="Remove row"
-          color="danger"
-          variant="ghost_icon"
+          aria-label='Remove row'
+          color='danger'
+          variant='ghost_icon'
           onClick={removeItem}
         >
           <Icon data={delete_to_trash} aria-hidden />
@@ -23,11 +23,11 @@ export function TableRowActions(props: TableRowActionsProps) {
       ) : (
         <>
           <Button
-            aria-label="Row actions"
-            aria-haspopup="true"
+            aria-label='Row actions'
+            aria-haspopup='true'
             aria-expanded={isMenuOpen}
             aria-controls={`row-object-menu-${itemKey}`}
-            variant="ghost_icon"
+            variant='ghost_icon'
             onClick={() => setIsMenuOpen(true)}
             ref={setMenuButtonAnchor}
           >
@@ -35,7 +35,7 @@ export function TableRowActions(props: TableRowActionsProps) {
           </Button>
           <Menu
             anchorEl={menuButtonAnchor}
-            aria-labelledby="anchor-default"
+            aria-labelledby='anchor-default'
             id={`row-object-menu-${itemKey}`}
             onClose={() => setIsMenuOpen(false)}
             open={isMenuOpen}

@@ -10,7 +10,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await page.getByRole('button', { name: 'complex_attribute' }).click()
     await page.getByRole('button', { name: 'TheBlackPearl' }).click()
     await expect(
-      page.getByRole('button', { name: 'Copy as YAML' })
+      page.getByRole('button', { name: 'Copy as YAML' }),
     ).toBeVisible()
   })
 
@@ -21,10 +21,10 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()
     await expect(page.getByTestId('form-text-widget-name').nth(1)).toHaveValue(
-      'CaptainJackSparrow'
+      'CaptainJackSparrow',
     )
     await expect(
-      page.getByTestId('form-number-widget-Phone Number (optional)')
+      page.getByTestId('form-number-widget-Phone Number (optional)'),
     ).toHaveValue('0')
     await page.getByLabel('Close captain').click()
   })
@@ -63,10 +63,10 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()
     await expect(page.getByTestId('form-text-widget-name').nth(1)).toHaveValue(
-      'Barbossa'
+      'Barbossa',
     )
     await expect(
-      page.getByTestId('form-number-widget-Phone Number (optional)')
+      page.getByTestId('form-number-widget-Phone Number (optional)'),
     ).toHaveValue('12345678')
   })
 })

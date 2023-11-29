@@ -18,7 +18,7 @@ const TextWidget = (props: TWidget) => {
       helperText={props.helperText}
       onChange={onChangeHandler}
       label={label}
-      type="string"
+      type='string'
       data-testid={`form-text-widget-${props.id}`}
       style={
         isDirty && props.variant !== 'error'

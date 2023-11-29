@@ -36,7 +36,7 @@ export const splitAddress = (address: string) => {
 export const resolveRelativeAddress = (
   address: string,
   fallbackDocumentPath: string,
-  dataSource: string
+  dataSource: string,
 ) => {
   address = address.replace(/^[/. ]+|[/. ]+$/g, '')
   if (address.includes('://')) return address

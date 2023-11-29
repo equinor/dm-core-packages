@@ -17,7 +17,7 @@ import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
 
 export const ObjectModelUncontainedTemplate = (
-  props: TObjectTemplate
+  props: TObjectTemplate,
 ): React.ReactElement => {
   const { namePath, uiAttribute, uiRecipe, attribute } = props
   const { watch } = useFormContext()
@@ -25,7 +25,7 @@ export const ObjectModelUncontainedTemplate = (
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
-      : config.showExpanded
+      : config.showExpanded,
   )
   const value = watch(namePath)
   const { dataSource, documentPath } = splitAddress(idReference)
@@ -48,8 +48,8 @@ export const ObjectModelUncontainedTemplate = (
         )}
         {address && !(onOpen && !uiAttribute?.showInline) && (
           <TooltipButton
-            title="Expand"
-            button-variant="ghost_icon"
+            title='Expand'
+            button-variant='ghost_icon'
             button-onClick={() => setIsExpanded(!isExpanded)}
             icon={isExpanded ? chevron_up : chevron_down}
           />

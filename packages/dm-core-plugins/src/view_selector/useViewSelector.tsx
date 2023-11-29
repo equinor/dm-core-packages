@@ -26,7 +26,7 @@ interface IUseViewSelector {
 
 export function useViewSelector(
   idReference: string,
-  config: Record<string, any>
+  config: Record<string, any>,
 ): IUseViewSelector {
   const {
     document: entity,
@@ -46,7 +46,7 @@ export function useViewSelector(
     viewId: string,
     viewConfig: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
     rootId?: string,
-    isSubItem?: boolean
+    isSubItem?: boolean,
   ) => {
     if (!viewSelectorItems.find((view: TItemData) => view.viewId === viewId)) {
       // View does not exist, add it
@@ -66,7 +66,7 @@ export function useViewSelector(
 
   function removeView(viewId: string) {
     const viewIndex = viewSelectorItems.findIndex(
-      (viewSelectorItem) => viewSelectorItem.viewId === viewId
+      (viewSelectorItem) => viewSelectorItem.viewId === viewId,
     )
     const newSelectedView =
       viewSelectorItems[viewIndex + 1]?.viewId ||
@@ -125,7 +125,7 @@ export function useViewSelector(
               rootEntityId: idReference,
             })
           }
-        }
+        },
       )
     }
     setViewSelectorItems(newViews)

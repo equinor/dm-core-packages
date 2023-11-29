@@ -41,7 +41,7 @@ export function Table(props: TableProps) {
     saveTable,
   } = props
   const [tableVariant, setTableVariant] = useState<TableVariantNameEnum>(
-    config.variant[0].name
+    config.variant[0].name,
   )
   const dmssAPI = useDMSS()
   const [sortedItems, setSortedItems] = useState<TTableRowItem[]>([])
@@ -55,18 +55,18 @@ export function Table(props: TableProps) {
     config.variant.length === 1
       ? config.variant[0].functionality
       : config.variant.find(
-          (variant: TTableVariant) => variant.name === tableVariant
+          (variant: TTableVariant) => variant.name === tableVariant,
         ).functionality
 
   const paginatedRows =
     tableVariant === TableVariantNameEnum.Edit || !sortColumn
       ? items.slice(
           paginationPage * rowsPerPage,
-          paginationPage * rowsPerPage + rowsPerPage
+          paginationPage * rowsPerPage + rowsPerPage,
         )
       : sortedItems.slice(
           paginationPage * rowsPerPage,
-          paginationPage * rowsPerPage + rowsPerPage
+          paginationPage * rowsPerPage + rowsPerPage,
         )
 
   async function instantiateAndAddItem(insertAtIndex?: number) {
@@ -109,7 +109,7 @@ export function Table(props: TableProps) {
       newSortItems = [...items]
     } else {
       newSortItems = [...items].sort(
-        utils.dynamicSort(newSortDirection, column)
+        utils.dynamicSort(newSortDirection, column),
       )
     }
     setSortedItems(newSortItems)
@@ -182,14 +182,14 @@ export function Table(props: TableProps) {
         </SortableContext>
         {functionalityConfig.add && (
           <AddRowButton
-            aria-label="Add new row"
+            aria-label='Add new row'
             onClick={() => instantiateAndAddItem()}
           >
             <Icon size={16} data={add} />
           </AddRowButton>
         )}
       </Stack>
-      <Stack direction="row" spacing={1} justifyContent="space-between">
+      <Stack direction='row' spacing={1} justifyContent='space-between'>
         <Pagination
           count={items?.length || 0}
           rowsPerPage={rowsPerPage}

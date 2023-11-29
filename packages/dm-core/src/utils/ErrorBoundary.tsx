@@ -39,7 +39,7 @@ export class ErrorBoundary extends React.Component<
 
   fallBack: (error: Error) => ReactNode = (error: Error) => (
     <ErrorGroup>
-      <Typography variant="h5" color="red">
+      <Typography variant='h5' color='red'>
         {this.message}
       </Typography>
       <Message>{error.message}</Message>

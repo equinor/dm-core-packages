@@ -27,14 +27,14 @@ test('List reference resolved', async ({ page }) => {
   await expect(
     tyreList
       .getByLabel('Tyre description')
-      .getByText('Faster, but wears quicker.')
+      .getByText('Faster, but wears quicker.'),
   ).toBeVisible()
 })
 
 test('List reference unresolved', async ({ page }) => {
   const tyreList = page.getByTestId('tyreList')
   await expect(
-    tyreList.getByTestId('form-text-widget-referenceType')
+    tyreList.getByTestId('form-text-widget-referenceType'),
   ).toHaveValue('link')
 })
 

@@ -8,7 +8,7 @@
 export const splitString = (
   target: string,
   separator: string,
-  maxsplit: number
+  maxsplit: number,
 ) => {
   const arr = target.split(separator)
   if (arr.slice(maxsplit).length == 0) return arr

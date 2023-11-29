@@ -66,7 +66,7 @@ export const UploadFileButton = (props: UploadButtonProps) => {
   return (
     <>
       <input
-        type="file"
+        type='file'
         ref={textInput}
         style={{ display: 'none' }}
         onChange={(event: ChangeEvent<HTMLInputElement>) => handleUpload(event)}

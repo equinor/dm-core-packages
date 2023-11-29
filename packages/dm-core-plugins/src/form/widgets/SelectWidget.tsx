@@ -34,13 +34,13 @@ const SelectWidget = (props: TWidget) => {
         value: value,
         label: document.labels[index],
       }
-    }
+    },
   )
 
   const initialSelectedOptions = options?.filter((option: TOption) =>
     isMultiselect
       ? props.value.some((value: any) => value == option.value)
-      : props.value == option.value
+      : props.value == option.value,
   )
 
   return (

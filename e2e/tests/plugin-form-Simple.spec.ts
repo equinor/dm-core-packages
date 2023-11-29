@@ -58,10 +58,10 @@ test('Simple form', async ({ page }) => {
     await expect(page.getByLabel('Numbers only (optional)')).toHaveValue('3.14')
     await expect(page.getByLabel('Integer only (optional)')).toHaveValue('123')
     await expect(
-      page.getByLabel('An optional checkbox (optional)')
+      page.getByLabel('An optional checkbox (optional)'),
     ).toBeChecked()
     await expect(
-      page.getByLabel('A required checkbox (e.g. for confirmation purposes)')
+      page.getByLabel('A required checkbox (e.g. for confirmation purposes)'),
     ).toBeChecked()
     await expect(page.getByLabel('date')).toHaveValue('2023-01-01T13:00')
   })

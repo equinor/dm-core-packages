@@ -26,7 +26,7 @@ export function postWithFormData(tokenEndpoint: string, formData: FormData) {
 }
 
 export const getTokenWithUserReadAccess = (
-  refreshToken: string
+  refreshToken: string,
 ): Promise<string> => {
   // A token with scope User.ReadBasic.All is required to get information about users.
   const formData = new FormData()
@@ -38,13 +38,13 @@ export const getTokenWithUserReadAccess = (
   return postWithFormData(tokenEndpoint, formData).then(
     (response: TTokenResponse) => {
       return response.access_token
-    }
+    },
   )
 }
 
 export const getUsernameMappingFromUserId = (
   userId: string,
-  token: string
+  token: string,
 ): Promise<TUserIdMapping> => {
   // Find username from username id.
   // Only works with azure AD.
@@ -69,7 +69,7 @@ export const getUsernameMappingFromUserId = (
 
 export const getUsernameMappingFromUsername = (
   username: string,
-  token: string
+  token: string,
 ): Promise<TUserIdMapping> => {
   // Find username id from username.
   // Only works with azure AD.
@@ -86,7 +86,7 @@ export const getUsernameMappingFromUsername = (
       }
       if (result.data.value.length > 1) {
         throw new Error(
-          `Found several users with username ${username}. Username must be unique.`
+          `Found several users with username ${username}. Username must be unique.`,
         )
       }
       return { userId: result.data.value[0].id, username: username }

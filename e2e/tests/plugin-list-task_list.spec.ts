@@ -53,10 +53,10 @@ test('Add a new task', async ({ page }) => {
     .click()
   await expect(page.getByLabel('Task title:')).toHaveValue('Tax return')
   await expect(page.getByLabel('Assigned to: (optional)')).toHaveValue(
-    'Maria Johnson'
+    'Maria Johnson',
   )
   await expect(page.getByLabel('Task description: (optional)')).toHaveValue(
-    'Review and submit the tax return.'
+    'Review and submit the tax return.',
   )
   await page
     .getByRole('button', { name: 'Close item', exact: true })
@@ -94,7 +94,7 @@ test('Delete a task', async ({ page }) => {
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
   await expect(
-    page.getByRole('paragraph').getByText('Tax return')
+    page.getByRole('paragraph').getByText('Tax return'),
   ).toBeVisible()
 
   await page
@@ -107,10 +107,10 @@ test('Delete a task', async ({ page }) => {
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await expect(lastTabPanel).toBeVisible()
   await expect(
-    page.getByRole('paragraph').getByText('Wash the car')
+    page.getByRole('paragraph').getByText('Wash the car'),
   ).toBeVisible()
   await expect(
-    page.getByRole('paragraph').getByText('Tax return')
+    page.getByRole('paragraph').getByText('Tax return'),
   ).not.toBeVisible()
 })
 
@@ -119,14 +119,14 @@ test('Move task up and down', async ({ page }) => {
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move down' })
+      .getByRole('button', { name: 'Move down' }),
   ).toBeDisabled()
 
   await expect(
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move up' })
+      .getByRole('button', { name: 'Move up' }),
   ).toBeEnabled()
 
   await page
@@ -141,13 +141,13 @@ test('Move task up and down', async ({ page }) => {
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move down' })
+      .getByRole('button', { name: 'Move down' }),
   ).toBeEnabled()
   await expect(
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move up' })
+      .getByRole('button', { name: 'Move up' }),
   ).toBeEnabled()
   await page
     .getByRole('row')
@@ -161,13 +161,13 @@ test('Move task up and down', async ({ page }) => {
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move down' })
+      .getByRole('button', { name: 'Move down' }),
   ).toBeEnabled()
   await expect(
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move up' })
+      .getByRole('button', { name: 'Move up' }),
   ).toBeDisabled()
   await page
     .getByRole('row')
@@ -181,13 +181,13 @@ test('Move task up and down', async ({ page }) => {
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move down' })
+      .getByRole('button', { name: 'Move down' }),
   ).toBeEnabled()
   await expect(
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move up' })
+      .getByRole('button', { name: 'Move up' }),
   ).toBeEnabled()
   await page
     .getByRole('row')
@@ -201,13 +201,13 @@ test('Move task up and down', async ({ page }) => {
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move down' })
+      .getByRole('button', { name: 'Move down' }),
   ).toBeDisabled()
   await expect(
     page
       .getByRole('row')
       .filter({ has: page.getByText('Paint the living room', { exact: true }) })
-      .getByRole('button', { name: 'Move up' })
+      .getByRole('button', { name: 'Move up' }),
   ).toBeEnabled()
 })
 
@@ -225,20 +225,20 @@ test('Edit a task', async ({ page }) => {
   await reloadPage(page) //TODO: Remove when #153 is solved.
 
   await expect(
-    page.getByText('Paint the living room green', { exact: true })
+    page.getByText('Paint the living room green', { exact: true }),
   ).toBeVisible()
   await page
     .getByRole('button', { name: 'Open item', exact: true })
     .last()
     .click()
   await expect(page.getByLabel('Task title:')).toHaveValue(
-    'Paint the living room green'
+    'Paint the living room green',
   )
   await expect(page.getByLabel('Assigned to: (optional)')).toHaveValue(
-    'Mark Johnson'
+    'Mark Johnson',
   )
   await expect(page.getByLabel('Task description: (optional)')).toHaveValue(
-    'Remember to buy new brush.'
+    'Remember to buy new brush.',
   )
   await page.getByRole('button', { name: 'Close item' }).last().click()
 })
@@ -246,7 +246,7 @@ test('Edit a task', async ({ page }) => {
 test('Pagination', async ({ page }) => {
   await page.locator('#rowsPerPage').selectOption('5')
   await expect(
-    page.getByRole('button', { name: 'Previous page' })
+    page.getByRole('button', { name: 'Previous page' }),
   ).toBeDisabled()
   await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
   await page.getByRole('button', { name: 'Add item' }).click()
@@ -263,7 +263,7 @@ test('Pagination', async ({ page }) => {
   await page.getByRole('button', { name: 'Previous page' }).click()
   await expect(page.getByText('1 - 5 of 6')).toBeVisible()
   await expect(
-    page.getByRole('button', { name: 'Previous page' })
+    page.getByRole('button', { name: 'Previous page' }),
   ).toBeDisabled()
   await expect(page.getByRole('button', { name: 'Next page' })).toBeEnabled()
 })

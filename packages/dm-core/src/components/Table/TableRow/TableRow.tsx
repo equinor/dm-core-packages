@@ -28,14 +28,14 @@ export function TableRow(props: TableRowProps) {
   const columnsLength: number = utils.getColumnsLength(
     config,
     functionalityConfig,
-    tableVariant
+    tableVariant,
   )
 
   function openItemAsTab() {
     props.onOpen(
       crypto.randomUUID(),
       { label: item?.data?.name, type: 'ViewConfig' },
-      `${idReference}[${index}]`
+      `${idReference}[${index}]`,
     )
   }
 
@@ -47,7 +47,7 @@ export function TableRow(props: TableRowProps) {
   function updateItem(
     attribute: string,
     newValue: string | number | boolean,
-    attributeType: string
+    attributeType: string,
   ) {
     if (attributeType === 'number') newValue = Number(newValue)
     setItems(utils.updateItemAttribute(items, item.key, attribute, newValue))
@@ -63,16 +63,16 @@ export function TableRow(props: TableRowProps) {
             colSpan={columnsLength}
           >
             <Styled.InsertRowButton
-              title="Add row"
+              title='Add row'
               onClick={() => addItem(index)}
             >
-              <span className="resting_state_indicator" />
-              <Icon name="add" color="white" />
+              <span className='resting_state_indicator' />
+              <Icon name='add' color='white' />
             </Styled.InsertRowButton>
           </Table.Cell>
         </Table.Row>
       )}
-      <EdsProvider density="compact">
+      <EdsProvider density='compact'>
         <Table.Row
           key={item.key}
           style={dragProps.style}

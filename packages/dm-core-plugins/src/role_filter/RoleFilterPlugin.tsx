@@ -20,7 +20,7 @@ type FilteredView = {
 export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
   const { idReference, config } = props
   const [allowedViewConfigs, setAllowedViewConfigs] = useState<FilteredView[]>(
-    []
+    [],
   )
   const [openViewConfigs, setOpenViewConfigs] = useState<FilteredView[]>([])
   const [allowedRoles, setAllowedRoles] = useState<string[]>([])
@@ -74,8 +74,8 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
       ) : (
         // The user does not have any role matching any view, so there is nothing to show
         <Banner>
-          <Banner.Icon variant="warning">
-            <Icon name="thumbs_down" />
+          <Banner.Icon variant='warning'>
+            <Icon name='thumbs_down' />
           </Banner.Icon>
           <Banner.Message>
             {`No views found, since you currently have role [${selectedRole}]. Please switch to one of these roles: [${allowedRoles}]`}

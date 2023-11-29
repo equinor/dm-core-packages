@@ -19,7 +19,7 @@ export const TablePlugin = (props: IUIPlugin) => {
   const [dirtyState, setDirtyState] = useState<boolean>(false)
   const { document, isLoading, error } = useDocument<TGenericObject[]>(
     idReference,
-    1
+    1,
   )
   const dmssAPI = useDMSS()
 
@@ -28,8 +28,8 @@ export const TablePlugin = (props: IUIPlugin) => {
     if (!Array.isArray(document)) {
       throw new Error(
         `Generic table plugin cannot be used on document that is not an array! Got document ${JSON.stringify(
-          document
-        )}`
+          document,
+        )}`,
       )
     }
     const itemsWithIds = utils.createItemsFromDocument(document)

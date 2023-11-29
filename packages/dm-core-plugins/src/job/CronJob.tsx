@@ -124,7 +124,7 @@ export function ConfigureSchedule(props: {
                 .filter((l) => l.length > 0 && l[1] == label)
                 .pop()
               setInterval(
-                chosenIntervalType ? chosenIntervalType[1] : EInterval.HOURLY
+                chosenIntervalType ? chosenIntervalType[1] : EInterval.HOURLY,
               )
             }}
           />

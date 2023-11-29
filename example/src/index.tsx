@@ -82,5 +82,5 @@ root.render(
     ) : (
       <Content />
     )}
-  </React.StrictMode>
+  </React.StrictMode>,
 )

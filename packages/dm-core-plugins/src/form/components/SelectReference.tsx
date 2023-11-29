@@ -56,7 +56,7 @@ export const SelectReference = (props: {
     <>
       <TooltipButton
         title={`${value ? 'Edit' : 'Add'} and save`}
-        button-variant="ghost_icon"
+        button-variant='ghost_icon'
         button-onClick={() => setShowModal(true)}
         icon={value ? edit : add}
       />

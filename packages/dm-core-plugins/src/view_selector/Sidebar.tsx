@@ -33,7 +33,7 @@ export const Sidebar = (props: {
                       : EdsIcons.subdirectory_arrow_right
                   }
                   label={config.label}
-                  role="tab"
+                  role='tab'
                 >
                   {config.subItems.map((subConfig: TItemData, index) => {
                     const subViewId = config.viewId + subConfig.viewConfig.scope
@@ -49,13 +49,13 @@ export const Sidebar = (props: {
                             : EdsIcons.subdirectory_arrow_right
                         }
                         label={subConfig.label}
-                        role="tab"
+                        role='tab'
                         onClick={() => {
                           addView(
                             subViewId,
                             subConfig.viewConfig,
                             undefined,
-                            true
+                            true,
                           )
                           setSelectedViewId(subViewId)
                         }}
@@ -75,7 +75,7 @@ export const Sidebar = (props: {
                       : EdsIcons.subdirectory_arrow_right
                   }
                   label={config.label}
-                  role="tab"
+                  role='tab'
                   onClick={() => setSelectedViewId(config.viewId)}
                   active={selectedViewId === config.viewId}
                 />

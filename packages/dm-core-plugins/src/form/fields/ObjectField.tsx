@@ -71,14 +71,14 @@ export const ObjectField = (props: TField): React.ReactElement => {
 export const ObjectTemplateSelector = (props: TField): React.ReactElement => {
   const { namePath, uiAttribute, attribute } = props
   const { blueprint, uiRecipes, isLoading, error } = useBlueprint(
-    attribute.attributeType
+    attribute.attributeType,
   )
   const { watch } = useFormContext()
   const value = watch(namePath)
   if (isLoading) return <Loading />
   if (error)
     throw new Error(
-      `Failed to fetch blueprint for '${attribute.attributeType}'`
+      `Failed to fetch blueprint for '${attribute.attributeType}'`,
     )
   if (blueprint === undefined) return <div>Could not find the blueprint</div>
   const isStorageUncontained =
@@ -98,13 +98,13 @@ export const ObjectTemplateSelector = (props: TField): React.ReactElement => {
   if (uiRecipeName) {
     // If there is a recipe specified in the config, select that.
     uiRecipe = uiRecipesWithDefaultConfig.find(
-      (uiRecipe) => uiRecipe.name === uiRecipeName
+      (uiRecipe) => uiRecipe.name === uiRecipeName,
     )
   }
 
   if (!uiRecipe)
     throw new Error(
-      `No UiRecipe named "${uiRecipeName}" could be found for type "${attribute.attributeType}"`
+      `No UiRecipe named "${uiRecipeName}" could be found for type "${attribute.attributeType}"`,
     )
 
   const isModelContained = attribute.contained ?? true
@@ -112,8 +112,8 @@ export const ObjectTemplateSelector = (props: TField): React.ReactElement => {
   const Template = isStorageUncontained
     ? ObjectStorageUncontainedTemplate
     : isModelContained
-    ? ObjectModelContainedTemplate
-    : ObjectModelUncontainedTemplate
+      ? ObjectModelContainedTemplate
+      : ObjectModelUncontainedTemplate
 
   return (
     <Template

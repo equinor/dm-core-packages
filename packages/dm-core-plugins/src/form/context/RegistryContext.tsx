@@ -19,7 +19,7 @@ export const useRegistryContext = () => {
 }
 
 export const RegistryProvider = (
-  props: Props & { children: React.ReactElement }
+  props: Props & { children: React.ReactElement },
 ) => {
   const { children, ...value } = props
 

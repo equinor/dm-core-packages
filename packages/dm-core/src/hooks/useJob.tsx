@@ -170,12 +170,12 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
           setProgress(response.data.percentage)
         }
         setLogs(
-          response.data.log ?? ['No logs or status returned from job handler']
+          response.data.log ?? ['No logs or status returned from job handler'],
         )
         if (response.data.status !== status) setStatus(response.data.status)
         if (
           ([JobStatus.Failed, JobStatus.Completed] as JobStatus[]).includes(
-            response.data.status
+            response.data.status,
           )
         ) {
           clearInterval(statusIntervalId)

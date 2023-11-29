@@ -25,7 +25,7 @@ export function TableHead(props: TableHeadProps) {
     <Table.Head>
       <Table.Row>
         {tableVariant == TableVariantNameEnum.Edit && (
-          <Table.Cell width="48" aria-label="Sort"></Table.Cell>
+          <Table.Cell width='48' aria-label='Sort'></Table.Cell>
         )}
         {config.columns.map((column: TTableColumnConfig) => {
           if (column.data === '^expandable' || column.data === '^tab') {
@@ -47,8 +47,8 @@ export function TableHead(props: TableHeadProps) {
                 !column.sortable || tableVariant === TableVariantNameEnum.Edit
                   ? undefined
                   : column.data === sortColumn
-                  ? sortDirection
-                  : 'none'
+                    ? sortDirection
+                    : 'none'
               }
               key={column.data}
               isSorted={
@@ -72,22 +72,22 @@ export function TableHead(props: TableHeadProps) {
             </SortCell>
           )
         })}
-        <Table.Cell width="40">
+        <Table.Cell width='40'>
           <>
             <Button
-              aria-label="Table actions"
-              aria-haspopup="true"
+              aria-label='Table actions'
+              aria-haspopup='true'
               aria-expanded={isMenuOpen}
               aria-controls={`tablehead-menu`}
               onClick={() => setIsMenuOpen(true)}
               ref={setMenuButtonAnchor}
-              variant="ghost_icon"
+              variant='ghost_icon'
             >
               <Icon data={more_vertical} aria-hidden />
             </Button>
             <Menu
               anchorEl={menuButtonAnchor}
-              aria-labelledby="anchor-default"
+              aria-labelledby='anchor-default'
               id={`tablehead-menu`}
               onClose={() => setIsMenuOpen(false)}
               open={isMenuOpen}
@@ -98,7 +98,7 @@ export function TableHead(props: TableHeadProps) {
                     setTableVariant(
                       tableVariant == TableVariantNameEnum.View
                         ? TableVariantNameEnum.Edit
-                        : TableVariantNameEnum.View
+                        : TableVariantNameEnum.View,
                     )
                   }
                 >

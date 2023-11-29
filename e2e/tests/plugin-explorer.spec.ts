@@ -20,7 +20,7 @@ test('Create folder', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Folder is created'])
   await expect(dialog).not.toBeVisible()
   await expect(
-    page.getByRole('button', { name: 'package Playwright' })
+    page.getByRole('button', { name: 'package Playwright' }),
   ).toBeVisible()
 })
 
@@ -36,7 +36,7 @@ test('Create blueprint', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Blueprint is created'])
   await expect(dialog).not.toBeVisible()
   await expect(
-    page.getByRole('button', { name: 'blueprint PlaywrightBlueprint' })
+    page.getByRole('button', { name: 'blueprint PlaywrightBlueprint' }),
   ).toBeVisible()
 })
 
@@ -56,7 +56,7 @@ test('Create entity', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Entity is created'])
   await expect(dialog).not.toBeVisible()
   await expect(
-    page.getByRole('button', { name: 'file new_entity' })
+    page.getByRole('button', { name: 'file new_entity' }),
   ).toBeVisible()
 })
 
@@ -70,6 +70,6 @@ test('Delete folder with content', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Deleted'])
   await expect(page.getByRole('dialog')).not.toBeVisible()
   await expect(
-    page.getByRole('button', { name: 'package Playwright' })
+    page.getByRole('button', { name: 'package Playwright' }),
   ).not.toBeVisible()
 })

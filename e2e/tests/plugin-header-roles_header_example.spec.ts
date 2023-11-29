@@ -12,13 +12,13 @@ test.beforeEach(async ({ page }) => {
 test('Admin role', async ({ page }) => {
   await page.getByLabel('AppSelector').nth(1).click()
   await expect(
-    page.getByRole('button', { name: 'Yaml', exact: true })
+    page.getByRole('button', { name: 'Yaml', exact: true }),
   ).toBeVisible()
   await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Explorer' })).toBeVisible()
   await page.getByRole('button', { name: 'Edit' }).click()
   await expect(page.getByTestId('form-text-widget-name')).toHaveValue(
-    'elonMusk'
+    'elonMusk',
   )
 })
 
@@ -33,7 +33,7 @@ test('Change to operator role and back', async ({ page }) => {
     await page.getByLabel('AppSelector').nth(1).click()
 
     await expect(
-      page.getByRole('button', { name: 'Yaml', exact: true })
+      page.getByRole('button', { name: 'Yaml', exact: true }),
     ).toBeVisible()
     await expect(page.getByRole('button', { name: 'Edit' })).not.toBeVisible()
     await expect(page.getByRole('button', { name: 'Explorer' })).toBeVisible()
@@ -65,7 +65,7 @@ test('Change to operator role and back', async ({ page }) => {
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByLabel('AppSelector').nth(2).click()
     await expect(
-      page.getByRole('button', { name: 'Yaml', exact: true })
+      page.getByRole('button', { name: 'Yaml', exact: true }),
     ).toBeVisible()
     await expect(page.getByRole('button', { name: 'Edit' })).not.toBeVisible()
     await expect(page.getByRole('button', { name: 'Explorer' })).toBeVisible()
