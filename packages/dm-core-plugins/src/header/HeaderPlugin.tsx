@@ -28,10 +28,9 @@ const Icons = styled.div`
   }
 `
 const Logo = styled.span`
-  paddinginline: 10;
   color: #007079;
   font-weight: 500;
-  margin-right: 3rem;
+  margin-right: 1rem;
   margin-left: 0.5rem;
   font-size: 18px;
 `

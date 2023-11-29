@@ -33,16 +33,6 @@ const MetaPopoverButton = styled(Button)`
   color: #595959;
 `
 
-const MetaWrapper = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 0.6fr 1fr;
-
-  .meta-label {
-    font-weight: bold;
-  }
-`
-
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, meta, height, width } = props
   const [showMeta, setShowMeta] = useState(false)
@@ -70,7 +60,8 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
       return (
         <iframe
           src={blobUrl}
-          style={{ width: '100%', height: 'auto' }}
+          height={height ?? 500}
+          width={width ?? 600}
           role="document"
         />
       )
@@ -103,27 +94,21 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           <Popover.Title>Meta</Popover.Title>
         </Popover.Header>
         <Popover.Content>
-          <MetaWrapper>
-            <label className="meta-label">File name:</label>
+          <div className="w-full grid grid-cols-2">
+            <label className="font-bold">File name:</label>
             <span> {meta.title}</span>
-            <label className="meta-label">Author:</label>
+            <label className="font-bold">Author:</label>
             <span> {meta.author}</span>
-            <label className="meta-label">Date:</label>
+            <label className="font-bold">Date:</label>
             <span> {new Date(meta.date).toLocaleDateString()} </span>
-            <label className="meta-label">Filetype:</label>
+            <label className="font-bold">Filetype:</label>
             <span> {meta.filetype}</span>
-            <label className="meta-label">Filesize:</label>
+            <label className="font-bold">Filesize:</label>
             <span> {formatBytes(meta.fileSize)}</span>
-          </MetaWrapper>
+          </div>
         </Popover.Content>
         <Popover.Actions>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              width: '100%',
-            }}
-          >
+          <div className="flex justify-start w-full">
             <Button
               variant="ghost"
               as="a"
