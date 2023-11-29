@@ -149,7 +149,7 @@ const SignalTable_Component = (props: IUIPlugin) => {
   const { idReference } = props
   const { document, isLoading, error } = useDocument<TGenericObject>(
     idReference,
-    1,
+    1
   )
 
   if (isLoading) return <Loading />

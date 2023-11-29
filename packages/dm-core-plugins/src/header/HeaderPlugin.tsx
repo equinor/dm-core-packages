@@ -82,10 +82,10 @@ export default (props: IUIPlugin): React.ReactElement => {
   })
 
   function getRecipeConfigAndPlugin(
-    recipeName: string,
+    recipeName: string
   ): TRecipeConfigAndPlugin {
     const recipe = uiRecipes.find(
-      (recipe: TUiRecipe) => recipe.name === recipeName,
+      (recipe: TUiRecipe) => recipe.name === recipeName
     )
     if (!recipe) throw new Error(`Failed to find recipe named '${recipeName}'`)
     return {
@@ -99,7 +99,7 @@ export default (props: IUIPlugin): React.ReactElement => {
     if (!isBlueprintLoading) {
       const defaultRecipe: TUiRecipe = config.uiRecipesList.length
         ? uiRecipes.find(
-            (recipe: TUiRecipe) => recipe.name === config.uiRecipesList[0],
+            (recipe: TUiRecipe) => recipe.name === config.uiRecipesList[0]
           )
         : uiRecipes[0]
       setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))

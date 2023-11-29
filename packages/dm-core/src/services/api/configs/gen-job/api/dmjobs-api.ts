@@ -54,7 +54,7 @@ import { UpdateJobProgressResponse } from '../models'
  * @export
  */
 export const DMJobsApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -66,13 +66,13 @@ export const DMJobsApiAxiosParamCreator = function (
      */
     jobResult: async (
       jobUid: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'jobUid' is not null or undefined
       assertParamExists('jobResult', 'jobUid', jobUid)
       const localVarPath = `/{job_uid}/result`.replace(
         `{${'job_uid'}}`,
-        encodeURIComponent(String(jobUid)),
+        encodeURIComponent(String(jobUid))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -95,7 +95,7 @@ export const DMJobsApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -121,13 +121,13 @@ export const DMJobsApiAxiosParamCreator = function (
      */
     jobStatus: async (
       jobUid: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'jobUid' is not null or undefined
       assertParamExists('jobStatus', 'jobUid', jobUid)
       const localVarPath = `/{job_uid}`.replace(
         `{${'job_uid'}}`,
-        encodeURIComponent(String(jobUid)),
+        encodeURIComponent(String(jobUid))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -150,7 +150,7 @@ export const DMJobsApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -176,13 +176,13 @@ export const DMJobsApiAxiosParamCreator = function (
      */
     removeJob: async (
       jobUid: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'jobUid' is not null or undefined
       assertParamExists('removeJob', 'jobUid', jobUid)
       const localVarPath = `/{job_uid}`.replace(
         `{${'job_uid'}}`,
-        encodeURIComponent(String(jobUid)),
+        encodeURIComponent(String(jobUid))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -205,7 +205,7 @@ export const DMJobsApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -231,13 +231,13 @@ export const DMJobsApiAxiosParamCreator = function (
      */
     startJob: async (
       jobDmssId: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'jobDmssId' is not null or undefined
       assertParamExists('startJob', 'jobDmssId', jobDmssId)
       const localVarPath = `/{job_dmss_id}`.replace(
         `{${'job_dmss_id'}}`,
-        encodeURIComponent(String(jobDmssId)),
+        encodeURIComponent(String(jobDmssId))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -260,7 +260,7 @@ export const DMJobsApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -290,7 +290,7 @@ export const DMJobsApiAxiosParamCreator = function (
       jobUid: string,
       forceLog: boolean,
       progress: Progress,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'jobUid' is not null or undefined
       assertParamExists('updateJobProgress', 'jobUid', jobUid)
@@ -300,7 +300,7 @@ export const DMJobsApiAxiosParamCreator = function (
       assertParamExists('updateJobProgress', 'progress', progress)
       const localVarPath = `/{job_uid}`.replace(
         `{${'job_uid'}}`,
-        encodeURIComponent(String(jobUid)),
+        encodeURIComponent(String(jobUid))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -323,7 +323,7 @@ export const DMJobsApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (forceLog !== undefined) {
@@ -343,7 +343,7 @@ export const DMJobsApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         progress,
         localVarRequestOptions,
-        configuration,
+        configuration
       )
 
       return {
@@ -370,22 +370,22 @@ export const DMJobsApiFp = function (configuration?: Configuration) {
      */
     async jobResult(
       jobUid: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string,
+        basePath?: string
       ) => AxiosPromise<GetJobResultResponse>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.jobResult(
         jobUid,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -397,22 +397,22 @@ export const DMJobsApiFp = function (configuration?: Configuration) {
      */
     async jobStatus(
       jobUid: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string,
+        basePath?: string
       ) => AxiosPromise<StatusJobResponse>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.jobStatus(
         jobUid,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -424,19 +424,19 @@ export const DMJobsApiFp = function (configuration?: Configuration) {
      */
     async removeJob(
       jobUid: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.removeJob(
         jobUid,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -448,22 +448,22 @@ export const DMJobsApiFp = function (configuration?: Configuration) {
      */
     async startJob(
       jobDmssId: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string,
+        basePath?: string
       ) => AxiosPromise<StartJobResponse>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.startJob(
         jobDmssId,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -479,11 +479,11 @@ export const DMJobsApiFp = function (configuration?: Configuration) {
       jobUid: string,
       forceLog: boolean,
       progress: Progress,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string,
+        basePath?: string
       ) => AxiosPromise<UpdateJobProgressResponse>
     > {
       const localVarAxiosArgs =
@@ -491,13 +491,13 @@ export const DMJobsApiFp = function (configuration?: Configuration) {
           jobUid,
           forceLog,
           progress,
-          options,
+          options
         )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -510,7 +510,7 @@ export const DMJobsApiFp = function (configuration?: Configuration) {
 export const DMJobsApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = DMJobsApiFp(configuration)
   return {
@@ -523,7 +523,7 @@ export const DMJobsApiFactory = function (
      */
     jobResult(
       requestParameters: DMJobsApiJobResultRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<GetJobResultResponse> {
       return localVarFp
         .jobResult(requestParameters.jobUid, options)
@@ -538,7 +538,7 @@ export const DMJobsApiFactory = function (
      */
     jobStatus(
       requestParameters: DMJobsApiJobStatusRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<StatusJobResponse> {
       return localVarFp
         .jobStatus(requestParameters.jobUid, options)
@@ -553,7 +553,7 @@ export const DMJobsApiFactory = function (
      */
     removeJob(
       requestParameters: DMJobsApiRemoveJobRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<any> {
       return localVarFp
         .removeJob(requestParameters.jobUid, options)
@@ -568,7 +568,7 @@ export const DMJobsApiFactory = function (
      */
     startJob(
       requestParameters: DMJobsApiStartJobRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<StartJobResponse> {
       return localVarFp
         .startJob(requestParameters.jobDmssId, options)
@@ -583,14 +583,14 @@ export const DMJobsApiFactory = function (
      */
     updateJobProgress(
       requestParameters: DMJobsApiUpdateJobProgressRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<UpdateJobProgressResponse> {
       return localVarFp
         .updateJobProgress(
           requestParameters.jobUid,
           requestParameters.forceLog,
           requestParameters.progress,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -698,7 +698,7 @@ export class DMJobsApi extends BaseAPI {
    */
   public jobResult(
     requestParameters: DMJobsApiJobResultRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DMJobsApiFp(this.configuration)
       .jobResult(requestParameters.jobUid, options)
@@ -715,7 +715,7 @@ export class DMJobsApi extends BaseAPI {
    */
   public jobStatus(
     requestParameters: DMJobsApiJobStatusRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DMJobsApiFp(this.configuration)
       .jobStatus(requestParameters.jobUid, options)
@@ -732,7 +732,7 @@ export class DMJobsApi extends BaseAPI {
    */
   public removeJob(
     requestParameters: DMJobsApiRemoveJobRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DMJobsApiFp(this.configuration)
       .removeJob(requestParameters.jobUid, options)
@@ -749,7 +749,7 @@ export class DMJobsApi extends BaseAPI {
    */
   public startJob(
     requestParameters: DMJobsApiStartJobRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DMJobsApiFp(this.configuration)
       .startJob(requestParameters.jobDmssId, options)
@@ -766,14 +766,14 @@ export class DMJobsApi extends BaseAPI {
    */
   public updateJobProgress(
     requestParameters: DMJobsApiUpdateJobProgressRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DMJobsApiFp(this.configuration)
       .updateJobProgress(
         requestParameters.jobUid,
         requestParameters.forceLog,
         requestParameters.progress,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

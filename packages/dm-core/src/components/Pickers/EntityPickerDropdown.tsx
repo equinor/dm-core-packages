@@ -18,7 +18,7 @@ export const EntityPickerDropdown = (props: {
           onChange({ ...searchResult[parseInt(e.target.value)] })
         }
         value={searchResult.findIndex(
-          (resultEntry: any) => resultEntry._id === formData._id,
+          (resultEntry: any) => resultEntry._id === formData._id
         )}
       >
         {searchResult.map((resultEntry: any, index: number) => (

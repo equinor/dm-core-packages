@@ -11,7 +11,7 @@ test('Read only primitives', async ({ page }) => {
   await expect(page.getByLabel('A required string')).not.toBeEditable()
 
   await expect(
-    page.getByLabel('An optional string (optional)'),
+    page.getByLabel('An optional string (optional)')
   ).not.toBeEditable()
 
   await expect(page.getByLabel('A required number')).not.toBeEditable()
@@ -21,10 +21,10 @@ test('Read only primitives', async ({ page }) => {
   await expect(page.getByLabel('Integer only (optional)')).not.toBeEditable()
 
   await expect(
-    page.getByLabel('An optional checkbox (optional)'),
+    page.getByLabel('An optional checkbox (optional)')
   ).not.toBeEditable()
 
   await expect(
-    page.getByLabel('A required checbox (e.g. for confirmation purposes)'),
+    page.getByLabel('A required checbox (e.g. for confirmation purposes)')
   ).not.toBeEditable()
 })

@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const AttributeApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -58,13 +58,13 @@ export const AttributeApiAxiosParamCreator = function (
     attributeGet: async (
       address: string,
       resolve?: boolean,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'address' is not null or undefined
       assertParamExists('attributeGet', 'address', address)
       const localVarPath = `/api/attribute/{address}`.replace(
         `{${'address'}}`,
-        encodeURIComponent(String(address)),
+        encodeURIComponent(String(address))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -85,7 +85,7 @@ export const AttributeApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -94,7 +94,7 @@ export const AttributeApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (resolve !== undefined) {
@@ -136,20 +136,20 @@ export const AttributeApiFp = function (configuration?: Configuration) {
     async attributeGet(
       address: string,
       resolve?: boolean,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.attributeGet(
         address,
         resolve,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -162,7 +162,7 @@ export const AttributeApiFp = function (configuration?: Configuration) {
 export const AttributeApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = AttributeApiFp(configuration)
   return {
@@ -175,13 +175,13 @@ export const AttributeApiFactory = function (
      */
     attributeGet(
       requestParameters: AttributeApiAttributeGetRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .attributeGet(
           requestParameters.address,
           requestParameters.resolve,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -226,13 +226,13 @@ export class AttributeApi extends BaseAPI {
    */
   public attributeGet(
     requestParameters: AttributeApiAttributeGetRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return AttributeApiFp(this.configuration)
       .attributeGet(
         requestParameters.address,
         requestParameters.resolve,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

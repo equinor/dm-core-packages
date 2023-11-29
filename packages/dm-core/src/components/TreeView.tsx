@@ -114,7 +114,7 @@ const TreeButton = (props: {
   let isExpandable = true
   if (node.type != 'dataSource' && node.entity instanceof Object) {
     isExpandable = Object.values(node?.entity).some(
-      (value: any) => value instanceof Array || value instanceof Object,
+      (value: any) => value instanceof Array || value instanceof Object
     )
   }
 

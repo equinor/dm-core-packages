@@ -153,7 +153,7 @@ export type TOnOpen = (
   viewId: string,
   view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
   rootId?: string,
-  isSubItem?: boolean,
+  isSubItem?: boolean
 ) => void
 
 export type TUiPluginMap = { [pluginName: string]: TPlugin }
@@ -211,19 +211,19 @@ export type TEnum = {
 }
 
 export function isViewConfig(
-  viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig,
+  viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
 ): viewConfig is TViewConfig {
   return viewConfig.type.split(/:|\//).at(-1) === 'ViewConfig'
 }
 
 export function isReferenceViewConfig(
-  viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig,
+  viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
 ): viewConfig is TReferenceViewConfig {
   return viewConfig.type.split(/:|\//).at(-1) === 'ReferenceViewConfig'
 }
 
 export function isInlineRecipeViewConfig(
-  viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig,
+  viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig
 ): viewConfig is TInlineRecipeViewConfig {
   return viewConfig.type.split(/:|\//).at(-1) === 'InlineRecipeViewConfig'
 }

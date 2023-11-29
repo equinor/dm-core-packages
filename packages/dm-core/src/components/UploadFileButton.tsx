@@ -44,7 +44,7 @@ export function UploadFileButton(props: {
             _id: response.data.uid,
             name: getKey<string>(newDocumentBody, 'name', 'string'),
             type: newDocumentBody.type,
-          }),
+          })
         )
         .catch((error: AxiosError<any>) => {
           const errorResponse =

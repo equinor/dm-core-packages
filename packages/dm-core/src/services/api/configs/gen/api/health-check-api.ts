@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const HealthCheckApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -54,7 +54,7 @@ export const HealthCheckApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     getApiHealthcheckGet: async (
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/api/healthcheck`
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -104,7 +104,7 @@ export const HealthCheckApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async getApiHealthcheckGet(
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
     > {
@@ -114,7 +114,7 @@ export const HealthCheckApiFp = function (configuration?: Configuration) {
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -127,7 +127,7 @@ export const HealthCheckApiFp = function (configuration?: Configuration) {
 export const HealthCheckApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = HealthCheckApiFp(configuration)
   return {

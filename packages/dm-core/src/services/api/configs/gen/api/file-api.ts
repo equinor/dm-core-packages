@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const FileApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -60,7 +60,7 @@ export const FileApiAxiosParamCreator = function (
       dataSourceId: string,
       data: string,
       file: File,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('fileUpload', 'dataSourceId', dataSourceId)
@@ -70,7 +70,7 @@ export const FileApiAxiosParamCreator = function (
       assertParamExists('fileUpload', 'file', file)
       const localVarPath = `/api/files/{data_source_id}`.replace(
         `{${'data_source_id'}}`,
-        encodeURIComponent(String(dataSourceId)),
+        encodeURIComponent(String(dataSourceId))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -95,7 +95,7 @@ export const FileApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -104,7 +104,7 @@ export const FileApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (data !== undefined) {
@@ -155,7 +155,7 @@ export const FileApiFp = function (configuration?: Configuration) {
       dataSourceId: string,
       data: string,
       file: File,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
@@ -163,13 +163,13 @@ export const FileApiFp = function (configuration?: Configuration) {
         dataSourceId,
         data,
         file,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -182,7 +182,7 @@ export const FileApiFp = function (configuration?: Configuration) {
 export const FileApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = FileApiFp(configuration)
   return {
@@ -195,14 +195,14 @@ export const FileApiFactory = function (
      */
     fileUpload(
       requestParameters: FileApiFileUploadRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .fileUpload(
           requestParameters.dataSourceId,
           requestParameters.data,
           requestParameters.file,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -254,14 +254,14 @@ export class FileApi extends BaseAPI {
    */
   public fileUpload(
     requestParameters: FileApiFileUploadRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return FileApiFp(this.configuration)
       .fileUpload(
         requestParameters.dataSourceId,
         requestParameters.data,
         requestParameters.file,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

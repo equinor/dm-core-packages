@@ -12,7 +12,7 @@ type TTreeMap = {
 const createContainedChildren = (
   document: any,
   parentNode: TreeNode,
-  blueprint: TBlueprint,
+  blueprint: TBlueprint
 ): TTreeMap => {
   const newChildren: TTreeMap = {}
   Object.entries(document).forEach(([key, value]: [string, any]) => {
@@ -40,7 +40,7 @@ const createContainedChildren = (
         name: Array.isArray(document) ? value?.name || key : key,
         children: parentNode.children?.[childNodeId]?.children || {},
         attribute: blueprint.attributes?.find(
-          (attribute: TAttribute) => attribute.name == key,
+          (attribute: TAttribute) => attribute.name == key
         ),
       })
     }
@@ -51,7 +51,7 @@ const createContainedChildren = (
 
 const createFolderChildren = (
   document: any,
-  parentNode: TreeNode,
+  parentNode: TreeNode
 ): TTreeMap => {
   const newChildren: TTreeMap = {}
   document.content?.forEach((resolvedChild: any) => {
@@ -72,7 +72,7 @@ const createFolderChildren = (
 const updateRootPackagesInTree = (
   rootPackages: { [key: string]: TPackage },
   tree: Tree,
-  dataSource: string,
+  dataSource: string
 ) => {
   // Update content in a datasource. Search the DMSS database for root packages in a given datasource
   // and update the tree only if any packages from DMSS is missing in the tree.
@@ -81,7 +81,7 @@ const updateRootPackagesInTree = (
     //Only update tree if package is missing.
     if (
       !Object.keys(tree.index[dataSource].children).includes(
-        rootPackage._id ?? '',
+        rootPackage._id ?? ''
       )
     ) {
       const rootPackageNode = new TreeNode({
@@ -184,7 +184,7 @@ export class TreeNode {
                 this.children = createContainedChildren(
                   data,
                   this,
-                  parentBlueprint,
+                  parentBlueprint
                 )
               }
               this.tree.updateCallback(this.tree)
@@ -207,7 +207,7 @@ export class TreeNode {
               updateRootPackagesInTree(
                 response.data,
                 this.tree,
-                this.dataSource,
+                this.dataSource
               )
               resolve('Ok')
             })
@@ -302,10 +302,10 @@ export class Tree {
           type: 'dataSource',
           name: ds.name,
           isDataSource: true,
-        })),
+        }))
     )
     const invalidDataSources = dataSources?.filter((ds) =>
-      allDataSources.every((x) => x.id !== ds),
+      allDataSources.every((x) => x.id !== ds)
     )
     invalidDataSources?.forEach(
       (ds) =>
@@ -317,7 +317,7 @@ export class Tree {
           name: ds,
           isDataSource: true,
           message: `${ds} does not exist`,
-        })),
+        }))
     )
     this.updateCallback(this)
   }

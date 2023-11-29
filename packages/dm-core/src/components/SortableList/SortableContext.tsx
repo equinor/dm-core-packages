@@ -21,7 +21,7 @@ export const SortableContext = <T extends { id: string | number }>({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    })
   )
 
   function handleDragAndDrop(event: DragEndEvent) {

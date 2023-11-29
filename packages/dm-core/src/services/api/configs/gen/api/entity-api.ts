@@ -46,7 +46,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const EntityApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -58,7 +58,7 @@ export const EntityApiAxiosParamCreator = function (
      */
     instantiateEntity: async (
       entity: Entity,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'entity' is not null or undefined
       assertParamExists('instantiateEntity', 'entity', entity)
@@ -82,7 +82,7 @@ export const EntityApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -91,7 +91,7 @@ export const EntityApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       localVarHeaderParameter['Content-Type'] = 'application/json'
@@ -107,7 +107,7 @@ export const EntityApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         entity,
         localVarRequestOptions,
-        configuration,
+        configuration
       )
 
       return {
@@ -126,7 +126,7 @@ export const EntityApiAxiosParamCreator = function (
     validateEntity: async (
       entity: Entity,
       asType?: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'entity' is not null or undefined
       assertParamExists('validateEntity', 'entity', entity)
@@ -150,7 +150,7 @@ export const EntityApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -159,7 +159,7 @@ export const EntityApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (asType !== undefined) {
@@ -179,7 +179,7 @@ export const EntityApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         entity,
         localVarRequestOptions,
-        configuration,
+        configuration
       )
 
       return {
@@ -196,14 +196,14 @@ export const EntityApiAxiosParamCreator = function (
      */
     validateExistingEntity: async (
       address: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'address' is not null or undefined
       assertParamExists('validateExistingEntity', 'address', address)
       const localVarPath =
         `/api/entity/validate-existing-entity/{address}`.replace(
           `{${'address'}}`,
-          encodeURIComponent(String(address)),
+          encodeURIComponent(String(address))
         )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -224,7 +224,7 @@ export const EntityApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -233,7 +233,7 @@ export const EntityApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -269,7 +269,7 @@ export const EntityApiFp = function (configuration?: Configuration) {
      */
     async instantiateEntity(
       entity: Entity,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
@@ -279,7 +279,7 @@ export const EntityApiFp = function (configuration?: Configuration) {
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -293,20 +293,20 @@ export const EntityApiFp = function (configuration?: Configuration) {
     async validateEntity(
       entity: Entity,
       asType?: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.validateEntity(
         entity,
         asType,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -318,7 +318,7 @@ export const EntityApiFp = function (configuration?: Configuration) {
      */
     async validateExistingEntity(
       address: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
     > {
@@ -328,7 +328,7 @@ export const EntityApiFp = function (configuration?: Configuration) {
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -341,7 +341,7 @@ export const EntityApiFp = function (configuration?: Configuration) {
 export const EntityApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = EntityApiFp(configuration)
   return {
@@ -354,7 +354,7 @@ export const EntityApiFactory = function (
      */
     instantiateEntity(
       requestParameters: EntityApiInstantiateEntityRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .instantiateEntity(requestParameters.entity, options)
@@ -369,13 +369,13 @@ export const EntityApiFactory = function (
      */
     validateEntity(
       requestParameters: EntityApiValidateEntityRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<any> {
       return localVarFp
         .validateEntity(
           requestParameters.entity,
           requestParameters.asType,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -388,7 +388,7 @@ export const EntityApiFactory = function (
      */
     validateExistingEntity(
       requestParameters: EntityApiValidateExistingEntityRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<any> {
       return localVarFp
         .validateExistingEntity(requestParameters.address, options)
@@ -463,7 +463,7 @@ export class EntityApi extends BaseAPI {
    */
   public instantiateEntity(
     requestParameters: EntityApiInstantiateEntityRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return EntityApiFp(this.configuration)
       .instantiateEntity(requestParameters.entity, options)
@@ -480,13 +480,13 @@ export class EntityApi extends BaseAPI {
    */
   public validateEntity(
     requestParameters: EntityApiValidateEntityRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return EntityApiFp(this.configuration)
       .validateEntity(
         requestParameters.entity,
         requestParameters.asType,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }
@@ -501,7 +501,7 @@ export class EntityApi extends BaseAPI {
    */
   public validateExistingEntity(
     requestParameters: EntityApiValidateExistingEntityRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return EntityApiFp(this.configuration)
       .validateExistingEntity(requestParameters.address, options)

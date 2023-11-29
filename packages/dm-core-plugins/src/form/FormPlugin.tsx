@@ -6,7 +6,7 @@ import { Form } from './components/Form'
 export const FormPlugin = (props: IUIPlugin) => {
   const { document, isLoading, updateDocument, error } = useDocument<any>(
     props.idReference,
-    0,
+    0
   )
   if (isLoading) return <Loading />
 

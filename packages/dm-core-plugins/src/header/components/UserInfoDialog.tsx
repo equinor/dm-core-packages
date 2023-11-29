@@ -108,7 +108,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
                 dmssAPI
                   .tokenCreate()
                   .then((response: AxiosResponse<string>) =>
-                    setAPIKey(response.data),
+                    setAPIKey(response.data)
                   )
                   .catch((error: any) => {
                     console.error(error)

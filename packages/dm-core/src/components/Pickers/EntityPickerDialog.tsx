@@ -103,7 +103,7 @@ export const EntityPickerDialog = (props: {
                 onSelect={(node: TreeNode) => {
                   if (typeFilter && node.type !== typeFilter) {
                     toast.warning(
-                      `Type must be '${truncatePathString(typeFilter, 43)}'`,
+                      `Type must be '${truncatePathString(typeFilter, 43)}'`
                     )
                     setSelectedTreeNode(undefined)
                     return

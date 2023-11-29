@@ -37,6 +37,6 @@ export const SortableItem = <T extends { id: string | number }>({
           <Icon data={drag_handle} />
         </Button>
       ),
-    }),
+    })
   )
 }

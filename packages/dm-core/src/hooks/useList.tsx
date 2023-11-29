@@ -24,14 +24,14 @@ interface IUseListReturnType<T> {
   addReference: (
     address: string,
     entity: T | null,
-    saveOnAdd?: boolean,
+    saveOnAdd?: boolean
   ) => Promise<string>
   save: () => Promise<void>
   updateAttribute: (
     itemToUpdate: TItem<T>,
     attribute: string,
     newValue: any,
-    saveOnUpdate?: boolean,
+    saveOnUpdate?: boolean
   ) => void
   dirtyState: boolean
   moveItem: (itemToMove: TItem<T>, direction: 'up' | 'down') => void
@@ -48,7 +48,7 @@ function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
 
 export function useList<T extends object>(
   idReference: string,
-  resolveReferences: boolean = true,
+  resolveReferences: boolean = true
 ): IUseListReturnType<T> {
   const [attribute, setAttribute] = useState<TAttribute | null>(null)
   const [items, setItems] = useState<TItem<T>[]>([])
@@ -84,7 +84,7 @@ export function useList<T extends object>(
         if (attribute.contained) {
           if (!Array.isArray(response.data)) {
             throw new Error(
-              `Not an array! Got document ${JSON.stringify(response.data)} `,
+              `Not an array! Got document ${JSON.stringify(response.data)} `
             )
           }
           const items = Object.values(response.data).map((data, index) => ({
@@ -125,7 +125,7 @@ export function useList<T extends object>(
     if (!attribute) throw new Error('Missing attribute')
     if (!attribute.contained)
       throw new Error(
-        "Can't add item to a list that has uncontained items, need to use addReference method instead",
+        "Can't add item to a list that has uncontained items, need to use addReference method instead"
       )
     setLoading(true)
     const newKey = crypto.randomUUID() as string
@@ -167,12 +167,12 @@ export function useList<T extends object>(
 
   const removeItem = async (
     itemToDelete: TItem<T>,
-    saveOnRemove: boolean = true,
+    saveOnRemove: boolean = true
   ) => {
     if (!attribute) throw new Error('Missing attribute')
     setLoading(true)
     const index = items.findIndex(
-      (item: TItem<T>) => item.key === itemToDelete.key,
+      (item: TItem<T>) => item.key === itemToDelete.key
     )
     try {
       if (saveOnRemove) {
@@ -198,12 +198,12 @@ export function useList<T extends object>(
   const addReference = async (
     address: string,
     entity: T | null,
-    saveOnAdd: boolean = true,
+    saveOnAdd: boolean = true
   ) => {
     if (!attribute) throw new Error('Missing attribute')
     if (attribute.contained)
       throw new Error(
-        "Can't add reference to a list that has contained items, need to use addItem method instead",
+        "Can't add reference to a list that has contained items, need to use addItem method instead"
       )
     setLoading(true)
     const reference: TLinkReference = {
@@ -246,12 +246,12 @@ export function useList<T extends object>(
   const updateItem = async (
     itemToUpdate: TItem<T>,
     newDocument: T,
-    saveOnUpdate: boolean = true,
+    saveOnUpdate: boolean = true
   ) => {
     if (!attribute) throw new Error('Missing attribute')
     setLoading(true)
     const index = items.findIndex(
-      (item: TItem<T>) => item.key === itemToUpdate.key,
+      (item: TItem<T>) => item.key === itemToUpdate.key
     )
     const address = attribute?.contained
       ? `${idReference}[${index}]`
@@ -283,7 +283,7 @@ export function useList<T extends object>(
   const save = async () => {
     setLoading(true)
     const payload = items.map((item) =>
-      attribute?.contained ? item.data : item.reference,
+      attribute?.contained ? item.data : item.reference
     )
     try {
       await dmssAPI.documentUpdate({
@@ -308,11 +308,11 @@ export function useList<T extends object>(
   const updateAttribute = (
     itemToUpdate: TItem<T>,
     attribute: string,
-    newValue: any,
+    newValue: any
   ) => {
     const newList = [...items]
     const index = items.findIndex(
-      (item: TItem<T>) => item.key === itemToUpdate.key,
+      (item: TItem<T>) => item.key === itemToUpdate.key
     )
     // @ts-ignore
     newList[index].data[attribute] = newValue

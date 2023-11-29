@@ -6,6 +6,6 @@ export const sortApplications = (applications: any[]) => {
       else if (applicationB.tabIndex === undefined) return -1
       else if (applicationB.tabIndex === applicationA.tabIndex) return 1
       else return applicationA.tabIndex > applicationB.tabIndex ? 1 : -1
-    },
+    }
   )
 }

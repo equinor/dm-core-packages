@@ -6,7 +6,7 @@ import { Content } from './Content'
 import { useViewSelector } from './useViewSelector'
 
 export const TabsPlugin = (
-  props: IUIPlugin & { config?: TViewSelectorConfig },
+  props: IUIPlugin & { config?: TViewSelectorConfig }
 ): React.ReactElement | null => {
   const { idReference, config, type } = props
 

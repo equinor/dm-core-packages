@@ -60,7 +60,7 @@ export const JobControlButton = (props: {
           remove()
         } else if (
           ([JobStatus.Completed, JobStatus.Failed] as JobStatus[]).includes(
-            jobStatus,
+            jobStatus
           ) &&
           exists
         ) {

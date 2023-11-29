@@ -34,9 +34,9 @@ const TestUseListPlugin = (props: IUIPlugin) => {
     () =>
       items?.slice(
         paginationPage * paginationRowsPerPage,
-        paginationPage * paginationRowsPerPage + paginationRowsPerPage,
+        paginationPage * paginationRowsPerPage + paginationRowsPerPage
       ),
-    [paginationPage, paginationRowsPerPage, items],
+    [paginationPage, paginationRowsPerPage, items]
   )
 
   const [showAddReferenceModal, setShowAddReferenceModal] =

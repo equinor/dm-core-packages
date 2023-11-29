@@ -7,7 +7,7 @@ import { EDialog } from '../../types'
 // See https://github.com/equinor/design-system/issues/2659
 export function getMenuItems(
   node: TreeNode,
-  setDialogId: (id: EDialog | undefined) => void,
+  setDialogId: (id: EDialog | undefined) => void
 ): React.ReactElement[] {
   const menuItems = []
   const getMenuItem = (id: EDialog, text: string) => {
@@ -47,7 +47,7 @@ export function getMenuItems(
         target='_blank'
       >
         View in new tab
-      </Menu.Item>,
+      </Menu.Item>
     )
   }
 

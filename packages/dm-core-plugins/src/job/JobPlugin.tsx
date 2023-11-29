@@ -93,7 +93,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         asCronJob,
         schedule,
       }),
-    [asCronJob, schedule],
+    [asCronJob, schedule]
   )
 
   const {

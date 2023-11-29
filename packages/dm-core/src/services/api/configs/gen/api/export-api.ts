@@ -46,7 +46,7 @@ import { ExportMetaResponse } from '../models'
  * @export
  */
 export const ExportApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -58,13 +58,13 @@ export const ExportApiAxiosParamCreator = function (
      */
     _export: async (
       pathAddress: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'pathAddress' is not null or undefined
       assertParamExists('_export', 'pathAddress', pathAddress)
       const localVarPath = `/api/export/{path_address}`.replace(
         `{${'path_address'}}`,
-        encodeURIComponent(String(pathAddress)),
+        encodeURIComponent(String(pathAddress))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -85,7 +85,7 @@ export const ExportApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -94,7 +94,7 @@ export const ExportApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -120,13 +120,13 @@ export const ExportApiAxiosParamCreator = function (
      */
     exportMeta: async (
       pathAddress: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'pathAddress' is not null or undefined
       assertParamExists('exportMeta', 'pathAddress', pathAddress)
       const localVarPath = `/api/export/meta/{path_address}`.replace(
         `{${'path_address'}}`,
-        encodeURIComponent(String(pathAddress)),
+        encodeURIComponent(String(pathAddress))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -147,7 +147,7 @@ export const ExportApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -156,7 +156,7 @@ export const ExportApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -192,19 +192,19 @@ export const ExportApiFp = function (configuration?: Configuration) {
      */
     async _export(
       pathAddress: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator._export(
         pathAddress,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -216,22 +216,22 @@ export const ExportApiFp = function (configuration?: Configuration) {
      */
     async exportMeta(
       pathAddress: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string,
+        basePath?: string
       ) => AxiosPromise<ExportMetaResponse>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(
         pathAddress,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -244,7 +244,7 @@ export const ExportApiFp = function (configuration?: Configuration) {
 export const ExportApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = ExportApiFp(configuration)
   return {
@@ -257,7 +257,7 @@ export const ExportApiFactory = function (
      */
     _export(
       requestParameters: ExportApiExportRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<void> {
       return localVarFp
         ._export(requestParameters.pathAddress, options)
@@ -272,7 +272,7 @@ export const ExportApiFactory = function (
      */
     exportMeta(
       requestParameters: ExportApiExportMetaRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<ExportMetaResponse> {
       return localVarFp
         .exportMeta(requestParameters.pathAddress, options)
@@ -326,7 +326,7 @@ export class ExportApi extends BaseAPI {
    */
   public _export(
     requestParameters: ExportApiExportRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return ExportApiFp(this.configuration)
       ._export(requestParameters.pathAddress, options)
@@ -343,7 +343,7 @@ export class ExportApi extends BaseAPI {
    */
   public exportMeta(
     requestParameters: ExportApiExportMetaRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return ExportApiFp(this.configuration)
       .exportMeta(requestParameters.pathAddress, options)

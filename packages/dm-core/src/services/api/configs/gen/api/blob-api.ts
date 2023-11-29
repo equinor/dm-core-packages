@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const BlobApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -58,7 +58,7 @@ export const BlobApiAxiosParamCreator = function (
     blobGetById: async (
       dataSourceId: string,
       blobId: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('blobGetById', 'dataSourceId', dataSourceId)
@@ -67,7 +67,7 @@ export const BlobApiAxiosParamCreator = function (
       const localVarPath = `/api/blobs/{data_source_id}/{blob_id}`
         .replace(
           `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId)),
+          encodeURIComponent(String(dataSourceId))
         )
         .replace(`{${'blob_id'}}`, encodeURIComponent(String(blobId)))
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -89,7 +89,7 @@ export const BlobApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -98,7 +98,7 @@ export const BlobApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -128,7 +128,7 @@ export const BlobApiAxiosParamCreator = function (
       dataSourceId: string,
       blobId: string,
       file: File,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('blobUpload', 'dataSourceId', dataSourceId)
@@ -139,7 +139,7 @@ export const BlobApiAxiosParamCreator = function (
       const localVarPath = `/api/blobs/{data_source_id}/{blob_id}`
         .replace(
           `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId)),
+          encodeURIComponent(String(dataSourceId))
         )
         .replace(`{${'blob_id'}}`, encodeURIComponent(String(blobId)))
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -165,7 +165,7 @@ export const BlobApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -174,7 +174,7 @@ export const BlobApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (file !== undefined) {
@@ -219,20 +219,20 @@ export const BlobApiFp = function (configuration?: Configuration) {
     async blobGetById(
       dataSourceId: string,
       blobId: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.blobGetById(
         dataSourceId,
         blobId,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -248,7 +248,7 @@ export const BlobApiFp = function (configuration?: Configuration) {
       dataSourceId: string,
       blobId: string,
       file: File,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
     > {
@@ -256,13 +256,13 @@ export const BlobApiFp = function (configuration?: Configuration) {
         dataSourceId,
         blobId,
         file,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -275,7 +275,7 @@ export const BlobApiFp = function (configuration?: Configuration) {
 export const BlobApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = BlobApiFp(configuration)
   return {
@@ -288,13 +288,13 @@ export const BlobApiFactory = function (
      */
     blobGetById(
       requestParameters: BlobApiBlobGetByIdRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<File> {
       return localVarFp
         .blobGetById(
           requestParameters.dataSourceId,
           requestParameters.blobId,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -307,14 +307,14 @@ export const BlobApiFactory = function (
      */
     blobUpload(
       requestParameters: BlobApiBlobUploadRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<string> {
       return localVarFp
         .blobUpload(
           requestParameters.dataSourceId,
           requestParameters.blobId,
           requestParameters.file,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -387,13 +387,13 @@ export class BlobApi extends BaseAPI {
    */
   public blobGetById(
     requestParameters: BlobApiBlobGetByIdRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return BlobApiFp(this.configuration)
       .blobGetById(
         requestParameters.dataSourceId,
         requestParameters.blobId,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }
@@ -408,14 +408,14 @@ export class BlobApi extends BaseAPI {
    */
   public blobUpload(
     requestParameters: BlobApiBlobUploadRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return BlobApiFp(this.configuration)
       .blobUpload(
         requestParameters.dataSourceId,
         requestParameters.blobId,
         requestParameters.file,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

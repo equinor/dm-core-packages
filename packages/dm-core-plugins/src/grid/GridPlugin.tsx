@@ -40,7 +40,7 @@ const defaultConfig: TGridPluginConfig = {
 }
 
 export const GridPlugin = (
-  props: IUIPlugin & { config: TGridPluginConfig },
+  props: IUIPlugin & { config: TGridPluginConfig }
 ): React.ReactElement => {
   const { config, idReference, type } = props
 

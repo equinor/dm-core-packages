@@ -6,7 +6,7 @@ import { Sidebar } from './Sidebar'
 import { Content } from './Content'
 
 export const SidebarPlugin = (
-  props: IUIPlugin & { config?: TViewSelectorConfig },
+  props: IUIPlugin & { config?: TViewSelectorConfig }
 ): React.ReactElement => {
   const { idReference, config, type } = props
 

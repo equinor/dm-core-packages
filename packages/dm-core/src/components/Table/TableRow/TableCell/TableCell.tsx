@@ -25,7 +25,7 @@ export function TableCell(props: TableCellProps) {
 
   if (typeof value === 'object') {
     throw new Error(
-      `Objects can not be displayed in table. Attribute '${column}' is not a primitive type.`,
+      `Objects can not be displayed in table. Attribute '${column}' is not a primitive type.`
     )
   }
 
@@ -80,7 +80,7 @@ export function TableCell(props: TableCellProps) {
               updateItem(
                 column.data,
                 event.target.checked,
-                column.dataType || 'string',
+                column.dataType || 'string'
               )
             }
           />
@@ -103,7 +103,7 @@ export function TableCell(props: TableCellProps) {
             updateItem(
               column.data,
               event.target.value,
-              column.dataType || 'string',
+              column.dataType || 'string'
             )
           }
         />

@@ -98,7 +98,7 @@ export function TableHead(props: TableHeadProps) {
                     setTableVariant(
                       tableVariant == TableVariantNameEnum.View
                         ? TableVariantNameEnum.Edit
-                        : TableVariantNameEnum.View,
+                        : TableVariantNameEnum.View
                     )
                   }
                 >

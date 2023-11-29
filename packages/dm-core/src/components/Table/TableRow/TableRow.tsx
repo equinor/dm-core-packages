@@ -28,14 +28,14 @@ export function TableRow(props: TableRowProps) {
   const columnsLength: number = utils.getColumnsLength(
     config,
     functionalityConfig,
-    tableVariant,
+    tableVariant
   )
 
   function openItemAsTab() {
     props.onOpen(
       crypto.randomUUID(),
       { label: item?.data?.name, type: 'ViewConfig' },
-      `${idReference}[${index}]`,
+      `${idReference}[${index}]`
     )
   }
 
@@ -47,7 +47,7 @@ export function TableRow(props: TableRowProps) {
   function updateItem(
     attribute: string,
     newValue: string | number | boolean,
-    attributeType: string,
+    attributeType: string
   ) {
     if (attributeType === 'number') newValue = Number(newValue)
     setItems(utils.updateItemAttribute(items, item.key, attribute, newValue))

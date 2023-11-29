@@ -25,7 +25,7 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
   const address = resolveRelativeAddress(
     value.address,
     documentPath,
-    dataSource,
+    dataSource
   )
   const { document, isLoading } = useDocument<any>(address, 1)
 

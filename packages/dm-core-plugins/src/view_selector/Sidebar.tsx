@@ -55,7 +55,7 @@ export const Sidebar = (props: {
                             subViewId,
                             subConfig.viewConfig,
                             undefined,
-                            true,
+                            true
                           )
                           setSelectedViewId(subViewId)
                         }}

@@ -5,7 +5,7 @@ import {
 } from '@development-framework/dm-core'
 
 export function createItemsFromDocument(
-  document: TGenericObject | null,
+  document: TGenericObject | null
 ): TTableRowItem[] {
   return document
     ? Object.values(document)?.map((data, index) => {

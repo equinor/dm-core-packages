@@ -79,16 +79,16 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       items &&
       items.slice(
         paginationPage * paginationRowsPerPage,
-        paginationPage * paginationRowsPerPage + paginationRowsPerPage,
+        paginationPage * paginationRowsPerPage + paginationRowsPerPage
       ),
-    [paginationPage, paginationRowsPerPage, items],
+    [paginationPage, paginationRowsPerPage, items]
   )
   function expandOrOpen(item: TGenericObject) {
     if (internalConfig.openAsTab) {
       const view = { label: item?.data?.name, type: 'ViewConfig' }
       if (!onOpen) {
         toast.error(
-          'Invalid UiRecipes. The list plugin was not passed an "onOpen()"-function.',
+          'Invalid UiRecipes. The list plugin was not passed an "onOpen()"-function.'
         )
         return
       }
@@ -173,7 +173,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     if (item.data && item.data?.[attribute]) {
                       if (typeof item.data[attribute] === 'object')
                         throw new Error(
-                          `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`,
+                          `Objects can not be displayed in table header. Attribute '${attribute}' is not a primitive type.`
                         )
                       return (
                         <Typography
@@ -187,7 +187,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                         </Typography>
                       )
                     }
-                  },
+                  }
                 )}
               </Stack>
               <Stack direction='row' alignItems='center'>
@@ -228,7 +228,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       ? resolveRelativeAddress(
                           item?.reference?.address || '',
                           documentPath,
-                          dataSource,
+                          dataSource
                         )
                       : `${idReference}[${item.index}]`
                   }

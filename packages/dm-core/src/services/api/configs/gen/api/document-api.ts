@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const DocumentApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -60,7 +60,7 @@ export const DocumentApiAxiosParamCreator = function (
       address: string,
       document: string,
       files?: Array<File>,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'address' is not null or undefined
       assertParamExists('documentAdd', 'address', address)
@@ -68,7 +68,7 @@ export const DocumentApiAxiosParamCreator = function (
       assertParamExists('documentAdd', 'document', document)
       const localVarPath = `/api/documents/{address}`.replace(
         `{${'address'}}`,
-        encodeURIComponent(String(address)),
+        encodeURIComponent(String(address))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -93,7 +93,7 @@ export const DocumentApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -102,7 +102,7 @@ export const DocumentApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (document !== undefined) {
@@ -142,7 +142,7 @@ export const DocumentApiAxiosParamCreator = function (
     documentAddSimple: async (
       dataSourceId: string,
       body: object,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('documentAddSimple', 'dataSourceId', dataSourceId)
@@ -150,7 +150,7 @@ export const DocumentApiAxiosParamCreator = function (
       assertParamExists('documentAddSimple', 'body', body)
       const localVarPath = `/api/documents-add-raw/{data_source_id}`.replace(
         `{${'data_source_id'}}`,
-        encodeURIComponent(String(dataSourceId)),
+        encodeURIComponent(String(dataSourceId))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -171,7 +171,7 @@ export const DocumentApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -180,7 +180,7 @@ export const DocumentApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       localVarHeaderParameter['Content-Type'] = 'application/json'
@@ -196,7 +196,7 @@ export const DocumentApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         body,
         localVarRequestOptions,
-        configuration,
+        configuration
       )
 
       return {
@@ -213,13 +213,13 @@ export const DocumentApiAxiosParamCreator = function (
      */
     documentCheck: async (
       address: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'address' is not null or undefined
       assertParamExists('documentCheck', 'address', address)
       const localVarPath = `/api/documents-existence/{address}`.replace(
         `{${'address'}}`,
-        encodeURIComponent(String(address)),
+        encodeURIComponent(String(address))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -240,7 +240,7 @@ export const DocumentApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -249,7 +249,7 @@ export const DocumentApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -277,13 +277,13 @@ export const DocumentApiAxiosParamCreator = function (
     documentGet: async (
       address: string,
       depth?: number,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'address' is not null or undefined
       assertParamExists('documentGet', 'address', address)
       const localVarPath = `/api/documents/{address}`.replace(
         `{${'address'}}`,
-        encodeURIComponent(String(address)),
+        encodeURIComponent(String(address))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -304,7 +304,7 @@ export const DocumentApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -313,7 +313,7 @@ export const DocumentApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (depth !== undefined) {
@@ -343,13 +343,13 @@ export const DocumentApiAxiosParamCreator = function (
      */
     documentRemove: async (
       address: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'address' is not null or undefined
       assertParamExists('documentRemove', 'address', address)
       const localVarPath = `/api/documents/{address}`.replace(
         `{${'address'}}`,
-        encodeURIComponent(String(address)),
+        encodeURIComponent(String(address))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -370,7 +370,7 @@ export const DocumentApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -379,7 +379,7 @@ export const DocumentApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -409,7 +409,7 @@ export const DocumentApiAxiosParamCreator = function (
       idAddress: string,
       data: string,
       files?: Array<File>,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'idAddress' is not null or undefined
       assertParamExists('documentUpdate', 'idAddress', idAddress)
@@ -417,7 +417,7 @@ export const DocumentApiAxiosParamCreator = function (
       assertParamExists('documentUpdate', 'data', data)
       const localVarPath = `/api/documents/{id_address}`.replace(
         `{${'id_address'}}`,
-        encodeURIComponent(String(idAddress)),
+        encodeURIComponent(String(idAddress))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -442,7 +442,7 @@ export const DocumentApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -451,7 +451,7 @@ export const DocumentApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (data !== undefined) {
@@ -503,7 +503,7 @@ export const DocumentApiFp = function (configuration?: Configuration) {
       address: string,
       document: string,
       files?: Array<File>,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
@@ -511,13 +511,13 @@ export const DocumentApiFp = function (configuration?: Configuration) {
         address,
         document,
         files,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -531,7 +531,7 @@ export const DocumentApiFp = function (configuration?: Configuration) {
     async documentAddSimple(
       dataSourceId: string,
       body: object,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
     > {
@@ -539,13 +539,13 @@ export const DocumentApiFp = function (configuration?: Configuration) {
         await localVarAxiosParamCreator.documentAddSimple(
           dataSourceId,
           body,
-          options,
+          options
         )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -557,19 +557,19 @@ export const DocumentApiFp = function (configuration?: Configuration) {
      */
     async documentCheck(
       address: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.documentCheck(
         address,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -583,20 +583,20 @@ export const DocumentApiFp = function (configuration?: Configuration) {
     async documentGet(
       address: string,
       depth?: number,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(
         address,
         depth,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -608,19 +608,19 @@ export const DocumentApiFp = function (configuration?: Configuration) {
      */
     async documentRemove(
       address: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(
         address,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -636,7 +636,7 @@ export const DocumentApiFp = function (configuration?: Configuration) {
       idAddress: string,
       data: string,
       files?: Array<File>,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
     > {
@@ -644,13 +644,13 @@ export const DocumentApiFp = function (configuration?: Configuration) {
         idAddress,
         data,
         files,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -663,7 +663,7 @@ export const DocumentApiFp = function (configuration?: Configuration) {
 export const DocumentApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = DocumentApiFp(configuration)
   return {
@@ -676,14 +676,14 @@ export const DocumentApiFactory = function (
      */
     documentAdd(
       requestParameters: DocumentApiDocumentAddRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .documentAdd(
           requestParameters.address,
           requestParameters.document,
           requestParameters.files,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -696,13 +696,13 @@ export const DocumentApiFactory = function (
      */
     documentAddSimple(
       requestParameters: DocumentApiDocumentAddSimpleRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<string> {
       return localVarFp
         .documentAddSimple(
           requestParameters.dataSourceId,
           requestParameters.body,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -715,7 +715,7 @@ export const DocumentApiFactory = function (
      */
     documentCheck(
       requestParameters: DocumentApiDocumentCheckRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<boolean> {
       return localVarFp
         .documentCheck(requestParameters.address, options)
@@ -730,13 +730,13 @@ export const DocumentApiFactory = function (
      */
     documentGet(
       requestParameters: DocumentApiDocumentGetRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .documentGet(
           requestParameters.address,
           requestParameters.depth,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -749,7 +749,7 @@ export const DocumentApiFactory = function (
      */
     documentRemove(
       requestParameters: DocumentApiDocumentRemoveRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<any> {
       return localVarFp
         .documentRemove(requestParameters.address, options)
@@ -764,14 +764,14 @@ export const DocumentApiFactory = function (
      */
     documentUpdate(
       requestParameters: DocumentApiDocumentUpdateRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<any> {
       return localVarFp
         .documentUpdate(
           requestParameters.idAddress,
           requestParameters.data,
           requestParameters.files,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -921,14 +921,14 @@ export class DocumentApi extends BaseAPI {
    */
   public documentAdd(
     requestParameters: DocumentApiDocumentAddRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DocumentApiFp(this.configuration)
       .documentAdd(
         requestParameters.address,
         requestParameters.document,
         requestParameters.files,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }
@@ -943,13 +943,13 @@ export class DocumentApi extends BaseAPI {
    */
   public documentAddSimple(
     requestParameters: DocumentApiDocumentAddSimpleRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DocumentApiFp(this.configuration)
       .documentAddSimple(
         requestParameters.dataSourceId,
         requestParameters.body,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }
@@ -964,7 +964,7 @@ export class DocumentApi extends BaseAPI {
    */
   public documentCheck(
     requestParameters: DocumentApiDocumentCheckRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DocumentApiFp(this.configuration)
       .documentCheck(requestParameters.address, options)
@@ -981,7 +981,7 @@ export class DocumentApi extends BaseAPI {
    */
   public documentGet(
     requestParameters: DocumentApiDocumentGetRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DocumentApiFp(this.configuration)
       .documentGet(requestParameters.address, requestParameters.depth, options)
@@ -998,7 +998,7 @@ export class DocumentApi extends BaseAPI {
    */
   public documentRemove(
     requestParameters: DocumentApiDocumentRemoveRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DocumentApiFp(this.configuration)
       .documentRemove(requestParameters.address, options)
@@ -1015,14 +1015,14 @@ export class DocumentApi extends BaseAPI {
    */
   public documentUpdate(
     requestParameters: DocumentApiDocumentUpdateRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DocumentApiFp(this.configuration)
       .documentUpdate(
         requestParameters.idAddress,
         requestParameters.data,
         requestParameters.files,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

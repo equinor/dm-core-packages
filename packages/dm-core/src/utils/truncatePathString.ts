@@ -1,6 +1,6 @@
 export function truncatePathString(
   path: string | undefined,
-  maxLength: number | undefined = 40,
+  maxLength: number | undefined = 40
 ): string {
   if (!path) return ''
   /*
@@ -19,7 +19,7 @@ export function truncatePathString(
     previousPath = truncatedPath
     truncatedPath = truncatedPath.replace(
       '...',
-      `${splitTextOnFolders[counter]}/...`,
+      `${splitTextOnFolders[counter]}/...`
     )
     if (truncatedPath.length >= maxLength) {
       truncatedPath = previousPath

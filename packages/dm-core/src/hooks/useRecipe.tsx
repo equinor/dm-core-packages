@@ -13,7 +13,7 @@ const findRecipe = (
   recipes: TUiRecipe[],
   initialUiRecipe?: TUiRecipe,
   recipeName?: string,
-  dimensions: string = '',
+  dimensions: string = ''
 ): TUiRecipe => {
   if (dimensions) {
     initialUiRecipe = undefined
@@ -24,7 +24,7 @@ const findRecipe = (
       ? [initialUiRecipe, ...recipes]
       : recipes
     const recipe: TUiRecipe | undefined = recipesToSearch.find(
-      (recipe: any) => recipe.name == recipeName,
+      (recipe: any) => recipe.name == recipeName
     )
     if (recipe == undefined) {
       throw Error(`Could not find the recipe with the name: ${recipeName}`)
@@ -35,7 +35,7 @@ const findRecipe = (
   // If dimensions are given, use the first recipe with a matching dimension
   if (dimensions) {
     const rightDimensionsRecipe = recipes.filter(
-      (r: TUiRecipe) => r.dimensions === dimensions,
+      (r: TUiRecipe) => r.dimensions === dimensions
     )
     if (!rightDimensionsRecipe.length)
       throw new Error(`No recipe with given dimension "${dimensions}" found`)
@@ -49,7 +49,7 @@ const findRecipe = (
   if (recipes.length > 0) {
     // Recipes for lists should not be used as fallback
     const noDimensionsRecipes = recipes.filter(
-      (r: TUiRecipe) => !r.dimensions || r.dimensions === '',
+      (r: TUiRecipe) => !r.dimensions || r.dimensions === ''
     )
     return noDimensionsRecipes[0]
   }
@@ -90,12 +90,12 @@ interface IUseRecipe {
 export const useRecipe = (
   typeRef: string,
   recipeName?: string,
-  dimensions: string = '',
+  dimensions: string = ''
 ): IUseRecipe => {
   const { getUiPlugin } = useUiPlugins()
   const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
   const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
-    null,
+    null
   )
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
@@ -113,8 +113,8 @@ export const useRecipe = (
               response.data.uiRecipes,
               response.data.initialUiRecipe,
               recipeName,
-              dimensions,
-            ),
+              dimensions
+            )
           )
         } catch (error) {
           console.error(error)
@@ -127,7 +127,7 @@ export const useRecipe = (
         }
       })
       .catch((error: AxiosError<ErrorResponse>) =>
-        setError(error.response?.data || null),
+        setError(error.response?.data || null)
       )
       .finally(() => {
         setLoading(false)

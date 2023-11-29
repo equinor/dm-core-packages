@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const WhoamiApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -74,7 +74,7 @@ export const WhoamiApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -83,7 +83,7 @@ export const WhoamiApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -117,7 +117,7 @@ export const WhoamiApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async whoami(
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
     > {
@@ -126,7 +126,7 @@ export const WhoamiApiFp = function (configuration?: Configuration) {
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -139,7 +139,7 @@ export const WhoamiApiFp = function (configuration?: Configuration) {
 export const WhoamiApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = WhoamiApiFp(configuration)
   return {

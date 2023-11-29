@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const MetaApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -58,7 +58,7 @@ export const MetaApiAxiosParamCreator = function (
     metaById: async (
       dataSourceId: string,
       documentId: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('metaById', 'dataSourceId', dataSourceId)
@@ -67,7 +67,7 @@ export const MetaApiAxiosParamCreator = function (
       const localVarPath = `/api/meta/{data_source_id}/{document_id}`
         .replace(
           `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId)),
+          encodeURIComponent(String(dataSourceId))
         )
         .replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -89,7 +89,7 @@ export const MetaApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -98,7 +98,7 @@ export const MetaApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -136,20 +136,20 @@ export const MetaApiFp = function (configuration?: Configuration) {
     async metaById(
       dataSourceId: string,
       documentId: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.metaById(
         dataSourceId,
         documentId,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -162,7 +162,7 @@ export const MetaApiFp = function (configuration?: Configuration) {
 export const MetaApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = MetaApiFp(configuration)
   return {
@@ -175,13 +175,13 @@ export const MetaApiFactory = function (
      */
     metaById(
       requestParameters: MetaApiMetaByIdRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .metaById(
           requestParameters.dataSourceId,
           requestParameters.documentId,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -226,13 +226,13 @@ export class MetaApi extends BaseAPI {
    */
   public metaById(
     requestParameters: MetaApiMetaByIdRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return MetaApiFp(this.configuration)
       .metaById(
         requestParameters.dataSourceId,
         requestParameters.documentId,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

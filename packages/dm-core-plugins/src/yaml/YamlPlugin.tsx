@@ -99,7 +99,7 @@ export const YamlPlugin = (props: IUIPlugin) => {
   const [depth, setDepth] = useState(0)
   const { document, isLoading, error } = useDocument<TGenericObject>(
     idReference,
-    depth,
+    depth
   )
   if (isLoading) return <Loading />
 

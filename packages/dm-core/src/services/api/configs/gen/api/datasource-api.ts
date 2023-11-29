@@ -48,7 +48,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const DatasourceApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -60,13 +60,13 @@ export const DatasourceApiAxiosParamCreator = function (
      */
     dataSourceGet: async (
       dataSourceId: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('dataSourceGet', 'dataSourceId', dataSourceId)
       const localVarPath = `/api/data-sources/{data_source_id}`.replace(
         `{${'data_source_id'}}`,
-        encodeURIComponent(String(dataSourceId)),
+        encodeURIComponent(String(dataSourceId))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -87,7 +87,7 @@ export const DatasourceApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -96,7 +96,7 @@ export const DatasourceApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -120,7 +120,7 @@ export const DatasourceApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     dataSourceGetAll: async (
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/api/data-sources`
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -142,7 +142,7 @@ export const DatasourceApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -151,7 +151,7 @@ export const DatasourceApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -179,7 +179,7 @@ export const DatasourceApiAxiosParamCreator = function (
     dataSourceSave: async (
       dataSourceId: string,
       dataSourceRequest: DataSourceRequest,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('dataSourceSave', 'dataSourceId', dataSourceId)
@@ -187,11 +187,11 @@ export const DatasourceApiAxiosParamCreator = function (
       assertParamExists(
         'dataSourceSave',
         'dataSourceRequest',
-        dataSourceRequest,
+        dataSourceRequest
       )
       const localVarPath = `/api/data-sources/{data_source_id}`.replace(
         `{${'data_source_id'}}`,
-        encodeURIComponent(String(dataSourceId)),
+        encodeURIComponent(String(dataSourceId))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -212,7 +212,7 @@ export const DatasourceApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -221,7 +221,7 @@ export const DatasourceApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       localVarHeaderParameter['Content-Type'] = 'application/json'
@@ -237,7 +237,7 @@ export const DatasourceApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         dataSourceRequest,
         localVarRequestOptions,
-        configuration,
+        configuration
       )
 
       return {
@@ -265,19 +265,19 @@ export const DatasourceApiFp = function (configuration?: Configuration) {
      */
     async dataSourceGet(
       dataSourceId: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceGet(
         dataSourceId,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -287,11 +287,11 @@ export const DatasourceApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async dataSourceGetAll(
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string,
+        basePath?: string
       ) => AxiosPromise<Array<DataSourceInformation>>
     > {
       const localVarAxiosArgs =
@@ -300,7 +300,7 @@ export const DatasourceApiFp = function (configuration?: Configuration) {
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -314,20 +314,20 @@ export const DatasourceApiFp = function (configuration?: Configuration) {
     async dataSourceSave(
       dataSourceId: string,
       dataSourceRequest: DataSourceRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceSave(
         dataSourceId,
         dataSourceRequest,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -340,7 +340,7 @@ export const DatasourceApiFp = function (configuration?: Configuration) {
 export const DatasourceApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = DatasourceApiFp(configuration)
   return {
@@ -353,7 +353,7 @@ export const DatasourceApiFactory = function (
      */
     dataSourceGet(
       requestParameters: DatasourceApiDataSourceGetRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .dataSourceGet(requestParameters.dataSourceId, options)
@@ -366,7 +366,7 @@ export const DatasourceApiFactory = function (
      * @throws {RequiredError}
      */
     dataSourceGetAll(
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<Array<DataSourceInformation>> {
       return localVarFp
         .dataSourceGetAll(options)
@@ -381,13 +381,13 @@ export const DatasourceApiFactory = function (
      */
     dataSourceSave(
       requestParameters: DatasourceApiDataSourceSaveRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<string> {
       return localVarFp
         .dataSourceSave(
           requestParameters.dataSourceId,
           requestParameters.dataSourceRequest,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -446,7 +446,7 @@ export class DatasourceApi extends BaseAPI {
    */
   public dataSourceGet(
     requestParameters: DatasourceApiDataSourceGetRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DatasourceApiFp(this.configuration)
       .dataSourceGet(requestParameters.dataSourceId, options)
@@ -476,13 +476,13 @@ export class DatasourceApi extends BaseAPI {
    */
   public dataSourceSave(
     requestParameters: DatasourceApiDataSourceSaveRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return DatasourceApiFp(this.configuration)
       .dataSourceSave(
         requestParameters.dataSourceId,
         requestParameters.dataSourceRequest,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

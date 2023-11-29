@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const SearchApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -60,7 +60,7 @@ export const SearchApiAxiosParamCreator = function (
       dataSources?: Array<string>,
       sortByAttribute?: string,
       body?: object,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       const localVarPath = `/api/search`
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -82,7 +82,7 @@ export const SearchApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -91,7 +91,7 @@ export const SearchApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (dataSources) {
@@ -115,7 +115,7 @@ export const SearchApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         body,
         localVarRequestOptions,
-        configuration,
+        configuration
       )
 
       return {
@@ -146,7 +146,7 @@ export const SearchApiFp = function (configuration?: Configuration) {
       dataSources?: Array<string>,
       sortByAttribute?: string,
       body?: object,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
@@ -154,13 +154,13 @@ export const SearchApiFp = function (configuration?: Configuration) {
         dataSources,
         sortByAttribute,
         body,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -173,7 +173,7 @@ export const SearchApiFp = function (configuration?: Configuration) {
 export const SearchApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = SearchApiFp(configuration)
   return {
@@ -186,14 +186,14 @@ export const SearchApiFactory = function (
      */
     search(
       requestParameters: SearchApiSearchRequest = {},
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .search(
           requestParameters.dataSources,
           requestParameters.sortByAttribute,
           requestParameters.body,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -245,14 +245,14 @@ export class SearchApi extends BaseAPI {
    */
   public search(
     requestParameters: SearchApiSearchRequest = {},
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return SearchApiFp(this.configuration)
       .search(
         requestParameters.dataSources,
         requestParameters.sortByAttribute,
         requestParameters.body,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

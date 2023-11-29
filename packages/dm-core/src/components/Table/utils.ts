@@ -11,7 +11,7 @@ export function updateItemAttribute(
   items: TTableRowItem[],
   key: string,
   attribute: string,
-  newValue: string | number | boolean,
+  newValue: string | number | boolean
 ) {
   const itemsCopy = [...items]
   const index = itemsCopy.findIndex((item) => item.key === key)
@@ -21,7 +21,7 @@ export function updateItemAttribute(
 
 export function createNewItemObject(
   data: TGenericObject,
-  newItemIndex: number,
+  newItemIndex: number
 ) {
   const id: string = crypto.randomUUID()
   return {
@@ -34,7 +34,7 @@ export function createNewItemObject(
 
 export function removeItemFromList(
   items: TTableRowItem[],
-  key: string,
+  key: string
 ): TTableRowItem[] {
   const itemIndex = items.findIndex((item) => item.key === key)
   const itemsCopy = [...items]
@@ -45,7 +45,7 @@ export function removeItemFromList(
 export function getColumnsLength(
   config: TTableConfig,
   functionality: TTableFunctionalityConfig,
-  tableVariant: TableVariantNameEnum,
+  tableVariant: TableVariantNameEnum
 ): number {
   let amount = config.columns?.length || 0
   if (functionality.delete) amount += 1

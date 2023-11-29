@@ -53,7 +53,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
   const { recipe, isLoading, error, getUiPlugin } = useRecipe(
     type,
     recipeName,
-    dimensions,
+    dimensions
   )
 
   // Refresh Button stuff

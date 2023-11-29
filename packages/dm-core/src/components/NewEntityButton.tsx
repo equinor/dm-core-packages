@@ -23,7 +23,7 @@ export function NewEntityButton(props: {
   const [showCopyDocumentModal, setShowCopyDocumentModal] =
     useState<boolean>(false)
   const [saveDestination, setSaveDestination] = useState<string>(
-    defaultDestination ? defaultDestination : '',
+    defaultDestination ? defaultDestination : ''
   )
 
   const [newName, setNewName] = useState<string>('')

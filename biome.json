@@ -23,7 +23,8 @@
       "semicolons": "asNeeded",
       "indentStyle": "space",
       "jsxQuoteStyle": "single",
-      "quoteStyle": "single"
+      "quoteStyle": "single",
+      "trailingComma": "es5"
     }
   },
   "json": {

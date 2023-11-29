@@ -46,7 +46,7 @@ import { Lookup } from '../models'
  * @export
  */
 export const LookupTableApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -60,7 +60,7 @@ export const LookupTableApiAxiosParamCreator = function (
     createLookup: async (
       application: string,
       recipePackage: Array<string>,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'application' is not null or undefined
       assertParamExists('createLookup', 'application', application)
@@ -68,7 +68,7 @@ export const LookupTableApiAxiosParamCreator = function (
       assertParamExists('createLookup', 'recipePackage', recipePackage)
       const localVarPath = `/api/application/{application}`.replace(
         `{${'application'}}`,
-        encodeURIComponent(String(application)),
+        encodeURIComponent(String(application))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -89,7 +89,7 @@ export const LookupTableApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -98,7 +98,7 @@ export const LookupTableApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (recipePackage) {
@@ -128,13 +128,13 @@ export const LookupTableApiAxiosParamCreator = function (
      */
     getLookup: async (
       application: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'application' is not null or undefined
       assertParamExists('getLookup', 'application', application)
       const localVarPath = `/api/application/{application}`.replace(
         `{${'application'}}`,
-        encodeURIComponent(String(application)),
+        encodeURIComponent(String(application))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -155,7 +155,7 @@ export const LookupTableApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -164,7 +164,7 @@ export const LookupTableApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -203,20 +203,20 @@ export const LookupTableApiFp = function (configuration?: Configuration) {
     async createLookup(
       application: string,
       recipePackage: Array<string>,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.createLookup(
         application,
         recipePackage,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -228,19 +228,19 @@ export const LookupTableApiFp = function (configuration?: Configuration) {
      */
     async getLookup(
       application: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Lookup>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getLookup(
         application,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -253,7 +253,7 @@ export const LookupTableApiFp = function (configuration?: Configuration) {
 export const LookupTableApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = LookupTableApiFp(configuration)
   return {
@@ -266,13 +266,13 @@ export const LookupTableApiFactory = function (
      */
     createLookup(
       requestParameters: LookupTableApiCreateLookupRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<void> {
       return localVarFp
         .createLookup(
           requestParameters.application,
           requestParameters.recipePackage,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -285,7 +285,7 @@ export const LookupTableApiFactory = function (
      */
     getLookup(
       requestParameters: LookupTableApiGetLookupRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<Lookup> {
       return localVarFp
         .getLookup(requestParameters.application, options)
@@ -346,13 +346,13 @@ export class LookupTableApi extends BaseAPI {
    */
   public createLookup(
     requestParameters: LookupTableApiCreateLookupRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return LookupTableApiFp(this.configuration)
       .createLookup(
         requestParameters.application,
         requestParameters.recipePackage,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }
@@ -367,7 +367,7 @@ export class LookupTableApi extends BaseAPI {
    */
   public getLookup(
     requestParameters: LookupTableApiGetLookupRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return LookupTableApiFp(this.configuration)
       .getLookup(requestParameters.application, options)

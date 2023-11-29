@@ -13,7 +13,7 @@ import { OpenObjectButton } from '../components/OpenObjectButton'
 import { EntityView } from '@development-framework/dm-core'
 
 export const ObjectModelContainedTemplate = (
-  props: TObjectTemplate,
+  props: TObjectTemplate
 ): React.ReactElement => {
   const { namePath, uiAttribute, uiRecipe, attribute } = props
   const { getValues, setValue } = useFormContext()
@@ -22,7 +22,7 @@ export const ObjectModelContainedTemplate = (
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
-      : config.showExpanded,
+      : config.showExpanded
   )
   const value = getValues(namePath)
   const isDefined = value && Object.keys(value).length > 0

@@ -9,15 +9,15 @@ export const localConfig = () => {
         // react: path.resolve(__dirname, './node_modules/react'),
         '@development-framework/dm-core/dist/main.css': path.resolve(
           __dirname,
-          './../packages/dm-core/src/styles/main.css',
+          './../packages/dm-core/src/styles/main.css'
         ),
         '@development-framework/dm-core': path.resolve(
           __dirname,
-          './../packages/dm-core/src/index.tsx',
+          './../packages/dm-core/src/index.tsx'
         ),
         '@development-framework/dm-core-plugins': path.resolve(
           __dirname,
-          './../packages/dm-core-plugins/src/index.tsx',
+          './../packages/dm-core-plugins/src/index.tsx'
         ),
       },
     }

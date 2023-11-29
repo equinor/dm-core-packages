@@ -46,7 +46,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const AccessControlApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -60,7 +60,7 @@ export const AccessControlApiAxiosParamCreator = function (
     getAcl: async (
       dataSourceId: string,
       documentId: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('getAcl', 'dataSourceId', dataSourceId)
@@ -69,7 +69,7 @@ export const AccessControlApiAxiosParamCreator = function (
       const localVarPath = `/api/acl/{data_source_id}/{document_id}`
         .replace(
           `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId)),
+          encodeURIComponent(String(dataSourceId))
         )
         .replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -91,7 +91,7 @@ export const AccessControlApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -100,7 +100,7 @@ export const AccessControlApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -132,7 +132,7 @@ export const AccessControlApiAxiosParamCreator = function (
       documentId: string,
       accessControlList: AccessControlList,
       recursively?: boolean,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'dataSourceId' is not null or undefined
       assertParamExists('setAcl', 'dataSourceId', dataSourceId)
@@ -143,7 +143,7 @@ export const AccessControlApiAxiosParamCreator = function (
       const localVarPath = `/api/acl/{data_source_id}/{document_id}`
         .replace(
           `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId)),
+          encodeURIComponent(String(dataSourceId))
         )
         .replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -165,7 +165,7 @@ export const AccessControlApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -174,7 +174,7 @@ export const AccessControlApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (recursively !== undefined) {
@@ -194,7 +194,7 @@ export const AccessControlApiAxiosParamCreator = function (
       localVarRequestOptions.data = serializeDataIfNeeded(
         accessControlList,
         localVarRequestOptions,
-        configuration,
+        configuration
       )
 
       return {
@@ -224,23 +224,23 @@ export const AccessControlApiFp = function (configuration?: Configuration) {
     async getAcl(
       dataSourceId: string,
       documentId: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string,
+        basePath?: string
       ) => AxiosPromise<AccessControlList>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getAcl(
         dataSourceId,
         documentId,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -258,7 +258,7 @@ export const AccessControlApiFp = function (configuration?: Configuration) {
       documentId: string,
       accessControlList: AccessControlList,
       recursively?: boolean,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
     > {
@@ -267,13 +267,13 @@ export const AccessControlApiFp = function (configuration?: Configuration) {
         documentId,
         accessControlList,
         recursively,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -286,7 +286,7 @@ export const AccessControlApiFp = function (configuration?: Configuration) {
 export const AccessControlApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = AccessControlApiFp(configuration)
   return {
@@ -299,13 +299,13 @@ export const AccessControlApiFactory = function (
      */
     getAcl(
       requestParameters: AccessControlApiGetAclRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<AccessControlList> {
       return localVarFp
         .getAcl(
           requestParameters.dataSourceId,
           requestParameters.documentId,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -318,7 +318,7 @@ export const AccessControlApiFactory = function (
      */
     setAcl(
       requestParameters: AccessControlApiSetAclRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<string> {
       return localVarFp
         .setAcl(
@@ -326,7 +326,7 @@ export const AccessControlApiFactory = function (
           requestParameters.documentId,
           requestParameters.accessControlList,
           requestParameters.recursively,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -406,13 +406,13 @@ export class AccessControlApi extends BaseAPI {
    */
   public getAcl(
     requestParameters: AccessControlApiGetAclRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return AccessControlApiFp(this.configuration)
       .getAcl(
         requestParameters.dataSourceId,
         requestParameters.documentId,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }
@@ -427,7 +427,7 @@ export class AccessControlApi extends BaseAPI {
    */
   public setAcl(
     requestParameters: AccessControlApiSetAclRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return AccessControlApiFp(this.configuration)
       .setAcl(
@@ -435,7 +435,7 @@ export class AccessControlApi extends BaseAPI {
         requestParameters.documentId,
         requestParameters.accessControlList,
         requestParameters.recursively,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }

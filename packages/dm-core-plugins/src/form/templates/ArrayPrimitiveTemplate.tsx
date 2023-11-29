@@ -28,7 +28,7 @@ export const ArrayPrimitiveTemplate = (
   props: TArrayTemplate & {
     value: unknown[]
     onChange: (v: unknown[]) => void
-  },
+  }
 ) => {
   const { namePath, attribute, uiAttribute, value, onChange } = props
 
@@ -37,12 +37,12 @@ export const ArrayPrimitiveTemplate = (
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
-      : config.showExpanded,
+      : config.showExpanded
   )
 
   const updateValues = (
     index: number,
-    newValue: boolean | string | number,
+    newValue: boolean | string | number
   ): void => {
     const newValues = [...value]
     switch (attribute.attributeType) {
@@ -83,7 +83,7 @@ export const ArrayPrimitiveTemplate = (
             button-onClick={() =>
               updateValues(
                 value.length,
-                getDefaultValue(attribute.attributeType),
+                getDefaultValue(attribute.attributeType)
               )
             }
             icon={add}
@@ -153,7 +153,7 @@ export const ArrayPrimitiveTemplate = (
             onClick={() =>
               updateValues(
                 value.length,
-                getDefaultValue(attribute.attributeType),
+                getDefaultValue(attribute.attributeType)
               )
             }
           >

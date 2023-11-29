@@ -15,7 +15,7 @@ export const JobHandlerPicker = (props: {
       type: 'dmss://system/SIMOS/Blueprint',
       extends: ['dmss://WorkflowDS/Blueprints/JobHandler'],
     },
-    'WorkflowDS',
+    'WorkflowDS'
   )
 
   const handleChange = (blueprintId: string) => {
@@ -36,7 +36,7 @@ export const JobHandlerPicker = (props: {
           return handleChange(searchResult[parseInt(e.target.value)]._id)
         }}
         value={searchResult.findIndex(
-          (resultEntry: any) => resultEntry.name === blueprintName,
+          (resultEntry: any) => resultEntry.name === blueprintName
         )}
       >
         <option value={-1} selected disabled hidden>

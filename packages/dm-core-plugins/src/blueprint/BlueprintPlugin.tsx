@@ -67,8 +67,8 @@ const Extends = (props: {
                     onClick={() =>
                       setExtends(
                         formData.filter(
-                          (typeToRemove: string) => typeToRemove !== typeRef,
-                        ),
+                          (typeToRemove: string) => typeToRemove !== typeRef
+                        )
                       )
                     }
                   >

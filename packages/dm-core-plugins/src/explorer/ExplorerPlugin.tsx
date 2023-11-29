@@ -19,7 +19,7 @@ export default () => {
   const [selectedType, setSelectedType] = useState<string>()
   const [selectedEntity, setSelectedEntity] = useState<string>()
   const [nodeDimensions, setNodeDimensions] = useState<string | undefined>(
-    undefined,
+    undefined
   )
   return (
     <div style={{ display: 'flex', height: '100vh', width: '100%' }}>

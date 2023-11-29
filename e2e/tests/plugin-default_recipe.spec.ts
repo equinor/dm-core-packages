@@ -10,7 +10,7 @@ test('Form default DMSS UI Recipe', async ({ page }) => {
 
   await expect(page.getByLabel('name')).toHaveValue('Form')
   await expect(page.getByLabel('A required string')).toHaveValue(
-    'This form has no dedicated UI Recipe',
+    'This form has no dedicated UI Recipe'
   )
   await expect(page.getByLabel('An optional checkbox (optional)')).toBeVisible()
   await expect(page.getByLabel('date')).toHaveValue('2023-10-17T13:30')
@@ -37,11 +37,11 @@ test('TableList default DMSS UI Recipe', async ({ page }) => {
       .getByRole('button', { name: 'Open item', exact: true })
       .click()
     await expect(
-      page.getByRole('button', { name: 'Copy as YAML' }),
+      page.getByRole('button', { name: 'Copy as YAML' })
     ).toBeVisible()
     await page.getByRole('tab', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-text-widget-name').nth(1)).toHaveValue(
-      'Volvo',
+      'Volvo'
     )
   })
 })

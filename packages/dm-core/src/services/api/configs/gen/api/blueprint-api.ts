@@ -46,7 +46,7 @@ import { GetBlueprintResponse } from '../models'
  * @export
  */
 export const BlueprintApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -60,13 +60,13 @@ export const BlueprintApiAxiosParamCreator = function (
     blueprintGet: async (
       typeRef: string,
       context?: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'typeRef' is not null or undefined
       assertParamExists('blueprintGet', 'typeRef', typeRef)
       const localVarPath = `/api/blueprint/{type_ref}`.replace(
         `{${'type_ref'}}`,
-        encodeURIComponent(String(typeRef)),
+        encodeURIComponent(String(typeRef))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -87,7 +87,7 @@ export const BlueprintApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -96,7 +96,7 @@ export const BlueprintApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       if (context !== undefined) {
@@ -126,13 +126,13 @@ export const BlueprintApiAxiosParamCreator = function (
      */
     blueprintResolve: async (
       address: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'address' is not null or undefined
       assertParamExists('blueprintResolve', 'address', address)
       const localVarPath = `/api/resolve-path/{address}`.replace(
         `{${'address'}}`,
-        encodeURIComponent(String(address)),
+        encodeURIComponent(String(address))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -153,7 +153,7 @@ export const BlueprintApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -162,7 +162,7 @@ export const BlueprintApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -200,23 +200,23 @@ export const BlueprintApiFp = function (configuration?: Configuration) {
     async blueprintGet(
       typeRef: string,
       context?: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string,
+        basePath?: string
       ) => AxiosPromise<GetBlueprintResponse>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintGet(
         typeRef,
         context,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
     /**
@@ -228,7 +228,7 @@ export const BlueprintApiFp = function (configuration?: Configuration) {
      */
     async blueprintResolve(
       address: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
     > {
@@ -238,7 +238,7 @@ export const BlueprintApiFp = function (configuration?: Configuration) {
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -251,7 +251,7 @@ export const BlueprintApiFp = function (configuration?: Configuration) {
 export const BlueprintApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = BlueprintApiFp(configuration)
   return {
@@ -264,13 +264,13 @@ export const BlueprintApiFactory = function (
      */
     blueprintGet(
       requestParameters: BlueprintApiBlueprintGetRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<GetBlueprintResponse> {
       return localVarFp
         .blueprintGet(
           requestParameters.typeRef,
           requestParameters.context,
-          options,
+          options
         )
         .then((request) => request(axios, basePath))
     },
@@ -283,7 +283,7 @@ export const BlueprintApiFactory = function (
      */
     blueprintResolve(
       requestParameters: BlueprintApiBlueprintResolveRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<string> {
       return localVarFp
         .blueprintResolve(requestParameters.address, options)
@@ -344,13 +344,13 @@ export class BlueprintApi extends BaseAPI {
    */
   public blueprintGet(
     requestParameters: BlueprintApiBlueprintGetRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return BlueprintApiFp(this.configuration)
       .blueprintGet(
         requestParameters.typeRef,
         requestParameters.context,
-        options,
+        options
       )
       .then((request) => request(this.axios, this.basePath))
   }
@@ -365,7 +365,7 @@ export class BlueprintApi extends BaseAPI {
    */
   public blueprintResolve(
     requestParameters: BlueprintApiBlueprintResolveRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return BlueprintApiFp(this.configuration)
       .blueprintResolve(requestParameters.address, options)

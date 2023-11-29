@@ -44,7 +44,7 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const ReferenceApiAxiosParamCreator = function (
-  configuration?: Configuration,
+  configuration?: Configuration
 ) {
   return {
     /**
@@ -56,13 +56,13 @@ export const ReferenceApiAxiosParamCreator = function (
      */
     referenceDelete: async (
       address: string,
-      options: AxiosRequestConfig = {},
+      options: AxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'address' is not null or undefined
       assertParamExists('referenceDelete', 'address', address)
       const localVarPath = `/api/reference/{address}`.replace(
         `{${'address'}}`,
-        encodeURIComponent(String(address)),
+        encodeURIComponent(String(address))
       )
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
@@ -83,7 +83,7 @@ export const ReferenceApiAxiosParamCreator = function (
       await setApiKeyToObject(
         localVarHeaderParameter,
         'Access-Key',
-        configuration,
+        configuration
       )
 
       // authentication OAuth2AuthorizationCodeBearer required
@@ -92,7 +92,7 @@ export const ReferenceApiAxiosParamCreator = function (
         localVarHeaderParameter,
         'OAuth2AuthorizationCodeBearer',
         [],
-        configuration,
+        configuration
       )
 
       setSearchParams(localVarUrlObj, localVarQueryParameter)
@@ -128,19 +128,19 @@ export const ReferenceApiFp = function (configuration?: Configuration) {
      */
     async referenceDelete(
       address: string,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(
         address,
-        options,
+        options
       )
       return createRequestFunction(
         localVarAxiosArgs,
         globalAxios,
         BASE_PATH,
-        configuration,
+        configuration
       )
     },
   }
@@ -153,7 +153,7 @@ export const ReferenceApiFp = function (configuration?: Configuration) {
 export const ReferenceApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance,
+  axios?: AxiosInstance
 ) {
   const localVarFp = ReferenceApiFp(configuration)
   return {
@@ -166,7 +166,7 @@ export const ReferenceApiFactory = function (
      */
     referenceDelete(
       requestParameters: ReferenceApiReferenceDeleteRequest,
-      options?: AxiosRequestConfig,
+      options?: AxiosRequestConfig
     ): AxiosPromise<object> {
       return localVarFp
         .referenceDelete(requestParameters.address, options)
@@ -206,7 +206,7 @@ export class ReferenceApi extends BaseAPI {
    */
   public referenceDelete(
     requestParameters: ReferenceApiReferenceDeleteRequest,
-    options?: AxiosRequestConfig,
+    options?: AxiosRequestConfig
   ) {
     return ReferenceApiFp(this.configuration)
       .referenceDelete(requestParameters.address, options)

@@ -12,7 +12,7 @@ export const useDataSources = (dmssAPI: DmssAPI): TDataSource[] => {
     dmssAPI
       .dataSourceGetAll()
       .then((response: AxiosResponse<TDataSource[]>) =>
-        setDataSources(response.data),
+        setDataSources(response.data)
       )
       .catch((error: AxiosError<ErrorResponse>) => console.error(error))
   }, [])

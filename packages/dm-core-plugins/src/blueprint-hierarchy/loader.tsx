@@ -43,18 +43,18 @@ export function* dfs(node: Node): any {
 const isPrimitive = (attribute: TAttributeType) => {
   if (attribute.attributeType) {
     return ['string', 'number', 'integer', 'number', 'boolean'].includes(
-      attribute.attributeType,
+      attribute.attributeType
     )
   } else return false
 }
 const primitiveAttributes = (blueprint: IBlueprintType): TAttributeType[] =>
   blueprint.attributes.filter((attribute: TAttributeType) =>
-    isPrimitive(attribute),
+    isPrimitive(attribute)
   )
 const isNonPrimitive = (attribute: TAttributeType) => !isPrimitive(attribute)
 const nonPrimitiveAttributes = (blueprint: IBlueprintType): TAttributeType[] =>
   blueprint.attributes.filter((attribute: TAttributeType) =>
-    isNonPrimitive(attribute),
+    isNonPrimitive(attribute)
   )
 
 const search = async (query: any) => {
@@ -75,7 +75,7 @@ export const loader = async (explorer: any, document: any): Promise<Node> => {
     nonPrimitiveAttributes(document).map(async (attribute: TAttributeType) => {
       if (attribute['attributeType'] !== 'object') {
         const child: IBlueprintType = await explorer.blueprintGet(
-          attribute['attributeType'],
+          attribute['attributeType']
         ).data
         const childNode: Node = await loader(explorer, child)
         childNode.attribute = attribute
@@ -95,13 +95,13 @@ export const loader = async (explorer: any, document: any): Promise<Node> => {
                 // Connect the concrete definition to the abstract definition,
                 // so that we can draw the complete graph
                 childNode.addChild(concertNode)
-              },
-            ),
+              }
+            )
           )
         }
         node.addChild(childNode)
       }
-    }),
+    })
   )
 
   return node

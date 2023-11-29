@@ -35,7 +35,7 @@ test('uncontainedObject', async ({ page }) => {
     await page.getByRole('button', { name: 'Close ceo' }).click()
 
     await expect(
-      page.getByTestId('accountant').getByRole('code').getByText('Miranda'),
+      page.getByTestId('accountant').getByRole('code').getByText('Miranda')
     ).toBeVisible()
     await expect(page.getByRole('code').getByText('1337')).toBeVisible()
   })
@@ -62,10 +62,10 @@ test('uncontainedObject', async ({ page }) => {
       .click()
     await selectJohn()
     await expect(
-      page.getByTestId('trainee').getByRole('code').getByText('John'),
+      page.getByTestId('trainee').getByRole('code').getByText('John')
     ).toBeVisible()
     await expect(
-      page.getByTestId('trainee').getByRole('code').getByText('1234'),
+      page.getByTestId('trainee').getByRole('code').getByText('1234')
     ).toBeVisible()
   })
 
@@ -76,10 +76,10 @@ test('uncontainedObject', async ({ page }) => {
       .click()
     await selectJohn()
     await expect(
-      page.getByTestId('accountant').getByRole('code').getByText('John'),
+      page.getByTestId('accountant').getByRole('code').getByText('John')
     ).toBeVisible()
     await expect(
-      page.getByTestId('accountant').getByRole('code').getByText('1234'),
+      page.getByTestId('accountant').getByRole('code').getByText('1234')
     ).toBeVisible()
   })
 

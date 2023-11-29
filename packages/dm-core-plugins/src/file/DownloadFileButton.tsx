@@ -34,7 +34,7 @@ export const DownloadFileButton = (props: DownloadButtonProps) => {
           dataSourceId: dataSourceId,
           blobId: fileEntity.content?.address ?? 'None',
         },
-        options,
+        options
       )
       .then((response: AxiosResponse) => {
         const data = response.data

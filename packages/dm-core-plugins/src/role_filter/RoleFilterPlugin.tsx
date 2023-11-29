@@ -20,7 +20,7 @@ type FilteredView = {
 export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
   const { idReference, config } = props
   const [allowedViewConfigs, setAllowedViewConfigs] = useState<FilteredView[]>(
-    [],
+    []
   )
   const [openViewConfigs, setOpenViewConfigs] = useState<FilteredView[]>([])
   const [allowedRoles, setAllowedRoles] = useState<string[]>([])

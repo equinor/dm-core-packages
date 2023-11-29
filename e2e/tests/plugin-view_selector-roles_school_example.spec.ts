@@ -11,10 +11,10 @@ test.beforeEach(async ({ page }) => {
 
 test('Admin role', async ({ page }) => {
   await expect(
-    page.getByRole('tab', { name: 'Hogwarts Admin', exact: true }),
+    page.getByRole('tab', { name: 'Hogwarts Admin', exact: true })
   ).toBeVisible()
   await expect(
-    page.getByRole('tab', { name: 'Hogwarts All', exact: true }),
+    page.getByRole('tab', { name: 'Hogwarts All', exact: true })
   ).toBeVisible()
   await expect(page.getByTestId('form-text-widget-name')).toBeEditable()
   await page.getByRole('tab', { name: 'Hogwarts All', exact: true }).click()
@@ -23,16 +23,16 @@ test('Admin role', async ({ page }) => {
 
 test('Change role to operator and back', async ({ page }) => {
   await expect(
-    page.getByRole('tab', { name: 'Hogwarts Admin', exact: true }),
+    page.getByRole('tab', { name: 'Hogwarts Admin', exact: true })
   ).toBeVisible()
   await page.getByRole('button', { name: 'User' }).click()
   await page.getByLabel('operator').check()
   await page.getByRole('button', { name: 'Save', exact: true }).click()
   await expect(
-    page.getByRole('tab', { name: 'Hogwarts All', exact: true }),
+    page.getByRole('tab', { name: 'Hogwarts All', exact: true })
   ).toBeVisible()
   await expect(
-    page.getByRole('tab', { name: 'Hogwarts Admin', exact: true }),
+    page.getByRole('tab', { name: 'Hogwarts Admin', exact: true })
   ).not.toBeVisible()
   await expect(page.getByTestId('form-text-widget-name')).not.toBeEditable()
   await page.getByRole('button', { name: 'User' }).click()
