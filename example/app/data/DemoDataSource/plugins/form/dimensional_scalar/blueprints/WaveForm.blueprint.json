@@ -24,6 +24,16 @@
       "name": "maximumWaveHeight",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./SignificantWaveHeight"
+    },
+    {
+      "name": "number",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number"
+    },
+    {
+      "name": "string",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
     }
   ]
 }

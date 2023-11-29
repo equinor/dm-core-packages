@@ -1,0 +1,21 @@
+{
+  "name": "NumberField",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "extends": [
+    "PLUGINS:dm-core-plugins/form/fields/Field"
+  ],
+  "attributes": [
+    {
+      "name": "widget",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true,
+      "attributeType": "string"
+    },
+    {
+      "name": "config",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "object",
+      "optional": true
+    }
+  ]
+}

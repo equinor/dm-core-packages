@@ -47,13 +47,39 @@
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
             "width": "100px"
           }
+        },
+        {
+          "name": "number",
+          "type": "PLUGINS:dm-core-plugins/form/fields/NumberField",
+          "widget": "DimensionalScalarWidget",
+          "config": {
+            "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
+            "description": "This is a primitive.",
+            "width": "150px",
+            "label": "Primitive",
+            "unit": "m/s"
+          }
+        },
+        {
+          "name": "string",
+          "type": "PLUGINS:dm-core-plugins/form/fields/NumberField",
+          "widget": "DimensionalScalarWidget",
+          "config": {
+            "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
+            "description": "This is a primitive string.",
+            "width": "150px",
+            "label": "Primitive String",
+            "unit": "cm"
+          }
         }
       ],
       "fields": [
         "significantWaveHeight",
         "minimumWaveHeight",
         "maximumWaveHeight",
-        "medianWaveHeight"
+        "medianWaveHeight",
+        "number",
+        "string"
       ]
     }
   }
