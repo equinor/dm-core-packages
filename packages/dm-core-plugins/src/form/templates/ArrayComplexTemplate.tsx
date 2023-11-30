@@ -50,8 +50,8 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
           ))}
         {isDefined && !(onOpen && !uiAttribute?.showInline) && (
           <TooltipButton
-            title="Expand"
-            button-variant="ghost_icon"
+            title='Expand'
+            button-variant='ghost_icon'
             button-onClick={() => setIsExpanded(!isExpanded)}
             icon={isExpanded ? chevron_up : chevron_down}
           />

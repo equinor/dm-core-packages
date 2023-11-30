@@ -7,11 +7,7 @@
     "plugin": "@development-framework/dm-core-plugins/header",
     "config": {
       "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-      "uiRecipesList": [
-        "View study",
-        "Explorer",
-        "Yaml"
-      ],
+      "uiRecipesList": ["View study", "Explorer", "Yaml"],
       "hideAbout": false,
       "hideUserInfo": true
     }

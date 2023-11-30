@@ -60,10 +60,10 @@ const DeleteDialog = (props: TProps) => {
         <b>{node.type}</b>?
       </Dialog.CustomContent>
       <Dialog.Actions>
-        <Button color="danger" onClick={handleDelete}>
+        <Button color='danger' onClick={handleDelete}>
           {loading ? <Progress.Dots /> : 'Delete'}
         </Button>
-        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
+        <Button variant='outlined' onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>

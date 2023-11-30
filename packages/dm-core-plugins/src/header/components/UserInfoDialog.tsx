@@ -76,7 +76,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
                 <li key={role}>
                   <Radio
                     label={role}
-                    name="impersonate-role"
+                    name='impersonate-role'
                     value={role}
                     checked={
                       tempSelectedRole != 'anonymous' &&
@@ -94,7 +94,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         <FlexRow style={{ justifyContent: 'space-between', width: '100%' }}>
           <FlexRow>
             <Button
-              variant="ghost"
+              variant='ghost'
               onClick={() => {
                 navigator.clipboard.writeText(token)
                 toast.success('Copied token to clipboard')
@@ -103,7 +103,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
               Copy token to clipboard
             </Button>
             <Button
-              variant="ghost"
+              variant='ghost'
               onClick={() =>
                 dmssAPI
                   .tokenCreate()
@@ -120,7 +120,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
             </Button>
           </FlexRow>
           <FlexRow>
-            <Button variant="ghost" color="danger" onClick={() => logOut()}>
+            <Button variant='ghost' color='danger' onClick={() => logOut()}>
               Log out
             </Button>
             <Button

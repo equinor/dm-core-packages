@@ -1,9 +1,7 @@
 {
   "name": "OwnerBlueprint",
   "type": "CORE:Blueprint",
-  "extends": [
-    "CORE:NamedEntity"
-  ],
+  "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
       "name": "name",

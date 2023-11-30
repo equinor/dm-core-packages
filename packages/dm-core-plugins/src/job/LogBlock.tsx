@@ -47,7 +47,7 @@ export const LogBlock = (props: LogBlockProps) => {
           width: '100%',
         }}
       >
-        <Typography variant="h6" style={{ paddingBottom: '.4rem' }}>
+        <Typography variant='h6' style={{ paddingBottom: '.4rem' }}>
           {title}:
         </Typography>
       </div>

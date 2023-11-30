@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
+    "incremental": true,
     "paths": {
       "@development-framework/dm-core/*": [
         "../packages/dm-core/src/*"

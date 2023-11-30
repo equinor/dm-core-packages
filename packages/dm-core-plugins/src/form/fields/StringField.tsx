@@ -17,15 +17,15 @@ export const StringField = (props: TField) => {
       }}
       defaultValue={attribute.default ?? ''}
       render={({
-        field: { ref, value, ...props },
+        field: { ref, value, onChange },
         fieldState: { invalid, error, isDirty },
       }) => {
         return (
           <Widget
             enumType={attribute.enumType || undefined}
             isDirty={value !== null ? isDirty : false}
+            onChange={(value: unknown) => onChange(value ?? '')}
             readOnly={config.readOnly}
-            {...props}
             value={value ?? ''}
             id={namePath}
             label={

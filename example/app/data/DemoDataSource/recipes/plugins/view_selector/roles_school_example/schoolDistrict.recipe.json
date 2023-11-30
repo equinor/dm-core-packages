@@ -11,17 +11,12 @@
         {
           "type": "CORE:ReferenceViewConfig",
           "recipe": "AdminViewSelector",
-          "roles": [
-            "dmss-admin",
-            "developer"
-          ]
+          "roles": ["dmss-admin", "developer"]
         },
         {
           "type": "CORE:ReferenceViewConfig",
           "recipe": "OperatorViewSelector",
-          "roles": [
-            "operator"
-          ]
+          "roles": ["operator"]
         }
       ]
     }

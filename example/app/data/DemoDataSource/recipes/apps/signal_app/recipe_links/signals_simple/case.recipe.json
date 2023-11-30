@@ -89,13 +89,7 @@
       "plugin": "@development-framework/dm-core-plugins/form",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "fields": [
-          "name",
-          "description",
-          "duration",
-          "timeStep",
-          "components"
-        ]
+        "fields": ["name", "description", "duration", "timeStep", "components"]
       }
     },
     {

@@ -29,11 +29,7 @@
         "age": 20
       }
     ],
-    "subjects": [
-      "Defence against the Dark Arts",
-      "Charms",
-      "Herbology"
-    ],
+    "subjects": ["Defence against the Dark Arts", "Charms", "Herbology"],
     "teachers": [
       {
         "name": "Severus Snape",

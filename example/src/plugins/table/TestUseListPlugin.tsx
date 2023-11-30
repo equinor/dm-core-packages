@@ -32,8 +32,7 @@ const TestUseListPlugin = (props: IUIPlugin) => {
   const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(10)
   const paginatedRows = useMemo(
     () =>
-      items &&
-      items.slice(
+      items?.slice(
         paginationPage * paginationRowsPerPage,
         paginationPage * paginationRowsPerPage + paginationRowsPerPage
       ),
@@ -69,7 +68,7 @@ const TestUseListPlugin = (props: IUIPlugin) => {
           addReference(address, entity)
         }}
       />
-      {attribute && attribute.contained && (
+      {attribute?.contained && (
         <Button onClick={() => addItem()}>Add item</Button>
       )}
       {dirtyState && <Button onClick={() => save()}>Save</Button>}

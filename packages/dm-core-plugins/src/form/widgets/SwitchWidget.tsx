@@ -11,7 +11,7 @@ const SwitchWidget = (props: TWidget) => {
       {...props}
       disabled={readOnly}
       defaultChecked={typeof value === 'undefined' ? false : value}
-      data-testid="form-switch"
+      data-testid='form-switch'
     />
   )
 }

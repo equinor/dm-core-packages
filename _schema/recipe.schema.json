@@ -7,17 +7,11 @@
   "$defs": {
     "type": {
       "type": "string",
-      "enum": [
-        "CORE:RecipeLink",
-        "dmss://system/SIMOS/RecipeLink"
-      ]
+      "enum": ["CORE:RecipeLink", "dmss://system/SIMOS/RecipeLink"]
     },
     "uiRecipes": {
       "type": "string",
-      "enum": [
-        "CORE:UiRecipe",
-        "dmss://system/SIMOS/UiRecipe"
-      ]
+      "enum": ["CORE:UiRecipe", "dmss://system/SIMOS/UiRecipe"]
     }
   },
   "properties": {
@@ -43,11 +37,7 @@
           "$ref": "recipeConfig.schema.json"
         }
       },
-      "required": [
-        "type",
-        "plugin",
-        "config"
-      ]
+      "required": ["type", "plugin", "config"]
     },
     "uiRecipes": {
       "type": "array",
@@ -67,15 +57,9 @@
             "type": "string"
           }
         },
-        "required": [
-          "type",
-          "plugin"
-        ]
+        "required": ["type", "plugin"]
       }
     }
   },
-  "required": [
-    "type",
-    "_blueprintPath_"
-  ]
+  "required": ["type", "_blueprintPath_"]
 }

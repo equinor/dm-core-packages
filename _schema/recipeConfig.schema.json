@@ -17,14 +17,10 @@
       "if": {
         "properties": {
           "type": {
-            "enum": [
-              "PLUGINS:dm-core-plugins/form/FormInput"
-            ]
+            "enum": ["PLUGINS:dm-core-plugins/form/FormInput"]
           }
         },
-        "required": [
-          "type"
-        ]
+        "required": ["type"]
       },
       "then": {
         "properties": {
@@ -45,14 +41,10 @@
       "if": {
         "properties": {
           "type": {
-            "enum": [
-              "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig"
-            ]
+            "enum": ["PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig"]
           }
         },
-        "required": [
-          "type"
-        ]
+        "required": ["type"]
       },
       "then": {
         "properties": {
@@ -105,9 +97,7 @@
             }
           }
         },
-        "required": [
-          "items"
-        ]
+        "required": ["items"]
       }
     }
   ]

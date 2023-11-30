@@ -2,9 +2,7 @@
   "name": "Case",
   "type": "CORE:Blueprint",
   "description": "",
-  "extends": [
-    "CORE:NamedEntity"
-  ],
+  "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
       "name": "type",

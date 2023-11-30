@@ -24,7 +24,7 @@ export const ACLOwnerPanel = ({
             handleChange({ owner: event.target.value })
           }
         />
-        <Icon name="edit_text" size={24} style={{ color: 'teal' }} />
+        <Icon name='edit_text' size={24} style={{ color: 'teal' }} />
       </CenteredRow>
       <CenteredRow width={'160px'}>
         Others:

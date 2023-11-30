@@ -84,9 +84,9 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
                 width: PATH_INPUT_FIELD_WIDTH,
                 cursor: 'pointer',
               }}
-              type="string"
+              type='string'
               value={truncatePathString(formData)}
-              placeholder="Select"
+              placeholder='Select'
               onClick={() => setShowModal(true)}
             />
           </Tooltip>

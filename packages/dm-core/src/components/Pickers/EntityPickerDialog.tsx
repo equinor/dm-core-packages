@@ -127,7 +127,7 @@ export const EntityPickerDialog = (props: {
           Select
         </Button>
         <Button
-          variant="ghost"
+          variant='ghost'
           onClick={() => {
             setSelectedTreeNode(undefined)
             setShowModal(false)

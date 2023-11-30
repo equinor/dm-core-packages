@@ -25,7 +25,10 @@ function getDefaultValue(type: string): string | boolean | number {
 }
 
 export const ArrayPrimitiveTemplate = (
-  props: TArrayTemplate & { value: unknown[]; onChange: (v: unknown[]) => void }
+  props: TArrayTemplate & {
+    value: unknown[]
+    onChange: (v: unknown[]) => void
+  }
 ) => {
   const { namePath, attribute, uiAttribute, value, onChange } = props
 
@@ -68,15 +71,15 @@ export const ArrayPrimitiveTemplate = (
       <Legend>
         <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         <TooltipButton
-          title="Expand"
-          button-variant="ghost_icon"
+          title='Expand'
+          button-variant='ghost_icon'
           button-onClick={() => setIsExpanded(!isExpanded)}
           icon={isExpanded ? chevron_up : chevron_down}
         />
         {!config.readOnly && isExpanded && (
           <TooltipButton
-            title="Add"
-            button-variant="ghost_icon"
+            title='Add'
+            button-variant='ghost_icon'
             button-onClick={() =>
               updateValues(
                 value.length,
@@ -123,9 +126,9 @@ export const ArrayPrimitiveTemplate = (
                     visibility: `${index === hovering ? 'visible' : 'hidden'}`,
                   }}
                   data-testid={`form-primitive-array-remove-${index}`}
-                  variant="ghost_icon"
-                  color="danger"
-                  aria-label="remove-action"
+                  variant='ghost_icon'
+                  color='danger'
+                  aria-label='remove-action'
                 >
                   <Icon data={remove_outlined} />
                 </Button>
@@ -145,8 +148,8 @@ export const ArrayPrimitiveTemplate = (
           ))}
           <Button
             style={{ marginLeft: '35px' }}
-            color="secondary"
-            variant="outlined"
+            color='secondary'
+            variant='outlined'
             onClick={() =>
               updateValues(
                 value.length,

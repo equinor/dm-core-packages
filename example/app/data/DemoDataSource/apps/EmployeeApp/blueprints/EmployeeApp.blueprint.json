@@ -2,9 +2,7 @@
   "name": "EmployeeApp",
   "type": "CORE:Blueprint",
   "description": "",
-  "extends": [
-    "CORE:Application"
-  ],
+  "extends": ["CORE:Application"],
   "attributes": [
     {
       "name": "type",

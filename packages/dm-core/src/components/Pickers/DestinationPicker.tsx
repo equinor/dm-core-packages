@@ -63,7 +63,7 @@ export const DestinationPicker = (props: TDestinationPickerProps) => {
           <div style={{ padding: '0 5px', backgroundColor: 'white' }}>
             <Button
               style={{ height: '22px' }}
-              variant="ghost"
+              variant='ghost'
               onClick={() => {
                 if (onSelect) {
                   return onSelect(node)
@@ -88,9 +88,9 @@ export const DestinationPicker = (props: TDestinationPickerProps) => {
             cursor: 'pointer',
           }}
           disabled={disabled || false}
-          type="string"
+          type='string'
           value={truncatePathString(formData)}
-          placeholder="Select folder"
+          placeholder='Select folder'
           onClick={() => setShowModal(true)}
         />
       </Tooltip>

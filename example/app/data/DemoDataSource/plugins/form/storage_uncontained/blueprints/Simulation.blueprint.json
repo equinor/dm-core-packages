@@ -1,9 +1,7 @@
 {
   "name": "Simulation",
   "type": "CORE:Blueprint",
-  "extends": [
-    "CORE:NamedEntity"
-  ],
+  "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
       "name": "plot",

@@ -34,6 +34,7 @@ import { AuthContext } from 'react-oauth2-code-pkce'
 import { ConfigureSchedule } from './CronJob'
 import { JobLogsDialog } from './JobLogsDialog'
 import { getNewJobDocument, scheduleTemplate } from './templateEntities'
+import { RemoveJobDialog } from './RemoveJobDialog'
 
 const JobButtonWrapper = styled.div`
   margin-top: 0.5rem;
@@ -83,6 +84,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   const [asCronJob, setAsCronJob] = useState<boolean>(config.recurring ?? false)
   const [schedule, setSchedule] = useState<TSchedule>(scheduleTemplate())
   const [showLogs, setShowLogs] = useState(false)
+  const [showRemoveDialog, setShowRemoveDialog] = useState<boolean>(false)
 
   const jobEntity: TJob | TRecurringJob = useMemo(
     () =>
@@ -155,8 +157,8 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     <div>
       {config.recurring === undefined && (
         <Switch
-          size="small"
-          label="Recurring"
+          size='small'
+          label='Recurring'
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setAsCronJob(e.target.checked)
           }
@@ -177,15 +179,15 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           jobStatus={status}
           createJob={createAndStartJob}
           remove={remove}
+          confirmRemove={() => setShowRemoveDialog(true)}
           asCronJob={asCronJob}
-          disabled={false}
           exists={exists}
         />
         {status === JobStatus.Running && (
           <Button
-            variant="outlined"
+            variant='outlined'
             onClick={() => fetchStatusAndLogs()}
-            aria-label="Get job status"
+            aria-label='Get job status'
           >
             <Icon data={refresh} />
           </Button>
@@ -201,7 +203,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
             Get results
           </Button>
         )}
-        <Button onClick={() => setShowLogs(!showLogs)} variant="ghost">
+        <Button onClick={() => setShowLogs(!showLogs)} variant='ghost'>
           {showLogs ? 'Hide' : 'Show'} logs
           <Icon data={expand_screen} />
         </Button>
@@ -216,9 +218,9 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         }}
       >
         <LinearProgress
-          aria-label="Progress bar label"
+          aria-label='Progress bar label'
           value={progress * 100}
-          variant="determinate"
+          variant='determinate'
           style={{
             marginRight: '10px',
           }}
@@ -231,6 +233,13 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         logs={logs}
         error={error}
         result={result}
+      />
+      <RemoveJobDialog
+        isOpen={showRemoveDialog}
+        remove={remove}
+        afterRemove={() => {
+          setShowRemoveDialog(false)
+        }}
       />
     </div>
   )

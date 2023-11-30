@@ -37,8 +37,8 @@ export function TableCell(props: TableCellProps) {
             aria-label={
               isExpanded ? 'Close expandable row' : 'Open expandable row'
             }
-            variant="ghost_icon"
-            color="secondary"
+            variant='ghost_icon'
+            color='secondary'
             onClick={() => setIsExpanded(!isExpanded)}
           >
             <Icon data={isExpanded ? chevron_up : chevron_down} />
@@ -51,10 +51,10 @@ export function TableCell(props: TableCellProps) {
   if (column.data === '^tab') {
     return !editMode ? (
       <Styled.TableCell style={{ textAlign: 'center' }}>
-        <Tooltip title="Open as new tab">
+        <Tooltip title='Open as new tab'>
           <Button
-            variant="ghost_icon"
-            aria-label="Open in new tab"
+            variant='ghost_icon'
+            aria-label='Open in new tab'
             onClick={openItemAsTab}
           >
             <Icon data={external_link} aria-hidden />
@@ -98,7 +98,7 @@ export function TableCell(props: TableCellProps) {
       {isEditableField ? (
         <Styled.Input
           defaultValue={value ?? ''}
-          type="text"
+          type='text'
           onBlur={(event: ChangeEvent<HTMLInputElement>) =>
             updateItem(
               column.data,

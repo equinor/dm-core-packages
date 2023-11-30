@@ -11,17 +11,12 @@
         {
           "type": "CORE:ReferenceViewConfig",
           "recipe": "AdminHeader",
-          "roles": [
-            "dmss-admin",
-            "developer"
-          ]
+          "roles": ["dmss-admin", "developer"]
         },
         {
           "type": "CORE:ReferenceViewConfig",
           "recipe": "OperatorHeader",
-          "roles": [
-            "operator"
-          ]
+          "roles": ["operator"]
         },
         {
           "type": "CORE:ReferenceViewConfig",
@@ -37,11 +32,7 @@
       "plugin": "@development-framework/dm-core-plugins/header",
       "config": {
         "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-        "uiRecipesList": [
-          "Yaml",
-          "Edit",
-          "Explorer"
-        ],
+        "uiRecipesList": ["Yaml", "Edit", "Explorer"],
         "hideAbout": false,
         "hideUserInfo": true
       }
@@ -52,10 +43,7 @@
       "plugin": "@development-framework/dm-core-plugins/header",
       "config": {
         "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-        "uiRecipesList": [
-          "Yaml",
-          "Explorer"
-        ],
+        "uiRecipesList": ["Yaml", "Explorer"],
         "hideAbout": false,
         "hideUserInfo": true
       }

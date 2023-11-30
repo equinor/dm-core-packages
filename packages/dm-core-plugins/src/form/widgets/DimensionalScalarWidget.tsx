@@ -11,6 +11,11 @@ const DimensionalScalarWidget = ({
 }: TWidget) => {
   const [error, setError] = useState('')
 
+  const isPrimitive = typeof entity === 'number' || typeof entity === 'string'
+  const isNumber = isPrimitive
+    ? typeof entity === 'number'
+    : typeof entity?.value === 'number'
+
   return (
     <div style={widgetConfig?.width ? { maxWidth: widgetConfig?.width } : {}}>
       <div
@@ -32,8 +37,7 @@ const DimensionalScalarWidget = ({
       </div>
       <TextField
         unit={widgetConfig?.unit || entity?.unit}
-        id={entity?.id}
-        type="number"
+        type={isNumber ? 'number' : undefined}
         meta={widgetConfig?.meta || entity?.meta}
         helperText={error}
         variant={error ? 'error' : undefined}
@@ -45,11 +49,18 @@ const DimensionalScalarWidget = ({
         }
         disabled={readOnly}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          if (e.target.value === '') setError('Value is required')
-          else setError('')
-          onChange({ ...entity, value: parseFloat(e.target.value) })
+          setError(e.target.value === '' ? 'Value is required' : '')
+          let targetValue: string | number = e.target.value
+          if (isNumber)
+            targetValue = e.target.value === '' ? 0 : parseFloat(e.target.value)
+
+          const changed = isPrimitive
+            ? targetValue
+            : { ...entity, value: targetValue }
+
+          onChange(changed)
         }}
-        defaultValue={entity?.value ?? ''}
+        defaultValue={isPrimitive ? entity : entity?.value ?? ''}
       />
     </div>
   )

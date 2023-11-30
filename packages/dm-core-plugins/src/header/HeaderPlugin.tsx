@@ -27,12 +27,12 @@ const Icons = styled.div`
     margin-left: 40px;
   }
 `
-const Logo = styled.h2`
-  paddinginline: 10;
+const Logo = styled.span`
   color: #007079;
   font-weight: 500;
-  margin-right: 3rem;
+  margin-right: 1rem;
   margin-left: 0.5rem;
+  font-size: 18px;
 `
 
 const ClickableIcon = styled.button`
@@ -76,7 +76,7 @@ export default (props: IUIPlugin): React.ReactElement => {
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const { getUiPlugin } = useUiPlugins()
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
-    component: () => <div></div>,
+    component: () => <div />,
     config: {},
     name: '',
   })
@@ -129,11 +129,11 @@ export default (props: IUIPlugin): React.ReactElement => {
       >
         <TopBar.Header
           style={{
-            position: 'relative',
             display: 'flex',
+            alignContent: 'center',
           }}
         >
-          <Logo>{entity.label}</Logo>
+          <Logo aria-label='main-heading'>{entity.label}</Logo>
           <AppSelector
             items={recipeNames}
             onSelectItem={(item) =>
@@ -148,13 +148,13 @@ export default (props: IUIPlugin): React.ReactElement => {
               onClick={() => setAboutOpen(true)}
               hidden={config.hideAbout}
             >
-              <Icon data={info_circle} size={24} title="About" />
+              <Icon data={info_circle} size={24} title='About' />
             </ClickableIcon>
             <ClickableIcon
               onClick={() => setVisibleUserInfo(true)}
               hidden={config.hideUserInfo}
             >
-              <Icon data={account_circle} size={24} title="User" />
+              <Icon data={account_circle} size={24} title='User' />
             </ClickableIcon>
           </Icons>
         </TopBar.Actions>

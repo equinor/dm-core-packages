@@ -4,7 +4,7 @@ import '../build.css'
 
 export { WidgetProvider } from './form/context/WidgetContext'
 
-export default {
+export default ({
   '@development-framework/dm-core-plugins/explorer': {
     component: lazy(() => import('./explorer/ExplorerPlugin')),
   },
@@ -60,7 +60,9 @@ export default {
   '@development-framework/dm-core-plugins/blueprint-hierarchy': {
     component: lazy(() =>
       import('./blueprint-hierarchy/BlueprintHierarchyPlugin').then(
-        (module) => ({ default: module.BlueprintHierarchyPlugin })
+        (module) => ({
+          default: module.BlueprintHierarchyPlugin,
+        })
       )
     ),
   },
@@ -112,4 +114,4 @@ export default {
       }))
     ),
   },
-} as TUiPluginMap
+} as TUiPluginMap)

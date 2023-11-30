@@ -17,18 +17,15 @@
     "tsconfig-paths-webpack-plugin": "^4.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.4.0",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.8",
     "@types/react-dom": "^18.2.7",
     "@types/react-plotly.js": "^2.6.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.42.0",
-    "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.4.31",
     "serve": "14.2.1",
     "tailwindcss": "^3.3.5",
@@ -42,7 +39,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build -d",
-    "lint:fix": "eslint --fix --ext .js,.jsx,.tsx,.ts .",
+    "lint": "biome lint . --apply",
     "preview": "vite preview",
     "serve": "serve -s dist -p 3000 --no-clipboard",
     "test": "vitest",

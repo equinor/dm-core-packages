@@ -1,5 +1,5 @@
 {
-  "name": "StringField",
+  "name": "NumberField",
   "type": "dmss://system/SIMOS/Blueprint",
   "extends": ["PLUGINS:dm-core-plugins/form/fields/Field"],
   "attributes": [
@@ -10,11 +10,9 @@
       "attributeType": "string"
     },
     {
-      "name": "format",
+      "name": "config",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "label": "Format",
-      "default": "",
+      "attributeType": "object",
       "optional": true
     }
   ]

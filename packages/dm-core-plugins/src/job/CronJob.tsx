@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Autocomplete } from '@equinor/eds-core-react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { Autocomplete, Button, TextField } from '@equinor/eds-core-react'
 import DateRangePicker from './DateRangePicker'
 import styled from 'styled-components'
 import { TSchedule } from '@development-framework/dm-core'
@@ -27,15 +27,6 @@ const InputWrapper = styled.div`
   padding-top: 1rem;
 `
 
-const getIntervall = ({ cron }: { cron: string }): EInterval => {
-  const [, hour, dayOfMonth, , dayOfWeek] = cron.split(' ')
-  if (hour.includes('/')) return EInterval.HOURLY
-  if (dayOfMonth !== '*') return EInterval.MONTHLY
-  if (dayOfWeek !== '*') return EInterval.WEEKLY
-  if (dayOfWeek == '*') return EInterval.DAILY
-  return EInterval.DAILY
-}
-
 export function ConfigureSchedule(props: {
   isRegistered: boolean
   // TODO: Export TCronJob from dm-core
@@ -47,6 +38,7 @@ export function ConfigureSchedule(props: {
   const [hour, setHour] = useState<string>('23')
   const [hourStep, setHourStep] = useState<string>('1')
   const [minute, setMinute] = useState<string>('30')
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(true)
 
   const getLabel = () => {
     if (interval === 'Weekly') {
@@ -96,6 +88,7 @@ export function ConfigureSchedule(props: {
         border: '1px solid lightgray',
         borderRadius: '.4rem',
         padding: '1rem',
+        maxWidth: '800px',
       }}
     >
       <div>
@@ -118,7 +111,7 @@ export function ConfigureSchedule(props: {
           <Autocomplete
             options={Object.values(EInterval)}
             label={'Interval'}
-            initialSelectedOptions={[getIntervall({ cron: schedule.cron })]}
+            initialSelectedOptions={[interval]}
             onInputChange={(label: string) => {
               const chosenIntervalType = Object.entries(EInterval)
                 .filter((l) => l.length > 0 && l[1] == label)
@@ -132,6 +125,7 @@ export function ConfigureSchedule(props: {
             <Autocomplete
               options={generateSelectableTimes().map((value: string) => value)}
               label={'Time'}
+              initialSelectedOptions={[`${hour}:${minute}`]}
               onInputChange={(timestamp) => {
                 const [newHour, newMinute] = timestamp.split(':')
                 setMinute(newMinute)
@@ -142,8 +136,32 @@ export function ConfigureSchedule(props: {
           {interval === EInterval.HOURLY && (
             <Autocomplete
               options={[...Array(12).keys()].map((i) => i + 1)}
+              initialSelectedOptions={[Number(hourStep)]}
               label={'Hour step'}
               onInputChange={(step) => setHourStep(step)}
+            />
+          )}
+          <Button
+            onClick={() => setShowAdvanced(!showAdvanced)}
+            variant='ghost'
+            className={showAdvanced ? 'self-center -translate-y-1' : 'self-end'}
+          >
+            {showAdvanced ? 'Hide' : 'Show Advanced'}
+          </Button>
+          {showAdvanced && (
+            <TextField
+              unit='cron'
+              id='advanced-schedule-syntax'
+              type='text'
+              value={schedule.cron}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setSchedule({
+                  ...schedule,
+                  cron: event?.target.value,
+                })
+              }
+              label='Enter explicit cron syntax'
+              helperText='minute hour day(month) month day(week)'
             />
           )}
         </InputWrapper>

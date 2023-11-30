@@ -71,8 +71,8 @@ const NewFolderDialog = (props: TProps) => {
       </Dialog.Header>
       <Dialog.CustomContent>
         <TextField
-          id="folderName"
-          label="Name"
+          id='folderName'
+          label='Name'
           value={folderName}
           style={{ width: INPUT_FIELD_WIDTH }}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -84,7 +84,7 @@ const NewFolderDialog = (props: TProps) => {
         <Button disabled={folderName === ''} onClick={handleCreate}>
           {loading ? <Progress.Dots /> : 'Create'}
         </Button>
-        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
+        <Button variant='outlined' onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>

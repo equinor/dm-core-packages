@@ -34,10 +34,7 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in item",
       "attributeType": "string",
-      "default": [
-        "name",
-        "type"
-      ],
+      "default": ["name", "type"],
       "dimensions": "*"
     },
     {

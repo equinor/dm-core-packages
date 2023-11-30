@@ -23,15 +23,17 @@ export const NumberField = (props: TField) => {
       }}
       defaultValue={attribute.default || 0}
       render={({
-        field: { ref, onChange, ...props },
+        field: { ref, value, onChange, ...props },
         fieldState: { invalid, error, isDirty },
       }) => {
         return (
           <Widget
             {...props}
             readOnly={config.readOnly}
-            onChange={(event: unknown) => onChange(event ? Number(event) : 0)}
-            value={props.value ?? ''}
+            onChange={(event: unknown) => {
+              onChange(event ? Number(event) : undefined)
+            }}
+            value={value ?? ''}
             id={namePath}
             label={
               !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
@@ -39,7 +41,7 @@ export const NumberField = (props: TField) => {
             inputRef={ref}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
-            isDirty={props.value !== null ? isDirty : false}
+            isDirty={value !== null ? isDirty : false}
             config={uiAttribute?.config}
           />
         )

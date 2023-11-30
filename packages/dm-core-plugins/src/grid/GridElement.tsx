@@ -42,7 +42,7 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       showItemBorders={showItemBorders}
       itemBorder={itemBorder}
     >
-      {item?.title && <Typography variant="h4">{item.title}</Typography>}
+      {item?.title && <Typography variant='h4'>{item.title}</Typography>}
       <ViewCreator idReference={idReference} viewConfig={item.viewConfig} />
     </Element>
   )

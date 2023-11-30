@@ -33,16 +33,6 @@ const MetaPopoverButton = styled(Button)`
   color: #595959;
 `
 
-const MetaWrapper = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 0.6fr 1fr;
-
-  .meta-label {
-    font-weight: bold;
-  }
-`
-
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, meta, height, width } = props
   const [showMeta, setShowMeta] = useState(false)
@@ -59,6 +49,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
       )
     } else if (filetype.includes('video')) {
       return (
+        // biome-ignore lint/a11y/useMediaCaption: No captions for example video
         <video
           src={blobUrl}
           controls
@@ -69,9 +60,10 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
     } else {
       return (
         <iframe
+          title={meta.title}
           src={blobUrl}
           style={{ width: '100%', height: 'auto' }}
-          role="document"
+          role='document'
         />
       )
     }
@@ -83,12 +75,12 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         {meta.filetype !== 'application/pdf' && (
           <MetaPopoverButton
             onClick={() => setShowMeta(!showMeta)}
-            variant="ghost_icon"
+            variant='ghost_icon'
             aria-haspopup
             aria-expanded={showMeta}
             ref={referenceElement}
           >
-            <Icon data={info_circle} title="view meta info" />
+            <Icon data={info_circle} title='view meta info' />
           </MetaPopoverButton>
         )}
         {renderMediaElement(meta.filetype)}
@@ -97,24 +89,24 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         open={showMeta}
         anchorEl={referenceElement.current}
         onClose={() => setShowMeta(false)}
-        role="dialog"
+        role='dialog'
       >
         <Popover.Header>
           <Popover.Title>Meta</Popover.Title>
         </Popover.Header>
         <Popover.Content>
-          <MetaWrapper>
-            <label className="meta-label">File name:</label>
+          <div className='grid grid-cols-2 font-normal'>
+            <label className='font-bold'>File name:</label>
             <span> {meta.title}</span>
-            <label className="meta-label">Author:</label>
+            <label className='font-bold'>Author:</label>
             <span> {meta.author}</span>
-            <label className="meta-label">Date:</label>
+            <label className='font-bold'>Date:</label>
             <span> {new Date(meta.date).toLocaleDateString()} </span>
-            <label className="meta-label">Filetype:</label>
+            <label className='font-bold'>Filetype:</label>
             <span> {meta.filetype}</span>
-            <label className="meta-label">Filesize:</label>
+            <label className='font-bold'>Filesize:</label>
             <span> {formatBytes(meta.fileSize)}</span>
-          </MetaWrapper>
+          </div>
         </Popover.Content>
         <Popover.Actions>
           <div
@@ -125,17 +117,17 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             }}
           >
             <Button
-              variant="ghost"
-              as="a"
-              className="transition-all"
+              variant='ghost'
+              as='a'
+              className='transition-all'
               href={blobUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              target='_blank'
+              rel='noopener noreferrer'
             >
               <Icon size={16} data={external_link} />
               New tab
             </Button>
-            <Button download={meta.title} href={blobUrl} variant="ghost">
+            <Button download={meta.title} href={blobUrl} variant='ghost'>
               <Icon size={16} data={download} />
               Download
             </Button>
