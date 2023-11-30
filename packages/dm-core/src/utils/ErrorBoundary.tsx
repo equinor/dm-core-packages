@@ -18,39 +18,39 @@ const Message = styled.div`
 `
 
 export class ErrorBoundary extends React.Component<
-	any,
-	{ hasError: boolean; error: Error }
+  any,
+  { hasError: boolean; error: Error }
 > {
-	message = 'unknown'
+  message = 'unknown'
 
-	constructor(props: { message: string }) {
-		super(props)
-		this.message = props.message
-		this.state = { hasError: false, error: new Error('None') }
-	}
+  constructor(props: { message: string }) {
+    super(props)
+    this.message = props.message
+    this.state = { hasError: false, error: new Error('None') }
+  }
 
-	static getDerivedStateFromError(error: Error) {
-		// Update state so the next render will show the fallback UI.
-		return {
-			hasError: true,
-			error: error,
-		}
-	}
+  static getDerivedStateFromError(error: Error) {
+    // Update state so the next render will show the fallback UI.
+    return {
+      hasError: true,
+      error: error,
+    }
+  }
 
-	fallBack: (error: Error) => ReactNode = (error: Error) => (
-		<ErrorGroup>
-			<Typography variant='h5' color='red'>
-				{this.message}
-			</Typography>
-			<Message>{error.message}</Message>
-		</ErrorGroup>
-	)
+  fallBack: (error: Error) => ReactNode = (error: Error) => (
+    <ErrorGroup>
+      <Typography variant='h5' color='red'>
+        {this.message}
+      </Typography>
+      <Message>{error.message}</Message>
+    </ErrorGroup>
+  )
 
-	render() {
-		if (this.state.hasError) {
-			// You can render any custom fallback UI
-			return this.fallBack(this.state.error)
-		}
-		return this.props.children
-	}
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return this.fallBack(this.state.error)
+    }
+    return this.props.children
+  }
 }

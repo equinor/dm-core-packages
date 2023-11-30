@@ -1,13 +1,13 @@
 {
-	"_id": "tableList",
-	"name": "TableList",
-	"type": "./blueprints/TableList",
-	"cars": [
-		{
-			"name": "Volvo",
-			"type": "./blueprints/Table",
-			"model": "XC40",
-			"color": "White"
-		}
-	]
+  "_id": "tableList",
+  "name": "TableList",
+  "type": "./blueprints/TableList",
+  "cars": [
+    {
+      "name": "Volvo",
+      "type": "./blueprints/Table",
+      "model": "XC40",
+      "color": "White"
+    }
+  ]
 }

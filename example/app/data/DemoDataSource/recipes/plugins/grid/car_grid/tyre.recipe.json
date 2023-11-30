@@ -1,68 +1,68 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/grid/car_grid/blueprints/Tyre",
-	"initialUiRecipe": {
-		"name": "UiRecipesSelector",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "Edit",
-					"viewConfig": {
-						"type": "CORE:InlineRecipeViewConfig",
-						"recipe": {
-							"name": "Edit",
-							"type": "CORE:UiRecipe",
-							"description": "Default edit",
-							"plugin": "@development-framework/dm-core-plugins/form",
-							"config": {
-								"type": "PLUGINS:dm-core-plugins/form/FormInput",
-								"attributes": [
-									{
-										"name": "description",
-										"type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-										"widget": "TextareaWidget"
-									}
-								]
-							}
-						},
-						"scope": "self"
-					}
-				}
-			]
-		}
-	},
-	"uiRecipes": [
-		{
-			"name": "Yaml",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/yaml"
-		},
-		{
-			"name": "Form",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/form"
-		},
-		{
-			"name": "List",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/list",
-			"dimensions": "*",
-			"config": {
-				"type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-				"viewConfigs": [],
-				"openAsTab": false,
-				"headers": ["name", "compound"],
-				"functionality": {
-					"type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
-					"delete": true,
-					"add": true,
-					"sort": true
-				}
-			}
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/grid/car_grid/blueprints/Tyre",
+  "initialUiRecipe": {
+    "name": "UiRecipesSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Edit",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Edit",
+              "type": "CORE:UiRecipe",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "attributes": [
+                  {
+                    "name": "description",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "widget": "TextareaWidget"
+                  }
+                ]
+              }
+            },
+            "scope": "self"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "name": "List",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/list",
+      "dimensions": "*",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "viewConfigs": [],
+        "openAsTab": false,
+        "headers": ["name", "compound"],
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
+          "delete": true,
+          "add": true,
+          "sort": true
+        }
+      }
+    }
+  ]
 }

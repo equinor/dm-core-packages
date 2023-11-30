@@ -1,23 +1,23 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/form/read_only_primitives/blueprints/ReadOnlyPrimitives",
-	"initialUiRecipe": {
-		"name": "ReadOnly",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/form",
-		"category": "edit",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/form/FormInput",
-			"fields": [
-				"stringRequired",
-				"stringOptional",
-				"numberRequired",
-				"numberOptional",
-				"integer",
-				"checkboxOptional",
-				"checkboxRequired"
-			],
-			"readOnly": true
-		}
-	}
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/form/read_only_primitives/blueprints/ReadOnlyPrimitives",
+  "initialUiRecipe": {
+    "name": "ReadOnly",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "category": "edit",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "fields": [
+        "stringRequired",
+        "stringOptional",
+        "numberRequired",
+        "numberOptional",
+        "integer",
+        "checkboxOptional",
+        "checkboxRequired"
+      ],
+      "readOnly": true
+    }
+  }
 }

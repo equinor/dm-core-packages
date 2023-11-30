@@ -1,32 +1,32 @@
 {
-	"name": "RaceCenter",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "name",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "carsOnGrid",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./CarList"
-		},
-		{
-			"name": "tyreList",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./TyreList"
-		},
-		{
-			"name": "nestedForm",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Nested",
-			"label": "A nested object with custom ui"
-		}
-	]
+  "name": "RaceCenter",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "carsOnGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./CarList"
+    },
+    {
+      "name": "tyreList",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./TyreList"
+    },
+    {
+      "name": "nestedForm",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Nested",
+      "label": "A nested object with custom ui"
+    }
+  ]
 }

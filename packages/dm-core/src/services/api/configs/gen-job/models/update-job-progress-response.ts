@@ -18,10 +18,10 @@
  * @interface UpdateJobProgressResponse
  */
 export interface UpdateJobProgressResponse {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof UpdateJobProgressResponse
-	 */
-	result: string
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateJobProgressResponse
+   */
+  result: string
 }

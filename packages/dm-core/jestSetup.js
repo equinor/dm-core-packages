@@ -2,5 +2,5 @@
 const crypto = require('crypto')
 
 Object.defineProperty(window, 'crypto', {
-	value: crypto,
+  value: crypto,
 })

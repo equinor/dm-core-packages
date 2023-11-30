@@ -1,27 +1,27 @@
 {
-	"name": "WaveForm",
-	"type": "CORE:Blueprint",
-	"extends": ["CORE:NamedEntity"],
-	"attributes": [
-		{
-			"name": "significantWaveHeight",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./SignificantWaveHeight"
-		},
-		{
-			"name": "medianWaveHeight",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./SignificantWaveHeight"
-		},
-		{
-			"name": "minimumWaveHeight",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./SignificantWaveHeight"
-		},
-		{
-			"name": "maximumWaveHeight",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./SignificantWaveHeight"
-		}
-	]
+  "name": "WaveForm",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "name": "significantWaveHeight",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./SignificantWaveHeight"
+    },
+    {
+      "name": "medianWaveHeight",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./SignificantWaveHeight"
+    },
+    {
+      "name": "minimumWaveHeight",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./SignificantWaveHeight"
+    },
+    {
+      "name": "maximumWaveHeight",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./SignificantWaveHeight"
+    }
+  ]
 }

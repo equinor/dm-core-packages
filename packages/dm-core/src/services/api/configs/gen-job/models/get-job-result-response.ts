@@ -18,16 +18,16 @@
  * @interface GetJobResultResponse
  */
 export interface GetJobResultResponse {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof GetJobResultResponse
-	 */
-	message: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof GetJobResultResponse
-	 */
-	result: string
+  /**
+   *
+   * @type {string}
+   * @memberof GetJobResultResponse
+   */
+  message: string
+  /**
+   *
+   * @type {string}
+   * @memberof GetJobResultResponse
+   */
+  result: string
 }

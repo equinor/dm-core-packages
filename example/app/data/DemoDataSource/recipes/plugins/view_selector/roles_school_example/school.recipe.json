@@ -1,50 +1,50 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/view_selector/roles_school_example/blueprints/School",
-	"initialUiRecipe": {
-		"name": "ViewSelector",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"childTabsOnRender": true,
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "Headmaster view",
-					"viewConfig": {
-						"type": "CORE:ReferenceViewConfig",
-						"recipe": "AdminView",
-						"eds_icon": "visibility"
-					}
-				},
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "Student view",
-					"viewConfig": {
-						"type": "CORE:ReferenceViewConfig",
-						"recipe": "OperatorView",
-						"eds_icon": "visibility"
-					}
-				}
-			]
-		}
-	},
-	"uiRecipes": [
-		{
-			"name": "AdminView",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/form"
-		},
-		{
-			"name": "OperatorView",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/form",
-			"config": {
-				"type": "PLUGINS:dm-core-plugins/form/FormInput",
-				"readOnly": true,
-				"fields": ["name", "headmaster", "teachers", "subjects"]
-			}
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/view_selector/roles_school_example/blueprints/School",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true,
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Headmaster view",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "AdminView",
+            "eds_icon": "visibility"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Student view",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "OperatorView",
+            "eds_icon": "visibility"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "AdminView",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "name": "OperatorView",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
+        "readOnly": true,
+        "fields": ["name", "headmaster", "teachers", "subjects"]
+      }
+    }
+  ]
 }

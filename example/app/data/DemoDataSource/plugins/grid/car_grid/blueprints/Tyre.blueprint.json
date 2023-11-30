@@ -1,29 +1,29 @@
 {
-	"name": "Tyre",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "name",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"label": "Tyre:"
-		},
-		{
-			"name": "compound",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"label": "Compound:"
-		},
-		{
-			"name": "description",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"label": "Tyre description:"
-		}
-	]
+  "name": "Tyre",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Tyre:"
+    },
+    {
+      "name": "compound",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Compound:"
+    },
+    {
+      "name": "description",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Tyre description:"
+    }
+  ]
 }

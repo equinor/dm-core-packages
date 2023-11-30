@@ -1,39 +1,39 @@
 {
-	"name": "FunctionalityConfig",
-	"type": "CORE:Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "delete",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": true
-		},
-		{
-			"name": "add",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": true
-		},
-		{
-			"name": "edit",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": true
-		},
-		{
-			"name": "sort",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": true
-		}
-	]
+  "name": "FunctionalityConfig",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "delete",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    },
+    {
+      "name": "add",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    },
+    {
+      "name": "edit",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    },
+    {
+      "name": "sort",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    }
+  ]
 }

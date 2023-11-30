@@ -1,21 +1,21 @@
 {
-	"name": "StringField",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"extends": ["PLUGINS:dm-core-plugins/form/fields/Field"],
-	"attributes": [
-		{
-			"name": "widget",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"optional": true,
-			"attributeType": "string"
-		},
-		{
-			"name": "format",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string",
-			"label": "Format",
-			"default": "",
-			"optional": true
-		}
-	]
+  "name": "StringField",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "extends": ["PLUGINS:dm-core-plugins/form/fields/Field"],
+  "attributes": [
+    {
+      "name": "widget",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true,
+      "attributeType": "string"
+    },
+    {
+      "name": "format",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Format",
+      "default": "",
+      "optional": true
+    }
+  ]
 }

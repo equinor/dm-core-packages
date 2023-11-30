@@ -1,65 +1,65 @@
 {
-	"type": "object",
-	"description": "Schema for writing correct blueprints",
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"title": "Blueprint schema",
-	"additionalItems": false,
-	"$defs": {
-		"type": {
-			"type": "string",
-			"enum": ["CORE:RecipeLink", "dmss://system/SIMOS/RecipeLink"]
-		},
-		"uiRecipes": {
-			"type": "string",
-			"enum": ["CORE:UiRecipe", "dmss://system/SIMOS/UiRecipe"]
-		}
-	},
-	"properties": {
-		"type": {
-			"$ref": "#/$defs/type"
-		},
-		"_blueprintPath_": {
-			"type": "string"
-		},
-		"initialUiRecipe": {
-			"type": "object",
-			"properties": {
-				"name": {
-					"type": "string"
-				},
-				"type": {
-					"$ref": "#/$defs/uiRecipes"
-				},
-				"plugin": {
-					"type": "string"
-				},
-				"config": {
-					"$ref": "recipeConfig.schema.json"
-				}
-			},
-			"required": ["type", "plugin", "config"]
-		},
-		"uiRecipes": {
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"plugin": {
-						"type": "string"
-					}
-				},
-				"required": ["type", "plugin"]
-			}
-		}
-	},
-	"required": ["type", "_blueprintPath_"]
+  "type": "object",
+  "description": "Schema for writing correct blueprints",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blueprint schema",
+  "additionalItems": false,
+  "$defs": {
+    "type": {
+      "type": "string",
+      "enum": ["CORE:RecipeLink", "dmss://system/SIMOS/RecipeLink"]
+    },
+    "uiRecipes": {
+      "type": "string",
+      "enum": ["CORE:UiRecipe", "dmss://system/SIMOS/UiRecipe"]
+    }
+  },
+  "properties": {
+    "type": {
+      "$ref": "#/$defs/type"
+    },
+    "_blueprintPath_": {
+      "type": "string"
+    },
+    "initialUiRecipe": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/uiRecipes"
+        },
+        "plugin": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "recipeConfig.schema.json"
+        }
+      },
+      "required": ["type", "plugin", "config"]
+    },
+    "uiRecipes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "plugin": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "plugin"]
+      }
+    }
+  },
+  "required": ["type", "_blueprintPath_"]
 }

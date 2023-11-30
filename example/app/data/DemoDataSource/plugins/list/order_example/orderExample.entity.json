@@ -1,33 +1,33 @@
 {
-	"_id": "orderExample",
-	"type": "./blueprints/Order",
-	"items": [
-		{
-			"type": "./blueprints/OrderItem",
-			"quantity": 1,
-			"product": {
-				"name": "Product 1",
-				"type": "./blueprints/Product",
-				"something": "Asdf"
-			}
-		},
-		{
-			"type": "./blueprints/OrderItem",
-			"quantity": 2,
-			"product": {
-				"name": "Product ABV",
-				"type": "./blueprints/Product",
-				"something": "222222222222"
-			}
-		},
-		{
-			"type": "./blueprints/OrderItem",
-			"quantity": 3,
-			"product": {
-				"name": "Product 3333333333",
-				"type": "./blueprints/Product",
-				"something": "333333333333"
-			}
-		}
-	]
+  "_id": "orderExample",
+  "type": "./blueprints/Order",
+  "items": [
+    {
+      "type": "./blueprints/OrderItem",
+      "quantity": 1,
+      "product": {
+        "name": "Product 1",
+        "type": "./blueprints/Product",
+        "something": "Asdf"
+      }
+    },
+    {
+      "type": "./blueprints/OrderItem",
+      "quantity": 2,
+      "product": {
+        "name": "Product ABV",
+        "type": "./blueprints/Product",
+        "something": "222222222222"
+      }
+    },
+    {
+      "type": "./blueprints/OrderItem",
+      "quantity": 3,
+      "product": {
+        "name": "Product 3333333333",
+        "type": "./blueprints/Product",
+        "something": "333333333333"
+      }
+    }
+  ]
 }

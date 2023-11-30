@@ -3,7 +3,7 @@ import marmoPlugins from './plugins/marmo-ui'
 import localPlugins from './plugins/table'
 
 export default {
-	...dmCorePlugins,
-	...marmoPlugins,
-	...localPlugins,
+  ...dmCorePlugins,
+  ...marmoPlugins,
+  ...localPlugins,
 }

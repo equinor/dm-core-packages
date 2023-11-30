@@ -3,27 +3,29 @@ import React, { createContext, useContext } from 'react'
 import { TFormConfig } from '../types'
 
 type Props = {
-	idReference: string
-	onOpen?: TOnOpen
-	config: TFormConfig
+  idReference: string
+  onOpen?: TOnOpen
+  config: TFormConfig
 }
 
 const RegistryContext = createContext<Props | undefined>(undefined)
 
 export const useRegistryContext = () => {
-	const context = useContext(RegistryContext)
-	if (!context) {
-		throw new Error('useRegistryContext must be used within a RegistryProvider')
-	}
-	return context
+  const context = useContext(RegistryContext)
+  if (!context) {
+    throw new Error('useRegistryContext must be used within a RegistryProvider')
+  }
+  return context
 }
 
 export const RegistryProvider = (
-	props: Props & { children: React.ReactElement }
+  props: Props & { children: React.ReactElement }
 ) => {
-	const { children, ...value } = props
+  const { children, ...value } = props
 
-	return (
-		<RegistryContext.Provider value={value}>{children}</RegistryContext.Provider>
-	)
+  return (
+    <RegistryContext.Provider value={value}>
+      {children}
+    </RegistryContext.Provider>
+  )
 }

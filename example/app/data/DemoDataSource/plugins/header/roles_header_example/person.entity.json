@@ -1,8 +1,8 @@
 {
-	"name": "elonMusk",
-	"type": "./blueprints/Person",
-	"socialSecurityNumber": 420420420,
-	"address": "Silicon Valley",
-	"email": "elon@xcorp.com",
-	"twitterHandle": "@elon"
+  "name": "elonMusk",
+  "type": "./blueprints/Person",
+  "socialSecurityNumber": 420420420,
+  "address": "Silicon Valley",
+  "email": "elon@xcorp.com",
+  "twitterHandle": "@elon"
 }

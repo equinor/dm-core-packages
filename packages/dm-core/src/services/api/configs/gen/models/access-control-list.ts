@@ -22,28 +22,28 @@ import { AccessLevel } from './access-level'
  * @interface AccessControlList
  */
 export interface AccessControlList {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof AccessControlList
-	 */
-	owner: string
-	/**
-	 *
-	 * @type {{ [key: string]: AccessLevel; }}
-	 * @memberof AccessControlList
-	 */
-	roles?: { [key: string]: AccessLevel }
-	/**
-	 *
-	 * @type {{ [key: string]: AccessLevel; }}
-	 * @memberof AccessControlList
-	 */
-	users?: { [key: string]: AccessLevel }
-	/**
-	 *
-	 * @type {AccessLevel}
-	 * @memberof AccessControlList
-	 */
-	others?: AccessLevel
+  /**
+   *
+   * @type {string}
+   * @memberof AccessControlList
+   */
+  owner: string
+  /**
+   *
+   * @type {{ [key: string]: AccessLevel; }}
+   * @memberof AccessControlList
+   */
+  roles?: { [key: string]: AccessLevel }
+  /**
+   *
+   * @type {{ [key: string]: AccessLevel; }}
+   * @memberof AccessControlList
+   */
+  users?: { [key: string]: AccessLevel }
+  /**
+   *
+   * @type {AccessLevel}
+   * @memberof AccessControlList
+   */
+  others?: AccessLevel
 }

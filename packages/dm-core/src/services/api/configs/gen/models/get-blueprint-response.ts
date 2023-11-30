@@ -18,22 +18,22 @@
  * @interface GetBlueprintResponse
  */
 export interface GetBlueprintResponse {
-	/**
-	 *
-	 * @type {object}
-	 * @memberof GetBlueprintResponse
-	 */
-	blueprint: object
-	/**
-	 *
-	 * @type {Array<object>}
-	 * @memberof GetBlueprintResponse
-	 */
-	uiRecipes: Array<object>
-	/**
-	 *
-	 * @type {Array<object>}
-	 * @memberof GetBlueprintResponse
-	 */
-	storageRecipes: Array<object>
+  /**
+   *
+   * @type {object}
+   * @memberof GetBlueprintResponse
+   */
+  blueprint: object
+  /**
+   *
+   * @type {Array<object>}
+   * @memberof GetBlueprintResponse
+   */
+  uiRecipes: Array<object>
+  /**
+   *
+   * @type {Array<object>}
+   * @memberof GetBlueprintResponse
+   */
+  storageRecipes: Array<object>
 }

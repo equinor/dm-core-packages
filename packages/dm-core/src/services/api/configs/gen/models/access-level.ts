@@ -19,9 +19,9 @@
  */
 
 export const AccessLevel = {
-	WRITE: 'WRITE',
-	READ: 'READ',
-	NONE: 'NONE',
+  WRITE: 'WRITE',
+  READ: 'READ',
+  NONE: 'NONE',
 } as const
 
 export type AccessLevel = (typeof AccessLevel)[keyof typeof AccessLevel]

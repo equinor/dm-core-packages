@@ -1,31 +1,31 @@
 {
-	"name": "DimentionalScalarWidgetConfig",
-	"type": "CORE:Blueprint",
-	"extends": ["CORE:Entity"],
-	"attributes": [
-		{
-			"name": "width",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true
-		},
-		{
-			"name": "unit",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true
-		},
-		{
-			"name": "label",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true
-		},
-		{
-			"name": "meta",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true
-		}
-	]
+  "name": "DimentionalScalarWidgetConfig",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Entity"],
+  "attributes": [
+    {
+      "name": "width",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "unit",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "meta",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
 }

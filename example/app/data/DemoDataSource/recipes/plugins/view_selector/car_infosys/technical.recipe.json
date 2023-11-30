@@ -1,65 +1,65 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/view_selector/car_garage/blueprints/TechBlueprint",
-	"initialUiRecipe": {
-		"name": "ViewSelector",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"childTabsOnRender": true,
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "EU control",
-					"viewConfig": {
-						"type": "CORE:InlineRecipeViewConfig",
-						"recipe": {
-							"name": "Edit",
-							"type": "CORE:UiRecipe",
-							"description": "Default edit",
-							"plugin": "@development-framework/dm-core-plugins/form",
-							"config": {
-								"type": "PLUGINS:dm-core-plugins/form/FormInput",
-								"fields": ["controlDate", "nextControl"]
-							}
-						},
-						"eds_icon": "check"
-					}
-				},
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "Dimensions",
-					"viewConfig": {
-						"type": "CORE:InlineRecipeViewConfig",
-						"recipe": {
-							"name": "Edit",
-							"type": "CORE:UiRecipe",
-							"description": "Default edit",
-							"plugin": "@development-framework/dm-core-plugins/form",
-							"config": {
-								"type": "PLUGINS:dm-core-plugins/form/FormInput",
-								"fields": ["width", "length", "heigth"]
-							}
-						},
-						"eds_icon": "car"
-					}
-				}
-			]
-		}
-	},
-	"uiRecipes": [
-		{
-			"name": "Yaml",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/yaml",
-			"category": "container"
-		},
-		{
-			"name": "Edit",
-			"type": "CORE:UiRecipe",
-			"description": "Default edit",
-			"plugin": "@development-framework/dm-core-plugins/form"
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/view_selector/car_garage/blueprints/TechBlueprint",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true,
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "EU control",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Edit",
+              "type": "CORE:UiRecipe",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "fields": ["controlDate", "nextControl"]
+              }
+            },
+            "eds_icon": "check"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Dimensions",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Edit",
+              "type": "CORE:UiRecipe",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "fields": ["width", "length", "heigth"]
+              }
+            },
+            "eds_icon": "car"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml",
+      "category": "container"
+    },
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
 }

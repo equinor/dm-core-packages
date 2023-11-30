@@ -18,22 +18,22 @@
  * @interface Reference
  */
 export interface Reference {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Reference
-	 */
-	address: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Reference
-	 */
-	type: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Reference
-	 */
-	referenceType: string
+  /**
+   *
+   * @type {string}
+   * @memberof Reference
+   */
+  address: string
+  /**
+   *
+   * @type {string}
+   * @memberof Reference
+   */
+  type: string
+  /**
+   *
+   * @type {string}
+   * @memberof Reference
+   */
+  referenceType: string
 }

@@ -25,28 +25,28 @@ import { StorageRecipe } from './storage-recipe'
  * @interface Lookup
  */
 export interface Lookup {
-	/**
-	 *
-	 * @type {{ [key: string]: Array<Recipe>; }}
-	 * @memberof Lookup
-	 */
-	uiRecipes?: { [key: string]: Array<Recipe> }
-	/**
-	 *
-	 * @type {{ [key: string]: Array<StorageRecipe>; }}
-	 * @memberof Lookup
-	 */
-	storageRecipes?: { [key: string]: Array<StorageRecipe> }
-	/**
-	 *
-	 * @type {{ [key: string]: Recipe; }}
-	 * @memberof Lookup
-	 */
-	initialUiRecipes?: { [key: string]: Recipe }
-	/**
-	 *
-	 * @type {{ [key: string]: Array<string>; }}
-	 * @memberof Lookup
-	 */
-	extends?: { [key: string]: Array<string> }
+  /**
+   *
+   * @type {{ [key: string]: Array<Recipe>; }}
+   * @memberof Lookup
+   */
+  uiRecipes?: { [key: string]: Array<Recipe> }
+  /**
+   *
+   * @type {{ [key: string]: Array<StorageRecipe>; }}
+   * @memberof Lookup
+   */
+  storageRecipes?: { [key: string]: Array<StorageRecipe> }
+  /**
+   *
+   * @type {{ [key: string]: Recipe; }}
+   * @memberof Lookup
+   */
+  initialUiRecipes?: { [key: string]: Recipe }
+  /**
+   *
+   * @type {{ [key: string]: Array<string>; }}
+   * @memberof Lookup
+   */
+  extends?: { [key: string]: Array<string> }
 }

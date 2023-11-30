@@ -1,16 +1,16 @@
 {
-	"name": "ExtraDataSource",
-	"repositories": {
-		"exampleRepo": {
-			"type": "mongo-db",
-			"host": "db",
-			"port": 27017,
-			"username": "root",
-			"password": "xd7wCEhEx4kszsecYFfC",
-			"tls": false,
-			"database": "ExtraDataSource",
-			"collection": "default",
-			"data_types": []
-		}
-	}
+  "name": "ExtraDataSource",
+  "repositories": {
+    "exampleRepo": {
+      "type": "mongo-db",
+      "host": "db",
+      "port": 27017,
+      "username": "root",
+      "password": "xd7wCEhEx4kszsecYFfC",
+      "tls": false,
+      "database": "ExtraDataSource",
+      "collection": "default",
+      "data_types": []
+    }
+  }
 }

@@ -1,26 +1,26 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "AppModels:signals_simple/StudyNC",
-	"initialUiRecipe": {
-		"name": "Tabs",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"childTabsOnRender": true
-		}
-	},
-	"uiRecipes": [
-		{
-			"name": "Yaml",
-			"type": "CORE:UiRecipe",
-			"plugin": "yaml-view"
-		},
-		{
-			"name": "Edit",
-			"type": "CORE:UiRecipe",
-			"description": "Default edit",
-			"plugin": "@development-framework/dm-core-plugins/form"
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "AppModels:signals_simple/StudyNC",
+  "initialUiRecipe": {
+    "name": "Tabs",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "yaml-view"
+    },
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
 }

@@ -19,10 +19,10 @@
  */
 
 export const RepositoryType = {
-	MongoDb: 'mongo-db',
-	AzureBlobStorage: 'azure-blob-storage',
-	LocalStorage: 'localStorage',
+  MongoDb: 'mongo-db',
+  AzureBlobStorage: 'azure-blob-storage',
+  LocalStorage: 'localStorage',
 } as const
 
 export type RepositoryType =
-	(typeof RepositoryType)[keyof typeof RepositoryType]
+  (typeof RepositoryType)[keyof typeof RepositoryType]

@@ -18,24 +18,24 @@ import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
 import {
-	DUMMY_BASE_URL,
-	assertParamExists,
-	setApiKeyToObject,
-	setBasicAuthToObject,
-	setBearerAuthToObject,
-	setOAuthToObject,
-	setSearchParams,
-	serializeDataIfNeeded,
-	toPathString,
-	createRequestFunction,
+  DUMMY_BASE_URL,
+  assertParamExists,
+  setApiKeyToObject,
+  setBasicAuthToObject,
+  setBearerAuthToObject,
+  setOAuthToObject,
+  setSearchParams,
+  serializeDataIfNeeded,
+  toPathString,
+  createRequestFunction,
 } from '../common'
 // @ts-ignore
 import {
-	BASE_PATH,
-	COLLECTION_FORMATS,
-	RequestArgs,
-	BaseAPI,
-	RequiredError,
+  BASE_PATH,
+  COLLECTION_FORMATS,
+  RequestArgs,
+  BaseAPI,
+  RequiredError,
 } from '../base'
 // @ts-ignore
 import { ErrorResponse } from '../models'
@@ -44,71 +44,78 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const MetaApiAxiosParamCreator = function (
-	configuration?: Configuration
+  configuration?: Configuration
 ) {
-	return {
-		/**
-		 * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
-		 * @summary Get Meta By Id
-		 * @param {string} dataSourceId
-		 * @param {string} documentId
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		metaById: async (
-			dataSourceId: string,
-			documentId: string,
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'dataSourceId' is not null or undefined
-			assertParamExists('metaById', 'dataSourceId', dataSourceId)
-			// verify required parameter 'documentId' is not null or undefined
-			assertParamExists('metaById', 'documentId', documentId)
-			const localVarPath = `/api/meta/{data_source_id}/{document_id}`
-				.replace(`{${'data_source_id'}}`, encodeURIComponent(String(dataSourceId)))
-				.replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-			let baseOptions
-			if (configuration) {
-				baseOptions = configuration.baseOptions
-			}
+  return {
+    /**
+     * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
+     * @summary Get Meta By Id
+     * @param {string} dataSourceId
+     * @param {string} documentId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    metaById: async (
+      dataSourceId: string,
+      documentId: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'dataSourceId' is not null or undefined
+      assertParamExists('metaById', 'dataSourceId', dataSourceId)
+      // verify required parameter 'documentId' is not null or undefined
+      assertParamExists('metaById', 'documentId', documentId)
+      const localVarPath = `/api/meta/{data_source_id}/{document_id}`
+        .replace(
+          `{${'data_source_id'}}`,
+          encodeURIComponent(String(dataSourceId))
+        )
+        .replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: 'GET',
-				...baseOptions,
-				...options,
-			}
-			const localVarHeaderParameter = {} as any
-			const localVarQueryParameter = {} as any
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication APIKeyHeader required
-			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+      // authentication APIKeyHeader required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Access-Key',
+        configuration
+      )
 
-			// authentication OAuth2AuthorizationCodeBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				'OAuth2AuthorizationCodeBearer',
-				[],
-				configuration
-			)
+      // authentication OAuth2AuthorizationCodeBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2AuthorizationCodeBearer',
+        [],
+        configuration
+      )
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter)
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {}
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			}
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			}
-		},
-	}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+  }
 }
 
 /**
@@ -116,36 +123,36 @@ export const MetaApiAxiosParamCreator = function (
  * @export
  */
 export const MetaApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = MetaApiAxiosParamCreator(configuration)
-	return {
-		/**
-		 * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
-		 * @summary Get Meta By Id
-		 * @param {string} dataSourceId
-		 * @param {string} documentId
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async metaById(
-			dataSourceId: string,
-			documentId: string,
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.metaById(
-				dataSourceId,
-				documentId,
-				options
-			)
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			)
-		},
-	}
+  const localVarAxiosParamCreator = MetaApiAxiosParamCreator(configuration)
+  return {
+    /**
+     * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
+     * @summary Get Meta By Id
+     * @param {string} dataSourceId
+     * @param {string} documentId
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async metaById(
+      dataSourceId: string,
+      documentId: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.metaById(
+        dataSourceId,
+        documentId,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+  }
 }
 
 /**
@@ -153,32 +160,32 @@ export const MetaApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const MetaApiFactory = function (
-	configuration?: Configuration,
-	basePath?: string,
-	axios?: AxiosInstance
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
 ) {
-	const localVarFp = MetaApiFp(configuration)
-	return {
-		/**
-		 * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
-		 * @summary Get Meta By Id
-		 * @param {MetaApiMetaByIdRequest} requestParameters Request parameters.
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		metaById(
-			requestParameters: MetaApiMetaByIdRequest,
-			options?: AxiosRequestConfig
-		): AxiosPromise<object> {
-			return localVarFp
-				.metaById(
-					requestParameters.dataSourceId,
-					requestParameters.documentId,
-					options
-				)
-				.then((request) => request(axios, basePath))
-		},
-	}
+  const localVarFp = MetaApiFp(configuration)
+  return {
+    /**
+     * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
+     * @summary Get Meta By Id
+     * @param {MetaApiMetaByIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    metaById(
+      requestParameters: MetaApiMetaByIdRequest,
+      options?: AxiosRequestConfig
+    ): AxiosPromise<object> {
+      return localVarFp
+        .metaById(
+          requestParameters.dataSourceId,
+          requestParameters.documentId,
+          options
+        )
+        .then((request) => request(axios, basePath))
+    },
+  }
 }
 
 /**
@@ -187,19 +194,19 @@ export const MetaApiFactory = function (
  * @interface MetaApiMetaByIdRequest
  */
 export interface MetaApiMetaByIdRequest {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof MetaApiMetaById
-	 */
-	readonly dataSourceId: string
+  /**
+   *
+   * @type {string}
+   * @memberof MetaApiMetaById
+   */
+  readonly dataSourceId: string
 
-	/**
-	 *
-	 * @type {string}
-	 * @memberof MetaApiMetaById
-	 */
-	readonly documentId: string
+  /**
+   *
+   * @type {string}
+   * @memberof MetaApiMetaById
+   */
+  readonly documentId: string
 }
 
 /**
@@ -209,24 +216,24 @@ export interface MetaApiMetaByIdRequest {
  * @extends {BaseAPI}
  */
 export class MetaApi extends BaseAPI {
-	/**
-	 * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
-	 * @summary Get Meta By Id
-	 * @param {MetaApiMetaByIdRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof MetaApi
-	 */
-	public metaById(
-		requestParameters: MetaApiMetaByIdRequest,
-		options?: AxiosRequestConfig
-	) {
-		return MetaApiFp(this.configuration)
-			.metaById(
-				requestParameters.dataSourceId,
-				requestParameters.documentId,
-				options
-			)
-			.then((request) => request(this.axios, this.basePath))
-	}
+  /**
+   * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
+   * @summary Get Meta By Id
+   * @param {MetaApiMetaByIdRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof MetaApi
+   */
+  public metaById(
+    requestParameters: MetaApiMetaByIdRequest,
+    options?: AxiosRequestConfig
+  ) {
+    return MetaApiFp(this.configuration)
+      .metaById(
+        requestParameters.dataSourceId,
+        requestParameters.documentId,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath))
+  }
 }

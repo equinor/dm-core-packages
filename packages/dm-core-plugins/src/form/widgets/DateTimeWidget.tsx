@@ -6,33 +6,33 @@ import { TWidget } from '../types'
 import { DateTime } from 'luxon'
 
 const DateTimeWidget = (props: TWidget) => {
-	const { label, onChange, isDirty } = props
-	const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		onChange?.(new Date(event.target.value).toISOString())
-	}
+  const { label, onChange, isDirty } = props
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange?.(new Date(event.target.value).toISOString())
+  }
 
-	return (
-		<TextField
-			id={props.id}
-			readOnly={props.readOnly}
-			defaultValue={DateTime.fromISO(props.value).toFormat("yyyy-MM-dd'T'T")}
-			inputRef={props.inputRef}
-			variant={props.variant}
-			helperText={props.helperText}
-			onChange={onChangeHandler}
-			label={label}
-			type='datetime-local'
-			data-testid={`form-datetime-widget-${label}`}
-			style={
-				isDirty && props.variant !== 'error'
-					? {
-							// @ts-ignore
-							'--eds-input-background': '#85babf5e',
-					  }
-					: {}
-			}
-		/>
-	)
+  return (
+    <TextField
+      id={props.id}
+      readOnly={props.readOnly}
+      defaultValue={DateTime.fromISO(props.value).toFormat("yyyy-MM-dd'T'T")}
+      inputRef={props.inputRef}
+      variant={props.variant}
+      helperText={props.helperText}
+      onChange={onChangeHandler}
+      label={label}
+      type='datetime-local'
+      data-testid={`form-datetime-widget-${label}`}
+      style={
+        isDirty && props.variant !== 'error'
+          ? {
+              // @ts-ignore
+              '--eds-input-background': '#85babf5e',
+            }
+          : {}
+      }
+    />
+  )
 }
 
 export default DateTimeWidget

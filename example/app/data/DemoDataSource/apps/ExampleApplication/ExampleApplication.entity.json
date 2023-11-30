@@ -1,7 +1,7 @@
 {
-	"_id": "example-application-id",
-	"name": "ExampleApplication",
-	"type": "/apps/ExampleApplication/blueprints/ExampleApplication",
-	"label": "Example Application",
-	"dataSources": ["DemoDataSource", "system", "WorkflowDS"]
+  "_id": "example-application-id",
+  "name": "ExampleApplication",
+  "type": "/apps/ExampleApplication/blueprints/ExampleApplication",
+  "label": "Example Application",
+  "dataSources": ["DemoDataSource", "system", "WorkflowDS"]
 }

@@ -1,24 +1,24 @@
 {
-	"name": "TargetAddress",
-	"type": "CORE:Blueprint",
-	"description": "",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "addressScope",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true,
-			"default": "local"
-		},
-		{
-			"name": "targetAddress",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string"
-		}
-	]
+  "name": "TargetAddress",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "addressScope",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": "local"
+    },
+    {
+      "name": "targetAddress",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
 }

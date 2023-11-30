@@ -22,16 +22,16 @@ import { Repository } from './repository'
  * @interface DataSourceRequest
  */
 export interface DataSourceRequest {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof DataSourceRequest
-	 */
-	name: string
-	/**
-	 *
-	 * @type {{ [key: string]: Repository; }}
-	 * @memberof DataSourceRequest
-	 */
-	repositories: { [key: string]: Repository }
+  /**
+   *
+   * @type {string}
+   * @memberof DataSourceRequest
+   */
+  name: string
+  /**
+   *
+   * @type {{ [key: string]: Repository; }}
+   * @memberof DataSourceRequest
+   */
+  repositories: { [key: string]: Repository }
 }

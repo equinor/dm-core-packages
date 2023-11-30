@@ -1,17 +1,17 @@
 {
-	"name": "Order",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "items",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./OrderItem",
-			"dimensions": "*"
-		}
-	]
+  "name": "Order",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "items",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./OrderItem",
+      "dimensions": "*"
+    }
+  ]
 }

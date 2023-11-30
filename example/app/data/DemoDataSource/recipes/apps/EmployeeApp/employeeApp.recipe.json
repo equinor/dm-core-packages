@@ -1,23 +1,23 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/apps/EmployeeApp/blueprints/EmployeeApp",
-	"initialUiRecipe": {
-		"name": "UiRecipesSelector",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "Employees",
-					"viewConfig": {
-						"type": "CORE:ReferenceViewConfig",
-						"recipe": "Edit",
-						"scope": "employees"
-					}
-				}
-			]
-		}
-	}
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/apps/EmployeeApp/blueprints/EmployeeApp",
+  "initialUiRecipe": {
+    "name": "UiRecipesSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Employees",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Edit",
+            "scope": "employees"
+          }
+        }
+      ]
+    }
+  }
 }

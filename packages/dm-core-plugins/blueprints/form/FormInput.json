@@ -1,45 +1,45 @@
 {
-	"name": "FormInput",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"description": "",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "attributes",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "PLUGINS:dm-core-plugins/form/fields/Field",
-			"dimensions": "*",
-			"optional": true,
-			"contained": true
-		},
-		{
-			"name": "fields",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"description": "Define which attributes should be shown, and in what order",
-			"attributeType": "string",
-			"dimensions": "*",
-			"optional": true,
-			"contained": true
-		},
-		{
-			"name": "readOnly",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "boolean",
-			"optional": true,
-			"contained": true,
-			"default": false
-		},
-		{
-			"name": "showExpanded",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"description": "If true, fields will be expanded by default if shown inline.",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": true
-		}
-	]
+  "name": "FormInput",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "attributes",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/form/fields/Field",
+      "dimensions": "*",
+      "optional": true,
+      "contained": true
+    },
+    {
+      "name": "fields",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Define which attributes should be shown, and in what order",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": true,
+      "contained": true
+    },
+    {
+      "name": "readOnly",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "contained": true,
+      "default": false
+    },
+    {
+      "name": "showExpanded",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "If true, fields will be expanded by default if shown inline.",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    }
+  ]
 }

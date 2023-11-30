@@ -1,67 +1,67 @@
 {
-	"name": "CarRentalCompany",
-	"type": "CORE:Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": false
-		},
-		{
-			"name": "owner",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Person",
-			"label": "Owner"
-		},
-		{
-			"name": "ceo",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Person",
-			"label": "CEO",
-			"optional": true
-		},
-		{
-			"name": "accountant",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Person",
-			"label": "Accountant"
-		},
-		{
-			"name": "trainee",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Person",
-			"label": "Trainee",
-			"optional": true
-		},
-		{
-			"name": "cars",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Car",
-			"dimensions": "*",
-			"label": "Cars"
-		},
-		{
-			"name": "customers",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Customer",
-			"dimensions": "*",
-			"label": "Customers"
-		},
-		{
-			"name": "locations",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"dimensions": "*",
-			"label": "Locations"
-		},
-		{
-			"name": "isBankrupt",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "boolean",
-			"label": "Bankruptcy status",
-			"optional": true,
-			"default": false
-		}
-	]
+  "name": "CarRentalCompany",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
+    },
+    {
+      "name": "owner",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Person",
+      "label": "Owner"
+    },
+    {
+      "name": "ceo",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Person",
+      "label": "CEO",
+      "optional": true
+    },
+    {
+      "name": "accountant",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Person",
+      "label": "Accountant"
+    },
+    {
+      "name": "trainee",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Person",
+      "label": "Trainee",
+      "optional": true
+    },
+    {
+      "name": "cars",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Car",
+      "dimensions": "*",
+      "label": "Cars"
+    },
+    {
+      "name": "customers",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Customer",
+      "dimensions": "*",
+      "label": "Customers"
+    },
+    {
+      "name": "locations",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "label": "Locations"
+    },
+    {
+      "name": "isBankrupt",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "label": "Bankruptcy status",
+      "optional": true,
+      "default": false
+    }
+  ]
 }

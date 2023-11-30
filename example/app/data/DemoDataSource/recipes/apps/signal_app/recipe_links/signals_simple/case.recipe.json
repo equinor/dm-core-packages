@@ -1,166 +1,166 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "AppModels:signals_simple/Case",
-	"initialUiRecipe": {
-		"name": "Dashboard",
-		"type": "CORE:UiRecipe",
-		"description": "ESS Plot",
-		"showRefreshButton": true,
-		"plugin": "@development-framework/dm-core-plugins/grid",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
-			"size": {
-				"type": "PLUGINS:dm-core-plugins/grid/GridSize",
-				"columns": 2,
-				"rows": 4
-			},
-			"showItemBorders": false,
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
-					"viewConfig": {
-						"type": "CORE:ReferenceViewConfig",
-						"recipe": "Tabs"
-					},
-					"gridArea": {
-						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
-						"rowStart": 1,
-						"columnStart": 1,
-						"rowEnd": 3,
-						"columnEnd": 1
-					}
-				},
-				{
-					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
-					"viewConfig": {
-						"type": "CORE:ReferenceViewConfig",
-						"scope": "signal",
-						"recipe": "Plot"
-					},
-					"gridArea": {
-						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
-						"rowStart": 1,
-						"columnStart": 2,
-						"rowEnd": 3,
-						"columnEnd": 2
-					}
-				},
-				{
-					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
-					"viewConfig": {
-						"type": "CORE:ReferenceViewConfig",
-						"recipe": "RunJob"
-					},
-					"gridArea": {
-						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
-						"rowStart": 4,
-						"columnStart": 1,
-						"rowEnd": 4,
-						"columnEnd": 2
-					}
-				}
-			]
-		}
-	},
-	"uiRecipes": [
-		{
-			"name": "Tabs",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-			"config": {
-				"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-				"childTabsOnRender": true,
-				"items": [
-					{
-						"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-						"label": "Home",
-						"viewConfig": {
-							"type": "CORE:ReferenceViewConfig",
-							"recipe": "Edit"
-						}
-					}
-				]
-			}
-		},
-		{
-			"name": "Edit",
-			"type": "CORE:UiRecipe",
-			"description": "Default edit",
-			"plugin": "@development-framework/dm-core-plugins/form",
-			"config": {
-				"type": "PLUGINS:dm-core-plugins/form/FormInput",
-				"fields": ["name", "description", "duration", "timeStep", "components"]
-			}
-		},
-		{
-			"name": "RunJob",
-			"type": "CORE:UiRecipe",
-			"description": "running",
-			"plugin": "@development-framework/dm-core-plugins/job/single_job",
-			"config": {
-				"type": "PLUGINS:dm-core-plugins/job/JobConfig",
-				"jobTargetAddress": {
-					"type": "PLUGINS:dm-core-plugins/job/TargetAddress",
-					"targetAddress": ".job",
-					"addressScope": "local"
-				},
-				"label": "signal job",
-				"runner": {
-					"type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob"
-				},
-				"outputTarget": "dmss://DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].signal",
-				"jobInput": {
-					"type": "PLUGINS:dm-core-plugins/job/TargetAddress",
-					"targetAddress": "."
-				}
-			}
-		},
-		{
-			"name": "Table",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/table",
-			"dimensions": "*",
-			"config": {
-				"type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-				"variant": [
-					{
-						"name": "view",
-						"type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
-					},
-					{
-						"name": "edit",
-						"type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
-					}
-				],
-				"columns": [
-					{
-						"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-						"data": "^expandable"
-					},
-					{
-						"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-						"data": "name"
-					},
-					{
-						"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-						"data": "description"
-					},
-					{
-						"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-						"data": "^tab"
-					}
-				],
-				"expandableRecipeViewConfig": {
-					"type": "CORE:InlineRecipeViewConfig",
-					"scope": "self",
-					"recipe": {
-						"name": "Edit",
-						"type": "CORE:UiRecipe",
-						"description": "Default edit",
-						"plugin": "@development-framework/dm-core-plugins/form"
-					}
-				}
-			}
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "AppModels:signals_simple/Case",
+  "initialUiRecipe": {
+    "name": "Dashboard",
+    "type": "CORE:UiRecipe",
+    "description": "ESS Plot",
+    "showRefreshButton": true,
+    "plugin": "@development-framework/dm-core-plugins/grid",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+      "size": {
+        "type": "PLUGINS:dm-core-plugins/grid/GridSize",
+        "columns": 2,
+        "rows": 4
+      },
+      "showItemBorders": false,
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Tabs"
+          },
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "rowStart": 1,
+            "columnStart": 1,
+            "rowEnd": 3,
+            "columnEnd": 1
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "scope": "signal",
+            "recipe": "Plot"
+          },
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "rowStart": 1,
+            "columnStart": 2,
+            "rowEnd": 3,
+            "columnEnd": 2
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "RunJob"
+          },
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "rowStart": 4,
+            "columnStart": 1,
+            "rowEnd": 4,
+            "columnEnd": 2
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Tabs",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+        "childTabsOnRender": true,
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+            "label": "Home",
+            "viewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "Edit"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
+        "fields": ["name", "description", "duration", "timeStep", "components"]
+      }
+    },
+    {
+      "name": "RunJob",
+      "type": "CORE:UiRecipe",
+      "description": "running",
+      "plugin": "@development-framework/dm-core-plugins/job/single_job",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/job/JobConfig",
+        "jobTargetAddress": {
+          "type": "PLUGINS:dm-core-plugins/job/TargetAddress",
+          "targetAddress": ".job",
+          "addressScope": "local"
+        },
+        "label": "signal job",
+        "runner": {
+          "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob"
+        },
+        "outputTarget": "dmss://DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0].signal",
+        "jobInput": {
+          "type": "PLUGINS:dm-core-plugins/job/TargetAddress",
+          "targetAddress": "."
+        }
+      }
+    },
+    {
+      "name": "Table",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/table",
+      "dimensions": "*",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+        "variant": [
+          {
+            "name": "view",
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+          },
+          {
+            "name": "edit",
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+          }
+        ],
+        "columns": [
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "^expandable"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "name"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "description"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+            "data": "^tab"
+          }
+        ],
+        "expandableRecipeViewConfig": {
+          "type": "CORE:InlineRecipeViewConfig",
+          "scope": "self",
+          "recipe": {
+            "name": "Edit",
+            "type": "CORE:UiRecipe",
+            "description": "Default edit",
+            "plugin": "@development-framework/dm-core-plugins/form"
+          }
+        }
+      }
+    }
+  ]
 }

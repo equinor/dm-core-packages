@@ -1,118 +1,118 @@
 {
-	"name": "EquallySpacedSignal",
-	"type": "CORE:Blueprint",
-	"description": "data model for an equally spaced signal.",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "name",
-			"type": "CORE:BlueprintAttribute",
-			"description": "variable name for named accessing",
-			"attributeType": "string",
-			"default": "signal",
-			"contained": true,
-			"optional": false
-		},
-		{
-			"name": "description",
-			"type": "CORE:BlueprintAttribute",
-			"description": "instance description",
-			"attributeType": "string",
-			"default": "signal desc",
-			"contained": true,
-			"optional": true
-		},
-		{
-			"name": "value",
-			"type": "CORE:BlueprintAttribute",
-			"description": "data points.",
-			"attributeType": "number",
-			"dimensions": "*",
-			"contained": true,
-			"optional": false
-		},
-		{
-			"name": "xname",
-			"type": "CORE:BlueprintAttribute",
-			"description": "name for the x value",
-			"attributeType": "string",
-			"contained": true,
-			"optional": true
-		},
-		{
-			"name": "xdescription",
-			"type": "CORE:BlueprintAttribute",
-			"description": "description for the x-axis",
-			"attributeType": "string",
-			"contained": true,
-			"optional": true
-		},
-		{
-			"name": "xunit",
-			"type": "CORE:BlueprintAttribute",
-			"description": "x-axis unit.",
-			"attributeType": "string",
-			"default": "s",
-			"contained": true,
-			"optional": true
-		},
-		{
-			"name": "xdelta",
-			"type": "CORE:BlueprintAttribute",
-			"description": "x-axis or index spacing.",
-			"attributeType": "number",
-			"contained": true,
-			"default": 1,
-			"optional": false
-		},
-		{
-			"name": "xstart",
-			"type": "CORE:BlueprintAttribute",
-			"description": "x-axis or index start.",
-			"attributeType": "number",
-			"contained": true,
-			"default": 0,
-			"optional": true
-		},
-		{
-			"name": "xlabel",
-			"type": "CORE:BlueprintAttribute",
-			"description": "label for the x-axis.",
-			"attributeType": "string",
-			"default": "time",
-			"contained": true,
-			"optional": false
-		},
-		{
-			"name": "label",
-			"type": "CORE:BlueprintAttribute",
-			"description": "label for the y-axis.",
-			"attributeType": "string",
-			"default": " ",
-			"contained": true,
-			"optional": false
-		},
-		{
-			"name": "legend",
-			"type": "CORE:BlueprintAttribute",
-			"description": "description of xy values to be used as legend.",
-			"attributeType": "string",
-			"default": " ",
-			"contained": true,
-			"optional": false
-		},
-		{
-			"name": "unit",
-			"type": "CORE:BlueprintAttribute",
-			"description": "data unit.",
-			"attributeType": "string",
-			"default": "m",
-			"contained": true,
-			"optional": false
-		}
-	]
+  "name": "EquallySpacedSignal",
+  "type": "CORE:Blueprint",
+  "description": "data model for an equally spaced signal.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "description": "variable name for named accessing",
+      "attributeType": "string",
+      "default": "signal",
+      "contained": true,
+      "optional": false
+    },
+    {
+      "name": "description",
+      "type": "CORE:BlueprintAttribute",
+      "description": "instance description",
+      "attributeType": "string",
+      "default": "signal desc",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "name": "value",
+      "type": "CORE:BlueprintAttribute",
+      "description": "data points.",
+      "attributeType": "number",
+      "dimensions": "*",
+      "contained": true,
+      "optional": false
+    },
+    {
+      "name": "xname",
+      "type": "CORE:BlueprintAttribute",
+      "description": "name for the x value",
+      "attributeType": "string",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "name": "xdescription",
+      "type": "CORE:BlueprintAttribute",
+      "description": "description for the x-axis",
+      "attributeType": "string",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "name": "xunit",
+      "type": "CORE:BlueprintAttribute",
+      "description": "x-axis unit.",
+      "attributeType": "string",
+      "default": "s",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "name": "xdelta",
+      "type": "CORE:BlueprintAttribute",
+      "description": "x-axis or index spacing.",
+      "attributeType": "number",
+      "contained": true,
+      "default": 1,
+      "optional": false
+    },
+    {
+      "name": "xstart",
+      "type": "CORE:BlueprintAttribute",
+      "description": "x-axis or index start.",
+      "attributeType": "number",
+      "contained": true,
+      "default": 0,
+      "optional": true
+    },
+    {
+      "name": "xlabel",
+      "type": "CORE:BlueprintAttribute",
+      "description": "label for the x-axis.",
+      "attributeType": "string",
+      "default": "time",
+      "contained": true,
+      "optional": false
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "description": "label for the y-axis.",
+      "attributeType": "string",
+      "default": " ",
+      "contained": true,
+      "optional": false
+    },
+    {
+      "name": "legend",
+      "type": "CORE:BlueprintAttribute",
+      "description": "description of xy values to be used as legend.",
+      "attributeType": "string",
+      "default": " ",
+      "contained": true,
+      "optional": false
+    },
+    {
+      "name": "unit",
+      "type": "CORE:BlueprintAttribute",
+      "description": "data unit.",
+      "attributeType": "string",
+      "default": "m",
+      "contained": true,
+      "optional": false
+    }
+  ]
 }

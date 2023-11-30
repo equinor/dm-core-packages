@@ -1,28 +1,28 @@
 {
-	"_id": "taskList",
-	"name": "TaskList",
-	"type": "./blueprints/TaskList",
-	"task_list": [
-		{
-			"name": "Wash the car",
-			"type": "./blueprints/Task",
-			"description": "Car needs a thorough wash inside and outside.",
-			"assigned": "Mark Johnson",
-			"complete": false
-		},
-		{
-			"name": "Mow the lawn",
-			"type": "./blueprints/Task",
-			"description": "",
-			"assigned": "",
-			"complete": false
-		},
-		{
-			"name": "Paint the living room",
-			"type": "./blueprints/Task",
-			"description": "",
-			"assigned": "",
-			"complete": false
-		}
-	]
+  "_id": "taskList",
+  "name": "TaskList",
+  "type": "./blueprints/TaskList",
+  "task_list": [
+    {
+      "name": "Wash the car",
+      "type": "./blueprints/Task",
+      "description": "Car needs a thorough wash inside and outside.",
+      "assigned": "Mark Johnson",
+      "complete": false
+    },
+    {
+      "name": "Mow the lawn",
+      "type": "./blueprints/Task",
+      "description": "",
+      "assigned": "",
+      "complete": false
+    },
+    {
+      "name": "Paint the living room",
+      "type": "./blueprints/Task",
+      "description": "",
+      "assigned": "",
+      "complete": false
+    }
+  ]
 }

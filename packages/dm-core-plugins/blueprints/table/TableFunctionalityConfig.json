@@ -1,25 +1,25 @@
 {
-	"name": "TableFunctionalityConfig",
-	"type": "CORE:Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "delete",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": false
-		},
-		{
-			"name": "add",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": false
-		}
-	]
+  "name": "TableFunctionalityConfig",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "delete",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
+      "name": "add",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    }
+  ]
 }

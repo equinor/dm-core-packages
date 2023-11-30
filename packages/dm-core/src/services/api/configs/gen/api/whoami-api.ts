@@ -18,24 +18,24 @@ import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
 import {
-	DUMMY_BASE_URL,
-	assertParamExists,
-	setApiKeyToObject,
-	setBasicAuthToObject,
-	setBearerAuthToObject,
-	setOAuthToObject,
-	setSearchParams,
-	serializeDataIfNeeded,
-	toPathString,
-	createRequestFunction,
+  DUMMY_BASE_URL,
+  assertParamExists,
+  setApiKeyToObject,
+  setBasicAuthToObject,
+  setBearerAuthToObject,
+  setOAuthToObject,
+  setSearchParams,
+  serializeDataIfNeeded,
+  toPathString,
+  createRequestFunction,
 } from '../common'
 // @ts-ignore
 import {
-	BASE_PATH,
-	COLLECTION_FORMATS,
-	RequestArgs,
-	BaseAPI,
-	RequiredError,
+  BASE_PATH,
+  COLLECTION_FORMATS,
+  RequestArgs,
+  BaseAPI,
+  RequiredError,
 } from '../base'
 // @ts-ignore
 import { ErrorResponse } from '../models'
@@ -44,59 +44,63 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const WhoamiApiAxiosParamCreator = function (
-	configuration?: Configuration
+  configuration?: Configuration
 ) {
-	return {
-		/**
-		 * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
-		 * @summary Get Information On Authenticated User
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		whoami: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/whoami`
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-			let baseOptions
-			if (configuration) {
-				baseOptions = configuration.baseOptions
-			}
+  return {
+    /**
+     * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
+     * @summary Get Information On Authenticated User
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    whoami: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/api/whoami`
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: 'GET',
-				...baseOptions,
-				...options,
-			}
-			const localVarHeaderParameter = {} as any
-			const localVarQueryParameter = {} as any
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication APIKeyHeader required
-			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+      // authentication APIKeyHeader required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Access-Key',
+        configuration
+      )
 
-			// authentication OAuth2AuthorizationCodeBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				'OAuth2AuthorizationCodeBearer',
-				[],
-				configuration
-			)
+      // authentication OAuth2AuthorizationCodeBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2AuthorizationCodeBearer',
+        [],
+        configuration
+      )
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter)
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {}
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			}
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			}
-		},
-	}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+  }
 }
 
 /**
@@ -104,26 +108,28 @@ export const WhoamiApiAxiosParamCreator = function (
  * @export
  */
 export const WhoamiApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = WhoamiApiAxiosParamCreator(configuration)
-	return {
-		/**
-		 * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
-		 * @summary Get Information On Authenticated User
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async whoami(
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.whoami(options)
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			)
-		},
-	}
+  const localVarAxiosParamCreator = WhoamiApiAxiosParamCreator(configuration)
+  return {
+    /**
+     * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
+     * @summary Get Information On Authenticated User
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async whoami(
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.whoami(options)
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+  }
 }
 
 /**
@@ -131,22 +137,24 @@ export const WhoamiApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const WhoamiApiFactory = function (
-	configuration?: Configuration,
-	basePath?: string,
-	axios?: AxiosInstance
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
 ) {
-	const localVarFp = WhoamiApiFp(configuration)
-	return {
-		/**
-		 * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
-		 * @summary Get Information On Authenticated User
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		whoami(options?: AxiosRequestConfig): AxiosPromise<any> {
-			return localVarFp.whoami(options).then((request) => request(axios, basePath))
-		},
-	}
+  const localVarFp = WhoamiApiFp(configuration)
+  return {
+    /**
+     * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
+     * @summary Get Information On Authenticated User
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    whoami(options?: AxiosRequestConfig): AxiosPromise<any> {
+      return localVarFp
+        .whoami(options)
+        .then((request) => request(axios, basePath))
+    },
+  }
 }
 
 /**
@@ -156,16 +164,16 @@ export const WhoamiApiFactory = function (
  * @extends {BaseAPI}
  */
 export class WhoamiApi extends BaseAPI {
-	/**
-	 * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
-	 * @summary Get Information On Authenticated User
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof WhoamiApi
-	 */
-	public whoami(options?: AxiosRequestConfig) {
-		return WhoamiApiFp(this.configuration)
-			.whoami(options)
-			.then((request) => request(this.axios, this.basePath))
-	}
+  /**
+   * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
+   * @summary Get Information On Authenticated User
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof WhoamiApi
+   */
+  public whoami(options?: AxiosRequestConfig) {
+    return WhoamiApiFp(this.configuration)
+      .whoami(options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 }

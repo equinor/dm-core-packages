@@ -11,16 +11,16 @@ import DateTimeWidget from './DateTimeWidget'
 import DimensionalScalarWidget from './DimensionalScalarWidget'
 
 const widgets: TWidgets = {
-	CheckboxWidget,
-	TextWidget,
-	TextareaWidget,
-	BlueprintPickerWidget,
-	TypeWidget,
-	SwitchWidget,
-	SelectWidget,
-	NumberWidget,
-	DateTimeWidget,
-	DimensionalScalarWidget,
+  CheckboxWidget,
+  TextWidget,
+  TextareaWidget,
+  BlueprintPickerWidget,
+  TypeWidget,
+  SwitchWidget,
+  SelectWidget,
+  NumberWidget,
+  DateTimeWidget,
+  DimensionalScalarWidget,
 }
 
 export default widgets

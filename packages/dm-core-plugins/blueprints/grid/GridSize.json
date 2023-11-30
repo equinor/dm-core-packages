@@ -1,53 +1,53 @@
 {
-	"name": "GridSize",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "columns",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "number",
-			"default": 5
-		},
-		{
-			"name": "columnSizes",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true,
-			"dimensions": "*"
-		},
-		{
-			"name": "rows",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "number",
-			"default": 5,
-			"optional": true
-		},
-		{
-			"name": "rowSizes",
-			"type": "CORE:BlueprintAttribute",
-			"description": "Defines row sizes in relation to each other.",
-			"attributeType": "string",
-			"optional": true,
-			"dimensions": "*"
-		},
-		{
-			"name": "rowGap",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true,
-			"default": "16px"
-		},
-		{
-			"name": "columnGap",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true,
-			"default": "16px"
-		}
-	]
+  "name": "GridSize",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "columns",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "default": 5
+    },
+    {
+      "name": "columnSizes",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "rows",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "default": 5,
+      "optional": true
+    },
+    {
+      "name": "rowSizes",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Defines row sizes in relation to each other.",
+      "attributeType": "string",
+      "optional": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "rowGap",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": "16px"
+    },
+    {
+      "name": "columnGap",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": "16px"
+    }
+  ]
 }

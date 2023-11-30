@@ -1,73 +1,73 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/table/dm_plugins/blueprints/PluginsList",
-	"initialUiRecipe": {
-		"name": "ViewSelector",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"viewConfig": {
-						"type": "CORE:InlineRecipeViewConfig",
-						"recipe": {
-							"name": "plugins",
-							"type": "CORE:UiRecipe",
-							"description": "List of plugins",
-							"plugin": "@development-framework/dm-core-plugins/table",
-							"config": {
-								"type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-								"variant": [
-									{
-										"name": "view",
-										"type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
-									},
-									{
-										"name": "edit",
-										"type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
-									}
-								],
-								"columns": [
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "name",
-										"label": "Name",
-										"sortable": true
-									},
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "developed",
-										"label": "Developed",
-										"dataType": "boolean",
-										"sortable": true
-									},
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "documented",
-										"label": "Documented",
-										"dataType": "boolean",
-										"presentAs": "text"
-									},
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "importance",
-										"label": "Importance",
-										"dataType": "number",
-										"sortable": true
-									},
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "^tab"
-									}
-								]
-							}
-						},
-						"scope": "plugins"
-					}
-				}
-			]
-		}
-	}
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/table/dm_plugins/blueprints/PluginsList",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "plugins",
+              "type": "CORE:UiRecipe",
+              "description": "List of plugins",
+              "plugin": "@development-framework/dm-core-plugins/table",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+                "variant": [
+                  {
+                    "name": "view",
+                    "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+                  },
+                  {
+                    "name": "edit",
+                    "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+                  }
+                ],
+                "columns": [
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "name",
+                    "label": "Name",
+                    "sortable": true
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "developed",
+                    "label": "Developed",
+                    "dataType": "boolean",
+                    "sortable": true
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "documented",
+                    "label": "Documented",
+                    "dataType": "boolean",
+                    "presentAs": "text"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "importance",
+                    "label": "Importance",
+                    "dataType": "number",
+                    "sortable": true
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "^tab"
+                  }
+                ]
+              }
+            },
+            "scope": "plugins"
+          }
+        }
+      ]
+    }
+  }
 }

@@ -18,16 +18,16 @@
  * @interface StartJobResponse
  */
 export interface StartJobResponse {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof StartJobResponse
-	 */
-	message: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof StartJobResponse
-	 */
-	uid: string
+  /**
+   *
+   * @type {string}
+   * @memberof StartJobResponse
+   */
+  message: string
+  /**
+   *
+   * @type {string}
+   * @memberof StartJobResponse
+   */
+  uid: string
 }

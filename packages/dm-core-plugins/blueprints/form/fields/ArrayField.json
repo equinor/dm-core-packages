@@ -1,27 +1,27 @@
 {
-	"name": "ArrayField",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"extends": ["PLUGINS:dm-core-plugins/form/fields/Field"],
-	"attributes": [
-		{
-			"name": "widget",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"optional": true,
-			"attributeType": "string"
-		},
-		{
-			"name": "uiRecipe",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"optional": true,
-			"attributeType": "string"
-		},
-		{
-			"name": "showExpanded",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"description": "If true, the attribute will be expanded if shown inline.",
-			"optional": true,
-			"default": false,
-			"attributeType": "boolean"
-		}
-	]
+  "name": "ArrayField",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "extends": ["PLUGINS:dm-core-plugins/form/fields/Field"],
+  "attributes": [
+    {
+      "name": "widget",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true,
+      "attributeType": "string"
+    },
+    {
+      "name": "uiRecipe",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true,
+      "attributeType": "string"
+    },
+    {
+      "name": "showExpanded",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "If true, the attribute will be expanded if shown inline.",
+      "optional": true,
+      "default": false,
+      "attributeType": "boolean"
+    }
+  ]
 }

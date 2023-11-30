@@ -1,44 +1,44 @@
 {
-	"name": "CarGarage",
-	"type": "./blueprints/CarGarage",
-	"description": "Here you will find detailed information about the cars in our garage",
-	"Audi": {
-		"name": "Audi",
-		"type": "./blueprints/CarBlueprint",
-		"model": "2023",
-		"Owner": {
-			"name": "Aiden",
-			"type": "./blueprints/OwnerBlueprint",
-			"earlierOwners": ["Melissa"]
-		},
-		"Technical": {
-			"name": "Technical",
-			"type": "./blueprints/TechBlueprint",
-			"controlDate": "2023-06-01",
-			"nextControl": "2025-06-01",
-			"width": 1800,
-			"length": 4500,
-			"heigth": 1600
-		}
-	},
-	"Volvo": {
-		"name": "Volvo",
-		"type": "./blueprints/CarBlueprint",
-		"model": "2023",
-		"Owner": {
-			"name": "Devon",
-			"type": "./blueprints/OwnerBlueprint",
-			"DateOwned": "2023-06-01",
-			"earlierOwners": ["Jack", "Maria"]
-		},
-		"Technical": {
-			"name": "Technical",
-			"type": "./blueprints/TechBlueprint",
-			"controlDate": "2023-06-01",
-			"nextControl": "2025-06-01",
-			"width": 1800,
-			"length": 4500,
-			"heigth": 1600
-		}
-	}
+  "name": "CarGarage",
+  "type": "./blueprints/CarGarage",
+  "description": "Here you will find detailed information about the cars in our garage",
+  "Audi": {
+    "name": "Audi",
+    "type": "./blueprints/CarBlueprint",
+    "model": "2023",
+    "Owner": {
+      "name": "Aiden",
+      "type": "./blueprints/OwnerBlueprint",
+      "earlierOwners": ["Melissa"]
+    },
+    "Technical": {
+      "name": "Technical",
+      "type": "./blueprints/TechBlueprint",
+      "controlDate": "2023-06-01",
+      "nextControl": "2025-06-01",
+      "width": 1800,
+      "length": 4500,
+      "heigth": 1600
+    }
+  },
+  "Volvo": {
+    "name": "Volvo",
+    "type": "./blueprints/CarBlueprint",
+    "model": "2023",
+    "Owner": {
+      "name": "Devon",
+      "type": "./blueprints/OwnerBlueprint",
+      "DateOwned": "2023-06-01",
+      "earlierOwners": ["Jack", "Maria"]
+    },
+    "Technical": {
+      "name": "Technical",
+      "type": "./blueprints/TechBlueprint",
+      "controlDate": "2023-06-01",
+      "nextControl": "2025-06-01",
+      "width": 1800,
+      "length": 4500,
+      "heigth": 1600
+    }
+  }
 }

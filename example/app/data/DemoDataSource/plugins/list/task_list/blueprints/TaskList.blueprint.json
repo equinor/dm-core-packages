@@ -1,23 +1,23 @@
 {
-	"name": "TaskList",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "name",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "task_list",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Task",
-			"dimensions": "*",
-			"contained": true
-		}
-	]
+  "name": "TaskList",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "task_list",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Task",
+      "dimensions": "*",
+      "contained": true
+    }
+  ]
 }

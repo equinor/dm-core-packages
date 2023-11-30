@@ -1,4 +1,4 @@
 {
-	"name": "CaptainJackSparrow",
-	"type": "./blueprints/Person"
+  "name": "CaptainJackSparrow",
+  "type": "./blueprints/Person"
 }

@@ -1,21 +1,21 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/form/read_only/blueprints/Car",
-	"initialUiRecipe": {
-		"name": "form",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/form",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/form/FormInput",
-			"fields": [
-				"_meta_",
-				"type",
-				"name",
-				"description",
-				"duration",
-				"plateNumber"
-			],
-			"readOnly": true
-		}
-	}
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/form/read_only/blueprints/Car",
+  "initialUiRecipe": {
+    "name": "form",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "fields": [
+        "_meta_",
+        "type",
+        "name",
+        "description",
+        "duration",
+        "plateNumber"
+      ],
+      "readOnly": true
+    }
+  }
 }

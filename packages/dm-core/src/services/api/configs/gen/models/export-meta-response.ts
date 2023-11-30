@@ -22,22 +22,22 @@ import { Dependency } from './dependency'
  * @interface ExportMetaResponse
  */
 export interface ExportMetaResponse {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ExportMetaResponse
-	 */
-	type?: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ExportMetaResponse
-	 */
-	version?: string
-	/**
-	 *
-	 * @type {Array<Dependency>}
-	 * @memberof ExportMetaResponse
-	 */
-	dependencies?: Array<Dependency>
+  /**
+   *
+   * @type {string}
+   * @memberof ExportMetaResponse
+   */
+  type?: string
+  /**
+   *
+   * @type {string}
+   * @memberof ExportMetaResponse
+   */
+  version?: string
+  /**
+   *
+   * @type {Array<Dependency>}
+   * @memberof ExportMetaResponse
+   */
+  dependencies?: Array<Dependency>
 }

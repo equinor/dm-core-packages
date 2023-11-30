@@ -19,12 +19,12 @@
  */
 
 export const StorageDataTypes = {
-	Default: 'default',
-	Large: 'large',
-	VeryLarge: 'veryLarge',
-	Video: 'video',
-	Blob: 'blob',
+  Default: 'default',
+  Large: 'large',
+  VeryLarge: 'veryLarge',
+  Video: 'video',
+  Blob: 'blob',
 } as const
 
 export type StorageDataTypes =
-	(typeof StorageDataTypes)[keyof typeof StorageDataTypes]
+  (typeof StorageDataTypes)[keyof typeof StorageDataTypes]

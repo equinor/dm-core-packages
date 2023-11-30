@@ -6,10 +6,10 @@ import { AttributeField } from './AttributeField'
 import { StringField } from './StringField'
 
 export default {
-	ArrayField,
-	BooleanField,
-	NumberField,
-	ObjectField,
-	AttributeField,
-	StringField,
+  ArrayField,
+  BooleanField,
+  NumberField,
+  ObjectField,
+  AttributeField,
+  StringField,
 }

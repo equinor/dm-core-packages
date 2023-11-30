@@ -1,21 +1,21 @@
 {
-	"name": "CarGarage",
-	"type": "CORE:Blueprint",
-	"extends": ["CORE:NamedEntity"],
-	"attributes": [
-		{
-			"name": "Volvo",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./CarBlueprint",
-			"contained": true,
-			"optional": false
-		},
-		{
-			"name": "Audi",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./CarBlueprint",
-			"contained": true,
-			"optional": false
-		}
-	]
+  "name": "CarGarage",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "name": "Volvo",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./CarBlueprint",
+      "contained": true,
+      "optional": false
+    },
+    {
+      "name": "Audi",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./CarBlueprint",
+      "contained": true,
+      "optional": false
+    }
+  ]
 }

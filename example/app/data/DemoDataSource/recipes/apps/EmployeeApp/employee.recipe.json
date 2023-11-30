@@ -1,20 +1,20 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/apps/EmployeeApp/blueprints/Employee",
-	"initialUiRecipe": {
-		"name": "Edit",
-		"type": "CORE:UiRecipe",
-		"description": "Default edit",
-		"plugin": "@development-framework/dm-core-plugins/form",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/form/FormInput",
-			"attributes": [
-				{
-					"name": "description",
-					"type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-					"widget": "TextareaWidget"
-				}
-			]
-		}
-	}
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/apps/EmployeeApp/blueprints/Employee",
+  "initialUiRecipe": {
+    "name": "Edit",
+    "type": "CORE:UiRecipe",
+    "description": "Default edit",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "attributes": [
+        {
+          "name": "description",
+          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+          "widget": "TextareaWidget"
+        }
+      ]
+    }
+  }
 }

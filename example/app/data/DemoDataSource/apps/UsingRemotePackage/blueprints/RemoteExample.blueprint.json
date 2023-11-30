@@ -1,14 +1,14 @@
 {
-	"name": "RemoteExample",
-	"type": "CORE:Blueprint",
-	"extends": ["CORE:NamedEntity"],
-	"attributes": [
-		{
-			"name": "remoteBlueprint",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "REMOTE-PACKAGE:RemoteBlueprint",
-			"label": "A remote blueprint",
-			"optional": true
-		}
-	]
+  "name": "RemoteExample",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "name": "remoteBlueprint",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "REMOTE-PACKAGE:RemoteBlueprint",
+      "label": "A remote blueprint",
+      "optional": true
+    }
+  ]
 }

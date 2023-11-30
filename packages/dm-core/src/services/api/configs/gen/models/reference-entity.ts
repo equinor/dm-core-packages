@@ -18,22 +18,22 @@
  * @interface ReferenceEntity
  */
 export interface ReferenceEntity {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ReferenceEntity
-	 */
-	address: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ReferenceEntity
-	 */
-	type: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ReferenceEntity
-	 */
-	referenceType: string
+  /**
+   *
+   * @type {string}
+   * @memberof ReferenceEntity
+   */
+  address: string
+  /**
+   *
+   * @type {string}
+   * @memberof ReferenceEntity
+   */
+  type: string
+  /**
+   *
+   * @type {string}
+   * @memberof ReferenceEntity
+   */
+  referenceType: string
 }

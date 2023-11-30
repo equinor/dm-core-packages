@@ -1,33 +1,33 @@
 {
-	"name": "Dashboard",
-	"type": "dmss://system/SIMOS/Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "name",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "orders",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./OrderItem",
-			"dimensions": "*"
-		},
-		{
-			"name": "order",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./OrderItem"
-		},
-		{
-			"name": "aNestedObjectWithCustomUI",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Nested",
-			"label": "A nested object with custom ui"
-		}
-	]
+  "name": "Dashboard",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "orders",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./OrderItem",
+      "dimensions": "*"
+    },
+    {
+      "name": "order",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./OrderItem"
+    },
+    {
+      "name": "aNestedObjectWithCustomUI",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Nested",
+      "label": "A nested object with custom ui"
+    }
+  ]
 }

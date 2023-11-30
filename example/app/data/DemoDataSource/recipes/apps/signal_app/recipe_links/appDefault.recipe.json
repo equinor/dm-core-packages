@@ -1,21 +1,21 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "_default_",
-	"initialUiRecipe": {
-		"name": "Tabs",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"childTabsOnRender": true
-		}
-	},
-	"uiRecipes": [
-		{
-			"name": "Edit",
-			"type": "CORE:UiRecipe",
-			"description": "Default edit",
-			"plugin": "@development-framework/dm-core-plugins/form"
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "_default_",
+  "initialUiRecipe": {
+    "name": "Tabs",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
 }

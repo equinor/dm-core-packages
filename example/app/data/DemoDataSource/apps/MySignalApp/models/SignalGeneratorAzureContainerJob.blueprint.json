@@ -1,7 +1,7 @@
 {
-	"name": "SignalGeneratorAzureContainerJob",
-	"type": "CORE:Blueprint",
-	"description": "",
-	"extends": ["JOBCORE:AzureContainer"],
-	"attributes": []
+  "name": "SignalGeneratorAzureContainerJob",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "extends": ["JOBCORE:AzureContainer"],
+  "attributes": []
 }

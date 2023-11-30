@@ -1,65 +1,65 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/table/car_list/blueprints/CarList",
-	"initialUiRecipe": {
-		"name": "ViewSelector",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"viewConfig": {
-						"type": "CORE:InlineRecipeViewConfig",
-						"recipe": {
-							"name": "cars",
-							"type": "CORE:UiRecipe",
-							"description": "List of cars",
-							"plugin": "@development-framework/dm-core-plugins/table",
-							"config": {
-								"type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-								"variant": [
-									{
-										"name": "view",
-										"type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
-									},
-									{
-										"name": "edit",
-										"type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
-									}
-								],
-								"columns": [
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "^expandable"
-									},
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "name",
-										"label": "Name"
-									},
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "model",
-										"label": "Model"
-									},
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "color",
-										"label": "Color"
-									},
-									{
-										"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-										"data": "^tab"
-									}
-								]
-							}
-						},
-						"scope": "cars"
-					}
-				}
-			]
-		}
-	}
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/table/car_list/blueprints/CarList",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "cars",
+              "type": "CORE:UiRecipe",
+              "description": "List of cars",
+              "plugin": "@development-framework/dm-core-plugins/table",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+                "variant": [
+                  {
+                    "name": "view",
+                    "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+                  },
+                  {
+                    "name": "edit",
+                    "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+                  }
+                ],
+                "columns": [
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "^expandable"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "name",
+                    "label": "Name"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "model",
+                    "label": "Model"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "color",
+                    "label": "Color"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "^tab"
+                  }
+                ]
+              }
+            },
+            "scope": "cars"
+          }
+        }
+      ]
+    }
+  }
 }

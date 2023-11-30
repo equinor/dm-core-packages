@@ -1,19 +1,19 @@
 {
-	"name": "Simulation",
-	"type": "CORE:Blueprint",
-	"extends": ["CORE:NamedEntity"],
-	"attributes": [
-		{
-			"name": "plot",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "binary",
-			"optional": true
-		},
-		{
-			"name": "result",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "./Result",
-			"optional": true
-		}
-	]
+  "name": "Simulation",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "name": "plot",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "binary",
+      "optional": true
+    },
+    {
+      "name": "result",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Result",
+      "optional": true
+    }
+  ]
 }

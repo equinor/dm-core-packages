@@ -18,42 +18,42 @@
  * @interface Dependency
  */
 export interface Dependency {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Dependency
-	 */
-	alias: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Dependency
-	 */
-	type: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Dependency
-	 */
-	protocol: DependencyProtocolEnum
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Dependency
-	 */
-	address: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof Dependency
-	 */
-	version?: string
+  /**
+   *
+   * @type {string}
+   * @memberof Dependency
+   */
+  alias: string
+  /**
+   *
+   * @type {string}
+   * @memberof Dependency
+   */
+  type: string
+  /**
+   *
+   * @type {string}
+   * @memberof Dependency
+   */
+  protocol: DependencyProtocolEnum
+  /**
+   *
+   * @type {string}
+   * @memberof Dependency
+   */
+  address: string
+  /**
+   *
+   * @type {string}
+   * @memberof Dependency
+   */
+  version?: string
 }
 
 export const DependencyProtocolEnum = {
-	Dmss: 'dmss',
-	Http: 'http',
+  Dmss: 'dmss',
+  Http: 'http',
 } as const
 
 export type DependencyProtocolEnum =
-	(typeof DependencyProtocolEnum)[keyof typeof DependencyProtocolEnum]
+  (typeof DependencyProtocolEnum)[keyof typeof DependencyProtocolEnum]

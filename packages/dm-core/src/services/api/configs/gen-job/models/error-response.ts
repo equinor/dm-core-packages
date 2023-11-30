@@ -18,34 +18,34 @@
  * @interface ErrorResponse
  */
 export interface ErrorResponse {
-	/**
-	 *
-	 * @type {number}
-	 * @memberof ErrorResponse
-	 */
-	status?: number
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ErrorResponse
-	 */
-	type?: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ErrorResponse
-	 */
-	message?: string
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ErrorResponse
-	 */
-	debug?: string
-	/**
-	 *
-	 * @type {object}
-	 * @memberof ErrorResponse
-	 */
-	data?: object
+  /**
+   *
+   * @type {number}
+   * @memberof ErrorResponse
+   */
+  status?: number
+  /**
+   *
+   * @type {string}
+   * @memberof ErrorResponse
+   */
+  type?: string
+  /**
+   *
+   * @type {string}
+   * @memberof ErrorResponse
+   */
+  message?: string
+  /**
+   *
+   * @type {string}
+   * @memberof ErrorResponse
+   */
+  debug?: string
+  /**
+   *
+   * @type {object}
+   * @memberof ErrorResponse
+   */
+  data?: object
 }

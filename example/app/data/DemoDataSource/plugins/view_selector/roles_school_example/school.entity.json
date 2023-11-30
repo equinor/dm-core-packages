@@ -1,80 +1,80 @@
 {
-	"name": "HogwartsMeta",
-	"type": "./blueprints/SchoolDistrict",
-	"country": "England",
-	"ministry": "Ministry of magic",
-	"school": {
-		"name": "Hogwarts",
-		"type": "./blueprints/School",
-		"description": "Hogwarts school of witchcraft and wizardry",
-		"headmaster": {
-			"name": "Albus Dumbledore",
-			"type": "./blueprints/Person",
-			"age": 140
-		},
-		"students": [
-			{
-				"name": "Harry Potter",
-				"type": "./blueprints/Person",
-				"age": 20
-			},
-			{
-				"name": "Hermione Granger",
-				"type": "./blueprints/Person",
-				"age": 20
-			},
-			{
-				"name": "Ron Weasley",
-				"type": "./blueprints/Person",
-				"age": 20
-			}
-		],
-		"subjects": ["Defence against the Dark Arts", "Charms", "Herbology"],
-		"teachers": [
-			{
-				"name": "Severus Snape",
-				"type": "./blueprints/Person",
-				"age": 40
-			},
-			{
-				"name": "Rubeus Hagrid",
-				"type": "./blueprints/Person",
-				"age": 90
-			},
-			{
-				"name": "Minerva McGonagall",
-				"type": "./blueprints/Person",
-				"age": 140
-			}
-		],
-		"teacherSalaries": [
-			{
-				"type": "./blueprints/Salary",
-				"teacher": {
-					"type": "CORE:Reference",
-					"address": "^.school.teachers[0]",
-					"referenceType": "link"
-				},
-				"salary": 12345
-			},
-			{
-				"type": "./blueprints/Salary",
-				"teacher": {
-					"type": "CORE:Reference",
-					"address": "^.school.teachers[1]",
-					"referenceType": "link"
-				},
-				"salary": 542
-			},
-			{
-				"type": "./blueprints/Salary",
-				"teacher": {
-					"type": "CORE:Reference",
-					"address": "^.school.teachers[2]",
-					"referenceType": "link"
-				},
-				"salary": 99999
-			}
-		]
-	}
+  "name": "HogwartsMeta",
+  "type": "./blueprints/SchoolDistrict",
+  "country": "England",
+  "ministry": "Ministry of magic",
+  "school": {
+    "name": "Hogwarts",
+    "type": "./blueprints/School",
+    "description": "Hogwarts school of witchcraft and wizardry",
+    "headmaster": {
+      "name": "Albus Dumbledore",
+      "type": "./blueprints/Person",
+      "age": 140
+    },
+    "students": [
+      {
+        "name": "Harry Potter",
+        "type": "./blueprints/Person",
+        "age": 20
+      },
+      {
+        "name": "Hermione Granger",
+        "type": "./blueprints/Person",
+        "age": 20
+      },
+      {
+        "name": "Ron Weasley",
+        "type": "./blueprints/Person",
+        "age": 20
+      }
+    ],
+    "subjects": ["Defence against the Dark Arts", "Charms", "Herbology"],
+    "teachers": [
+      {
+        "name": "Severus Snape",
+        "type": "./blueprints/Person",
+        "age": 40
+      },
+      {
+        "name": "Rubeus Hagrid",
+        "type": "./blueprints/Person",
+        "age": 90
+      },
+      {
+        "name": "Minerva McGonagall",
+        "type": "./blueprints/Person",
+        "age": 140
+      }
+    ],
+    "teacherSalaries": [
+      {
+        "type": "./blueprints/Salary",
+        "teacher": {
+          "type": "CORE:Reference",
+          "address": "^.school.teachers[0]",
+          "referenceType": "link"
+        },
+        "salary": 12345
+      },
+      {
+        "type": "./blueprints/Salary",
+        "teacher": {
+          "type": "CORE:Reference",
+          "address": "^.school.teachers[1]",
+          "referenceType": "link"
+        },
+        "salary": 542
+      },
+      {
+        "type": "./blueprints/Salary",
+        "teacher": {
+          "type": "CORE:Reference",
+          "address": "^.school.teachers[2]",
+          "referenceType": "link"
+        },
+        "salary": 99999
+      }
+    ]
+  }
 }

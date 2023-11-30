@@ -30,32 +30,32 @@ const StyledRefreshButton = styled.button`
 `
 
 interface Props {
-	onClick: () => void
-	onMouseEnter: () => void
-	onMouseLeave: () => void
-	hidden: boolean
-	tooltip: string | undefined
+  onClick: () => void
+  onMouseEnter: () => void
+  onMouseLeave: () => void
+  hidden: boolean
+  tooltip: string | undefined
 }
 
 const RefreshButton = ({
-	onClick,
-	tooltip,
-	onMouseEnter,
-	onMouseLeave,
-	hidden,
+  onClick,
+  tooltip,
+  onMouseEnter,
+  onMouseLeave,
+  hidden,
 }: Props) => {
-	return (
-		<Tooltip title={`Refresh ${tooltip}`}>
-			<StyledRefreshButton
-				style={hidden ? { opacity: 0 } : {}}
-				onClick={() => onClick()}
-				onMouseLeave={() => onMouseLeave()}
-				onMouseEnter={() => onMouseEnter()}
-			>
-				<Icon data={refresh} size={16} title='refresh' />
-			</StyledRefreshButton>
-		</Tooltip>
-	)
+  return (
+    <Tooltip title={`Refresh ${tooltip}`}>
+      <StyledRefreshButton
+        style={hidden ? { opacity: 0 } : {}}
+        onClick={() => onClick()}
+        onMouseLeave={() => onMouseLeave()}
+        onMouseEnter={() => onMouseEnter()}
+      >
+        <Icon data={refresh} size={16} title='refresh' />
+      </StyledRefreshButton>
+    </Tooltip>
+  )
 }
 
 export default RefreshButton

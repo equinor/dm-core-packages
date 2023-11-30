@@ -1,37 +1,37 @@
 {
-	"name": "TableVariantConfig",
-	"type": "CORE:Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "name",
-			"type": "CORE:BlueprintAttribute",
-			"description": "Available variants: view, edit",
-			"attributeType": "string"
-		},
-		{
-			"name": "density",
-			"type": "CORE:BlueprintAttribute",
-			"description": "Available values: compact, comfortable",
-			"attributeType": "string",
-			"default": "compact",
-			"optional": true
-		},
-		{
-			"name": "functionality",
-			"type": "CORE:BlueprintAttribute",
-			"description": "Table functionality config",
-			"attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-			"optional": true,
-			"default": {
-				"type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-				"add": true,
-				"delete": true
-			}
-		}
-	]
+  "name": "TableVariantConfig",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Available variants: view, edit",
+      "attributeType": "string"
+    },
+    {
+      "name": "density",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Available values: compact, comfortable",
+      "attributeType": "string",
+      "default": "compact",
+      "optional": true
+    },
+    {
+      "name": "functionality",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Table functionality config",
+      "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+      "optional": true,
+      "default": {
+        "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+        "add": true,
+        "delete": true
+      }
+    }
+  ]
 }

@@ -1,40 +1,40 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/grid/example/blueprints/Nested",
-	"initialUiRecipe": {
-		"name": "ViewSelector",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {}
-	},
-	"uiRecipes": [
-		{
-			"name": "custom",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/yaml",
-			"category": "view"
-		},
-		{
-			"name": "Form",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/form",
-			"category": "edit"
-		},
-		{
-			"name": "aRecipeName",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/form",
-			"category": "edit",
-			"config": {
-				"type": "PLUGINS:dm-core-plugins/form/FormInput",
-				"attributes": [
-					{
-						"name": "bar",
-						"type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-						"widget": "TextareaWidget"
-					}
-				]
-			}
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/grid/example/blueprints/Nested",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {}
+  },
+  "uiRecipes": [
+    {
+      "name": "custom",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml",
+      "category": "view"
+    },
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "category": "edit"
+    },
+    {
+      "name": "aRecipeName",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "category": "edit",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
+        "attributes": [
+          {
+            "name": "bar",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+            "widget": "TextareaWidget"
+          }
+        ]
+      }
+    }
+  ]
 }

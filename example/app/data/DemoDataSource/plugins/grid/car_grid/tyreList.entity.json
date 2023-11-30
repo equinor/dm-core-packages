@@ -1,37 +1,37 @@
 {
-	"_id": "gridTyreList",
-	"name": "TyreList",
-	"type": "./blueprints/TyreList",
-	"tyre": [
-		{
-			"name": "Hard",
-			"type": "./blueprints/Tyre",
-			"description": "Slower, but more durable.",
-			"compound": "C1"
-		},
-		{
-			"name": "Medium",
-			"type": "./blueprints/Tyre",
-			"description": "Balanced between pace and degradation",
-			"compound": "C2"
-		},
-		{
-			"name": "Soft",
-			"type": "./blueprints/Tyre",
-			"description": "Faster, but wears quicker.",
-			"compound": "C4"
-		},
-		{
-			"name": "Intermediate",
-			"type": "./blueprints/Tyre",
-			"description": "For damp conditions.",
-			"compound": "Int"
-		},
-		{
-			"name": "Extremes",
-			"type": "./blueprints/Tyre",
-			"description": "For heavy rain.",
-			"compound": "Wet"
-		}
-	]
+  "_id": "gridTyreList",
+  "name": "TyreList",
+  "type": "./blueprints/TyreList",
+  "tyre": [
+    {
+      "name": "Hard",
+      "type": "./blueprints/Tyre",
+      "description": "Slower, but more durable.",
+      "compound": "C1"
+    },
+    {
+      "name": "Medium",
+      "type": "./blueprints/Tyre",
+      "description": "Balanced between pace and degradation",
+      "compound": "C2"
+    },
+    {
+      "name": "Soft",
+      "type": "./blueprints/Tyre",
+      "description": "Faster, but wears quicker.",
+      "compound": "C4"
+    },
+    {
+      "name": "Intermediate",
+      "type": "./blueprints/Tyre",
+      "description": "For damp conditions.",
+      "compound": "Int"
+    },
+    {
+      "name": "Extremes",
+      "type": "./blueprints/Tyre",
+      "description": "For heavy rain.",
+      "compound": "Wet"
+    }
+  ]
 }

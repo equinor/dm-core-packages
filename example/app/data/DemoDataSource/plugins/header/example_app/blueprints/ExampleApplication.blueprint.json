@@ -1,39 +1,39 @@
 {
-	"name": "ExampleApplication",
-	"type": "CORE:Blueprint",
-	"description": "",
-	"extends": ["CORE:Application"],
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "label",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true
-		},
-		{
-			"name": "dataSources",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"dimensions": "*",
-			"optional": false
-		},
-		{
-			"name": "adminRole",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true
-		},
-		{
-			"name": "roles",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"dimensions": "*",
-			"optional": true
-		}
-	]
+  "name": "ExampleApplication",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "extends": ["CORE:Application"],
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "dataSources",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": false
+    },
+    {
+      "name": "adminRole",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "roles",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": true
+    }
+  ]
 }

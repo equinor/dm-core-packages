@@ -1,63 +1,63 @@
 {
-	"name": "ListPluginConfig",
-	"type": "CORE:Blueprint",
-	"attributes": [
-		{
-			"name": "type",
-			"type": "dmss://system/SIMOS/BlueprintAttribute",
-			"attributeType": "string"
-		},
-		{
-			"name": "expanded",
-			"type": "CORE:BlueprintAttribute",
-			"description": "Initial expand state for items in list",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": false
-		},
-		{
-			"name": "selectFromScope",
-			"type": "CORE:BlueprintAttribute",
-			"description": "An address for where the user should be able to select entities from, when adding to the list",
-			"attributeType": "string",
-			"optional": true
-		},
-		{
-			"name": "openAsTab",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "boolean",
-			"optional": true,
-			"default": false
-		},
-		{
-			"name": "headers",
-			"type": "CORE:BlueprintAttribute",
-			"description": "Name of primitive child attributes to display in item",
-			"attributeType": "string",
-			"default": ["name", "type"],
-			"dimensions": "*"
-		},
-		{
-			"name": "functionality",
-			"type": "CORE:BlueprintAttribute",
-			"description": "List functionality config",
-			"attributeType": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
-			"optional": true
-		},
-		{
-			"name": "defaultView",
-			"type": "CORE:BlueprintAttribute",
-			"description": "Which ViewConfig to render when expanding the list item. Defaults to the types default UiRecipe",
-			"attributeType": "CORE:ViewConfig",
-			"optional": true
-		},
-		{
-			"name": "viewConfigs",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "CORE:ViewConfig",
-			"dimensions": "*",
-			"default": [],
-			"optional": false
-		}
-	]
+  "name": "ListPluginConfig",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "expanded",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Initial expand state for items in list",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
+      "name": "selectFromScope",
+      "type": "CORE:BlueprintAttribute",
+      "description": "An address for where the user should be able to select entities from, when adding to the list",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "openAsTab",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
+      "name": "headers",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Name of primitive child attributes to display in item",
+      "attributeType": "string",
+      "default": ["name", "type"],
+      "dimensions": "*"
+    },
+    {
+      "name": "functionality",
+      "type": "CORE:BlueprintAttribute",
+      "description": "List functionality config",
+      "attributeType": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
+      "optional": true
+    },
+    {
+      "name": "defaultView",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Which ViewConfig to render when expanding the list item. Defaults to the types default UiRecipe",
+      "attributeType": "CORE:ViewConfig",
+      "optional": true
+    },
+    {
+      "name": "viewConfigs",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:ViewConfig",
+      "dimensions": "*",
+      "default": [],
+      "optional": false
+    }
+  ]
 }

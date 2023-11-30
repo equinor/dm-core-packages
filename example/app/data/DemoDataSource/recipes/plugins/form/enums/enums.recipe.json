@@ -1,68 +1,68 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/form/enums/blueprints/Enums",
-	"initialUiRecipe": {
-		"name": "ViewSelector",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"childTabsOnRender": true,
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "Enums",
-					"viewConfig": {
-						"type": "CORE:ReferenceViewConfig",
-						"recipe": "Enums"
-					}
-				},
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "Yaml",
-					"viewConfig": {
-						"type": "CORE:InlineRecipeViewConfig",
-						"recipe": {
-							"name": "Yaml",
-							"type": "CORE:UiRecipe",
-							"description": "Yaml view",
-							"showRefreshButton": true,
-							"plugin": "@development-framework/dm-core-plugins/yaml"
-						},
-						"scope": "self"
-					}
-				}
-			]
-		}
-	},
-	"uiRecipes": [
-		{
-			"name": "Enums",
-			"type": "CORE:UiRecipe",
-			"plugin": "@development-framework/dm-core-plugins/form",
-			"config": {
-				"type": "PLUGINS:dm-core-plugins/form/FormInput",
-				"attributes": [
-					{
-						"name": "singleString",
-						"type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-						"widget": "SelectWidget",
-						"config": {
-							"type": "PLUGINS:dm-core-plugins/form/widgets/SelectWidgetConfig",
-							"multiline": false
-						}
-					},
-					{
-						"name": "manyStrings",
-						"type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-						"widget": "SelectWidget",
-						"config": {
-							"type": "PLUGINS:dm-core-plugins/form/widgets/SelectWidgetConfig",
-							"multiline": true
-						}
-					}
-				]
-			}
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/form/enums/blueprints/Enums",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true,
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Enums",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Enums"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Yaml",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Yaml",
+              "type": "CORE:UiRecipe",
+              "description": "Yaml view",
+              "showRefreshButton": true,
+              "plugin": "@development-framework/dm-core-plugins/yaml"
+            },
+            "scope": "self"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Enums",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
+        "attributes": [
+          {
+            "name": "singleString",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+            "widget": "SelectWidget",
+            "config": {
+              "type": "PLUGINS:dm-core-plugins/form/widgets/SelectWidgetConfig",
+              "multiline": false
+            }
+          },
+          {
+            "name": "manyStrings",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+            "widget": "SelectWidget",
+            "config": {
+              "type": "PLUGINS:dm-core-plugins/form/widgets/SelectWidgetConfig",
+              "multiline": true
+            }
+          }
+        ]
+      }
+    }
+  ]
 }

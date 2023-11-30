@@ -10,11 +10,11 @@ const Pre = styled.pre`
   word-wrap: break-word; /* IE 5.5+ */
 `
 export const JsonView = ({
-	data,
-	style,
+  data,
+  style,
 }: {
-	data: string | TGenericObject
-	style?: TGenericObject
+  data: string | TGenericObject
+  style?: TGenericObject
 }) => {
-	return <Pre style={style}>{JSON.stringify(data, null, 2)}</Pre>
+  return <Pre style={style}>{JSON.stringify(data, null, 2)}</Pre>
 }

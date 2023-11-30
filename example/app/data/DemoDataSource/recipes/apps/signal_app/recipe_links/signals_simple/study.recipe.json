@@ -1,31 +1,31 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "AppModels:signals_simple/Study",
-	"initialUiRecipe": {
-		"name": "Tabs",
-		"type": "CORE:UiRecipe",
-		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-		"config": {
-			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-			"childTabsOnRender": true,
-			"items": [
-				{
-					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-					"label": "Home",
-					"viewConfig": {
-						"type": "CORE:ReferenceViewConfig",
-						"recipe": "Edit"
-					}
-				}
-			]
-		}
-	},
-	"uiRecipes": [
-		{
-			"name": "Edit",
-			"type": "CORE:UiRecipe",
-			"description": "Default edit",
-			"plugin": "@development-framework/dm-core-plugins/form"
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "AppModels:signals_simple/Study",
+  "initialUiRecipe": {
+    "name": "Tabs",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "childTabsOnRender": true,
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Home",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Edit"
+          }
+        }
+      ]
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
 }

@@ -1,16 +1,16 @@
 {
-	"_id": "simulation1",
-	"name": "simulation1",
-	"type": "./blueprints/Simulation",
-	"description": "Example simulation",
-	"result": {
-		"type": "CORE:Reference",
-		"address": "/global/result.entity.json",
-		"referenceType": "storage"
-	},
-	"plot": {
-		"type": "CORE:Reference",
-		"address": "/global/businessman.jpg",
-		"referenceType": "storage"
-	}
+  "_id": "simulation1",
+  "name": "simulation1",
+  "type": "./blueprints/Simulation",
+  "description": "Example simulation",
+  "result": {
+    "type": "CORE:Reference",
+    "address": "/global/result.entity.json",
+    "referenceType": "storage"
+  },
+  "plot": {
+    "type": "CORE:Reference",
+    "address": "/global/businessman.jpg",
+    "referenceType": "storage"
+  }
 }

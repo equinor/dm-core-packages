@@ -1,20 +1,20 @@
 {
-	"name": "ExampleApplication",
-	"type": "CORE:Blueprint",
-	"extends": ["CORE:Application"],
-	"attributes": [
-		{
-			"name": "label",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"optional": true
-		},
-		{
-			"name": "dataSources",
-			"type": "CORE:BlueprintAttribute",
-			"attributeType": "string",
-			"dimensions": "*",
-			"optional": false
-		}
-	]
+  "name": "ExampleApplication",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Application"],
+  "attributes": [
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "dataSources",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": false
+    }
+  ]
 }

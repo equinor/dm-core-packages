@@ -6,7 +6,7 @@ import styled from 'styled-components'
 export const MenuButton = styled.button<{ $active: boolean }>`
   appearance: none;
   background-color: ${(props) =>
-			props.$active ? 'rgba(230,250,236,1)' : 'transparent'};
+    props.$active ? 'rgba(230,250,236,1)' : 'transparent'};
   color: ${(props) => (props.$active ? 'rgba(0, 79, 85, 1)' : 'black')};
   border: 0;
   cursor: pointer;
@@ -17,16 +17,16 @@ export const MenuButton = styled.button<{ $active: boolean }>`
 
   &:hover {
     background-color: ${(props) =>
-					!props.$active ? 'rgba(220,220,220,255)' : 'rgba(230,250,236,1)'};
+      !props.$active ? 'rgba(220,220,220,255)' : 'rgba(230,250,236,1)'};
     color: ${(props) =>
-					!props.$active ? 'rgba(61,61,61,255)' : 'rgba(0, 79, 85, 1)'};
+      !props.$active ? 'rgba(61,61,61,255)' : 'rgba(0, 79, 85, 1)'};
   }
 `
 
 interface AppSelectorProps {
-	items: string[]
-	currentItem: string
-	onSelectItem: (item: string) => void
+  items: string[]
+  currentItem: string
+  onSelectItem: (item: string) => void
 }
 
 const AppSelectorButton = styled.button`
@@ -43,48 +43,48 @@ const AppSelectorButton = styled.button`
 `
 
 export const AppSelector = ({
-	onSelectItem,
-	currentItem,
-	items,
+  onSelectItem,
+  currentItem,
+  items,
 }: AppSelectorProps) => {
-	const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
-	const referenceElement = useRef<HTMLDivElement | null>(null)
+  const [appSelectorOpen, setAppSelectorOpen] = useState<boolean>(false)
+  const referenceElement = useRef<HTMLDivElement | null>(null)
 
-	return (
-		<div ref={referenceElement}>
-			<AppSelectorButton
-				onClick={() => setAppSelectorOpen(!appSelectorOpen)}
-				aria-label='AppSelector'
-			>
-				<span className='text-xs font-bold self-center'>{currentItem}</span>
-				<Icon
-					className='mt-0.5'
-					data={appSelectorOpen ? chevron_up : chevron_down}
-				></Icon>
-			</AppSelectorButton>
-			<Popover
-				open={appSelectorOpen}
-				anchorEl={referenceElement.current}
-				trapFocus
-				onClose={() => {
-					setAppSelectorOpen(false)
-				}}
-			>
-				<div style={{ display: 'flex', flexDirection: 'column' }}>
-					{items.map((recipe: string, index: number) => (
-						<MenuButton
-							$active={currentItem === recipe}
-							key={index}
-							onClick={() => {
-								onSelectItem(recipe)
-								setAppSelectorOpen(false)
-							}}
-						>
-							<Typography>{recipe}</Typography>
-						</MenuButton>
-					))}
-				</div>
-			</Popover>
-		</div>
-	)
+  return (
+    <div ref={referenceElement}>
+      <AppSelectorButton
+        onClick={() => setAppSelectorOpen(!appSelectorOpen)}
+        aria-label='AppSelector'
+      >
+        <span className='text-xs font-bold self-center'>{currentItem}</span>
+        <Icon
+          className='mt-0.5'
+          data={appSelectorOpen ? chevron_up : chevron_down}
+        ></Icon>
+      </AppSelectorButton>
+      <Popover
+        open={appSelectorOpen}
+        anchorEl={referenceElement.current}
+        trapFocus
+        onClose={() => {
+          setAppSelectorOpen(false)
+        }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          {items.map((recipe: string, index: number) => (
+            <MenuButton
+              $active={currentItem === recipe}
+              key={index}
+              onClick={() => {
+                onSelectItem(recipe)
+                setAppSelectorOpen(false)
+              }}
+            >
+              <Typography>{recipe}</Typography>
+            </MenuButton>
+          ))}
+        </div>
+      </Popover>
+    </div>
+  )
 }

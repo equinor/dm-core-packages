@@ -1,29 +1,29 @@
 {
-	"type": "CORE:RecipeLink",
-	"_blueprintPath_": "/plugins/form/storage_uncontained/blueprints/Simulation",
-	"initialUiRecipe": {
-		"name": "Edit",
-		"type": "CORE:UiRecipe",
-		"description": "Default edit",
-		"plugin": "@development-framework/dm-core-plugins/form"
-	},
-	"storageRecipes": [
-		{
-			"name": "DEFAULT",
-			"type": "dmss://system/SIMOS/StorageRecipe",
-			"description": "",
-			"attributes": [
-				{
-					"name": "result",
-					"type": "dmss://system/SIMOS/StorageAttribute",
-					"contained": false
-				},
-				{
-					"name": "plot",
-					"type": "dmss://system/SIMOS/StorageAttribute",
-					"contained": false
-				}
-			]
-		}
-	]
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/form/storage_uncontained/blueprints/Simulation",
+  "initialUiRecipe": {
+    "name": "Edit",
+    "type": "CORE:UiRecipe",
+    "description": "Default edit",
+    "plugin": "@development-framework/dm-core-plugins/form"
+  },
+  "storageRecipes": [
+    {
+      "name": "DEFAULT",
+      "type": "dmss://system/SIMOS/StorageRecipe",
+      "description": "",
+      "attributes": [
+        {
+          "name": "result",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "contained": false
+        },
+        {
+          "name": "plot",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "contained": false
+        }
+      ]
+    }
+  ]
 }

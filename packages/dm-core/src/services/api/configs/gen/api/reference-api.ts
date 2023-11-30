@@ -18,24 +18,24 @@ import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
 import {
-	DUMMY_BASE_URL,
-	assertParamExists,
-	setApiKeyToObject,
-	setBasicAuthToObject,
-	setBearerAuthToObject,
-	setOAuthToObject,
-	setSearchParams,
-	serializeDataIfNeeded,
-	toPathString,
-	createRequestFunction,
+  DUMMY_BASE_URL,
+  assertParamExists,
+  setApiKeyToObject,
+  setBasicAuthToObject,
+  setBearerAuthToObject,
+  setOAuthToObject,
+  setSearchParams,
+  serializeDataIfNeeded,
+  toPathString,
+  createRequestFunction,
 } from '../common'
 // @ts-ignore
 import {
-	BASE_PATH,
-	COLLECTION_FORMATS,
-	RequestArgs,
-	BaseAPI,
-	RequiredError,
+  BASE_PATH,
+  COLLECTION_FORMATS,
+  RequestArgs,
+  BaseAPI,
+  RequiredError,
 } from '../base'
 // @ts-ignore
 import { ErrorResponse } from '../models'
@@ -44,68 +44,72 @@ import { ErrorResponse } from '../models'
  * @export
  */
 export const ReferenceApiAxiosParamCreator = function (
-	configuration?: Configuration
+  configuration?: Configuration
 ) {
-	return {
-		/**
-		 * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-		 * @summary Delete Reference
-		 * @param {string} address
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		referenceDelete: async (
-			address: string,
-			options: AxiosRequestConfig = {}
-		): Promise<RequestArgs> => {
-			// verify required parameter 'address' is not null or undefined
-			assertParamExists('referenceDelete', 'address', address)
-			const localVarPath = `/api/reference/{address}`.replace(
-				`{${'address'}}`,
-				encodeURIComponent(String(address))
-			)
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-			let baseOptions
-			if (configuration) {
-				baseOptions = configuration.baseOptions
-			}
+  return {
+    /**
+     * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
+     * @summary Delete Reference
+     * @param {string} address
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    referenceDelete: async (
+      address: string,
+      options: AxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'address' is not null or undefined
+      assertParamExists('referenceDelete', 'address', address)
+      const localVarPath = `/api/reference/{address}`.replace(
+        `{${'address'}}`,
+        encodeURIComponent(String(address))
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
 
-			const localVarRequestOptions = {
-				method: 'DELETE',
-				...baseOptions,
-				...options,
-			}
-			const localVarHeaderParameter = {} as any
-			const localVarQueryParameter = {} as any
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
 
-			// authentication APIKeyHeader required
-			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+      // authentication APIKeyHeader required
+      await setApiKeyToObject(
+        localVarHeaderParameter,
+        'Access-Key',
+        configuration
+      )
 
-			// authentication OAuth2AuthorizationCodeBearer required
-			// oauth required
-			await setOAuthToObject(
-				localVarHeaderParameter,
-				'OAuth2AuthorizationCodeBearer',
-				[],
-				configuration
-			)
+      // authentication OAuth2AuthorizationCodeBearer required
+      // oauth required
+      await setOAuthToObject(
+        localVarHeaderParameter,
+        'OAuth2AuthorizationCodeBearer',
+        [],
+        configuration
+      )
 
-			setSearchParams(localVarUrlObj, localVarQueryParameter)
-			let headersFromBaseOptions =
-				baseOptions && baseOptions.headers ? baseOptions.headers : {}
-			localVarRequestOptions.headers = {
-				...localVarHeaderParameter,
-				...headersFromBaseOptions,
-				...options.headers,
-			}
+      setSearchParams(localVarUrlObj, localVarQueryParameter)
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
 
-			return {
-				url: toPathString(localVarUrlObj),
-				options: localVarRequestOptions,
-			}
-		},
-	}
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      }
+    },
+  }
 }
 
 /**
@@ -113,33 +117,33 @@ export const ReferenceApiAxiosParamCreator = function (
  * @export
  */
 export const ReferenceApiFp = function (configuration?: Configuration) {
-	const localVarAxiosParamCreator = ReferenceApiAxiosParamCreator(configuration)
-	return {
-		/**
-		 * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-		 * @summary Delete Reference
-		 * @param {string} address
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async referenceDelete(
-			address: string,
-			options?: AxiosRequestConfig
-		): Promise<
-			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(
-				address,
-				options
-			)
-			return createRequestFunction(
-				localVarAxiosArgs,
-				globalAxios,
-				BASE_PATH,
-				configuration
-			)
-		},
-	}
+  const localVarAxiosParamCreator = ReferenceApiAxiosParamCreator(configuration)
+  return {
+    /**
+     * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
+     * @summary Delete Reference
+     * @param {string} address
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async referenceDelete(
+      address: string,
+      options?: AxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.referenceDelete(
+        address,
+        options
+      )
+      return createRequestFunction(
+        localVarAxiosArgs,
+        globalAxios,
+        BASE_PATH,
+        configuration
+      )
+    },
+  }
 }
 
 /**
@@ -147,28 +151,28 @@ export const ReferenceApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const ReferenceApiFactory = function (
-	configuration?: Configuration,
-	basePath?: string,
-	axios?: AxiosInstance
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
 ) {
-	const localVarFp = ReferenceApiFp(configuration)
-	return {
-		/**
-		 * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-		 * @summary Delete Reference
-		 * @param {ReferenceApiReferenceDeleteRequest} requestParameters Request parameters.
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		referenceDelete(
-			requestParameters: ReferenceApiReferenceDeleteRequest,
-			options?: AxiosRequestConfig
-		): AxiosPromise<object> {
-			return localVarFp
-				.referenceDelete(requestParameters.address, options)
-				.then((request) => request(axios, basePath))
-		},
-	}
+  const localVarFp = ReferenceApiFp(configuration)
+  return {
+    /**
+     * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
+     * @summary Delete Reference
+     * @param {ReferenceApiReferenceDeleteRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    referenceDelete(
+      requestParameters: ReferenceApiReferenceDeleteRequest,
+      options?: AxiosRequestConfig
+    ): AxiosPromise<object> {
+      return localVarFp
+        .referenceDelete(requestParameters.address, options)
+        .then((request) => request(axios, basePath))
+    },
+  }
 }
 
 /**
@@ -177,12 +181,12 @@ export const ReferenceApiFactory = function (
  * @interface ReferenceApiReferenceDeleteRequest
  */
 export interface ReferenceApiReferenceDeleteRequest {
-	/**
-	 *
-	 * @type {string}
-	 * @memberof ReferenceApiReferenceDelete
-	 */
-	readonly address: string
+  /**
+   *
+   * @type {string}
+   * @memberof ReferenceApiReferenceDelete
+   */
+  readonly address: string
 }
 
 /**
@@ -192,20 +196,20 @@ export interface ReferenceApiReferenceDeleteRequest {
  * @extends {BaseAPI}
  */
 export class ReferenceApi extends BaseAPI {
-	/**
-	 * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
-	 * @summary Delete Reference
-	 * @param {ReferenceApiReferenceDeleteRequest} requestParameters Request parameters.
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof ReferenceApi
-	 */
-	public referenceDelete(
-		requestParameters: ReferenceApiReferenceDeleteRequest,
-		options?: AxiosRequestConfig
-	) {
-		return ReferenceApiFp(this.configuration)
-			.referenceDelete(requestParameters.address, options)
-			.then((request) => request(this.axios, this.basePath))
-	}
+  /**
+   * Delete a reference in an entity.  Used to delete uncontained attributes in an entity.  - **document_dotted_id**: <data_source>/<path_to_entity>/<entity_name>.<attribute>
+   * @summary Delete Reference
+   * @param {ReferenceApiReferenceDeleteRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof ReferenceApi
+   */
+  public referenceDelete(
+    requestParameters: ReferenceApiReferenceDeleteRequest,
+    options?: AxiosRequestConfig
+  ) {
+    return ReferenceApiFp(this.configuration)
+      .referenceDelete(requestParameters.address, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
 }
