@@ -88,7 +88,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
   if (!recipe || !Object.keys(recipe).length)
     return <Wrapper>No compatible uiRecipes for entity</Wrapper>
 
-  const refreshable = recipe.showRefreshButton || showRefreshButton
+  const refreshable = showRefreshButton ?? recipe.showRefreshButton ?? false
 
   return (
     <Wrapper>
