@@ -59,6 +59,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
 			)
 		} else if (filetype.includes('video')) {
 			return (
+				// biome-ignore lint/a11y/useMediaCaption: No captions for example video
 				<video
 					src={blobUrl}
 					controls
@@ -69,6 +70,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
 		} else {
 			return (
 				<iframe
+					title={meta.title}
 					src={blobUrl}
 					style={{ width: '100%', height: 'auto' }}
 					role='document'

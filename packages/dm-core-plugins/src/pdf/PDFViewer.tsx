@@ -104,6 +104,7 @@ export const ViewerPDFPlugin = (props: {
 				</a>
 			</div>
 			<iframe
+				title={document.name}
 				src={blobUrl}
 				style={{ width: '100%', height: `${window.screen.height * 0.8}px` }}
 			/>

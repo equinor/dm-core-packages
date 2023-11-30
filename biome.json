@@ -66,16 +66,13 @@
 				"useExponentiationOperator": "off"
 			},
 			"security": {
-				"noDangerouslySetInnerHtml": "off",
-				"noDangerouslySetInnerHtmlWithChildren": "off"
+				"noDangerouslySetInnerHtml": "off"
 			},
 			"performance": {
 				"noDelete": "off"
 			},
 			"a11y": {
-				"useKeyWithClickEvents": "off",
-				"useIframeTitle": "off",
-				"useMediaCaption": "off"
+				"useKeyWithClickEvents": "off"
 			}
 		}
 	}
