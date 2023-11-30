@@ -30,7 +30,9 @@ export const NumberField = (props: TField) => {
           <Widget
             {...props}
             readOnly={config.readOnly}
-            onChange={(event: unknown) => onChange(event ? Number(event) : 0)}
+            onChange={(event: unknown) => {
+              onChange(event ? Number(event) : undefined)
+            }}
             value={value ?? ''}
             id={namePath}
             label={
