@@ -143,16 +143,16 @@ export function ConfigureSchedule(props: {
           )}
           <Button
             onClick={() => setShowAdvanced(!showAdvanced)}
-            variant="ghost"
+            variant='ghost'
             className={showAdvanced ? 'self-center -translate-y-1' : 'self-end'}
           >
             {showAdvanced ? 'Hide' : 'Show Advanced'}
           </Button>
           {showAdvanced && (
             <TextField
-              unit="cron"
-              id="advanced-schedule-syntax"
-              type="text"
+              unit='cron'
+              id='advanced-schedule-syntax'
+              type='text'
               value={schedule.cron}
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setSchedule({
@@ -160,8 +160,8 @@ export function ConfigureSchedule(props: {
                   cron: event?.target.value,
                 })
               }
-              label="Enter explicit cron syntax"
-              helperText="minute hour day(month) month day(week)"
+              label='Enter explicit cron syntax'
+              helperText='minute hour day(month) month day(week)'
             />
           )}
         </InputWrapper>
