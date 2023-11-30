@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.20.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.19.0...dm-core-v1.20.0) (2023-11-30)
+
+
+### Features
+
+* add remove job dialog ([737d596](https://github.com/equinor/dm-core-packages/commit/737d5965f33f4f800593c5cd229105c72d05c96b))
+* **job:** allow for explicit cron syntax ([461a3ca](https://github.com/equinor/dm-core-packages/commit/461a3caa372cc059545b191d96da651db1bf7c57))
+* partial update ([d5b46ef](https://github.com/equinor/dm-core-packages/commit/d5b46ef7e420be3c4d75bc99a3d550ade2ca676e))
+* recipebutton in viewconfig overrides reciepe ([320a215](https://github.com/equinor/dm-core-packages/commit/320a2156f89d5231ff964bdcefee171540d3ab9d))
+* replace eslint and prettier with biome ([#826](https://github.com/equinor/dm-core-packages/issues/826)) ([ebcea46](https://github.com/equinor/dm-core-packages/commit/ebcea46d5c208e38b0799aaec4938bd2375b06fb))
+* resfrehsable from viewConfig ([dde5483](https://github.com/equinor/dm-core-packages/commit/dde54835aa00df66e20c8db798c2117171fa85ee))
+
+
+### Bug Fixes
+
+* **TreeView:** Hide content of Files in tree ([2319df0](https://github.com/equinor/dm-core-packages/commit/2319df0a70e1aeb5d8ae16b1ba4db8e0d9d62fe4))
+* upgrade docker compose version ([a163406](https://github.com/equinor/dm-core-packages/commit/a163406199d49f9f3a15af6a407f28cb8817e432))
+
 ## [1.19.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.18.0...dm-core-v1.19.0) (2023-11-28)
 
 
