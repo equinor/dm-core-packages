@@ -95,18 +95,18 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
 					<Popover.Title>Meta</Popover.Title>
 				</Popover.Header>
 				<Popover.Content>
-					<MetaWrapper>
-						<label className='meta-label'>File name:</label>
+					<div className='grid grid-cols-2 font-normal'>
+						<label className='font-bold'>File name:</label>
 						<span> {meta.title}</span>
-						<label className='meta-label'>Author:</label>
+						<label className='font-bold'>Author:</label>
 						<span> {meta.author}</span>
-						<label className='meta-label'>Date:</label>
+						<label className='font-bold'>Date:</label>
 						<span> {new Date(meta.date).toLocaleDateString()} </span>
-						<label className='meta-label'>Filetype:</label>
+						<label className='font-bold'>Filetype:</label>
 						<span> {meta.filetype}</span>
-						<label className='meta-label'>Filesize:</label>
+						<label className='font-bold'>Filesize:</label>
 						<span> {formatBytes(meta.fileSize)}</span>
-					</MetaWrapper>
+					</div>
 				</Popover.Content>
 				<Popover.Actions>
 					<div
