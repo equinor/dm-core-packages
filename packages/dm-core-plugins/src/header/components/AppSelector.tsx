@@ -1,6 +1,6 @@
 import { Icon, Popover, Typography } from '@equinor/eds-core-react'
 import { chevron_down, chevron_up } from '@equinor/eds-icons'
-import React, { useState, useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 
 export const MenuButton = styled.button<{ $active: boolean }>`

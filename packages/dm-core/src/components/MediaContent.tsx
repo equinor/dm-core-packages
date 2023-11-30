@@ -33,16 +33,6 @@ const MetaPopoverButton = styled(Button)`
   color: #595959;
 `
 
-const MetaWrapper = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 0.6fr 1fr;
-
-  .meta-label {
-    font-weight: bold;
-  }
-`
-
 export const MediaContent = (props: MediaContentProps): ReactElement => {
 	const { blobUrl, meta, height, width } = props
 	const [showMeta, setShowMeta] = useState(false)
