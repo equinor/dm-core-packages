@@ -46,7 +46,9 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await dialog.getByRole('button', { name: 'Barbossa' }).click()
     await dialog.getByRole('button', { name: 'Select', exact: true }).click()
     await expect(dialog).not.toBeVisible()
-
+    await page.getByRole('button', { name: 'Submit', exact: true }).click()
+    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+    await expect(page.getByRole('alert')).not.toBeVisible({ timeout: 10000 })
     await page.getByRole('button', { name: 'Open in tab', exact: true }).click()
     await expect(page.getByRole('tab', { name: 'captain' })).toBeVisible()
     await expect(page.getByRole('code')).toBeVisible()
