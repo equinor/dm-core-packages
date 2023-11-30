@@ -58,7 +58,7 @@ export const getRecurringJobTemplate = ({
     runner: {
       type: EBlueprint.RECURRING_JOB_HANDLER,
     },
-    schedule: schedule,
+    schedule: { ...schedule, runs: [] },
   }
 }
 
