@@ -57,9 +57,9 @@ export default {
       }))
     ),
   },
-  '@development-framework/dm-core-plugins/view_selector/single': {
+  '@development-framework/dm-core-plugins/single_view': {
     component: lazy(() =>
-      import('./view_selector/SingleViewPlugin').then((module) => ({
+      import('./single_view/SingleViewPlugin').then((module) => ({
         default: module.SingleViewPlugin,
       }))
     ),
