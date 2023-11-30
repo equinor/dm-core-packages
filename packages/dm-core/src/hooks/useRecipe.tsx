@@ -9,7 +9,7 @@ import {
 } from '../index'
 import { AxiosError } from 'axios'
 
-const findRecipe = (
+export const findRecipe = (
   recipes: TUiRecipe[],
   initialUiRecipe?: TUiRecipe,
   recipeName?: string,

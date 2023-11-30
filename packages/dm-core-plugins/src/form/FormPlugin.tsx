@@ -13,7 +13,7 @@ export const FormPlugin = (props: IUIPlugin) => {
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
   const handleOnSubmit = (formData: any) => {
-    updateDocument(formData, true)
+    updateDocument(formData, true, true)
   }
 
   const handleOnUpdate = (formData: any) => {
