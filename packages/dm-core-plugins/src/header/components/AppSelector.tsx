@@ -1,6 +1,6 @@
 import { Icon, Popover, Typography } from '@equinor/eds-core-react'
 import { chevron_down, chevron_up } from '@equinor/eds-icons'
-import React, { useState, useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 
 export const MenuButton = styled.button<{ $active: boolean }>`
@@ -56,7 +56,7 @@ export const AppSelector = ({
         onClick={() => setAppSelectorOpen(!appSelectorOpen)}
         aria-label="AppSelector"
       >
-        <span className="text-xs font-bold self-center">{currentItem}</span>
+        <span className="text-base font-bold self-center">{currentItem}</span>
         <Icon
           className="mt-0.5"
           data={appSelectorOpen ? chevron_up : chevron_down}
