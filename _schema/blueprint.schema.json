@@ -1,72 +1,63 @@
 {
-  "type": "object",
-  "description": "Schema for writing correct blueprints",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Blueprint schema",
-  "additionalItems": false,
-  "$defs": {
-    "type": {
-      "type": "string",
-      "enum": [
-        "CORE:Blueprint",
-        "dmss://system/SIMOS/Blueprint"
-      ]
-    },
-    "attributeTypes": {
-      "type": "string",
-      "enum": [
-        "CORE:BlueprintAttribute",
-        "dmss://system/SIMOS/BlueprintAttribute"
-      ]
-    }
-  },
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "type": {
-      "$ref": "#/$defs/type"
-    },
-    "description": {
-      "type": "string"
-    },
-    "attributes": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "type": {
-            "$ref": "#/$defs/attributeTypes"
-          },
-          "description": {
-            "type": "string"
-          },
-          "attributeType": {
-            "type": "string"
-          },
-          "optional": {
-            "type": "boolean"
-          },
-          "label": {
-            "type": "string"
-          },
-          "dimensions": {
-            "type": "string"
-          },
-          "default": true
-        },
-        "required": [
-          "type",
-          "attributeType"
-        ]
-      }
-    }
-  },
-  "required": [
-    "name",
-    "type"
-  ]
+	"type": "object",
+	"description": "Schema for writing correct blueprints",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Blueprint schema",
+	"additionalItems": false,
+	"$defs": {
+		"type": {
+			"type": "string",
+			"enum": ["CORE:Blueprint", "dmss://system/SIMOS/Blueprint"]
+		},
+		"attributeTypes": {
+			"type": "string",
+			"enum": [
+				"CORE:BlueprintAttribute",
+				"dmss://system/SIMOS/BlueprintAttribute"
+			]
+		}
+	},
+	"properties": {
+		"name": {
+			"type": "string"
+		},
+		"type": {
+			"$ref": "#/$defs/type"
+		},
+		"description": {
+			"type": "string"
+		},
+		"attributes": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/$defs/attributeTypes"
+					},
+					"description": {
+						"type": "string"
+					},
+					"attributeType": {
+						"type": "string"
+					},
+					"optional": {
+						"type": "boolean"
+					},
+					"label": {
+						"type": "string"
+					},
+					"dimensions": {
+						"type": "string"
+					},
+					"default": true
+				},
+				"required": ["type", "attributeType"]
+			}
+		}
+	},
+	"required": ["name", "type"]
 }

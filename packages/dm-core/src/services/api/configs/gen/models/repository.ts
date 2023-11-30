@@ -25,70 +25,70 @@ import { StorageDataTypes } from './storage-data-types'
  * @interface Repository
  */
 export interface Repository {
-  /**
-   *
-   * @type {RepositoryType}
-   * @memberof Repository
-   */
-  type: RepositoryType
-  /**
-   *
-   * @type {Array<StorageDataTypes>}
-   * @memberof Repository
-   */
-  data_types?: Array<StorageDataTypes>
-  /**
-   *
-   * @type {string}
-   * @memberof Repository
-   */
-  host?: string
-  /**
-   *
-   * @type {number}
-   * @memberof Repository
-   */
-  port?: number
-  /**
-   *
-   * @type {string}
-   * @memberof Repository
-   */
-  username?: string
-  /**
-   *
-   * @type {string}
-   * @memberof Repository
-   */
-  password?: string
-  /**
-   *
-   * @type {string}
-   * @memberof Repository
-   */
-  database?: string
-  /**
-   *
-   * @type {string}
-   * @memberof Repository
-   */
-  collection?: string
-  /**
-   *
-   * @type {string}
-   * @memberof Repository
-   */
-  account_url?: string
-  /**
-   *
-   * @type {string}
-   * @memberof Repository
-   */
-  container?: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof Repository
-   */
-  tls?: boolean
+	/**
+	 *
+	 * @type {RepositoryType}
+	 * @memberof Repository
+	 */
+	type: RepositoryType
+	/**
+	 *
+	 * @type {Array<StorageDataTypes>}
+	 * @memberof Repository
+	 */
+	data_types?: Array<StorageDataTypes>
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Repository
+	 */
+	host?: string
+	/**
+	 *
+	 * @type {number}
+	 * @memberof Repository
+	 */
+	port?: number
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Repository
+	 */
+	username?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Repository
+	 */
+	password?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Repository
+	 */
+	database?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Repository
+	 */
+	collection?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Repository
+	 */
+	account_url?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Repository
+	 */
+	container?: string
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof Repository
+	 */
+	tls?: boolean
 }

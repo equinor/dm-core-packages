@@ -1,10 +1,10 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "CORE:File",
-  "initialUiRecipe": {
-    "name": "MediaViewer",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/media-viewer",
-    "config": {}
-  }
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "CORE:File",
+	"initialUiRecipe": {
+		"name": "MediaViewer",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/media-viewer",
+		"config": {}
+	}
 }

@@ -11,22 +11,22 @@ const ErrorHelperText = styled.div`
 `
 
 const BlueprintPickerWidget = (props: TWidget) => {
-  const { label, variant, onChange, value, helperText } = props
-  return (
-    <>
-      <BlueprintPicker
-        label={label}
-        variant={variant}
-        onChange={onChange ?? (() => undefined)}
-        formData={value}
-      />
-      {variant === 'error' ? (
-        <ErrorHelperText>{helperText}</ErrorHelperText>
-      ) : (
-        <></>
-      )}
-    </>
-  )
+	const { label, variant, onChange, value, helperText } = props
+	return (
+		<>
+			<BlueprintPicker
+				label={label}
+				variant={variant}
+				onChange={onChange ?? (() => undefined)}
+				formData={value}
+			/>
+			{variant === 'error' ? (
+				<ErrorHelperText>{helperText}</ErrorHelperText>
+			) : (
+				<></>
+			)}
+		</>
+	)
 }
 
 export default BlueprintPickerWidget

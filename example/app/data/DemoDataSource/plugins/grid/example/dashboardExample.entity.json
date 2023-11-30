@@ -1,32 +1,32 @@
 {
-  "_id": "dashboardExample",
-  "name": "DashboardExample",
-  "type": "./blueprints/Dashboard",
-  "orders": [
-    {
-      "type": "./blueprints/OrderItem",
-      "quantity": 1,
-      "product": {
-        "_id": "product1",
-        "name": "Product 1",
-        "type": "./blueprints/Product",
-        "something": "Asdf"
-      }
-    }
-  ],
-  "order": {
-    "type": "./blueprints/OrderItem",
-    "quantity": 1,
-    "product": {
-      "name": "Product 1",
-      "type": "./blueprints/Product",
-      "something": "Asdf"
-    }
-  },
-  "aNestedObjectWithCustomUI": {
-    "type": "./blueprints/Nested",
-    "foo": 1337,
-    "bar": "hello",
-    "baz": "testing"
-  }
+	"_id": "dashboardExample",
+	"name": "DashboardExample",
+	"type": "./blueprints/Dashboard",
+	"orders": [
+		{
+			"type": "./blueprints/OrderItem",
+			"quantity": 1,
+			"product": {
+				"_id": "product1",
+				"name": "Product 1",
+				"type": "./blueprints/Product",
+				"something": "Asdf"
+			}
+		}
+	],
+	"order": {
+		"type": "./blueprints/OrderItem",
+		"quantity": 1,
+		"product": {
+			"name": "Product 1",
+			"type": "./blueprints/Product",
+			"something": "Asdf"
+		}
+	},
+	"aNestedObjectWithCustomUI": {
+		"type": "./blueprints/Nested",
+		"foo": 1337,
+		"bar": "hello",
+		"baz": "testing"
+	}
 }

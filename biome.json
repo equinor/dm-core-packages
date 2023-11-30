@@ -1,86 +1,82 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.4.0/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
-  "files": {
-    "ignore": [
-      "*.config.js",
-      "*.config.base.js",
-      "*.test.tsx",
-      "/packages/plugins/simpos-ui/src/*",
-      "/packages/plugins/simos-ui/src/*",
-      "/packages/plugins/marmo-ui/src/*",
-      "/packages/home/src/plugins.js",
-      "/packages/plugins/form/src/test-utils.tsx",
-      "dist",
-      "node_modules",
-      "build"
-    ]
-  },
-  "javascript": {
-    "formatter": {
-      "semicolons": "asNeeded",
-      "indentStyle": "space",
-      "jsxQuoteStyle": "single",
-      "quoteStyle": "single",
-      "trailingComma": "es5"
-    }
-  },
-  "json": {
-    "formatter": {
-      "enabled": false
-    }
-  },
-  "linter": {
-    "ignore": [
-      "packages/dm-core/src/services/api/configs",
-      "build",
-      "coverage",
-      "node_modules",
-      "dist",
-      ".release-please-manifest.json"
-    ],
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "suspicious": {
-        "noExplicitAny": "off",
-        "noDoubleEquals": "off",
-        "noArrayIndexKey": "off",
-        "noAssignInExpressions": "off",
-        "useIsArray": "off",
-        "useValidTypeof": "off"
-      },
-      "correctness": {
-        "useExhaustiveDependencies": "off"
-      },
-      "complexity": {
-        "noForEach": "off",
-        "useLiteralKeys": "off",
-        "useOptionalChain": "off"
-      },
-      "style": {
-        "noInferrableTypes": "off",
-        "noUnusedTemplateLiteral": "off",
-        "useTemplate": "off",
-        "noParameterAssign": "off",
-        "noUselessElse": "off",
-        "useSelfClosingElements": "off",
-        "useExponentiationOperator": "off"
-      },
-      "security": {
-        "noDangerouslySetInnerHtml": "off",
-        "noDangerouslySetInnerHtmlWithChildren": "off"
-      },
-      "performance": {
-        "noDelete": "off"
-      },
-      "a11y": {
-        "useKeyWithClickEvents": "off",
-        "useIframeTitle": "off",
-        "useMediaCaption": "off"
-      }
-    }
-  }
+	"$schema": "https://biomejs.dev/schemas/1.4.0/schema.json",
+	"organizeImports": {
+		"enabled": false
+	},
+	"files": {
+		"ignore": [
+			"*.config.js",
+			"*.config.base.js",
+			"*.test.tsx",
+			"/packages/plugins/simpos-ui/src/*",
+			"/packages/plugins/simos-ui/src/*",
+			"/packages/plugins/marmo-ui/src/*",
+			"/packages/home/src/plugins.js",
+			"/packages/plugins/form/src/test-utils.tsx",
+			"dist",
+			"node_modules",
+			"build"
+		]
+	},
+	"javascript": {
+		"formatter": {
+			"semicolons": "asNeeded",
+			"indentStyle": "tab",
+			"indentWidth": 1,
+			"jsxQuoteStyle": "single",
+			"quoteStyle": "single",
+			"trailingComma": "es5"
+		}
+	},
+	"linter": {
+		"ignore": [
+			"packages/dm-core/src/services/api/configs",
+			"build",
+			"coverage",
+			"node_modules",
+			"dist",
+			".release-please-manifest.json"
+		],
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noDoubleEquals": "off",
+				"noArrayIndexKey": "off",
+				"noAssignInExpressions": "off",
+				"useIsArray": "off",
+				"useValidTypeof": "off"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "off"
+			},
+			"complexity": {
+				"noForEach": "off",
+				"useLiteralKeys": "off",
+				"useOptionalChain": "off"
+			},
+			"style": {
+				"noInferrableTypes": "off",
+				"noUnusedTemplateLiteral": "off",
+				"useTemplate": "off",
+				"noParameterAssign": "off",
+				"noUselessElse": "off",
+				"useSelfClosingElements": "off",
+				"useExponentiationOperator": "off"
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "off",
+				"noDangerouslySetInnerHtmlWithChildren": "off"
+			},
+			"performance": {
+				"noDelete": "off"
+			},
+			"a11y": {
+				"useKeyWithClickEvents": "off",
+				"useIframeTitle": "off",
+				"useMediaCaption": "off"
+			}
+		}
+	}
 }

@@ -22,40 +22,40 @@ import { AccessLevel } from './access-level'
  * @interface PATData
  */
 export interface PATData {
-  /**
-   *
-   * @type {string}
-   * @memberof PATData
-   */
-  pat_hash?: string
-  /**
-   *
-   * @type {string}
-   * @memberof PATData
-   */
-  uuid?: string
-  /**
-   *
-   * @type {string}
-   * @memberof PATData
-   */
-  user_id: string
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof PATData
-   */
-  roles?: Array<string>
-  /**
-   *
-   * @type {AccessLevel}
-   * @memberof PATData
-   */
-  scope: AccessLevel
-  /**
-   *
-   * @type {string}
-   * @memberof PATData
-   */
-  expire: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof PATData
+	 */
+	pat_hash?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof PATData
+	 */
+	uuid?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof PATData
+	 */
+	user_id: string
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof PATData
+	 */
+	roles?: Array<string>
+	/**
+	 *
+	 * @type {AccessLevel}
+	 * @memberof PATData
+	 */
+	scope: AccessLevel
+	/**
+	 *
+	 * @type {string}
+	 * @memberof PATData
+	 */
+	expire: string
 }

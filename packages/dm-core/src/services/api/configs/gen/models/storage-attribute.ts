@@ -22,40 +22,40 @@ import { StorageDataTypes } from './storage-data-types'
  * @interface StorageAttribute
  */
 export interface StorageAttribute {
-  /**
-   *
-   * @type {string}
-   * @memberof StorageAttribute
-   */
-  name: string
-  /**
-   *
-   * @type {string}
-   * @memberof StorageAttribute
-   */
-  type?: string
-  /**
-   *
-   * @type {boolean}
-   * @memberof StorageAttribute
-   */
-  contained?: boolean
-  /**
-   *
-   * @type {StorageDataTypes}
-   * @memberof StorageAttribute
-   */
-  storageAffinity?: StorageDataTypes
-  /**
-   *
-   * @type {string}
-   * @memberof StorageAttribute
-   */
-  label?: string
-  /**
-   *
-   * @type {string}
-   * @memberof StorageAttribute
-   */
-  description?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StorageAttribute
+	 */
+	name: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StorageAttribute
+	 */
+	type?: string
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof StorageAttribute
+	 */
+	contained?: boolean
+	/**
+	 *
+	 * @type {StorageDataTypes}
+	 * @memberof StorageAttribute
+	 */
+	storageAffinity?: StorageDataTypes
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StorageAttribute
+	 */
+	label?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StorageAttribute
+	 */
+	description?: string
 }

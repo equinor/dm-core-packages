@@ -1,28 +1,28 @@
 {
-  "name": "Employee",
-  "type": "CORE:Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "name",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "description",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "profilePicture",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "CORE:File",
-      "optional": true,
-      "contained": false
-    }
-  ]
+	"name": "Employee",
+	"type": "CORE:Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "name",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "description",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "profilePicture",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "CORE:File",
+			"optional": true,
+			"contained": false
+		}
+	]
 }

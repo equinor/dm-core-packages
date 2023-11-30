@@ -1,10 +1,10 @@
 // import { formatBytes } from './formatBytes'
 import {
-  ErrorResponse,
-  formatBytes,
-  Loading,
-  TGenericObject,
-  useDMSS,
+	ErrorResponse,
+	formatBytes,
+	Loading,
+	TGenericObject,
+	useDMSS,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -33,80 +33,80 @@ const TagWrapper = styled.div`
 `
 
 export const ViewerPDFPlugin = (props: {
-  document: TGenericObject
-  dataSourceId: string
+	document: TGenericObject
+	dataSourceId: string
 }) => {
-  const { document, dataSourceId } = props
-  const [blobUrl, setBlobUrl] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const dmssAPI = useDMSS()
+	const { document, dataSourceId } = props
+	const [blobUrl, setBlobUrl] = useState('')
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
+	const dmssAPI = useDMSS()
 
-  useEffect(() => {
-    setError(null)
-    dmssAPI
-      .blobGetById({
-        dataSourceId: dataSourceId,
-        blobId: document.blob._blob_id,
-      })
-      .then((response: any) => {
-        const data = response.data
-        const blob = new Blob([data], { type: 'application/pdf' })
-        setBlobUrl(window.URL.createObjectURL(blob))
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-        setError(error.response?.data.message || 'Failed to fetch PDF')
-      })
-      .finally(() => setLoading(false))
-  }, [props.document])
+	useEffect(() => {
+		setError(null)
+		dmssAPI
+			.blobGetById({
+				dataSourceId: dataSourceId,
+				blobId: document.blob._blob_id,
+			})
+			.then((response: any) => {
+				const data = response.data
+				const blob = new Blob([data], { type: 'application/pdf' })
+				setBlobUrl(window.URL.createObjectURL(blob))
+			})
+			.catch((error: AxiosError<ErrorResponse>) => {
+				console.error(error)
+				setError(error.response?.data.message || 'Failed to fetch PDF')
+			})
+			.finally(() => setLoading(false))
+	}, [props.document])
 
-  if (error)
-    return (
-      <ErrorGroup>
-        <b>Error</b>
-        <b>
-          Failed to load PDF...
-          <div>
-            <code>{error}</code>
-          </div>
-        </b>
-      </ErrorGroup>
-    )
+	if (error)
+		return (
+			<ErrorGroup>
+				<b>Error</b>
+				<b>
+					Failed to load PDF...
+					<div>
+						<code>{error}</code>
+					</div>
+				</b>
+			</ErrorGroup>
+		)
 
-  if (loading) return <Loading />
+	if (loading) return <Loading />
 
-  return (
-    <>
-      <div style={{ display: 'flex', fontSize: '16px' }}>
-        <MetaDataWrapper>
-          <label>Title:</label> {document.name}
-        </MetaDataWrapper>
-        <MetaDataWrapper>
-          <label>Description:</label> {document.description}
-        </MetaDataWrapper>
-        <MetaDataWrapper>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <label>Tags:</label>
-            {document.tags &&
-              document.tags.map((tag: any) => {
-                return <TagWrapper key={tag}>{tag}</TagWrapper>
-              })}
-          </div>
-        </MetaDataWrapper>
-        <MetaDataWrapper>
-          <label>Size:</label> {document.size && formatBytes(document.size)}
-        </MetaDataWrapper>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <a href={blobUrl} target={'_blank'} rel='noopener noreferrer'>
-          Open in new tab
-        </a>
-      </div>
-      <iframe
-        src={blobUrl}
-        style={{ width: '100%', height: `${window.screen.height * 0.8}px` }}
-      />
-    </>
-  )
+	return (
+		<>
+			<div style={{ display: 'flex', fontSize: '16px' }}>
+				<MetaDataWrapper>
+					<label>Title:</label> {document.name}
+				</MetaDataWrapper>
+				<MetaDataWrapper>
+					<label>Description:</label> {document.description}
+				</MetaDataWrapper>
+				<MetaDataWrapper>
+					<div style={{ display: 'flex', flexDirection: 'row' }}>
+						<label>Tags:</label>
+						{document.tags &&
+							document.tags.map((tag: any) => {
+								return <TagWrapper key={tag}>{tag}</TagWrapper>
+							})}
+					</div>
+				</MetaDataWrapper>
+				<MetaDataWrapper>
+					<label>Size:</label> {document.size && formatBytes(document.size)}
+				</MetaDataWrapper>
+			</div>
+			<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+				<a href={blobUrl} target={'_blank'} rel='noopener noreferrer'>
+					Open in new tab
+				</a>
+			</div>
+			<iframe
+				src={blobUrl}
+				style={{ width: '100%', height: `${window.screen.height * 0.8}px` }}
+			/>
+		</>
+	)
 }

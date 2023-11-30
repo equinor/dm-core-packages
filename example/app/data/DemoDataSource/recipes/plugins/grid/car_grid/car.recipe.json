@@ -1,62 +1,62 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/grid/car_grid/blueprints/Car",
-  "initialUiRecipe": {
-    "name": "form",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/form"
-  },
-  "uiRecipes": [
-    {
-      "name": "cars",
-      "type": "CORE:UiRecipe",
-      "description": "List of cars",
-      "plugin": "@development-framework/dm-core-plugins/table",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-        "variant": [
-          {
-            "name": "view",
-            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
-            "functionality": {
-              "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-              "delete": false,
-              "add": false
-            }
-          }
-        ],
-        "columns": [
-          {
-            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-            "data": "position",
-            "label": "position",
-            "sortable": true
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-            "data": "name",
-            "label": "name",
-            "sortable": true
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-            "data": "team",
-            "label": "team",
-            "sortable": true
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-            "data": "lap time",
-            "label": "lap time",
-            "sortable": true
-          }
-        ]
-      }
-    },
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/grid/car_grid/blueprints/Car",
+	"initialUiRecipe": {
+		"name": "form",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/form"
+	},
+	"uiRecipes": [
+		{
+			"name": "cars",
+			"type": "CORE:UiRecipe",
+			"description": "List of cars",
+			"plugin": "@development-framework/dm-core-plugins/table",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+				"variant": [
+					{
+						"name": "view",
+						"type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
+						"functionality": {
+							"type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+							"delete": false,
+							"add": false
+						}
+					}
+				],
+				"columns": [
+					{
+						"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+						"data": "position",
+						"label": "position",
+						"sortable": true
+					},
+					{
+						"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+						"data": "name",
+						"label": "name",
+						"sortable": true
+					},
+					{
+						"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+						"data": "team",
+						"label": "team",
+						"sortable": true
+					},
+					{
+						"type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+						"data": "lap time",
+						"label": "lap time",
+						"sortable": true
+					}
+				]
+			}
+		},
+		{
+			"name": "Yaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml"
+		}
+	]
 }

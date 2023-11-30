@@ -1,109 +1,104 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/view_selector/roles_school_example/blueprints/SchoolDistrict",
-  "initialUiRecipe": {
-    "name": "RoleFilter",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/role_filter",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/role_filter/RoleFilterConfig",
-      "viewConfigs": [
-        {
-          "type": "CORE:ReferenceViewConfig",
-          "recipe": "AdminViewSelector",
-          "roles": [
-            "dmss-admin",
-            "developer"
-          ]
-        },
-        {
-          "type": "CORE:ReferenceViewConfig",
-          "recipe": "OperatorViewSelector",
-          "roles": [
-            "operator"
-          ]
-        }
-      ]
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "AdminViewSelector",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-        "childTabsOnRender": true,
-        "items": [
-          {
-            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-            "label": "Hogwarts Admin",
-            "viewConfig": {
-              "type": "CORE:ReferenceViewConfig",
-              "scope": "school",
-              "eds_icon": "home",
-              "recipe": "AdminView"
-            },
-            "subItems": [
-              {
-                "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-                "label": "Students",
-                "viewConfig": {
-                  "type": "CORE:ViewConfig",
-                  "scope": "school.students"
-                }
-              },
-              {
-                "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-                "label": "Headmaster",
-                "viewConfig": {
-                  "type": "CORE:ViewConfig",
-                  "scope": "school.headmaster"
-                }
-              },
-              {
-                "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-                "label": "Teachers",
-                "viewConfig": {
-                  "type": "CORE:ViewConfig",
-                  "scope": "school.teachers"
-                }
-              }
-            ]
-          },
-          {
-            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-            "label": "Hogwarts All",
-            "viewConfig": {
-              "type": "CORE:ReferenceViewConfig",
-              "scope": "school",
-              "eds_icon": "home",
-              "recipe": "OperatorView"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "OperatorViewSelector",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-        "childTabsOnRender": true,
-        "items": [
-          {
-            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-            "label": "Hogwarts All",
-            "viewConfig": {
-              "type": "CORE:ReferenceViewConfig",
-              "scope": "school",
-              "eds_icon": "home",
-              "recipe": "OperatorView"
-            }
-          }
-        ]
-      }
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/view_selector/roles_school_example/blueprints/SchoolDistrict",
+	"initialUiRecipe": {
+		"name": "RoleFilter",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/role_filter",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/role_filter/RoleFilterConfig",
+			"viewConfigs": [
+				{
+					"type": "CORE:ReferenceViewConfig",
+					"recipe": "AdminViewSelector",
+					"roles": ["dmss-admin", "developer"]
+				},
+				{
+					"type": "CORE:ReferenceViewConfig",
+					"recipe": "OperatorViewSelector",
+					"roles": ["operator"]
+				}
+			]
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "AdminViewSelector",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+				"childTabsOnRender": true,
+				"items": [
+					{
+						"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+						"label": "Hogwarts Admin",
+						"viewConfig": {
+							"type": "CORE:ReferenceViewConfig",
+							"scope": "school",
+							"eds_icon": "home",
+							"recipe": "AdminView"
+						},
+						"subItems": [
+							{
+								"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+								"label": "Students",
+								"viewConfig": {
+									"type": "CORE:ViewConfig",
+									"scope": "school.students"
+								}
+							},
+							{
+								"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+								"label": "Headmaster",
+								"viewConfig": {
+									"type": "CORE:ViewConfig",
+									"scope": "school.headmaster"
+								}
+							},
+							{
+								"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+								"label": "Teachers",
+								"viewConfig": {
+									"type": "CORE:ViewConfig",
+									"scope": "school.teachers"
+								}
+							}
+						]
+					},
+					{
+						"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+						"label": "Hogwarts All",
+						"viewConfig": {
+							"type": "CORE:ReferenceViewConfig",
+							"scope": "school",
+							"eds_icon": "home",
+							"recipe": "OperatorView"
+						}
+					}
+				]
+			}
+		},
+		{
+			"name": "OperatorViewSelector",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+				"childTabsOnRender": true,
+				"items": [
+					{
+						"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+						"label": "Hogwarts All",
+						"viewConfig": {
+							"type": "CORE:ReferenceViewConfig",
+							"scope": "school",
+							"eds_icon": "home",
+							"recipe": "OperatorView"
+						}
+					}
+				]
+			}
+		}
+	]
 }

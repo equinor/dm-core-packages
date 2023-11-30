@@ -1,29 +1,29 @@
 {
-  "_id": "4483c9b0-d505-46c9-a157-94c79f4d7a6p",
-  "name": "employeeApp",
-  "type": "./blueprints/EmployeeApp",
-  "description": "This is an app for viewing employees.",
-  "label": "",
-  "employees": [
-    {
-      "name": "employee1",
-      "type": "./blueprints/Employee",
-      "description": "This is a description...",
-      "profilePicture": {
-        "type": "dmss://system/SIMOS/Reference",
-        "address": "./assets/businessman",
-        "referenceType": "link"
-      }
-    },
-    {
-      "name": "employee2",
-      "type": "./blueprints/Employee",
-      "description": "This is a description...",
-      "profilePicture": {
-        "type": "dmss://system/SIMOS/Reference",
-        "address": "./assets/positive",
-        "referenceType": "link"
-      }
-    }
-  ]
+	"_id": "4483c9b0-d505-46c9-a157-94c79f4d7a6p",
+	"name": "employeeApp",
+	"type": "./blueprints/EmployeeApp",
+	"description": "This is an app for viewing employees.",
+	"label": "",
+	"employees": [
+		{
+			"name": "employee1",
+			"type": "./blueprints/Employee",
+			"description": "This is a description...",
+			"profilePicture": {
+				"type": "dmss://system/SIMOS/Reference",
+				"address": "./assets/businessman",
+				"referenceType": "link"
+			}
+		},
+		{
+			"name": "employee2",
+			"type": "./blueprints/Employee",
+			"description": "This is a description...",
+			"profilePicture": {
+				"type": "dmss://system/SIMOS/Reference",
+				"address": "./assets/positive",
+				"referenceType": "link"
+			}
+		}
+	]
 }

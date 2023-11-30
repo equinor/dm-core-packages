@@ -1,39 +1,39 @@
 {
-  "name": "GridBorder",
-  "type": "dmss://system/SIMOS/Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "size",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true,
-      "default": "1px"
-    },
-    {
-      "name": "color",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true,
-      "default": "black"
-    },
-    {
-      "name": "style",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true,
-      "default": "solid"
-    },
-    {
-      "name": "radius",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true,
-      "default": "solid"
-    }
-  ]
+	"name": "GridBorder",
+	"type": "dmss://system/SIMOS/Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "size",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true,
+			"default": "1px"
+		},
+		{
+			"name": "color",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true,
+			"default": "black"
+		},
+		{
+			"name": "style",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true,
+			"default": "solid"
+		},
+		{
+			"name": "radius",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true,
+			"default": "solid"
+		}
+	]
 }

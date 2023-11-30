@@ -1,12 +1,12 @@
 {
-  "_id": "uncontainedTaskList",
-  "name": "uncontainedTaskList",
-  "type": "./blueprints/UncontainedTaskList",
-  "task_list": [
-    {
-      "type": "CORE:Reference",
-      "address": "/$wash_task",
-      "referenceType": "link"
-    }
-  ]
+	"_id": "uncontainedTaskList",
+	"name": "uncontainedTaskList",
+	"type": "./blueprints/UncontainedTaskList",
+	"task_list": [
+		{
+			"type": "CORE:Reference",
+			"address": "/$wash_task",
+			"referenceType": "link"
+		}
+	]
 }

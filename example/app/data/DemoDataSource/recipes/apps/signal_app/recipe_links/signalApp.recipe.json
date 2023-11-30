@@ -1,52 +1,48 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "AppModels:SignalApp",
-  "initialUiRecipe": {
-    "name": "Header",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/header",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-      "uiRecipesList": [
-        "View study",
-        "Explorer",
-        "Yaml"
-      ],
-      "hideAbout": false,
-      "hideUserInfo": true
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
-    },
-    {
-      "name": "Explorer",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/explorer"
-    },
-    {
-      "name": "View study",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-        "childTabsOnRender": true,
-        "items": [
-          {
-            "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-            "label": "Study",
-            "viewConfig": {
-              "type": "CORE:ReferenceViewConfig",
-              "recipe": "Tabs",
-              "scope": "study",
-              "eds_icon": "change_history"
-            }
-          }
-        ]
-      }
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "AppModels:SignalApp",
+	"initialUiRecipe": {
+		"name": "Header",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/header",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
+			"uiRecipesList": ["View study", "Explorer", "Yaml"],
+			"hideAbout": false,
+			"hideUserInfo": true
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "Yaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml"
+		},
+		{
+			"name": "Explorer",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/explorer"
+		},
+		{
+			"name": "View study",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+				"childTabsOnRender": true,
+				"items": [
+					{
+						"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+						"label": "Study",
+						"viewConfig": {
+							"type": "CORE:ReferenceViewConfig",
+							"recipe": "Tabs",
+							"scope": "study",
+							"eds_icon": "change_history"
+						}
+					}
+				]
+			}
+		}
+	]
 }

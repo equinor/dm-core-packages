@@ -1,25 +1,25 @@
 {
-  "name": "CarList",
-  "type": "CORE:Blueprint",
-  "description": "",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "default": "",
-      "optional": false
-    },
-    {
-      "name": "name",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "cars",
-      "type": "CORE:BlueprintAttribute",
-      "dimensions": "*",
-      "attributeType": "./Car"
-    }
-  ]
+	"name": "CarList",
+	"type": "CORE:Blueprint",
+	"description": "",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string",
+			"default": "",
+			"optional": false
+		},
+		{
+			"name": "name",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "cars",
+			"type": "CORE:BlueprintAttribute",
+			"dimensions": "*",
+			"attributeType": "./Car"
+		}
+	]
 }

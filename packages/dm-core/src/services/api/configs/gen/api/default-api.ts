@@ -18,24 +18,24 @@ import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
 import {
-  DUMMY_BASE_URL,
-  assertParamExists,
-  setApiKeyToObject,
-  setBasicAuthToObject,
-  setBearerAuthToObject,
-  setOAuthToObject,
-  setSearchParams,
-  serializeDataIfNeeded,
-  toPathString,
-  createRequestFunction,
+	DUMMY_BASE_URL,
+	assertParamExists,
+	setApiKeyToObject,
+	setBasicAuthToObject,
+	setBearerAuthToObject,
+	setOAuthToObject,
+	setSearchParams,
+	serializeDataIfNeeded,
+	toPathString,
+	createRequestFunction,
 } from '../common'
 // @ts-ignore
 import {
-  BASE_PATH,
-  COLLECTION_FORMATS,
-  RequestArgs,
-  BaseAPI,
-  RequiredError,
+	BASE_PATH,
+	COLLECTION_FORMATS,
+	RequestArgs,
+	BaseAPI,
+	RequiredError,
 } from '../base'
 // @ts-ignore
 import { AccessControlList } from '../models'
@@ -62,2080 +62,1953 @@ import { PATData } from '../models'
  * @export
  */
 export const DefaultApiAxiosParamCreator = function (
-  configuration?: Configuration
+	configuration?: Configuration
 ) {
-  return {
-    /**
-     * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
-     * @summary Export
-     * @param {string} pathAddress
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    _export: async (
-      pathAddress: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'pathAddress' is not null or undefined
-      assertParamExists('_export', 'pathAddress', pathAddress)
-      const localVarPath = `/api/export/{path_address}`.replace(
-        `{${'path_address'}}`,
-        encodeURIComponent(String(pathAddress))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
-     * @summary Get Attribute
-     * @param {string} address
-     * @param {boolean} [resolve]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    attributeGet: async (
-      address: string,
-      resolve?: boolean,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'address' is not null or undefined
-      assertParamExists('attributeGet', 'address', address)
-      const localVarPath = `/api/attribute/{address}`.replace(
-        `{${'address'}}`,
-        encodeURIComponent(String(address))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (resolve !== undefined) {
-        localVarQueryParameter['resolve'] = resolve
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
-     * @summary Get By Id
-     * @param {string} dataSourceId
-     * @param {string} blobId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    blobGetById: async (
-      dataSourceId: string,
-      blobId: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('blobGetById', 'dataSourceId', dataSourceId)
-      // verify required parameter 'blobId' is not null or undefined
-      assertParamExists('blobGetById', 'blobId', blobId)
-      const localVarPath = `/api/blobs/{data_source_id}/{blob_id}`
-        .replace(
-          `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId))
-        )
-        .replace(`{${'blob_id'}}`, encodeURIComponent(String(blobId)))
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
-     * @summary Upload
-     * @param {string} dataSourceId
-     * @param {string} blobId
-     * @param {File} file
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    blobUpload: async (
-      dataSourceId: string,
-      blobId: string,
-      file: File,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('blobUpload', 'dataSourceId', dataSourceId)
-      // verify required parameter 'blobId' is not null or undefined
-      assertParamExists('blobUpload', 'blobId', blobId)
-      // verify required parameter 'file' is not null or undefined
-      assertParamExists('blobUpload', 'file', file)
-      const localVarPath = `/api/blobs/{data_source_id}/{blob_id}`
-        .replace(
-          `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId))
-        )
-        .replace(`{${'blob_id'}}`, encodeURIComponent(String(blobId)))
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'PUT',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-      const localVarFormParams = new (
-        (configuration && configuration.formDataCtor) ||
-        FormData
-      )()
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (file !== undefined) {
-        localVarFormParams.append('file', file as any)
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'multipart/form-data'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = localVarFormParams
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
-     * @summary Get Blueprint
-     * @param {string} typeRef
-     * @param {string} [context]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    blueprintGet: async (
-      typeRef: string,
-      context?: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'typeRef' is not null or undefined
-      assertParamExists('blueprintGet', 'typeRef', typeRef)
-      const localVarPath = `/api/blueprint/{type_ref}`.replace(
-        `{${'type_ref'}}`,
-        encodeURIComponent(String(typeRef))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (context !== undefined) {
-        localVarQueryParameter['context'] = context
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
-     * @summary Resolve Blueprint Id
-     * @param {string} address
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    blueprintResolve: async (
-      address: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'address' is not null or undefined
-      assertParamExists('blueprintResolve', 'address', address)
-      const localVarPath = `/api/resolve-path/{address}`.replace(
-        `{${'address'}}`,
-        encodeURIComponent(String(address))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
-     * @summary Create Lookup
-     * @param {string} application
-     * @param {Array<string>} recipePackage
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    createLookup: async (
-      application: string,
-      recipePackage: Array<string>,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'application' is not null or undefined
-      assertParamExists('createLookup', 'application', application)
-      // verify required parameter 'recipePackage' is not null or undefined
-      assertParamExists('createLookup', 'recipePackage', recipePackage)
-      const localVarPath = `/api/application/{application}`.replace(
-        `{${'application'}}`,
-        encodeURIComponent(String(application))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (recipePackage) {
-        localVarQueryParameter['recipe_package'] = recipePackage
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
-     * @summary Get
-     * @param {string} dataSourceId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    dataSourceGet: async (
-      dataSourceId: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('dataSourceGet', 'dataSourceId', dataSourceId)
-      const localVarPath = `/api/data-sources/{data_source_id}`.replace(
-        `{${'data_source_id'}}`,
-        encodeURIComponent(String(dataSourceId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
-     * @summary Get All
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    dataSourceGetAll: async (
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/data-sources`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
-     * @summary Save
-     * @param {string} dataSourceId
-     * @param {DataSourceRequest} dataSourceRequest
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    dataSourceSave: async (
-      dataSourceId: string,
-      dataSourceRequest: DataSourceRequest,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('dataSourceSave', 'dataSourceId', dataSourceId)
-      // verify required parameter 'dataSourceRequest' is not null or undefined
-      assertParamExists(
-        'dataSourceSave',
-        'dataSourceRequest',
-        dataSourceRequest
-      )
-      const localVarPath = `/api/data-sources/{data_source_id}`.replace(
-        `{${'data_source_id'}}`,
-        encodeURIComponent(String(dataSourceId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      localVarHeaderParameter['Content-Type'] = 'application/json'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        dataSourceRequest,
-        localVarRequestOptions,
-        configuration
-      )
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
-     * @summary Add Document
-     * @param {string} address
-     * @param {string} document
-     * @param {Array<File>} [files]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentAdd: async (
-      address: string,
-      document: string,
-      files?: Array<File>,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'address' is not null or undefined
-      assertParamExists('documentAdd', 'address', address)
-      // verify required parameter 'document' is not null or undefined
-      assertParamExists('documentAdd', 'document', document)
-      const localVarPath = `/api/documents/{address}`.replace(
-        `{${'address'}}`,
-        encodeURIComponent(String(address))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-      const localVarFormParams = new (
-        (configuration && configuration.formDataCtor) ||
-        FormData
-      )()
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (document !== undefined) {
-        localVarFormParams.append('document', document as any)
-      }
-      if (files) {
-        files.forEach((element) => {
-          localVarFormParams.append('files', element as any)
-        })
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'multipart/form-data'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = localVarFormParams
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
-     * @summary Add Raw
-     * @param {string} dataSourceId
-     * @param {object} body
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentAddSimple: async (
-      dataSourceId: string,
-      body: object,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('documentAddSimple', 'dataSourceId', dataSourceId)
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('documentAddSimple', 'body', body)
-      const localVarPath = `/api/documents-add-raw/{data_source_id}`.replace(
-        `{${'data_source_id'}}`,
-        encodeURIComponent(String(dataSourceId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      localVarHeaderParameter['Content-Type'] = 'application/json'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
-        localVarRequestOptions,
-        configuration
-      )
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
-     * @summary Check Existence
-     * @param {string} address
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentCheck: async (
-      address: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'address' is not null or undefined
-      assertParamExists('documentCheck', 'address', address)
-      const localVarPath = `/api/documents-existence/{address}`.replace(
-        `{${'address'}}`,
-        encodeURIComponent(String(address))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
-     * @summary Get
-     * @param {string} address
-     * @param {number} [depth]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentGet: async (
-      address: string,
-      depth?: number,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'address' is not null or undefined
-      assertParamExists('documentGet', 'address', address)
-      const localVarPath = `/api/documents/{address}`.replace(
-        `{${'address'}}`,
-        encodeURIComponent(String(address))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (depth !== undefined) {
-        localVarQueryParameter['depth'] = depth
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Remove
-     * @param {string} address
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentRemove: async (
-      address: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'address' is not null or undefined
-      assertParamExists('documentRemove', 'address', address)
-      const localVarPath = `/api/documents/{address}`.replace(
-        `{${'address'}}`,
-        encodeURIComponent(String(address))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'DELETE',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
-     * @summary Update
-     * @param {string} idAddress
-     * @param {string} data
-     * @param {Array<File>} [files]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentUpdate: async (
-      idAddress: string,
-      data: string,
-      files?: Array<File>,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'idAddress' is not null or undefined
-      assertParamExists('documentUpdate', 'idAddress', idAddress)
-      // verify required parameter 'data' is not null or undefined
-      assertParamExists('documentUpdate', 'data', data)
-      const localVarPath = `/api/documents/{id_address}`.replace(
-        `{${'id_address'}}`,
-        encodeURIComponent(String(idAddress))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'PUT',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-      const localVarFormParams = new (
-        (configuration && configuration.formDataCtor) ||
-        FormData
-      )()
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (data !== undefined) {
-        localVarFormParams.append('data', data as any)
-      }
-      if (files) {
-        files.forEach((element) => {
-          localVarFormParams.append('files', element as any)
-        })
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'multipart/form-data'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = localVarFormParams
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
-     * @summary Export Meta
-     * @param {string} pathAddress
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    exportMeta: async (
-      pathAddress: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'pathAddress' is not null or undefined
-      assertParamExists('exportMeta', 'pathAddress', pathAddress)
-      const localVarPath = `/api/export/meta/{path_address}`.replace(
-        `{${'path_address'}}`,
-        encodeURIComponent(String(pathAddress))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
-     * @summary Upload File
-     * @param {string} dataSourceId
-     * @param {string} data
-     * @param {File} file
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    fileUpload: async (
-      dataSourceId: string,
-      data: string,
-      file: File,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('fileUpload', 'dataSourceId', dataSourceId)
-      // verify required parameter 'data' is not null or undefined
-      assertParamExists('fileUpload', 'data', data)
-      // verify required parameter 'file' is not null or undefined
-      assertParamExists('fileUpload', 'file', file)
-      const localVarPath = `/api/files/{data_source_id}`.replace(
-        `{${'data_source_id'}}`,
-        encodeURIComponent(String(dataSourceId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-      const localVarFormParams = new (
-        (configuration && configuration.formDataCtor) ||
-        FormData
-      )()
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (data !== undefined) {
-        localVarFormParams.append('data', data as any)
-      }
-
-      if (file !== undefined) {
-        localVarFormParams.append('file', file as any)
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'multipart/form-data'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = localVarFormParams
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
-     * @summary Get Acl
-     * @param {string} dataSourceId
-     * @param {string} documentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getAcl: async (
-      dataSourceId: string,
-      documentId: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('getAcl', 'dataSourceId', dataSourceId)
-      // verify required parameter 'documentId' is not null or undefined
-      assertParamExists('getAcl', 'documentId', documentId)
-      const localVarPath = `/api/acl/{data_source_id}/{document_id}`
-        .replace(
-          `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId))
-        )
-        .replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
-     * @summary Get
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getApiHealthcheckGet: async (
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/healthcheck`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
-     * @summary Get Lookup
-     * @param {string} application
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getLookup: async (
-      application: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'application' is not null or undefined
-      assertParamExists('getLookup', 'application', application)
-      const localVarPath = `/api/application/{application}`.replace(
-        `{${'application'}}`,
-        encodeURIComponent(String(application))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
-     * @summary Instantiate
-     * @param {Entity} entity
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    instantiateEntity: async (
-      entity: Entity,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'entity' is not null or undefined
-      assertParamExists('instantiateEntity', 'entity', entity)
-      const localVarPath = `/api/entity`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      localVarHeaderParameter['Content-Type'] = 'application/json'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        entity,
-        localVarRequestOptions,
-        configuration
-      )
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
-     * @summary Get Meta By Id
-     * @param {string} dataSourceId
-     * @param {string} documentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    metaById: async (
-      dataSourceId: string,
-      documentId: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('metaById', 'dataSourceId', dataSourceId)
-      // verify required parameter 'documentId' is not null or undefined
-      assertParamExists('metaById', 'documentId', documentId)
-      const localVarPath = `/api/meta/{data_source_id}/{document_id}`
-        .replace(
-          `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId))
-        )
-        .replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
-     * @summary Search
-     * @param {Array<string>} [dataSources]
-     * @param {string} [sortByAttribute]
-     * @param {object} [body]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    search: async (
-      dataSources?: Array<string>,
-      sortByAttribute?: string,
-      body?: object,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/search`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (dataSources) {
-        localVarQueryParameter['data_sources'] = dataSources
-      }
-
-      if (sortByAttribute !== undefined) {
-        localVarQueryParameter['sort_by_attribute'] = sortByAttribute
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'application/json'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
-        localVarRequestOptions,
-        configuration
-      )
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Set Acl
-     * @param {string} dataSourceId
-     * @param {string} documentId
-     * @param {AccessControlList} accessControlList
-     * @param {boolean} [recursively]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    setAcl: async (
-      dataSourceId: string,
-      documentId: string,
-      accessControlList: AccessControlList,
-      recursively?: boolean,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'dataSourceId' is not null or undefined
-      assertParamExists('setAcl', 'dataSourceId', dataSourceId)
-      // verify required parameter 'documentId' is not null or undefined
-      assertParamExists('setAcl', 'documentId', documentId)
-      // verify required parameter 'accessControlList' is not null or undefined
-      assertParamExists('setAcl', 'accessControlList', accessControlList)
-      const localVarPath = `/api/acl/{data_source_id}/{document_id}`
-        .replace(
-          `{${'data_source_id'}}`,
-          encodeURIComponent(String(dataSourceId))
-        )
-        .replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'PUT',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (recursively !== undefined) {
-        localVarQueryParameter['recursively'] = recursively
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'application/json'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        accessControlList,
-        localVarRequestOptions,
-        configuration
-      )
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
-     * @summary New Personal Access Token
-     * @param {AccessLevel} [scope]
-     * @param {number} [timeToLive]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    tokenCreate: async (
-      scope?: AccessLevel,
-      timeToLive?: number,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/token`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (scope !== undefined) {
-        localVarQueryParameter['scope'] = scope
-      }
-
-      if (timeToLive !== undefined) {
-        localVarQueryParameter['time_to_live'] = timeToLive
-      }
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
-     * @summary Revoke Personal Access Token
-     * @param {string} tokenId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    tokenDelete: async (
-      tokenId: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'tokenId' is not null or undefined
-      assertParamExists('tokenDelete', 'tokenId', tokenId)
-      const localVarPath = `/api/token/{token_id}`.replace(
-        `{${'token_id'}}`,
-        encodeURIComponent(String(tokenId))
-      )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'DELETE',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
-     * @summary List All Pats
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    tokenListAll: async (
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/api/token`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
-     * @summary Validate
-     * @param {Entity} entity
-     * @param {string} [asType]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    validateEntity: async (
-      entity: Entity,
-      asType?: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'entity' is not null or undefined
-      assertParamExists('validateEntity', 'entity', entity)
-      const localVarPath = `/api/entity/validate`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      if (asType !== undefined) {
-        localVarQueryParameter['as_type'] = asType
-      }
-
-      localVarHeaderParameter['Content-Type'] = 'application/json'
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        entity,
-        localVarRequestOptions,
-        configuration
-      )
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Validate Existing
-     * @param {string} address
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    validateExistingEntity: async (
-      address: string,
-      options: AxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'address' is not null or undefined
-      assertParamExists('validateExistingEntity', 'address', address)
-      const localVarPath =
-        `/api/entity/validate-existing-entity/{address}`.replace(
-          `{${'address'}}`,
-          encodeURIComponent(String(address))
-        )
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-    /**
-     * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
-     * @summary Get Information On Authenticated User
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    whoami: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      const localVarPath = `/api/whoami`
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
-      let baseOptions
-      if (configuration) {
-        baseOptions = configuration.baseOptions
-      }
-
-      const localVarRequestOptions = {
-        method: 'GET',
-        ...baseOptions,
-        ...options,
-      }
-      const localVarHeaderParameter = {} as any
-      const localVarQueryParameter = {} as any
-
-      // authentication APIKeyHeader required
-      await setApiKeyToObject(
-        localVarHeaderParameter,
-        'Access-Key',
-        configuration
-      )
-
-      // authentication OAuth2AuthorizationCodeBearer required
-      // oauth required
-      await setOAuthToObject(
-        localVarHeaderParameter,
-        'OAuth2AuthorizationCodeBearer',
-        [],
-        configuration
-      )
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter)
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {}
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      }
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      }
-    },
-  }
+	return {
+		/**
+		 * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
+		 * @summary Export
+		 * @param {string} pathAddress
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		_export: async (
+			pathAddress: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'pathAddress' is not null or undefined
+			assertParamExists('_export', 'pathAddress', pathAddress)
+			const localVarPath = `/api/export/{path_address}`.replace(
+				`{${'path_address'}}`,
+				encodeURIComponent(String(pathAddress))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
+		 * @summary Get Attribute
+		 * @param {string} address
+		 * @param {boolean} [resolve]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		attributeGet: async (
+			address: string,
+			resolve?: boolean,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'address' is not null or undefined
+			assertParamExists('attributeGet', 'address', address)
+			const localVarPath = `/api/attribute/{address}`.replace(
+				`{${'address'}}`,
+				encodeURIComponent(String(address))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (resolve !== undefined) {
+				localVarQueryParameter['resolve'] = resolve
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
+		 * @summary Get By Id
+		 * @param {string} dataSourceId
+		 * @param {string} blobId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		blobGetById: async (
+			dataSourceId: string,
+			blobId: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('blobGetById', 'dataSourceId', dataSourceId)
+			// verify required parameter 'blobId' is not null or undefined
+			assertParamExists('blobGetById', 'blobId', blobId)
+			const localVarPath = `/api/blobs/{data_source_id}/{blob_id}`
+				.replace(`{${'data_source_id'}}`, encodeURIComponent(String(dataSourceId)))
+				.replace(`{${'blob_id'}}`, encodeURIComponent(String(blobId)))
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
+		 * @summary Upload
+		 * @param {string} dataSourceId
+		 * @param {string} blobId
+		 * @param {File} file
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		blobUpload: async (
+			dataSourceId: string,
+			blobId: string,
+			file: File,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('blobUpload', 'dataSourceId', dataSourceId)
+			// verify required parameter 'blobId' is not null or undefined
+			assertParamExists('blobUpload', 'blobId', blobId)
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('blobUpload', 'file', file)
+			const localVarPath = `/api/blobs/{data_source_id}/{blob_id}`
+				.replace(`{${'data_source_id'}}`, encodeURIComponent(String(dataSourceId)))
+				.replace(`{${'blob_id'}}`, encodeURIComponent(String(blobId)))
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'PUT',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+			const localVarFormParams = new (
+				(configuration && configuration.formDataCtor) ||
+				FormData
+			)()
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any)
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = localVarFormParams
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
+		 * @summary Get Blueprint
+		 * @param {string} typeRef
+		 * @param {string} [context]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		blueprintGet: async (
+			typeRef: string,
+			context?: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'typeRef' is not null or undefined
+			assertParamExists('blueprintGet', 'typeRef', typeRef)
+			const localVarPath = `/api/blueprint/{type_ref}`.replace(
+				`{${'type_ref'}}`,
+				encodeURIComponent(String(typeRef))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (context !== undefined) {
+				localVarQueryParameter['context'] = context
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
+		 * @summary Resolve Blueprint Id
+		 * @param {string} address
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		blueprintResolve: async (
+			address: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'address' is not null or undefined
+			assertParamExists('blueprintResolve', 'address', address)
+			const localVarPath = `/api/resolve-path/{address}`.replace(
+				`{${'address'}}`,
+				encodeURIComponent(String(address))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
+		 * @summary Create Lookup
+		 * @param {string} application
+		 * @param {Array<string>} recipePackage
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createLookup: async (
+			application: string,
+			recipePackage: Array<string>,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'application' is not null or undefined
+			assertParamExists('createLookup', 'application', application)
+			// verify required parameter 'recipePackage' is not null or undefined
+			assertParamExists('createLookup', 'recipePackage', recipePackage)
+			const localVarPath = `/api/application/{application}`.replace(
+				`{${'application'}}`,
+				encodeURIComponent(String(application))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (recipePackage) {
+				localVarQueryParameter['recipe_package'] = recipePackage
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
+		 * @summary Get
+		 * @param {string} dataSourceId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		dataSourceGet: async (
+			dataSourceId: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('dataSourceGet', 'dataSourceId', dataSourceId)
+			const localVarPath = `/api/data-sources/{data_source_id}`.replace(
+				`{${'data_source_id'}}`,
+				encodeURIComponent(String(dataSourceId))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
+		 * @summary Get All
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		dataSourceGetAll: async (
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/data-sources`
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
+		 * @summary Save
+		 * @param {string} dataSourceId
+		 * @param {DataSourceRequest} dataSourceRequest
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		dataSourceSave: async (
+			dataSourceId: string,
+			dataSourceRequest: DataSourceRequest,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('dataSourceSave', 'dataSourceId', dataSourceId)
+			// verify required parameter 'dataSourceRequest' is not null or undefined
+			assertParamExists('dataSourceSave', 'dataSourceRequest', dataSourceRequest)
+			const localVarPath = `/api/data-sources/{data_source_id}`.replace(
+				`{${'data_source_id'}}`,
+				encodeURIComponent(String(dataSourceId))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			localVarHeaderParameter['Content-Type'] = 'application/json'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				dataSourceRequest,
+				localVarRequestOptions,
+				configuration
+			)
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
+		 * @summary Add Document
+		 * @param {string} address
+		 * @param {string} document
+		 * @param {Array<File>} [files]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentAdd: async (
+			address: string,
+			document: string,
+			files?: Array<File>,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'address' is not null or undefined
+			assertParamExists('documentAdd', 'address', address)
+			// verify required parameter 'document' is not null or undefined
+			assertParamExists('documentAdd', 'document', document)
+			const localVarPath = `/api/documents/{address}`.replace(
+				`{${'address'}}`,
+				encodeURIComponent(String(address))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+			const localVarFormParams = new (
+				(configuration && configuration.formDataCtor) ||
+				FormData
+			)()
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (document !== undefined) {
+				localVarFormParams.append('document', document as any)
+			}
+			if (files) {
+				files.forEach((element) => {
+					localVarFormParams.append('files', element as any)
+				})
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = localVarFormParams
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
+		 * @summary Add Raw
+		 * @param {string} dataSourceId
+		 * @param {object} body
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentAddSimple: async (
+			dataSourceId: string,
+			body: object,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('documentAddSimple', 'dataSourceId', dataSourceId)
+			// verify required parameter 'body' is not null or undefined
+			assertParamExists('documentAddSimple', 'body', body)
+			const localVarPath = `/api/documents-add-raw/{data_source_id}`.replace(
+				`{${'data_source_id'}}`,
+				encodeURIComponent(String(dataSourceId))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			localVarHeaderParameter['Content-Type'] = 'application/json'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				body,
+				localVarRequestOptions,
+				configuration
+			)
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+		 * @summary Check Existence
+		 * @param {string} address
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentCheck: async (
+			address: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'address' is not null or undefined
+			assertParamExists('documentCheck', 'address', address)
+			const localVarPath = `/api/documents-existence/{address}`.replace(
+				`{${'address'}}`,
+				encodeURIComponent(String(address))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
+		 * @summary Get
+		 * @param {string} address
+		 * @param {number} [depth]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentGet: async (
+			address: string,
+			depth?: number,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'address' is not null or undefined
+			assertParamExists('documentGet', 'address', address)
+			const localVarPath = `/api/documents/{address}`.replace(
+				`{${'address'}}`,
+				encodeURIComponent(String(address))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (depth !== undefined) {
+				localVarQueryParameter['depth'] = depth
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Remove
+		 * @param {string} address
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentRemove: async (
+			address: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'address' is not null or undefined
+			assertParamExists('documentRemove', 'address', address)
+			const localVarPath = `/api/documents/{address}`.replace(
+				`{${'address'}}`,
+				encodeURIComponent(String(address))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'DELETE',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
+		 * @summary Update
+		 * @param {string} idAddress
+		 * @param {string} data
+		 * @param {Array<File>} [files]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentUpdate: async (
+			idAddress: string,
+			data: string,
+			files?: Array<File>,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'idAddress' is not null or undefined
+			assertParamExists('documentUpdate', 'idAddress', idAddress)
+			// verify required parameter 'data' is not null or undefined
+			assertParamExists('documentUpdate', 'data', data)
+			const localVarPath = `/api/documents/{id_address}`.replace(
+				`{${'id_address'}}`,
+				encodeURIComponent(String(idAddress))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'PUT',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+			const localVarFormParams = new (
+				(configuration && configuration.formDataCtor) ||
+				FormData
+			)()
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (data !== undefined) {
+				localVarFormParams.append('data', data as any)
+			}
+			if (files) {
+				files.forEach((element) => {
+					localVarFormParams.append('files', element as any)
+				})
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = localVarFormParams
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
+		 * @summary Export Meta
+		 * @param {string} pathAddress
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		exportMeta: async (
+			pathAddress: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'pathAddress' is not null or undefined
+			assertParamExists('exportMeta', 'pathAddress', pathAddress)
+			const localVarPath = `/api/export/meta/{path_address}`.replace(
+				`{${'path_address'}}`,
+				encodeURIComponent(String(pathAddress))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
+		 * @summary Upload File
+		 * @param {string} dataSourceId
+		 * @param {string} data
+		 * @param {File} file
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		fileUpload: async (
+			dataSourceId: string,
+			data: string,
+			file: File,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('fileUpload', 'dataSourceId', dataSourceId)
+			// verify required parameter 'data' is not null or undefined
+			assertParamExists('fileUpload', 'data', data)
+			// verify required parameter 'file' is not null or undefined
+			assertParamExists('fileUpload', 'file', file)
+			const localVarPath = `/api/files/{data_source_id}`.replace(
+				`{${'data_source_id'}}`,
+				encodeURIComponent(String(dataSourceId))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+			const localVarFormParams = new (
+				(configuration && configuration.formDataCtor) ||
+				FormData
+			)()
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (data !== undefined) {
+				localVarFormParams.append('data', data as any)
+			}
+
+			if (file !== undefined) {
+				localVarFormParams.append('file', file as any)
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'multipart/form-data'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = localVarFormParams
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
+		 * @summary Get Acl
+		 * @param {string} dataSourceId
+		 * @param {string} documentId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAcl: async (
+			dataSourceId: string,
+			documentId: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('getAcl', 'dataSourceId', dataSourceId)
+			// verify required parameter 'documentId' is not null or undefined
+			assertParamExists('getAcl', 'documentId', documentId)
+			const localVarPath = `/api/acl/{data_source_id}/{document_id}`
+				.replace(`{${'data_source_id'}}`, encodeURIComponent(String(dataSourceId)))
+				.replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
+		 * @summary Get
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getApiHealthcheckGet: async (
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/healthcheck`
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
+		 * @summary Get Lookup
+		 * @param {string} application
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getLookup: async (
+			application: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'application' is not null or undefined
+			assertParamExists('getLookup', 'application', application)
+			const localVarPath = `/api/application/{application}`.replace(
+				`{${'application'}}`,
+				encodeURIComponent(String(application))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
+		 * @summary Instantiate
+		 * @param {Entity} entity
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		instantiateEntity: async (
+			entity: Entity,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'entity' is not null or undefined
+			assertParamExists('instantiateEntity', 'entity', entity)
+			const localVarPath = `/api/entity`
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			localVarHeaderParameter['Content-Type'] = 'application/json'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				entity,
+				localVarRequestOptions,
+				configuration
+			)
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
+		 * @summary Get Meta By Id
+		 * @param {string} dataSourceId
+		 * @param {string} documentId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		metaById: async (
+			dataSourceId: string,
+			documentId: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('metaById', 'dataSourceId', dataSourceId)
+			// verify required parameter 'documentId' is not null or undefined
+			assertParamExists('metaById', 'documentId', documentId)
+			const localVarPath = `/api/meta/{data_source_id}/{document_id}`
+				.replace(`{${'data_source_id'}}`, encodeURIComponent(String(dataSourceId)))
+				.replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
+		 * @summary Search
+		 * @param {Array<string>} [dataSources]
+		 * @param {string} [sortByAttribute]
+		 * @param {object} [body]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		search: async (
+			dataSources?: Array<string>,
+			sortByAttribute?: string,
+			body?: object,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/search`
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (dataSources) {
+				localVarQueryParameter['data_sources'] = dataSources
+			}
+
+			if (sortByAttribute !== undefined) {
+				localVarQueryParameter['sort_by_attribute'] = sortByAttribute
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				body,
+				localVarRequestOptions,
+				configuration
+			)
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Set Acl
+		 * @param {string} dataSourceId
+		 * @param {string} documentId
+		 * @param {AccessControlList} accessControlList
+		 * @param {boolean} [recursively]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setAcl: async (
+			dataSourceId: string,
+			documentId: string,
+			accessControlList: AccessControlList,
+			recursively?: boolean,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'dataSourceId' is not null or undefined
+			assertParamExists('setAcl', 'dataSourceId', dataSourceId)
+			// verify required parameter 'documentId' is not null or undefined
+			assertParamExists('setAcl', 'documentId', documentId)
+			// verify required parameter 'accessControlList' is not null or undefined
+			assertParamExists('setAcl', 'accessControlList', accessControlList)
+			const localVarPath = `/api/acl/{data_source_id}/{document_id}`
+				.replace(`{${'data_source_id'}}`, encodeURIComponent(String(dataSourceId)))
+				.replace(`{${'document_id'}}`, encodeURIComponent(String(documentId)))
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'PUT',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (recursively !== undefined) {
+				localVarQueryParameter['recursively'] = recursively
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				accessControlList,
+				localVarRequestOptions,
+				configuration
+			)
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
+		 * @summary New Personal Access Token
+		 * @param {AccessLevel} [scope]
+		 * @param {number} [timeToLive]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		tokenCreate: async (
+			scope?: AccessLevel,
+			timeToLive?: number,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/token`
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (scope !== undefined) {
+				localVarQueryParameter['scope'] = scope
+			}
+
+			if (timeToLive !== undefined) {
+				localVarQueryParameter['time_to_live'] = timeToLive
+			}
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
+		 * @summary Revoke Personal Access Token
+		 * @param {string} tokenId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		tokenDelete: async (
+			tokenId: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'tokenId' is not null or undefined
+			assertParamExists('tokenDelete', 'tokenId', tokenId)
+			const localVarPath = `/api/token/{token_id}`.replace(
+				`{${'token_id'}}`,
+				encodeURIComponent(String(tokenId))
+			)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'DELETE',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
+		 * @summary List All Pats
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		tokenListAll: async (
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			const localVarPath = `/api/token`
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
+		 * @summary Validate
+		 * @param {Entity} entity
+		 * @param {string} [asType]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		validateEntity: async (
+			entity: Entity,
+			asType?: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'entity' is not null or undefined
+			assertParamExists('validateEntity', 'entity', entity)
+			const localVarPath = `/api/entity/validate`
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			if (asType !== undefined) {
+				localVarQueryParameter['as_type'] = asType
+			}
+
+			localVarHeaderParameter['Content-Type'] = 'application/json'
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+			localVarRequestOptions.data = serializeDataIfNeeded(
+				entity,
+				localVarRequestOptions,
+				configuration
+			)
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Validate Existing
+		 * @param {string} address
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		validateExistingEntity: async (
+			address: string,
+			options: AxiosRequestConfig = {}
+		): Promise<RequestArgs> => {
+			// verify required parameter 'address' is not null or undefined
+			assertParamExists('validateExistingEntity', 'address', address)
+			const localVarPath =
+				`/api/entity/validate-existing-entity/{address}`.replace(
+					`{${'address'}}`,
+					encodeURIComponent(String(address))
+				)
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'POST',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+		/**
+		 * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
+		 * @summary Get Information On Authenticated User
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		whoami: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+			const localVarPath = `/api/whoami`
+			// use dummy base URL string because the URL constructor only accepts absolute URLs.
+			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL)
+			let baseOptions
+			if (configuration) {
+				baseOptions = configuration.baseOptions
+			}
+
+			const localVarRequestOptions = {
+				method: 'GET',
+				...baseOptions,
+				...options,
+			}
+			const localVarHeaderParameter = {} as any
+			const localVarQueryParameter = {} as any
+
+			// authentication APIKeyHeader required
+			await setApiKeyToObject(localVarHeaderParameter, 'Access-Key', configuration)
+
+			// authentication OAuth2AuthorizationCodeBearer required
+			// oauth required
+			await setOAuthToObject(
+				localVarHeaderParameter,
+				'OAuth2AuthorizationCodeBearer',
+				[],
+				configuration
+			)
+
+			setSearchParams(localVarUrlObj, localVarQueryParameter)
+			let headersFromBaseOptions =
+				baseOptions && baseOptions.headers ? baseOptions.headers : {}
+			localVarRequestOptions.headers = {
+				...localVarHeaderParameter,
+				...headersFromBaseOptions,
+				...options.headers,
+			}
+
+			return {
+				url: toPathString(localVarUrlObj),
+				options: localVarRequestOptions,
+			}
+		},
+	}
 }
 
 /**
@@ -2143,815 +2016,799 @@ export const DefaultApiAxiosParamCreator = function (
  * @export
  */
 export const DefaultApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
-  return {
-    /**
-     * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
-     * @summary Export
-     * @param {string} pathAddress
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async _export(
-      pathAddress: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator._export(
-        pathAddress,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
-     * @summary Get Attribute
-     * @param {string} address
-     * @param {boolean} [resolve]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async attributeGet(
-      address: string,
-      resolve?: boolean,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.attributeGet(
-        address,
-        resolve,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
-     * @summary Get By Id
-     * @param {string} dataSourceId
-     * @param {string} blobId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async blobGetById(
-      dataSourceId: string,
-      blobId: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.blobGetById(
-        dataSourceId,
-        blobId,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
-     * @summary Upload
-     * @param {string} dataSourceId
-     * @param {string} blobId
-     * @param {File} file
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async blobUpload(
-      dataSourceId: string,
-      blobId: string,
-      file: File,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.blobUpload(
-        dataSourceId,
-        blobId,
-        file,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
-     * @summary Get Blueprint
-     * @param {string} typeRef
-     * @param {string} [context]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async blueprintGet(
-      typeRef: string,
-      context?: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<GetBlueprintResponse>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintGet(
-        typeRef,
-        context,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
-     * @summary Resolve Blueprint Id
-     * @param {string} address
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async blueprintResolve(
-      address: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.blueprintResolve(address, options)
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
-     * @summary Create Lookup
-     * @param {string} application
-     * @param {Array<string>} recipePackage
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async createLookup(
-      application: string,
-      recipePackage: Array<string>,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.createLookup(
-        application,
-        recipePackage,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
-     * @summary Get
-     * @param {string} dataSourceId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async dataSourceGet(
-      dataSourceId: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceGet(
-        dataSourceId,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
-     * @summary Get All
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async dataSourceGetAll(
-      options?: AxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<Array<DataSourceInformation>>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.dataSourceGetAll(options)
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
-     * @summary Save
-     * @param {string} dataSourceId
-     * @param {DataSourceRequest} dataSourceRequest
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async dataSourceSave(
-      dataSourceId: string,
-      dataSourceRequest: DataSourceRequest,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceSave(
-        dataSourceId,
-        dataSourceRequest,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
-     * @summary Add Document
-     * @param {string} address
-     * @param {string} document
-     * @param {Array<File>} [files]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async documentAdd(
-      address: string,
-      document: string,
-      files?: Array<File>,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.documentAdd(
-        address,
-        document,
-        files,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
-     * @summary Add Raw
-     * @param {string} dataSourceId
-     * @param {object} body
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async documentAddSimple(
-      dataSourceId: string,
-      body: object,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.documentAddSimple(
-          dataSourceId,
-          body,
-          options
-        )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
-     * @summary Check Existence
-     * @param {string} address
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async documentCheck(
-      address: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.documentCheck(
-        address,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
-     * @summary Get
-     * @param {string} address
-     * @param {number} [depth]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async documentGet(
-      address: string,
-      depth?: number,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(
-        address,
-        depth,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Remove
-     * @param {string} address
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async documentRemove(
-      address: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(
-        address,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
-     * @summary Update
-     * @param {string} idAddress
-     * @param {string} data
-     * @param {Array<File>} [files]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async documentUpdate(
-      idAddress: string,
-      data: string,
-      files?: Array<File>,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(
-        idAddress,
-        data,
-        files,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
-     * @summary Export Meta
-     * @param {string} pathAddress
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async exportMeta(
-      pathAddress: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<ExportMetaResponse>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(
-        pathAddress,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
-     * @summary Upload File
-     * @param {string} dataSourceId
-     * @param {string} data
-     * @param {File} file
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async fileUpload(
-      dataSourceId: string,
-      data: string,
-      file: File,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.fileUpload(
-        dataSourceId,
-        data,
-        file,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
-     * @summary Get Acl
-     * @param {string} dataSourceId
-     * @param {string} documentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getAcl(
-      dataSourceId: string,
-      documentId: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<AccessControlList>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getAcl(
-        dataSourceId,
-        documentId,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
-     * @summary Get
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getApiHealthcheckGet(
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.getApiHealthcheckGet(options)
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
-     * @summary Get Lookup
-     * @param {string} application
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getLookup(
-      application: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Lookup>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getLookup(
-        application,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
-     * @summary Instantiate
-     * @param {Entity} entity
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async instantiateEntity(
-      entity: Entity,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.instantiateEntity(entity, options)
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
-     * @summary Get Meta By Id
-     * @param {string} dataSourceId
-     * @param {string} documentId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async metaById(
-      dataSourceId: string,
-      documentId: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.metaById(
-        dataSourceId,
-        documentId,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
-     * @summary Search
-     * @param {Array<string>} [dataSources]
-     * @param {string} [sortByAttribute]
-     * @param {object} [body]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async search(
-      dataSources?: Array<string>,
-      sortByAttribute?: string,
-      body?: object,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.search(
-        dataSources,
-        sortByAttribute,
-        body,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Set Acl
-     * @param {string} dataSourceId
-     * @param {string} documentId
-     * @param {AccessControlList} accessControlList
-     * @param {boolean} [recursively]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async setAcl(
-      dataSourceId: string,
-      documentId: string,
-      accessControlList: AccessControlList,
-      recursively?: boolean,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.setAcl(
-        dataSourceId,
-        documentId,
-        accessControlList,
-        recursively,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
-     * @summary New Personal Access Token
-     * @param {AccessLevel} [scope]
-     * @param {number} [timeToLive]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async tokenCreate(
-      scope?: AccessLevel,
-      timeToLive?: number,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(
-        scope,
-        timeToLive,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
-     * @summary Revoke Personal Access Token
-     * @param {string} tokenId
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async tokenDelete(
-      tokenId: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.tokenDelete(
-        tokenId,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
-     * @summary List All Pats
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async tokenListAll(
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PATData>>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.tokenListAll(options)
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
-     * @summary Validate
-     * @param {Entity} entity
-     * @param {string} [asType]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async validateEntity(
-      entity: Entity,
-      asType?: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.validateEntity(
-        entity,
-        asType,
-        options
-      )
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Validate Existing
-     * @param {string} address
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async validateExistingEntity(
-      address: string,
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.validateExistingEntity(address, options)
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-    /**
-     * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
-     * @summary Get Information On Authenticated User
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async whoami(
-      options?: AxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.whoami(options)
-      return createRequestFunction(
-        localVarAxiosArgs,
-        globalAxios,
-        BASE_PATH,
-        configuration
-      )
-    },
-  }
+	const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
+	return {
+		/**
+		 * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
+		 * @summary Export
+		 * @param {string} pathAddress
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async _export(
+			pathAddress: string,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator._export(
+				pathAddress,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
+		 * @summary Get Attribute
+		 * @param {string} address
+		 * @param {boolean} [resolve]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async attributeGet(
+			address: string,
+			resolve?: boolean,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.attributeGet(
+				address,
+				resolve,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
+		 * @summary Get By Id
+		 * @param {string} dataSourceId
+		 * @param {string} blobId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async blobGetById(
+			dataSourceId: string,
+			blobId: string,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.blobGetById(
+				dataSourceId,
+				blobId,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
+		 * @summary Upload
+		 * @param {string} dataSourceId
+		 * @param {string} blobId
+		 * @param {File} file
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async blobUpload(
+			dataSourceId: string,
+			blobId: string,
+			file: File,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.blobUpload(
+				dataSourceId,
+				blobId,
+				file,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
+		 * @summary Get Blueprint
+		 * @param {string} typeRef
+		 * @param {string} [context]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async blueprintGet(
+			typeRef: string,
+			context?: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<GetBlueprintResponse>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintGet(
+				typeRef,
+				context,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
+		 * @summary Resolve Blueprint Id
+		 * @param {string} address
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async blueprintResolve(
+			address: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.blueprintResolve(
+				address,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
+		 * @summary Create Lookup
+		 * @param {string} application
+		 * @param {Array<string>} recipePackage
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async createLookup(
+			application: string,
+			recipePackage: Array<string>,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.createLookup(
+				application,
+				recipePackage,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
+		 * @summary Get
+		 * @param {string} dataSourceId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async dataSourceGet(
+			dataSourceId: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceGet(
+				dataSourceId,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
+		 * @summary Get All
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async dataSourceGetAll(
+			options?: AxiosRequestConfig
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<Array<DataSourceInformation>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.dataSourceGetAll(options)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
+		 * @summary Save
+		 * @param {string} dataSourceId
+		 * @param {DataSourceRequest} dataSourceRequest
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async dataSourceSave(
+			dataSourceId: string,
+			dataSourceRequest: DataSourceRequest,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.dataSourceSave(
+				dataSourceId,
+				dataSourceRequest,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
+		 * @summary Add Document
+		 * @param {string} address
+		 * @param {string} document
+		 * @param {Array<File>} [files]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async documentAdd(
+			address: string,
+			document: string,
+			files?: Array<File>,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.documentAdd(
+				address,
+				document,
+				files,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
+		 * @summary Add Raw
+		 * @param {string} dataSourceId
+		 * @param {object} body
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async documentAddSimple(
+			dataSourceId: string,
+			body: object,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.documentAddSimple(
+				dataSourceId,
+				body,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+		 * @summary Check Existence
+		 * @param {string} address
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async documentCheck(
+			address: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.documentCheck(
+				address,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
+		 * @summary Get
+		 * @param {string} address
+		 * @param {number} [depth]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async documentGet(
+			address: string,
+			depth?: number,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.documentGet(
+				address,
+				depth,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Remove
+		 * @param {string} address
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async documentRemove(
+			address: string,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.documentRemove(
+				address,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
+		 * @summary Update
+		 * @param {string} idAddress
+		 * @param {string} data
+		 * @param {Array<File>} [files]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async documentUpdate(
+			idAddress: string,
+			data: string,
+			files?: Array<File>,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.documentUpdate(
+				idAddress,
+				data,
+				files,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
+		 * @summary Export Meta
+		 * @param {string} pathAddress
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async exportMeta(
+			pathAddress: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(
+				axios?: AxiosInstance,
+				basePath?: string
+			) => AxiosPromise<ExportMetaResponse>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.exportMeta(
+				pathAddress,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
+		 * @summary Upload File
+		 * @param {string} dataSourceId
+		 * @param {string} data
+		 * @param {File} file
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async fileUpload(
+			dataSourceId: string,
+			data: string,
+			file: File,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.fileUpload(
+				dataSourceId,
+				data,
+				file,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
+		 * @summary Get Acl
+		 * @param {string} dataSourceId
+		 * @param {string} documentId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getAcl(
+			dataSourceId: string,
+			documentId: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessControlList>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getAcl(
+				dataSourceId,
+				documentId,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
+		 * @summary Get
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getApiHealthcheckGet(
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.getApiHealthcheckGet(options)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
+		 * @summary Get Lookup
+		 * @param {string} application
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async getLookup(
+			application: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Lookup>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.getLookup(
+				application,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
+		 * @summary Instantiate
+		 * @param {Entity} entity
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async instantiateEntity(
+			entity: Entity,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.instantiateEntity(
+				entity,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
+		 * @summary Get Meta By Id
+		 * @param {string} dataSourceId
+		 * @param {string} documentId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async metaById(
+			dataSourceId: string,
+			documentId: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.metaById(
+				dataSourceId,
+				documentId,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
+		 * @summary Search
+		 * @param {Array<string>} [dataSources]
+		 * @param {string} [sortByAttribute]
+		 * @param {object} [body]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async search(
+			dataSources?: Array<string>,
+			sortByAttribute?: string,
+			body?: object,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.search(
+				dataSources,
+				sortByAttribute,
+				body,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Set Acl
+		 * @param {string} dataSourceId
+		 * @param {string} documentId
+		 * @param {AccessControlList} accessControlList
+		 * @param {boolean} [recursively]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async setAcl(
+			dataSourceId: string,
+			documentId: string,
+			accessControlList: AccessControlList,
+			recursively?: boolean,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.setAcl(
+				dataSourceId,
+				documentId,
+				accessControlList,
+				recursively,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
+		 * @summary New Personal Access Token
+		 * @param {AccessLevel} [scope]
+		 * @param {number} [timeToLive]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async tokenCreate(
+			scope?: AccessLevel,
+			timeToLive?: number,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.tokenCreate(
+				scope,
+				timeToLive,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
+		 * @summary Revoke Personal Access Token
+		 * @param {string} tokenId
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async tokenDelete(
+			tokenId: string,
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>
+		> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.tokenDelete(
+				tokenId,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
+		 * @summary List All Pats
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async tokenListAll(
+			options?: AxiosRequestConfig
+		): Promise<
+			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PATData>>
+		> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.tokenListAll(options)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
+		 * @summary Validate
+		 * @param {Entity} entity
+		 * @param {string} [asType]
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async validateEntity(
+			entity: Entity,
+			asType?: string,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.validateEntity(
+				entity,
+				asType,
+				options
+			)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Validate Existing
+		 * @param {string} address
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async validateExistingEntity(
+			address: string,
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.validateExistingEntity(address, options)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+		/**
+		 * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
+		 * @summary Get Information On Authenticated User
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		async whoami(
+			options?: AxiosRequestConfig
+		): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+			const localVarAxiosArgs = await localVarAxiosParamCreator.whoami(options)
+			return createRequestFunction(
+				localVarAxiosArgs,
+				globalAxios,
+				BASE_PATH,
+				configuration
+			)
+		},
+	}
 }
 
 /**
@@ -2959,539 +2816,517 @@ export const DefaultApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const DefaultApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance
+	configuration?: Configuration,
+	basePath?: string,
+	axios?: AxiosInstance
 ) {
-  const localVarFp = DefaultApiFp(configuration)
-  return {
-    /**
-     * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
-     * @summary Export
-     * @param {DefaultApiExportRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    _export(
-      requestParameters: DefaultApiExportRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<void> {
-      return localVarFp
-        ._export(requestParameters.pathAddress, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
-     * @summary Get Attribute
-     * @param {DefaultApiAttributeGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    attributeGet(
-      requestParameters: DefaultApiAttributeGetRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<object> {
-      return localVarFp
-        .attributeGet(
-          requestParameters.address,
-          requestParameters.resolve,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
-     * @summary Get By Id
-     * @param {DefaultApiBlobGetByIdRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    blobGetById(
-      requestParameters: DefaultApiBlobGetByIdRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<File> {
-      return localVarFp
-        .blobGetById(
-          requestParameters.dataSourceId,
-          requestParameters.blobId,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
-     * @summary Upload
-     * @param {DefaultApiBlobUploadRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    blobUpload(
-      requestParameters: DefaultApiBlobUploadRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .blobUpload(
-          requestParameters.dataSourceId,
-          requestParameters.blobId,
-          requestParameters.file,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
-     * @summary Get Blueprint
-     * @param {DefaultApiBlueprintGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    blueprintGet(
-      requestParameters: DefaultApiBlueprintGetRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<GetBlueprintResponse> {
-      return localVarFp
-        .blueprintGet(
-          requestParameters.typeRef,
-          requestParameters.context,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
-     * @summary Resolve Blueprint Id
-     * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    blueprintResolve(
-      requestParameters: DefaultApiBlueprintResolveRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .blueprintResolve(requestParameters.address, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
-     * @summary Create Lookup
-     * @param {DefaultApiCreateLookupRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    createLookup(
-      requestParameters: DefaultApiCreateLookupRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<void> {
-      return localVarFp
-        .createLookup(
-          requestParameters.application,
-          requestParameters.recipePackage,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
-     * @summary Get
-     * @param {DefaultApiDataSourceGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    dataSourceGet(
-      requestParameters: DefaultApiDataSourceGetRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<object> {
-      return localVarFp
-        .dataSourceGet(requestParameters.dataSourceId, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
-     * @summary Get All
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    dataSourceGetAll(
-      options?: AxiosRequestConfig
-    ): AxiosPromise<Array<DataSourceInformation>> {
-      return localVarFp
-        .dataSourceGetAll(options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
-     * @summary Save
-     * @param {DefaultApiDataSourceSaveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    dataSourceSave(
-      requestParameters: DefaultApiDataSourceSaveRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .dataSourceSave(
-          requestParameters.dataSourceId,
-          requestParameters.dataSourceRequest,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
-     * @summary Add Document
-     * @param {DefaultApiDocumentAddRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentAdd(
-      requestParameters: DefaultApiDocumentAddRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<object> {
-      return localVarFp
-        .documentAdd(
-          requestParameters.address,
-          requestParameters.document,
-          requestParameters.files,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
-     * @summary Add Raw
-     * @param {DefaultApiDocumentAddSimpleRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentAddSimple(
-      requestParameters: DefaultApiDocumentAddSimpleRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .documentAddSimple(
-          requestParameters.dataSourceId,
-          requestParameters.body,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
-     * @summary Check Existence
-     * @param {DefaultApiDocumentCheckRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentCheck(
-      requestParameters: DefaultApiDocumentCheckRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<boolean> {
-      return localVarFp
-        .documentCheck(requestParameters.address, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
-     * @summary Get
-     * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentGet(
-      requestParameters: DefaultApiDocumentGetRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<object> {
-      return localVarFp
-        .documentGet(
-          requestParameters.address,
-          requestParameters.depth,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Remove
-     * @param {DefaultApiDocumentRemoveRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentRemove(
-      requestParameters: DefaultApiDocumentRemoveRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<any> {
-      return localVarFp
-        .documentRemove(requestParameters.address, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
-     * @summary Update
-     * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    documentUpdate(
-      requestParameters: DefaultApiDocumentUpdateRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<any> {
-      return localVarFp
-        .documentUpdate(
-          requestParameters.idAddress,
-          requestParameters.data,
-          requestParameters.files,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
-     * @summary Export Meta
-     * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    exportMeta(
-      requestParameters: DefaultApiExportMetaRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<ExportMetaResponse> {
-      return localVarFp
-        .exportMeta(requestParameters.pathAddress, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
-     * @summary Upload File
-     * @param {DefaultApiFileUploadRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    fileUpload(
-      requestParameters: DefaultApiFileUploadRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<object> {
-      return localVarFp
-        .fileUpload(
-          requestParameters.dataSourceId,
-          requestParameters.data,
-          requestParameters.file,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
-     * @summary Get Acl
-     * @param {DefaultApiGetAclRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getAcl(
-      requestParameters: DefaultApiGetAclRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<AccessControlList> {
-      return localVarFp
-        .getAcl(
-          requestParameters.dataSourceId,
-          requestParameters.documentId,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
-     * @summary Get
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getApiHealthcheckGet(options?: AxiosRequestConfig): AxiosPromise<string> {
-      return localVarFp
-        .getApiHealthcheckGet(options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
-     * @summary Get Lookup
-     * @param {DefaultApiGetLookupRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getLookup(
-      requestParameters: DefaultApiGetLookupRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<Lookup> {
-      return localVarFp
-        .getLookup(requestParameters.application, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
-     * @summary Instantiate
-     * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    instantiateEntity(
-      requestParameters: DefaultApiInstantiateEntityRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<object> {
-      return localVarFp
-        .instantiateEntity(requestParameters.entity, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
-     * @summary Get Meta By Id
-     * @param {DefaultApiMetaByIdRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    metaById(
-      requestParameters: DefaultApiMetaByIdRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<object> {
-      return localVarFp
-        .metaById(
-          requestParameters.dataSourceId,
-          requestParameters.documentId,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
-     * @summary Search
-     * @param {DefaultApiSearchRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    search(
-      requestParameters: DefaultApiSearchRequest = {},
-      options?: AxiosRequestConfig
-    ): AxiosPromise<object> {
-      return localVarFp
-        .search(
-          requestParameters.dataSources,
-          requestParameters.sortByAttribute,
-          requestParameters.body,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Set Acl
-     * @param {DefaultApiSetAclRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    setAcl(
-      requestParameters: DefaultApiSetAclRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .setAcl(
-          requestParameters.dataSourceId,
-          requestParameters.documentId,
-          requestParameters.accessControlList,
-          requestParameters.recursively,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
-     * @summary New Personal Access Token
-     * @param {DefaultApiTokenCreateRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    tokenCreate(
-      requestParameters: DefaultApiTokenCreateRequest = {},
-      options?: AxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .tokenCreate(
-          requestParameters.scope,
-          requestParameters.timeToLive,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
-     * @summary Revoke Personal Access Token
-     * @param {DefaultApiTokenDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    tokenDelete(
-      requestParameters: DefaultApiTokenDeleteRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<string> {
-      return localVarFp
-        .tokenDelete(requestParameters.tokenId, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
-     * @summary List All Pats
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    tokenListAll(options?: AxiosRequestConfig): AxiosPromise<Array<PATData>> {
-      return localVarFp
-        .tokenListAll(options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
-     * @summary Validate
-     * @param {DefaultApiValidateEntityRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    validateEntity(
-      requestParameters: DefaultApiValidateEntityRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<any> {
-      return localVarFp
-        .validateEntity(
-          requestParameters.entity,
-          requestParameters.asType,
-          options
-        )
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-     * @summary Validate Existing
-     * @param {DefaultApiValidateExistingEntityRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    validateExistingEntity(
-      requestParameters: DefaultApiValidateExistingEntityRequest,
-      options?: AxiosRequestConfig
-    ): AxiosPromise<any> {
-      return localVarFp
-        .validateExistingEntity(requestParameters.address, options)
-        .then((request) => request(axios, basePath))
-    },
-    /**
-     * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
-     * @summary Get Information On Authenticated User
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    whoami(options?: AxiosRequestConfig): AxiosPromise<any> {
-      return localVarFp
-        .whoami(options)
-        .then((request) => request(axios, basePath))
-    },
-  }
+	const localVarFp = DefaultApiFp(configuration)
+	return {
+		/**
+		 * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
+		 * @summary Export
+		 * @param {DefaultApiExportRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		_export(
+			requestParameters: DefaultApiExportRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<void> {
+			return localVarFp
+				._export(requestParameters.pathAddress, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
+		 * @summary Get Attribute
+		 * @param {DefaultApiAttributeGetRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		attributeGet(
+			requestParameters: DefaultApiAttributeGetRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<object> {
+			return localVarFp
+				.attributeGet(requestParameters.address, requestParameters.resolve, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
+		 * @summary Get By Id
+		 * @param {DefaultApiBlobGetByIdRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		blobGetById(
+			requestParameters: DefaultApiBlobGetByIdRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<File> {
+			return localVarFp
+				.blobGetById(
+					requestParameters.dataSourceId,
+					requestParameters.blobId,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
+		 * @summary Upload
+		 * @param {DefaultApiBlobUploadRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		blobUpload(
+			requestParameters: DefaultApiBlobUploadRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<string> {
+			return localVarFp
+				.blobUpload(
+					requestParameters.dataSourceId,
+					requestParameters.blobId,
+					requestParameters.file,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
+		 * @summary Get Blueprint
+		 * @param {DefaultApiBlueprintGetRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		blueprintGet(
+			requestParameters: DefaultApiBlueprintGetRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<GetBlueprintResponse> {
+			return localVarFp
+				.blueprintGet(requestParameters.typeRef, requestParameters.context, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
+		 * @summary Resolve Blueprint Id
+		 * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		blueprintResolve(
+			requestParameters: DefaultApiBlueprintResolveRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<string> {
+			return localVarFp
+				.blueprintResolve(requestParameters.address, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
+		 * @summary Create Lookup
+		 * @param {DefaultApiCreateLookupRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		createLookup(
+			requestParameters: DefaultApiCreateLookupRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<void> {
+			return localVarFp
+				.createLookup(
+					requestParameters.application,
+					requestParameters.recipePackage,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
+		 * @summary Get
+		 * @param {DefaultApiDataSourceGetRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		dataSourceGet(
+			requestParameters: DefaultApiDataSourceGetRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<object> {
+			return localVarFp
+				.dataSourceGet(requestParameters.dataSourceId, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
+		 * @summary Get All
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		dataSourceGetAll(
+			options?: AxiosRequestConfig
+		): AxiosPromise<Array<DataSourceInformation>> {
+			return localVarFp
+				.dataSourceGetAll(options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
+		 * @summary Save
+		 * @param {DefaultApiDataSourceSaveRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		dataSourceSave(
+			requestParameters: DefaultApiDataSourceSaveRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<string> {
+			return localVarFp
+				.dataSourceSave(
+					requestParameters.dataSourceId,
+					requestParameters.dataSourceRequest,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
+		 * @summary Add Document
+		 * @param {DefaultApiDocumentAddRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentAdd(
+			requestParameters: DefaultApiDocumentAddRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<object> {
+			return localVarFp
+				.documentAdd(
+					requestParameters.address,
+					requestParameters.document,
+					requestParameters.files,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
+		 * @summary Add Raw
+		 * @param {DefaultApiDocumentAddSimpleRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentAddSimple(
+			requestParameters: DefaultApiDocumentAddSimpleRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<string> {
+			return localVarFp
+				.documentAddSimple(
+					requestParameters.dataSourceId,
+					requestParameters.body,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+		 * @summary Check Existence
+		 * @param {DefaultApiDocumentCheckRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentCheck(
+			requestParameters: DefaultApiDocumentCheckRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<boolean> {
+			return localVarFp
+				.documentCheck(requestParameters.address, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
+		 * @summary Get
+		 * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentGet(
+			requestParameters: DefaultApiDocumentGetRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<object> {
+			return localVarFp
+				.documentGet(requestParameters.address, requestParameters.depth, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Remove
+		 * @param {DefaultApiDocumentRemoveRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentRemove(
+			requestParameters: DefaultApiDocumentRemoveRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<any> {
+			return localVarFp
+				.documentRemove(requestParameters.address, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
+		 * @summary Update
+		 * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		documentUpdate(
+			requestParameters: DefaultApiDocumentUpdateRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<any> {
+			return localVarFp
+				.documentUpdate(
+					requestParameters.idAddress,
+					requestParameters.data,
+					requestParameters.files,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
+		 * @summary Export Meta
+		 * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		exportMeta(
+			requestParameters: DefaultApiExportMetaRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<ExportMetaResponse> {
+			return localVarFp
+				.exportMeta(requestParameters.pathAddress, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
+		 * @summary Upload File
+		 * @param {DefaultApiFileUploadRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		fileUpload(
+			requestParameters: DefaultApiFileUploadRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<object> {
+			return localVarFp
+				.fileUpload(
+					requestParameters.dataSourceId,
+					requestParameters.data,
+					requestParameters.file,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
+		 * @summary Get Acl
+		 * @param {DefaultApiGetAclRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getAcl(
+			requestParameters: DefaultApiGetAclRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<AccessControlList> {
+			return localVarFp
+				.getAcl(
+					requestParameters.dataSourceId,
+					requestParameters.documentId,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
+		 * @summary Get
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getApiHealthcheckGet(options?: AxiosRequestConfig): AxiosPromise<string> {
+			return localVarFp
+				.getApiHealthcheckGet(options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
+		 * @summary Get Lookup
+		 * @param {DefaultApiGetLookupRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		getLookup(
+			requestParameters: DefaultApiGetLookupRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<Lookup> {
+			return localVarFp
+				.getLookup(requestParameters.application, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
+		 * @summary Instantiate
+		 * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		instantiateEntity(
+			requestParameters: DefaultApiInstantiateEntityRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<object> {
+			return localVarFp
+				.instantiateEntity(requestParameters.entity, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
+		 * @summary Get Meta By Id
+		 * @param {DefaultApiMetaByIdRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		metaById(
+			requestParameters: DefaultApiMetaByIdRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<object> {
+			return localVarFp
+				.metaById(
+					requestParameters.dataSourceId,
+					requestParameters.documentId,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
+		 * @summary Search
+		 * @param {DefaultApiSearchRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		search(
+			requestParameters: DefaultApiSearchRequest = {},
+			options?: AxiosRequestConfig
+		): AxiosPromise<object> {
+			return localVarFp
+				.search(
+					requestParameters.dataSources,
+					requestParameters.sortByAttribute,
+					requestParameters.body,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Set Acl
+		 * @param {DefaultApiSetAclRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		setAcl(
+			requestParameters: DefaultApiSetAclRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<string> {
+			return localVarFp
+				.setAcl(
+					requestParameters.dataSourceId,
+					requestParameters.documentId,
+					requestParameters.accessControlList,
+					requestParameters.recursively,
+					options
+				)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
+		 * @summary New Personal Access Token
+		 * @param {DefaultApiTokenCreateRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		tokenCreate(
+			requestParameters: DefaultApiTokenCreateRequest = {},
+			options?: AxiosRequestConfig
+		): AxiosPromise<string> {
+			return localVarFp
+				.tokenCreate(requestParameters.scope, requestParameters.timeToLive, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
+		 * @summary Revoke Personal Access Token
+		 * @param {DefaultApiTokenDeleteRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		tokenDelete(
+			requestParameters: DefaultApiTokenDeleteRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<string> {
+			return localVarFp
+				.tokenDelete(requestParameters.tokenId, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
+		 * @summary List All Pats
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		tokenListAll(options?: AxiosRequestConfig): AxiosPromise<Array<PATData>> {
+			return localVarFp
+				.tokenListAll(options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
+		 * @summary Validate
+		 * @param {DefaultApiValidateEntityRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		validateEntity(
+			requestParameters: DefaultApiValidateEntityRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<any> {
+			return localVarFp
+				.validateEntity(requestParameters.entity, requestParameters.asType, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+		 * @summary Validate Existing
+		 * @param {DefaultApiValidateExistingEntityRequest} requestParameters Request parameters.
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		validateExistingEntity(
+			requestParameters: DefaultApiValidateExistingEntityRequest,
+			options?: AxiosRequestConfig
+		): AxiosPromise<any> {
+			return localVarFp
+				.validateExistingEntity(requestParameters.address, options)
+				.then((request) => request(axios, basePath))
+		},
+		/**
+		 * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
+		 * @summary Get Information On Authenticated User
+		 * @param {*} [options] Override http request option.
+		 * @throws {RequiredError}
+		 */
+		whoami(options?: AxiosRequestConfig): AxiosPromise<any> {
+			return localVarFp.whoami(options).then((request) => request(axios, basePath))
+		},
+	}
 }
 
 /**
@@ -3500,12 +3335,12 @@ export const DefaultApiFactory = function (
  * @interface DefaultApiExportRequest
  */
 export interface DefaultApiExportRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiExport
-   */
-  readonly pathAddress: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiExport
+	 */
+	readonly pathAddress: string
 }
 
 /**
@@ -3514,19 +3349,19 @@ export interface DefaultApiExportRequest {
  * @interface DefaultApiAttributeGetRequest
  */
 export interface DefaultApiAttributeGetRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiAttributeGet
-   */
-  readonly address: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiAttributeGet
+	 */
+	readonly address: string
 
-  /**
-   *
-   * @type {boolean}
-   * @memberof DefaultApiAttributeGet
-   */
-  readonly resolve?: boolean
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof DefaultApiAttributeGet
+	 */
+	readonly resolve?: boolean
 }
 
 /**
@@ -3535,19 +3370,19 @@ export interface DefaultApiAttributeGetRequest {
  * @interface DefaultApiBlobGetByIdRequest
  */
 export interface DefaultApiBlobGetByIdRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiBlobGetById
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiBlobGetById
+	 */
+	readonly dataSourceId: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiBlobGetById
-   */
-  readonly blobId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiBlobGetById
+	 */
+	readonly blobId: string
 }
 
 /**
@@ -3556,26 +3391,26 @@ export interface DefaultApiBlobGetByIdRequest {
  * @interface DefaultApiBlobUploadRequest
  */
 export interface DefaultApiBlobUploadRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiBlobUpload
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiBlobUpload
+	 */
+	readonly dataSourceId: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiBlobUpload
-   */
-  readonly blobId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiBlobUpload
+	 */
+	readonly blobId: string
 
-  /**
-   *
-   * @type {File}
-   * @memberof DefaultApiBlobUpload
-   */
-  readonly file: File
+	/**
+	 *
+	 * @type {File}
+	 * @memberof DefaultApiBlobUpload
+	 */
+	readonly file: File
 }
 
 /**
@@ -3584,19 +3419,19 @@ export interface DefaultApiBlobUploadRequest {
  * @interface DefaultApiBlueprintGetRequest
  */
 export interface DefaultApiBlueprintGetRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiBlueprintGet
-   */
-  readonly typeRef: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiBlueprintGet
+	 */
+	readonly typeRef: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiBlueprintGet
-   */
-  readonly context?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiBlueprintGet
+	 */
+	readonly context?: string
 }
 
 /**
@@ -3605,12 +3440,12 @@ export interface DefaultApiBlueprintGetRequest {
  * @interface DefaultApiBlueprintResolveRequest
  */
 export interface DefaultApiBlueprintResolveRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiBlueprintResolve
-   */
-  readonly address: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiBlueprintResolve
+	 */
+	readonly address: string
 }
 
 /**
@@ -3619,19 +3454,19 @@ export interface DefaultApiBlueprintResolveRequest {
  * @interface DefaultApiCreateLookupRequest
  */
 export interface DefaultApiCreateLookupRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiCreateLookup
-   */
-  readonly application: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiCreateLookup
+	 */
+	readonly application: string
 
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof DefaultApiCreateLookup
-   */
-  readonly recipePackage: Array<string>
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof DefaultApiCreateLookup
+	 */
+	readonly recipePackage: Array<string>
 }
 
 /**
@@ -3640,12 +3475,12 @@ export interface DefaultApiCreateLookupRequest {
  * @interface DefaultApiDataSourceGetRequest
  */
 export interface DefaultApiDataSourceGetRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDataSourceGet
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDataSourceGet
+	 */
+	readonly dataSourceId: string
 }
 
 /**
@@ -3654,19 +3489,19 @@ export interface DefaultApiDataSourceGetRequest {
  * @interface DefaultApiDataSourceSaveRequest
  */
 export interface DefaultApiDataSourceSaveRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDataSourceSave
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDataSourceSave
+	 */
+	readonly dataSourceId: string
 
-  /**
-   *
-   * @type {DataSourceRequest}
-   * @memberof DefaultApiDataSourceSave
-   */
-  readonly dataSourceRequest: DataSourceRequest
+	/**
+	 *
+	 * @type {DataSourceRequest}
+	 * @memberof DefaultApiDataSourceSave
+	 */
+	readonly dataSourceRequest: DataSourceRequest
 }
 
 /**
@@ -3675,26 +3510,26 @@ export interface DefaultApiDataSourceSaveRequest {
  * @interface DefaultApiDocumentAddRequest
  */
 export interface DefaultApiDocumentAddRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDocumentAdd
-   */
-  readonly address: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDocumentAdd
+	 */
+	readonly address: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDocumentAdd
-   */
-  readonly document: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDocumentAdd
+	 */
+	readonly document: string
 
-  /**
-   *
-   * @type {Array<File>}
-   * @memberof DefaultApiDocumentAdd
-   */
-  readonly files?: Array<File>
+	/**
+	 *
+	 * @type {Array<File>}
+	 * @memberof DefaultApiDocumentAdd
+	 */
+	readonly files?: Array<File>
 }
 
 /**
@@ -3703,19 +3538,19 @@ export interface DefaultApiDocumentAddRequest {
  * @interface DefaultApiDocumentAddSimpleRequest
  */
 export interface DefaultApiDocumentAddSimpleRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDocumentAddSimple
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDocumentAddSimple
+	 */
+	readonly dataSourceId: string
 
-  /**
-   *
-   * @type {object}
-   * @memberof DefaultApiDocumentAddSimple
-   */
-  readonly body: object
+	/**
+	 *
+	 * @type {object}
+	 * @memberof DefaultApiDocumentAddSimple
+	 */
+	readonly body: object
 }
 
 /**
@@ -3724,12 +3559,12 @@ export interface DefaultApiDocumentAddSimpleRequest {
  * @interface DefaultApiDocumentCheckRequest
  */
 export interface DefaultApiDocumentCheckRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDocumentCheck
-   */
-  readonly address: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDocumentCheck
+	 */
+	readonly address: string
 }
 
 /**
@@ -3738,19 +3573,19 @@ export interface DefaultApiDocumentCheckRequest {
  * @interface DefaultApiDocumentGetRequest
  */
 export interface DefaultApiDocumentGetRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDocumentGet
-   */
-  readonly address: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDocumentGet
+	 */
+	readonly address: string
 
-  /**
-   *
-   * @type {number}
-   * @memberof DefaultApiDocumentGet
-   */
-  readonly depth?: number
+	/**
+	 *
+	 * @type {number}
+	 * @memberof DefaultApiDocumentGet
+	 */
+	readonly depth?: number
 }
 
 /**
@@ -3759,12 +3594,12 @@ export interface DefaultApiDocumentGetRequest {
  * @interface DefaultApiDocumentRemoveRequest
  */
 export interface DefaultApiDocumentRemoveRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDocumentRemove
-   */
-  readonly address: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDocumentRemove
+	 */
+	readonly address: string
 }
 
 /**
@@ -3773,26 +3608,26 @@ export interface DefaultApiDocumentRemoveRequest {
  * @interface DefaultApiDocumentUpdateRequest
  */
 export interface DefaultApiDocumentUpdateRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDocumentUpdate
-   */
-  readonly idAddress: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDocumentUpdate
+	 */
+	readonly idAddress: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiDocumentUpdate
-   */
-  readonly data: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiDocumentUpdate
+	 */
+	readonly data: string
 
-  /**
-   *
-   * @type {Array<File>}
-   * @memberof DefaultApiDocumentUpdate
-   */
-  readonly files?: Array<File>
+	/**
+	 *
+	 * @type {Array<File>}
+	 * @memberof DefaultApiDocumentUpdate
+	 */
+	readonly files?: Array<File>
 }
 
 /**
@@ -3801,12 +3636,12 @@ export interface DefaultApiDocumentUpdateRequest {
  * @interface DefaultApiExportMetaRequest
  */
 export interface DefaultApiExportMetaRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiExportMeta
-   */
-  readonly pathAddress: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiExportMeta
+	 */
+	readonly pathAddress: string
 }
 
 /**
@@ -3815,26 +3650,26 @@ export interface DefaultApiExportMetaRequest {
  * @interface DefaultApiFileUploadRequest
  */
 export interface DefaultApiFileUploadRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiFileUpload
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiFileUpload
+	 */
+	readonly dataSourceId: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiFileUpload
-   */
-  readonly data: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiFileUpload
+	 */
+	readonly data: string
 
-  /**
-   *
-   * @type {File}
-   * @memberof DefaultApiFileUpload
-   */
-  readonly file: File
+	/**
+	 *
+	 * @type {File}
+	 * @memberof DefaultApiFileUpload
+	 */
+	readonly file: File
 }
 
 /**
@@ -3843,19 +3678,19 @@ export interface DefaultApiFileUploadRequest {
  * @interface DefaultApiGetAclRequest
  */
 export interface DefaultApiGetAclRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiGetAcl
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiGetAcl
+	 */
+	readonly dataSourceId: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiGetAcl
-   */
-  readonly documentId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiGetAcl
+	 */
+	readonly documentId: string
 }
 
 /**
@@ -3864,12 +3699,12 @@ export interface DefaultApiGetAclRequest {
  * @interface DefaultApiGetLookupRequest
  */
 export interface DefaultApiGetLookupRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiGetLookup
-   */
-  readonly application: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiGetLookup
+	 */
+	readonly application: string
 }
 
 /**
@@ -3878,12 +3713,12 @@ export interface DefaultApiGetLookupRequest {
  * @interface DefaultApiInstantiateEntityRequest
  */
 export interface DefaultApiInstantiateEntityRequest {
-  /**
-   *
-   * @type {Entity}
-   * @memberof DefaultApiInstantiateEntity
-   */
-  readonly entity: Entity
+	/**
+	 *
+	 * @type {Entity}
+	 * @memberof DefaultApiInstantiateEntity
+	 */
+	readonly entity: Entity
 }
 
 /**
@@ -3892,19 +3727,19 @@ export interface DefaultApiInstantiateEntityRequest {
  * @interface DefaultApiMetaByIdRequest
  */
 export interface DefaultApiMetaByIdRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiMetaById
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiMetaById
+	 */
+	readonly dataSourceId: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiMetaById
-   */
-  readonly documentId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiMetaById
+	 */
+	readonly documentId: string
 }
 
 /**
@@ -3913,26 +3748,26 @@ export interface DefaultApiMetaByIdRequest {
  * @interface DefaultApiSearchRequest
  */
 export interface DefaultApiSearchRequest {
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof DefaultApiSearch
-   */
-  readonly dataSources?: Array<string>
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof DefaultApiSearch
+	 */
+	readonly dataSources?: Array<string>
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiSearch
-   */
-  readonly sortByAttribute?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiSearch
+	 */
+	readonly sortByAttribute?: string
 
-  /**
-   *
-   * @type {object}
-   * @memberof DefaultApiSearch
-   */
-  readonly body?: object
+	/**
+	 *
+	 * @type {object}
+	 * @memberof DefaultApiSearch
+	 */
+	readonly body?: object
 }
 
 /**
@@ -3941,33 +3776,33 @@ export interface DefaultApiSearchRequest {
  * @interface DefaultApiSetAclRequest
  */
 export interface DefaultApiSetAclRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiSetAcl
-   */
-  readonly dataSourceId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiSetAcl
+	 */
+	readonly dataSourceId: string
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiSetAcl
-   */
-  readonly documentId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiSetAcl
+	 */
+	readonly documentId: string
 
-  /**
-   *
-   * @type {AccessControlList}
-   * @memberof DefaultApiSetAcl
-   */
-  readonly accessControlList: AccessControlList
+	/**
+	 *
+	 * @type {AccessControlList}
+	 * @memberof DefaultApiSetAcl
+	 */
+	readonly accessControlList: AccessControlList
 
-  /**
-   *
-   * @type {boolean}
-   * @memberof DefaultApiSetAcl
-   */
-  readonly recursively?: boolean
+	/**
+	 *
+	 * @type {boolean}
+	 * @memberof DefaultApiSetAcl
+	 */
+	readonly recursively?: boolean
 }
 
 /**
@@ -3976,19 +3811,19 @@ export interface DefaultApiSetAclRequest {
  * @interface DefaultApiTokenCreateRequest
  */
 export interface DefaultApiTokenCreateRequest {
-  /**
-   *
-   * @type {AccessLevel}
-   * @memberof DefaultApiTokenCreate
-   */
-  readonly scope?: AccessLevel
+	/**
+	 *
+	 * @type {AccessLevel}
+	 * @memberof DefaultApiTokenCreate
+	 */
+	readonly scope?: AccessLevel
 
-  /**
-   *
-   * @type {number}
-   * @memberof DefaultApiTokenCreate
-   */
-  readonly timeToLive?: number
+	/**
+	 *
+	 * @type {number}
+	 * @memberof DefaultApiTokenCreate
+	 */
+	readonly timeToLive?: number
 }
 
 /**
@@ -3997,12 +3832,12 @@ export interface DefaultApiTokenCreateRequest {
  * @interface DefaultApiTokenDeleteRequest
  */
 export interface DefaultApiTokenDeleteRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiTokenDelete
-   */
-  readonly tokenId: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiTokenDelete
+	 */
+	readonly tokenId: string
 }
 
 /**
@@ -4011,19 +3846,19 @@ export interface DefaultApiTokenDeleteRequest {
  * @interface DefaultApiValidateEntityRequest
  */
 export interface DefaultApiValidateEntityRequest {
-  /**
-   *
-   * @type {Entity}
-   * @memberof DefaultApiValidateEntity
-   */
-  readonly entity: Entity
+	/**
+	 *
+	 * @type {Entity}
+	 * @memberof DefaultApiValidateEntity
+	 */
+	readonly entity: Entity
 
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiValidateEntity
-   */
-  readonly asType?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiValidateEntity
+	 */
+	readonly asType?: string
 }
 
 /**
@@ -4032,12 +3867,12 @@ export interface DefaultApiValidateEntityRequest {
  * @interface DefaultApiValidateExistingEntityRequest
  */
 export interface DefaultApiValidateExistingEntityRequest {
-  /**
-   *
-   * @type {string}
-   * @memberof DefaultApiValidateExistingEntity
-   */
-  readonly address: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DefaultApiValidateExistingEntity
+	 */
+	readonly address: string
 }
 
 /**
@@ -4047,585 +3882,569 @@ export interface DefaultApiValidateExistingEntityRequest {
  * @extends {BaseAPI}
  */
 export class DefaultApi extends BaseAPI {
-  /**
-   * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
-   * @summary Export
-   * @param {DefaultApiExportRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public _export(
-    requestParameters: DefaultApiExportRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      ._export(requestParameters.pathAddress, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Download a zip-folder Containing One or More Documents as JSON Files.  This endpoint creates a zip-folder with the contents of the document and it\'s children.  Args: - path_address: Address to the entity or package that should be exported.   - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - FileResponse: A FileResponse containing the zip file.
+	 * @summary Export
+	 * @param {DefaultApiExportRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public _export(
+		requestParameters: DefaultApiExportRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			._export(requestParameters.pathAddress, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
-   * @summary Get Attribute
-   * @param {DefaultApiAttributeGetRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public attributeGet(
-    requestParameters: DefaultApiAttributeGetRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .attributeGet(
-        requestParameters.address,
-        requestParameters.resolve,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Fetch the BlueprintAttribute which is the container for the addressed object.  This endpoint is used for fetching a BlueprintAttribute in which the addressed entity is contained.  Args: - address (str): The address to the entity. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The blueprint-attribute object.
+	 * @summary Get Attribute
+	 * @param {DefaultApiAttributeGetRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public attributeGet(
+		requestParameters: DefaultApiAttributeGetRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.attributeGet(requestParameters.address, requestParameters.resolve, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
-   * @summary Get By Id
-   * @param {DefaultApiBlobGetByIdRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public blobGetById(
-    requestParameters: DefaultApiBlobGetByIdRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .blobGetById(
-        requestParameters.dataSourceId,
-        requestParameters.blobId,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get blob from id.  A blob file is a binary object, which can be any kind of data object.  Args: - data_source_id (str): The ID of the data source in which to find the blob. - blob_id (str): The ID of the requested blob. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - Filestream: The requested blob.
+	 * @summary Get By Id
+	 * @param {DefaultApiBlobGetByIdRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public blobGetById(
+		requestParameters: DefaultApiBlobGetByIdRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.blobGetById(
+				requestParameters.dataSourceId,
+				requestParameters.blobId,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
-   * @summary Upload
-   * @param {DefaultApiBlobUploadRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public blobUpload(
-    requestParameters: DefaultApiBlobUploadRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .blobUpload(
-        requestParameters.dataSourceId,
-        requestParameters.blobId,
-        requestParameters.file,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Upload a new blob or modify an existings blob.  A blob (binary large object) can be anything from video to text file. If you give an ID to a blob that already exists, the old blob will be updated in place.  Args: - data_source_id (str): The ID of the data source in which to store the blob. - blob_id (str): The ID that the blob should be stored under. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: OK (200)
+	 * @summary Upload
+	 * @param {DefaultApiBlobUploadRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public blobUpload(
+		requestParameters: DefaultApiBlobUploadRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.blobUpload(
+				requestParameters.dataSourceId,
+				requestParameters.blobId,
+				requestParameters.file,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
-   * @summary Get Blueprint
-   * @param {DefaultApiBlueprintGetRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public blueprintGet(
-    requestParameters: DefaultApiBlueprintGetRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .blueprintGet(
-        requestParameters.typeRef,
-        requestParameters.context,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get a Blueprint and all Ui- and StorageRecipes connected to it, given a Blueprint address.  Args: - type_ref (str): The address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME> - context (str): Optional name of application that has Ui-/StorageRecipe lookup table. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - GetBlueprintResponse: An object containing the blueprint, a list of all UI- recipes and a list of all StorageRecipes.
+	 * @summary Get Blueprint
+	 * @param {DefaultApiBlueprintGetRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public blueprintGet(
+		requestParameters: DefaultApiBlueprintGetRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.blueprintGet(requestParameters.typeRef, requestParameters.context, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
-   * @summary Resolve Blueprint Id
-   * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public blueprintResolve(
-    requestParameters: DefaultApiBlueprintResolveRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .blueprintResolve(requestParameters.address, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Resolve path address of a blueprint given id address.  This endpoint takes in an ID-address of a blueprint and finds the full path address to the blueprint.  Args: - address (str): The ID address of the blueprint.     - Example: PROTOCOL://<DATA-SOURCE>/$<UUID>  Returns: - str: the path address of the blueprint.     - Example:  PROTOCOL://<DATA-SOURCE>/<PACKAGE>/<FOLDER>/<NAME>
+	 * @summary Resolve Blueprint Id
+	 * @param {DefaultApiBlueprintResolveRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public blueprintResolve(
+		requestParameters: DefaultApiBlueprintResolveRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.blueprintResolve(requestParameters.address, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
-   * @summary Create Lookup
-   * @param {DefaultApiCreateLookupRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public createLookup(
-    requestParameters: DefaultApiCreateLookupRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .createLookup(
-        requestParameters.application,
-        requestParameters.recipePackage,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Creates a Recipe Lookup Table for an Application, given a Package Containing RecipeLinks.  This endpoint creates a lookup table for an application. This lookup table is used to find UI- and Storage recipes given a blueprint. This recipe is associated with an application, based on application name.  Args: - application (str): Name of an application. - recipe_package (list[str]): A list of one or more paths to packages that contain recipe links.     - Example: [\"system/SIMOS/recipe_links\"] - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - None, with status Code 204 (No Content).
+	 * @summary Create Lookup
+	 * @param {DefaultApiCreateLookupRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public createLookup(
+		requestParameters: DefaultApiCreateLookupRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.createLookup(
+				requestParameters.application,
+				requestParameters.recipePackage,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
-   * @summary Get
-   * @param {DefaultApiDataSourceGetRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public dataSourceGet(
-    requestParameters: DefaultApiDataSourceGetRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .dataSourceGet(requestParameters.dataSourceId, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get configuration of a single data source.  Args: - data_source_id (str): ID of the data source - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing configuration for the specified data source.
+	 * @summary Get
+	 * @param {DefaultApiDataSourceGetRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public dataSourceGet(
+		requestParameters: DefaultApiDataSourceGetRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.dataSourceGet(requestParameters.dataSourceId, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
-   * @summary Get All
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public dataSourceGetAll(options?: AxiosRequestConfig) {
-    return DefaultApiFp(this.configuration)
-      .dataSourceGetAll(options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get list of all data sources found in DMSS.  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - list (DataSourceInformation): A list of information about each data source found in the DMSS protocol.
+	 * @summary Get All
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public dataSourceGetAll(options?: AxiosRequestConfig) {
+		return DefaultApiFp(this.configuration)
+			.dataSourceGetAll(options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
-   * @summary Save
-   * @param {DefaultApiDataSourceSaveRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public dataSourceSave(
-    requestParameters: DefaultApiDataSourceSaveRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .dataSourceSave(
-        requestParameters.dataSourceId,
-        requestParameters.dataSourceRequest,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Create or update a data source configuration.  This endpoint is used for creating or updating a data source configuration. A data source can have multiple repositories.  Args: - data_source_id (str): ID of the data source - new_data_source (DataSourceRequest): A dict object with keys \"name\" and \"repositories\" which is another dict of str and repository configuration. This is the config of the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.   Returns: - str: The ID of the newly created or updated data source.
+	 * @summary Save
+	 * @param {DefaultApiDataSourceSaveRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public dataSourceSave(
+		requestParameters: DefaultApiDataSourceSaveRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.dataSourceSave(
+				requestParameters.dataSourceId,
+				requestParameters.dataSourceRequest,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
-   * @summary Add Document
-   * @param {DefaultApiDocumentAddRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public documentAdd(
-    requestParameters: DefaultApiDocumentAddRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .documentAdd(
-        requestParameters.address,
-        requestParameters.document,
-        requestParameters.files,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Add a document to a package or a data source using an address.  This endpoint can be used for: - Adding a new document to a package / data source. - Adding an object to an entity (for example filling in an optional, complex attribute) - Adding elements to a list attribute in an entity.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary with one element, \"uid\", which is the ID of the created document.
+	 * @summary Add Document
+	 * @param {DefaultApiDocumentAddRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public documentAdd(
+		requestParameters: DefaultApiDocumentAddRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.documentAdd(
+				requestParameters.address,
+				requestParameters.document,
+				requestParameters.files,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
-   * @summary Add Raw
-   * @param {DefaultApiDocumentAddSimpleRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public documentAddSimple(
-    requestParameters: DefaultApiDocumentAddSimpleRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .documentAddSimple(
-        requestParameters.dataSourceId,
-        requestParameters.body,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Adding a document \'as-is\' to the data source, mainly used for bootstrapping and imports.  This endpoint adds a document to the data source, without any validation or splitting up of entities. A blueprint for the entity need not exist. Posted document must be a valid Entity, with a \"type\" defined.  Args: - data_source_id (str): The ID of the data source where the document should be added. - document (dict): The document to add to the data source. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: ID of the document that was uploaded.
+	 * @summary Add Raw
+	 * @param {DefaultApiDocumentAddSimpleRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public documentAddSimple(
+		requestParameters: DefaultApiDocumentAddSimpleRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.documentAddSimple(
+				requestParameters.dataSourceId,
+				requestParameters.body,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
-   * @summary Check Existence
-   * @param {DefaultApiDocumentCheckRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public documentCheck(
-    requestParameters: DefaultApiDocumentCheckRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .documentCheck(requestParameters.address, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Checks if an entity exists, given an address.  Args: - Address  Returns: - bool: \'true\' if the address points to an existing document, else \'false\'.
+	 * @summary Check Existence
+	 * @param {DefaultApiDocumentCheckRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public documentCheck(
+		requestParameters: DefaultApiDocumentCheckRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.documentCheck(requestParameters.address, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
-   * @summary Get
-   * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public documentGet(
-    requestParameters: DefaultApiDocumentGetRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .documentGet(requestParameters.address, requestParameters.depth, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get a Document as JSON String  This endpoint can be used for getting entities, blueprints or other json documents from the database.  Args: - address: path address to where the document should be stored.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document that is to be stored. - depth (int): The maximum depth for resolving nested documents. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The document requested.
+	 * @summary Get
+	 * @param {DefaultApiDocumentGetRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public documentGet(
+		requestParameters: DefaultApiDocumentGetRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.documentGet(requestParameters.address, requestParameters.depth, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-   * @summary Remove
-   * @param {DefaultApiDocumentRemoveRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public documentRemove(
-    requestParameters: DefaultApiDocumentRemoveRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .documentRemove(requestParameters.address, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Remove a document from the database.  Args: - address (str): path address to the document that is to be deleted. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+	 * @summary Remove
+	 * @param {DefaultApiDocumentRemoveRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public documentRemove(
+		requestParameters: DefaultApiDocumentRemoveRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.documentRemove(requestParameters.address, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
-   * @summary Update
-   * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public documentUpdate(
-    requestParameters: DefaultApiDocumentUpdateRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .documentUpdate(
-        requestParameters.idAddress,
-        requestParameters.data,
-        requestParameters.files,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Update an Existing Document in the Database.  This endpoint can be used for updating an existing document  Args: - address: Path address to the document that should be updated.   - Example: Reference to data source: PROTOCOL://DATA SOURCE   - Example: Reference to package by id: PROTOCOL://DATA SOURCE/$ID   - Example: Reference to package by path: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE   - The PROTOCOL is optional, and the default is dmss. - document (dict): The document to replace the previous version. - files: Optional list of files to be stored as part of this document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The updated document.
+	 * @summary Update
+	 * @param {DefaultApiDocumentUpdateRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public documentUpdate(
+		requestParameters: DefaultApiDocumentUpdateRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.documentUpdate(
+				requestParameters.idAddress,
+				requestParameters.data,
+				requestParameters.files,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
-   * @summary Export Meta
-   * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public exportMeta(
-    requestParameters: DefaultApiExportMetaRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .exportMeta(requestParameters.pathAddress, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get Meta Information About a Document  This endpoint returns meta information about a document provided document id and data source id in which it is located. For more information about the meta-object, see [the docs](https://equinor.github.io/dm-docs/docs/concepts/meta)  Args: - path_address (str): Address of the object for which to get the meta-information.     - Example: PROTOCOL://DATA SOURCE/ROOT PACKAGE/SUB PACKAGE/ENTITY (PROTOCOL is optional, and the default is dmss.) - user (User): The authenticated user accessing the endpoint.  Returns: - dict: A dictionary containing the meta information for the object.
+	 * @summary Export Meta
+	 * @param {DefaultApiExportMetaRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public exportMeta(
+		requestParameters: DefaultApiExportMetaRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.exportMeta(requestParameters.pathAddress, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
-   * @summary Upload File
-   * @param {DefaultApiFileUploadRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public fileUpload(
-    requestParameters: DefaultApiFileUploadRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .fileUpload(
-        requestParameters.dataSourceId,
-        requestParameters.data,
-        requestParameters.file,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Upload a New Binary File  This endpoint uploads a new file and creates a file entity with the uploaded binary data as content.  Args: - data_source_id (str): ID of the data source to which the file should be uploaded. - data (dict with a \"file_id\" attribute): A dict containing data source ID to be used for the file entity that will be created. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The file entity that was created to contain the file.
+	 * @summary Upload File
+	 * @param {DefaultApiFileUploadRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public fileUpload(
+		requestParameters: DefaultApiFileUploadRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.fileUpload(
+				requestParameters.dataSourceId,
+				requestParameters.data,
+				requestParameters.file,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
-   * @summary Get Acl
-   * @param {DefaultApiGetAclRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public getAcl(
-    requestParameters: DefaultApiGetAclRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .getAcl(
-        requestParameters.dataSourceId,
-        requestParameters.documentId,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * GET the access control list (ACL) for a document.  The ACL determines which access a given user has for a document (Read, Write or None).  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to check the ACL. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - ACL: The access control list requested.
+	 * @summary Get Acl
+	 * @param {DefaultApiGetAclRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public getAcl(
+		requestParameters: DefaultApiGetAclRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.getAcl(
+				requestParameters.dataSourceId,
+				requestParameters.documentId,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
-   * @summary Get
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public getApiHealthcheckGet(options?: AxiosRequestConfig) {
-    return DefaultApiFp(this.configuration)
-      .getApiHealthcheckGet(options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get the Health Status Of the Service.  This endpoint can be used to check the health status of the service. It always returns a 200 OK response to indicate that the service is up and running.  Returns: - string: A string indicating the health status. (\"OK\")
+	 * @summary Get
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public getApiHealthcheckGet(options?: AxiosRequestConfig) {
+		return DefaultApiFp(this.configuration)
+			.getApiHealthcheckGet(options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
-   * @summary Get Lookup
-   * @param {DefaultApiGetLookupRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public getLookup(
-    requestParameters: DefaultApiGetLookupRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .getLookup(requestParameters.application, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get The Lookup Table for UI- and Storage Recipes the Provided Application  This endpoint fetches the recipe lookup table for the application provided. This lookup table is used to find UI- and Storage recipes given a blueprint.  Args: - application (str): The name of the desired application. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The recipe lookup table for the provided application.
+	 * @summary Get Lookup
+	 * @param {DefaultApiGetLookupRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public getLookup(
+		requestParameters: DefaultApiGetLookupRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.getLookup(requestParameters.application, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
-   * @summary Instantiate
-   * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public instantiateEntity(
-    requestParameters: DefaultApiInstantiateEntityRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .instantiateEntity(requestParameters.entity, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Returns a default entity of specified type. This entity is not stored in the database.  This endpoint creates a default entity of the specified type. A default entity of that type is specified to contain all the required fields with their default values. If no default value is set for the field, then an \'empty\' value will be set for that field. For an int that would be 0, and for a string that would be \"\". Optional attributes are not filled in, even if a default value is specified for that optional field.  Args: - entity (Entity): A JSON object with only a \"type\" parameter. Any other fields will be ignored. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A default entity of the specified type.
+	 * @summary Instantiate
+	 * @param {DefaultApiInstantiateEntityRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public instantiateEntity(
+		requestParameters: DefaultApiInstantiateEntityRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.instantiateEntity(requestParameters.entity, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
-   * @summary Get Meta By Id
-   * @param {DefaultApiMetaByIdRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public metaById(
-    requestParameters: DefaultApiMetaByIdRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .metaById(
-        requestParameters.dataSourceId,
-        requestParameters.documentId,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get Meta Information About a blob.  This endpoint returns meta information for a blob file provided document id and the id of the data source of which it is located.  Args: - data_source_id (str): The ID of the data source. - document_id (str): The ID of the document. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing the meta information about the blob file of the document.
+	 * @summary Get Meta By Id
+	 * @param {DefaultApiMetaByIdRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public metaById(
+		requestParameters: DefaultApiMetaByIdRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.metaById(
+				requestParameters.dataSourceId,
+				requestParameters.documentId,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
-   * @summary Search
-   * @param {DefaultApiSearchRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public search(
-    requestParameters: DefaultApiSearchRequest = {},
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .search(
-        requestParameters.dataSources,
-        requestParameters.sortByAttribute,
-        requestParameters.body,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Search for Entities of a Specific Blueprint Type in the Provided Data Sources.  This endpoint searches the provided data sources for entities that match the search data object provided. It will return all the entities in database of the type specified, with attributes that match the requirements set in the search query.  Args: - data (dict): A dictionary containing a \"type\"-attribute which will be used to search . Other attributes can be used to filter the search.     - Example: {         \"type\": \"dmss://blueprints/root_package/ValuesBlueprint\",         \"attribute_greater_than_example\": \">100\",         \"attribute_less_than_example\": \"<11\".         \"my_string\": \"de\" # will return entities with attributes of type \"my_string\" that starts with \"de\"     } - data_sources (List[str]): Optional list of data source id\'s of which to search. If left empty it will search all available databases. - sort_by_attribute (str): Optional attribute of which to sort the results. Default is \"name\". - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: The sorted search results.
+	 * @summary Search
+	 * @param {DefaultApiSearchRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public search(
+		requestParameters: DefaultApiSearchRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.search(
+				requestParameters.dataSources,
+				requestParameters.sortByAttribute,
+				requestParameters.body,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-   * @summary Set Acl
-   * @param {DefaultApiSetAclRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public setAcl(
-    requestParameters: DefaultApiSetAclRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .setAcl(
-        requestParameters.dataSourceId,
-        requestParameters.documentId,
-        requestParameters.accessControlList,
-        requestParameters.recursively,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Update access control list (ACL) for a document.  Args: - data_source_id (str): The ID of the data source which the document resides in. - document_id (str): The ID of the document for which to set the ACL. - acl (ACL): An access control list. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+	 * @summary Set Acl
+	 * @param {DefaultApiSetAclRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public setAcl(
+		requestParameters: DefaultApiSetAclRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.setAcl(
+				requestParameters.dataSourceId,
+				requestParameters.documentId,
+				requestParameters.accessControlList,
+				requestParameters.recursively,
+				options
+			)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
-   * @summary New Personal Access Token
-   * @param {DefaultApiTokenCreateRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public tokenCreate(
-    requestParameters: DefaultApiTokenCreateRequest = {},
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .tokenCreate(
-        requestParameters.scope,
-        requestParameters.timeToLive,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Create a Personal Access Token (PAT).  This endpoint creates a PAT token for the currently logged in user, stores it in the database and returns it to the user.  Args: - scope (WRITE | READ | NONE): Access level for the PAT. - time_to_live (int): Optional parameter specifying the lifespan of the PAT in seconds. Default lifespan is 30 days.  Returns: - str: The generated PAT token
+	 * @summary New Personal Access Token
+	 * @param {DefaultApiTokenCreateRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public tokenCreate(
+		requestParameters: DefaultApiTokenCreateRequest = {},
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.tokenCreate(requestParameters.scope, requestParameters.timeToLive, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
-   * @summary Revoke Personal Access Token
-   * @param {DefaultApiTokenDeleteRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public tokenDelete(
-    requestParameters: DefaultApiTokenDeleteRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .tokenDelete(requestParameters.tokenId, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Revoke a Personal Access Token (PAT).  This endpoint revokes a PAT token so that it is invalid and can no longer be used to gain access.  Args:     token_id (str): The ID of the token to be revoked.  Returns:     str: A string with the message \"OK\" when the token has been revoked.
+	 * @summary Revoke Personal Access Token
+	 * @param {DefaultApiTokenDeleteRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public tokenDelete(
+		requestParameters: DefaultApiTokenDeleteRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.tokenDelete(requestParameters.tokenId, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
-   * @summary List All Pats
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public tokenListAll(options?: AxiosRequestConfig) {
-    return DefaultApiFp(this.configuration)
-      .tokenListAll(options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get All Personal Access Tokens for the Current User.  Get a list of all personal access tokens (PATs) for the currently logged in user.  Args:     user (User): The authenticated user accessing the endpoint.  Returns:     list: A list of all personal access tokens for the currently logged in user.
+	 * @summary List All Pats
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public tokenListAll(options?: AxiosRequestConfig) {
+		return DefaultApiFp(this.configuration)
+			.tokenListAll(options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
-   * @summary Validate
-   * @param {DefaultApiValidateEntityRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public validateEntity(
-    requestParameters: DefaultApiValidateEntityRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .validateEntity(
-        requestParameters.entity,
-        requestParameters.asType,
-        options
-      )
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Validate an entity according to its blueprint.  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - entity (Entity): a dict object with \"type\" specified.  Returns: - str: \"OK\" (200)
+	 * @summary Validate
+	 * @param {DefaultApiValidateEntityRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public validateEntity(
+		requestParameters: DefaultApiValidateEntityRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.validateEntity(requestParameters.entity, requestParameters.asType, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
-   * @summary Validate Existing
-   * @param {DefaultApiValidateExistingEntityRequest} requestParameters Request parameters.
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public validateExistingEntity(
-    requestParameters: DefaultApiValidateExistingEntityRequest,
-    options?: AxiosRequestConfig
-  ) {
-    return DefaultApiFp(this.configuration)
-      .validateExistingEntity(requestParameters.address, options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Validate an entity stored in the database according to its blueprint .  This endpoint compares the entity to the specifications of its blueprint. The entity\'s blueprint is specified as the \'type\' parameter. The entity is required to have all attributes that are specified as required in the blueprint, and they must be on the correct format.  This endpoint returns a detailed error messages and status code 422 if the entity is invalid.  Args: - address (str): address path to the entity that is to be validated. - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - str: \"OK\" (200)
+	 * @summary Validate Existing
+	 * @param {DefaultApiValidateExistingEntityRequest} requestParameters Request parameters.
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public validateExistingEntity(
+		requestParameters: DefaultApiValidateExistingEntityRequest,
+		options?: AxiosRequestConfig
+	) {
+		return DefaultApiFp(this.configuration)
+			.validateExistingEntity(requestParameters.address, options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 
-  /**
-   * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
-   * @summary Get Information On Authenticated User
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public whoami(options?: AxiosRequestConfig) {
-    return DefaultApiFp(this.configuration)
-      .whoami(options)
-      .then((request) => request(this.axios, this.basePath))
-  }
+	/**
+	 * Get information about the user who sent the request.  If no user is authenticated, a default \"nologin\" user is returned. This endpoint always responds with a status code of 200 (OK).  Args: - user (User): The authenticated user accessing the endpoint, automatically generated from provided bearer token or Access-Key.  Returns: - dict: A dictionary containing information about the user who sent the request.
+	 * @summary Get Information On Authenticated User
+	 * @param {*} [options] Override http request option.
+	 * @throws {RequiredError}
+	 * @memberof DefaultApi
+	 */
+	public whoami(options?: AxiosRequestConfig) {
+		return DefaultApiFp(this.configuration)
+			.whoami(options)
+			.then((request) => request(this.axios, this.basePath))
+	}
 }

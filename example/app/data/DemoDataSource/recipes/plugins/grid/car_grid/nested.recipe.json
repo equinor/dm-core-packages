@@ -1,24 +1,24 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/grid/example/blueprints/Nested",
-  "initialUiRecipe": {
-    "name": "ViewSelector",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector",
-    "config": {}
-  },
-  "uiRecipes": [
-    {
-      "name": "custom",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml",
-      "category": "view"
-    },
-    {
-      "name": "Form",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit"
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/grid/example/blueprints/Nested",
+	"initialUiRecipe": {
+		"name": "ViewSelector",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/view_selector",
+		"config": {}
+	},
+	"uiRecipes": [
+		{
+			"name": "custom",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml",
+			"category": "view"
+		},
+		{
+			"name": "Form",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/form",
+			"category": "edit"
+		}
+	]
 }

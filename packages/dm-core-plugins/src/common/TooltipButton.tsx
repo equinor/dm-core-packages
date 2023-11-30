@@ -3,33 +3,33 @@ import { IconData } from '@equinor/eds-icons'
 import React from 'react'
 
 type Prefix<T, P extends string> = {
-  [K in keyof T as `${P}-${string & K}`]: T[K]
+	[K in keyof T as `${P}-${string & K}`]: T[K]
 }
 type PrefixedButton = Prefix<
-  Omit<React.ComponentProps<typeof Button>, 'aria-label' | 'children'>,
-  'button'
+	Omit<React.ComponentProps<typeof Button>, 'aria-label' | 'children'>,
+	'button'
 >
 type PrefixedTooltip = Prefix<
-  Omit<React.ComponentProps<typeof Tooltip>, 'title' | 'children'>,
-  'tooltip'
+	Omit<React.ComponentProps<typeof Tooltip>, 'title' | 'children'>,
+	'tooltip'
 >
 type TContent =
-  | {
-      icon?: IconData
-      buttonText: string
-    }
-  | {
-      icon: IconData
-      buttonText?: string
-    }
+	| {
+			icon?: IconData
+			buttonText: string
+	  }
+	| {
+			icon: IconData
+			buttonText?: string
+	  }
 type TProps = PrefixedButton & PrefixedTooltip & TContent & { title: string }
 
 const getProps = (prefix: string, dict: { [k: string]: any }) => {
-  return Object.fromEntries(
-    Object.entries(dict)
-      .filter(([k]) => k.startsWith(prefix))
-      .map(([k, v]) => [k.slice(prefix.length), v])
-  )
+	return Object.fromEntries(
+		Object.entries(dict)
+			.filter(([k]) => k.startsWith(prefix))
+			.map(([k, v]) => [k.slice(prefix.length), v])
+	)
 }
 
 /**
@@ -38,14 +38,14 @@ const getProps = (prefix: string, dict: { [k: string]: any }) => {
  * @returns An EDS button with EDS tooltip.
  */
 const TooltipButton = (props: TProps) => {
-  return (
-    <Tooltip title={props.title} {...getProps('tooltip-', props)}>
-      <Button {...getProps('button-', props)} aria-label={props.title}>
-        {props.icon && <Icon data={props.icon} />}
-        {props.buttonText}
-      </Button>
-    </Tooltip>
-  )
+	return (
+		<Tooltip title={props.title} {...getProps('tooltip-', props)}>
+			<Button {...getProps('button-', props)} aria-label={props.title}>
+				{props.icon && <Icon data={props.icon} />}
+				{props.buttonText}
+			</Button>
+		</Tooltip>
+	)
 }
 
 export default TooltipButton

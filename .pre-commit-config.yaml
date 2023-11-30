@@ -9,9 +9,9 @@ repos:
       - id: check-json
       - id: check-toml
       - id: check-yaml
-      - id: pretty-format-json
-        args:
-          [ --autofix, --no-sort-keys, '--top-keys=_id,name,type,description' ]
+      #      - id: pretty-format-json
+      #        args:
+      #          [ --autofix, --no-sort-keys, '--top-keys=_id,name,type,description' ]
       - id: trailing-whitespace
         exclude: ^.*\.(lock)$||^docs\/
       - id: end-of-file-fixer

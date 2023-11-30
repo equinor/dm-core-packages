@@ -1,12 +1,12 @@
 {
-  "name": "testContainerJobRunner",
-  "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorAzureContainerJob",
-  "image": {
-    "type": "dmss://WorkflowDS/Blueprints/ContainerImage",
-    "description": "",
-    "imageName": "dmt-job/generate-signal",
-    "version": "latest",
-    "registryName": "datamodelingtool.azurecr.io"
-  },
-  "environmentVariables": []
+	"name": "testContainerJobRunner",
+	"type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorAzureContainerJob",
+	"image": {
+		"type": "dmss://WorkflowDS/Blueprints/ContainerImage",
+		"description": "",
+		"imageName": "dmt-job/generate-signal",
+		"version": "latest",
+		"registryName": "datamodelingtool.azurecr.io"
+	},
+	"environmentVariables": []
 }

@@ -1,32 +1,30 @@
 {
-  "name": "CarBlueprint",
-  "type": "CORE:Blueprint",
-  "extends": [
-    "CORE:NamedEntity"
-  ],
-  "attributes": [
-    {
-      "name": "model",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "label": "Model",
-      "optional": false
-    },
-    {
-      "name": "Owner",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./OwnerBlueprint",
-      "label": "View owner details and history",
-      "contained": true,
-      "optional": false
-    },
-    {
-      "name": "Technical",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./TechBlueprint",
-      "label": "View technical information",
-      "contained": true,
-      "optional": false
-    }
-  ]
+	"name": "CarBlueprint",
+	"type": "CORE:Blueprint",
+	"extends": ["CORE:NamedEntity"],
+	"attributes": [
+		{
+			"name": "model",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"label": "Model",
+			"optional": false
+		},
+		{
+			"name": "Owner",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./OwnerBlueprint",
+			"label": "View owner details and history",
+			"contained": true,
+			"optional": false
+		},
+		{
+			"name": "Technical",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./TechBlueprint",
+			"label": "View technical information",
+			"contained": true,
+			"optional": false
+		}
+	]
 }

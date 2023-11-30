@@ -1,33 +1,31 @@
 {
-  "name": "Person",
-  "type": "CORE:Blueprint",
-  "extends": [
-    "CORE:NamedEntity"
-  ],
-  "attributes": [
-    {
-      "name": "socialSecurityNumber",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "integer",
-      "optional": false
-    },
-    {
-      "name": "address",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": false
-    },
-    {
-      "name": "email",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "twitterHandle",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    }
-  ]
+	"name": "Person",
+	"type": "CORE:Blueprint",
+	"extends": ["CORE:NamedEntity"],
+	"attributes": [
+		{
+			"name": "socialSecurityNumber",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "integer",
+			"optional": false
+		},
+		{
+			"name": "address",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": false
+		},
+		{
+			"name": "email",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true
+		},
+		{
+			"name": "twitterHandle",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true
+		}
+	]
 }

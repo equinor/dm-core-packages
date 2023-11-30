@@ -1,29 +1,29 @@
 {
-  "name": "ViewSelectorItem",
-  "type": "CORE:Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "viewConfig",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "CORE:ViewConfig"
-    },
-    {
-      "name": "label",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "subItems",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-      "optional": true,
-      "dimensions": "*"
-    }
-  ]
+	"name": "ViewSelectorItem",
+	"type": "CORE:Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "viewConfig",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "CORE:ViewConfig"
+		},
+		{
+			"name": "label",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true
+		},
+		{
+			"name": "subItems",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+			"optional": true,
+			"dimensions": "*"
+		}
+	]
 }

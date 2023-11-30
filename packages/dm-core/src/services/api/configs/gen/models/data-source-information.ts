@@ -18,28 +18,28 @@
  * @interface DataSourceInformation
  */
 export interface DataSourceInformation {
-  /**
-   *
-   * @type {string}
-   * @memberof DataSourceInformation
-   */
-  id: string
-  /**
-   *
-   * @type {string}
-   * @memberof DataSourceInformation
-   */
-  name: string
-  /**
-   *
-   * @type {string}
-   * @memberof DataSourceInformation
-   */
-  host?: string
-  /**
-   *
-   * @type {string}
-   * @memberof DataSourceInformation
-   */
-  type?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DataSourceInformation
+	 */
+	id: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DataSourceInformation
+	 */
+	name: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DataSourceInformation
+	 */
+	host?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof DataSourceInformation
+	 */
+	type?: string
 }

@@ -1,51 +1,49 @@
 {
-  "_id": "Nested",
-  "type": "./blueprints/CarRentalCompany",
-  "owner": {
-    "name": "Miranda",
-    "type": "./blueprints/Person",
-    "phoneNumber": 1337
-  },
-  "accountant": {
-    "name": "John",
-    "type": "./blueprints/Person",
-    "phoneNumber": 1337
-  },
-  "cars": [
-    {
-      "name": "Volvo",
-      "type": "./blueprints/Car",
-      "plateNumber": "1337"
-    },
-    {
-      "name": "Ferrari",
-      "type": "./blueprints/Car",
-      "plateNumber": "F1337"
-    }
-  ],
-  "customers": [
-    {
-      "name": "Jane",
-      "type": "./blueprints/Customer",
-      "phoneNumber": 1337,
-      "car": {
-        "type": "CORE:Reference",
-        "address": "^.cars[1]",
-        "referenceType": "link"
-      }
-    },
-    {
-      "name": "Matt",
-      "type": "./blueprints/Customer",
-      "phoneNumber": 1337,
-      "car": {
-        "type": "CORE:Reference",
-        "address": "^.cars[0]",
-        "referenceType": "link"
-      }
-    }
-  ],
-  "locations": [
-    "Trondheim"
-  ]
+	"_id": "Nested",
+	"type": "./blueprints/CarRentalCompany",
+	"owner": {
+		"name": "Miranda",
+		"type": "./blueprints/Person",
+		"phoneNumber": 1337
+	},
+	"accountant": {
+		"name": "John",
+		"type": "./blueprints/Person",
+		"phoneNumber": 1337
+	},
+	"cars": [
+		{
+			"name": "Volvo",
+			"type": "./blueprints/Car",
+			"plateNumber": "1337"
+		},
+		{
+			"name": "Ferrari",
+			"type": "./blueprints/Car",
+			"plateNumber": "F1337"
+		}
+	],
+	"customers": [
+		{
+			"name": "Jane",
+			"type": "./blueprints/Customer",
+			"phoneNumber": 1337,
+			"car": {
+				"type": "CORE:Reference",
+				"address": "^.cars[1]",
+				"referenceType": "link"
+			}
+		},
+		{
+			"name": "Matt",
+			"type": "./blueprints/Customer",
+			"phoneNumber": 1337,
+			"car": {
+				"type": "CORE:Reference",
+				"address": "^.cars[0]",
+				"referenceType": "link"
+			}
+		}
+	],
+	"locations": ["Trondheim"]
 }

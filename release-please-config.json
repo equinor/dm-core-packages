@@ -1,20 +1,18 @@
 {
-  "release-type": "node",
-  "monorepo-tags": true,
-  "bump-minor-pre-major": true,
-  "bump-patch-for-minor-pre-major": true,
-  "prerelease": true,
-  "separate-pull-requests": false,
-  "plugins": [
-    "node-workspace"
-  ],
-  "always-link-local": true,
-  "packages": {
-    "packages/dm-core": {
-      "package-name": "@development-framework/dm-core"
-    },
-    "packages/dm-core-plugins": {
-      "package-name": "@development-framework/dm-core-plugins"
-    }
-  }
+	"release-type": "node",
+	"monorepo-tags": true,
+	"bump-minor-pre-major": true,
+	"bump-patch-for-minor-pre-major": true,
+	"prerelease": true,
+	"separate-pull-requests": false,
+	"plugins": ["node-workspace"],
+	"always-link-local": true,
+	"packages": {
+		"packages/dm-core": {
+			"package-name": "@development-framework/dm-core"
+		},
+		"packages/dm-core-plugins": {
+			"package-name": "@development-framework/dm-core-plugins"
+		}
+	}
 }

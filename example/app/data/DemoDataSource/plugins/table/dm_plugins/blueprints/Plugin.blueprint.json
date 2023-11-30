@@ -1,50 +1,50 @@
 {
-  "name": "Plugin",
-  "type": "CORE:Blueprint",
-  "description": "",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "optional": false
-    },
-    {
-      "name": "name",
-      "type": "CORE:BlueprintAttribute",
-      "label": "Name of plugin",
-      "attributeType": "string"
-    },
-    {
-      "name": "path",
-      "type": "CORE:BlueprintAttribute",
-      "label": "Plugin path",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "description",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "developed",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true
-    },
-    {
-      "name": "documented",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true
-    },
-    {
-      "name": "importance",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "optional": true
-    }
-  ]
+	"name": "Plugin",
+	"type": "CORE:Blueprint",
+	"description": "",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string",
+			"optional": false
+		},
+		{
+			"name": "name",
+			"type": "CORE:BlueprintAttribute",
+			"label": "Name of plugin",
+			"attributeType": "string"
+		},
+		{
+			"name": "path",
+			"type": "CORE:BlueprintAttribute",
+			"label": "Plugin path",
+			"attributeType": "string",
+			"optional": true
+		},
+		{
+			"name": "description",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true
+		},
+		{
+			"name": "developed",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "boolean",
+			"optional": true
+		},
+		{
+			"name": "documented",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "boolean",
+			"optional": true
+		},
+		{
+			"name": "importance",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "number",
+			"optional": true
+		}
+	]
 }

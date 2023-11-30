@@ -1,5 +1,5 @@
 {
-  "name": "Barbossa",
-  "type": "./blueprints/Person",
-  "phoneNumber": 12345678
+	"name": "Barbossa",
+	"type": "./blueprints/Person",
+	"phoneNumber": 12345678
 }

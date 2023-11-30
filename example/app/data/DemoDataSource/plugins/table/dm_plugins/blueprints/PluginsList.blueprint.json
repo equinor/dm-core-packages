@@ -1,25 +1,25 @@
 {
-  "name": "PluginsList",
-  "type": "CORE:Blueprint",
-  "description": "",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "default": "",
-      "optional": false
-    },
-    {
-      "name": "name",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "plugins",
-      "type": "CORE:BlueprintAttribute",
-      "dimensions": "*",
-      "attributeType": "./Plugin"
-    }
-  ]
+	"name": "PluginsList",
+	"type": "CORE:Blueprint",
+	"description": "",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string",
+			"default": "",
+			"optional": false
+		},
+		{
+			"name": "name",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "plugins",
+			"type": "CORE:BlueprintAttribute",
+			"dimensions": "*",
+			"attributeType": "./Plugin"
+		}
+	]
 }

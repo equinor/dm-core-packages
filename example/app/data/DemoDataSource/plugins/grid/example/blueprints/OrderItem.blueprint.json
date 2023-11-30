@@ -1,21 +1,21 @@
 {
-  "name": "OrderItem",
-  "type": "dmss://system/SIMOS/Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "quantity",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "number"
-    },
-    {
-      "name": "product",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Product"
-    }
-  ]
+	"name": "OrderItem",
+	"type": "dmss://system/SIMOS/Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "quantity",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "number"
+		},
+		{
+			"name": "product",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Product"
+		}
+	]
 }

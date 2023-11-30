@@ -22,22 +22,22 @@ import { JobStatus } from './job-status'
  * @interface Progress
  */
 export interface Progress {
-  /**
-   *
-   * @type {number}
-   * @memberof Progress
-   */
-  percentage?: number
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof Progress
-   */
-  logs?: Array<string>
-  /**
-   *
-   * @type {JobStatus}
-   * @memberof Progress
-   */
-  status?: JobStatus
+	/**
+	 *
+	 * @type {number}
+	 * @memberof Progress
+	 */
+	percentage?: number
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof Progress
+	 */
+	logs?: Array<string>
+	/**
+	 *
+	 * @type {JobStatus}
+	 * @memberof Progress
+	 */
+	status?: JobStatus
 }

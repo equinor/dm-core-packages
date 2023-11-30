@@ -1,28 +1,28 @@
 {
-  "name": "Product",
-  "type": "dmss://system/SIMOS/Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "name",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "something",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "price",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "optional": true
-    }
-  ]
+	"name": "Product",
+	"type": "dmss://system/SIMOS/Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "name",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "something",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true
+		},
+		{
+			"name": "price",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "number",
+			"optional": true
+		}
+	]
 }

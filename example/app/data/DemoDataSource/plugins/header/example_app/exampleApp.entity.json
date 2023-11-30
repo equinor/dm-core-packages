@@ -1,17 +1,10 @@
 {
-  "_id": "03bf685b-edb6-40e4-8c67-62b13fefecaa",
-  "name": "example",
-  "type": "./blueprints/ExampleApplication",
-  "description": "Application used to test and demo some '@development-framework' plugins",
-  "dataSources": [
-    "system",
-    "DemoDataSource"
-  ],
-  "label": "Data Modelling Example App",
-  "adminRole": "dmss-admin",
-  "roles": [
-    "user",
-    "expert-user",
-    "domain-expert"
-  ]
+	"_id": "03bf685b-edb6-40e4-8c67-62b13fefecaa",
+	"name": "example",
+	"type": "./blueprints/ExampleApplication",
+	"description": "Application used to test and demo some '@development-framework' plugins",
+	"dataSources": ["system", "DemoDataSource"],
+	"label": "Data Modelling Example App",
+	"adminRole": "dmss-admin",
+	"roles": ["user", "expert-user", "domain-expert"]
 }

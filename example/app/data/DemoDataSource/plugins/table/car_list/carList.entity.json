@@ -1,13 +1,13 @@
 {
-  "_id": "carList",
-  "name": "CarList",
-  "type": "./blueprints/CarList",
-  "cars": [
-    {
-      "name": "Volvo",
-      "type": "./blueprints/Car",
-      "model": "XC40",
-      "color": "White"
-    }
-  ]
+	"_id": "carList",
+	"name": "CarList",
+	"type": "./blueprints/CarList",
+	"cars": [
+		{
+			"name": "Volvo",
+			"type": "./blueprints/Car",
+			"model": "XC40",
+			"color": "White"
+		}
+	]
 }

@@ -1,127 +1,120 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/grid/car_grid/blueprints/RaceCenter",
-  "initialUiRecipe": {
-    "name": "RaceCenter",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/grid",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
-      "size": {
-        "type": "PLUGINS:dm-core-plugins/grid/GridSize",
-        "columns": 2,
-        "rows": 3,
-        "rowSizes": [
-          "2fr",
-          "2fr",
-          "1fr"
-        ],
-        "columnSizes": [
-          "4fr",
-          "1fr"
-        ]
-      },
-      "itemBorder": {
-        "type": "PLUGINS:dm-core-plugins/grid/GridBorder",
-        "size": "1px",
-        "color": "#bbb",
-        "style": "solid",
-        "radius": "5px"
-      },
-      "showItemBorders": true,
-      "items": [
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "title": "List of cars",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "scope": "carsOnGrid",
-            "recipe": "CarList"
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 1,
-            "columnStart": 1,
-            "rowEnd": 1,
-            "columnEnd": 1
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "title": "List of tires",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "scope": "tyreList",
-            "recipe": "Edit"
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 2,
-            "columnStart": 1,
-            "rowEnd": 2,
-            "columnEnd": 1
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "title": "Reference to list of tires",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "scope": "tyreList",
-            "recipe": "Edit",
-            "resolve": false
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 3,
-            "columnStart": 1,
-            "rowEnd": 3,
-            "columnEnd": 1
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "title": "Some nested form to show",
-          "viewConfig": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "scope": "nestedForm",
-            "recipe": {
-              "name": "form",
-              "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/form",
-              "config": {
-                "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "attributes": [
-                  {
-                    "name": "bar",
-                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-                    "widget": "TextareaWidget"
-                  }
-                ]
-              }
-            }
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 1,
-            "columnStart": 2,
-            "rowEnd": 3,
-            "columnEnd": 2
-          }
-        }
-      ]
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
-    },
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form"
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/grid/car_grid/blueprints/RaceCenter",
+	"initialUiRecipe": {
+		"name": "RaceCenter",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/grid",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+			"size": {
+				"type": "PLUGINS:dm-core-plugins/grid/GridSize",
+				"columns": 2,
+				"rows": 3,
+				"rowSizes": ["2fr", "2fr", "1fr"],
+				"columnSizes": ["4fr", "1fr"]
+			},
+			"itemBorder": {
+				"type": "PLUGINS:dm-core-plugins/grid/GridBorder",
+				"size": "1px",
+				"color": "#bbb",
+				"style": "solid",
+				"radius": "5px"
+			},
+			"showItemBorders": true,
+			"items": [
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"title": "List of cars",
+					"viewConfig": {
+						"type": "CORE:ReferenceViewConfig",
+						"scope": "carsOnGrid",
+						"recipe": "CarList"
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 1,
+						"columnStart": 1,
+						"rowEnd": 1,
+						"columnEnd": 1
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"title": "List of tires",
+					"viewConfig": {
+						"type": "CORE:ReferenceViewConfig",
+						"scope": "tyreList",
+						"recipe": "Edit"
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 2,
+						"columnStart": 1,
+						"rowEnd": 2,
+						"columnEnd": 1
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"title": "Reference to list of tires",
+					"viewConfig": {
+						"type": "CORE:ReferenceViewConfig",
+						"scope": "tyreList",
+						"recipe": "Edit",
+						"resolve": false
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 3,
+						"columnStart": 1,
+						"rowEnd": 3,
+						"columnEnd": 1
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"title": "Some nested form to show",
+					"viewConfig": {
+						"type": "CORE:InlineRecipeViewConfig",
+						"scope": "nestedForm",
+						"recipe": {
+							"name": "form",
+							"type": "CORE:UiRecipe",
+							"plugin": "@development-framework/dm-core-plugins/form",
+							"config": {
+								"type": "PLUGINS:dm-core-plugins/form/FormInput",
+								"attributes": [
+									{
+										"name": "bar",
+										"type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+										"widget": "TextareaWidget"
+									}
+								]
+							}
+						}
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 1,
+						"columnStart": 2,
+						"rowEnd": 3,
+						"columnEnd": 2
+					}
+				}
+			]
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "Yaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml"
+		},
+		{
+			"name": "Edit",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/form"
+		}
+	]
 }

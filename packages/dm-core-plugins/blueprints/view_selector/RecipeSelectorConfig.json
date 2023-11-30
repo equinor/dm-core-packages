@@ -1,19 +1,19 @@
 {
-  "name": "RecipeSelectorConfig",
-  "type": "CORE:Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "viewConfig",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "CORE:ViewConfig",
-      "dimensions": "*",
-      "contained": true,
-      "optional": true
-    }
-  ]
+	"name": "RecipeSelectorConfig",
+	"type": "CORE:Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "viewConfig",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "CORE:ViewConfig",
+			"dimensions": "*",
+			"contained": true,
+			"optional": true
+		}
+	]
 }

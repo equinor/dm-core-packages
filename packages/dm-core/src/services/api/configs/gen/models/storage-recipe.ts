@@ -25,34 +25,34 @@ import { StorageDataTypes } from './storage-data-types'
  * @interface StorageRecipe
  */
 export interface StorageRecipe {
-  /**
-   *
-   * @type {string}
-   * @memberof StorageRecipe
-   */
-  name: string
-  /**
-   *
-   * @type {string}
-   * @memberof StorageRecipe
-   */
-  type?: string
-  /**
-   *
-   * @type {{ [key: string]: StorageAttribute; }}
-   * @memberof StorageRecipe
-   */
-  attributes?: { [key: string]: StorageAttribute }
-  /**
-   *
-   * @type {StorageDataTypes}
-   * @memberof StorageRecipe
-   */
-  storageAffinity?: StorageDataTypes
-  /**
-   *
-   * @type {string}
-   * @memberof StorageRecipe
-   */
-  description?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StorageRecipe
+	 */
+	name: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StorageRecipe
+	 */
+	type?: string
+	/**
+	 *
+	 * @type {{ [key: string]: StorageAttribute; }}
+	 * @memberof StorageRecipe
+	 */
+	attributes?: { [key: string]: StorageAttribute }
+	/**
+	 *
+	 * @type {StorageDataTypes}
+	 * @memberof StorageRecipe
+	 */
+	storageAffinity?: StorageDataTypes
+	/**
+	 *
+	 * @type {string}
+	 * @memberof StorageRecipe
+	 */
+	description?: string
 }

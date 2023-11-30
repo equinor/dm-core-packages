@@ -1,33 +1,33 @@
 {
-  "name": "Field",
-  "type": "dmss://system/SIMOS/Blueprint",
-  "attributes": [
-    {
-      "name": "name",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": false,
-      "attributeType": "string"
-    },
-    {
-      "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": false,
-      "attributeType": "string"
-    },
-    {
-      "name": "showInline",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "description": "If true, the attribute will be shown inline. If false, it will be opened in a new tab if possible",
-      "optional": true,
-      "default": false,
-      "attributeType": "boolean"
-    },
-    {
-      "name": "config",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "object",
-      "contained": true,
-      "optional": true
-    }
-  ]
+	"name": "Field",
+	"type": "dmss://system/SIMOS/Blueprint",
+	"attributes": [
+		{
+			"name": "name",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"optional": false,
+			"attributeType": "string"
+		},
+		{
+			"name": "type",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"optional": false,
+			"attributeType": "string"
+		},
+		{
+			"name": "showInline",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"description": "If true, the attribute will be shown inline. If false, it will be opened in a new tab if possible",
+			"optional": true,
+			"default": false,
+			"attributeType": "boolean"
+		},
+		{
+			"name": "config",
+			"type": "dmss://system/SIMOS/BlueprintAttribute",
+			"attributeType": "object",
+			"contained": true,
+			"optional": true
+		}
+	]
 }

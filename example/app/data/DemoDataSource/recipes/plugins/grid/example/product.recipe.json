@@ -1,16 +1,16 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/grid/example/blueprints/Product",
-  "uiRecipes": [
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
-    },
-    {
-      "name": "Form",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form"
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/grid/example/blueprints/Product",
+	"uiRecipes": [
+		{
+			"name": "Yaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml"
+		},
+		{
+			"name": "Form",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/form"
+		}
+	]
 }

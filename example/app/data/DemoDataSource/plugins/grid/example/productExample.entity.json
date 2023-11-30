@@ -1,5 +1,5 @@
 {
-  "_id": "product1",
-  "name": "ProductExample",
-  "type": "./blueprints/Product"
+	"_id": "product1",
+	"name": "ProductExample",
+	"type": "./blueprints/Product"
 }

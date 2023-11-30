@@ -1,26 +1,26 @@
 {
-  "name": "Ship",
-  "type": "CORE:Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": false
-    },
-    {
-      "name": "name",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "label": "Name",
-      "optional": false
-    },
-    {
-      "name": "captain",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
-      "label": "Captain",
-      "contained": false
-    }
-  ]
+	"name": "Ship",
+	"type": "CORE:Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": false
+		},
+		{
+			"name": "name",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"label": "Name",
+			"optional": false
+		},
+		{
+			"name": "captain",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person",
+			"label": "Captain",
+			"contained": false
+		}
+	]
 }

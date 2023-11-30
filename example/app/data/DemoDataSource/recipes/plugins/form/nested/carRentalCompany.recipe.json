@@ -1,74 +1,74 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/nested/blueprints/CarRentalCompany",
-  "initialUiRecipe": {
-    "name": "ViewSelector",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-      "childTabsOnRender": true,
-      "items": [
-        {
-          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "recipe": "Edit"
-          }
-        }
-      ]
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "attributes": [
-          {
-            "name": "owner",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": false,
-            "uiRecipe": "defaultForm"
-          },
-          {
-            "name": "trainee",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
-            "uiRecipe": "defaultForm"
-          },
-          {
-            "name": "accountant",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
-            "uiRecipe": "defaultYaml",
-            "showExpanded": true
-          },
-          {
-            "name": "cars",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "showInline": true
-          },
-          {
-            "name": "locations",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "showInline": true
-          }
-        ],
-        "showExpanded": true,
-        "fields": [
-          "owner",
-          "ceo",
-          "accountant",
-          "trainee",
-          "locations",
-          "cars",
-          "customers"
-        ]
-      }
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/form/nested/blueprints/CarRentalCompany",
+	"initialUiRecipe": {
+		"name": "ViewSelector",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+			"childTabsOnRender": true,
+			"items": [
+				{
+					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+					"viewConfig": {
+						"type": "CORE:ReferenceViewConfig",
+						"recipe": "Edit"
+					}
+				}
+			]
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "Edit",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/form",
+			"category": "edit",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/form/FormInput",
+				"attributes": [
+					{
+						"name": "owner",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+						"showInline": false,
+						"uiRecipe": "defaultForm"
+					},
+					{
+						"name": "trainee",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+						"showInline": true,
+						"uiRecipe": "defaultForm"
+					},
+					{
+						"name": "accountant",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+						"showInline": true,
+						"uiRecipe": "defaultYaml",
+						"showExpanded": true
+					},
+					{
+						"name": "cars",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
+						"showInline": true
+					},
+					{
+						"name": "locations",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
+						"showInline": true
+					}
+				],
+				"showExpanded": true,
+				"fields": [
+					"owner",
+					"ceo",
+					"accountant",
+					"trainee",
+					"locations",
+					"cars",
+					"customers"
+				]
+			}
+		}
+	]
 }

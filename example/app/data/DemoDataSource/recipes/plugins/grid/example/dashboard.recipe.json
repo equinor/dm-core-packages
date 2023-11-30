@@ -1,123 +1,123 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/grid/example/blueprints/Dashboard",
-  "initialUiRecipe": {
-    "name": "Dashboard",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/grid",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
-      "size": {
-        "type": "PLUGINS:dm-core-plugins/grid/GridSize",
-        "columns": 6,
-        "rows": 5
-      },
-      "items": [
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "scope": "aNestedObjectWithCustomUI",
-            "recipe": "aRecipeName"
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 1,
-            "columnStart": 1,
-            "rowEnd": 1,
-            "columnEnd": 6
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "viewConfig": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "scope": "aNestedObjectWithCustomUI",
-            "recipe": {
-              "name": "form",
-              "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/form",
-              "config": {
-                "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "attributes": [
-                  {
-                    "name": "bar",
-                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-                    "widget": "TextareaWidget"
-                  }
-                ]
-              }
-            }
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 2,
-            "columnStart": 4,
-            "rowEnd": 2,
-            "columnEnd": 6
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "scope": "orders[0].product",
-            "recipe": "Yaml"
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 4,
-            "columnStart": 1,
-            "rowEnd": 5,
-            "columnEnd": 3
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "scope": "order.product",
-            "recipe": "Form"
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 4,
-            "columnStart": 4,
-            "rowEnd": 5,
-            "columnEnd": 6
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "viewConfig": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "Json",
-              "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/json"
-            }
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 5,
-            "columnStart": 1,
-            "rowEnd": 6,
-            "columnEnd": 6
-          }
-        }
-      ]
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
-    },
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form"
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/grid/example/blueprints/Dashboard",
+	"initialUiRecipe": {
+		"name": "Dashboard",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/grid",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+			"size": {
+				"type": "PLUGINS:dm-core-plugins/grid/GridSize",
+				"columns": 6,
+				"rows": 5
+			},
+			"items": [
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"viewConfig": {
+						"type": "CORE:ReferenceViewConfig",
+						"scope": "aNestedObjectWithCustomUI",
+						"recipe": "aRecipeName"
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 1,
+						"columnStart": 1,
+						"rowEnd": 1,
+						"columnEnd": 6
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"viewConfig": {
+						"type": "CORE:InlineRecipeViewConfig",
+						"scope": "aNestedObjectWithCustomUI",
+						"recipe": {
+							"name": "form",
+							"type": "CORE:UiRecipe",
+							"plugin": "@development-framework/dm-core-plugins/form",
+							"config": {
+								"type": "PLUGINS:dm-core-plugins/form/FormInput",
+								"attributes": [
+									{
+										"name": "bar",
+										"type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+										"widget": "TextareaWidget"
+									}
+								]
+							}
+						}
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 2,
+						"columnStart": 4,
+						"rowEnd": 2,
+						"columnEnd": 6
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"viewConfig": {
+						"type": "CORE:ReferenceViewConfig",
+						"scope": "orders[0].product",
+						"recipe": "Yaml"
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 4,
+						"columnStart": 1,
+						"rowEnd": 5,
+						"columnEnd": 3
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"viewConfig": {
+						"type": "CORE:ReferenceViewConfig",
+						"scope": "order.product",
+						"recipe": "Form"
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 4,
+						"columnStart": 4,
+						"rowEnd": 5,
+						"columnEnd": 6
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/grid/GridItem",
+					"viewConfig": {
+						"type": "CORE:InlineRecipeViewConfig",
+						"recipe": {
+							"name": "Json",
+							"type": "CORE:UiRecipe",
+							"plugin": "@development-framework/dm-core-plugins/json"
+						}
+					},
+					"gridArea": {
+						"type": "PLUGINS:dm-core-plugins/grid/GridArea",
+						"rowStart": 5,
+						"columnStart": 1,
+						"rowEnd": 6,
+						"columnEnd": 6
+					}
+				}
+			]
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "Yaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml"
+		},
+		{
+			"name": "Edit",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/form"
+		}
+	]
 }

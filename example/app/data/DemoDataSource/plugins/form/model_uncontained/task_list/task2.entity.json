@@ -1,7 +1,7 @@
 {
-  "name": "MowTheLawn",
-  "type": "./blueprints/Task",
-  "description": "",
-  "assigned": "",
-  "complete": false
+	"name": "MowTheLawn",
+	"type": "./blueprints/Task",
+	"description": "",
+	"assigned": "",
+	"complete": false
 }

@@ -6,11 +6,11 @@ import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
 
 interface IUseBlueprint {
-  blueprint: TBlueprint | undefined
-  initialUiRecipe: TUiRecipe | undefined
-  uiRecipes: TUiRecipe[]
-  isLoading: boolean
-  error: ErrorResponse | null
+	blueprint: TBlueprint | undefined
+	initialUiRecipe: TUiRecipe | undefined
+	uiRecipes: TUiRecipe[]
+	isLoading: boolean
+	error: ErrorResponse | null
 }
 
 /**
@@ -36,43 +36,40 @@ interface IUseBlueprint {
  * @returns A list containing the blueprint document, a boolean representing the loading state, and an Error, if any.
  */
 export const useBlueprint = (typeRef: string): IUseBlueprint => {
-  const [blueprint, setBlueprint] = useState<TBlueprint>()
-  const [uiRecipes, setUiRecipes] = useState<TUiRecipe[]>([])
-  const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
-  const [isLoading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<ErrorResponse | null>(null)
-  const { name } = useContext(ApplicationContext)
-  const dmssAPI = useDMSS()
+	const [blueprint, setBlueprint] = useState<TBlueprint>()
+	const [uiRecipes, setUiRecipes] = useState<TUiRecipe[]>([])
+	const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
+	const [isLoading, setLoading] = useState<boolean>(true)
+	const [error, setError] = useState<ErrorResponse | null>(null)
+	const { name } = useContext(ApplicationContext)
+	const dmssAPI = useDMSS()
 
-  useEffect(() => {
-    dmssAPI
-      .blueprintGet({ typeRef: typeRef, context: name })
-      .then((response: any) => {
-        setBlueprint(response.data.blueprint)
-        setInitialUiRecipe(response.data.initialUiRecipe)
-        let newUiRecipes = response.data.uiRecipes
-        if (response.data.initialUiRecipe) {
-          newUiRecipes = [
-            response.data.initialUiRecipe,
-            ...response.data.uiRecipes,
-          ]
-        }
-        setUiRecipes(newUiRecipes)
-        setError(null)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        setError(error.response?.data || null)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [typeRef])
+	useEffect(() => {
+		dmssAPI
+			.blueprintGet({ typeRef: typeRef, context: name })
+			.then((response: any) => {
+				setBlueprint(response.data.blueprint)
+				setInitialUiRecipe(response.data.initialUiRecipe)
+				let newUiRecipes = response.data.uiRecipes
+				if (response.data.initialUiRecipe) {
+					newUiRecipes = [response.data.initialUiRecipe, ...response.data.uiRecipes]
+				}
+				setUiRecipes(newUiRecipes)
+				setError(null)
+			})
+			.catch((error: AxiosError<ErrorResponse>) => {
+				setError(error.response?.data || null)
+			})
+			.finally(() => {
+				setLoading(false)
+			})
+	}, [typeRef])
 
-  return {
-    blueprint,
-    initialUiRecipe,
-    uiRecipes,
-    isLoading,
-    error,
-  }
+	return {
+		blueprint,
+		initialUiRecipe,
+		uiRecipes,
+		isLoading,
+		error,
+	}
 }

@@ -9,17 +9,17 @@ import { splitString } from './stringUtilities'
  *  DATA_SOURCE/DOCUMENT_PATH.ATTRIBUTE_PATH
  */
 export const splitAddress = (address: string) => {
-  const protocol = address.includes('://') ? address.split('://', 1)[0] : ''
-  const addressWithoutProtocol = address.includes('://')
-    ? address.split('://', 2)[1]
-    : address.replace(/^[/. ]+|[/. ]+$/g, '')
-  const [dataSource, path] = addressWithoutProtocol.includes('/')
-    ? splitString(addressWithoutProtocol, '/', 1)
-    : [addressWithoutProtocol, '']
-  const [documentPath, attributePath] = path.includes('.')
-    ? splitString(path, '.', 1)
-    : [path, '']
-  return { protocol, dataSource, documentPath, attributePath }
+	const protocol = address.includes('://') ? address.split('://', 1)[0] : ''
+	const addressWithoutProtocol = address.includes('://')
+		? address.split('://', 2)[1]
+		: address.replace(/^[/. ]+|[/. ]+$/g, '')
+	const [dataSource, path] = addressWithoutProtocol.includes('/')
+		? splitString(addressWithoutProtocol, '/', 1)
+		: [addressWithoutProtocol, '']
+	const [documentPath, attributePath] = path.includes('.')
+		? splitString(path, '.', 1)
+		: [path, '']
+	return { protocol, dataSource, documentPath, attributePath }
 }
 
 /**
@@ -34,16 +34,16 @@ export const splitAddress = (address: string) => {
  * @returns
  */
 export const resolveRelativeAddress = (
-  address: string,
-  fallbackDocumentPath: string,
-  dataSource: string
+	address: string,
+	fallbackDocumentPath: string,
+	dataSource: string
 ) => {
-  address = address.replace(/^[/. ]+|[/. ]+$/g, '')
-  if (address.includes('://')) return address
-  const [documentPath, attributePath] = address.includes('.')
-    ? splitString(address, '.', 1)
-    : [address, '']
-  return `/${dataSource}/${
-    documentPath == '^' ? fallbackDocumentPath : documentPath
-  }${attributePath ? '.' + attributePath : ''}`
+	address = address.replace(/^[/. ]+|[/. ]+$/g, '')
+	if (address.includes('://')) return address
+	const [documentPath, attributePath] = address.includes('.')
+		? splitString(address, '.', 1)
+		: [address, '']
+	return `/${dataSource}/${
+		documentPath == '^' ? fallbackDocumentPath : documentPath
+	}${attributePath ? '.' + attributePath : ''}`
 }

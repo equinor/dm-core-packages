@@ -22,64 +22,64 @@ import { RecipeAttribute } from './recipe-attribute'
  * @interface Recipe
  */
 export interface Recipe {
-  /**
-   *
-   * @type {string}
-   * @memberof Recipe
-   */
-  name: string
-  /**
-   *
-   * @type {string}
-   * @memberof Recipe
-   */
-  type?: string
-  /**
-   *
-   * @type {Array<RecipeAttribute>}
-   * @memberof Recipe
-   */
-  attributes?: Array<RecipeAttribute>
-  /**
-   *
-   * @type {string}
-   * @memberof Recipe
-   */
-  description?: string
-  /**
-   *
-   * @type {string}
-   * @memberof Recipe
-   */
-  plugin?: string
-  /**
-   *
-   * @type {string}
-   * @memberof Recipe
-   */
-  category?: string
-  /**
-   *
-   * @type {Array<string>}
-   * @memberof Recipe
-   */
-  roles?: Array<string>
-  /**
-   *
-   * @type {object}
-   * @memberof Recipe
-   */
-  config?: object
-  /**
-   *
-   * @type {string}
-   * @memberof Recipe
-   */
-  label?: string
-  /**
-   *
-   * @type {string}
-   * @memberof Recipe
-   */
-  dimensions?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Recipe
+	 */
+	name: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Recipe
+	 */
+	type?: string
+	/**
+	 *
+	 * @type {Array<RecipeAttribute>}
+	 * @memberof Recipe
+	 */
+	attributes?: Array<RecipeAttribute>
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Recipe
+	 */
+	description?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Recipe
+	 */
+	plugin?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Recipe
+	 */
+	category?: string
+	/**
+	 *
+	 * @type {Array<string>}
+	 * @memberof Recipe
+	 */
+	roles?: Array<string>
+	/**
+	 *
+	 * @type {object}
+	 * @memberof Recipe
+	 */
+	config?: object
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Recipe
+	 */
+	label?: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Recipe
+	 */
+	dimensions?: string
 }

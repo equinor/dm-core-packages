@@ -3,7 +3,7 @@ import { tokens } from '@equinor/eds-tokens'
 import styled from 'styled-components'
 
 type TStyledTableCell = {
-  noPadding?: boolean
+	noPadding?: boolean
 }
 
 export const Input = styled(EDSInput)`

@@ -18,10 +18,10 @@
  * @interface Entity
  */
 export interface Entity {
-  /**
-   *
-   * @type {string}
-   * @memberof Entity
-   */
-  type: string
+	/**
+	 *
+	 * @type {string}
+	 * @memberof Entity
+	 */
+	type: string
 }

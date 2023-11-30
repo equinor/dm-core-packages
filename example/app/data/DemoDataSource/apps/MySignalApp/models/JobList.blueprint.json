@@ -1,24 +1,24 @@
 {
-  "name": "JobList",
-  "type": "CORE:Blueprint",
-  "attributes": [
-    {
-      "name": "name",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "jobs",
-      "type": "CORE:BlueprintAttribute",
-      "label": "Jobs",
-      "attributeType": "JOBCORE:Job",
-      "optional": false,
-      "dimensions": "*"
-    }
-  ]
+	"name": "JobList",
+	"type": "CORE:Blueprint",
+	"attributes": [
+		{
+			"name": "name",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "jobs",
+			"type": "CORE:BlueprintAttribute",
+			"label": "Jobs",
+			"attributeType": "JOBCORE:Job",
+			"optional": false,
+			"dimensions": "*"
+		}
+	]
 }

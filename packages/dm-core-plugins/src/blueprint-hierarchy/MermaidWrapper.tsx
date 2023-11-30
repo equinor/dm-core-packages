@@ -54,13 +54,13 @@ import React from 'react'
 // })
 
 export default class MermaidWrapper extends React.Component {
-  // componentDidMount() {
-  //     mermaid.contentLoaded()
-  // }
+	// componentDidMount() {
+	//     mermaid.contentLoaded()
+	// }
 
-  render() {
-    // eslint-disable-next-line react/prop-types
-    // return <div className="mermaid">{this.props.chart}</div>
-    return <div>Mermaid is not working</div>
-  }
+	render() {
+		// eslint-disable-next-line react/prop-types
+		// return <div className="mermaid">{this.props.chart}</div>
+		return <div>Mermaid is not working</div>
+	}
 }

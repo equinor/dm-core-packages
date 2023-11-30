@@ -1,114 +1,104 @@
 {
-  "type": "object",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "View Config recipe schema",
-  "additionalItems": false,
-  "properties": {
-    "type": {
-      "type": "string",
-      "enum": [
-        "PLUGINS:dm-core-plugins/form/FormInput",
-        "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig"
-      ]
-    }
-  },
-  "allOf": [
-    {
-      "if": {
-        "properties": {
-          "type": {
-            "enum": [
-              "PLUGINS:dm-core-plugins/form/FormInput"
-            ]
-          }
-        },
-        "required": [
-          "type"
-        ]
-      },
-      "then": {
-        "properties": {
-          "fields": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "readOnly": {
-            "type": "boolean"
-          }
-        },
-        "required": []
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "type": {
-            "enum": [
-              "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig"
-            ]
-          }
-        },
-        "required": [
-          "type"
-        ]
-      },
-      "then": {
-        "properties": {
-          "childTabsOnRender": {
-            "type": "boolean"
-          },
-          "asSidebar": {
-            "type": "boolean"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "viewConfig": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "type": "string"
-                    },
-                    "recipe": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "type": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
-                        "plugin": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                },
-                "scope": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "required": [
-          "items"
-        ]
-      }
-    }
-  ]
+	"type": "object",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "View Config recipe schema",
+	"additionalItems": false,
+	"properties": {
+		"type": {
+			"type": "string",
+			"enum": [
+				"PLUGINS:dm-core-plugins/form/FormInput",
+				"PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig"
+			]
+		}
+	},
+	"allOf": [
+		{
+			"if": {
+				"properties": {
+					"type": {
+						"enum": ["PLUGINS:dm-core-plugins/form/FormInput"]
+					}
+				},
+				"required": ["type"]
+			},
+			"then": {
+				"properties": {
+					"fields": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"readOnly": {
+						"type": "boolean"
+					}
+				},
+				"required": []
+			}
+		},
+		{
+			"if": {
+				"properties": {
+					"type": {
+						"enum": ["PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig"]
+					}
+				},
+				"required": ["type"]
+			},
+			"then": {
+				"properties": {
+					"childTabsOnRender": {
+						"type": "boolean"
+					},
+					"asSidebar": {
+						"type": "boolean"
+					},
+					"items": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": "string"
+								},
+								"label": {
+									"type": "string"
+								},
+								"viewConfig": {
+									"type": "object",
+									"properties": {
+										"type": {
+											"type": "string"
+										},
+										"recipe": {
+											"type": "object",
+											"properties": {
+												"name": {
+													"type": "string"
+												},
+												"type": {
+													"type": "string"
+												},
+												"description": {
+													"type": "string"
+												},
+												"plugin": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"scope": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"required": ["items"]
+			}
+		}
+	]
 }

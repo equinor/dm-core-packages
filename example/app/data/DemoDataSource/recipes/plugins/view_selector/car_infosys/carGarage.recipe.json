@@ -1,65 +1,62 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/view_selector/car_garage/blueprints/CarGarage",
-  "initialUiRecipe": {
-    "name": "ViewSelector",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-      "childTabsOnRender": true,
-      "items": [
-        {
-          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "viewConfig": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "Edit",
-              "type": "CORE:UiRecipe",
-              "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form",
-              "config": {
-                "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "fields": [
-                  "name",
-                  "description"
-                ]
-              }
-            },
-            "scope": "self",
-            "eds_icon": "home"
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "viewConfig": {
-            "type": "CORE:ViewConfig",
-            "scope": "Audi",
-            "eds_icon": "car"
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "viewConfig": {
-            "type": "CORE:ViewConfig",
-            "scope": "Volvo",
-            "eds_icon": "car"
-          }
-        }
-      ]
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
-    },
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form"
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/view_selector/car_garage/blueprints/CarGarage",
+	"initialUiRecipe": {
+		"name": "ViewSelector",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/view_selector/sidebar",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+			"childTabsOnRender": true,
+			"items": [
+				{
+					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+					"viewConfig": {
+						"type": "CORE:InlineRecipeViewConfig",
+						"recipe": {
+							"name": "Edit",
+							"type": "CORE:UiRecipe",
+							"description": "Default edit",
+							"plugin": "@development-framework/dm-core-plugins/form",
+							"config": {
+								"type": "PLUGINS:dm-core-plugins/form/FormInput",
+								"fields": ["name", "description"]
+							}
+						},
+						"scope": "self",
+						"eds_icon": "home"
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+					"viewConfig": {
+						"type": "CORE:ViewConfig",
+						"scope": "Audi",
+						"eds_icon": "car"
+					}
+				},
+				{
+					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+					"viewConfig": {
+						"type": "CORE:ViewConfig",
+						"scope": "Volvo",
+						"eds_icon": "car"
+					}
+				}
+			]
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "Yaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml"
+		},
+		{
+			"name": "Edit",
+			"type": "CORE:UiRecipe",
+			"description": "Default edit",
+			"plugin": "@development-framework/dm-core-plugins/form"
+		}
+	]
 }

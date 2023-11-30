@@ -6,16 +6,16 @@ import { AxiosResponse, AxiosError } from 'axios'
 import { ErrorResponse } from 'src/services'
 
 export const useDataSources = (dmssAPI: DmssAPI): TDataSource[] => {
-  const [dataSources, setDataSources] = useState<TDataSource[]>([])
+	const [dataSources, setDataSources] = useState<TDataSource[]>([])
 
-  useEffect(() => {
-    dmssAPI
-      .dataSourceGetAll()
-      .then((response: AxiosResponse<TDataSource[]>) =>
-        setDataSources(response.data)
-      )
-      .catch((error: AxiosError<ErrorResponse>) => console.error(error))
-  }, [])
+	useEffect(() => {
+		dmssAPI
+			.dataSourceGetAll()
+			.then((response: AxiosResponse<TDataSource[]>) =>
+				setDataSources(response.data)
+			)
+			.catch((error: AxiosError<ErrorResponse>) => console.error(error))
+	}, [])
 
-  return dataSources
+	return dataSources
 }

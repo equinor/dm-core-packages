@@ -1,21 +1,21 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/simple/blueprints/Simple",
-  "initialUiRecipe": {
-    "name": "Edit",
-    "type": "CORE:UiRecipe",
-    "description": "Default edit",
-    "showRefreshButton": true,
-    "plugin": "@development-framework/dm-core-plugins/form",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/form/FormInput",
-      "attributes": [
-        {
-          "name": "date",
-          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-          "widget": "DateTimeWidget"
-        }
-      ]
-    }
-  }
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/form/simple/blueprints/Simple",
+	"initialUiRecipe": {
+		"name": "Edit",
+		"type": "CORE:UiRecipe",
+		"description": "Default edit",
+		"showRefreshButton": true,
+		"plugin": "@development-framework/dm-core-plugins/form",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/form/FormInput",
+			"attributes": [
+				{
+					"name": "date",
+					"type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+					"widget": "DateTimeWidget"
+				}
+			]
+		}
+	}
 }

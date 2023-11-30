@@ -27,115 +27,111 @@ import { TreeView } from '../TreeView'
  * @param scope: optional attribute to define scope for tree view. The scope must be on the format: <DataSource>/<rootPackage>/<pathToFolder>
  */
 export const EntityPickerDialog = (props: {
-  onChange: (address: string, entity: TValidEntity) => void
-  showModal: boolean
-  setShowModal: (x: boolean) => void
-  typeFilter?: string
-  scope?: string
+	onChange: (address: string, entity: TValidEntity) => void
+	showModal: boolean
+	setShowModal: (x: boolean) => void
+	typeFilter?: string
+	scope?: string
 }) => {
-  const { onChange, showModal, setShowModal, typeFilter, scope } = props
-  const appConfig = useContext(ApplicationContext)
-  const [loading, setLoading] = useState<boolean>(true)
-  const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
+	const { onChange, showModal, setShowModal, typeFilter, scope } = props
+	const appConfig = useContext(ApplicationContext)
+	const [loading, setLoading] = useState<boolean>(true)
+	const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
 
-  const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
-  const [selectedTreeNode, setSelectedTreeNode] = useState<
-    TreeNode | undefined
-  >()
+	const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
+	const [selectedTreeNode, setSelectedTreeNode] = useState<
+		TreeNode | undefined
+	>()
 
-  useEffect(() => {
-    setLoading(true)
-    if (scope) {
-      tree.initFromPath(scope).finally(() => setLoading(false))
-    } else {
-      tree
-        .initFromDataSources(appConfig.visibleDataSources)
-        .finally(() => setLoading(false))
-    }
-  }, [scope])
+	useEffect(() => {
+		setLoading(true)
+		if (scope) {
+			tree.initFromPath(scope).finally(() => setLoading(false))
+		} else {
+			tree
+				.initFromDataSources(appConfig.visibleDataSources)
+				.finally(() => setLoading(false))
+		}
+	}, [scope])
 
-  const handleSelectEntityInTree = () => {
-    if (!selectedTreeNode) {
-      return
-    }
-    selectedTreeNode
-      .fetch()
-      .then((doc: any) => {
-        setShowModal(false)
-        onChange(selectedTreeNode.nodeId, doc)
-      })
-      .catch((error: any) => {
-        console.error(error)
-        toast.error('Failed to fetch')
-      })
-      .finally(() => {
-        setSelectedTreeNode(undefined)
-        setShowModal(false)
-      })
-  }
+	const handleSelectEntityInTree = () => {
+		if (!selectedTreeNode) {
+			return
+		}
+		selectedTreeNode
+			.fetch()
+			.then((doc: any) => {
+				setShowModal(false)
+				onChange(selectedTreeNode.nodeId, doc)
+			})
+			.catch((error: any) => {
+				console.error(error)
+				toast.error('Failed to fetch')
+			})
+			.finally(() => {
+				setSelectedTreeNode(undefined)
+				setShowModal(false)
+			})
+	}
 
-  return (
-    <Dialog
-      isDismissable
-      open={showModal}
-      onClose={() => {
-        setSelectedTreeNode(undefined)
-        setShowModal(false)
-      }}
-      width={TREE_DIALOG_WIDTH}
-    >
-      <Dialog.Header>
-        <Dialog.Title>
-          {`Select an Entity ${typeFilter ? `of type ${typeFilter}` : ''}`}
-        </Dialog.Title>
-      </Dialog.Header>
-      <Dialog.CustomContent>
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Progress.Circular />
-          </div>
-        ) : (
-          <div>
-            <div style={{ height: '40vh', overflow: 'auto' }}>
-              <TreeView
-                ignoredTypes={[EBlueprint.BLUEPRINT]}
-                nodes={treeNodes}
-                onSelect={(node: TreeNode) => {
-                  if (typeFilter && node.type !== typeFilter) {
-                    toast.warning(
-                      `Type must be '${truncatePathString(typeFilter, 43)}'`
-                    )
-                    setSelectedTreeNode(undefined)
-                    return
-                  }
-                  setSelectedTreeNode(node)
-                }}
-              />
-            </div>
-            <p>
-              {selectedTreeNode
-                ? `Selected: ${
-                    selectedTreeNode?.name ?? selectedTreeNode.nodeId
-                  }`
-                : 'No entity selected'}
-            </p>
-          </div>
-        )}
-      </Dialog.CustomContent>
-      <Dialog.Actions>
-        <Button disabled={!selectedTreeNode} onClick={handleSelectEntityInTree}>
-          Select
-        </Button>
-        <Button
-          variant='ghost'
-          onClick={() => {
-            setSelectedTreeNode(undefined)
-            setShowModal(false)
-          }}
-        >
-          Cancel
-        </Button>
-      </Dialog.Actions>
-    </Dialog>
-  )
+	return (
+		<Dialog
+			isDismissable
+			open={showModal}
+			onClose={() => {
+				setSelectedTreeNode(undefined)
+				setShowModal(false)
+			}}
+			width={TREE_DIALOG_WIDTH}
+		>
+			<Dialog.Header>
+				<Dialog.Title>
+					{`Select an Entity ${typeFilter ? `of type ${typeFilter}` : ''}`}
+				</Dialog.Title>
+			</Dialog.Header>
+			<Dialog.CustomContent>
+				{loading ? (
+					<div style={{ display: 'flex', justifyContent: 'center' }}>
+						<Progress.Circular />
+					</div>
+				) : (
+					<div>
+						<div style={{ height: '40vh', overflow: 'auto' }}>
+							<TreeView
+								ignoredTypes={[EBlueprint.BLUEPRINT]}
+								nodes={treeNodes}
+								onSelect={(node: TreeNode) => {
+									if (typeFilter && node.type !== typeFilter) {
+										toast.warning(`Type must be '${truncatePathString(typeFilter, 43)}'`)
+										setSelectedTreeNode(undefined)
+										return
+									}
+									setSelectedTreeNode(node)
+								}}
+							/>
+						</div>
+						<p>
+							{selectedTreeNode
+								? `Selected: ${selectedTreeNode?.name ?? selectedTreeNode.nodeId}`
+								: 'No entity selected'}
+						</p>
+					</div>
+				)}
+			</Dialog.CustomContent>
+			<Dialog.Actions>
+				<Button disabled={!selectedTreeNode} onClick={handleSelectEntityInTree}>
+					Select
+				</Button>
+				<Button
+					variant='ghost'
+					onClick={() => {
+						setSelectedTreeNode(undefined)
+						setShowModal(false)
+					}}
+				>
+					Cancel
+				</Button>
+			</Dialog.Actions>
+		</Dialog>
+	)
 }

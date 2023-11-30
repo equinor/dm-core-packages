@@ -1,65 +1,60 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/uncontained_object/blueprints/Company",
-  "initialUiRecipe": {
-    "name": "ViewSelector",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-      "childTabsOnRender": true,
-      "items": [
-        {
-          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "recipe": "Edit"
-          }
-        }
-      ]
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "attributes": [
-          {
-            "name": "ceo",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": false,
-            "uiRecipe": "defaultYaml"
-          },
-          {
-            "name": "accountant",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
-            "uiRecipe": "defaultYaml"
-          },
-          {
-            "name": "assistant",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": false,
-            "uiRecipe": "defaultYaml"
-          },
-          {
-            "name": "trainee",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
-            "uiRecipe": "defaultYaml"
-          }
-        ],
-        "fields": [
-          "ceo",
-          "accountant",
-          "assistant",
-          "trainee"
-        ]
-      }
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/form/uncontained_object/blueprints/Company",
+	"initialUiRecipe": {
+		"name": "ViewSelector",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+			"childTabsOnRender": true,
+			"items": [
+				{
+					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+					"viewConfig": {
+						"type": "CORE:ReferenceViewConfig",
+						"recipe": "Edit"
+					}
+				}
+			]
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "Edit",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/form",
+			"category": "edit",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/form/FormInput",
+				"attributes": [
+					{
+						"name": "ceo",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+						"showInline": false,
+						"uiRecipe": "defaultYaml"
+					},
+					{
+						"name": "accountant",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+						"showInline": true,
+						"uiRecipe": "defaultYaml"
+					},
+					{
+						"name": "assistant",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+						"showInline": false,
+						"uiRecipe": "defaultYaml"
+					},
+					{
+						"name": "trainee",
+						"type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+						"showInline": true,
+						"uiRecipe": "defaultYaml"
+					}
+				],
+				"fields": ["ceo", "accountant", "assistant", "trainee"]
+			}
+		}
+	]
 }

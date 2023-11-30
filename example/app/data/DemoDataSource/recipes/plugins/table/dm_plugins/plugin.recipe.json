@@ -1,9 +1,9 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/table/dm_plugins/blueprints/Plugin",
-  "initialUiRecipe": {
-    "name": "form",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/form"
-  }
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/table/dm_plugins/blueprints/Plugin",
+	"initialUiRecipe": {
+		"name": "form",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/form"
+	}
 }

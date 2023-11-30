@@ -1,8 +1,8 @@
 {
-  "_id": "wash_task",
-  "name": "Wash_the_car",
-  "type": "./blueprints/Task",
-  "description": "Car needs a thorough wash inside and outside.",
-  "assigned": "Mark Johnson",
-  "complete": false
+	"_id": "wash_task",
+	"name": "Wash_the_car",
+	"type": "./blueprints/Task",
+	"description": "Car needs a thorough wash inside and outside.",
+	"assigned": "Mark Johnson",
+	"complete": false
 }

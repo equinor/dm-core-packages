@@ -1,80 +1,68 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/header/roles_header_example/blueprints/Person",
-  "initialUiRecipe": {
-    "name": "RoleFilter",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/role_filter",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/role_filter/RoleFilterConfig",
-      "viewConfigs": [
-        {
-          "type": "CORE:ReferenceViewConfig",
-          "recipe": "AdminHeader",
-          "roles": [
-            "dmss-admin",
-            "developer"
-          ]
-        },
-        {
-          "type": "CORE:ReferenceViewConfig",
-          "recipe": "OperatorHeader",
-          "roles": [
-            "operator"
-          ]
-        },
-        {
-          "type": "CORE:ReferenceViewConfig",
-          "recipe": "Yaml"
-        }
-      ]
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "AdminHeader",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/header",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-        "uiRecipesList": [
-          "Yaml",
-          "Edit",
-          "Explorer"
-        ],
-        "hideAbout": false,
-        "hideUserInfo": true
-      }
-    },
-    {
-      "name": "OperatorHeader",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/header",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-        "uiRecipesList": [
-          "Yaml",
-          "Explorer"
-        ],
-        "hideAbout": false,
-        "hideUserInfo": true
-      }
-    },
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
-    },
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form"
-    },
-    {
-      "name": "Explorer",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/explorer"
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/header/roles_header_example/blueprints/Person",
+	"initialUiRecipe": {
+		"name": "RoleFilter",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/role_filter",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/role_filter/RoleFilterConfig",
+			"viewConfigs": [
+				{
+					"type": "CORE:ReferenceViewConfig",
+					"recipe": "AdminHeader",
+					"roles": ["dmss-admin", "developer"]
+				},
+				{
+					"type": "CORE:ReferenceViewConfig",
+					"recipe": "OperatorHeader",
+					"roles": ["operator"]
+				},
+				{
+					"type": "CORE:ReferenceViewConfig",
+					"recipe": "Yaml"
+				}
+			]
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "AdminHeader",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/header",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
+				"uiRecipesList": ["Yaml", "Edit", "Explorer"],
+				"hideAbout": false,
+				"hideUserInfo": true
+			}
+		},
+		{
+			"name": "OperatorHeader",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/header",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
+				"uiRecipesList": ["Yaml", "Explorer"],
+				"hideAbout": false,
+				"hideUserInfo": true
+			}
+		},
+		{
+			"name": "Yaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml"
+		},
+		{
+			"name": "Edit",
+			"type": "CORE:UiRecipe",
+			"description": "Default edit",
+			"plugin": "@development-framework/dm-core-plugins/form"
+		},
+		{
+			"name": "Explorer",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/explorer"
+		}
+	]
 }

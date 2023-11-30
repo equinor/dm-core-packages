@@ -1,37 +1,33 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/header/example_app/blueprints/ExampleApplication",
-  "initialUiRecipe": {
-    "name": "Header",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/header",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-      "uiRecipesList": [
-        "Yaml",
-        "Edit",
-        "Explorer"
-      ],
-      "hideAbout": false,
-      "hideUserInfo": false
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "Yaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml"
-    },
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form"
-    },
-    {
-      "name": "Explorer",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/explorer"
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/header/example_app/blueprints/ExampleApplication",
+	"initialUiRecipe": {
+		"name": "Header",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/header",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
+			"uiRecipesList": ["Yaml", "Edit", "Explorer"],
+			"hideAbout": false,
+			"hideUserInfo": false
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "Yaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml"
+		},
+		{
+			"name": "Edit",
+			"type": "CORE:UiRecipe",
+			"description": "Default edit",
+			"plugin": "@development-framework/dm-core-plugins/form"
+		},
+		{
+			"name": "Explorer",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/explorer"
+		}
+	]
 }

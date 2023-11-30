@@ -6,10 +6,10 @@ import { ErrorResponse } from '../services'
 import { toast } from 'react-toastify'
 
 interface IUseDocumentReturnType<T> {
-  document: T | null
-  isLoading: boolean
-  updateDocument: (newDocument: T, notify: boolean) => Promise<void>
-  error: ErrorResponse | null
+	document: T | null
+	isLoading: boolean
+	updateDocument: (newDocument: T, notify: boolean) => Promise<void>
+	error: ErrorResponse | null
 }
 
 /**
@@ -45,68 +45,66 @@ interface IUseDocumentReturnType<T> {
  * @returns A list containing the document, a boolean representing the loading state, a function to update the document, and an Error, if any.
  */
 export function useDocument<T>(
-  idReference: string,
-  depth?: number | undefined,
-  notify: boolean = true
+	idReference: string,
+	depth?: number | undefined,
+	notify: boolean = true
 ): IUseDocumentReturnType<T> {
-  const [document, setDocument] = useState<T | null>(null)
-  const [isLoading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<ErrorResponse | null>(null)
-  const dmssAPI = useDMSS()
+	const [document, setDocument] = useState<T | null>(null)
+	const [isLoading, setLoading] = useState<boolean>(true)
+	const [error, setError] = useState<ErrorResponse | null>(null)
+	const dmssAPI = useDMSS()
 
-  useEffect(() => {
-    setLoading(true)
-    const documentDepth: number = depth ?? 0
-    if (documentDepth < 0 || documentDepth > 999)
-      throw new Error('Depth must be a positive number < 999')
-    dmssAPI
-      .documentGet({
-        address: idReference,
-        depth: documentDepth,
-      })
-      .then((response: any) => {
-        const data = response.data
-        setDocument(data)
-        setError(null)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-        if (notify)
-          toast.error(
-            'Unable to retrieve document, with message: ' +
-              error.response?.data.message ?? error.message
-          )
-        setError(error.response?.data || { message: error.name, data: error })
-      })
-      .finally(() => setLoading(false))
-  }, [idReference, depth])
+	useEffect(() => {
+		setLoading(true)
+		const documentDepth: number = depth ?? 0
+		if (documentDepth < 0 || documentDepth > 999)
+			throw new Error('Depth must be a positive number < 999')
+		dmssAPI
+			.documentGet({
+				address: idReference,
+				depth: documentDepth,
+			})
+			.then((response: any) => {
+				const data = response.data
+				setDocument(data)
+				setError(null)
+			})
+			.catch((error: AxiosError<ErrorResponse>) => {
+				console.error(error)
+				if (notify)
+					toast.error(
+						'Unable to retrieve document, with message: ' +
+							error.response?.data.message ?? error.message
+					)
+				setError(error.response?.data || { message: error.name, data: error })
+			})
+			.finally(() => setLoading(false))
+	}, [idReference, depth])
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async function updateDocument(
-    newDocument: T,
-    notify: boolean = true
-  ): Promise<void> {
-    setLoading(true)
-    return dmssAPI
-      .documentUpdate({
-        idAddress: idReference,
-        data: JSON.stringify(newDocument),
-      })
-      .then(() => {
-        setDocument(newDocument)
-        setError(null)
-        if (notify) toast.success('Document updated')
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-        if (notify)
-          toast.error(
-            'Unable to update document, with message: ' + error.message
-          )
-        setError(error.response?.data || { message: error.name, data: error })
-      })
-      .finally(() => setLoading(false))
-  }
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	async function updateDocument(
+		newDocument: T,
+		notify: boolean = true
+	): Promise<void> {
+		setLoading(true)
+		return dmssAPI
+			.documentUpdate({
+				idAddress: idReference,
+				data: JSON.stringify(newDocument),
+			})
+			.then(() => {
+				setDocument(newDocument)
+				setError(null)
+				if (notify) toast.success('Document updated')
+			})
+			.catch((error: AxiosError<ErrorResponse>) => {
+				console.error(error)
+				if (notify)
+					toast.error('Unable to update document, with message: ' + error.message)
+				setError(error.response?.data || { message: error.name, data: error })
+			})
+			.finally(() => setLoading(false))
+	}
 
-  return { document, isLoading, updateDocument, error }
+	return { document, isLoading, updateDocument, error }
 }

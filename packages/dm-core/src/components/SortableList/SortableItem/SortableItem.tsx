@@ -6,37 +6,37 @@ import { drag_handle } from '@equinor/eds-icons'
 import { SortableItemProps } from './types'
 
 export const SortableItem = <T extends { id: string | number }>({
-  children,
-  item,
+	children,
+	item,
 }: SortableItemProps<T>) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    setActivatorNodeRef,
-    transform,
-    transition,
-  } = useSortable({ id: item.id })
+	const {
+		attributes,
+		listeners,
+		setNodeRef,
+		setActivatorNodeRef,
+		transform,
+		transition,
+	} = useSortable({ id: item.id })
 
-  const draggableStyle = {
-    transform: CSS.Translate.toString(transform),
-    transition,
-  }
+	const draggableStyle = {
+		transform: CSS.Translate.toString(transform),
+		transition,
+	}
 
-  return React.Children.only(
-    React.cloneElement(children as React.ReactElement, {
-      setNodeRef: setNodeRef,
-      style: draggableStyle,
-      dragHandle: () => (
-        <Button
-          ref={setActivatorNodeRef}
-          variant='ghost_icon'
-          {...listeners}
-          {...attributes}
-        >
-          <Icon data={drag_handle} />
-        </Button>
-      ),
-    })
-  )
+	return React.Children.only(
+		React.cloneElement(children as React.ReactElement, {
+			setNodeRef: setNodeRef,
+			style: draggableStyle,
+			dragHandle: () => (
+				<Button
+					ref={setActivatorNodeRef}
+					variant='ghost_icon'
+					{...listeners}
+					{...attributes}
+				>
+					<Icon data={drag_handle} />
+				</Button>
+			),
+		})
+	)
 }

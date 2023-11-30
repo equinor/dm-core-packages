@@ -1,36 +1,36 @@
 {
-  "name": "waveForm",
-  "type": "./blueprints/WaveForm",
-  "significantWaveHeight": {
-    "name": "significantWaveHeight",
-    "type": "./blueprints/SignificantWaveHeight",
-    "description": "Wave height above sea level null",
-    "value": 14.687,
-    "label": "Significant Hs",
-    "unit": "m"
-  },
-  "medianWaveHeight": {
-    "name": "medianWaveHeight",
-    "type": "./blueprints/SignificantWaveHeight",
-    "description": "Median wave height",
-    "value": 7.12,
-    "label": "Median Hs",
-    "unit": "m"
-  },
-  "minimumWaveHeight": {
-    "name": "minimumWaveHeight",
-    "type": "./blueprints/SignificantWaveHeight",
-    "description": "Minimum",
-    "value": 32.9,
-    "label": "Minimum Hs",
-    "unit": "m"
-  },
-  "maximumWaveHeight": {
-    "name": "maximumWaveHeight",
-    "type": "./blueprints/SignificantWaveHeight",
-    "description": "Maximum wave height",
-    "value": 7.12,
-    "label": "Maximum Hs",
-    "unit": "m"
-  }
+	"name": "waveForm",
+	"type": "./blueprints/WaveForm",
+	"significantWaveHeight": {
+		"name": "significantWaveHeight",
+		"type": "./blueprints/SignificantWaveHeight",
+		"description": "Wave height above sea level null",
+		"value": 14.687,
+		"label": "Significant Hs",
+		"unit": "m"
+	},
+	"medianWaveHeight": {
+		"name": "medianWaveHeight",
+		"type": "./blueprints/SignificantWaveHeight",
+		"description": "Median wave height",
+		"value": 7.12,
+		"label": "Median Hs",
+		"unit": "m"
+	},
+	"minimumWaveHeight": {
+		"name": "minimumWaveHeight",
+		"type": "./blueprints/SignificantWaveHeight",
+		"description": "Minimum",
+		"value": 32.9,
+		"label": "Minimum Hs",
+		"unit": "m"
+	},
+	"maximumWaveHeight": {
+		"name": "maximumWaveHeight",
+		"type": "./blueprints/SignificantWaveHeight",
+		"description": "Maximum wave height",
+		"value": 7.12,
+		"label": "Maximum Hs",
+		"unit": "m"
+	}
 }

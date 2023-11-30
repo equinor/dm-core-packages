@@ -1,44 +1,44 @@
 {
-  "name": "JobConfig",
-  "type": "CORE:Blueprint",
-  "description": "",
-  "attributes": [
-    {
-      "name": "outputTarget",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "label",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "runner",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "JOBCORE:JobHandler"
-    },
-    {
-      "name": "jobTargetAddress",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "PLUGINS:dm-core-plugins/job/TargetAddress"
-    },
-    {
-      "name": "jobInput",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "PLUGINS:dm-core-plugins/job/TargetAddress"
-    },
-    {
-      "name": "recurring",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true
-    }
-  ]
+	"name": "JobConfig",
+	"type": "CORE:Blueprint",
+	"description": "",
+	"attributes": [
+		{
+			"name": "outputTarget",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": true
+		},
+		{
+			"name": "label",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "runner",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "JOBCORE:JobHandler"
+		},
+		{
+			"name": "jobTargetAddress",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "PLUGINS:dm-core-plugins/job/TargetAddress"
+		},
+		{
+			"name": "jobInput",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "PLUGINS:dm-core-plugins/job/TargetAddress"
+		},
+		{
+			"name": "recurring",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "boolean",
+			"optional": true
+		}
+	]
 }

@@ -15,34 +15,34 @@ const StyledOption = styled.option`
 `
 
 export const ACLSelect = ({
-  value,
-  handleChange,
+	value,
+	handleChange,
 }: {
-  value: AccessLevel
-  handleChange: (newValue: AccessLevel) => void
+	value: AccessLevel
+	handleChange: (newValue: AccessLevel) => void
 }): React.ReactElement => {
-  const accessLevelKeys: string[] = []
-  for (const enumMember in AccessLevel) {
-    accessLevelKeys.push(enumMember)
-  }
+	const accessLevelKeys: string[] = []
+	for (const enumMember in AccessLevel) {
+		accessLevelKeys.push(enumMember)
+	}
 
-  return (
-    <div style={{ width: '150px', padding: '10px' }}>
-      <StyledSelect
-        value={AccessLevel[value]}
-        onChange={(event) => {
-          if (accessLevelKeys.includes(event.target.value)) {
-            // @ts-ignore
-            handleChange(AccessLevel[event.target.value])
-          }
-        }}
-      >
-        {accessLevelKeys.map((accessLevelKey) => (
-          <StyledOption value={accessLevelKey} key={accessLevelKey}>
-            {accessLevelKey}
-          </StyledOption>
-        ))}
-      </StyledSelect>
-    </div>
-  )
+	return (
+		<div style={{ width: '150px', padding: '10px' }}>
+			<StyledSelect
+				value={AccessLevel[value]}
+				onChange={(event) => {
+					if (accessLevelKeys.includes(event.target.value)) {
+						// @ts-ignore
+						handleChange(AccessLevel[event.target.value])
+					}
+				}}
+			>
+				{accessLevelKeys.map((accessLevelKey) => (
+					<StyledOption value={accessLevelKey} key={accessLevelKey}>
+						{accessLevelKey}
+					</StyledOption>
+				))}
+			</StyledSelect>
+		</div>
+	)
 }

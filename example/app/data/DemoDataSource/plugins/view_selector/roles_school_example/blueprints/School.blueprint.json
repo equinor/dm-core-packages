@@ -1,38 +1,36 @@
 {
-  "name": "School",
-  "type": "CORE:Blueprint",
-  "extends": [
-    "CORE:NamedEntity"
-  ],
-  "attributes": [
-    {
-      "name": "headmaster",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person"
-    },
-    {
-      "name": "students",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
-      "dimensions": "*"
-    },
-    {
-      "name": "subjects",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "dimensions": "*"
-    },
-    {
-      "name": "teachers",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
-      "dimensions": "*"
-    },
-    {
-      "name": "teacherSalaries",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Salary",
-      "dimensions": "*"
-    }
-  ]
+	"name": "School",
+	"type": "CORE:Blueprint",
+	"extends": ["CORE:NamedEntity"],
+	"attributes": [
+		{
+			"name": "headmaster",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person"
+		},
+		{
+			"name": "students",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person",
+			"dimensions": "*"
+		},
+		{
+			"name": "subjects",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"dimensions": "*"
+		},
+		{
+			"name": "teachers",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person",
+			"dimensions": "*"
+		},
+		{
+			"name": "teacherSalaries",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Salary",
+			"dimensions": "*"
+		}
+	]
 }

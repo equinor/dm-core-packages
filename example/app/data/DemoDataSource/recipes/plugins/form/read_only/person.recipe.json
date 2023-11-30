@@ -1,46 +1,46 @@
 {
-  "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/form/read_only/blueprints/Person",
-  "initialUiRecipe": {
-    "name": "ViewSelector",
-    "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-    "config": {
-      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
-      "childTabsOnRender": true,
-      "items": [
-        {
-          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "viewConfig": {
-            "type": "CORE:InlineRecipeViewConfig",
-            "recipe": {
-              "name": "Edit",
-              "type": "CORE:UiRecipe",
-              "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form"
-            },
-            "scope": "self"
-          }
-        }
-      ]
-    }
-  },
-  "uiRecipes": [
-    {
-      "name": "defaultYaml",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml",
-      "category": "view"
-    },
-    {
-      "name": "defaultForm",
-      "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "readOnly": true
-      }
-    }
-  ]
+	"type": "CORE:RecipeLink",
+	"_blueprintPath_": "/plugins/form/read_only/blueprints/Person",
+	"initialUiRecipe": {
+		"name": "ViewSelector",
+		"type": "CORE:UiRecipe",
+		"plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+		"config": {
+			"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+			"childTabsOnRender": true,
+			"items": [
+				{
+					"type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+					"viewConfig": {
+						"type": "CORE:InlineRecipeViewConfig",
+						"recipe": {
+							"name": "Edit",
+							"type": "CORE:UiRecipe",
+							"description": "Default edit",
+							"plugin": "@development-framework/dm-core-plugins/form"
+						},
+						"scope": "self"
+					}
+				}
+			]
+		}
+	},
+	"uiRecipes": [
+		{
+			"name": "defaultYaml",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/yaml",
+			"category": "view"
+		},
+		{
+			"name": "defaultForm",
+			"type": "CORE:UiRecipe",
+			"plugin": "@development-framework/dm-core-plugins/form",
+			"category": "edit",
+			"config": {
+				"type": "PLUGINS:dm-core-plugins/form/FormInput",
+				"readOnly": true
+			}
+		}
+	]
 }

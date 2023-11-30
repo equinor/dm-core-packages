@@ -1,20 +1,20 @@
 {
-  "name": "StudyNC",
-  "type": "CORE:Blueprint",
-  "description": "",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "cases",
-      "type": "CORE:BlueprintAttribute",
-      "label": "Cases",
-      "attributeType": "./Case",
-      "dimensions": "*",
-      "contained": false
-    }
-  ]
+	"name": "StudyNC",
+	"type": "CORE:Blueprint",
+	"description": "",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "cases",
+			"type": "CORE:BlueprintAttribute",
+			"label": "Cases",
+			"attributeType": "./Case",
+			"dimensions": "*",
+			"contained": false
+		}
+	]
 }

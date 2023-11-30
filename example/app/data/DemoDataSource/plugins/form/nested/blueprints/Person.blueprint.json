@@ -1,33 +1,33 @@
 {
-  "name": "Person",
-  "type": "CORE:Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": false
-    },
-    {
-      "name": "name",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "label": "Name",
-      "optional": false
-    },
-    {
-      "name": "phoneNumber",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "number",
-      "label": "Phone Number",
-      "optional": true
-    },
-    {
-      "name": "hasDrivingLicence",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "label": "Has driving licence",
-      "optional": true
-    }
-  ]
+	"name": "Person",
+	"type": "CORE:Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"optional": false
+		},
+		{
+			"name": "name",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string",
+			"label": "Name",
+			"optional": false
+		},
+		{
+			"name": "phoneNumber",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "number",
+			"label": "Phone Number",
+			"optional": true
+		},
+		{
+			"name": "hasDrivingLicence",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "boolean",
+			"label": "Has driving licence",
+			"optional": true
+		}
+	]
 }

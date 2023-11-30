@@ -1,55 +1,55 @@
 {
-  "name": "Company",
-  "type": "CORE:Blueprint",
-  "attributes": [
-    {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "name",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "employees",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
-      "dimensions": "*",
-      "label": "Employees"
-    },
-    {
-      "name": "ceo",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
-      "label": "CEO",
-      "contained": false,
-      "optional": false
-    },
-    {
-      "name": "accountant",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
-      "label": "Accountant",
-      "contained": false,
-      "optional": false
-    },
-    {
-      "name": "assistant",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
-      "label": "Assistant",
-      "contained": false,
-      "optional": true
-    },
-    {
-      "name": "trainee",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Person",
-      "label": "Trainee",
-      "contained": false,
-      "optional": true
-    }
-  ]
+	"name": "Company",
+	"type": "CORE:Blueprint",
+	"attributes": [
+		{
+			"name": "type",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "name",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "string"
+		},
+		{
+			"name": "employees",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person",
+			"dimensions": "*",
+			"label": "Employees"
+		},
+		{
+			"name": "ceo",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person",
+			"label": "CEO",
+			"contained": false,
+			"optional": false
+		},
+		{
+			"name": "accountant",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person",
+			"label": "Accountant",
+			"contained": false,
+			"optional": false
+		},
+		{
+			"name": "assistant",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person",
+			"label": "Assistant",
+			"contained": false,
+			"optional": true
+		},
+		{
+			"name": "trainee",
+			"type": "CORE:BlueprintAttribute",
+			"attributeType": "./Person",
+			"label": "Trainee",
+			"contained": false,
+			"optional": true
+		}
+	]
 }

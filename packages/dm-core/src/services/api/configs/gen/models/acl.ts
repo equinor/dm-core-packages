@@ -22,28 +22,28 @@ import { AccessLevel } from './access-level'
  * @interface ACL
  */
 export interface ACL {
-  /**
-   *
-   * @type {string}
-   * @memberof ACL
-   */
-  owner: string
-  /**
-   *
-   * @type {{ [key: string]: AccessLevel; }}
-   * @memberof ACL
-   */
-  roles?: { [key: string]: AccessLevel }
-  /**
-   *
-   * @type {{ [key: string]: AccessLevel; }}
-   * @memberof ACL
-   */
-  users?: { [key: string]: AccessLevel }
-  /**
-   *
-   * @type {AccessLevel}
-   * @memberof ACL
-   */
-  others?: AccessLevel
+	/**
+	 *
+	 * @type {string}
+	 * @memberof ACL
+	 */
+	owner: string
+	/**
+	 *
+	 * @type {{ [key: string]: AccessLevel; }}
+	 * @memberof ACL
+	 */
+	roles?: { [key: string]: AccessLevel }
+	/**
+	 *
+	 * @type {{ [key: string]: AccessLevel; }}
+	 * @memberof ACL
+	 */
+	users?: { [key: string]: AccessLevel }
+	/**
+	 *
+	 * @type {AccessLevel}
+	 * @memberof ACL
+	 */
+	others?: AccessLevel
 }

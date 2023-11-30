@@ -13,81 +13,81 @@ export const STANDARD_DIALOG_WIDTH = '100%'
 export const STANDARD_DIALOG_HEIGHT = '300px'
 
 const NodeRightClickMenu = (props: TNodeWrapperProps) => {
-  const { node, children, setNodeOpen } = props
-  const [dialogId, setDialogId] = useState<EDialog | undefined>()
-  const [showMenu, setShowMenu] = useState<boolean>(false)
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+	const { node, children, setNodeOpen } = props
+	const [dialogId, setDialogId] = useState<EDialog | undefined>()
+	const [showMenu, setShowMenu] = useState<boolean>(false)
+	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
-  //TODO when the tree changes by adding new package or deleting something, the tree should be updated to give consistent UI to user
-  return (
-    <>
-      <div
-        style={{ width: 'fit-content' }}
-        ref={setAnchorEl}
-        onContextMenu={(e) => {
-          e.preventDefault()
-          setShowMenu(!showMenu)
-        }}
-      >
-        {children}
-      </div>
-      <Menu
-        open={showMenu}
-        onClose={() => setShowMenu(false)}
-        anchorEl={anchorEl}
-        placement='bottom-start'
-        matchAnchorWidth={true}
-      >
-        {getMenuItems(node, setDialogId)}
-      </Menu>
+	//TODO when the tree changes by adding new package or deleting something, the tree should be updated to give consistent UI to user
+	return (
+		<>
+			<div
+				style={{ width: 'fit-content' }}
+				ref={setAnchorEl}
+				onContextMenu={(e) => {
+					e.preventDefault()
+					setShowMenu(!showMenu)
+				}}
+			>
+				{children}
+			</div>
+			<Menu
+				open={showMenu}
+				onClose={() => setShowMenu(false)}
+				anchorEl={anchorEl}
+				placement='bottom-start'
+				matchAnchorWidth={true}
+			>
+				{getMenuItems(node, setDialogId)}
+			</Menu>
 
-      {dialogId === EDialog.NewFolder && (
-        <NewFolderDialog
-          setDialogId={setDialogId}
-          node={node}
-          setNodeOpen={setNodeOpen}
-          isRoot={false}
-        />
-      )}
+			{dialogId === EDialog.NewFolder && (
+				<NewFolderDialog
+					setDialogId={setDialogId}
+					node={node}
+					setNodeOpen={setNodeOpen}
+					isRoot={false}
+				/>
+			)}
 
-      {dialogId === EDialog.Delete && (
-        <DeleteDialog setDialogId={setDialogId} node={node} />
-      )}
+			{dialogId === EDialog.Delete && (
+				<DeleteDialog setDialogId={setDialogId} node={node} />
+			)}
 
-      {dialogId === EDialog.NewRootPackage && (
-        <NewFolderDialog
-          setDialogId={setDialogId}
-          node={node}
-          setNodeOpen={setNodeOpen}
-          isRoot={true}
-        />
-      )}
+			{dialogId === EDialog.NewRootPackage && (
+				<NewFolderDialog
+					setDialogId={setDialogId}
+					node={node}
+					setNodeOpen={setNodeOpen}
+					isRoot={true}
+				/>
+			)}
 
-      {dialogId === EDialog.AppendEntity && (
-        <AppendEntityDialog
-          setDialogId={setDialogId}
-          node={node}
-          setNodeOpen={setNodeOpen}
-        />
-      )}
+			{dialogId === EDialog.AppendEntity && (
+				<AppendEntityDialog
+					setDialogId={setDialogId}
+					node={node}
+					setNodeOpen={setNodeOpen}
+				/>
+			)}
 
-      {dialogId === EDialog.NewEntity && (
-        <NewEntityDialog
-          setDialogId={setDialogId}
-          node={node}
-          setNodeOpen={setNodeOpen}
-        />
-      )}
+			{dialogId === EDialog.NewEntity && (
+				<NewEntityDialog
+					setDialogId={setDialogId}
+					node={node}
+					setNodeOpen={setNodeOpen}
+				/>
+			)}
 
-      {dialogId === EDialog.NewBlueprint && (
-        <NewBlueprintDialog
-          setDialogId={setDialogId}
-          node={node}
-          setNodeOpen={setNodeOpen}
-        />
-      )}
-    </>
-  )
+			{dialogId === EDialog.NewBlueprint && (
+				<NewBlueprintDialog
+					setDialogId={setDialogId}
+					node={node}
+					setNodeOpen={setNodeOpen}
+				/>
+			)}
+		</>
+	)
 }
 
 export default NodeRightClickMenu
