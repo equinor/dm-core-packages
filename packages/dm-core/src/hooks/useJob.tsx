@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
+  DeleteJobResponse,
   ErrorResponse,
   GetJobResultResponse,
   JobStatus,
@@ -15,7 +16,7 @@ interface IUseJob {
   start: () => Promise<StartJobResponse | null>
   fetchStatusAndLogs: () => Promise<StatusJobResponse | null>
   status: JobStatus
-  remove: () => Promise<string | null>
+  remove: () => Promise<DeleteJobResponse | null>
   fetchResult: () => any // TODO: Type set this return value
   logs: string[]
   progress: GLfloat
@@ -128,14 +129,13 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       return null
     }
     setIsLoading(true)
-    setStatus(JobStatus.Starting)
     return dmJobApi
       .startJob({ jobDmssId: entityId })
       .then((response: AxiosResponse<StartJobResponse>) => {
         setHookJobId(response.data.uid)
         setLogs([response.data.message])
         setError(undefined)
-        setStatus(JobStatus.Running)
+        setStatus(response.data.status)
         return response.data
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -194,9 +194,12 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .finally(() => setIsLoading(false))
   }
 
-  function remove(): Promise<string | null> {
+  function remove(): Promise<DeleteJobResponse | null> {
     if (!hookJobId) {
-      return Promise.resolve('The job has not been started')
+      return Promise.resolve({
+        status: status,
+        response: 'The job has not been started',
+      })
     }
 
     setIsLoading(true)
@@ -204,8 +207,8 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
 
     return dmJobApi
       .removeJob({ jobUid: hookJobId })
-      .then((response: AxiosResponse<string>) => {
-        setStatus(JobStatus.Removed)
+      .then((response: AxiosResponse<DeleteJobResponse>) => {
+        setStatus(response.data.status)
         return response.data
       })
       .catch((error: AxiosError<ErrorResponse>) => {

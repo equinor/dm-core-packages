@@ -20,27 +20,21 @@ import { JobStatus } from './job-status';
 /**
  * 
  * @export
- * @interface Progress
+ * @interface DeleteJobResponse
  */
-export interface Progress {
-    /**
-     * 
-     * @type {number}
-     * @memberof Progress
-     */
-    'percentage'?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof Progress
-     */
-    'logs'?: Array<string>;
+export interface DeleteJobResponse {
     /**
      * 
      * @type {JobStatus}
-     * @memberof Progress
+     * @memberof DeleteJobResponse
      */
-    'status'?: JobStatus;
+    'status': JobStatus;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteJobResponse
+     */
+    'response': string;
 }
 
 

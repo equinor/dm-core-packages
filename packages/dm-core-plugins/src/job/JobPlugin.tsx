@@ -34,6 +34,7 @@ import { AuthContext } from 'react-oauth2-code-pkce'
 import { ConfigureSchedule } from './CronJob'
 import { JobLogsDialog } from './JobLogsDialog'
 import { getNewJobDocument, scheduleTemplate } from './templateEntities'
+import { RemoveJobDialog } from './RemoveJobDialog'
 
 const JobButtonWrapper = styled.div`
   margin-top: 0.5rem;
@@ -83,6 +84,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   const [asCronJob, setAsCronJob] = useState<boolean>(config.recurring ?? false)
   const [schedule, setSchedule] = useState<TSchedule>(scheduleTemplate())
   const [showLogs, setShowLogs] = useState(false)
+  const [showRemoveDialog, setShowRemoveDialog] = useState<boolean>(false)
 
   const jobEntity: TJob | TRecurringJob = useMemo(
     () =>
@@ -177,8 +179,8 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           jobStatus={status}
           createJob={createAndStartJob}
           remove={remove}
+          confirmRemove={() => setShowRemoveDialog(true)}
           asCronJob={asCronJob}
-          disabled={false}
           exists={exists}
         />
         {status === JobStatus.Running && (
@@ -231,6 +233,13 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         logs={logs}
         error={error}
         result={result}
+      />
+      <RemoveJobDialog
+        isOpen={showRemoveDialog}
+        remove={remove}
+        afterRemove={() => {
+          setShowRemoveDialog(false)
+        }}
       />
     </div>
   )
