@@ -45,7 +45,6 @@ const createContainedChildren = (
 			})
 		}
 	})
-
 	return newChildren
 }
 
