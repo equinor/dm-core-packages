@@ -32,12 +32,11 @@ export const ObjectField = (props: TField): React.ReactElement => {
         }}
         defaultValue={attribute.default ?? ''}
         render={({
-          field: { ref, value, onChange, ...props },
+          field: { ref, value, onChange },
           fieldState: { isDirty },
         }) => {
           return (
             <Widget
-              {...props}
               value={value}
               onChange={onChange}
               config={uiAttribute?.config}

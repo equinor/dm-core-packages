@@ -51,9 +51,9 @@ const DimensionalScalarWidget = ({
         disabled={readOnly}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
           setError(e.target.value === '' ? 'Value is required' : '')
-          const targetValue = isNumber
-            ? parseFloat(e.target.value)
-            : e.target.value
+          let targetValue: string | number = e.target.value
+          if (isNumber)
+            targetValue = e.target.value === '' ? 0 : parseFloat(e.target.value)
 
           const changed = isPrimitive
             ? targetValue
