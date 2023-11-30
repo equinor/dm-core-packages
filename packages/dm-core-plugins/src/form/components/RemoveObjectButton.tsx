@@ -12,22 +12,17 @@ const RemoveObject = (props: {
   onRemove?: () => void
 }) => {
   const { namePath, address, onRemove } = props
-  const { setValue } = useFormContext()
+  const { unregister } = useFormContext()
   const { idReference } = useRegistryContext()
   const dmssAPI = useDMSS()
 
   const onClick = () => {
-    const options = {
-      shouldValidate: true,
-      shouldDirty: true,
-      shouldTouch: true,
-    }
     dmssAPI
       .documentRemove({
         address: address ? address : `${idReference}.${namePath}`,
       })
       .then(() => {
-        setValue(namePath, {}, options)
+        unregister(namePath)
         if (onRemove) onRemove()
       })
       .catch((error: AxiosError<ErrorResponse>) => {
