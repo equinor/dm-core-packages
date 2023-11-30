@@ -45,7 +45,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   })
 
   function handleDateInput(dateInput: string): void {
-    let day, month, year
+    let day
+    let month
+    let year
     if (dateInput.includes('/')) {
       const [d, m, y] = dateInput.split('/')
       day = Number(d)
@@ -90,41 +92,41 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   }
 
   return (
-    <div className="relative">
+    <div className='relative'>
       <InputWrapper
         labelProps={{
           label: variant === 'datetime' ? 'Date & Time' : 'Date',
         }}
       >
         <div
-          className="h-9 px-2 border-b border-black bg-gray-200 flex items-center gap-2 w-fit cursor-pointer"
+          className='h-9 px-2 border-b border-black bg-gray-200 flex items-center gap-2 w-fit cursor-pointer'
           onClick={() => setOpen(!open)}
         >
           <input
-            type="text"
+            type='text'
             value={fieldDateValue}
             onChange={(e) => handleDateInput(e.target.value)}
             onFocus={() => (open ? setOpen(true) : null)}
-            className="h-full bg-transparent appearance-none w-24"
+            className='h-full bg-transparent appearance-none w-24'
           />
           <input
-            type="text"
-            className="appearance-none bg-transparent h-full w-12 text-center"
+            type='text'
+            className='appearance-none bg-transparent h-full w-12 text-center'
             onFocus={() => (open ? setOpen(true) : null)}
             value={fieldTimeValue}
             onChange={(e: any) => handleTimeInput(e.target.value)}
           />
-          <Icon data={calendar} size={18} className="w-6" />
+          <Icon data={calendar} size={18} className='w-6' />
         </div>
       </InputWrapper>
       {open && (
         <div
           ref={datepickerRef}
-          className="absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1"
+          className='absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1'
           style={{ zIndex: 9999, width: '25rem' }}
         >
           <Calendar dateTime={datetime} setDatetime={setDatetime} />
-          <div className="w-full h-px bg-gray-300"></div>
+          <div className='w-full h-px bg-gray-300'></div>
           {variant === 'datetime' && (
             <>
               <Timefield
@@ -132,8 +134,8 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
                 datetime={datetime}
                 setDateTime={setDatetime}
               />
-              <span className="text-sm text-gray-600">
-                <span className="font-bold text-purple-600 bg-purple-100 py-1 px-1.5 rounded">
+              <span className='text-sm text-gray-600'>
+                <span className='font-bold text-purple-600 bg-purple-100 py-1 px-1.5 rounded'>
                   Note:
                 </span>{' '}
                 This datepicker uses UTC timing

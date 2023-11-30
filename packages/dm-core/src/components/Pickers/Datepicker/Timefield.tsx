@@ -37,14 +37,14 @@ export const Timefield = (props: TimefieldProps): ReactElement => {
   }
 
   return (
-    <div className="flex flex-col">
-      <label className="text-sm text-gray-600" htmlFor="timeInput">
+    <div className='flex flex-col'>
+      <label className='text-sm text-gray-600' htmlFor='timeInput'>
         Time {!useMinutes && ' - only' + ' hours'}
       </label>
       <input
-        id="timeInput"
+        id='timeInput'
         type={useMinutes ? 'time' : 'number'}
-        className="border border-gray-300 rounded py-1 px-2 appearance-none"
+        className='border border-gray-300 rounded py-1 px-2 appearance-none'
         value={
           useMinutes
             ? datetime.toFormat('HH:mm')
