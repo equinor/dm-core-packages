@@ -25,7 +25,7 @@ export enum EBlueprint {
 }
 
 export enum EPrimitiveTypes {
-  string,
-  number,
-  boolean,
+  string = 0,
+  number = 1,
+  boolean = 2,
 }

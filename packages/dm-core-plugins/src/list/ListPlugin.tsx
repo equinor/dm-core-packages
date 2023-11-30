@@ -125,17 +125,17 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         paginatedRows.map((item: TItem<TGenericObject>, index: number) => (
           <React.Fragment key={item?.key}>
             <Stack
-              direction="row"
-              role="row"
+              direction='row'
+              role='row'
               spacing={1}
-              justifyContent="space-between"
-              alignItems="center"
+              justifyContent='space-between'
+              alignItems='center'
               style={{
                 padding: '0.25rem 0.5rem',
                 borderBottom: '1px solid #ccc',
               }}
             >
-              <Stack direction="row" spacing={0.5} alignItems="center">
+              <Stack direction='row' spacing={0.5} alignItems='center'>
                 <Tooltip
                   title={
                     !internalConfig.openAsTab
@@ -146,8 +146,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   }
                 >
                   <Button
-                    variant="ghost_icon"
-                    color="secondary"
+                    variant='ghost_icon'
+                    color='secondary'
                     disabled={!item.isSaved}
                     data-testid={`expandListItem-${index}`}
                     onClick={() => expandOrOpen(item)}
@@ -158,7 +158,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       }
                       size={internalConfig.openAsTab ? 18 : 24}
                       title={expanded[item.key] ? 'Close item' : 'Open item'}
-                      className="transition-all"
+                      className='transition-all'
                       style={{
                         transform: expanded[item.key]
                           ? 'rotate(90deg)'
@@ -178,7 +178,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       return (
                         <Typography
                           key={attribute}
-                          variant="body_short"
+                          variant='body_short'
                           bold={index === 0}
                           onClick={() => expandOrOpen(item)}
                           style={{ cursor: 'pointer' }}
@@ -190,7 +190,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   }
                 )}
               </Stack>
-              <Stack direction="row" alignItems="center">
+              <Stack direction='row' alignItems='center'>
                 {internalConfig.functionality.sort && (
                   <>
                     <ListItemButton
@@ -198,10 +198,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       onClick={() => {
                         moveItem(item, 'up')
                       }}
-                      type="up"
+                      type='up'
                     />
                     <ListItemButton
-                      type="down"
+                      type='down'
                       disabled={
                         index === paginationRowsPerPage - 1 ||
                         index === items?.length - 1
@@ -214,7 +214,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 )}
                 {internalConfig.functionality.delete && (
                   <ListItemButton
-                    type="delete"
+                    type='delete'
                     onClick={() => removeItem(item, false)}
                   />
                 )}
@@ -242,8 +242,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           </React.Fragment>
         ))}
       <Stack
-        direction="row"
-        justifyContent="space-between"
+        direction='row'
+        justifyContent='space-between'
         spacing={1}
         style={{ padding: '1rem 0' }}
       >
@@ -254,7 +254,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           rowsPerPage={paginationRowsPerPage}
           setRowsPerPage={setPaginationRowsPerPage}
         />
-        <Stack direction="row" spacing={1}>
+        <Stack direction='row' spacing={1}>
           {internalConfig.functionality.add && (
             <AppendButton
               onClick={() => {
@@ -272,7 +272,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             tooltip={'Revert changes'}
             variant={'outlined'}
             isLoading={isLoading}
-            dataTestid="RevertList"
+            dataTestid='RevertList'
           >
             <Icon data={undo} size={16} />
           </FormButton>
@@ -281,7 +281,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             disabled={!dirtyState}
             isLoading={isLoading}
             tooltip={'Save'}
-            dataTestid="SaveList"
+            dataTestid='SaveList'
           >
             Save
           </FormButton>

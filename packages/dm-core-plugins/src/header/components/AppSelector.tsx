@@ -54,11 +54,11 @@ export const AppSelector = ({
     <div ref={referenceElement}>
       <AppSelectorButton
         onClick={() => setAppSelectorOpen(!appSelectorOpen)}
-        aria-label="AppSelector"
+        aria-label='AppSelector'
       >
-        <span className="text-base font-bold self-center">{currentItem}</span>
+        <span className='text-xs font-bold self-center'>{currentItem}</span>
         <Icon
-          className="mt-0.5"
+          className='mt-0.5'
           data={appSelectorOpen ? chevron_up : chevron_down}
         ></Icon>
       </AppSelectorButton>

@@ -1,9 +1,7 @@
 {
   "name": "DimentionalScalarWidgetConfig",
   "type": "CORE:Blueprint",
-  "extends": [
-    "CORE:Entity"
-  ],
+  "extends": ["CORE:Entity"],
   "attributes": [
     {
       "name": "width",

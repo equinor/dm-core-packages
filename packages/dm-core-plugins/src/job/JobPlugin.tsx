@@ -157,8 +157,8 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     <div>
       {config.recurring === undefined && (
         <Switch
-          size="small"
-          label="Recurring"
+          size='small'
+          label='Recurring'
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setAsCronJob(e.target.checked)
           }
@@ -185,9 +185,9 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         />
         {status === JobStatus.Running && (
           <Button
-            variant="outlined"
+            variant='outlined'
             onClick={() => fetchStatusAndLogs()}
-            aria-label="Get job status"
+            aria-label='Get job status'
           >
             <Icon data={refresh} />
           </Button>
@@ -203,7 +203,7 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
             Get results
           </Button>
         )}
-        <Button onClick={() => setShowLogs(!showLogs)} variant="ghost">
+        <Button onClick={() => setShowLogs(!showLogs)} variant='ghost'>
           {showLogs ? 'Hide' : 'Show'} logs
           <Icon data={expand_screen} />
         </Button>
@@ -218,9 +218,9 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
         }}
       >
         <LinearProgress
-          aria-label="Progress bar label"
+          aria-label='Progress bar label'
           value={progress * 100}
-          variant="determinate"
+          variant='determinate'
           style={{
             marginRight: '10px',
           }}

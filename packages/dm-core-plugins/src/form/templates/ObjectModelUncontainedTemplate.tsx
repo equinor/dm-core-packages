@@ -48,8 +48,8 @@ export const ObjectModelUncontainedTemplate = (
         )}
         {address && !(onOpen && !uiAttribute?.showInline) && (
           <TooltipButton
-            title="Expand"
-            button-variant="ghost_icon"
+            title='Expand'
+            button-variant='ghost_icon'
             button-onClick={() => setIsExpanded(!isExpanded)}
             icon={isExpanded ? chevron_up : chevron_down}
           />

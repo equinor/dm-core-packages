@@ -21,10 +21,7 @@
               "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "fields": [
-                  "controlDate",
-                  "nextControl"
-                ]
+                "fields": ["controlDate", "nextControl"]
               }
             },
             "eds_icon": "check"
@@ -42,11 +39,7 @@
               "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "fields": [
-                  "width",
-                  "length",
-                  "heigth"
-                ]
+                "fields": ["width", "length", "heigth"]
               }
             },
             "eds_icon": "car"

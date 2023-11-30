@@ -10,8 +10,8 @@ const CheckboxWidget = (props: TWidget) => {
       {...props}
       disabled={readOnly}
       checked={value !== undefined ? value : false}
-      type="checkbox"
-      data-testid="form-checkbox"
+      type='checkbox'
+      data-testid='form-checkbox'
     />
   )
 }

@@ -16,3 +16,5 @@ __pycache__
 
 packages/dm-core/build.css
 packages/dm-core-plugins/build.css
+
+*.tsbuildinfo

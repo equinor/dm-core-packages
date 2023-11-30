@@ -1,9 +1,7 @@
 {
   "name": "DimensionalScalarWidgetConfig",
   "type": "dmss://system/SIMOS/Blueprint",
-  "extends": [
-    "CORE:Entity"
-  ],
+  "extends": ["CORE:Entity"],
   "attributes": [
     {
       "name": "width",

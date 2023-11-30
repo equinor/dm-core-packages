@@ -53,7 +53,7 @@ const Extends = (props: {
   const { formData, setExtends } = props
   return (
     <>
-      <Label label="Extends" />
+      <Label label='Extends' />
       <ul>
         {formData.length ? (
           <>
@@ -62,8 +62,8 @@ const Extends = (props: {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   {typeRef}
                   <Button
-                    variant="ghost_icon"
-                    color="danger"
+                    variant='ghost_icon'
+                    color='danger'
                     onClick={() =>
                       setExtends(
                         formData.filter(
@@ -72,7 +72,7 @@ const Extends = (props: {
                       )
                     }
                   >
-                    <Icon data={delete_to_trash} title="remove extend item" />
+                    <Icon data={delete_to_trash} title='remove extend item' />
                   </Button>
                 </div>
               </li>
@@ -104,10 +104,10 @@ const BlueprintAttribute = (props: {
   return (
     <div>
       <TextField
-        id="name"
+        id='name'
         label={'Name'}
         value={attribute?.name || ''}
-        placeholder="Name of the attribute"
+        placeholder='Name of the attribute'
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
           setAttribute({ ...attribute, name: event.target.value })
         }
@@ -115,7 +115,7 @@ const BlueprintAttribute = (props: {
       />
       <Spacer />
       <TextField
-        id="label"
+        id='label'
         label={'Label'}
         value={attribute?.label || ''}
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -164,7 +164,7 @@ const BlueprintAttribute = (props: {
         )}
       </div>
       <Spacer />
-      <Label htmlFor="default" label="Default value" />
+      <Label htmlFor='default' label='Default value' />
       {attribute.attributeType === 'boolean' ? (
         <>
           <Switch
@@ -178,7 +178,7 @@ const BlueprintAttribute = (props: {
       ) : (
         <Input
           type={attribute.attributeType === 'number' ? 'number' : 'text'}
-          id="default"
+          id='default'
           value={attribute?.default || ''}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
             let value: string | number = event.target.value
@@ -191,7 +191,7 @@ const BlueprintAttribute = (props: {
       <Spacer />
       <div style={{ display: 'flex', alignItems: 'flex-end' }}>
         <TextField
-          id="dimensions"
+          id='dimensions'
           label={'Dimensions'}
           value={attribute?.dimensions || ''}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -203,7 +203,7 @@ const BlueprintAttribute = (props: {
       </div>
       {!Object.values(EPrimitiveTypes).includes(attribute.attributeType) && (
         <Switch
-          label="Contained"
+          label='Contained'
           defaultChecked={attribute?.contained ?? true}
           onChange={(e: any) =>
             setAttribute({ ...attribute, contained: e.target.checked })
@@ -211,7 +211,7 @@ const BlueprintAttribute = (props: {
         />
       )}
       <Switch
-        label="Optional"
+        label='Optional'
         defaultChecked={attribute?.optional ?? false}
         onChange={(e: any) =>
           setAttribute({ ...attribute, optional: e.target.checked })
@@ -242,10 +242,10 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
     <div style={{ margin: '10px', width: '100%' }}>
       <Spacer />
       <TextField
-        id="name"
+        id='name'
         label={'Name'}
         value={formData?.name || ''}
-        placeholder="Name of the blueprint"
+        placeholder='Name of the blueprint'
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
           setFormData({ ...formData, name: event.target.value })
         }
@@ -260,7 +260,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
       />
       <Spacer />
       <TextField
-        id="description"
+        id='description'
         label={'Description'}
         value={formData?.description || ''}
         multiline
@@ -269,7 +269,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
         }
       />
       <Spacer />
-      <Label label="Attributes" />
+      <Label label='Attributes' />
       <Accordion>
         {Array.isArray(formData?.attributes) &&
           formData.attributes.map((attribute: any, index: number) => (
@@ -282,8 +282,8 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
                   ? 'Contained'
                   : 'Uncontained'}
                 <Button
-                  variant="ghost_icon"
-                  color="danger"
+                  variant='ghost_icon'
+                  color='danger'
                   onClick={(event) => {
                     formData.attributes.splice(index, 1)
                     setFormData({
@@ -293,7 +293,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
                     event.stopPropagation() // Stop the Accordion header from registering the click event
                   }}
                 >
-                  <Icon data={delete_to_trash} title="remove attribute" />
+                  <Icon data={delete_to_trash} title='remove attribute' />
                 </Button>
               </Accordion.Header>
               <Accordion.Panel>
@@ -311,8 +311,8 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
       </Accordion>
       <div style={{ display: 'flex', justifyContent: 'end', margin: '5px' }}>
         <Button
-          as="button"
-          variant="outlined"
+          as='button'
+          variant='outlined'
           onClick={() =>
             setFormData({
               ...formData,
@@ -341,16 +341,16 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
         }}
       >
         <Button
-          as="button"
-          variant="outlined"
-          color="danger"
+          as='button'
+          variant='outlined'
+          color='danger'
           onClick={() => setFormData({ ...document })}
         >
-          <Icon data={undo} title="save action"></Icon>
+          <Icon data={undo} title='save action'></Icon>
           Reset
         </Button>
-        <Button as="button" onClick={() => updateDocument(formData, true)}>
-          <Icon data={save} title="save action"></Icon>
+        <Button as='button' onClick={() => updateDocument(formData, true)}>
+          <Icon data={save} title='save action'></Icon>
           Save
         </Button>
       </div>

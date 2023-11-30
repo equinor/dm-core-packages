@@ -19,7 +19,7 @@ const NumberWidget = (props: TWidget) => {
       helperText={props.helperText}
       onChange={onChangeHandler}
       label={label}
-      type="number"
+      type='number'
       data-testid={`form-number-widget-${label}`}
       style={
         isDirty && props.variant !== 'error'

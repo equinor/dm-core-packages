@@ -20,7 +20,7 @@ export const Tabs = (props: {
           return (
             <EdsTabs.Tab
               key={config.viewId}
-              as="div"
+              as='div'
               style={{
                 overflow: 'hidden',
                 display: 'flex',
@@ -30,7 +30,7 @@ export const Tabs = (props: {
             >
               <Button
                 onClick={() => setSelectedViewId(config.viewId)}
-                variant="ghost"
+                variant='ghost'
                 style={{ fontSize: '16px' }}
               >
                 {config.viewConfig?.eds_icon && (
@@ -46,7 +46,7 @@ export const Tabs = (props: {
                   <Button
                     aria-label={`Close ${config.label}`}
                     onClick={() => props.removeView(config.viewId)}
-                    variant="ghost_icon"
+                    variant='ghost_icon'
                   >
                     <Icon size={16} data={close} />
                   </Button>

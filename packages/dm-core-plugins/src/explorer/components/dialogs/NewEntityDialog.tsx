@@ -56,7 +56,7 @@ const NewEntityDialog = (props: TProps) => {
       </Dialog.Header>
       <Dialog.CustomContent>
         <BlueprintPicker
-          label="Blueprint"
+          label='Blueprint'
           onChange={setBlueprint}
           formData={blueprint}
         />
@@ -65,7 +65,7 @@ const NewEntityDialog = (props: TProps) => {
         <Button disabled={blueprint === ''} onClick={handleCreate}>
           {loading ? <Progress.Dots /> : 'Create'}
         </Button>
-        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
+        <Button variant='outlined' onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>

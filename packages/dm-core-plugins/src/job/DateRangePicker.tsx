@@ -16,18 +16,18 @@ const DateRangePicker = (props: {
       }}
     >
       <TextField
-        id="startDate"
+        id='startDate'
         defaultValue={value.startDate}
-        type="datetime-local"
+        type='datetime-local'
         onChange={(e: any) =>
           setDateRange({ ...value, startDate: e.target.value })
         }
         label={'Valid from'}
       />
       <TextField
-        id="endDate"
+        id='endDate'
         defaultValue={value.endDate}
-        type="datetime-local"
+        type='datetime-local'
         onChange={(e: any) =>
           setDateRange({ ...value, endDate: e.target.value })
         }

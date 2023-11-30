@@ -58,7 +58,7 @@ export const ACLUserRolesPanel = ({
   return (
     <>
       {aclKey === 'users' && (
-        <Typography variant="body_short_italic">Use short name</Typography>
+        <Typography variant='body_short_italic'>Use short name</Typography>
       )}
       <CenteredRow>
         <Input
@@ -95,8 +95,8 @@ export const ACLUserRolesPanel = ({
               <div>{entity}</div>
               <ACLSelect value={access} handleChange={roleHandleChange} />
               <Button
-                variant="outlined"
-                color="danger"
+                variant='outlined'
+                color='danger'
                 onClick={() => {
                   delete entities[entity]
                   handleChange({ [aclKey]: entities })

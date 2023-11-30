@@ -2,9 +2,7 @@
   "name": "SchoolDistrict",
   "type": "CORE:Blueprint",
   "description": "Meta information about a school",
-  "extends": [
-    "CORE:NamedEntity"
-  ],
+  "extends": ["CORE:NamedEntity"],
   "attributes": [
     {
       "name": "country",

@@ -11,15 +11,8 @@
         "type": "PLUGINS:dm-core-plugins/grid/GridSize",
         "columns": 2,
         "rows": 3,
-        "rowSizes": [
-          "2fr",
-          "2fr",
-          "1fr"
-        ],
-        "columnSizes": [
-          "4fr",
-          "1fr"
-        ]
+        "rowSizes": ["2fr", "2fr", "1fr"],
+        "columnSizes": ["4fr", "1fr"]
       },
       "itemBorder": {
         "type": "PLUGINS:dm-core-plugins/grid/GridBorder",

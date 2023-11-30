@@ -6,33 +6,8 @@
   "stringOptional": "a prefilled optional string",
   "requiredCheckbox": false,
   "date": "2023-10-17T13:30",
-  "listOfNumbers": [
-    9,
-    9,
-    9,
-    9,
-    9,
-    9
-  ],
-  "2DListOfNumbers": [
-    [
-      2,
-      2,
-      2,
-      2,
-      2,
-      2,
-      2
-    ],
-    [
-      3,
-      3,
-      3,
-      3,
-      3,
-      3
-    ]
-  ],
+  "listOfNumbers": [9, 9, 9, 9, 9, 9],
+  "2DListOfNumbers": [[2, 2, 2, 2, 2, 2, 2], [3, 3, 3, 3, 3, 3]],
   "listOfStrings": [
     "abcdefghijklmnopqrst",
     "abcdefghijklmnopqrst",
@@ -50,46 +25,12 @@
     "abcdefghijklmnopqrst"
   ],
   "2DListOfStrings": [
-    [
-      "abcdefgh",
-      "kjhnfdgkjhghgbs",
-      "SADKHKJ"
-    ],
-    [
-      "abcdefgh",
-      "kjhnfdgkjhghgbs",
-      "SADKHKJ"
-    ]
+    ["abcdefgh", "kjhnfdgkjhghgbs", "SADKHKJ"],
+    ["abcdefgh", "kjhnfdgkjhghgbs", "SADKHKJ"]
   ],
-  "listOfBooleans": [
-    true,
-    false,
-    true,
-    false,
-    true,
-    false,
-    true,
-    false
-  ],
+  "listOfBooleans": [true, false, true, false, true, false, true, false],
   "2DListOfBooleans": [
-    [
-      true,
-      false,
-      true,
-      false,
-      true,
-      false,
-      true,
-      false
-    ],
-    [
-      true,
-      false,
-      true,
-      false,
-      true,
-      true,
-      false
-    ]
+    [true, false, true, false, true, false, true, false],
+    [true, false, true, false, true, true, false]
   ]
 }

@@ -66,20 +66,20 @@ const YamlView = (props: {
   return (
     <div>
       <ButtonRow>
-        <Button variant="outlined" onClick={() => onClick(asYAML)}>
+        <Button variant='outlined' onClick={() => onClick(asYAML)}>
           Copy as YAML
         </Button>
-        <Button variant="outlined" onClick={() => onClick(asJSON)}>
+        <Button variant='outlined' onClick={() => onClick(asJSON)}>
           Copy as JSON
         </Button>
         <div style={{ width: '5rem' }}>
-          <Label htmlFor="yaml-depth-input" label="Depth" />
+          <Label htmlFor='yaml-depth-input' label='Depth' />
           <Input
-            id="yaml-depth-input"
-            type="number"
+            id='yaml-depth-input'
+            type='number'
             value={depth}
             onChange={setDepth}
-            label="Depth"
+            label='Depth'
           />
         </div>
       </ButtonRow>

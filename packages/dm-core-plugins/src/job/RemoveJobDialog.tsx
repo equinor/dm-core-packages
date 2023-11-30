@@ -27,7 +27,7 @@ export const RemoveJobDialog = (props: RemoveJobDialogProps) => {
         >
           Yes
         </Button>
-        <Button onClick={() => afterRemove()} variant="outlined">
+        <Button onClick={() => afterRemove()} variant='outlined'>
           Cancel
         </Button>
       </Dialog.Actions>

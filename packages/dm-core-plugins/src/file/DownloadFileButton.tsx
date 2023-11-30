@@ -67,7 +67,7 @@ export const DownloadFileButton = (props: DownloadButtonProps) => {
     <div style={{ padding: '10px' }}>
       <Button
         href={fileUrl}
-        rel="noopener noreferrer"
+        rel='noopener noreferrer'
         download={fileEntity['name']}
       >
         Download

@@ -81,10 +81,9 @@ test('View selector - car garage', async ({ page }) => {
       page.getByRole('tab', { name: 'car Dimensions' })
     ).toBeVisible()
 
-    await page
-      .getByTestId('form-text-widget-nextControl')
+    await page.getByTestId('form-text-widget-nextControl')
 
-      .fill('2025-06-31')
+    .fill('2025-06-31')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page

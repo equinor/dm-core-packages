@@ -182,14 +182,14 @@ export function Table(props: TableProps) {
         </SortableContext>
         {functionalityConfig.add && (
           <AddRowButton
-            aria-label="Add new row"
+            aria-label='Add new row'
             onClick={() => instantiateAndAddItem()}
           >
             <Icon size={16} data={add} />
           </AddRowButton>
         )}
       </Stack>
-      <Stack direction="row" spacing={1} justifyContent="space-between">
+      <Stack direction='row' spacing={1} justifyContent='space-between'>
         <Pagination
           count={items?.length || 0}
           rowsPerPage={rowsPerPage}

@@ -76,8 +76,8 @@ export const Form = (props: TFormProps) => {
           <AttributeList namePath={namePath} blueprint={blueprint} />
           {showSubmitButton && !config?.readOnly && (
             <Button
-              type="submit"
-              data-testid="form-submit"
+              type='submit'
+              data-testid='form-submit'
               style={{ alignSelf: 'flex-start' }}
               onClick={handleSubmit}
             >

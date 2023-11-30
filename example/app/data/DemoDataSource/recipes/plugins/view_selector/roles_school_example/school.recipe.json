@@ -43,12 +43,7 @@
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
         "readOnly": true,
-        "fields": [
-          "name",
-          "headmaster",
-          "teachers",
-          "subjects"
-        ]
+        "fields": ["name", "headmaster", "teachers", "subjects"]
       }
     }
   ]

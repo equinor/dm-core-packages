@@ -2,14 +2,6 @@
   "name": "StringOptions",
   "type": "CORE:Enum",
   "description": "This describes a list of options",
-  "values": [
-    "option1",
-    "option2",
-    "option3"
-  ],
-  "labels": [
-    "Option A",
-    "Option B",
-    "Option C"
-  ]
+  "values": ["option1", "option2", "option3"],
+  "labels": ["Option A", "Option B", "Option C"]
 }

@@ -7,10 +7,7 @@
   "$defs": {
     "type": {
       "type": "string",
-      "enum": [
-        "CORE:Blueprint",
-        "dmss://system/SIMOS/Blueprint"
-      ]
+      "enum": ["CORE:Blueprint", "dmss://system/SIMOS/Blueprint"]
     },
     "attributeTypes": {
       "type": "string",
@@ -58,15 +55,9 @@
           },
           "default": true
         },
-        "required": [
-          "type",
-          "attributeType"
-        ]
+        "required": ["type", "attributeType"]
       }
     }
   },
-  "required": [
-    "name",
-    "type"
-  ]
+  "required": ["name", "type"]
 }

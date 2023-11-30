@@ -37,7 +37,6 @@ const DimensionalScalarWidget = ({
       </div>
       <TextField
         unit={widgetConfig?.unit || entity?.unit}
-        id={entity?.id}
         type={isNumber ? 'number' : undefined}
         meta={widgetConfig?.meta || entity?.meta}
         helperText={error}

@@ -20,10 +20,7 @@
               "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
-                "fields": [
-                  "name",
-                  "description"
-                ]
+                "fields": ["name", "description"]
               }
             },
             "scope": "self",

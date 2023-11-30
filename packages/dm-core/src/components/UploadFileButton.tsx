@@ -65,7 +65,7 @@ export function UploadFileButton(props: {
         triggers clicks on that hidden <input> element.
       */}
       <input
-        type="file"
+        type='file'
         ref={textInput}
         accept={fileSuffix.map((a: string) => '.' + a).join(',')}
         style={{ display: 'none' }}

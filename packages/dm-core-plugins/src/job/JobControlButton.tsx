@@ -47,9 +47,9 @@ export const JobControlButton = (props: {
 
   return (
     <Button
-      variant="contained_icon"
+      variant='contained_icon'
       disable={recentlyClicked}
-      aria-label="Run"
+      aria-label='Run'
       ref={buttonRef}
       color={buttonColor}
       onClick={() => {
@@ -80,7 +80,7 @@ export const JobControlButton = (props: {
       disabled={recentlyClicked}
     >
       {jobStatus === JobStatus.Running && !hovering ? (
-        <CircularProgress size={16} variant="indeterminate" />
+        <CircularProgress size={16} variant='indeterminate' />
       ) : (
         <Icon data={buttonIcon} />
       )}

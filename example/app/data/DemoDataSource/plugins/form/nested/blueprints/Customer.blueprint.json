@@ -1,9 +1,7 @@
 {
   "name": "Customer",
   "type": "CORE:Blueprint",
-  "extends": [
-    "./Person"
-  ],
+  "extends": ["./Person"],
   "attributes": [
     {
       "name": "car",

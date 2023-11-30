@@ -42,9 +42,9 @@ export function getMenuItems(
     menuItems.push(
       <Menu.Item
         key={'view'}
-        as="a"
+        as='a'
         href={`dmt/view/${node.nodeId}`}
-        target="_blank"
+        target='_blank'
       >
         View in new tab
       </Menu.Item>

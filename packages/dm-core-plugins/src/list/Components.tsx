@@ -15,8 +15,8 @@ import {
 export const AppendButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
 }) => (
-  <Button variant="outlined" onClick={props.onClick}>
-    <Icon data={add} title="Append" /> Add Item
+  <Button variant='outlined' onClick={props.onClick}>
+    <Icon data={add} title='Append' /> Add Item
   </Button>
 )
 
@@ -55,11 +55,11 @@ export const ListItemButton = (props: {
   const iconTitle =
     type === 'up' ? 'Move up' : type === 'down' ? 'Move Down' : 'Delete'
   return (
-    <EdsProvider density="compact">
+    <EdsProvider density='compact'>
       <Button
         color={type === 'delete' ? 'danger' : 'primary'}
         disabled={props.disabled}
-        variant="ghost_icon"
+        variant='ghost_icon'
         onClick={props.onClick}
       >
         <Icon data={ICONS[type]} title={iconTitle} />

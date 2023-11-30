@@ -9,9 +9,7 @@
     "Owner": {
       "name": "Aiden",
       "type": "./blueprints/OwnerBlueprint",
-      "earlierOwners": [
-        "Melissa"
-      ]
+      "earlierOwners": ["Melissa"]
     },
     "Technical": {
       "name": "Technical",
@@ -31,10 +29,7 @@
       "name": "Devon",
       "type": "./blueprints/OwnerBlueprint",
       "DateOwned": "2023-06-01",
-      "earlierOwners": [
-        "Jack",
-        "Maria"
-      ]
+      "earlierOwners": ["Jack", "Maria"]
     },
     "Technical": {
       "name": "Technical",

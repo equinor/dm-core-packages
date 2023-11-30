@@ -4,9 +4,7 @@
   "type": "AppModels:SignalApp",
   "description": "This is an app for generating and plotting sin signals.",
   "label": "Signal App",
-  "dataSources": [
-    "AppStorage"
-  ],
+  "dataSources": ["AppStorage"],
   "study": {
     "type": "AppModels:signals_simple/Study",
     "cases": [

@@ -36,8 +36,8 @@ const RemoveObject = (props: {
   }
   return (
     <TooltipButton
-      title="Remove and save"
-      button-variant="ghost_icon"
+      title='Remove and save'
+      button-variant='ghost_icon'
       button-onClick={onClick}
       icon={delete_forever}
     />

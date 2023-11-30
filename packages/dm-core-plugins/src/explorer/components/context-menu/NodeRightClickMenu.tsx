@@ -35,7 +35,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         open={showMenu}
         onClose={() => setShowMenu(false)}
         anchorEl={anchorEl}
-        placement="bottom-start"
+        placement='bottom-start'
         matchAnchorWidth={true}
       >
         {getMenuItems(node, setDialogId)}

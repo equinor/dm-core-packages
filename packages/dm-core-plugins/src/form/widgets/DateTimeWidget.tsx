@@ -21,7 +21,7 @@ const DateTimeWidget = (props: TWidget) => {
       helperText={props.helperText}
       onChange={onChangeHandler}
       label={label}
-      type="datetime-local"
+      type='datetime-local'
       data-testid={`form-datetime-widget-${label}`}
       style={
         isDirty && props.variant !== 'error'

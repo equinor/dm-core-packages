@@ -111,8 +111,8 @@ export const ObjectTemplateSelector = (props: TField): React.ReactElement => {
   const Template = isStorageUncontained
     ? ObjectStorageUncontainedTemplate
     : isModelContained
-    ? ObjectModelContainedTemplate
-    : ObjectModelUncontainedTemplate
+      ? ObjectModelContainedTemplate
+      : ObjectModelUncontainedTemplate
 
   return (
     <Template

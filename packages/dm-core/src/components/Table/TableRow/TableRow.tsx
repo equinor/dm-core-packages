@@ -63,16 +63,16 @@ export function TableRow(props: TableRowProps) {
             colSpan={columnsLength}
           >
             <Styled.InsertRowButton
-              title="Add row"
+              title='Add row'
               onClick={() => addItem(index)}
             >
-              <span className="resting_state_indicator" />
-              <Icon name="add" color="white" />
+              <span className='resting_state_indicator' />
+              <Icon name='add' color='white' />
             </Styled.InsertRowButton>
           </Table.Cell>
         </Table.Row>
       )}
-      <EdsProvider density="compact">
+      <EdsProvider density='compact'>
         <Table.Row
           key={item.key}
           style={dragProps.style}

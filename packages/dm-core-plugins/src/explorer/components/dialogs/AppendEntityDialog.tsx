@@ -48,7 +48,7 @@ const AppendEntityDialog = (props: TProps) => {
         <Button onClick={handleAppend}>
           {loading ? <Progress.Dots /> : 'Create'}
         </Button>
-        <Button variant="outlined" onClick={() => setDialogId(undefined)}>
+        <Button variant='outlined' onClick={() => setDialogId(undefined)}>
           Cancel
         </Button>
       </Dialog.Actions>

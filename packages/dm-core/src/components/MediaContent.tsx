@@ -49,6 +49,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
       )
     } else if (filetype.includes('video')) {
       return (
+        // biome-ignore lint/a11y/useMediaCaption: No captions for example video
         <video
           src={blobUrl}
           controls
@@ -59,10 +60,10 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
     } else {
       return (
         <iframe
+          title={meta.title}
           src={blobUrl}
-          height={height ?? 500}
-          width={width ?? 600}
-          role="document"
+          style={{ width: '100%', height: 'auto' }}
+          role='document'
         />
       )
     }
@@ -74,12 +75,12 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         {meta.filetype !== 'application/pdf' && (
           <MetaPopoverButton
             onClick={() => setShowMeta(!showMeta)}
-            variant="ghost_icon"
+            variant='ghost_icon'
             aria-haspopup
             aria-expanded={showMeta}
             ref={referenceElement}
           >
-            <Icon data={info_circle} title="view meta info" />
+            <Icon data={info_circle} title='view meta info' />
           </MetaPopoverButton>
         )}
         {renderMediaElement(meta.filetype)}
@@ -88,39 +89,45 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         open={showMeta}
         anchorEl={referenceElement.current}
         onClose={() => setShowMeta(false)}
-        role="dialog"
+        role='dialog'
       >
         <Popover.Header>
           <Popover.Title>Meta</Popover.Title>
         </Popover.Header>
         <Popover.Content>
-          <div className="w-full grid grid-cols-2">
-            <label className="font-bold">File name:</label>
+          <div className='grid grid-cols-2 font-normal'>
+            <label className='font-bold'>File name:</label>
             <span> {meta.title}</span>
-            <label className="font-bold">Author:</label>
+            <label className='font-bold'>Author:</label>
             <span> {meta.author}</span>
-            <label className="font-bold">Date:</label>
+            <label className='font-bold'>Date:</label>
             <span> {new Date(meta.date).toLocaleDateString()} </span>
-            <label className="font-bold">Filetype:</label>
+            <label className='font-bold'>Filetype:</label>
             <span> {meta.filetype}</span>
-            <label className="font-bold">Filesize:</label>
+            <label className='font-bold'>Filesize:</label>
             <span> {formatBytes(meta.fileSize)}</span>
           </div>
         </Popover.Content>
         <Popover.Actions>
-          <div className="flex justify-start w-full">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              width: '100%',
+            }}
+          >
             <Button
-              variant="ghost"
-              as="a"
-              className="transition-all"
+              variant='ghost'
+              as='a'
+              className='transition-all'
               href={blobUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              target='_blank'
+              rel='noopener noreferrer'
             >
               <Icon size={16} data={external_link} />
               New tab
             </Button>
-            <Button download={meta.title} href={blobUrl} variant="ghost">
+            <Button download={meta.title} href={blobUrl} variant='ghost'>
               <Icon size={16} data={download} />
               Download
             </Button>

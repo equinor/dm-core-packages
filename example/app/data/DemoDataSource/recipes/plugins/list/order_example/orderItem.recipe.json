@@ -44,10 +44,7 @@
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
         "viewConfigs": [],
-        "headers": [
-          "quantity",
-          "type"
-        ],
+        "headers": ["quantity", "type"],
         "openAsTab": false,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",

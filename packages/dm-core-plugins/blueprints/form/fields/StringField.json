@@ -1,9 +1,7 @@
 {
   "name": "StringField",
   "type": "dmss://system/SIMOS/Blueprint",
-  "extends": [
-    "PLUGINS:dm-core-plugins/form/fields/Field"
-  ],
+  "extends": ["PLUGINS:dm-core-plugins/form/fields/Field"],
   "attributes": [
     {
       "name": "widget",

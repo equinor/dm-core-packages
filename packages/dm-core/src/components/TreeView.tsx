@@ -53,11 +53,11 @@ const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
     !node?.parent?.attribute?.contained // For items in a list we need to check the parent
 
   if (showAsReference) {
-    return <FaLink style={{ color: '#2966FF' }} title="blueprint" />
+    return <FaLink style={{ color: '#2966FF' }} title='blueprint' />
   }
 
   if (Array.isArray(node.entity)) {
-    return <FaList title="list" />
+    return <FaList title='list' />
   }
   if (Array.isArray(node?.parent?.entity)) {
     return <label>{'{}'}</label>
@@ -66,40 +66,40 @@ const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
     case EBlueprint.FILE: {
       const fileColor = '#2965FF'
       if (node.entity['filetype'] == 'application/pdf')
-        return <FaFilePdf style={{ color: fileColor }} title="pdf" />
+        return <FaFilePdf style={{ color: fileColor }} title='pdf' />
       if (node.entity['filetype'].startsWith('image'))
-        return <FaFileImage style={{ color: fileColor }} title="image" />
-      return <FaFileArchive style={{ color: fileColor }} title="zip" />
+        return <FaFileImage style={{ color: fileColor }} title='image' />
+      return <FaFileArchive style={{ color: fileColor }} title='zip' />
     }
     case 'dataSource':
-      return <FaDatabase style={{ color: 'gray' }} title="data source" />
+      return <FaDatabase style={{ color: 'gray' }} title='data source' />
     case 'error':
       return (
         <FaExclamationTriangle
           style={{ color: 'orange' }}
-          title="failed to load"
+          title='failed to load'
         />
       )
     case EBlueprint.BLUEPRINT:
-      return <FaRegFileAlt style={{ color: '#2966FF' }} title="blueprint" />
+      return <FaRegFileAlt style={{ color: '#2966FF' }} title='blueprint' />
     case EBlueprint.PACKAGE:
       if (expanded) {
         if (node.isRoot) {
           return (
-            <FaFolderOpen style={{ color: '#8531A3' }} title="root package" />
+            <FaFolderOpen style={{ color: '#8531A3' }} title='root package' />
           )
         } else {
-          return <FaFolderOpen title="package" />
+          return <FaFolderOpen title='package' />
         }
       } else {
         if (node.isRoot) {
-          return <FaFolder style={{ color: '#8531A3' }} title="root package" />
+          return <FaFolder style={{ color: '#8531A3' }} title='root package' />
         } else {
-          return <FaFolder title="package" />
+          return <FaFolder title='package' />
         }
       }
     default:
-      return <FaRegFileAlt title="file" />
+      return <FaRegFileAlt title='file' />
   }
 }
 
@@ -111,12 +111,8 @@ const TreeButton = (props: {
 }) => {
   const { node, expanded, loading, onClick } = props
 
-  let isExpandable = false
-  if (node.type === 'dataSource') isExpandable = true
-  if (
-    node.entity instanceof Object &&
-    !['dataSource', EBlueprint.FILE].includes(node.type)
-  ) {
+  let isExpandable = true
+  if (node.type != 'dataSource' && node.entity instanceof Object) {
     isExpandable = Object.values(node?.entity).some(
       (value: any) => value instanceof Array || value instanceof Object
     )
@@ -126,12 +122,12 @@ const TreeButton = (props: {
     <Tooltip
       enterDelay={600}
       title={node?.message || node?.type || ''}
-      placement="right"
+      placement='right'
     >
       <StyledButton
         key={node.nodeId}
-        variant="ghost"
-        color="secondary"
+        variant='ghost'
+        color='secondary'
         onClick={() => {
           if (node.type !== 'error') onClick()
         }}
@@ -139,7 +135,7 @@ const TreeButton = (props: {
         {isExpandable ? (
           <Icon
             data={chevron_right}
-            className="transition-all"
+            className='transition-all'
             style={{ transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
           />
         ) : (

@@ -3,15 +3,8 @@
   "name": "example",
   "type": "./blueprints/ExampleApplication",
   "description": "Application used to test and demo some '@development-framework' plugins",
-  "dataSources": [
-    "system",
-    "DemoDataSource"
-  ],
+  "dataSources": ["system", "DemoDataSource"],
   "label": "Data Modelling Example App",
   "adminRole": "dmss-admin",
-  "roles": [
-    "user",
-    "expert-user",
-    "domain-expert"
-  ]
+  "roles": ["user", "expert-user", "domain-expert"]
 }

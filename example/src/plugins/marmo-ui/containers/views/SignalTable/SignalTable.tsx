@@ -86,7 +86,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
           {rows
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row: any) => (
-              <Table.Row role="checkbox" tabIndex={-1} key={row.index}>
+              <Table.Row role='checkbox' tabIndex={-1} key={row.index}>
                 {columns.map((column) => {
                   const value = row[column.id]
                   return (
@@ -103,12 +103,12 @@ const SignalTable = (props: { document: TGenericObject }) => {
       </Table>
       <PaginationWrapper>
         <SectionWrapper>
-          <Typography variant="label" group="input">
+          <Typography variant='label' group='input'>
             Rows per page:{' '}
           </Typography>
           <NativeSelect
-            id="rowsPerPage"
-            label=""
+            id='rowsPerPage'
+            label=''
             value={rowsPerPage}
             onChange={(event) => setRowsPerPage(Number(event.target.value))}
             style={{ width: '70px' }}
@@ -119,21 +119,21 @@ const SignalTable = (props: { document: TGenericObject }) => {
           </NativeSelect>
         </SectionWrapper>
         <SectionWrapper>
-          <Typography variant="meta">
+          <Typography variant='meta'>
             {visibleFromLabel} - {visibleToLabel} of {count}
           </Typography>
         </SectionWrapper>
         <SectionWrapper>
           <Button
             disabled={page === 0}
-            variant="ghost_icon"
+            variant='ghost_icon'
             onClick={() => setPage((prevPage) => prevPage - 1)}
           >
             <Icon data={chevron_left} />
           </Button>
           <Button
             disabled={page + 1 === availablePages}
-            variant="ghost_icon"
+            variant='ghost_icon'
             onClick={() => setPage((prevPage) => prevPage + 1)}
           >
             <Icon data={chevron_right} />

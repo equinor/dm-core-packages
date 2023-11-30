@@ -232,7 +232,7 @@ export const AccessControlListComponent = (props: {
       <Tabs
         activeTab={activeTab}
         onChange={(index: number) => setActiveTab(index)}
-        variant="fullWidth"
+        variant='fullWidth'
       >
         <Tabs.List>
           <Tabs.Tab>Owner</Tabs.Tab>
@@ -245,14 +245,14 @@ export const AccessControlListComponent = (props: {
           </Tabs.Panel>
           <Tabs.Panel>
             <ACLUserRolesPanel
-              aclKey="roles"
+              aclKey='roles'
               entities={documentACL.roles}
               handleChange={handleChange}
             />
           </Tabs.Panel>
           <Tabs.Panel>
             <ACLUserRolesPanel
-              aclKey="users"
+              aclKey='users'
               entities={documentACL.users}
               handleChange={handleChange}
             />
@@ -262,12 +262,12 @@ export const AccessControlListComponent = (props: {
 
       <CenteredRow>
         <Button onClick={() => saveAccessControlList(documentACL)}>
-          {(loading && <Progress.Dots color="neutral" />) || 'Save'}
-          {!loading && <Icon name="save" title="save" size={24} />}
+          {(loading && <Progress.Dots color='neutral' />) || 'Save'}
+          {!loading && <Icon name='save' title='save' size={24} />}
         </Button>
         <Checkbox
           checked={storeACLRecursively}
-          label="Change access recursively"
+          label='Change access recursively'
           onClick={() => setStoreACLRecursively(!storeACLRecursively)}
         ></Checkbox>
       </CenteredRow>
