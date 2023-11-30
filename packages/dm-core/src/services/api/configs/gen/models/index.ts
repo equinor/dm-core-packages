@@ -6,6 +6,7 @@ export * from './dependency';
 export * from './entity';
 export * from './error-response';
 export * from './export-meta-response';
+export * from './get-attribute-response';
 export * from './get-blueprint-response';
 export * from './lookup';
 export * from './patdata';

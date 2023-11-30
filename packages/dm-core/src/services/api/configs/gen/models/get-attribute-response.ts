@@ -13,27 +13,24 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { Repository } from './repository';
 
 /**
  * 
  * @export
- * @interface DataSourceRequest
+ * @interface GetAttributeResponse
  */
-export interface DataSourceRequest {
+export interface GetAttributeResponse {
+    /**
+     * 
+     * @type {object}
+     * @memberof GetAttributeResponse
+     */
+    'attribute': object;
     /**
      * 
      * @type {string}
-     * @memberof DataSourceRequest
+     * @memberof GetAttributeResponse
      */
-    'name': string;
-    /**
-     * 
-     * @type {{ [key: string]: Repository; }}
-     * @memberof DataSourceRequest
-     */
-    'repositories': { [key: string]: Repository; };
+    'address': string;
 }
 
