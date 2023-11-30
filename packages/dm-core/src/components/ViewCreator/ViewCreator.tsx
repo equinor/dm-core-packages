@@ -96,6 +96,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
         recipeName={viewConfig.recipe}
         onOpen={onOpen}
         dimensions={attribute.dimensions}
+        showRefreshButton={viewConfig.showRefreshButton}
       />
     )
   } else if (isViewConfig(viewConfig)) {
@@ -105,6 +106,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
         type={attribute.attributeType}
         onOpen={onOpen}
         dimensions={attribute.dimensions}
+        showRefreshButton={viewConfig.showRefreshButton}
       />
     )
   }

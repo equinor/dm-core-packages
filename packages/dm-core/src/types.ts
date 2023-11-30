@@ -146,7 +146,7 @@ export interface IUIPlugin {
   onSubmit?: (data: any) => void
   onOpen?: TOnOpen
   config?: any
-  refresh?: boolean
+  showRefreshButton?: boolean
 }
 
 export type TOnOpen = (
@@ -185,6 +185,7 @@ export type TViewConfig = {
   label?: string
   eds_icon?: string
   roles?: string[]
+  showRefreshButton?: boolean
 }
 
 export type TReferenceViewConfig = TViewConfig & {
