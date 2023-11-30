@@ -112,7 +112,6 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   // When hookJobId changes, we register an interval to check status.
   // The interval is deregistered if the status of the job is not "Running"
   useEffect(() => {
-    console.log(hookJobId)
     if (!hookJobId) return
     statusIntervalId = setInterval(fetchStatusAndLogs, 5000)
     return () => clearInterval(statusIntervalId)
@@ -174,9 +173,13 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         )
         if (response.data.status !== status) setStatus(response.data.status)
         if (
-          ([JobStatus.Failed, JobStatus.Completed] as JobStatus[]).includes(
-            response.data.status
-          )
+          (
+            [
+              JobStatus.Failed,
+              JobStatus.Completed,
+              JobStatus.Registered,
+            ] as JobStatus[]
+          ).includes(response.data.status)
         ) {
           clearInterval(statusIntervalId)
         }
