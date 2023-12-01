@@ -6,6 +6,7 @@ import { getDisplayLabel } from '../utils/getDisplayLabel'
 import { ArrayComplexTemplate } from '../templates/ArrayComplexTemplate'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
 import { ArrayPrimitiveTemplate } from '../templates/ArrayPrimitiveTemplate'
+import { ArrayPrimitiveTableTemplate } from '../templates/ArrayPrimitiveTableTemplate'
 
 export default function ArrayField(props: TArrayTemplate) {
   const { uiAttribute, namePath, attribute } = props
@@ -32,7 +33,7 @@ export default function ArrayField(props: TArrayTemplate) {
         name={namePath}
         render={({ field: { value, onChange } }) => {
           return (
-            <ArrayPrimitiveTemplate
+            <ArrayPrimitiveTableTemplate
               namePath={namePath}
               onChange={onChange}
               value={value ?? []}

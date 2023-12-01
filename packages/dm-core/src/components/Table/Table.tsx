@@ -51,6 +51,8 @@ export function Table(props: TableProps) {
   const [sortDirection, setSortDirection] =
     useState<TTableSortDirection>('ascending')
 
+  console.log(items)
+
   const functionalityConfig =
     config.variant.length === 1
       ? config.variant[0].functionality
