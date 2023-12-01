@@ -1,11 +1,16 @@
-import { Dialog, RoleContext, useDMSS } from '@development-framework/dm-core'
+import {
+  Dialog,
+  RoleContext,
+  TApplication,
+  TRole,
+  useDMSS,
+} from '@development-framework/dm-core'
 import { Button, Radio, Typography } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
-import { TApplication } from '../types'
 
 const UnstyledList = styled.ul`
   margin: 0;
@@ -17,6 +22,11 @@ const UnstyledList = styled.ul`
 const Row = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 5px;
+
+  > * {
+    margin-left: 10px;
+  }
 `
 
 const UserInfoLabel = styled.b`
@@ -41,8 +51,8 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const [apiKey, setAPIKey] = useState<string | null>(null)
   const { tokenData, token, logOut } = useContext(AuthContext)
   const dmssAPI = useDMSS()
-  const { selectedRole, setSelectedRole, roles } = useContext(RoleContext)
-  const [tempSelectedRole, setTempSelectedRole] = useState<string>(selectedRole)
+  const { role, setRole, roles } = useContext(RoleContext)
+  const [selectedRole, setSelectedRole] = useState<TRole>(role)
 
   return (
     <Dialog
@@ -56,33 +66,36 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
       </Dialog.Header>
       <Dialog.CustomContent>
         <Row>
-          Name:<UserInfoLabel>{tokenData?.name}</UserInfoLabel>
+          Name:
+          <UserInfoLabel>
+            {tokenData?.name || 'Not authenticated'}
+          </UserInfoLabel>
         </Row>
         <Row>
           Username:
-          <UserInfoLabel>{tokenData?.preferred_username}</UserInfoLabel>
+          <UserInfoLabel>
+            {tokenData?.preferred_username || 'Not authenticated'}
+          </UserInfoLabel>
         </Row>
-        <Row>
-          Roles:
-          <UserInfoLabel>{JSON.stringify(roles)}</UserInfoLabel>
-        </Row>
-        {apiKey && <pre>{apiKey}</pre>}
+        {apiKey && (
+          <Row>
+            API Key:
+            <pre>{apiKey}</pre>
+          </Row>
+        )}
 
-        {roles?.length && (
+        {roles.length > 1 && (
           <>
-            <Typography>Chose role (UI only) {tempSelectedRole}</Typography>
+            <Typography variant='h6'>Chose role (UI only)</Typography>
             <UnstyledList>
-              {roles.map((role: string) => (
-                <li key={role}>
+              {roles.map((role: TRole) => (
+                <li key={role.name}>
                   <Radio
-                    label={role}
+                    label={role.label}
                     name='impersonate-role'
-                    value={role}
-                    checked={
-                      tempSelectedRole !== 'anonymous' &&
-                      role === tempSelectedRole
-                    }
-                    onChange={(e: any) => setTempSelectedRole(e.target.value)}
+                    value={role.name}
+                    checked={role.name === selectedRole.name}
+                    onChange={() => setSelectedRole(role)}
                   />
                 </li>
               ))}
@@ -125,11 +138,12 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
             </Button>
             <Button
               onClick={() => {
-                setSelectedRole(tempSelectedRole)
+                setRole(selectedRole)
                 setIsOpen(false)
               }}
+              disabled={role === selectedRole}
             >
-              {selectedRole !== tempSelectedRole ? 'Save' : 'Cancel'}
+              Save
             </Button>
           </FlexRow>
         </FlexRow>

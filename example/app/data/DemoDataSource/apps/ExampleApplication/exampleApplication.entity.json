@@ -1,0 +1,27 @@
+{
+  "_id": "example-application-id",
+  "name": "exampleApplication",
+  "type": "./ExampleApplication",
+  "label": "Example Application",
+  "dataSources": ["DemoDataSource", "system", "WorkflowDS"],
+  "roles": [
+    {
+      "type": "CORE:Role",
+      "name": "dmss-admin",
+      "label": "Administrator",
+      "authServerRoleName": "dmss-admin"
+    },
+    {
+      "type": "CORE:Role",
+      "name": "operator",
+      "label": "Operator",
+      "authServerRoleName": "operator"
+    },
+    {
+      "type": "CORE:Role",
+      "name": "developer",
+      "label": "SIMPOS Developer",
+      "authServerRoleName": "developer"
+    }
+  ]
+}

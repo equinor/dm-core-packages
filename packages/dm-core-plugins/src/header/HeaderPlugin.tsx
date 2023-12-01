@@ -6,6 +6,7 @@ import {
   useBlueprint,
   useDocument,
   useUiPlugins,
+  TApplication,
 } from '@development-framework/dm-core'
 import { Icon, TopBar } from '@equinor/eds-core-react'
 import React, { useEffect, useState } from 'react'
@@ -15,7 +16,6 @@ import { account_circle, info_circle } from '@equinor/eds-icons'
 
 import { AboutDialog } from './components/AboutDialog'
 import { UserInfoDialog } from './components/UserInfoDialog'
-import { TApplication } from './types'
 import { AppSelector } from './components/AppSelector'
 
 const Icons = styled.div`

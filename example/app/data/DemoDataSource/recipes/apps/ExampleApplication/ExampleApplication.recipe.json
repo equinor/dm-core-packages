@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/apps/ExampleApplication/blueprints/ExampleApplication",
+  "_blueprintPath_": "/apps/ExampleApplication/ExampleApplication",
   "initialUiRecipe": {
     "name": "Header",
     "type": "CORE:UiRecipe",

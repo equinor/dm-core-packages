@@ -48,4 +48,4 @@ dm --token "$TOKEN" --url $VITE_DMSS_URL import-plugin-blueprints ../node_module
 echo "Upload app/ to DMSS"
 dm --force --token "$TOKEN" --url $VITE_DMSS_URL reset app
 echo "Creating lookup table"
-dm --token "$TOKEN" --url $VITE_DMSS_URL create-lookup example DemoDataSource/recipes
+dm --token "$TOKEN" --url $VITE_DMSS_URL create-lookup exampleApplication DemoDataSource/recipes

@@ -25,10 +25,10 @@ test('User info', async ({ page }) => {
     page.getByRole('dialog').getByText('User info', { exact: true })
   ).toBeVisible()
   await expect(
-    page.getByRole('dialog').getByText('Name:', { exact: true })
+    page
+      .getByRole('dialog')
+      .getByText('Name:Not authenticated', { exact: true })
   ).toBeVisible()
-  await page.getByRole('dialog').getByRole('button', { name: 'Cancel' }).click()
-  await expect(page.getByRole('dialog')).not.toBeVisible()
 })
 
 test('About', async ({ page }) => {

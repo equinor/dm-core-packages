@@ -1,7 +1,6 @@
-import { Dialog } from '@development-framework/dm-core'
+import { Dialog, TApplication } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import React from 'react'
-import { TApplication } from '../types'
 
 type AboutDialogProps = {
   isOpen: boolean

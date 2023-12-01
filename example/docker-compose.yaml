@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   dmss:
-    image: datamodelingtool.azurecr.io/dmss:v1.13.0
+    image: datamodelingtool.azurecr.io/dmss:v1.14.1
     platform: linux/amd64
     restart: unless-stopped
     environment:
