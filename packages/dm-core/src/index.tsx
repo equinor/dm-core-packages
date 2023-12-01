@@ -1,4 +1,4 @@
-import '../build.css'
+import './build.css'
 
 export * from './hooks'
 

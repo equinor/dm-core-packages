@@ -48,15 +48,12 @@
     "react-dom": "^18.2.0",
     "styled-components": ">=5.1.0"
   },
-  "files": [
-    "blueprints",
-    "dist"
-  ],
+  "files": ["blueprints", "dist"],
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",
-    "build": "tsc && npx tailwindcss -o build.css --minify && yarn copy-css-file",
-    "copy-css-file": "cp ./build.css ./dist/",
+    "build": "tsc && npx tailwindcss -o ./src/build.css --minify && yarn copy-css-file",
+    "copy-css-file": "cp ./src/build.css ./dist/",
     "test": "jest test",
     "test-watch": "jest test --watchAll"
   }
