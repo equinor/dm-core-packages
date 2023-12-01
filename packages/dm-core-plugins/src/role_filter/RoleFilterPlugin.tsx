@@ -22,7 +22,7 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
   )
   const [openViewConfigs, setOpenViewConfigs] = useState<FilteredView[]>([])
   const [allowedRoles, setAllowedRoles] = useState<string[]>([])
-  const { selectedRole } = useContext(RoleContext)
+  const { role } = useContext(RoleContext)
 
   useEffect(() => {
     let roles: string[] = []
@@ -40,17 +40,17 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
       if (!viewConfig.roles) {
         // if viewConfig does not have roles specified, we interpret it as "everyone"
         openViewConfigs.push(viewConfig)
-      } else if (viewConfig.roles.includes(selectedRole)) {
+      } else if (viewConfig.roles.includes(role.name)) {
         allowedViewConfigs.push(viewConfig)
       }
     })
     setAllowedViewConfigs(allowedViewConfigs)
     setOpenViewConfigs(openViewConfigs)
-  }, [selectedRole])
+  }, [role])
 
   return (
     <>
-      {allowedRoles.includes(selectedRole) ? (
+      {allowedRoles.includes(role.name) ? (
         <>
           {allowedViewConfigs?.map((viewConfig) => (
             <ViewCreator
@@ -76,7 +76,7 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
             <Icon data={thumbs_down} />
           </Banner.Icon>
           <Banner.Message>
-            {`No views found, since you currently have role [${selectedRole}]. Please switch to one of these roles: [${allowedRoles}]`}
+            {`No views found, since you currently have role [${role.name}]. Please switch to one of these roles: [${allowedRoles}]`}
           </Banner.Message>
         </Banner>
       )}

@@ -1,13 +1,17 @@
 import '@development-framework/dm-core/dist/main.css'
 import {
+  ApplicationContext,
   EntityView,
   FSTreeProvider,
   Loading,
-  TGenericObject,
+  RoleProvider,
+  TApplication,
+  UiPluginProvider,
   useDocument,
 } from '@development-framework/dm-core'
 import React from 'react'
 import './main.css'
+import plugins from './plugins'
 
 function App() {
   const idReference: string = `${import.meta.env.VITE_DATA_SOURCE}/$${
@@ -17,11 +21,11 @@ function App() {
     document: application,
     isLoading,
     error,
-  } = useDocument<TGenericObject>(idReference)
+  } = useDocument<TApplication>(idReference)
 
   if (isLoading) return <Loading />
 
-  if (error) {
+  if (error || !application) {
     console.error(error)
     return (
       <div style={{ color: 'red' }}>
@@ -31,9 +35,15 @@ function App() {
   }
 
   return (
-    <FSTreeProvider visibleDataSources={application?.dataSources}>
-      <EntityView idReference={idReference} type={application?.type} />
-    </FSTreeProvider>
+    <ApplicationContext.Provider value={application}>
+      <UiPluginProvider pluginsToLoad={plugins}>
+        <RoleProvider roles={application?.roles || []}>
+          <FSTreeProvider visibleDataSources={application?.dataSources || []}>
+            <EntityView idReference={idReference} type={application?.type} />
+          </FSTreeProvider>
+        </RoleProvider>
+      </UiPluginProvider>
+    </ApplicationContext.Provider>
   )
 }
 

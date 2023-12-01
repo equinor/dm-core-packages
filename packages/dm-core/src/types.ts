@@ -7,6 +7,21 @@ export type TDataSource = {
   host?: string
 }
 
+export type TRole = {
+  name: string
+  label: string
+  authServerRoleName: string
+}
+
+export type TApplication = {
+  name: string
+  type: string
+  dataSources?: string[]
+  label?: string
+  description?: string
+  roles?: TRole[]
+}
+
 export type TAttribute = {
   name: string
   type: string

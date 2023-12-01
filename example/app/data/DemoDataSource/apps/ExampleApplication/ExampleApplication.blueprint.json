@@ -1,0 +1,5 @@
+{
+  "name": "ExampleApplication",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Application"]
+}

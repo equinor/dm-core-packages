@@ -5,24 +5,6 @@
   "extends": ["CORE:Application"],
   "attributes": [
     {
-      "name": "type",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string"
-    },
-    {
-      "name": "label",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "dataSources",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "string",
-      "dimensions": "*",
-      "optional": false
-    },
-    {
       "name": "study",
       "type": "CORE:BlueprintAttribute",
       "label": "Study",
