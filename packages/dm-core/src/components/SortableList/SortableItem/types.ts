@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
 
-export type SortableItemProps<T extends { id: string | number }> = {
+export type SortableItemProps = {
   children: ReactNode
   style?: React.CSSProperties
-  item: T
+  id: string
 }
 
 export type TSortableItem = {
