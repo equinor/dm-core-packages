@@ -1,12 +1,12 @@
 import { ReactNode } from 'react'
 
-export type SortableListProps<T extends { id: string | number }> = {
-  items: T[]
+export type SortableListProps = {
+  items: any[]
   children: ReactNode
 }
 
-export type SortableContextProps<T extends { id: string | number }> = {
-  items: T[]
+export type SortableContextProps = {
+  items: any[]
   children: ReactNode
-  onReorder: (reorderedItems: T[]) => void
+  onReorder: (reorderedItems: any) => void
 }

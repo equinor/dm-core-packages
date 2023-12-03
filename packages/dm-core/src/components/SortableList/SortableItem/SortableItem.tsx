@@ -5,10 +5,7 @@ import { Button, Icon } from '@equinor/eds-core-react'
 import { drag_handle } from '@equinor/eds-icons'
 import { SortableItemProps } from './types'
 
-export const SortableItem = <T extends { id: string | number }>({
-  children,
-  item,
-}: SortableItemProps<T>) => {
+export const SortableItem = ({ children, id }: SortableItemProps) => {
   const {
     attributes,
     listeners,
@@ -16,7 +13,7 @@ export const SortableItem = <T extends { id: string | number }>({
     setActivatorNodeRef,
     transform,
     transition,
-  } = useSortable({ id: item.id })
+  } = useSortable({ id })
 
   const draggableStyle = {
     transform: CSS.Translate.toString(transform),
