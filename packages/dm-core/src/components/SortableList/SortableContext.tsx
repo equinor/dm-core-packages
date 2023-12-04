@@ -12,11 +12,11 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { SortableContextProps } from './types'
 
-export const SortableContext = ({
+export const SortableContext = <T extends { key: string | number }>({
   items,
   children,
   onReorder,
-}: SortableContextProps) => {
+}: SortableContextProps<T>) => {
   const dragAndDropSensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
