@@ -30,6 +30,32 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.24.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.23.0...dm-core-plugins-v1.24.0) (2023-11-30)
+
+
+### Features
+
+* add remove job dialog ([737d596](https://github.com/equinor/dm-core-packages/commit/737d5965f33f4f800593c5cd229105c72d05c96b))
+* **job:** allow for explicit cron syntax ([461a3ca](https://github.com/equinor/dm-core-packages/commit/461a3caa372cc059545b191d96da651db1bf7c57))
+* more single view ([935efbf](https://github.com/equinor/dm-core-packages/commit/935efbf43980f5ccb211ae90f4ccd5435152253c))
+* partial update ([d5b46ef](https://github.com/equinor/dm-core-packages/commit/d5b46ef7e420be3c4d75bc99a3d550ade2ca676e))
+* primitives in dimensional scalar ([d38701c](https://github.com/equinor/dm-core-packages/commit/d38701cb265f1bb50c98b7db1cc506ad78fb129a))
+* replace eslint and prettier with biome ([#826](https://github.com/equinor/dm-core-packages/issues/826)) ([ebcea46](https://github.com/equinor/dm-core-packages/commit/ebcea46d5c208e38b0799aaec4938bd2375b06fb))
+* single view ([287bebf](https://github.com/equinor/dm-core-packages/commit/287bebfad66fbc15f0e2c4128998a6d28a9f2da3))
+
+
+### Bug Fixes
+
+* header ui styling after tailwind ([0d112fe](https://github.com/equinor/dm-core-packages/commit/0d112fe8443ac0c2557706ee6c693c4272843ad8))
+* required dimentional scalars ([628ff0b](https://github.com/equinor/dm-core-packages/commit/628ff0b3aa7099bd6971c5cd80d8a726ef3e6927))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.19.0 to ^1.20.0
+
 ## [1.23.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.22.0...dm-core-plugins-v1.23.0) (2023-11-28)
 
 

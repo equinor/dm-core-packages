@@ -47,7 +47,15 @@ function UiPlugin({
 const MemoizedUiPlugin = memo(UiPlugin)
 
 export const EntityView = (props: IEntityView): React.ReactElement => {
-  const { idReference, type, onSubmit, onOpen, recipeName, dimensions } = props
+  const {
+    idReference,
+    type,
+    onSubmit,
+    onOpen,
+    recipeName,
+    dimensions,
+    showRefreshButton,
+  } = props
   if (!type)
     throw new Error(`<EntityView> must be called with a type. Got "${type}"`)
   const { recipe, isLoading, error, getUiPlugin } = useRecipe(
@@ -62,7 +70,6 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     refreshButton: false,
     component: false,
   })
-
   if (isLoading)
     return (
       <div style={{ alignSelf: 'center', padding: '50px' }}>
@@ -81,6 +88,8 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
   if (!recipe || !Object.keys(recipe).length)
     return <Wrapper>No compatible uiRecipes for entity</Wrapper>
 
+  const refreshable = showRefreshButton ?? recipe.showRefreshButton ?? false
+
   return (
     <Wrapper>
       <Suspense fallback={<Loading />}>
@@ -91,7 +100,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
               setHoverOver({ refreshButton: false, component: false })
             }
             style={
-              recipe.showRefreshButton && hoverOver.refreshButton
+              refreshable && hoverOver.refreshButton
                 ? {
                     outline: '1px solid rgba(220,220,220)',
                     outlineOffset: '10px',
@@ -100,7 +109,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
                 : {}
             }
           >
-            {recipe.showRefreshButton && (
+            {refreshable && (
               <RefreshButton
                 hidden={!hoverOver.component}
                 tooltip={recipe.plugin.split('/').at(-1)}

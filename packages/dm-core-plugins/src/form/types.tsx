@@ -52,7 +52,7 @@ type TUiAttributeArray = TUiAttributeBase & {
   uiRecipe?: string
   showExpanded: boolean
 }
-type TUiAttributeObject = TUiAttributeBase & {
+export type TUiAttributeObject = TUiAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded?: boolean

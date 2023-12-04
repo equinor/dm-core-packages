@@ -8,7 +8,11 @@ import { toast } from 'react-toastify'
 interface IUseDocumentReturnType<T> {
   document: T | null
   isLoading: boolean
-  updateDocument: (newDocument: T, notify: boolean) => Promise<void>
+  updateDocument: (
+    newDocument: T,
+    notify: boolean,
+    partialUpdate?: boolean
+  ) => Promise<void>
   error: ErrorResponse | null
 }
 
@@ -84,16 +88,19 @@ export function useDocument<T>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function updateDocument(
     newDocument: T,
-    notify: boolean = true
+    notify: boolean = true,
+    partialUpdate: boolean = false
   ): Promise<void> {
     setLoading(true)
     return dmssAPI
       .documentUpdate({
         idAddress: idReference,
         data: JSON.stringify(newDocument),
+        partialUpdate: partialUpdate,
       })
-      .then(() => {
-        setDocument(newDocument)
+      .then((response: any) => {
+        const data = response.data.data
+        setDocument(data)
         setError(null)
         if (notify) toast.success('Document updated')
       })

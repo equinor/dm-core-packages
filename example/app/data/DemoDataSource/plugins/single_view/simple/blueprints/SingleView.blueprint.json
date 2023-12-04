@@ -1,0 +1,12 @@
+{
+  "name": "SingleView",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Entity"],
+  "attributes": [
+    {
+      "name": "content",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./SingleContent"
+    }
+  ]
+}

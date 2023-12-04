@@ -1,0 +1,9 @@
+{
+  "name": "singleView",
+  "type": "./blueprints/SingleView",
+  "content": {
+    "name": "content",
+    "type": "./blueprints/SingleContent",
+    "description": "This entity is wrapped in a singleView plugin, that scopes down into this. "
+  }
+}
