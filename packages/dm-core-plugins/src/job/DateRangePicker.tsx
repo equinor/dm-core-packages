@@ -29,24 +29,6 @@ const DateRangePicker = (props: {
         onChange={(date) => setDateRange({ ...value, end: date })}
         label='Valid to'
       />
-      {/*<TextField*/}
-      {/*  id='startDate'*/}
-      {/*  defaultValue={value.startDate}*/}
-      {/*  type='datetime-local'*/}
-      {/*  onChange={(e: any) =>*/}
-      {/*    setDateRange({ ...value, startDate: e.target.value })*/}
-      {/*  }*/}
-      {/*  label={'Valid from'}*/}
-      {/*/>*/}
-      {/*<TextField*/}
-      {/*  id='endDate'*/}
-      {/*  defaultValue={value.endDate}*/}
-      {/*  type='datetime-local'*/}
-      {/*  onChange={(e: any) =>*/}
-      {/*    setDateRange({ ...value, endDate: e.target.value })*/}
-      {/*  }*/}
-      {/*  label={'Valid to'}*/}
-      {/*/>*/}
     </div>
   )
 }
