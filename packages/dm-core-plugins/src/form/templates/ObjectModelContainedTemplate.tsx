@@ -67,7 +67,7 @@ export const ObjectModelContainedTemplate = (
           idReference={`${idReference}.${namePath}`}
           type={attribute.attributeType}
           onOpen={onOpen}
-          onSubmit={(data: any) => setValue(namePath, data)}
+          onChange={(data: any) => setValue(namePath, data)}
         />
       )}
     </Fieldset>

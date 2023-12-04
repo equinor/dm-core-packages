@@ -7,7 +7,7 @@ type TInlineRecipeViewProps = IUIPlugin & {
 }
 
 export const InlineRecipeView = (props: TInlineRecipeViewProps) => {
-  const { idReference, type, viewConfig, onOpen } = props
+  const { idReference, type, viewConfig, onOpen, onSubmit, onChange } = props
   const { getUiPlugin } = useUiPlugins()
 
   const UiPlugin = getUiPlugin(viewConfig.recipe.plugin)
@@ -19,6 +19,8 @@ export const InlineRecipeView = (props: TInlineRecipeViewProps) => {
         type={type}
         config={viewConfig.recipe.config || {}}
         onOpen={onOpen}
+        onSubmit={onSubmit}
+        onChange={onChange}
       />
     </ErrorBoundary>
   )

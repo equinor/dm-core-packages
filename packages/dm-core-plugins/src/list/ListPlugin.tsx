@@ -25,6 +25,7 @@ type TListConfig = {
   defaultView: TViewConfig
   views: TViewConfig[]
   openAsTab: boolean
+  saveExpanded: boolean
   selectFromScope?: string
   functionality: {
     add: boolean
@@ -39,6 +40,7 @@ const defaultConfig: TListConfig = {
   defaultView: { type: 'ViewConfig', scope: 'self' },
   views: [],
   openAsTab: false,
+  saveExpanded: false,
   selectFromScope: undefined,
   functionality: {
     add: true,
@@ -55,6 +57,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     ...config,
     functionality: { ...defaultConfig.functionality, ...config.functionality },
   }
+  console.log(config, props)
   const {
     items,
     attribute,
@@ -67,6 +70,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     save,
     moveItem,
     reloadData,
+    updateItem,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
   const [paginationPage, setPaginationPage] = useState(0)
@@ -83,7 +87,12 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       ),
     [paginationPage, paginationRowsPerPage, items]
   )
-  function expandOrOpen(item: TGenericObject) {
+
+  const handleItemUpdate = (item: TItem<any>, data: any) => {
+    updateItem(item, data, false)
+  }
+
+  function expandOrOpen(item: TItem<any>) {
     if (internalConfig.openAsTab) {
       const view = { label: item?.data?.name, type: 'ViewConfig' }
       if (!onOpen) {
@@ -92,11 +101,23 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         )
         return
       }
-      onOpen(crypto.randomUUID(), view, `${idReference}[${item.index}]`)
+      onOpen(
+        item.key,
+        view,
+        `${idReference}[${item.index}]`,
+        false,
+        config.saveExpanded
+          ? undefined
+          : (data: any) => handleItemUpdate(item, data),
+        config.saveExpanded
+          ? (data: any) => handleItemUpdate(item, data)
+          : undefined
+      )
       return
+    } else {
+      const isExpanded = expanded[item.key] || false
+      setExpanded({ ...expanded, [item.key]: !isExpanded })
     }
-    const isExpanded = expanded[item.key] || false
-    setExpanded({ ...expanded, [item.key]: !isExpanded })
   }
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
@@ -223,6 +244,16 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             <Stack>
               {expanded[item.key] && (
                 <ViewCreator
+                  onSubmit={
+                    config.saveExpanded
+                      ? undefined
+                      : (data: TGenericObject) => handleItemUpdate(item, data)
+                  }
+                  onChange={
+                    config.saveExpanded
+                      ? (data: TGenericObject) => handleItemUpdate(item, data)
+                      : undefined
+                  }
                   idReference={
                     attribute && !attribute.contained
                       ? resolveRelativeAddress(

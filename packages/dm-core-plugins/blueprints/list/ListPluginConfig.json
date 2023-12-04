@@ -16,6 +16,14 @@
       "default": false
     },
     {
+      "name": "saveExpanded",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Use save button to save expanded items.",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
       "name": "selectFromScope",
       "type": "CORE:BlueprintAttribute",
       "description": "An address for where the user should be able to select entities from, when adding to the list",

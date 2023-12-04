@@ -26,7 +26,9 @@ interface IUseViewSelector {
 
 export function useViewSelector(
   idReference: string,
-  config: Record<string, any>
+  config: Record<string, any>,
+  onSubmit?: (data: any) => void,
+  onChange?: (data: any) => void
 ): IUseViewSelector {
   const {
     document: entity,
@@ -46,7 +48,9 @@ export function useViewSelector(
     viewId: string,
     viewConfig: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
     rootId?: string,
-    isSubItem?: boolean
+    isSubItem?: boolean,
+    onSubmitAdded?: (data: any) => void,
+    onChangeAdded?: (data: any) => void
   ) => {
     if (!viewSelectorItems.find((view: TItemData) => view.viewId === viewId)) {
       // View does not exist, add it
@@ -55,7 +59,8 @@ export function useViewSelector(
         viewConfig: viewConfig,
         label: viewConfig.label ?? viewId,
         rootEntityId: rootId || idReference,
-        onSubmit: () => undefined,
+        onSubmit: onSubmitAdded,
+        onChange: onChangeAdded,
         closeable: true,
         isSubItem: isSubItem,
       }
@@ -93,6 +98,8 @@ export function useViewSelector(
           // Generate UUID to allow for multiple view of same scope
           viewId,
           rootEntityId: idReference,
+          onSubmit: onSubmit,
+          onChange: onChange,
         })
       })
     } else {
@@ -110,6 +117,8 @@ export function useViewSelector(
           },
           eds_icon: 'home',
         },
+        onSubmit: onSubmit,
+        onChange: onChange,
         rootEntityId: idReference,
       })
       Object.entries(entity).forEach(
@@ -118,6 +127,8 @@ export function useViewSelector(
             newViews.push({
               viewId: key,
               label: key,
+              onSubmit: onSubmit,
+              onChange: onChange,
               viewConfig: {
                 type: 'ViewConfig',
                 scope: key,

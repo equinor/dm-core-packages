@@ -14,8 +14,8 @@ export type TItemData = TViewSelectorItem & {
   label: string
   closeable?: boolean
   rootEntityId: string
-  // onSubmit is not yet supported
-  onSubmit?: (data: TItemData) => void
+  onSubmit?: (data: any) => void
+  onChange?: (data: any) => void
   subItems?: TItemData[]
   isSubItem?: boolean
 }
