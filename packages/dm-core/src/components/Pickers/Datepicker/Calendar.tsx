@@ -27,8 +27,8 @@ interface CalendarProps {
 export const Calendar = (props: CalendarProps): ReactElement => {
   const { dateTime, handleDateSelection } = props
   const [showMonthPicker, setShowMonthPicker] = useState(false)
-  const [activeMonth, setActiveMonth] = useState(THIS_MONTH)
-  const [activeYear, setActiveYear] = useState(THIS_YEAR)
+  const [activeMonth, setActiveMonth] = useState<number>(THIS_MONTH)
+  const [activeYear, setActiveYear] = useState<number>(THIS_YEAR)
   const cal = calendar(activeMonth, activeYear)
 
   const currentMonthName = Object.keys(CALENDAR_MONTHS)[activeMonth - 1]
