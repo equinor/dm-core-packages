@@ -5,7 +5,7 @@ import { TableRowActionsProps } from '../../types'
 import { DeleteSoftButton } from '../../../DeleteSoftButton'
 
 export function TableRowActions(props: TableRowActionsProps) {
-  const { editMode, itemKey, removeItem, deleteItem } = props
+  const { editMode, item, removeItem } = props
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [menuButtonAnchor, setMenuButtonAnchor] =
     useState<HTMLButtonElement | null>(null)
@@ -14,7 +14,7 @@ export function TableRowActions(props: TableRowActionsProps) {
     <Table.Cell style={{ textAlign: 'center' }}>
       {editMode ? (
         <DeleteSoftButton
-          onClick={removeItem}
+          onClick={() => removeItem(item, false)}
           title={'Remove row'}
           ariaLabel={'Remove row'}
         />
@@ -24,7 +24,7 @@ export function TableRowActions(props: TableRowActionsProps) {
             aria-label='Row actions'
             aria-haspopup='true'
             aria-expanded={isMenuOpen}
-            aria-controls={`row-object-menu-${itemKey}`}
+            aria-controls={`row-object-menu-${item.key}`}
             variant='ghost_icon'
             onClick={() => setIsMenuOpen(true)}
             ref={setMenuButtonAnchor}
@@ -34,11 +34,11 @@ export function TableRowActions(props: TableRowActionsProps) {
           <Menu
             anchorEl={menuButtonAnchor}
             aria-labelledby='anchor-default'
-            id={`row-object-menu-${itemKey}`}
+            id={`row-object-menu-${item.key}`}
             onClose={() => setIsMenuOpen(false)}
             open={isMenuOpen}
           >
-            <Menu.Item onClick={() => deleteItem(itemKey)}>Delete</Menu.Item>
+            <Menu.Item onClick={() => removeItem(item, true)}>Delete</Menu.Item>
           </Menu>
         </>
       )}
