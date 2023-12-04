@@ -1,5 +1,5 @@
 import { Button, CircularProgress, Icon } from '@equinor/eds-core-react'
-import { play, stop, refresh, IconData, save } from '@equinor/eds-icons'
+import { IconData, play, refresh, save, stop } from '@equinor/eds-icons'
 import { JobStatus } from '@development-framework/dm-core'
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 
@@ -80,7 +80,7 @@ export const JobControlButton = (props: {
       disabled={recentlyClicked}
     >
       {jobStatus === JobStatus.Running && !hovering ? (
-        <CircularProgress size={16} variant='indeterminate' />
+        <CircularProgress size={16} variant='indeterminate' color='neutral' />
       ) : (
         <Icon data={buttonIcon} />
       )}
