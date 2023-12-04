@@ -3520,3 +3520,48 @@ Co-authored-by: Stig Oskar Ofstad <stigofstad@gmail.com> (2023-09-21T10:17:57Z)
     * **DMSS VERSION**: 716e398 2023-11-30 githu..[bot] chore(master): release 1.13.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.0
     * **JOB VERSION**: 3ff232a 2023-11-17 githu..[bot] chore(main): release 1.3.5 grafted, HEAD -> main, origin/main
+* feat(datepicker): Datepicker component (#796)
+
+* feat: tailwindcss
+
+* feat: prototype datepicker
+
+* feat: build tailwind styles in packages separatly
+
+* refactor: update gitignore
+
+* refactor: js -> ts
+
+* refactor: use luxon
+
+* feat: possible to enter times directly in the field
+
+* fix: pass test?
+
+* fix: add needed packages
+
+* refactor: merge main and fix issues pointed out by linter
+
+* feat: improve formatting and handling of dates and times
+
+* refactor: slight improvements
+
+* refactor: change default state
+
+* refactor: use new datepicker (#870)
+
+* refactor: use new datepicker
+
+* refactor: remove unused code
+
+* refactor: fix test
+
+* refactor: tweak based on comments
+
+* refactor: maybe fix tests
+
+* refactor: maybe fix tests (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7092046393/1)
+    * **DMSS VERSION**: 716e398 2023-11-30 githu..[bot] chore(master): release 1.13.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.0
+    * **JOB VERSION**: 3ff232a 2023-11-17 githu..[bot] chore(main): release 1.3.5 grafted, HEAD -> main, origin/main
