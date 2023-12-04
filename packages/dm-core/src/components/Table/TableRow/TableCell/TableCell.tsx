@@ -21,7 +21,7 @@ export function TableCell(props: TableCellProps) {
     openItemAsTab,
   } = props
 
-  const value = item.data[column?.data]
+  const value = item.data?.[column?.data]
 
   if (typeof value === 'object') {
     throw new Error(
