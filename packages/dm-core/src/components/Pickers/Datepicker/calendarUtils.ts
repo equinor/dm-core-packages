@@ -7,8 +7,8 @@ export interface DateSelection {
 }
 
 const now = DateTime.now()
-export const THIS_YEAR = now.year
-export const THIS_MONTH = now.month
+export const THIS_YEAR: number = now.year
+export const THIS_MONTH: number = now.month
 export const CALENDAR_MONTHS = {
   January: 'Jan',
   February: 'Feb',
@@ -28,7 +28,10 @@ export const zeroPad = (value: number, length: number): string => {
   return `${value}`.padStart(length, '0')
 }
 
-export const getMonthDays = (month = THIS_MONTH, year = THIS_YEAR) => {
+export const getMonthDays = (
+  month: number = THIS_MONTH,
+  year: number = THIS_YEAR
+) => {
   const months30 = [4, 6, 9, 11]
   const leapYear = year % 4 === 0
   return month === 2 ? (leapYear ? 29 : 28) : months30.includes(month) ? 30 : 31
@@ -85,8 +88,8 @@ export const getNextMonth = (month: number, year: number) => {
 // Returns an array of the calendar dates.
 // Each calendar date is represented as an array => [YYYY, MM, DD]
 export const calendar = (
-  month = THIS_MONTH,
-  year = THIS_YEAR
+  month: number = THIS_MONTH,
+  year: number = THIS_YEAR
 ): DateSelection[] => {
   // Get number of days in the month and the month's first day
 
