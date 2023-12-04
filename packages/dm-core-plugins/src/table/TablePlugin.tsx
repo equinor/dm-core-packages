@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   IUIPlugin,
-  Loading,
   TTableConfig,
   Table,
   useList,
@@ -24,13 +23,6 @@ export const TablePlugin = (props: IUIPlugin) => {
     removeItem,
     save,
   } = useList<TGenericObject>(idReference)
-
-  useEffect(() => {
-    console.log("Table plugin mount")
-    return () => {
-      console.log("Table plugin unmount")
-    }
-  }, [])
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
