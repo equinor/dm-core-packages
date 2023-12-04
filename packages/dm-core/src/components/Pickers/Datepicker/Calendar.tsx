@@ -1,7 +1,8 @@
-import React, { Dispatch, ReactElement, SetStateAction, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import {
   calendar,
   CALENDAR_MONTHS,
+  DateSelection,
   getNextMonth,
   getPreviousMonth,
   isSameDay,
@@ -20,11 +21,14 @@ import { DateTime } from 'luxon'
 
 interface CalendarProps {
   dateTime: DateTime
-  setDatetime: Dispatch<SetStateAction<DateTime>>
+  handleDateInput: ({
+    dateInput,
+    dateSelection,
+  }: { dateInput?: string; dateSelection?: DateSelection }) => void
 }
 
 export const Calendar = (props: CalendarProps): ReactElement => {
-  const { dateTime, setDatetime } = props
+  const { dateTime, handleDateInput } = props
   // TODO: Change default to false
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [activeMonth, setActiveMonth] = useState(THIS_MONTH)
@@ -32,14 +36,6 @@ export const Calendar = (props: CalendarProps): ReactElement => {
   const cal = calendar(activeMonth, activeYear)
 
   const currentMonthName = Object.keys(CALENDAR_MONTHS)[activeMonth - 1]
-
-  function handleClickDate(dateArray: {
-    year: number
-    month: number
-    day: number
-  }): void {
-    setDatetime(dateTime.set(dateArray))
-  }
 
   function incrementMonth(): void {
     const nextMonth = getNextMonth(activeMonth, activeYear)
@@ -54,7 +50,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
   }
 
   function goToToday(): void {
-    setDatetime(DateTime.now())
+    handleDateInput({ dateInput: DateTime.now().toFormat('dd/MM/yyyy') })
     setActiveMonth(THIS_MONTH)
     setActiveYear(THIS_YEAR)
   }
@@ -65,16 +61,24 @@ export const Calendar = (props: CalendarProps): ReactElement => {
         <button
           type='button'
           onClick={() => setShowMonthPicker(!showMonthPicker)}
-          className='flex group hover:text-equinor-green items-center gap-1'
+          className={'flex group hover:text-equinor-green items-center gap-1'}
         >
-          {currentMonthName} {activeYear}
-          <Icon
+          <span>
+            {currentMonthName} {activeYear}
+          </span>
+          <span
             className={
-              'group-hover:bg-equinor-green-light rounded-full transition-all duration-250 ' +
+              'transition-all duration-250 ' +
               (showMonthPicker ? 'rotate-180' : '')
             }
-            data={chevron_down}
-          />
+          >
+            <Icon
+              className={
+                'group-hover:bg-equinor-green-light rounded-full transition-all duration-250'
+              }
+              data={chevron_down}
+            />
+          </span>
         </button>
         <div className='flex gap-2 justify-between items-center'>
           <button
@@ -121,7 +125,10 @@ export const Calendar = (props: CalendarProps): ReactElement => {
               {Object.keys(CALENDAR_MONTHS).map((month, index) => (
                 <button
                   type='button'
-                  onClick={() => setActiveMonth(index + 1)}
+                  onClick={() => {
+                    setActiveMonth(index + 1)
+                    setShowMonthPicker(false)
+                  }}
                   className={
                     'hover:bg-equinor-green-light hover:text-equinor-green px-2 rounded py-1 ' +
                     (index + 1 === activeMonth
@@ -141,7 +148,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
           {cal.map((date, index) => (
             <button
               type='button'
-              onClick={() => handleClickDate(date)}
+              onClick={() => handleDateInput({ dateSelection: date })}
               className={
                 'p-1.5 w-9 rounded-full appearance-none hover:bg-equinor-green-light hover:text-equinor-green ' +
                 (isSameDay(

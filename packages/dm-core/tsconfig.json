@@ -2,12 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "incremental": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -29,12 +24,6 @@
     "composite": false,
     "useUnknownInCatchVariables": false
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "src/**/*.spec.ts",
-    "dist"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "src/**/*.spec.ts", "dist"]
 }

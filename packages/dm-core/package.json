@@ -46,17 +46,13 @@
     "ts-loader": "^9.3.1",
     "typescript": "^5.1.6"
   },
-  "files": [
-    "dist",
-    "src",
-    "tsconfig.json"
-  ],
+  "files": ["dist", "src", "tsconfig.json"],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",
-    "build": "tsc && npx tailwindcss -o build.css && yarn copy-css-file",
-    "copy-css-file": "cp ./build.css ./dist/ && cp ./src/styles/main.css ./dist/",
+    "build": "tsc && npx tailwindcss -o ./src/build.css --minify && yarn copy-css-file",
+    "copy-css-file": "cp ./src/build.css ./dist/ && cp ./src/styles/main.css ./dist/",
     "test": "jest test"
   }
 }

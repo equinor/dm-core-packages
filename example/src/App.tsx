@@ -7,7 +7,7 @@ import {
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './main.css'
 
 function App() {
@@ -19,7 +19,11 @@ function App() {
     isLoading,
     error,
   } = useDocument<TGenericObject>(idReference)
-  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState('2023-11-30T14:13:22.407Z')
+
+  useEffect(() => {
+    console.log(selectedDate)
+  }, [selectedDate])
 
   if (isLoading) return <Loading />
 
@@ -41,7 +45,7 @@ function App() {
           setValue={setSelectedDate}
           useMinutes={false}
         />
-        <p className='h-10 text-red-600'>{selectedDate.toISOString()}</p>
+        <p className='h-10 text-red-600'>{selectedDate}</p>
       </div>
       <EntityView idReference={idReference} type={application?.type} />
     </FSTreeProvider>
