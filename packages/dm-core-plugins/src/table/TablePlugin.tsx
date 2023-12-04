@@ -33,7 +33,6 @@ export const TablePlugin = (props: IUIPlugin) => {
   }, [])
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
-  if (isLoading) return <Loading />
 
   return (
     <Table
