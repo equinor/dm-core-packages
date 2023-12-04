@@ -89,24 +89,28 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       setFieldDateValue(
         `${dateSelection.day}/${dateSelection.month}/${dateSelection.year}`
       )
-    }
+    } else setFieldDateValue(String(dateInput))
   }
 
   function formatDate(date: string): void {
-    let day
-    let month
-    let year
-    if (date?.includes('/')) {
-      const [d, m, y] = date.split('/')
-      day = Number(d)
-      month = Number(m)
-      year = Number(y)
+    if (date && date !== 'dd/mm/yyyy') {
+      let day
+      let month
+      let year
+      if (date?.includes('/')) {
+        const [d, m, y] = date.split('/')
+        day = Number(d)
+        month = Number(m)
+        year = Number(y)
+      } else {
+        day = Number(date?.slice(0, 2))
+        month = Number(date?.slice(2, 4))
+        year = Number(date?.slice(4, 8))
+      }
+      setFieldDateValue(`${zeroPad(day, 2)}/${zeroPad(month, 2)}/${year}`)
     } else {
-      day = Number(date?.slice(0, 2))
-      month = Number(date?.slice(2, 4))
-      year = Number(date?.slice(4, 8))
+      setFieldDateValue('dd/mm/yyyy')
     }
-    setFieldDateValue(`${zeroPad(day, 2)}/${zeroPad(month, 2)}/${year}`)
   }
 
   function handleTimeInput(timeInput: string): void {
@@ -127,7 +131,10 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
         Number(minute) <= 59
       ) {
         setDatetime(
-          datetime.set({ hour: Number(hour), minute: Number(minute) })
+          datetime.set({
+            hour: Number(hour),
+            minute: useMinutes ? Number(minute) : 0,
+          })
         )
       }
     }
@@ -137,11 +144,16 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     if (!time.includes(':')) {
       const hour = Number(time.slice(0, 1))
       const min = Number(time.slice(2, 3))
-      setFieldTimeValue(`${zeroPad(hour, 2)}:${zeroPad(min, 2)}`)
+      setFieldTimeValue(
+        `${zeroPad(hour, 2)}:${zeroPad(useMinutes ? min : 0, 2)}`
+      )
     } else {
       const [hour, min] = time.split(':')
       setFieldTimeValue(
-        `${zeroPad(Number(hour), 2)}:${zeroPad(Number(min), 2)}`
+        `${zeroPad(Number(hour), 2)}:${zeroPad(
+          Number(useMinutes ? min : 0),
+          2
+        )}`
       )
     }
   }
@@ -159,6 +171,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
         >
           <input
             type='text'
+            aria-label='Enter date'
             value={fieldDateValue}
             onChange={(e) => handleDateInput({ dateInput: e.target.value })}
             onBlur={(e) => formatDate(e.target.value)}
@@ -167,13 +180,14 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           />
           <input
             type='text'
+            aria-label='Enter time'
             className='appearance-none bg-transparent h-full w-12 text-center'
             onFocus={() => (open ? setOpen(true) : null)}
             value={fieldTimeValue}
             onChange={(e: any) => handleTimeInput(e.target.value)}
             onBlur={(e) => formatTime(e.target.value)}
           />
-          <Icon data={calendar} size={18} className='w-6' />
+          <Icon data={calendar} size={18} className='w-6 mb-1' />
         </div>
       </InputWrapper>
       {open && (

@@ -7,7 +7,7 @@ import {
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './main.css'
 
 function App() {
@@ -20,10 +20,6 @@ function App() {
     error,
   } = useDocument<TGenericObject>(idReference)
   const [selectedDate, setSelectedDate] = useState('2023-11-30T14:13:22.407Z')
-
-  useEffect(() => {
-    console.log(selectedDate)
-  }, [selectedDate])
 
   if (isLoading) return <Loading />
 

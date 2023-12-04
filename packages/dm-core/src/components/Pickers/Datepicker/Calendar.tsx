@@ -149,6 +149,9 @@ export const Calendar = (props: CalendarProps): ReactElement => {
             <button
               type='button'
               onClick={() => handleDateInput({ dateSelection: date })}
+              aria-label={`${date.day}. ${
+                Object.keys(CALENDAR_MONTHS)[date.month - 1]
+              }`}
               className={
                 'p-1.5 w-9 rounded-full appearance-none hover:bg-equinor-green-light hover:text-equinor-green ' +
                 (isSameDay(
