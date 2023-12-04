@@ -1,54 +1,13 @@
 import { ErrorResponse } from '../../services'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDMSS } from '../../context/DMSSContext'
 import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
 import { TAttribute, TLinkReference } from '../../types'
 import { EBlueprint } from '../../Enums'
+import { IUseListReturnType, TItem } from './types'
+import * as utils from './utils'
 
-export type TItem<T> = {
-  key: string
-  index: number
-  data: T | null
-  reference: TLinkReference | null
-  isSaved: boolean
-}
-
-interface IUseListReturnType<T> {
-  items: TItem<T>[]
-  attribute: TAttribute | null
-  isLoading: boolean
-  addItem: (saveOnAdd?: boolean) => Promise<string>
-  updateItem: (
-    itemToUpdate: TItem<T>,
-    newDocument: T,
-    saveOnUpdate?: boolean
-  ) => Promise<void>
-  removeItem: (itemToDelete: TItem<T>, saveOnRemove?: boolean) => Promise<void>
-  error: ErrorResponse | null
-  addReference: (
-    address: string,
-    entity: T | null,
-    saveOnAdd?: boolean
-  ) => Promise<string>
-  save: () => Promise<void>
-  updateAttribute: (
-    itemToUpdate: TItem<T>,
-    attribute: string,
-    newValue: any,
-    saveOnUpdate?: boolean
-  ) => void
-  dirtyState: boolean
-  moveItem: (itemToMove: TItem<T>, direction: 'up' | 'down') => void
-  reloadData: any
-}
-
-function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
-  const arrayCopy = [...arr]
-  const element = arrayCopy[fromIndex]
-  arrayCopy.splice(fromIndex, 1)
-  arrayCopy.splice(toIndex, 0, element)
-  return arrayCopy
-}
+export type { TItem }
 
 export function useList<T extends object>(
   idReference: string,
@@ -79,100 +38,80 @@ export function useList<T extends object>(
     if (!attribute) return
     setLoading(true)
     setDirtyState(false)
-    dmssAPI
-      .documentGet({
-        address: idReference,
-        depth: 0,
-      })
-      .then(async (response: AxiosResponse) => {
-        if (attribute.contained) {
-          if (!Array.isArray(response.data)) {
-            throw new Error(
-              `Not an array! Got document ${JSON.stringify(response.data)} `
-            )
-          }
-          const items = Object.values(response.data).map((data, index) => ({
-            key: crypto.randomUUID() as string,
-            index: index,
-            data: data,
-            reference: null,
-            isSaved: true,
-          }))
-          setItems(items)
-          setError(null)
-        } else {
-          const resolved =
-            resolveReferences &&
-            (await dmssAPI.documentGet({
+    const fetchItems = async () => {
+      try {
+        const response = await dmssAPI.documentGet({
+          address: idReference,
+          depth: 0,
+        })
+        const resolvedItems = resolveReferences
+          ? await dmssAPI.documentGet({
               address: idReference,
               depth: 1,
-            }))
-          const resolvedItems = (resolved ? resolved.data : []) as T[]
-          const items = Object.values(response.data).map((data, index) => ({
-            key: crypto.randomUUID() as string,
-            index: index,
-            data: resolveReferences ? resolvedItems[index] : (data as T),
-            reference: data as TLinkReference,
-            isSaved: true,
-          }))
-          setItems(items)
-          setError(null)
-        }
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
+            })
+          : null
+        const updatedItems = utils.createItemsFromDocument(
+          response,
+          attribute.contained,
+          resolvedItems?.data as T[]
+        )
+        setItems(updatedItems)
+        setError(null)
+      } catch (error) {
         setError(error.response?.data || { message: error.name, data: error })
-      })
-      .finally(() => setLoading(false))
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchItems()
   }, [attribute, refresh])
 
-  const addItem = async (saveOnAdd: boolean = true) => {
-    if (!attribute) throw new Error('Missing attribute')
-    if (!attribute.contained)
-      throw new Error(
-        "Can't add item to a list that has uncontained items, need to use addReference method instead"
-      )
-    setLoading(true)
-    const newKey = crypto.randomUUID() as string
-    try {
-      const newEntity = await dmssAPI.instantiateEntity({
-        entity: {
-          type: attribute?.attributeType,
-        },
-      })
-      if (saveOnAdd) {
-        await dmssAPI.documentAdd({
-          address: idReference,
-          document: JSON.stringify(newEntity.data),
-        })
-      } else {
+  const addItem = useCallback(
+    async (saveOnAdd: boolean = true, insertAtIndex?: number) => {
+      if (!attribute) throw new Error('Missing attribute')
+      if (!attribute.contained) {
+        throw new Error(
+          "Can't add item to a list that has uncontained items, need to use addReference method instead"
+        )
+      }
+      setLoading(true)
+      try {
         setDirtyState(true)
+        const instantiateResponse = await dmssAPI.instantiateEntity({
+          entity: {
+            type: attribute?.attributeType,
+          },
+        })
+        const itemsCopy = [...items]
+        const newItem: TItem<T> = utils.createNewItemObject(
+          instantiateResponse.data,
+          insertAtIndex || items.length,
+          saveOnAdd
+        )
+        const index = insertAtIndex !== undefined ? insertAtIndex : items.length
+        itemsCopy.splice(index, 0, newItem)
+        setItems(itemsCopy)
+        if (saveOnAdd) {
+          save(itemsCopy)
+          setDirtyState(false)
+        }
+      } catch (error) {
+        if (isAxiosError(error)) {
+          setError(error.response?.data || { message: error.name, data: error })
+        }
+        throw error
+      } finally {
+        setLoading(false)
       }
-      const newList = [
-        ...items,
-        {
-          key: newKey,
-          index: items?.length,
-          data: newEntity.data as T,
-          reference: null,
-          isSaved: saveOnAdd,
-        },
-      ]
-      setItems(newList)
-    } catch (error) {
-      if (isAxiosError(error)) {
-        setError(error.response?.data || { message: error.name, data: error })
-      }
-      throw error
-    } finally {
-      setLoading(false)
-    }
-    return newKey
-  }
+    },
+    [attribute, items]
+  )
 
-  const removeItem = async (
+  async function removeItem(
     itemToDelete: TItem<T>,
     saveOnRemove: boolean = true
-  ) => {
+  ) {
+    setDirtyState(true)
     if (!attribute) throw new Error('Missing attribute')
     setLoading(true)
     const index = items.findIndex(
@@ -199,11 +138,11 @@ export function useList<T extends object>(
     }
   }
 
-  const addReference = async (
+  async function addReference(
     address: string,
     entity: T | null,
     saveOnAdd: boolean = true
-  ) => {
+  ) {
     if (!attribute) throw new Error('Missing attribute')
     if (attribute.contained)
       throw new Error(
@@ -247,11 +186,11 @@ export function useList<T extends object>(
     return newKey
   }
 
-  const updateItem = async (
+  async function updateItem(
     itemToUpdate: TItem<T>,
     newDocument: T,
     saveOnUpdate: boolean = true
-  ) => {
+  ) {
     if (!attribute) throw new Error('Missing attribute')
     setLoading(true)
     const index = items.findIndex(
@@ -284,17 +223,17 @@ export function useList<T extends object>(
     }
   }
 
-  const save = async () => {
+  async function save(itemsToSave: TItem<T>[]) {
     setLoading(true)
-    const payload = items.map((item) =>
+    const payload = itemsToSave.map((item) =>
       attribute?.contained ? item.data : item.reference
     )
     try {
       await dmssAPI.documentUpdate({
         idAddress: idReference,
-        data: JSON.stringify(Object.values(payload)),
+        data: JSON.stringify(payload),
       })
-      const updatedItems: TItem<T>[] = items.map((item) => {
+      const updatedItems: TItem<T>[] = itemsToSave.map((item) => {
         return { ...item, isSaved: true }
       })
       setItems(updatedItems)
@@ -309,11 +248,11 @@ export function useList<T extends object>(
     }
   }
 
-  const updateAttribute = (
+  async function updateAttribute(
     itemToUpdate: TItem<T>,
     attribute: string,
     newValue: any
-  ) => {
+  ) {
     const newList = [...items]
     const index = items.findIndex(
       (item: TItem<T>) => item.key === itemToUpdate.key
@@ -328,7 +267,7 @@ export function useList<T extends object>(
   const moveItem = (itemToMove: TItem<T>, direction: 'up' | 'down') => {
     const itemIndex = items.findIndex((item) => item.key === itemToMove.key)
     const toIndex = direction === 'up' ? itemIndex - 1 : itemIndex + 1
-    const updatedList = arrayMove(items, itemIndex, toIndex)
+    const updatedList = utils.arrayMove(items, itemIndex, toIndex)
     updatedList[itemIndex].index = itemIndex
     updatedList[toIndex].index = toIndex
     setDirtyState(true)
@@ -337,10 +276,12 @@ export function useList<T extends object>(
 
   return {
     items,
+    setItems,
     attribute,
     isLoading,
     error,
     dirtyState,
+    setDirtyState,
     addItem,
     removeItem,
     addReference,
