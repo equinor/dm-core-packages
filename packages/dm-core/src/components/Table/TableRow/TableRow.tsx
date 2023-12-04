@@ -40,11 +40,6 @@ export function TableRow(props: TableRowProps) {
     )
   }
 
-  function removeItem() {
-    setItems(utils.removeItemFromList(items, item.key))
-    setDirtyState(true)
-  }
-
   function updateItem(
     attribute: string,
     newValue: string | number | boolean,
@@ -65,7 +60,7 @@ export function TableRow(props: TableRowProps) {
           >
             <Styled.InsertRowButton
               title='Add row'
-              onClick={() => addItem(index)}
+              onClick={() => addItem(!editMode, index)}
             >
               <span className='resting_state_indicator' />
               <Icon data={add} color='white' />
@@ -99,9 +94,8 @@ export function TableRow(props: TableRowProps) {
           {functionalityConfig?.delete && (
             <TableRowActions
               editMode={editMode}
-              itemKey={item.key}
-              removeItem={removeItem}
-              deleteItem={props.deleteItem}
+              item={item}
+              removeItem={props.removeItem}
             />
           )}
         </Table.Row>
