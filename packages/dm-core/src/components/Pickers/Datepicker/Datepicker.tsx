@@ -6,6 +6,7 @@ import { useClickOutside } from '../../../hooks/useClickOutside'
 import { DateTime } from 'luxon'
 import { calendar } from '@equinor/eds-icons'
 import { DateSelection, zeroPad } from './calendarUtils'
+import { extractDateComponents } from './datepickerUtils'
 
 interface DatepickerProps {
   id: string
@@ -51,30 +52,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     open && setOpen(false)
   })
 
-  function handleDateInput({
-    dateInput,
-    dateSelection,
-  }: {
-    dateInput?: string
-    dateSelection?: DateSelection
-  }): void {
+  function handleDateInput(dateInput: string): void {
     if (dateInput) {
-      let day
-      let month
-      let year
-      let max
-      if (dateInput?.includes('/')) {
-        max = 10
-        const [d, m, y] = dateInput.split('/')
-        day = Number(d)
-        month = Number(m)
-        year = Number(y)
-      } else {
-        max = 8
-        day = Number(dateInput?.slice(0, 2))
-        month = Number(dateInput?.slice(2, 4))
-        year = Number(dateInput?.slice(4, 8))
-      }
+      const { day, month, year, max } = extractDateComponents(dateInput)
       const convertedDate = DateTime.utc(year, month, day)
       if (!convertedDate.invalidExplanation) {
         setDatetime(
@@ -86,29 +66,17 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
         )
       }
       if (dateInput.length <= max) setFieldDateValue(dateInput)
-    } else if (dateSelection) {
-      setDatetime(datetime.set(dateSelection))
-      setFieldDateValue(
-        `${dateSelection.day}/${dateSelection.month}/${dateSelection.year}`
-      )
     } else setFieldDateValue(String(dateInput))
+  }
+
+  function handleDateSelection(selection: DateSelection): void {
+    setDatetime(datetime.set(selection))
+    setFieldDateValue(`${selection.day}/${selection.month}/${selection.year}`)
   }
 
   function formatDate(date: string): void {
     if (date && date !== 'dd/mm/yyyy') {
-      let day
-      let month
-      let year
-      if (date?.includes('/')) {
-        const [d, m, y] = date.split('/')
-        day = Number(d)
-        month = Number(m)
-        year = Number(y)
-      } else {
-        day = Number(date?.slice(0, 2))
-        month = Number(date?.slice(2, 4))
-        year = Number(date?.slice(4, 8))
-      }
+      const { day, month, year } = extractDateComponents(date)
       setFieldDateValue(`${zeroPad(day, 2)}/${zeroPad(month, 2)}/${year}`)
     } else {
       setFieldDateValue('dd/mm/yyyy')
@@ -176,11 +144,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       >
         <div
           id={id}
-          className={
-            'h-9 px-2 border-b border-black bg-gray-200 flex items-center gap-2 w-fit ' +
-            (readonly ? '' : 'cursor-pointer') +
-            (isDirty ? 'bg-[#85babf5e]' : 'bg-[#f7f7f7]')
-          }
+          className={`h-9 px-2 border-b border-black bg-gray-200 flex items-center gap-2 w-fit ${
+            readonly ? '' : 'cursor-pointer'
+          } ${isDirty ? 'bg-[#85babf5e]' : 'bg-[#f7f7f7]'}`}
           onClick={() => (!readonly ? setOpen(!open) : null)}
         >
           <input
@@ -188,7 +154,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             aria-label='Enter date'
             value={fieldDateValue}
             disabled={readonly}
-            onChange={(e) => handleDateInput({ dateInput: e.target.value })}
+            onChange={(e) => handleDateInput(e.target.value)}
             onBlur={(e) => formatDate(e.target.value)}
             onFocus={() => (open ? setOpen(true) : null)}
             className='h-full bg-transparent appearance-none w-24'
@@ -212,7 +178,10 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           className='absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1'
           style={{ zIndex: 9999, width: '25rem' }}
         >
-          <Calendar dateTime={datetime} handleDateInput={handleDateInput} />
+          <Calendar
+            dateTime={datetime}
+            handleDateSelection={handleDateSelection}
+          />
           <div className='w-full h-px bg-gray-300'></div>
           {variant === 'datetime' && (
             <>

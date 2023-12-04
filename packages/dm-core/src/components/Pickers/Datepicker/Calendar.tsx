@@ -21,15 +21,11 @@ import { DateTime } from 'luxon'
 
 interface CalendarProps {
   dateTime: DateTime
-  handleDateInput: ({
-    dateInput,
-    dateSelection,
-  }: { dateInput?: string; dateSelection?: DateSelection }) => void
+  handleDateSelection: (selection: DateSelection) => void
 }
 
 export const Calendar = (props: CalendarProps): ReactElement => {
-  const { dateTime, handleDateInput } = props
-  // TODO: Change default to false
+  const { dateTime, handleDateSelection } = props
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [activeMonth, setActiveMonth] = useState(THIS_MONTH)
   const [activeYear, setActiveYear] = useState(THIS_YEAR)
@@ -50,7 +46,8 @@ export const Calendar = (props: CalendarProps): ReactElement => {
   }
 
   function goToToday(): void {
-    handleDateInput({ dateInput: DateTime.now().toFormat('dd/MM/yyyy') })
+    const now = DateTime.now()
+    handleDateSelection({ day: now.day, month: now.month, year: now.year })
     setActiveMonth(THIS_MONTH)
     setActiveYear(THIS_YEAR)
   }
@@ -148,7 +145,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
           {cal.map((date, index) => (
             <button
               type='button'
-              onClick={() => handleDateInput({ dateSelection: date })}
+              onClick={() => handleDateSelection(date)}
               aria-label={`${date.day}. ${
                 Object.keys(CALENDAR_MONTHS)[date.month - 1]
               }`}
