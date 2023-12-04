@@ -59,7 +59,7 @@ export function TableRow(props: TableRowProps) {
             colSpan={columnsLength}
           >
             <Styled.InsertRowButton
-              title='Add row'
+              title='Add new row'
               onClick={() => addItem(!editMode, index)}
             >
               <span className='resting_state_indicator' />
