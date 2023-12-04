@@ -37,8 +37,11 @@ function App() {
       <div className='p-10'>
         <Datepicker
           variant='datetime'
+          label='label'
+          id='some-id'
+          readonly={true}
           value={selectedDate}
-          setValue={setSelectedDate}
+          onChange={(date: string) => setSelectedDate(date)}
           useMinutes={false}
         />
         <p className='h-10 text-red-600'>{selectedDate}</p>

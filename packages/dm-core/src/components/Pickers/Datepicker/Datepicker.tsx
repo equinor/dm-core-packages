@@ -1,11 +1,4 @@
-import React, {
-  Dispatch,
-  ReactElement,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Icon, InputWrapper } from '@equinor/eds-core-react'
 import { Calendar } from './Calendar'
 import { Timefield } from './Timefield'
@@ -15,18 +8,28 @@ import { calendar } from '@equinor/eds-icons'
 import { DateSelection, zeroPad } from './calendarUtils'
 
 interface DatepickerProps {
+  id: string
+  readonly?: boolean
+  label?: string
   variant: 'date' | 'datetime'
   value: string // ISO
-  setValue: Dispatch<SetStateAction<string>> // ISO
+  onChange: (date: string) => unknown
   useMinutes?: boolean
+  helperText?: string
+  isDirty?: boolean
 }
 
 export const Datepicker = (props: DatepickerProps): ReactElement => {
   const {
     variant,
     value: selectedDate,
-    setValue: setSelectedDate,
     useMinutes,
+    onChange,
+    id,
+    readonly,
+    label,
+    helperText,
+    isDirty,
   } = props
   const [open, setOpen] = useState(false)
   const datepickerRef = useRef<any | null>(null)
@@ -41,7 +44,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   )
 
   useEffect(() => {
-    setSelectedDate(datetime.toISO() ?? '')
+    onChange(datetime.toISO() ?? '')
   }, [datetime])
 
   useClickOutside(datepickerRef, () => {
@@ -161,17 +164,30 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     <div className='relative'>
       <InputWrapper
         labelProps={{
-          label: variant === 'datetime' ? 'Date & Time' : 'Date',
+          label: label
+            ? label
+            : variant === 'datetime'
+              ? 'Date & Time'
+              : 'Date',
+        }}
+        helperProps={{
+          text: helperText,
         }}
       >
         <div
-          className='h-9 px-2 border-b border-black bg-gray-200 flex items-center gap-2 w-fit cursor-pointer'
-          onClick={() => setOpen(!open)}
+          id={id}
+          className={
+            'h-9 px-2 border-b border-black bg-gray-200 flex items-center gap-2 w-fit ' +
+            (readonly ? '' : 'cursor-pointer') +
+            (isDirty ? 'bg-[#85babf5e]' : 'bg-[#f7f7f7]')
+          }
+          onClick={() => (!readonly ? setOpen(!open) : null)}
         >
           <input
             type='text'
             aria-label='Enter date'
             value={fieldDateValue}
+            disabled={readonly}
             onChange={(e) => handleDateInput({ dateInput: e.target.value })}
             onBlur={(e) => formatDate(e.target.value)}
             onFocus={() => (open ? setOpen(true) : null)}
@@ -181,6 +197,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             type='text'
             aria-label='Enter time'
             className='appearance-none bg-transparent h-full w-12 text-center'
+            disabled={readonly}
             onFocus={() => (open ? setOpen(true) : null)}
             value={fieldTimeValue}
             onChange={(e: any) => handleTimeInput(e.target.value)}

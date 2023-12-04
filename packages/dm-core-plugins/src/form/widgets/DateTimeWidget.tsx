@@ -1,36 +1,22 @@
 import React from 'react'
 
-import { TextField } from '@equinor/eds-core-react'
-
 import { TWidget } from '../types'
-import { DateTime } from 'luxon'
+import { Datepicker } from '@development-framework/dm-core'
 
 const DateTimeWidget = (props: TWidget) => {
-  const { label, onChange, isDirty } = props
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(new Date(event.target.value).toISOString())
-  }
+  const { label, onChange, isDirty, id, value, readOnly, helperText } = props
 
   return (
-    <TextField
-      id={props.id}
-      readOnly={props.readOnly}
-      defaultValue={DateTime.fromISO(props.value).toFormat("yyyy-MM-dd'T'T")}
-      inputRef={props.inputRef}
-      variant={props.variant}
-      helperText={props.helperText}
-      onChange={onChangeHandler}
-      label={label}
-      type='datetime-local'
+    <Datepicker
+      id={id}
+      variant='datetime'
+      value={value}
+      onChange={onChange}
       data-testid={`form-datetime-widget-${label}`}
-      style={
-        isDirty && props.variant !== 'error'
-          ? {
-              // @ts-ignore
-              '--eds-input-background': '#85babf5e',
-            }
-          : {}
-      }
+      readonly={readOnly}
+      label={label}
+      helperText={helperText}
+      isDirty={isDirty}
     />
   )
 }
