@@ -119,7 +119,7 @@ export function Table(props: TableProps) {
               <ConditionalWrapper
                 condition={tableVariant === TableVariantNameEnum.Edit}
                 wrapper={(children: React.ReactNode) => (
-                  <SortableList items={paginatedRows}>{children}</SortableList>
+                  <SortableList items={items}>{children}</SortableList>
                 )}
               >
                 {paginatedRows?.map((item, index) => (
@@ -127,7 +127,7 @@ export function Table(props: TableProps) {
                     key={item.key}
                     condition={tableVariant === TableVariantNameEnum.Edit}
                     wrapper={(children: React.ReactNode) => (
-                      <SortableItem id={item.key} key={item.key}>
+                      <SortableItem item={item}>
                         {children}
                       </SortableItem>
                     )}
