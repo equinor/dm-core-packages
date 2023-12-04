@@ -28,8 +28,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     setValue: setSelectedDate,
     useMinutes,
   } = props
-  // TODO: Change the default state of this
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const datepickerRef = useRef<any | null>(null)
   const [datetime, setDatetime] = useState(
     DateTime.fromISO(selectedDate).toUTC()
