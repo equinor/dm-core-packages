@@ -27,7 +27,7 @@ import {
   Switch,
 } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
-import { expand_screen, refresh } from '@equinor/eds-icons'
+import { expand_screen } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
@@ -183,15 +183,6 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
           asCronJob={asCronJob}
           exists={exists}
         />
-        {status === JobStatus.Running && (
-          <Button
-            variant='outlined'
-            onClick={() => fetchStatusAndLogs()}
-            aria-label='Get job status'
-          >
-            <Icon data={refresh} />
-          </Button>
-        )}
         {config.showGetResult && (
           <Button
             onClick={() =>
