@@ -1,11 +1,7 @@
 import React from 'react'
 
-import { Icon, TextField } from '@equinor/eds-core-react'
-
-import { error_filled } from '@equinor/eds-icons'
+import { TextField } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
-
-Icon.add({ error_filled })
 
 const TextareaWidget = (props: TWidget) => {
   const { label, onChange } = props
