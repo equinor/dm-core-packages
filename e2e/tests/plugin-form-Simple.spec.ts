@@ -42,7 +42,7 @@ test('Simple form', async ({ page }) => {
   })
 
   await test.step('Fill out date field', async () => {
-    await page.getByLabel('date').fill('2023-01-01T13:00')
+    await page.getByLabel('date').fill('01/01/2022')
   })
 
   await test.step('Submitting form', async () => {
@@ -63,6 +63,6 @@ test('Simple form', async ({ page }) => {
     await expect(
       page.getByLabel('A required checkbox (e.g. for confirmation purposes)')
     ).toBeChecked()
-    await expect(page.getByLabel('date')).toHaveValue('2023-01-01T13:00')
+    await expect(page.getByLabel('date')).toHaveValue('01/01/2022')
   })
 })
