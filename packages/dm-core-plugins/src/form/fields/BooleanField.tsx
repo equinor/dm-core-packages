@@ -13,7 +13,7 @@ export const BooleanField = (props: TField) => {
   return (
     <Controller
       name={namePath}
-      defaultValue={attribute.default == 'True'} // we need to convert default values coming from the API since they are always strings
+      defaultValue={attribute.default === 'True'} // we need to convert default values coming from the API since they are always strings
       render={({
         field: { ref, value, ...props },
         fieldState: { invalid, error },

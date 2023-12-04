@@ -79,7 +79,7 @@ export const Form = (props: TFormProps) => {
       if (isComplexObject) {
         // Remove if not shown inline
         const uiAttribute: TUiAttributeObject | undefined =
-          config?.attributes.find((attribute) => attribute.name == key)
+          config?.attributes.find((attribute) => attribute.name === key)
         if (!uiAttribute?.showInline) {
           toRemoveFromPayload.push(key)
           continue
@@ -103,7 +103,7 @@ export const Form = (props: TFormProps) => {
       }
 
       const attribute = blueprint?.attributes.find(
-        (attribute: TAttribute) => attribute.name == key
+        (attribute: TAttribute) => attribute.name === key
       )
       const isComplexArray =
         Array.isArray(obj[key]) && !isPrimitiveType(attribute.attributeType)

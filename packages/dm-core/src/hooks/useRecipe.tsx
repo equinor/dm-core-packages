@@ -24,9 +24,9 @@ export const findRecipe = (
       ? [initialUiRecipe, ...recipes]
       : recipes
     const recipe: TUiRecipe | undefined = recipesToSearch.find(
-      (recipe: any) => recipe.name == recipeName
+      (recipe: any) => recipe.name === recipeName
     )
-    if (recipe == undefined) {
+    if (recipe === undefined) {
       throw Error(`Could not find the recipe with the name: ${recipeName}`)
     }
     return recipe

@@ -49,7 +49,7 @@ export const Content = (props: {
   return (
     <div style={props.style}>
       {viewSelectorItems.map((config: TItemData) => (
-        <Lazy key={config.viewId} visible={selectedViewId == config.viewId}>
+        <Lazy key={config.viewId} visible={selectedViewId === config.viewId}>
           <ViewCreator
             idReference={config.rootEntityId}
             viewConfig={config.viewConfig}

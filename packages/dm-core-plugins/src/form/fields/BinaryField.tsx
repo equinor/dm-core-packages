@@ -77,7 +77,7 @@ export const BinaryField = (props: TField) => {
 
   return (
     <>
-      {initialValue?.address != undefined && (
+      {initialValue?.address !== undefined && (
         <DownloadBinary
           {...props}
           fileId={fileId}

@@ -79,8 +79,8 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
                     name='impersonate-role'
                     value={role}
                     checked={
-                      tempSelectedRole != 'anonymous' &&
-                      role == tempSelectedRole
+                      tempSelectedRole !== 'anonymous' &&
+                      role === tempSelectedRole
                     }
                     onChange={(e: any) => setTempSelectedRole(e.target.value)}
                   />

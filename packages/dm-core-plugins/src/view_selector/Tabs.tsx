@@ -13,7 +13,9 @@ export const Tabs = (props: {
   const { selectedViewId, setSelectedViewId, viewSelectorItems } = props
   return (
     <EdsTabs
-      activeTab={viewSelectorItems.findIndex((x) => x.viewId == selectedViewId)}
+      activeTab={viewSelectorItems.findIndex(
+        (x) => x.viewId === selectedViewId
+      )}
     >
       <EdsTabs.List>
         {viewSelectorItems.map((config: TItemData) => {

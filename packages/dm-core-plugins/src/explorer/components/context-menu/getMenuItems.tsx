@@ -31,7 +31,7 @@ export function getMenuItems(
   // Packages get a "new folder"
   // and "new entity"
   // and "new blueprint"
-  if (node.type == EBlueprint.PACKAGE) {
+  if (node.type === EBlueprint.PACKAGE) {
     menuItems.push(getMenuItem(EDialog.NewEntity, 'New entity'))
     menuItems.push(getMenuItem(EDialog.NewBlueprint, 'New blueprint'))
     menuItems.push(getMenuItem(EDialog.NewFolder, 'New folder'))

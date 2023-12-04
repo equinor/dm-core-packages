@@ -50,7 +50,6 @@
       "recommended": true,
       "suspicious": {
         "noExplicitAny": "off",
-        "noDoubleEquals": "off",
         "noArrayIndexKey": "off",
         "noAssignInExpressions": "off",
         "useIsArray": "off",

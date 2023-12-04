@@ -182,7 +182,7 @@ const BlueprintAttribute = (props: {
           value={attribute?.default || ''}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
             let value: string | number = event.target.value
-            if (attribute.attributeType == 'number') value = Number(value)
+            if (attribute.attributeType === 'number') value = Number(value)
             setAttribute({ ...attribute, default: value })
           }}
           style={{ width: INPUT_FIELD_WIDTH }}

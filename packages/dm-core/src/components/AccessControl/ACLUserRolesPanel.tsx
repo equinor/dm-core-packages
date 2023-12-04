@@ -91,7 +91,7 @@ export const ACLUserRolesPanel = ({
             handleChange({ [aclKey]: entities })
           }
           return (
-            <GridContainer key={entity} even={index % 2 == 0}>
+            <GridContainer key={entity} even={index % 2 === 0}>
               <div>{entity}</div>
               <ACLSelect value={access} handleChange={roleHandleChange} />
               <Button

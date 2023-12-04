@@ -137,10 +137,10 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
 
   useEffect(() => {
     if (!jobDocument) return
-    if (asCronJob || jobDocument.type == EBlueprint.RECURRING_JOB)
+    if (asCronJob || jobDocument.type === EBlueprint.RECURRING_JOB)
       // @ts-ignore
       setSchedule(jobDocument?.schedule)
-    if (jobDocument.type == EBlueprint.RECURRING_JOB) setAsCronJob(true)
+    if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [isLoading, jobEntityError, jobDocument])
 
   const getVariant = (status: JobStatus) => {
