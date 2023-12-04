@@ -24,7 +24,7 @@ export const SortableContext = ({
 
   function handleDragAndDrop(event: DragEndEvent) {
     const { active, over } = event
-    const itemIds = items.map((item) => item.id)
+    const itemIds = items.map((item) => item.key)
 
     const oldIndex = itemIds.indexOf(active.id)
     const newIndex = over ? itemIds.indexOf(over?.id) : -1
