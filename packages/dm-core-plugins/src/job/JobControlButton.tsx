@@ -8,17 +8,27 @@ export const JobControlButton = (props: {
   createJob: () => void
   remove: () => void
   confirmRemove: () => void
+  disableControls: boolean
+  afterClick: () => void
   asCronJob: boolean
   exists: boolean
 }) => {
-  const { jobStatus, createJob, asCronJob, exists, remove, confirmRemove } =
-    props
+  const {
+    jobStatus,
+    createJob,
+    asCronJob,
+    exists,
+    remove,
+    confirmRemove,
+    disableControls,
+    afterClick,
+  } = props
   const [hovering, setHovering] = useState(false)
   const [buttonColor, setButtonColor] = useState<
     'primary' | 'secondary' | 'danger'
   >('primary')
   const [buttonIcon, setButtonIcon] = useState<IconData>(play)
-  const [recentlyClicked, setRecentlyClicked] = useState<boolean>(false)
+  const buttonRef: MutableRefObject<HTMLButtonElement | undefined> = useRef()
 
   useEffect(() => {
     switch (jobStatus) {
@@ -39,13 +49,12 @@ export const JobControlButton = (props: {
         setButtonColor('primary')
         setButtonIcon(asCronJob ? save : play)
     }
-    setRecentlyClicked(false)
   }, [jobStatus, asCronJob])
 
   return (
     <Button
       variant='contained_icon'
-      disable={recentlyClicked}
+      disabled={disableControls}
       aria-label='Run'
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
@@ -73,9 +82,8 @@ export const JobControlButton = (props: {
         } else {
           createJob()
         }
-        setRecentlyClicked(true)
+        afterClick()
       }}
-      disabled={recentlyClicked}
     >
       {jobStatus === JobStatus.Running && !hovering ? (
         <CircularProgress size={16} variant='indeterminate' color='neutral' />

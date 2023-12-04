@@ -72,6 +72,7 @@ export const CrateFromRecipe = (
   const [asCronJob, setAsCronJob] = useState<boolean>(config.recurring ?? false)
   const [schedule, setSchedule] = useState<TSchedule>(scheduleTemplate())
   const [showRemoveDialog, setShowRemoveDialog] = useState<boolean>(false)
+  const [disableControls, setDisableControls] = useState<boolean>(false)
 
   const jobEntity: TJob | TRecurringJob = useMemo(
     () =>
@@ -130,6 +131,20 @@ export const CrateFromRecipe = (
     if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [isLoading, jobEntityError, jobDocument])
 
+  useEffect(() => {
+    setDisableControls(false)
+  }, [status])
+
+  const getVariant = (status: JobStatus) => {
+    switch (status) {
+      case JobStatus.Failed:
+        return 'error'
+      case JobStatus.Completed:
+        return 'active'
+      default:
+        return 'default'
+    }
+  }
   return (
     <div>
       {asCronJob && (
@@ -149,6 +164,8 @@ export const CrateFromRecipe = (
           createJob={createAndStartJob}
           remove={remove}
           confirmRemove={() => setShowRemoveDialog(true)}
+          disableControls={disableControls}
+          afterClick={() => setDisableControls(true)}
           asCronJob={asCronJob}
           exists={exists}
         />
@@ -191,6 +208,7 @@ export const CrateFromRecipe = (
         onConfirm={remove}
         close={() => {
           setShowRemoveDialog(false)
+          setDisableControls(false)
         }}
       />
     </div>
