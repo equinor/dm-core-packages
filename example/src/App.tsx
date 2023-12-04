@@ -1,13 +1,12 @@
 import '@development-framework/dm-core/dist/main.css'
 import {
-  Datepicker,
   EntityView,
   FSTreeProvider,
   Loading,
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
-import React, { useState } from 'react'
+import React from 'react'
 import './main.css'
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
     isLoading,
     error,
   } = useDocument<TGenericObject>(idReference)
-  const [selectedDate, setSelectedDate] = useState('2023-11-30T14:13:22.407Z')
 
   if (isLoading) return <Loading />
 
@@ -34,15 +32,6 @@ function App() {
 
   return (
     <FSTreeProvider visibleDataSources={application?.dataSources}>
-      <div className='p-10'>
-        <Datepicker
-          variant='datetime'
-          value={selectedDate}
-          setValue={setSelectedDate}
-          useMinutes={false}
-        />
-        <p className='h-10 text-red-600'>{selectedDate}</p>
-      </div>
       <EntityView idReference={idReference} type={application?.type} />
     </FSTreeProvider>
   )
