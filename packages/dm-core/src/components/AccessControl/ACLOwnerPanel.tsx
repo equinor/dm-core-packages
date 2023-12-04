@@ -1,8 +1,9 @@
 import { Icon, Input } from '@equinor/eds-core-react'
 import { ACLSelect } from './ACLSelect'
-import { AccessLevel, AccessControlList } from '../../services'
+import { AccessControlList, AccessLevel } from '../../services'
 import React from 'react'
 import { CenteredRow } from './AccessControlListComponent'
+import { edit_text } from '@equinor/eds-icons'
 
 interface IACLOwnerPanelProps {
   acl: AccessControlList
@@ -24,7 +25,7 @@ export const ACLOwnerPanel = ({
             handleChange({ owner: event.target.value })
           }
         />
-        <Icon name='edit_text' size={24} style={{ color: 'teal' }} />
+        <Icon data={edit_text} size={24} style={{ color: 'teal' }} />
       </CenteredRow>
       <CenteredRow width={'160px'}>
         Others:

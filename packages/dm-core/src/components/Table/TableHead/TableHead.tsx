@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Icon, Menu, Table } from '@equinor/eds-core-react'
-import { more_vertical } from '@equinor/eds-icons'
+import { arrow_down, arrow_up, more_vertical } from '@equinor/eds-icons'
 import {
-  TTableColumnConfig,
   TableHeadProps,
   TableVariantNameEnum,
+  TTableColumnConfig,
 } from '../types'
 import { SortCell } from './styles'
 
@@ -64,8 +64,8 @@ export function TableHead(props: TableHeadProps) {
               {column.sortable &&
                 tableVariant === TableVariantNameEnum.View && (
                   <Icon
-                    name={
-                      sortDirection === 'descending' ? 'arrow_down' : 'arrow_up'
+                    data={
+                      sortDirection === 'descending' ? arrow_down : arrow_up
                     }
                   />
                 )}

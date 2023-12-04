@@ -5,9 +5,7 @@ import {
 } from '@development-framework/dm-core'
 import React, { useContext, useEffect, useState } from 'react'
 import { Banner, Icon } from '@equinor/eds-core-react'
-import { edit_text, save, thumbs_down } from '@equinor/eds-icons'
-
-Icon.add({ thumbs_down, save, edit_text })
+import { thumbs_down } from '@equinor/eds-icons'
 
 type FilteredView = {
   type: string
@@ -75,7 +73,7 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
         // The user does not have any role matching any view, so there is nothing to show
         <Banner>
           <Banner.Icon variant='warning'>
-            <Icon name='thumbs_down' />
+            <Icon data={thumbs_down} />
           </Banner.Icon>
           <Banner.Message>
             {`No views found, since you currently have role [${selectedRole}]. Please switch to one of these roles: [${allowedRoles}]`}
