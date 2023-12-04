@@ -5,8 +5,8 @@ export type SortableListProps = {
   children: ReactNode
 }
 
-export type SortableContextProps = {
-  items: any[]
+export type SortableContextProps<T extends { key: string | number }> = {
+  items: T[]
   children: ReactNode
-  onReorder: (reorderedItems: any) => void
+  onReorder: (reorderedItems: T[]) => void
 }

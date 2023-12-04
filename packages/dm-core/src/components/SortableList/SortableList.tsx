@@ -5,7 +5,7 @@ import { SortableListProps } from './types'
 
 export const SortableList = ({ items, children }: SortableListProps) => {
   return (
-    <SortableContext items={items} strategy={verticalListSortingStrategy}>
+    <SortableContext items={items.map(item => item.key)} strategy={verticalListSortingStrategy}>
       {children}
     </SortableContext>
   )
