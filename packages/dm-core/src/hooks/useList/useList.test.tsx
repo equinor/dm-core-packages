@@ -408,7 +408,7 @@ describe('contained list', () => {
         },
       ])
     })
-    await waitFor(async () => await result.current.save())
+    await waitFor(async () => await result.current.save(result.current.items))
     await waitFor(() => {
       expect(result.current.items).toEqual([
         {

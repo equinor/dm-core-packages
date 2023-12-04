@@ -277,7 +277,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             <Icon data={undo} size={16} />
           </FormButton>
           <FormButton
-            onClick={save}
+            onClick={() => save(items)}
             disabled={!dirtyState}
             isLoading={isLoading}
             tooltip={'Save'}
