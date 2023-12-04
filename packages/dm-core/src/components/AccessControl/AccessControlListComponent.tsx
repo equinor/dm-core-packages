@@ -1,5 +1,5 @@
 import { Button, Checkbox, Icon, Progress, Tabs } from '@equinor/eds-core-react'
-import { edit_text, save } from '@equinor/eds-icons'
+import { save } from '@equinor/eds-icons'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -16,8 +16,6 @@ import {
 } from '../../utils/UsernameConversion'
 import { ACLOwnerPanel } from './ACLOwnerPanel'
 import { ACLUserRolesPanel } from './ACLUserRolesPanel'
-
-Icon.add({ edit_text, save })
 
 const ACLWrapper = styled.div`
   max-width: 650px;
@@ -263,7 +261,7 @@ export const AccessControlListComponent = (props: {
       <CenteredRow>
         <Button onClick={() => saveAccessControlList(documentACL)}>
           {(loading && <Progress.Dots color='neutral' />) || 'Save'}
-          {!loading && <Icon name='save' title='save' size={24} />}
+          {!loading && <Icon data={save} title='save' size={24} />}
         </Button>
         <Checkbox
           checked={storeACLRecursively}

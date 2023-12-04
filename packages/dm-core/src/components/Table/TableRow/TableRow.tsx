@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { EdsProvider, Icon, Table } from '@equinor/eds-core-react'
 import { ViewCreator } from '../../../'
-import { TTableColumnConfig, TableRowProps } from '../types'
+import { TableRowProps, TTableColumnConfig } from '../types'
 import * as utils from '../utils'
 import * as Styled from './styles'
 import { TableRowActions } from './TableRowActions/TableRowActions'
 import { TableCell } from './TableCell/TableCell'
+import { add } from '@equinor/eds-icons'
 
 export function TableRow(props: TableRowProps) {
   const {
@@ -67,7 +68,7 @@ export function TableRow(props: TableRowProps) {
               onClick={() => addItem(index)}
             >
               <span className='resting_state_indicator' />
-              <Icon name='add' color='white' />
+              <Icon data={add} color='white' />
             </Styled.InsertRowButton>
           </Table.Cell>
         </Table.Row>
