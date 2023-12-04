@@ -20,7 +20,6 @@ import {
   TableProps,
   TTableSortDirection,
   TableVariantNameEnum,
-  TTableRowItem,
   TTableVariant,
   TTableConfig,
 } from './types'
@@ -29,24 +28,7 @@ import { TableRow } from './TableRow/TableRow'
 import { SortableContext } from '../SortableList/SortableContext'
 import { TItem } from '../../hooks/useList/types'
 
-export type { TTableRowItem, TTableConfig }
-
-function useTraceUpdate(props: any) {
-  const prev = useRef(props);
-  useEffect(() => {
-    const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-      if (prev.current[k] !== v) {
-        //@ts-expect-error
-        ps[k] = [prev.current[k], v];
-      }
-      return ps;
-    }, {});
-    if (Object.keys(changedProps).length > 0) {
-      console.log('Changed props:', changedProps);
-    }
-    prev.current = props;
-  });
-}
+export type { TTableConfig }
 
 export function Table(props: TableProps) {
   const {
@@ -69,16 +51,6 @@ export function Table(props: TableProps) {
   const [sortColumn, setSortColumn] = useState<string | undefined>(undefined)
   const [sortDirection, setSortDirection] =
     useState<TTableSortDirection>('ascending')
-
-  useTraceUpdate(props)
-
-  useEffect(() => {
-    console.log("Table mount")
-    return () => {
-      console.log("Table unmount")
-    }
-  }, [])
-  
 
   const functionalityConfig =
     config.variant.length === 1
@@ -120,7 +92,7 @@ export function Table(props: TableProps) {
     setSortColumn(newSortColumn)
   }
 
-  function reorderItems(reorderedItems: TTableRowItem[]) {
+  function reorderItems(reorderedItems: TItem<TGenericObject>[]) {
     setItems(reorderedItems)
     setDirtyState(true)
   }
