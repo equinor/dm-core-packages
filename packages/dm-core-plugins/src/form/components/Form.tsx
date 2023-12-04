@@ -47,8 +47,8 @@ export const Form = (props: TFormProps) => {
     defaultValues: formData || {},
   })
 
-  props?.onUpdate &&
-    methods.watch((data: any) => props?.onUpdate && props.onUpdate(data))
+  props?.onChange &&
+    methods.watch((data: any) => props?.onChange && props.onChange(data))
 
   const config: TFormConfig = { ...defaultConfig, ...props.config }
 

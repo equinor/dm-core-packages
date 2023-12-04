@@ -57,6 +57,7 @@
         "openAsTab": false,
         "selectFromScope": "dmss://DemoDataSource/plugins/list/task_list",
         "headers": ["name", "assigned"],
+        "saveExpanded": false,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
           "delete": true,

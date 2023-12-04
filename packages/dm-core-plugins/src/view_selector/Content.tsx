@@ -55,11 +55,13 @@ export const Content = (props: {
             viewConfig={config.viewConfig}
             onOpen={onOpen}
             onSubmit={(data: TGenericObject) => {
+              if (config?.onSubmit) config?.onSubmit(data)
               setFormData({
                 ...formData,
                 [config.viewId]: data,
               })
             }}
+            onChange={config?.onChange}
           />
         </Lazy>
       ))}

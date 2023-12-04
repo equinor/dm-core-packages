@@ -1,6 +1,11 @@
 import * as React from 'react'
 
-import { IUIPlugin, Loading, useDocument } from '@development-framework/dm-core'
+import {
+  IUIPlugin,
+  Loading,
+  TGenericObject,
+  useDocument,
+} from '@development-framework/dm-core'
 import { Form } from './components/Form'
 
 export const FormPlugin = (props: IUIPlugin) => {
@@ -12,12 +17,14 @@ export const FormPlugin = (props: IUIPlugin) => {
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
-  const handleOnSubmit = (formData: any) => {
-    updateDocument(formData, true, true)
+  const handleOnSubmit = (formData: TGenericObject) => {
+    updateDocument(formData, true, true).then(() => {
+      if (props.onSubmit) props.onSubmit(formData)
+    })
   }
 
-  const handleOnUpdate = (formData: any) => {
-    if (props?.onSubmit) props.onSubmit(formData)
+  const handleOnChange = (formData: TGenericObject) => {
+    if (props.onChange) props.onChange(formData)
   }
 
   return (
@@ -28,8 +35,8 @@ export const FormPlugin = (props: IUIPlugin) => {
       config={props.config}
       formData={document}
       onSubmit={handleOnSubmit}
-      onUpdate={props?.onSubmit && handleOnUpdate}
-      showSubmitButton={!props?.onSubmit}
+      onChange={props?.onChange && handleOnChange}
+      showSubmitButton={!props?.onChange ?? true}
     />
   )
 }

@@ -28,6 +28,7 @@ function UiPlugin({
   onSubmit,
   onOpen,
   config,
+  onChange,
 }: IUIPlugin & {
   getPlugin: (name: string) => (p: IUIPlugin) => React.ReactElement
   pluginName: string
@@ -40,6 +41,7 @@ function UiPlugin({
       onSubmit={onSubmit}
       onOpen={onOpen}
       config={config || {}}
+      onChange={onChange}
     />
   )
 }
@@ -55,6 +57,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     recipeName,
     dimensions,
     showRefreshButton,
+    onChange,
   } = props
   if (!type)
     throw new Error(`<EntityView> must be called with a type. Got "${type}"`)
@@ -129,6 +132,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
               type={type}
               onSubmit={onSubmit}
               onOpen={onOpen}
+              onChange={onChange}
               config={recipe.config || {}}
               key={reloadCounter}
             />

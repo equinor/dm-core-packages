@@ -18,7 +18,11 @@ interface IUseListReturnType<T> {
   attribute: TAttribute | null
   isLoading: boolean
   addItem: (saveOnAdd?: boolean) => Promise<string>
-  updateItem: (itemToUpdate: TItem<T>, newDocument: T) => Promise<void>
+  updateItem: (
+    itemToUpdate: TItem<T>,
+    newDocument: T,
+    saveOnUpdate?: boolean
+  ) => Promise<void>
   removeItem: (itemToDelete: TItem<T>, saveOnRemove?: boolean) => Promise<void>
   error: ErrorResponse | null
   addReference: (

@@ -143,7 +143,8 @@ export type TPackage = {
 export interface IUIPlugin {
   type: string
   idReference: string
-  onSubmit?: (data: any) => void
+  onSubmit?: (data: any) => void // Listen to submits
+  onChange?: (data: any) => void // Listen to changes
   onOpen?: TOnOpen
   config?: any
   showRefreshButton?: boolean
@@ -153,7 +154,9 @@ export type TOnOpen = (
   viewId: string,
   view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
   rootId?: string,
-  isSubItem?: boolean
+  isSubItem?: boolean,
+  onSubmit?: (data: any) => void,
+  onChange?: (data: any) => void
 ) => void
 
 export type TUiPluginMap = { [pluginName: string]: TPlugin }
