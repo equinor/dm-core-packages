@@ -49,13 +49,6 @@ export type TTableConfig = {
   variant: TTableVariant[]
 }
 
-export type TTableRowItem = {
-  data: TGenericObject
-  id: string
-  index: number
-  key: string
-}
-
 // Table components types
 
 export type TableProps = {
