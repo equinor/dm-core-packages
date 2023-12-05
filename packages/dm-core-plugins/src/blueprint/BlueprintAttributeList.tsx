@@ -22,7 +22,7 @@ export const BlueprintAttributeList = ({
         <Typography className={'self-center'} bold={true}>
           Attributes
         </Typography>
-        <div className="flex justify-end m-1">
+        <div className='flex justify-end m-1'>
           <Button
             as='button'
             variant='ghost_icon'
