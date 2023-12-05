@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent } from 'react'
 import { TWidget } from '../types'
 import { TextField, Tooltip, Typography } from '@equinor/eds-core-react'
+import { NumberFieldWithoutArrows } from '../components/NumberFieldWithoutArrows'
 
 const DimensionalScalarWidget = ({
   value: entity,
@@ -16,6 +17,7 @@ const DimensionalScalarWidget = ({
     ? typeof entity === 'number'
     : typeof entity?.value === 'number'
 
+  const InputField = isNumber ? NumberFieldWithoutArrows : TextField
   return (
     <div style={widgetConfig?.width ? { maxWidth: widgetConfig?.width } : {}}>
       <div
@@ -35,7 +37,7 @@ const DimensionalScalarWidget = ({
           </Typography>
         </Tooltip>
       </div>
-      <TextField
+      <InputField
         unit={widgetConfig?.unit || entity?.unit}
         type={isNumber ? 'number' : undefined}
         meta={widgetConfig?.meta || entity?.meta}
