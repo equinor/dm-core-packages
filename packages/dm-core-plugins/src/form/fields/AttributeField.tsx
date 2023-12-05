@@ -12,7 +12,7 @@ import { TField } from '../types'
 const getFieldType = (attribute: any) => {
   const { attributeType, dimensions } = attribute
 
-  if (attributeType == 'binary') {
+  if (attributeType === 'binary') {
     return 'binary'
   }
 

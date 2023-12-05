@@ -16,7 +16,7 @@ export const AttributeList = (props: {
     config && config.fields.length
       ? config.fields
           .map((name: string) =>
-            attributes?.find((attribute: TAttribute) => attribute.name == name)
+            attributes?.find((attribute: TAttribute) => attribute.name === name)
           )
           .filter((attribute): attribute is TAttribute => !!attribute)
       : attributes

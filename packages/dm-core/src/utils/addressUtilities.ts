@@ -44,6 +44,6 @@ export const resolveRelativeAddress = (
     ? splitString(address, '.', 1)
     : [address, '']
   return `/${dataSource}/${
-    documentPath == '^' ? fallbackDocumentPath : documentPath
+    documentPath === '^' ? fallbackDocumentPath : documentPath
   }${attributePath ? '.' + attributePath : ''}`
 }

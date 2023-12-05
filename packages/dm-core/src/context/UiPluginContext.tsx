@@ -11,7 +11,7 @@ const UiPluginContext = createContext<TUiPluginContext | undefined>(undefined)
 
 export const useUiPlugins = () => {
   const context = useContext(UiPluginContext)
-  if (context == undefined) {
+  if (context === undefined) {
     throw new Error('useUiPlugins must be used within a UiPluginProvider')
   }
   return context

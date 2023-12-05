@@ -3,7 +3,7 @@ export function getKey<T>(
   key: string,
   type: string
 ): T | undefined {
-  return object !== undefined && key in object && typeof object[key] == type
+  return object !== undefined && key in object && typeof object[key] === type
     ? object[key]
     : undefined
 }

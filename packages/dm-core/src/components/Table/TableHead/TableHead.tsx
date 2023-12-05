@@ -24,12 +24,12 @@ export function TableHead(props: TableHeadProps) {
   return (
     <Table.Head>
       <Table.Row>
-        {tableVariant == TableVariantNameEnum.Edit && (
+        {tableVariant === TableVariantNameEnum.Edit && (
           <Table.Cell width='48' aria-label='Sort'></Table.Cell>
         )}
         {config.columns.map((column: TTableColumnConfig) => {
           if (column.data === '^expandable' || column.data === '^tab') {
-            return tableVariant == TableVariantNameEnum.View ? (
+            return tableVariant === TableVariantNameEnum.View ? (
               <Table.Cell
                 key={column.data}
                 width={column.data === '^expandable' ? '80' : '48'}
@@ -96,13 +96,13 @@ export function TableHead(props: TableHeadProps) {
                 <Menu.Item
                   onClick={() =>
                     setTableVariant(
-                      tableVariant == TableVariantNameEnum.View
+                      tableVariant === TableVariantNameEnum.View
                         ? TableVariantNameEnum.Edit
                         : TableVariantNameEnum.View
                     )
                   }
                 >
-                  {tableVariant == TableVariantNameEnum.View ? 'Edit' : 'View'}
+                  {tableVariant === TableVariantNameEnum.View ? 'Edit' : 'View'}
                 </Menu.Item>
               )}
             </Menu>

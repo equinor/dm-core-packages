@@ -42,7 +42,7 @@ export const FilePlugin = (props: IUIPlugin) => {
       {fileEntity?.content && (
         <DownloadFileButton fileEntity={fileEntity} dataSourceId={dataSource} />
       )}
-      {fileEntity?.content == undefined && (
+      {fileEntity?.content === undefined && (
         <UploadFileButton onUpload={handleUpload} dataSourceId={dataSource} />
       )}
     </>

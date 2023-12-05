@@ -11,7 +11,7 @@ export const splitString = (
   maxsplit: number
 ) => {
   const arr = target.split(separator)
-  if (arr.slice(maxsplit).length == 0) return arr
+  if (arr.slice(maxsplit).length === 0) return arr
   return [...arr.slice(0, maxsplit), arr.slice(maxsplit).join(separator)]
 }
 

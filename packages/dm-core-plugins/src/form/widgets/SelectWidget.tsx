@@ -39,8 +39,8 @@ const SelectWidget = (props: TWidget) => {
 
   const initialSelectedOptions = options?.filter((option: TOption) =>
     isMultiselect
-      ? props.value.some((value: any) => value == option.value)
-      : props.value == option.value
+      ? props.value.some((value: any) => value === option.value)
+      : props.value === option.value
   )
 
   return (

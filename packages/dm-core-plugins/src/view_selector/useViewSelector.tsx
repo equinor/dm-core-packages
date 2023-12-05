@@ -123,7 +123,7 @@ export function useViewSelector(
       })
       Object.entries(entity).forEach(
         ([key, attributeEntity]: [string, any]) => {
-          if (typeof attributeEntity == 'object') {
+          if (typeof attributeEntity === 'object') {
             newViews.push({
               viewId: key,
               label: key,

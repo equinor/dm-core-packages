@@ -14,7 +14,7 @@ export const mockBlueprintGet = (blueprints: Array<any>) => {
     Promise.resolve({
       data: {
         blueprint: blueprints.find(
-          (blueprint: any) => blueprint.name == props.typeRef
+          (blueprint: any) => blueprint.name === props.typeRef
         ),
         uiRecipes: [
           {

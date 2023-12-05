@@ -114,7 +114,7 @@ export function ConfigureSchedule(props: {
             initialSelectedOptions={[interval]}
             onInputChange={(label: string) => {
               const chosenIntervalType = Object.entries(EInterval)
-                .filter((l) => l.length > 0 && l[1] == label)
+                .filter((l) => l.length > 0 && l[1] === label)
                 .pop()
               setInterval(
                 chosenIntervalType ? chosenIntervalType[1] : EInterval.HOURLY

@@ -41,7 +41,7 @@ export const UploadFileButton = (props: UploadButtonProps) => {
       .catch((error: AxiosError<any>) => {
         console.log(error)
         const errorResponse =
-          typeof error.response?.data == 'object'
+          typeof error.response?.data === 'object'
             ? error.response?.data?.message
             : error.response?.data
         const errorMessage = errorResponse || 'Failed to upload file'

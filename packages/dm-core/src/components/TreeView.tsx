@@ -45,9 +45,9 @@ const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
   const { node, expanded } = props
 
   const showAsReference =
-    node.parent?.type != EBlueprint.PACKAGE &&
-    node?.type != EBlueprint.PACKAGE &&
-    node?.type != 'dataSource' &&
+    node.parent?.type !== EBlueprint.PACKAGE &&
+    node?.type !== EBlueprint.PACKAGE &&
+    node?.type !== 'dataSource' &&
     !Array.isArray(node?.entity) && // Lists can not be uncontained
     !node?.attribute?.contained &&
     !node?.parent?.attribute?.contained // For items in a list we need to check the parent
@@ -65,7 +65,7 @@ const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
   switch (node.type) {
     case EBlueprint.FILE: {
       const fileColor = '#2965FF'
-      if (node.entity['filetype'] == 'application/pdf')
+      if (node.entity['filetype'] === 'application/pdf')
         return <FaFilePdf style={{ color: fileColor }} title='pdf' />
       if (node.entity['filetype'].startsWith('image'))
         return <FaFileImage style={{ color: fileColor }} title='image' />
@@ -112,7 +112,7 @@ const TreeButton = (props: {
   const { node, expanded, loading, onClick } = props
 
   let isExpandable = true
-  if (node.type != 'dataSource' && node.entity instanceof Object) {
+  if (node.type !== 'dataSource' && node.entity instanceof Object) {
     isExpandable = Object.values(node?.entity).some(
       (value: any) => value instanceof Array || value instanceof Object
     )

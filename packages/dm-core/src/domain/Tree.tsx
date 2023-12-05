@@ -40,7 +40,7 @@ const createContainedChildren = (
         name: Array.isArray(document) ? value?.name || key : key,
         children: parentNode.children?.[childNodeId]?.children || {},
         attribute: blueprint.attributes?.find(
-          (attribute: TAttribute) => attribute.name == key
+          (attribute: TAttribute) => attribute.name === key
         ),
       })
     }
@@ -334,7 +334,7 @@ export class Tree {
       ? (await this.dmssApi.documentGet({ address: path })).data
       : undefined
     const isEmpty =
-      data == undefined || (Array.isArray(data) && data.length == 0)
+      data === undefined || (Array.isArray(data) && data.length === 0)
     let node: TreeNode
     if (isEmpty) {
       node = new TreeNode({
@@ -343,7 +343,9 @@ export class Tree {
         entity: {},
         type: 'error',
         name: path,
-        message: `${path} ${data == undefined ? 'does not exist' : 'is empty'}`,
+        message: `${path} ${
+          data === undefined ? 'does not exist' : 'is empty'
+        }`,
       })
     } else if (Array.isArray(data)) {
       node = new TreeNode({
