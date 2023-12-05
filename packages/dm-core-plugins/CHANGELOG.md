@@ -30,6 +30,27 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.26.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.25.0...dm-core-plugins-v1.26.0) (2023-12-05)
+
+
+### Features
+
+* better blueprint picker ([0e5f5b7](https://github.com/equinor/dm-core-packages/commit/0e5f5b7ef42af588d37aed1830efe83dedc74859))
+* expand and open at the same time ([2d40d6b](https://github.com/equinor/dm-core-packages/commit/2d40d6bdf237c85f1cb16782357baff539122a12))
+* role mapping ([a57ad18](https://github.com/equinor/dm-core-packages/commit/a57ad18ee183a4e9adfa27d8226bed74679adcf2))
+
+
+### Bug Fixes
+
+* keep objects that uses widgets ([6209162](https://github.com/equinor/dm-core-packages/commit/6209162955545735fe744ef512a5342676c1d6db))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.21.0 to ^1.22.0
+
 ## [1.25.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.24.0...dm-core-plugins-v1.25.0) (2023-12-05)
 
 

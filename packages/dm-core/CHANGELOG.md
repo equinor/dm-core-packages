@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.22.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.21.0...dm-core-v1.22.0) (2023-12-05)
+
+
+### Features
+
+* better blueprint picker ([0e5f5b7](https://github.com/equinor/dm-core-packages/commit/0e5f5b7ef42af588d37aed1830efe83dedc74859))
+* role mapping ([a57ad18](https://github.com/equinor/dm-core-packages/commit/a57ad18ee183a4e9adfa27d8226bed74679adcf2))
+
+
+### Bug Fixes
+
+* fix some bugs ([#885](https://github.com/equinor/dm-core-packages/issues/885)) ([1821a79](https://github.com/equinor/dm-core-packages/commit/1821a79b02ec711914a51b86183eb6c2419acb21))
+
 ## [1.21.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.20.0...dm-core-v1.21.0) (2023-12-05)
 
 
