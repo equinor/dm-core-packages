@@ -21,7 +21,7 @@ TODO update this documentation.
 
 * expanded(boolean): items in the list is expanded by default
 * headers(list(string)): a list of which attributes to display as headers in the list view
-* canOpen(boolean): will open the item in a new tab when clicking the expand button
+* openAsTab(boolean): will open the item in a new tab when clicking the expand button
 * functionality: is used for specifying which functionality that should be available in the UI plugin. The possible
   options are
     * delete

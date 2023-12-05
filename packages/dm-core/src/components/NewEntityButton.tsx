@@ -126,6 +126,7 @@ export function NewEntityButton(props: {
                   setTypeToCreate(selectedType)
                 }
                 formData={typeToCreate}
+                fieldType={'input-field'}
               />
             </div>
           )}

@@ -9,6 +9,7 @@ import {
 
 import {
   Button,
+  Icon,
   Input,
   Label,
   Progress,
@@ -20,6 +21,7 @@ import { TreeNode } from '../../domain/Tree'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
 import { TreeView } from '../TreeView'
+import { add } from '@equinor/eds-icons'
 
 export type TBlueprintPickerProps = {
   /** A function to trigger with the onChange event */
@@ -33,7 +35,7 @@ export type TBlueprintPickerProps = {
   /** A title for the picker */
   label?: string
   /** Render a input element or just a button */
-  type?: 'button' | 'input'
+  fieldType?: 'button' | 'input-field'
 }
 
 const defaults: TBlueprintPickerProps = {
@@ -41,7 +43,7 @@ const defaults: TBlueprintPickerProps = {
   variant: undefined,
   disabled: false,
   label: 'Blueprint',
-  type: 'input',
+  fieldType: 'button',
   onChange: () => null,
 }
 
@@ -64,7 +66,7 @@ const defaults: TBlueprintPickerProps = {
  * @returns A React component
  */
 export const BlueprintPicker = (props: TBlueprintPickerProps) => {
-  const { onChange, formData, variant, disabled, label, type } = {
+  const { onChange, formData, variant, disabled, label, fieldType } = {
     ...defaults,
     ...props,
   }
@@ -73,7 +75,7 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
 
   return (
     <div>
-      {type === 'input' ? (
+      {fieldType === 'input-field' ? (
         <>
           <Label label={label ?? ''} />
           <Tooltip title={truncatePathString(formData)}>
@@ -92,9 +94,15 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
           </Tooltip>
         </>
       ) : (
-        <Button onClick={() => setShowModal(true)} variant={'outlined'}>
-          {label ?? 'Select Blueprint'}
-        </Button>
+        <Tooltip title={label || 'Select Blueprint'}>
+          <Button
+            title='Add and save'
+            variant='ghost_icon'
+            onClick={() => setShowModal(true)}
+          >
+            <Icon data={add} />
+          </Button>
+        </Tooltip>
       )}
       <Dialog
         isDismissable

@@ -59,6 +59,7 @@ const NewEntityDialog = (props: TProps) => {
           label='Blueprint'
           onChange={setBlueprint}
           formData={blueprint}
+          fieldType={'input-field'}
         />
       </Dialog.CustomContent>
       <Dialog.Actions>
