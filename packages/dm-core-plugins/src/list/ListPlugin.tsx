@@ -57,7 +57,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     ...config,
     functionality: { ...defaultConfig.functionality, ...config.functionality },
   }
-  console.log(config, props)
+
   const {
     items,
     attribute,
