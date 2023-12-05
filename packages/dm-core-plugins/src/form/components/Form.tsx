@@ -80,6 +80,9 @@ export const Form = (props: TFormProps) => {
         // Remove if not shown inline
         const uiAttribute: TUiAttributeObject | undefined =
           config?.attributes.find((attribute) => attribute.name === key)
+
+        if (uiAttribute?.widget) continue
+
         if (!uiAttribute?.showInline) {
           toRemoveFromPayload.push(key)
           continue
