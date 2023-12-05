@@ -1,23 +1,6 @@
 import React from 'react'
-
-import { TextField } from '@equinor/eds-core-react'
-
+import { NumberFieldWithoutArrows } from '../components/NumberFieldWithoutArrows'
 import { TWidget } from '../types'
-import styled from 'styled-components'
-
-const NumberFieldWithoutArrows = styled(TextField)`
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  /* Firefox */
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
-`
 
 const NumberWidget = (props: TWidget) => {
   const { label, onChange, isDirty } = props
