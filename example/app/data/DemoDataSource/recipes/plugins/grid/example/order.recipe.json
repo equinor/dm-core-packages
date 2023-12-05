@@ -28,7 +28,6 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-        "viewConfigs": [],
         "headers": ["name", "description"],
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",

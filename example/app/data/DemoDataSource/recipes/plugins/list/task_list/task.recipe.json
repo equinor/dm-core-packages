@@ -53,8 +53,6 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-        "viewConfigs": [],
-        "openAsTab": false,
         "selectFromScope": "dmss://DemoDataSource/plugins/list/task_list",
         "headers": ["name", "assigned"],
         "saveExpanded": false,
@@ -62,7 +60,9 @@
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
           "delete": true,
           "add": true,
-          "sort": true
+          "sort": true,
+          "expand": true,
+          "open": true
         }
       }
     }
