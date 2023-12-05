@@ -30,13 +30,6 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
-## [1.26.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.25.0...dm-core-plugins-v1.26.0) (2023-12-05)
-
-
-### Features
-
-* expand and open at the same time ([2d40d6b](https://github.com/equinor/dm-core-packages/commit/2d40d6bdf237c85f1cb16782357baff539122a12))
-
 ## [1.25.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.24.0...dm-core-plugins-v1.25.0) (2023-12-05)
 
 
