@@ -18,6 +18,7 @@ import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { external_link, undo, chevron_right, link } from '@equinor/eds-icons'
 import { AppendButton, ListItemButton, FormButton } from './Components'
+import { DeleteSoftButton } from '../common/DeleteSoftButton'
 
 type TListConfig = {
   expanded?: boolean
@@ -234,9 +235,9 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   </>
                 )}
                 {internalConfig.functionality.delete && (
-                  <ListItemButton
-                    type='delete'
+                  <DeleteSoftButton
                     onClick={() => removeItem(item, false)}
+                    title={'Delete'}
                   />
                 )}
               </Stack>

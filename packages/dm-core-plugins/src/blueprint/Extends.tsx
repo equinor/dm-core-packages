@@ -9,6 +9,7 @@ import { BlueprintPicker } from '@development-framework/dm-core'
 import { Fieldset } from '../form/styles'
 import { close } from '@equinor/eds-icons'
 import * as React from 'react'
+import { DeleteSoftButton } from '../common/DeleteSoftButton'
 
 export const Extends = (props: {
   formData: string[]
@@ -39,8 +40,7 @@ export const Extends = (props: {
                 <li key={index}>
                   <div className={'flex align-middle justify-between ms-5'}>
                     <TextField readOnly={true} value={typeRef} id={'123'} />
-                    <Button
-                      variant='ghost_icon'
+                    <DeleteSoftButton
                       onClick={() =>
                         setExtends(
                           formData.filter(
@@ -48,9 +48,8 @@ export const Extends = (props: {
                           )
                         )
                       }
-                    >
-                      <Icon data={close} size={18} title='remove extend item' />
-                    </Button>
+                      title={'Remove blueprint'}
+                    />
                   </div>
                 </li>
               ))}

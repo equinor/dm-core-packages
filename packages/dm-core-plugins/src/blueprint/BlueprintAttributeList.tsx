@@ -3,7 +3,7 @@ import { truncatePathString } from '@development-framework/dm-core'
 import { BlueprintAttribute } from './BlueprintAttribute'
 import { Fieldset } from '../form/styles'
 import * as React from 'react'
-import { DeleteSoftButton } from './DeleteSoftButton'
+import { DeleteSoftButton } from '../common/DeleteSoftButton'
 import { add } from '@equinor/eds-icons'
 
 interface BlueprintAttributeListProps {
