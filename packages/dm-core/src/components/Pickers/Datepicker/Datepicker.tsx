@@ -35,7 +35,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   const [open, setOpen] = useState(false)
   const datepickerRef = useRef<any | null>(null)
   const [datetime, setDatetime] = useState(
-    DateTime.fromISO(selectedDate).toUTC()
+    selectedDate
+      ? DateTime.fromISO(selectedDate).toUTC()
+      : DateTime.now().toUTC()
   )
   const [fieldDateValue, setFieldDateValue] = useState(
     datetime.toFormat('dd/MM/yyyy') ?? 'dd/mm/yyyy'
@@ -49,7 +51,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   }, [datetime])
 
   useClickOutside(datepickerRef, () => {
-    open && setOpen(false)
+    setOpen(false)
   })
 
   function handleDateInput(dateInput: string): void {
