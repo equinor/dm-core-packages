@@ -15,7 +15,9 @@ export function updateItemAttribute(
 ) {
   const itemsCopy = [...items]
   const index = itemsCopy.findIndex((item) => item.key === key)
-  itemsCopy[index].data![attribute] = newValue
+  if (itemsCopy[index].data) {
+    ;(itemsCopy[index].data as TGenericObject)[attribute] = newValue
+  }
   return itemsCopy
 }
 

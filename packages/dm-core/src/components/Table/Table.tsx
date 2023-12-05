@@ -127,9 +127,7 @@ export function Table(props: TableProps) {
                     key={item.key}
                     condition={tableVariant === TableVariantNameEnum.Edit}
                     wrapper={(children: React.ReactNode) => (
-                      <SortableItem item={item}>
-                        {children}
-                      </SortableItem>
+                      <SortableItem item={item}>{children}</SortableItem>
                     )}
                   >
                     <TableRow
