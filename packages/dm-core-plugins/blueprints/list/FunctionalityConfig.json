@@ -34,6 +34,20 @@
       "attributeType": "boolean",
       "optional": true,
       "default": true
+    },
+    {
+      "name": "open",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
+      "name": "expand",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
     }
   ]
 }
