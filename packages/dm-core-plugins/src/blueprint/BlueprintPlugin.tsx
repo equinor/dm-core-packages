@@ -87,35 +87,6 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
         }
       />
       <Spacer />
-      <div className={'flex justify-start'}>
-        <Typography className={'self-center'} bold={true}>
-          Attributes
-        </Typography>
-        <div style={{ display: 'flex', justifyContent: 'end', margin: '5px' }}>
-          <Button
-            as='button'
-            variant='ghost_icon'
-            onClick={() =>
-              setFormData({
-                ...formData,
-                attributes: [
-                  ...formData.attributes,
-                  {
-                    name: 'new-attribute',
-                    attributeType: 'string',
-                    type: 'dmss://system/SIMOS/BlueprintAttribute',
-                    contained: true,
-                    optional: true,
-                    _id: crypto.randomUUID(),
-                  },
-                ],
-              })
-            }
-          >
-            <Icon data={add}></Icon>
-          </Button>
-        </div>
-      </div>
       <BlueprintAttributeList formData={formData} setFormData={setFormData} />
       <div className={'flex justify-start space-x-2 mt-5'}>
         <Button
