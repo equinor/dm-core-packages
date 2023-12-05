@@ -30,6 +30,21 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.25.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.24.0...dm-core-plugins-v1.25.0) (2023-12-05)
+
+
+### Features
+
+* **datepicker:** Datepicker component ([#796](https://github.com/equinor/dm-core-packages/issues/796)) ([7389e38](https://github.com/equinor/dm-core-packages/commit/7389e382b5a6d22f553a40b0517026ce0476404a))
+* update list item on change in expanded ([2bcf59d](https://github.com/equinor/dm-core-packages/commit/2bcf59d006ea5382d4cb4b606c1d5345c7bebae1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.20.0 to ^1.21.0
+
 ## [1.24.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.23.0...dm-core-plugins-v1.24.0) (2023-11-30)
 
 
