@@ -3,6 +3,21 @@ import React from 'react'
 import { TextField } from '@equinor/eds-core-react'
 
 import { TWidget } from '../types'
+import styled from 'styled-components'
+
+const NumberFieldWithoutArrows = styled(TextField)`
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+`
 
 const NumberWidget = (props: TWidget) => {
   const { label, onChange, isDirty } = props
@@ -10,7 +25,7 @@ const NumberWidget = (props: TWidget) => {
     onChange?.(Number(event.target.value))
 
   return (
-    <TextField
+    <NumberFieldWithoutArrows
       id={props.id}
       readOnly={props.readOnly}
       defaultValue={props.value}
@@ -18,8 +33,8 @@ const NumberWidget = (props: TWidget) => {
       variant={props.variant}
       helperText={props.helperText}
       onChange={onChangeHandler}
+      type={'number'}
       label={label}
-      type='number'
       data-testid={`form-number-widget-${label}`}
       style={
         isDirty && props.variant !== 'error'
