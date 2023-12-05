@@ -12,6 +12,7 @@ import {
 } from '@equinor/eds-icons'
 import { AttributeField } from '../fields/AttributeField'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { DeleteSoftButton } from '../../common/DeleteSoftButton'
 
 function getDefaultValue(type: string): string | boolean | number {
   switch (type) {
@@ -120,19 +121,13 @@ export const ArrayPrimitiveTemplate = (
                 onMouseEnter={() => setHovering(index)}
                 onMouseLeave={() => setHovering(-1)}
               >
-                <Button
+                <DeleteSoftButton
                   onClick={() => removeItem(index)}
-                  style={{
-                    visibility: `${index === hovering ? 'visible' : 'hidden'}`,
-                  }}
-                  data-testid={`form-primitive-array-remove-${index}`}
-                  variant='ghost_icon'
-                  color='danger'
-                  aria-label='remove-action'
-                >
-                  <Icon data={remove_outlined} />
-                </Button>
-
+                  title={'Remove list item'}
+                  ariaLabel='remove-action'
+                  dataTestId={`form-primitive-array-remove-${index}`}
+                  visibilityWhenNotHover={'opaque'}
+                />
                 <AttributeField
                   namePath={`${namePath}.${index}`}
                   uiAttribute={{
@@ -147,7 +142,7 @@ export const ArrayPrimitiveTemplate = (
             </Tooltip>
           ))}
           <Button
-            style={{ marginLeft: '35px' }}
+            style={{ marginLeft: '30px' }}
             color='secondary'
             variant='outlined'
             onClick={() =>
