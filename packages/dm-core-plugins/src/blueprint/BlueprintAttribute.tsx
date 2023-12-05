@@ -34,7 +34,6 @@ export const BlueprintAttribute = (props: {
   setAttribute: (attr: TAttribute) => void
 }) => {
   const { attribute, setAttribute } = props
-  console.log(attribute)
   return (
     <div>
       <TextField
