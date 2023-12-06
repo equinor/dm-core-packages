@@ -4,32 +4,30 @@ import { Dialog } from '@development-framework/dm-core'
 
 type RemoveJobDialogProps = {
   isOpen: boolean
-  remove: () => void
-  afterRemove: () => void
+  onConfirm: () => void
+  close: () => void
+  title?: string
 }
 export const RemoveJobDialog = (props: RemoveJobDialogProps) => {
-  const { isOpen, remove, afterRemove } = props
+  const { isOpen, onConfirm, close, title } = props
   return (
     <Dialog open={isOpen}>
       <Dialog.Header>
-        <Dialog.Title>Confirm Stop</Dialog.Title>
+        <Dialog.Title>
+          {title ?? 'Are you sure you want to stop the job?'}
+        </Dialog.Title>
       </Dialog.Header>
-      <Dialog.CustomContent>
-        <p> Are you sure you want to stop the current job? </p>
-      </Dialog.CustomContent>
-      <Dialog.Actions>
+      <Dialog.Actions style={{ justifyContent: 'space-around' }}>
         <Button
           onClick={() => {
-            remove()
-            afterRemove()
+            onConfirm()
+            close()
           }}
           color={'danger'}
         >
-          Yes
+          Ok
         </Button>
-        <Button onClick={() => afterRemove()} variant='outlined'>
-          Cancel
-        </Button>
+        <Button onClick={close}>Cancel</Button>
       </Dialog.Actions>
     </Dialog>
   )

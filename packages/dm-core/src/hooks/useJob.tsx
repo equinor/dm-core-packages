@@ -101,7 +101,9 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
               // The job must be started before it has an UID
               setHookJobId(response.data.uid)
             }
+            return
           }
+          setStatus(response.data.status)
         })
         .catch((error: AxiosError<ErrorResponse>) => {
           setError(error.response?.data)
@@ -114,6 +116,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   // The interval is deregistered if the status of the job is not "Running"
   useEffect(() => {
     if (!hookJobId) return
+    fetchStatusAndLogs() // Do one fetch immediately
     statusIntervalId = setInterval(fetchStatusAndLogs, 5000)
     return () => clearInterval(statusIntervalId)
   }, [hookJobId])

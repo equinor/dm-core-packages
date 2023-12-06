@@ -71,6 +71,7 @@ const TestUseListPlugin = (props: IUIPlugin) => {
       {attribute?.contained && (
         <Button onClick={() => addItem()}>Add item</Button>
       )}
+      {/*@ts-ignore*/}
       {dirtyState && <Button onClick={() => save(items)}>Save</Button>}
       <ul>
         {paginatedRows?.map((item: TItem<TGenericObject>) => {
