@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.22.0...dm-core-v1.22.1) (2023-12-06)
+
+
+### Bug Fixes
+
+* fix some bugs ([#895](https://github.com/equinor/dm-core-packages/issues/895)) ([bdb3806](https://github.com/equinor/dm-core-packages/commit/bdb38066f47c9ae5923c3e0377c3cd125a14de70))
+
 ## [1.22.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.21.0...dm-core-v1.22.0) (2023-12-05)
 
 
