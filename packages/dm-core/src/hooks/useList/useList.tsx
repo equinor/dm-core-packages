@@ -84,46 +84,55 @@ export function useList<T extends object>(
       .finally(() => setLoading(false))
   }, [attribute, refresh])
 
-  const addItem = useCallback(
-    async (saveOnAdd: boolean = true, insertAtIndex?: number) => {
-      if (!attribute) throw new Error('Missing attribute')
-      if (!attribute.contained) {
-        throw new Error(
-          "Can't add item to a list that has uncontained items, need to use addReference method instead"
-        )
-      }
-      setLoading(true)
-      try {
-        setDirtyState(true)
-        const instantiateResponse = await dmssAPI.instantiateEntity({
-          entity: {
-            type: attribute?.attributeType,
-          },
-        })
+  async function addItem(saveOnAdd: boolean = true, insertAtIndex?: number) {
+    if (!attribute) throw new Error('Missing attribute')
+    if (!attribute.contained) {
+      throw new Error(
+        "Can't add item to a list that has uncontained items, need to use addReference method instead"
+      )
+    }
+    setLoading(true)
+    try {
+      setDirtyState(true)
+      const instantiateResponse = await dmssAPI.instantiateEntity({
+        entity: {
+          type: attribute?.attributeType,
+        },
+      })
+      const newItem: TItem<T> = utils.createNewItemObject(
+        instantiateResponse.data,
+        insertAtIndex || items.length,
+        saveOnAdd
+      )
+
+      if (insertAtIndex !== undefined) {
         const itemsCopy = [...items]
-        const newItem: TItem<T> = utils.createNewItemObject(
-          instantiateResponse.data,
-          insertAtIndex || items.length,
-          saveOnAdd
-        )
-        const index = insertAtIndex !== undefined ? insertAtIndex : items.length
-        itemsCopy.splice(index, 0, newItem)
+        itemsCopy.splice(insertAtIndex, 0, newItem)
         setItems(itemsCopy)
         if (saveOnAdd) {
-          save(itemsCopy)
+          await save(itemsCopy)
           setDirtyState(false)
         }
-      } catch (error) {
-        if (isAxiosError(error)) {
-          setError(error.response?.data || { message: error.name, data: error })
+      } else {
+        if (saveOnAdd) {
+          await dmssAPI.documentAdd({
+            address: idReference,
+            document: JSON.stringify(newItem.data),
+          })
+          setDirtyState(false)
         }
-        throw error
-      } finally {
-        setLoading(false)
+        const itemsCopy = [...items, newItem]
+        setItems(itemsCopy)
       }
-    },
-    [attribute, items]
-  )
+    } catch (error) {
+      if (isAxiosError(error)) {
+        setError(error.response?.data || { message: error.name, data: error })
+      }
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const removeItem = async (
     itemToDelete: TItem<T>,
