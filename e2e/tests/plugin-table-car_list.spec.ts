@@ -15,6 +15,9 @@ test('Table car list example', async ({ page }) => {
   await navigate()
 
   await test.step('Add a new car by using expand', async () => {
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(1)
     await page.getByRole('button', { name: 'Add new row' }).click()
     await expect(
       page.getByRole('button', { name: 'Open expandable row' })
