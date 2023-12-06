@@ -63,6 +63,8 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           title={meta.title}
           src={blobUrl}
           style={{ width: '100%', height: 'auto' }}
+          height={height}
+          width={width}
           role='document'
         />
       )
@@ -109,13 +111,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           </div>
         </Popover.Content>
         <Popover.Actions>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              width: '100%',
-            }}
-          >
+          <div className='flex justify-start w-full'>
             <Button
               variant='ghost'
               as='a'
