@@ -32,7 +32,7 @@ const RemoveObject = (props: {
       })
   }
   return (
-    <DeleteHardButton onConfirmDelete={onClick} title={`Delete  ${namePath}`} />
+    <DeleteHardButton onConfirmDelete={onClick} title={`Delete ${namePath}`} />
   )
 }
 
