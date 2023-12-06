@@ -30,6 +30,30 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.27.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.26.0...dm-core-plugins-v1.27.0) (2023-12-06)
+
+
+### Features
+
+* better blueprint picker ([0e5f5b7](https://github.com/equinor/dm-core-packages/commit/0e5f5b7ef42af588d37aed1830efe83dedc74859))
+* consistency across delete buttons ([295372c](https://github.com/equinor/dm-core-packages/commit/295372cd27d64f12b6f48e15a9630b765d262e2d))
+* role mapping ([a57ad18](https://github.com/equinor/dm-core-packages/commit/a57ad18ee183a4e9adfa27d8226bed74679adcf2))
+
+
+### Bug Fixes
+
+* keep objects that uses widgets ([6209162](https://github.com/equinor/dm-core-packages/commit/6209162955545735fe744ef512a5342676c1d6db))
+* ran biome ([9552e7b](https://github.com/equinor/dm-core-packages/commit/9552e7b611c7bd7d777659c79a1f3661ed116990))
+* remove loggin and refactor ([f234855](https://github.com/equinor/dm-core-packages/commit/f234855e4adc100c38663c6fc9e5373bbb428631))
+* revert changes ([#894](https://github.com/equinor/dm-core-packages/issues/894)) ([8006512](https://github.com/equinor/dm-core-packages/commit/80065120534aebe89f1b0980d39ba3f1b16fe5d1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.22.0 to ^1.22.1
+
 ## [1.26.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.25.0...dm-core-plugins-v1.26.0) (2023-12-05)
 
 
