@@ -218,6 +218,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                         data={external_link}
                         size={18}
                         title={'Open item'}
+                        aria-label={'Open in tab'}
                       />
                     </Button>
                   </Tooltip>
