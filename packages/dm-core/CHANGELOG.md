@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.23.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.22.1...dm-core-v1.23.0) (2023-12-06)
+
+
+### Features
+
+* **Explorere:** Copy entiity address ([d9c9050](https://github.com/equinor/dm-core-packages/commit/d9c90500e8648150637c881659d6a7133a387faa))
+* use same delete in table, move it to dm-core ([23df0be](https://github.com/equinor/dm-core-packages/commit/23df0bec5e31cc75c0af3bf49c262688e251714a))
+
+
+### Bug Fixes
+
+* hide binary again ([57bb65f](https://github.com/equinor/dm-core-packages/commit/57bb65f203d650d8f9b7c04b647886949c1e569d))
+* revert more changes from biome PR ([62fd393](https://github.com/equinor/dm-core-packages/commit/62fd39309ee7427691aab3c4cdbd6ccbc9a71af1))
+
 ## [1.22.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.22.0...dm-core-v1.22.1) (2023-12-06)
 
 
