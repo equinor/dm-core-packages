@@ -27,9 +27,12 @@ export const UiPluginProvider = ({
   function getUiPlugin(
     pluginName: string
   ): (props: IUIPlugin) => React.ReactElement {
-    if (Object.keys(plugins).includes(pluginName))
-      return plugins[pluginName].component
-    return () => <ErrorGroup>Did not find the plugin: {pluginName}</ErrorGroup>
+    const plugin = plugins[pluginName]?.component
+    if (!plugin)
+      return () => (
+        <ErrorGroup>Did not find the plugin: {pluginName}</ErrorGroup>
+      )
+    return plugin
   }
 
   return (

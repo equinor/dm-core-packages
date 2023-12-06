@@ -2,6 +2,7 @@ import { EBlueprint, TreeNode } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import React from 'react'
 import { EDialog } from '../../types'
+import { toast } from 'react-toastify'
 
 // This function must return a list of Menu.Item, ie not wrapped in a <></>.
 // See https://github.com/equinor/design-system/issues/2659
@@ -55,6 +56,19 @@ export function getMenuItems(
   if (node.type !== 'dataSource') {
     menuItems.push(getMenuItem(EDialog.Delete, 'Delete'))
   }
+
+  // Every node gets the "copy address" entry
+  menuItems.push(
+    <Menu.Item
+      key={'copy-address'}
+      onClick={() => {
+        navigator.clipboard.writeText(node.nodeId)
+        toast.success('Copied!')
+      }}
+    >
+      Copy address
+    </Menu.Item>
+  )
 
   return menuItems
 }
