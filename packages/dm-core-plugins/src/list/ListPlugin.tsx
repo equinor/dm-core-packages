@@ -23,30 +23,32 @@ import { DeleteSoftButton } from '../common/DeleteSoftButton'
 type TListConfig = {
   expanded?: boolean
   headers: string[]
-  defaultView: TViewConfig
-  views: TViewConfig[]
-  openAsTab: boolean
+  expandViewConfig: TViewConfig
+  openViewConfig: TViewConfig
   saveExpanded: boolean
   selectFromScope?: string
   functionality: {
     add: boolean
     sort: boolean
     delete: boolean
+    expand: boolean
+    open: boolean
   }
   resolveReferences: boolean
 }
 const defaultConfig: TListConfig = {
   expanded: false,
   headers: ['name', 'type'],
-  defaultView: { type: 'ViewConfig', scope: 'self' },
-  views: [],
-  openAsTab: false,
+  expandViewConfig: { type: 'ViewConfig', scope: 'self' },
+  openViewConfig: { type: 'ViewConfig' },
   saveExpanded: false,
   selectFromScope: undefined,
   functionality: {
     add: true,
     sort: true,
     delete: true,
+    expand: true,
+    open: false,
   },
   resolveReferences: true,
 }
@@ -93,34 +95,33 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     updateItem(item, data, false)
   }
 
-  function expandOrOpen(item: TItem<any>) {
-    if (internalConfig.openAsTab) {
-      const view = { label: item?.data?.name, type: 'ViewConfig' }
-      if (!onOpen) {
-        toast.error(
-          'Invalid UiRecipes. The list plugin was not passed an "onOpen()"-function.'
-        )
-        return
-      }
-      onOpen(
-        item.key,
-        view,
-        `${idReference}[${item.index}]`,
-        false,
-        config.saveExpanded
-          ? undefined
-          : (data: any) => handleItemUpdate(item, data),
-        config.saveExpanded
-          ? (data: any) => handleItemUpdate(item, data)
-          : undefined
-      )
-      return
-    } else {
-      const isExpanded = expanded[item.key] || false
-      setExpanded({ ...expanded, [item.key]: !isExpanded })
-    }
+  const handleExpand = (item: TItem<any>) => {
+    const isExpanded = expanded[item.key] || false
+    setExpanded({ ...expanded, [item.key]: !isExpanded })
   }
 
+  const handleOpen = (item: TItem<any>) => {
+    if (!onOpen) {
+      toast.error(
+        'Invalid UiRecipes. The list plugin was not passed an "onOpen()"-function.'
+      )
+      return
+    }
+
+    const view = { ...internalConfig.openViewConfig, label: item?.data?.name }
+    onOpen(
+      item.key,
+      view,
+      `${idReference}[${item.index}]`,
+      false,
+      config.saveExpanded
+        ? undefined
+        : (data: any) => handleItemUpdate(item, data),
+      config.saveExpanded
+        ? (data: any) => handleItemUpdate(item, data)
+        : undefined
+    )
+  }
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading) return <Loading />
 
@@ -158,37 +159,31 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               }}
             >
               <Stack direction='row' spacing={0.5} alignItems='center'>
-                <Tooltip
-                  title={
-                    !internalConfig.openAsTab
-                      ? expanded[item.key]
-                        ? 'Minimize'
-                        : 'Expand'
-                      : 'Open in new tab'
-                  }
-                >
-                  <Button
-                    variant='ghost_icon'
-                    color='secondary'
-                    disabled={!item.isSaved}
-                    data-testid={`expandListItem-${index}`}
-                    onClick={() => expandOrOpen(item)}
-                  >
-                    <Icon
-                      data={
-                        internalConfig.openAsTab ? external_link : chevron_right
-                      }
-                      size={internalConfig.openAsTab ? 18 : 24}
-                      title={expanded[item.key] ? 'Close item' : 'Open item'}
-                      className='transition-all'
-                      style={{
-                        transform: expanded[item.key]
-                          ? 'rotate(90deg)'
-                          : 'rotate(0deg)',
-                      }}
-                    />
-                  </Button>
-                </Tooltip>
+                {internalConfig.functionality.expand && (
+                  <Tooltip title={expanded[item.key] ? 'Minimize' : 'Expand'}>
+                    <Button
+                      variant='ghost_icon'
+                      color='secondary'
+                      disabled={!item.isSaved}
+                      data-testid={`expandListItem-${index}`}
+                      onClick={() => handleExpand(item)}
+                    >
+                      <Icon
+                        data={chevron_right}
+                        size={24}
+                        title={
+                          expanded[item.key] ? 'Minimize item' : 'Expand item'
+                        }
+                        className='transition-all'
+                        style={{
+                          transform: expanded[item.key]
+                            ? 'rotate(90deg)'
+                            : 'rotate(0deg)',
+                        }}
+                      />
+                    </Button>
+                  </Tooltip>
+                )}
                 {attribute && !attribute.contained && <Icon data={link} />}
                 {internalConfig.headers.map(
                   (attribute: string, index: number) => {
@@ -202,7 +197,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                           key={attribute}
                           variant='body_short'
                           bold={index === 0}
-                          onClick={() => expandOrOpen(item)}
                           style={{ cursor: 'pointer' }}
                         >
                           {item?.data[attribute]}
@@ -213,6 +207,24 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 )}
               </Stack>
               <Stack direction='row' alignItems='center'>
+                {internalConfig.functionality.open && (
+                  <Tooltip title='Open in new tab'>
+                    <Button
+                      variant='ghost_icon'
+                      color='secondary'
+                      disabled={!item.isSaved}
+                      data-testid={`open-list-item-${index}`}
+                      onClick={() => handleOpen(item)}
+                    >
+                      <Icon
+                        data={external_link}
+                        size={18}
+                        title={'Open in tab'}
+                        aria-label={'Open in tab'}
+                      />
+                    </Button>
+                  </Tooltip>
+                )}
                 {internalConfig.functionality.sort && (
                   <>
                     <ListItemButton
@@ -264,10 +276,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                         )
                       : `${idReference}[${item.index}]`
                   }
-                  viewConfig={
-                    internalConfig.views[item.index] ??
-                    internalConfig.defaultView
-                  }
+                  viewConfig={internalConfig.expandViewConfig}
                 />
               )}
             </Stack>

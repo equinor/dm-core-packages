@@ -155,7 +155,7 @@ test('New car', async () => {
   await carsDiv.getByRole('button', { name: 'Append Add Item' }).click()
   await expect.soft(carsDiv.getByText('1 - 3 of 3')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Save' }).click()
-  await carsDiv.getByRole('button', { name: 'Open item' }).last().click()
+  await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
   await page
     .getByRole('tabpanel')
     .getByTestId('form-text-widget-name')
@@ -167,7 +167,7 @@ test('New car', async () => {
   await page.reload()
   await navigate()
   await expect(carsDiv.getByText('McLaren')).toBeVisible()
-  await carsDiv.getByRole('button', { name: 'Open item' }).last().click()
+  await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
   await expect(
     page.getByRole('tabpanel').getByTestId('form-text-widget-name').nth(1)
   ).toHaveValue('McLaren')
@@ -183,7 +183,7 @@ test('New customer', async () => {
   await lastTabPanel.getByRole('button', { name: 'Add Item' }).click()
   await expect.soft(lastTabPanel.getByText('1 - 3 of 3')).toBeVisible()
   await lastTabPanel.getByRole('button', { name: 'Save' }).click()
-  await lastTabPanel.getByRole('button', { name: 'Open item' }).last().click()
+  await lastTabPanel.getByRole('button', { name: 'Expand item' }).last().click()
   await lastTabPanel.getByTestId('form-text-widget-name').fill('Lewis')
   await lastTabPanel
     .getByTestId('form-number-widget-Phone Number (optional)')
@@ -196,7 +196,7 @@ test('New customer', async () => {
   await customersDiv.getByRole('button', { name: 'Open' }).click()
   await expect(page.getByText('Lewis')).toBeVisible()
   await page
-    .getByRole('button', { name: 'Open item', exact: true })
+    .getByRole('button', { name: 'Expand item', exact: true })
     .last()
     .click()
   await expect(lastTabPanel.getByTestId('form-text-widget-name')).toBeVisible()

@@ -22,7 +22,7 @@ test('List reference resolved', async ({ page }) => {
   await tyreList
     .getByRole('row')
     .filter({ hasText: 'Soft' })
-    .getByRole('button', { name: 'Open item' })
+    .getByRole('button', { name: 'Expand item' })
     .click()
   await expect(
     tyreList

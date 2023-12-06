@@ -33,7 +33,7 @@ test('Add a new task', async ({ page }) => {
   await page.getByRole('button', { name: 'Save' }).click()
   await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await page
-    .getByRole('button', { name: 'Open item', exact: true })
+    .getByRole('button', { name: 'Expand item', exact: true })
     .last()
     .click()
   await page.getByLabel('Task title:').fill('Tax return')
@@ -48,7 +48,7 @@ test('Add a new task', async ({ page }) => {
   await expect(lastTabPanel).toBeVisible()
   await expect(page.getByText('Tax return', { exact: true })).toBeVisible()
   await page
-    .getByRole('button', { name: 'Open item', exact: true })
+    .getByRole('button', { name: 'Expand item', exact: true })
     .last()
     .click()
   await expect(page.getByLabel('Task title:')).toHaveValue('Tax return')
@@ -59,7 +59,7 @@ test('Add a new task', async ({ page }) => {
     'Review and submit the tax return.'
   )
   await page
-    .getByRole('button', { name: 'Close item', exact: true })
+    .getByRole('button', { name: 'Minimize item', exact: true })
     .last()
     .click()
 })
@@ -68,7 +68,7 @@ test('Mark task as complete', async ({ page }) => {
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
   await page
-    .getByRole('button', { name: 'Open item', exact: true })
+    .getByRole('button', { name: 'Expand item', exact: true })
     .first()
     .click()
   await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible()
@@ -79,13 +79,13 @@ test('Mark task as complete', async ({ page }) => {
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
   await page
-    .getByRole('button', { name: 'Open item', exact: true })
+    .getByRole('button', { name: 'Expand item', exact: true })
     .first()
     .click()
   await expect(page.getByTestId('form-checkbox')).toBeVisible()
   await expect(page.getByTestId('form-checkbox')).toBeChecked()
   await page
-    .getByRole('button', { name: 'Close item', exact: true })
+    .getByRole('button', { name: 'Minimize item', exact: true })
     .first()
     .click()
 })
@@ -228,7 +228,7 @@ test('Edit a task', async ({ page }) => {
     page.getByText('Paint the living room green', { exact: true })
   ).toBeVisible()
   await page
-    .getByRole('button', { name: 'Open item', exact: true })
+    .getByRole('button', { name: 'Expand item', exact: true })
     .last()
     .click()
   await expect(page.getByLabel('Task title:')).toHaveValue(
@@ -240,7 +240,7 @@ test('Edit a task', async ({ page }) => {
   await expect(page.getByLabel('Task description: (optional)')).toHaveValue(
     'Remember to buy new brush.'
   )
-  await page.getByRole('button', { name: 'Close item' }).last().click()
+  await page.getByRole('button', { name: 'Minimize item' }).last().click()
 })
 
 test('Pagination', async ({ page }) => {

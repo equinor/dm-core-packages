@@ -28,12 +28,11 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-        "viewConfigs": [],
         "headers": ["name", "description"],
-        "openAsTab": true,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
-          "delete": true
+          "delete": true,
+          "expand": true
         }
       }
     }
