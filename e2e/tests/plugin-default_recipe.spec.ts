@@ -27,14 +27,14 @@ test('TableList default DMSS UI Recipe', async ({ page }) => {
     await page.getByRole('tab', { name: 'Edit' }).click()
   })
 
-  await test.step('Open item', async () => {
+  await test.step('Open item in tab', async () => {
     await page
       .getByRole('group', { name: 'cars (optional)' })
       .getByLabel('Open in tab')
       .click()
     await page
       .getByRole('row', { name: 'Volvo' })
-      .getByRole('button', { name: 'Open item', exact: true })
+      .getByRole('button', { name: 'Expand item', exact: true })
       .click()
     await expect(
       page.getByRole('button', { name: 'Copy as YAML' })
