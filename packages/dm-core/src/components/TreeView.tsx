@@ -112,7 +112,11 @@ const TreeButton = (props: {
   const { node, expanded, loading, onClick } = props
 
   let isExpandable = true
-  if (node.type !== 'dataSource' && node.entity instanceof Object) {
+  if (node.type === 'dataSource') isExpandable = true
+  if (
+    node.entity instanceof Object &&
+    !['dataSource', EBlueprint.FILE].includes(node.type)
+  ) {
     isExpandable = Object.values(node?.entity).some(
       (value: any) => value instanceof Array || value instanceof Object
     )
