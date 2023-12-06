@@ -217,7 +217,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       <Icon
                         data={external_link}
                         size={18}
-                        title={'Open item'}
+                        title={'Open in tab'}
                         aria-label={'Open in tab'}
                       />
                     </Button>
