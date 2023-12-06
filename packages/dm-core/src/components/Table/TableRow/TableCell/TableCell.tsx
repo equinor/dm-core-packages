@@ -9,6 +9,7 @@ import {
 } from '@equinor/eds-icons'
 import * as Styled from '../styles'
 import { TableCellProps } from '../../types'
+import { resolvePath } from '../../utils'
 
 export function TableCell(props: TableCellProps) {
   const {
@@ -21,7 +22,9 @@ export function TableCell(props: TableCellProps) {
     openItemAsTab,
   } = props
 
-  const value = item.data?.[column?.data]
+  // TODO: Add more logic for creating better default values.
+  //  If pointing to complex optional object, it has to be created.
+  const value = resolvePath(item.data || {}, column?.data, '')
 
   if (typeof value === 'object') {
     throw new Error(
