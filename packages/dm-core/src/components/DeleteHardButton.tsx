@@ -19,7 +19,11 @@ const DeleteDialog = ({ confirmDelete, setShowDialog }: DeleteDialogProps) => {
         Are you sure you want to delete the entity.
       </Dialog.CustomContent>
       <Dialog.Actions>
-        <Button color='danger' onClick={confirmDelete}>
+        <Button
+          color='danger'
+          onClick={confirmDelete}
+          aria-label={'Confirm Delete'}
+        >
           {'Delete'}
         </Button>
         <Button variant='outlined' onClick={() => setShowDialog(false)}>

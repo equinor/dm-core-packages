@@ -85,6 +85,7 @@ test('Hiring a CEO', async () => {
     .getByTestId('ceo')
     .getByRole('button', { name: 'Delete permanently' })
     .click()
+  await page.getByLabel('Confirm Delete').click()
   await expect(
     page.getByTestId('ceo').getByRole('button', { name: 'Add and save' })
   ).toBeVisible()
