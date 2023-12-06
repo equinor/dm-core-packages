@@ -61,8 +61,7 @@
           "delete": true,
           "add": true,
           "sort": true,
-          "expand": true,
-          "open": true
+          "expand": true
         }
       }
     }

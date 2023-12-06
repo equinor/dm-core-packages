@@ -197,7 +197,15 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                           key={attribute}
                           variant='body_short'
                           bold={index === 0}
-                          style={{ cursor: 'pointer' }}
+                          className={
+                            internalConfig.functionality.expand
+                              ? 'cursor-pointer'
+                              : ''
+                          }
+                          onClick={() =>
+                            internalConfig.functionality.expand &&
+                            handleExpand(item)
+                          }
                         >
                           {item?.data[attribute]}
                         </Typography>
