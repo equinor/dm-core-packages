@@ -48,7 +48,7 @@ export const DeleteHardButton = ({
           <EdsProvider density={'compact'}>
             <Button
               variant='ghost_icon'
-              title={'Delete'}
+              title={'Delete permanently'}
               size={16}
               onClick={() => setShowDialog(true)}
             >

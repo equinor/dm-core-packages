@@ -83,7 +83,7 @@ test('Hiring a CEO', async () => {
   await page.getByLabel('Close ceo').click()
   await page
     .getByTestId('ceo')
-    .getByRole('button', { name: 'Remove and save' })
+    .getByRole('button', { name: 'Delete permanently' })
     .click()
   await expect(
     page.getByTestId('ceo').getByRole('button', { name: 'Add and save' })
