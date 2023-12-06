@@ -63,6 +63,11 @@ export type TableProps = {
   ) => Promise<void>
   saveTable: (items: TItem<TGenericObject>[]) => void
   setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
+  updateItem: (
+    itemToUpdate: TItem<TGenericObject>,
+    newDocument: TGenericObject,
+    saveOnUpdate?: boolean
+  ) => Promise<void>
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
 } & IUIPlugin
 
@@ -92,6 +97,11 @@ export type TableRowProps = {
   rowsPerPage: number
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
   setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
+  updateItem: (
+    itemToUpdate: TItem<TGenericObject>,
+    newDocument: TGenericObject,
+    saveOnUpdate?: boolean
+  ) => Promise<void>
   tableVariant: TableVariantNameEnum
 } & TSortableItem
 

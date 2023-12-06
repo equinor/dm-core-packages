@@ -15,6 +15,7 @@ export const TablePlugin = (props: IUIPlugin) => {
   const {
     items,
     setItems,
+    updateItem,
     isLoading,
     error,
     dirtyState,
@@ -39,6 +40,7 @@ export const TablePlugin = (props: IUIPlugin) => {
       saveTable={save}
       setDirtyState={setDirtyState}
       setItems={setItems}
+      updateItem={updateItem}
       type={props.type}
     />
   )

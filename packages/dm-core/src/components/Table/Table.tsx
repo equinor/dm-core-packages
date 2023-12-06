@@ -36,6 +36,7 @@ export function Table(props: TableProps) {
     items,
     removeItem,
     setItems,
+    updateItem,
     config,
     setDirtyState,
     loadingState,
@@ -146,6 +147,7 @@ export function Table(props: TableProps) {
                       setDirtyState={setDirtyState}
                       setItems={setItems}
                       tableVariant={tableVariant}
+                      updateItem={updateItem}
                     />
                   </ConditionalWrapper>
                 ))}
