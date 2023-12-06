@@ -38,32 +38,50 @@ export function useList<T extends object>(
     if (!attribute) return
     setLoading(true)
     setDirtyState(false)
-    const fetchItems = async () => {
-      try {
-        const response = await dmssAPI.documentGet({
-          address: idReference,
-          depth: 0,
-        })
-        const resolvedItems = resolveReferences
-          ? await dmssAPI.documentGet({
+    dmssAPI
+      .documentGet({
+        address: idReference,
+        depth: 0,
+      })
+      .then(async (response: AxiosResponse) => {
+        if (attribute.contained) {
+          if (!Array.isArray(response.data)) {
+            throw new Error(
+              `Not an array! Got document ${JSON.stringify(response.data)} `
+            )
+          }
+          const items = Object.values(response.data).map((data, index) => ({
+            key: crypto.randomUUID() as string,
+            index: index,
+            data: data,
+            reference: null,
+            isSaved: true,
+          }))
+          setItems(items)
+          setError(null)
+        } else {
+          const resolved =
+            resolveReferences &&
+            (await dmssAPI.documentGet({
               address: idReference,
               depth: 1,
-            })
-          : null
-        const updatedItems = utils.createItemsFromDocument(
-          response,
-          attribute.contained,
-          resolvedItems?.data as T[]
-        )
-        setItems(updatedItems)
-        setError(null)
-      } catch (error) {
+            }))
+          const resolvedItems = (resolved ? resolved.data : []) as T[]
+          const items = Object.values(response.data).map((data, index) => ({
+            key: crypto.randomUUID() as string,
+            index: index,
+            data: resolveReferences ? resolvedItems[index] : (data as T),
+            reference: data as TLinkReference,
+            isSaved: true,
+          }))
+          setItems(items)
+          setError(null)
+        }
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
         setError(error.response?.data || { message: error.name, data: error })
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchItems()
+      })
+      .finally(() => setLoading(false))
   }, [attribute, refresh])
 
   const addItem = useCallback(
@@ -107,11 +125,10 @@ export function useList<T extends object>(
     [attribute, items]
   )
 
-  async function removeItem(
+  const removeItem = async (
     itemToDelete: TItem<T>,
     saveOnRemove: boolean = true
-  ) {
-    setDirtyState(true)
+  ) => {
     if (!attribute) throw new Error('Missing attribute')
     setLoading(true)
     const index = items.findIndex(
