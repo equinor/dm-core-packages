@@ -85,7 +85,7 @@ test('uncontainedObject', async ({ page }) => {
 
   await test.step('Remove trainee', async () => {
     const trainee = page.getByTestId('trainee')
-    await trainee.getByRole('button', { name: 'Remove and save' }).click()
+    await trainee.getByRole('button', { name: 'Delete permanently' }).click()
     await expect(trainee.getByRole('code').getByText('John')).not.toBeVisible()
     await expect(trainee.getByRole('code').getByText('1234')).not.toBeVisible()
   })
