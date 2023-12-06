@@ -1,9 +1,11 @@
 import { Accordion, Button, Icon, Typography } from '@equinor/eds-core-react'
-import { truncatePathString } from '@development-framework/dm-core'
+import {
+  truncatePathString,
+  DeleteSoftButton,
+} from '@development-framework/dm-core'
 import { BlueprintAttribute } from './BlueprintAttribute'
 import { Fieldset } from '../form/styles'
 import * as React from 'react'
-import { DeleteSoftButton } from '../common/DeleteSoftButton'
 import { add } from '@equinor/eds-icons'
 
 interface BlueprintAttributeListProps {

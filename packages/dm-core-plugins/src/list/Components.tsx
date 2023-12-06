@@ -41,14 +41,13 @@ export const FormButton = (props: {
   </Tooltip>
 )
 
-export const ListItemButton = (props: {
+export const ListChevronButton = (props: {
   onClick: () => void
   disabled?: boolean
-  type: 'up' | 'down' | 'delete'
+  type: 'up' | 'down'
 }) => {
   const { type } = props
   const ICONS = {
-    delete: delete_to_trash,
     up: chevron_up,
     down: chevron_down,
   }
@@ -57,7 +56,6 @@ export const ListItemButton = (props: {
   return (
     <EdsProvider density='compact'>
       <Button
-        color={type === 'delete' ? 'danger' : 'primary'}
         disabled={props.disabled}
         variant='ghost_icon'
         onClick={props.onClick}

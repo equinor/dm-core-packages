@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Icon, Menu, Table } from '@equinor/eds-core-react'
 import { delete_to_trash, more_vertical } from '@equinor/eds-icons'
 import { TableRowActionsProps } from '../../types'
+import { DeleteSoftButton } from '../../../DeleteSoftButton'
 
 export function TableRowActions(props: TableRowActionsProps) {
   const { editMode, itemKey, removeItem, deleteItem } = props
@@ -12,14 +13,11 @@ export function TableRowActions(props: TableRowActionsProps) {
   return (
     <Table.Cell style={{ textAlign: 'center' }}>
       {editMode ? (
-        <Button
-          aria-label='Remove row'
-          color='danger'
-          variant='ghost_icon'
+        <DeleteSoftButton
           onClick={removeItem}
-        >
-          <Icon data={delete_to_trash} aria-hidden />
-        </Button>
+          title={'Remove row'}
+          ariaLabel={'Remove row'}
+        />
       ) : (
         <>
           <Button

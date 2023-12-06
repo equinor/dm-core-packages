@@ -12,7 +12,7 @@ import {
 } from '@equinor/eds-icons'
 import { AttributeField } from '../fields/AttributeField'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
-import { DeleteSoftButton } from '../../common/DeleteSoftButton'
+import { DeleteSoftButton } from '@development-framework/dm-core'
 
 function getDefaultValue(type: string): string | boolean | number {
   switch (type) {

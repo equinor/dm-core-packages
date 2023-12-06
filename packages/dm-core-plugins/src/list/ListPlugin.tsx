@@ -13,12 +13,12 @@ import {
   TViewConfig,
   useList,
   ViewCreator,
+  DeleteSoftButton,
 } from '@development-framework/dm-core'
 import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { external_link, undo, chevron_right, link } from '@equinor/eds-icons'
-import { AppendButton, ListItemButton, FormButton } from './Components'
-import { DeleteSoftButton } from '../common/DeleteSoftButton'
+import { AppendButton, ListChevronButton, FormButton } from './Components'
 
 type TListConfig = {
   expanded?: boolean
@@ -235,14 +235,14 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 )}
                 {internalConfig.functionality.sort && (
                   <>
-                    <ListItemButton
+                    <ListChevronButton
                       disabled={index === 0}
                       onClick={() => {
                         moveItem(item, 'up')
                       }}
                       type='up'
                     />
-                    <ListItemButton
+                    <ListChevronButton
                       type='down'
                       disabled={
                         index === paginationRowsPerPage - 1 ||
