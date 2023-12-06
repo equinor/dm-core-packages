@@ -171,7 +171,9 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       <Icon
                         data={chevron_right}
                         size={24}
-                        title={expanded[item.key] ? 'Close item' : 'Open item'}
+                        title={
+                          expanded[item.key] ? 'Minimize item' : 'Expand item'
+                        }
                         className='transition-all'
                         style={{
                           transform: expanded[item.key]
