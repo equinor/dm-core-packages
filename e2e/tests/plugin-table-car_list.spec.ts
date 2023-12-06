@@ -65,11 +65,16 @@ test('Table car list example', async ({ page }) => {
     await page.getByRole('menuitem').first().click()
     await page.reload()
     await navigate()
-    await expect(page.getByText('1 - 1 of 1')).toBeVisible()
+    await expect(page.getByText('1 - 1 of 1')).not.toBeVisible()
   })
 
   await test.step('Adding several cars to test pagination', async () => {
     await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
+    await page.getByRole('button', { name: 'Add new row' }).click()
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(1)
+    await expect(page.getByText('1 - 1 of 1')).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
     await expect(
       page.getByRole('button', { name: 'Open expandable row' })
