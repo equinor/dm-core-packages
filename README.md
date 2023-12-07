@@ -3706,3 +3706,8 @@ Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.
     * **DMSS VERSION**: 9f5641f 2023-12-04 githu..[bot] chore(master): release 1.14.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.0
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* chore: add some tests (#914) (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7127529316/1)
+    * **DMSS VERSION**: 9f5641f 2023-12-04 githu..[bot] chore(master): release 1.14.1 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.0
+    * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
