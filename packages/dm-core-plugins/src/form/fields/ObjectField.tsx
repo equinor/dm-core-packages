@@ -51,6 +51,12 @@ export const ObjectField = (props: TField): React.ReactElement => {
       />
     )
   }
+  if (attribute.attributeType === 'object')
+    return (
+      <div style={{ border: '1px solid red', color: 'red' }}>
+        {namePath}: Plugin 'form' does not support type 'object'
+      </div>
+    )
 
   return (
     <ObjectTemplateSelector

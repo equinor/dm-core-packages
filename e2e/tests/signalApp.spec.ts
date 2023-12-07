@@ -17,11 +17,5 @@ test('run Create job', async ({ page }) => {
   await page.getByRole('button', { name: 'Open in new tab' }).click()
   await page.getByRole('button', { name: 'Run' }).click()
   await page.getByRole('button', { name: 'Show logs' }).click()
-  await expect(page.getByText('Job successfully started')).toBeVisible()
-
-  // await page.getByRole('button', { name: 'Close case1' }).click()
-  // await page.getByRole('button', { name: 'Open' }).click()
-  // await expect(page.locator('.nsewdrag')).toHaveScreenshot({
-  //   maxDiffPixelRatio: 0.25,
-  // })
+  await expect(page.getByText('Job starting in 5 seconds...')).toBeVisible()
 })

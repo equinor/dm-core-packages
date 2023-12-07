@@ -51,6 +51,11 @@
                   },
                   {
                     "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                    "data": "engine.name",
+                    "label": "Engine"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
                     "data": "^tab"
                   }
                 ]

@@ -8,7 +8,7 @@ export interface LogBlockProps {
   content: any
 }
 
-export const FormattedLogContainer = styled.pre`
+const FormattedLogContainer = styled.pre`
   font-size: 0.8rem;
   line-height: normal;
   position: relative;
@@ -33,6 +33,12 @@ export const FormattedLogContainer = styled.pre`
   }
 `
 
+const LogLine = styled.pre`
+  &:hover {
+    background-color: #316082;
+  }
+`
+
 export const LogBlock = (props: LogBlockProps) => {
   const { title, content, style } = props
 
@@ -53,7 +59,7 @@ export const LogBlock = (props: LogBlockProps) => {
       </div>
       <FormattedLogContainer style={style}>
         {content.constructor === Array ? (
-          content.map((line) => <pre key={line}>{line}</pre>)
+          content.map((line) => <LogLine key={line}>{line}</LogLine>)
         ) : (
           <pre>{JSON.stringify(content, null, 2)}</pre>
         )}

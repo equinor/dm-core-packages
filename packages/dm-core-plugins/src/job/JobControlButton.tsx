@@ -19,9 +19,6 @@ export const JobControlButton = (props: {
   >('primary')
   const [buttonIcon, setButtonIcon] = useState<IconData>(play)
   const [recentlyClicked, setRecentlyClicked] = useState<boolean>(false)
-  const buttonRef: MutableRefObject<HTMLButtonElement | undefined> = useRef()
-  buttonRef.current?.addEventListener('mouseenter', () => setHovering(true))
-  buttonRef.current?.addEventListener('mouseleave', () => setHovering(false))
 
   useEffect(() => {
     switch (jobStatus) {
@@ -50,7 +47,8 @@ export const JobControlButton = (props: {
       variant='contained_icon'
       disable={recentlyClicked}
       aria-label='Run'
-      ref={buttonRef}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
       color={buttonColor}
       onClick={() => {
         if (

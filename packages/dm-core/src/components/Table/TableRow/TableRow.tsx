@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { EdsProvider, Icon, Table } from '@equinor/eds-core-react'
-import { ViewCreator } from '../../../'
+import { TGenericObject, TItem, ViewCreator } from '../../../'
 import { TableRowProps, TTableColumnConfig } from '../types'
 import * as utils from '../utils'
 import * as Styled from './styles'
@@ -20,6 +20,7 @@ export function TableRow(props: TableRowProps) {
     item,
     items,
     setItems,
+    updateItem,
     setDirtyState,
     tableVariant,
     ...dragProps
@@ -32,15 +33,21 @@ export function TableRow(props: TableRowProps) {
     tableVariant
   )
 
+  const handleItemUpdate = (itemToChange: TItem<any>, data: any) => {
+    updateItem(itemToChange, data, false)
+  }
+
   function openItemAsTab() {
     props.onOpen(
       crypto.randomUUID(),
       { label: item?.data?.name, type: 'ViewConfig' },
-      `${idReference}[${index}]`
+      `${idReference}[${index}]`,
+      false,
+      (data: any) => handleItemUpdate(item, data)
     )
   }
 
-  function updateItem(
+  function updateCell(
     attribute: string,
     newValue: string | number | boolean,
     attributeType: string
@@ -88,7 +95,7 @@ export function TableRow(props: TableRowProps) {
               item={item}
               openItemAsTab={openItemAsTab}
               setIsExpanded={setIsExpanded}
-              updateItem={updateItem}
+              updateItem={updateCell}
             ></TableCell>
           ))}
           {functionalityConfig?.delete && (
@@ -105,6 +112,7 @@ export function TableRow(props: TableRowProps) {
           <Table.Cell colSpan={columnsLength}>
             <ViewCreator
               idReference={`${idReference}[${item.index}]`}
+              onSubmit={(data: TGenericObject) => handleItemUpdate(item, data)}
               viewConfig={
                 config.expandableRecipeViewConfig
                   ? config.expandableRecipeViewConfig

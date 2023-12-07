@@ -74,9 +74,17 @@ export default ({
     ),
   },
   '@development-framework/dm-core-plugins/job/single_job': {
+    // TODO: Rename to job/create-from-recipe
     component: lazy(() =>
-      import('./job/JobPlugin').then((module) => ({
-        default: module.JobPlugin,
+      import('./job/CrateFromRecipe').then((module) => ({
+        default: module.CrateFromRecipe,
+      }))
+    ),
+  },
+  '@development-framework/dm-core-plugins/job/controls': {
+    component: lazy(() =>
+      import('./job/JobControl').then((module) => ({
+        default: module.JobControl,
       }))
     ),
   },
