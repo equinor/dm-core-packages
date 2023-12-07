@@ -12,8 +12,14 @@
       "attributes": [
         {
           "name": "date",
-          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-          "widget": "DateTimeWidget"
+          "type": "PLUGINS:dm-core-plugins/form/fields/DateField",
+          "widget": "DateTimeWidget",
+          "config": {
+            "type": "PLUGINS:dm-core-plugins/form/fields/DateFieldConfig",
+            "variant": "datetime",
+            "label": "Date & Time",
+            "useMinutes": true
+          }
         }
       ]
     }

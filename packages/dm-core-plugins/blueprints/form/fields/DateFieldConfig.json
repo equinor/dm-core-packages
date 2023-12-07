@@ -1,0 +1,34 @@
+{
+  "name": "DateFieldConfig",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "variant",
+      "type": "CORE:BlueprintAttribute",
+      "description": "datetime or date",
+      "attributeType": "string",
+      "default": "datetime"
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "description": "label",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "useMinutes",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Allow specifying minutes",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    }
+  ]
+}
