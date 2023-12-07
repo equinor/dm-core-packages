@@ -1,21 +1,23 @@
 import { TGenericObject } from '../..'
+import { TItem } from '../../hooks/useList/types'
 import {
   TTableConfig,
   TTableFunctionalityConfig,
-  TTableRowItem,
   TTableSortDirection,
   TableVariantNameEnum,
 } from './types'
 
 export function updateItemAttribute(
-  items: TTableRowItem[],
+  items: TItem<TGenericObject>[],
   key: string,
   attribute: string,
   newValue: string | number | boolean
 ) {
   const itemsCopy = [...items]
   const index = itemsCopy.findIndex((item) => item.key === key)
-  itemsCopy[index].data[attribute] = newValue
+  if (itemsCopy[index].data) {
+    ;(itemsCopy[index].data as TGenericObject)[attribute] = newValue
+  }
   return itemsCopy
 }
 
@@ -33,9 +35,9 @@ export function createNewItemObject(
 }
 
 export function removeItemFromList(
-  items: TTableRowItem[],
+  items: TItem<TGenericObject>[],
   key: string
-): TTableRowItem[] {
+): TItem<TGenericObject>[] {
   const itemIndex = items.findIndex((item) => item.key === key)
   const itemsCopy = [...items]
   itemsCopy.splice(itemIndex, 1)

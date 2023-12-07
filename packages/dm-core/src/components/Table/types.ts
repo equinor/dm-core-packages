@@ -6,6 +6,7 @@ import {
   TSortableItem,
   TViewConfig,
 } from '../../'
+import { TItem } from '../../hooks/useList/types'
 
 // Table Config types
 
@@ -48,22 +49,20 @@ export type TTableConfig = {
   variant: TTableVariant[]
 }
 
-export type TTableRowItem = {
-  data: TGenericObject
-  id: string
-  index: number
-  key: string
-}
-
 // Table components types
 
 export type TableProps = {
+  addItem: (saveOnAdd: boolean, insertAtIndex?: number) => void
   config: TTableConfig
   dirtyState: boolean
-  items: any[]
+  items: TItem<TGenericObject>[]
   loadingState: boolean
-  saveTable: (items: TTableRowItem[]) => void
-  setItems: React.Dispatch<React.SetStateAction<TTableRowItem[]>>
+  removeItem: (
+    itemToDelete: TItem<TGenericObject>,
+    saveOnRemove?: boolean
+  ) => Promise<void>
+  saveTable: (items: TItem<TGenericObject>[]) => void
+  setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
 } & IUIPlugin
 
@@ -77,27 +76,39 @@ export type TableHeadProps = {
 }
 
 export type TableRowProps = {
-  addItem: (insertAtIndex?: number) => void
+  addItem: (saveOnAdd: boolean, insertAtIndex?: number) => void
   config: TTableConfig
-  deleteItem: (key: string) => void
+  removeItem: (
+    itemToDelete: TItem<TGenericObject>,
+    saveOnRemove?: boolean
+  ) => Promise<void>
   editMode: boolean
   functionalityConfig: TTableFunctionalityConfig
-  item: TTableRowItem
+  item: TItem<TGenericObject>
   index: number
   idReference: string
-  items: TTableRowItem[]
+  items: TItem<TGenericObject>[]
   onOpen: any
   rowsPerPage: number
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
-  setItems: React.Dispatch<React.SetStateAction<TTableRowItem[]>>
+  setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
   tableVariant: TableVariantNameEnum
 } & TSortableItem
+
+export type TableRowActionsProps = {
+  editMode: boolean
+  item: TItem<TGenericObject>
+  removeItem: (
+    itemToDelete: TItem<TGenericObject>,
+    saveOnRemove?: boolean
+  ) => Promise<void>
+}
 
 export type TableCellProps = {
   column: TTableColumnConfig
   editMode: boolean
   isExpanded: boolean
-  item: TTableRowItem
+  item: TItem<TGenericObject>
   openItemAsTab: () => void
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
   updateItem: (
@@ -105,11 +116,4 @@ export type TableCellProps = {
     newValue: string | number | boolean,
     attributeType: string
   ) => void
-}
-
-export type TableRowActionsProps = {
-  editMode: boolean
-  deleteItem: (key: string) => void
-  itemKey: string
-  removeItem: () => void
 }

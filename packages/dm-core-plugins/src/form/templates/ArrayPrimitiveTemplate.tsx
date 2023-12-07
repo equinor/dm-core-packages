@@ -12,7 +12,7 @@ import {
 } from '@equinor/eds-icons'
 import { AttributeField } from '../fields/AttributeField'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
-import { DeleteSoftButton } from '../../common/DeleteSoftButton'
+import { DeleteSoftButton } from '@development-framework/dm-core'
 
 function getDefaultValue(type: string): string | boolean | number {
   switch (type) {
@@ -72,7 +72,7 @@ export const ArrayPrimitiveTemplate = (
       <Legend>
         <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         <TooltipButton
-          title='Expand'
+          title={isExpanded ? 'Collapse' : 'Expand'}
           button-variant='ghost_icon'
           button-onClick={() => setIsExpanded(!isExpanded)}
           icon={isExpanded ? chevron_up : chevron_down}

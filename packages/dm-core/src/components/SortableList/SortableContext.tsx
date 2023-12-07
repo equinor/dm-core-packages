@@ -12,7 +12,7 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { SortableContextProps } from './types'
 
-export const SortableContext = <T extends { id: string | number }>({
+export const SortableContext = <T extends { key: string | number }>({
   items,
   children,
   onReorder,
@@ -26,7 +26,7 @@ export const SortableContext = <T extends { id: string | number }>({
 
   function handleDragAndDrop(event: DragEndEvent) {
     const { active, over } = event
-    const itemIds = items.map((item) => item.id)
+    const itemIds = items.map((item) => item.key)
 
     const oldIndex = itemIds.indexOf(active.id)
     const newIndex = over ? itemIds.indexOf(over?.id) : -1

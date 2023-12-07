@@ -30,6 +30,28 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.28.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.27.0...dm-core-plugins-v1.28.0) (2023-12-06)
+
+
+### Features
+
+* **Explorere:** Copy entiity address ([d9c9050](https://github.com/equinor/dm-core-packages/commit/d9c90500e8648150637c881659d6a7133a387faa))
+* no arrows in numberfield ([26193cb](https://github.com/equinor/dm-core-packages/commit/26193cbdd6147794c12ebfa8225ad9fc1805148e))
+* reusable field, used in widgets ([721c709](https://github.com/equinor/dm-core-packages/commit/721c70921b5c2c6bc078315cde71b27231f6667e))
+* use same delete in table, move it to dm-core ([23df0be](https://github.com/equinor/dm-core-packages/commit/23df0bec5e31cc75c0af3bf49c262688e251714a))
+
+
+### Bug Fixes
+
+* list plugin defaults and clickable ([9f9f6c6](https://github.com/equinor/dm-core-packages/commit/9f9f6c676a4d0628997dc52561a8802663c806d5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.22.1 to ^1.23.0
+
 ## [1.27.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.26.0...dm-core-plugins-v1.27.0) (2023-12-06)
 
 

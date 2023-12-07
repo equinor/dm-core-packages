@@ -1,7 +1,5 @@
 import React from 'react'
-
-import { TextField } from '@equinor/eds-core-react'
-
+import { NumberFieldWithoutArrows } from '../components/NumberFieldWithoutArrows'
 import { TWidget } from '../types'
 
 const NumberWidget = (props: TWidget) => {
@@ -10,7 +8,7 @@ const NumberWidget = (props: TWidget) => {
     onChange?.(Number(event.target.value))
 
   return (
-    <TextField
+    <NumberFieldWithoutArrows
       id={props.id}
       readOnly={props.readOnly}
       defaultValue={props.value}
@@ -18,8 +16,8 @@ const NumberWidget = (props: TWidget) => {
       variant={props.variant}
       helperText={props.helperText}
       onChange={onChangeHandler}
+      type={'number'}
       label={label}
-      type='number'
       data-testid={`form-number-widget-${label}`}
       style={
         isDirty && props.variant !== 'error'

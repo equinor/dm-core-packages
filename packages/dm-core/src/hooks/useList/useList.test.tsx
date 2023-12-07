@@ -1,7 +1,7 @@
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
 import { useList } from './useList'
 import React from 'react'
-import { DMSSProvider } from '../context/DMSSContext'
+import { DMSSProvider } from '../../context/DMSSContext'
 import {
   mockAttributeGet,
   mockDocumentAdd,
@@ -9,7 +9,7 @@ import {
   mockGetList,
   mockInstantiateEntity,
   mockUpdateDocument,
-} from '../utils/test-utils-dm-core'
+} from '../../utils/test-utils-dm-core'
 
 const setupContained = () => {
   const attribute = {
@@ -408,7 +408,7 @@ describe('contained list', () => {
         },
       ])
     })
-    await waitFor(async () => await result.current.save())
+    await waitFor(async () => await result.current.save(result.current.items))
     await waitFor(() => {
       expect(result.current.items).toEqual([
         {

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   Pagination,
   Stack,
   SortableList,
   ConditionalWrapper,
-  useDMSS,
   SortableItem,
+  TGenericObject,
 } from '../../'
 import {
   Button,
@@ -20,31 +20,32 @@ import {
   TableProps,
   TTableSortDirection,
   TableVariantNameEnum,
-  TTableRowItem,
   TTableVariant,
   TTableConfig,
 } from './types'
 import { TableHead } from './TableHead/TableHead'
 import { TableRow } from './TableRow/TableRow'
 import { SortableContext } from '../SortableList/SortableContext'
+import { TItem } from '../../hooks/useList/types'
 
-export type { TTableRowItem, TTableConfig }
+export type { TTableConfig }
 
 export function Table(props: TableProps) {
   const {
+    addItem,
     items,
+    removeItem,
     setItems,
     config,
     setDirtyState,
     loadingState,
-    type,
     saveTable,
   } = props
+
   const [tableVariant, setTableVariant] = useState<TableVariantNameEnum>(
     config.variant[0].name
   )
-  const dmssAPI = useDMSS()
-  const [sortedItems, setSortedItems] = useState<TTableRowItem[]>([])
+  const [sortedItems, setSortedItems] = useState<TItem<TGenericObject>[]>([])
   const [paginationPage, setPaginationPage] = useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [sortColumn, setSortColumn] = useState<string | undefined>(undefined)
@@ -69,32 +70,6 @@ export function Table(props: TableProps) {
           paginationPage * rowsPerPage + rowsPerPage
         )
 
-  async function instantiateAndAddItem(insertAtIndex?: number) {
-    try {
-      const response = await dmssAPI.instantiateEntity({
-        entity: { type },
-      })
-      if (response.status === 200) {
-        setDirtyState(true)
-        const itemsCopy = [...items]
-        const newItem = utils.createNewItemObject(response.data, items.length)
-        const index = insertAtIndex !== undefined ? insertAtIndex : items.length
-        itemsCopy.splice(index, 0, newItem)
-        setItems(itemsCopy)
-        if (tableVariant === TableVariantNameEnum.View) {
-          saveTable(itemsCopy)
-        }
-      }
-    } catch (error) {
-      alert(JSON.stringify(error.response?.data))
-    }
-  }
-
-  function deleteItem(key: string) {
-    const updatedItemsList = utils.removeItemFromList(items, key)
-    saveTable(updatedItemsList)
-  }
-
   /**
    * Start with ascending order if sorting on new column, switch to descending if already sorted, turn off sorting and reset to initial data if sorting was descending
    */
@@ -117,7 +92,7 @@ export function Table(props: TableProps) {
     setSortColumn(newSortColumn)
   }
 
-  function reorderItems(reorderedItems: TTableRowItem[]) {
+  function reorderItems(reorderedItems: TItem<TGenericObject>[]) {
     setItems(reorderedItems)
     setDirtyState(true)
   }
@@ -144,24 +119,22 @@ export function Table(props: TableProps) {
               <ConditionalWrapper
                 condition={tableVariant === TableVariantNameEnum.Edit}
                 wrapper={(children: React.ReactNode) => (
-                  <SortableList items={paginatedRows}>{children}</SortableList>
+                  <SortableList items={items}>{children}</SortableList>
                 )}
               >
                 {paginatedRows?.map((item, index) => (
                   <ConditionalWrapper
-                    key={item?.key}
+                    key={item.key}
                     condition={tableVariant === TableVariantNameEnum.Edit}
                     wrapper={(children: React.ReactNode) => (
-                      <SortableItem item={item} key={item?.key}>
-                        {children}
-                      </SortableItem>
+                      <SortableItem item={item}>{children}</SortableItem>
                     )}
                   >
                     <TableRow
-                      key={item?.key}
-                      addItem={instantiateAndAddItem}
+                      key={item.key}
+                      addItem={addItem}
                       config={config}
-                      deleteItem={deleteItem}
+                      removeItem={removeItem}
                       editMode={tableVariant === TableVariantNameEnum.Edit}
                       functionalityConfig={functionalityConfig}
                       idReference={props.idReference}
@@ -183,7 +156,7 @@ export function Table(props: TableProps) {
         {functionalityConfig.add && (
           <AddRowButton
             aria-label='Add new row'
-            onClick={() => instantiateAndAddItem()}
+            onClick={() => addItem(tableVariant === TableVariantNameEnum.View)}
           >
             <Icon size={16} data={add} />
           </AddRowButton>
