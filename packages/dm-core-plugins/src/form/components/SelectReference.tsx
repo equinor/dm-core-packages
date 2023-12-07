@@ -56,13 +56,13 @@ export const SelectReference = (props: {
   return (
     <>
       <Tooltip title={`${value ? 'Edit' : 'Add'} and save`}>
-        <Button onClick={() => setShowModal(true)} variant='ghost' as='button'>
-          <div className='flex space-x-1 align-middle'>
-            <Icon color='#007079' data={edit}></Icon>
-            <Typography className='self-center'>Select</Typography>
+        {/* <Button onClick={() => setShowModal(true)} variant="ghost" as="button">
+          <div className="flex space-x-1 align-middle">
+            <Icon color="#007079" data={edit}></Icon>
+            <Typography className="self-center">Select</Typography>
           </div>
-        </Button>
-        {/* <button
+        </Button> */}
+        <button
           onClick={() => setShowModal(true)}
           type='button'
           className='bg-transparent hover:bg-[#DEEDEE] py-1 px-2 rounded-full'
@@ -71,7 +71,7 @@ export const SelectReference = (props: {
             <Icon color='#007079' data={edit}></Icon>
             <Typography className='self-center'>Select</Typography>
           </div>
-        </button> */}
+        </button>
       </Tooltip>
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
