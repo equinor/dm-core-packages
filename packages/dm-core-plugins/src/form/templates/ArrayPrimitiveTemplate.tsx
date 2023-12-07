@@ -72,7 +72,7 @@ export const ArrayPrimitiveTemplate = (
       <Legend>
         <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         <TooltipButton
-          title='Expand'
+          title={isExpanded ? 'Collapse' : 'Expand'}
           button-variant='ghost_icon'
           button-onClick={() => setIsExpanded(!isExpanded)}
           icon={isExpanded ? chevron_up : chevron_down}
