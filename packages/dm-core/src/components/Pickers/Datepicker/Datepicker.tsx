@@ -111,6 +111,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       }
     }
   }
+
   function formatTime(time: string): void {
     if (time.length === 0) setFieldTimeValue('--:--')
     if (!time.includes(':')) {
