@@ -13,7 +13,7 @@ const TextWidget = (props: TWidget) => {
       id={props.id}
       label={label}
       readOnly={props.readOnly}
-      defaultValue={props.value}
+      defaultValue={props.readOnly && props.value === '' ? '-' : props.value}
       inputRef={props.inputRef}
       variant={props.variant}
       helperText={props.helperText}

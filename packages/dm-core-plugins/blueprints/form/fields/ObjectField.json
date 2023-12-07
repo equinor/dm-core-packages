@@ -28,6 +28,13 @@
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "optional": true,
       "attributeType": "object"
+    },
+    {
+      "name": "searchByType",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
     }
   ]
 }

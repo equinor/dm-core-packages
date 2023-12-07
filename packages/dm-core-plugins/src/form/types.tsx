@@ -19,8 +19,8 @@ export type TFormProps = {
 
 export type TObjectTemplate = {
   namePath: string
-  blueprint: TBlueprint | undefined
-  uiRecipe: TUiRecipeForm
+  blueprint?: TBlueprint
+  uiRecipe?: TUiRecipeForm
   uiAttribute: TUiAttributeObject | undefined
   attribute: TAttribute
 }
@@ -43,9 +43,10 @@ type TUiAttributeBase = {
   showInline?: boolean
   config?: Record<any, any>
 }
-type TUiAttributeString = TUiAttributeBase & {
+export type TUiAttributeString = TUiAttributeBase & {
   widget: string
   format: string
+  readOnly: boolean
 }
 type TUiAttributeArray = TUiAttributeBase & {
   widget?: string
@@ -56,6 +57,7 @@ export type TUiAttributeObject = TUiAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded?: boolean
+  searchByType?: boolean
 }
 export type TUiAttribute =
   | TUiAttributeArray
