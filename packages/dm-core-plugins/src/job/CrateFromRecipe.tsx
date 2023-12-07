@@ -13,9 +13,8 @@ import {
   useJob,
 } from '@development-framework/dm-core'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { Button, Chip, Icon, LinearProgress } from '@equinor/eds-core-react'
+import { Button, Chip, LinearProgress } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
-import { expand_screen } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
@@ -167,24 +166,26 @@ export const CrateFromRecipe = (
         <JobLog logs={logs} error={error} />
         <Chip variant={getVariant(status)}>{status ?? 'Not registered'}</Chip>
       </JobButtonWrapper>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '50%',
-        }}
-      >
-        <LinearProgress
-          aria-label='Progress bar label'
-          value={progress * 100}
-          variant='determinate'
+      {status === JobStatus.Running && (
+        <div
           style={{
-            marginRight: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '50%',
           }}
-        />
-        <pre>{progress * 100}%</pre>
-      </div>
+        >
+          <LinearProgress
+            aria-label='Progress bar label'
+            value={progress * 100}
+            variant='determinate'
+            style={{
+              marginRight: '10px',
+            }}
+          />
+          <pre>{progress * 100}%</pre>
+        </div>
+      )}
       <RemoveJobDialog
         isOpen={showRemoveDialog}
         onConfirm={remove}
