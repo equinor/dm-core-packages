@@ -12,7 +12,7 @@ import { Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
 import TooltipButton from '../../common/TooltipButton'
-import { chevron_down, chevron_up } from '@equinor/eds-icons'
+import { chevron_right, chevron_down } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
 
@@ -36,6 +36,14 @@ export const ObjectModelUncontainedTemplate = (
   return (
     <Fieldset>
       <Legend>
+        {address && !(onOpen && !uiAttribute?.showInline) && (
+          <TooltipButton
+            title={isExpanded ? 'Collapse' : 'Expand'}
+            button-variant='ghost_icon'
+            button-onClick={() => setIsExpanded(!isExpanded)}
+            icon={isExpanded ? chevron_down : chevron_right}
+          />
+        )}
         <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         {!config.readOnly && (
           <SelectReference
@@ -43,16 +51,9 @@ export const ObjectModelUncontainedTemplate = (
             namePath={namePath}
           />
         )}
+        {attribute.optional && 'Optional'}
         {attribute.optional && address && !config.readOnly && (
           <RemoveObject namePath={namePath} />
-        )}
-        {address && !(onOpen && !uiAttribute?.showInline) && (
-          <TooltipButton
-            title={isExpanded ? 'Collapse' : 'Expand'}
-            button-variant='ghost_icon'
-            button-onClick={() => setIsExpanded(!isExpanded)}
-            icon={isExpanded ? chevron_up : chevron_down}
-          />
         )}
         {address && onOpen && !uiAttribute?.showInline && (
           <OpenObjectButton

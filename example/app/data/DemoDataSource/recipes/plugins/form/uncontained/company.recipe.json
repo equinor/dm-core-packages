@@ -53,7 +53,17 @@
             "uiRecipe": "defaultYaml"
           }
         ],
-        "fields": ["ceo", "accountant", "assistant", "trainee"]
+        "fields": [
+          "ceo",
+          "name",
+          "averageSalary",
+          "accountant",
+          "numberOfEmployees",
+          "averageSalary",
+          "assistant",
+          "trainee",
+          "description"
+        ]
       }
     }
   ]
