@@ -7,16 +7,23 @@ import { Dialog } from './Dialog'
 interface DeleteDialogProps {
   setShowDialog: (show: boolean) => void
   confirmDelete: () => void
+  popupTitle?: string
+  popupMessage?: string
 }
 
-const DeleteDialog = ({ confirmDelete, setShowDialog }: DeleteDialogProps) => {
+const DeleteDialog = ({
+  confirmDelete,
+  setShowDialog,
+  popupMessage,
+  popupTitle,
+}: DeleteDialogProps) => {
   return (
     <Dialog open={true} isDismissable onClose={() => setShowDialog(false)}>
       <Dialog.Header>
-        <Dialog.Title>Confirm Deletion</Dialog.Title>
+        <Dialog.Title>{popupTitle || 'Confirm Deletion'}</Dialog.Title>
       </Dialog.Header>
       <Dialog.CustomContent>
-        Are you sure you want to delete the entity.
+        {popupMessage || 'Are you sure you want to delete the entity.'}
       </Dialog.CustomContent>
       <Dialog.Actions>
         <Button
@@ -37,11 +44,15 @@ const DeleteDialog = ({ confirmDelete, setShowDialog }: DeleteDialogProps) => {
 interface DeleteHardButtonProps {
   onConfirmDelete: () => void
   title?: string
+  popupTitle?: string
+  popupMessage?: string
 }
 
 export const DeleteHardButton = ({
   onConfirmDelete,
   title,
+  popupMessage,
+  popupTitle,
 }: DeleteHardButtonProps) => {
   const [showDialog, setShowDialog] = useState<boolean>(false)
 
@@ -63,6 +74,8 @@ export const DeleteHardButton = ({
             <DeleteDialog
               setShowDialog={setShowDialog}
               confirmDelete={() => onConfirmDelete()}
+              popupMessage={popupMessage}
+              popupTitle={popupTitle}
             />
           )}
         </div>

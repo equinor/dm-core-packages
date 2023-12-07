@@ -11,9 +11,13 @@ import React from 'react'
 const RemoveObject = (props: {
   namePath: string
   address?: string
+  popupTitle?: string
+  buttonTitle?: string
+  popupMessage?: string
   onRemove?: () => void
 }) => {
-  const { namePath, address, onRemove } = props
+  const { buttonTitle, popupTitle, popupMessage, namePath, address, onRemove } =
+    props
   const { unregister } = useFormContext()
   const { idReference } = useRegistryContext()
   const dmssAPI = useDMSS()
@@ -32,7 +36,12 @@ const RemoveObject = (props: {
       })
   }
   return (
-    <DeleteHardButton onConfirmDelete={onClick} title={`Delete ${namePath}`} />
+    <DeleteHardButton
+      onConfirmDelete={onClick}
+      title={buttonTitle || `Delete ${namePath}`}
+      popupTitle={popupTitle}
+      popupMessage={popupMessage}
+    />
   )
 }
 

@@ -7,13 +7,14 @@ import {
   resolveRelativeAddress,
   splitAddress,
 } from '@development-framework/dm-core'
-import { Chip, Typography } from '@equinor/eds-core-react'
+import { Chip, EdsProvider, Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
 import TooltipButton from '../../common/TooltipButton'
 import { chevron_right, chevron_down } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
+import { Fieldset } from '../styles'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
@@ -40,15 +41,17 @@ export const ObjectModelUncontainedTemplate = (
   )
   return (
     <div>
-      <legend className='flex flex-row h-10 justify-between'>
-        <div className='flex flex-start items-center'>
+      <legend className='flex flex-row h-10 justify-between border-b-[2px]'>
+        <div className={`flex flex-start items-center`}>
           {isExpandable && (
-            <TooltipButton
-              title={isExpanded ? 'Collapse' : 'Expand'}
-              button-variant='ghost_icon'
-              button-onClick={() => setIsExpanded(!isExpanded)}
-              icon={isExpanded ? chevron_down : chevron_right}
-            />
+            <EdsProvider density='compact'>
+              <TooltipButton
+                title={isExpanded ? 'Collapse' : 'Expand'}
+                button-variant='ghost_icon'
+                button-onClick={() => setIsExpanded(!isExpanded)}
+                icon={isExpanded ? chevron_down : chevron_right}
+              />
+            </EdsProvider>
           )}
           <Typography
             bold={true}
@@ -60,7 +63,9 @@ export const ObjectModelUncontainedTemplate = (
           >
             {getDisplayLabel(attribute)}
           </Typography>
-          {attribute.optional && <Chip>Optional</Chip>}
+          {attribute.optional && (
+            <Chip style={{ marginLeft: 6 }}>Optional</Chip>
+          )}
         </div>
         <div className='flex items-center'>
           {address && onOpen && !uiAttribute?.showInline && (
@@ -81,20 +86,26 @@ export const ObjectModelUncontainedTemplate = (
             />
           )}
           {attribute.optional && address && !config.readOnly && (
-            <RemoveObject namePath={namePath} />
+            <RemoveObject
+              popupTitle={`Confirm Removal`}
+              popupMessage={`Are sure you want to remove reference to '${namePath}'`}
+              namePath={namePath}
+            />
           )}
         </div>
       </legend>
-      {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
-        <div className='ps-4'>
-          <EntityView
-            idReference={address}
-            type={attribute.attributeType}
-            recipeName={uiRecipe?.name}
-            onOpen={onOpen}
-          />
-        </div>
-      )}
+      <div className='ms-4'>
+        {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
+          <div className='ps-3.5 border-l-[2px] border-b-[5px] pb-3'>
+            <EntityView
+              idReference={address}
+              type={attribute.attributeType}
+              recipeName={uiRecipe?.name}
+              onOpen={onOpen}
+            />
+          </div>
+        )}
+      </div>
     </div>
   )
 }
