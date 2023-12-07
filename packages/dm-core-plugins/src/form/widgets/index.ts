@@ -9,6 +9,7 @@ import SelectWidget from './SelectWidget'
 import NumberWidget from './NumberWidget'
 import DateTimeWidget from './DateTimeWidget'
 import DimensionalScalarWidget from './DimensionalScalarWidget'
+import EntityPickerWidget from './EntityPickerWidget'
 
 const widgets: TWidgets = {
   CheckboxWidget,
@@ -21,6 +22,7 @@ const widgets: TWidgets = {
   NumberWidget,
   DateTimeWidget,
   DimensionalScalarWidget,
+  EntityPickerWidget,
 }
 
 export default widgets

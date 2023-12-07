@@ -3,9 +3,9 @@ import React, { useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import {
-  EntityView,
   resolveRelativeAddress,
   splitAddress,
+  ViewCreator,
 } from '@development-framework/dm-core'
 import { Icon, Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
@@ -137,11 +137,13 @@ export const ObjectModelUncontainedTemplate = (
       <div>
         {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
           <div className='border-t p-2 border-[#6f6f6f] overflow-scroll'>
-            <EntityView
+            <ViewCreator
               idReference={address}
-              type={attribute.attributeType}
-              recipeName={uiRecipe?.name}
               onOpen={onOpen}
+              viewConfig={{
+                type: 'ReferenceViewConfig',
+                recipe: uiRecipe?.name,
+              }}
             />
           </div>
         )}

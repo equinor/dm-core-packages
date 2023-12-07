@@ -3,7 +3,7 @@ import { useDMSS } from '../context/DMSSContext'
 
 export function useSearch<T>(
   body: any,
-  dataSourceId: string,
+  dataSources: string[],
   sortByAttribute?: string
 ): [T[], boolean, boolean] {
   const [searchResult, setSearchResult] = useState<T[]>([])
@@ -15,13 +15,13 @@ export function useSearch<T>(
     setIsLoading(true)
     dmssAPI
       .search({
-        dataSources: [dataSourceId],
+        dataSources: dataSources,
         body: body,
         sortByAttribute: sortByAttribute,
       })
       .then((response: any) => {
         const data = response.data
-        setSearchResult(Object.values(data))
+        setSearchResult(data)
       })
       .catch((err: any) => {
         console.error(err)

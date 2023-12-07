@@ -11,6 +11,7 @@ import TooltipButton from '../../common/TooltipButton'
 import { chevron_down, chevron_up } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { EntityView } from '@development-framework/dm-core'
+import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
 
 export const ObjectModelContainedTemplate = (
   props: TObjectTemplate
@@ -35,11 +36,21 @@ export const ObjectModelContainedTemplate = (
           (isDefined ? (
             <RemoveObject namePath={namePath} />
           ) : (
-            <AddObject
-              namePath={namePath}
-              type={attribute.attributeType}
-              defaultValue={attribute.default}
-            />
+            <>
+              {uiAttribute?.searchByType && (
+                <AddObjectBySearchButton
+                  namePath={namePath}
+                  type={attribute.attributeType}
+                />
+              )}
+              {!uiAttribute?.searchByType && (
+                <AddObject
+                  namePath={namePath}
+                  type={attribute.attributeType}
+                  defaultValue={attribute.default}
+                />
+              )}
+            </>
           ))}
         {isDefined && !(onOpen && !uiAttribute?.showInline) && (
           <TooltipButton
@@ -63,7 +74,7 @@ export const ObjectModelContainedTemplate = (
       </Legend>
       {isDefined && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
         <EntityView
-          recipeName={uiRecipe.name}
+          recipeName={uiRecipe?.name}
           idReference={`${idReference}.${namePath}`}
           type={attribute.attributeType}
           onOpen={onOpen}

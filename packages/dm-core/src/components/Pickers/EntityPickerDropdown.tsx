@@ -9,7 +9,7 @@ export const EntityPickerDropdown = (props: {
   formData: any
 }) => {
   const { onChange, typeFilter, formData, dataSourceId } = props
-  const [searchResult] = useSearch<any>({ type: typeFilter }, dataSourceId)
+  const [searchResult] = useSearch<any>({ type: typeFilter }, [dataSourceId])
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
