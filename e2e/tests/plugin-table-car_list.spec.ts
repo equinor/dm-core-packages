@@ -15,9 +15,7 @@ test('Table car list example', async ({ page }) => {
   await navigate()
 
   await test.step('Add a new car by using expand', async () => {
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(1)
+    await expect(page.getByText('1 - 1 of 1')).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
     await expect(
       page.getByRole('button', { name: 'Open expandable row' })
@@ -65,19 +63,20 @@ test('Table car list example', async ({ page }) => {
 
   await test.step('Delete a car from the table', async () => {
     await page.getByRole('button', { name: 'Row actions' }).last().click()
-    await page.getByRole('menuitem').first().click()
-    await page.reload()
-    await navigate()
-    await expect(page.getByText('1 - 1 of 1')).not.toBeVisible()
-  })
-
-  await test.step('Adding several cars to test pagination', async () => {
-    await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
-    await page.getByRole('button', { name: 'Add new row' }).click()
+    await page.getByRole('menuitem', { name: 'Delete' }).click()
     await expect(
       page.getByRole('button', { name: 'Open expandable row' })
     ).toHaveCount(1)
+    await page.reload()
+    await navigate()
     await expect(page.getByText('1 - 1 of 1')).toBeVisible()
+  })
+
+  await test.step('Adding several cars to test pagination', async () => {
+    await expect(
+      page.getByRole('button', { name: 'Open expandable row' })
+    ).toHaveCount(1)
+    await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
     await page.getByRole('button', { name: 'Add new row' }).click()
     await expect(
       page.getByRole('button', { name: 'Open expandable row' })
