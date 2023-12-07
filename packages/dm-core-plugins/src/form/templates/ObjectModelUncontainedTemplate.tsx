@@ -7,7 +7,6 @@ import {
   resolveRelativeAddress,
   splitAddress,
 } from '@development-framework/dm-core'
-import { Fieldset } from '../styles'
 import { Chip, Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
@@ -15,7 +14,6 @@ import TooltipButton from '../../common/TooltipButton'
 import { chevron_right, chevron_down } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
-import { add } from 'lodash'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
@@ -42,8 +40,8 @@ export const ObjectModelUncontainedTemplate = (
   )
   return (
     <div>
-      <legend className='flex flex-row gap-2 h-10 justify-between'>
-        <div className='flex items-center'>
+      <legend className='flex flex-row h-10 justify-between'>
+        <div className='flex flex-start items-center'>
           {isExpandable && (
             <TooltipButton
               title={isExpanded ? 'Collapse' : 'Expand'}
@@ -54,9 +52,11 @@ export const ObjectModelUncontainedTemplate = (
           )}
           <Typography
             bold={true}
-            color={address ?? 'gray'}
+            color={address === undefined ? 'gray' : ''}
             className={isExpandable ? 'cursor-pointer' : ''}
-            onClick={() => isExpandable && setIsExpanded(!isExpanded)}
+            onClick={() => {
+              isExpandable && setIsExpanded(!isExpanded)
+            }}
           >
             {getDisplayLabel(attribute)}
           </Typography>

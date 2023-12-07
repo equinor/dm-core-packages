@@ -56,12 +56,6 @@ export const SelectReference = (props: {
   return (
     <>
       <Tooltip title={`${value ? 'Edit' : 'Add'} and save`}>
-        {/* <Button onClick={() => setShowModal(true)} variant="ghost" as="button">
-          <div className="flex space-x-1 align-middle">
-            <Icon color="#007079" data={edit}></Icon>
-            <Typography className="self-center">Select</Typography>
-          </div>
-        </Button> */}
         <button
           onClick={() => setShowModal(true)}
           type='button'
