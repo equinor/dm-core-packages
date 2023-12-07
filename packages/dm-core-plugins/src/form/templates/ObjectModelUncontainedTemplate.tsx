@@ -96,7 +96,7 @@ export const ObjectModelUncontainedTemplate = (
       </legend>
       <div className='ms-4'>
         {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
-          <div className='ps-3.5 border-l-[2px] border-b-[5px] pb-3'>
+          <div className='ps-3.5 border-l-[2px] border-b-[5px] pb-3 overflow-scroll'>
             <EntityView
               idReference={address}
               type={attribute.attributeType}
