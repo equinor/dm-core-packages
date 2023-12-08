@@ -60,13 +60,12 @@
         ],
         "fields": [
           "ceo",
-          "name",
-          "averageSalary",
           "accountant",
-          "numberOfEmployees",
-          "averageSalary",
           "assistant",
           "trainee",
+          "name",
+          "averageSalary",
+          "numberOfEmployees",
           "description"
         ]
       }
