@@ -33,8 +33,8 @@ const setupSimple = async (props: TFormProps) => {
   mockBlueprintGet([blueprint])
   const utils = render(<Form {...props} />, { wrapper })
   return await waitFor(() => {
-    const fooInput = screen.getByLabelText<HTMLInputElement>('foo')
-    const barInput = screen.getByLabelText<HTMLInputElement>('bar')
+    const fooInput = screen.getByLabelText<HTMLInputElement>('Foo')
+    const barInput = screen.getByLabelText<HTMLInputElement>('Bar')
     const inputs = screen.getAllByLabelText<HTMLInputElement>(/.+/i)
     const submit = screen.getByText<HTMLButtonElement>('Submit')
     return { ...utils, fooInput, barInput, inputs, submit }
@@ -136,7 +136,7 @@ test('should handle optional', async () => {
   render(<Form idReference="ds/$1" type="Parent" />, { wrapper })
   await waitFor(() => {
     // Show optional in label
-    expect(screen.getByText('nested (optional)')).toBeDefined()
+    expect(screen.getByText('Nested')).toBeDefined()
     // Add button
     expect(screen.getByRole('button', { name: 'Add and save' })).toBeDefined()
   })

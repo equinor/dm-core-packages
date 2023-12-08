@@ -32,7 +32,7 @@ describe('BooleanField', () => {
         expect(container.querySelectorAll(` input[type=checkbox]`).length).toBe(
           1
         )
-        expect(screen.getByText('foo')).toBeDefined()
+        expect(screen.getByText('Foo')).toBeDefined()
       })
     })
 
