@@ -40,11 +40,11 @@ type TUiAttributeBase = {
   type: string
   showInline?: boolean
   config?: Record<any, any>
+  readOnly?: boolean
 }
 export type TUiAttributeString = TUiAttributeBase & {
   widget: string
   format: string
-  readOnly: boolean
 }
 type TUiAttributeArray = TUiAttributeBase & {
   widget?: string
