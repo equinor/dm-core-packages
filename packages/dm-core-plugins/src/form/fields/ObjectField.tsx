@@ -9,7 +9,7 @@ import { useFormContext, Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TField, TUiRecipeForm } from '../types'
 import { defaultConfig } from '../components/Form'
-import { getDisplayLabelString } from '../utils/getDisplayLabel'
+import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
 import { ObjectStorageUncontainedTemplate } from '../templates/ObjectStorageUncontainedTemplate'
 import { ObjectModelContainedTemplate } from '../templates/ObjectModelContainedTemplate'
 import { ObjectModelUncontainedTemplate } from '../templates/ObjectModelUncontainedTemplate'
@@ -40,7 +40,7 @@ export const ObjectField = (props: TField): React.ReactElement => {
               value={value}
               onChange={onChange}
               config={uiAttribute?.config}
-              label={getDisplayLabelString(attribute)}
+              label={getDisplayLabelWithOptional(attribute)}
               isDirty={isDirty}
               inputRef={ref}
               id={isStorageUncontained ? values['address'] : namePath}
