@@ -47,6 +47,13 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   )
 
   useEffect(() => {
+    if (!useMinutes) {
+      setDatetime(datetime.set({ minute: 0, second: 0, millisecond: 0 }))
+      formatTime(fieldTimeValue)
+    }
+  }, [selectedDate])
+
+  useEffect(() => {
     onChange(datetime.toISO() ?? '')
   }, [datetime])
 

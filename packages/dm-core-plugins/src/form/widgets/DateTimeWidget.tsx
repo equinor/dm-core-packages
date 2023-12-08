@@ -17,6 +17,7 @@ const DateTimeWidget = (props: TWidget) => {
       label={label}
       helperText={helperText}
       isDirty={isDirty}
+      useMinutes={false}
     />
   )
 }
