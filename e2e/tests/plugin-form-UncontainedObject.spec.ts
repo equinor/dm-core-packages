@@ -58,7 +58,7 @@ test('uncontainedObject', async ({ page }) => {
   await test.step('Add trainee', async () => {
     await page
       .getByTestId('trainee')
-      .getByRole('button', { name: 'Add and save' })
+      .getByRole('button', { name: 'Select Entity' })
       .click()
     await selectJohn()
     await expect(
@@ -72,7 +72,7 @@ test('uncontainedObject', async ({ page }) => {
   await test.step('Change accountant', async () => {
     await page
       .getByTestId('accountant')
-      .getByRole('button', { name: 'Edit and save' })
+      .getByRole('button', { name: 'Select Entity' })
       .click()
     await selectJohn()
     await expect(

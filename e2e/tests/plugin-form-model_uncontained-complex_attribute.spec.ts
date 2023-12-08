@@ -33,7 +33,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
 
   await test.step('Update model uncontained', async () => {
     await page
-      .getByRole('button', { name: 'Edit and save', exact: true })
+      .getByRole('button', { name: 'Select Entity', exact: true })
       .click()
 
     const dialog = page.getByRole('dialog')
