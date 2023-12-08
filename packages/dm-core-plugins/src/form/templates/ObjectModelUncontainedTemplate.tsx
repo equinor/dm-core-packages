@@ -7,20 +7,12 @@ import {
   splitAddress,
   ViewCreator,
 } from '@development-framework/dm-core'
-import { Icon, Typography } from '@equinor/eds-core-react'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
-import TooltipButton from '../../common/TooltipButton'
-import {
-  chevron_right,
-  chevron_down,
-  file_description,
-  file,
-} from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
 import ObjectWrapper from './shared/ObjectWrapper'
-import ObjectLegend from './shared/ObjectLegend'
+import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
+import ObjectLegendHeader from './shared/ObjectLegendHeader'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
@@ -63,41 +55,15 @@ export const ObjectModelUncontainedTemplate = (
 
   return (
     <ObjectWrapper>
-      <ObjectLegend isExpandable={canExpand || false}>
-        <div className={`flex flex-start items-center`}>
-          {canExpand && (
-            <TooltipButton
-              title={isExpanded ? 'Collapse' : 'Expand'}
-              button-variant='ghost_icon'
-              compact
-              iconSize={24}
-              button-onClick={() => setIsExpanded(!isExpanded)}
-              icon={isExpanded ? chevron_down : chevron_right}
-            />
-          )}
-          <div
-            className={`flex items-center space-x-1  ${
-              referenceExists ? 'cursor-pointer' : 'opacity-50'
-            }
-            `}
-            onClick={() => {
-              if (!referenceExists) return
-              canExpand ? setIsExpanded(!isExpanded) : openInTab()
-            }}
-          >
-            <Icon
-              data={referenceExists ? file_description : file}
-              color='#3d3d3d'
-            />
-            <Typography
-              bold={true}
-              className={referenceExists && !canExpand ? 'hover:underline' : ''}
-            >
-              {getDisplayLabel(attribute)}
-            </Typography>
-            {attribute.optional && <p className='ps-1 text-xs'>Optional</p>}
-          </div>
-        </div>
+      <ObjectLegendWrapper>
+        <ObjectLegendHeader
+          canExpand={canExpand}
+          isExpanded={isExpanded}
+          attribute={attribute}
+          referenceExists={referenceExists}
+          setIsExpanded={setIsExpanded}
+          openInTab={openInTab}
+        />
         <div className='flex items-center mr-2'>
           {canOpen && (
             <OpenObjectButton
@@ -128,7 +94,7 @@ export const ObjectModelUncontainedTemplate = (
             />
           )}
         </div>
-      </ObjectLegend>
+      </ObjectLegendWrapper>
       <div>
         {canExpand && isExpanded && (
           <div className='border-t p-2 border-[#6f6f6f] overflow-scroll'>
