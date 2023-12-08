@@ -4,6 +4,7 @@ import {
   EBlueprint,
   EntityPickerDialog,
   ErrorResponse,
+  TEntityPickerReturn,
   TLinkReference,
   useDMSS,
 } from '@development-framework/dm-core'
@@ -23,11 +24,11 @@ export const SelectReference = (props: {
   const { idReference } = useRegistryContext()
   const value = watch(props.namePath)
 
-  const onChange = (address: string) => {
+  const onChange = (v: TEntityPickerReturn) => {
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
-      address: address,
+      address: v.address,
     }
     const options = {
       shouldValidate: true,
@@ -64,6 +65,7 @@ export const SelectReference = (props: {
       />
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
+        // @ts-ignore
         onChange={onChange}
         typeFilter={props.attributeType}
         showModal={showModal}

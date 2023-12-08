@@ -1,15 +1,76 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 
-import { Button, Progress } from '@equinor/eds-core-react'
+import {
+  Button,
+  Checkbox,
+  EdsProvider,
+  Progress,
+} from '@equinor/eds-core-react'
 import { toast } from 'react-toastify'
-import { EBlueprint } from '../../Enums'
 import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { TValidEntity } from '../../types'
-import { truncatePathString } from '../../utils/truncatePathString'
 import { TREE_DIALOG_WIDTH } from '../../utils/variables'
 import { Dialog } from '../Dialog'
-import { TreeView } from '../TreeView'
+import { TNodeWrapperProps, TreeView } from '../TreeView'
+import styled from 'styled-components'
+import { truncatePathString } from '../../utils/truncatePathString'
+import { EBlueprint } from '../../Enums'
+
+const Wrapper = styled.div<{ selected: boolean }>`
+  display: flex;
+  border-radius: 5px;
+  justify-content: space-between;
+  align-items: center;
+  &:hover {
+    background-color: rgba(222, 237, 238, 1);
+  }
+`
+const CheckSelectNode = (
+  props: TNodeWrapperProps & {
+    onSelect: (node: TreeNode, selected: boolean) => void
+    typeFilter: string
+    selectedNodeIds: string[]
+    multiple: boolean
+  }
+) => {
+  const { node, children, onSelect, typeFilter, selectedNodeIds, multiple } =
+    props
+  const nodeIsSelected = selectedNodeIds.includes(node.nodeId)
+  return (
+    <Wrapper selected={nodeIsSelected}>
+      {children}
+      {node.type === typeFilter && (
+        <EdsProvider density={'compact'}>
+          <Checkbox
+            checked={nodeIsSelected}
+            data-testid='select-multiple-entity-checkbox'
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              onSelect(node, event.target.checked)
+            }
+          />
+        </EdsProvider>
+      )}
+    </Wrapper>
+  )
+}
+
+export type TEntityPickerReturn = {
+  address: string
+  entity: TValidEntity
+}
+
+type TEntityPickerDialog = {
+  // TODO: Struggling to type this correctly...
+  onChange: (v: TEntityPickerReturn | TEntityPickerReturn[]) => void
+  showModal: boolean
+  setShowModal: (x: boolean) => void
+  typeFilter?: string
+  scope?: string
+  multiple?: boolean
+  title?: string
+  hideInvalidTypes?: boolean
+}
 
 /**
  * A component for selecting an Entity or an attribute of an entity.
@@ -19,29 +80,28 @@ import { TreeView } from '../TreeView'
  * If returnLinkReference is true, onChange is called with a link reference to the selected entity.
  *
  *
- * @param onChange: function to call when entity is selected.
- * @param returnLinkReference: if this is set to true, onChange is called with a link reference to the selected entity (or a complex attribute inside the entity) instead of the entity object.
+ * @param onChange: Calls callback-function with selected entity/entities. Value is a list if props 'multiple' is set
  * @param typeFilter: optional filter that can be added. If this is included, it is only possible to select an entity with the type specified by typeFilter.
- * @param alternativeButtonText: optional attribute to override the Button text
  * @param variant: optional attribute to override the variant / styling used for the button
  * @param scope: optional attribute to define scope for tree view. The scope must be on the format: <DataSource>/<rootPackage>/<pathToFolder>
+ * @param multiple: optional attribute to allow selection of multiple entities. Effects return type
  */
-export const EntityPickerDialog = (props: {
-  onChange: (address: string, entity: TValidEntity) => void
-  showModal: boolean
-  setShowModal: (x: boolean) => void
-  typeFilter?: string
-  scope?: string
-}) => {
-  const { onChange, showModal, setShowModal, typeFilter, scope } = props
+export const EntityPickerDialog = (props: TEntityPickerDialog) => {
+  const {
+    onChange,
+    showModal,
+    setShowModal,
+    typeFilter,
+    scope,
+    multiple = false,
+    hideInvalidTypes = false,
+  } = props
   const appConfig = useContext(ApplicationContext)
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
 
   const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
-  const [selectedTreeNode, setSelectedTreeNode] = useState<
-    TreeNode | undefined
-  >()
+  const [selectedNodes, setSelectedNodes] = useState<TEntityPickerReturn[]>([])
 
   useEffect(() => {
     setLoading(true)
@@ -54,24 +114,40 @@ export const EntityPickerDialog = (props: {
     }
   }, [scope])
 
-  const handleSelectEntityInTree = () => {
-    if (!selectedTreeNode) {
+  const handleSelect = (node: TreeNode, selected: boolean) => {
+    if (node.type !== typeFilter || node.isArray()) return
+    if (selected) {
+      // It has already been added
+      if (selectedNodes.find((v) => node.nodeId === v.address)) return
+
+      // append to selected
+      node
+        .fetch()
+        .then((doc: any) => {
+          setSelectedNodes([
+            ...(selectedNodes as []),
+            { address: node.nodeId, entity: doc },
+          ])
+          if (!multiple) {
+            // @ts-ignore  We know it should be singular
+            onChange({ address: node.nodeId, entity: doc })
+            setShowModal(false)
+            setSelectedNodes([])
+          }
+        })
+        .catch((error: any) => {
+          console.error(error)
+          toast.error('Failed to fetch')
+        })
+
       return
     }
-    selectedTreeNode
-      .fetch()
-      .then((doc: any) => {
-        onChange(selectedTreeNode.nodeId, doc)
-        setShowModal(false)
-      })
-      .catch((error: any) => {
-        console.error(error)
-        toast.error('Failed to fetch')
-      })
-      .finally(() => {
-        setSelectedTreeNode(undefined)
-        setShowModal(false)
-      })
+    // filter out from selected
+    setSelectedNodes(
+      selectedNodes.filter(
+        (v: TEntityPickerReturn) => v.address !== node.nodeId
+      )
+    )
   }
 
   return (
@@ -79,14 +155,16 @@ export const EntityPickerDialog = (props: {
       isDismissable
       open={showModal}
       onClose={() => {
-        setSelectedTreeNode(undefined)
+        setSelectedNodes([])
         setShowModal(false)
       }}
       width={TREE_DIALOG_WIDTH}
     >
       <Dialog.Header>
         <Dialog.Title>
-          {`Select an Entity ${typeFilter ? `of type ${typeFilter}` : ''}`}
+          {`Select an Entity ${
+            typeFilter ? `of type '${truncatePathString(typeFilter)}'` : ''
+          }`}
         </Dialog.Title>
       </Dialog.Header>
       <Dialog.CustomContent>
@@ -98,42 +176,62 @@ export const EntityPickerDialog = (props: {
           <div>
             <div style={{ height: '40vh', overflow: 'auto' }}>
               <TreeView
-                ignoredTypes={[EBlueprint.BLUEPRINT]}
+                // If configured to hide "invalidTypes", only show the "typeFilter", along with data sources and packages to allow for browsing
+                includeTypes={
+                  hideInvalidTypes
+                    ? [EBlueprint.PACKAGE, 'dataSource', typeFilter ?? '']
+                    : undefined
+                }
                 nodes={treeNodes}
-                onSelect={(node: TreeNode) => {
-                  if (typeFilter && node.type !== typeFilter) {
-                    toast.warning(
-                      `Type must be '${truncatePathString(typeFilter, 43)}'`
-                    )
-                    setSelectedTreeNode(undefined)
-                    return
-                  }
-                  setSelectedTreeNode(node)
-                }}
+                // If not 'multiple', clicking a valid entity selects it, and closes the dialog
+                onSelect={(node: TreeNode) => handleSelect(node, true)}
+                // If 'multiple', add a checkbox to handle selection
+                NodeWrapper={
+                  multiple
+                    ? (props: any) =>
+                        CheckSelectNode({
+                          ...props,
+                          multiple,
+                          typeFilter,
+                          selectedNodeIds: selectedNodes.map((n) => n.address),
+                          onSelect: (node: TreeNode, selected: boolean) =>
+                            handleSelect(node, selected),
+                        })
+                    : undefined
+                }
               />
             </div>
-            <p>
-              {selectedTreeNode
-                ? `Selected: ${
-                    selectedTreeNode?.name ?? selectedTreeNode.nodeId
-                  }`
-                : 'No entity selected'}
-            </p>
           </div>
         )}
       </Dialog.CustomContent>
-      <Dialog.Actions>
-        <Button disabled={!selectedTreeNode} onClick={handleSelectEntityInTree}>
-          Select
-        </Button>
+      <Dialog.Actions style={{ justifyContent: 'space-around' }}>
         <Button
-          variant='ghost'
+          variant='outlined'
+          color='danger'
           onClick={() => {
-            setSelectedTreeNode(undefined)
+            setSelectedNodes([])
             setShowModal(false)
           }}
         >
           Cancel
+        </Button>
+        <Button
+          disabled={!selectedNodes}
+          onClick={() => {
+            if (multiple) {
+              // @ts-ignore
+              onChange(selectedNodes)
+            } else {
+              if (!selectedNodes.length) {
+              } else {
+                // @ts-ignore
+                onChange(selectedNodes[0])
+              }
+            }
+            setShowModal(false)
+          }}
+        >
+          Ok
         </Button>
       </Dialog.Actions>
     </Dialog>
