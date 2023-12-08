@@ -59,7 +59,7 @@ export const ObjectModelUncontainedTemplate = (
 
   return (
     <div className='border border-[#6f6f6f]'>
-      <legend className='flex flex-row h-10 justify-between bg-[#f7f7f7] ps-2 '>
+      <legend className='flex h-10 justify-between bg-[#f7f7f7] ps-2 '>
         <div className={`flex flex-start items-center`}>
           {isExpandable && (
             <EdsProvider density='compact'>
