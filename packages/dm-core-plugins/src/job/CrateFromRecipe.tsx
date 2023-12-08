@@ -166,7 +166,7 @@ export const CrateFromRecipe = (
         <JobLog logs={logs} error={error} />
         <Chip variant={getVariant(status)}>{status ?? 'Not registered'}</Chip>
       </JobButtonWrapper>
-      {status === JobStatus.Running && (
+      {status === JobStatus.Running && progress !== null && (
         <div
           style={{
             display: 'flex',
