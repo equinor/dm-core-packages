@@ -111,7 +111,7 @@ const TreeButton = (props: {
 }) => {
   const { node, expanded, loading, onClick } = props
 
-  let isExpandable = true
+  let isExpandable = false
   if (node.type === 'dataSource') isExpandable = true
   if (
     node.entity instanceof Object &&
