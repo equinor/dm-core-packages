@@ -23,7 +23,7 @@ import { SelectReference } from '../components/SelectReference'
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
 ): React.ReactElement => {
-  const { namePath, uiAttribute, uiRecipe, attribute } = props
+  const { namePath, uiAttribute, attribute } = props
   const { watch } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
   const [isExpanded, setIsExpanded] = useState(
@@ -51,7 +51,7 @@ export const ObjectModelUncontainedTemplate = (
       {
         type: 'ReferenceViewConfig',
         scope: '',
-        recipe: uiRecipe?.name,
+        recipe: uiAttribute?.uiRecipe,
       },
       address
     )
@@ -107,7 +107,7 @@ export const ObjectModelUncontainedTemplate = (
               viewConfig={{
                 type: 'ReferenceViewConfig',
                 scope: '',
-                recipe: uiRecipe?.name,
+                recipe: uiAttribute?.uiRecipe,
               }}
               idReference={address}
             />
@@ -142,7 +142,7 @@ export const ObjectModelUncontainedTemplate = (
               onOpen={onOpen}
               viewConfig={{
                 type: 'ReferenceViewConfig',
-                recipe: uiRecipe?.name,
+                recipe: uiAttribute?.uiRecipe,
               }}
             />
           </div>

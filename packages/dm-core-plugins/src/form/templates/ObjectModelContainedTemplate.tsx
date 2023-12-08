@@ -10,14 +10,14 @@ import AddObject from '../components/AddObjectButton'
 import TooltipButton from '../../common/TooltipButton'
 import { chevron_down, chevron_up } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
-import { EntityView, ViewCreator } from '@development-framework/dm-core'
+import { ViewCreator } from '@development-framework/dm-core'
 import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
 
 export const ObjectModelContainedTemplate = (
   props: TObjectTemplate
 ): React.ReactElement => {
   const { namePath, uiAttribute, attribute } = props
-  const { getValues, setValue } = useFormContext()
+  const { watch, setValue } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
 
   const [isExpanded, setIsExpanded] = useState(
@@ -25,7 +25,7 @@ export const ObjectModelContainedTemplate = (
       ? uiAttribute?.showExpanded
       : config.showExpanded
   )
-  const value = getValues(namePath)
+  const value = watch(namePath)
   const isDefined = value && Object.keys(value).length > 0
 
   return (

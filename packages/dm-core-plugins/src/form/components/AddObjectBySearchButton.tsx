@@ -41,39 +41,29 @@ const AddObjectBySearchButton = (props: {
     setIsOpen(false)
   }
 
-  const handleChange = (address: string) => {
+  const addDocument = (address: string) => {
     dmssAPI
       .blueprintResolve({
         address: address,
       })
       .then(async (resolveBlueprintResponse) => {
-        const blueprintType = resolveBlueprintResponse?.data
-        const createResponse = await dmssAPI.instantiateEntity({
-          entity: { type: blueprintType },
+        const instantiateEntityResponse = await dmssAPI.instantiateEntity({
+          entity: { type: resolveBlueprintResponse?.data },
         })
-        addDocument(createResponse.data)
-      })
-      .catch((error) => console.error(error))
-  }
-
-  const addDocument = (document: any) => {
-    const options = {
-      shouldValidate: true,
-      shouldDirty: true,
-      shouldTouch: true,
-    }
-    dmssAPI
-      .documentAdd({
-        address: `${idReference}.${namePath}`,
-        document: JSON.stringify(document),
-      })
-      .then(() => {
-        setValue(namePath, document, options)
+        const newEntity = instantiateEntityResponse.data
+        await dmssAPI.documentAdd({
+          address: `${idReference}.${namePath}`,
+          document: JSON.stringify(newEntity),
+        })
+        const options = {
+          shouldValidate: true,
+          shouldDirty: true,
+          shouldTouch: true,
+        }
+        setValue(namePath, newEntity, options)
         onAdd && onAdd()
       })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-      })
+      .catch((error) => console.error(error))
   }
 
   const hits: Hit[] = []
@@ -108,7 +98,8 @@ const AddObjectBySearchButton = (props: {
         {hits.map((hit) => {
           return (
             <Menu.Item
-              onClick={() => handleChange(`${hit.dataSource}/$${hit.id}`)}
+              key={hit.id}
+              onClick={() => addDocument(`${hit.dataSource}/$${hit.id}`)}
             >
               {hit.label}
             </Menu.Item>

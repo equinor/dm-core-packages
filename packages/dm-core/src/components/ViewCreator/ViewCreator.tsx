@@ -59,7 +59,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
       })
       .catch((error) => setError(error))
       .finally(() => setIsLoading(false))
-  }, [])
+  }, [viewConfig])
 
   if (isLoading) return <Loading />
   if (error)
