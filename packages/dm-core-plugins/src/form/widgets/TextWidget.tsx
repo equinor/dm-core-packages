@@ -10,11 +10,14 @@ const TextWidget = (props: TWidget) => {
 
   return (
     <>
-      <Typography className={'self-center pb-2'} bold={true}>
-        {label}
-      </Typography>
+      {/* <label htmlFor={props.id}>
+        <Typography className={"self-center pb-2"} bold={true}>
+          {label}
+        </Typography>
+      </label> */}
       <TextField
         id={props.id}
+        label={label}
         readOnly={props.readOnly}
         defaultValue={props.value}
         inputRef={props.inputRef}

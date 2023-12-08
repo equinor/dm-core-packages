@@ -10,12 +10,15 @@ const NumberWidget = (props: TWidget) => {
 
   return (
     <>
-      <Typography className={'self-center pb-2'} bold={true}>
-        {label}
-      </Typography>
+      {/* <label htmlFor={props.id}>
+        <Typography className={"self-center pb-2"} bold={true}>
+          {label}
+        </Typography>
+      </label> */}
       <NumberFieldWithoutArrows
         id={props.id}
         readOnly={props.readOnly}
+        label={label}
         defaultValue={props.value}
         inputRef={props.inputRef}
         variant={props.variant}

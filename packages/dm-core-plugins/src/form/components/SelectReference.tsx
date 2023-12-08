@@ -10,12 +10,19 @@ import {
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError } from 'axios/index'
 import TooltipButton from '../../common/TooltipButton'
-import { add, edit } from '@equinor/eds-icons'
-import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
+import { add, edit, file_description } from '@equinor/eds-icons'
+import {
+  Button,
+  EdsProvider,
+  Icon,
+  Tooltip,
+  Typography,
+} from '@equinor/eds-core-react'
 
 export const SelectReference = (props: {
   attributeType: string
   namePath: string
+  buttonText?: string
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
   const { setValue, watch } = useFormContext()
@@ -56,16 +63,11 @@ export const SelectReference = (props: {
   return (
     <>
       <Tooltip title={`${value ? 'Edit' : 'Add'} and save`}>
-        <button
-          onClick={() => setShowModal(true)}
-          type='button'
-          className='bg-transparent hover:bg-[#DEEDEE] py-1 px-2 rounded-full'
-        >
-          <div className='flex space-x-1 align-middle'>
-            <Icon color='#007079' data={edit}></Icon>
-            <Typography className='self-center'>Select</Typography>
-          </div>
-        </button>
+        <EdsProvider density='compact'>
+          <Button variant='ghost' style={{ paddingInline: '5px' }}>
+            {props.buttonText ?? 'Replace'}
+          </Button>
+        </EdsProvider>
       </Tooltip>
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}

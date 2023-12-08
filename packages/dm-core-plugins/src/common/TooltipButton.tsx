@@ -1,6 +1,7 @@
-import { Button, Icon, Tooltip } from '@equinor/eds-core-react'
+import { Button, EdsProvider, Icon, Tooltip } from '@equinor/eds-core-react'
 import { IconData } from '@equinor/eds-icons'
 import React from 'react'
+import internal from 'stream'
 
 type Prefix<T, P extends string> = {
   [K in keyof T as `${P}-${string & K}`]: T[K]
@@ -22,7 +23,13 @@ type TContent =
       icon: IconData
       buttonText?: string
     }
-type TProps = PrefixedButton & PrefixedTooltip & TContent & { title: string }
+type TProps = PrefixedButton &
+  PrefixedTooltip &
+  TContent & {
+    title: string
+    compact?: boolean
+    iconSize?: 16 | 18 | 24 | 32 | 40 | 48 | undefined
+  }
 
 const getProps = (prefix: string, dict: { [k: string]: any }) => {
   return Object.fromEntries(
@@ -39,12 +46,14 @@ const getProps = (prefix: string, dict: { [k: string]: any }) => {
  */
 const TooltipButton = (props: TProps) => {
   return (
-    <Tooltip title={props.title} {...getProps('tooltip-', props)}>
-      <Button {...getProps('button-', props)} aria-label={props.title}>
-        {props.icon && <Icon data={props.icon} />}
-        {props.buttonText}
-      </Button>
-    </Tooltip>
+    <EdsProvider density={props.compact ? 'compact' : 'comfortable'}>
+      <Tooltip title={props.title} {...getProps('tooltip-', props)}>
+        <Button {...getProps('button-', props)} aria-label={props.title}>
+          {props.icon && <Icon size={props.iconSize ?? 16} data={props.icon} />}
+          {props.buttonText}
+        </Button>
+      </Tooltip>
+    </EdsProvider>
   )
 }
 
