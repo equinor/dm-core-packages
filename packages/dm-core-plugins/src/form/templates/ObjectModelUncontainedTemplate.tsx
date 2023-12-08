@@ -44,6 +44,19 @@ export const ObjectModelUncontainedTemplate = (
     [address]
   )
   const refrenceExists = address !== undefined
+
+  const openInTab = () => {
+    onOpen?.(
+      namePath,
+      {
+        type: 'ReferenceViewConfig',
+        scope: '',
+        recipe: uiRecipe?.name,
+      },
+      address
+    )
+  }
+
   return (
     <div className='border border-[#6f6f6f]'>
       <legend className='flex flex-row h-10 justify-between bg-[#f7f7f7] ps-2 '>
@@ -60,22 +73,10 @@ export const ObjectModelUncontainedTemplate = (
             </EdsProvider>
           )}
           <div
-            className={`flex ${address !== undefined ? 'cursor-pointer' : ''}`}
+            className={`flex ${refrenceExists ? 'cursor-pointer' : ''}`}
             onClick={() => {
-              if (address === undefined) return
-              if (isExpandable) {
-                setIsExpanded(!isExpanded)
-                return
-              }
-              onOpen?.(
-                namePath,
-                {
-                  type: 'ReferenceViewConfig',
-                  scope: '',
-                  recipe: uiRecipe?.name,
-                },
-                address
-              )
+              if (!refrenceExists) return
+              isExpandable ? setIsExpanded(!isExpanded) : openInTab()
             }}
           >
             <Icon
