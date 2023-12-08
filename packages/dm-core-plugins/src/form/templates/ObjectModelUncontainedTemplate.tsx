@@ -19,6 +19,8 @@ import {
 } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
+import ObjectWrapper from './shared/ObjectWrapper'
+import ObjectLegend from './shared/ObjectLegend'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
@@ -60,12 +62,8 @@ export const ObjectModelUncontainedTemplate = (
   }
 
   return (
-    <div className='border border-[#6f6f6f]'>
-      <legend
-        className={`flex h-10 justify-between bg-[#f7f7f7] ${
-          !canExpand ? 'ps-2' : 'ps-1'
-        }`}
-      >
+    <ObjectWrapper>
+      <ObjectLegend isExpandable={canExpand || false}>
         <div className={`flex flex-start items-center`}>
           {canExpand && (
             <TooltipButton
@@ -130,7 +128,7 @@ export const ObjectModelUncontainedTemplate = (
             />
           )}
         </div>
-      </legend>
+      </ObjectLegend>
       <div>
         {canExpand && isExpanded && (
           <div className='border-t p-2 border-[#6f6f6f] overflow-scroll'>
@@ -149,6 +147,6 @@ export const ObjectModelUncontainedTemplate = (
           </div>
         )}
       </div>
-    </div>
+    </ObjectWrapper>
   )
 }
