@@ -4,17 +4,18 @@ import lodash from 'lodash'
 import React from 'react'
 
 export const getDisplayLabel = (attribute: TAttribute) => {
-  const { name, label, optional } = attribute
+  const { name, label } = attribute
   const displayLabel =
     label === undefined || label === '' ? lodash.startCase(name) : label
-  return (
-    <div className='flex items-center'>
-      <p>{displayLabel}</p>
-      {optional && (
-        <p className='text-gray ms-2 font-normal text-xs'>Optional</p>
-      )}
-    </div>
-  )
+  return displayLabel
+  // return (
+  //   <div className='flex items-center'>
+  //     <p>{displayLabel}</p>
+  //     {optional && (
+  //       <p className='text-gray ms-2 font-normal text-xs'>Optional</p>
+  //     )}
+  //   </div>
+  // )
 }
 
 export const getDisplayLabelString = (attribute: TAttribute): string => {

@@ -73,9 +73,10 @@ export const ObjectModelUncontainedTemplate = (
             </EdsProvider>
           )}
           <div
-            className={`flex  ${
+            className={`flex items-center space-x-1  ${
               refrenceExists ? 'cursor-pointer' : 'opacity-50'
-            }`}
+            }
+            `}
             onClick={() => {
               if (!refrenceExists) return
               isExpandable ? setIsExpanded(!isExpanded) : openInTab()
@@ -83,16 +84,17 @@ export const ObjectModelUncontainedTemplate = (
           >
             <Icon
               data={refrenceExists ? file_description : file}
-              className='mr-1'
-              //color={refrenceExists ? "" : "gray"}
+              color='#3d3d3d'
             />
             <Typography
               bold={true}
-              //color={refrenceExists ? "" : "gray"}
-              className='self-center'
+              className={
+                refrenceExists && !isExpandable ? 'hover:underline' : ''
+              }
             >
               {getDisplayLabel(attribute)}
             </Typography>
+            {attribute.optional && <p className='ps-1 text-xs'>Optional</p>}
           </div>
         </div>
         <div className='flex items-center mr-2'>
@@ -114,16 +116,22 @@ export const ObjectModelUncontainedTemplate = (
               buttonText={refrenceExists ? 'Change' : 'Select'}
             />
           )}
-          {attribute.optional && address && !config.readOnly && (
+          <div
+            className={
+              attribute.optional && address && !config.readOnly
+                ? 'invisible'
+                : ''
+            }
+          >
             <RemoveObject
               popupTitle={`Confirm Removal`}
               popupMessage={`Are sure you want to remove reference to '${namePath}'`}
               namePath={namePath}
             />
-          )}
+          </div>
         </div>
       </legend>
-      <div className=''>
+      <div>
         {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
           <div className='border-t p-2 border-[#6f6f6f] overflow-scroll'>
             <EntityView
