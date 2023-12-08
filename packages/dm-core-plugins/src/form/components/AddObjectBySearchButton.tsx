@@ -14,7 +14,7 @@ import { EdsProvider, Menu } from '@equinor/eds-core-react'
 
 type Hit = { dataSource: string; id: string; label: string }
 
-const AddObject = (props: {
+const AddObjectBySearchButton = (props: {
   type: string
   namePath: string
   onAdd?: () => void
@@ -119,4 +119,4 @@ const AddObject = (props: {
   )
 }
 
-export default AddObject
+export default AddObjectBySearchButton
