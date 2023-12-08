@@ -54,6 +54,7 @@
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
         "selectFromScope": "dmss://DemoDataSource/plugins/list/task_list",
+        "hideInvalidTypes": true,
         "headers": ["name", "assigned"],
         "saveExpanded": false,
         "functionality": {

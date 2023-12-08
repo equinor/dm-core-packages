@@ -190,8 +190,9 @@ export function useList<T extends object>(
       } else {
         setDirtyState(true)
       }
-      const newList = [
-        ...items,
+      // The 'previousState' is needed incase multiple items are added at the same time
+      setItems((v) => [
+        ...v,
         {
           key: newKey,
           index: items?.length,
@@ -199,8 +200,7 @@ export function useList<T extends object>(
           reference: reference,
           isSaved: saveOnAdd,
         },
-      ]
-      setItems(newList)
+      ])
     } catch (error) {
       if (isAxiosError(error)) {
         setError(error.response?.data || { message: error.name, data: error })
