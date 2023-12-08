@@ -10,8 +10,6 @@ import {
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError } from 'axios/index'
 import { Button, EdsProvider, Tooltip } from '@equinor/eds-core-react'
-import { edit } from '@equinor/eds-icons'
-import TooltipButton from '../../common/TooltipButton'
 
 export const SelectReference = (props: {
   attributeType: string
