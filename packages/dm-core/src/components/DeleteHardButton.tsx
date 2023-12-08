@@ -72,7 +72,10 @@ export const DeleteHardButton = ({
           {showDialog && (
             <DeleteDialog
               setShowDialog={setShowDialog}
-              confirmDelete={() => onConfirmDelete()}
+              confirmDelete={() => {
+                setShowDialog(false)
+                onConfirmDelete()
+              }}
               popupMessage={popupMessage}
               popupTitle={popupTitle}
             />

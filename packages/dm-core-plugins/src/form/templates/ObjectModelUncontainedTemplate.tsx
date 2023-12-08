@@ -59,18 +59,21 @@ export const ObjectModelUncontainedTemplate = (
 
   return (
     <div className='border border-[#6f6f6f]'>
-      <legend className='flex h-10 justify-between bg-[#f7f7f7] ps-2 '>
+      <legend
+        className={`flex h-10 justify-between bg-[#f7f7f7] ${
+          !isExpandable ? 'ps-2' : 'ps-1'
+        }`}
+      >
         <div className={`flex flex-start items-center`}>
           {isExpandable && (
-            <EdsProvider density='compact'>
-              <TooltipButton
-                title={isExpanded ? 'Collapse' : 'Expand'}
-                button-variant='ghost_icon'
-                iconSize={24}
-                button-onClick={() => setIsExpanded(!isExpanded)}
-                icon={isExpanded ? chevron_down : chevron_right}
-              />
-            </EdsProvider>
+            <TooltipButton
+              title={isExpanded ? 'Collapse' : 'Expand'}
+              button-variant='ghost_icon'
+              compact
+              iconSize={24}
+              button-onClick={() => setIsExpanded(!isExpanded)}
+              icon={isExpanded ? chevron_down : chevron_right}
+            />
           )}
           <div
             className={`flex items-center space-x-1  ${
@@ -118,9 +121,9 @@ export const ObjectModelUncontainedTemplate = (
           )}
           <div
             className={
-              attribute.optional && address && !config.readOnly
-                ? 'invisible'
-                : ''
+              attribute.optional && refrenceExists && !config.readOnly
+                ? ''
+                : 'invisible'
             }
           >
             <RemoveObject
