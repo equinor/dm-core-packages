@@ -59,14 +59,14 @@
           }
         ],
         "fields": [
-          "ceo",
-          "accountant",
-          "assistant",
-          "trainee",
           "name",
           "averageSalary",
           "numberOfEmployees",
-          "description"
+          "description",
+          "ceo",
+          "accountant",
+          "assistant",
+          "trainee"
         ]
       }
     }
