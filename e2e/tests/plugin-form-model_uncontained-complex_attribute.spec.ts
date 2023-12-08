@@ -25,7 +25,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
       'CaptainJackSparrow'
     )
     await expect(
-      page.getByTestId('form-number-widget-Phone Number (optional)')
+      page.getByTestId('form-number-widget-Phone Number (Optional)')
     ).toHaveValue('0')
     await page.getByLabel('Close captain').click()
     await expect(page.getByRole('tab', { name: 'captain' })).not.toBeVisible()

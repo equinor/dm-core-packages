@@ -92,7 +92,7 @@ test('View selector - car garage', async ({ page }) => {
       .click()
     await page.getByRole('tab', { name: 'Dimensions' }).click()
     await page
-      .getByTestId('form-number-widget-Length (mm) (optional)')
+      .getByTestId('form-number-widget-Length (mm) (Optional)')
       .last()
       .fill('4250')
     await page.getByRole('button', { name: 'Submit' }).click()

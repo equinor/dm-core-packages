@@ -43,7 +43,7 @@ test('uncontainedObject', async ({ page }) => {
   await test.step('Add assistant', async () => {
     await page
       .getByTestId('assistant')
-      .getByRole('button', { name: 'Add and save' })
+      .getByRole('button', { name: 'Select Entity' })
       .click()
     await selectJohn()
     await page
