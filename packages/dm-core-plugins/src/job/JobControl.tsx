@@ -100,7 +100,9 @@ export const JobControl = (props: IUIPlugin) => {
         <JobLog logs={logs} error={error} />
         <Chip variant={getVariant(status)}>{status ?? 'Not registered'}</Chip>
       </JobButtonWrapper>
-      <Progress progress={progress} />
+      {status === JobStatus.Running && progress !== null && (
+        <Progress progress={progress} />
+      )}
     </div>
   )
 }

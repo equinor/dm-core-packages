@@ -29,7 +29,7 @@ export const JobLog = (props: {
     <>
       <Button onClick={() => setShowLogs(!showLogs)} variant='ghost'>
         {showLogs ? 'Hide' : 'Show'} logs
-        <Icon data={expand_screen} />
+        <Icon data={expand_screen} size={16} />
       </Button>
       <JobLogsDialog
         isOpen={showLogs}
