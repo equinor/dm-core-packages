@@ -64,6 +64,7 @@ const TestUseListPlugin = (props: IUIPlugin) => {
         showModal={showAddReferenceModal}
         setShowModal={setShowAddReferenceModal}
         typeFilter={attribute?.attributeType}
+        // @ts-ignore
         onChange={(address: string, entity: TValidEntity) => {
           addReference(address, entity)
         }}
