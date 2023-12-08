@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { getDisplayLabelString } from '../utils/getDisplayLabel'
 
 export const BooleanField = (props: TField) => {
   const { namePath, uiAttribute, attribute } = props
@@ -25,7 +25,9 @@ export const BooleanField = (props: TField) => {
           value={value}
           inputRef={ref}
           label={
-            !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
+            !uiAttribute?.config?.hideLabel
+              ? getDisplayLabelString(attribute)
+              : ''
           }
           helperText={error?.message}
           variant={invalid ? 'error' : undefined}

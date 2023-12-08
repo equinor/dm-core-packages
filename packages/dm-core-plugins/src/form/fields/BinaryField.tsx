@@ -10,7 +10,7 @@ import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import { TField } from '../types'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { getDisplayLabelString } from '../utils/getDisplayLabel'
 
 const getTarget = (initialValue: any) => {
   const { idReference } = useRegistryContext()
@@ -81,7 +81,7 @@ export const BinaryField = (props: TField) => {
         <DownloadBinary
           {...props}
           fileId={fileId}
-          displayLabel={getDisplayLabel(attribute)}
+          displayLabel={getDisplayLabelString(attribute)}
           initialValue={initialValue}
         />
       )}

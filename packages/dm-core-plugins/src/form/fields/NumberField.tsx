@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { getDisplayLabelString } from '../utils/getDisplayLabel'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
 export const NumberField = (props: TField) => {
@@ -36,7 +36,9 @@ export const NumberField = (props: TField) => {
             value={value ?? ''}
             id={namePath}
             label={
-              !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
+              !uiAttribute?.config?.hideLabel
+                ? getDisplayLabelString(attribute)
+                : ''
             }
             inputRef={ref}
             helperText={error?.message || error?.type}

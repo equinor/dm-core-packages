@@ -7,14 +7,18 @@ import {
   resolveRelativeAddress,
   splitAddress,
 } from '@development-framework/dm-core'
-import { Chip, EdsProvider, Typography } from '@equinor/eds-core-react'
+import { EdsProvider, Icon, Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
 import TooltipButton from '../../common/TooltipButton'
-import { chevron_right, chevron_down } from '@equinor/eds-icons'
+import {
+  chevron_right,
+  chevron_down,
+  file_description,
+  file,
+} from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
-import { Fieldset } from '../styles'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
@@ -39,35 +43,56 @@ export const ObjectModelUncontainedTemplate = (
     () => address && !(onOpen && !uiAttribute?.showInline),
     [address]
   )
+  const refrenceExists = address !== undefined
   return (
-    <div>
-      <legend className='flex flex-row h-10 justify-between border-b-[2px]'>
+    <div className='border border-[#6f6f6f]'>
+      <legend className='flex flex-row h-10 justify-between bg-[#f7f7f7] ps-2 '>
         <div className={`flex flex-start items-center`}>
           {isExpandable && (
             <EdsProvider density='compact'>
               <TooltipButton
                 title={isExpanded ? 'Collapse' : 'Expand'}
                 button-variant='ghost_icon'
+                iconSize={24}
                 button-onClick={() => setIsExpanded(!isExpanded)}
                 icon={isExpanded ? chevron_down : chevron_right}
               />
             </EdsProvider>
           )}
-          <Typography
-            bold={true}
-            color={address === undefined ? 'gray' : ''}
-            className={isExpandable ? 'cursor-pointer' : ''}
+          <div
+            className={`flex ${address !== undefined ? 'cursor-pointer' : ''}`}
             onClick={() => {
-              isExpandable && setIsExpanded(!isExpanded)
+              if (address === undefined) return
+              if (isExpandable) {
+                setIsExpanded(!isExpanded)
+                return
+              }
+              onOpen?.(
+                namePath,
+                {
+                  type: 'ReferenceViewConfig',
+                  scope: '',
+                  recipe: uiRecipe?.name,
+                },
+                address
+              )
             }}
           >
-            {getDisplayLabel(attribute)}
-          </Typography>
-          {attribute.optional && (
-            <Chip style={{ marginLeft: 6 }}>Optional</Chip>
-          )}
+            <Icon
+              data={refrenceExists ? file_description : file}
+              className='mr-1'
+              color={refrenceExists ? '' : 'gray'}
+            />
+            <Typography
+              bold={true}
+              color={refrenceExists ? '' : 'gray'}
+              className='self-center'
+            >
+              {getDisplayLabel(attribute)}
+            </Typography>
+          </div>
         </div>
-        <div className='flex items-center'>
+        <div className='flex items-center mr-2 space-x-0'>
           {address && onOpen && !uiAttribute?.showInline && (
             <OpenObjectButton
               viewId={namePath}
@@ -83,6 +108,7 @@ export const ObjectModelUncontainedTemplate = (
             <SelectReference
               attributeType={attribute.attributeType}
               namePath={namePath}
+              buttonText={refrenceExists ? 'Replace' : 'Select'}
             />
           )}
           {attribute.optional && address && !config.readOnly && (
@@ -94,9 +120,9 @@ export const ObjectModelUncontainedTemplate = (
           )}
         </div>
       </legend>
-      <div className='ms-4'>
+      <div className=''>
         {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
-          <div className='ps-3.5 border-l-[2px] border-b-[5px] pb-3 overflow-scroll'>
+          <div className='border-t p-2 border-[#6f6f6f] overflow-scroll'>
             <EntityView
               idReference={address}
               type={attribute.attributeType}
