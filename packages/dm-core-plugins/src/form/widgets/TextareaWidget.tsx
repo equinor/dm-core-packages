@@ -13,19 +13,12 @@ const TextareaWidget = (props: TWidget) => {
   }
 
   return (
-    <>
-      {/* <label htmlFor={props.id}>
-        <Typography className={"self-center pb-2"} bold={true}>
-          {label}
-        </Typography>
-      </label> */}
-      <TextField
-        {...props}
-        multiline={true}
-        rows={5}
-        onChange={onChangeHandler}
-      />
-    </>
+    <TextField
+      {...props}
+      multiline={true}
+      rows={5}
+      onChange={onChangeHandler}
+    />
   )
 }
 
