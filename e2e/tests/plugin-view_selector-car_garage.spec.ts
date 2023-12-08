@@ -143,7 +143,7 @@ test('View selector - car garage', async ({ page }) => {
     ).toHaveValue('2025-06-01')
     await page.getByRole('tab', { name: 'Dimensions' }).click()
     await expect(
-      page.getByTestId('form-number-widget-Length (mm) (optional)').last()
+      page.getByTestId('form-number-widget-Length (mm) (Optional)').last()
     ).toHaveValue('4500')
     await page.getByRole('tab', { name: 'Home' }).click()
     await page
