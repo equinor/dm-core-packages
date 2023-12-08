@@ -73,7 +73,9 @@ export const ObjectModelUncontainedTemplate = (
             </EdsProvider>
           )}
           <div
-            className={`flex ${refrenceExists ? 'cursor-pointer' : ''}`}
+            className={`flex  ${
+              refrenceExists ? 'cursor-pointer' : 'opacity-50'
+            }`}
             onClick={() => {
               if (!refrenceExists) return
               isExpandable ? setIsExpanded(!isExpanded) : openInTab()
@@ -82,18 +84,18 @@ export const ObjectModelUncontainedTemplate = (
             <Icon
               data={refrenceExists ? file_description : file}
               className='mr-1'
-              color={refrenceExists ? '' : 'gray'}
+              //color={refrenceExists ? "" : "gray"}
             />
             <Typography
               bold={true}
-              color={refrenceExists ? '' : 'gray'}
+              //color={refrenceExists ? "" : "gray"}
               className='self-center'
             >
               {getDisplayLabel(attribute)}
             </Typography>
           </div>
         </div>
-        <div className='flex items-center mr-2 space-x-0'>
+        <div className='flex items-center mr-2'>
           {address && onOpen && !uiAttribute?.showInline && (
             <OpenObjectButton
               viewId={namePath}
@@ -109,7 +111,7 @@ export const ObjectModelUncontainedTemplate = (
             <SelectReference
               attributeType={attribute.attributeType}
               namePath={namePath}
-              buttonText={refrenceExists ? 'Replace' : 'Select'}
+              buttonText={refrenceExists ? 'Change' : 'Select'}
             />
           )}
           {attribute.optional && address && !config.readOnly && (

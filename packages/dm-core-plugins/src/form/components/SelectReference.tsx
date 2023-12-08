@@ -9,15 +9,9 @@ import {
 } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError } from 'axios/index'
+import { Button, EdsProvider, Tooltip } from '@equinor/eds-core-react'
+import { edit } from '@equinor/eds-icons'
 import TooltipButton from '../../common/TooltipButton'
-import { add, edit, file_description } from '@equinor/eds-icons'
-import {
-  Button,
-  EdsProvider,
-  Icon,
-  Tooltip,
-  Typography,
-} from '@equinor/eds-core-react'
 
 export const SelectReference = (props: {
   attributeType: string
@@ -64,7 +58,11 @@ export const SelectReference = (props: {
     <>
       <Tooltip title={`${value ? 'Edit' : 'Add'} and save`}>
         <EdsProvider density='compact'>
-          <Button variant='ghost' style={{ paddingInline: '5px' }}>
+          <Button
+            variant='ghost'
+            style={{ paddingInline: '5px' }}
+            onClick={() => setShowModal(true)}
+          >
             {props.buttonText ?? 'Replace'}
           </Button>
         </EdsProvider>

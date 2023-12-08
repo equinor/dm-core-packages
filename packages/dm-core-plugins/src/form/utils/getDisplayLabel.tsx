@@ -22,5 +22,5 @@ export const getDisplayLabelString = (attribute: TAttribute): string => {
   const displayLabel =
     label === undefined || label === '' ? lodash.startCase(name) : label
 
-  return optional ? displayLabel + ' Optional' : displayLabel
+  return optional ? displayLabel + ' (Optional)' : displayLabel
 }
