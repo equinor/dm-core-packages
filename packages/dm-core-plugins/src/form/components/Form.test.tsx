@@ -93,7 +93,7 @@ describe('Form', () => {
       await waitFor(() =>
         expect(container.querySelector(`input[id="baz"]`)).toBeNull()
       )
-      await waitFor(() => expect(mock).toHaveBeenCalledTimes(3))
+      await waitFor(() => expect(mock).toHaveBeenCalledTimes(1))
     })
   })
 

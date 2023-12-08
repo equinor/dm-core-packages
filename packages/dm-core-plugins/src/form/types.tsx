@@ -19,8 +19,6 @@ export type TFormProps = {
 
 export type TObjectTemplate = {
   namePath: string
-  blueprint?: TBlueprint
-  uiRecipe?: TUiRecipeForm
   uiAttribute: TUiAttributeObject | undefined
   attribute: TAttribute
 }

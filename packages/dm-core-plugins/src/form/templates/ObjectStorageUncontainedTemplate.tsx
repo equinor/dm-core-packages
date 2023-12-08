@@ -16,7 +16,7 @@ import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
 
 export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
-  const { namePath, uiRecipe, attribute, uiAttribute } = props
+  const { namePath, attribute, uiAttribute } = props
   const { watch, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const { dataSource, documentPath } = splitAddress(idReference)
@@ -52,7 +52,7 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
             viewConfig={{
               type: 'ReferenceViewConfig',
               scope: '',
-              recipe: uiRecipe?.name,
+              recipe: uiAttribute?.uiRecipe,
             }}
             idReference={address}
           />
@@ -62,7 +62,7 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
         <EntityView
           idReference={address}
           type={attribute.attributeType}
-          recipeName={uiRecipe?.name}
+          recipeName={uiAttribute?.uiRecipe}
           onOpen={onOpen}
         />
       )}

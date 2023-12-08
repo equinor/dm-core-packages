@@ -10,13 +10,13 @@ import AddObject from '../components/AddObjectButton'
 import TooltipButton from '../../common/TooltipButton'
 import { chevron_down, chevron_up } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
-import { EntityView } from '@development-framework/dm-core'
+import { EntityView, ViewCreator } from '@development-framework/dm-core'
 import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
 
 export const ObjectModelContainedTemplate = (
   props: TObjectTemplate
 ): React.ReactElement => {
-  const { namePath, uiAttribute, uiRecipe, attribute } = props
+  const { namePath, uiAttribute, attribute } = props
   const { getValues, setValue } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
 
@@ -27,6 +27,7 @@ export const ObjectModelContainedTemplate = (
   )
   const value = getValues(namePath)
   const isDefined = value && Object.keys(value).length > 0
+
   return (
     <Fieldset>
       <Legend>
@@ -67,17 +68,19 @@ export const ObjectModelContainedTemplate = (
             viewConfig={{
               type: 'ReferenceViewConfig',
               scope: namePath,
-              recipe: uiRecipe?.name,
+              recipe: uiAttribute?.uiRecipe,
             }}
           />
         )}
       </Legend>
       {isDefined && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
-        <EntityView
-          recipeName={uiRecipe?.name}
+        <ViewCreator
           idReference={`${idReference}.${namePath}`}
-          type={attribute.attributeType}
           onOpen={onOpen}
+          viewConfig={{
+            type: 'ReferenceViewConfig',
+            recipe: uiAttribute?.uiRecipe,
+          }}
           onChange={(data: any) => setValue(namePath, data)}
         />
       )}
