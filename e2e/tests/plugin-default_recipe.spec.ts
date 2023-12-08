@@ -12,7 +12,7 @@ test('Form default DMSS UI Recipe', async ({ page }) => {
   await expect(page.getByLabel('A required string')).toHaveValue(
     'This form has no dedicated UI Recipe'
   )
-  await expect(page.getByLabel('An optional checkbox (optional)')).toBeVisible()
+  await expect(page.getByLabel('An optional checkbox (Optional)')).toBeVisible()
   await expect(page.getByLabel('date')).toHaveValue('2023-10-17T13:30')
   await expect(page.getByTestId('form-submit')).toBeEnabled()
 })

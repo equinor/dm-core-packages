@@ -15,7 +15,7 @@ test('Simple form', async ({ page }) => {
   })
 
   await test.step('Remove prefilled optional string', async () => {
-    await page.getByLabel('An optional string (optional)').fill('')
+    await page.getByLabel('An optional string (Optional)').fill('')
   })
 
   await test.step('Fill out required string', async () => {
@@ -25,15 +25,15 @@ test('Simple form', async ({ page }) => {
   })
 
   await test.step('Fill out number field', async () => {
-    await page.getByLabel('Numbers only (optional)').fill('3.14')
+    await page.getByLabel('Numbers only (Optional)').fill('3.14')
   })
 
   await test.step('Fill out integer field', async () => {
-    await page.getByLabel('Integer only (optional)').fill('123')
+    await page.getByLabel('Integer only (Optional)').fill('123')
   })
 
   await test.step('Check checkbox', async () => {
-    await page.getByLabel('An optional checkbox (optional)').check()
+    await page.getByLabel('An optional checkbox (Optional)').check()
     //await page.getByTestId('form-submit').click()
     // await expect(page.getByText('<Field is mandatory>')).toBeVisible() //Known bug (itemid:37251754)
     await page
@@ -53,12 +53,12 @@ test('Simple form', async ({ page }) => {
   await test.step('Reloading form, expecting entered values to be stored', async () => {
     await page.reload()
     await navigate()
-    await expect(page.getByLabel('Optional string (optional)')).toHaveValue('')
+    await expect(page.getByLabel('Optional string (Optional)')).toHaveValue('')
     await expect(page.getByLabel('Required string')).toHaveValue('Foo')
-    await expect(page.getByLabel('Numbers only (optional)')).toHaveValue('3.14')
-    await expect(page.getByLabel('Integer only (optional)')).toHaveValue('123')
+    await expect(page.getByLabel('Numbers only (Optional)')).toHaveValue('3.14')
+    await expect(page.getByLabel('Integer only (Optional)')).toHaveValue('123')
     await expect(
-      page.getByLabel('An optional checkbox (optional)')
+      page.getByLabel('An optional checkbox (Optional)')
     ).toBeChecked()
     await expect(
       page.getByLabel('A required checkbox (e.g. for confirmation purposes)')
