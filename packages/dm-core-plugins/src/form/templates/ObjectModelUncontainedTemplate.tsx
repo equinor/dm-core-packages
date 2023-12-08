@@ -7,7 +7,7 @@ import {
   resolveRelativeAddress,
   splitAddress,
 } from '@development-framework/dm-core'
-import { EdsProvider, Icon, Typography } from '@equinor/eds-core-react'
+import { Icon, Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
 import TooltipButton from '../../common/TooltipButton'

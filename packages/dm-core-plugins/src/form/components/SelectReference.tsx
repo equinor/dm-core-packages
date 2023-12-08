@@ -54,14 +54,16 @@ export const SelectReference = (props: {
 
   return (
     <>
-      <Tooltip title={`${value ? 'Edit' : 'Add'} and save`}>
+      <Tooltip title={'Select Entity'}>
         <EdsProvider density='compact'>
           <Button
             variant='ghost'
+            title='Select Entity'
+            aria-label={'Select Entity'}
             style={{ paddingInline: '5px' }}
             onClick={() => setShowModal(true)}
           >
-            {props.buttonText ?? 'Replace'}
+            {props.buttonText ?? 'Change'}
           </Button>
         </EdsProvider>
       </Tooltip>

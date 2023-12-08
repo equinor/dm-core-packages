@@ -9,33 +9,26 @@ const TextWidget = (props: TWidget) => {
   }
 
   return (
-    <>
-      {/* <label htmlFor={props.id}>
-        <Typography className={"self-center pb-2"} bold={true}>
-          {label}
-        </Typography>
-      </label> */}
-      <TextField
-        id={props.id}
-        label={label}
-        readOnly={props.readOnly}
-        defaultValue={props.value}
-        inputRef={props.inputRef}
-        variant={props.variant}
-        helperText={props.helperText}
-        onChange={onChangeHandler}
-        type='string'
-        data-testid={`form-text-widget-${props.id}`}
-        style={
-          isDirty && props.variant !== 'error'
-            ? {
-                // @ts-ignore
-                '--eds-input-background': '#85babf5e',
-              }
-            : {}
-        }
-      />
-    </>
+    <TextField
+      id={props.id}
+      label={label}
+      readOnly={props.readOnly}
+      defaultValue={props.value}
+      inputRef={props.inputRef}
+      variant={props.variant}
+      helperText={props.helperText}
+      onChange={onChangeHandler}
+      type='string'
+      data-testid={`form-text-widget-${props.id}`}
+      style={
+        isDirty && props.variant !== 'error'
+          ? {
+              // @ts-ignore
+              '--eds-input-background': '#85babf5e',
+            }
+          : {}
+      }
+    />
   )
 }
 
