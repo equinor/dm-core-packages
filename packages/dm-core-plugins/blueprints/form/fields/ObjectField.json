@@ -10,10 +10,38 @@
       "attributeType": "string"
     },
     {
+      "name": "searchByType",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
       "name": "uiRecipe",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "optional": true,
       "attributeType": "string"
+    },
+    {
+      "name": "expandViewConfig",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Which ViewConfig to render when expanding the list item.",
+      "attributeType": "CORE:ViewConfig",
+      "optional": true
+    },
+    {
+      "name": "openViewConfig",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Which ViewConfig to render when open the list item.",
+      "attributeType": "CORE:ViewConfig",
+      "optional": true
+    },
+    {
+      "name": "functionality",
+      "type": "CORE:BlueprintAttribute",
+      "description": "List functionality config",
+      "attributeType": "PLUGINS:dm-core-plugins/form/fields/ObjectFieldFunctionalityConfig",
+      "optional": true
     },
     {
       "name": "showExpanded",
@@ -22,19 +50,6 @@
       "optional": true,
       "default": false,
       "attributeType": "boolean"
-    },
-    {
-      "name": "config",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": true,
-      "attributeType": "object"
-    },
-    {
-      "name": "searchByType",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "boolean",
-      "optional": true,
-      "default": false
     }
   ]
 }

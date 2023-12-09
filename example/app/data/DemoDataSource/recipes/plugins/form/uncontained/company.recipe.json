@@ -31,26 +31,40 @@
           {
             "name": "ceo",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": false,
             "uiRecipe": "defaultYaml"
           },
           {
             "name": "accountant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
-            "uiRecipe": "defaultYaml"
+            "expandViewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "defaultYaml"
+            },
+            "openViewConfig": {
+              "type": "CORE:ReferenceViewConfig",
+              "recipe": "defaultForm"
+            },
+            "showExpanded": true,
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/fields/ObjectFieldFunctionalityConfig",
+              "open": true,
+              "expand": true
+            }
           },
           {
             "name": "assistant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": false,
             "uiRecipe": "defaultYaml"
           },
           {
             "name": "trainee",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
-            "uiRecipe": "defaultYaml"
+            "uiRecipe": "defaultYaml",
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/fields/ObjectFieldFunctionalityConfig",
+              "open": false,
+              "expand": true
+            }
           },
           {
             "name": "description",

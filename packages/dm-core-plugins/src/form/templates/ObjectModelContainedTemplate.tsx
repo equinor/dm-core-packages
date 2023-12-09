@@ -21,12 +21,13 @@ export const ObjectModelContainedTemplate = (
   const { idReference, onOpen, config } = useRegistryContext()
 
   const [isExpanded, setIsExpanded] = useState(
-    uiAttribute?.showExpanded !== undefined
-      ? uiAttribute?.showExpanded
-      : config.showExpanded
+    uiAttribute?.showExpanded ?? config.showExpanded
   )
   const value = watch(namePath)
-  const isDefined = value && Object.keys(value).length > 0
+  const isCreated = value && Object.keys(value).length > 0
+  const canExpand = isCreated && (uiAttribute?.functionality?.expand ?? false)
+  const canOpen =
+    isCreated && onOpen && (uiAttribute?.functionality?.open ?? true)
 
   return (
     <Fieldset>
@@ -34,7 +35,7 @@ export const ObjectModelContainedTemplate = (
         <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         {attribute.optional &&
           !config.readOnly &&
-          (isDefined ? (
+          (isCreated ? (
             <RemoveObject namePath={namePath} />
           ) : (
             <>
@@ -53,7 +54,7 @@ export const ObjectModelContainedTemplate = (
               )}
             </>
           ))}
-        {isDefined && !(onOpen && !uiAttribute?.showInline) && (
+        {canExpand && (
           <TooltipButton
             title={isExpanded ? 'Collapse' : 'Expand'}
             button-variant='ghost_icon'
@@ -61,26 +62,34 @@ export const ObjectModelContainedTemplate = (
             icon={isExpanded ? chevron_up : chevron_down}
           />
         )}
-        {isDefined && onOpen && !uiAttribute?.showInline && (
+        {canOpen && (
           <OpenObjectButton
             viewId={namePath}
             idReference={idReference}
-            viewConfig={{
-              type: 'ReferenceViewConfig',
-              scope: namePath,
-              recipe: uiAttribute?.uiRecipe,
-            }}
+            viewConfig={
+              uiAttribute?.openViewConfig
+                ? uiAttribute?.openViewConfig
+                : {
+                    type: 'ReferenceViewConfig',
+                    scope: namePath,
+                    recipe: uiAttribute?.uiRecipe,
+                  }
+            }
           />
         )}
       </Legend>
-      {isDefined && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
+      {canExpand && isExpanded && (
         <ViewCreator
           idReference={`${idReference}.${namePath}`}
           onOpen={onOpen}
-          viewConfig={{
-            type: 'ReferenceViewConfig',
-            recipe: uiAttribute?.uiRecipe,
-          }}
+          viewConfig={
+            uiAttribute?.expandViewConfig
+              ? uiAttribute?.expandViewConfig
+              : {
+                  type: 'ReferenceViewConfig',
+                  recipe: uiAttribute?.uiRecipe,
+                }
+          }
           onChange={(data: any) => setValue(namePath, data)}
         />
       )}

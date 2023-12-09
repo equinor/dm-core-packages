@@ -83,7 +83,7 @@ export const Form = (props: TFormProps) => {
 
         if (uiAttribute?.widget) continue
 
-        if (!uiAttribute?.showInline) {
+        if (!uiAttribute?.functionality?.expand) {
           toRemoveFromPayload.push(key)
           continue
         }

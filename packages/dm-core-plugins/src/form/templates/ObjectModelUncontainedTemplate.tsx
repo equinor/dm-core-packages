@@ -1,5 +1,5 @@
 import { TObjectTemplate } from '../types'
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import {
@@ -27,11 +27,8 @@ export const ObjectModelUncontainedTemplate = (
   const { watch } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
   const [isExpanded, setIsExpanded] = useState(
-    uiAttribute?.showExpanded !== undefined
-      ? uiAttribute?.showExpanded
-      : config.showExpanded
+    uiAttribute?.showExpanded ?? config.showExpanded
   )
-
   const value = watch(namePath)
   const { dataSource, documentPath } = splitAddress(idReference)
   const address =
@@ -39,20 +36,21 @@ export const ObjectModelUncontainedTemplate = (
       ? resolveRelativeAddress(value.address, documentPath, dataSource)
       : undefined
 
-  const isExpandable = useMemo(
-    () => address && !(onOpen && !uiAttribute?.showInline),
-    [address]
-  )
-  const refrenceExists = address !== undefined
+  const referenceExists = address !== undefined
+  const canExpand =
+    referenceExists && (uiAttribute?.functionality?.expand ?? false)
+  const canOpen =
+    referenceExists && onOpen && (uiAttribute?.functionality?.open ?? true)
 
   const openInTab = () => {
     onOpen?.(
       namePath,
-      {
-        type: 'ReferenceViewConfig',
-        scope: '',
-        recipe: uiAttribute?.uiRecipe,
-      },
+      uiAttribute?.openViewConfig
+        ? uiAttribute?.openViewConfig
+        : {
+            type: 'ReferenceViewConfig',
+            recipe: uiAttribute?.uiRecipe,
+          },
       address
     )
   }
@@ -61,11 +59,11 @@ export const ObjectModelUncontainedTemplate = (
     <div className='border border-[#6f6f6f]'>
       <legend
         className={`flex h-10 justify-between bg-[#f7f7f7] ${
-          !isExpandable ? 'ps-2' : 'ps-1'
+          !canExpand ? 'ps-2' : 'ps-1'
         }`}
       >
         <div className={`flex flex-start items-center`}>
-          {isExpandable && (
+          {canExpand && (
             <TooltipButton
               title={isExpanded ? 'Collapse' : 'Expand'}
               button-variant='ghost_icon'
@@ -77,23 +75,21 @@ export const ObjectModelUncontainedTemplate = (
           )}
           <div
             className={`flex items-center space-x-1  ${
-              refrenceExists ? 'cursor-pointer' : 'opacity-50'
+              referenceExists ? 'cursor-pointer' : 'opacity-50'
             }
             `}
             onClick={() => {
-              if (!refrenceExists) return
-              isExpandable ? setIsExpanded(!isExpanded) : openInTab()
+              if (!referenceExists) return
+              canExpand ? setIsExpanded(!isExpanded) : openInTab()
             }}
           >
             <Icon
-              data={refrenceExists ? file_description : file}
+              data={referenceExists ? file_description : file}
               color='#3d3d3d'
             />
             <Typography
               bold={true}
-              className={
-                refrenceExists && !isExpandable ? 'hover:underline' : ''
-              }
+              className={referenceExists && !canExpand ? 'hover:underline' : ''}
             >
               {getDisplayLabel(attribute)}
             </Typography>
@@ -101,14 +97,17 @@ export const ObjectModelUncontainedTemplate = (
           </div>
         </div>
         <div className='flex items-center mr-2'>
-          {address && onOpen && !uiAttribute?.showInline && (
+          {canOpen && (
             <OpenObjectButton
               viewId={namePath}
-              viewConfig={{
-                type: 'ReferenceViewConfig',
-                scope: '',
-                recipe: uiAttribute?.uiRecipe,
-              }}
+              viewConfig={
+                uiAttribute?.openViewConfig
+                  ? uiAttribute?.openViewConfig
+                  : {
+                      type: 'ReferenceViewConfig',
+                      recipe: uiAttribute?.uiRecipe,
+                    }
+              }
               idReference={address}
             />
           )}
@@ -116,34 +115,32 @@ export const ObjectModelUncontainedTemplate = (
             <SelectReference
               attributeType={attribute.attributeType}
               namePath={namePath}
-              buttonText={refrenceExists ? 'Change' : 'Select'}
+              buttonText={referenceExists ? 'Change' : 'Select'}
             />
           )}
-          <div
-            className={
-              attribute.optional && refrenceExists && !config.readOnly
-                ? ''
-                : 'invisible'
-            }
-          >
+          {attribute.optional && referenceExists && !config.readOnly && (
             <RemoveObject
               popupTitle={`Confirm Removal`}
               popupMessage={`Are sure you want to remove reference to '${namePath}'`}
               namePath={namePath}
             />
-          </div>
+          )}
         </div>
       </legend>
       <div>
-        {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
+        {canExpand && isExpanded && (
           <div className='border-t p-2 border-[#6f6f6f] overflow-scroll'>
             <ViewCreator
               idReference={address}
               onOpen={onOpen}
-              viewConfig={{
-                type: 'ReferenceViewConfig',
-                recipe: uiAttribute?.uiRecipe,
-              }}
+              viewConfig={
+                uiAttribute?.expandViewConfig
+                  ? uiAttribute?.expandViewConfig
+                  : {
+                      type: 'ReferenceViewConfig',
+                      recipe: uiAttribute?.uiRecipe,
+                    }
+              }
             />
           </div>
         )}

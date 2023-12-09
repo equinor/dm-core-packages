@@ -1,8 +1,8 @@
 import {
   TAttribute,
-  TBlueprint,
   TOnOpen,
   TUiRecipe,
+  TViewConfig,
 } from '@development-framework/dm-core'
 import React from 'react'
 
@@ -56,7 +56,14 @@ export type TUiAttributeObject = TUiAttributeBase & {
   uiRecipe?: string
   showExpanded?: boolean
   searchByType?: boolean
+  expandViewConfig?: TViewConfig
+  openViewConfig?: TViewConfig
+  functionality?: {
+    expand: boolean
+    open: boolean
+  }
 }
+
 export type TUiAttribute =
   | TUiAttributeArray
   | TUiAttributeObject
