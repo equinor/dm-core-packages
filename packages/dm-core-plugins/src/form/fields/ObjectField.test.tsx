@@ -69,7 +69,7 @@ test('should show foo after bar if order states it', async () => {
   const utils = await setupSimple({
     idReference: 'ds/$1',
     type: 'MyBlueprint',
-    config: { attributes: [], fields: ['bar', 'foo'] },
+    config: { attributes: [], fields: ['bar', 'foo'], functionality: {} },
   })
   expect(utils.fooInput.compareDocumentPosition(utils.barInput)).toBe(
     Node.DOCUMENT_POSITION_PRECEDING

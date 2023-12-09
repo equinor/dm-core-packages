@@ -40,6 +40,13 @@
       "attributeType": "boolean",
       "optional": true,
       "default": true
+    },
+    {
+      "name": "functionality",
+      "type": "CORE:BlueprintAttribute",
+      "description": "List functionality config",
+      "attributeType": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+      "optional": true
     }
   ]
 }

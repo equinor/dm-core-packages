@@ -38,7 +38,7 @@
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "uiRecipe": "defaultForm",
             "functionality": {
-              "type": "PLUGINS:dm-core-plugins/form/fields/ObjectFieldFunctionalityConfig",
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
               "open": false,
               "expand": true
             }
@@ -49,7 +49,7 @@
             "uiRecipe": "defaultYaml",
             "showExpanded": true,
             "functionality": {
-              "type": "PLUGINS:dm-core-plugins/form/fields/ObjectFieldFunctionalityConfig",
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
               "open": false,
               "expand": true
             }
@@ -57,12 +57,20 @@
           {
             "name": "cars",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "showInline": true
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "open": false,
+              "expand": true
+            }
           },
           {
             "name": "locations",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "showInline": true
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "open": false,
+              "expand": true
+            }
           }
         ],
         "showExpanded": true,

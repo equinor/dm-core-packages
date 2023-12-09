@@ -41,6 +41,12 @@ type TUiAttributeBase = {
   showInline?: boolean
   config?: Record<any, any>
   readOnly?: boolean
+  expandViewConfig?: TViewConfig
+  openViewConfig?: TViewConfig
+  functionality?: {
+    expand: boolean
+    open: boolean
+  }
 }
 export type TUiAttributeString = TUiAttributeBase & {
   widget: string
@@ -74,6 +80,10 @@ export type TFormConfig = {
   fields: string[]
   readOnly?: boolean
   showExpanded?: boolean
+  functionality: {
+    expand?: boolean
+    open?: boolean
+  }
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & {

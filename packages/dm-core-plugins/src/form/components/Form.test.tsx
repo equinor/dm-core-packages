@@ -122,6 +122,7 @@ describe('Form', () => {
           },
         ],
         fields: [],
+        functionality: {}
       }
 
       const { container } = render(
