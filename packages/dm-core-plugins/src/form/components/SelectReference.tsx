@@ -55,17 +55,19 @@ export const SelectReference = (props: {
   return (
     <>
       <Tooltip title={'Select Entity'}>
-        <EdsProvider density='compact'>
-          <Button
-            variant='ghost'
-            title='Select Entity'
-            aria-label={'Select Entity'}
-            style={{ paddingInline: '5px' }}
-            onClick={() => setShowModal(true)}
-          >
-            {props.buttonText ?? 'Change'}
-          </Button>
-        </EdsProvider>
+        <>
+          <EdsProvider density='compact'>
+            <Button
+              variant='ghost'
+              title='Select Entity'
+              aria-label={'Select Entity'}
+              style={{ paddingInline: '5px' }}
+              onClick={() => setShowModal(true)}
+            >
+              {props.buttonText ?? 'Change'}
+            </Button>
+          </EdsProvider>
+        </>
       </Tooltip>
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
