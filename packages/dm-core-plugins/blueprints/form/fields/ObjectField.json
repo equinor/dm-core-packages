@@ -40,7 +40,7 @@
       "name": "functionality",
       "type": "CORE:BlueprintAttribute",
       "description": "List functionality config",
-      "attributeType": "PLUGINS:dm-core-plugins/form/fields/ObjectFieldFunctionalityConfig",
+      "attributeType": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
       "optional": true
     },
     {

@@ -29,9 +29,12 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
 
   const referenceExists = address !== undefined
   const canExpand =
-    referenceExists && (uiAttribute?.functionality?.expand ?? true)
+    referenceExists &&
+    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
   const canOpen =
-    referenceExists && onOpen && (uiAttribute?.functionality?.open ?? true)
+    referenceExists &&
+    onOpen &&
+    (uiAttribute?.functionality?.open ?? config.functionality.open)
 
   return (
     <Fieldset>

@@ -46,7 +46,7 @@
             },
             "showExpanded": true,
             "functionality": {
-              "type": "PLUGINS:dm-core-plugins/form/fields/ObjectFieldFunctionalityConfig",
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
               "open": true,
               "expand": true
             }
@@ -61,7 +61,7 @@
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "uiRecipe": "defaultYaml",
             "functionality": {
-              "type": "PLUGINS:dm-core-plugins/form/fields/ObjectFieldFunctionalityConfig",
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
               "open": false,
               "expand": true
             }

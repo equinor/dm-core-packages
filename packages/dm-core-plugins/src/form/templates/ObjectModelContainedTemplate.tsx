@@ -25,9 +25,13 @@ export const ObjectModelContainedTemplate = (
   )
   const value = watch(namePath)
   const isCreated = value && Object.keys(value).length > 0
-  const canExpand = isCreated && (uiAttribute?.functionality?.expand ?? false)
+  const canExpand =
+    isCreated &&
+    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
   const canOpen =
-    isCreated && onOpen && (uiAttribute?.functionality?.open ?? true)
+    isCreated &&
+    onOpen &&
+    (uiAttribute?.functionality?.open ?? config.functionality.open)
 
   return (
     <Fieldset>
