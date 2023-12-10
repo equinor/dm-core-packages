@@ -27,7 +27,8 @@ export const ObjectModelContainedTemplate = (
   const isCreated = value && Object.keys(value).length > 0
   const canExpand =
     isCreated &&
-    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
+    (!onOpen ||
+      (uiAttribute?.functionality?.expand ?? config.functionality.expand))
   const canOpen =
     isCreated &&
     onOpen &&
