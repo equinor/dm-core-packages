@@ -1,25 +1,25 @@
 import { TUiAttributeObject } from '../../types'
 
 export const ExpandViewConfig = (uiAttribute?: TUiAttributeObject) => {
-  return uiAttribute?.expandViewConfig
-    ? uiAttribute?.expandViewConfig
-    : {
-        type: 'ReferenceViewConfig',
-        recipe: uiAttribute?.uiRecipe,
-      }
+  return (
+    uiAttribute?.expandViewConfig ?? {
+      type: 'ReferenceViewConfig',
+      recipe: uiAttribute?.uiRecipe,
+    }
+  )
 }
 
 export const OpenViewConfig = (
   uiAttribute?: TUiAttributeObject,
   namePath?: string
 ) => {
-  return uiAttribute?.openViewConfig
-    ? uiAttribute?.openViewConfig
-    : {
-        type: 'ReferenceViewConfig',
-        scope: namePath,
-        recipe: uiAttribute?.uiRecipe,
-      }
+  return (
+    uiAttribute?.openViewConfig ?? {
+      type: 'ReferenceViewConfig',
+      scope: namePath,
+      recipe: uiAttribute?.uiRecipe,
+    }
+  )
 }
 
 export const InferCanOpenOrExpand = (
