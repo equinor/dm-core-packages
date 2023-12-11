@@ -41,7 +41,7 @@ test('View selector - car garage', async ({ page }) => {
     )
 
     await page
-    await page.getByTestId('Owner').getByLabel('Open in tab').nth(2).click()
+    await page.getByTestId('Owner').getByLabel('Open in tab').click()
     await expect(
       page.getByRole('tab', { name: 'Owner details' })
     ).toHaveAttribute('aria-selected', 'true')
@@ -63,7 +63,7 @@ test('View selector - car garage', async ({ page }) => {
 
   await test.step('Verify tabs are open and selectable', async () => {
     await page.getByRole('tab', { name: 'Home' }).click()
-    await page.getByTestId('Technical').getByLabel('Open in tab').nth(2).click()
+    await page.getByTestId('Technical').getByLabel('Open in tab').click()
     await expect(page.getByRole('tab', { name: 'Technical' })).toHaveAttribute(
       'aria-selected',
       'true'
@@ -128,7 +128,7 @@ test('View selector - car garage', async ({ page }) => {
 
   await test.step('Testing that saving one car does not override the other car', async () => {
     await page.getByRole('tab', { name: 'Volvo' }).click()
-    await page.getByTestId('Technical').getByLabel('Open in tab').nth(2).click()
+    await page.getByTestId('Technical').getByLabel('Open in tab').click()
 
     await expect(
       page.getByTestId('form-text-widget-nextControl').last()
