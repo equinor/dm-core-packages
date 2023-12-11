@@ -2,7 +2,7 @@ import { TArrayTemplate } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
 import TooltipButton from '../../common/TooltipButton'
-import { add } from '@equinor/eds-icons'
+import { add, list } from '@equinor/eds-icons'
 import FormObjectBorder from './shared/FormObjectBorder'
 import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
 import ObjectLegendHeader from './shared/ObjectLegendHeader'
@@ -35,6 +35,7 @@ export const ArrayPrimitiveTemplate = (
           setIsExpanded={setIsExpanded}
           attribute={attribute}
           objectIsNotEmpty={true}
+          icon={list}
         />
       </ObjectLegendWrapper>
       {isExpanded && (

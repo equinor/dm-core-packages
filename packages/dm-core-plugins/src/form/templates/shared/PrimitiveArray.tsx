@@ -60,16 +60,16 @@ const PrimitiveArray = ({
 
   return (
     <div
-      style={{
-        display: 'flex',
-        flexFlow: 'column',
-        maxHeight: '26em',
-        alignContent: 'flex-start',
-        overflowY: 'auto',
-        padding: '0 0 7px 0',
-        overflowX: 'hidden',
-        width: 'fit-content',
-      }}
+      className='
+    flex
+    flex-col
+    max-h-96
+    w-fit
+    content-start
+    overflow-y-auto
+    overflow-x-hidden
+    pb-2
+  '
     >
       {data.map((item: any, index: number) => (
         <Tooltip
@@ -79,12 +79,7 @@ const PrimitiveArray = ({
           key={`${index}-${item}`}
         >
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              margin: '1px',
-            }}
+            className='flex items-center m-0.5'
             onMouseEnter={() => setHovering(index)}
             onMouseLeave={() => setHovering(-1)}
           >
