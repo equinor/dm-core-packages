@@ -48,11 +48,7 @@ export const ObjectModelContainedTemplate = (
           objectIsNotEmpty={objectIsNotEmpty}
           setIsExpanded={setIsExpanded}
           openInTab={() =>
-            onOpen?.(
-              namePath,
-              OpenViewConfig(uiAttribute, namePath),
-              idReference
-            )
+            onOpen?.(namePath, OpenViewConfig(uiAttribute), idReference)
           }
         />
         <ObjectLegendActionsWrapper>
@@ -60,7 +56,7 @@ export const ObjectModelContainedTemplate = (
             <OpenObjectButton
               viewId={namePath}
               idReference={idReference}
-              viewConfig={OpenViewConfig(uiAttribute, namePath)}
+              viewConfig={OpenViewConfig(uiAttribute)}
             />
           )}
           {attribute.optional && !config.readOnly && (
