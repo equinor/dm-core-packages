@@ -3,14 +3,18 @@ import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
 import { getKey, ViewCreator } from '@development-framework/dm-core'
-import { Fieldset, Legend } from '../styles'
 import { Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
 import TooltipButton from '../../common/TooltipButton'
-import { chevron_down, chevron_up } from '@equinor/eds-icons'
+import { chevron_down, chevron_up, list } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
+import FormObjectBorder from './shared/FormObjectBorder'
+import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
+import ObjectLegendHeader from './shared/ObjectLegendHeader'
+import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
+import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 
 export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   const { namePath, attribute, uiAttribute } = props
@@ -35,64 +39,69 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
     (uiAttribute?.functionality?.open ?? config.functionality.open)
 
   return (
-    <Fieldset>
-      <Legend>
-        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
-        {attribute.optional &&
-          !config.readOnly &&
-          (isDefined ? (
-            <RemoveObject
-              namePath={namePath}
-              onRemove={() => {
-                setInitialValue(undefined)
-                setValue(namePath, undefined)
-              }}
+    <FormObjectBorder>
+      <ObjectLegendWrapper>
+        <ObjectLegendHeader
+          canExpand={canExpand}
+          canOpenInTab={canOpen}
+          isExpanded={isExpanded}
+          attribute={attribute}
+          objectIsNotEmpty={isDefined}
+          icon={list}
+          setIsExpanded={setIsExpanded}
+        />
+        <ObjectLegendActionsWrapper>
+          {attribute.optional &&
+            !config.readOnly &&
+            (isDefined ? (
+              <RemoveObject
+                namePath={namePath}
+                onRemove={() => {
+                  setInitialValue(undefined)
+                  setValue(namePath, undefined)
+                }}
+              />
+            ) : (
+              <AddObject
+                namePath={namePath}
+                type={attribute.attributeType}
+                defaultValue={[]}
+                onAdd={() => setInitialValue([])}
+              />
+            ))}
+
+          {canOpen && (
+            <OpenObjectButton
+              viewId={namePath}
+              viewConfig={
+                uiAttribute?.openViewConfig
+                  ? uiAttribute?.openViewConfig
+                  : {
+                      type: 'ReferenceViewConfig',
+                      recipe: uiRecipeName,
+                      scope: namePath,
+                    }
+              }
             />
-          ) : (
-            <AddObject
-              namePath={namePath}
-              type={attribute.attributeType}
-              defaultValue={[]}
-              onAdd={() => setInitialValue([])}
-            />
-          ))}
-        {canExpand && (
-          <TooltipButton
-            title={isExpanded ? 'Collapse' : 'Expand'}
-            button-variant='ghost_icon'
-            button-onClick={() => setIsExpanded(!isExpanded)}
-            icon={isExpanded ? chevron_up : chevron_down}
-          />
-        )}
-        {canOpen && (
-          <OpenObjectButton
-            viewId={namePath}
+          )}
+        </ObjectLegendActionsWrapper>
+      </ObjectLegendWrapper>
+      {canExpand && isExpanded && (
+        <FormExpandedViewWrapper>
+          <ViewCreator
+            idReference={`${idReference}.${namePath}`}
+            onOpen={onOpen}
             viewConfig={
-              uiAttribute?.openViewConfig
-                ? uiAttribute?.openViewConfig
+              uiAttribute?.expandViewConfig
+                ? uiAttribute?.expandViewConfig
                 : {
                     type: 'ReferenceViewConfig',
                     recipe: uiRecipeName,
-                    scope: namePath,
                   }
             }
           />
-        )}
-      </Legend>
-      {canExpand && isExpanded && (
-        <ViewCreator
-          idReference={`${idReference}.${namePath}`}
-          onOpen={onOpen}
-          viewConfig={
-            uiAttribute?.expandViewConfig
-              ? uiAttribute?.expandViewConfig
-              : {
-                  type: 'ReferenceViewConfig',
-                  recipe: uiRecipeName,
-                }
-          }
-        />
+        </FormExpandedViewWrapper>
       )}
-    </Fieldset>
+    </FormObjectBorder>
   )
 }
