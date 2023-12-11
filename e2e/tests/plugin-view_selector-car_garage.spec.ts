@@ -41,9 +41,7 @@ test('View selector - car garage', async ({ page }) => {
     )
 
     await page
-      .getByRole('group', { name: 'View owner details and history' })
-      .getByLabel('Open in tab')
-      .click()
+    await page.getByTestId('Owner').getByLabel('Open in tab').nth(2).click()
     await expect(
       page.getByRole('tab', { name: 'Owner details' })
     ).toHaveAttribute('aria-selected', 'true')
@@ -65,10 +63,7 @@ test('View selector - car garage', async ({ page }) => {
 
   await test.step('Verify tabs are open and selectable', async () => {
     await page.getByRole('tab', { name: 'Home' }).click()
-    await page
-      .getByRole('group', { name: 'View technical information' })
-      .getByLabel('Open in tab')
-      .click()
+    await page.getByTestId('Technical').getByLabel('Open in tab').nth(2).click()
     await expect(page.getByRole('tab', { name: 'Technical' })).toHaveAttribute(
       'aria-selected',
       'true'
@@ -133,10 +128,7 @@ test('View selector - car garage', async ({ page }) => {
 
   await test.step('Testing that saving one car does not override the other car', async () => {
     await page.getByRole('tab', { name: 'Volvo' }).click()
-    await page
-      .getByRole('group', { name: 'View technical information' })
-      .getByLabel('Open in tab')
-      .click()
+    await page.getByTestId('Technical').getByLabel('Open in tab').nth(2).click()
 
     await expect(
       page.getByTestId('form-text-widget-nextControl').last()
@@ -146,10 +138,7 @@ test('View selector - car garage', async ({ page }) => {
       page.getByTestId('form-number-widget-Length (mm) (Optional)').last()
     ).toHaveValue('4500')
     await page.getByRole('tab', { name: 'Home' }).click()
-    await page
-      .getByRole('group', { name: 'View owner details and history' })
-      .getByLabel('Open in tab')
-      .click()
+    await page.getByTestId('Owner').getByLabel('Open in tab').nth(2).click()
     await page.getByRole('tab', { name: 'Owner history' }).click()
     await expect(page.getByRole('textbox').first()).toHaveValue('Jack')
     await expect(page.getByRole('textbox').last()).toHaveValue('Maria')
