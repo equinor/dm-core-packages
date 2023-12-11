@@ -81,6 +81,7 @@ const AddObjectBySearchButton = (props: {
         button-ref={setAnchorEl}
         button-aria-haspopup='true'
         button-aria-expanded={isOpen}
+        iconSize={24}
         button-aria-controls='menu-match'
         title='Add'
         button-variant='ghost_icon'

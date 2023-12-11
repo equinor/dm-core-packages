@@ -1,17 +1,17 @@
-import { Fieldset, Legend } from '../styles'
 import { TObjectTemplate } from '../types'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
-import { Typography } from '@equinor/eds-core-react'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
-import TooltipButton from '../../common/TooltipButton'
-import { chevron_down, chevron_up } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { ViewCreator } from '@development-framework/dm-core'
 import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
+import FormObjectBorder from './shared/FormObjectBorder'
+import ObjectLegendHeader from './shared/ObjectLegendHeader'
+import FormExpandedVewWrapper from './shared/FormExpandedVewWrapper'
+import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
+import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 
 export const ObjectModelContainedTemplate = (
   props: TObjectTemplate
@@ -24,25 +24,45 @@ export const ObjectModelContainedTemplate = (
     uiAttribute?.showExpanded ?? config.showExpanded
   )
   const value = watch(namePath)
-  const isCreated = value && Object.keys(value).length > 0
-  const canExpand =
-    isCreated &&
-    (!onOpen ||
-      (uiAttribute?.functionality?.expand ?? config.functionality.expand))
-  const canOpen =
-    isCreated &&
+  const objectIsNotEmpty = value && Object.keys(value).length > 0
+
+  const canOpenInTab =
+    objectIsNotEmpty &&
     onOpen &&
     (uiAttribute?.functionality?.open ?? config.functionality.open)
 
+  const canExpand =
+    objectIsNotEmpty &&
+    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
+
+  const openInTabViewConfig = uiAttribute?.openViewConfig
+    ? uiAttribute?.openViewConfig
+    : {
+        type: 'ReferenceViewConfig',
+        scope: namePath,
+        recipe: uiAttribute?.uiRecipe,
+      }
   return (
-    <Fieldset>
-      <Legend>
-        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
-        {attribute.optional &&
-          !config.readOnly &&
-          (isCreated ? (
-            <RemoveObject namePath={namePath} />
-          ) : (
+    <FormObjectBorder>
+      <ObjectLegendWrapper>
+        <ObjectLegendHeader
+          canExpand={canExpand}
+          canOpenInTab={canOpenInTab}
+          isExpanded={isExpanded}
+          attribute={attribute}
+          objectIsNotEmpty={objectIsNotEmpty}
+          setIsExpanded={setIsExpanded}
+          openInTab={() => onOpen?.(namePath, openInTabViewConfig, idReference)}
+        />
+        <ObjectLegendActionsWrapper>
+          {canOpenInTab && (
+            <OpenObjectButton
+              viewId={namePath}
+              idReference={idReference}
+              viewConfig={openInTabViewConfig}
+            />
+          )}
+          {attribute.optional && !config.readOnly && (
             <>
               {uiAttribute?.searchByType && (
                 <AddObjectBySearchButton
@@ -58,46 +78,33 @@ export const ObjectModelContainedTemplate = (
                 />
               )}
             </>
-          ))}
-        {canExpand && (
-          <TooltipButton
-            title={isExpanded ? 'Collapse' : 'Expand'}
-            button-variant='ghost_icon'
-            button-onClick={() => setIsExpanded(!isExpanded)}
-            icon={isExpanded ? chevron_up : chevron_down}
-          />
-        )}
-        {canOpen && (
-          <OpenObjectButton
-            viewId={namePath}
-            idReference={idReference}
+          )}
+          {attribute.optional && objectIsNotEmpty && !config.readOnly && (
+            <RemoveObject
+              popupTitle={`Confirm Removal`}
+              popupMessage={`Are sure you want to remove reference to '${namePath}'`}
+              namePath={namePath}
+            />
+          )}
+        </ObjectLegendActionsWrapper>
+      </ObjectLegendWrapper>
+      {canExpand && isExpanded && (
+        <FormExpandedVewWrapper>
+          <ViewCreator
+            idReference={`${idReference}.${namePath}`}
+            onOpen={onOpen}
             viewConfig={
-              uiAttribute?.openViewConfig
-                ? uiAttribute?.openViewConfig
+              uiAttribute?.expandViewConfig
+                ? uiAttribute?.expandViewConfig
                 : {
                     type: 'ReferenceViewConfig',
-                    scope: namePath,
                     recipe: uiAttribute?.uiRecipe,
                   }
             }
+            onChange={(data: any) => setValue(namePath, data)}
           />
-        )}
-      </Legend>
-      {canExpand && isExpanded && (
-        <ViewCreator
-          idReference={`${idReference}.${namePath}`}
-          onOpen={onOpen}
-          viewConfig={
-            uiAttribute?.expandViewConfig
-              ? uiAttribute?.expandViewConfig
-              : {
-                  type: 'ReferenceViewConfig',
-                  recipe: uiAttribute?.uiRecipe,
-                }
-          }
-          onChange={(data: any) => setValue(namePath, data)}
-        />
+        </FormExpandedVewWrapper>
       )}
-    </Fieldset>
+    </FormObjectBorder>
   )
 }

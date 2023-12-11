@@ -10,9 +10,11 @@ import {
 import RemoveObject from '../components/RemoveObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
-import ObjectWrapper from './shared/ObjectWrapper'
+import FormObjectBorder from './shared/FormObjectBorder'
 import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
 import ObjectLegendHeader from './shared/ObjectLegendHeader'
+import FormExpandedVewWrapper from './shared/FormExpandedVewWrapper'
+import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
@@ -33,9 +35,9 @@ export const ObjectModelUncontainedTemplate = (
   const referenceExists = address !== undefined
   const canExpand =
     referenceExists &&
-    (!onOpen ||
-      (uiAttribute?.functionality?.expand ?? config.functionality.expand))
-  const canOpen =
+    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
+
+  const canOpenInTab =
     referenceExists &&
     onOpen &&
     (uiAttribute?.functionality?.open ?? config.functionality.open)
@@ -54,18 +56,19 @@ export const ObjectModelUncontainedTemplate = (
   }
 
   return (
-    <ObjectWrapper>
+    <FormObjectBorder>
       <ObjectLegendWrapper>
         <ObjectLegendHeader
           canExpand={canExpand}
+          canOpenInTab={canOpenInTab}
           isExpanded={isExpanded}
           attribute={attribute}
-          referenceExists={referenceExists}
+          objectIsNotEmpty={referenceExists}
           setIsExpanded={setIsExpanded}
           openInTab={openInTab}
         />
-        <div className='flex items-center mr-2'>
-          {canOpen && (
+        <ObjectLegendActionsWrapper>
+          {canOpenInTab && (
             <OpenObjectButton
               viewId={namePath}
               viewConfig={
@@ -93,26 +96,24 @@ export const ObjectModelUncontainedTemplate = (
               namePath={namePath}
             />
           )}
-        </div>
+        </ObjectLegendActionsWrapper>
       </ObjectLegendWrapper>
-      <div>
-        {canExpand && isExpanded && (
-          <div className='border-t p-2 border-[#6f6f6f] overflow-scroll'>
-            <ViewCreator
-              idReference={address}
-              onOpen={onOpen}
-              viewConfig={
-                uiAttribute?.expandViewConfig
-                  ? uiAttribute?.expandViewConfig
-                  : {
-                      type: 'ReferenceViewConfig',
-                      recipe: uiAttribute?.uiRecipe,
-                    }
-              }
-            />
-          </div>
-        )}
-      </div>
-    </ObjectWrapper>
+      {canExpand && isExpanded && (
+        <FormExpandedVewWrapper>
+          <ViewCreator
+            idReference={address}
+            onOpen={onOpen}
+            viewConfig={
+              uiAttribute?.expandViewConfig
+                ? uiAttribute?.expandViewConfig
+                : {
+                    type: 'ReferenceViewConfig',
+                    recipe: uiAttribute?.uiRecipe,
+                  }
+            }
+          />
+        </FormExpandedVewWrapper>
+      )}
+    </FormObjectBorder>
   )
 }
