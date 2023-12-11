@@ -111,6 +111,8 @@ const PrimitiveArray = ({
       <Button
         style={{ marginLeft: '30px' }}
         color='secondary'
+        aria-label='Append primitive'
+        title='Add primitive'
         variant='outlined'
         onClick={() =>
           updateValues(data.length, getDefaultValue(attribute.attributeType))

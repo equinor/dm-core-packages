@@ -44,7 +44,7 @@ describe('List of strings', () => {
       { wrapper }
     )
     return await waitFor(() => {
-      const addButton = screen.getByRole('button', { name: 'Add' })
+      const addButton = screen.getByRole('button', { name: 'Add primitive' })
       return { ...utils, addButton }
     })
   }
