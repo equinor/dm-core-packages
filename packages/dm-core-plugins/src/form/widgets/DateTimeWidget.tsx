@@ -14,6 +14,7 @@ const DateTimeWidget = (props: TWidget) => {
     props
 
   const conf = config as DatePickerConfig
+  console.log(conf)
   return (
     <Datepicker
       id={id}
@@ -22,7 +23,7 @@ const DateTimeWidget = (props: TWidget) => {
       onChange={onChange}
       data-testid={`form-datetime-widget-${label}`}
       readonly={readOnly}
-      label={label}
+      label={conf.label ?? label}
       helperText={helperText}
       isDirty={isDirty}
       useMinutes={conf.useMinutes}
