@@ -1,16 +1,15 @@
-import React, { Dispatch, ReactElement, SetStateAction } from 'react'
-import { DateTime } from 'luxon'
+import React, { ReactElement } from 'react'
 
 interface TimefieldProps {
-  datetime: DateTime
-  setDateTime: Dispatch<SetStateAction<DateTime>>
   useMinutes?: boolean
   timeFieldValue: string
   handleTimeFieldChange: (time: string) => void
+  formatTime: (time: string) => void
 }
 
 export const Timefield = (props: TimefieldProps): ReactElement => {
-  const { useMinutes, timeFieldValue, handleTimeFieldChange } = props
+  const { useMinutes, timeFieldValue, handleTimeFieldChange, formatTime } =
+    props
 
   return (
     <div className='flex flex-col'>
@@ -23,6 +22,7 @@ export const Timefield = (props: TimefieldProps): ReactElement => {
         className='border border-gray-300 rounded py-1 px-2 appearance-none'
         value={timeFieldValue}
         onChange={(e) => handleTimeFieldChange(e.target.value)}
+        onBlur={(e) => formatTime(e.target.value)}
       />
     </div>
   )

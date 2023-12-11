@@ -34,27 +34,26 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   } = props
   const [open, setOpen] = useState(false)
   const datepickerRef = useRef<any | null>(null)
-  const [datetime, setDatetime] = useState(
-    selectedDate
-      ? DateTime.fromISO(selectedDate).toUTC()
-      : DateTime.now().toUTC()
-  )
+  const [datetime, setDatetime] = useState(() => {
+    return selectedDate ? DateTime.fromISO(selectedDate).toUTC() : null
+  })
+
   const [fieldDateValue, setFieldDateValue] = useState(
-    datetime.toFormat('dd/MM/yyyy') ?? 'dd/mm/yyyy'
+    datetime?.toFormat('dd/MM/yyyy') ?? 'dd/mm/yyyy'
   )
   const [fieldTimeValue, setFieldTimeValue] = useState(
-    datetime.toFormat('HH:mm') ?? '--:--'
+    datetime?.toFormat('HH:mm') ?? '--:--'
   )
 
   useEffect(() => {
-    if (!useMinutes) {
+    if (!useMinutes && datetime) {
       setDatetime(datetime.set({ minute: 0, second: 0, millisecond: 0 }))
       formatTime(fieldTimeValue)
     }
   }, [selectedDate])
 
   useEffect(() => {
-    onChange(datetime.toISO() ?? '')
+    onChange(datetime?.toISO() ?? '')
   }, [datetime])
 
   useClickOutside(datepickerRef, () => {
@@ -65,9 +64,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     if (dateInput) {
       const { day, month, year, max } = extractDateComponents(dateInput)
       const convertedDate = DateTime.utc(year, month, day)
-      if (!convertedDate.invalidExplanation) {
+      if (!convertedDate.invalidExplanation && datetime) {
         setDatetime(
-          datetime.set({
+          datetime?.set({
             year: convertedDate.year,
             month: convertedDate.month,
             day: convertedDate.day,
@@ -79,7 +78,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   }
 
   function handleDateSelection(selection: DateSelection): void {
-    setDatetime(datetime.set(selection))
+    setDatetime(
+      datetime ? datetime?.set(selection) : DateTime.fromObject(selection)
+    )
     setFieldDateValue(`${selection.day}/${selection.month}/${selection.year}`)
   }
 
@@ -109,12 +110,13 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
         Number(minute) >= 0 &&
         Number(minute) <= 59
       ) {
-        setDatetime(
-          datetime.set({
-            hour: Number(hour),
-            minute: useMinutes ? Number(minute) : 0,
-          })
-        )
+        if (datetime)
+          setDatetime(
+            datetime.set({
+              hour: Number(hour),
+              minute: useMinutes ? Number(minute) : 0,
+            })
+          )
       }
     }
   }
@@ -197,10 +199,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             <>
               <Timefield
                 useMinutes={useMinutes}
-                datetime={datetime}
-                setDateTime={setDatetime}
                 timeFieldValue={fieldTimeValue}
                 handleTimeFieldChange={handleTimeInput}
+                formatTime={formatTime}
               />
               <span className='text-sm text-gray-600'>
                 <span className='font-bold text-purple-600 bg-purple-100 py-1 px-1.5 rounded'>

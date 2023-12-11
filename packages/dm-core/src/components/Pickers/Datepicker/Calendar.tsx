@@ -20,7 +20,7 @@ import {
 import { DateTime } from 'luxon'
 
 interface CalendarProps {
-  dateTime: DateTime
+  dateTime: DateTime | null
   handleDateSelection: (selection: DateSelection) => void
 }
 
@@ -28,10 +28,10 @@ export const Calendar = (props: CalendarProps): ReactElement => {
   const { dateTime, handleDateSelection } = props
   const [showMonthPicker, setShowMonthPicker] = useState(false)
   const [activeMonth, setActiveMonth] = useState<number>(
-    dateTime.month ?? THIS_MONTH
+    dateTime?.month ?? THIS_MONTH
   )
   const [activeYear, setActiveYear] = useState<number>(
-    dateTime.year ?? THIS_YEAR
+    dateTime?.year ?? THIS_YEAR
   )
   const cal = calendar(activeMonth, activeYear)
 
@@ -157,7 +157,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                 'p-1.5 w-9 rounded-full appearance-none hover:bg-equinor-green-light hover:text-equinor-green ' +
                 (isSameDay(
                   DateTime.fromObject(date).toUTC().toJSDate(),
-                  dateTime.toJSDate()
+                  dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
                 )
                   ? 'bg-equinor-green-light text-equinor-green font-medium'
                   : isSameMonth(
