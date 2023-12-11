@@ -10,6 +10,7 @@ import {
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError } from 'axios/index'
 import { Button, EdsProvider, Tooltip } from '@equinor/eds-core-react'
+import FormObjectTextButton from '../templates/shared/FormObjectTextButton'
 
 export const SelectReference = (props: {
   attributeType: string
@@ -54,21 +55,13 @@ export const SelectReference = (props: {
 
   return (
     <>
-      <Tooltip title={'Select Entity'}>
-        <>
-          <EdsProvider density='compact'>
-            <Button
-              variant='ghost'
-              title='Select Entity'
-              aria-label={'Select Entity'}
-              style={{ paddingInline: '5px' }}
-              onClick={() => setShowModal(true)}
-            >
-              {props.buttonText ?? 'Change'}
-            </Button>
-          </EdsProvider>
-        </>
-      </Tooltip>
+      <FormObjectTextButton
+        onClick={() => setShowModal(true)}
+        buttonText={'Change'}
+        title={'Select Entity'}
+        tooltip={'Change Entity'}
+        ariaLabel={'Select Entity'}
+      />
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
         onChange={onChange}
