@@ -5,13 +5,8 @@ import { Timefield } from './Timefield'
 import { useClickOutside } from '../../../hooks/useClickOutside'
 import { DateTime } from 'luxon'
 import { calendar } from '@equinor/eds-icons'
-import { DateSelection } from './calendarUtils'
-import {
-  extractDateComponents,
-  formatDate,
-  formatTime,
-  isValidTime,
-} from './datepickerUtils'
+import { DateSelection, zeroPad } from './calendarUtils'
+import { extractDateComponents, formatTime } from './datepickerUtils'
 
 interface DatepickerProps {
   id: string
@@ -43,17 +38,17 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     return selectedDate ? DateTime.fromISO(selectedDate).toUTC() : null
   })
 
-  const [fieldDateValue, setFieldDateValue] = useState(
+  const [dateFieldValue, setDateFieldValue] = useState(
     datetime?.toFormat('dd/MM/yyyy') ?? 'dd/mm/yyyy'
   )
-  const [fieldTimeValue, setFieldTimeValue] = useState(
+  const [timeFieldValue, setTimeFieldValue] = useState(
     datetime?.toFormat('HH:mm') ?? '--:--'
   )
 
   useEffect(() => {
     if (!useMinutes && datetime) {
       setDatetime(datetime.set({ minute: 0, second: 0, millisecond: 0 }))
-      formatTime(fieldTimeValue)
+      formatTime(timeFieldValue)
     }
   }, [selectedDate])
 
@@ -86,22 +81,22 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     setDatetime(
       datetime ? datetime?.set(selection) : DateTime.fromObject(selection)
     )
-    setFieldDateValue(`${selection.day}/${selection.month}/${selection.year}`)
+    setDateFieldValue(`${selection.day}/${selection.month}/${selection.year}`)
   }
 
   function formatDate(date: string): void {
     if (date && date !== 'dd/mm/yyyy') {
       const { day, month, year } = extractDateComponents(date)
-      setFieldDateValue(`${zeroPad(day, 2)}/${zeroPad(month, 2)}/${year}`)
+      setDateFieldValue(`${zeroPad(day, 2)}/${zeroPad(month, 2)}/${year}`)
     } else {
-      setFieldDateValue('dd/mm/yyyy')
+      setDateFieldValue('dd/mm/yyyy')
     }
   }
 
   function handleTimeInput(timeInput: string): void {
     const length = timeInput.length
 
-    if (length > fieldTimeValue.length && length + 1 === 3) {
+    if (length > timeFieldValue.length && length + 1 === 3) {
       if (!timeInput.includes(':')) timeInput = timeInput + ':'
     }
 
@@ -150,10 +145,10 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           <input
             type='text'
             aria-label='Enter date'
-            value={fieldDateValue}
+            value={dateFieldValue}
             disabled={readonly}
             onChange={(e) => handleDateInput(e.target.value)}
-            onBlur={(e) => setDateFieldValue(formatDate(e.target.value))}
+            onBlur={(e) => formatDate(e.target.value)}
             onFocus={() => (open ? setOpen(true) : null)}
             className='h-full bg-transparent appearance-none w-24'
           />
@@ -163,7 +158,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             className='appearance-none bg-transparent h-full w-12 text-center'
             disabled={readonly}
             onFocus={() => (open ? setOpen(true) : null)}
-            value={fieldTimeValue}
+            value={timeFieldValue}
             onChange={(e: any) => handleTimeInput(e.target.value)}
             onBlur={(e) =>
               setTimeFieldValue(formatTime(e.target.value, useMinutes))
@@ -187,7 +182,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             <>
               <Timefield
                 useMinutes={useMinutes}
-                timeFieldValue={fieldTimeValue}
+                timeFieldValue={timeFieldValue}
                 handleTimeFieldChange={handleTimeInput}
                 formatTime={formatTime}
               />
