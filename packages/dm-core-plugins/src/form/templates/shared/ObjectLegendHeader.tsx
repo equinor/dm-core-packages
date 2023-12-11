@@ -1,24 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ExpandChevron from './ExpandChevron'
 import { TAttribute } from '@development-framework/dm-core'
-import { Icon, Typography } from '@equinor/eds-core-react'
+import { Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
 import { file, file_description } from '@equinor/eds-icons'
 
 const ObjectLegendHeader = ({
   canExpand,
+  canOpenInTab,
   isExpanded,
   setIsExpanded,
   attribute,
   openInTab,
-  referenceExists,
+  objectIsNotEmpty,
 }: {
   canExpand: boolean | undefined
+  canOpenInTab: boolean | undefined
   isExpanded: boolean | undefined
   attribute: TAttribute
-  referenceExists: boolean
-  setIsExpanded: (expanded: boolean) => void
-  openInTab: () => void
+  objectIsNotEmpty: boolean
+  setIsExpanded?: (expanded: boolean) => void
+  openInTab?: () => void
 }) => {
   return (
     <div
@@ -27,26 +29,36 @@ const ObjectLegendHeader = ({
       {canExpand && (
         <ExpandChevron
           isExpanded={isExpanded ?? false}
-          setIsExpanded={setIsExpanded}
+          setIsExpanded={(exp) => setIsExpanded?.(exp)}
         />
       )}
       <div
-        className={`flex items-center space-x-1  ${
-          referenceExists ? 'cursor-pointer' : 'opacity-50'
+        className={`flex items-center space-x-1 ${
+          objectIsNotEmpty ? '' : 'opacity-40'
         }
     `}
-        onClick={() => {
-          if (!referenceExists) return
-          canExpand ? setIsExpanded(!isExpanded) : openInTab()
-        }}
       >
         <Icon
-          data={referenceExists ? file_description : file}
+          data={objectIsNotEmpty ? file_description : file}
           color='#3d3d3d'
         />
         <Typography
           bold={true}
-          className={referenceExists && !canExpand ? 'hover:underline' : ''}
+          className={`
+          ${
+            objectIsNotEmpty && (canOpenInTab || canExpand)
+              ? 'cursor-pointer'
+              : ''
+          }
+          ${canOpenInTab ? 'hover:underline' : ''}`}
+          onClick={() => {
+            if (!objectIsNotEmpty) return
+            if (canOpenInTab) {
+              openInTab?.()
+              return
+            }
+            canExpand && setIsExpanded?.(!isExpanded)
+          }}
         >
           {getDisplayLabel(attribute)}
         </Typography>
