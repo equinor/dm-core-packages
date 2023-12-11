@@ -54,14 +54,14 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
           objectIsNotEmpty={referenceExists}
           setIsExpanded={setIsExpanded}
           openInTab={() =>
-            onOpen?.(namePath, OpenViewConfig(uiAttribute, namePath), address)
+            onOpen?.(namePath, OpenViewConfig(uiAttribute), address)
           }
         />
         <ObjectLegendActionsWrapper>
           {canOpenInTab && referenceExists && (
             <OpenObjectButton
               viewId={namePath}
-              viewConfig={OpenViewConfig(uiAttribute, namePath)}
+              viewConfig={OpenViewConfig(uiAttribute)}
               idReference={address}
             />
           )}
