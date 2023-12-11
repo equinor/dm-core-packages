@@ -23,8 +23,6 @@ test('uncontainedObject', async ({ page }) => {
       .last() // Get innermost list
       .getByRole('button', { name: 'John' })
       .click()
-    await expect(dialog.getByText('Selected: John')).toBeVisible()
-    await dialog.getByRole('button', { name: 'Select', exact: true }).click()
     await expect(dialog).not.toBeVisible()
   }
 
