@@ -9,7 +9,7 @@ import { ViewCreator } from '@development-framework/dm-core'
 import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
 import FormObjectBorder from './shared/FormObjectBorder'
 import ObjectLegendHeader from './shared/ObjectLegendHeader'
-import FormExpandedVewWrapper from './shared/FormExpandedVewWrapper'
+import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
 import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
 import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 
@@ -89,7 +89,7 @@ export const ObjectModelContainedTemplate = (
         </ObjectLegendActionsWrapper>
       </ObjectLegendWrapper>
       {canExpand && isExpanded && (
-        <FormExpandedVewWrapper>
+        <FormExpandedViewWrapper>
           <ViewCreator
             idReference={`${idReference}.${namePath}`}
             onOpen={onOpen}
@@ -103,7 +103,7 @@ export const ObjectModelContainedTemplate = (
             }
             onChange={(data: any) => setValue(namePath, data)}
           />
-        </FormExpandedVewWrapper>
+        </FormExpandedViewWrapper>
       )}
     </FormObjectBorder>
   )

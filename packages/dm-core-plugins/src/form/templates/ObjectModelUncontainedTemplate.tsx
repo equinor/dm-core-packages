@@ -13,7 +13,7 @@ import { SelectReference } from '../components/SelectReference'
 import FormObjectBorder from './shared/FormObjectBorder'
 import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
 import ObjectLegendHeader from './shared/ObjectLegendHeader'
-import FormExpandedVewWrapper from './shared/FormExpandedVewWrapper'
+import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
 import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 
 export const ObjectModelUncontainedTemplate = (
@@ -99,7 +99,7 @@ export const ObjectModelUncontainedTemplate = (
         </ObjectLegendActionsWrapper>
       </ObjectLegendWrapper>
       {canExpand && isExpanded && (
-        <FormExpandedVewWrapper>
+        <FormExpandedViewWrapper>
           <ViewCreator
             idReference={address}
             onOpen={onOpen}
@@ -112,7 +112,7 @@ export const ObjectModelUncontainedTemplate = (
                   }
             }
           />
-        </FormExpandedVewWrapper>
+        </FormExpandedViewWrapper>
       )}
     </FormObjectBorder>
   )
