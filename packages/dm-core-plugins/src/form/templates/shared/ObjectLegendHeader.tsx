@@ -3,7 +3,7 @@ import ExpandChevron from './ExpandChevron'
 import { TAttribute } from '@development-framework/dm-core'
 import { Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
-import { file, file_description } from '@equinor/eds-icons'
+import { IconData, file, file_description } from '@equinor/eds-icons'
 
 const ObjectLegendHeader = ({
   canExpand,
@@ -13,6 +13,7 @@ const ObjectLegendHeader = ({
   attribute,
   openInTab,
   objectIsNotEmpty,
+  icon,
 }: {
   canExpand: boolean | undefined
   canOpenInTab: boolean | undefined
@@ -21,6 +22,7 @@ const ObjectLegendHeader = ({
   objectIsNotEmpty: boolean
   setIsExpanded?: (expanded: boolean) => void
   openInTab?: () => void
+  icon?: IconData
 }) => {
   return (
     <div
@@ -39,7 +41,7 @@ const ObjectLegendHeader = ({
     `}
       >
         <Icon
-          data={objectIsNotEmpty ? file_description : file}
+          data={icon ?? (objectIsNotEmpty ? file_description : file)}
           color='#3d3d3d'
         />
         <Typography

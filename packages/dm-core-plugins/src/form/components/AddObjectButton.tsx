@@ -51,10 +51,10 @@ const AddObject = (props: {
   return (
     <FormObjectTextButton
       onClick={handleAdd}
-      buttonText={'Create new ' + namePath}
-      title={'Select Entity'}
-      tooltip={'Change Entity'}
-      ariaLabel={'Select Entity'}
+      buttonText={'Create'}
+      title={'Create'}
+      tooltip={`Create new ${namePath}`}
+      ariaLabel={'Create new entity'}
     />
   )
 }
