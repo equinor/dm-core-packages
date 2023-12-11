@@ -4,15 +4,15 @@ import React, { useState } from 'react'
 import { Fieldset, Legend } from '../styles'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import TooltipButton from '../../common/TooltipButton'
-import {
-  add,
-  chevron_down,
-  chevron_up,
-  remove_outlined,
-} from '@equinor/eds-icons'
+import { add, chevron_down, chevron_up } from '@equinor/eds-icons'
 import { AttributeField } from '../fields/AttributeField'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 import { DeleteSoftButton } from '@development-framework/dm-core'
+import FormObjectBorder from './shared/FormObjectBorder'
+import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
+import ObjectLegendHeader from './shared/ObjectLegendHeader'
+import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
+import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 
 function getDefaultValue(type: string): string | boolean | number {
   switch (type) {
@@ -65,97 +65,102 @@ export const ArrayPrimitiveTemplate = (
     newValues.splice(index, 1)
     onChange(newValues)
   }
-  // TODO:
-  // const insertItem = () => {}
   return (
-    <Fieldset>
-      <Legend>
-        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
-        <TooltipButton
-          title={isExpanded ? 'Collapse' : 'Expand'}
-          button-variant='ghost_icon'
-          button-onClick={() => setIsExpanded(!isExpanded)}
-          icon={isExpanded ? chevron_up : chevron_down}
+    <FormObjectBorder>
+      <ObjectLegendWrapper>
+        <ObjectLegendHeader
+          canExpand={true}
+          canOpenInTab={false}
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}
+          attribute={attribute}
+          objectIsNotEmpty={true}
         />
-        {!config.readOnly && isExpanded && (
-          <TooltipButton
-            title='Add'
-            button-variant='ghost_icon'
-            button-onClick={() =>
-              updateValues(
-                value.length,
-                getDefaultValue(attribute.attributeType)
-              )
-            }
-            icon={add}
-          />
-        )}
-      </Legend>
+        <ObjectLegendActionsWrapper>
+          {!config.readOnly && isExpanded && (
+            <TooltipButton
+              title='Add'
+              iconSize={18}
+              compact
+              button-variant='ghost_icon'
+              button-onClick={() =>
+                updateValues(
+                  value.length,
+                  getDefaultValue(attribute.attributeType)
+                )
+              }
+              icon={add}
+            />
+          )}
+        </ObjectLegendActionsWrapper>
+      </ObjectLegendWrapper>
       {isExpanded && (
-        <div
-          style={{
-            display: 'flex',
-            flexFlow: 'column',
-            maxHeight: '26em',
-            alignContent: 'flex-start',
-            overflowY: 'auto',
-            padding: '0 0 7px 0',
-            overflowX: 'hidden',
-            width: 'fit-content',
-          }}
-        >
-          {value.map((item: any, index: number) => (
-            <Tooltip
-              title={`Index: ${index}`}
-              placement={'right-start'}
-              enterDelay={300}
-              key={`${index}-${item}`}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  margin: '1px',
-                }}
-                onMouseEnter={() => setHovering(index)}
-                onMouseLeave={() => setHovering(-1)}
-              >
-                <DeleteSoftButton
-                  onClick={() => removeItem(index)}
-                  title={'Remove list item'}
-                  ariaLabel='remove-action'
-                  dataTestId={`form-primitive-array-remove-${index}`}
-                  visibilityWhenNotHover={'opaque'}
-                />
-                <AttributeField
-                  namePath={`${namePath}.${index}`}
-                  uiAttribute={{
-                    name: '',
-                    type: '',
-                    ...uiAttribute,
-                    config: { hideLabel: true, ...uiAttribute?.config },
-                  }}
-                  attribute={{ ...attribute, dimensions: '' }}
-                />
-              </div>
-            </Tooltip>
-          ))}
-          <Button
-            style={{ marginLeft: '30px' }}
-            color='secondary'
-            variant='outlined'
-            onClick={() =>
-              updateValues(
-                value.length,
-                getDefaultValue(attribute.attributeType)
-              )
-            }
+        <FormExpandedViewWrapper>
+          <div
+            style={{
+              display: 'flex',
+              flexFlow: 'column',
+              maxHeight: '26em',
+              alignContent: 'flex-start',
+              overflowY: 'auto',
+              padding: '0 0 7px 0',
+              overflowX: 'hidden',
+              width: 'fit-content',
+            }}
           >
-            <Icon data={add} />
-          </Button>
-        </div>
+            {value.map((item: any, index: number) => (
+              <Tooltip
+                title={`Index: ${index}`}
+                placement={'right-start'}
+                enterDelay={300}
+                key={`${index}-${item}`}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    margin: '1px',
+                  }}
+                  onMouseEnter={() => setHovering(index)}
+                  onMouseLeave={() => setHovering(-1)}
+                >
+                  <DeleteSoftButton
+                    onClick={() => removeItem(index)}
+                    title={'Remove list item'}
+                    ariaLabel='remove-action'
+                    dataTestId={`form-primitive-array-remove-${index}`}
+                    visibilityWhenNotHover={'opaque'}
+                  />
+                  <AttributeField
+                    namePath={`${namePath}.${index}`}
+                    uiAttribute={{
+                      name: '',
+                      type: '',
+                      ...uiAttribute,
+                      config: { hideLabel: true, ...uiAttribute?.config },
+                    }}
+                    attribute={{ ...attribute, dimensions: '' }}
+                  />
+                </div>
+              </Tooltip>
+            ))}
+            <Button
+              style={{ marginLeft: '30px' }}
+              color='secondary'
+              variant='outlined'
+              onClick={() =>
+                updateValues(
+                  value.length,
+                  getDefaultValue(attribute.attributeType)
+                )
+              }
+            >
+              <Icon data={add} />
+            </Button>
+          </div>
+        </FormExpandedViewWrapper>
       )}
-    </Fieldset>
+    </FormObjectBorder>
   )
 }

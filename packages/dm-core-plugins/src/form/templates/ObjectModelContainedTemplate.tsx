@@ -1,4 +1,4 @@
-import { TObjectTemplate } from '../types'
+import { TFormConfig, TObjectTemplate } from '../types'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
@@ -12,6 +12,11 @@ import ObjectLegendHeader from './shared/ObjectLegendHeader'
 import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
 import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
 import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
+import {
+  ExpandViewConfig,
+  OpenViewConfig,
+  InferCanOpenOrExpand,
+} from './shared/utils'
 
 export const ObjectModelContainedTemplate = (
   props: TObjectTemplate
@@ -26,22 +31,12 @@ export const ObjectModelContainedTemplate = (
   const value = watch(namePath)
   const objectIsNotEmpty = value && Object.keys(value).length > 0
 
-  const canOpenInTab =
-    objectIsNotEmpty &&
-    onOpen &&
-    (uiAttribute?.functionality?.open ?? config.functionality.open)
-
-  const canExpand =
-    objectIsNotEmpty &&
-    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
-
-  const openInTabViewConfig = uiAttribute?.openViewConfig
-    ? uiAttribute?.openViewConfig
-    : {
-        type: 'ReferenceViewConfig',
-        scope: namePath,
-        recipe: uiAttribute?.uiRecipe,
-      }
+  const { canExpand, canOpenInTab } = InferCanOpenOrExpand(
+    objectIsNotEmpty,
+    config,
+    uiAttribute,
+    onOpen
+  )
   return (
     <FormObjectBorder>
       <ObjectLegendWrapper>
@@ -52,14 +47,20 @@ export const ObjectModelContainedTemplate = (
           attribute={attribute}
           objectIsNotEmpty={objectIsNotEmpty}
           setIsExpanded={setIsExpanded}
-          openInTab={() => onOpen?.(namePath, openInTabViewConfig, idReference)}
+          openInTab={() =>
+            onOpen?.(
+              namePath,
+              OpenViewConfig(uiAttribute, namePath),
+              idReference
+            )
+          }
         />
         <ObjectLegendActionsWrapper>
           {canOpenInTab && (
             <OpenObjectButton
               viewId={namePath}
               idReference={idReference}
-              viewConfig={openInTabViewConfig}
+              viewConfig={OpenViewConfig(uiAttribute, namePath)}
             />
           )}
           {attribute.optional && !config.readOnly && (
@@ -93,14 +94,7 @@ export const ObjectModelContainedTemplate = (
           <ViewCreator
             idReference={`${idReference}.${namePath}`}
             onOpen={onOpen}
-            viewConfig={
-              uiAttribute?.expandViewConfig
-                ? uiAttribute?.expandViewConfig
-                : {
-                    type: 'ReferenceViewConfig',
-                    recipe: uiAttribute?.uiRecipe,
-                  }
-            }
+            viewConfig={ExpandViewConfig(uiAttribute)}
             onChange={(data: any) => setValue(namePath, data)}
           />
         </FormExpandedViewWrapper>
