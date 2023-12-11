@@ -72,7 +72,6 @@ export const SelectReference = (props: {
       </Tooltip>
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
-        // @ts-ignore
         onChange={onChange}
         typeFilter={props.attributeType}
         showModal={showModal}

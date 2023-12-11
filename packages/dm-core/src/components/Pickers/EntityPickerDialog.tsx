@@ -60,16 +60,20 @@ export type TEntityPickerReturn = {
   entity: TValidEntity
 }
 
-type TEntityPickerDialog = {
-  // TODO: Struggling to type this correctly...
-  onChange: (v: TEntityPickerReturn | TEntityPickerReturn[]) => void
+type TCommonProps = {
   showModal: boolean
   setShowModal: (x: boolean) => void
   typeFilter?: string
   scope?: string
-  multiple?: boolean
   title?: string
   hideInvalidTypes?: boolean
+}
+
+type TEntityPickerDialogMulti = TCommonProps & { multiple: true } & {
+  onChange: (v: TEntityPickerReturn[]) => void
+}
+type TEntityPickerDialog = TCommonProps & { multiple?: false | undefined } & {
+  onChange: (v: TEntityPickerReturn) => void
 }
 
 /**
@@ -86,7 +90,9 @@ type TEntityPickerDialog = {
  * @param scope: optional attribute to define scope for tree view. The scope must be on the format: <DataSource>/<rootPackage>/<pathToFolder>
  * @param multiple: optional attribute to allow selection of multiple entities. Effects return type
  */
-export const EntityPickerDialog = (props: TEntityPickerDialog) => {
+export const EntityPickerDialog = (
+  props: TEntityPickerDialog | TEntityPickerDialogMulti
+) => {
   const {
     onChange,
     showModal,

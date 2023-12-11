@@ -44,7 +44,6 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await dialog.getByRole('button', { name: 'model_uncontained' }).click()
     await dialog.getByRole('button', { name: 'complex_attribute' }).click()
     await dialog.getByRole('button', { name: 'Barbossa' }).click()
-    await dialog.getByRole('button', { name: 'Select', exact: true }).click()
     await expect(dialog).not.toBeVisible()
     await page.getByRole('button', { name: 'Submit', exact: true }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
