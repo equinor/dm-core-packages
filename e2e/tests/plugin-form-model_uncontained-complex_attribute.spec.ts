@@ -17,7 +17,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
   await test.step('Model uncontained', async () => {
     await page.getByRole('button', { name: 'Edit' }).click()
     await expect(page.getByLabel('Name')).toHaveValue('TheBlackPearl')
-    await page.getByRole('button', { name: 'Open in tab', exact: true }).click()
+    await page.getByLabel('Open in tab').click()
     await expect(page.getByRole('tab', { name: 'captain' })).toBeVisible()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()
@@ -48,7 +48,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await expect(dialog).not.toBeVisible()
     await page.getByRole('button', { name: 'Submit', exact: true }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'Open in tab', exact: true }).click()
+    await page.getByLabel('Open in tab').click()
     await expect(page.getByRole('tab', { name: 'captain' })).toBeVisible()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()
