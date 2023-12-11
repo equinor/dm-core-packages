@@ -108,7 +108,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       return
     }
 
-    const view = { ...internalConfig.openViewConfig, label: item?.data?.name }
+    const view = {
+      ...internalConfig.openViewConfig,
+      label: item?.data?.name ?? `${attribute?.name} #${item.index}`,
+    }
     onOpen(
       item.key,
       view,
