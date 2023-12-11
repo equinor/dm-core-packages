@@ -13,7 +13,7 @@ test('Start SignalApp', async ({ page }) => {
 })
 
 test('run Create job', async ({ page }) => {
-  await page.getByRole('button', { name: 'Open in tab' }).click()
+  await page.getByLabel('Open in tab').click()
   await page.getByRole('button', { name: 'Open in new tab' }).click()
   await page.getByRole('button', { name: 'Run' }).click()
   await page.getByRole('button', { name: 'Show logs' }).click()

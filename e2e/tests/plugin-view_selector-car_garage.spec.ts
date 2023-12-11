@@ -42,7 +42,7 @@ test('View selector - car garage', async ({ page }) => {
 
     await page
       .getByRole('group', { name: 'View owner details and history' })
-      .getByRole('button', { name: 'Open in tab' })
+      .getByLabel('Open in tab')
       .click()
     await expect(
       page.getByRole('tab', { name: 'Owner details' })
@@ -67,7 +67,7 @@ test('View selector - car garage', async ({ page }) => {
     await page.getByRole('tab', { name: 'Home' }).click()
     await page
       .getByRole('group', { name: 'View technical information' })
-      .getByRole('button', { name: 'Open in tab' })
+      .getByLabel('Open in tab')
       .click()
     await expect(page.getByRole('tab', { name: 'Technical' })).toHaveAttribute(
       'aria-selected',
@@ -135,7 +135,7 @@ test('View selector - car garage', async ({ page }) => {
     await page.getByRole('tab', { name: 'Volvo' }).click()
     await page
       .getByRole('group', { name: 'View technical information' })
-      .getByRole('button', { name: 'Open in tab' })
+      .getByLabel('Open in tab')
       .click()
 
     await expect(
@@ -148,7 +148,7 @@ test('View selector - car garage', async ({ page }) => {
     await page.getByRole('tab', { name: 'Home' }).click()
     await page
       .getByRole('group', { name: 'View owner details and history' })
-      .getByRole('button', { name: 'Open in tab' })
+      .getByLabel('Open in tab')
       .click()
     await page.getByRole('tab', { name: 'Owner history' }).click()
     await expect(page.getByRole('textbox').first()).toHaveValue('Jack')
