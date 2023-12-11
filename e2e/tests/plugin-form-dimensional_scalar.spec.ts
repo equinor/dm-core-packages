@@ -34,6 +34,9 @@ test('Dimensional scalar', async ({ page }) => {
     await page.getByTestId('number').getByRole('spinbutton').fill('25')
     await page.getByRole('textbox').fill('1 mile')
     await page.getByRole('button', { name: 'Submit' }).click()
+    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+    await page.getByRole('button', { name: 'close', exact: true }).click()
+    await expect(page.getByRole('alert')).not.toBeVisible()
     await navigate()
     await expect(
       page.getByTestId('significantWaveHeight').getByRole('spinbutton')
