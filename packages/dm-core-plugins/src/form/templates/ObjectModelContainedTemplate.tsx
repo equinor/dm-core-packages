@@ -59,7 +59,7 @@ export const ObjectModelContainedTemplate = (
               viewConfig={OpenViewConfig(uiAttribute)}
             />
           )}
-          {attribute.optional && !config.readOnly && (
+          {attribute.optional && !config.readOnly && !objectIsNotEmpty && (
             <>
               {uiAttribute?.searchByType && (
                 <AddObjectBySearchButton
