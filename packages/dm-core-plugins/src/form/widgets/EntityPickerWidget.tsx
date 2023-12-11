@@ -51,7 +51,6 @@ const EntityPickerWidget = (props: TWidget) => {
         showModal={showAddReferenceModal}
         setShowModal={setShowAddReferenceModal}
         // typeFilter={attribute?.attributeType}
-        // @ts-ignore
         onChange={(v: TEntityPickerReturn) => {
           onChange(v.address)
         }}
