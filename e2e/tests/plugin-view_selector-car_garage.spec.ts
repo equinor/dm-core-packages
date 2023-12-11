@@ -128,7 +128,7 @@ test('View selector - car garage', async ({ page }) => {
 
   await test.step('Testing that saving one car does not override the other car', async () => {
     await page.getByRole('tab', { name: 'Volvo' }).click()
-    await page.getByTestId('Technical').getByLabel('Open in tab').click()
+    await page.getByLabel('Open in tab').nth(3).click()
 
     await expect(
       page.getByTestId('form-text-widget-nextControl').last()
@@ -138,7 +138,7 @@ test('View selector - car garage', async ({ page }) => {
       page.getByTestId('form-number-widget-Length (mm) (Optional)').last()
     ).toHaveValue('4500')
     await page.getByRole('tab', { name: 'Home' }).click()
-    await page.getByTestId('Owner').getByLabel('Open in tab').nth(2).click()
+    await page.getByLabel('Open in tab').nth(2).click()
     await page.getByRole('tab', { name: 'Owner history' }).click()
     await expect(page.getByRole('textbox').first()).toHaveValue('Jack')
     await expect(page.getByRole('textbox').last()).toHaveValue('Maria')

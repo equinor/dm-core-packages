@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 
-const FormExpandedVewWrapper = ({ children }: PropsWithChildren) => {
+const FormExpandedViewWrapper = ({ children }: PropsWithChildren) => {
   return (
     <div className='border-t p-2 border-[#6f6f6f] overflow-scroll'>
       {children}
@@ -8,4 +8,4 @@ const FormExpandedVewWrapper = ({ children }: PropsWithChildren) => {
   )
 }
 
-export default FormExpandedVewWrapper
+export default FormExpandedViewWrapper
