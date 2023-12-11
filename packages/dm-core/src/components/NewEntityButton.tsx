@@ -182,7 +182,6 @@ export function NewEntityButton(props: {
                 showModal={showCopyDocumentModal}
                 setShowModal={setShowCopyDocumentModal}
                 typeFilter={typeToCreate}
-                // @ts-ignore
                 onChange={(v: TEntityPickerReturn) =>
                   setDocumentToCopy(v.entity)
                 }

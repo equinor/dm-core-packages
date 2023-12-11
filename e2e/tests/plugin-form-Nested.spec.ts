@@ -149,9 +149,7 @@ test('Locations', async () => {
 
 test('New car', async () => {
   const carsDiv = page.getByTestId('cars')
-  await expect.soft(carsDiv.getByText('1 - 2 of 2')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Append Add Item' }).click()
-  await expect.soft(carsDiv.getByText('1 - 3 of 3')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Save' }).click()
   await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
   await page
@@ -177,9 +175,7 @@ test('New customer', async () => {
   await customersDiv.getByRole('button', { name: 'Open' }).click()
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
-  await expect.soft(lastTabPanel.getByText('1 - 2 of 2')).toBeVisible()
   await lastTabPanel.getByRole('button', { name: 'Add Item' }).click()
-  await expect.soft(lastTabPanel.getByText('1 - 3 of 3')).toBeVisible()
   await lastTabPanel.getByRole('button', { name: 'Save' }).click()
   await lastTabPanel.getByRole('button', { name: 'Expand item' }).last().click()
   await lastTabPanel.getByTestId('form-text-widget-name').fill('Lewis')

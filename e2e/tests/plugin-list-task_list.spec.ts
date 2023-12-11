@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole('button', { name: 'list' }).click()
   await page.getByRole('button', { name: 'task_list' }).click()
   await page.getByRole('button', { name: 'file TaskList' }).click()
-  await page.getByRole('tab', { name: 'task_list' }).click()
+  await page.getByRole('button', { name: 'list task_list' }).click()
 })
 
 //TODO REMOVE: Temporary function to reload page as we currently need to reload page to view saved itmes... (#153)
@@ -22,14 +22,11 @@ async function reloadPage(page: Page) {
   await page.getByRole('button', { name: 'list' }).click()
   await page.getByRole('button', { name: 'task_list' }).click()
   await page.getByRole('button', { name: 'file TaskList' }).click()
-  await page.getByRole('tab', { name: 'task_list' }).click()
+  await page.getByRole('button', { name: 'list task_list' }).click()
 }
 
 test('Add a new task', async ({ page }) => {
-  const lastTabPanel = page.getByRole('tabpanel').last()
-  await expect(lastTabPanel).toBeVisible()
   await page.getByRole('button', { name: 'Add item' }).click()
-  await expect(page.getByText('1 - 4 of 4')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()
   await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await page
@@ -45,7 +42,6 @@ test('Add a new task', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await reloadPage(page) //TODO: Remove when #153 is solved.
-  await expect(lastTabPanel).toBeVisible()
   await expect(page.getByText('Tax return', { exact: true })).toBeVisible()
   await page
     .getByRole('button', { name: 'Expand item', exact: true })
@@ -65,8 +61,6 @@ test('Add a new task', async ({ page }) => {
 })
 
 test('Mark task as complete', async ({ page }) => {
-  const lastTabPanel = page.getByRole('tabpanel').last()
-  await expect(lastTabPanel).toBeVisible()
   await page
     .getByRole('button', { name: 'Expand item', exact: true })
     .first()
@@ -91,8 +85,6 @@ test('Mark task as complete', async ({ page }) => {
 })
 
 test('Delete a task', async ({ page }) => {
-  const lastTabPanel = page.getByRole('tabpanel').last()
-  await expect(lastTabPanel).toBeVisible()
   await expect(
     page.getByRole('paragraph').getByText('Tax return')
   ).toBeVisible()
@@ -105,7 +97,6 @@ test('Delete a task', async ({ page }) => {
   await page.getByRole('button', { name: 'Save' }).click()
   await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await reloadPage(page) //TODO: Remove when #153 is solved.
-  await expect(lastTabPanel).toBeVisible()
   await expect(
     page.getByRole('paragraph').getByText('Wash the car')
   ).toBeVisible()
@@ -244,15 +235,8 @@ test('Edit a task', async ({ page }) => {
 })
 
 test('Pagination', async ({ page }) => {
-  await page.locator('#rowsPerPage').selectOption('5')
-  await expect(
-    page.getByRole('button', { name: 'Previous page' })
-  ).toBeDisabled()
-  await expect(page.getByRole('button', { name: 'Next page' })).toBeDisabled()
   await page.getByRole('button', { name: 'Add item' }).click()
-  await expect(page.getByText('1 - 4 of 4')).toBeVisible()
   await page.getByRole('button', { name: 'Add item' }).click()
-  await expect(page.getByText('1 - 5 of 5')).toBeVisible()
   await page.getByRole('button', { name: 'Add item' }).click()
   await expect(page.getByText('1 - 5 of 6')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()

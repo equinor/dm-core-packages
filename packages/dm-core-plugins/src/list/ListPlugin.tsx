@@ -80,7 +80,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
   const [paginationPage, setPaginationPage] = useState(0)
-  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(10)
+  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(5)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
@@ -138,7 +138,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           setShowModal={setShowModal}
           typeFilter={type}
           scope={config.selectFromScope}
-          // @ts-ignore
           onChange={async (entities: TEntityPickerReturn[]) => {
             const newKeys: Record<string, boolean> = {}
             for (const { address, entity } of entities) {
