@@ -5,8 +5,13 @@ import { Timefield } from './Timefield'
 import { useClickOutside } from '../../../hooks/useClickOutside'
 import { DateTime } from 'luxon'
 import { calendar } from '@equinor/eds-icons'
-import { DateSelection, zeroPad } from './calendarUtils'
-import { extractDateComponents } from './datepickerUtils'
+import { DateSelection } from './calendarUtils'
+import {
+  extractDateComponents,
+  formatDate,
+  formatTime,
+  isValidTime,
+} from './datepickerUtils'
 
 interface DatepickerProps {
   id: string
@@ -39,10 +44,10 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       ? DateTime.fromISO(selectedDate).toUTC()
       : DateTime.now().toUTC()
   )
-  const [fieldDateValue, setFieldDateValue] = useState(
+  const [fieldDateValue, setDateFieldValue] = useState(
     datetime.toFormat('dd/MM/yyyy') ?? 'dd/mm/yyyy'
   )
-  const [fieldTimeValue, setFieldTimeValue] = useState(
+  const [fieldTimeValue, setTimeFieldValue] = useState(
     datetime.toFormat('HH:mm') ?? '--:--'
   )
 
@@ -67,22 +72,13 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           })
         )
       }
-      if (dateInput.length <= max) setFieldDateValue(dateInput)
-    } else setFieldDateValue(String(dateInput))
+      if (dateInput.length <= max) setDateFieldValue(dateInput)
+    } else setDateFieldValue(String(dateInput))
   }
 
   function handleDateSelection(selection: DateSelection): void {
     setDatetime(datetime.set(selection))
-    setFieldDateValue(`${selection.day}/${selection.month}/${selection.year}`)
-  }
-
-  function formatDate(date: string): void {
-    if (date && date !== 'dd/mm/yyyy') {
-      const { day, month, year } = extractDateComponents(date)
-      setFieldDateValue(`${zeroPad(day, 2)}/${zeroPad(month, 2)}/${year}`)
-    } else {
-      setFieldDateValue('dd/mm/yyyy')
-    }
+    setDateFieldValue(`${selection.day}/${selection.month}/${selection.year}`)
   }
 
   function handleTimeInput(timeInput: string): void {
@@ -93,15 +89,10 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     }
 
     if (length < 6) {
-      setFieldTimeValue(timeInput)
+      setTimeFieldValue(timeInput)
       const [hour, minute] = timeInput.split(':')
 
-      if (
-        Number(hour) >= 0 &&
-        Number(hour) <= 23 &&
-        Number(minute) >= 0 &&
-        Number(minute) <= 59
-      ) {
+      if (isValidTime(timeInput)) {
         setDatetime(
           datetime.set({
             hour: Number(hour),
@@ -109,25 +100,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           })
         )
       }
-    }
-  }
-
-  function formatTime(time: string): void {
-    if (time.length === 0) setFieldTimeValue('--:--')
-    if (!time.includes(':')) {
-      const hour = Number(time.slice(0, 1))
-      const min = Number(time.slice(2, 3))
-      setFieldTimeValue(
-        `${zeroPad(hour, 2)}:${zeroPad(useMinutes ? min : 0, 2)}`
-      )
-    } else {
-      const [hour, min] = time.split(':')
-      setFieldTimeValue(
-        `${zeroPad(Number(hour), 2)}:${zeroPad(
-          Number(useMinutes ? min : 0),
-          2
-        )}`
-      )
     }
   }
 
@@ -158,7 +130,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             value={fieldDateValue}
             disabled={readonly}
             onChange={(e) => handleDateInput(e.target.value)}
-            onBlur={(e) => formatDate(e.target.value)}
+            onBlur={(e) => setDateFieldValue(formatDate(e.target.value))}
             onFocus={() => (open ? setOpen(true) : null)}
             className='h-full bg-transparent appearance-none w-24'
           />
@@ -170,7 +142,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             onFocus={() => (open ? setOpen(true) : null)}
             value={fieldTimeValue}
             onChange={(e: any) => handleTimeInput(e.target.value)}
-            onBlur={(e) => formatTime(e.target.value)}
+            onBlur={(e) =>
+              setTimeFieldValue(formatTime(e.target.value, useMinutes))
+            }
           />
           <Icon data={calendar} size={18} className='w-6 mb-1' />
         </div>
