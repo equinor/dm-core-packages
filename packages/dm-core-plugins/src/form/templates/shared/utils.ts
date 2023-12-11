@@ -9,15 +9,11 @@ export const ExpandViewConfig = (uiAttribute?: TUiAttributeObject) => {
       }
 }
 
-export const OpenViewConfig = (
-  uiAttribute?: TUiAttributeObject,
-  namePath?: string
-) => {
+export const OpenViewConfig = (uiAttribute?: TUiAttributeObject) => {
   return uiAttribute?.openViewConfig
     ? uiAttribute?.openViewConfig
     : {
         type: 'ReferenceViewConfig',
-        scope: namePath,
         recipe: uiAttribute?.uiRecipe,
       }
 }

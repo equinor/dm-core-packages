@@ -56,14 +56,14 @@ export const ObjectModelUncontainedTemplate = (
           objectIsNotEmpty={referenceExists}
           setIsExpanded={setIsExpanded}
           openInTab={() =>
-            onOpen?.(namePath, OpenViewConfig(uiAttribute, namePath), address)
+            onOpen?.(namePath, OpenViewConfig(uiAttribute), address)
           }
         />
         <ObjectLegendActionsWrapper>
           {canOpenInTab && (
             <OpenObjectButton
               viewId={namePath}
-              viewConfig={OpenViewConfig(uiAttribute, namePath)}
+              viewConfig={OpenViewConfig(uiAttribute)}
               idReference={address}
             />
           )}
