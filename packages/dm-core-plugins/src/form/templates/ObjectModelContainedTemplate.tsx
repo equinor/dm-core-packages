@@ -2,74 +2,109 @@ import { TObjectTemplate } from '../types'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
-import { Fieldset, Legend } from '../styles'
-import { Typography } from '@equinor/eds-core-react'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
-import TooltipButton from '../../common/TooltipButton'
-import { chevron_down, chevron_up } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
-import { EntityView } from '@development-framework/dm-core'
+import { ViewCreator } from '@development-framework/dm-core'
+import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
+import FormObjectBorder from './shared/FormObjectBorder'
+import ObjectLegendHeader from './shared/ObjectLegendHeader'
+import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
+import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
+import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 
 export const ObjectModelContainedTemplate = (
   props: TObjectTemplate
 ): React.ReactElement => {
-  const { namePath, uiAttribute, uiRecipe, attribute } = props
-  const { getValues, setValue } = useFormContext()
+  const { namePath, uiAttribute, attribute } = props
+  const { watch, setValue } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
 
   const [isExpanded, setIsExpanded] = useState(
-    uiAttribute?.showExpanded !== undefined
-      ? uiAttribute?.showExpanded
-      : config.showExpanded
+    uiAttribute?.showExpanded ?? config.showExpanded
   )
-  const value = getValues(namePath)
-  const isDefined = value && Object.keys(value).length > 0
+  const value = watch(namePath)
+  const objectIsNotEmpty = value && Object.keys(value).length > 0
+
+  const canOpenInTab =
+    objectIsNotEmpty &&
+    onOpen &&
+    (uiAttribute?.functionality?.open ?? config.functionality.open)
+
+  const canExpand =
+    objectIsNotEmpty &&
+    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
+
+  const openInTabViewConfig = uiAttribute?.openViewConfig
+    ? uiAttribute?.openViewConfig
+    : {
+        type: 'ReferenceViewConfig',
+        scope: namePath,
+        recipe: uiAttribute?.uiRecipe,
+      }
   return (
-    <Fieldset>
-      <Legend>
-        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
-        {attribute.optional &&
-          !config.readOnly &&
-          (isDefined ? (
-            <RemoveObject namePath={namePath} />
-          ) : (
-            <AddObject
-              namePath={namePath}
-              type={attribute.attributeType}
-              defaultValue={attribute.default}
-            />
-          ))}
-        {isDefined && !(onOpen && !uiAttribute?.showInline) && (
-          <TooltipButton
-            title={isExpanded ? 'Collapse' : 'Expand'}
-            button-variant='ghost_icon'
-            button-onClick={() => setIsExpanded(!isExpanded)}
-            icon={isExpanded ? chevron_up : chevron_down}
-          />
-        )}
-        {isDefined && onOpen && !uiAttribute?.showInline && (
-          <OpenObjectButton
-            viewId={namePath}
-            idReference={idReference}
-            viewConfig={{
-              type: 'ReferenceViewConfig',
-              scope: namePath,
-              recipe: uiRecipe?.name,
-            }}
-          />
-        )}
-      </Legend>
-      {isDefined && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
-        <EntityView
-          recipeName={uiRecipe.name}
-          idReference={`${idReference}.${namePath}`}
-          type={attribute.attributeType}
-          onOpen={onOpen}
-          onChange={(data: any) => setValue(namePath, data)}
+    <FormObjectBorder>
+      <ObjectLegendWrapper>
+        <ObjectLegendHeader
+          canExpand={canExpand}
+          canOpenInTab={canOpenInTab}
+          isExpanded={isExpanded}
+          attribute={attribute}
+          objectIsNotEmpty={objectIsNotEmpty}
+          setIsExpanded={setIsExpanded}
+          openInTab={() => onOpen?.(namePath, openInTabViewConfig, idReference)}
         />
+        <ObjectLegendActionsWrapper>
+          {canOpenInTab && (
+            <OpenObjectButton
+              viewId={namePath}
+              idReference={idReference}
+              viewConfig={openInTabViewConfig}
+            />
+          )}
+          {attribute.optional && !config.readOnly && (
+            <>
+              {uiAttribute?.searchByType && (
+                <AddObjectBySearchButton
+                  namePath={namePath}
+                  type={attribute.attributeType}
+                />
+              )}
+              {!uiAttribute?.searchByType && (
+                <AddObject
+                  namePath={namePath}
+                  type={attribute.attributeType}
+                  defaultValue={attribute.default}
+                />
+              )}
+            </>
+          )}
+          {attribute.optional && objectIsNotEmpty && !config.readOnly && (
+            <RemoveObject
+              popupTitle={`Confirm Removal`}
+              popupMessage={`Are sure you want to remove reference to '${namePath}'`}
+              namePath={namePath}
+            />
+          )}
+        </ObjectLegendActionsWrapper>
+      </ObjectLegendWrapper>
+      {canExpand && isExpanded && (
+        <FormExpandedViewWrapper>
+          <ViewCreator
+            idReference={`${idReference}.${namePath}`}
+            onOpen={onOpen}
+            viewConfig={
+              uiAttribute?.expandViewConfig
+                ? uiAttribute?.expandViewConfig
+                : {
+                    type: 'ReferenceViewConfig',
+                    recipe: uiAttribute?.uiRecipe,
+                  }
+            }
+            onChange={(data: any) => setValue(namePath, data)}
+          />
+        </FormExpandedViewWrapper>
       )}
-    </Fieldset>
+    </FormObjectBorder>
   )
 }

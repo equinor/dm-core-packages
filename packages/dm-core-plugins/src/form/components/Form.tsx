@@ -34,6 +34,10 @@ export const defaultConfig: TFormConfig = {
   fields: [],
   readOnly: false,
   showExpanded: true,
+  functionality: {
+    expand: false,
+    open: true,
+  },
 }
 
 export const Form = (props: TFormProps) => {
@@ -50,7 +54,14 @@ export const Form = (props: TFormProps) => {
   props?.onChange &&
     methods.watch((data: any) => props?.onChange && props.onChange(data))
 
-  const config: TFormConfig = { ...defaultConfig, ...props.config }
+  const config: TFormConfig = {
+    ...defaultConfig,
+    ...props.config,
+    functionality: {
+      ...defaultConfig.functionality,
+      ...props.config?.functionality,
+    },
+  }
 
   // Every react hook form controller needs to have a unique name
   const namePath: string = ''
@@ -83,7 +94,7 @@ export const Form = (props: TFormProps) => {
 
         if (uiAttribute?.widget) continue
 
-        if (!uiAttribute?.showInline) {
+        if (!uiAttribute?.functionality?.expand) {
           toRemoveFromPayload.push(key)
           continue
         }

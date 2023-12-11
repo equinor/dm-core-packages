@@ -1,14 +1,15 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TField } from '../types'
+import { TField, TUiAttributeString } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
 
 export const StringField = (props: TField) => {
   const { namePath, uiAttribute, attribute } = props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
   const { config } = useRegistryContext()
+  const readOnly = uiAttribute?.readOnly || config.readOnly
   return (
     <Controller
       name={namePath}
@@ -25,11 +26,13 @@ export const StringField = (props: TField) => {
             enumType={attribute.enumType || undefined}
             isDirty={value !== null ? isDirty : false}
             onChange={(value: unknown) => onChange(value ?? '')}
-            readOnly={config.readOnly}
+            readOnly={readOnly}
             value={value ?? ''}
             id={namePath}
             label={
-              !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
+              !uiAttribute?.config?.hideLabel
+                ? getDisplayLabelWithOptional(attribute)
+                : ''
             }
             inputRef={ref}
             helperText={error?.message || error?.type}

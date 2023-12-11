@@ -3,29 +3,27 @@ import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import {
-  EntityView,
   resolveRelativeAddress,
   splitAddress,
+  ViewCreator,
 } from '@development-framework/dm-core'
-import { Fieldset, Legend } from '../styles'
-import { Typography } from '@equinor/eds-core-react'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
-import TooltipButton from '../../common/TooltipButton'
-import { chevron_down, chevron_up } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
+import FormObjectBorder from './shared/FormObjectBorder'
+import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
+import ObjectLegendHeader from './shared/ObjectLegendHeader'
+import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
+import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
 ): React.ReactElement => {
-  const { namePath, uiAttribute, uiRecipe, attribute } = props
+  const { namePath, uiAttribute, attribute } = props
   const { watch } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
   const [isExpanded, setIsExpanded] = useState(
-    uiAttribute?.showExpanded !== undefined
-      ? uiAttribute?.showExpanded
-      : config.showExpanded
+    uiAttribute?.showExpanded ?? config.showExpanded
   )
   const value = watch(namePath)
   const { dataSource, documentPath } = splitAddress(idReference)
@@ -33,47 +31,89 @@ export const ObjectModelUncontainedTemplate = (
     value && value.address && value.referenceType === 'link'
       ? resolveRelativeAddress(value.address, documentPath, dataSource)
       : undefined
+
+  const referenceExists = address !== undefined
+  const canExpand =
+    referenceExists &&
+    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
+
+  const canOpenInTab =
+    referenceExists &&
+    onOpen &&
+    (uiAttribute?.functionality?.open ?? config.functionality.open)
+
+  const openInTab = () => {
+    onOpen?.(
+      namePath,
+      uiAttribute?.openViewConfig
+        ? uiAttribute?.openViewConfig
+        : {
+            type: 'ReferenceViewConfig',
+            recipe: uiAttribute?.uiRecipe,
+          },
+      address
+    )
+  }
+
   return (
-    <Fieldset>
-      <Legend>
-        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
-        {!config.readOnly && (
-          <SelectReference
-            attributeType={attribute.attributeType}
-            namePath={namePath}
-          />
-        )}
-        {attribute.optional && address && !config.readOnly && (
-          <RemoveObject namePath={namePath} />
-        )}
-        {address && !(onOpen && !uiAttribute?.showInline) && (
-          <TooltipButton
-            title={isExpanded ? 'Collapse' : 'Expand'}
-            button-variant='ghost_icon'
-            button-onClick={() => setIsExpanded(!isExpanded)}
-            icon={isExpanded ? chevron_up : chevron_down}
-          />
-        )}
-        {address && onOpen && !uiAttribute?.showInline && (
-          <OpenObjectButton
-            viewId={namePath}
-            viewConfig={{
-              type: 'ReferenceViewConfig',
-              scope: '',
-              recipe: uiRecipe?.name,
-            }}
-            idReference={address}
-          />
-        )}
-      </Legend>
-      {address && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
-        <EntityView
-          idReference={address}
-          type={attribute.attributeType}
-          recipeName={uiRecipe?.name}
-          onOpen={onOpen}
+    <FormObjectBorder>
+      <ObjectLegendWrapper>
+        <ObjectLegendHeader
+          canExpand={canExpand}
+          canOpenInTab={canOpenInTab}
+          isExpanded={isExpanded}
+          attribute={attribute}
+          objectIsNotEmpty={referenceExists}
+          setIsExpanded={setIsExpanded}
+          openInTab={openInTab}
         />
+        <ObjectLegendActionsWrapper>
+          {canOpenInTab && (
+            <OpenObjectButton
+              viewId={namePath}
+              viewConfig={
+                uiAttribute?.openViewConfig
+                  ? uiAttribute?.openViewConfig
+                  : {
+                      type: 'ReferenceViewConfig',
+                      recipe: uiAttribute?.uiRecipe,
+                    }
+              }
+              idReference={address}
+            />
+          )}
+          {!config.readOnly && (
+            <SelectReference
+              attributeType={attribute.attributeType}
+              namePath={namePath}
+              buttonText={referenceExists ? 'Change' : 'Select'}
+            />
+          )}
+          {attribute.optional && referenceExists && !config.readOnly && (
+            <RemoveObject
+              popupTitle={`Confirm Removal`}
+              popupMessage={`Are sure you want to remove reference to '${namePath}'`}
+              namePath={namePath}
+            />
+          )}
+        </ObjectLegendActionsWrapper>
+      </ObjectLegendWrapper>
+      {canExpand && isExpanded && (
+        <FormExpandedViewWrapper>
+          <ViewCreator
+            idReference={address}
+            onOpen={onOpen}
+            viewConfig={
+              uiAttribute?.expandViewConfig
+                ? uiAttribute?.expandViewConfig
+                : {
+                    type: 'ReferenceViewConfig',
+                    recipe: uiAttribute?.uiRecipe,
+                  }
+            }
+          />
+        </FormExpandedViewWrapper>
       )}
-    </Fieldset>
+    </FormObjectBorder>
   )
 }

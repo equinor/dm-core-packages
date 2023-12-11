@@ -37,9 +37,9 @@ test('Add a new task', async ({ page }) => {
     .last()
     .click()
   await page.getByLabel('Task title:').fill('Tax return')
-  await page.getByLabel('Assigned to: (optional)').fill('Maria Johnson')
+  await page.getByLabel('Assigned to: (Optional)').fill('Maria Johnson')
   await page
-    .getByLabel('Task description: (optional)')
+    .getByLabel('Task description: (Optional)')
     .fill('Review and submit the tax return.')
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -52,10 +52,10 @@ test('Add a new task', async ({ page }) => {
     .last()
     .click()
   await expect(page.getByLabel('Task title:')).toHaveValue('Tax return')
-  await expect(page.getByLabel('Assigned to: (optional)')).toHaveValue(
+  await expect(page.getByLabel('Assigned to: (Optional)')).toHaveValue(
     'Maria Johnson'
   )
-  await expect(page.getByLabel('Task description: (optional)')).toHaveValue(
+  await expect(page.getByLabel('Task description: (Optional)')).toHaveValue(
     'Review and submit the tax return.'
   )
   await page
@@ -215,9 +215,9 @@ test('Edit a task', async ({ page }) => {
   await page.getByTestId('expandListItem-2').click()
   await expect(page.getByRole('tab', { name: 'Edit' })).toBeVisible()
   await page.getByLabel('Task title:').fill('Paint the living room green')
-  await page.getByLabel('Assigned to: (optional)').fill('Mark Johnson')
+  await page.getByLabel('Assigned to: (Optional)').fill('Mark Johnson')
   await page
-    .getByLabel('Task description: (optional)')
+    .getByLabel('Task description: (Optional)')
     .fill('Remember to buy new brush.')
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -234,10 +234,10 @@ test('Edit a task', async ({ page }) => {
   await expect(page.getByLabel('Task title:')).toHaveValue(
     'Paint the living room green'
   )
-  await expect(page.getByLabel('Assigned to: (optional)')).toHaveValue(
+  await expect(page.getByLabel('Assigned to: (Optional)')).toHaveValue(
     'Mark Johnson'
   )
-  await expect(page.getByLabel('Task description: (optional)')).toHaveValue(
+  await expect(page.getByLabel('Task description: (Optional)')).toHaveValue(
     'Remember to buy new brush.'
   )
   await page.getByRole('button', { name: 'Minimize item' }).last().click()

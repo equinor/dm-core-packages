@@ -45,7 +45,7 @@ const setup = async (props: { initialValue?: string; optional?: boolean }) => {
     { wrapper }
   )
   return await waitFor(() => {
-    const labelToFind = optional ? 'number (optional)' : 'number'
+    const labelToFind = optional ? 'Number (Optional)' : 'Number'
     const inputElement = screen.getByLabelText<HTMLInputElement>(labelToFind)
     const setValue = (value: string) =>
       fireEvent.change(inputElement, { target: { value: value } })

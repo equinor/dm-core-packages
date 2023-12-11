@@ -22,7 +22,74 @@
             "recipe": {
               "name": "Job Edit",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/form"
+              "plugin": "@development-framework/dm-core-plugins/form",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "attributes": [
+                  {
+                    "name": "uid",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "started",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true,
+                    "widget": "DateTimeWidget"
+                  },
+                  {
+                    "name": "stopped",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true,
+                    "widget": "DateTimeWidget"
+                  },
+                  {
+                    "name": "ended",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true,
+                    "widget": "DateTimeWidget"
+                  },
+                  {
+                    "name": "status",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "triggeredBy",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "outputTarget",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "widget": "EntityPickerWidget"
+                  },
+                  {
+                    "name": "applicationInput",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+                    "showExpanded": false
+                  },
+                  {
+                    "name": "runner",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+                    "showExpanded": false,
+                    "searchByType": true
+                  }
+                ],
+                "fields": [
+                  "uid",
+                  "name",
+                  "label",
+                  "triggeredBy",
+                  "status",
+                  "started",
+                  "stopped",
+                  "ended",
+                  "outputTarget",
+                  "applicationInput",
+                  "runner"
+                ]
+              }
             }
           },
           "gridArea": {

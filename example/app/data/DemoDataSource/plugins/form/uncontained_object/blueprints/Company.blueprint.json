@@ -28,12 +28,26 @@
       "optional": false
     },
     {
+      "name": "numberOfEmployees",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "contained": true,
+      "optional": true
+    },
+    {
       "name": "accountant",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
       "label": "Accountant",
       "contained": false,
       "optional": false
+    },
+    {
+      "name": "averageSalary",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "contained": true,
+      "optional": true
     },
     {
       "name": "assistant",
@@ -49,6 +63,13 @@
       "attributeType": "./Person",
       "label": "Trainee",
       "contained": false,
+      "optional": true
+    },
+    {
+      "name": "description",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "contained": true,
       "optional": true
     }
   ]

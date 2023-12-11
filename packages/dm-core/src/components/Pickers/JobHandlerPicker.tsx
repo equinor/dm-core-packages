@@ -15,7 +15,7 @@ export const JobHandlerPicker = (props: {
       type: 'dmss://system/SIMOS/Blueprint',
       extends: ['dmss://WorkflowDS/Blueprints/JobHandler'],
     },
-    'WorkflowDS'
+    ['WorkflowDS']
   )
 
   const handleChange = (blueprintId: string) => {

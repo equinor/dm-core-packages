@@ -53,6 +53,8 @@ const AddObject = (props: {
     <TooltipButton
       title='Add and save'
       button-variant='ghost_icon'
+      iconSize={18}
+      compact
       button-onClick={handleAdd}
       icon={add}
     />

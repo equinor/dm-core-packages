@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import {
-  EntityView,
   resolveRelativeAddress,
   splitAddress,
-  useDocument,
+  ViewCreator,
 } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
 import { TObjectTemplate } from '../types'
@@ -16,7 +15,7 @@ import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
 
 export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
-  const { namePath, uiRecipe, attribute, uiAttribute } = props
+  const { namePath, attribute, uiAttribute } = props
   const { watch, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const { dataSource, documentPath } = splitAddress(idReference)
@@ -27,11 +26,16 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
     documentPath,
     dataSource
   )
-  const { document, isLoading } = useDocument<any>(address, 1)
 
-  useEffect(() => {
-    if (!isLoading && document) setValue(namePath, document)
-  }, [document])
+  const referenceExists = address !== undefined
+  const canExpand =
+    referenceExists &&
+    (!onOpen ||
+      (uiAttribute?.functionality?.expand ?? config.functionality.expand))
+  const canOpen =
+    referenceExists &&
+    onOpen &&
+    (uiAttribute?.functionality?.open ?? config.functionality.open)
 
   return (
     <Fieldset>
@@ -46,24 +50,35 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
         {attribute.optional && address && !config.readOnly && (
           <RemoveObject address={address} namePath={namePath} />
         )}
-        {address && onOpen && !uiAttribute?.showInline && (
+        {canOpen && (
           <OpenObjectButton
             viewId={namePath}
-            viewConfig={{
-              type: 'ReferenceViewConfig',
-              scope: '',
-              recipe: uiRecipe?.name,
-            }}
+            viewConfig={
+              uiAttribute?.openViewConfig
+                ? uiAttribute?.openViewConfig
+                : {
+                    type: 'ReferenceViewConfig',
+                    scope: namePath,
+                    recipe: uiAttribute?.uiRecipe,
+                  }
+            }
             idReference={address}
           />
         )}
       </Legend>
-      {address && !(onOpen && !uiAttribute?.showInline) && (
-        <EntityView
+      {canExpand && (
+        <ViewCreator
           idReference={address}
-          type={attribute.attributeType}
-          recipeName={uiRecipe?.name}
           onOpen={onOpen}
+          viewConfig={
+            uiAttribute?.expandViewConfig
+              ? uiAttribute?.expandViewConfig
+              : {
+                  type: 'ReferenceViewConfig',
+                  recipe: uiAttribute?.uiRecipe,
+                }
+          }
+          onChange={(data: any) => setValue(namePath, data)}
         />
       )}
     </Fieldset>

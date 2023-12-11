@@ -183,7 +183,7 @@ export const CrateFromRecipe = (
               marginRight: '10px',
             }}
           />
-          <pre>{progress * 100}%</pre>
+          <pre>{Math.round(progress * 100)}%</pre>
         </div>
       )}
       <RemoveJobDialog

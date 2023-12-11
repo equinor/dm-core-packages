@@ -11,12 +11,13 @@ import { Form } from '../components/Form'
 import { mockBlueprintGet, wrapper } from '../test-utils'
 import { TFormConfig } from '../types'
 
-const EntityViewMock = jest.fn()
+const ViewCreatorMock = jest.fn()
 jest.mock('@development-framework/dm-core', () => ({
   __esModule: true,
   ...jest.requireActual('@development-framework/dm-core'),
-  EntityView: (props: any) => {
-    EntityViewMock(props)
+  ViewCreator: (props: any) => {
+    console.log(props)
+    ViewCreatorMock(props)
     return <div data-testid="mock-EntityView" />
   },
 }))
@@ -148,7 +149,7 @@ describe('List of objects', () => {
     return { ...utils, openButton, entityView }
   }
 
-  it('should call EntityView if there is no onOpen function', async () => {
+  it('should call ViewCreator if there is no onOpen function', async () => {
     const utils = await setup({
       config: {
         attributes: [
@@ -159,17 +160,16 @@ describe('List of objects', () => {
           },
         ],
         fields: [],
+        functionality: {}
       },
     })
     await waitFor(() => {
       expect(utils.entityView).toBeDefined()
-      expect(EntityViewMock).toHaveBeenLastCalledWith(
+      expect(ViewCreatorMock).toHaveBeenLastCalledWith(
         expect.objectContaining({
-          dimensions: '*',
           idReference: 'ds/$1.array',
           onOpen: undefined,
-          recipeName: 'aRecipe',
-          type: 'Item',
+          viewConfig: expect.any(Object)
         })
       )
     })
@@ -183,7 +183,7 @@ describe('List of objects', () => {
     })
   })
 
-  it('should show EntityView if config states it', async () => {
+  it('should show ViewCreator if config states it', async () => {
     const onOpen = jest.fn()
     const utils = await setup({
       onOpen: onOpen,
@@ -193,21 +193,23 @@ describe('List of objects', () => {
             type: 'PLUGINS:dm-core-plugins/form/fields/ArrayField',
             name: 'array',
             uiRecipe: 'aRecipe',
-            showInline: true,
+            functionality: {
+              open: false,
+              expand: true
+            }
           },
         ],
         fields: [],
+        functionality: {}
       },
     })
     await waitFor(() => {
       expect(utils.entityView).toBeDefined()
-      expect(EntityViewMock).toHaveBeenLastCalledWith(
+      expect(ViewCreatorMock).toHaveBeenLastCalledWith(
         expect.objectContaining({
-          dimensions: '*',
           idReference: 'ds/$1.array',
           onOpen: onOpen,
-          recipeName: 'aRecipe',
-          type: 'Item',
+          viewConfig: expect.any(Object)
         })
       )
     })

@@ -170,7 +170,7 @@ test('should handle optional', async () => {
   // The useForm "methods.handleSubmit" seems to be async, and needs to be awaited
   await waitFor(() => expect(onSubmit).toHaveBeenCalled())
   expect(onSubmit).toHaveBeenCalledWith({ foo: '' })
-  await waitFor(() => expect(screen.getByText('foo (optional)')).toBeDefined())
+  await waitFor(() => expect(screen.getByText('Foo (Optional)')).toBeDefined())
 })
 
 test.skip('should not call onSubmit if non-optional field are missing value', async () => {

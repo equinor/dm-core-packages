@@ -2,7 +2,7 @@ import { TArrayTemplate } from '../types'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
-import { EntityView, getKey } from '@development-framework/dm-core'
+import { getKey, ViewCreator } from '@development-framework/dm-core'
 import { Fieldset, Legend } from '../styles'
 import { Typography } from '@equinor/eds-core-react'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
@@ -25,6 +25,14 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   )
   const uiRecipeName = getKey<string>(uiAttribute, 'uiRecipe', 'string')
   const isDefined = initialValue !== undefined
+  const canExpand =
+    isDefined &&
+    (!onOpen ||
+      (uiAttribute?.functionality?.expand ?? config.functionality.expand))
+  const canOpen =
+    isDefined &&
+    onOpen &&
+    (uiAttribute?.functionality?.open ?? config.functionality.open)
 
   return (
     <Fieldset>
@@ -48,7 +56,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
               onAdd={() => setInitialValue([])}
             />
           ))}
-        {isDefined && !(onOpen && !uiAttribute?.showInline) && (
+        {canExpand && (
           <TooltipButton
             title={isExpanded ? 'Collapse' : 'Expand'}
             button-variant='ghost_icon'
@@ -56,27 +64,33 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
             icon={isExpanded ? chevron_up : chevron_down}
           />
         )}
-        {!config.readOnly &&
-          isDefined &&
-          onOpen &&
-          !uiAttribute?.showInline && (
-            <OpenObjectButton
-              viewId={namePath}
-              viewConfig={{
-                type: 'ReferenceViewConfig',
-                scope: namePath,
-                recipe: uiRecipeName,
-              }}
-            />
-          )}
+        {canOpen && (
+          <OpenObjectButton
+            viewId={namePath}
+            viewConfig={
+              uiAttribute?.openViewConfig
+                ? uiAttribute?.openViewConfig
+                : {
+                    type: 'ReferenceViewConfig',
+                    recipe: uiRecipeName,
+                    scope: namePath,
+                  }
+            }
+          />
+        )}
       </Legend>
-      {isDefined && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
-        <EntityView
-          recipeName={uiRecipeName}
+      {canExpand && isExpanded && (
+        <ViewCreator
           idReference={`${idReference}.${namePath}`}
-          type={attribute.attributeType}
           onOpen={onOpen}
-          dimensions={attribute.dimensions}
+          viewConfig={
+            uiAttribute?.expandViewConfig
+              ? uiAttribute?.expandViewConfig
+              : {
+                  type: 'ReferenceViewConfig',
+                  recipe: uiRecipeName,
+                }
+          }
         />
       )}
     </Fieldset>
