@@ -31,8 +31,8 @@ export const InferCanOpenOrExpand = (
 
   const canExpand =
     objectIsNotEmpty &&
-    !canOpenInTab &&
-    (uiAttribute?.functionality?.expand ?? config.functionality.expand)
+    (!canOpenInTab ||
+      (uiAttribute?.functionality?.expand ?? config.functionality.expand))
 
   return { canExpand, canOpenInTab }
 }
