@@ -26,7 +26,7 @@ const FormTemplateHeaderActions = ({ children }: PropsWithChildren) => {
 
 const FormTemplateContent = ({ children }: PropsWithChildren) => {
   return (
-    <div className='border-t p-2 border-[#6f6f6f] overflow-auto w-full'>
+    <div className='border-t p-2 border-[#6f6f6f] max-h-300 overflow-auto w-full'>
       {children}
     </div>
   )
