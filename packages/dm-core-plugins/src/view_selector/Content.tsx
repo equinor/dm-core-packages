@@ -45,24 +45,30 @@ export const Content = (props: {
 }): React.ReactElement => {
   const { selectedViewId, viewSelectorItems, setFormData, formData, onOpen } =
     props
-
   return (
     <div style={props.style}>
       {viewSelectorItems.map((config: TItemData) => (
         <Lazy key={config.viewId} visible={selectedViewId === config.viewId}>
-          <ViewCreator
-            idReference={config.rootEntityId}
-            viewConfig={config.viewConfig}
-            onOpen={onOpen}
-            onSubmit={(data: TGenericObject) => {
-              if (config?.onSubmit) config?.onSubmit(data)
-              setFormData({
-                ...formData,
-                [config.viewId]: data,
-              })
-            }}
-            onChange={config?.onChange}
-          />
+          {config.viewConfig ? (
+            <ViewCreator
+              idReference={config.rootEntityId}
+              viewConfig={config.viewConfig}
+              onOpen={onOpen}
+              onSubmit={(data: TGenericObject) => {
+                if (config?.onSubmit) config?.onSubmit(data)
+                setFormData({
+                  ...formData,
+                  [config.viewId]: data,
+                })
+              }}
+              onChange={config?.onChange}
+            />
+          ) : (
+            <p>
+              {config.label ?? config.viewId} was selected, but has no view
+              defined
+            </p>
+          )}
         </Lazy>
       ))}
     </div>

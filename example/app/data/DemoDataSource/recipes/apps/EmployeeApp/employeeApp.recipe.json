@@ -14,7 +14,7 @@
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "recipe": "Edit",
-            "scope": "employees"
+            "scope": "self"
           }
         }
       ]

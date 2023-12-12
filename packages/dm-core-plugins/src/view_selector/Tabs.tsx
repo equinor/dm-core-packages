@@ -11,6 +11,7 @@ export const Tabs = (props: {
   removeView: (viewId: string) => void
 }): React.ReactElement => {
   const { selectedViewId, setSelectedViewId, viewSelectorItems } = props
+
   return (
     <EdsTabs
       activeTab={viewSelectorItems.findIndex(
@@ -31,7 +32,11 @@ export const Tabs = (props: {
               }}
             >
               <Button
-                onClick={() => setSelectedViewId(config.viewId)}
+                onClick={() => {
+                  if (config.viewConfig) {
+                    setSelectedViewId(config.viewId)
+                  }
+                }}
                 variant='ghost'
                 style={{ fontSize: '16px' }}
               >
