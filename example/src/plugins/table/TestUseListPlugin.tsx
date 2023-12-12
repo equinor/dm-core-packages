@@ -3,6 +3,7 @@ import {
   IUIPlugin,
   Loading,
   Pagination,
+  TEntityPickerReturn,
   TGenericObject,
   TItem,
   TValidEntity,
@@ -64,7 +65,7 @@ const TestUseListPlugin = (props: IUIPlugin) => {
         showModal={showAddReferenceModal}
         setShowModal={setShowAddReferenceModal}
         typeFilter={attribute?.attributeType}
-        onChange={(v) => {
+        onChange={(v: TEntityPickerReturn) => {
           addReference(v.address, v.entity)
         }}
       />

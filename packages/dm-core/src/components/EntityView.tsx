@@ -3,7 +3,7 @@ import React, { useState, Suspense, memo } from 'react'
 import styled from 'styled-components'
 import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { useRecipe } from '../hooks'
-import { IUIPlugin } from '../types'
+import { IUIPlugin, TUiRecipe } from '../types'
 import { Loading } from './Loading'
 import { Typography } from '@equinor/eds-core-react'
 import RefreshButton from './RefreshButton'
@@ -20,33 +20,17 @@ type IEntityView = IUIPlugin & {
   dimensions?: string
 }
 
-function UiPlugin({
-  getPlugin,
-  pluginName,
-  idReference,
-  type,
-  onSubmit,
-  onOpen,
-  config,
-  onChange,
-}: IUIPlugin & {
-  getPlugin: (name: string) => (p: IUIPlugin) => React.ReactElement
-  pluginName: string
-}) {
-  const UiPlugin = getPlugin(pluginName)
-  return (
-    <UiPlugin
-      idReference={idReference}
-      type={type}
-      onSubmit={onSubmit}
-      onOpen={onOpen}
-      config={config || {}}
-      onChange={onChange}
-    />
-  )
-}
+const MemoizedUiPlugin = memo(function UiPlugin(
+  props: IUIPlugin & {
+    getPlugin: (name: string) => (p: IUIPlugin) => React.ReactElement
+    recipe: TUiRecipe
+  }
+) {
+  const UiPlugin = props.getPlugin(props.recipe.plugin)
+  return <UiPlugin {...props} config={props.recipe.config ?? {}} />
+})
 
-const MemoizedUiPlugin = memo(UiPlugin)
+// const MemoizedUiPlugin = memo(UiPlugin)
 
 export const EntityView = (props: IEntityView): React.ReactElement => {
   const {
@@ -127,13 +111,12 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
             )}
             <MemoizedUiPlugin
               getPlugin={getUiPlugin}
-              pluginName={recipe.plugin}
+              recipe={recipe}
               idReference={idReference}
               type={type}
               onSubmit={onSubmit}
               onOpen={onOpen}
               onChange={onChange}
-              config={recipe.config || {}}
               key={reloadCounter}
             />
           </div>
