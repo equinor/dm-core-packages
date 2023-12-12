@@ -3,7 +3,7 @@ import { ErrorResponse, useDMSS } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError, AxiosResponse } from 'axios'
 import React from 'react'
-import FormObjectTextButton from '../templates/shared/FormObjectTextButton'
+import GhostTextButton from './GhostTextButton'
 
 const AddObject = (props: {
   type: string
@@ -49,7 +49,7 @@ const AddObject = (props: {
       })
   }
   return (
-    <FormObjectTextButton
+    <GhostTextButton
       onClick={handleAdd}
       buttonText={'Create'}
       title={'Create'}

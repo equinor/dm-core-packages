@@ -2,10 +2,7 @@ import { TArrayTemplate } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
 import { list } from '@equinor/eds-icons'
-import FormObjectBorder from './shared/FormObjectBorder'
-import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
-import ObjectLegendHeader from './shared/ObjectLegendHeader'
-import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
+import FormObject from './shared/FormObject'
 import PrimitiveArray from '../components/PrimitiveArray'
 
 export const ArrayPrimitiveTemplate = (
@@ -24,9 +21,9 @@ export const ArrayPrimitiveTemplate = (
   )
 
   return (
-    <FormObjectBorder>
-      <ObjectLegendWrapper>
-        <ObjectLegendHeader
+    <FormObject>
+      <FormObject.Legend>
+        <FormObject.Legend.Header
           canExpand={true}
           canOpen={false}
           isExpanded={isExpanded}
@@ -35,9 +32,9 @@ export const ArrayPrimitiveTemplate = (
           objectIsNotEmpty={true}
           icon={list}
         />
-      </ObjectLegendWrapper>
+      </FormObject.Legend>
       {isExpanded && (
-        <FormExpandedViewWrapper>
+        <FormObject.ExpandedView>
           <PrimitiveArray
             uiAttribute={uiAttribute}
             data={value}
@@ -45,8 +42,8 @@ export const ArrayPrimitiveTemplate = (
             attribute={attribute}
             onChange={onChange}
           />
-        </FormExpandedViewWrapper>
+        </FormObject.ExpandedView>
       )}
-    </FormObjectBorder>
+    </FormObject>
   )
 }
