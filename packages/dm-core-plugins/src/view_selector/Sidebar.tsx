@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SideBar } from '@equinor/eds-core-react'
 import * as EdsIcons from '@equinor/eds-icons'
-import { TItemData } from './types'
+import { TItemData, TViewSelectorItem } from './types'
 import { TOnOpen } from '@development-framework/dm-core'
 
 export const Sidebar = (props: {
@@ -16,68 +16,76 @@ export const Sidebar = (props: {
   return (
     <SideBar open style={{ height: 'auto' }}>
       <SideBar.Content>
-        {viewSelectorItems.map((config: TItemData) => {
+        {viewSelectorItems.map((viewItem: TItemData) => {
           // subItem's will be rendered inside other items. Don't add them here
-          if (config.isSubItem) return null
+          if (viewItem.isSubItem) return null
 
           return (
-            <div key={config.viewId}>
-              {config.subItems ? (
+            <div key={viewItem.viewId}>
+              {viewItem.subItems ? (
                 <SideBar.Accordion
-                  key={config.viewId}
+                  key={viewItem.viewId}
                   icon={
-                    config.viewConfig.eds_icon
+                    viewItem.viewConfig?.eds_icon
                       ? EdsIcons[
-                          config.viewConfig.eds_icon as keyof typeof EdsIcons
+                          viewItem.viewConfig.eds_icon as keyof typeof EdsIcons
                         ]
                       : EdsIcons.subdirectory_arrow_right
                   }
-                  label={config.label}
+                  label={viewItem.label}
+                  onClick={() => {
+                    if (viewItem.viewConfig) {
+                      setSelectedViewId(viewItem.viewId)
+                    }
+                  }}
                   role='tab'
                 >
-                  {config.subItems.map((subConfig: TItemData, index) => {
-                    const subViewId = config.viewId + subConfig.viewConfig.scope
-                    return (
-                      <SideBar.AccordionItem
-                        key={index}
-                        icon={
-                          subConfig.viewConfig.eds_icon
-                            ? EdsIcons[
-                                subConfig.viewConfig
-                                  .eds_icon as keyof typeof EdsIcons
-                              ]
-                            : EdsIcons.subdirectory_arrow_right
-                        }
-                        label={subConfig.label}
-                        role='tab'
-                        onClick={() => {
-                          addView(
-                            subViewId,
-                            subConfig.viewConfig,
-                            undefined,
-                            true
-                          )
-                          setSelectedViewId(subViewId)
-                        }}
-                        active={selectedViewId === subViewId}
-                      />
-                    )
-                  })}
+                  {viewItem.subItems.map(
+                    (subItem: TViewSelectorItem, index) => {
+                      const subViewId =
+                        viewItem.viewId + subItem.viewConfig?.scope
+                      return (
+                        <SideBar.AccordionItem
+                          key={index}
+                          icon={
+                            subItem.viewConfig?.eds_icon
+                              ? EdsIcons[
+                                  subItem.viewConfig
+                                    .eds_icon as keyof typeof EdsIcons
+                                ]
+                              : EdsIcons.subdirectory_arrow_right
+                          }
+                          label={
+                            subItem.label ??
+                            subItem.viewConfig?.scope ??
+                            subViewId
+                          }
+                          role='tab'
+                          onClick={() => {
+                            if (viewItem.viewConfig) {
+                              setSelectedViewId(subViewId)
+                            }
+                          }}
+                          active={selectedViewId === subViewId}
+                        />
+                      )
+                    }
+                  )}
                 </SideBar.Accordion>
               ) : (
                 <SideBar.Link
-                  key={config.viewId}
+                  key={viewItem.viewId}
                   icon={
-                    config.viewConfig.eds_icon
+                    viewItem.viewConfig?.eds_icon
                       ? EdsIcons[
-                          config.viewConfig.eds_icon as keyof typeof EdsIcons
+                          viewItem.viewConfig.eds_icon as keyof typeof EdsIcons
                         ]
                       : EdsIcons.subdirectory_arrow_right
                   }
-                  label={config.label}
+                  label={viewItem.label}
                   role='tab'
-                  onClick={() => setSelectedViewId(config.viewId)}
-                  active={selectedViewId === config.viewId}
+                  onClick={() => setSelectedViewId(viewItem.viewId)}
+                  active={selectedViewId === viewItem.viewId}
                 />
               )}
             </div>

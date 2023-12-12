@@ -10,7 +10,8 @@
     {
       "name": "viewConfig",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "CORE:ViewConfig"
+      "attributeType": "CORE:ViewConfig",
+      "optional": true
     },
     {
       "name": "label",

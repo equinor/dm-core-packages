@@ -5,7 +5,8 @@ import {
 } from '@development-framework/dm-core'
 
 export type TViewSelectorItem = {
-  viewConfig: TReferenceViewConfig | TInlineRecipeViewConfig | TViewConfig
+  viewConfig?: TReferenceViewConfig | TInlineRecipeViewConfig | TViewConfig
+  subItems?: TViewSelectorItem[]
   label?: string
 }
 
@@ -16,7 +17,6 @@ export type TItemData = TViewSelectorItem & {
   rootEntityId: string
   onSubmit?: (data: any) => void
   onChange?: (data: any) => void
-  subItems?: TItemData[]
   isSubItem?: boolean
 }
 
