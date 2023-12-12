@@ -10,11 +10,7 @@ import {
 import RemoveObject from '../components/RemoveObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
-import FormObjectBorder from './shared/FormObjectBorder'
-import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
-import ObjectLegendHeader from './shared/ObjectLegendHeader'
-import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
-import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
+import FormObject from './shared/FormObject'
 import {
   getExpandViewConfig,
   getCanOpenOrExpand,
@@ -46,9 +42,9 @@ export const ObjectModelUncontainedTemplate = (
     onOpen
   )
   return (
-    <FormObjectBorder>
-      <ObjectLegendWrapper>
-        <ObjectLegendHeader
+    <FormObject>
+      <FormObject.Legend>
+        <FormObject.Legend.Header
           canExpand={canExpand}
           canOpen={canOpen}
           isExpanded={isExpanded}
@@ -59,7 +55,7 @@ export const ObjectModelUncontainedTemplate = (
             onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
           }
         />
-        <ObjectLegendActionsWrapper>
+        <FormObject.Legend.Actions>
           {canOpen && (
             <OpenObjectButton
               viewId={namePath}
@@ -81,17 +77,17 @@ export const ObjectModelUncontainedTemplate = (
               namePath={namePath}
             />
           )}
-        </ObjectLegendActionsWrapper>
-      </ObjectLegendWrapper>
+        </FormObject.Legend.Actions>
+      </FormObject.Legend>
       {canExpand && isExpanded && (
-        <FormExpandedViewWrapper>
+        <FormObject.ExpandedView>
           <ViewCreator
             idReference={address ?? ''}
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
           />
-        </FormExpandedViewWrapper>
+        </FormObject.ExpandedView>
       )}
-    </FormObjectBorder>
+    </FormObject>
   )
 }

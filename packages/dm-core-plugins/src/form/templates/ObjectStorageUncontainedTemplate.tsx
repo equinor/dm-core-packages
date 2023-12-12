@@ -10,11 +10,7 @@ import { TObjectTemplate } from '../types'
 import RemoveObject from '../components/RemoveObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
-import FormObjectBorder from './shared/FormObjectBorder'
-import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
-import ObjectLegendHeader from './shared/ObjectLegendHeader'
-import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
-import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
+import FormObject from './shared/FormObject'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
@@ -44,9 +40,9 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
   )
 
   return (
-    <FormObjectBorder>
-      <ObjectLegendWrapper>
-        <ObjectLegendHeader
+    <FormObject>
+      <FormObject.Legend>
+        <FormObject.Legend.Header
           canExpand={canExpand}
           canOpen={canOpen}
           isExpanded={isExpanded}
@@ -57,7 +53,7 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
             onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
           }
         />
-        <ObjectLegendActionsWrapper>
+        <FormObject.Legend.Actions>
           {canOpen && referenceExists && (
             <OpenObjectButton
               viewId={namePath}
@@ -74,18 +70,18 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
           {attribute.optional && referenceExists && !config.readOnly && (
             <RemoveObject address={address} namePath={namePath} />
           )}
-        </ObjectLegendActionsWrapper>
-      </ObjectLegendWrapper>
+        </FormObject.Legend.Actions>
+      </FormObject.Legend>
       {canExpand && referenceExists && isExpanded && (
-        <FormExpandedViewWrapper>
+        <FormObject.ExpandedView>
           <ViewCreator
             idReference={address}
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
             onChange={(data: any) => setValue(namePath, data)}
           />
-        </FormExpandedViewWrapper>
+        </FormObject.ExpandedView>
       )}
-    </FormObjectBorder>
+    </FormObject>
   )
 }

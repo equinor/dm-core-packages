@@ -1,11 +1,38 @@
-import React, { useState } from 'react'
-import ExpandChevron from './ExpandChevron'
-import { TAttribute } from '@development-framework/dm-core'
-import { Icon, Tooltip, Typography } from '@equinor/eds-core-react'
-import { getDisplayLabel } from '../../utils/getDisplayLabel'
+import React, { PropsWithChildren } from 'react'
+import { Icon, Typography } from '@equinor/eds-core-react'
 import { IconData, file, file_description } from '@equinor/eds-icons'
+import ExpandChevron from '../../components/ExpandChevron'
+import { TAttribute } from '@development-framework/dm-core'
+import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
-const ObjectLegendHeader = ({
+const FormObject = ({ children }: PropsWithChildren) => {
+  return <div className='border border-[#6f6f6f] rounded-sm'>{children}</div>
+}
+
+const FormObjectLegend = ({ children }: PropsWithChildren) => {
+  return (
+    <legend
+      className={`flex h-10 justify-between bg-[#f7f7f7] items-center pr-2 rounded-[inherit]`}
+      aria-label='object-legend'
+    >
+      {children}
+    </legend>
+  )
+}
+
+const FormObjectLegendActions = ({ children }: PropsWithChildren) => {
+  return <div className='flex items-center'>{children}</div>
+}
+
+const FormObjectExpandedView = ({ children }: PropsWithChildren) => {
+  return (
+    <div className='border-t p-2 border-[#6f6f6f] overflow-auto w-full'>
+      {children}
+    </div>
+  )
+}
+
+const FormObjectLegendHeader = ({
   canExpand,
   canOpen,
   isExpanded,
@@ -66,4 +93,10 @@ const ObjectLegendHeader = ({
   )
 }
 
-export default ObjectLegendHeader
+FormObject.Legend = FormObjectLegend
+FormObject.ExpandedView = FormObjectExpandedView
+
+FormObjectLegend.Header = FormObjectLegendHeader
+FormObjectLegend.Actions = FormObjectLegendActions
+
+export default FormObject
