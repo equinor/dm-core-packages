@@ -16,7 +16,7 @@ interface PrimitiveArrayProps {
   onChange: (data: TPrimitive[]) => void
 }
 
-const getDefaultValue = (type: string): string | boolean | number => {
+const getDefaultValue = (type: string): TPrimitive => {
   switch (type) {
     case 'boolean':
       return true
@@ -36,10 +36,7 @@ const PrimitiveArray = ({
 }: PrimitiveArrayProps) => {
   const [hovering, setHovering] = useState<number>(-1)
 
-  const updateValues = (
-    index: number,
-    newValue: boolean | string | number
-  ): void => {
+  const updateValues = (index: number, newValue: TPrimitive): void => {
     const newValues = [...data]
     switch (attribute.attributeType) {
       case 'boolean':
@@ -69,12 +66,16 @@ const PrimitiveArray = ({
     max-h-96
     w-full
     content-start
-    overflow-y-auto
+    overflow-y-scroll
     overflow-x-hidden
     pb-2
+    justify-center
   '
     >
-      <div className='w-fit border rounded-md border-[#6f6f6f]'>
+      <div
+        className='w-fit border rounded-md border-[#6f6f6f]
+'
+      >
         <div className='bg-[#f7f7f7] h-3 rounded-t-md border-b border-[#6f6f6f]'></div>
         <div className='bg-[#f7f7f7]'>
           {data.map((item: TPrimitive, index: number) => (
@@ -99,7 +100,11 @@ const PrimitiveArray = ({
                   }}
                   attribute={{ ...attribute, dimensions: '' }}
                 />
-                <div className='pb-[3px] border-b border-[#6f6f6f] w-fit'>
+                <div
+                  className={`pb-[3px] w-fit ${
+                    typeof item !== 'boolean' ? 'border-b border-[#6f6f6f]' : ''
+                  }`}
+                >
                   <DeleteSoftButton
                     onClick={() => removeItem(index)}
                     title={'Remove list item'}
