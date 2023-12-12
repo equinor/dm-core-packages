@@ -16,6 +16,7 @@ import {
   getCanOpenOrExpand,
   getOpenViewConfig,
 } from './shared/utils'
+import { link } from '@equinor/eds-icons'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
@@ -54,6 +55,7 @@ export const ObjectModelUncontainedTemplate = (
           onOpen={() =>
             onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
           }
+          icon={link}
         />
         <FormTemplate.Header.Actions>
           {canOpen && (

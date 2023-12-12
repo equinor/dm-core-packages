@@ -91,7 +91,9 @@ export const ObjectModelContainedTemplate = (
             idReference={`${idReference}.${namePath}`}
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
-            onChange={(data: any) => setValue(namePath, data)}
+            onChange={(data: Record<string, unknown>) =>
+              setValue(namePath, data)
+            }
           />
         </FormTemplate.Content>
       )}

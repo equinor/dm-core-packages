@@ -5,7 +5,11 @@ import { chevron_down, chevron_right } from '@equinor/eds-icons'
 const ExpandChevron = ({
   isExpanded,
   setIsExpanded,
-}: { isExpanded: boolean; setIsExpanded: (expanded: boolean) => void }) => {
+}: {
+  isExpanded: boolean
+  setIsExpanded: (expanded: boolean) => void
+  isActive?: boolean
+}) => {
   return (
     <TooltipButton
       title={isExpanded ? 'Collapse' : 'Expand'}
