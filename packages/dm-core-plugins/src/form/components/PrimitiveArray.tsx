@@ -75,8 +75,8 @@ const PrimitiveArray = ({
   '
     >
       <div className='w-fit border rounded-md border-[#6f6f6f]'>
-        <div className='bg-[#f7f7f7] h-5 rounded-t-md border-b border-[#6f6f6f]'></div>
-        <div className=''>
+        <div className='bg-[#f7f7f7] h-3 rounded-t-md border-b border-[#6f6f6f]'></div>
+        <div className='bg-[#f7f7f7]'>
           {data.map((item: TPrimitive, index: number) => (
             <Tooltip
               title={`Index: ${index}`}
@@ -110,7 +110,7 @@ const PrimitiveArray = ({
             </Tooltip>
           ))}
         </div>
-        <div className='ps-30 border-0'>
+        <div className='ps-30 border-t'>
           <AddRowButton
             ariaLabel='Append primitive'
             onClick={() =>
