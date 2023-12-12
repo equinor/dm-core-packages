@@ -83,7 +83,10 @@ export function TableRow(props: TableRowProps) {
       <EdsProvider density='compact'>
         <Table.Row
           key={item.key}
-          style={dragProps.style}
+          style={{
+            ...dragProps.style,
+            backgroundColor: index % 2 === 0 ? '#f7f7f7' : '',
+          }}
           ref={dragProps.setNodeRef}
         >
           {editMode && (
