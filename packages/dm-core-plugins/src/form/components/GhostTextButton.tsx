@@ -9,7 +9,7 @@ interface FormObjectTextButtonProps {
   tooltip: string
 }
 
-const FormObjectTextButton = ({
+const GhostTextButton = ({
   onClick,
   buttonText,
   title,
@@ -33,4 +33,4 @@ const FormObjectTextButton = ({
   )
 }
 
-export default FormObjectTextButton
+export default GhostTextButton

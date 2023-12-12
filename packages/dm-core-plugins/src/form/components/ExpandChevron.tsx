@@ -1,5 +1,5 @@
 import React from 'react'
-import TooltipButton from '../../../common/TooltipButton'
+import TooltipButton from '../../common/TooltipButton'
 import { chevron_down, chevron_right } from '@equinor/eds-icons'
 
 const ExpandChevron = ({

@@ -7,11 +7,7 @@ import AddObject from '../components/AddObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { ViewCreator } from '@development-framework/dm-core'
 import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
-import FormObjectBorder from './shared/FormObjectBorder'
-import ObjectLegendHeader from './shared/ObjectLegendHeader'
-import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
-import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
-import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
+import FormObject from './shared/FormObject'
 import {
   getExpandViewConfig,
   getOpenViewConfig,
@@ -38,9 +34,9 @@ export const ObjectModelContainedTemplate = (
     onOpen
   )
   return (
-    <FormObjectBorder>
-      <ObjectLegendWrapper>
-        <ObjectLegendHeader
+    <FormObject>
+      <FormObject.Legend>
+        <FormObject.Legend.Header
           canExpand={canExpand}
           canOpen={canOpen}
           isExpanded={isExpanded}
@@ -55,7 +51,7 @@ export const ObjectModelContainedTemplate = (
             )
           }
         />
-        <ObjectLegendActionsWrapper>
+        <FormObject.Legend.Actions>
           {canOpen && (
             <OpenObjectButton
               viewId={namePath}
@@ -87,18 +83,18 @@ export const ObjectModelContainedTemplate = (
               namePath={namePath}
             />
           )}
-        </ObjectLegendActionsWrapper>
-      </ObjectLegendWrapper>
+        </FormObject.Legend.Actions>
+      </FormObject.Legend>
       {canExpand && isExpanded && (
-        <FormExpandedViewWrapper>
+        <FormObject.ExpandedView>
           <ViewCreator
             idReference={`${idReference}.${namePath}`}
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
             onChange={(data: any) => setValue(namePath, data)}
           />
-        </FormExpandedViewWrapper>
+        </FormObject.ExpandedView>
       )}
-    </FormObjectBorder>
+    </FormObject>
   )
 }

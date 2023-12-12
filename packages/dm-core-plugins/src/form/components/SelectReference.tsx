@@ -10,8 +10,7 @@ import {
 } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError } from 'axios/index'
-import { Button, EdsProvider, Tooltip } from '@equinor/eds-core-react'
-import FormObjectTextButton from '../templates/shared/FormObjectTextButton'
+import GhostTextButton from './GhostTextButton'
 
 export const SelectReference = (props: {
   attributeType: string
@@ -56,7 +55,7 @@ export const SelectReference = (props: {
 
   return (
     <>
-      <FormObjectTextButton
+      <GhostTextButton
         onClick={() => setShowModal(true)}
         buttonText={'Change'}
         title={'Select Entity'}
