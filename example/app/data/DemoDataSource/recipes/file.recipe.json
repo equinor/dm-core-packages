@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "MediaViewer",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/media-viewer",
-    "config": {}
+    "plugin": "@development-framework/dm-core-plugins/media-viewer"
   }
 }

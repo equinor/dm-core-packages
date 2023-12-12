@@ -2,13 +2,13 @@ version: '3.4'
 
 services:
   dmss:
-    image: datamodelingtool.azurecr.io/dmss:v1.14.2
+    image: datamodelingtool.azurecr.io/dmss:v1.14.3
     platform: linux/amd64
     restart: unless-stopped
     environment:
       AUTH_ENABLED: 0
       ENVIRONMENT: local
-#      RESET_DATA_SOURCE: off
+      #      RESET_DATA_SOURCE: off
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: xd7wCEhEx4kszsecYFfC
       SECRET_KEY: sg9aeUM5i1JO4gNN8fQadokJa3_gXQMLBjSGGYcfscs= # Don't reuse this in production...
