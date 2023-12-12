@@ -1,6 +1,6 @@
 import { TUiAttributeObject } from '../../types'
 
-export const ExpandViewConfig = (uiAttribute?: TUiAttributeObject) => {
+export const getExpandViewConfig = (uiAttribute?: TUiAttributeObject) => {
   return (
     uiAttribute?.expandViewConfig ?? {
       type: 'ReferenceViewConfig',
@@ -9,7 +9,7 @@ export const ExpandViewConfig = (uiAttribute?: TUiAttributeObject) => {
   )
 }
 
-export const OpenViewConfig = (
+export const getOpenViewConfig = (
   uiAttribute?: TUiAttributeObject,
   namePath?: string
 ) => {
@@ -22,21 +22,21 @@ export const OpenViewConfig = (
   )
 }
 
-export const InferCanOpenOrExpand = (
+export const getCanOpenOrExpand = (
   objectIsNotEmpty: boolean,
   config: any,
   uiAttribute?: TUiAttributeObject,
   onOpen?: CallableFunction
 ) => {
-  const canOpenInTab =
+  const canOpen =
     objectIsNotEmpty &&
     onOpen &&
     (uiAttribute?.functionality?.open ?? config.functionality.open)
 
   const canExpand =
     objectIsNotEmpty &&
-    (!canOpenInTab ||
+    (!canOpen ||
       (uiAttribute?.functionality?.expand ?? config.functionality.expand))
 
-  return { canExpand, canOpenInTab }
+  return { canExpand, canOpen }
 }

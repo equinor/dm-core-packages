@@ -13,9 +13,9 @@ import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
 import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
 import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 import {
-  ExpandViewConfig,
-  OpenViewConfig,
-  InferCanOpenOrExpand,
+  getExpandViewConfig,
+  getOpenViewConfig,
+  getCanOpenOrExpand as getCanOpenExpand,
 } from './shared/utils'
 
 export const ObjectModelContainedTemplate = (
@@ -31,7 +31,7 @@ export const ObjectModelContainedTemplate = (
   const value = watch(namePath)
   const objectIsNotEmpty = value && Object.keys(value).length > 0
 
-  const { canExpand, canOpenInTab } = InferCanOpenOrExpand(
+  const { canExpand, canOpen } = getCanOpenExpand(
     objectIsNotEmpty,
     config,
     uiAttribute,
@@ -42,25 +42,25 @@ export const ObjectModelContainedTemplate = (
       <ObjectLegendWrapper>
         <ObjectLegendHeader
           canExpand={canExpand}
-          canOpenInTab={canOpenInTab}
+          canOpen={canOpen}
           isExpanded={isExpanded}
           attribute={attribute}
           objectIsNotEmpty={objectIsNotEmpty}
           setIsExpanded={setIsExpanded}
-          openInTab={() =>
+          onOpen={() =>
             onOpen?.(
               namePath,
-              OpenViewConfig(uiAttribute, namePath),
+              getOpenViewConfig(uiAttribute, namePath),
               idReference
             )
           }
         />
         <ObjectLegendActionsWrapper>
-          {canOpenInTab && (
+          {canOpen && (
             <OpenObjectButton
               viewId={namePath}
               idReference={idReference}
-              viewConfig={OpenViewConfig(uiAttribute, namePath)}
+              viewConfig={getOpenViewConfig(uiAttribute, namePath)}
             />
           )}
           {attribute.optional && !config.readOnly && !objectIsNotEmpty && (
@@ -94,7 +94,7 @@ export const ObjectModelContainedTemplate = (
           <ViewCreator
             idReference={`${idReference}.${namePath}`}
             onOpen={onOpen}
-            viewConfig={ExpandViewConfig(uiAttribute)}
+            viewConfig={getExpandViewConfig(uiAttribute)}
             onChange={(data: any) => setValue(namePath, data)}
           />
         </FormExpandedViewWrapper>

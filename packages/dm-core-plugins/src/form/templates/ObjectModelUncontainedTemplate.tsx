@@ -16,9 +16,9 @@ import ObjectLegendHeader from './shared/ObjectLegendHeader'
 import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
 import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
 import {
-  ExpandViewConfig,
-  InferCanOpenOrExpand,
-  OpenViewConfig,
+  getExpandViewConfig,
+  getCanOpenOrExpand,
+  getOpenViewConfig,
 } from './shared/utils'
 
 export const ObjectModelUncontainedTemplate = (
@@ -39,7 +39,7 @@ export const ObjectModelUncontainedTemplate = (
 
   const referenceExists = address !== undefined
 
-  const { canExpand, canOpenInTab } = InferCanOpenOrExpand(
+  const { canExpand, canOpen } = getCanOpenOrExpand(
     referenceExists,
     config,
     uiAttribute,
@@ -50,20 +50,20 @@ export const ObjectModelUncontainedTemplate = (
       <ObjectLegendWrapper>
         <ObjectLegendHeader
           canExpand={canExpand}
-          canOpenInTab={canOpenInTab}
+          canOpen={canOpen}
           isExpanded={isExpanded}
           attribute={attribute}
           objectIsNotEmpty={referenceExists}
           setIsExpanded={setIsExpanded}
-          openInTab={() =>
-            onOpen?.(namePath, OpenViewConfig(uiAttribute), address)
+          onOpen={() =>
+            onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
           }
         />
         <ObjectLegendActionsWrapper>
-          {canOpenInTab && (
+          {canOpen && (
             <OpenObjectButton
               viewId={namePath}
-              viewConfig={OpenViewConfig(uiAttribute)}
+              viewConfig={getOpenViewConfig(uiAttribute)}
               idReference={address}
             />
           )}
@@ -88,7 +88,7 @@ export const ObjectModelUncontainedTemplate = (
           <ViewCreator
             idReference={address ?? ''}
             onOpen={onOpen}
-            viewConfig={ExpandViewConfig(uiAttribute)}
+            viewConfig={getExpandViewConfig(uiAttribute)}
           />
         </FormExpandedViewWrapper>
       )}
