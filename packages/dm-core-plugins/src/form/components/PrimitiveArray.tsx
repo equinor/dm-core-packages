@@ -99,13 +99,15 @@ const PrimitiveArray = ({
                   }}
                   attribute={{ ...attribute, dimensions: '' }}
                 />
-                <DeleteSoftButton
-                  onClick={() => removeItem(index)}
-                  title={'Remove list item'}
-                  ariaLabel='remove-action'
-                  dataTestId={`form-primitive-array-remove-${index}`}
-                  visibilityWhenNotHover={'opaque'}
-                />
+                <div className='pb-[3px] border-b border-[#6f6f6f] w-fit'>
+                  <DeleteSoftButton
+                    onClick={() => removeItem(index)}
+                    title={'Remove list item'}
+                    ariaLabel='remove-action'
+                    dataTestId={`form-primitive-array-remove-${index}`}
+                    visibilityWhenNotHover={'opaque'}
+                  />
+                </div>
               </div>
             </Tooltip>
           ))}
