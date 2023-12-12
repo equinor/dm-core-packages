@@ -7,21 +7,21 @@ import { IconData, file, file_description } from '@equinor/eds-icons'
 
 const ObjectLegendHeader = ({
   canExpand,
-  canOpenInTab,
+  canOpen,
   isExpanded,
   setIsExpanded,
   attribute,
-  openInTab,
+  onOpen,
   objectIsNotEmpty,
   icon,
 }: {
   canExpand: boolean | undefined
-  canOpenInTab: boolean | undefined
+  canOpen: boolean | undefined
   isExpanded: boolean | undefined
   attribute: TAttribute
   objectIsNotEmpty: boolean
   setIsExpanded?: (expanded: boolean) => void
-  openInTab?: () => void
+  onOpen?: () => void
   icon?: IconData
 }) => {
   return (
@@ -47,16 +47,12 @@ const ObjectLegendHeader = ({
         <Typography
           bold={true}
           className={`
-          ${
-            objectIsNotEmpty && (canOpenInTab || canExpand)
-              ? 'cursor-pointer'
-              : ''
-          }
-          ${canOpenInTab ? 'hover:underline' : ''}`}
+          ${objectIsNotEmpty && (canOpen || canExpand) ? 'cursor-pointer' : ''}
+          ${canOpen ? 'hover:underline' : ''}`}
           onClick={() => {
             if (!objectIsNotEmpty) return
-            if (canOpenInTab) {
-              openInTab?.()
+            if (canOpen) {
+              onOpen?.()
               return
             }
             canExpand && setIsExpanded?.(!isExpanded)
