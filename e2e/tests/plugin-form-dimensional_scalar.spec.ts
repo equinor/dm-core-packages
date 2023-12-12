@@ -60,11 +60,15 @@ test('Dimensional scalar', async ({ page }) => {
     await page
       .getByRole('button', { name: 'file significantWaveHeight' })
       .click()
+    await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'edit Edit' }).click()
     await page
       .getByLabel('label (optional)')
       .fill('Should not show as config overrides')
     await page.getByRole('button', { name: 'Submit' }).click()
+    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+    await page.getByRole('button', { name: 'close', exact: true }).click()
+    await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'waveForm' }).click()
     await expect(
       page.getByTestId('significantWaveHeight').getByRole('paragraph')
@@ -84,11 +88,15 @@ test('Dimensional scalar', async ({ page }) => {
 
   await test.step('Edit without any override', async () => {
     await page.getByRole('button', { name: 'file maximumWaveHeight' }).click()
+    await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'edit Edit' }).click()
     await page.getByLabel('value').fill('88888')
     await page.getByLabel('label (optional)').fill('New Maximum')
     await page.getByLabel('unit (optional)').fill('€')
     await page.getByRole('button', { name: 'Submit' }).click()
+    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+    await page.getByRole('button', { name: 'close', exact: true }).click()
+    await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'waveForm' }).click()
     await expect(
       page.getByTestId('maximumWaveHeight').getByRole('spinbutton')
