@@ -1,4 +1,4 @@
-import { TUiAttributeObject } from '../../types'
+import { TFormConfig, TUiAttributeObject } from '../../types'
 
 export const getExpandViewConfig = (uiAttribute?: TUiAttributeObject) => {
   return (
@@ -24,7 +24,7 @@ export const getOpenViewConfig = (
 
 export const getCanOpenOrExpand = (
   objectIsNotEmpty: boolean,
-  config: any,
+  config: TFormConfig,
   uiAttribute?: TUiAttributeObject,
   onOpen?: CallableFunction
 ) => {

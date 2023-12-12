@@ -70,6 +70,8 @@ export type TUiAttributeObject = TUiAttributeBase & {
   }
 }
 
+export type TPrimitive = string | number | boolean
+
 export type TUiAttribute =
   | TUiAttributeArray
   | TUiAttributeObject
