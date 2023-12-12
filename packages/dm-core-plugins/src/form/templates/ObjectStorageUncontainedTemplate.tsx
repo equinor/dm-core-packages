@@ -78,7 +78,9 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
             idReference={address}
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
-            onChange={(data: any) => setValue(namePath, data)}
+            onChange={(data: Record<string, unknown>) =>
+              setValue(namePath, data)
+            }
           />
         </FormTemplate.Content>
       )}

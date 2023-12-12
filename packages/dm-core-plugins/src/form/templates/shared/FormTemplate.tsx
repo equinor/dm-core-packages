@@ -1,8 +1,8 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useState } from 'react'
 import { Icon, Typography } from '@equinor/eds-core-react'
 import { IconData, file, file_description } from '@equinor/eds-icons'
 import ExpandChevron from '../../components/ExpandChevron'
-import { TAttribute } from '@development-framework/dm-core'
+import { TAttribute, useSearch } from '@development-framework/dm-core'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
 const FormTemplate = ({ children }: PropsWithChildren) => {
@@ -51,21 +51,51 @@ const FormTemplateHeaderTitle = ({
   onOpen?: () => void
   icon?: IconData
 }) => {
+  const [isHovering, setIsHovering] = useState(false)
+
   return (
     <div
-      className={`flex flex-start items-center ${!canExpand ? 'ps-2' : 'ps-1'}`}
+      className={`flex flex-start items-center w-full h-full ${
+        !canExpand ? 'ps-2' : 'ps-1'
+      }`}
     >
       {canExpand && (
-        <ExpandChevron
-          isExpanded={isExpanded ?? false}
-          setIsExpanded={(exp) => setIsExpanded?.(exp)}
-        />
+        <span
+          className={`flex w-fit rounded-full items-center ${
+            canExpand && isHovering ? 'bg-[#deedee] ' : ''
+          }`}
+        >
+          <ExpandChevron
+            isExpanded={isExpanded ?? false}
+            setIsExpanded={(exp) => setIsExpanded?.(exp)}
+          />
+        </span>
       )}
       <div
-        className={`flex items-center space-x-1 ${
+        className={`flex items-center space-x-1 w-full h-full ${
           objectIsNotEmpty ? '' : 'opacity-40'
         }
+        ${
+          objectIsNotEmpty && (canOpen || canExpand)
+            ? 'cursor-pointer hover:opacity-80'
+            : ''
+        }
     `}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        onClick={(event) => {
+          if (!objectIsNotEmpty) return
+          if (event.ctrlKey || event.metaKey) {
+            event.preventDefault()
+            canOpen && onOpen?.()
+            return
+          }
+          if (canExpand) {
+            setIsExpanded?.(!isExpanded)
+            return
+          }
+          canOpen && onOpen?.()
+        }}
       >
         <Icon
           data={icon ?? (objectIsNotEmpty ? file_description : file)}
@@ -74,20 +104,15 @@ const FormTemplateHeaderTitle = ({
         <Typography
           bold={true}
           className={`
-          ${objectIsNotEmpty && (canOpen || canExpand) ? 'cursor-pointer' : ''}
-          ${canOpen ? 'hover:underline' : ''}`}
-          onClick={() => {
-            if (!objectIsNotEmpty) return
-            if (canOpen) {
-              onOpen?.()
-              return
-            }
-            canExpand && setIsExpanded?.(!isExpanded)
-          }}
+          ${
+            objectIsNotEmpty && isHovering && canOpen && !canExpand
+              ? 'underline'
+              : ''
+          }`}
         >
           {getDisplayLabel(attribute)}
         </Typography>
-        {attribute.optional && <p className='ps-1 text-xs'>Optional</p>}
+        {attribute.optional && <p className='ps-1 mt-0.5 text-xs'>Optional</p>}
       </div>
     </div>
   )

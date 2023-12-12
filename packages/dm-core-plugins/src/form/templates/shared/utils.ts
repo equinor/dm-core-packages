@@ -11,13 +11,14 @@ export const getExpandViewConfig = (uiAttribute?: TUiAttributeObject) => {
 
 export const getOpenViewConfig = (
   uiAttribute?: TUiAttributeObject,
+  /** namePath requried for model contained, but should not be set for model Uncontained **/
   namePath?: string
 ) => {
   return (
     uiAttribute?.openViewConfig ?? {
       type: 'ReferenceViewConfig',
-      scope: namePath,
       recipe: uiAttribute?.uiRecipe,
+      scope: namePath,
     }
   )
 }
