@@ -7,7 +7,7 @@ import AddObject from '../components/AddObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { ViewCreator } from '@development-framework/dm-core'
 import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
-import FormTemplate from './shared/FormObjectTemplate'
+import FormTemplate from './shared/FormTemplate'
 import {
   getExpandViewConfig,
   getOpenViewConfig,

@@ -2,7 +2,7 @@ import { TArrayTemplate, TPrimitive } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
 import { list } from '@equinor/eds-icons'
-import FormTemplate from './shared/FormObjectTemplate'
+import FormTemplate from './shared/FormTemplate'
 import PrimitiveArray from '../components/PrimitiveArray'
 
 export const ArrayPrimitiveTemplate = (
