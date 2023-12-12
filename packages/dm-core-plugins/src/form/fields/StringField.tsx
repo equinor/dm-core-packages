@@ -1,7 +1,7 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TField, TUiAttributeString } from '../types'
+import { TField } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
 
@@ -25,7 +25,10 @@ export const StringField = (props: TField) => {
           <Widget
             enumType={attribute.enumType || undefined}
             isDirty={value !== null ? isDirty : false}
-            onChange={(value: unknown) => onChange(value ?? '')}
+            onChange={(value: unknown) => {
+              console.log(value)
+              return onChange(value ?? '')
+            }}
             readOnly={readOnly}
             value={value ?? ''}
             id={namePath}

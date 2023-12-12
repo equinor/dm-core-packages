@@ -35,7 +35,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   const [open, setOpen] = useState(false)
   const datepickerRef = useRef<any | null>(null)
   const [datetime, setDatetime] = useState(() => {
-    return selectedDate ? DateTime.fromISO(selectedDate).toUTC() : null
+    return selectedDate ? DateTime.fromISO(selectedDate) : null
   })
 
   const [dateFieldValue, setDateFieldValue] = useState(
@@ -137,7 +137,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       >
         <div
           id={id}
-          className={`h-9 px-2 border-b border-black bg-gray-200 flex items-center gap-2 w-fit ${
+          className={`h-9 px-2 border-b border-black flex items-center gap-2 w-fit ${
             readonly ? '' : 'cursor-pointer'
           } ${isDirty ? 'bg-[#85babf5e]' : 'bg-[#f7f7f7]'}`}
           onClick={() => (!readonly ? setOpen(!open) : null)}
