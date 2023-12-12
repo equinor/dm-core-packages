@@ -1,14 +1,12 @@
 import { TArrayTemplate } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
-import TooltipButton from '../../common/TooltipButton'
-import { add, list } from '@equinor/eds-icons'
+import { list } from '@equinor/eds-icons'
 import FormObjectBorder from './shared/FormObjectBorder'
 import ObjectLegendWrapper from './shared/ObjectLegendWrapper'
 import ObjectLegendHeader from './shared/ObjectLegendHeader'
 import FormExpandedViewWrapper from './shared/FormExpandedViewWrapper'
-import ObjectLegendActionsWrapper from './shared/ObjectLegendActionsWrapper'
-import PrimitiveArray from './shared/PrimitiveArray'
+import PrimitiveArray from '../components/PrimitiveArray'
 
 export const ArrayPrimitiveTemplate = (
   props: TArrayTemplate & {
@@ -30,7 +28,7 @@ export const ArrayPrimitiveTemplate = (
       <ObjectLegendWrapper>
         <ObjectLegendHeader
           canExpand={true}
-          canOpenInTab={false}
+          canOpen={false}
           isExpanded={isExpanded}
           setIsExpanded={setIsExpanded}
           attribute={attribute}
