@@ -1,4 +1,4 @@
-import { TArrayTemplate } from '../types'
+import { TArrayTemplate, TPrimitive } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
 import { list } from '@equinor/eds-icons'
@@ -7,8 +7,8 @@ import PrimitiveArray from '../components/PrimitiveArray'
 
 export const ArrayPrimitiveTemplate = (
   props: TArrayTemplate & {
-    value: unknown[]
-    onChange: (v: unknown[]) => void
+    value: TPrimitive[]
+    onChange: (v: TPrimitive[]) => void
   }
 ) => {
   const { namePath, attribute, uiAttribute, value, onChange } = props
