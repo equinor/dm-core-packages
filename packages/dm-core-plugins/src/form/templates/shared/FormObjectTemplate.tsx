@@ -5,11 +5,11 @@ import ExpandChevron from '../../components/ExpandChevron'
 import { TAttribute } from '@development-framework/dm-core'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
-const FormObject = ({ children }: PropsWithChildren) => {
+const FormTemplate = ({ children }: PropsWithChildren) => {
   return <div className='border border-[#6f6f6f] rounded-sm'>{children}</div>
 }
 
-const FormObjectLegend = ({ children }: PropsWithChildren) => {
+const FormTemplateHeader = ({ children }: PropsWithChildren) => {
   return (
     <legend
       className={`flex h-10 justify-between bg-[#f7f7f7] items-center pr-2 rounded-[inherit]`}
@@ -20,11 +20,11 @@ const FormObjectLegend = ({ children }: PropsWithChildren) => {
   )
 }
 
-const FormObjectLegendActions = ({ children }: PropsWithChildren) => {
+const FormTemplateHeaderActions = ({ children }: PropsWithChildren) => {
   return <div className='flex items-center'>{children}</div>
 }
 
-const FormObjectExpandedView = ({ children }: PropsWithChildren) => {
+const FormTemplateContent = ({ children }: PropsWithChildren) => {
   return (
     <div className='border-t p-2 border-[#6f6f6f] overflow-auto w-full'>
       {children}
@@ -32,7 +32,7 @@ const FormObjectExpandedView = ({ children }: PropsWithChildren) => {
   )
 }
 
-const FormObjectLegendHeader = ({
+const FormTemplateHeaderTitle = ({
   canExpand,
   canOpen,
   isExpanded,
@@ -93,10 +93,10 @@ const FormObjectLegendHeader = ({
   )
 }
 
-FormObject.Legend = FormObjectLegend
-FormObject.ExpandedView = FormObjectExpandedView
+FormTemplate.Header = FormTemplateHeader
+FormTemplate.Content = FormTemplateContent
 
-FormObjectLegend.Header = FormObjectLegendHeader
-FormObjectLegend.Actions = FormObjectLegendActions
+FormTemplateHeader.Title = FormTemplateHeaderTitle
+FormTemplateHeader.Actions = FormTemplateHeaderActions
 
-export default FormObject
+export default FormTemplate
