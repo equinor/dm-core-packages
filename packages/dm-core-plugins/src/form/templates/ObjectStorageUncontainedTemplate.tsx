@@ -10,7 +10,7 @@ import { TObjectTemplate } from '../types'
 import RemoveObject from '../components/RemoveObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
-import FormTemplate from './shared/FormObjectTemplate'
+import FormTemplate from './shared/FormTemplate'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
