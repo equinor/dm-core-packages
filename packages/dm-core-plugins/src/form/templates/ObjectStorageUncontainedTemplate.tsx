@@ -10,7 +10,7 @@ import { TObjectTemplate } from '../types'
 import RemoveObject from '../components/RemoveObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
-import FormObject from './shared/FormObject'
+import FormTemplate from './shared/FormObjectTemplate'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
@@ -40,9 +40,9 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
   )
 
   return (
-    <FormObject>
-      <FormObject.Legend>
-        <FormObject.Legend.Header
+    <FormTemplate>
+      <FormTemplate.Header>
+        <FormTemplate.Header.Title
           canExpand={canExpand}
           canOpen={canOpen}
           isExpanded={isExpanded}
@@ -53,7 +53,7 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
             onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
           }
         />
-        <FormObject.Legend.Actions>
+        <FormTemplate.Header.Actions>
           {canOpen && referenceExists && (
             <OpenObjectButton
               viewId={namePath}
@@ -70,18 +70,18 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
           {attribute.optional && referenceExists && !config.readOnly && (
             <RemoveObject address={address} namePath={namePath} />
           )}
-        </FormObject.Legend.Actions>
-      </FormObject.Legend>
+        </FormTemplate.Header.Actions>
+      </FormTemplate.Header>
       {canExpand && referenceExists && isExpanded && (
-        <FormObject.ExpandedView>
+        <FormTemplate.Content>
           <ViewCreator
             idReference={address}
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
             onChange={(data: any) => setValue(namePath, data)}
           />
-        </FormObject.ExpandedView>
+        </FormTemplate.Content>
       )}
-    </FormObject>
+    </FormTemplate>
   )
 }
