@@ -3784,3 +3784,18 @@ Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.
     * **DMSS VERSION**: 189c868 2023-12-09 githu..[bot] chore(master): release 1.14.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.0
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* Refactor/datepicker tweaks (#939)
+
+* fix: dont show minutes initially if no minute is configured
+
+* refactor: improve datepicker
+
+* refactor: revert change
+
+* refactor: fix merge
+
+* refactor: change color of field (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7181734909/1)
+    * **DMSS VERSION**: 189c868 2023-12-09 githu..[bot] chore(master): release 1.14.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.0
+    * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
