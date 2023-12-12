@@ -112,7 +112,7 @@ const PrimitiveArray = ({
         </div>
         <div className='ps-30 border-0'>
           <AddRowButton
-            ariaLabel='Add new row'
+            ariaLabel='Append primitive'
             onClick={() =>
               updateValues(
                 data.length,
