@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import {
   Pagination,
   Stack,
@@ -7,15 +7,8 @@ import {
   SortableItem,
   TGenericObject,
 } from '../../'
-import {
-  Button,
-  Table as EDSTable,
-  Icon,
-  Progress,
-} from '@equinor/eds-core-react'
-import { add } from '@equinor/eds-icons'
+import { Button, Table as EDSTable, Progress } from '@equinor/eds-core-react'
 import * as utils from './utils'
-import { AddRowButton } from './styles'
 import {
   TableProps,
   TTableSortDirection,
@@ -27,6 +20,7 @@ import { TableHead } from './TableHead/TableHead'
 import { TableRow } from './TableRow/TableRow'
 import { SortableContext } from '../SortableList/SortableContext'
 import { TItem } from '../../hooks/useList/types'
+import { AddRowButton } from '../AddRowButton'
 
 export type { TTableConfig }
 
@@ -157,11 +151,9 @@ export function Table(props: TableProps) {
         </SortableContext>
         {functionalityConfig.add && (
           <AddRowButton
-            aria-label='Add new row'
             onClick={() => addItem(tableVariant === TableVariantNameEnum.View)}
-          >
-            <Icon size={16} data={add} />
-          </AddRowButton>
+            ariaLabel={'Add new row'}
+          />
         )}
       </Stack>
       <Stack direction='row' spacing={1} justifyContent='space-between'>

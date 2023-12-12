@@ -53,10 +53,7 @@ test('Change owner', async () => {
 })
 
 test('Hiring a CEO', async () => {
-  await page
-    .getByTestId('ceo')
-    .getByRole('button', { name: 'Add and save' })
-    .click()
+  await page.getByTestId('ceo').getByLabel('Create new entity').click()
   await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
   await page
     .getByRole('tabpanel')
@@ -87,7 +84,7 @@ test('Hiring a CEO', async () => {
     .click()
   await page.getByLabel('Confirm Delete').click()
   await expect(
-    page.getByTestId('ceo').getByRole('button', { name: 'Add and save' })
+    page.getByTestId('ceo').getByLabel('Create new entity')
   ).toBeVisible()
 })
 
@@ -104,7 +101,7 @@ test('View accountant yaml', async () => {
 test('Adding a trainee', async () => {
   const trainee = page.getByTestId('trainee')
   // await trainee.getByLabel('Add and save').click()
-  await page.getByTestId('trainee').getByLabel('Add and save').click()
+  await page.getByTestId('trainee').getByLabel('Create new entity').click()
   await trainee.getByTestId('form-text-widget-name').fill('Peter Pan')
   await trainee
     .getByTestId('form-number-widget-Phone Number (Optional)')
@@ -126,7 +123,7 @@ test('Locations', async () => {
   const locationsDiv = page.getByTestId('locations')
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
   await expect(locationsDiv.getByRole('textbox')).toHaveValue('Trondheim')
-  await locationsDiv.getByRole('button', { name: 'Add' }).click()
+  await locationsDiv.getByLabel('Append primitive').click()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
   await locationsDiv.getByRole('textbox').last().fill('Oslo')
   await page.getByTestId('form-submit').click()
@@ -152,9 +149,7 @@ test('Locations', async () => {
 
 test('New car', async () => {
   const carsDiv = page.getByTestId('cars')
-  await expect.soft(carsDiv.getByText('1 - 2 of 2')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Append Add Item' }).click()
-  await expect.soft(carsDiv.getByText('1 - 3 of 3')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Save' }).click()
   await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
   await page
@@ -180,9 +175,7 @@ test('New customer', async () => {
   await customersDiv.getByRole('button', { name: 'Open' }).click()
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
-  await expect.soft(lastTabPanel.getByText('1 - 2 of 2')).toBeVisible()
   await lastTabPanel.getByRole('button', { name: 'Add Item' }).click()
-  await expect.soft(lastTabPanel.getByText('1 - 3 of 3')).toBeVisible()
   await lastTabPanel.getByRole('button', { name: 'Save' }).click()
   await lastTabPanel.getByRole('button', { name: 'Expand item' }).last().click()
   await lastTabPanel.getByTestId('form-text-widget-name').fill('Lewis')

@@ -14,6 +14,7 @@ import {
   useList,
   ViewCreator,
   DeleteSoftButton,
+  TEntityPickerReturn,
 } from '@development-framework/dm-core'
 import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
@@ -27,6 +28,7 @@ type TListConfig = {
   openViewConfig: TViewConfig
   saveExpanded: boolean
   selectFromScope?: string
+  hideInvalidTypes?: boolean
   functionality: {
     add: boolean
     sort: boolean
@@ -43,6 +45,7 @@ const defaultConfig: TListConfig = {
   openViewConfig: { type: 'ViewConfig' },
   saveExpanded: false,
   selectFromScope: undefined,
+  hideInvalidTypes: false,
   functionality: {
     add: true,
     sort: true,
@@ -77,7 +80,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
   const [paginationPage, setPaginationPage] = useState(0)
-  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(10)
+  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(5)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
@@ -108,7 +111,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       return
     }
 
-    const view = { ...internalConfig.openViewConfig, label: item?.data?.name }
+    const view = {
+      ...internalConfig.openViewConfig,
+      label: item?.data?.name ?? `${attribute?.name} #${item.index}`,
+    }
     onOpen(
       item.key,
       view,
@@ -135,13 +141,18 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           setShowModal={setShowModal}
           typeFilter={type}
           scope={config.selectFromScope}
-          onChange={async (address: string, entity: TValidEntity) => {
-            const key = await addReference(address, entity, false)
+          onChange={async (entities: TEntityPickerReturn[]) => {
+            const newKeys: Record<string, boolean> = {}
+            for (const { address, entity } of entities) {
+              const newKey = await addReference(address, entity, false)
+              newKeys[newKey] = true
+            }
             if (internalConfig.expanded) {
-              // @ts-ignore
-              setExpanded({ ...expanded, [key]: true })
+              setExpanded({ ...expanded, ...newKeys })
             }
           }}
+          multiple
+          hideInvalidTypes={internalConfig.hideInvalidTypes}
         />
       )}
       {paginatedRows &&
@@ -296,13 +307,15 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         spacing={1}
         style={{ padding: '1rem 0' }}
       >
-        <Pagination
-          count={Object.keys(items).length}
-          page={paginationPage}
-          setPage={setPaginationPage}
-          rowsPerPage={paginationRowsPerPage}
-          setRowsPerPage={setPaginationRowsPerPage}
-        />
+        {items.length > paginationRowsPerPage && (
+          <Pagination
+            count={Object.keys(items).length}
+            page={paginationPage}
+            setPage={setPaginationPage}
+            rowsPerPage={paginationRowsPerPage}
+            setRowsPerPage={setPaginationRowsPerPage}
+          />
+        )}
         <Stack direction='row' spacing={1}>
           {internalConfig.functionality.add && (
             <AppendButton

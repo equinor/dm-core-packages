@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.25.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.24.0...dm-core-v1.25.0) (2023-12-12)
+
+
+### Features
+
+* add form configs to job recipe ([b8168e2](https://github.com/equinor/dm-core-packages/commit/b8168e22c2154103290ca310ad7e589dc03cd2f3))
+* **core:** Update EntityPicker to allow for multi select ([f911f85](https://github.com/equinor/dm-core-packages/commit/f911f855288cfeb57eca086422ab7a1047ad6b2b))
+* open and expand arrays ([e8aaabc](https://github.com/equinor/dm-core-packages/commit/e8aaabcd6293511f25180479125a033ace1609fc))
+* open and expand at same time ([2a7ad62](https://github.com/equinor/dm-core-packages/commit/2a7ad6265a0c2ca43497cde2c00f1f3a768892b2))
+* primitive array refactor + feedback ([f5f4043](https://github.com/equinor/dm-core-packages/commit/f5f4043e4dd790a42816fb57271187794bfa7a45))
+
+
+### Bug Fixes
+
+* Creating new config object on every render breaks memo ([0ad4aed](https://github.com/equinor/dm-core-packages/commit/0ad4aed01021bbfdbb38586feeada2cfb38db380))
+* default tab name on open ([f4dbea6](https://github.com/equinor/dm-core-packages/commit/f4dbea6df5d992893320493a517508c5aeaf7ec7))
+
 ## [1.24.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.23.0...dm-core-v1.24.0) (2023-12-09)
 
 

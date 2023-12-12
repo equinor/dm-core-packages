@@ -40,7 +40,12 @@ export function TableRow(props: TableRowProps) {
   function openItemAsTab() {
     props.onOpen(
       crypto.randomUUID(),
-      { label: item?.data?.name, type: 'ViewConfig' },
+      {
+        label:
+          item?.data?.name ??
+          `${idReference.split('.').slice(-1)} #${item.index}`,
+        type: 'ViewConfig',
+      },
       `${idReference}[${index}]`,
       false,
       (data: any) => handleItemUpdate(item, data)

@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import {
   EntityPickerDialog,
+  TEntityPickerReturn,
   TValidEntity,
 } from '@development-framework/dm-core'
 import styled from 'styled-components'
@@ -50,8 +51,8 @@ const EntityPickerWidget = (props: TWidget) => {
         showModal={showAddReferenceModal}
         setShowModal={setShowAddReferenceModal}
         // typeFilter={attribute?.attributeType}
-        onChange={(address: string, entity: TValidEntity) => {
-          onChange(address)
+        onChange={(v: TEntityPickerReturn) => {
+          onChange(v.address)
         }}
       />
       {variant === 'error' ? (

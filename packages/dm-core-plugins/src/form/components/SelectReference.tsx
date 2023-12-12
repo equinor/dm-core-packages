@@ -4,12 +4,13 @@ import {
   EBlueprint,
   EntityPickerDialog,
   ErrorResponse,
+  TEntityPickerReturn,
   TLinkReference,
   useDMSS,
 } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError } from 'axios/index'
-import { Button, EdsProvider, Tooltip } from '@equinor/eds-core-react'
+import GhostTextButton from './GhostTextButton'
 
 export const SelectReference = (props: {
   attributeType: string
@@ -22,11 +23,11 @@ export const SelectReference = (props: {
   const { idReference } = useRegistryContext()
   const value = watch(props.namePath)
 
-  const onChange = (address: string) => {
+  const onChange = (v: TEntityPickerReturn) => {
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
-      address: address,
+      address: v.address,
     }
     const options = {
       shouldValidate: true,
@@ -54,21 +55,13 @@ export const SelectReference = (props: {
 
   return (
     <>
-      <Tooltip title={'Select Entity'}>
-        <>
-          <EdsProvider density='compact'>
-            <Button
-              variant='ghost'
-              title='Select Entity'
-              aria-label={'Select Entity'}
-              style={{ paddingInline: '5px' }}
-              onClick={() => setShowModal(true)}
-            >
-              {props.buttonText ?? 'Change'}
-            </Button>
-          </EdsProvider>
-        </>
-      </Tooltip>
+      <GhostTextButton
+        onClick={() => setShowModal(true)}
+        buttonText={'Change'}
+        title={'Select Entity'}
+        tooltip={'Change Entity'}
+        ariaLabel={'Select Entity'}
+      />
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
         onChange={onChange}

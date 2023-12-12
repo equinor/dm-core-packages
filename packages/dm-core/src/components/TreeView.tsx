@@ -21,11 +21,13 @@ import { EBlueprint } from '../Enums'
 const StyledButton = styled(Button)`
   padding: 0 8px 0 0;
   text-align: left;
+    &:hover {
+  background-color: rgba(222, 237, 238, 1);
+  }
 `
 
 const StyledUl = styled.ul`
   padding: 0;
-
   & & {
     padding-left: 1rem;
   }
@@ -155,11 +157,12 @@ const TreeButton = (props: {
 
 const TreeListItem = (props: {
   node: TreeNode
-  onSelect: (node: TreeNode) => void
+  onSelect?: (node: TreeNode) => void
   NodeWrapper?: React.FunctionComponent<TNodeWrapperProps>
   ignoredTypes?: string[]
+  includeTypes?: string[]
 }) => {
-  const { node, onSelect, NodeWrapper, ignoredTypes } = props
+  const { node, onSelect, NodeWrapper, ignoredTypes, includeTypes } = props
   const [loading, setLoading] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<boolean>(false)
 
@@ -174,7 +177,9 @@ const TreeListItem = (props: {
   const clickHandler = async () => {
     setOpen(!expanded)
     if (![EBlueprint.PACKAGE, 'dataSource'].includes(node.type)) {
-      onSelect(node)
+      if (onSelect) {
+        onSelect(node)
+      }
     }
   }
 
@@ -203,6 +208,7 @@ const TreeListItem = (props: {
           onSelect={onSelect}
           NodeWrapper={NodeWrapper}
           ignoredTypes={ignoredTypes}
+          includeTypes={includeTypes}
         />
       )}
     </StyledLi>
@@ -211,12 +217,31 @@ const TreeListItem = (props: {
 
 export const TreeView = (props: {
   nodes: TreeNode[]
-  onSelect: (node: TreeNode) => void
+  onSelect?: (node: TreeNode) => void
   NodeWrapper?: React.FunctionComponent<TNodeWrapperProps>
   ignoredTypes?: string[] // Types to hide in the tree
+  includeTypes?: string[] // Types to include in the tree (excludes the 'ignoredTypes' option)
 }) => {
-  const { nodes, onSelect, NodeWrapper, ignoredTypes } = props
+  const { nodes, onSelect, NodeWrapper, ignoredTypes, includeTypes } = props
 
+  if (includeTypes && includeTypes.length) {
+    return (
+      <StyledUl>
+        {nodes
+          .filter((node) => includeTypes.includes(node.type))
+          .map((node) => (
+            <TreeListItem
+              key={node.nodeId}
+              node={node}
+              onSelect={onSelect}
+              NodeWrapper={NodeWrapper}
+              ignoredTypes={ignoredTypes}
+              includeTypes={includeTypes}
+            />
+          ))}
+      </StyledUl>
+    )
+  }
   return (
     <StyledUl>
       {nodes

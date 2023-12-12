@@ -23,17 +23,29 @@ test('uncontainedObject', async ({ page }) => {
       .last() // Get innermost list
       .getByRole('button', { name: 'John' })
       .click()
-    await expect(dialog.getByText('Selected: John')).toBeVisible()
-    await dialog.getByRole('button', { name: 'Select', exact: true }).click()
     await expect(dialog).not.toBeVisible()
   }
 
-  await test.step('Assert CEO and accountant', async () => {
+  await test.step('Assert CEO', async () => {
     await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
     await expect(page.getByRole('code').getByText('Miranda')).toBeVisible()
     await expect(page.getByRole('code').getByText('1337')).toBeVisible()
     await page.getByRole('button', { name: 'Close ceo' }).click()
+  })
 
+  await test.step('Assert Accountant', async () => {
+    await page
+      .getByTestId('accountant')
+      .getByRole('button', { name: 'Collapse' })
+      .click()
+    await expect(
+      page.getByTestId('accountant').getByRole('code').getByText('Miranda')
+    ).not.toBeVisible()
+    await expect(page.getByRole('code').getByText('1337')).not.toBeVisible()
+    await page
+      .getByTestId('accountant')
+      .getByRole('button', { name: 'Expand' })
+      .click()
     await expect(
       page.getByTestId('accountant').getByRole('code').getByText('Miranda')
     ).toBeVisible()
