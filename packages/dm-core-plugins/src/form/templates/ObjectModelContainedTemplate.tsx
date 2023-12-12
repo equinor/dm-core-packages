@@ -7,7 +7,7 @@ import AddObject from '../components/AddObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { ViewCreator } from '@development-framework/dm-core'
 import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
-import FormObject from './shared/FormObject'
+import FormTemplate from './shared/FormObjectTemplate'
 import {
   getExpandViewConfig,
   getOpenViewConfig,
@@ -34,9 +34,9 @@ export const ObjectModelContainedTemplate = (
     onOpen
   )
   return (
-    <FormObject>
-      <FormObject.Legend>
-        <FormObject.Legend.Header
+    <FormTemplate>
+      <FormTemplate.Header>
+        <FormTemplate.Header.Title
           canExpand={canExpand}
           canOpen={canOpen}
           isExpanded={isExpanded}
@@ -51,7 +51,7 @@ export const ObjectModelContainedTemplate = (
             )
           }
         />
-        <FormObject.Legend.Actions>
+        <FormTemplate.Header.Actions>
           {canOpen && (
             <OpenObjectButton
               viewId={namePath}
@@ -83,18 +83,18 @@ export const ObjectModelContainedTemplate = (
               namePath={namePath}
             />
           )}
-        </FormObject.Legend.Actions>
-      </FormObject.Legend>
+        </FormTemplate.Header.Actions>
+      </FormTemplate.Header>
       {canExpand && isExpanded && (
-        <FormObject.ExpandedView>
+        <FormTemplate.Content>
           <ViewCreator
             idReference={`${idReference}.${namePath}`}
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
             onChange={(data: any) => setValue(namePath, data)}
           />
-        </FormObject.ExpandedView>
+        </FormTemplate.Content>
       )}
-    </FormObject>
+    </FormTemplate>
   )
 }
