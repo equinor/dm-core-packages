@@ -40,6 +40,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: |
+            yarn.lock
             node_modules
             packages/dm-core/node_modules
             packages/dm-core_packages/node_modules
@@ -47,7 +48,11 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./packages/dm-core/package.json')}}-${{ hashFiles('./packages/dm-core-plugins/package.json') }}
 
       - name: Install dependencies
-        run: yarn install
+        run: |
+          ls -la node_modules
+          du -sh node_modules
+          ls -la packages/dm-core_packages/node_modules
+          yarn install
 
       - name: Build packages
         run: yarn build:packages
