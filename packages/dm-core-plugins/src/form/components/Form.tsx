@@ -19,6 +19,7 @@ import { RegistryProvider } from '../context/RegistryContext'
 import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
 import { AttributeList } from './AttributeList'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
+import { getCanOpenOrExpand } from '../templates/shared/utils'
 
 const Wrapper = styled.div`
   max-width: 650px;
@@ -94,7 +95,13 @@ export const Form = (props: TFormProps) => {
 
         if (uiAttribute?.widget) continue
 
-        if (!uiAttribute?.functionality?.expand) {
+        const { canExpand } = getCanOpenOrExpand(
+          obj[key] !== undefined,
+          config,
+          uiAttribute
+        )
+
+        if (!canExpand) {
           toRemoveFromPayload.push(key)
           continue
         }
