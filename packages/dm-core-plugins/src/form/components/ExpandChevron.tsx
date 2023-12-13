@@ -8,7 +8,6 @@ const ExpandChevron = ({
 }: {
   isExpanded: boolean
   setIsExpanded: (expanded: boolean) => void
-  isActive?: boolean
 }) => {
   return (
     <TooltipButton
