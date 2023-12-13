@@ -26,7 +26,6 @@ export const StringField = (props: TField) => {
             enumType={attribute.enumType || undefined}
             isDirty={value !== null ? isDirty : false}
             onChange={(value: unknown) => {
-              console.log(value)
               return onChange(value ?? '')
             }}
             readOnly={readOnly}
