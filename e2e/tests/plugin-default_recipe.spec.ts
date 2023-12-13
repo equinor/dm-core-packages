@@ -28,10 +28,7 @@ test('TableList default DMSS UI Recipe', async ({ page }) => {
   })
 
   await test.step('Open item in tab', async () => {
-    await page
-      .getByRole('group', { name: 'Cars' })
-      .getByLabel('Open in tab')
-      .click()
+    await page.getByLabel('Open in tab').click()
     await page
       .getByRole('row', { name: 'Volvo' })
       .getByRole('button', { name: 'Expand item', exact: true })

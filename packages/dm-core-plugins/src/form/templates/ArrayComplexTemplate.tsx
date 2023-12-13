@@ -12,6 +12,7 @@ import {
   getExpandViewConfig,
   getOpenViewConfig,
 } from './shared/utils'
+import { list } from '@equinor/eds-icons'
 
 export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   const { namePath, attribute, uiAttribute } = props
@@ -49,7 +50,14 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
           }
           setIsExpanded={setIsExpanded}
           attribute={attribute}
+          icon={list}
         />
+        {canOpen && (
+          <OpenObjectButton
+            viewId={namePath}
+            viewConfig={getOpenViewConfig(uiAttribute, namePath)}
+          />
+        )}
         <FormTemplate.Header.Actions>
           {attribute.optional &&
             !config.readOnly &&
@@ -69,12 +77,6 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
                 onAdd={() => setInitialValue([])}
               />
             ))}
-          {canOpen && (
-            <OpenObjectButton
-              viewId={namePath}
-              viewConfig={getOpenViewConfig(uiAttribute, namePath)}
-            />
-          )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
       {canExpand && isExpanded && (
