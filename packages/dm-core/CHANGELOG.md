@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.25.0...dm-core-v1.26.0) (2023-12-13)
+
+
+### Features
+
+* provide template for new items in ListPlugin and TablePlugin ([44cc325](https://github.com/equinor/dm-core-packages/commit/44cc3253dbaf5891fc3c6fd030e5d4320de46544))
+
 ## [1.25.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.24.0...dm-core-v1.25.0) (2023-12-12)
 
 
