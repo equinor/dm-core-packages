@@ -8,17 +8,21 @@ test('Read only primitives', async ({ page }) => {
   await page.getByRole('button', { name: 'read_only_primitives' }).click()
   await page.getByRole('button', { name: 'ReadOnlyPrimitives' }).click()
 
-  await expect(page.getByLabel('A required string')).not.toBeEditable()
+  await expect(page.getByLabel('readonly-A required string')).toBeVisible()
 
   await expect(
-    page.getByLabel('An optional string (Optional)')
-  ).not.toBeEditable()
+    page.getByLabel('readonly-An optional string (Optional)')
+  ).toBeVisible()
 
-  await expect(page.getByLabel('A required number')).not.toBeEditable()
+  await expect(page.getByLabel('readonly-A required number')).toBeVisible()
 
-  await expect(page.getByLabel('Numbers only (Optional)')).not.toBeEditable()
+  await expect(
+    page.getByLabel('readonly-Numbers only (Optional)')
+  ).toBeVisible()
 
-  await expect(page.getByLabel('Integer only (Optional)')).not.toBeEditable()
+  await expect(
+    page.getByLabel('readonly-Integer only (Optional)')
+  ).toBeVisible()
 
   await expect(
     page.getByLabel('An optional checkbox (Optional)')

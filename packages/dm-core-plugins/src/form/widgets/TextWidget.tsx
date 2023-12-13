@@ -1,18 +1,20 @@
 import React from 'react'
-import { TextField, Typography } from '@equinor/eds-core-react'
+import { TextField } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
+import ReadOnlyField from '../components/ReadOnlyField'
 
 const TextWidget = (props: TWidget) => {
-  const { label, onChange, isDirty } = props
+  const { label, onChange, isDirty, value } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(event.target.value === '' ? null : event.target.value)
   }
+
+  if (props.readOnly) return <ReadOnlyField label={label} value={value} />
 
   return (
     <TextField
       id={props.id}
       label={label}
-      readOnly={props.readOnly}
       defaultValue={props.readOnly && props.value === '' ? '-' : props.value}
       inputRef={props.inputRef}
       variant={props.variant}
