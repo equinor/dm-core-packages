@@ -74,7 +74,6 @@ const PrimitiveArray = ({
         className='w-fit border rounded-t-sm rounded-b-md border-[#6f6f6f]
 '
       >
-        <div className='bg-[#f7f7f7] h-3 rounded-t-sm border-b border-[#6f6f6f]'></div>
         <div className='bg-[#f7f7f7]'>
           {!data.length && <div className='h-3 w-10'></div>}
           {data.map((item: TPrimitive, index: number) => (
