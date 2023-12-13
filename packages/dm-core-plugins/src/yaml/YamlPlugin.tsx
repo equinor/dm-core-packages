@@ -17,6 +17,7 @@ const CodeContainer = styled.pre`
   margin: 0;
   padding: 1rem;
   border-radius: 0.5rem;
+  overflow: auto;
 
   & .hljs-string {
     color: #a5ff90;
@@ -31,14 +32,6 @@ const CodeContainer = styled.pre`
   & .hljs-bullet {
     color: #99ffff;
   }
-`
-
-const ButtonRow = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
-  justify-content: flex-end;
-  place-items: end;
 `
 
 const YamlView = (props: {
@@ -65,11 +58,11 @@ const YamlView = (props: {
 
   return (
     <div>
-      <ButtonRow>
-        <Button variant='outlined' onClick={() => onClick(asYAML)}>
+      <div className='flex justify-end items-end my-2 gap-1'>
+        <Button variant='ghost' onClick={() => onClick(asYAML)}>
           Copy as YAML
         </Button>
-        <Button variant='outlined' onClick={() => onClick(asJSON)}>
+        <Button variant='ghost' onClick={() => onClick(asJSON)}>
           Copy as JSON
         </Button>
         <div style={{ width: '5rem' }}>
@@ -82,7 +75,7 @@ const YamlView = (props: {
             label='Depth'
           />
         </div>
-      </ButtonRow>
+      </div>
       <CodeContainer>
         <code
           dangerouslySetInnerHTML={{

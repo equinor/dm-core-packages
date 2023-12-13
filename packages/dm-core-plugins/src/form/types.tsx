@@ -1,8 +1,8 @@
 import {
   TAttribute,
-  TBlueprint,
   TOnOpen,
   TUiRecipe,
+  TViewConfig,
 } from '@development-framework/dm-core'
 import React from 'react'
 
@@ -19,8 +19,6 @@ export type TFormProps = {
 
 export type TObjectTemplate = {
   namePath: string
-  blueprint: TBlueprint | undefined
-  uiRecipe: TUiRecipeForm
   uiAttribute: TUiAttributeObject | undefined
   attribute: TAttribute
 }
@@ -42,8 +40,15 @@ type TUiAttributeBase = {
   type: string
   showInline?: boolean
   config?: Record<any, any>
+  readOnly?: boolean
+  expandViewConfig?: TViewConfig
+  openViewConfig?: TViewConfig
+  functionality?: {
+    expand: boolean
+    open: boolean
+  }
 }
-type TUiAttributeString = TUiAttributeBase & {
+export type TUiAttributeString = TUiAttributeBase & {
   widget: string
   format: string
 }
@@ -56,7 +61,17 @@ export type TUiAttributeObject = TUiAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded?: boolean
+  searchByType?: boolean
+  expandViewConfig?: TViewConfig
+  openViewConfig?: TViewConfig
+  functionality?: {
+    expand: boolean
+    open: boolean
+  }
 }
+
+export type TPrimitive = string | number | boolean
+
 export type TUiAttribute =
   | TUiAttributeArray
   | TUiAttributeObject
@@ -67,6 +82,10 @@ export type TFormConfig = {
   fields: string[]
   readOnly?: boolean
   showExpanded?: boolean
+  functionality: {
+    expand?: boolean
+    open?: boolean
+  }
 }
 
 export type TUiRecipeForm = Omit<TUiRecipe, 'config'> & {

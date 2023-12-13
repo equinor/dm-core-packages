@@ -37,6 +37,7 @@ export const AttributeList = (props: {
           <div
             data-testid={`${prefix}${attribute.name}`}
             key={`${prefix}${attribute.name}`}
+            className='pb-3'
           >
             <AttributeField
               namePath={`${prefix}${attribute.name}`}

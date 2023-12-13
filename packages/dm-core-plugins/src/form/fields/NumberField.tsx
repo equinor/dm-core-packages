@@ -1,9 +1,9 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TField } from '../types'
+import { TField, TUiAttributeString } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
 export const NumberField = (props: TField) => {
@@ -11,6 +11,7 @@ export const NumberField = (props: TField) => {
 
   const Widget = getWidget(uiAttribute?.widget ?? 'NumberWidget')
   const { config } = useRegistryContext()
+  const readOnly = uiAttribute?.readOnly || config.readOnly
   return (
     <Controller
       name={namePath}
@@ -29,14 +30,16 @@ export const NumberField = (props: TField) => {
         return (
           <Widget
             {...props}
-            readOnly={config.readOnly}
+            readOnly={readOnly}
             onChange={(event: unknown) => {
               onChange(event ? Number(event) : undefined)
             }}
             value={value ?? ''}
             id={namePath}
             label={
-              !uiAttribute?.config?.hideLabel ? getDisplayLabel(attribute) : ''
+              !uiAttribute?.config?.hideLabel
+                ? getDisplayLabelWithOptional(attribute)
+                : ''
             }
             inputRef={ref}
             helperText={error?.message || error?.type}

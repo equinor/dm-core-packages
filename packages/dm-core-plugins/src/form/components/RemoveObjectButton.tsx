@@ -1,17 +1,23 @@
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
-import { ErrorResponse, useDMSS } from '@development-framework/dm-core'
+import {
+  ErrorResponse,
+  useDMSS,
+  DeleteHardButton,
+} from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
-import TooltipButton from '../../common/TooltipButton'
-import { delete_forever } from '@equinor/eds-icons'
 import React from 'react'
 
 const RemoveObject = (props: {
   namePath: string
   address?: string
+  popupTitle?: string
+  buttonTitle?: string
+  popupMessage?: string
   onRemove?: () => void
 }) => {
-  const { namePath, address, onRemove } = props
+  const { buttonTitle, popupTitle, popupMessage, namePath, address, onRemove } =
+    props
   const { unregister } = useFormContext()
   const { idReference } = useRegistryContext()
   const dmssAPI = useDMSS()
@@ -30,11 +36,11 @@ const RemoveObject = (props: {
       })
   }
   return (
-    <TooltipButton
-      title='Remove and save'
-      button-variant='ghost_icon'
-      button-onClick={onClick}
-      icon={delete_forever}
+    <DeleteHardButton
+      onConfirmDelete={onClick}
+      title={buttonTitle || `Delete ${namePath}`}
+      popupTitle={popupTitle}
+      popupMessage={popupMessage}
     />
   )
 }

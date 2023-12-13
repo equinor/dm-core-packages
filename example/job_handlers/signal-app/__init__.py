@@ -59,5 +59,5 @@ class JobHandler(JobHandlerInterface):
     def result(self) -> Tuple[str, bytes]:
         return "Done", b"12345"
 
-    def progress(self) -> Tuple[JobStatus, str]:
-        return self.job.status, "Progress tracking not implemented"
+    def progress(self) -> Tuple[JobStatus, str, float|None]:
+        return self.job.status, "Progress tracking not implemented", 0

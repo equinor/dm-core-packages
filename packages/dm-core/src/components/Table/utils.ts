@@ -6,6 +6,22 @@ import {
   TTableSortDirection,
   TableVariantNameEnum,
 } from './types'
+import { isObject } from 'lodash'
+
+function setValue(object: TGenericObject, attribute: string, value: any) {
+  const properties = attribute.split('.')
+  const lastProperty = properties.pop()
+  const lastObject = properties.reduce(
+    (a, prop) => (isObject(a) ? a[prop] : null),
+    object
+  )
+  if (isObject(lastObject) && lastProperty) {
+    lastObject[lastProperty] = value
+    return true
+  } else {
+    return false
+  }
+}
 
 export function updateItemAttribute(
   items: TItem<TGenericObject>[],
@@ -15,8 +31,10 @@ export function updateItemAttribute(
 ) {
   const itemsCopy = [...items]
   const index = itemsCopy.findIndex((item) => item.key === key)
-  if (itemsCopy[index].data) {
-    ;(itemsCopy[index].data as TGenericObject)[attribute] = newValue
+  const itemData = itemsCopy[index].data || {}
+  const success = setValue(itemData, attribute, newValue)
+  if (success && itemsCopy[index].data) {
+    ;(itemsCopy[index].data as TGenericObject) = itemData
   }
   return itemsCopy
 }
@@ -68,3 +86,13 @@ export function dynamicSort(direction: TTableSortDirection, property: string) {
     return result * sortOrder
   }
 }
+
+export const resolvePath = (
+  object: TGenericObject,
+  path: string,
+  defaultValue: any
+) =>
+  path
+    .split(/[.[\]'"]/)
+    .filter((p) => p)
+    .reduce((o, p) => (o ? o[p] : defaultValue), object)

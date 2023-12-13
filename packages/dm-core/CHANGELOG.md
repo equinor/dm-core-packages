@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.25.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.24.0...dm-core-v1.25.0) (2023-12-12)
+
+
+### Features
+
+* add form configs to job recipe ([b8168e2](https://github.com/equinor/dm-core-packages/commit/b8168e22c2154103290ca310ad7e589dc03cd2f3))
+* **core:** Update EntityPicker to allow for multi select ([f911f85](https://github.com/equinor/dm-core-packages/commit/f911f855288cfeb57eca086422ab7a1047ad6b2b))
+* open and expand arrays ([e8aaabc](https://github.com/equinor/dm-core-packages/commit/e8aaabcd6293511f25180479125a033ace1609fc))
+* open and expand at same time ([2a7ad62](https://github.com/equinor/dm-core-packages/commit/2a7ad6265a0c2ca43497cde2c00f1f3a768892b2))
+* primitive array refactor + feedback ([f5f4043](https://github.com/equinor/dm-core-packages/commit/f5f4043e4dd790a42816fb57271187794bfa7a45))
+
+
+### Bug Fixes
+
+* Creating new config object on every render breaks memo ([0ad4aed](https://github.com/equinor/dm-core-packages/commit/0ad4aed01021bbfdbb38586feeada2cfb38db380))
+* default tab name on open ([f4dbea6](https://github.com/equinor/dm-core-packages/commit/f4dbea6df5d992893320493a517508c5aeaf7ec7))
+
+## [1.24.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.23.0...dm-core-v1.24.0) (2023-12-09)
+
+
+### Features
+
+* add scope to columns ([2be1abf](https://github.com/equinor/dm-core-packages/commit/2be1abff5ed2c909cfad99984b842123c62b8753))
+* better ui in fomr ([db607bb](https://github.com/equinor/dm-core-packages/commit/db607bb575baa282c9edd910bb421b71ef00f9e1))
+* delete-hard-button ([df78468](https://github.com/equinor/dm-core-packages/commit/df784680b3ebc367bc658504d7c152d0b2312fbe))
+* further iteration of form ui ([236fc65](https://github.com/equinor/dm-core-packages/commit/236fc65c88a5107283ee4bed229c796a338b5a6f))
+* **job:** control existing jobs plugin ([afbb42d](https://github.com/equinor/dm-core-packages/commit/afbb42d70c4e17d6c1b83737d5d53b2ee66e566a))
+* update table content on changes ([79abfed](https://github.com/equinor/dm-core-packages/commit/79abfed2bbfe2e59b579561e101a0f6ab819e4a5))
+
+
+### Bug Fixes
+
+* actually hide binaries ([#923](https://github.com/equinor/dm-core-packages/issues/923)) ([fa222b9](https://github.com/equinor/dm-core-packages/commit/fa222b9f9ae3289500698fd33bc9738fb7fc52af))
+* add icon not found, use data object ([1115a0f](https://github.com/equinor/dm-core-packages/commit/1115a0f5e549607295826daf688f40d39a2d9745))
+* broken sortables, now uses key extracted from item ([2b99a3e](https://github.com/equinor/dm-core-packages/commit/2b99a3e4e93fda5456c27c476960617c2e592618))
+* click confirm delete in test ([d6d0ce5](https://github.com/equinor/dm-core-packages/commit/d6d0ce52e9d68eb3bf5b49ab03cb409d4e01b558))
+* delete button popup remove after click delete ([f905a3a](https://github.com/equinor/dm-core-packages/commit/f905a3a3fc94586e521c5e02726f522974eaefb9))
+* dont save the whole table on normal add ([33e3fb7](https://github.com/equinor/dm-core-packages/commit/33e3fb7fd382cbca111f7c5aa1c8ca9a668bb18d))
+* failing tests, init fails ([151f3c9](https://github.com/equinor/dm-core-packages/commit/151f3c93c36c8f6d2889a2db7638bfa2b4483d40))
+* refactor errors ([501cea8](https://github.com/equinor/dm-core-packages/commit/501cea8e98cdea9ddc88db4f1c85f70e37272183))
+* SortableContext expects id, not key ([c052556](https://github.com/equinor/dm-core-packages/commit/c052556b8a619b709eb15712e7f7a41030e92b85))
+* tests ([ca9fdad](https://github.com/equinor/dm-core-packages/commit/ca9fdad5eb8c05cdae6f50c86c5f2b22e57b1e75))
+* unexpected amount of parameters in ListPlugin ([6875436](https://github.com/equinor/dm-core-packages/commit/6875436a655fdb8ee69428bdd4560ea8123119f4))
+
 ## [1.23.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.22.1...dm-core-v1.23.0) (2023-12-06)
 
 

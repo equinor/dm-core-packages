@@ -31,6 +31,14 @@
       "optional": true
     },
     {
+      "name": "hideInvalidTypes",
+      "type": "CORE:BlueprintAttribute",
+      "description": "When appending to the list, whether or not the user should see invalid types in the entity selector",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
       "name": "headers",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in item",

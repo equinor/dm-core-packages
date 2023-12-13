@@ -32,6 +32,7 @@ export function ConfigureSchedule(props: {
   // TODO: Export TCronJob from dm-core
   setSchedule: (s: TSchedule) => void
   schedule: TSchedule
+  readOnly: boolean // TODO: Implement this
 }) {
   const { setSchedule, schedule, isRegistered } = props
   const [interval, setInterval] = useState<EInterval>(EInterval.HOURLY)

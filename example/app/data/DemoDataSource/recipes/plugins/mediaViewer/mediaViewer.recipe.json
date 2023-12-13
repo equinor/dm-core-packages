@@ -1,0 +1,24 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/media_viewer/MediaViewer",
+  "initialUiRecipe": {
+    "name": "SingleView",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/single_view",
+    "config": {
+      "scope": "file",
+      "type": "CORE:InlineRecipeViewConfig",
+      "recipe": {
+        "name": "Edit",
+        "type": "CORE:UiRecipe",
+        "description": "Default edit",
+        "plugin": "@development-framework/dm-core-plugins/media-viewer",
+        "config": {
+          "type": "PLUGINS:dm-core-plugins/media_viewer/MediaViewerConfig",
+          "width": 100,
+          "height": 100
+        }
+      }
+    }
+  }
+}

@@ -27,6 +27,13 @@
       "label": "Color",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "engine",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Engine",
+      "attributeType": "./Engine",
+      "optional": true
     }
   ]
 }

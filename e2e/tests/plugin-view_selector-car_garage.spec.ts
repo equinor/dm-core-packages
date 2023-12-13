@@ -41,9 +41,7 @@ test('View selector - car garage', async ({ page }) => {
     )
 
     await page
-      .getByRole('group', { name: 'View owner details and history' })
-      .getByRole('button', { name: 'Open in tab' })
-      .click()
+    await page.getByTestId('Owner').getByLabel('Open in tab').click()
     await expect(
       page.getByRole('tab', { name: 'Owner details' })
     ).toHaveAttribute('aria-selected', 'true')
@@ -56,7 +54,7 @@ test('View selector - car garage', async ({ page }) => {
   })
 
   await test.step('Add earlier owner', async () => {
-    await page.getByRole('button', { name: 'Add', exact: true }).click()
+    await page.getByLabel('Append primitive').click()
     await page.getByRole('textbox').last().fill(' Joanna')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
@@ -65,10 +63,7 @@ test('View selector - car garage', async ({ page }) => {
 
   await test.step('Verify tabs are open and selectable', async () => {
     await page.getByRole('tab', { name: 'Home' }).click()
-    await page
-      .getByRole('group', { name: 'View technical information' })
-      .getByRole('button', { name: 'Open in tab' })
-      .click()
+    await page.getByTestId('Technical').getByLabel('Open in tab').click()
     await expect(page.getByRole('tab', { name: 'Technical' })).toHaveAttribute(
       'aria-selected',
       'true'
@@ -92,7 +87,7 @@ test('View selector - car garage', async ({ page }) => {
       .click()
     await page.getByRole('tab', { name: 'Dimensions' }).click()
     await page
-      .getByTestId('form-number-widget-Length (mm) (optional)')
+      .getByTestId('form-number-widget-Length (mm) (Optional)')
       .last()
       .fill('4250')
     await page.getByRole('button', { name: 'Submit' }).click()
@@ -133,23 +128,17 @@ test('View selector - car garage', async ({ page }) => {
 
   await test.step('Testing that saving one car does not override the other car', async () => {
     await page.getByRole('tab', { name: 'Volvo' }).click()
-    await page
-      .getByRole('group', { name: 'View technical information' })
-      .getByRole('button', { name: 'Open in tab' })
-      .click()
+    await page.getByLabel('Open in tab').nth(3).click()
 
     await expect(
       page.getByTestId('form-text-widget-nextControl').last()
     ).toHaveValue('2025-06-01')
     await page.getByRole('tab', { name: 'Dimensions' }).click()
     await expect(
-      page.getByTestId('form-number-widget-Length (mm) (optional)').last()
+      page.getByTestId('form-number-widget-Length (mm) (Optional)').last()
     ).toHaveValue('4500')
     await page.getByRole('tab', { name: 'Home' }).click()
-    await page
-      .getByRole('group', { name: 'View owner details and history' })
-      .getByRole('button', { name: 'Open in tab' })
-      .click()
+    await page.getByLabel('Open in tab').nth(2).click()
     await page.getByRole('tab', { name: 'Owner history' }).click()
     await expect(page.getByRole('textbox').first()).toHaveValue('Jack')
     await expect(page.getByRole('textbox').last()).toHaveValue('Maria')

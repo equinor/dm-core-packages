@@ -30,6 +30,86 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.30.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.29.0...dm-core-plugins-v1.30.0) (2023-12-12)
+
+
+### Features
+
+* a bit more styling on the primitive array ([42b305d](https://github.com/equinor/dm-core-packages/commit/42b305d18faffcdf5af72ec5367dad7eac186a3b))
+* add form configs to job recipe ([b8168e2](https://github.com/equinor/dm-core-packages/commit/b8168e22c2154103290ca310ad7e589dc03cd2f3))
+* better form ui for model contained ([0a4bdb1](https://github.com/equinor/dm-core-packages/commit/0a4bdb181806d9bb2b2c1ac6733c7bb43ca4a625))
+* **core:** Update EntityPicker to allow for multi select ([f911f85](https://github.com/equinor/dm-core-packages/commit/f911f855288cfeb57eca086422ab7a1047ad6b2b))
+* for storage uncontained and arrays ([87583b1](https://github.com/equinor/dm-core-packages/commit/87583b12722e8e9c88e5cdb0b9fdc5d2870b1273))
+* further ui changes ([f56cc9d](https://github.com/equinor/dm-core-packages/commit/f56cc9d1cdf8f71ca3a3da20f2f61caca2dfd896))
+* open and expand arrays ([e8aaabc](https://github.com/equinor/dm-core-packages/commit/e8aaabcd6293511f25180479125a033ace1609fc))
+* open and expand at same time ([2a7ad62](https://github.com/equinor/dm-core-packages/commit/2a7ad6265a0c2ca43497cde2c00f1f3a768892b2))
+* primitive array refactor + feedback ([f5f4043](https://github.com/equinor/dm-core-packages/commit/f5f4043e4dd790a42816fb57271187794bfa7a45))
+* slightly rounded corners for better looks ([b84b4a5](https://github.com/equinor/dm-core-packages/commit/b84b4a56cb422a4eed582e6facb867c04621b3d3))
+* starting to move stuff into common ([d1087f0](https://github.com/equinor/dm-core-packages/commit/d1087f0dcca56a737fe7aa46b531637ab7fc1cdc))
+
+
+### Bug Fixes
+
+* also border b on the delete button ([c10e500](https://github.com/equinor/dm-core-packages/commit/c10e50089405386975c42cdd69958878afa0fe4b))
+* default able to expand if no open passed ([e7b5e11](https://github.com/equinor/dm-core-packages/commit/e7b5e11a6aeb8b210113cfbc6641578800a8f1d1))
+* default tab name on open ([f4dbea6](https://github.com/equinor/dm-core-packages/commit/f4dbea6df5d992893320493a517508c5aeaf7ec7))
+* open bug ([7713643](https://github.com/equinor/dm-core-packages/commit/7713643fdc13c75e642d8a7318e35e639b9d830d))
+* opening bug ([290c881](https://github.com/equinor/dm-core-packages/commit/290c881962db138873a0c754633f895aaa6cd7ac))
+* overflow scrolling issue ([f17bf12](https://github.com/equinor/dm-core-packages/commit/f17bf12a6ab1dc0ca4b6e4a8b37c061c9069c42c))
+* playwright version ([29ff341](https://github.com/equinor/dm-core-packages/commit/29ff341e0d8d51d21f67aa0fa09df1bc7425d6f8))
+* remove any and replace with Primitive[] ([549fd43](https://github.com/equinor/dm-core-packages/commit/549fd43b8a53acba1b20a7535bc11413b248470a))
+* remove duplicate file ([d6acc8e](https://github.com/equinor/dm-core-packages/commit/d6acc8e3b993fadfbe8b85956e52ad500e39bd00))
+* same size on icons ([31929eb](https://github.com/equinor/dm-core-packages/commit/31929eb4057e5897a347264adeee970fabdb7d7c))
+* slight ui change ([ac42cb9](https://github.com/equinor/dm-core-packages/commit/ac42cb9c80fd46b6cbdfe77c7522590734074015))
+* tests ([1908a54](https://github.com/equinor/dm-core-packages/commit/1908a5433b12b44bb4d94e755f3723317de449f9))
+* tests ([7f2f1db](https://github.com/equinor/dm-core-packages/commit/7f2f1db862798c512a1adab88ec8c4e6a8f4785d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.24.0 to ^1.25.0
+
+## [1.29.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.28.0...dm-core-plugins-v1.29.0) (2023-12-09)
+
+
+### Features
+
+* align 'change' ([ca4ce72](https://github.com/equinor/dm-core-packages/commit/ca4ce72042d0c575904976744c7d67675f0d5cd3))
+* better ui in fomr ([db607bb](https://github.com/equinor/dm-core-packages/commit/db607bb575baa282c9edd910bb421b71ef00f9e1))
+* delete-hard-button ([df78468](https://github.com/equinor/dm-core-packages/commit/df784680b3ebc367bc658504d7c152d0b2312fbe))
+* further iteration of form ui ([236fc65](https://github.com/equinor/dm-core-packages/commit/236fc65c88a5107283ee4bed229c796a338b5a6f))
+* **job:** control existing jobs plugin ([afbb42d](https://github.com/equinor/dm-core-packages/commit/afbb42d70c4e17d6c1b83737d5d53b2ee66e566a))
+* overflow scroll ([d4d3fb5](https://github.com/equinor/dm-core-packages/commit/d4d3fb57b20b142a89997d567776575804c908dd))
+* round job progress to int ([0d83070](https://github.com/equinor/dm-core-packages/commit/0d83070836b32f3b49a1a760ccbbb744ca28acdb))
+* separate with optional or not ([a4be545](https://github.com/equinor/dm-core-packages/commit/a4be545af01a22e14b2bebaba280c04a45f6510e))
+* update table content on changes ([79abfed](https://github.com/equinor/dm-core-packages/commit/79abfed2bbfe2e59b579561e101a0f6ab819e4a5))
+* work in progress ([f50c725](https://github.com/equinor/dm-core-packages/commit/f50c72541b548f0fb073dabdc4a14d5a333bbe21))
+* work in progress ([464ca6b](https://github.com/equinor/dm-core-packages/commit/464ca6b93cc0f96a2edc87c0941286115580cd79))
+* working on form, new button ([95f979e](https://github.com/equinor/dm-core-packages/commit/95f979e3916bacae6647268b4fe3d81566d0e06e))
+
+
+### Bug Fixes
+
+* added titles to expandable buttons ([8ebc22f](https://github.com/equinor/dm-core-packages/commit/8ebc22f61cd1f69ab52d6afcd538dc5d9f561089))
+* click confirm delete in test ([d6d0ce5](https://github.com/equinor/dm-core-packages/commit/d6d0ce52e9d68eb3bf5b49ab03cb409d4e01b558))
+* delete button popup remove after click delete ([f905a3a](https://github.com/equinor/dm-core-packages/commit/f905a3a3fc94586e521c5e02726f522974eaefb9))
+* dont save the whole table on normal add ([33e3fb7](https://github.com/equinor/dm-core-packages/commit/33e3fb7fd382cbca111f7c5aa1c8ca9a668bb18d))
+* double space delete ([c54ef1c](https://github.com/equinor/dm-core-packages/commit/c54ef1c3cf831030c0aed5954766171de9c06909))
+* enitty picker now shows again ([dbe041e](https://github.com/equinor/dm-core-packages/commit/dbe041e7fbda56b142aae809bdc1423c2b9ffee1))
+* failing unit tests ([dcdd2f4](https://github.com/equinor/dm-core-packages/commit/dcdd2f45b81552c675ebd36f4751d66ca5dd68bc))
+* minor fixes ([a149272](https://github.com/equinor/dm-core-packages/commit/a1492723c4fedc7742b8a498feecbc0fa9174d2e))
+* refactor errors ([501cea8](https://github.com/equinor/dm-core-packages/commit/501cea8e98cdea9ddc88db4f1c85f70e37272183))
+* remove Loading check that unmounts table ([80d260d](https://github.com/equinor/dm-core-packages/commit/80d260deed6d10d4590af4fd13d1f5a66d3fe66a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.23.0 to ^1.24.0
+
 ## [1.28.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.27.0...dm-core-plugins-v1.28.0) (2023-12-06)
 
 

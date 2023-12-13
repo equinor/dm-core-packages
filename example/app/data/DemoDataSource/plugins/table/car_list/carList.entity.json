@@ -7,7 +7,12 @@
       "name": "Volvo",
       "type": "./blueprints/Car",
       "model": "XC40",
-      "color": "White"
+      "color": "White",
+      "engine": {
+        "type": "./blueprints/Engine",
+        "name": "V60",
+        "hp": 1000
+      }
     }
   ]
 }

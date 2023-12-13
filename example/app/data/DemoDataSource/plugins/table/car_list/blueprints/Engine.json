@@ -1,0 +1,24 @@
+{
+  "name": "Engine",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "label": "Manufacturer",
+      "attributeType": "string"
+    },
+    {
+      "name": "hp",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number"
+    }
+  ]
+}

@@ -12,29 +12,15 @@ import {
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
-import React, {
-  ChangeEvent,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
-import {
-  Button,
-  Chip,
-  Icon,
-  LinearProgress,
-  Switch,
-} from '@equinor/eds-core-react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { Button, Chip, LinearProgress } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
-import { expand_screen } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import { ConfigureSchedule } from './CronJob'
-import { JobLogsDialog } from './JobLogsDialog'
 import { getNewJobDocument, scheduleTemplate } from './templateEntities'
 import { RemoveJobDialog } from './RemoveJobDialog'
+import { ConfigureRecurring, getVariant, JobLog } from './common'
 
 const JobButtonWrapper = styled.div`
   margin-top: 0.5rem;
@@ -60,7 +46,9 @@ interface JobPluginConfig {
   showGetResult?: boolean
 }
 
-export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
+export const CrateFromRecipe = (
+  props: IUIPlugin & { config: JobPluginConfig }
+) => {
   const {
     config,
     idReference,
@@ -83,7 +71,6 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
   const [result, setResult] = useState<GetJobResultResponse | null>(null)
   const [asCronJob, setAsCronJob] = useState<boolean>(config.recurring ?? false)
   const [schedule, setSchedule] = useState<TSchedule>(scheduleTemplate())
-  const [showLogs, setShowLogs] = useState(false)
   const [showRemoveDialog, setShowRemoveDialog] = useState<boolean>(false)
 
   const jobEntity: TJob | TRecurringJob = useMemo(
@@ -143,33 +130,15 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
     if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [isLoading, jobEntityError, jobDocument])
 
-  const getVariant = (status: JobStatus) => {
-    switch (status) {
-      case JobStatus.Failed:
-        return 'error'
-      case JobStatus.Completed:
-        return 'active'
-      default:
-        return 'default'
-    }
-  }
   return (
     <div>
-      {config.recurring === undefined && (
-        <Switch
-          size='small'
-          label='Recurring'
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setAsCronJob(e.target.checked)
-          }
-          checked={asCronJob}
-        />
-      )}
       {asCronJob && (
-        <ConfigureSchedule
+        <ConfigureRecurring
           schedule={schedule}
           setSchedule={setSchedule}
-          isRegistered={
+          asCron={asCronJob}
+          setAsCron={setAsCronJob}
+          registered={
             !!jobDocument && jobDocument?.status !== JobStatus.NotStarted
           }
         />
@@ -194,41 +163,33 @@ export const JobPlugin = (props: IUIPlugin & { config: JobPluginConfig }) => {
             Get results
           </Button>
         )}
-        <Button onClick={() => setShowLogs(!showLogs)} variant='ghost'>
-          {showLogs ? 'Hide' : 'Show'} logs
-          <Icon data={expand_screen} />
-        </Button>
-        <Chip variant={getVariant(status)}>{status}</Chip>
+        <JobLog logs={logs} error={error} />
+        <Chip variant={getVariant(status)}>{status ?? 'Not registered'}</Chip>
       </JobButtonWrapper>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '50%',
-        }}
-      >
-        <LinearProgress
-          aria-label='Progress bar label'
-          value={progress * 100}
-          variant='determinate'
+      {status === JobStatus.Running && progress !== null && (
+        <div
           style={{
-            marginRight: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '50%',
           }}
-        />
-        <pre>{progress * 100}%</pre>
-      </div>
-      <JobLogsDialog
-        isOpen={showLogs}
-        setIsOpen={setShowLogs}
-        logs={logs}
-        error={error}
-        result={result}
-      />
+        >
+          <LinearProgress
+            aria-label='Progress bar label'
+            value={progress * 100}
+            variant='determinate'
+            style={{
+              marginRight: '10px',
+            }}
+          />
+          <pre>{Math.round(progress * 100)}%</pre>
+        </div>
+      )}
       <RemoveJobDialog
         isOpen={showRemoveDialog}
-        remove={remove}
-        afterRemove={() => {
+        onConfirm={remove}
+        close={() => {
           setShowRemoveDialog(false)
         }}
       />

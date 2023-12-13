@@ -31,41 +31,49 @@
           {
             "name": "owner",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": false,
             "uiRecipe": "defaultForm"
           },
           {
             "name": "ceo",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": false,
             "uiRecipe": "defaultForm"
           },
           {
             "name": "trainee",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
             "uiRecipe": "defaultForm"
           },
           {
             "name": "accountant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "showInline": true,
-            "uiRecipe": "defaultYaml"
+            "uiRecipe": "defaultYaml",
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "open": false,
+              "expand": true
+            }
           },
           {
             "name": "cars",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "showInline": true
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "open": false,
+              "expand": true
+            }
           },
           {
             "name": "locations",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "showInline": true
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "open": false,
+              "expand": true
+            }
           },
           {
             "name": "customers",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "showInline": false
+            "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField"
           }
         ],
         "fields": [

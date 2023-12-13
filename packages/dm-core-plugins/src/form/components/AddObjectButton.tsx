@@ -2,9 +2,8 @@ import { useFormContext } from 'react-hook-form'
 import { ErrorResponse, useDMSS } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError, AxiosResponse } from 'axios'
-import TooltipButton from '../../common/TooltipButton'
-import { add } from '@equinor/eds-icons'
 import React from 'react'
+import GhostTextButton from './GhostTextButton'
 
 const AddObject = (props: {
   type: string
@@ -50,11 +49,12 @@ const AddObject = (props: {
       })
   }
   return (
-    <TooltipButton
-      title='Add and save'
-      button-variant='ghost_icon'
-      button-onClick={handleAdd}
-      icon={add}
+    <GhostTextButton
+      onClick={handleAdd}
+      buttonText={'Create'}
+      title={'Create'}
+      tooltip={`Create new ${namePath}`}
+      ariaLabel={'Create new entity'}
     />
   )
 }

@@ -19,7 +19,7 @@ interface IUseJob {
   remove: () => Promise<DeleteJobResponse | null>
   fetchResult: () => any // TODO: Type set this return value
   logs: string[]
-  progress: GLfloat
+  progress: GLfloat | null
   isLoading: boolean
   error: ErrorResponse | undefined
   exists: boolean
@@ -72,13 +72,13 @@ interface IUseJob {
  *     }
  * ```
  *
- * @param entityId? The ID of the job entity present in DMSS
- * @param jobId? The ID of the job
+ * @param entityId The ID of the job entity present in DMSS
+ * @param jobId The ID of the job
  */
 export function useJob(entityId?: string, jobId?: string): IUseJob {
   const [hookJobId, setHookJobId] = useState<string | undefined>(jobId)
   const [logs, setLogs] = useState<string[]>(['No logs fetched'])
-  const [progress, setProgress] = useState<GLfloat>(0.0)
+  const [progress, setProgress] = useState<GLfloat | null>(null)
   const [status, setStatus] = useState<JobStatus>(JobStatus.Unknown)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse>()
@@ -101,7 +101,9 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
               // The job must be started before it has an UID
               setHookJobId(response.data.uid)
             }
+            return
           }
+          setStatus(response.data.status)
         })
         .catch((error: AxiosError<ErrorResponse>) => {
           setError(error.response?.data)
@@ -114,6 +116,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   // The interval is deregistered if the status of the job is not "Running"
   useEffect(() => {
     if (!hookJobId) return
+    fetchStatusAndLogs() // Do one fetch immediately
     statusIntervalId = setInterval(fetchStatusAndLogs, 5000)
     return () => clearInterval(statusIntervalId)
   }, [hookJobId])

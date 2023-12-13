@@ -23,17 +23,29 @@ test('uncontainedObject', async ({ page }) => {
       .last() // Get innermost list
       .getByRole('button', { name: 'John' })
       .click()
-    await expect(dialog.getByText('Selected: John')).toBeVisible()
-    await dialog.getByRole('button', { name: 'Select', exact: true }).click()
     await expect(dialog).not.toBeVisible()
   }
 
-  await test.step('Assert CEO and accountant', async () => {
+  await test.step('Assert CEO', async () => {
     await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
     await expect(page.getByRole('code').getByText('Miranda')).toBeVisible()
     await expect(page.getByRole('code').getByText('1337')).toBeVisible()
     await page.getByRole('button', { name: 'Close ceo' }).click()
+  })
 
+  await test.step('Assert Accountant', async () => {
+    await page
+      .getByTestId('accountant')
+      .getByRole('button', { name: 'Collapse' })
+      .click()
+    await expect(
+      page.getByTestId('accountant').getByRole('code').getByText('Miranda')
+    ).not.toBeVisible()
+    await expect(page.getByRole('code').getByText('1337')).not.toBeVisible()
+    await page
+      .getByTestId('accountant')
+      .getByRole('button', { name: 'Expand' })
+      .click()
     await expect(
       page.getByTestId('accountant').getByRole('code').getByText('Miranda')
     ).toBeVisible()
@@ -43,7 +55,7 @@ test('uncontainedObject', async ({ page }) => {
   await test.step('Add assistant', async () => {
     await page
       .getByTestId('assistant')
-      .getByRole('button', { name: 'Add and save' })
+      .getByRole('button', { name: 'Select Entity' })
       .click()
     await selectJohn()
     await page
@@ -58,7 +70,7 @@ test('uncontainedObject', async ({ page }) => {
   await test.step('Add trainee', async () => {
     await page
       .getByTestId('trainee')
-      .getByRole('button', { name: 'Add and save' })
+      .getByRole('button', { name: 'Select Entity' })
       .click()
     await selectJohn()
     await expect(
@@ -72,7 +84,7 @@ test('uncontainedObject', async ({ page }) => {
   await test.step('Change accountant', async () => {
     await page
       .getByTestId('accountant')
-      .getByRole('button', { name: 'Edit and save' })
+      .getByRole('button', { name: 'Select Entity' })
       .click()
     await selectJohn()
     await expect(
@@ -85,7 +97,8 @@ test('uncontainedObject', async ({ page }) => {
 
   await test.step('Remove trainee', async () => {
     const trainee = page.getByTestId('trainee')
-    await trainee.getByRole('button', { name: 'Remove and save' }).click()
+    await trainee.getByRole('button', { name: 'Delete permanently' }).click()
+    await page.getByLabel('Confirm Delete').click()
     await expect(trainee.getByRole('code').getByText('John')).not.toBeVisible()
     await expect(trainee.getByRole('code').getByText('1234')).not.toBeVisible()
   })

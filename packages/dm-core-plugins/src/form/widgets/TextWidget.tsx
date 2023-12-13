@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField } from '@equinor/eds-core-react'
+import { TextField, Typography } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
 
 const TextWidget = (props: TWidget) => {
@@ -11,13 +11,13 @@ const TextWidget = (props: TWidget) => {
   return (
     <TextField
       id={props.id}
+      label={label}
       readOnly={props.readOnly}
-      defaultValue={props.value}
+      defaultValue={props.readOnly && props.value === '' ? '-' : props.value}
       inputRef={props.inputRef}
       variant={props.variant}
       helperText={props.helperText}
       onChange={onChangeHandler}
-      label={label}
       type='string'
       data-testid={`form-text-widget-${props.id}`}
       style={

@@ -2,15 +2,17 @@ import { TArrayTemplate } from '../types'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import React, { useState } from 'react'
-import { EntityView, getKey } from '@development-framework/dm-core'
-import { Fieldset, Legend } from '../styles'
-import { Typography } from '@equinor/eds-core-react'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { getKey, ViewCreator } from '@development-framework/dm-core'
 import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
-import TooltipButton from '../../common/TooltipButton'
-import { chevron_down, chevron_up } from '@equinor/eds-icons'
 import { OpenObjectButton } from '../components/OpenObjectButton'
+import FormTemplate from './shared/FormTemplate'
+import {
+  getCanOpenOrExpand,
+  getExpandViewConfig,
+  getOpenViewConfig,
+} from './shared/utils'
+import { list } from '@equinor/eds-icons'
 
 export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   const { namePath, attribute, uiAttribute } = props
@@ -23,62 +25,69 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
       ? uiAttribute?.showExpanded
       : config.showExpanded
   )
-  const uiRecipeName = getKey<string>(uiAttribute, 'uiRecipe', 'string')
   const isDefined = initialValue !== undefined
 
+  const { canExpand, canOpen } = getCanOpenOrExpand(
+    isDefined,
+    config,
+    uiAttribute,
+    onOpen
+  )
   return (
-    <Fieldset>
-      <Legend>
-        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
-        {attribute.optional &&
-          !config.readOnly &&
-          (isDefined ? (
-            <RemoveObject
-              namePath={namePath}
-              onRemove={() => {
-                setInitialValue(undefined)
-                setValue(namePath, undefined)
-              }}
-            />
-          ) : (
-            <AddObject
-              namePath={namePath}
-              type={attribute.attributeType}
-              defaultValue={[]}
-              onAdd={() => setInitialValue([])}
-            />
-          ))}
-        {isDefined && !(onOpen && !uiAttribute?.showInline) && (
-          <TooltipButton
-            title={isExpanded ? 'Collapse' : 'Expand'}
-            button-variant='ghost_icon'
-            button-onClick={() => setIsExpanded(!isExpanded)}
-            icon={isExpanded ? chevron_up : chevron_down}
+    <FormTemplate>
+      <FormTemplate.Header>
+        <FormTemplate.Header.Title
+          canExpand={canExpand}
+          objectIsNotEmpty={isDefined}
+          canOpen={canOpen}
+          isExpanded={isExpanded}
+          onOpen={() =>
+            onOpen?.(
+              namePath,
+              getOpenViewConfig(uiAttribute, namePath),
+              idReference
+            )
+          }
+          setIsExpanded={setIsExpanded}
+          attribute={attribute}
+          icon={list}
+        />
+        {canOpen && (
+          <OpenObjectButton
+            viewId={namePath}
+            viewConfig={getOpenViewConfig(uiAttribute, namePath)}
           />
         )}
-        {!config.readOnly &&
-          isDefined &&
-          onOpen &&
-          !uiAttribute?.showInline && (
-            <OpenObjectButton
-              viewId={namePath}
-              viewConfig={{
-                type: 'ReferenceViewConfig',
-                scope: namePath,
-                recipe: uiRecipeName,
-              }}
-            />
-          )}
-      </Legend>
-      {isDefined && !(onOpen && !uiAttribute?.showInline) && isExpanded && (
-        <EntityView
-          recipeName={uiRecipeName}
-          idReference={`${idReference}.${namePath}`}
-          type={attribute.attributeType}
-          onOpen={onOpen}
-          dimensions={attribute.dimensions}
-        />
+        <FormTemplate.Header.Actions>
+          {attribute.optional &&
+            !config.readOnly &&
+            (isDefined ? (
+              <RemoveObject
+                namePath={namePath}
+                onRemove={() => {
+                  setInitialValue(undefined)
+                  setValue(namePath, undefined)
+                }}
+              />
+            ) : (
+              <AddObject
+                namePath={namePath}
+                type={attribute.attributeType}
+                defaultValue={[]}
+                onAdd={() => setInitialValue([])}
+              />
+            ))}
+        </FormTemplate.Header.Actions>
+      </FormTemplate.Header>
+      {canExpand && isExpanded && (
+        <FormTemplate.Content>
+          <ViewCreator
+            idReference={`${idReference}.${namePath}`}
+            onOpen={onOpen}
+            viewConfig={getExpandViewConfig(uiAttribute)}
+          />
+        </FormTemplate.Content>
       )}
-    </Fieldset>
+    </FormTemplate>
   )
 }

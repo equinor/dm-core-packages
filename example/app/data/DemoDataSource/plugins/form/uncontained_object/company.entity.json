@@ -2,6 +2,9 @@
   "_id": "UncontainedObject",
   "name": "UncontainedObject",
   "type": "./blueprints/Company",
+  "numberOfEmployees": 10,
+  "description": "It's a super nice place to work. The people are happy and they love to create great applications for use in the moorling line simulations.",
+  "averageSalary": 800000,
   "employees": [
     {
       "name": "Miranda",

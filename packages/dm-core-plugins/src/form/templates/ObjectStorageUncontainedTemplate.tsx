@@ -1,25 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import {
-  EntityView,
   resolveRelativeAddress,
   splitAddress,
-  useDocument,
+  ViewCreator,
 } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
 import { TObjectTemplate } from '../types'
-import { Fieldset, Legend } from '../styles'
-import { Typography } from '@equinor/eds-core-react'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
 import RemoveObject from '../components/RemoveObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import { SelectReference } from '../components/SelectReference'
+import FormTemplate from './shared/FormTemplate'
+import {
+  getCanOpenOrExpand,
+  getExpandViewConfig,
+  getOpenViewConfig,
+} from './shared/utils'
 
 export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
-  const { namePath, uiRecipe, attribute, uiAttribute } = props
+  const { namePath, attribute, uiAttribute } = props
   const { watch, setValue } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const { dataSource, documentPath } = splitAddress(idReference)
+  const [isExpanded, setIsExpanded] = useState(false)
   const { config } = useRegistryContext()
   const value = watch(namePath)
   const address = resolveRelativeAddress(
@@ -27,45 +30,60 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
     documentPath,
     dataSource
   )
-  const { document, isLoading } = useDocument<any>(address, 1)
 
-  useEffect(() => {
-    if (!isLoading && document) setValue(namePath, document)
-  }, [document])
+  const referenceExists = address !== undefined
+
+  const { canExpand, canOpen } = getCanOpenOrExpand(
+    referenceExists,
+    config,
+    uiAttribute
+  )
 
   return (
-    <Fieldset>
-      <Legend>
-        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
-        {!config.readOnly && (
-          <SelectReference
-            attributeType={attribute.attributeType}
-            namePath={namePath}
-          />
-        )}
-        {attribute.optional && address && !config.readOnly && (
-          <RemoveObject address={address} namePath={namePath} />
-        )}
-        {address && onOpen && !uiAttribute?.showInline && (
-          <OpenObjectButton
-            viewId={namePath}
-            viewConfig={{
-              type: 'ReferenceViewConfig',
-              scope: '',
-              recipe: uiRecipe?.name,
-            }}
-            idReference={address}
-          />
-        )}
-      </Legend>
-      {address && !(onOpen && !uiAttribute?.showInline) && (
-        <EntityView
-          idReference={address}
-          type={attribute.attributeType}
-          recipeName={uiRecipe?.name}
-          onOpen={onOpen}
+    <FormTemplate>
+      <FormTemplate.Header>
+        <FormTemplate.Header.Title
+          canExpand={canExpand}
+          canOpen={canOpen}
+          isExpanded={isExpanded}
+          attribute={attribute}
+          objectIsNotEmpty={referenceExists}
+          setIsExpanded={setIsExpanded}
+          onOpen={() =>
+            onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
+          }
         />
+        <FormTemplate.Header.Actions>
+          {canOpen && referenceExists && (
+            <OpenObjectButton
+              viewId={namePath}
+              viewConfig={getOpenViewConfig(uiAttribute)}
+              idReference={address}
+            />
+          )}
+          {!config.readOnly && (
+            <SelectReference
+              attributeType={attribute.attributeType}
+              namePath={namePath}
+            />
+          )}
+          {attribute.optional && referenceExists && !config.readOnly && (
+            <RemoveObject address={address} namePath={namePath} />
+          )}
+        </FormTemplate.Header.Actions>
+      </FormTemplate.Header>
+      {canExpand && referenceExists && isExpanded && (
+        <FormTemplate.Content>
+          <ViewCreator
+            idReference={address}
+            onOpen={onOpen}
+            viewConfig={getExpandViewConfig(uiAttribute)}
+            onChange={(data: Record<string, unknown>) =>
+              setValue(namePath, data)
+            }
+          />
+        </FormTemplate.Content>
       )}
-    </Fieldset>
+    </FormTemplate>
   )
 }

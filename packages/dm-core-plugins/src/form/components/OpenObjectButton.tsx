@@ -22,6 +22,7 @@ export const OpenObjectButton = ({
   return (
     <TooltipButton
       title='Open in tab'
+      compact
       button-variant='ghost_icon'
       button-onClick={() => onOpen?.(viewId, viewConfig, idReference)}
       icon={external_link}

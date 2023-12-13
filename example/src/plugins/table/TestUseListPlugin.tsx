@@ -3,6 +3,7 @@ import {
   IUIPlugin,
   Loading,
   Pagination,
+  TEntityPickerReturn,
   TGenericObject,
   TItem,
   TValidEntity,
@@ -64,13 +65,14 @@ const TestUseListPlugin = (props: IUIPlugin) => {
         showModal={showAddReferenceModal}
         setShowModal={setShowAddReferenceModal}
         typeFilter={attribute?.attributeType}
-        onChange={(address: string, entity: TValidEntity) => {
-          addReference(address, entity)
+        onChange={(v: TEntityPickerReturn) => {
+          addReference(v.address, v.entity)
         }}
       />
       {attribute?.contained && (
         <Button onClick={() => addItem()}>Add item</Button>
       )}
+      {/*@ts-ignore*/}
       {dirtyState && <Button onClick={() => save(items)}>Save</Button>}
       <ul>
         {paginatedRows?.map((item: TItem<TGenericObject>) => {

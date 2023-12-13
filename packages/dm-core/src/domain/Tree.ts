@@ -167,6 +167,8 @@ export class TreeNode {
       .then((response: any) => response.data)
   }
 
+  isArray = () => Array.isArray(this.entity)
+
   expand = () => {
     return new Promise((resolve, reject) => {
       return (async () => {

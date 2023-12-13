@@ -3,6 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { TItemBorder, TGridItem } from './types'
 import { Typography } from '@equinor/eds-core-react'
+import { toast } from 'react-toastify'
+import onChange = toast.onChange
 
 type TElementProps = {
   item: TGridItem
@@ -30,10 +32,13 @@ type TGridItemProps = {
   type: string
   itemBorder: TItemBorder
   showItemBorders: boolean
+  onSubmit?: (data: any) => void
+  onChange?: (data: any) => void
 }
 
 export const GridElement = (props: TGridItemProps): React.ReactElement => {
-  const { idReference, item, itemBorder, showItemBorders } = props
+  const { idReference, item, itemBorder, showItemBorders, onSubmit, onChange } =
+    props
 
   return (
     <Element
@@ -43,7 +48,12 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       itemBorder={itemBorder}
     >
       {item?.title && <Typography variant='h4'>{item.title}</Typography>}
-      <ViewCreator idReference={idReference} viewConfig={item.viewConfig} />
+      <ViewCreator
+        idReference={idReference}
+        viewConfig={item.viewConfig}
+        onSubmit={onSubmit}
+        onChange={onChange}
+      />
     </Element>
   )
 }

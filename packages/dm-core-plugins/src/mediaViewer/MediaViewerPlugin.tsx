@@ -26,8 +26,16 @@ interface MediaObject {
   }
 }
 
-export const MediaViewerPlugin = (props: IUIPlugin): React.ReactElement => {
-  const { idReference } = props
+interface MediaViewerConfig {
+  type: string
+  width?: number
+  height?: number
+}
+
+export const MediaViewerPlugin = (
+  props: Omit<IUIPlugin, 'config'> & { config: MediaViewerConfig }
+): React.ReactElement => {
+  const { idReference, config } = props
   const [blobUrl, setBlobUrl] = useState<string>()
   const dmssAPI = useDMSS()
   const {
@@ -66,6 +74,8 @@ export const MediaViewerPlugin = (props: IUIPlugin): React.ReactElement => {
       {blobUrl ? (
         <MediaContent
           blobUrl={blobUrl}
+          height={config.height}
+          width={config.width}
           meta={{
             author: document.author,
             fileSize: document.size,

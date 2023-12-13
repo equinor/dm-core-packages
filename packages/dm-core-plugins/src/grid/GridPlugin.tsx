@@ -42,7 +42,7 @@ const defaultConfig: TGridPluginConfig = {
 export const GridPlugin = (
   props: IUIPlugin & { config: TGridPluginConfig }
 ): React.ReactElement => {
-  const { config, idReference, type } = props
+  const { config, idReference, type, onSubmit, onChange } = props
 
   const internalConfig: TGridPluginConfig = {
     ...defaultConfig,
@@ -59,6 +59,8 @@ export const GridPlugin = (
         itemBorder={internalConfig.itemBorder}
         showItemBorders={internalConfig.showItemBorders}
         type={type}
+        onSubmit={onSubmit}
+        onChange={onChange}
       />
     </Grid>
   )

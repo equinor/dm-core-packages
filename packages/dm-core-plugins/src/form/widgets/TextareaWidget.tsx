@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TextField } from '@equinor/eds-core-react'
+import { TextField, Typography } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
 
 const TextareaWidget = (props: TWidget) => {
@@ -13,13 +13,11 @@ const TextareaWidget = (props: TWidget) => {
   }
 
   return (
-    // @ts-ignore
     <TextField
       {...props}
       multiline={true}
       rows={5}
       onChange={onChangeHandler}
-      label={label}
     />
   )
 }

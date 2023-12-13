@@ -10,6 +10,7 @@ import {
   BlueprintPicker,
   DestinationPicker,
   EntityPickerDialog,
+  TEntityPickerReturn,
 } from './Pickers'
 
 // TODO fix this component - the component is not working due to a hook error somewhere, probably in the context
@@ -181,8 +182,8 @@ export function NewEntityButton(props: {
                 showModal={showCopyDocumentModal}
                 setShowModal={setShowCopyDocumentModal}
                 typeFilter={typeToCreate}
-                onChange={(address: string, entity?: TValidEntity) =>
-                  setDocumentToCopy(entity)
+                onChange={(v: TEntityPickerReturn) =>
+                  setDocumentToCopy(v.entity)
                 }
               />
             </>

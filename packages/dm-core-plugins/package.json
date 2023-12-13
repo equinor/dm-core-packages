@@ -1,10 +1,10 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.28.0",
+  "version": "1.30.0",
   "main": "dist/index.js",
   "dependencies": {
-    "@development-framework/dm-core": "^1.23.0",
+    "@development-framework/dm-core": "^1.25.0",
     "@equinor/eds-core-react": "^0.33.0",
     "@equinor/eds-icons": "^0.19.3",
     "@equinor/eds-tokens": "^0.9.0",
@@ -20,7 +20,7 @@
     "yaml": "^2.3.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.4.0",
+    "@biomejs/biome": "1.4.1",
     "@testing-library/dom": "^9.2.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "14.4.3",

@@ -4,17 +4,18 @@ import {
   EBlueprint,
   EntityPickerDialog,
   ErrorResponse,
+  TEntityPickerReturn,
   TLinkReference,
   useDMSS,
 } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
 import { AxiosError } from 'axios/index'
-import TooltipButton from '../../common/TooltipButton'
-import { add, edit } from '@equinor/eds-icons'
+import GhostTextButton from './GhostTextButton'
 
 export const SelectReference = (props: {
   attributeType: string
   namePath: string
+  buttonText?: string
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
   const { setValue, watch } = useFormContext()
@@ -22,11 +23,11 @@ export const SelectReference = (props: {
   const { idReference } = useRegistryContext()
   const value = watch(props.namePath)
 
-  const onChange = (address: string) => {
+  const onChange = (v: TEntityPickerReturn) => {
     const reference: TLinkReference = {
       type: EBlueprint.REFERENCE,
       referenceType: 'link',
-      address: address,
+      address: v.address,
     }
     const options = {
       shouldValidate: true,
@@ -54,11 +55,12 @@ export const SelectReference = (props: {
 
   return (
     <>
-      <TooltipButton
-        title={`${value ? 'Edit' : 'Add'} and save`}
-        button-variant='ghost_icon'
-        button-onClick={() => setShowModal(true)}
-        icon={value ? edit : add}
+      <GhostTextButton
+        onClick={() => setShowModal(true)}
+        buttonText={'Change'}
+        title={'Select Entity'}
+        tooltip={'Change Entity'}
+        ariaLabel={'Select Entity'}
       />
       <EntityPickerDialog
         data-testid={`select-${props.namePath}`}
