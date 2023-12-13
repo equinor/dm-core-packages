@@ -220,6 +220,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                           }
                           onClick={() =>
                             internalConfig.functionality.expand &&
+                            item.isSaved &&
                             handleExpand(item)
                           }
                         >
