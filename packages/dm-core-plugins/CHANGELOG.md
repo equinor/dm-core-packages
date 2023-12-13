@@ -36,6 +36,14 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.31.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.31.1...dm-core-plugins-v1.31.2) (2023-12-13)
+
+
+### Bug Fixes
+
+* form crash ([695f2df](https://github.com/equinor/dm-core-packages/commit/695f2df9d71fcd3da8a04d14cd699450ab9df5a0))
+* re enable job controls on remove cancelation ([e15ba02](https://github.com/equinor/dm-core-packages/commit/e15ba026146fd49310d37778c087321089f5d24d))
+
 ## [1.31.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.30.0...dm-core-plugins-v1.31.0) (2023-12-13)
 
 
