@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect } from 'react'
 
 export function useClickOutside(
-  elementRef: MutableRefObject<HTMLElement>,
+  elementRef: MutableRefObject<HTMLDivElement | null>,
   callback: () => any
 ): any {
   useEffect(() => {

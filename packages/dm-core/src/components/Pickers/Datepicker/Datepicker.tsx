@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Icon, InputWrapper } from '@equinor/eds-core-react'
 import { Calendar } from './Calendar'
 import { Timefield } from './Timefield'
-import { useClickOutside } from '../../../hooks/useClickOutside'
 import { DateTime } from 'luxon'
 import { calendar } from '@equinor/eds-icons'
 import { DateSelection, zeroPad } from './calendarUtils'
@@ -33,17 +32,18 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     isDirty,
   } = props
   const [open, setOpen] = useState(false)
-  const datepickerRef = useRef<any | null>(null)
+  const [openTop, setOpenTop] = useState(false)
+  const datepickerRef = useRef<HTMLDivElement | null>(null)
   const [datetime, setDatetime] = useState(() => {
     return selectedDate ? DateTime.fromISO(selectedDate) : null
   })
-
   const [dateFieldValue, setDateFieldValue] = useState(
     datetime?.toFormat('dd/MM/yyyy') ?? 'dd/mm/yyyy'
   )
   const [timeFieldValue, setTimeFieldValue] = useState(
     datetime?.toFormat('HH:mm') ?? '--:--'
   )
+  const inputWrapperRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (!useMinutes && datetime) {
@@ -55,10 +55,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   useEffect(() => {
     onChange(datetime?.toISO() ?? '')
   }, [datetime])
-
-  useClickOutside(datepickerRef, () => {
-    setOpen(false)
-  })
 
   function handleDateInput(dateInput: string): void {
     if (dateInput) {
@@ -79,9 +75,12 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
 
   function handleDateSelection(selection: DateSelection): void {
     setDatetime(
-      datetime ? datetime?.set(selection) : DateTime.fromObject(selection)
+      datetime
+        ? datetime?.set(selection)
+        : DateTime.fromObject({ ...selection, hour: 12, minute: 0 })
     )
     setDateFieldValue(`${selection.day}/${selection.month}/${selection.year}`)
+    if (timeFieldValue === '--:--') setTimeFieldValue('12:00')
   }
 
   function formatDate(date: string): void {
@@ -121,6 +120,13 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     }
   }
 
+  function handleClickInput(): void {
+    const boundingRect = inputWrapperRef.current?.getBoundingClientRect()
+    const space = window.innerHeight - (boundingRect?.bottom ?? 0)
+    setOpenTop(space < 500)
+    if (!readonly) setOpen(!open)
+  }
+
   return (
     <div className='relative'>
       <InputWrapper
@@ -137,10 +143,11 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       >
         <div
           id={id}
+          ref={inputWrapperRef}
           className={`h-9 px-2 border-b border-black flex items-center gap-2 w-fit ${
             readonly ? '' : 'cursor-pointer'
           } ${isDirty ? 'bg-[#85babf5e]' : 'bg-[#f7f7f7]'}`}
-          onClick={() => (!readonly ? setOpen(!open) : null)}
+          onClick={() => handleClickInput()}
         >
           <input
             type='text'
@@ -170,7 +177,9 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       {open && (
         <div
           ref={datepickerRef}
-          className='absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1'
+          className={`absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1 ${
+            openTop ? 'bottom-14' : ''
+          }`}
           style={{ zIndex: 9999, width: '25rem' }}
         >
           <Calendar
