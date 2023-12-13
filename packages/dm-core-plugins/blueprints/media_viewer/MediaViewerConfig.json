@@ -1,0 +1,23 @@
+{
+  "name": "MediaViewerConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "width",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    },
+    {
+      "name": "height",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    }
+  ]
+}
