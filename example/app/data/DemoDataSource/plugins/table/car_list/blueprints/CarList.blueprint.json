@@ -20,6 +20,11 @@
       "type": "CORE:BlueprintAttribute",
       "dimensions": "*",
       "attributeType": "./Car"
+    },
+    {
+      "name": "_template_",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Car"
     }
   ]
 }

@@ -47,6 +47,7 @@ export type TTableConfig = {
     | TInlineRecipeViewConfig
     | TReferenceViewConfig
   variant: TTableVariant[]
+  template?: string
 }
 
 // Table components types

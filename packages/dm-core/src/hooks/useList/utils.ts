@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios'
-import { TLinkReference } from '../../types'
+import { TGenericObject, TLinkReference } from '../../types'
 import { TItem } from './types'
+import { DmssAPI } from '../../services'
 
 export function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
   const arrayCopy = [...arr]
@@ -43,4 +44,29 @@ export function createItemsFromDocument(
     isSaved: true,
   }))
   return items
+}
+
+function getParentId(idReference: string): string {
+  const lastDotIndex = idReference.lastIndexOf('.')
+  return idReference.substring(0, lastDotIndex)
+}
+
+// TODO: This is now very basic. It's expected that "template" is a direct attribute on the parent. No path/id-traversal is allowed.
+export async function getTemplate(
+  dmssAPI: DmssAPI,
+  idReference: string,
+  template: string
+): Promise<TGenericObject> {
+  const parentId = getParentId(idReference)
+
+  // This is a temporary thing to allow for "correct syntax" in recipes, without actually parsing it...
+  // The plan is to swap the meaning of "^" and "~(parent)", and allow for more complex traversing
+  if (template.substring(0, 2) === '~.') {
+    template = template.substring(2)
+  }
+  const templateEntity: AxiosResponse = await dmssAPI.documentGet({
+    address: `${parentId}.${template}`,
+    depth: 2,
+  })
+  return templateEntity.data as TGenericObject
 }

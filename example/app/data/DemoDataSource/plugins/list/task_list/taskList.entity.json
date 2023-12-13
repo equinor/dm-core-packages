@@ -2,6 +2,11 @@
   "_id": "taskList",
   "name": "TaskList",
   "type": "./blueprints/TaskList",
+  "_template_": {
+    "type": "CORE:Reference",
+    "address": "/$id_task_template",
+    "referenceType": "link"
+  },
   "task_list": [
     {
       "name": "Wash the car",

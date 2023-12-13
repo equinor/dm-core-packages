@@ -1,17 +1,19 @@
-import { ErrorResponse } from '../../services'
-import { useCallback, useEffect, useState } from 'react'
+import { DmssAPI, ErrorResponse } from '../../services'
+import { useEffect, useState } from 'react'
 import { useDMSS } from '../../context/DMSSContext'
 import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
-import { TAttribute, TLinkReference } from '../../types'
+import { TAttribute, TGenericObject, TLinkReference } from '../../types'
 import { EBlueprint } from '../../Enums'
 import { IUseListReturnType, TItem } from './types'
 import * as utils from './utils'
+import { getTemplate } from './utils'
 
 export type { TItem }
 
 export function useList<T extends object>(
   idReference: string,
-  resolveReferences: boolean = true
+  resolveReferences: boolean = true,
+  template: string | undefined = undefined
 ): IUseListReturnType<T> {
   const [attribute, setAttribute] = useState<TAttribute | null>(null)
   const [items, setItems] = useState<TItem<T>[]>([])
@@ -94,13 +96,20 @@ export function useList<T extends object>(
     setLoading(true)
     try {
       setDirtyState(true)
-      const instantiateResponse = await dmssAPI.instantiateEntity({
-        entity: {
-          type: attribute?.attributeType,
-        },
-      })
+      let newEntity: TGenericObject
+      if (template) {
+        newEntity = await getTemplate(dmssAPI, idReference, template)
+      } else {
+        const instantiateResponse = await dmssAPI.instantiateEntity({
+          entity: {
+            type: attribute?.attributeType,
+          },
+        })
+        newEntity = instantiateResponse.data
+      }
+
       const newItem: TItem<T> = utils.createNewItemObject(
-        instantiateResponse.data,
+        newEntity,
         insertAtIndex || items.length,
         saveOnAdd
       )
