@@ -30,6 +30,22 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.11.0 to ^1.11.1
 
+## [1.31.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.30.0...dm-core-plugins-v1.31.0) (2023-12-13)
+
+
+### Features
+
+* complex attribute, bug fix, and new icon for model uncontained ([2f207b2](https://github.com/equinor/dm-core-packages/commit/2f207b2c8050fe09e1428fd26e615157ba374513))
+* **form:** add datepicker widget ([#909](https://github.com/equinor/dm-core-packages/issues/909)) ([bd1ef12](https://github.com/equinor/dm-core-packages/commit/bd1ef125b86be4c39b9585e1fd402878e8f280db))
+* remove ugly header of primitive array ([8f2cd34](https://github.com/equinor/dm-core-packages/commit/8f2cd34a23fde33a514ad12bfe0dc96d7f9fcc42))
+
+
+### Bug Fixes
+
+* order and tests ([216e7e1](https://github.com/equinor/dm-core-packages/commit/216e7e1823eaff8c27efa3ec785859775326ab8c))
+* update nested form ([2a7b503](https://github.com/equinor/dm-core-packages/commit/2a7b503dbfc9ab17e7db9ee3bf5130e6174ac6b0))
+* yaml overflow ([#950](https://github.com/equinor/dm-core-packages/issues/950)) ([7518df0](https://github.com/equinor/dm-core-packages/commit/7518df06bceb46cdcf7518518070d64939045e8b))
+
 ## [1.30.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.29.0...dm-core-plugins-v1.30.0) (2023-12-12)
 
 
