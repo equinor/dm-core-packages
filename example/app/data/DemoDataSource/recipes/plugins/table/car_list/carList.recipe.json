@@ -12,6 +12,7 @@
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
+            "scope": "cars",
             "recipe": {
               "name": "cars",
               "type": "CORE:UiRecipe",
@@ -19,6 +20,7 @@
               "plugin": "@development-framework/dm-core-plugins/table",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+                "template": "~._template_",
                 "variant": [
                   {
                     "name": "view",
@@ -60,8 +62,7 @@
                   }
                 ]
               }
-            },
-            "scope": "cars"
+            }
           }
         }
       ]

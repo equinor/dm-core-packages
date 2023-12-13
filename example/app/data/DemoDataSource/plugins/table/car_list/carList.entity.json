@@ -1,7 +1,18 @@
 {
+  "type": "./blueprints/CarList",
   "_id": "carList",
   "name": "CarList",
-  "type": "./blueprints/CarList",
+  "_template_": {
+    "name": "unnamed",
+    "type": "./blueprints/Car",
+    "model": "none",
+    "color": "Black",
+    "engine": {
+      "type": "./blueprints/Engine",
+      "name": "TDI 1.6",
+      "hp": 120
+    }
+  },
   "cars": [
     {
       "name": "Volvo",

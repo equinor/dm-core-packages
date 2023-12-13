@@ -53,6 +53,7 @@
       "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "template": "_template_",
         "selectFromScope": "dmss://DemoDataSource/plugins/list/task_list",
         "hideInvalidTypes": true,
         "headers": ["name", "assigned"],

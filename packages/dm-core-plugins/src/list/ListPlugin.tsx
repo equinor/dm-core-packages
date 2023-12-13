@@ -37,6 +37,7 @@ type TListConfig = {
     open: boolean
   }
   resolveReferences: boolean
+  template?: string
 }
 const defaultConfig: TListConfig = {
   expanded: false,
@@ -77,7 +78,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     moveItem,
     reloadData,
     updateItem,
-  } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
+  } = useList<TGenericObject>(
+    idReference,
+    internalConfig.resolveReferences,
+    internalConfig.template
+  )
 
   const [paginationPage, setPaginationPage] = useState(0)
   const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(5)

@@ -66,6 +66,13 @@
       "description": "Which ViewConfig to render when open the list item.",
       "attributeType": "CORE:ViewConfig",
       "optional": true
+    },
+    {
+      "name": "template",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Attribute on parent (of same type as list) which should be used as template when instantiating new items. (e.g. 'template' will use the 'template' attribute on the parent.)",
+      "attributeType": "string",
+      "optional": true
     }
   ]
 }

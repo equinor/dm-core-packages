@@ -18,6 +18,12 @@
       "attributeType": "./Task",
       "dimensions": "*",
       "contained": true
+    },
+    {
+      "name": "_template_",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Task",
+      "contained": false
     }
   ]
 }
