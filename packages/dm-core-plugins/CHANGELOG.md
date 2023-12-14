@@ -36,6 +36,29 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.32.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.31.2...dm-core-plugins-v1.32.0) (2023-12-14)
+
+
+### Features
+
+* inline dim skalar ([344800a](https://github.com/equinor/dm-core-packages/commit/344800ab4f05e4d0ce5e3d4078d09d1702f4ca6f))
+* start of data grid ([04341ca](https://github.com/equinor/dm-core-packages/commit/04341cab489b2817074f5d20bf90fb8aee6ae091))
+
+
+### Bug Fixes
+
+* job label and close datepicker on click outside ([1911762](https://github.com/equinor/dm-core-packages/commit/191176236f9d9f221e3f70893fdeabc538b9f9fb))
+* must be saved before can expand ([d92bb70](https://github.com/equinor/dm-core-packages/commit/d92bb70dc10f2edf19392ecbbbbd8eb456547537))
+* show top level view for side bar ([e1b07bc](https://github.com/equinor/dm-core-packages/commit/e1b07bc65b779b602aa0b3be85ce0bd8baee944c))
+* things that should not be included ([79dc51b](https://github.com/equinor/dm-core-packages/commit/79dc51bad44013225026c2c9157f9a4c15ed6fd6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.26.0 to ^1.26.1
+
 ## [1.31.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.31.1...dm-core-plugins-v1.31.2) (2023-12-13)
 
 

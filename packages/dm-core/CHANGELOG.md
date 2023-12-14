@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.26.0...dm-core-v1.26.1) (2023-12-14)
+
+
+### Bug Fixes
+
+* job label and close datepicker on click outside ([1911762](https://github.com/equinor/dm-core-packages/commit/191176236f9d9f221e3f70893fdeabc538b9f9fb))
+
 ## [1.26.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.25.0...dm-core-v1.26.0) (2023-12-13)
 
 
