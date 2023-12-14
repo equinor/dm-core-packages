@@ -1,36 +1,14 @@
 import React from 'react'
 import { TWidget } from '../types'
-import { StyledEdsTextWidget } from '../components/StyledEdsTextWidget'
+import { StyledTextField } from '../components/StyledInputFields'
 
 const TextWidget = (props: TWidget) => {
-  const { label, onChange, isDirty } = props
+  const { onChange } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(event.target.value === '' ? null : event.target.value)
   }
 
-  return (
-    <StyledEdsTextWidget
-      id={props.id}
-      label={label}
-      readOnly={props.readOnly}
-      disabled={props.readOnly}
-      defaultValue={props.readOnly && props.value === '' ? '-' : props.value}
-      inputRef={props.inputRef}
-      variant={props.variant}
-      helperText={props.helperText}
-      onChange={onChangeHandler}
-      type='string'
-      data-testid={`form-text-widget-${props.id}`}
-      style={
-        isDirty && props.variant !== 'error'
-          ? {
-              // @ts-ignore
-              '--eds-input-background': '#85babf5e',
-            }
-          : {}
-      }
-    />
-  )
+  return <StyledTextField {...props} onChange={onChangeHandler} />
 }
 
 export default TextWidget

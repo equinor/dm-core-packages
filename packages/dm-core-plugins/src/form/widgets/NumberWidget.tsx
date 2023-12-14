@@ -1,37 +1,13 @@
 import React from 'react'
-import { NumberFieldWithoutArrows } from '../components/NumberFieldWithoutArrows'
 import { TWidget } from '../types'
-import { Typography } from '@equinor/eds-core-react'
-import { StyledEdsTextWidget } from '../components/StyledEdsTextWidget'
+import { StyledNumberField } from '../components/StyledInputFields'
 
 const NumberWidget = (props: TWidget) => {
-  const { label, onChange, isDirty } = props
+  const { onChange } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
     onChange?.(Number(event.target.value))
 
-  return (
-    <StyledEdsTextWidget
-      id={props.id}
-      readOnly={props.readOnly}
-      disabled={props.readOnly}
-      label={label}
-      defaultValue={props.value}
-      inputRef={props.inputRef}
-      variant={props.variant}
-      helperText={props.helperText}
-      onChange={onChangeHandler}
-      type={'number'}
-      data-testid={`form-number-widget-${label}`}
-      style={
-        isDirty && props.variant !== 'error'
-          ? {
-              // @ts-ignore
-              '--eds-input-background': '#85babf5e',
-            }
-          : {}
-      }
-    />
-  )
+  return <StyledNumberField {...props} onChange={onChangeHandler} />
 }
 
 export default NumberWidget
