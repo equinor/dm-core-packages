@@ -12,7 +12,7 @@ test('Dimensional scalar', async ({ page }) => {
 
   await test.step('Open plugin', async () => {
     await navigate()
-    await expect(page.getByText('Height over sea (config)')).toBeVisible()
+    await expect(page.getByText('significantWaveHeight (config)')).toBeVisible()
     await expect(page.getByText('Minimum Hs')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible()
   })
@@ -72,7 +72,7 @@ test('Dimensional scalar', async ({ page }) => {
     await page.getByRole('button', { name: 'waveForm' }).click()
     await expect(
       page.getByTestId('significantWaveHeight').getByRole('paragraph')
-    ).toContainText('Height over sea (config)')
+    ).toContainText('significantWaveHeight (config)')
     await expect(
       page.getByText('Should not show as config overrides')
     ).not.toBeVisible()

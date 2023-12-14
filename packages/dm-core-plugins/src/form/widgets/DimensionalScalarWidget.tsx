@@ -8,12 +8,19 @@ import {
 } from '@equinor/eds-core-react'
 import { NumberFieldWithoutArrows } from '../components/NumberFieldWithoutArrows'
 
+const parseWidthString = (widthString: string) => {
+  const width = parseFloat(widthString)
+  if (!width || width < 0) return
+  return widthString
+}
+
 const DimensionalScalarWidget = ({
   value: entity,
   readOnly,
   onChange,
   config: widgetConfig,
   isDirty,
+  label: widgetLabel,
 }: TWidget) => {
   const [error, setError] = useState('')
 
@@ -24,60 +31,88 @@ const DimensionalScalarWidget = ({
 
   const InputField = isNumber ? NumberFieldWithoutArrows : TextField
 
+  const widgetWidth = parseWidthString(widgetConfig?.width) ?? '100%'
+  const inputBoxWidth =
+    parseWidthString(widgetConfig?.inputBoxWidth) ??
+    (widgetConfig?.inline ? '50%' : '100%')
+
+  const label = widgetConfig?.label || entity?.label || widgetLabel
+
   return (
     <div
-      className={`border border-equinor-green ${
+      className={`overflow-hidden ${
         widgetConfig?.inline ? 'flex justify-between' : ''
       }
-    ${widgetConfig?.width ? `w-[${widgetConfig?.width}]` : ''}
     `}
+      style={{ width: widgetWidth }}
     >
-      <Tooltip title={widgetConfig?.description || entity?.description}>
-        <Typography
-          style={{
-            fontWeight: 'bold',
-            paddingLeft: '8px',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {widgetConfig?.label || entity?.label}
-        </Typography>
-      </Tooltip>
       <div
-        className={
-          widgetConfig?.inputBoxWidth
-            ? `w-[${widgetConfig?.inputBoxWidth}}]`
-            : ''
+        style={
+          widgetConfig?.inline
+            ? {
+                border: 'solid #6c6c6c 1px',
+                borderRadius: '2px 0 0 2px',
+                display: 'flex',
+                alignItems: 'center',
+                background: '#dedede',
+                paddingInline: '4px',
+                width: `calc(${widgetWidth} - ${inputBoxWidth})`,
+                height: widgetConfig?.compact ? '24px' : '36px',
+              }
+            : {}
         }
       >
-        <InputField
-          unit={widgetConfig?.unit || entity?.unit}
-          type={isNumber ? 'number' : undefined}
-          meta={widgetConfig?.meta || entity?.meta}
-          helperText={error}
-          variant={error ? 'error' : undefined}
-          style={
-            isDirty && !error
-              ? // @ts-ignore
-                { '--eds-input-background': '#85babf5e' }
-              : {}
-          }
-          disabled={readOnly}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setError(e.target.value === '' ? 'Value is required' : '')
-            let targetValue: string | number = e.target.value
-            if (isNumber)
-              targetValue =
-                e.target.value === '' ? 0 : parseFloat(e.target.value)
+        <Tooltip title={widgetConfig?.description || entity?.description}>
+          <Typography
+            bold={true}
+            style={{
+              overflow: 'hidden',
+              paddingLeft: '4px',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {label}
+          </Typography>
+        </Tooltip>
+      </div>
+      <div
+        style={{
+          width: inputBoxWidth,
+        }}
+      >
+        <EdsProvider
+          density={widgetConfig?.compact ? 'compact' : 'comfortable'}
+        >
+          <InputField
+            unit={widgetConfig?.unit || entity?.unit}
+            type={isNumber ? 'number' : undefined}
+            meta={widgetConfig?.meta || entity?.meta}
+            helperText={error}
+            variant={error ? 'error' : undefined}
+            style={
+              isDirty && !error
+                ? // @ts-ignore
+                  { '--eds-input-background': '#85babf5e' }
+                : {}
+            }
+            disabled={readOnly}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setError(e.target.value === '' ? 'Value is required' : '')
+              let targetValue: string | number = e.target.value
+              if (isNumber)
+                targetValue =
+                  e.target.value === '' ? 0 : parseFloat(e.target.value)
 
-            const changed = isPrimitive
-              ? targetValue
-              : { ...entity, value: targetValue }
+              const changed = isPrimitive
+                ? targetValue
+                : { ...entity, value: targetValue }
 
-            onChange(changed)
-          }}
-          defaultValue={isPrimitive ? entity : entity?.value ?? ''}
-        />
+              onChange(changed)
+            }}
+            defaultValue={isPrimitive ? entity : entity?.value ?? ''}
+          />
+        </EdsProvider>
       </div>
     </div>
   )
