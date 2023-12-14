@@ -1,6 +1,6 @@
 {
   "type": "CORE:RecipeLink",
-  "_blueprintPath_": "/plugins/list/task_list/blueprints/Task",
+  "_blueprintPath_": "/plugins/list/templates/blueprints/Task",
   "initialUiRecipe": {
     "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
@@ -56,11 +56,16 @@
         "templates": [
           {
             "type": "PLUGINS:dm-core-plugins/table/Template",
-            "path": "~._template_",
+            "path": "~._templates_[0]",
             "label": "Template1"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/table/Template",
+            "path": "~._templates_[1]",
+            "label": "Template2"
           }
         ],
-        "selectFromScope": "dmss://DemoDataSource/plugins/list/task_list",
+        "selectFromScope": "dmss://DemoDataSource/plugins/list/templates",
         "hideInvalidTypes": true,
         "headers": ["name", "assigned"],
         "saveExpanded": false,

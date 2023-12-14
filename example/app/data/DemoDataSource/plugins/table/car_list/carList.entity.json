@@ -2,17 +2,41 @@
   "type": "./blueprints/CarList",
   "_id": "carList",
   "name": "CarList",
-  "_template_": {
-    "name": "unnamed",
-    "type": "./blueprints/Car",
-    "model": "none",
-    "color": "Black",
-    "engine": {
-      "type": "./blueprints/Engine",
-      "name": "TDI 1.6",
-      "hp": 120
+  "_templates_": [
+    {
+      "name": "a",
+      "type": "./blueprints/Car",
+      "model": "none",
+      "color": "Black",
+      "engine": {
+        "type": "./blueprints/Engine",
+        "name": "TDI 1.6",
+        "hp": 120
+      }
+    },
+    {
+      "name": "b",
+      "type": "./blueprints/Car",
+      "model": "none",
+      "color": "Black",
+      "engine": {
+        "type": "./blueprints/Engine",
+        "name": "TDI 1.6",
+        "hp": 122
+      }
+    },
+    {
+      "name": "c",
+      "type": "./blueprints/Car",
+      "model": "none",
+      "color": "Black",
+      "engine": {
+        "type": "./blueprints/Engine",
+        "name": "TDI 1.6",
+        "hp": 123
+      }
     }
-  },
+  ],
   "cars": [
     {
       "name": "Volvo",

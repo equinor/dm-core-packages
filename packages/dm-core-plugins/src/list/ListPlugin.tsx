@@ -9,12 +9,13 @@ import {
   Stack,
   TGenericObject,
   TItem,
-  TValidEntity,
   TViewConfig,
   useList,
   ViewCreator,
   DeleteSoftButton,
   TEntityPickerReturn,
+  TemplateMenu,
+  TTemplate,
 } from '@development-framework/dm-core'
 import { toast } from 'react-toastify'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
@@ -37,7 +38,7 @@ type TListConfig = {
     open: boolean
   }
   resolveReferences: boolean
-  template?: string
+  templates?: TTemplate[]
 }
 const defaultConfig: TListConfig = {
   expanded: false,
@@ -78,17 +79,13 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     moveItem,
     reloadData,
     updateItem,
-  } = useList<TGenericObject>(
-    idReference,
-    internalConfig.resolveReferences,
-    internalConfig.template
-  )
+  } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
   const [paginationPage, setPaginationPage] = useState(0)
   const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(5)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
-
+  const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
   const paginatedRows = useMemo(
     () =>
       items &&
@@ -325,17 +322,33 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           />
         )}
         <Stack direction='row' spacing={1}>
-          {internalConfig.functionality.add && (
-            <AppendButton
-              onClick={() => {
-                if (attribute && attribute.contained) {
-                  addItem(false)
-                } else {
-                  setShowModal(true)
-                }
-              }}
-            />
-          )}
+          {internalConfig.functionality.add &&
+            (!config.templates || config.templates.length < 2) && (
+              <AppendButton
+                onClick={() => {
+                  if (attribute && attribute.contained) {
+                    addItem(false)
+                  } else {
+                    setShowModal(true)
+                  }
+                }}
+              />
+            )}
+          {internalConfig.functionality.add &&
+            config.templates &&
+            config.templates.length > 1 && (
+              <>
+                <AppendButton onClick={() => setTemplateMenuIsOpen(true)} />
+                <TemplateMenu
+                  templates={config.templates}
+                  onSelect={(template: TTemplate) =>
+                    addItem(false, undefined, template?.path)
+                  }
+                  onClose={() => setTemplateMenuIsOpen(false)}
+                  isOpen={isTemplateMenuOpen}
+                />
+              </>
+            )}
           <FormButton
             onClick={reloadData}
             disabled={!dirtyState}

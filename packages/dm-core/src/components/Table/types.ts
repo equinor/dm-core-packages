@@ -4,6 +4,7 @@ import {
   TInlineRecipeViewConfig,
   TReferenceViewConfig,
   TSortableItem,
+  TTemplate,
   TViewConfig,
 } from '../../'
 import { TItem } from '../../hooks/useList/types'
@@ -47,13 +48,17 @@ export type TTableConfig = {
     | TInlineRecipeViewConfig
     | TReferenceViewConfig
   variant: TTableVariant[]
-  template?: string
+  templates?: TTemplate[]
 }
 
 // Table components types
 
 export type TableProps = {
-  addItem: (saveOnAdd: boolean, insertAtIndex?: number) => void
+  addItem: (
+    saveOnAdd: boolean,
+    insertAtIndex?: number,
+    template?: string
+  ) => void
   config: TTableConfig
   dirtyState: boolean
   items: TItem<TGenericObject>[]
@@ -82,7 +87,11 @@ export type TableHeadProps = {
 }
 
 export type TableRowProps = {
-  addItem: (saveOnAdd: boolean, insertAtIndex?: number) => void
+  addItem: (
+    saveOnAdd: boolean,
+    insertAtIndex?: number,
+    template?: string
+  ) => void
   config: TTableConfig
   removeItem: (
     itemToDelete: TItem<TGenericObject>,

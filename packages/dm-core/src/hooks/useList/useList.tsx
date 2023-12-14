@@ -12,8 +12,7 @@ export type { TItem }
 
 export function useList<T extends object>(
   idReference: string,
-  resolveReferences: boolean = true,
-  template: string | undefined = undefined
+  resolveReferences: boolean = true
 ): IUseListReturnType<T> {
   const [attribute, setAttribute] = useState<TAttribute | null>(null)
   const [items, setItems] = useState<TItem<T>[]>([])
@@ -86,7 +85,11 @@ export function useList<T extends object>(
       .finally(() => setLoading(false))
   }, [attribute, refresh])
 
-  async function addItem(saveOnAdd: boolean = true, insertAtIndex?: number) {
+  async function addItem(
+    saveOnAdd: boolean = true,
+    insertAtIndex?: number,
+    template?: string
+  ) {
     if (!attribute) throw new Error('Missing attribute')
     if (!attribute.contained) {
       throw new Error(

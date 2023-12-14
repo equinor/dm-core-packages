@@ -23,7 +23,7 @@ export const TablePlugin = (props: IUIPlugin) => {
     addItem,
     removeItem,
     save,
-  } = useList<TGenericObject>(idReference, true, config.template)
+  } = useList<TGenericObject>(idReference, true)
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 

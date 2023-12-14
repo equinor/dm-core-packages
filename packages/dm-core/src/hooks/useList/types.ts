@@ -14,7 +14,11 @@ export interface IUseListReturnType<T> {
   setItems: React.Dispatch<React.SetStateAction<TItem<T>[]>>
   attribute: TAttribute | null
   isLoading: boolean
-  addItem: (saveOnAdd?: boolean, insertAtIndex?: number) => Promise<void>
+  addItem: (
+    saveOnAdd?: boolean,
+    insertAtIndex?: number,
+    template?: string
+  ) => Promise<void>
   updateItem: (
     itemToUpdate: TItem<T>,
     newDocument: T,
