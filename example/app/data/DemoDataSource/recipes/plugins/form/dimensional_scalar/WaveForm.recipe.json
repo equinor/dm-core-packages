@@ -17,7 +17,8 @@
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
             "description": "config tooltip",
-            "width": "100px",
+            "width": "400px",
+            "inline": true,
             "label": "Height over sea (config)"
           }
         },
@@ -27,7 +28,9 @@
           "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
-            "width": "100px"
+            "width": "500px",
+            "inline": true,
+            "inputBoxWidth": "150px"
           }
         },
         {
@@ -36,7 +39,9 @@
           "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
-            "width": "100px"
+            "width": "500px",
+            "inline": true,
+            "inputBoxWidth": "200px"
           }
         },
         {
@@ -45,7 +50,7 @@
           "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
-            "width": "100px"
+            "inline": true
           }
         },
         {

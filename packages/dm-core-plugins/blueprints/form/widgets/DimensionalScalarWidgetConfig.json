@@ -7,7 +7,8 @@
       "name": "width",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
-      "optional": true
+      "optional": true,
+      "desctiption": "Width of the complete widget"
     },
     {
       "name": "label",
@@ -32,6 +33,22 @@
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "inputBoxWidth",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": "300px",
+      "desctiption": "Width of the input box field."
+    },
+    {
+      "name": "inline",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true,
+      "desctiption": "If true, it shows the label of the left side of the input box instead of on the top."
     }
   ]
 }

@@ -111,3 +111,13 @@ export type TWidget = {
 export type TWidgets = {
   [key: string]: (props: TWidget) => React.ReactElement
 }
+
+export type TDimensionalScalarWidgetConfig = {
+  label?: string
+  width?: string
+  inputBoxWidth?: string
+  meta?: string
+  inline?: boolean
+  helperText?: string
+  unit?: string
+}
