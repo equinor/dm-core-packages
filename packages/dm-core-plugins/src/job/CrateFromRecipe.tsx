@@ -13,7 +13,7 @@ import {
   useJob,
 } from '@development-framework/dm-core'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { Button, Chip, LinearProgress } from '@equinor/eds-core-react'
+import { Button, Chip, Label, LinearProgress } from '@equinor/eds-core-react'
 import { JobControlButton } from './JobControlButton'
 import styled from 'styled-components'
 import { AxiosError } from 'axios'
@@ -158,6 +158,7 @@ export const CrateFromRecipe = (
           }
         />
       )}
+      {config.label && <Label label={config.label} />}
       <JobButtonWrapper>
         <JobControlButton
           jobStatus={status}

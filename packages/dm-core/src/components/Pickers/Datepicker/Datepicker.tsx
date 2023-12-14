@@ -56,6 +56,23 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     onChange(datetime?.toISO() ?? '')
   }, [datetime])
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        datepickerRef.current &&
+        !datepickerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [datepickerRef])
+
   function handleDateInput(dateInput: string): void {
     if (dateInput) {
       const { day, month, year, max } = extractDateComponents(dateInput)
