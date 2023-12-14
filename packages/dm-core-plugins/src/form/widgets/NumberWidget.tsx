@@ -2,6 +2,7 @@ import React from 'react'
 import { NumberFieldWithoutArrows } from '../components/NumberFieldWithoutArrows'
 import { TWidget } from '../types'
 import { Typography } from '@equinor/eds-core-react'
+import { StyledEdsTextWidget } from '../components/StyledEdsTextWidget'
 
 const NumberWidget = (props: TWidget) => {
   const { label, onChange, isDirty } = props
@@ -9,9 +10,10 @@ const NumberWidget = (props: TWidget) => {
     onChange?.(Number(event.target.value))
 
   return (
-    <NumberFieldWithoutArrows
+    <StyledEdsTextWidget
       id={props.id}
       readOnly={props.readOnly}
+      disabled={props.readOnly}
       label={label}
       defaultValue={props.value}
       inputRef={props.inputRef}

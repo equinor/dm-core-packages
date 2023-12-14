@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { TextField } from '@equinor/eds-core-react'
+import { StyledEdsTextWidget } from './StyledEdsTextWidget'
 
-export const NumberFieldWithoutArrows = styled(TextField)`
+export const NumberFieldWithoutArrows = styled(StyledEdsTextWidget)`
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {

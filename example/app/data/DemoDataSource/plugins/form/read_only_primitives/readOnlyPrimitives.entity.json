@@ -8,5 +8,8 @@
   "numberOptional": 3.14,
   "integer": 30,
   "checkboxOptional": false,
-  "checkboxRequired": true
+  "checkboxRequired": true,
+  "singleString": "option2",
+  "manyStrings": ["option3"],
+  "date": "2023-10-17T13:30"
 }
