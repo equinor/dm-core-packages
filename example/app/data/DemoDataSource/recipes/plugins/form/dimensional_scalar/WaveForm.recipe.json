@@ -17,9 +17,10 @@
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
             "description": "config tooltip",
-            "width": "400px",
+            "label": "significantWaveHeight (config)",
             "inline": true,
-            "label": "Height over sea (config)"
+            "compact": true,
+            "width": "500px"
           }
         },
         {
@@ -28,9 +29,9 @@
           "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
-            "width": "500px",
             "inline": true,
-            "inputBoxWidth": "150px"
+            "compact": true,
+            "width": "500px"
           }
         },
         {
@@ -39,9 +40,9 @@
           "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
-            "width": "500px",
             "inline": true,
-            "inputBoxWidth": "200px"
+            "compact": true,
+            "width": "500px"
           }
         },
         {
@@ -50,7 +51,8 @@
           "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
-            "inline": true
+            "inline": true,
+            "width": "500px"
           }
         },
         {
@@ -60,8 +62,8 @@
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
             "description": "This is a primitive.",
-            "width": "150px",
             "label": "Primitive",
+            "width": "500px",
             "unit": "m/s"
           }
         },
@@ -72,8 +74,10 @@
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
             "description": "This is a primitive string.",
-            "width": "150px",
-            "label": "Primitive String",
+            "inline": true,
+            "inputBoxWidth": "50%",
+            "width": "500px",
+            "label": "Primitive String notinlines long long long label",
             "unit": "cm"
           }
         }
@@ -81,10 +85,10 @@
       "fields": [
         "significantWaveHeight",
         "minimumWaveHeight",
-        "maximumWaveHeight",
         "medianWaveHeight",
-        "number",
-        "string"
+        "maximumWaveHeight",
+        "string",
+        "number"
       ]
     }
   }
