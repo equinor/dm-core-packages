@@ -6,7 +6,10 @@ import {
   Tooltip,
   Typography,
 } from '@equinor/eds-core-react'
-import { NumberFieldWithoutArrows } from '../components/NumberFieldWithoutArrows'
+import {
+  StyledNumberField,
+  StyledTextField,
+} from '../components/StyledInputFields'
 
 const parseWidthString = (widthString: string) => {
   const width = parseFloat(widthString)
@@ -14,14 +17,8 @@ const parseWidthString = (widthString: string) => {
   return widthString
 }
 
-const DimensionalScalarWidget = ({
-  value: entity,
-  readOnly,
-  onChange,
-  config: widgetConfig,
-  isDirty,
-  label: widgetLabel,
-}: TWidget) => {
+const DimensionalScalarWidget = (props: TWidget) => {
+  const { value: entity, config: widgetConfig, label: widgetLabel } = props
   const [error, setError] = useState('')
 
   const isPrimitive = typeof entity === 'number' || typeof entity === 'string'
@@ -29,7 +26,20 @@ const DimensionalScalarWidget = ({
     ? typeof entity === 'number'
     : typeof entity?.value === 'number'
 
-  const InputField = isNumber ? NumberFieldWithoutArrows : TextField
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setError(e.target.value === '' ? 'Value is required' : '')
+    let targetValue: string | number = e.target.value
+    if (isNumber)
+      targetValue = e.target.value === '' ? 0 : parseFloat(e.target.value)
+
+    const changed = isPrimitive
+      ? targetValue
+      : { ...entity, value: targetValue }
+
+    props.onChange(changed)
+  }
+
+  const InputField = isNumber ? StyledNumberField : StyledTextField
 
   const widgetWidth = parseWidthString(widgetConfig?.width) ?? '100%'
   const inputBoxWidth =
@@ -88,28 +98,10 @@ const DimensionalScalarWidget = ({
             unit={widgetConfig?.unit || entity?.unit}
             type={isNumber ? 'number' : undefined}
             meta={widgetConfig?.meta || entity?.meta}
+            isDirty={props.isDirty}
             helperText={error}
             variant={error ? 'error' : undefined}
-            style={
-              isDirty && !error
-                ? // @ts-ignore
-                  { '--eds-input-background': '#85babf5e' }
-                : {}
-            }
-            disabled={readOnly}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setError(e.target.value === '' ? 'Value is required' : '')
-              let targetValue: string | number = e.target.value
-              if (isNumber)
-                targetValue =
-                  e.target.value === '' ? 0 : parseFloat(e.target.value)
-
-              const changed = isPrimitive
-                ? targetValue
-                : { ...entity, value: targetValue }
-
-              onChange(changed)
-            }}
+            onChange={onChangeHandler}
             defaultValue={isPrimitive ? entity : entity?.value ?? ''}
           />
         </EdsProvider>

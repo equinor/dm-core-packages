@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { TextField, Typography } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
+import { StyledTextField } from '../components/StyledInputFields'
 
 const TextareaWidget = (props: TWidget) => {
   const { label, onChange } = props
@@ -13,7 +13,7 @@ const TextareaWidget = (props: TWidget) => {
   }
 
   return (
-    <TextField
+    <StyledTextField
       {...props}
       multiline={true}
       rows={5}
