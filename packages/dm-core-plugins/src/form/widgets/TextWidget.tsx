@@ -1,6 +1,6 @@
 import React from 'react'
-import { TextField, Typography } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
+import { StyledEdsTextWidget } from '../components/StyledEdsTextWidget'
 
 const TextWidget = (props: TWidget) => {
   const { label, onChange, isDirty } = props
@@ -9,10 +9,11 @@ const TextWidget = (props: TWidget) => {
   }
 
   return (
-    <TextField
+    <StyledEdsTextWidget
       id={props.id}
       label={label}
       readOnly={props.readOnly}
+      disabled={props.readOnly}
       defaultValue={props.readOnly && props.value === '' ? '-' : props.value}
       inputRef={props.inputRef}
       variant={props.variant}

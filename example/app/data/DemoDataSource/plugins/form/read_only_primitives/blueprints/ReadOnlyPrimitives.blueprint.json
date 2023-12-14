@@ -60,6 +60,29 @@
       "attributeType": "boolean",
       "label": "A required checbox (e.g. for confirmation purposes)",
       "optional": false
+    },
+    {
+      "name": "singleString",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Select a single string option",
+      "enumType": "./StringOptions",
+      "optional": true
+    },
+    {
+      "name": "manyStrings",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Select one or many string options",
+      "enumType": "./StringOptions",
+      "optional": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "date",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
     }
   ]
 }
