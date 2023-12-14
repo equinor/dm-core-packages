@@ -6,6 +6,7 @@ import {
   ConditionalWrapper,
   SortableItem,
   TGenericObject,
+  TTemplate,
 } from '../../'
 import { Button, Table as EDSTable, Progress } from '@equinor/eds-core-react'
 import * as utils from './utils'
@@ -21,6 +22,7 @@ import { TableRow } from './TableRow/TableRow'
 import { SortableContext } from '../SortableList/SortableContext'
 import { TItem } from '../../hooks/useList/types'
 import { AddRowButton } from '../AddRowButton'
+import { TemplateMenu } from '../TemplateMenu'
 
 export type { TTableConfig }
 
@@ -46,6 +48,7 @@ export function Table(props: TableProps) {
   const [sortColumn, setSortColumn] = useState<string | undefined>(undefined)
   const [sortDirection, setSortDirection] =
     useState<TTableSortDirection>('ascending')
+  const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
 
   const functionalityConfig =
     config.variant.length === 1
@@ -149,12 +152,40 @@ export function Table(props: TableProps) {
             </EDSTable.Body>
           </EDSTable>
         </SortableContext>
-        {functionalityConfig.add && (
-          <AddRowButton
-            onClick={() => addItem(tableVariant === TableVariantNameEnum.View)}
-            ariaLabel={'Add new row'}
-          />
-        )}
+        {functionalityConfig.add &&
+          (!config.templates || config.templates.length < 2) && (
+            <AddRowButton
+              onClick={() => {
+                const defaultTemplate = config?.templates
+                  ? config.templates[0]
+                  : undefined
+                addItem(
+                  tableVariant === TableVariantNameEnum.View,
+                  undefined,
+                  defaultTemplate?.path
+                )
+              }}
+              ariaLabel={'Add new row'}
+            />
+          )}
+        {functionalityConfig.add &&
+          config.templates &&
+          config.templates.length > 1 && (
+            <>
+              <AddRowButton
+                ariaLabel={'Add new row'}
+                onClick={() => setTemplateMenuIsOpen(true)}
+              />
+              <TemplateMenu
+                templates={config.templates}
+                onSelect={(template: TTemplate) =>
+                  addItem(false, undefined, template?.path)
+                }
+                onClose={() => setTemplateMenuIsOpen(false)}
+                isOpen={isTemplateMenuOpen}
+              />
+            </>
+          )}
       </Stack>
       <Stack direction='row' spacing={1} justifyContent='space-between'>
         <Pagination

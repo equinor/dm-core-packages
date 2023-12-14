@@ -1,6 +1,13 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { EdsProvider, Icon, Table } from '@equinor/eds-core-react'
-import { TGenericObject, TItem, ViewCreator } from '../../../'
+import {
+  AddRowButton,
+  TemplateMenu,
+  TGenericObject,
+  TItem,
+  TTemplate,
+  ViewCreator,
+} from '../../../'
 import { TableRowProps, TTableColumnConfig } from '../types'
 import * as utils from '../utils'
 import * as Styled from './styles'
@@ -27,6 +34,8 @@ export function TableRow(props: TableRowProps) {
   } = props
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
+  const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
+  const menuAnchorEl = useRef<HTMLButtonElement | null>(null)
   const columnsLength: number = utils.getColumnsLength(
     config,
     functionalityConfig,
@@ -70,13 +79,41 @@ export function TableRow(props: TableRowProps) {
             style={{ padding: 0, margin: 0, height: 0, borderBottom: 'none' }}
             colSpan={columnsLength}
           >
-            <Styled.InsertRowButton
-              title='Add new row'
-              onClick={() => addItem(!editMode, index)}
-            >
-              <span className='resting_state_indicator' />
-              <Icon data={add} color='white' />
-            </Styled.InsertRowButton>
+            {functionalityConfig.add &&
+              (!config.templates || config.templates.length < 2) && (
+                <Styled.InsertRowButton
+                  title='Add new row'
+                  onClick={() => {
+                    const defaultTemplate = config?.templates
+                      ? config.templates[0]
+                      : undefined
+                    addItem(!editMode, index, defaultTemplate?.path)
+                  }}
+                >
+                  <span className='resting_state_indicator' />
+                  <Icon data={add} color='white' />
+                </Styled.InsertRowButton>
+              )}
+            {functionalityConfig.add &&
+              config.templates &&
+              config.templates.length > 1 && (
+                <>
+                  <Styled.InsertRowButton
+                    ref={menuAnchorEl}
+                    title={'Add new row'}
+                    onClick={() => setTemplateMenuIsOpen(true)}
+                  />
+                  <TemplateMenu
+                    anchorRef={menuAnchorEl}
+                    templates={config.templates}
+                    onSelect={(template: TTemplate) =>
+                      addItem(!editMode, index, template?.path)
+                    }
+                    onClose={() => setTemplateMenuIsOpen(false)}
+                    isOpen={isTemplateMenuOpen}
+                  />
+                </>
+              )}
           </Table.Cell>
         </Table.Row>
       )}

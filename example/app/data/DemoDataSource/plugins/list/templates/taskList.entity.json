@@ -1,0 +1,40 @@
+{
+  "_id": "templates",
+  "name": "Templates",
+  "type": "./blueprints/TaskList",
+  "_templates_": [
+    {
+      "type": "CORE:Reference",
+      "address": "/$id_templates_template_1",
+      "referenceType": "link"
+    },
+    {
+      "type": "CORE:Reference",
+      "address": "/$id_templates_template_2",
+      "referenceType": "link"
+    }
+  ],
+  "task_list": [
+    {
+      "name": "Wash the car",
+      "type": "./blueprints/Task",
+      "description": "Car needs a thorough wash inside and outside.",
+      "assigned": "Mark Johnson",
+      "complete": false
+    },
+    {
+      "name": "Mow the lawn",
+      "type": "./blueprints/Task",
+      "description": "",
+      "assigned": "",
+      "complete": false
+    },
+    {
+      "name": "Paint the living room",
+      "type": "./blueprints/Task",
+      "description": "",
+      "assigned": "",
+      "complete": false
+    }
+  ]
+}

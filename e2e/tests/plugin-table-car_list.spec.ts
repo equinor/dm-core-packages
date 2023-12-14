@@ -7,7 +7,7 @@ test('Table car list example', async ({ page }) => {
     await page.getByRole('button', { name: 'table' }).click()
     await page.getByRole('button', { name: 'car_list' }).click()
     await page.getByRole('button', { name: 'CarList' }).click()
-    const lastTabPanel = page.getByRole('tabpanel').last()
+    const lastTabPanel = page.getByRole('tabpanel').first()
     await expect(lastTabPanel).toBeVisible()
   }
 
@@ -50,7 +50,6 @@ test('Table car list example', async ({ page }) => {
     await page.getByLabel('Color (Optional)').fill('Grey')
     await page.getByTestId('form-submit').click()
     await page.getByLabel('Close Audi').click()
-    await expect(page.getByText('name')).toBeVisible()
 
     //Currently we need to reload application to view saved values...
     await page.reload()

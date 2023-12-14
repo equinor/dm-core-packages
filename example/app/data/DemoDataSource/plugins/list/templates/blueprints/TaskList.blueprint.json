@@ -1,14 +1,11 @@
 {
-  "name": "CarList",
-  "type": "CORE:Blueprint",
-  "description": "",
+  "name": "TaskList",
+  "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
       "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "attributeType": "string",
-      "default": "",
-      "optional": false
+      "attributeType": "string"
     },
     {
       "name": "name",
@@ -16,15 +13,17 @@
       "attributeType": "string"
     },
     {
-      "name": "cars",
+      "name": "task_list",
       "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Task",
       "dimensions": "*",
-      "attributeType": "./Car"
+      "contained": true
     },
     {
       "name": "_templates_",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "./Car",
+      "attributeType": "./Task",
+      "contained": false,
       "dimensions": "*"
     }
   ]
