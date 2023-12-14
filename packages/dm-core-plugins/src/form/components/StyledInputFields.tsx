@@ -6,12 +6,11 @@ const StyledInputField = styled(TextField)`
   & :disabled {
     background: #f7f7f7;
     color: black;
-  }
-  
-  input {
     border-radius: 8px;
   }
-
+  div {
+    border-radius: 4px 4px 0 0;
+  }
   span {
     color: #6f6f6f;
   }
