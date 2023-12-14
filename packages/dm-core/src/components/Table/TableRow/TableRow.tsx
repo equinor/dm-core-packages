@@ -41,9 +41,9 @@ export function TableRow(props: TableRowProps) {
     props.onOpen(
       crypto.randomUUID(),
       {
-        label:
-          item?.data?.name ??
-          `${idReference.split('.').slice(-1)} #${item.index}`,
+        label: item?.data?.name
+          ? item?.data?.name
+          : `${idReference.split('.').slice(-1)} #${item.index}`,
         type: 'ViewConfig',
       },
       `${idReference}[${index}]`,
