@@ -1,5 +1,3 @@
-import { colors } from './src/colors'
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{ts,js,tsx,jsx}'],
@@ -10,7 +8,10 @@ module.exports = {
     extend: {
       colors: {
         current: 'currentColor',
-        ...colors,
+        'equinor-green': '#007079',
+        'equinor-charcoal': '#6f6f6f',
+        'equinor-hover-light-green': '#deedee',
+        'equinor-light-gray-background': '#f7f7f7',
       },
     },
   },
