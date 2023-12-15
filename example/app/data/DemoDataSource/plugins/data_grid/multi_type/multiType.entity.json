@@ -1,0 +1,11 @@
+{
+  "_id": "MultiType",
+  "type": "./blueprints/MultiType",
+  "name": "MultiType",
+  "data": [
+    ["MooringLine1", "type1", "anch0", "fair0", "4367.5", "3247.5", "true"],
+    ["MooringLine2", "type2", "anch1", "fair1", "4438.3", "3848.3", "true"],
+    ["MooringLine3", "type3", "anch2", "fair2", "4585.0", "3545.0", "true"],
+    ["MooringLine4", "type4", "anch3", "fair3", "4399.6", "3149.6", "false"]
+  ]
+}
