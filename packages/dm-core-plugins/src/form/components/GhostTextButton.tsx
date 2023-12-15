@@ -17,8 +17,8 @@ const GhostTextButton = ({
   ariaLabel,
 }: FormObjectTextButtonProps) => {
   return (
-    <Tooltip title={tooltip}>
-      <EdsProvider density='compact'>
+    <EdsProvider density='compact'>
+      <Tooltip title={tooltip}>
         <Button
           variant='ghost'
           title={title}
@@ -28,8 +28,8 @@ const GhostTextButton = ({
         >
           {buttonText}
         </Button>
-      </EdsProvider>
-    </Tooltip>
+      </Tooltip>
+    </EdsProvider>
   )
 }
 

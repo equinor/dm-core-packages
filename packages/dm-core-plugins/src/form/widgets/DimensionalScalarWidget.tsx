@@ -6,10 +6,7 @@ import {
   Tooltip,
   Typography,
 } from '@equinor/eds-core-react'
-import {
-  StyledNumberField,
-  StyledTextField,
-} from '../components/StyledInputFields'
+import { StyledNumberField, StyledTextField } from './common/StyledInputFields'
 
 const parseWidthString = (widthString: string) => {
   const width = parseFloat(widthString)
@@ -18,13 +15,8 @@ const parseWidthString = (widthString: string) => {
 }
 
 const DimensionalScalarWidget = (props: TWidget) => {
-  const { value: entity, config: widgetConfig, label: widgetLabel } = props
+  const { value: entity, config: widgetConfig } = props
   const [error, setError] = useState('')
-
-  const isPrimitive = typeof entity === 'number' || typeof entity === 'string'
-  const isNumber = isPrimitive
-    ? typeof entity === 'number'
-    : typeof entity?.value === 'number'
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setError(e.target.value === '' ? 'Value is required' : '')
@@ -39,14 +31,17 @@ const DimensionalScalarWidget = (props: TWidget) => {
     props.onChange(changed)
   }
 
+  const isPrimitive = typeof entity === 'number' || typeof entity === 'string'
+  const isNumber = isPrimitive
+    ? typeof entity === 'number'
+    : typeof entity?.value === 'number'
+
   const InputField = isNumber ? StyledNumberField : StyledTextField
 
   const widgetWidth = parseWidthString(widgetConfig?.width) ?? '100%'
   const inputBoxWidth =
     parseWidthString(widgetConfig?.inputBoxWidth) ??
     (widgetConfig?.inline ? '50%' : '100%')
-
-  const label = widgetConfig?.label || entity?.label || widgetLabel
 
   return (
     <div
@@ -82,30 +77,21 @@ const DimensionalScalarWidget = (props: TWidget) => {
               whiteSpace: 'nowrap',
             }}
           >
-            {label}
+            {widgetConfig?.label || entity?.label || props.label}
           </Typography>
         </Tooltip>
       </div>
-      <div
-        style={{
-          width: inputBoxWidth,
-        }}
-      >
-        <EdsProvider
-          density={widgetConfig?.compact ? 'compact' : 'comfortable'}
-        >
-          <InputField
-            unit={widgetConfig?.unit || entity?.unit}
-            type={isNumber ? 'number' : undefined}
-            meta={widgetConfig?.meta || entity?.meta}
-            isDirty={props.isDirty}
-            helperText={error}
-            variant={error ? 'error' : undefined}
-            onChange={onChangeHandler}
-            defaultValue={isPrimitive ? entity : entity?.value ?? ''}
-          />
-        </EdsProvider>
-      </div>
+      <EdsProvider density={widgetConfig?.compact ? 'compact' : 'comfortable'}>
+        <InputField
+          unit={widgetConfig?.unit || entity?.unit}
+          meta={widgetConfig?.meta || entity?.meta}
+          isDirty={props.isDirty}
+          helperText={error}
+          variant={error ? 'error' : undefined}
+          onChange={onChangeHandler}
+          defaultValue={isPrimitive ? entity : entity?.value ?? ''}
+        />
+      </EdsProvider>
     </div>
   )
 }

@@ -31,7 +31,7 @@ test('Change owner', async () => {
   await page.getByTestId('owner').getByRole('button', { name: 'Open' }).click()
   await page
     .getByRole('tabpanel')
-    .getByTestId('form-text-widget-name')
+    .getByTestId('form-text-widget-Name')
     .fill('Jacob')
   await page
     .getByRole('tabpanel')
@@ -43,7 +43,7 @@ test('Change owner', async () => {
   await page.getByText('self').first().click()
   await page.getByRole('button', { name: 'Open' }).first().click()
   await expect(
-    page.getByRole('tabpanel').getByTestId('form-text-widget-name')
+    page.getByRole('tabpanel').getByTestId('form-text-widget-Name')
   ).toHaveValue('Jacob')
   await expect(
     page
@@ -57,7 +57,7 @@ test('Hiring a CEO', async () => {
   await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
   await page
     .getByRole('tabpanel')
-    .getByTestId('form-text-widget-name')
+    .getByTestId('form-text-widget-Name')
     .fill('Donald')
   await page
     .getByRole('tabpanel')
@@ -70,7 +70,7 @@ test('Hiring a CEO', async () => {
   await expect(page.getByRole('tablist').first()).toHaveCount(1)
   await page.getByTestId('ceo').getByRole('button', { name: 'Open' }).click()
   await expect(
-    page.getByRole('tabpanel').getByTestId('form-text-widget-name')
+    page.getByRole('tabpanel').getByTestId('form-text-widget-Name')
   ).toHaveValue('Donald')
   await expect(
     page
@@ -102,7 +102,7 @@ test('Adding a trainee', async () => {
   const trainee = page.getByTestId('trainee')
   // await trainee.getByLabel('Add and save').click()
   await page.getByTestId('trainee').getByLabel('Create new entity').click()
-  await trainee.getByTestId('form-text-widget-name').fill('Peter Pan')
+  await trainee.getByTestId('form-text-widget-Name').fill('Peter Pan')
   await trainee
     .getByTestId('form-number-widget-Phone Number (Optional)')
     .fill('123')
@@ -111,7 +111,7 @@ test('Adding a trainee', async () => {
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
   await navigate()
-  await expect(trainee.getByTestId('form-text-widget-name')).toHaveValue(
+  await expect(trainee.getByTestId('form-text-widget-Name')).toHaveValue(
     'Peter Pan'
   )
   await expect(
@@ -152,22 +152,20 @@ test('New car', async () => {
   await carsDiv.getByRole('button', { name: 'Append Add Item' }).click()
   await carsDiv.getByRole('button', { name: 'Save' }).click()
   await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
-  await page
-    .getByRole('tabpanel')
-    .getByTestId('form-text-widget-name')
-    .nth(1)
-    .fill('McLaren')
-  await page.getByLabel('Plate Number').fill('3000')
-  await page.getByTestId('cars').getByTestId('form-submit').click()
+  await carsDiv.getByTestId('form-text-widget-Name').fill('McLaren')
+  await carsDiv.getByTestId('form-text-widget-Plate Number').fill('3000')
+  await carsDiv.getByTestId('form-submit').click()
   await page.getByText('Document updated').click()
   await page.reload()
   await navigate()
   await expect(carsDiv.getByText('McLaren')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
+  await expect(carsDiv.getByTestId('form-text-widget-Name')).toHaveValue(
+    'McLaren'
+  )
   await expect(
-    page.getByRole('tabpanel').getByTestId('form-text-widget-name').nth(1)
-  ).toHaveValue('McLaren')
-  await expect(page.getByLabel('Plate Number')).toHaveValue('3000')
+    carsDiv.getByTestId('form-text-widget-Plate Number')
+  ).toHaveValue('3000')
 })
 
 test('New customer', async () => {
@@ -178,7 +176,7 @@ test('New customer', async () => {
   await lastTabPanel.getByRole('button', { name: 'Add Item' }).click()
   await lastTabPanel.getByRole('button', { name: 'Save' }).click()
   await lastTabPanel.getByRole('button', { name: 'Expand item' }).last().click()
-  await lastTabPanel.getByTestId('form-text-widget-name').fill('Lewis')
+  await lastTabPanel.getByTestId('form-text-widget-Name').fill('Lewis')
   await lastTabPanel
     .getByTestId('form-number-widget-Phone Number (Optional)')
     .fill('12345678')
@@ -193,8 +191,8 @@ test('New customer', async () => {
     .getByRole('button', { name: 'Expand item', exact: true })
     .last()
     .click()
-  await expect(lastTabPanel.getByTestId('form-text-widget-name')).toBeVisible()
-  await expect(lastTabPanel.getByTestId('form-text-widget-name')).toHaveValue(
+  await expect(lastTabPanel.getByTestId('form-text-widget-Name')).toBeVisible()
+  await expect(lastTabPanel.getByTestId('form-text-widget-Name')).toHaveValue(
     'Lewis'
   )
   await expect(
