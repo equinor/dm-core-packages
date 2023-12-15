@@ -42,7 +42,7 @@ export const ArrayPrimitiveTemplate = (
 
   return (
     <Fieldset>
-      <Legend>
+      <Legend test-id='primitive-array-legend'>
         <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
         {showCreateButton && (
           <TooltipButton

@@ -1,4 +1,4 @@
-/* import { TOnOpen } from '@development-framework/dm-core'
+import { TOnOpen } from '@development-framework/dm-core'
 import {
   cleanup,
   fireEvent,
@@ -49,7 +49,16 @@ describe('List of strings', () => {
     })
   }
 
-  it('should contain no field in the list by default', async () => {
+  it('should render legend', async () => {
+    await setup()
+    await waitFor(() => {
+      const legend = screen.getByTestId("primitive-array-legend")
+      expect(legend).toBeDefined()
+    })
+  })
+
+  /*
+   it('should contain no field in the list by default', async () => {
     await setup()
     await waitFor(() => {
       const inputs = screen.queryAllByTestId('form-textfield')
@@ -89,10 +98,10 @@ describe('List of strings', () => {
       expect(inputs[0].getAttribute('value')).toBe('foo')
       expect(inputs[1].getAttribute('value')).toBe('bar')
     })
-  })
+  }) */
 })
 
-describe('List of objects', () => {
+/*describe('List of objects', () => {
   const setup = async ({
     config,
     onOpen,
