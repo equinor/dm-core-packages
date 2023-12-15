@@ -36,6 +36,26 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.34.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.33.0...dm-core-plugins-v1.34.0) (2023-12-15)
+
+
+### Features
+
+* data grid ([3dc8c98](https://github.com/equinor/dm-core-packages/commit/3dc8c98529898ccf68db004af331721a3e4b63c0))
+* multiple templates ([8499ca9](https://github.com/equinor/dm-core-packages/commit/8499ca9825e83c95758dd99adb5fa1af1041d254))
+
+
+### Bug Fixes
+
+* replace name which is empty string with attribute + index ([a8c7d40](https://github.com/equinor/dm-core-packages/commit/a8c7d40c8823fca1b072c779461d3517b353b478))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.27.0 to ^1.28.0
+
 ## [1.33.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.32.0...dm-core-plugins-v1.33.0) (2023-12-15)
 
 
