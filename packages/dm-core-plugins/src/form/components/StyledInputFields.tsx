@@ -8,9 +8,6 @@ const StyledInputField = styled(TextField)`
     color: black;
     border-radius: 8px;
   }
-  div {
-    border-radius: 4px 4px 0 0;
-  }
   span {
     color: #6f6f6f;
   }
