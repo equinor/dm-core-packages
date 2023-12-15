@@ -6,8 +6,8 @@ const StyledInputField = styled(TextField)`
   & :disabled {
     background: #f7f7f7;
     color: black;
-    border-radius: 8px;
   }
+
   span {
     color: #6f6f6f;
   }
@@ -38,10 +38,16 @@ const StyledEDSField = (
 export const StyledTextField = (
   props: React.ComponentProps<typeof StyledEDSField>
 ) => {
+  const { value, ...propsWithoutValue } = props
+
   return (
     <StyledEDSField
-      {...props}
-      data-testid={`form-text-widget-${props.label}`}
+      {...propsWithoutValue}
+      defaultValue={
+        props.readOnly && props.value === ''
+          ? '-'
+          : props.defaultValue ?? props.value
+      }
     />
   )
 }
@@ -63,14 +69,16 @@ const NumberFieldWithoutArrows = styled(StyledEDSField)`
 export const StyledNumberField = (
   props: React.ComponentProps<typeof StyledEDSField>
 ) => {
+  const { value, ...propsWithoutValue } = props
+
   return (
     <NumberFieldWithoutArrows
-      {...props}
+      {...propsWithoutValue}
       onWheel={(event: React.UIEvent<HTMLInputElement>) =>
         (event.target as HTMLInputElement).blur()
       }
+      defaultValue={props.defaultValue ?? props.value}
       type={'number'}
-      data-testid={`form-number-widget-${props.label}`}
     />
   )
 }

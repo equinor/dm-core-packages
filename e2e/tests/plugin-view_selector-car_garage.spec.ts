@@ -131,7 +131,7 @@ test('View selector - car garage', async ({ page }) => {
     await page.getByLabel('Open in tab').nth(3).click()
 
     await expect(
-      page.getByTestId('form-text-widget-nextControl').last()
+      page.getByTestId('form-text-widget-Next control date').last()
     ).toHaveValue('2025-06-01')
     await page.getByRole('tab', { name: 'Dimensions' }).click()
     await expect(

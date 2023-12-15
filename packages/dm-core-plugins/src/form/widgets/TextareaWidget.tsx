@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { TWidget } from '../types'
-import { StyledTextField } from '../components/StyledInputFields'
+import { StyledTextField } from './common/StyledInputFields'
 
 const TextareaWidget = (props: TWidget) => {
   const { label, onChange } = props
@@ -18,6 +18,7 @@ const TextareaWidget = (props: TWidget) => {
       multiline={true}
       rows={5}
       onChange={onChangeHandler}
+      data-testid={`form-text-area-widget-${props.label}`}
     />
   )
 }

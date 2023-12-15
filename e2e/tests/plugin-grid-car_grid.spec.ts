@@ -34,7 +34,7 @@ test('List reference resolved', async ({ page }) => {
 test('List reference unresolved', async ({ page }) => {
   const tyreList = page.getByTestId('tyreList')
   await expect(
-    tyreList.getByTestId('form-text-widget-referenceType')
+    tyreList.getByTestId('form-text-widget-Reference Type')
   ).toHaveValue('link')
 })
 
