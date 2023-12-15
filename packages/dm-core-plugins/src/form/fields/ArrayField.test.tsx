@@ -44,8 +44,7 @@ describe('List of strings', () => {
       { wrapper }
     )
     return await waitFor(() => {
-      const addButton = screen.getByLabelText('Append primitive')
-      return { ...utils, addButton }
+      return { ...utils }
     })
   }
 
