@@ -1,9 +1,11 @@
+import React from 'react'
+import { add } from '@equinor/eds-icons'
+import { Typography } from '@equinor/eds-core-react'
 import { TArrayTemplate, TPrimitive } from '../types'
-import { useRegistryContext } from '../context/RegistryContext'
-import React, { useState } from 'react'
-import { list } from '@equinor/eds-icons'
-import FormTemplate from './shared/FormTemplate'
-import PrimitiveArray from '../components/PrimitiveArray'
+import { Fieldset, Legend } from '../styles'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { DataGrid } from '../../data-grid/DataGrid'
+import TooltipButton from '../../common/TooltipButton'
 
 export const ArrayPrimitiveTemplate = (
   props: TArrayTemplate & {
@@ -11,39 +13,54 @@ export const ArrayPrimitiveTemplate = (
     onChange: (v: TPrimitive[]) => void
   }
 ) => {
-  const { namePath, attribute, uiAttribute, value, onChange } = props
+  const { attribute, value, onChange } = props
 
-  const { config } = useRegistryContext()
-  const [isExpanded, setIsExpanded] = useState(
-    uiAttribute?.showExpanded !== undefined
-      ? uiAttribute?.showExpanded
-      : config.showExpanded
-  )
+  const multi: boolean = attribute.dimensions?.includes(',') || false
+  const [definedColumns, definedRows] = attribute.dimensions?.split(',') || [
+    '*,*',
+  ]
+  const showCreateButton = definedRows !== '*' && value.length === 0
+
+  const getFillValue = (type: string) =>
+    type === 'boolean' ? false : type === 'number' ? 0 : ''
+
+  function createPrimitiveArray() {
+    if (multi && definedRows !== '*') {
+      const fillValue = getFillValue(attribute.attributeType)
+      const definedRowsAmount = parseInt(definedRows, 10)
+      const definedColumnsAmount = parseInt(definedColumns, 10)
+      const emptyRow = Array.from({ length: definedColumnsAmount }).fill(
+        fillValue
+      )
+      const newRows: any[] = []
+      for (let i = definedRowsAmount; i > 0; i--) {
+        newRows.push(emptyRow)
+      }
+      onChange(newRows)
+    }
+  }
 
   return (
-    <FormTemplate>
-      <FormTemplate.Header>
-        <FormTemplate.Header.Title
-          canExpand={true}
-          canOpen={false}
-          isExpanded={isExpanded}
-          setIsExpanded={setIsExpanded}
-          attribute={attribute}
-          objectIsNotEmpty={true}
-          icon={list}
-        />
-      </FormTemplate.Header>
-      {isExpanded && (
-        <FormTemplate.Content>
-          <PrimitiveArray
-            uiAttribute={uiAttribute}
-            data={value}
-            namePath={namePath}
-            attribute={attribute}
-            onChange={onChange}
+    <Fieldset>
+      <Legend>
+        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
+        {showCreateButton && (
+          <TooltipButton
+            title='Create table'
+            button-variant='ghost_icon'
+            button-onClick={createPrimitiveArray}
+            icon={add}
           />
-        </FormTemplate.Content>
+        )}
+      </Legend>
+      {!showCreateButton && (
+        <DataGrid
+          data={value}
+          attributeType={attribute.attributeType}
+          dimensions={attribute?.dimensions}
+          setData={onChange}
+        />
       )}
-    </FormTemplate>
+    </Fieldset>
   )
 }
