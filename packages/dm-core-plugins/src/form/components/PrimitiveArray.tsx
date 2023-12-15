@@ -71,10 +71,10 @@ const PrimitiveArray = ({
   '
     >
       <div
-        className='w-fit border rounded-t-sm rounded-b-md border-[#6f6f6f]
+        className='w-fit border rounded-t-sm rounded-b-md border-equinor-charcoal]
 '
       >
-        <div className='bg-[#f7f7f7]'>
+        <div className='bg-equinor-light-gray-background'>
           {!data.length && <div className='h-3 w-10'></div>}
           {data.map((item: TPrimitive, index: number) => (
             <Tooltip
@@ -100,7 +100,9 @@ const PrimitiveArray = ({
                 />
                 <div
                   className={`pb-[3px] w-fit ${
-                    typeof item !== 'boolean' ? 'border-b border-[#6f6f6f]' : ''
+                    typeof item !== 'boolean'
+                      ? 'border-b border-equinor-charcoal'
+                      : ''
                   }`}
                 >
                   <DeleteSoftButton
