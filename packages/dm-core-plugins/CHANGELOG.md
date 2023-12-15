@@ -36,6 +36,26 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.33.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.32.0...dm-core-plugins-v1.33.0) (2023-12-15)
+
+
+### Features
+
+* reusable colors in tailwind and styles ([57207c5](https://github.com/equinor/dm-core-packages/commit/57207c5408807415900aecb1801d6aced08c3bad))
+
+
+### Bug Fixes
+
+* add colors to dm-core-tailwind ([c36e5f5](https://github.com/equinor/dm-core-packages/commit/c36e5f52ff6772e57a8aa7c2baa55cf713669817))
+* select subitem when parent has no viewconfig ([e77d239](https://github.com/equinor/dm-core-packages/commit/e77d239e2b58d357d0c3640ab8c1d1dd67348521))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.26.1 to ^1.27.0
+
 ## [1.32.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.31.2...dm-core-plugins-v1.32.0) (2023-12-14)
 
 

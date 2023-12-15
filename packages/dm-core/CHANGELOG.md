@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.27.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.26.1...dm-core-v1.27.0) (2023-12-15)
+
+
+### Features
+
+* reusable colors in tailwind and styles ([57207c5](https://github.com/equinor/dm-core-packages/commit/57207c5408807415900aecb1801d6aced08c3bad))
+
+
+### Bug Fixes
+
+* add colors to dm-core-tailwind ([c36e5f5](https://github.com/equinor/dm-core-packages/commit/c36e5f52ff6772e57a8aa7c2baa55cf713669817))
+
 ## [1.26.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.26.0...dm-core-v1.26.1) (2023-12-14)
 
 
