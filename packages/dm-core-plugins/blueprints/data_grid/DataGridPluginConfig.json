@@ -1,0 +1,33 @@
+{
+  "name": "DataGridPluginConfig",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "fieldName",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "columns",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Name of primitive child attributes to display in header of item",
+      "attributeType": "string",
+      "optional": true,
+      "default": [],
+      "dimensions": "*"
+    },
+    {
+      "name": "rowsPerPage",
+      "type": "CORE:BlueprintAttribute",
+      "description": "How many rows per page should be pre-selected in the pagination when datagrid loads.",
+      "attributeType": "number",
+      "optional": true,
+      "default": 25
+    }
+  ]
+}

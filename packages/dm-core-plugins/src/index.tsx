@@ -22,6 +22,13 @@ export default ({
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/data_grid': {
+    component: lazy(() =>
+      import('./data-grid/DataGridPlugin').then((module) => ({
+        default: module.DataGridPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/yaml': {
     component: lazy(() =>
       import('./yaml/YamlPlugin').then((module) => ({
