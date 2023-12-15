@@ -3910,3 +3910,42 @@ Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.
     * **DMSS VERSION**: 97244da 2023-12-12 githu..[bot] chore(master): release 1.14.3 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.0
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* feat: data grid
+
+* feat: add DataGrid component
+
+* refactor: use datagrid component for primitive arrays
+
+* feat: add DataGridPlugin
+
+* chore: add test example for datagrid plugin
+
+* chore: disable all ArrayField tests
+
+* feat: config actually sets initialRowsPerPage
+
+* chore: add one required test
+
+* fix: trying to find button that doesnt exist
+
+* fix: use correct testid attribute
+
+* fix: faling form tests that uses PrimitiveArray field
+
+* fix: select the right grid button in plugins
+
+* fix: buttons can't contain same test value grid, data_grid
+
+* fix: remove delete tests in datagrid
+
+* feat: support multiple primitive array templates
+
+* refactor: take in tests again for old template
+
+---------
+
+Co-authored-by: Eirik Ola Aksnes <eoaksnes@gmail.com> (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7227063891/1)
+    * **DMSS VERSION**: 97244da 2023-12-12 githu..[bot] chore(master): release 1.14.3 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.0
+    * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
