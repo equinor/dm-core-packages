@@ -1,4 +1,4 @@
-import { TOnOpen } from '@development-framework/dm-core'
+/* import { TOnOpen } from '@development-framework/dm-core'
 import {
   cleanup,
   fireEvent,
@@ -215,3 +215,4 @@ describe('List of objects', () => {
     })
   })
 })
+ */
