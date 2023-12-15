@@ -33,10 +33,10 @@
           {
             "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
             "label": "Hogwarts Admin",
+            "eds_icon": "home",
             "viewConfig": {
               "type": "CORE:ReferenceViewConfig",
               "scope": "school",
-              "eds_icon": "home",
               "recipe": "AdminView"
             },
             "subItems": [
@@ -69,10 +69,10 @@
           {
             "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
             "label": "Hogwarts All",
+            "eds_icon": "home",
             "viewConfig": {
               "type": "CORE:ReferenceViewConfig",
               "scope": "school",
-              "eds_icon": "home",
               "recipe": "OperatorView"
             }
           }
@@ -90,10 +90,10 @@
           {
             "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
             "label": "Hogwarts All",
+            "eds_icon": "home",
             "viewConfig": {
               "type": "CORE:ReferenceViewConfig",
               "scope": "school",
-              "eds_icon": "home",
               "recipe": "OperatorView"
             }
           }

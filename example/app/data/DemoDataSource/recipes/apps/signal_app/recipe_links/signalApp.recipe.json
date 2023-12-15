@@ -35,11 +35,11 @@
             "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
             "label": "Study",
             "viewConfig": {
+              "eds_icon": "change_history",
               "type": "CORE:ReferenceViewConfig",
               "recipe": "Tabs",
               "scope": "study",
-              "showRefreshButton": true,
-              "eds_icon": "change_history"
+              "showRefreshButton": true
             }
           }
         ]

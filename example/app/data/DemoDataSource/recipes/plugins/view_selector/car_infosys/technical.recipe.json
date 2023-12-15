@@ -12,6 +12,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "EU control",
+          "eds_icon": "check",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
@@ -23,13 +24,13 @@
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "fields": ["controlDate", "nextControl"]
               }
-            },
-            "eds_icon": "check"
+            }
           }
         },
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Dimensions",
+          "eds_icon": "car",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
@@ -41,8 +42,7 @@
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "fields": ["width", "length", "heigth"]
               }
-            },
-            "eds_icon": "car"
+            }
           }
         }
       ]

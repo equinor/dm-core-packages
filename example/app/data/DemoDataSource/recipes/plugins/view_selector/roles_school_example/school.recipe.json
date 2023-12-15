@@ -12,19 +12,19 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Headmaster view",
+          "eds_icon": "visibility",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
-            "recipe": "AdminView",
-            "eds_icon": "visibility"
+            "recipe": "AdminView"
           }
         },
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Student view",
+          "eds_icon": "visibility",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
-            "recipe": "OperatorView",
-            "eds_icon": "visibility"
+            "recipe": "OperatorView"
           }
         }
       ]
