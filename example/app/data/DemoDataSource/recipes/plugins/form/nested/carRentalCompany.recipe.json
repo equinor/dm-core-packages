@@ -66,6 +66,7 @@
           {
             "name": "locations",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
+            "template": "ArrayPrimitiveListTemplate",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
               "open": false,

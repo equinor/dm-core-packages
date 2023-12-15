@@ -17,8 +17,7 @@
     {
       "name": "Form",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit"
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

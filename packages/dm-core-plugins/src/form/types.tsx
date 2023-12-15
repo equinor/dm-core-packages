@@ -56,6 +56,7 @@ type TUiAttributeArray = TUiAttributeBase & {
   widget?: string
   uiRecipe?: string
   showExpanded: boolean
+  template?: string
 }
 export type TUiAttributeObject = TUiAttributeBase & {
   widget?: string
@@ -110,4 +111,8 @@ export type TWidget = {
 
 export type TWidgets = {
   [key: string]: (props: TWidget) => React.ReactElement
+}
+
+export type TTemplates = {
+  [key: string]: (props: any) => React.ReactElement
 }

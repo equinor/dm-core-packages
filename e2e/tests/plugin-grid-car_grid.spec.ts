@@ -4,7 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3000/')
   await page.getByRole('button', { name: 'DemoDataSource' }).click()
   await page.getByRole('button', { name: 'plugins' }).click()
-  await page.getByRole('button', { name: 'grid' }).click()
+  await page.getByTestId('tree-button_grid').click()
   await page.getByRole('button', { name: 'car_grid' }).click()
   await page.getByRole('button', { name: 'RaceCenter' }).click()
 })

@@ -16,7 +16,6 @@ jest.mock('@development-framework/dm-core', () => ({
   __esModule: true,
   ...jest.requireActual('@development-framework/dm-core'),
   ViewCreator: (props: any) => {
-    console.log(props)
     ViewCreatorMock(props)
     return <div data-testid="mock-EntityView" />
   },
@@ -40,7 +39,20 @@ describe('List of strings', () => {
     }
     mockBlueprintGet([blueprint])
     const utils = render(
-      <Form idReference="ds/$1" type="MyBlueprint" formData={data} />,
+      <Form idReference="ds/$1" type="MyBlueprint" formData={data} config={{
+        attributes: [
+          {
+            type: "dm-core-plugins/form/fields/ArrayField",
+            name: "array",
+            template: "ArrayPrimitiveListTemplate"
+          }
+        ],
+        fields: [
+            "array"
+       ],
+        functionality: {
+        }
+      }} />,
       { wrapper }
     )
     return await waitFor(() => {

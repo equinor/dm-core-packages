@@ -4,8 +4,9 @@ import React, { useState } from 'react'
 import { list } from '@equinor/eds-icons'
 import FormTemplate from './shared/FormTemplate'
 import PrimitiveArray from '../components/PrimitiveArray'
+import GhostTextButton from '../components/GhostTextButton'
 
-export const ArrayPrimitiveTemplate = (
+export const ArrayPrimitiveListTemplate = (
   props: TArrayTemplate & {
     value: TPrimitive[]
     onChange: (v: TPrimitive[]) => void
@@ -47,3 +48,5 @@ export const ArrayPrimitiveTemplate = (
     </FormTemplate>
   )
 }
+
+export default ArrayPrimitiveListTemplate
