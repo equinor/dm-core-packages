@@ -14,6 +14,7 @@ type DataGridProps = {
   dimensions?: string
   data: any[]
   setData: (data: any[]) => void
+  initialRowsPerPage?: number
 }
 
 export function DataGrid(props: DataGridProps) {
@@ -24,7 +25,7 @@ export function DataGrid(props: DataGridProps) {
     undefined
   )
   const [paginationPage, setPaginationPage] = useState<number>(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [rowsPerPage, setRowsPerPage] = useState(props.initialRowsPerPage || 25)
 
   const dataGridId = useMemo(() => crypto.randomUUID(), [])
   const multi: boolean = dimensions?.includes(',') || false

@@ -22,7 +22,7 @@ export function DataGridPlugin(props: IUIPlugin) {
     idReference,
     1
   )
-  const { fieldName } = config
+  const { fieldName, rowsPerPage } = config
   const attribute = blueprint?.attributes?.find(
     (atts: TAttribute) => atts.name === fieldName
   )
@@ -62,6 +62,7 @@ export function DataGridPlugin(props: IUIPlugin) {
         setData={onChange}
         attributeType={attribute?.attributeType || 'string'}
         dimensions={attribute?.dimensions}
+        initialRowsPerPage={rowsPerPage}
       />
       <Button onClick={saveDocument} disabled={!isDirty || loading}>
         Save
