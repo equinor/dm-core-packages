@@ -81,17 +81,25 @@ const DimensionalScalarWidget = (props: TWidget) => {
           </Typography>
         </Tooltip>
       </div>
-      <EdsProvider density={widgetConfig?.compact ? 'compact' : 'comfortable'}>
-        <InputField
-          unit={widgetConfig?.unit || entity?.unit}
-          meta={widgetConfig?.meta || entity?.meta}
-          isDirty={props.isDirty}
-          helperText={error}
-          variant={error ? 'error' : undefined}
-          onChange={onChangeHandler}
-          defaultValue={isPrimitive ? entity : entity?.value ?? ''}
-        />
-      </EdsProvider>
+      <div
+        style={{
+          width: inputBoxWidth,
+        }}
+      >
+        <EdsProvider
+          density={widgetConfig?.compact ? 'compact' : 'comfortable'}
+        >
+          <InputField
+            unit={widgetConfig?.unit || entity?.unit}
+            meta={widgetConfig?.meta || entity?.meta}
+            isDirty={props.isDirty}
+            helperText={error}
+            variant={error ? 'error' : undefined}
+            onChange={onChangeHandler}
+            defaultValue={isPrimitive ? entity : entity?.value ?? ''}
+          />
+        </EdsProvider>
+      </div>
     </div>
   )
 }
