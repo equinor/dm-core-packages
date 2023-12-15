@@ -132,6 +132,7 @@ const TreeButton = (props: {
     >
       <StyledButton
         key={node.nodeId}
+        data-testid={`tree-button_${node.name || node.nodeId}`}
         variant='ghost'
         color='secondary'
         onClick={() => {
