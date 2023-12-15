@@ -160,8 +160,11 @@ export function DataGrid(props: DataGridProps) {
       </EdsProvider>
       <Styled.ActionRow>
         <Stack direction='row'>
-          {definedRows === '*' && (
-            <Styled.ActionRowButton onClick={() => addRow()}>
+          {!rowsAreSetDimension && (
+            <Styled.ActionRowButton
+              aria-label='Add data row'
+              onClick={() => addRow()}
+            >
               <Icon size={16} data={add} />
             </Styled.ActionRowButton>
           )}
