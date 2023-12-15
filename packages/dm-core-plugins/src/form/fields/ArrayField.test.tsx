@@ -16,7 +16,6 @@ jest.mock('@development-framework/dm-core', () => ({
   __esModule: true,
   ...jest.requireActual('@development-framework/dm-core'),
   ViewCreator: (props: any) => {
-    console.log(props)
     ViewCreatorMock(props)
     return <div data-testid="mock-EntityView" />
   },
@@ -40,24 +39,29 @@ describe('List of strings', () => {
     }
     mockBlueprintGet([blueprint])
     const utils = render(
-      <Form idReference="ds/$1" type="MyBlueprint" formData={data} />,
+      <Form idReference="ds/$1" type="MyBlueprint" formData={data} config={{
+        attributes: [
+          {
+            type: "dm-core-plugins/form/fields/ArrayField",
+            name: "array",
+            template: "ArrayPrimitiveListTemplate"
+          }
+        ],
+        fields: [
+            "array"
+       ],
+        functionality: {
+        }
+      }} />,
       { wrapper }
     )
     return await waitFor(() => {
-      return { ...utils }
+      const addButton = screen.getByLabelText('Append primitive')
+      return { ...utils, addButton }
     })
   }
 
-  it('should render legend', async () => {
-    await setup()
-    await waitFor(() => {
-      const legend = screen.getByTestId("primitive-array-legend")
-      expect(legend).toBeDefined()
-    })
-  })
-
-  /*
-   it('should contain no field in the list by default', async () => {
+  it('should contain no field in the list by default', async () => {
     await setup()
     await waitFor(() => {
       const inputs = screen.queryAllByTestId('form-textfield')
@@ -97,10 +101,10 @@ describe('List of strings', () => {
       expect(inputs[0].getAttribute('value')).toBe('foo')
       expect(inputs[1].getAttribute('value')).toBe('bar')
     })
-  }) */
+  })
 })
 
-/*describe('List of objects', () => {
+describe('List of objects', () => {
   const setup = async ({
     config,
     onOpen,
@@ -223,4 +227,3 @@ describe('List of strings', () => {
     })
   })
 })
- */

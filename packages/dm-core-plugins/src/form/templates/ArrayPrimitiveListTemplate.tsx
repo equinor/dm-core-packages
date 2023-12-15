@@ -21,31 +21,6 @@ export const ArrayPrimitiveListTemplate = (
       : config.showExpanded
   )
 
-  const multi: boolean = attribute.dimensions?.includes(',') || false
-  const [definedColumns, definedRows] = attribute.dimensions?.split(',') || [
-    '*,*',
-  ]
-  const showCreateButton = definedRows !== '*' && value.length === 0
-
-  const getFillValue = (type: string) =>
-    type === 'boolean' ? false : type === 'number' ? 0 : ''
-
-  function createPrimitiveArray() {
-    if (multi && definedRows !== '*') {
-      const fillValue = getFillValue(attribute.attributeType)
-      const definedRowsAmount = parseInt(definedRows, 10)
-      const definedColumnsAmount = parseInt(definedColumns, 10)
-      const emptyRow = Array.from({ length: definedColumnsAmount }).fill(
-        fillValue
-      )
-      const newRows: any[] = []
-      for (let i = definedRowsAmount; i > 0; i--) {
-        newRows.push(emptyRow)
-      }
-      onChange(newRows)
-    }
-  }
-
   return (
     <FormTemplate>
       <FormTemplate.Header>
@@ -58,19 +33,8 @@ export const ArrayPrimitiveListTemplate = (
           objectIsNotEmpty={true}
           icon={list}
         />
-        <FormTemplate.Header.Actions>
-          {showCreateButton && (
-            <GhostTextButton
-              buttonText={'Create'}
-              title={'Create'}
-              tooltip={`Create new ${namePath}`}
-              ariaLabel={'Create new entity'}
-              onClick={createPrimitiveArray}
-            />
-          )}
-        </FormTemplate.Header.Actions>
       </FormTemplate.Header>
-      {isExpanded && !showCreateButton && (
+      {isExpanded && (
         <FormTemplate.Content>
           <PrimitiveArray
             uiAttribute={uiAttribute}
