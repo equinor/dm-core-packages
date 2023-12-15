@@ -12,25 +12,26 @@ export const Sidebar = (props: {
 }): React.ReactElement => {
   const { selectedViewId, setSelectedViewId, viewSelectorItems, addView } =
     props
-
   return (
     <SideBar open style={{ height: 'auto' }}>
       <SideBar.Content>
         {viewSelectorItems.map((viewItem: TItemData) => {
           // subItem's will be rendered inside other items. Don't add them here
           if (viewItem.isSubItem) return null
-
           return (
             <div key={viewItem.viewId}>
               {viewItem.subItems ? (
                 <SideBar.Accordion
                   key={viewItem.viewId}
                   icon={
-                    viewItem.viewConfig?.eds_icon
-                      ? EdsIcons[
-                          viewItem.viewConfig.eds_icon as keyof typeof EdsIcons
-                        ]
-                      : EdsIcons.subdirectory_arrow_right
+                    viewItem.eds_icon
+                      ? EdsIcons[viewItem.eds_icon as keyof typeof EdsIcons]
+                      : viewItem.viewConfig?.eds_icon
+                        ? EdsIcons[
+                            viewItem.viewConfig
+                              ?.eds_icon as keyof typeof EdsIcons
+                          ]
+                        : EdsIcons.subdirectory_arrow_right
                   }
                   label={viewItem.label}
                   onClick={() => {
@@ -47,14 +48,6 @@ export const Sidebar = (props: {
                       return (
                         <SideBar.AccordionItem
                           key={index}
-                          icon={
-                            subItem.viewConfig?.eds_icon
-                              ? EdsIcons[
-                                  subItem.viewConfig
-                                    .eds_icon as keyof typeof EdsIcons
-                                ]
-                              : EdsIcons.subdirectory_arrow_right
-                          }
                           label={
                             subItem.label ??
                             subItem.viewConfig?.scope ??
@@ -76,11 +69,14 @@ export const Sidebar = (props: {
                 <SideBar.Link
                   key={viewItem.viewId}
                   icon={
-                    viewItem.viewConfig?.eds_icon
-                      ? EdsIcons[
-                          viewItem.viewConfig.eds_icon as keyof typeof EdsIcons
-                        ]
-                      : EdsIcons.subdirectory_arrow_right
+                    viewItem.eds_icon
+                      ? EdsIcons[viewItem.eds_icon as keyof typeof EdsIcons]
+                      : viewItem.viewConfig?.eds_icon
+                        ? EdsIcons[
+                            viewItem.viewConfig
+                              ?.eds_icon as keyof typeof EdsIcons
+                          ]
+                        : EdsIcons.subdirectory_arrow_right
                   }
                   label={viewItem.label}
                   role='tab'

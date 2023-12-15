@@ -12,6 +12,7 @@
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
           "label": "Home",
+          "eds_icon": "home",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
@@ -23,8 +24,7 @@
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "fields": ["name", "model", "Owner", "Technical"]
               }
-            },
-            "eds_icon": "home"
+            }
           }
         }
       ]
