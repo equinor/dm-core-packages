@@ -76,7 +76,7 @@ test('View selector - car garage', async ({ page }) => {
       page.getByRole('tab', { name: 'car Dimensions' })
     ).toBeVisible()
 
-    await page.getByTestId('form-text-widget-nextControl')
+    await page.getByTestId('form-text-widget-Next control date')
 
     .fill('2025-06-31')
     await page.getByRole('button', { name: 'Submit' }).click()
