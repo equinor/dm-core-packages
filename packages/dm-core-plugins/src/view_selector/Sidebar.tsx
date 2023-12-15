@@ -62,7 +62,7 @@ export const Sidebar = (props: {
                           }
                           role='tab'
                           onClick={() => {
-                            if (viewItem.viewConfig) {
+                            if (subItem.viewConfig) {
                               setSelectedViewId(subViewId)
                             }
                           }}
