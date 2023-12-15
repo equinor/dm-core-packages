@@ -5,7 +5,7 @@ import { getWidget } from '../context/WidgetContext'
 import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
 import { ArrayComplexTemplate } from '../templates/ArrayComplexTemplate'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
-import { ArrayPrimitiveTemplate } from '../templates/ArrayPrimitiveTemplate'
+import arrayTemplates from '../templates'
 
 export default function ArrayField(props: TArrayTemplate) {
   const { uiAttribute, namePath, attribute } = props
@@ -31,8 +31,13 @@ export default function ArrayField(props: TArrayTemplate) {
       <Controller
         name={namePath}
         render={({ field: { value, onChange } }) => {
+          // TODO: make this into same as getWidget(uiAttribute?.template)
+          const templates = { ...arrayTemplates }
+          const templateName = uiAttribute?.template
+          const Template =
+            templates[templateName ?? 'ArrayPrimitiveDatagridTemplate']
           return (
-            <ArrayPrimitiveTemplate
+            <Template
               namePath={namePath}
               onChange={onChange}
               value={value ?? []}

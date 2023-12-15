@@ -123,7 +123,7 @@ test('Locations', async () => {
   const locationsDiv = page.getByTestId('locations')
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
   await expect(locationsDiv.getByRole('textbox')).toHaveValue('Trondheim')
-  await locationsDiv.getByLabel('Add data row').click()
+  await locationsDiv.getByLabel('Append primitive').click()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
   await locationsDiv.getByRole('textbox').last().fill('Oslo')
   await page.getByTestId('form-submit').click()
@@ -136,6 +136,15 @@ test('Locations', async () => {
     'Trondheim'
   )
   await expect(locationsDiv.getByRole('textbox').last()).toHaveValue('Oslo')
+  await page.getByTestId('form-text-widget-locations.1').hover()
+  await page.getByTestId('form-primitive-array-remove-1').click()
+  await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
+  await page.getByTestId('form-submit').click()
+  await expect(page.getByRole('alert')).toHaveText(['Document updated'])
+  await page.getByRole('button', { name: 'close', exact: true }).click()
+  await page.reload()
+  await navigate()
+  await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
 })
 
 test('New car', async () => {

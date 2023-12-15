@@ -7,7 +7,7 @@ import { getDisplayLabel } from '../utils/getDisplayLabel'
 import { DataGrid } from '../../data-grid/DataGrid'
 import TooltipButton from '../../common/TooltipButton'
 
-export const ArrayPrimitiveTemplate = (
+export const ArrayPrimitiveDatagridTemplate = (
   props: TArrayTemplate & {
     value: TPrimitive[]
     onChange: (v: TPrimitive[]) => void
@@ -64,3 +64,5 @@ export const ArrayPrimitiveTemplate = (
     </Fieldset>
   )
 }
+
+export default ArrayPrimitiveDatagridTemplate
