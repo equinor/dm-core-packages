@@ -1,0 +1,17 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "Data",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "aNumber",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number"
+    }
+  ]
+}
