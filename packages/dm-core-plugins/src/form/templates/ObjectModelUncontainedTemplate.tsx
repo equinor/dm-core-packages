@@ -28,10 +28,13 @@ export const ObjectModelUncontainedTemplate = (
     uiAttribute?.showExpanded ?? config.showExpanded
   )
   const value = watch(namePath)
-  const { dataSource, documentPath } = splitAddress(idReference)
+  const { dataSource, documentPath, attributePath } = splitAddress(idReference)
   const address =
     value && value.address && value.referenceType === 'link'
-      ? resolveRelativeAddress(value.address, documentPath, dataSource)
+      ? resolveRelativeAddress(value.address, documentPath, dataSource, [
+          ...attributePath.split('.'),
+          namePath,
+        ])
       : undefined
 
   const referenceExists = address !== undefined
