@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.30.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.29.0...dm-core-v1.30.0) (2023-12-18)
+
+
+### Features
+
+* added reset button to all forms ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* some ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* submit button is diabled when no dirty stated ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+
+
+### Bug Fixes
+
+* ??? comment out test ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* border same color everywhere ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* can't get tests green ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* datepicker positioning ([#1003](https://github.com/equinor/dm-core-packages/issues/1003)) ([1e65097](https://github.com/equinor/dm-core-packages/commit/1e650975cdb5bf00d2b78ccd7fecf22e6034ca83))
+* **datepicker:** input bugs ([#1001](https://github.com/equinor/dm-core-packages/issues/1001)) ([1c7a2b5](https://github.com/equinor/dm-core-packages/commit/1c7a2b5ca1cb87e318c1d22b4b2c8b788b80b4f6))
+* dynaic sizing of primitive array header ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* filer out application roles not in azure if auth is used ([cdd8f9a](https://github.com/equinor/dm-core-packages/commit/cdd8f9a2466efde2ec2bc30dc54505566ab2bd6a))
+* lightgreen ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* primitive array no item looks better now ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* reuse colors ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* selecting prev month date ([#1002](https://github.com/equinor/dm-core-packages/issues/1002)) ([e87a6e4](https://github.com/equinor/dm-core-packages/commit/e87a6e4f6c464658371836016041096ed07a2f5f))
+* some tetsing ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* tesets ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* tests ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* tests ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* wrong color names ([#1004](https://github.com/equinor/dm-core-packages/issues/1004)) ([234c1e4](https://github.com/equinor/dm-core-packages/commit/234c1e47c403b68fbe3d7629c6a8557ee6340ebc))
+
 ## [1.29.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.28.0...dm-core-v1.29.0) (2023-12-18)
 
 
