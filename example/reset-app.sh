@@ -37,15 +37,19 @@ service_is_ready() {
 }
 service_is_ready
 
-if [ "$MODE" == "local" ]; then
-  echo "Upload Job API blueprints to DMSS"
-  eval $compose run --rm job-api dm --url http://dmss:5000 reset ../app
-else
-  eval $compose run --rm job-api dm --token "$TOKEN" --url $VITE_DMSS_URL reset ../app
-fi
-echo "Upload plugins blueprints to DMSS"
-dm --token "$TOKEN" --url $VITE_DMSS_URL import-plugin-blueprints ../node_modules/@development-framework/dm-core-plugins
-echo "Upload app/ to DMSS"
-dm --force --token "$TOKEN" --url $VITE_DMSS_URL reset app
-echo "Creating lookup table"
-dm --token "$TOKEN" --url $VITE_DMSS_URL create-lookup exampleApplication DemoDataSource/recipes
+main () {
+  if [ "$MODE" == "local" ]; then
+    echo "Upload Job API blueprints to DMSS"
+    eval $compose run --rm job-api dm --url http://dmss:5000 reset ../app
+  else
+    eval $compose run --rm job-api dm --token "$TOKEN" --url $VITE_DMSS_URL reset ../app
+  fi
+  echo "Upload plugins blueprints to DMSS"
+  dm --token "$TOKEN" --url $VITE_DMSS_URL import-plugin-blueprints ../node_modules/@development-framework/dm-core-plugins
+  echo "Upload app/ to DMSS"
+  dm --force --token "$TOKEN" --url $VITE_DMSS_URL reset app
+  echo "Creating lookup table"
+  dm --token "$TOKEN" --url $VITE_DMSS_URL create-lookup exampleApplication DemoDataSource/recipes
+}
+
+time main "$@"
