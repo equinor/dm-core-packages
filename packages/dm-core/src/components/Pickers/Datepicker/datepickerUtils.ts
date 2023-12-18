@@ -1,4 +1,5 @@
 import { zeroPad } from './calendarUtils'
+import { DateTime } from 'luxon'
 
 export function extractDateComponents(dateString: string): {
   day: number
@@ -22,6 +23,13 @@ export function extractDateComponents(dateString: string): {
     year = Number(dateString?.slice(4, 8))
     max = 8
   }
+
+  if (day < 1) day = 1
+  if (month < 1) month = 1
+  if (month > 12) month = 12
+  if (day > (DateTime.utc(year, month, 1).daysInMonth ?? 31))
+    day = DateTime.utc(year, month, 1).daysInMonth ?? 31
+
   return {
     day,
     month,

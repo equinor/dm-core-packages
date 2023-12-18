@@ -141,7 +141,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     const boundingRect = inputWrapperRef.current?.getBoundingClientRect()
     const space = window.innerHeight - (boundingRect?.bottom ?? 0)
     setOpenTop(space < 500)
-    console.log(open)
     if (!readonly) setOpen(!open)
   }
 
