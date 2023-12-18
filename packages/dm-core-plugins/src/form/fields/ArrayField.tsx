@@ -17,7 +17,12 @@ export default function ArrayField(props: TArrayTemplate) {
     return (
       <Widget
         id={namePath}
-        onChange={(values) => setValue(namePath, values)}
+        onChange={(values) =>
+          setValue(namePath, values, {
+            shouldDirty: true,
+            shouldValidate: true,
+          })
+        }
         config={uiAttribute?.config}
         enumType={attribute.enumType || undefined}
         value={value}

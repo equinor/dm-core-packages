@@ -92,7 +92,10 @@ export const ObjectModelContainedTemplate = (
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
             onChange={(data: Record<string, unknown>) =>
-              setValue(namePath, data)
+              setValue(namePath, data, {
+                shouldValidate: true,
+                shouldDirty: true,
+              })
             }
           />
         </FormTemplate.Content>
