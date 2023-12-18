@@ -153,23 +153,24 @@ export const Calendar = (props: CalendarProps): ReactElement => {
               aria-label={`${date.day}. ${
                 Object.keys(CALENDAR_MONTHS)[date.month - 1]
               }`}
-              className={
-                'p-1.5 w-9 rounded-full appearance-none hover:bg-equinor-lightgreen hover:text-equinor-green ' +
-                (isSameDay(
-                  DateTime.fromObject(date).toUTC().toJSDate(),
-                  dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
-                )
-                  ? 'bg-equinor-lightgreen text-equinor-green font-medium'
-                  : isSameMonth(
-                        DateTime.fromObject(date).toJSDate(),
-                        DateTime.fromObject({
-                          year: activeYear,
-                          month: activeMonth,
-                        }).toJSDate()
-                      )
-                    ? ''
-                    : 'text-slate-400')
-              }
+              className={`
+                p-1.5 w-9 rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green ${
+                  isSameDay(
+                    DateTime.fromObject(date).toJSDate(),
+                    dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
+                  )
+                    ? 'bg-equinor-lightgreen text-equinor-green font-medium'
+                    : isSameMonth(
+                          DateTime.fromObject(date).toJSDate(),
+                          DateTime.fromObject({
+                            year: activeYear,
+                            month: activeMonth,
+                          }).toJSDate()
+                        )
+                      ? ''
+                      : 'text-slate-400'
+                }
+              `}
               key={index}
             >
               {date.day}
