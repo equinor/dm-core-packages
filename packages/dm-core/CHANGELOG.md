@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.30.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.30.0...dm-core-v1.30.1) (2023-12-18)
+
+
+### Bug Fixes
+
+* multiple templates not save when add ([#1014](https://github.com/equinor/dm-core-packages/issues/1014)) ([812d44f](https://github.com/equinor/dm-core-packages/commit/812d44f8e614225970b378c9940409bc109f6d4f))
+
 ## [1.30.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.29.0...dm-core-v1.30.0) (2023-12-18)
 
 

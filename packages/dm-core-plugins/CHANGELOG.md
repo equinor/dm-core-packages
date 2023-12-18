@@ -36,6 +36,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.36.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.36.0...dm-core-plugins-v1.36.1) (2023-12-18)
+
+
+### Bug Fixes
+
+* set dirty state after update ([#1013](https://github.com/equinor/dm-core-packages/issues/1013)) ([3d38938](https://github.com/equinor/dm-core-packages/commit/3d38938a4a62ca48a6949a0915f660d665b1ebb2))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.30.0 to ^1.30.1
+
 ## [1.36.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.35.0...dm-core-plugins-v1.36.0) (2023-12-18)
 
 
