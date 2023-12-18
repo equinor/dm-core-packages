@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 import {
   ApplicationContext,
@@ -12,7 +12,7 @@ import {
   useBlueprint,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import { Button, Icon } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { RegistryProvider } from '../context/RegistryContext'
@@ -20,6 +20,8 @@ import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
 import { AttributeList } from './AttributeList'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
 import { getCanOpenOrExpand } from '../templates/shared/utils'
+import { FormButton } from '../../list/Components'
+import { undo } from '@equinor/eds-icons'
 
 const Wrapper = styled.div`
   max-width: 650px;
@@ -44,11 +46,19 @@ export const Form = (props: TFormProps) => {
   const { blueprint, isLoading, error } = useBlueprint(type)
   const dmssAPI = useDMSS()
   const { name } = useContext(ApplicationContext)
+  const [refresh, forceRefresh] = useState(0)
+  const [showComponent, setShowComponent] = useState(true)
 
   const methods = useForm({
     // Set initial state.
     defaultValues: formData || {},
   })
+
+  const handleCustomReset = () => {
+    setShowComponent(false)
+    methods.reset()
+    setTimeout(() => setShowComponent(true), 0)
+  }
 
   props?.onChange &&
     methods.watch((data: any) => props?.onChange && props.onChange(data))
@@ -143,28 +153,44 @@ export const Form = (props: TFormProps) => {
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
   const showSubmitButton = props.showSubmitButton ?? true
-
+  const disabled = isLoading || !methods.formState.isDirty
   return (
-    <FormProvider {...methods}>
-      <RegistryProvider
-        onOpen={onOpen}
-        idReference={idReference}
-        config={{ ...defaultConfig, ...props.config }}
-      >
-        <Wrapper>
-          <AttributeList namePath={namePath} blueprint={blueprint} />
-          {showSubmitButton && !config?.readOnly && (
-            <Button
-              type='submit'
-              data-testid='form-submit'
-              style={{ alignSelf: 'flex-start', marginTop: '1rem' }}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          )}
-        </Wrapper>
-      </RegistryProvider>
-    </FormProvider>
+    <>
+      {showComponent && (
+        <FormProvider {...methods}>
+          <RegistryProvider
+            onOpen={onOpen}
+            idReference={idReference}
+            config={{ ...defaultConfig, ...props.config }}
+          >
+            <Wrapper>
+              <AttributeList namePath={namePath} blueprint={blueprint} />
+              {showSubmitButton && !config?.readOnly && (
+                <div className='flex space-x-2 justify-start mt-4'>
+                  <Button
+                    onClick={handleCustomReset}
+                    type='button'
+                    disabled={disabled}
+                    tooltip={'Revert changes'}
+                    variant={'outlined'}
+                    data-testid='form-reset'
+                  >
+                    <Icon data={undo} size={16} />
+                  </Button>
+                  <Button
+                    disabled={disabled}
+                    type='submit'
+                    data-testid='form-submit'
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              )}
+            </Wrapper>
+          </RegistryProvider>
+        </FormProvider>
+      )}
+    </>
   )
 }

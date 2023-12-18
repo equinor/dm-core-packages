@@ -55,11 +55,9 @@ const DimensionalScalarWidget = (props: TWidget) => {
         style={
           widgetConfig?.inline
             ? {
-                // borderBottom: 'solid #6c6c6c 1px',
                 borderRadius: '2px 0 0 2px',
                 display: 'flex',
                 alignItems: 'center',
-                // background: '#f7f7f7',
                 paddingInline: '4px',
                 width: `calc(${widgetWidth} - ${inputBoxWidth})`,
                 height: widgetConfig?.compact ? '24px' : '36px',
@@ -67,9 +65,8 @@ const DimensionalScalarWidget = (props: TWidget) => {
             : {}
         }
       >
-        <Tooltip title={widgetConfig?.description || entity?.description}>
+        <Tooltip title={widgetConfig?.description || entity?.description || ''}>
           <Typography
-            q
             style={{
               overflow: 'hidden',
               paddingLeft: '4px',

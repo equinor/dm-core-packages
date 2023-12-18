@@ -78,6 +78,8 @@
         "fields": [
           "owner",
           "ceo",
+          "name",
+          "operable",
           "accountant",
           "trainee",
           "locations",

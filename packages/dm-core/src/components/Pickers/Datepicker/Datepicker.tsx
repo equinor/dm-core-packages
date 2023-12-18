@@ -163,7 +163,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           ref={inputWrapperRef}
           className={`h-9 px-2 border-b border-black flex items-center gap-2 w-fit ${
             readonly ? '' : 'cursor-pointer'
-          } ${isDirty ? 'bg-[#85babf5e]' : 'bg-[#f7f7f7]'}`}
+          } ${isDirty ? 'bg-[#85babf5e]' : 'bg-equinor-lightgray'}`}
           onClick={() => handleClickInput()}
         >
           <input

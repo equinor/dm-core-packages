@@ -8,6 +8,7 @@ import { NumberField } from './NumberField'
 import { ObjectField } from './ObjectField'
 import { StringField } from './StringField'
 import { TField } from '../types'
+import { collapse } from '@equinor/eds-icons'
 
 const getFieldType = (attribute: any) => {
   const { attributeType, dimensions } = attribute
@@ -48,6 +49,7 @@ export const AttributeField = (props: TField) => {
       namePath={namePath}
       uiAttribute={uiAttribute}
       attribute={attribute}
+      backgroundColor={props.backgroundColor}
     />
   )
 }

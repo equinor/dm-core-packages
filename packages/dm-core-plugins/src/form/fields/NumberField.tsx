@@ -7,7 +7,7 @@ import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
 export const NumberField = (props: TField) => {
-  const { namePath, uiAttribute, attribute } = props
+  const { namePath, uiAttribute, attribute, backgroundColor } = props
 
   const Widget = getWidget(uiAttribute?.widget ?? 'NumberWidget')
   const { config } = useRegistryContext()
@@ -45,7 +45,10 @@ export const NumberField = (props: TField) => {
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
             isDirty={value !== null ? isDirty : false}
-            config={uiAttribute?.config}
+            config={{
+              ...uiAttribute?.config,
+              backgroundColor: backgroundColor,
+            }}
           />
         )
       }}
