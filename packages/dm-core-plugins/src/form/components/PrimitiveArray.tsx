@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { AttributeField } from '../fields/AttributeField'
 import { TPrimitive, TUiAttributeObject } from '../types'
 import {
+  AddRowButton,
   DeleteSoftButton,
   TAttribute,
-  AddRowButton,
 } from '@development-framework/dm-core'
 
 interface PrimitiveArrayProps {
@@ -74,7 +74,7 @@ const PrimitiveArray = ({
         className='w-fit border rounded-t-sm rounded-b-md border-equinor-charcoal]
 '
       >
-        <div className='bg-equinor-light-gray-background'>
+        <div className='bg-equinor-lightgray'>
           {!data.length && <div className='h-3 w-10'></div>}
           {data.map((item: TPrimitive, index: number) => (
             <Tooltip
