@@ -179,7 +179,11 @@ export function Table(props: TableProps) {
               <TemplateMenu
                 templates={config.templates}
                 onSelect={(template: TTemplate) =>
-                  addItem(false, undefined, template?.path)
+                  addItem(
+                    tableVariant === TableVariantNameEnum.View,
+                    undefined,
+                    template?.path
+                  )
                 }
                 onClose={() => setTemplateMenuIsOpen(false)}
                 isOpen={isTemplateMenuOpen}
