@@ -27,9 +27,12 @@ export const TemplateMenu = (props: TemplateMenuProps) => {
         onClose={onClose}
         anchorEl={anchorRef ? anchorRef.current : anchorEl.current}
       >
-        {templates.map((template: TTemplate) => {
+        {templates.map((template: TTemplate, index: number) => {
           return (
-            <Menu.Item key={template.label} onClick={() => onSelect(template)}>
+            <Menu.Item
+              key={`${template.label}-${index}`}
+              onClick={() => onSelect(template)}
+            >
               {template.label}
             </Menu.Item>
           )
