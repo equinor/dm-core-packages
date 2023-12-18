@@ -141,6 +141,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     const boundingRect = inputWrapperRef.current?.getBoundingClientRect()
     const space = window.innerHeight - (boundingRect?.bottom ?? 0)
     setOpenTop(space < 500)
+    console.log(open)
     if (!readonly) setOpen(!open)
   }
 
@@ -176,18 +177,20 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             onFocus={() => (open ? setOpen(true) : null)}
             className='h-full bg-transparent appearance-none w-24'
           />
-          <input
-            type='text'
-            aria-label='Enter time'
-            className='appearance-none bg-transparent h-full w-12 text-center'
-            disabled={readonly}
-            onFocus={() => (open ? setOpen(true) : null)}
-            value={timeFieldValue}
-            onChange={(e: any) => handleTimeInput(e.target.value)}
-            onBlur={(e) =>
-              setTimeFieldValue(formatTime(e.target.value, useMinutes))
-            }
-          />
+          {variant === 'datetime' && (
+            <input
+              type='text'
+              aria-label='Enter time'
+              className='appearance-none bg-transparent h-full w-12 text-center'
+              disabled={readonly}
+              onFocus={() => (open ? setOpen(true) : null)}
+              value={timeFieldValue}
+              onChange={(e: any) => handleTimeInput(e.target.value)}
+              onBlur={(e) =>
+                setTimeFieldValue(formatTime(e.target.value, useMinutes))
+              }
+            />
+          )}
           <Icon data={calendar} size={18} className='w-6 mb-1' />
         </div>
       </InputWrapper>
@@ -199,13 +202,16 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           }`}
           style={{ zIndex: 9999, width: '25rem' }}
         >
+          <button type='button' className='bg-equinor-lightgreen'>
+            button
+          </button>
           <Calendar
             dateTime={datetime}
             handleDateSelection={handleDateSelection}
           />
-          <div className='w-full h-px bg-gray-300'></div>
           {variant === 'datetime' && (
             <>
+              <div className='w-full h-px bg-gray-300' />
               <Timefield
                 useMinutes={useMinutes}
                 timeFieldValue={timeFieldValue}

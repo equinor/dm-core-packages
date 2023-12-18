@@ -75,7 +75,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
           >
             <Icon
               className={
-                'group-hover:bg-equinor-green-light rounded-full transition-all duration-250'
+                'group-hover:bg-equinor-lightgreen rounded-full transition-all duration-250'
               }
               data={chevron_down}
             />
@@ -86,7 +86,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
             type='button'
             onClick={() => decrementMonth()}
             aria-label='Previous month'
-            className='flex items-center rounded-full hover:bg-equinor-green-light hover:text-equinor-green'
+            className='flex items-center rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green'
           >
             <Icon data={chevron_left} />
           </button>
@@ -94,7 +94,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
             type='button'
             onClick={() => goToToday()}
             aria-label='Go to today'
-            className=' p-0.5flex items-center rounded-full hover:bg-equinor-green-light hover:text-equinor-green'
+            className=' p-0.5flex items-center rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green'
           >
             <Icon data={calendar_today} size={16} />
           </button>
@@ -103,7 +103,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
             type='button'
             onClick={() => incrementMonth()}
             aria-label='Next month'
-            className='flex items-center rounded-full hover:bg-equinor-green-light hover:text-equinor-green'
+            className='flex items-center rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green'
           >
             <Icon data={chevron_right} />
           </button>
@@ -131,9 +131,9 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                     setShowMonthPicker(false)
                   }}
                   className={
-                    'hover:bg-equinor-green-light hover:text-equinor-green px-2 rounded py-1 ' +
+                    'hover:bg-equinor-lightgreen hover:text-equinor-green px-2 rounded py-1 ' +
                     (index + 1 === activeMonth
-                      ? 'bg-equinor-green-light text-equinor-green'
+                      ? 'bg-equinor-lightgreen text-equinor-green'
                       : '')
                   }
                   key={index}
@@ -153,23 +153,24 @@ export const Calendar = (props: CalendarProps): ReactElement => {
               aria-label={`${date.day}. ${
                 Object.keys(CALENDAR_MONTHS)[date.month - 1]
               }`}
-              className={
-                'p-1.5 w-9 rounded-full appearance-none hover:bg-equinor-green-light hover:text-equinor-green ' +
-                (isSameDay(
-                  DateTime.fromObject(date).toUTC().toJSDate(),
-                  dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
-                )
-                  ? 'bg-equinor-green-light text-equinor-green font-medium'
-                  : isSameMonth(
-                        DateTime.fromObject(date).toJSDate(),
-                        DateTime.fromObject({
-                          year: activeYear,
-                          month: activeMonth,
-                        }).toJSDate()
-                      )
-                    ? ''
-                    : 'text-slate-400')
-              }
+              className={`
+                p-1.5 w-9 rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green ${
+                  isSameDay(
+                    DateTime.fromObject(date).toJSDate(),
+                    dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
+                  )
+                    ? 'bg-equinor-lightgreen text-equinor-green font-medium'
+                    : isSameMonth(
+                          DateTime.fromObject(date).toJSDate(),
+                          DateTime.fromObject({
+                            year: activeYear,
+                            month: activeMonth,
+                          }).toJSDate()
+                        )
+                      ? ''
+                      : 'text-slate-400'
+                }
+              `}
               key={index}
             >
               {date.day}
