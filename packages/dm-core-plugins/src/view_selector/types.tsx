@@ -8,6 +8,7 @@ export type TViewSelectorItem = {
   viewConfig?: TReferenceViewConfig | TInlineRecipeViewConfig | TViewConfig
   subItems?: TViewSelectorItem[]
   label?: string
+  eds_icon?: string
 }
 
 export type TItemData = TViewSelectorItem & {

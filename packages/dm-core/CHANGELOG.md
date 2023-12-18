@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.29.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.28.0...dm-core-v1.29.0) (2023-12-18)
+
+
+### Features
+
+* relative example ([7e00392](https://github.com/equinor/dm-core-packages/commit/7e00392a307c0f5c47405ddb49cc02b07ca74b0a))
+
 ## [1.28.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.27.0...dm-core-v1.28.0) (2023-12-15)
 
 

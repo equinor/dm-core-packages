@@ -1,0 +1,32 @@
+{
+  "type": "CORE:Blueprint",
+  "name": "Task",
+  "description": "",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "attributeType": "./Data",
+      "type": "CORE:BlueprintAttribute",
+      "name": "data"
+    },
+    {
+      "attributeType": "./Job",
+      "type": "CORE:BlueprintAttribute",
+      "name": "job",
+      "optional": true
+    },
+    {
+      "attributeType": "./ChildTask",
+      "type": "CORE:BlueprintAttribute",
+      "name": "task",
+      "optional": true
+    },
+    {
+      "attributeType": "./ChildTask",
+      "type": "CORE:BlueprintAttribute",
+      "name": "tasks",
+      "optional": true,
+      "dimensions": "*"
+    }
+  ]
+}

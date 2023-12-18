@@ -1,0 +1,70 @@
+{
+  "type": "./blueprints/Task",
+  "name": "TestData",
+  "data": {
+    "type": "./blueprints/Data",
+    "aNumber": 100
+  },
+  "job": {
+    "type": "./blueprints/Job",
+    "name": "Job",
+    "input": {
+      "address": "~.~.data",
+      "type": "CORE:Reference",
+      "referenceType": "link"
+    }
+  },
+  "task": {
+    "type": "./blueprints/ChildTask",
+    "name": "ChildTask",
+    "data": {
+      "type": "./blueprints/Data",
+      "aNumber": 200
+    },
+    "job": {
+      "type": "./blueprints/Job",
+      "name": "Sub Job",
+      "input": {
+        "address": "~.~.data",
+        "type": "CORE:Reference",
+        "referenceType": "link"
+      }
+    }
+  },
+  "tasks": [
+    {
+      "type": "./blueprints/ChildTask",
+      "name": "ChildTask",
+      "data": {
+        "type": "./blueprints/Data",
+        "aNumber": 300
+      },
+      "job": {
+        "type": "./blueprints/Job",
+        "name": "Task 1",
+        "input": {
+          "address": "~.~.data",
+          "type": "CORE:Reference",
+          "referenceType": "link"
+        }
+      }
+    },
+    {
+      "type": "./blueprints/ChildTask",
+      "name": "ChildTask",
+      "data": {
+        "type": "./blueprints/Data",
+        "aNumber": 400
+      },
+      "job": {
+        "type": "./blueprints/Job",
+        "name": "Task 2",
+        "input": {
+          "address": "~.~.~.data",
+          "type": "CORE:Reference",
+          "referenceType": "link"
+        }
+      }
+    }
+  ]
+}

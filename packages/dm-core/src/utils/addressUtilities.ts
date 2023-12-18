@@ -36,13 +36,30 @@ export const splitAddress = (address: string) => {
 export const resolveRelativeAddress = (
   address: string,
   fallbackDocumentPath: string,
-  dataSource: string
+  dataSource: string,
+  relative_path?: string[]
 ) => {
   address = address.replace(/^[/. ]+|[/. ]+$/g, '')
   if (address.includes('://')) return address
   const [documentPath, attributePath] = address.includes('.')
     ? splitString(address, '.', 1)
     : [address, '']
+
+  if (documentPath === '~') {
+    if (!relative_path)
+      throw 'Missing relative path to be able to resolve the address'
+    let go_up = address.split('~').length - 1
+    const path = Array.from(relative_path)
+    while (go_up !== 0) {
+      path.pop()
+      go_up -= 1
+    }
+    const rest = address.split('~', -1).slice(-1)
+    if (path.length > 0)
+      return `/${dataSource}/${fallbackDocumentPath}.${path.join('.')}${rest}`
+    else return `/${dataSource}/${fallbackDocumentPath}${rest}`
+  }
+
   return `/${dataSource}/${
     documentPath === '^' ? fallbackDocumentPath : documentPath
   }${attributePath ? '.' + attributePath : ''}`

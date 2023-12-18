@@ -95,9 +95,10 @@ export function useViewSelector(
         newViews.push({
           viewConfig: viewItem.viewConfig,
           subItems: viewItem.subItems,
+          eds_icon: viewItem.eds_icon,
           label: viewItem.label ?? backupKey,
-          // Generate UUID to allow for multiple view of same scope
           viewId: viewId,
+          // Generate UUID to allow for multiple view of same scope
           rootEntityId: idReference,
           onSubmit: onSubmit,
           onChange: onChange,
@@ -110,6 +111,7 @@ export function useViewSelector(
           newViews.push({
             viewConfig: subItem.viewConfig,
             subItems: subItem.subItems,
+            eds_icon: subItem.eds_icon,
             label: subItem.label ?? subBackupKey,
             // Generate UUID to allow for multiple view of same scope
             viewId: subViewId,
@@ -127,6 +129,7 @@ export function useViewSelector(
       newViews.push({
         label: 'self',
         viewId: 'self',
+        eds_icon: 'home',
         viewConfig: {
           type: 'InlineRecipeViewConfig',
           scope: 'self',
@@ -135,7 +138,6 @@ export function useViewSelector(
             name: 'Yaml',
             plugin: '@development-framework/dm-core-plugins/yaml',
           },
-          eds_icon: 'home',
         },
         onSubmit: onSubmit,
         onChange: onChange,

@@ -1,5 +1,5 @@
 import { Button, Tabs as EdsTabs, Tooltip } from '@equinor/eds-core-react'
-import { close } from '@equinor/eds-icons'
+import { close, subdirectory_arrow_right } from '@equinor/eds-icons'
 import * as React from 'react'
 import Icon from './Icon'
 import { TItemData } from './types'
@@ -40,10 +40,10 @@ export const Tabs = (props: {
                 variant='ghost'
                 style={{ fontSize: '16px' }}
               >
-                {config.viewConfig?.eds_icon && (
+                {(config.eds_icon ?? config.viewConfig?.eds_icon) && (
                   <Icon
-                    name={config.viewConfig.eds_icon}
-                    title={config.viewConfig.eds_icon}
+                    name={config.eds_icon ?? config.viewConfig?.eds_icon}
+                    title={config.eds_icon ?? config.viewConfig?.eds_icon}
                   />
                 )}
                 {config.label}

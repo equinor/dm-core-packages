@@ -113,21 +113,18 @@ export const calendar = (
 
   const prevMonthDates = [...new Array(daysFromPrevMonth)].map((n, index) => {
     const day = index + 1 + (prevMonthDays - daysFromPrevMonth)
-    // return [ prevMonthYear, zeroPad(prevMonth, 2), zeroPad(day, 2) ]
-    return { day: day, month: prevMonthDays, year: prevMonthYear }
+    return { day: day, month: prevMonth, year: prevMonthYear }
   })
   // Builds dates to be displayed from current month
 
   const thisMonthDates = [...new Array(monthDays)].map((n, index) => {
     const day = index + 1
-    // return [ year, zeroPad(month, 2), zeroPad(day, 2) ]
     return { day: day, month: month, year: year }
   })
   // Builds dates to be displayed from next month
 
   const nextMonthDates = [...new Array(daysFromNextMonth)].map((n, index) => {
     const day = index + 1
-    // return [ nextMonthYear, zeroPad(nextMonth, 2), zeroPad(day, 2) ]
     return { day: day, month: nextMonth, year: nextMonthYear }
   })
   // Combines all dates from previous, current and next months
