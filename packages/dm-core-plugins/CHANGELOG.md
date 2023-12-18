@@ -36,6 +36,25 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.35.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.34.0...dm-core-plugins-v1.35.0) (2023-12-18)
+
+
+### Features
+
+* relative example ([7e00392](https://github.com/equinor/dm-core-packages/commit/7e00392a307c0f5c47405ddb49cc02b07ca74b0a))
+
+
+### Bug Fixes
+
+* optional eds icon in viewselectoritem ([1d4f310](https://github.com/equinor/dm-core-packages/commit/1d4f31069273e2825d0c2fc3201202aa793d5634))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.28.0 to ^1.29.0
+
 ## [1.34.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.33.0...dm-core-plugins-v1.34.0) (2023-12-15)
 
 
