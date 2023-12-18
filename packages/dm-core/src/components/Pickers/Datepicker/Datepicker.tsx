@@ -201,9 +201,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           }`}
           style={{ zIndex: 9999, width: '25rem' }}
         >
-          <button type='button' className='bg-equinor-lightgreen'>
-            button
-          </button>
           <Calendar
             dateTime={datetime}
             handleDateSelection={handleDateSelection}
