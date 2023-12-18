@@ -139,8 +139,8 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
 
   function handleClickInput(): void {
     const boundingRect = inputWrapperRef.current?.getBoundingClientRect()
-    const space = window.innerHeight - (boundingRect?.bottom ?? 0)
-    setOpenTop(space < 500)
+    const spaceBeneath = window.innerHeight - (boundingRect?.bottom ?? 0)
+    setOpenTop(spaceBeneath < 500 && (boundingRect?.y ?? 0) > 500)
     if (!readonly) setOpen(!open)
   }
 
