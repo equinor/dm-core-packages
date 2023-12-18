@@ -36,6 +36,39 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.36.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.35.0...dm-core-plugins-v1.36.0) (2023-12-18)
+
+
+### Features
+
+* added reset button to all forms ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* further ui changes ([abee8c6](https://github.com/equinor/dm-core-packages/commit/abee8c622b3af3de0813875f590cfa00ae2ebf2b))
+* some ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* submit button is diabled when no dirty stated ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+
+
+### Bug Fixes
+
+* ??? comment out test ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* border same color everywhere ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* can't get tests green ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* dynaic sizing of primitive array header ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* form submit button further down ([abee8c6](https://github.com/equinor/dm-core-packages/commit/abee8c622b3af3de0813875f590cfa00ae2ebf2b))
+* lightgreen ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* primitive array no item looks better now ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* reuse colors ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* some tetsing ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* tesets ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* tests ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+* tests ([24f770a](https://github.com/equinor/dm-core-packages/commit/24f770a766b373892fbf8d061ccbcbe328afc6e1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.29.0 to ^1.30.0
+
 ## [1.35.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.34.0...dm-core-plugins-v1.35.0) (2023-12-18)
 
 
