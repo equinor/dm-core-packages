@@ -66,16 +66,15 @@ const PrimitiveArray = ({
     w-full
     content-start
     overflow-x-hidden
-    pb-2
     justify-center
   '
     >
       <div
-        className='w-fit border rounded-t-sm rounded-b-md border-equinor-charcoal]
+        className='w-full rounded-b-md border-equinor-charcoal]
 '
       >
         <div className='bg-equinor-lightgray'>
-          {!data.length && <div className='h-3 w-10'></div>}
+          {!data.length && <div className='h-3 w-30'></div>}
           {data.map((item: TPrimitive, index: number) => (
             <Tooltip
               title={`Index: ${index}`}

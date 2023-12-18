@@ -8,6 +8,10 @@ const StyledInputField = styled(TextField)`
     color: black;
   }
 
+  input {
+    padding: 0 8px
+  }
+
   span {
     color: #6f6f6f;
   }
