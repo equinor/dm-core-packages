@@ -62,6 +62,11 @@ export const RoleProvider = (props: {
 
   useEffect(() => {
     let newRoles = passedRoles
+    if (tokenData) {
+      newRoles = newRoles.filter((role) =>
+        tokenData.roles.includes(role.authServerRoleName)
+      )
+    }
     if (passedRoles && !passedRoles.length) {
       // No roles is configured in application. Generate from roles in token
       newRoles = generateFallbackRoles(tokenData?.roles)
