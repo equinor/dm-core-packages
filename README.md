@@ -4011,3 +4011,34 @@ Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.
     * **DMSS VERSION**: 8380eeb 2023-12-18 githu..[bot] chore(master): release 1.15.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.3
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* fix: dynaic sizing of primitive array header
+
+fix: primitive array no item looks better now
+
+fix: border same color everywhere
+
+feat: added reset button to all forms
+
+feat: submit button is diabled when no dirty stated
+
+feat: some
+
+fix: reuse colors
+
+fix: lightgreen
+
+fix: tests
+
+fix: can't get tests green
+
+fix: some tetsing
+
+fix: tesets
+
+fix: tests
+
+fix: ??? comment out test (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7250377506/1)
+    * **DMSS VERSION**: 8380eeb 2023-12-18 githu..[bot] chore(master): release 1.15.1 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.3
+    * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
