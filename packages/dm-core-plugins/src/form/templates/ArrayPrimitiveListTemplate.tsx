@@ -22,7 +22,7 @@ export const ArrayPrimitiveListTemplate = (
   )
 
   return (
-    <div className='w-[200px]'>
+    <div className='w-fit min-w-[220px]'>
       <FormTemplate>
         <FormTemplate.Header>
           <FormTemplate.Header.Title

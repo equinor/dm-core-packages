@@ -73,8 +73,7 @@ const PrimitiveArray = ({
         className='w-full rounded-b-md border-equinor-charcoal]
 '
       >
-        <div className='bg-equinor-lightgray'>
-          {!data.length && <div className='h-3 w-30'></div>}
+        <div>
           {data.map((item: TPrimitive, index: number) => (
             <Tooltip
               title={`Index: ${index}`}
@@ -96,6 +95,7 @@ const PrimitiveArray = ({
                     config: { hideLabel: true, ...uiAttribute?.config },
                   }}
                   attribute={{ ...attribute, dimensions: '' }}
+                  backgroundColor='white'
                 />
                 <div
                   className={`pb-[3px] w-fit ${

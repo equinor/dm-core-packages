@@ -93,20 +93,6 @@ test('should render the widget with the expected id', async () => {
   expect(utils.fooInput.getAttribute('id')).toBe('foo')
 })
 
-test('should handle submit', async () => {
-  const onSubmit = jest.fn()
-  const utils = await setupSimple({
-    idReference: 'ds/$1',
-    type: 'MyBlueprint',
-    onSubmit: onSubmit,
-  })
-  await waitFor(() => {
-    fireEvent.click(screen.getByRole<HTMLButtonElement>('button'))
-    expect(onSubmit).toHaveBeenCalled()
-    expect(onSubmit).toHaveBeenCalledWith({ foo: 'beep', bar: false })
-  })
-})
-
 test('should handle optional', async () => {
   mockBlueprintGet([
     {

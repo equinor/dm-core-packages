@@ -9,6 +9,18 @@
       "optional": false
     },
     {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "operable",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true
+    },
+    {
       "name": "owner",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",

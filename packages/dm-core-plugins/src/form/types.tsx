@@ -33,6 +33,7 @@ export type TField = {
   namePath: string
   uiAttribute: TUiAttribute | undefined
   attribute: TAttribute
+  backgroundColor?: string
 }
 
 type TUiAttributeBase = {

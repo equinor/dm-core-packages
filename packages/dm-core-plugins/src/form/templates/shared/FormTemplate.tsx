@@ -15,8 +15,8 @@ const FormTemplateHeader = ({
 }: PropsWithChildren & { objectIsNotEmpty?: boolean }) => {
   return (
     <legend
-      className={`flex h-10 justify-between bg-[#f7f7f7] ${
-        objectIsNotEmpty ? 'hover:bg-[#f7f7f7]' : ''
+      className={`flex h-10 justify-between bg-equinor-lightgray ${
+        objectIsNotEmpty ? 'hover:bg-equinor-lightgray' : ''
       } items-center pr-2 rounded-[inherit] transition duration-75`}
       aria-label='object-legend'
     >
@@ -35,7 +35,7 @@ const FormTemplateContent = ({
 }: PropsWithChildren & { padding?: string }) => {
   return (
     <div
-      className={`border-t border-[#bbbbbb] ${
+      className={`border-t border-[#dddddd] ${
         padding ?? 'p-2'
       } max-h-300 overflow-auto w-full`}
     >
@@ -74,7 +74,7 @@ const FormTemplateHeaderTitle = ({
       {canExpand && (
         <span
           className={`flex w-fit rounded-full items-center ${
-            canExpand && isHovering ? 'bg-[#deedee] ' : ''
+            canExpand && isHovering ? 'bg-equinor-lightgreen' : ''
           }`}
         >
           <ExpandChevron

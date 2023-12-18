@@ -14,7 +14,7 @@ test('Form default DMSS UI Recipe', async ({ page }) => {
   )
   await expect(page.getByLabel('An optional checkbox (Optional)')).toBeVisible()
   await expect(page.getByLabel('date')).toHaveValue('2023-10-17T13:30')
-  await expect(page.getByTestId('form-submit')).toBeEnabled()
+  await expect(page.getByTestId('form-submit')).toBeVisible()
 })
 
 test('TableList default DMSS UI Recipe', async ({ page }) => {

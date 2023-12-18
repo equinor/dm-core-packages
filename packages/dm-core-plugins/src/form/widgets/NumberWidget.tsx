@@ -6,7 +6,6 @@ const NumberWidget = (props: TWidget) => {
   const { onChange } = props
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
     onChange?.(Number(event.target.value))
-
   return (
     <StyledNumberField
       {...props}
