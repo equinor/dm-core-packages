@@ -24,7 +24,6 @@ import { getCanOpenOrExpand } from '../templates/shared/utils'
 const Wrapper = styled.div`
   max-width: 650px;
   width: 100%;
-  padding: 1rem 0;
   display: flex;
   flex-direction: column;
 `
@@ -158,7 +157,7 @@ export const Form = (props: TFormProps) => {
             <Button
               type='submit'
               data-testid='form-submit'
-              style={{ alignSelf: 'flex-start' }}
+              style={{ alignSelf: 'flex-start', marginTop: '1rem' }}
               onClick={handleSubmit}
             >
               Submit

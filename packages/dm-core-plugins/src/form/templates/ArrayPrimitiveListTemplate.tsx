@@ -22,30 +22,32 @@ export const ArrayPrimitiveListTemplate = (
   )
 
   return (
-    <FormTemplate>
-      <FormTemplate.Header>
-        <FormTemplate.Header.Title
-          canExpand={true}
-          canOpen={false}
-          isExpanded={isExpanded}
-          setIsExpanded={setIsExpanded}
-          attribute={attribute}
-          objectIsNotEmpty={true}
-          icon={list}
-        />
-      </FormTemplate.Header>
-      {isExpanded && (
-        <FormTemplate.Content>
-          <PrimitiveArray
-            uiAttribute={uiAttribute}
-            data={value}
-            namePath={namePath}
+    <div className='w-[200px]'>
+      <FormTemplate>
+        <FormTemplate.Header>
+          <FormTemplate.Header.Title
+            canExpand={true}
+            canOpen={false}
+            isExpanded={isExpanded}
+            setIsExpanded={setIsExpanded}
             attribute={attribute}
-            onChange={onChange}
+            objectIsNotEmpty={true}
+            icon={list}
           />
-        </FormTemplate.Content>
-      )}
-    </FormTemplate>
+        </FormTemplate.Header>
+        {isExpanded && (
+          <FormTemplate.Content padding=''>
+            <PrimitiveArray
+              uiAttribute={uiAttribute}
+              data={value}
+              namePath={namePath}
+              attribute={attribute}
+              onChange={onChange}
+            />
+          </FormTemplate.Content>
+        )}
+      </FormTemplate>
+    </div>
   )
 }
 

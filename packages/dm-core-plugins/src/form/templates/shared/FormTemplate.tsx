@@ -6,13 +6,18 @@ import { TAttribute, useSearch } from '@development-framework/dm-core'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
 const FormTemplate = ({ children }: PropsWithChildren) => {
-  return <div className='border border-[#6f6f6f] rounded-sm'>{children}</div>
+  return <div className='border border-[#dddddd] rounded-md'>{children}</div>
 }
 
-const FormTemplateHeader = ({ children }: PropsWithChildren) => {
+const FormTemplateHeader = ({
+  children,
+  objectIsNotEmpty = true,
+}: PropsWithChildren & { objectIsNotEmpty?: boolean }) => {
   return (
     <legend
-      className={`flex h-10 justify-between bg-[#f7f7f7] items-center pr-2 rounded-[inherit]`}
+      className={`flex h-10 justify-between bg-[#f7f7f7] ${
+        objectIsNotEmpty ? 'hover:bg-[#f7f7f7]' : ''
+      } items-center pr-2 rounded-[inherit] transition duration-75`}
       aria-label='object-legend'
     >
       {children}
@@ -24,9 +29,16 @@ const FormTemplateHeaderActions = ({ children }: PropsWithChildren) => {
   return <div className='flex items-center'>{children}</div>
 }
 
-const FormTemplateContent = ({ children }: PropsWithChildren) => {
+const FormTemplateContent = ({
+  children,
+  padding,
+}: PropsWithChildren & { padding?: string }) => {
   return (
-    <div className='border-t border-[#6f6f6f] p-2 max-h-300 overflow-auto w-full'>
+    <div
+      className={`border-t border-[#bbbbbb] ${
+        padding ?? 'p-2'
+      } max-h-300 overflow-auto w-full`}
+    >
       {children}
     </div>
   )
