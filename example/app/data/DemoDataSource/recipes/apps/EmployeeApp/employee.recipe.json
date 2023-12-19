@@ -31,7 +31,9 @@
           "delete": true,
           "expand": true,
           "open": true
-        }
+        },
+        "labelByIndex": true,
+        "label": "Employee number"
       }
     }
   ]

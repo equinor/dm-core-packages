@@ -2,6 +2,7 @@ import {
   IUIPlugin,
   TGenericObject,
   TInlineRecipeViewConfig,
+  TOnOpen,
   TReferenceViewConfig,
   TSortableItem,
   TTemplate,
@@ -49,6 +50,8 @@ export type TTableConfig = {
     | TReferenceViewConfig
   variant: TTableVariant[]
   templates?: TTemplate[]
+  labelByIndex?: boolean
+  label?: string
 }
 
 // Table components types
@@ -103,7 +106,7 @@ export type TableRowProps = {
   index: number
   idReference: string
   items: TItem<TGenericObject>[]
-  onOpen: any
+  onOpen?: TOnOpen
   rowsPerPage: number
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
   setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
