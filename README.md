@@ -4112,3 +4112,22 @@ fix: re-add another test (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 8380eeb 2023-12-18 githu..[bot] chore(master): release 1.15.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.3
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* fix: compact list (#1027)
+
+fix: compact list
+
+fix: works now
+
+fix: list kinda works now
+
+fix: made carlist compact
+
+fix: a tiny bit more compact
+
+fix: tests
+
+Co-authored-by: Christopher Collin Løkken <chcl@equinor.com> (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7263409051/1)
+    * **DMSS VERSION**: 8380eeb 2023-12-18 githu..[bot] chore(master): release 1.15.1 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.3
+    * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
