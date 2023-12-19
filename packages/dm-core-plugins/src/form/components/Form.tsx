@@ -168,7 +168,11 @@ export const Form = (props: TFormProps) => {
                 <EdsProvider
                   density={config?.compactButtons ? 'compact' : 'comfortable'}
                 >
-                  <div className='flex space-x-2 justify-start mt-4'>
+                  <div
+                    className={`flex space-x-2 justify-start ${
+                      config?.compactButtons ? 'mt-2' : 'mt-4'
+                    }`}
+                  >
                     <Button
                       onClick={handleCustomReset}
                       type='button'
