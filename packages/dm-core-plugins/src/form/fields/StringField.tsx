@@ -41,7 +41,6 @@ export const StringField = (props: TField) => {
             variant={invalid ? 'error' : undefined}
             config={{
               ...uiAttribute?.config,
-              backgroundColor: backgroundColor,
             }}
           />
         )

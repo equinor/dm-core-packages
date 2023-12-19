@@ -92,10 +92,13 @@ const PrimitiveArray = ({
                     name: '',
                     type: '',
                     ...uiAttribute,
-                    config: { hideLabel: true, ...uiAttribute?.config },
+                    config: {
+                      hideLabel: true,
+                      ...uiAttribute?.config,
+                      backgroundColor: 'white',
+                    },
                   }}
                   attribute={{ ...attribute, dimensions: '' }}
-                  backgroundColor='white'
                 />
                 <div
                   className={`pb-[3px] w-fit ${

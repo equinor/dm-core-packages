@@ -47,7 +47,6 @@ export const NumberField = (props: TField) => {
             isDirty={value !== null ? isDirty : false}
             config={{
               ...uiAttribute?.config,
-              backgroundColor: backgroundColor,
             }}
           />
         )

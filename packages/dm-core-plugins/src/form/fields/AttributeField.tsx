@@ -49,7 +49,6 @@ export const AttributeField = (props: TField) => {
       namePath={namePath}
       uiAttribute={uiAttribute}
       attribute={attribute}
-      backgroundColor={props.backgroundColor}
     />
   )
 }
