@@ -76,6 +76,11 @@ test('should assign a default value', async () => {
   })
   await waitFor(() => {
     expect(utils.textbox.value).toBe('boo')
+    fireEvent.click(utils.submit)
+    expect(onSubmit).toHaveBeenCalled()
+    expect(onSubmit).toHaveBeenCalledWith({
+      foo: 'boo',
+    })
   })
 })
 
@@ -133,48 +138,39 @@ test('should default submit value to empty object', async () => {
   })
 })
 
-// test('should handle optional', async () => {
-//   mockBlueprintGet([
-//     {
-//       name: 'SingleField',
-//       type: 'system/SIMOS/Blueprint',
-//       attributes: [
-//         {
-//           name: 'foo',
-//           type: 'system/SIMOS/BlueprintAttribute',
-//           attributeType: 'string',
-//           optional: true,
-//           default: 'boo',
-//         },
-//       ],
-//     },
-//   ])
+test('should handle optional', async () => {
+  mockBlueprintGet([
+    {
+      name: 'SingleField',
+      type: 'system/SIMOS/Blueprint',
+      attributes: [
+        {
+          name: 'foo',
+          type: 'system/SIMOS/BlueprintAttribute',
+          attributeType: 'string',
+          optional: true
+        },
+      ],
+    },
+  ])
 
-//   const onSubmit = jest.fn()
+  const onSubmit = jest.fn()
 
-//   render(
-//     <Form
-//       idReference="ds/$1"
-//       type="SingleField"
-//       onSubmit={onSubmit}
-//     />,
-//     { wrapper }
-//   )
-//   await waitFor(() => {
-//     const textbox = screen.getByRole<HTMLInputElement>('textbox')
-//     userEvent.type(textbox, 'a')
-//     }
-//   )
-//   await waitFor(()=>{
-//     const submit = screen.getByTestId("form-submit")
-//   })
-//   await waitFor(() =>    { const submit = screen.getByTestId("form-submit"); fireEvent.click(submit)}
-//   )
-//   // The useForm "methods.handleSubmit" seems to be async, and needs to be awaited
-//   await waitFor(() => expect(onSubmit).toHaveBeenCalled())
-//   expect(onSubmit).toHaveBeenCalledWith({ foo: '' })
-//   await waitFor(() => expect(screen.getByText('Foo (Optional)')).toBeDefined())
-// })
+  render(
+    <Form
+      idReference="ds/$1"
+      type="SingleField"
+      onSubmit={onSubmit}
+    />,
+    { wrapper }
+  )
+  await waitFor(() =>    { const submit = screen.getByTestId("form-submit"); fireEvent.click(submit)}
+  )
+  // The useForm "methods.handleSubmit" seems to be async, and needs to be awaited
+  await waitFor(() => expect(onSubmit).toHaveBeenCalled())
+  expect(onSubmit).toHaveBeenCalledWith({ foo: '' })
+  await waitFor(() => expect(screen.getByText('Foo (Optional)')).toBeDefined())
+})
 
 test.skip('should not call onSubmit if non-optional field are missing value', async () => {
   mockBlueprintGet([

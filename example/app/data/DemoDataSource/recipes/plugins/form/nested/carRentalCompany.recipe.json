@@ -31,7 +31,12 @@
           {
             "name": "owner",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "defaultForm"
+            "uiRecipe": "defaultForm",
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "open": true,
+              "expand": true
+            }
           },
           {
             "name": "trainee",
