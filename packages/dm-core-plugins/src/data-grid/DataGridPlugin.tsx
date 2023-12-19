@@ -40,7 +40,7 @@ export function DataGridPlugin(props: IUIPlugin) {
   async function saveDocument() {
     setLoading(true)
     try {
-      const payload = { ...document, data }
+      const payload = { ...document, [fieldName]: data }
       await dmssAPI.documentUpdate({
         idAddress: idReference,
         data: JSON.stringify(payload),
