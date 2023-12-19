@@ -138,7 +138,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const { documentPath, dataSource } = splitAddress(idReference)
 
   return (
-    <Stack>
+    <Stack style={{ minWidth: 'fit-content' }}>
       {attribute && !attribute.contained && (
         <EntityPickerDialog
           showModal={showModal}
@@ -161,19 +161,17 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       )}
       {paginatedRows &&
         paginatedRows.map((item: TItem<TGenericObject>, index: number) => (
-          <React.Fragment key={item?.key}>
+          <Stack key={item?.key} style={{ width: '100%' }}>
             <Stack
               direction='row'
               role='row'
-              spacing={1}
               justifyContent='space-between'
               alignItems='center'
               style={{
-                padding: '0.25rem 0.5rem',
                 borderBottom: '1px solid #ccc',
               }}
             >
-              <Stack direction='row' spacing={0.5} alignItems='center'>
+              <Stack direction='row' alignItems='center'>
                 {internalConfig.functionality.expand && (
                   <Tooltip title={expanded[item.key] ? 'Minimize' : 'Expand'}>
                     <Button
@@ -212,6 +210,9 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                           key={attribute}
                           variant='body_short'
                           bold={index === 0}
+                          style={{
+                            marginLeft: index !== 0 ? '10px' : '0',
+                          }}
                           className={
                             internalConfig.functionality.expand
                               ? 'cursor-pointer'
@@ -304,7 +305,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 />
               )}
             </Stack>
-          </React.Fragment>
+          </Stack>
         ))}
       <Stack
         direction='row'
