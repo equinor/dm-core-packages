@@ -54,7 +54,7 @@ See the [example](https://github.com/equinor/dm-core-packages/tree/main/example)
 
 <a id="Contributing"></a>
 ## :+1: Contributing
-
+If you would like to contribute, please read our [Contribution guide](https://equinor.github.io/dm-docs/contributing/).
 
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license]: https://github.com/equinor/dm-core-packages/blob/main/LICENSE
