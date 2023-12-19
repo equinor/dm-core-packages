@@ -36,6 +36,32 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.37.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.36.1...dm-core-plugins-v1.37.0) (2023-12-19)
+
+
+### Features
+
+* compactable form buttons ([#1025](https://github.com/equinor/dm-core-packages/issues/1025)) ([7c08e74](https://github.com/equinor/dm-core-packages/commit/7c08e74a239be7c18a7fbd8ce994c3f4efa43c10))
+* make example more testable ([d4e8dbd](https://github.com/equinor/dm-core-packages/commit/d4e8dbda04b8ddd4d63b370ff1e421a116e41a8a))
+
+
+### Bug Fixes
+
+* a tiny bit more compact ([ab59a0e](https://github.com/equinor/dm-core-packages/commit/ab59a0e45ddab6e225928f8c96e5e1d8d142e898))
+* allow list header to grow with flexbox ([cf042fa](https://github.com/equinor/dm-core-packages/commit/cf042fa4e98c051aceb4e3e05220ea9879a43a52))
+* compact list ([ab59a0e](https://github.com/equinor/dm-core-packages/commit/ab59a0e45ddab6e225928f8c96e5e1d8d142e898))
+* compact list ([#1027](https://github.com/equinor/dm-core-packages/issues/1027)) ([ab59a0e](https://github.com/equinor/dm-core-packages/commit/ab59a0e45ddab6e225928f8c96e5e1d8d142e898))
+* do not show job status when it is unknown ([0a6f223](https://github.com/equinor/dm-core-packages/commit/0a6f223bb1f9352b56223ea37a81f38a4d155f80))
+* list kinda works now ([ab59a0e](https://github.com/equinor/dm-core-packages/commit/ab59a0e45ddab6e225928f8c96e5e1d8d142e898))
+* made carlist compact ([ab59a0e](https://github.com/equinor/dm-core-packages/commit/ab59a0e45ddab6e225928f8c96e5e1d8d142e898))
+* move config into right place ([e6a97b8](https://github.com/equinor/dm-core-packages/commit/e6a97b8fa222a507baa4682a4424fbdf77a7a3e5))
+* re-add another test ([d4e8dbd](https://github.com/equinor/dm-core-packages/commit/d4e8dbda04b8ddd4d63b370ff1e421a116e41a8a))
+* revert disabled submit button after feedback ([d4e8dbd](https://github.com/equinor/dm-core-packages/commit/d4e8dbda04b8ddd4d63b370ff1e421a116e41a8a))
+* test ([d4e8dbd](https://github.com/equinor/dm-core-packages/commit/d4e8dbda04b8ddd4d63b370ff1e421a116e41a8a))
+* tests ([ab59a0e](https://github.com/equinor/dm-core-packages/commit/ab59a0e45ddab6e225928f8c96e5e1d8d142e898))
+* use field name in payload ([d44a286](https://github.com/equinor/dm-core-packages/commit/d44a286dba0a465c23c3f78fd53902fe10d9ba38))
+* works now ([ab59a0e](https://github.com/equinor/dm-core-packages/commit/ab59a0e45ddab6e225928f8c96e5e1d8d142e898))
+
 ## [1.36.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.36.0...dm-core-plugins-v1.36.1) (2023-12-18)
 
 
