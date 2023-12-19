@@ -178,7 +178,6 @@ export const Form = (props: TFormProps) => {
                     <Icon data={undo} size={16} />
                   </Button>
                   <Button
-                    disabled={disabled}
                     type='submit'
                     data-testid='form-submit'
                     onClick={handleSubmit}
