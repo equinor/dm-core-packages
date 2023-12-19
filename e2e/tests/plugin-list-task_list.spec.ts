@@ -26,7 +26,7 @@ async function reloadPage(page: Page) {
 }
 
 test('Add a new task', async ({ page }) => {
-  await page.getByRole('button', { name: 'Add item' }).click()
+  await page.getByLabel('append-item').click()
   await page.getByRole('button', { name: 'Save' }).click()
   await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()
   await page
@@ -235,9 +235,9 @@ test('Edit a task', async ({ page }) => {
 })
 
 test('Pagination', async ({ page }) => {
-  await page.getByRole('button', { name: 'Add item' }).click()
-  await page.getByRole('button', { name: 'Add item' }).click()
-  await page.getByRole('button', { name: 'Add item' }).click()
+  await page.getByLabel('append-item').click()
+  await page.getByLabel('append-item').click()
+  await page.getByLabel('append-item').click()
   await expect(page.getByText('1 - 5 of 6')).toBeVisible()
   await page.getByRole('button', { name: 'Save' }).click()
   await expect(page.getByRole('button', { name: 'Save' })).toBeDisabled()

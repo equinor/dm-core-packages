@@ -16,6 +16,14 @@
       "default": false
     },
     {
+      "name": "compact",
+      "type": "CORE:BlueprintAttribute",
+      "description": "If table should be more compact, with less padding and smaller icons. ",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
       "name": "saveExpanded",
       "type": "CORE:BlueprintAttribute",
       "description": "Use save button to save expanded items.",
