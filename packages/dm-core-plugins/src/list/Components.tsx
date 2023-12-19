@@ -15,9 +15,16 @@ import {
 export const AppendButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
 }) => (
-  <Button variant='outlined' onClick={props.onClick}>
-    <Icon data={add} title='Append' /> Add Item
-  </Button>
+  <Tooltip title='Add item'>
+    <Button
+      variant='outlined'
+      onClick={props.onClick}
+      style={{ paddingInline: '0.5rem' }}
+      aria-label='append-item'
+    >
+      <Icon data={add} size={18} title='Append' />
+    </Button>
+  </Tooltip>
 )
 
 export const FormButton = (props: {

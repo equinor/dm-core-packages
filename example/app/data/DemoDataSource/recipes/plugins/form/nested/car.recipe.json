@@ -15,6 +15,7 @@
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
         "headers": ["name", "type", "plateNumber"],
+        "compact": true,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
           "delete": true,

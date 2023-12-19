@@ -149,7 +149,7 @@ test('Locations', async () => {
 
 test('New car', async () => {
   const carsDiv = page.getByTestId('cars')
-  await carsDiv.getByRole('button', { name: 'Append Add Item' }).click()
+  await carsDiv.getByLabel('append-item').click()
   await carsDiv.getByRole('button', { name: 'Save' }).click()
   await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
   await carsDiv.getByTestId('form-text-widget-Name').fill('McLaren')
@@ -173,7 +173,7 @@ test('New customer', async () => {
   await customersDiv.getByRole('button', { name: 'Open' }).click()
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
-  await lastTabPanel.getByRole('button', { name: 'Add Item' }).click()
+  await lastTabPanel.getByLabel('append-item').click()
   await lastTabPanel.getByRole('button', { name: 'Save' }).click()
   await lastTabPanel.getByRole('button', { name: 'Expand item' }).last().click()
   await lastTabPanel.getByTestId('form-text-widget-Name').fill('Lewis')
