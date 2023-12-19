@@ -42,6 +42,14 @@
       "default": true
     },
     {
+      "name": "compactButtons",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "If true, the submit and redo buttons in the form will be compact. ",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
       "name": "functionality",
       "type": "CORE:BlueprintAttribute",
       "description": "List functionality config",

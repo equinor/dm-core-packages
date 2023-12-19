@@ -84,6 +84,7 @@ export type TFormConfig = {
   fields: string[]
   readOnly?: boolean
   showExpanded?: boolean
+  compactButtons?: boolean
   functionality: {
     expand?: boolean
     open?: boolean
