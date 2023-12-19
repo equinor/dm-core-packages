@@ -14,6 +14,7 @@ import * as Styled from './styles'
 import { TableRowActions } from './TableRowActions/TableRowActions'
 import { TableCell } from './TableCell/TableCell'
 import { add } from '@equinor/eds-icons'
+import { toast } from 'react-toastify'
 
 export function TableRow(props: TableRowProps) {
   const {
@@ -47,12 +48,21 @@ export function TableRow(props: TableRowProps) {
   }
 
   function openItemAsTab() {
+    if (!props.onOpen) {
+      toast.error(
+        'Invalid UiRecipes. The table plugin was not passed an "onOpen()"-function.'
+      )
+      return
+    }
+    const label = config.label
+      ? config.label
+      : item?.data?.name
+        ? item?.data?.name
+        : `${idReference.split('.').slice(-1)}`
     props.onOpen(
       crypto.randomUUID(),
       {
-        label: item?.data?.name
-          ? item?.data?.name
-          : `${idReference.split('.').slice(-1)} #${item.index}`,
+        label: config.labelByIndex ? `${label} #${item.index + 1}` : label,
         type: 'ViewConfig',
       },
       `${idReference}[${index}]`,
