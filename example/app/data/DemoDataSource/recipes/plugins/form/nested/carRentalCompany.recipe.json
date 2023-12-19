@@ -79,6 +79,7 @@
             }
           }
         ],
+        "compactButtons": true,
         "showExpanded": true,
         "fields": [
           "owner",

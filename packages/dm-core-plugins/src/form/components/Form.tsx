@@ -12,7 +12,7 @@ import {
   useBlueprint,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Icon } from '@equinor/eds-core-react'
+import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { RegistryProvider } from '../context/RegistryContext'
@@ -20,7 +20,6 @@ import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
 import { AttributeList } from './AttributeList'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
 import { getCanOpenOrExpand } from '../templates/shared/utils'
-import { FormButton } from '../../list/Components'
 import { undo } from '@equinor/eds-icons'
 
 const Wrapper = styled.div`
@@ -166,25 +165,33 @@ export const Form = (props: TFormProps) => {
             <Wrapper>
               <AttributeList namePath={namePath} blueprint={blueprint} />
               {showSubmitButton && !config?.readOnly && (
-                <div className='flex space-x-2 justify-start mt-4'>
-                  <Button
-                    onClick={handleCustomReset}
-                    type='button'
-                    disabled={disabled}
-                    tooltip={'Revert changes'}
-                    variant={'outlined'}
-                    data-testid='form-reset'
+                <EdsProvider
+                  density={config?.compactButtons ? 'compact' : 'comfortable'}
+                >
+                  <div
+                    className={`flex space-x-2 justify-start ${
+                      config?.compactButtons ? 'mt-2' : 'mt-4'
+                    }`}
                   >
-                    <Icon data={undo} size={16} />
-                  </Button>
-                  <Button
-                    type='submit'
-                    data-testid='form-submit'
-                    onClick={handleSubmit}
-                  >
-                    Submit
-                  </Button>
-                </div>
+                    <Button
+                      onClick={handleCustomReset}
+                      type='button'
+                      disabled={disabled}
+                      tooltip={'Revert changes'}
+                      variant={'outlined'}
+                      data-testid='form-reset'
+                    >
+                      <Icon data={undo} size={16} />
+                    </Button>
+                    <Button
+                      type='submit'
+                      data-testid='form-submit'
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </EdsProvider>
               )}
             </Wrapper>
           </RegistryProvider>
