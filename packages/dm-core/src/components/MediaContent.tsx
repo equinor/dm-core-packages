@@ -49,7 +49,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
       return (
         <img
           src={blobUrl}
-          alt={config.caption && meta.title}
+          alt={meta.title}
           style={{
             width: config.width ?? '100%',
             height: config.height ?? 'auto',
@@ -86,17 +86,18 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   return (
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
-        {meta.filetype !== 'application/pdf' && config.showMeta && (
-          <MetaPopoverButton
-            onClick={() => setShowMeta(!showMeta)}
-            variant='ghost_icon'
-            aria-haspopup
-            aria-expanded={showMeta}
-            ref={referenceElement}
-          >
-            <Icon data={info_circle} title='view meta info' />
-          </MetaPopoverButton>
-        )}
+        {meta.filetype !== 'application/pdf' &&
+          (config.showMeta !== undefined ? config.showMeta : true) && (
+            <MetaPopoverButton
+              onClick={() => setShowMeta(!showMeta)}
+              variant='ghost_icon'
+              aria-haspopup
+              aria-expanded={showMeta}
+              ref={referenceElement}
+            >
+              <Icon data={info_circle} title='view meta info' />
+            </MetaPopoverButton>
+          )}
         {renderMediaElement(meta.filetype)}
       </MediaWrapper>
       <Popover
