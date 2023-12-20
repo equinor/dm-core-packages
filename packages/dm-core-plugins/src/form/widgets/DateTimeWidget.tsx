@@ -18,7 +18,7 @@ const DateTimeWidget = (props: TWidget) => {
   return (
     <Datepicker
       id={id}
-      variant='datetime'
+      variant={conf.variant}
       value={value}
       onChange={onChange}
       data-testid={`form-datetime-widget-${label}`}
