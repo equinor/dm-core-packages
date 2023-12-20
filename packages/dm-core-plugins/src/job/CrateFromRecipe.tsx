@@ -127,7 +127,7 @@ export const CrateFromRecipe = (
     if (!jobDocument) return
     if (asCronJob || jobDocument.type === EBlueprint.RECURRING_JOB)
       // @ts-ignore
-      setSchedule(jobDocument?.schedule)
+      setSchedule(jobDocument?.schedule.cron ? jobDocument?.schedule : schedule)
     if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [isLoading, jobEntityError, jobDocument])
 
