@@ -154,9 +154,7 @@ export const CrateFromRecipe = (
             setSchedule={setSchedule}
             asCron={asCronJob}
             setAsCron={setAsCronJob}
-            registered={
-              !!jobDocument && jobDocument?.status !== JobStatus.NotStarted
-            }
+            registered={status === JobStatus.Registered}
           />
         ))}
       {config.label && (
