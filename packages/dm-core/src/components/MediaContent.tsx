@@ -5,10 +5,17 @@ import { download, external_link, info_circle } from '@equinor/eds-icons'
 
 import { formatBytes } from '../utils/stringUtilities'
 
-interface MediaContentProps {
-  blobUrl: string
+interface MediaContentConfig {
   height?: number
   width?: number
+  showMeta?: boolean
+  caption?: string
+  description?: string
+}
+
+interface MediaContentProps {
+  blobUrl: string
+  config: MediaContentConfig
   meta: {
     author: string
     fileSize: number
@@ -34,7 +41,7 @@ const MetaPopoverButton = styled(Button)`
 `
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
-  const { blobUrl, meta, height, width } = props
+  const { blobUrl, meta, config } = props
   const [showMeta, setShowMeta] = useState(false)
   const referenceElement = useRef()
 
@@ -43,8 +50,11 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
       return (
         <img
           src={blobUrl}
-          alt={meta.title}
-          style={{ width: width ?? '100%', height: height ?? 'auto' }}
+          alt={config.caption && meta.title}
+          style={{
+            width: config.width ?? '100%',
+            height: config.height ?? 'auto',
+          }}
         />
       )
     } else if (filetype.includes('video')) {
@@ -54,7 +64,10 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           src={blobUrl}
           controls
           autoPlay={false}
-          style={{ width: width ?? '100% ', height: height ?? 'auto' }}
+          style={{
+            width: config.width ?? '100% ',
+            height: config.height ?? 'auto',
+          }}
         />
       )
     } else {
@@ -63,8 +76,8 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           title={meta.title}
           src={blobUrl}
           style={{ width: '100%', height: 'auto' }}
-          height={height}
-          width={width}
+          height={config.height}
+          width={config.width}
           role='document'
         />
       )
@@ -73,8 +86,8 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
 
   return (
     <>
-      <MediaWrapper $height={height} $width={width}>
-        {meta.filetype !== 'application/pdf' && (
+      <MediaWrapper $height={config.height} $width={config.width}>
+        {meta.filetype !== 'application/pdf' && config.showMeta && (
           <MetaPopoverButton
             onClick={() => setShowMeta(!showMeta)}
             variant='ghost_icon'
@@ -94,16 +107,18 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         role='dialog'
       >
         <Popover.Header>
-          <Popover.Title>Meta</Popover.Title>
+          <Popover.Title>{config.caption ?? 'Meta'}</Popover.Title>
         </Popover.Header>
         <Popover.Content>
-          <div className='grid grid-cols-2 font-normal'>
+          <div className='mb-5'>
+            <label className='font-bold text-sm'>Description</label>
+            <p>{config.description}</p>
+          </div>
+          <div className='grid grid-cols-2 font-normal text-xs'>
             <label className='font-bold'>File name:</label>
             <span> {meta.title}</span>
             <label className='font-bold'>Author:</label>
             <span> {meta.author}</span>
-            <label className='font-bold'>Date:</label>
-            <span> {new Date(meta.date).toLocaleDateString()} </span>
             <label className='font-bold'>Filetype:</label>
             <span> {meta.filetype}</span>
             <label className='font-bold'>Filesize:</label>
