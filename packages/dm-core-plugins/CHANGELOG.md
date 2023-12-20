@@ -36,6 +36,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.37.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.1...dm-core-plugins-v1.37.2) (2023-12-20)
+
+
+### Bug Fixes
+
+* set recurring job as registered based on status from hook ([4753e00](https://github.com/equinor/dm-core-packages/commit/4753e00a6923f85b3136d7c1b888052d9e959937))
+
 ## [1.37.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.0...dm-core-plugins-v1.37.1) (2023-12-20)
 
 
