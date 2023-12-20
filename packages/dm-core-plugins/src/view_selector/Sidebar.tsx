@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SideBar } from '@equinor/eds-core-react'
+import { Divider, SideBar } from '@equinor/eds-core-react'
 import * as EdsIcons from '@equinor/eds-icons'
 import { TItemData, TViewSelectorItem } from './types'
 import { TOnOpen } from '@development-framework/dm-core'
@@ -23,6 +23,7 @@ export const Sidebar = (props: {
               {viewItem.subItems ? (
                 <SideBar.Accordion
                   key={viewItem.viewId}
+                  active={selectedViewId === viewItem.viewId}
                   icon={
                     viewItem.eds_icon
                       ? EdsIcons[viewItem.eds_icon as keyof typeof EdsIcons]
