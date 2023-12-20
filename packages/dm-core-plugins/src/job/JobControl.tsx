@@ -93,7 +93,7 @@ export const JobControl = (props: IUIPlugin) => {
         setAsCron={setAsCronJob}
         readOnly={true}
         schedule={schedule}
-        registered={jobEntity?.status !== JobStatus.NotStarted}
+        registered={status === JobStatus.Registered}
       />
       <JobButtonWrapper>
         {getControlButton(status, remove, start, false)}
