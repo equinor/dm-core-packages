@@ -14,6 +14,7 @@ const FormattedLogContainer = styled.pre`
   position: relative;
   background-color: #193549;
   margin: 0;
+  max-height: 60vh;
   padding: 1rem;
   border-radius: 0.5rem;
   color: #dcdde0;

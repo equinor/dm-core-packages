@@ -147,18 +147,21 @@ export const CrateFromRecipe = (
   }
   return (
     <div>
-      {asCronJob && (
-        <ConfigureRecurring
-          schedule={schedule}
-          setSchedule={setSchedule}
-          asCron={asCronJob}
-          setAsCron={setAsCronJob}
-          registered={
-            !!jobDocument && jobDocument?.status !== JobStatus.NotStarted
-          }
-        />
+      {config.recurring === undefined ||
+        (config.recurring && (
+          <ConfigureRecurring
+            schedule={schedule}
+            setSchedule={setSchedule}
+            asCron={asCronJob}
+            setAsCron={setAsCronJob}
+            registered={
+              !!jobDocument && jobDocument?.status !== JobStatus.NotStarted
+            }
+          />
+        ))}
+      {config.label && (
+        <Label style={{ margin: '10px 0' }} label={config.label} />
       )}
-      {config.label && <Label label={config.label} />}
       <JobButtonWrapper>
         <JobControlButton
           jobStatus={status}

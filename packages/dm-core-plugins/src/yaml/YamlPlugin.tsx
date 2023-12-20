@@ -58,7 +58,7 @@ const YamlView = (props: {
 
   return (
     <div>
-      <div className='flex justify-end items-end my-2 gap-1'>
+      <div className='flex justify-end items-center my-2 gap-1'>
         <Button variant='ghost' onClick={() => onClick(asYAML)}>
           Copy as YAML
         </Button>
