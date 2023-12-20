@@ -28,7 +28,6 @@ interface MediaContentProps {
 const MediaWrapper = styled.div<{ $height?: number; $width?: number }>`
   height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
   width: ${(props) => (props.$width ? props.$width + 'px' : undefined)};
-  max-width: 30rem;
   position: relative;
 `
 
