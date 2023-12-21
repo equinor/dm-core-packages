@@ -47,6 +47,7 @@ type TListConfig = {
   resolveReferences: boolean
   templates?: TTemplate[]
   labelByIndex?: boolean
+  defaultPaginationRowsPerPage?: number
   label?: string
 }
 const defaultConfig: TListConfig = {
@@ -58,6 +59,7 @@ const defaultConfig: TListConfig = {
   selectFromScope: undefined,
   hideInvalidTypes: false,
   compact: false,
+  defaultPaginationRowsPerPage: 10,
   functionality: {
     add: true,
     sort: true,
@@ -91,8 +93,17 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     updateItem,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
+  const defaultPaginationRowsPerPage =
+    internalConfig.defaultPaginationRowsPerPage ?? 10
+  const showPagination = useMemo(
+    () => items.length > defaultPaginationRowsPerPage,
+    [items]
+  )
+
   const [paginationPage, setPaginationPage] = useState(0)
-  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(5)
+  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(
+    defaultPaginationRowsPerPage
+  )
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
@@ -353,17 +364,23 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       <EdsProvider density={internalConfig.compact ? 'compact' : 'comfortable'}>
         <Stack
           direction='row'
-          justifyContent='space-between'
+          justifyContent={showPagination ? 'space-between' : 'flex-end'}
           spacing={1}
-          style={{ padding: '1rem 0 0.5rem 0' }}
+          style={
+            showPagination
+              ? { padding: '0.2rem 0 0.2rem 0.5rem' }
+              : { padding: '0.5rem 0 0.5rem 0' }
+          }
         >
-          <Pagination
-            count={Object.keys(items).length}
-            page={paginationPage}
-            setPage={setPaginationPage}
-            rowsPerPage={paginationRowsPerPage}
-            setRowsPerPage={setPaginationRowsPerPage}
-          />
+          {showPagination && (
+            <Pagination
+              count={Object.keys(items).length}
+              page={paginationPage}
+              setPage={setPaginationPage}
+              rowsPerPage={paginationRowsPerPage}
+              setRowsPerPage={setPaginationRowsPerPage}
+            />
+          )}
           <Stack
             direction='row'
             alignItems='center'
