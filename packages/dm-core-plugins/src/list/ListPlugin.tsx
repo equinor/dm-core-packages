@@ -385,14 +385,16 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     else setTemplateMenuIsOpen(true)
                   }}
                 />
-                <TemplateMenu
-                  templates={config.templates}
-                  onSelect={(template: TTemplate) =>
-                    addItem(false, undefined, template?.path)
-                  }
-                  onClose={() => setTemplateMenuIsOpen(false)}
-                  isOpen={isTemplateMenuOpen}
-                />
+                {config.templates?.length && (
+                  <TemplateMenu
+                    templates={config.templates}
+                    onSelect={(template: TTemplate) =>
+                      addItem(false, undefined, template?.path)
+                    }
+                    onClose={() => setTemplateMenuIsOpen(false)}
+                    isOpen={isTemplateMenuOpen}
+                  />
+                )}
               </>
             )}
             <FormButton

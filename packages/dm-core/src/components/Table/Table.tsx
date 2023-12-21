@@ -152,30 +152,20 @@ export function Table(props: TableProps) {
             </EDSTable.Body>
           </EDSTable>
         </SortableContext>
-        {functionalityConfig.add &&
-          (!config.templates || config.templates.length < 2) && (
+        {functionalityConfig.add && (
+          <>
             <AddRowButton
               onClick={() => {
-                const defaultTemplate = config?.templates
-                  ? config.templates[0]
-                  : undefined
-                addItem(
-                  tableVariant === TableVariantNameEnum.View,
-                  undefined,
-                  defaultTemplate?.path
-                )
+                const saveOnAdd = tableVariant === TableVariantNameEnum.View
+                if (!(config.templates && config.templates.length))
+                  addItem(saveOnAdd)
+                else if (config.templates.length === 1)
+                  addItem(saveOnAdd, undefined, config.templates[0].path)
+                else setTemplateMenuIsOpen(true)
               }}
               ariaLabel={'Add new row'}
             />
-          )}
-        {functionalityConfig.add &&
-          config.templates &&
-          config.templates.length > 1 && (
-            <>
-              <AddRowButton
-                ariaLabel={'Add new row'}
-                onClick={() => setTemplateMenuIsOpen(true)}
-              />
+            {config.templates?.length && (
               <TemplateMenu
                 templates={config.templates}
                 onSelect={(template: TTemplate) =>
@@ -188,8 +178,9 @@ export function Table(props: TableProps) {
                 onClose={() => setTemplateMenuIsOpen(false)}
                 isOpen={isTemplateMenuOpen}
               />
-            </>
-          )}
+            )}
+          </>
+        )}
       </Stack>
       <Stack direction='row' spacing={1} justifyContent='space-between'>
         <Pagination
