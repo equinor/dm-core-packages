@@ -82,6 +82,21 @@
       "attributeType": "PLUGINS:dm-core-plugins/table/Template",
       "optional": true,
       "dimensions": "*"
+    },
+    {
+      "name": "labelByIndex",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Control whether index should be appended to label when list item is opened.",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Override label for all items that are opened in a ViewSelector from List.",
+      "attributeType": "string",
+      "optional": true
     }
   ]
 }

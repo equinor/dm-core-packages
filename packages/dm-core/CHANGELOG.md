@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.30.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.30.1...dm-core-v1.30.2) (2023-12-20)
+
+
+### Bug Fixes
+
+* add indexLabel to list and table plugin ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* index start at one, caption override label ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* remove index from onOpen type ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* rename from caption to label ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* typo in description ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* undefined onOpen in table row props ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+
 ## [1.30.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.30.0...dm-core-v1.30.1) (2023-12-18)
 
 

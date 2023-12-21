@@ -127,7 +127,7 @@ export const CrateFromRecipe = (
     if (!jobDocument) return
     if (asCronJob || jobDocument.type === EBlueprint.RECURRING_JOB)
       // @ts-ignore
-      setSchedule(jobDocument?.schedule)
+      setSchedule(jobDocument?.schedule.cron ? jobDocument?.schedule : schedule)
     if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [isLoading, jobEntityError, jobDocument])
 
@@ -147,18 +147,19 @@ export const CrateFromRecipe = (
   }
   return (
     <div>
-      {asCronJob && (
-        <ConfigureRecurring
-          schedule={schedule}
-          setSchedule={setSchedule}
-          asCron={asCronJob}
-          setAsCron={setAsCronJob}
-          registered={
-            !!jobDocument && jobDocument?.status !== JobStatus.NotStarted
-          }
-        />
+      {config.recurring === undefined ||
+        (config.recurring && (
+          <ConfigureRecurring
+            schedule={schedule}
+            setSchedule={setSchedule}
+            asCron={asCronJob}
+            setAsCron={setAsCronJob}
+            registered={status === JobStatus.Registered}
+          />
+        ))}
+      {config.label && (
+        <Label style={{ margin: '10px 0' }} label={config.label} />
       )}
-      {config.label && <Label label={config.label} />}
       <JobButtonWrapper>
         <JobControlButton
           jobStatus={status}

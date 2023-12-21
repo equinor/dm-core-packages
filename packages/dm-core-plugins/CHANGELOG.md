@@ -36,6 +36,32 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.37.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.1...dm-core-plugins-v1.37.2) (2023-12-20)
+
+
+### Bug Fixes
+
+* set recurring job as registered based on status from hook ([4753e00](https://github.com/equinor/dm-core-packages/commit/4753e00a6923f85b3136d7c1b888052d9e959937))
+
+## [1.37.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.0...dm-core-plugins-v1.37.1) (2023-12-20)
+
+
+### Bug Fixes
+
+* add indexLabel to list and table plugin ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* index start at one, caption override label ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* remove index from onOpen type ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* rename from caption to label ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* typo in description ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+* undefined onOpen in table row props ([21f20ef](https://github.com/equinor/dm-core-packages/commit/21f20ef09c4d718170cf683cf125ccbacc31e6f5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.30.1 to ^1.30.2
+
 ## [1.37.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.36.1...dm-core-plugins-v1.37.0) (2023-12-19)
 
 

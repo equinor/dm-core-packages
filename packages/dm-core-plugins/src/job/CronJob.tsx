@@ -39,7 +39,7 @@ export function ConfigureSchedule(props: {
   const [hour, setHour] = useState<string>('23')
   const [hourStep, setHourStep] = useState<string>('1')
   const [minute, setMinute] = useState<string>('30')
-  const [showAdvanced, setShowAdvanced] = useState<boolean>(true)
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
 
   const getLabel = () => {
     if (interval === 'Weekly') {
@@ -109,47 +109,7 @@ export function ConfigureSchedule(props: {
           value={{ startDate: schedule.startDate, endDate: schedule.endDate }}
         />
         <InputWrapper>
-          <Autocomplete
-            options={Object.values(EInterval)}
-            label={'Interval'}
-            initialSelectedOptions={[interval]}
-            onInputChange={(label: string) => {
-              const chosenIntervalType = Object.entries(EInterval)
-                .filter((l) => l.length > 0 && l[1] === label)
-                .pop()
-              setInterval(
-                chosenIntervalType ? chosenIntervalType[1] : EInterval.HOURLY
-              )
-            }}
-          />
-          {interval !== EInterval.HOURLY && (
-            <Autocomplete
-              options={generateSelectableTimes().map((value: string) => value)}
-              label={'Time'}
-              initialSelectedOptions={[`${hour}:${minute}`]}
-              onInputChange={(timestamp) => {
-                const [newHour, newMinute] = timestamp.split(':')
-                setMinute(newMinute)
-                setHour(newHour)
-              }}
-            />
-          )}
-          {interval === EInterval.HOURLY && (
-            <Autocomplete
-              options={[...Array(12).keys()].map((i) => i + 1)}
-              initialSelectedOptions={[Number(hourStep)]}
-              label={'Hour step'}
-              onInputChange={(step) => setHourStep(step)}
-            />
-          )}
-          <Button
-            onClick={() => setShowAdvanced(!showAdvanced)}
-            variant='ghost'
-            className={showAdvanced ? 'self-center -translate-y-1' : 'self-end'}
-          >
-            {showAdvanced ? 'Hide' : 'Show Advanced'}
-          </Button>
-          {showAdvanced && (
+          {showAdvanced ? (
             <TextField
               unit='cron'
               id='advanced-schedule-syntax'
@@ -164,10 +124,59 @@ export function ConfigureSchedule(props: {
               label='Enter explicit cron syntax'
               helperText='minute hour day(month) month day(week)'
             />
+          ) : (
+            <>
+              <Autocomplete
+                options={Object.values(EInterval)}
+                label={'Interval'}
+                initialSelectedOptions={[interval]}
+                onInputChange={(label: string) => {
+                  const chosenIntervalType = Object.entries(EInterval)
+                    .filter((l) => l.length > 0 && l[1] === label)
+                    .pop()
+                  setInterval(
+                    chosenIntervalType
+                      ? chosenIntervalType[1]
+                      : EInterval.HOURLY
+                  )
+                }}
+              />
+              {interval !== EInterval.HOURLY && (
+                <Autocomplete
+                  options={generateSelectableTimes().map(
+                    (value: string) => value
+                  )}
+                  label={'Time'}
+                  initialSelectedOptions={[`${hour}:${minute}`]}
+                  onInputChange={(timestamp) => {
+                    const [newHour, newMinute] = timestamp.split(':')
+                    setMinute(newMinute)
+                    setHour(newHour)
+                  }}
+                />
+              )}
+              {interval === EInterval.HOURLY && (
+                <Autocomplete
+                  options={[...Array(12).keys()].map((i) => i + 1)}
+                  initialSelectedOptions={[Number(hourStep)]}
+                  label={'Hour step'}
+                  onInputChange={(step) => setHourStep(step)}
+                />
+              )}
+            </>
           )}
+          <Button
+            onClick={() => setShowAdvanced(!showAdvanced)}
+            variant='ghost'
+            className={showAdvanced ? 'self-center -translate-y-1' : 'self-end'}
+          >
+            {showAdvanced ? 'Simple' : 'Advanced'}
+          </Button>
         </InputWrapper>
       </div>
-      <div style={{ paddingTop: '.5rem', height: '1rem' }}>{getLabel()}</div>
+      {!showAdvanced && (
+        <div style={{ paddingTop: '.5rem', height: '1rem' }}>{getLabel()}</div>
+      )}
     </div>
   )
 }

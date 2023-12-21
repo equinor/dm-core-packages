@@ -46,6 +46,8 @@ type TListConfig = {
   }
   resolveReferences: boolean
   templates?: TTemplate[]
+  labelByIndex?: boolean
+  label?: string
 }
 const defaultConfig: TListConfig = {
   expanded: false,
@@ -129,12 +131,14 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       )
       return
     }
-
+    const label = config.label
+      ? config.label
+      : item?.data?.name
+        ? item?.data?.name
+        : `${attribute?.name}`
     const view = {
       ...internalConfig.openViewConfig,
-      label: item?.data?.name
-        ? item?.data?.name
-        : `${attribute?.name} #${item.index}`,
+      label: config.labelByIndex ? `${label} #${item.index + 1}` : label,
     }
     onOpen(
       item.key,

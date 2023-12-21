@@ -71,21 +71,23 @@ export const MediaViewerPlugin = (
   if (document.type !== EBlueprint.FILE) throw new Error('This is not a file')
   return (
     <Suspense fallback={<Loading />}>
-      {blobUrl ? (
-        <MediaContent
-          blobUrl={blobUrl}
-          config={config}
-          meta={{
-            author: document.author,
-            fileSize: document.size,
-            title: document.name,
-            filetype: document.filetype,
-            date: document.date,
-          }}
-        />
-      ) : (
-        <p>Media not found</p>
-      )}
+      {
+        blobUrl ? (
+          <MediaContent
+            blobUrl={blobUrl}
+            config={config}
+            meta={{
+              author: document.author,
+              fileSize: document.size,
+              title: document.name,
+              filetype: document.filetype,
+              date: document.date,
+            }}
+          />
+        ) : (
+          <Loading />
+        ) // Downloading blob...
+      }
     </Suspense>
   )
 }

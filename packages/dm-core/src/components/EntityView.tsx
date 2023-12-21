@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   align-self: start;
   justify-content: space-evenly;
   width: 100%;
+  height: 100%;
   position: relative;
 `
 
