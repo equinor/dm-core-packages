@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Stack } from '../common'
 import { Button, Icon, NativeSelect, Typography } from '@equinor/eds-core-react'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
@@ -9,15 +9,32 @@ type PaginationProps = {
   setPage: React.Dispatch<React.SetStateAction<number>>
   rowsPerPage: number
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
+  defaultRowsPerPage?: number
 }
 
 export function Pagination(props: PaginationProps) {
-  const { count = 0, page, setPage, rowsPerPage, setRowsPerPage } = props
+  const {
+    count = 0,
+    page,
+    setPage,
+    rowsPerPage,
+    setRowsPerPage,
+    defaultRowsPerPage,
+  } = props
 
   const calculatedPages = Math.ceil(count / rowsPerPage) // could be less than zero
   const availablePages = calculatedPages < 1 ? 1 : calculatedPages // if calculated pages is less than zero, return 1
   const visibleFromLabel = count === 0 ? 0 : page * rowsPerPage + 1
   const visibleToLabel = Math.min(count, (page + 1) * rowsPerPage)
+
+  const paginationSizes = useMemo(() => {
+    const sizes = [5, 10, 25, 50, 100, 500]
+    if (defaultRowsPerPage && !sizes.includes(defaultRowsPerPage)) {
+      sizes.push(defaultRowsPerPage)
+      sizes.sort((a, b) => a - b)
+    }
+    return sizes
+  }, [defaultRowsPerPage])
 
   return (
     <Stack
@@ -37,7 +54,7 @@ export function Pagination(props: PaginationProps) {
           onChange={(event) => setRowsPerPage(Number(event.target.value))}
           style={{ width: '70px' }}
         >
-          {[5, 10, 25, 50, 100, 500].map((amount) => (
+          {paginationSizes.map((amount) => (
             <option key={amount}>{amount}</option>
           ))}
         </NativeSelect>

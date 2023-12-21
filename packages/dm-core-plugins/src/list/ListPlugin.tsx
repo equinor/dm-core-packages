@@ -47,6 +47,7 @@ type TListConfig = {
   resolveReferences: boolean
   templates?: TTemplate[]
   labelByIndex?: boolean
+  defaultPaginationRowsPerPage?: number
   label?: string
 }
 const defaultConfig: TListConfig = {
@@ -58,6 +59,7 @@ const defaultConfig: TListConfig = {
   selectFromScope: undefined,
   hideInvalidTypes: false,
   compact: false,
+  defaultPaginationRowsPerPage: 5,
   functionality: {
     add: true,
     sort: true,
@@ -91,8 +93,24 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     updateItem,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
+  const defaultPaginationRowsPerPage = useMemo(() => {
+    let numRows = internalConfig.defaultPaginationRowsPerPage ?? 5
+    numRows = Math.round(numRows)
+    numRows = Math.abs(numRows)
+    return numRows
+  }, [internalConfig.defaultPaginationRowsPerPage])
+
   const [paginationPage, setPaginationPage] = useState(0)
-  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(5)
+  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(
+    defaultPaginationRowsPerPage
+  )
+
+  const showPagination = useMemo(
+    () =>
+      items.length >
+      Math.min(defaultPaginationRowsPerPage, paginationRowsPerPage),
+    [items, paginationRowsPerPage]
+  )
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
@@ -353,17 +371,24 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       <EdsProvider density={internalConfig.compact ? 'compact' : 'comfortable'}>
         <Stack
           direction='row'
-          justifyContent='space-between'
+          justifyContent={showPagination ? 'space-between' : 'flex-end'}
           spacing={1}
-          style={{ padding: '1rem 0 0.5rem 0' }}
+          style={
+            showPagination
+              ? { padding: '0.2rem 0 0.2rem 0.5rem' }
+              : { padding: '0.5rem 0 0.5rem 0' }
+          }
         >
-          <Pagination
-            count={Object.keys(items).length}
-            page={paginationPage}
-            setPage={setPaginationPage}
-            rowsPerPage={paginationRowsPerPage}
-            setRowsPerPage={setPaginationRowsPerPage}
-          />
+          {showPagination && (
+            <Pagination
+              count={Object.keys(items).length}
+              page={paginationPage}
+              setPage={setPaginationPage}
+              rowsPerPage={paginationRowsPerPage}
+              setRowsPerPage={setPaginationRowsPerPage}
+              defaultRowsPerPage={defaultPaginationRowsPerPage}
+            />
+          )}
           <Stack
             direction='row'
             alignItems='center'
@@ -384,6 +409,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       addItem(false, undefined, config.templates[0].path)
                     else setTemplateMenuIsOpen(true)
                   }}
+                  compact={internalConfig.compact}
                 />
                 {config.templates?.length && (
                   <TemplateMenu
