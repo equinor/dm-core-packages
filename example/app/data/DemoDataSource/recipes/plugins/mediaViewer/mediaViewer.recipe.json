@@ -15,8 +15,11 @@
         "plugin": "@development-framework/dm-core-plugins/media-viewer",
         "config": {
           "type": "PLUGINS:dm-core-plugins/media_viewer/MediaViewerConfig",
-          "width": 100,
-          "height": 100
+          "width": 1000,
+          "height": 100,
+          "showMeta": true,
+          "caption": "some header",
+          "description": "some description"
         }
       }
     }

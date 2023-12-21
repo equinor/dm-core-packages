@@ -1,22 +1,40 @@
 {
   "name": "MediaViewerConfig",
-  "type": "dmss://system/SIMOS/Blueprint",
+  "type": "CORE:Blueprint",
   "attributes": [
     {
       "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
     },
     {
       "name": "width",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
       "optional": true
     },
     {
       "name": "height",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
+      "optional": true
+    },
+    {
+      "name": "showMeta",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": true
+    },
+    {
+      "name": "caption",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "description",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
       "optional": true
     }
   ]

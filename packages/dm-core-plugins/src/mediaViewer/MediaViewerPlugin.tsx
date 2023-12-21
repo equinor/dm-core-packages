@@ -75,8 +75,7 @@ export const MediaViewerPlugin = (
         blobUrl ? (
           <MediaContent
             blobUrl={blobUrl}
-            height={config.height}
-            width={config.width}
+            config={config}
             meta={{
               author: document.author,
               fileSize: document.size,
