@@ -59,7 +59,7 @@ const defaultConfig: TListConfig = {
   selectFromScope: undefined,
   hideInvalidTypes: false,
   compact: false,
-  defaultPaginationRowsPerPage: 5,
+  defaultPaginationRowsPerPage: 10,
   functionality: {
     add: true,
     sort: true,
@@ -94,7 +94,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
   const defaultPaginationRowsPerPage = useMemo(() => {
-    let numRows = internalConfig.defaultPaginationRowsPerPage ?? 5
+    let numRows = internalConfig.defaultPaginationRowsPerPage ?? 10
     numRows = Math.round(numRows)
     numRows = Math.abs(numRows)
     return numRows
