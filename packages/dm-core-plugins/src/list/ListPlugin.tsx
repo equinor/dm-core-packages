@@ -59,7 +59,7 @@ const defaultConfig: TListConfig = {
   selectFromScope: undefined,
   hideInvalidTypes: false,
   compact: false,
-  defaultPaginationRowsPerPage: 10,
+  defaultPaginationRowsPerPage: 5,
   functionality: {
     add: true,
     sort: true,
@@ -93,16 +93,23 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     updateItem,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
-  const defaultPaginationRowsPerPage =
-    internalConfig.defaultPaginationRowsPerPage ?? 10
-  const showPagination = useMemo(
-    () => items.length > defaultPaginationRowsPerPage,
-    [items]
-  )
+  const defaultPaginationRowsPerPage = useMemo(() => {
+    let numRows = internalConfig.defaultPaginationRowsPerPage ?? 5
+    numRows = Math.round(numRows)
+    numRows = Math.abs(numRows)
+    return numRows
+  }, [internalConfig.defaultPaginationRowsPerPage])
 
   const [paginationPage, setPaginationPage] = useState(0)
   const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(
     defaultPaginationRowsPerPage
+  )
+
+  const showPagination = useMemo(
+    () =>
+      items.length >
+      Math.min(defaultPaginationRowsPerPage, paginationRowsPerPage),
+    [items, paginationRowsPerPage]
   )
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
@@ -379,6 +386,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               setPage={setPaginationPage}
               rowsPerPage={paginationRowsPerPage}
               setRowsPerPage={setPaginationRowsPerPage}
+              defaultRowsPerPage={defaultPaginationRowsPerPage}
             />
           )}
           <Stack
@@ -397,6 +405,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       setShowModal(true)
                     }
                   }}
+                  compact={internalConfig.compact}
                 />
               )}
             {internalConfig.functionality.add &&

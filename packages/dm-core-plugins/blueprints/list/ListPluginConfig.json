@@ -97,6 +97,13 @@
       "description": "Override label for all items that are opened in a ViewSelector from List.",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "defaultPaginationRowsPerPage",
+      "type": "CORE:BlueprintAttribute",
+      "description": "The number of rows per page to show by default. If there are less rows in the list than this number, then pagination selector will not be visible. ",
+      "attributeType": "number",
+      "optional": true
     }
   ]
 }
