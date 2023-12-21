@@ -5,12 +5,13 @@ import {
   TRole,
   useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Radio, Typography } from '@equinor/eds-core-react'
+import { Button, Icon, Radio, Typography } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
+import { close } from '@equinor/eds-icons'
 
 const UnstyledList = styled.ul`
   margin: 0;
@@ -63,6 +64,14 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
     >
       <Dialog.Header>
         <Dialog.Title>User info</Dialog.Title>
+        <Button
+          variant='ghost'
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          <Icon data={close} size={16} title='Close' />
+        </Button>
       </Dialog.Header>
       <Dialog.CustomContent>
         <Row>
