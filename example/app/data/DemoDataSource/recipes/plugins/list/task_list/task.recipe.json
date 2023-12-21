@@ -64,6 +64,7 @@
         "hideInvalidTypes": true,
         "headers": ["name", "assigned"],
         "saveExpanded": false,
+        "defaultPaginationRowsPerPage": 5,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
           "delete": true,
