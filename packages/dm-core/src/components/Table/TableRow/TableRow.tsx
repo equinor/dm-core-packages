@@ -60,7 +60,7 @@ export function TableRow(props: TableRowProps) {
         ? item?.data?.name
         : `${idReference.split('.').slice(-1)}`
     props.onOpen(
-      crypto.randomUUID(),
+      item.key,
       {
         label: config.labelByIndex ? `${label} #${item.index + 1}` : label,
         type: 'ViewConfig',
