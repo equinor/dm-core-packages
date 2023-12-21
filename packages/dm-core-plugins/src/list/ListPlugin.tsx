@@ -370,33 +370,31 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             spacing={1}
             justifyContent='space-between'
           >
-            {internalConfig.functionality.add &&
-              (!config.templates || config.templates.length < 2) && (
+            {internalConfig.functionality.add && (
+              <>
                 <AppendButton
                   onClick={() => {
-                    if (attribute && attribute.contained) {
-                      addItem(false)
-                    } else {
+                    if (attribute && !attribute.contained) {
                       setShowModal(true)
+                      return
                     }
+                    if (!(config.templates && config.templates.length))
+                      addItem(false)
+                    else if (config.templates.length === 1)
+                      addItem(false, undefined, config.templates[0].path)
+                    else setTemplateMenuIsOpen(true)
                   }}
                 />
-              )}
-            {internalConfig.functionality.add &&
-              config.templates &&
-              config.templates.length > 1 && (
-                <>
-                  <AppendButton onClick={() => setTemplateMenuIsOpen(true)} />
-                  <TemplateMenu
-                    templates={config.templates}
-                    onSelect={(template: TTemplate) =>
-                      addItem(false, undefined, template?.path)
-                    }
-                    onClose={() => setTemplateMenuIsOpen(false)}
-                    isOpen={isTemplateMenuOpen}
-                  />
-                </>
-              )}
+                <TemplateMenu
+                  templates={config.templates}
+                  onSelect={(template: TTemplate) =>
+                    addItem(false, undefined, template?.path)
+                  }
+                  onClose={() => setTemplateMenuIsOpen(false)}
+                  isOpen={isTemplateMenuOpen}
+                />
+              </>
+            )}
             <FormButton
               onClick={reloadData}
               disabled={!dirtyState}
