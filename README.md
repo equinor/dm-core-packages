@@ -4195,3 +4195,18 @@ Co-authored-by: github-actions[bot] <41898282+github-actions[bot]@users.noreply.
     * **DMSS VERSION**: 8380eeb 2023-12-18 githu..[bot] chore(master): release 1.15.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.3
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* fix: error when selecting templates for uncontained (#1044)
+
+* fix: error when selecting templates for uncontained
+
+fix: defaultTemplate should be used with .path
+
+* refactor: refactor same logic in table
+
+fix: make it now throw because config.templates is empty
+
+refactor: resldkøjf (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7287237914/1)
+    * **DMSS VERSION**: 8380eeb 2023-12-18 githu..[bot] chore(master): release 1.15.1 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.3
+    * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
