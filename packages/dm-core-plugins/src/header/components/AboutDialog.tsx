@@ -1,6 +1,7 @@
 import { Dialog, TApplication } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import { Button, Icon } from '@equinor/eds-core-react'
 import React from 'react'
+import { close } from '@equinor/eds-icons'
 
 type AboutDialogProps = {
   isOpen: boolean
@@ -20,6 +21,14 @@ export const AboutDialog = (props: AboutDialogProps) => {
     >
       <Dialog.Header>
         <Dialog.Title>About {applicationEntity.label}</Dialog.Title>
+        <Button
+          variant='ghost'
+          onClick={() => {
+            setIsOpen(false)
+          }}
+        >
+          <Icon data={close} size={16} title='Close' />
+        </Button>
       </Dialog.Header>
       <Dialog.CustomContent>
         {applicationEntity.description}
