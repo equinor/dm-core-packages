@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.30.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.30.2...dm-core-v1.30.3) (2023-12-21)
+
+
+### Features
+
+* better list padding + default pagination view ([#1048](https://github.com/equinor/dm-core-packages/issues/1048)) ([e4d9517](https://github.com/equinor/dm-core-packages/commit/e4d95176416191785a6e3a96b775ba8d34782c85))
+
+
+### Bug Fixes
+
+* also add to default ([e4d9517](https://github.com/equinor/dm-core-packages/commit/e4d95176416191785a6e3a96b775ba8d34782c85))
+* error when selecting templates for uncontained ([#1044](https://github.com/equinor/dm-core-packages/issues/1044)) ([bc2469b](https://github.com/equinor/dm-core-packages/commit/bc2469bd11e5622d52b1eaf6c88c07ef37a2d1f6))
+* make it now throw because config.templates is empty ([bc2469b](https://github.com/equinor/dm-core-packages/commit/bc2469bd11e5622d52b1eaf6c88c07ef37a2d1f6))
+* pagination bug ([e4d9517](https://github.com/equinor/dm-core-packages/commit/e4d95176416191785a6e3a96b775ba8d34782c85))
+
 ## [1.30.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.30.1...dm-core-v1.30.2) (2023-12-20)
 
 

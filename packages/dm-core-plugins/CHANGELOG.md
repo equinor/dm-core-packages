@@ -36,6 +36,30 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.37.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.2...dm-core-plugins-v1.37.3) (2023-12-21)
+
+
+### Features
+
+* better list padding + default pagination view ([#1048](https://github.com/equinor/dm-core-packages/issues/1048)) ([e4d9517](https://github.com/equinor/dm-core-packages/commit/e4d95176416191785a6e3a96b775ba8d34782c85))
+
+
+### Bug Fixes
+
+* also add to default ([e4d9517](https://github.com/equinor/dm-core-packages/commit/e4d95176416191785a6e3a96b775ba8d34782c85))
+* empty dmss schedule cron overwriting default cron string ([ee9636e](https://github.com/equinor/dm-core-packages/commit/ee9636e76944d8d3aa62049b5c3c4918b432af18))
+* error when selecting templates for uncontained ([#1044](https://github.com/equinor/dm-core-packages/issues/1044)) ([bc2469b](https://github.com/equinor/dm-core-packages/commit/bc2469bd11e5622d52b1eaf6c88c07ef37a2d1f6))
+* make it now throw because config.templates is empty ([bc2469b](https://github.com/equinor/dm-core-packages/commit/bc2469bd11e5622d52b1eaf6c88c07ef37a2d1f6))
+* pagination bug ([e4d9517](https://github.com/equinor/dm-core-packages/commit/e4d95176416191785a6e3a96b775ba8d34782c85))
+* wrong name of start and end date replaced in date range picker ([3318d8b](https://github.com/equinor/dm-core-packages/commit/3318d8b7d16ec67bbc654163f587f60dce6a8668))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.30.2 to ^1.30.3
+
 ## [1.37.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.1...dm-core-plugins-v1.37.2) (2023-12-20)
 
 
