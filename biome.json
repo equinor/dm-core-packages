@@ -5,15 +5,10 @@
   },
   "files": {
     "ignore": [
+      "packages/dm-core/src/services/api/configs/**",
       "*.config.js",
       "*.config.base.js",
       "*.test.tsx",
-      "/packages/plugins/simpos-ui/src/*",
-      "/packages/plugins/simos-ui/src/*",
-      "/packages/plugins/marmo-ui/src/*",
-      "/packages/home/src/plugins.js",
-      "/packages/plugins/form/src/test-utils.tsx",
-      "/packages/dm-core/src/services/api/configs/gen",
       "dist",
       "node_modules",
       "build"
@@ -37,8 +32,6 @@
   },
   "linter": {
     "ignore": [
-      "packages/dm-core/src/services/api/configs",
-      "/packages/dm-core/src/services/api/configs/gen",
       "build",
       "coverage",
       "node_modules",
