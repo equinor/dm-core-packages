@@ -59,7 +59,10 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
     <Dialog
       isDismissable
       open={isOpen}
-      onClose={() => setIsOpen(false)}
+      onClose={() => {
+        setSelectedRole(role)
+        setIsOpen(false)
+      }}
       width={'720px'}
     >
       <Dialog.Header>
@@ -67,6 +70,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         <Button
           variant='ghost'
           onClick={() => {
+            setSelectedRole(role)
             setIsOpen(false)
           }}
         >
