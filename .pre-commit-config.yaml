@@ -39,10 +39,8 @@ repos:
       - id: conventional-pre-commit
         stages: [ commit-msg ]
 
-  - repo: local
+  - repo: https://github.com/biomejs/pre-commit
+    rev: "v0.1.0"
     hooks:
-      - id: biome_check
-        name: Run biome
-        language: system
-        pass_filenames: false
-        entry: yarn run biome check --apply .
+      - id: biome-check
+        additional_dependencies: [ "@biomejs/biome@1.4.1" ]
