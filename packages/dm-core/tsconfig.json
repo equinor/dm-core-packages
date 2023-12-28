@@ -3,6 +3,7 @@
     "outDir": "dist",
     "rootDir": "src",
     "lib": [
+      "ES2020",
       "dom",
       "dom.iterable",
       "esnext"

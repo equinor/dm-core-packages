@@ -5,4 +5,5 @@ export enum EDialog {
   NewEntity = 3,
   NewFolder = 4,
   NewRootPackage = 5,
+  EditACL = 6,
 }

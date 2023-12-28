@@ -1,112 +1,91 @@
-import { Button, Input, Typography } from '@equinor/eds-core-react'
+import { Button, Input, TextField, Typography } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { AccessControlList, AccessLevel } from '../../services'
 import { ACLSelect } from './ACLSelect'
-import { CenteredRow } from './AccessControlListComponent'
+import { DeleteSoftButton } from '../DeleteSoftButton'
 
 interface IURPanelProps {
-  entities: { [key: string]: AccessLevel }
+  roles: { [key: string]: AccessLevel }
   handleChange: (data: Partial<AccessControlList>) => void
   aclKey: string
 }
 
-type TGridContainerType = {
-  even?: boolean
-}
-
-const ListRow = styled.div<TGridContainerType>`
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  padding: 5px;
-  justify-content: space-around;
-  background-color: ${(props) => (props.even ? '#F7F7F7' : 'inherit')};
-`
-
 const TableWrapper = styled.div`
   border: black 1px solid;
   border-radius: 3px;
-  max-height: 200px;
+  max-height: 40vh;
   overflow: auto;
   margin-bottom: 10px;
 `
 
-const GridContainer = styled.div<TGridContainerType>`
+const GridContainer = styled.div<{ even: boolean }>`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   justify-items: center;
   align-items: center;
-  background-color: ${(props) => (props.even ? '#F7F7F7' : 'inherit')};
+  background-color: ${(props) => (props.even ? '#f2f2f6' : '#d3d5de')};
 `
 
 export const ACLUserRolesPanel = ({
-  entities,
+  roles,
   handleChange,
   aclKey,
 }: IURPanelProps): React.ReactElement => {
   const [newRole, setNewRole] = useState<string>('')
-  const getPlaceholderText = () => {
-    if (aclKey === 'users') {
-      return 'Add new user'
-    } else if (aclKey === 'roles') {
-      return 'Add new role'
-    } else {
-      new Error(`aclKey ${aclKey} is invalid`)
-    }
-  }
+
+  const userTab = aclKey === 'users'
+
   return (
     <>
-      {aclKey === 'users' && (
-        <Typography variant='body_short_italic'>Use short name</Typography>
-      )}
-      <CenteredRow>
-        <Input
-          style={{ width: '170px' }}
-          placeholder={getPlaceholderText()}
+      <div className='flex justify-between my-2'>
+        <TextField
+          id='new-role-user'
+          style={{ width: '250px' }}
+          placeholder={userTab ? 'Shortname of user' : 'Role'}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setNewRole(e.target.value)
           }
+          label={`Name of existing ${userTab ? 'user' : 'role'} to add`}
         />
         <Button
           onClick={() =>
             handleChange({
-              [aclKey]: { ...entities, [newRole]: AccessLevel.NONE },
+              [aclKey]: { ...roles, [newRole]: AccessLevel.NONE },
             })
           }
           disabled={!newRole}
         >
           Add +
         </Button>
-      </CenteredRow>
-      <ListRow>
+      </div>
+      <div className='flex justify-around'>
         <div>{aclKey[0].toUpperCase() + aclKey.substring(1)}</div>
         <div>Access Level</div>
         <div></div>
-      </ListRow>
+      </div>
       <TableWrapper>
-        {Object.entries(entities).map(([entity, access], index) => {
-          const roleHandleChange = (value: AccessLevel) => {
-            entities[entity] = value
-            handleChange({ [aclKey]: entities })
-          }
-          return (
-            <GridContainer key={entity} even={index % 2 === 0}>
-              <div>{entity}</div>
-              <ACLSelect value={access} handleChange={roleHandleChange} />
-              <Button
-                variant='outlined'
-                color='danger'
-                onClick={() => {
-                  delete entities[entity]
-                  handleChange({ [aclKey]: entities })
+        {Object.entries(roles).map(([role, access], index) => (
+          <GridContainer key={role} even={index % 2 === 0}>
+            {role}
+            <div style={{ gridColumn: '2 / span 3' }}>
+              <ACLSelect
+                value={access}
+                handleChange={(value: AccessLevel) => {
+                  roles[role] = value
+                  handleChange({ [aclKey]: roles })
                 }}
-              >
-                Remove
-              </Button>
-            </GridContainer>
-          )
-        })}
+              />
+            </div>
+            <DeleteSoftButton
+              onClick={() => {
+                delete roles[role]
+                handleChange({ [aclKey]: roles })
+              }}
+              title={'Remove role from acl'}
+            />
+          </GridContainer>
+        ))}
       </TableWrapper>
     </>
   )
