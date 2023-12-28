@@ -34,7 +34,7 @@ export const getTokenWithUserReadAccess = (
   formData.append('refresh_token', refreshToken)
   formData.append('scope', 'https://graph.microsoft.com/User.ReadBasic.All')
 
-  const tokenEndpoint: string = process.env.REACT_APP_TOKEN_ENDPOINT || ''
+  const tokenEndpoint: string = process.env.VITE_TOKEN_ENDPOINT || ''
   return postWithFormData(tokenEndpoint, formData).then(
     (response: TTokenResponse) => {
       return response.access_token

@@ -1,9 +1,7 @@
-import { Icon, Input } from '@equinor/eds-core-react'
+import { Input } from '@equinor/eds-core-react'
 import { ACLSelect } from './ACLSelect'
 import { AccessControlList, AccessLevel } from '../../services'
 import React from 'react'
-import { CenteredRow } from './AccessControlListComponent'
-import { edit_text } from '@equinor/eds-icons'
 
 interface IACLOwnerPanelProps {
   acl: AccessControlList
@@ -15,8 +13,8 @@ export const ACLOwnerPanel = ({
   handleChange,
 }: IACLOwnerPanelProps): React.ReactElement => {
   return (
-    <>
-      <CenteredRow width={'230px'}>
+    <div className='flex justify-between'>
+      <div className='flex content-center items-center'>
         Owner:
         <Input
           style={{ width: '150px', marginLeft: '5px' }}
@@ -25,9 +23,8 @@ export const ACLOwnerPanel = ({
             handleChange({ owner: event.target.value })
           }
         />
-        <Icon data={edit_text} size={24} style={{ color: 'teal' }} />
-      </CenteredRow>
-      <CenteredRow width={'160px'}>
+      </div>
+      <div className='flex items-center'>
         Others:
         <ACLSelect
           value={acl.others || AccessLevel.NONE}
@@ -35,7 +32,7 @@ export const ACLOwnerPanel = ({
             handleChange({ others: newValue })
           }
         />
-      </CenteredRow>
-    </>
+      </div>
+    </div>
   )
 }

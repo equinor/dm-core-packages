@@ -17,39 +17,15 @@ import {
 import { ACLOwnerPanel } from './ACLOwnerPanel'
 import { ACLUserRolesPanel } from './ACLUserRolesPanel'
 
-const ACLWrapper = styled.div`
-  max-width: 650px;
-  padding: 10px;
-`
-
-type CenteredRowType = {
-  width?: string
-  even?: boolean
-  justifyContent?: string
-}
-
-export const CenteredRow = styled.div<CenteredRowType>`
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  padding-bottom: 10px;
-  justify-content: ${(props: CenteredRowType) =>
-    props.justifyContent || 'space-between'};
-  width: ${(props: CenteredRowType) => props.width || 'inherit'};
-  background-color: ${(props: CenteredRowType) => {
-    if (props.even) return '#F7F7F7'
-    return 'inherit'
-  }};
-`
-
 export const AccessControlListComponent = (props: {
   documentId: string
-  dataSourceId: string
+  close: () => void
 }): React.ReactElement => {
-  const { documentId, dataSourceId } = props
+  const { documentId, close } = props
 
   const [activeTab, setActiveTab] = useState<number>(0)
-  const [storeACLRecursively, setStoreACLRecursively] = useState<boolean>(true)
+  const [updateACLRecursively, setUpdateACLRecursively] =
+    useState<boolean>(true)
   const [loading, setLoading] = useState<boolean>(false)
   const [loadingACLDocument, setLoadingACLDocument] = useState<boolean>(false)
   const [tokenWithReadAccess, setTokenWithReadAccess] = useState<string>('')
@@ -141,10 +117,7 @@ export const AccessControlListComponent = (props: {
     if (tokenWithReadAccess !== '') {
       setLoadingACLDocument(true)
       dmssAPI
-        .getAcl({
-          dataSourceId: dataSourceId,
-          documentId: documentId,
-        })
+        .getAcl({ address: documentId })
         .then((response: AxiosResponse<AccessControlList>) => {
           const acl = response.data
           convertACLFromUserIdToUsername(acl)
@@ -155,9 +128,6 @@ export const AccessControlListComponent = (props: {
               toast.error(
                 `Could not convert username ID to username (${error})`
               )
-            })
-            .finally(() => {
-              setLoadingACLDocument(false)
             })
         })
         .catch((error: AxiosError<any>) => {
@@ -171,14 +141,42 @@ export const AccessControlListComponent = (props: {
             console.error(error)
           }
         })
+        .finally(() => {
+          setLoadingACLDocument(false)
+        })
+      return
     }
+    setLoadingACLDocument(true)
+    dmssAPI
+      .getAcl({ address: documentId })
+      .then((response: AxiosResponse<AccessControlList>) => {
+        const acl = response.data
+
+        setDocumentACL(acl)
+      })
+      .catch((error: AxiosError<any>) => {
+        toast.error(
+          `Could not fetch AccessControlList for this document (${
+            error.response?.data || error.message
+          })`
+        )
+      })
+      .finally(() => {
+        setLoadingACLDocument(false)
+      })
   }, [tokenWithReadAccess])
 
   useEffect(() => {
     if (typeof refreshToken === 'string') {
-      getTokenWithUserReadAccess(refreshToken).then((token: string) => {
-        setTokenWithReadAccess(token)
-      })
+      getTokenWithUserReadAccess(refreshToken)
+        .then((token: string) => {
+          setTokenWithReadAccess(token)
+        })
+        .catch(() => {
+          console.error(
+            'Failed to get token with permission to lookup usernames. Has the application in the Identity Provider been granted the necessary scope?'
+          )
+        })
     } else {
       throw new Error('Refresh token not found')
     }
@@ -186,18 +184,33 @@ export const AccessControlListComponent = (props: {
 
   async function saveAccessControlList(acl: AccessControlList) {
     setLoading(true)
-    convertACLFromUsernameToUserId(acl)
-      .then((newACL) => {
-        dmssAPI
-          .setAcl({
-            dataSourceId: dataSourceId,
-            documentId: documentId,
-            accessControlList: newACL,
-            recursively: storeACLRecursively,
-          })
-          .then(() => {
-            toast.success('AccessControlList saved!')
-          })
+    if (tokenWithReadAccess) {
+      convertACLFromUsernameToUserId(acl)
+        .then((newACL) => {
+          dmssAPI
+            .setAcl({
+              address: documentId,
+              accessControlList: newACL,
+              recursively: updateACLRecursively,
+            })
+            .then(() => {
+              toast.success('AccessControlList saved!')
+            })
+        })
+        .catch((error) => {
+          toast.error(`Could not save AccessControlList (${error})`)
+        })
+        .finally(() => setLoading(false))
+      return
+    }
+    dmssAPI
+      .setAcl({
+        address: documentId,
+        accessControlList: acl,
+        recursively: updateACLRecursively,
+      })
+      .then(() => {
+        toast.success('AccessControlList saved!')
       })
       .catch((error) => {
         toast.error(`Could not save AccessControlList (${error})`)
@@ -226,7 +239,7 @@ export const AccessControlListComponent = (props: {
     )
 
   return (
-    <ACLWrapper>
+    <div style={{ maxWidth: '60vw' }}>
       <Tabs
         activeTab={activeTab}
         onChange={(index: number) => setActiveTab(index)}
@@ -244,32 +257,37 @@ export const AccessControlListComponent = (props: {
           <Tabs.Panel>
             <ACLUserRolesPanel
               aclKey='roles'
-              entities={documentACL.roles}
+              roles={documentACL.roles}
               handleChange={handleChange}
             />
           </Tabs.Panel>
           <Tabs.Panel>
             <ACLUserRolesPanel
               aclKey='users'
-              entities={documentACL.users}
+              roles={documentACL.users}
               handleChange={handleChange}
             />
           </Tabs.Panel>
         </Tabs.Panels>
       </Tabs>
+      <div className='flex justify-between mt-10'>
+        <div className={'flex'}>
+          <Button onClick={() => saveAccessControlList(documentACL)}>
+            {(loading && <Progress.Dots color='neutral' />) || 'Save'}
+            {!loading && <Icon data={save} title='save' size={24} />}
+          </Button>
+          <Checkbox
+            checked={updateACLRecursively}
+            label='Update recursively'
+            onChange={() => setUpdateACLRecursively(!updateACLRecursively)}
+          ></Checkbox>
+        </div>
 
-      <CenteredRow>
-        <Button onClick={() => saveAccessControlList(documentACL)}>
-          {(loading && <Progress.Dots color='neutral' />) || 'Save'}
-          {!loading && <Icon data={save} title='save' size={24} />}
+        <Button variant='outlined' onClick={close}>
+          Cancel
         </Button>
-        <Checkbox
-          checked={storeACLRecursively}
-          label='Change access recursively'
-          onClick={() => setStoreACLRecursively(!storeACLRecursively)}
-        ></Checkbox>
-      </CenteredRow>
-    </ACLWrapper>
+      </div>
+    </div>
   )
 }
 
