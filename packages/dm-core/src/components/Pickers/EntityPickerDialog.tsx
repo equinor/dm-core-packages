@@ -190,7 +190,9 @@ export const EntityPickerDialog = (
                 }
                 nodes={treeNodes}
                 // If not 'multiple', clicking a valid entity selects it, and closes the dialog
-                onSelect={(node: TreeNode) => handleSelect(node, true)}
+                onSelect={(node: TreeNode) => {
+                  if (!multiple) handleSelect(node, true)
+                }}
                 // If 'multiple', add a checkbox to handle selection
                 NodeWrapper={
                   multiple
