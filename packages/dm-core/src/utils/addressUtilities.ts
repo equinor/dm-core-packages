@@ -5,7 +5,6 @@ import { splitString } from './stringUtilities'
  *
  * @param address An absolute address. Valid formats include (both DOCUMENT_PATH and ATTRIBUTE_PATH is optional):
  *  PROTOCOL://DATA_SOURCE/DOCUMENT_PATH.ATTRIBUTE_PATH
- *  /DATA_SOURCE/DOCUMENT_PATH.ATTRIBUTE_PATH
  *  DATA_SOURCE/DOCUMENT_PATH.ATTRIBUTE_PATH
  */
 export const splitAddress = (address: string) => {
@@ -24,43 +23,95 @@ export const splitAddress = (address: string) => {
 
 /**
  *
- * @param address A relative address. Valid formats include (ATTRIBUTE_PATH is optional):
+ * @param relativeAddress A relative address. Valid formats include (ATTRIBUTE_PATH is optional):
  * PROTOCOL://DATA_SOURCE/DOCUMENT_PATH.ATTRIBUTE_PATH
- * /DOCUMENT_PATH.ATTRIBUTE_PATH
  * DOCUMENT_PATH.ATTRIBUTE_PATH
  * ^.ATTRIBUTE_PATH
- * @param fallbackDocumentPath
+ * @param knownPrefix
  * @param dataSource
  * @returns
  */
 export const resolveRelativeAddress = (
-  address: string,
-  fallbackDocumentPath: string,
+  relativeAddress: string,
+  knownPrefix: string,
   dataSource: string,
   relative_path?: string[]
 ) => {
-  address = address.replace(/^[/. ]+|[/. ]+$/g, '')
-  if (address.includes('://')) return address
-  const [documentPath, attributePath] = address.includes('.')
-    ? splitString(address, '.', 1)
-    : [address, '']
+  relativeAddress = relativeAddress.replace(/^[/. ]+|[/. ]+$/g, '')
+  if (relativeAddress.includes('://')) return relativeAddress
+  const [documentPath, attributePath] = relativeAddress.includes('.')
+    ? splitString(relativeAddress, '.', 1)
+    : [relativeAddress, '']
 
   if (documentPath === '~') {
     if (!relative_path)
       throw 'Missing relative path to be able to resolve the address'
-    let go_up = address.split('~').length - 1
+    let go_up = relativeAddress.split('~').length - 1
     const path = Array.from(relative_path)
     while (go_up !== 0) {
       path.pop()
       go_up -= 1
     }
-    const rest = address.split('~', -1).slice(-1)
+    const rest = relativeAddress.split('~', -1).slice(-1)
     if (path.length > 0)
-      return `/${dataSource}/${fallbackDocumentPath}.${path.join('.')}${rest}`
-    else return `/${dataSource}/${fallbackDocumentPath}${rest}`
+      return `/${dataSource}/${knownPrefix}.${path.join('.')}${rest}`
+    else return `/${dataSource}/${knownPrefix}${rest}`
   }
 
-  return `/${dataSource}/${
-    documentPath === '^' ? fallbackDocumentPath : documentPath
-  }${attributePath ? '.' + attributePath : ''}`
+  return `/${dataSource}/${documentPath === '^' ? knownPrefix : documentPath}${
+    attributePath ? '.' + attributePath : ''
+  }`
+}
+
+/**
+ *
+ * Aim's to have a simpler to use interface than resolveRelativeAddress
+ *
+ * @param relativeAddress An address, possibly relative .
+ * Valid formats include (ATTRIBUTE_PATH is optional):
+ * PROTOCOL://DATA_SOURCE/DOCUMENT_PATH.ATTRIBUTE_PATH
+ * $2.ATTRIBUTE_PATH
+ * ~.~.ATTRIBUTE_PATH
+ * ^.ATTRIBUTE_PATH
+ * @param location Where the relative address is being encountered. Must be an absolute address.
+ * @returns absoluteAddress
+ */
+export const resolveRelativeAddressSimplified = (
+  relativeAddress: string,
+  location: string
+): string => {
+  if (relativeAddress.includes('://')) return relativeAddress // It's absolute
+
+  const { dataSource, documentPath, attributePath, protocol } =
+    splitAddress(location)
+  relativeAddress = relativeAddress.replace(/^[/. ]+|[/. ]+$/g, '')
+
+  if (relativeAddress[0] === '~') {
+    let go_up = relativeAddress.split('~').length - 1
+
+    // Split a string like "$23.car[5].b" into ["$23", "car", "[5]", "b"]
+    const regex = /(\$[\w]+|[a-zA-Z0-9-_]+|\[\d+\])/g
+    const pathElements = `${documentPath}.${attributePath}`.match(
+      regex
+    ) as string[]
+    while (go_up !== 0) {
+      pathElements.pop()
+      go_up -= 1
+    }
+    const rest = relativeAddress.split('~', -1).slice(-1)
+    if (!pathElements.length)
+      throw 'Invalid relative reference. Cannot traverse out of uncontained parent'
+
+    return `${protocol}://${dataSource}/${pathElements.join('.')}${rest}`
+  }
+  if (relativeAddress[0] === '$') {
+    return `${protocol}://${dataSource}/${relativeAddress}`
+  }
+  if (relativeAddress[0] === '^') {
+    const attributes = relativeAddress.slice(1)
+    return `${protocol}://${dataSource}/${documentPath}${attributes}`
+  }
+  return `/${documentPath === '^' ? location : documentPath}${
+    attributePath ? '.' + attributePath : ''
+  }`
 }

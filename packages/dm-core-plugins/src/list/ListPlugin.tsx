@@ -16,6 +16,7 @@ import {
   TEntityPickerReturn,
   TemplateMenu,
   TTemplate,
+  resolveRelativeAddressSimplified,
 } from '@development-framework/dm-core'
 import { toast } from 'react-toastify'
 import {
@@ -183,7 +184,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           showModal={showModal}
           setShowModal={setShowModal}
           typeFilter={type}
-          scope={config.selectFromScope}
+          scope={resolveRelativeAddressSimplified(
+            config.selectFromScope,
+            idReference
+          )}
           onChange={async (entities: TEntityPickerReturn[]) => {
             const newKeys: Record<string, boolean> = {}
             for (const { address, entity } of entities) {

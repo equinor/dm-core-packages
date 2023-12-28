@@ -46,6 +46,14 @@ export type TNodeWrapperProps = {
 const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
   const { node, expanded } = props
 
+  if (node.type === 'error')
+    return (
+      <FaExclamationTriangle
+        style={{ color: 'orange' }}
+        title='failed to load'
+      />
+    )
+
   const showAsReference =
     node.parent?.type !== EBlueprint.PACKAGE &&
     node?.type !== EBlueprint.PACKAGE &&
@@ -75,13 +83,6 @@ const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
     }
     case 'dataSource':
       return <FaDatabase style={{ color: 'gray' }} title='data source' />
-    case 'error':
-      return (
-        <FaExclamationTriangle
-          style={{ color: 'orange' }}
-          title='failed to load'
-        />
-      )
     case EBlueprint.BLUEPRINT:
       return <FaRegFileAlt style={{ color: '#2966FF' }} title='blueprint' />
     case EBlueprint.PACKAGE:
@@ -224,8 +225,8 @@ export const TreeView = (props: {
   includeTypes?: string[] // Types to include in the tree (excludes the 'ignoredTypes' option)
 }) => {
   const { nodes, onSelect, NodeWrapper, ignoredTypes, includeTypes } = props
-
   if (includeTypes && includeTypes.length) {
+    includeTypes?.push('error') // Never hide error nodes
     return (
       <StyledUl>
         {nodes

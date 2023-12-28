@@ -1,4 +1,8 @@
-import { resolveRelativeAddress, splitAddress } from './addressUtilities'
+import {
+  resolveRelativeAddress,
+  resolveRelativeAddressSimplified,
+  splitAddress,
+} from './addressUtilities'
 
 test('split dmss://test_source/complex/myCarRental.cars[0].engine', async () => {
   const { protocol, dataSource, documentPath, attributePath } = splitAddress(
@@ -58,27 +62,35 @@ test('split test_source/$1', async () => {
 })
 
 test('resolve address with ^', () => {
-  const resolved = resolveRelativeAddress('^.cars[0]', '$1', 'test_source')
-  expect(resolved).toBe('/test_source/$1.cars[0]')
+  const resolved = resolveRelativeAddressSimplified(
+    '^.cars[0]',
+    'dmss://test_source/$1'
+  )
+  expect(resolved).toBe('dmss://test_source/$1.cars[0]')
 })
 
 test('resolve address with multiple attributes', () => {
-  const resolved = resolveRelativeAddress(
+  const resolved = resolveRelativeAddressSimplified(
     '$2.cars[0].engine',
-    '$1',
-    'test_source'
+    'dmss://test_source/$1'
   )
-  expect(resolved).toBe('/test_source/$2.cars[0].engine')
+  expect(resolved).toBe('dmss://test_source/$2.cars[0].engine')
 })
 
 test('resolve address with no attributes', () => {
-  const resolved = resolveRelativeAddress('$2', '$1', 'test_source')
-  expect(resolved).toBe('/test_source/$2')
+  const resolved = resolveRelativeAddressSimplified(
+    '$2',
+    'dmss://test_source/$1'
+  )
+  expect(resolved).toBe('dmss://test_source/$2')
 })
 
 test('resolve address with id', () => {
-  const resolved = resolveRelativeAddress('$2.cars[0]', '$1', 'test_source')
-  expect(resolved).toBe('/test_source/$2.cars[0]')
+  const resolved = resolveRelativeAddressSimplified(
+    '$2.cars[0]',
+    'dmss://test_source/$1'
+  )
+  expect(resolved).toBe('dmss://test_source/$2.cars[0]')
 })
 
 test('resolve address with slash and id', () => {
@@ -107,10 +119,34 @@ test('resolve address with package path', () => {
 })
 
 test('resolve address with data source', () => {
-  const resolved = resolveRelativeAddress(
+  const resolved = resolveRelativeAddressSimplified(
     'dmss://other_source/$2.cars[0]',
-    '$1',
-    'test_source'
+    'whatever'
   )
   expect(resolved).toBe('dmss://other_source/$2.cars[0]')
+})
+
+test('resolve relative to parent address should raise error', () => {
+  function badReference() {
+    resolveRelativeAddressSimplified('~.cars[0]', 'dmss://test_source/$2')
+  }
+  expect(badReference).toThrowError(
+    'Invalid relative reference. Cannot traverse out of uncontained parent'
+  )
+})
+
+test('resolve relative to parent address', () => {
+  const resolved = resolveRelativeAddressSimplified(
+    '~.cars[0]',
+    'dmss://test_source/$2.bravo'
+  )
+  expect(resolved).toBe('dmss://test_source/$2.cars[0]')
+})
+
+test('resolve relative to parent address again', () => {
+  const resolved = resolveRelativeAddressSimplified(
+    '~.~.~.car_s[0]',
+    'dmss://test_source/$2.t_y[2].char-lie'
+  )
+  expect(resolved).toBe('dmss://test_source/$2.car_s[0]')
 })
