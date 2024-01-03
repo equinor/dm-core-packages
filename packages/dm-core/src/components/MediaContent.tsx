@@ -4,6 +4,11 @@ import { Button, Icon, Popover } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
 
 import { formatBytes } from '../utils/stringUtilities'
+import {
+  applicationFiletypes,
+  imageFiletypes,
+  videoFiletypes,
+} from '../utils/filetypes'
 
 interface MediaContentConfig {
   height?: number
@@ -46,7 +51,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   const referenceElement = useRef()
 
   function renderMediaElement(filetype: string) {
-    if (filetype.includes('image')) {
+    if (imageFiletypes.includes(filetype)) {
       return (
         <img
           src={blobUrl}
@@ -57,7 +62,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           }}
         />
       )
-    } else if (filetype.includes('video')) {
+    } else if (videoFiletypes.includes(filetype)) {
       return (
         // biome-ignore lint/a11y/useMediaCaption: No captions for example video
         <video
@@ -70,7 +75,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           }}
         />
       )
-    } else if (filetype.includes('pdf')) {
+    } else if (applicationFiletypes.includes(filetype)) {
       return (
         <iframe
           title={meta.title}
@@ -88,10 +93,10 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             Unknown filetype
           </h2>
           <p className='flex gap-1 mb-3'>
-            The filetype <pre>{meta.filetype}</pre> is not known, and can not be
-            previewed. You may still download the file
+            The filetype <code>{meta.filetype}</code> is not known, and can not
+            be previewed. You may still download the file
           </p>
-          <Button download={meta.title} href={blobUrl}>
+          <Button download={`${meta.title}.${meta.filetype}`} href={blobUrl}>
             <Icon size={16} data={download} />
             Download
           </Button>
@@ -103,7 +108,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   return (
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
-        {!meta.filetype.includes('application') &&
+        {!['pdf', 'bin'].includes(meta.filetype) &&
           (config.showMeta !== undefined ? config.showMeta : true) && (
             <MetaPopoverButton
               onClick={() => setShowMeta(!showMeta)}
@@ -140,6 +145,8 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             <span> {meta.filetype}</span>
             <label className='font-bold'>Filesize:</label>
             <span> {formatBytes(meta.fileSize)}</span>
+            <label className='font-bold'>Date:</label>
+            <span> {meta.date}</span>
           </div>
         </Popover.Content>
         <Popover.Actions>
@@ -155,7 +162,11 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
               <Icon size={16} data={external_link} />
               New tab
             </Button>
-            <Button download={meta.title} href={blobUrl} variant='ghost'>
+            <Button
+              download={`${meta.title}.${meta.filetype}`}
+              href={blobUrl}
+              variant='ghost'
+            >
               <Icon size={16} data={download} />
               Download
             </Button>

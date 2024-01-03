@@ -10,6 +10,7 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { AxiosError, AxiosRequestConfig } from 'axios'
+import mime from 'mime'
 
 interface MediaObject {
   type: string
@@ -57,7 +58,7 @@ export const MediaViewerPlugin = (
         )
         .then((response: any) => {
           const blob = new Blob([response.data], {
-            type: document.filetype,
+            type: mime.getType(document.filetype) || 'application/octet-stream',
           })
           setBlobUrl(window.URL.createObjectURL(blob))
         })
