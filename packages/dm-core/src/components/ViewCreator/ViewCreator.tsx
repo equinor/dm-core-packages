@@ -38,7 +38,8 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
  * @param props
  */
 export const ViewCreator = (props: TViewCreator): React.ReactElement => {
-  const { idReference, viewConfig, onOpen, onSubmit, onChange } = props
+  const { idReference, viewConfig, onOpen, onSubmit, onChange, onDelete } =
+    props
   const dmssAPI = useDMSS()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error>()
@@ -84,6 +85,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
         type={attribute.attributeType}
         viewConfig={viewConfig}
         onOpen={onOpen}
+        onDelete={onDelete}
         onSubmit={onSubmit}
         onChange={onChange}
       />
@@ -97,6 +99,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
         idReference={directAddress}
         recipeName={viewConfig.recipe}
         onOpen={onOpen}
+        onDelete={onDelete}
         dimensions={attribute.dimensions}
         showRefreshButton={viewConfig.showRefreshButton}
         onSubmit={onSubmit}
@@ -109,6 +112,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
         idReference={directAddress}
         type={attribute.attributeType}
         onOpen={onOpen}
+        onDelete={onDelete}
         dimensions={attribute.dimensions}
         showRefreshButton={viewConfig.showRefreshButton}
         onSubmit={onSubmit}

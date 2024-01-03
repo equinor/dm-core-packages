@@ -140,6 +140,7 @@ export function Table(props: TableProps) {
                       item={item}
                       items={items}
                       onOpen={props.onOpen}
+                      onDelete={props.onDelete}
                       rowsPerPage={rowsPerPage}
                       setDirtyState={setDirtyState}
                       setItems={setItems}

@@ -1,5 +1,6 @@
 import {
   TGenericObject,
+  TOnDelete,
   TOnOpen,
   ViewCreator,
 } from '@development-framework/dm-core'
@@ -40,11 +41,18 @@ export const Content = (props: {
   viewSelectorItems: TItemData[]
   setFormData: (v: TGenericObject) => void
   onOpen: TOnOpen
+  onDelete?: TOnDelete
   formData: TGenericObject
   style?: Record<string, string | number>
 }): React.ReactElement => {
-  const { selectedViewId, viewSelectorItems, setFormData, formData, onOpen } =
-    props
+  const {
+    selectedViewId,
+    viewSelectorItems,
+    setFormData,
+    formData,
+    onOpen,
+    onDelete,
+  } = props
   return (
     <div style={props.style}>
       {viewSelectorItems.map((config: TItemData) => (
@@ -54,6 +62,7 @@ export const Content = (props: {
               idReference={config.rootEntityId}
               viewConfig={config.viewConfig}
               onOpen={onOpen}
+              onDelete={onDelete}
               onSubmit={(data: TGenericObject) => {
                 if (config?.onSubmit) config?.onSubmit(data)
                 setFormData({

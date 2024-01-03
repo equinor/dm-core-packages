@@ -2,6 +2,7 @@ import {
   ErrorResponse,
   TGenericObject,
   TInlineRecipeViewConfig,
+  TOnDelete,
   TOnOpen,
   TReferenceViewConfig,
   TViewConfig,

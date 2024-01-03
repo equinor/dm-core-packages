@@ -1,10 +1,11 @@
-import { TOnOpen } from '@development-framework/dm-core'
+import { TOnDelete, TOnOpen } from '@development-framework/dm-core'
 import React, { createContext, useContext } from 'react'
 import { TFormConfig } from '../types'
 
 type Props = {
   idReference: string
   onOpen?: TOnOpen
+  onDelete?: TOnDelete
   config: TFormConfig
 }
 

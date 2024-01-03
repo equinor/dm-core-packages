@@ -158,6 +158,9 @@ export function TableRow(props: TableRowProps) {
               editMode={editMode}
               item={item}
               removeItem={props.removeItem}
+              onDelete={() => {
+                if (props.onDelete) props.onDelete(item.key)
+              }}
             />
           )}
         </Table.Row>

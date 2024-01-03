@@ -39,6 +39,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     type,
     onSubmit,
     onOpen,
+    onDelete,
     recipeName,
     dimensions,
     showRefreshButton,
@@ -117,6 +118,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
               type={type}
               onSubmit={onSubmit}
               onOpen={onOpen}
+              onDelete={onDelete}
               onChange={onChange}
               key={reloadCounter}
             />

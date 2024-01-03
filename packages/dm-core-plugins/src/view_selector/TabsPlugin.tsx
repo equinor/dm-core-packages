@@ -59,6 +59,7 @@ export const TabsPlugin = (
           }}
           type={type}
           onOpen={addView}
+          onDelete={removeView}
           formData={formData}
           selectedViewId={selectedViewId}
           viewSelectorItems={viewSelectorItems}

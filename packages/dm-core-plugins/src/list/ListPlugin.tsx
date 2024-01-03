@@ -72,7 +72,7 @@ const defaultConfig: TListConfig = {
 }
 
 export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
-  const { idReference, config, type, onOpen } = props
+  const { idReference, config, type, onOpen, onDelete } = props
   const internalConfig: TListConfig = {
     ...defaultConfig,
     ...config,
@@ -336,7 +336,12 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 )}
                 {internalConfig.functionality.delete && (
                   <DeleteSoftButton
-                    onClick={() => removeItem(item, false)}
+                    onClick={() => {
+                      removeItem(item, false)
+                      if (onDelete) {
+                        onDelete(item.key)
+                      }
+                    }}
                     title={'Delete'}
                   />
                 )}

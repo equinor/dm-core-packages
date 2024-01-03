@@ -2,6 +2,7 @@ import {
   IUIPlugin,
   TGenericObject,
   TInlineRecipeViewConfig,
+  TOnDelete,
   TOnOpen,
   TReferenceViewConfig,
   TSortableItem,
@@ -107,6 +108,7 @@ export type TableRowProps = {
   idReference: string
   items: TItem<TGenericObject>[]
   onOpen?: TOnOpen
+  onDelete?: TOnDelete
   rowsPerPage: number
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
   setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
@@ -125,6 +127,7 @@ export type TableRowActionsProps = {
     itemToDelete: TItem<TGenericObject>,
     saveOnRemove?: boolean
   ) => Promise<void>
+  onDelete: () => void
 }
 
 export type TableCellProps = {

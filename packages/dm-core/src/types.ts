@@ -161,6 +161,7 @@ export interface IUIPlugin {
   onSubmit?: (data: any) => void // Listen to submits
   onChange?: (data: any) => void // Listen to changes
   onOpen?: TOnOpen
+  onDelete?: TOnDelete
   config?: any
   showRefreshButton?: boolean
 }
@@ -173,6 +174,8 @@ export type TOnOpen = (
   onSubmit?: (data: any) => void,
   onChange?: (data: any) => void
 ) => void
+
+export type TOnDelete = (viewId: string) => void
 
 export type TUiPluginMap = { [pluginName: string]: TPlugin }
 

@@ -7,7 +7,15 @@ type TInlineRecipeViewProps = IUIPlugin & {
 }
 
 export const InlineRecipeView = (props: TInlineRecipeViewProps) => {
-  const { idReference, type, viewConfig, onOpen, onSubmit, onChange } = props
+  const {
+    idReference,
+    type,
+    viewConfig,
+    onOpen,
+    onSubmit,
+    onChange,
+    onDelete,
+  } = props
   const { getUiPlugin } = useUiPlugins()
 
   const UiPlugin = getUiPlugin(viewConfig.recipe.plugin)
@@ -19,6 +27,7 @@ export const InlineRecipeView = (props: TInlineRecipeViewProps) => {
         type={type}
         config={viewConfig.recipe.config || {}}
         onOpen={onOpen}
+        onDelete={onDelete}
         onSubmit={onSubmit}
         onChange={onChange}
       />
