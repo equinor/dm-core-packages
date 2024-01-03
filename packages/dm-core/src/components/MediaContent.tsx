@@ -42,6 +42,7 @@ const MetaPopoverButton = styled(Button)`
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, meta, config } = props
   const [showMeta, setShowMeta] = useState(false)
+  const [disableMeta, setDisableMeta] = useState(false)
   const referenceElement = useRef()
 
   function renderMediaElement(filetype: string) {
@@ -69,7 +70,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           }}
         />
       )
-    } else {
+    } else if (filetype.includes('pdf')) {
       return (
         <iframe
           title={meta.title}
@@ -80,6 +81,22 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           role='document'
         />
       )
+    } else {
+      return (
+        <div className='border border-equinor-green bg-equinor-lightgreen p-3 '>
+          <h2 className='text-lg text-equinor-green font-medium'>
+            Unknown filetype
+          </h2>
+          <p className='flex gap-1 mb-3'>
+            The filetype <pre>{meta.filetype}</pre> is not known, and can not be
+            previewed. You may still download the file
+          </p>
+          <Button download={meta.title} href={blobUrl}>
+            <Icon size={16} data={download} />
+            Download
+          </Button>
+        </div>
+      )
     }
   }
 
@@ -87,6 +104,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
         {meta.filetype !== 'application/pdf' &&
+          meta.filetype !== 'application/octet-stream' &&
           (config.showMeta !== undefined ? config.showMeta : true) && (
             <MetaPopoverButton
               onClick={() => setShowMeta(!showMeta)}

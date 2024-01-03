@@ -3,7 +3,7 @@
   "type": "./MediaViewer",
   "file": {
     "type": "dmss://system/SIMOS/Reference",
-    "address": "./assets/beauty",
+    "address": "./assets/random",
     "referenceType": "link"
   }
 }
