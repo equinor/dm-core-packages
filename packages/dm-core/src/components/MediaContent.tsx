@@ -103,8 +103,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   return (
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
-        {meta.filetype !== 'application/pdf' &&
-          meta.filetype !== 'application/octet-stream' &&
+        {!meta.filetype.includes('application') &&
           (config.showMeta !== undefined ? config.showMeta : true) && (
             <MetaPopoverButton
               onClick={() => setShowMeta(!showMeta)}
