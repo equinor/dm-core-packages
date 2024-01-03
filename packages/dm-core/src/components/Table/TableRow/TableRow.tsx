@@ -62,7 +62,7 @@ export function TableRow(props: TableRowProps) {
     props.onOpen(
       item.key,
       {
-        label: config.labelByIndex ? `${label} #${item.index + 1}` : label,
+        label: config.labelByIndex ? `${label} #${index + 1}` : label,
         type: 'ViewConfig',
       },
       `${idReference}[${index}]`,
