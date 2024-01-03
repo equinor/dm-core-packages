@@ -9,6 +9,7 @@ import {
   imageFiletypes,
   videoFiletypes,
 } from '../utils/filetypes'
+import mime from 'mime'
 
 interface MediaContentConfig {
   height?: number
@@ -31,7 +32,8 @@ interface MediaContentProps {
 }
 
 const MediaWrapper = styled.div<{ $height?: number; $width?: number }>`
-  height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
+  //height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
+    height: 100vh;
   width: ${(props) => (props.$width ? props.$width + 'px' : undefined)};
   position: relative;
 `
@@ -77,13 +79,13 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
       )
     } else if (applicationFiletypes.includes(filetype)) {
       return (
-        <iframe
+        <embed
           title={meta.title}
           src={blobUrl}
-          style={{ width: '100%', height: 'auto' }}
+          type={mime.getType(filetype) || 'application/octet-stream'}
+          style={{ width: '100%', height: '100%' }}
           height={config.height}
           width={config.width}
-          role='document'
         />
       )
     } else {
