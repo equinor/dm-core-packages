@@ -150,11 +150,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       )
       return
     }
-    const label = config.label
-      ? config.label
-      : item?.data?.name
-        ? item?.data?.name
-        : `${attribute?.name}`
+    const label =
+      config.label ||
+      item.data?.label ||
+      item.data?.name ||
+      `${attribute?.name}`
     const view = {
       ...internalConfig.openViewConfig,
       label: config.labelByIndex ? `${label} #${item.index + 1}` : label,

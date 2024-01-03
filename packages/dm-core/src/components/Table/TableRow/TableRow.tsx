@@ -54,11 +54,11 @@ export function TableRow(props: TableRowProps) {
       )
       return
     }
-    const label = config.label
-      ? config.label
-      : item?.data?.name
-        ? item?.data?.name
-        : `${idReference.split('.').slice(-1)}`
+    const label =
+      config.label ||
+      item.data?.label ||
+      item.data?.name ||
+      `${idReference.split('.').slice(-1)}`
     props.onOpen(
       item.key,
       {
