@@ -52,19 +52,27 @@ export function useViewSelector(
     onSubmitAdded?: (data: any) => void,
     onChangeAdded?: (data: any) => void
   ) => {
-    if (!viewSelectorItems.find((view: TItemData) => view.viewId === viewId)) {
+    const existingViewIndex = viewSelectorItems.findIndex(
+      (view: TItemData) => view.viewId === viewId
+    )
+    const newView: TItemData = {
+      viewId: viewId,
+      viewConfig: viewConfig,
+      label: viewConfig.label ?? viewId,
+      rootEntityId: rootId || idReference,
+      onSubmit: onSubmitAdded,
+      onChange: onChangeAdded,
+      closeable: true,
+      isSubItem: isSubItem,
+    }
+    if (existingViewIndex === -1) {
       // View does not exist, add it
-      const newView: TItemData = {
-        viewId: viewId,
-        viewConfig: viewConfig,
-        label: viewConfig.label ?? viewId,
-        rootEntityId: rootId || idReference,
-        onSubmit: onSubmitAdded,
-        onChange: onChangeAdded,
-        closeable: true,
-        isSubItem: isSubItem,
-      }
       setViewSelectorItems([...viewSelectorItems, newView])
+    } else {
+      newView.viewId = viewSelectorItems[existingViewIndex].viewId
+      const replaced = [...viewSelectorItems]
+      replaced.splice(existingViewIndex, 1, newView)
+      setViewSelectorItems(replaced)
     }
     setSelectedViewId(viewId)
   }
