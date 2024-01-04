@@ -389,7 +389,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   onClick={() => {
                     if (attribute && !attribute.contained) {
                       setShowModal(true)
-                      setLastPage()
                       return
                     }
                     if (!(config.templates && config.templates.length)) {
