@@ -98,7 +98,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             <code className='text-sm'>
               {meta.filetype.length > 0 ? meta.filetype : 'binary'}
             </code>{' '}
-            files cannot shown. Please download the file and open it in the
+            files cannot be shown. Please download the file and open it in the
             appropriate software.
           </p>
           <Button download={`${meta.title}.${meta.filetype}`} href={blobUrl}>
