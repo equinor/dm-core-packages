@@ -14,7 +14,7 @@ test('Media viewer', async ({ page }) => {
     await expect(page.locator('video')).toBeVisible()
     await page.getByRole('button', { name: 'view meta info' }).click()
 
-    await expect(dialog.getByText('video/quicktime')).toBeVisible()
+    await expect(dialog.getByText('mov')).toBeVisible()
     //await dialog.getByRole('link', { name: 'New tab' }).click() #802 BUG in Chrome (downloads instead of open new tab). Works in Firefox.
     //const newTab = await page1Promise
     //await expect(newTab.getByRole('video')).toBeVisible() //Not sure if "video" is accepted as role
@@ -32,7 +32,7 @@ test('Media viewer', async ({ page }) => {
     await expect(page.getByRole('img', { name: 'fast' })).toBeVisible()
     await page.getByRole('button', { name: 'view meta info' }).click()
     const page1Promise = page.waitForEvent('popup')
-    await expect(dialog.getByText('image/gif')).toBeVisible()
+    await expect(dialog.getByText('gif')).toBeVisible()
     await dialog.getByRole('link', { name: 'New tab' }).click()
     const newTab = await page1Promise
     await expect(newTab.getByRole('img')).toBeVisible()
@@ -51,7 +51,7 @@ test('Media viewer', async ({ page }) => {
     await page.getByRole('button', { name: 'view meta info' }).click()
 
     const page1Promise = page.waitForEvent('popup')
-    await expect(dialog.getByText('image/jpeg')).toBeVisible()
+    await expect(dialog.getByText('jpeg')).toBeVisible()
     await dialog.getByRole('link', { name: 'New tab' }).click()
     const newTab = await page1Promise
     await expect(newTab.getByRole('img')).toBeVisible()
@@ -65,6 +65,11 @@ test('Media viewer', async ({ page }) => {
 
   await test.step('pdf', async () => {
     await page.getByRole('button', { name: 'engine_compartment' }).click()
-    await expect(page.getByRole('document')).toBeVisible()
+    await expect(page.getByTestId('embeded-document')).toBeVisible()
+  })
+
+  await test.step('bin', async () => {
+    await page.getByRole('button', { name: 'random' }).click()
+    await expect(page.getByTestId('unknown-file-message')).toBeVisible()
   })
 })

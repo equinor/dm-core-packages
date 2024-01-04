@@ -85,11 +85,15 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           style={{ width: '100%', height: '100%' }}
           height={config.height}
           width={config.width}
+          data-testid='embeded-document'
         />
       )
     } else {
       return (
-        <div className='border border-equinor-green bg-equinor-lightgreen p-3 '>
+        <div
+          className='border border-equinor-green bg-equinor-lightgreen p-3 '
+          data-testid='unknown-file-message'
+        >
           <h2 className='text-lg text-equinor-green font-medium'>
             Unknown filetype
           </h2>
