@@ -161,7 +161,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   const { documentPath, dataSource } = splitAddress(idReference)
 
-  console.log('currentPage: ', currentPage)
   return (
     <Stack style={{ width: '100%' }}>
       {attribute && !attribute.contained && (
@@ -390,6 +389,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   onClick={() => {
                     if (attribute && !attribute.contained) {
                       setShowModal(true)
+                      setLastPage()
                       return
                     }
                     if (!(config.templates && config.templates.length)) {
