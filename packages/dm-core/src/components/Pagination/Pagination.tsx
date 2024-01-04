@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Stack } from '../common'
 import { Button, Icon, NativeSelect, Typography } from '@equinor/eds-core-react'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
@@ -8,7 +8,7 @@ type PaginationProps = {
   page: number
   setPage: (page: number) => void
   rowsPerPage: number
-  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
+  setRowsPerPage: (numItems: number) => void
   defaultRowsPerPage?: number
 }
 

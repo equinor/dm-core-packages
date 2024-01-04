@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import {
   EntityPickerDialog,
   IUIPlugin,
@@ -389,7 +389,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   onClick={() => {
                     if (attribute && !attribute.contained) {
                       setShowModal(true)
-                      setLastPage()
                       return
                     }
                     if (!(config.templates && config.templates.length)) {
@@ -405,9 +404,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 {config.templates?.length && (
                   <TemplateMenu
                     templates={config.templates}
-                    onSelect={(template: TTemplate) =>
+                    onSelect={(template: TTemplate) => {
                       addItem(false, undefined, template?.path)
-                    }
+                      setLastPage()
+                    }}
                     onClose={() => setTemplateMenuIsOpen(false)}
                     isOpen={isTemplateMenuOpen}
                   />

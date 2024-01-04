@@ -3,11 +3,20 @@ import { useState, useMemo } from 'react'
 export const usePagination = <T,>(items: T[], defaultItemsPerPage: number) => {
   const [currentPage, setCurrentPage] = useState(0)
 
-  const [itemsPerPage, setItemsPerPage] = useState(defaultItemsPerPage)
+  const [itemsPerPage, _setItemsPerPage] = useState(defaultItemsPerPage)
+
+  const setItemsPerPage = (numItems: number) => {
+    const currentTopItemIndex = currentPage * itemsPerPage
+    const newCurrentPage = Math.floor(currentTopItemIndex / numItems)
+    setCurrentPage(newCurrentPage)
+    _setItemsPerPage(numItems)
+  }
+
   const totalPages = useMemo(
     () => Math.ceil(items.length / itemsPerPage),
     [items, itemsPerPage]
   )
+
   const setPage = (page: number) => {
     setCurrentPage(Math.min(page, totalPages - 1))
   }
