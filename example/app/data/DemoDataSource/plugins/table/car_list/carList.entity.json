@@ -4,9 +4,9 @@
   "name": "CarList",
   "_templates_": [
     {
-      "name": "a",
+      "name": "Audi",
       "type": "./blueprints/Car",
-      "model": "none",
+      "model": "A2",
       "color": "Black",
       "engine": {
         "type": "./blueprints/Engine",
@@ -15,24 +15,24 @@
       }
     },
     {
-      "name": "b",
+      "name": "BMW",
       "type": "./blueprints/Car",
-      "model": "none",
-      "color": "Black",
+      "model": "X1",
+      "color": "Blue",
       "engine": {
         "type": "./blueprints/Engine",
-        "name": "TDI 1.6",
+        "name": "TDI 1.8",
         "hp": 122
       }
     },
     {
-      "name": "c",
+      "name": "Chevrolet",
       "type": "./blueprints/Car",
-      "model": "none",
-      "color": "Black",
+      "model": "Corvette",
+      "color": "Cyan",
       "engine": {
         "type": "./blueprints/Engine",
-        "name": "TDI 1.6",
+        "name": "TDI 2.0",
         "hp": 123
       }
     }

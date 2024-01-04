@@ -1,5 +1,5 @@
 {
-  "_id": "wash_task",
+  "_id": "wash_task_templates",
   "name": "Wash_the_car",
   "type": "./blueprints/Task",
   "description": "Car needs a thorough wash inside and outside.",
