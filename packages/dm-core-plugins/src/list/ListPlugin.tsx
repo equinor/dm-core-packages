@@ -161,6 +161,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   const { documentPath, dataSource } = splitAddress(idReference)
 
+  console.log('currentPage: ', currentPage)
   return (
     <Stack style={{ width: '100%' }}>
       {attribute && !attribute.contained && (
