@@ -2,11 +2,47 @@
   "type": "CORE:RecipeLink",
   "_blueprintPath_": "/plugins/form/storage_uncontained/blueprints/Simulation",
   "initialUiRecipe": {
-    "name": "Edit",
+    "name": "Tabs",
     "type": "CORE:UiRecipe",
     "description": "Default edit",
-    "plugin": "@development-framework/dm-core-plugins/form"
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Simulation",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Edit"
+          }
+        }
+      ]
+    }
   },
+  "uiRecipes": [
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "description": "Default edit",
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
+        "attributes": [
+          {
+            "name": "result",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "uiRecipe": "Form",
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "open": true,
+              "expand": true
+            }
+          }
+        ]
+      }
+    }
+  ],
   "storageRecipes": [
     {
       "name": "DEFAULT",

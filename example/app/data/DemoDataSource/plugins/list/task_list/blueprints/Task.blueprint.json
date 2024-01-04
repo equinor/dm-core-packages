@@ -32,7 +32,8 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
       "label": "Mark task as complete",
-      "default": false
+      "default": false,
+      "optional": true
     }
   ]
 }

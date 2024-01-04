@@ -8,19 +8,18 @@ import { ObjectStorageUncontainedTemplate } from '../templates/ObjectStorageUnco
 import { TField } from '../types'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 
-export const ObjectField = (props: TField): React.ReactElement => {
-  const { namePath, uiAttribute, attribute } = props
-  const { getValues } = useFormContext()
+export const ObjectField = (
+  props: TField & { isStorageUncontained: boolean }
+): React.ReactElement => {
+  const { namePath, uiAttribute, attribute, isStorageUncontained } = props
+  const { getValues, control } = useFormContext()
   const values = getValues(namePath)
-  const isStorageUncontained =
-    values !== undefined &&
-    'referenceType' in values &&
-    values['referenceType'] === 'storage'
   if (uiAttribute?.widget) {
     const Widget = getWidget(uiAttribute.widget)
     return (
       <Controller
         name={namePath}
+        control={control}
         rules={{
           required: attribute.optional ? false : 'Required',
         }}
@@ -57,18 +56,15 @@ export const ObjectField = (props: TField): React.ReactElement => {
             : attribute.attributeType,
       }}
       uiAttribute={uiAttribute}
+      isStorageUncontained={isStorageUncontained}
     />
   )
 }
 
-export const ObjectTemplateSelector = (props: TField): React.ReactElement => {
-  const { namePath, uiAttribute, attribute } = props
-  const { watch } = useFormContext()
-  const value = watch(namePath)
-  const isStorageUncontained =
-    value !== undefined &&
-    'referenceType' in value &&
-    value['referenceType'] === 'storage'
+export const ObjectTemplateSelector = (
+  props: TField & { isStorageUncontained: boolean }
+): React.ReactElement => {
+  const { namePath, uiAttribute, attribute, isStorageUncontained } = props
 
   const isModelContained = attribute.contained ?? true
 

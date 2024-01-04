@@ -1,3 +1,4 @@
+import { TStorageRecipe } from '@development-framework/dm-core'
 import { TField } from '../types'
 import { isArray, isPrimitive } from '../utils'
 import ArrayField from './ArrayField'
@@ -37,10 +38,24 @@ const ATTRIBUTE_FIELD_MAPPING: Record<string, any> = {
 
 const getField = (fieldType: string) => ATTRIBUTE_FIELD_MAPPING[fieldType]
 
-export const AttributeField = (props: TField) => {
-  const { namePath, attribute, uiAttribute } = props
+export const AttributeField = (
+  props: TField & { storageRecipe?: TStorageRecipe }
+) => {
+  const { namePath, attribute, uiAttribute, storageRecipe } = props
   const fieldType = getFieldType(attribute)
   const Field = getField(fieldType)
+  if (fieldType === 'object') {
+    const isStorageUncontained =
+      storageRecipe?.attributes[attribute.name] !== undefined
+    return (
+      <Field
+        namePath={namePath}
+        uiAttribute={uiAttribute}
+        attribute={attribute}
+        isStorageUncontained={isStorageUncontained}
+      />
+    )
+  }
   return (
     <Field
       namePath={namePath}

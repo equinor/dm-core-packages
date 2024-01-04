@@ -5,9 +5,9 @@ import {
 } from '@development-framework/dm-core'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+// import AddStorageUncontained from '../components/AddStorageUncontained'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import RemoveObject from '../components/RemoveObjectButton'
-import { SelectReference } from '../components/SelectReference'
 import { useRegistryContext } from '../context/RegistryContext'
 import { TObjectTemplate } from '../types'
 import FormTemplate from './shared/FormTemplate'
@@ -19,24 +19,21 @@ import {
 
 export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
   const { namePath, attribute, uiAttribute } = props
-  const { watch, setValue } = useFormContext()
+  const { watch } = useFormContext()
   const { idReference, onOpen } = useRegistryContext()
   const { dataSource, documentPath } = splitAddress(idReference)
   const [isExpanded, setIsExpanded] = useState(false)
   const { config } = useRegistryContext()
   const value = watch(namePath)
-  const address = resolveRelativeAddress(
-    value.address,
-    documentPath,
-    dataSource
-  )
-
+  const address =
+    value && resolveRelativeAddress(value.address, documentPath, dataSource)
   const referenceExists = address !== undefined
 
   const { canExpand, canOpen } = getCanOpenOrExpand(
     referenceExists,
     config,
-    uiAttribute
+    uiAttribute,
+    onOpen
   )
 
   return (
@@ -62,14 +59,15 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
               idReference={address}
             />
           )}
-          {!config.readOnly && (
-            <SelectReference
-              attributeType={attribute.attributeType}
-              namePath={namePath}
-            />
-          )}
+          {/*TODO: Decide if it should be possibele to create Storage Uncontained attributes on the fly*/}
+          {/*{!referenceExists && (*/}
+          {/*  <AddStorageUncontained*/}
+          {/*    type={attribute.attributeType}*/}
+          {/*    namePath={namePath}*/}
+          {/*  />*/}
+          {/*)}*/}
           {attribute.optional && referenceExists && !config.readOnly && (
-            <RemoveObject address={address} namePath={namePath} />
+            <RemoveObject namePath={namePath} />
           )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
@@ -86,9 +84,6 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
             idReference={address}
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
-            onChange={(data: Record<string, unknown>) =>
-              setValue(namePath, data)
-            }
           />
         </FormTemplate.Content>
       </div>

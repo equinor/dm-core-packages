@@ -1,4 +1,4 @@
-import { Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
@@ -10,10 +10,12 @@ export const NumberField = (props: TField) => {
 
   const Widget = getWidget(uiAttribute?.widget ?? 'NumberWidget')
   const { config } = useRegistryContext()
+  const { control } = useFormContext()
   const readOnly = uiAttribute?.readOnly || config.readOnly
   return (
     <Controller
       name={namePath}
+      control={control}
       rules={{
         required: attribute.optional ? false : 'Required',
         pattern: {
@@ -31,7 +33,7 @@ export const NumberField = (props: TField) => {
             {...props}
             readOnly={readOnly}
             onChange={(event: unknown) => {
-              onChange(event !== '' ? Number(event) : null)
+              onChange(event === null ? null : Number(event))
             }}
             value={value ?? ''}
             id={namePath}
