@@ -16,6 +16,7 @@ import {
   TEntityPickerReturn,
   TemplateMenu,
   TTemplate,
+  usePagination,
   resolveRelativeAddressSimplified,
 } from '@development-framework/dm-core'
 import { toast } from 'react-toastify'
@@ -94,36 +95,18 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     updateItem,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
-  const defaultPaginationRowsPerPage = useMemo(() => {
-    let numRows = internalConfig.defaultPaginationRowsPerPage ?? 10
-    numRows = Math.round(numRows)
-    numRows = Math.abs(numRows)
-    return numRows
-  }, [internalConfig.defaultPaginationRowsPerPage])
+  const {
+    currentItems,
+    itemsPerPage,
+    setItemsPerPage,
+    currentPage,
+    showPagination,
+    setPage,
+  } = usePagination(items, internalConfig.defaultPaginationRowsPerPage ?? 10)
 
-  const [paginationPage, setPaginationPage] = useState(0)
-  const [paginationRowsPerPage, setPaginationRowsPerPage] = useState(
-    defaultPaginationRowsPerPage
-  )
-
-  const showPagination = useMemo(
-    () =>
-      items.length >
-      Math.min(defaultPaginationRowsPerPage, paginationRowsPerPage),
-    [items, paginationRowsPerPage]
-  )
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
-  const paginatedRows = useMemo(
-    () =>
-      items &&
-      items.slice(
-        paginationPage * paginationRowsPerPage,
-        paginationPage * paginationRowsPerPage + paginationRowsPerPage
-      ),
-    [paginationPage, paginationRowsPerPage, items]
-  )
 
   const handleItemUpdate = (item: TItem<any>, data: any) => {
     updateItem(item, data, false)
@@ -177,6 +160,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   const { documentPath, dataSource } = splitAddress(idReference)
 
+  console.log('currentPage: ', currentPage)
   return (
     <Stack style={{ width: '100%' }}>
       {attribute && !attribute.contained && (
@@ -202,8 +186,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           hideInvalidTypes={internalConfig.hideInvalidTypes}
         />
       )}
-      {paginatedRows &&
-        paginatedRows.map((item: TItem<TGenericObject>, index: number) => (
+      {currentItems &&
+        currentItems.map((item: TItem<TGenericObject>, index: number) => (
           <Stack key={item?.key} style={{ width: '100%' }}>
             <Stack
               direction='row'
@@ -325,7 +309,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     <ListChevronButton
                       type='down'
                       disabled={
-                        index === paginationRowsPerPage - 1 ||
+                        index === itemsPerPage - 1 ||
                         index === items?.length - 1
                       }
                       onClick={() => {
@@ -386,11 +370,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           {showPagination && (
             <Pagination
               count={Object.keys(items).length}
-              page={paginationPage}
-              setPage={setPaginationPage}
-              rowsPerPage={paginationRowsPerPage}
-              setRowsPerPage={setPaginationRowsPerPage}
-              defaultRowsPerPage={defaultPaginationRowsPerPage}
+              page={currentPage}
+              setPage={setPage}
+              rowsPerPage={itemsPerPage}
+              setRowsPerPage={setItemsPerPage}
+              defaultRowsPerPage={internalConfig?.defaultPaginationRowsPerPage}
             />
           )}
           <Stack

@@ -6,7 +6,7 @@ import { chevron_left, chevron_right } from '@equinor/eds-icons'
 type PaginationProps = {
   count: number
   page: number
-  setPage: React.Dispatch<React.SetStateAction<number>>
+  setPage: (page: number) => void
   rowsPerPage: number
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
   defaultRowsPerPage?: number
@@ -68,14 +68,14 @@ export function Pagination(props: PaginationProps) {
         <Button
           disabled={page === 0}
           variant='ghost_icon'
-          onClick={() => setPage((prevPage) => prevPage - 1)}
+          onClick={() => setPage(page - 1)}
         >
           <Icon data={chevron_left} title='Previous page' />
         </Button>
         <Button
           disabled={page + 1 === availablePages}
           variant='ghost_icon'
-          onClick={() => setPage((prevPage) => prevPage + 1)}
+          onClick={() => setPage(page + 1)}
         >
           <Icon data={chevron_right} title='Next page' />
         </Button>
