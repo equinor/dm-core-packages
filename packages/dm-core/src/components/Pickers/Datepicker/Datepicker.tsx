@@ -77,7 +77,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     if (dateInput) {
       const { day, month, year, max } = extractDateComponents(dateInput)
       const convertedDate = DateTime.utc(year, month, day)
-      console.log(convertedDate)
       if (!convertedDate.invalidExplanation && datetime) {
         setDatetime(
           datetime?.set({
