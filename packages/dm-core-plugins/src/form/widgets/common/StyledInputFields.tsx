@@ -99,7 +99,7 @@ export const StyledNumberField = (
       onWheel={(event: React.UIEvent<HTMLInputElement>) =>
         (event.target as HTMLInputElement).blur()
       }
-      defaultValue={props.defaultValue ?? props.value}
+      defaultValue={value ?? props.defaultValue}
       type={'number'}
     />
   )

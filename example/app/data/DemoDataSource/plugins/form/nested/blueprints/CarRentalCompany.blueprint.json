@@ -35,7 +35,8 @@
       "default": {
         "name": "Elon Musk",
         "type": "./Person",
-        "phoneNumber": 420420
+        "phoneNumber": 420420,
+        "age": 32
       }
     },
     {

@@ -188,6 +188,14 @@ export type TUiRecipe = {
   dimensions?: string
 }
 
+export type TStorageRecipe = {
+  name: string
+  type: string
+  attributes: any
+  storageAffinity: string
+  description: string
+}
+
 export type TPlugin = {
   component: (props: IUIPlugin) => React.ReactElement
 }

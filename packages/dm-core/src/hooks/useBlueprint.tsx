@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 import { useContext, useEffect, useState } from 'react'
-import { TBlueprint, TUiRecipe } from 'src/types'
+import { TBlueprint, TStorageRecipe, TUiRecipe } from 'src/types'
 import { ApplicationContext } from '../context/ApplicationContext'
 import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
@@ -9,6 +9,7 @@ interface IUseBlueprint {
   blueprint: TBlueprint | undefined
   initialUiRecipe: TUiRecipe | undefined
   uiRecipes: TUiRecipe[]
+  storageRecipes: TStorageRecipe[]
   isLoading: boolean
   error: ErrorResponse | null
 }
@@ -37,6 +38,7 @@ interface IUseBlueprint {
  */
 export const useBlueprint = (typeRef: string): IUseBlueprint => {
   const [blueprint, setBlueprint] = useState<TBlueprint>()
+  const [storageRecipes, setStorageRecipes] = useState<TStorageRecipe[]>([])
   const [uiRecipes, setUiRecipes] = useState<TUiRecipe[]>([])
   const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
   const [isLoading, setLoading] = useState<boolean>(true)
@@ -50,6 +52,7 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
         setInitialUiRecipe(response.data.initialUiRecipe)
+        setStorageRecipes(response.data.storageRecipes)
         let newUiRecipes = response.data.uiRecipes
         if (response.data.initialUiRecipe) {
           newUiRecipes = [
@@ -72,6 +75,7 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
     blueprint,
     initialUiRecipe,
     uiRecipes,
+    storageRecipes,
     isLoading,
     error,
   }

@@ -1,4 +1,4 @@
-import { Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
@@ -9,11 +9,16 @@ export const BooleanField = (props: TField) => {
 
   const Widget = getWidget(uiAttribute?.widget ?? 'CheckboxWidget')
   const { config } = useRegistryContext()
+  const { control } = useFormContext()
   const readOnly = uiAttribute?.readOnly || config.readOnly
   return (
     <Controller
       name={namePath}
+      control={control}
       defaultValue={attribute.default === 'True'} // we need to convert default values coming from the API since they are always strings
+      rules={{
+        required: attribute.optional ? false : 'Required',
+      }}
       render={({
         field: { ref, value, ...props },
         fieldState: { invalid, error },

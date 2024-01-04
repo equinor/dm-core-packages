@@ -4,11 +4,13 @@
   "owner": {
     "name": "Miranda",
     "type": "./blueprints/Person",
+    "age": 32,
     "phoneNumber": 1337
   },
   "accountant": {
     "name": "John",
     "type": "./blueprints/Person",
+    "age": 32,
     "phoneNumber": 1337
   },
   "cars": [
@@ -28,6 +30,7 @@
       "name": "Jane",
       "type": "./blueprints/Customer",
       "phoneNumber": 1337,
+      "age": 32,
       "car": {
         "type": "CORE:Reference",
         "address": "^.cars[1]",
@@ -38,6 +41,7 @@
       "name": "Matt",
       "type": "./blueprints/Customer",
       "phoneNumber": 1337,
+      "age": 32,
       "car": {
         "type": "CORE:Reference",
         "address": "^.cars[0]",
