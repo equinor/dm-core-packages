@@ -4,11 +4,7 @@ import { Button, Icon, Popover } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
 
 import { formatBytes } from '../utils/stringUtilities'
-import {
-  applicationFiletypes,
-  imageFiletypes,
-  videoFiletypes,
-} from '../utils/filetypes'
+import { imageFiletypes, videoFiletypes } from '../utils/filetypes'
 import mime from 'mime'
 import { DateTime } from 'luxon'
 
@@ -76,7 +72,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           }}
         />
       )
-    } else if (applicationFiletypes.includes(filetype)) {
+    } else if (filetype === 'pdf') {
       return (
         <embed
           title={meta.title}
@@ -95,11 +91,15 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           data-testid='unknown-file-message'
         >
           <h2 className='text-lg text-equinor-green font-medium'>
-            Unknown filetype
+            No preview available
           </h2>
-          <p className='flex gap-1 mb-3'>
-            The filetype <code>{meta.filetype}</code> is not known, and can not
-            be previewed. You may still download the file
+          <p className='flex gap-1 mb-3 items-center'>
+            A preview for{' '}
+            <code className='text-sm'>
+              {meta.filetype.length > 0 ? meta.filetype : 'binary'}
+            </code>{' '}
+            files cannot shown. Please download the file and open it in the
+            appropriate software.
           </p>
           <Button download={`${meta.title}.${meta.filetype}`} href={blobUrl}>
             <Icon size={16} data={download} />

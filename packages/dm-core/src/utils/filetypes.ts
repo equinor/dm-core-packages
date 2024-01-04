@@ -17,4 +17,3 @@ export const videoFiletypes = [
   'mkv',
   'mts',
 ]
-export const applicationFiletypes = ['pdf']
