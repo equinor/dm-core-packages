@@ -99,6 +99,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     currentItems,
     itemsPerPage,
     setItemsPerPage,
+    setLastPage,
     currentPage,
     showPagination,
     setPage,
@@ -160,7 +161,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   const { documentPath, dataSource } = splitAddress(idReference)
 
-  console.log('currentPage: ', currentPage)
   return (
     <Stack style={{ width: '100%' }}>
       {attribute && !attribute.contained && (
@@ -389,13 +389,16 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   onClick={() => {
                     if (attribute && !attribute.contained) {
                       setShowModal(true)
+                      setLastPage()
                       return
                     }
-                    if (!(config.templates && config.templates.length))
+                    if (!(config.templates && config.templates.length)) {
                       addItem(false)
-                    else if (config.templates.length === 1)
+                      setLastPage()
+                    } else if (config.templates.length === 1) {
                       addItem(false, undefined, config.templates[0].path)
-                    else setTemplateMenuIsOpen(true)
+                      setLastPage()
+                    } else setTemplateMenuIsOpen(true)
                   }}
                   compact={internalConfig.compact}
                 />
