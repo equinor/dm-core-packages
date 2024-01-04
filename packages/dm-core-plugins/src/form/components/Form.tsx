@@ -21,6 +21,7 @@ import { AttributeList } from './AttributeList'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
 import { getCanOpenOrExpand } from '../templates/shared/utils'
 import { undo } from '@equinor/eds-icons'
+import { isEmpty } from 'lodash'
 
 const Wrapper = styled.div`
   max-width: 650px;
@@ -187,9 +188,7 @@ export const Form = (props: TFormProps) => {
                       type='submit'
                       data-testid='form-submit'
                       onClick={handleSubmit}
-                      disabled={
-                        !methods.formState.isDirty && methods.formState.isValid
-                      }
+                      disabled={disabled && isEmpty(methods.formState.errors)}
                     >
                       Submit
                     </Button>
