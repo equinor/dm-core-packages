@@ -8,6 +8,7 @@ import NewBlueprintDialog from '../dialogs/NewBlueprintDialog'
 import NewEntityDialog from '../dialogs/NewEntityDialog'
 import NewFolderDialog from '../dialogs/NewFolderDialog'
 import { getMenuItems } from './getMenuItems'
+import EditACLDialog from '../dialogs/EditACLDialog'
 
 export const STANDARD_DIALOG_WIDTH = '100%'
 export const STANDARD_DIALOG_HEIGHT = '300px'
@@ -81,6 +82,13 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
 
       {dialogId === EDialog.NewBlueprint && (
         <NewBlueprintDialog
+          setDialogId={setDialogId}
+          node={node}
+          setNodeOpen={setNodeOpen}
+        />
+      )}
+      {dialogId === EDialog.EditACL && (
+        <EditACLDialog
           setDialogId={setDialogId}
           node={node}
           setNodeOpen={setNodeOpen}

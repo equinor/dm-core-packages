@@ -52,9 +52,10 @@ export function getMenuItems(
     )
   }
 
-  // Everything besides dataSources can be deleted
+  // Everything besides dataSources can be deleted and edited AccessControl
   if (node.type !== 'dataSource') {
     menuItems.push(getMenuItem(EDialog.Delete, 'Delete'))
+    menuItems.push(getMenuItem(EDialog.EditACL, 'Change permissions'))
   }
 
   // Every node gets the "copy address" entry
