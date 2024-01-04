@@ -10,6 +10,7 @@ import {
   videoFiletypes,
 } from '../utils/filetypes'
 import mime from 'mime'
+import { DateTime } from 'luxon'
 
 interface MediaContentConfig {
   height?: number
@@ -32,8 +33,7 @@ interface MediaContentProps {
 }
 
 const MediaWrapper = styled.div<{ $height?: number; $width?: number }>`
-  //height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
-    height: 100vh;
+  height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
   width: ${(props) => (props.$width ? props.$width + 'px' : undefined)};
   position: relative;
 `
@@ -49,7 +49,6 @@ const MetaPopoverButton = styled(Button)`
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, meta, config } = props
   const [showMeta, setShowMeta] = useState(false)
-  const [disableMeta, setDisableMeta] = useState(false)
   const referenceElement = useRef()
 
   function renderMediaElement(filetype: string) {
@@ -110,7 +109,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   return (
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
-        {!['pdf', 'bin'].includes(meta.filetype) &&
+        {!['pdf'].includes(meta.filetype) &&
           (config.showMeta !== undefined ? config.showMeta : true) && (
             <MetaPopoverButton
               onClick={() => setShowMeta(!showMeta)}
@@ -148,7 +147,11 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             <label className='font-bold'>Filesize:</label>
             <span> {formatBytes(meta.fileSize)}</span>
             <label className='font-bold'>Date:</label>
-            <span> {meta.date}</span>
+            <span>
+              {DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
+                'dd/MM/yyyy HH:mm'
+              )}
+            </span>
           </div>
         </Popover.Content>
         <Popover.Actions>
