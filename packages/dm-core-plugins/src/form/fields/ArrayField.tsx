@@ -9,9 +9,9 @@ import arrayTemplates from '../templates'
 
 export default function ArrayField(props: TArrayTemplate) {
   const { uiAttribute, namePath, attribute } = props
+  const { getValues, setValue, control } = useFormContext()
 
   if (isPrimitiveType(attribute.attributeType) && uiAttribute?.widget) {
-    const { getValues, setValue } = useFormContext()
     const value = getValues(namePath)
     const Widget = getWidget(uiAttribute.widget)
     return (
@@ -35,6 +35,7 @@ export default function ArrayField(props: TArrayTemplate) {
     return (
       <Controller
         name={namePath}
+        control={control}
         render={({ field: { value, onChange } }) => {
           // TODO: make this into same as getWidget(uiAttribute?.template)
           const templates = { ...arrayTemplates }

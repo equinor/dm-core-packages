@@ -10,7 +10,7 @@ import { ObjectModelUncontainedTemplate } from '../templates/ObjectModelUncontai
 
 export const ObjectField = (props: TField): React.ReactElement => {
   const { namePath, uiAttribute, attribute } = props
-  const { getValues } = useFormContext()
+  const { getValues, control } = useFormContext()
   const values = getValues(namePath)
   const isStorageUncontained =
     values !== undefined &&
@@ -21,6 +21,7 @@ export const ObjectField = (props: TField): React.ReactElement => {
     return (
       <Controller
         name={namePath}
+        control={control}
         rules={{
           required: attribute.optional ? false : 'Required',
         }}

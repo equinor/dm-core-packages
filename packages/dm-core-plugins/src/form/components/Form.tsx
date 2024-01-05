@@ -70,9 +70,11 @@ export const Form = (props: TFormProps) => {
       ...props.config?.functionality,
     },
   }
-
   // Every react hook form controller needs to have a unique name
-  const namePath: string = ''
+  const namePath: string =
+    idReference.split('.').length > 1
+      ? `${idReference.split('.').slice(-1)}`
+      : ''
 
   const replaceNull = (obj: TGenericObject) => {
     for (const key of Object.keys(obj)) {
@@ -162,49 +164,55 @@ export const Form = (props: TFormProps) => {
 
   const showSubmitButton = props.showSubmitButton ?? true
   const disabled = isLoading || !methods.formState.isDirty
+  const content = () => {
+    return (
+      <RegistryProvider
+        onOpen={onOpen}
+        idReference={idReference}
+        config={{ ...defaultConfig, ...props.config }}
+      >
+        <Wrapper>
+          <AttributeList namePath={namePath} blueprint={blueprint} />
+          {showSubmitButton && !config?.readOnly && (
+            <EdsProvider
+              density={config?.compactButtons ? 'compact' : 'comfortable'}
+            >
+              <div
+                className={`flex space-x-2 justify-start ${
+                  config?.compactButtons ? 'mt-2' : 'mt-4'
+                }`}
+              >
+                <Button
+                  onClick={handleCustomReset}
+                  type='button'
+                  disabled={disabled}
+                  tooltip={'Revert changes'}
+                  variant={'outlined'}
+                  data-testid='form-reset'
+                >
+                  <Icon data={undo} size={16} />
+                </Button>
+                <Button
+                  type='submit'
+                  data-testid='form-submit'
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </Button>
+              </div>
+            </EdsProvider>
+          )}
+        </Wrapper>
+      </RegistryProvider>
+    )
+  }
+
   return (
     <>
-      {showComponent && (
-        <FormProvider {...methods}>
-          <RegistryProvider
-            onOpen={onOpen}
-            idReference={idReference}
-            config={{ ...defaultConfig, ...props.config }}
-          >
-            <Wrapper>
-              <AttributeList namePath={namePath} blueprint={blueprint} />
-              {showSubmitButton && !config?.readOnly && (
-                <EdsProvider
-                  density={config?.compactButtons ? 'compact' : 'comfortable'}
-                >
-                  <div
-                    className={`flex space-x-2 justify-start ${
-                      config?.compactButtons ? 'mt-2' : 'mt-4'
-                    }`}
-                  >
-                    <Button
-                      onClick={handleCustomReset}
-                      type='button'
-                      disabled={disabled}
-                      tooltip={'Revert changes'}
-                      variant={'outlined'}
-                      data-testid='form-reset'
-                    >
-                      <Icon data={undo} size={16} />
-                    </Button>
-                    <Button
-                      type='submit'
-                      data-testid='form-submit'
-                      onClick={handleSubmit}
-                    >
-                      Submit
-                    </Button>
-                  </div>
-                </EdsProvider>
-              )}
-            </Wrapper>
-          </RegistryProvider>
-        </FormProvider>
+      {showComponent && showSubmitButton ? (
+        <FormProvider {...methods}>{content()}</FormProvider>
+      ) : (
+        <>{content()}</>
       )}
     </>
   )

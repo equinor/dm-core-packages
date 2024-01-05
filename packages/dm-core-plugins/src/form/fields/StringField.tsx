@@ -1,5 +1,5 @@
 import React from 'react'
-import { Controller } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
@@ -9,10 +9,12 @@ export const StringField = (props: TField) => {
   const { namePath, uiAttribute, attribute, backgroundColor } = props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
   const { config } = useRegistryContext()
+  const { control } = useFormContext()
   const readOnly = uiAttribute?.readOnly || config.readOnly
   return (
     <Controller
       name={namePath}
+      control={control}
       rules={{
         required: attribute.optional ? false : 'Required',
       }}
