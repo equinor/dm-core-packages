@@ -188,7 +188,6 @@ export const Form = (props: TFormProps) => {
                       type='submit'
                       data-testid='form-submit'
                       onClick={handleSubmit}
-                      disabled={disabled && isEmpty(methods.formState.errors)}
                     >
                       Submit
                     </Button>
