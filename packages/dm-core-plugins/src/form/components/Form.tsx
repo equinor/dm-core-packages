@@ -76,7 +76,6 @@ export const Form = (props: TFormProps) => {
   const namePath: string = ''
 
   const replaceNull = (obj: TGenericObject) => {
-    console.log(obj)
     for (const key of Object.keys(obj)) {
       if (obj[key] === null) {
         obj[key] = undefined
