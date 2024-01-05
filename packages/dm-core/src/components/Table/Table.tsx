@@ -7,6 +7,7 @@ import {
   SortableItem,
   TGenericObject,
   TTemplate,
+  usePagination,
 } from '../../'
 import { Button, Table as EDSTable, Progress } from '@equinor/eds-core-react'
 import * as utils from './utils'
@@ -43,30 +44,22 @@ export function Table(props: TableProps) {
     config.variant[0].name
   )
   const [sortedItems, setSortedItems] = useState<TItem<TGenericObject>[]>([])
-  const [paginationPage, setPaginationPage] = useState<number>(0)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
   const [sortColumn, setSortColumn] = useState<string | undefined>(undefined)
   const [sortDirection, setSortDirection] =
     useState<TTableSortDirection>('ascending')
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
 
+  const { currentItems, itemsPerPage, currentPage, setItemsPerPage, setPage } =
+    usePagination(
+      TableVariantNameEnum.Edit || !sortColumn ? items : sortedItems,
+      10
+    )
   const functionalityConfig =
     config.variant.length === 1
       ? config.variant[0].functionality
       : config.variant.find(
           (variant: TTableVariant) => variant.name === tableVariant
         ).functionality
-
-  const paginatedRows =
-    tableVariant === TableVariantNameEnum.Edit || !sortColumn
-      ? items.slice(
-          paginationPage * rowsPerPage,
-          paginationPage * rowsPerPage + rowsPerPage
-        )
-      : sortedItems.slice(
-          paginationPage * rowsPerPage,
-          paginationPage * rowsPerPage + rowsPerPage
-        )
 
   /**
    * Start with ascending order if sorting on new column, switch to descending if already sorted, turn off sorting and reset to initial data if sorting was descending
@@ -88,6 +81,7 @@ export function Table(props: TableProps) {
     setSortedItems(newSortItems)
     setSortDirection(newSortDirection)
     setSortColumn(newSortColumn)
+    setPage(0)
   }
 
   function reorderItems(reorderedItems: TItem<TGenericObject>[]) {
@@ -120,7 +114,7 @@ export function Table(props: TableProps) {
                   <SortableList items={items}>{children}</SortableList>
                 )}
               >
-                {paginatedRows?.map((item, index) => (
+                {currentItems?.map((item, index) => (
                   <ConditionalWrapper
                     key={item.key}
                     condition={tableVariant === TableVariantNameEnum.Edit}
@@ -140,7 +134,7 @@ export function Table(props: TableProps) {
                       item={item}
                       items={items}
                       onOpen={props.onOpen}
-                      rowsPerPage={rowsPerPage}
+                      rowsPerPage={itemsPerPage}
                       setDirtyState={setDirtyState}
                       setItems={setItems}
                       tableVariant={tableVariant}
@@ -185,10 +179,10 @@ export function Table(props: TableProps) {
       <Stack direction='row' spacing={1} justifyContent='space-between'>
         <Pagination
           count={items?.length || 0}
-          rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
-          page={paginationPage}
-          setPage={setPaginationPage}
+          rowsPerPage={itemsPerPage}
+          setRowsPerPage={setItemsPerPage}
+          page={currentPage}
+          setPage={setPage}
         />
         {tableVariant === TableVariantNameEnum.Edit && (
           <Button
