@@ -21,7 +21,6 @@ import { AttributeList } from './AttributeList'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
 import { getCanOpenOrExpand } from '../templates/shared/utils'
 import { undo } from '@equinor/eds-icons'
-import { isEmpty } from 'lodash'
 
 const Wrapper = styled.div`
   max-width: 650px;
