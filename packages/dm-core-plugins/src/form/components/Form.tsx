@@ -75,14 +75,30 @@ export const Form = (props: TFormProps) => {
   // Every react hook form controller needs to have a unique name
   const namePath: string = ''
 
-  const preparePayload = async (obj: TGenericObject) => {
-    // Since react-hook-form cannot handle null values,
-    // we have to convert null values to undefined before submitting.
+  const replaceNull = (obj: TGenericObject) => {
+    console.log(obj)
     for (const key of Object.keys(obj)) {
       if (obj[key] === null) {
         obj[key] = undefined
+      } else if (isComplexObject(obj[key])) {
+        replaceNull(obj[key])
       }
     }
+  }
+
+  const isComplexObject = (attr: TGenericObject) => {
+    return (
+      attr !== null &&
+      typeof attr === 'object' &&
+      'type' in attr &&
+      attr.type !== EBlueprint.REFERENCE
+    )
+  }
+
+  const preparePayload = async (obj: TGenericObject) => {
+    // Since react-hook-form cannot handle null values,
+    // we have to convert null values to undefined before submitting.
+    replaceNull(obj)
 
     // Remove attributes that should not be in the payload,
     // that is complex objects that are not using the form plugin (or is not shown inline),
@@ -90,13 +106,7 @@ export const Form = (props: TFormProps) => {
 
     const toRemoveFromPayload: string[] = []
     for (const key of Object.keys(obj)) {
-      const isComplexObject =
-        obj[key] !== null &&
-        typeof obj[key] === 'object' &&
-        'type' in obj[key] &&
-        obj[key].type !== EBlueprint.REFERENCE
-
-      if (isComplexObject) {
+      if (isComplexObject(obj[key])) {
         // Remove if not shown inline
         const uiAttribute: TUiAttributeObject | undefined =
           config?.attributes.find((attribute) => attribute.name === key)
