@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { TValidEntity } from '../../types'
-import { TREE_DIALOG_WIDTH } from '../../utils/variables'
+import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
 import { Dialog } from '../Dialog'
 import { TNodeWrapperProps, TreeView } from '../TreeView'
 import styled from 'styled-components'
@@ -165,6 +165,7 @@ export const EntityPickerDialog = (
         setShowModal(false)
       }}
       width={TREE_DIALOG_WIDTH}
+      height={TREE_DIALOG_HEIGHT}
     >
       <Dialog.Header>
         <Dialog.Title>
@@ -173,14 +174,14 @@ export const EntityPickerDialog = (
           }`}
         </Dialog.Title>
       </Dialog.Header>
-      <Dialog.CustomContent>
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Progress.Circular />
-          </div>
-        ) : (
-          <div>
-            <div style={{ height: '40vh', overflow: 'auto' }}>
+      <Dialog.CustomContent style={{ overflow: 'hidden' }}>
+        <div className='flex flex-col h-full'>
+          {loading ? (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Progress.Circular />
+            </div>
+          ) : (
+            <div className='overflow-auto h-full'>
               <TreeView
                 // If configured to hide "invalidTypes", only show the "typeFilter", along with data sources and packages to allow for browsing
                 includeTypes={
@@ -209,13 +210,13 @@ export const EntityPickerDialog = (
                 }
               />
             </div>
-          </div>
-        )}
+          )}
+          <div className='bg-[#e0dcdc] h-px inline mt-5'></div>
+        </div>
       </Dialog.CustomContent>
-      <Dialog.Actions style={{ justifyContent: 'space-around' }}>
+      <Dialog.Actions style={{ justifyContent: 'right' }}>
         <Button
           variant='outlined'
-          color='danger'
           onClick={() => {
             setSelectedNodes([])
             setShowModal(false)
@@ -239,7 +240,7 @@ export const EntityPickerDialog = (
             setShowModal(false)
           }}
         >
-          Ok
+          Select
         </Button>
       </Dialog.Actions>
     </Dialog>
