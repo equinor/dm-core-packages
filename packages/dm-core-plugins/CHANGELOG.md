@@ -36,6 +36,31 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.25.0 to ^1.26.0
 
+## [1.38.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.3...dm-core-plugins-v1.38.0) (2024-01-08)
+
+
+### Features
+
+* added close button to userinfo and about dialogs ([47f38c6](https://github.com/equinor/dm-core-packages/commit/47f38c672a577bce14570dc0821305e53e848a07))
+* **media:** Meta information config ([#1037](https://github.com/equinor/dm-core-packages/issues/1037)) ([3de9c5a](https://github.com/equinor/dm-core-packages/commit/3de9c5a100d174613d7ff9b6b961a3ce269d3764))
+* reenable ACL edit in menu ([4051e1d](https://github.com/equinor/dm-core-packages/commit/4051e1db1a592f7ab4999542f0627e79e49f7bf2))
+
+
+### Bug Fixes
+
+* default items per page should be 10 ([#1049](https://github.com/equinor/dm-core-packages/issues/1049)) ([71da118](https://github.com/equinor/dm-core-packages/commit/71da1187ad1a8d94d2006b66d0cd513295ba3370))
+* **ListPlugin:** 'selectFromScope' support relative addresses ([9845a44](https://github.com/equinor/dm-core-packages/commit/9845a44e0aad7a8f3503a2638b22b32b2e539cc5))
+* reset role state when closing without saving ([ceaffb5](https://github.com/equinor/dm-core-packages/commit/ceaffb51018b99ac41f1ae921ae72a9ef82325d1))
+* select entity label as view label ([2546a93](https://github.com/equinor/dm-core-packages/commit/2546a937246785f93e231cb0a4fb624d6b07cfaa))
+* update existing viewitem on add ([e3f5740](https://github.com/equinor/dm-core-packages/commit/e3f574047c051560096128abb02caa3dd5aeb9f1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.30.3 to ^1.31.0
+
 ## [1.37.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.2...dm-core-plugins-v1.37.3) (2023-12-21)
 
 

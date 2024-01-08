@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.31.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.30.3...dm-core-v1.31.0) (2024-01-08)
+
+
+### Features
+
+* **media:** Meta information config ([#1037](https://github.com/equinor/dm-core-packages/issues/1037)) ([3de9c5a](https://github.com/equinor/dm-core-packages/commit/3de9c5a100d174613d7ff9b6b961a3ce269d3764))
+* reenable ACL edit in menu ([4051e1d](https://github.com/equinor/dm-core-packages/commit/4051e1db1a592f7ab4999542f0627e79e49f7bf2))
+
+
+### Bug Fixes
+
+* **EntityPicker:** Only checkboxes clickable in 'multi-mode' ([e205d7f](https://github.com/equinor/dm-core-packages/commit/e205d7fa3f336f28d359759b56d13206c408ee5f))
+* **ListPlugin:** 'selectFromScope' support relative addresses ([9845a44](https://github.com/equinor/dm-core-packages/commit/9845a44e0aad7a8f3503a2638b22b32b2e539cc5))
+* select entity label as view label ([2546a93](https://github.com/equinor/dm-core-packages/commit/2546a937246785f93e231cb0a4fb624d6b07cfaa))
+* table opens multiple tabs ([413d365](https://github.com/equinor/dm-core-packages/commit/413d365e71b84974e233e634185246ca87ce09b4))
+* update existing viewitem on add ([e3f5740](https://github.com/equinor/dm-core-packages/commit/e3f574047c051560096128abb02caa3dd5aeb9f1))
+
 ## [1.30.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.30.2...dm-core-v1.30.3) (2023-12-21)
 
 
