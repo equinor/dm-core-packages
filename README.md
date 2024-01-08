@@ -4358,3 +4358,20 @@ Co-authored-by: Stig Oskar Ofstad <stigofstad@gmail.com> (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 5e1f5df 2024-01-03 githu..[bot] chore(master): release 1.15.3 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.3
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* Fix: 2 table pagination bugs (#1078)
+
+* refactor: move pagination into hook usePagination
+
+* feat: make list jump to last page after adding new item
+
+fix: bolijsdf
+
+* fix: bug with pagination
+
+fix: bug
+
+* fix: pagination bug in table as well. (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7444624638/1)
+    * **DMSS VERSION**: 5e1f5df 2024-01-03 githu..[bot] chore(master): release 1.15.3 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.3
+    * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
