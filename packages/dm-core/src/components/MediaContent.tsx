@@ -93,7 +93,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           <h2 className='text-lg text-equinor-green font-medium'>
             No preview available
           </h2>
-          <p className='flex gap-1 mb-3 items-center'>
+          <p className='flex gap-1 mb-3 items-center block'>
             A preview for{' '}
             <code className='text-sm'>
               {meta.filetype.length > 0 ? meta.filetype : 'binary'}

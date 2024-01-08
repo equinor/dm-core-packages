@@ -1,6 +1,12 @@
 export const imageFiletypes = [
   'gif',
   'jpeg',
+  'jpg',
+  'jfif',
+  'pjpeg',
+  'pjp',
+  'tif',
+  'tiff',
   'png',
   'apng',
   'avif',
