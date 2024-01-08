@@ -4327,3 +4327,34 @@ fix: bug (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 8380eeb 2023-12-18 githu..[bot] chore(master): release 1.15.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.3
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* Fix/media plugin bugs (#1069)
+
+* fix: handle unknown files
+
+* fix: handle unknown files
+
+* fix: use correct MIME type for blob
+
+* fix: dont download files automatically
+
+* fix: add date
+
+* refactor: change tests
+
+* Update packages/dm-core/src/components/Pickers/Datepicker/Datepicker.tsx
+
+Co-authored-by: Stig Oskar Ofstad <stigofstad@gmail.com>
+
+* refactor: change message for files with no preview, and make it work with actual binaries
+
+* Update packages/dm-core/src/components/MediaContent.tsx
+
+* fixup: remove mime package include json database
+
+---------
+
+Co-authored-by: Stig Oskar Ofstad <stigofstad@gmail.com> (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7444510246/1)
+    * **DMSS VERSION**: 5e1f5df 2024-01-03 githu..[bot] chore(master): release 1.15.3 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.3
+    * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
