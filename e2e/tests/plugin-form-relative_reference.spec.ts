@@ -117,7 +117,7 @@ test('Relative reference', async ({ page }) => {
     await page.getByTestId('expandListItem-0').click()
   })
 
-  await test.step('Nested global reference', async () => {
+  await test.step('Nested root reference', async () => {
     await page.getByText('ChildTask root reference', { exact: true }).click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
