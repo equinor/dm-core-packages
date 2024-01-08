@@ -32,7 +32,7 @@ export const NumberField = (props: TField) => {
             {...props}
             readOnly={readOnly}
             onChange={(event: unknown) => {
-              onChange(event ? Number(event) : undefined)
+              onChange(event !== '' ? Number(event) : null)
             }}
             value={value ?? ''}
             id={namePath}
