@@ -119,7 +119,7 @@ test('Relative reference', async ({ page }) => {
 
   await test.step('Nested root reference', async () => {
     await page.getByText('ChildTask root reference', { exact: true }).click()
-    await expect(page.getByRole('code')).toBeVisible()
+    await expect(page.locator('pre').nth(1).getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await page.getByText('Data', { exact: true }).nth(1).click()
     await expect(page.locator('pre').nth(2).getByRole('code')).toBeVisible()
@@ -134,10 +134,10 @@ test('Relative reference', async ({ page }) => {
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'Close data' }).click()
     await page.getByText('Job', { exact: true }).nth(3).click()
-    await expect(page.getByRole('code')).toBeVisible()
+    await expect(page.locator('pre').nth(2).getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await page.getByText('Input', { exact: true }).last().click()
-    await expect(page.getByRole('code')).toBeVisible()
+    await expect(page.locator('pre').nth(3).getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
       '10'
@@ -145,7 +145,7 @@ test('Relative reference', async ({ page }) => {
     await page.getByRole('button', { name: 'Close job' }).click()
 
     await page.getByText('Data', { exact: true }).nth(1).click()
-    await expect(page.getByRole('code')).toBeVisible()
+    await expect(page.locator('pre').nth(2).getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
       '4'
