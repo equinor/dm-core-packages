@@ -5,7 +5,7 @@ import { download, external_link, info_circle } from '@equinor/eds-icons'
 
 import { formatBytes } from '../utils/stringUtilities'
 import { imageFiletypes, videoFiletypes } from '../utils/filetypes'
-import mime from 'mime'
+import { mimeTypes } from '../utils/mime-types'
 import { DateTime } from 'luxon'
 
 interface MediaContentConfig {
@@ -77,7 +77,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         <embed
           title={meta.title}
           src={blobUrl}
-          type={mime.getType(filetype) || 'application/octet-stream'}
+          type={mimeTypes[filetype] || 'application/octet-stream'}
           style={{ width: '100%', height: '100%' }}
           height={config.height}
           width={config.width}
