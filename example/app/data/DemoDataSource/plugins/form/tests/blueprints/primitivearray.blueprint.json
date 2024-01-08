@@ -1,0 +1,17 @@
+{
+  "name": "MyBlueprint",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "array",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*"
+    }
+  ]
+}

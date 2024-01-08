@@ -1,0 +1,22 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/form/tests/blueprints/MyBlueprint",
+  "initialUiRecipe": {
+    "name": "Edit",
+    "type": "CORE:UiRecipe",
+    "description": "Default edit",
+    "showRefreshButton": true,
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "attributes": [
+        {
+          "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
+          "name": "array",
+          "template": "ArrayPrimitiveListTemplate"
+        }
+      ],
+      "fields": ["array"]
+    }
+  }
+}
