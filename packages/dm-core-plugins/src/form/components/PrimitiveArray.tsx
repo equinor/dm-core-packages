@@ -7,6 +7,7 @@ import {
   DeleteSoftButton,
   TAttribute,
 } from '@development-framework/dm-core'
+import { useFormContext } from 'react-hook-form'
 
 interface PrimitiveArrayProps {
   uiAttribute: TUiAttributeObject | undefined
@@ -35,9 +36,10 @@ const PrimitiveArray = ({
   onChange,
 }: PrimitiveArrayProps) => {
   const [hovering, setHovering] = useState<number>(-1)
+  const { getValues } = useFormContext()
 
   const updateValues = (index: number, newValue: TPrimitive): void => {
-    const newValues = [...data]
+    const newValues = getValues(namePath) || []
     switch (attribute.attributeType) {
       case 'boolean':
         newValues[index] = newValue
@@ -53,7 +55,7 @@ const PrimitiveArray = ({
     }
   }
   const removeItem = (index: number) => {
-    const newValues = [...data]
+    const newValues = getValues(namePath) || []
     newValues.splice(index, 1)
     onChange(newValues)
   }
