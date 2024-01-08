@@ -4,6 +4,9 @@ import { Button, Icon, Popover } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
 
 import { formatBytes } from '../utils/stringUtilities'
+import { imageFiletypes, videoFiletypes } from '../utils/filetypes'
+import { mimeTypes } from '../utils/mime-types'
+import { DateTime } from 'luxon'
 
 interface MediaContentConfig {
   height?: number
@@ -45,7 +48,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   const referenceElement = useRef()
 
   function renderMediaElement(filetype: string) {
-    if (filetype.includes('image')) {
+    if (imageFiletypes.includes(filetype)) {
       return (
         <img
           src={blobUrl}
@@ -56,7 +59,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           }}
         />
       )
-    } else if (filetype.includes('video')) {
+    } else if (videoFiletypes.includes(filetype)) {
       return (
         // biome-ignore lint/a11y/useMediaCaption: No captions for example video
         <video
@@ -69,16 +72,40 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           }}
         />
       )
-    } else {
+    } else if (filetype === 'pdf') {
       return (
-        <iframe
+        <embed
           title={meta.title}
           src={blobUrl}
-          style={{ width: '100%', height: 'auto' }}
+          type={mimeTypes[filetype] || 'application/octet-stream'}
+          style={{ width: '100%', height: '100%' }}
           height={config.height}
           width={config.width}
-          role='document'
+          data-testid='embeded-document'
         />
+      )
+    } else {
+      return (
+        <div
+          className='border border-equinor-green bg-equinor-lightgreen p-3 '
+          data-testid='unknown-file-message'
+        >
+          <h2 className='text-lg text-equinor-green font-medium'>
+            No preview available
+          </h2>
+          <p className='flex gap-1 mb-3 items-center'>
+            A preview for{' '}
+            <code className='text-sm'>
+              {meta.filetype.length > 0 ? meta.filetype : 'binary'}
+            </code>{' '}
+            files cannot be shown. Please download the file and open it in the
+            appropriate software.
+          </p>
+          <Button download={`${meta.title}.${meta.filetype}`} href={blobUrl}>
+            <Icon size={16} data={download} />
+            Download
+          </Button>
+        </div>
       )
     }
   }
@@ -86,7 +113,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   return (
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
-        {meta.filetype !== 'application/pdf' &&
+        {!['pdf'].includes(meta.filetype) &&
           (config.showMeta !== undefined ? config.showMeta : true) && (
             <MetaPopoverButton
               onClick={() => setShowMeta(!showMeta)}
@@ -123,6 +150,12 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             <span> {meta.filetype}</span>
             <label className='font-bold'>Filesize:</label>
             <span> {formatBytes(meta.fileSize)}</span>
+            <label className='font-bold'>Date:</label>
+            <span>
+              {DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
+                'dd/MM/yyyy HH:mm'
+              )}
+            </span>
           </div>
         </Popover.Content>
         <Popover.Actions>
@@ -138,7 +171,11 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
               <Icon size={16} data={external_link} />
               New tab
             </Button>
-            <Button download={meta.title} href={blobUrl} variant='ghost'>
+            <Button
+              download={`${meta.title}.${meta.filetype}`}
+              href={blobUrl}
+              variant='ghost'
+            >
               <Icon size={16} data={download} />
               Download
             </Button>

@@ -8,6 +8,7 @@ import {
   splitAddress,
   useDMSS,
   useDocument,
+  mimeTypes,
 } from '@development-framework/dm-core'
 import { AxiosError, AxiosRequestConfig } from 'axios'
 
@@ -57,7 +58,7 @@ export const MediaViewerPlugin = (
         )
         .then((response: any) => {
           const blob = new Blob([response.data], {
-            type: document.filetype,
+            type: mimeTypes[document.filetype] || 'application/octet-stream',
           })
           setBlobUrl(window.URL.createObjectURL(blob))
         })
