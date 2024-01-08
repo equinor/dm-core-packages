@@ -34,7 +34,7 @@
   "tasks": [
     {
       "type": "./blueprints/ChildTask",
-      "name": "ChildTask",
+      "name": "ChildTask local reference",
       "data": {
         "type": "./blueprints/Data",
         "aNumber": 300
@@ -51,7 +51,7 @@
     },
     {
       "type": "./blueprints/ChildTask",
-      "name": "ChildTask",
+      "name": "ChildTask root reference",
       "data": {
         "type": "./blueprints/Data",
         "aNumber": 400
