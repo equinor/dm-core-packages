@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.32.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.31.0...dm-core-v1.32.0) (2024-01-08)
+
+
+### Features
+
+* entity picker upgrades ([0c9576f](https://github.com/equinor/dm-core-packages/commit/0c9576f94c725805125bdab37c46f36213cc7c7a))
+
+
+### Bug Fixes
+
+* entity picker ([0c9576f](https://github.com/equinor/dm-core-packages/commit/0c9576f94c725805125bdab37c46f36213cc7c7a))
+
 ## [1.31.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.30.3...dm-core-v1.31.0) (2024-01-08)
 
 
