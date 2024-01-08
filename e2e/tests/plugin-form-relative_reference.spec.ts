@@ -122,7 +122,7 @@ test('Relative reference', async ({ page }) => {
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await page.getByText('Data', { exact: true }).nth(1).click()
-    await expect(page.getByRole('code')).toBeVisible()
+    await expect(page.locator('pre').nth(2).getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
       '400'
