@@ -50,11 +50,11 @@ class JobHandler(JobHandlerInterface):
         self.job.status = JobStatus.COMPLETED
         return "OK"
 
-    def remove(self) -> str:
+    def remove(self) -> Tuple[JobStatus, str]:
         logger.info("removing...")
         self.job.status = JobStatus.REMOVED
         self.job.job_uid=""
-        return f"removed job with id {self.job.job_uid}"
+        return JobStatus.REMOVED, f"removed job with id {self.job.job_uid}"
 
     def result(self) -> Tuple[str, bytes]:
         return "Done", b"12345"

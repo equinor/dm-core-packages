@@ -111,6 +111,7 @@ export function ConfigureSchedule(props: {
         <InputWrapper>
           {showAdvanced ? (
             <TextField
+              style={{ maxWidth: '400px' }}
               unit='cron'
               id='advanced-schedule-syntax'
               type='text'
@@ -129,6 +130,7 @@ export function ConfigureSchedule(props: {
               <Autocomplete
                 options={Object.values(EInterval)}
                 label={'Interval'}
+                style={{ maxWidth: '200px' }}
                 initialSelectedOptions={[interval]}
                 onInputChange={(label: string) => {
                   const chosenIntervalType = Object.entries(EInterval)
@@ -143,6 +145,7 @@ export function ConfigureSchedule(props: {
               />
               {interval !== EInterval.HOURLY && (
                 <Autocomplete
+                  style={{ maxWidth: '200px' }}
                   options={generateSelectableTimes().map(
                     (value: string) => value
                   )}
@@ -157,6 +160,7 @@ export function ConfigureSchedule(props: {
               )}
               {interval === EInterval.HOURLY && (
                 <Autocomplete
+                  style={{ maxWidth: '200px' }}
                   options={[...Array(12).keys()].map((i) => i + 1)}
                   initialSelectedOptions={[Number(hourStep)]}
                   label={'Hour step'}

@@ -1,0 +1,25 @@
+{
+  "name": "ControlConfig",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "recurring",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true
+    },
+    {
+      "name": "runnerTemplates",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/common/Template",
+      "optional": true,
+      "dimensions": "*"
+    }
+  ]
+}

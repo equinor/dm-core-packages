@@ -80,17 +80,17 @@
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
                 "templates": [
                   {
-                    "type": "PLUGINS:dm-core-plugins/table/Template",
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
                     "path": "~._templates_[0]",
                     "label": "Template1"
                   },
                   {
-                    "type": "PLUGINS:dm-core-plugins/table/Template",
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
                     "path": "~._templates_[1]",
                     "label": "Template2"
                   },
                   {
-                    "type": "PLUGINS:dm-core-plugins/table/Template",
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
                     "path": "~._templates_[2]",
                     "label": "Template3"
                   }
@@ -154,7 +154,7 @@
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
                 "templates": [
                   {
-                    "type": "PLUGINS:dm-core-plugins/table/Template",
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
                     "path": "~._templates_[0]",
                     "label": "Template1"
                   }
@@ -219,7 +219,7 @@
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
                 "templates": [
                   {
-                    "type": "PLUGINS:dm-core-plugins/table/Template",
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
                     "path": "~._templates_[0]",
                     "label": "Template1"
                   }
