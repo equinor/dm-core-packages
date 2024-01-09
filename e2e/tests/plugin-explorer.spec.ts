@@ -40,7 +40,7 @@ test('Create blueprint', async ({ page }) => {
   ).toBeVisible()
 })
 
-test('Create entity', async ({ page }) => {
+test('Create entity with name', async ({ page }) => {
   await page
     .getByRole('button', { name: 'package Playwright', exact: true })
     .click({ button: 'right' })
@@ -52,11 +52,12 @@ test('Create entity', async ({ page }) => {
   await dialog.getByRole('button', { name: 'plugins' }).click()
   await dialog.getByRole('button', { name: 'Playwright' }).click()
   await dialog.getByRole('button', { name: 'PlaywrightBlueprint' }).click()
+  await dialog.getByLabel('Name').fill('PlaywrightEntity')
   await dialog.getByRole('button', { name: 'Create' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Entity is created'])
   await expect(dialog).not.toBeVisible()
   await expect(
-    page.getByRole('button', { name: 'file new_entity' })
+    page.getByRole('button', { name: 'file PlaywrightEntity' })
   ).toBeVisible()
 })
 

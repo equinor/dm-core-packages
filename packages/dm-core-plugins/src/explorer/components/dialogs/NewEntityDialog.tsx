@@ -1,12 +1,16 @@
 import {
+  ApplicationContext,
   BlueprintPicker,
   Dialog,
   ErrorResponse,
+  TAttribute,
+  TBlueprint,
   TreeNode,
+  useDMSS,
 } from '@development-framework/dm-core'
-import { Button, Progress } from '@equinor/eds-core-react'
+import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { EDialog } from '../../types'
 import {
@@ -22,13 +26,33 @@ type TProps = {
 
 const NewEntityDialog = (props: TProps) => {
   const { setDialogId, node, setNodeOpen } = props
-  const [blueprint, setBlueprint] = useState<string>('')
+  const [blueprintName, setBlueprintName] = useState<string>('')
+  const [blueprint, setBlueprint] = useState<TBlueprint>()
+  const [newName, setNewName] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const dmssAPI = useDMSS()
 
+  const { name } = useContext(ApplicationContext)
+
+  useEffect(() => {
+    if (!blueprintName) return
+    dmssAPI
+      .blueprintGet({ typeRef: blueprintName, context: name })
+      .then((response: any) => {
+        setBlueprint(response.data.blueprint)
+      })
+  }, [blueprintName])
+
+  const nameField: TAttribute | undefined = blueprint?.attributes.find(
+    (attr: TAttribute) => attr.name === 'name'
+  )
   const handleCreate = () => {
     setLoading(true)
     node
-      .appendEntity(`dmss://${blueprint}`, 'new_entity')
+      .appendEntity(
+        `dmss://${blueprintName}`,
+        newName.length > 0 ? newName : undefined
+      )
       .then(() => {
         setNodeOpen(true)
         toast.success(`Entity is created`)
@@ -57,13 +81,27 @@ const NewEntityDialog = (props: TProps) => {
       <Dialog.CustomContent>
         <BlueprintPicker
           label='Blueprint'
-          onChange={setBlueprint}
-          formData={blueprint}
+          onChange={setBlueprintName}
+          formData={blueprintName}
           fieldType={'input-field'}
         />
+        {nameField && (
+          <TextField
+            id={'entity-name'}
+            onChange={(e: any) => setNewName(e.target.value)}
+            label={'Name'}
+            helperText={nameField.optional ? 'Optional' : 'Required'}
+          />
+        )}
       </Dialog.CustomContent>
       <Dialog.Actions>
-        <Button disabled={blueprint === ''} onClick={handleCreate}>
+        <Button
+          disabled={
+            blueprintName === '' ||
+            (nameField && !nameField.optional && !newName)
+          }
+          onClick={handleCreate}
+        >
           {loading ? <Progress.Dots /> : 'Create'}
         </Button>
         <Button variant='outlined' onClick={() => setDialogId(undefined)}>

@@ -252,7 +252,7 @@ export class TreeNode {
 
   // Creates a new entity in DMSS of the given type and saves it to this target,
   // returns the entity's UUID
-  async appendEntity(type: string, name: string): Promise<string> {
+  async appendEntity(type: string, name: string | undefined): Promise<string> {
     const response = await this.tree.dmssApi.instantiateEntity({
       // @ts-ignore
       entity: { name: name, type: type },
