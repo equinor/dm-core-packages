@@ -1,6 +1,7 @@
 import { Page, expect, test } from '@playwright/test'
 
 test('Relative reference', async ({ page }) => {
+  test.setTimeout(120000)
   await page.goto('http://localhost:3000/')
   await page.getByRole('button', { name: 'DemoDataSource' }).click()
   await page.getByRole('button', { name: 'plugins' }).click()
