@@ -55,7 +55,7 @@
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
         "templates": [
           {
-            "type": "PLUGINS:dm-core-plugins/table/Template",
+            "type": "PLUGINS:dm-core-plugins/common/Template",
             "path": "~._template_",
             "label": "Template1"
           }

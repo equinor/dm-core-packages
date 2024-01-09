@@ -5,7 +5,7 @@
       "type": "mongo-db",
       "host": "db",
       "port": 27017,
-      "username": "root",
+      "username": "maf",
       "password": "xd7wCEhEx4kszsecYFfC",
       "tls": false,
       "database": "DemoDataSource",

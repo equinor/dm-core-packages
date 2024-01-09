@@ -108,7 +108,23 @@
             "recipe": {
               "name": "job-control",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/job/controls"
+              "plugin": "@development-framework/dm-core-plugins/job/controls",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/job/ControlConfig",
+                "recurring": false,
+                "runnerTemplates": [
+                  {
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
+                    "path": "dmss://DemoDataSource/plugins/job/helloWorldLocalContainerRunner",
+                    "label": "Hello world"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
+                    "path": "dmss://DemoDataSource/plugins/job/reverseDescriptionRunner",
+                    "label": "Reverse description"
+                  }
+                ]
+              }
             }
           },
           "gridArea": {
