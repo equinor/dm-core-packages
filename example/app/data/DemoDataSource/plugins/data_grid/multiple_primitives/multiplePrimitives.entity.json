@@ -1,0 +1,27 @@
+{
+  "_id": "MultiplePrimitives",
+  "type": "./blueprints/MultiplePrimitives",
+  "name": "MultiplePrimitives",
+  "manufacturer": ["Dodge", "Volvo", "Lamborghini", "Land Rover", "Ford"],
+  "car_name": [
+    "Bentley Model T",
+    "Volvo Camry",
+    "Smart ATS",
+    "Mazda Countach",
+    "Jeep Spyder"
+  ],
+  "model": [
+    "Extended Cab Pickup",
+    "Cargo Van",
+    "Sedan",
+    "Crew Cab Pickup",
+    "Wagon"
+  ],
+  "vin": [
+    "1D3MX48D48B28FPJU",
+    "5XYZGDAG8BDE8J42H",
+    "3FTEW31R691XKD94Y",
+    "3GTP2WE3XBUUMTGXS",
+    "1G1ZS51F37ETTZW4Y"
+  ]
+}
