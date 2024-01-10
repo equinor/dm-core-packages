@@ -33,7 +33,7 @@ export type TTableFunctionalityConfig = {
 
 export type TTableColumnConfig = {
   data: string
-  dataType?: 'string' | 'boolean'
+  dataType?: 'string' | 'boolean' | 'number'
   editable?: boolean
   label?: string
   presentAs?: 'checkbox' | 'text'

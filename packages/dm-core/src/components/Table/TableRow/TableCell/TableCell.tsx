@@ -111,7 +111,7 @@ export function TableCell(props: TableCellProps) {
           }
         />
       ) : (
-        value || '-'
+        value || (column.dataType === 'number' ? 0 : '-')
       )}
     </Styled.TableCell>
   )
