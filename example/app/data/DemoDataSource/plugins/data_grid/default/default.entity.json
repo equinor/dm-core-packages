@@ -1,0 +1,19 @@
+{
+  "_id": "Default",
+  "type": "./blueprints/Default",
+  "name": "Default",
+  "data": [
+    ["Dodge", "Bentley Model T", "Extended Cab Pickup", "1D3MX48D48B28FPJU"],
+    ["Volvo", "Volvo Camry", "Cargo Van", "5XYZGDAG8BDE8J42H"],
+    ["Lamborghini", "Smart ATS", "Sedan", "3FTEW31R691XKD94Y"],
+    ["Land Rover", "Mazda Countach", "Crew Cab Pickup", "3GTP2WE3XBUUMTGXS"],
+    ["Ford", "Jeep Spyder", "Wagon", "1G1ZS51F37ETTZW4Y"]
+  ],
+  "dimensional": [
+    ["Dodge", "Bentley Model T", "Extended Cab Pickup", "1D3MX48D48B28FPJU"],
+    ["Volvo", "Volvo Camry", "Cargo Van", "5XYZGDAG8BDE8J42H"],
+    ["Lamborghini", "Smart ATS", "Sedan", "3FTEW31R691XKD94Y"],
+    ["Land Rover", "Mazda Countach", "Crew Cab Pickup", "3GTP2WE3XBUUMTGXS"],
+    ["Ford", "Jeep Spyder", "Wagon", "1G1ZS51F37ETTZW4Y"]
+  ]
+}
