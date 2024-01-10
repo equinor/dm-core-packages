@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.32.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.32.0...dm-core-v1.32.1) (2024-01-10)
+
+
+### Bug Fixes
+
+* bad line break in p-tag. Missing image formats ([3221c14](https://github.com/equinor/dm-core-packages/commit/3221c14ea795bae76c905019fa62179ee47f15db))
+* show number 0 values as actual 0s ([54623f1](https://github.com/equinor/dm-core-packages/commit/54623f16521bd518b2c6993139220c936ab5d472))
+
 ## [1.32.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.31.0...dm-core-v1.32.0) (2024-01-08)
 
 

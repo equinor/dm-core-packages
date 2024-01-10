@@ -42,6 +42,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.38.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.38.1...dm-core-plugins-v1.38.2) (2024-01-10)
+
+
+### Bug Fixes
+
+* cast 0 to number ([777f015](https://github.com/equinor/dm-core-packages/commit/777f015984f383152f3ce3070d0534ffd76d1a25))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.32.0 to ^1.32.1
+
 ## [1.38.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.37.3...dm-core-plugins-v1.38.0) (2024-01-08)
 
 
