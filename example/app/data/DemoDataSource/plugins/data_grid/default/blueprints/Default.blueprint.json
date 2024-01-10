@@ -1,5 +1,5 @@
 {
-  "name": "MultiType",
+  "name": "Default",
   "type": "CORE:Blueprint",
   "attributes": [
     {
@@ -17,6 +17,12 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "dimensions": "*,*"
+    },
+    {
+      "name": "dimensional",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "4,5"
     }
   ]
 }
