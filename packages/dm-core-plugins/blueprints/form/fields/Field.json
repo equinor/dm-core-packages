@@ -36,6 +36,13 @@
       "optional": true,
       "contained": true,
       "default": false
+    },
+    {
+      "name": "hideOptionalLabel",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
     }
   ]
 }

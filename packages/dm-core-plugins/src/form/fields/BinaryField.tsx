@@ -10,7 +10,7 @@ import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import { TField } from '../types'
-import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 const getTarget = (initialValue: any) => {
   const { idReference } = useRegistryContext()
@@ -69,7 +69,7 @@ const DownloadBinary = (props: {
 }
 
 export const BinaryField = (props: TField) => {
-  const { namePath, attribute } = props
+  const { namePath, attribute, uiAttribute } = props
   const { getValues } = useFormContext()
 
   const fileId = getValues(namePath.split('.').slice(-1).join('.'))
@@ -81,7 +81,7 @@ export const BinaryField = (props: TField) => {
         <DownloadBinary
           {...props}
           fileId={fileId}
-          displayLabel={getDisplayLabelWithOptional(attribute)}
+          displayLabel={getDisplayLabel(attribute, true)}
           initialValue={initialValue}
         />
       )}

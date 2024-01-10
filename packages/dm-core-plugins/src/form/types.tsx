@@ -48,6 +48,7 @@ type TUiAttributeBase = {
     expand: boolean
     open: boolean
   }
+  hideOptionalLabel?: boolean
 }
 export type TUiAttributeString = TUiAttributeBase & {
   widget: string
@@ -64,12 +65,6 @@ export type TUiAttributeObject = TUiAttributeBase & {
   uiRecipe?: string
   showExpanded?: boolean
   searchByType?: boolean
-  expandViewConfig?: TViewConfig
-  openViewConfig?: TViewConfig
-  functionality?: {
-    expand: boolean
-    open: boolean
-  }
 }
 
 export type TPrimitive = string | number | boolean

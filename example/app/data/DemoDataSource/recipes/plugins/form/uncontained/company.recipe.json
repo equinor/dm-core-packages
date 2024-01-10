@@ -54,7 +54,8 @@
           {
             "name": "assistant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "defaultYaml"
+            "uiRecipe": "defaultYaml",
+            "hideOptionalLabel": true
           },
           {
             "name": "trainee",
@@ -69,7 +70,14 @@
           {
             "name": "description",
             "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "widget": "TextareaWidget"
+            "widget": "TextareaWidget",
+            "hideOptionalLabel": true,
+            "readOnly": true
+          },
+          {
+            "name": "averageSalary",
+            "type": "PLUGINS:dm-core-plugins/form/fields/NumberField",
+            "hideOptionalLabel": true
           }
         ],
         "fields": [

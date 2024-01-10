@@ -33,6 +33,7 @@ export const ArrayPrimitiveListTemplate = (
             attribute={attribute}
             objectIsNotEmpty={true}
             icon={list}
+            hideOptionalLabel={true}
           />
         </FormTemplate.Header>
         {isExpanded && (

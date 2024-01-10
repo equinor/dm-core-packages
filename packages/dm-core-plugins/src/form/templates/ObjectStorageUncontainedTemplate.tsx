@@ -52,6 +52,7 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
           onOpen={() =>
             onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
           }
+          hideOptionalLabel={uiAttribute?.hideOptionalLabel}
         />
         <FormTemplate.Header.Actions>
           {canOpen && referenceExists && (

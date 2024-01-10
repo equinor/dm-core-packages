@@ -43,7 +43,7 @@ export const ArrayPrimitiveDatagridTemplate = (
   return (
     <Fieldset>
       <Legend data-testid='primitive-array-legend'>
-        <Typography bold={true}>{getDisplayLabel(attribute)}</Typography>
+        <Typography bold={true}>{getDisplayLabel(attribute, true)}</Typography>
         {showCreateButton && (
           <TooltipButton
             title='Create table'

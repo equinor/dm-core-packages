@@ -3,7 +3,7 @@ import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
-import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 import { ObjectStorageUncontainedTemplate } from '../templates/ObjectStorageUncontainedTemplate'
 import { ObjectModelContainedTemplate } from '../templates/ObjectModelContainedTemplate'
 import { ObjectModelUncontainedTemplate } from '../templates/ObjectModelUncontainedTemplate'
@@ -34,7 +34,7 @@ export const ObjectField = (props: TField): React.ReactElement => {
               value={value}
               onChange={onChange}
               config={uiAttribute?.config}
-              label={getDisplayLabelWithOptional(attribute)}
+              label={getDisplayLabel(attribute, true)}
               isDirty={isDirty}
               inputRef={ref}
               id={isStorageUncontained ? values['address'] : namePath}

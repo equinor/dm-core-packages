@@ -59,6 +59,7 @@ export const ObjectModelUncontainedTemplate = (
             onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
           }
           icon={link}
+          hideOptionalLabel={uiAttribute?.hideOptionalLabel}
         />
         <FormTemplate.Header.Actions>
           {canOpen && (
