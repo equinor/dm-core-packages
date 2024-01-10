@@ -65,7 +65,8 @@
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
               "open": false,
               "expand": true
-            }
+            },
+            "label": "The Trainee"
           },
           {
             "name": "description",
@@ -77,7 +78,8 @@
           {
             "name": "averageSalary",
             "type": "PLUGINS:dm-core-plugins/form/fields/NumberField",
-            "hideOptionalLabel": true
+            "hideOptionalLabel": true,
+            "label": "Salary (avg)"
           }
         ],
         "fields": [

@@ -49,6 +49,7 @@ type TUiAttributeBase = {
     open: boolean
   }
   hideOptionalLabel?: boolean
+  label?: string
 }
 export type TUiAttributeString = TUiAttributeBase & {
   widget: string

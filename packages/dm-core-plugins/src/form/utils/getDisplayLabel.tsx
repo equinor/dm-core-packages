@@ -1,13 +1,21 @@
 import { TAttribute } from '@development-framework/dm-core'
 import lodash from 'lodash'
+import { TUiAttribute } from '../types'
+import { label } from '@equinor/eds-icons'
 
 export const getDisplayLabel = (
   attribute: TAttribute,
-  hideOptionalLabel: boolean | undefined
+  hideOptionalLabel?: boolean | undefined,
+  uiAttribute?: TUiAttribute
 ) => {
-  const { name, label } = attribute
+  const { name, label: attributeLabel } = attribute
+
+  if (uiAttribute?.label) return uiAttribute?.label
+
   const displayLabel =
-    label === undefined || label === '' ? lodash.startCase(name) : label
+    attributeLabel === undefined || attributeLabel === ''
+      ? lodash.startCase(name)
+      : attributeLabel
 
   return !hideOptionalLabel && attribute.optional
     ? displayLabel + ' (Optional)'

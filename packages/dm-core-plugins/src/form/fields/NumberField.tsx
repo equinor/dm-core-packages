@@ -1,7 +1,7 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TField, TUiAttributeString } from '../types'
+import { TField } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
@@ -40,7 +40,8 @@ export const NumberField = (props: TField) => {
               !uiAttribute?.config?.hideLabel
                 ? getDisplayLabel(
                     attribute,
-                    uiAttribute?.hideOptionalLabel || uiAttribute?.readOnly
+                    uiAttribute?.hideOptionalLabel || uiAttribute?.readOnly,
+                    uiAttribute
                   )
                 : ''
             }
