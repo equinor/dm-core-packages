@@ -10,7 +10,6 @@ export const StringField = (props: TField) => {
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
   const { config } = useRegistryContext()
   const readOnly = uiAttribute?.readOnly || config.readOnly
-  console.log(uiAttribute)
   return (
     <Controller
       name={namePath}
