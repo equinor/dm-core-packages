@@ -1,46 +1,90 @@
-import { Button } from '@equinor/eds-core-react'
 import { tokens } from '@equinor/eds-tokens'
 import styled, { css } from 'styled-components'
 
-export const DataGrid = styled.div`
+export const DataGrid = styled.table<{ flip?: boolean }>`
   width: 100%;
-  display: table;
-  justify-content: stretch ;
-  align-items: center;
+  max-width: 100%;
+  vertical-align: top;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse;
+  border-spacing: 0;
   border-bottom: 1px solid ${tokens.colors.ui.background__medium.rgba};
-  > div {
-    &:nth-child(odd) {
-      background: ${tokens.colors.ui.background__light.rgba};
+  tbody {
+    > tr {
+      &:nth-child(odd) {
+        td {
+          background-color: ${tokens.colors.ui.background__light.rgba};
+        }
+      }
     }
+  }
+
+  ${({ flip }) =>
+    flip &&
+    css`
+    display: flex;
+    overflow: hidden;
+    thead {
+      display: flex;
+      flex-shrink: 0;
+      min-width: min-content;
+      th {
+        border-bottom: 0;
+        position: relative;
+      }
+    }
+    tbody {
+      display: flex;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    tr {
+      display: flex;
+      flex-direction: column;
+      min-width: min-content;
+      flex-shrink: 0;
+    }
+    th, td {
+      display: block;
+    }
+  `}
+`
+
+export const Row = styled.tr`
+  position: relative;
+  th {
+    border: 1px solid ${tokens.colors.ui.background__medium.rgba};
+    border-bottom: 0;
+    background-clip: padding-box;
+    padding: 0;
+    position: relative;
   }
 `
 
-export const Row = styled.div<{ header?: boolean; selected?: boolean }>`
-  width: 100%;
-  display: table-row;
-  justify-content: stretch ;
-  align-items: stretch;
-  font-weight: ${({ header }) => (header ? 'bold' : 'normal')};
+export const Head = styled.thead`
+  font-weight: bold;
+  th {
+    border-bottom: 2px solid ${tokens.colors.ui.background__medium.rgba};
+    text-align: center;
+  }
 `
 
-export const Cell = styled.div<{
-  header?: boolean
+type IStyledCell = {
   selected?: boolean
   attributeType?: string
-}>`
+}
+export const Cell = styled.td<IStyledCell>`
   border: 1px solid ${tokens.colors.ui.background__medium.rgba};
-  border-bottom: none;
-  display: table-cell;
+  border-bottom: 0;
   position: relative;
-  ${({ header }) =>
-    header &&
-    css`
-      border-bottom: 2px solid ${tokens.colors.ui.background__medium.rgba};
-  `}
+  background-clip: padding-box;
+  padding: 0;
   ${({ selected }) =>
     selected &&
     css`
-      background: ${tokens.colors.interactive.primary__selected_highlight.rgba};
+      background-color: ${tokens.colors.interactive.primary__selected_highlight.rgba}!important;
   `}
   ${({ attributeType }) =>
     attributeType === 'boolean' &&
@@ -49,12 +93,27 @@ export const Cell = styled.div<{
   `}
 `
 
-export const RowButton = styled.button<{ selected?: boolean }>`
-  height: 100%;
-  width: 100%;
-  position: absolute;
+export const Header = styled.th<{ selected?: boolean }>`
   background: ${({ selected }) =>
     selected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'};
+  cursor: pointer;
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  svg {
+    fill: #666;
+  }
+`
+
+export const RowButton = styled.button<{ selected?: boolean }>`
+  background: ${({ selected }) =>
+    selected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'};
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   &:hover {
     background: rgba(0, 0, 0, 0.2);
   }
@@ -97,13 +156,6 @@ export const ActionRowButton = styled.button`
       background: transparent;
     }
   }
-`
-
-export const SaveButton = styled(Button)`
-  padding: 0.5rem;
-  height: 1.5rem;
-  font-size: 0.75rem;
-  line-height: 0;
 `
 
 export const Select = styled.select`

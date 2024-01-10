@@ -1,25 +1,19 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Stack, TAttribute } from '@development-framework/dm-core'
-import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
+import { Stack } from '@development-framework/dm-core'
+import { EdsProvider, Icon, Typography } from '@equinor/eds-core-react'
 import { add, chevron_down, chevron_up, minimize } from '@equinor/eds-icons'
 import * as Styled from './styles'
 import * as utils from './utils'
 import { DataCell } from './DataCell/DataCell'
 import { DataGridPagination } from './DataGridPagination/DataGridPagination'
-import { ColumnHeader } from './ColumnHeader/ColumnHeader'
-import { VerticalHeader } from './VerticalHeader/VerticalHeader'
-
-type DataGridProps = {
-  attributeType: string
-  dimensions?: string
-  data: any[]
-  setData: (data: any[]) => void
-  initialRowsPerPage?: number
-}
+import { HeaderCell } from './HeaderCell/HeaderCell'
+import { DataGridConfig, DataGridProps, defaultConfig } from './types'
 
 export function DataGrid(props: DataGridProps) {
-  const { data, attributeType, dimensions, setData } = props
-  const [columns, setColumns] = useState<number[]>([])
+  const { data, attributeType, dimensions, setData, config: userConfig } = props
+  const config: DataGridConfig = { ...defaultConfig, ...userConfig }
+  const [columnLabels, setColumnLabels] = useState<string[]>([])
+  const [rowLabels, setRowLabels] = useState<string[]>([])
   const [selectedRow, setSelectedRow] = useState<number | undefined>(undefined)
   const [selectedColumn, setSelectedColumn] = useState<number | undefined>(
     undefined
@@ -27,35 +21,49 @@ export function DataGrid(props: DataGridProps) {
   const [paginationPage, setPaginationPage] = useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = useState(props.initialRowsPerPage || 25)
 
-  const dataGridId = useMemo(() => crypto.randomUUID(), [])
-  const multi: boolean = dimensions?.includes(',') || false
+  const dataGridId: string = useMemo(() => crypto.randomUUID(), [])
   const fillValue = utils.getFillValue(attributeType)
   const paginatedRows = data.slice(
     paginationPage * rowsPerPage,
     paginationPage * rowsPerPage + rowsPerPage
   )
-  const [definedColumns, definedRows] = dimensions?.split(',') || ['*', '*']
-  const rowsAreSetDimension = multi
-    ? definedRows !== '*'
-    : definedColumns !== '*'
+  const [
+    rowsAreEditable,
+    columnsAreEditable,
+    addButtonFunctionality,
+    addButtonIsEnabled,
+    isMultiDimensional,
+    columnDimensions,
+    isSortEnabled,
+  ] = utils.getFunctionalityVariables(config, dimensions)
 
   useEffect(() => {
-    const columnsArray = multi
-      ? definedColumns === '*'
-        ? utils.createArrayFromNumber(data.length > 0 ? data[0].length : [])
-        : utils.createArrayFromNumber(parseInt(definedColumns, 10))
-      : [1]
+    const columnLabels = isMultiDimensional
+      ? columnDimensions === '*'
+        ? utils.createLabels(
+            config.columnLabels,
+            data.length > 0 ? data[0].length : 0
+          )
+        : utils.createLabels(
+            config.columnLabels,
+            parseInt(columnDimensions, 10)
+          )
+      : ['1']
+    const rowLabels = utils.createLabels(config.rowLabels, data?.length)
 
-    setColumns(columnsArray)
+    setRowLabels(rowLabels)
+    setColumnLabels(columnLabels)
   }, [])
 
   function addRow(newIndex?: number) {
     const newRow =
-      columns.length > 1
-        ? Array.from({ length: columns.length }).fill(fillValue)
+      columnLabels.length > 1
+        ? Array.from({ length: columnLabels.length }).fill(fillValue)
         : fillValue
     const dataCopy = [...data]
-    dataCopy.splice(newIndex || columns.length, 0, newRow)
+    dataCopy.splice(newIndex || data.length, 0, newRow)
+    const newLabels = utils.createLabels(config.rowLabels, data.length + 1)
+    setRowLabels(newLabels)
     setData(dataCopy)
   }
 
@@ -77,110 +85,152 @@ export function DataGrid(props: DataGridProps) {
     }
   }
 
+  function addColumn(newIndex: number) {
+    const newColumns = utils.createLabels(
+      config.columnLabels,
+      columnLabels.length + 1
+    )
+    const fillValue = utils.getFillValue(attributeType)
+    const updatedData = data.map((item) => {
+      item.splice(newIndex, 0, fillValue)
+      return item
+    })
+    setData(updatedData)
+    setColumnLabels(newColumns)
+    setSelectedColumn(newIndex)
+  }
+
   function deleteColumn(index: number) {
-    const newColumns = utils.createArrayFromNumber(columns.length - 1)
+    const newColumns = utils.createLabels(
+      config.columnLabels,
+      columnLabels.length - 1
+    )
     const updatedData = data.map((item) => {
       item.splice(index, 1)
       return item
     })
-    setColumns(newColumns)
+    setColumnLabels(newColumns)
     setData(updatedData)
     setSelectedColumn(undefined)
   }
 
   return (
     <Stack>
+      <Stack>
+        {config.title && <Typography variant='h5'>{config.title}</Typography>}
+        {config.description && <Typography>{config.description}</Typography>}
+      </Stack>
       <EdsProvider density='compact'>
-        <Styled.DataGrid>
-          <Styled.Row header>
-            <Styled.Cell header style={{ width: '1.25rem' }}>
-              #
-            </Styled.Cell>
-            {columns.map((column, index) => (
-              <ColumnHeader
-                key={`${dataGridId}_header_${index}`}
-                attributeType={attributeType}
-                column={column}
-                columns={columns}
-                columnsAreSetDimension={definedColumns !== '*'}
-                data={data}
-                deleteColumn={deleteColumn}
-                index={index}
-                multi={multi}
-                selectedColumn={selectedColumn}
-                setSelectedColumn={setSelectedColumn}
-                setData={setData}
-                setColumns={setColumns}
-              />
-            ))}
-          </Styled.Row>
-          {paginatedRows.map((item, rowIndex) => {
-            const calculatedIndex = paginationPage * rowsPerPage + rowIndex
-            return (
-              <Styled.Row key={`${dataGridId}_row_${calculatedIndex}`}>
-                <VerticalHeader
-                  addRow={addRow}
-                  deleteRow={deleteRow}
-                  index={calculatedIndex}
-                  rowsAreSetDimension={rowsAreSetDimension}
-                  selectedRow={selectedRow}
-                  setSelectedRow={setSelectedRow}
-                />
-                {multi ? (
-                  item.map((cellValue: any, cellIndex: number) => (
-                    <DataCell
-                      key={`${dataGridId}_row_${calculatedIndex}_cell_${cellIndex}`}
-                      selected={
-                        selectedRow === calculatedIndex ||
-                        selectedColumn === cellIndex
+        <Styled.DataGrid flip={config.printDirection === 'vertical'}>
+          {config.showColumns && (
+            <Styled.Head>
+              <Styled.Row>
+                {config.showRows && <th style={{ width: '2rem' }}>#</th>}
+                {columnLabels.map((column, index) => (
+                  <HeaderCell
+                    key={`${dataGridId}_header_${index}`}
+                    add={addColumn}
+                    editable={columnsAreEditable}
+                    delete={deleteColumn}
+                    index={index}
+                    label={column}
+                    selected={selectedColumn}
+                    setSelected={setSelectedColumn}
+                    type={
+                      config.printDirection === 'horizontal' ? 'column' : 'row'
+                    }
+                  />
+                ))}
+              </Styled.Row>
+            </Styled.Head>
+          )}
+          <tbody>
+            {paginatedRows.map((item, rowIndex) => {
+              const calculatedIndex = paginationPage * rowsPerPage + rowIndex
+              return (
+                <Styled.Row key={`${dataGridId}_row_${calculatedIndex}`}>
+                  {config.showRows && (
+                    <HeaderCell
+                      add={addRow}
+                      delete={deleteRow}
+                      index={calculatedIndex}
+                      label={rowLabels[calculatedIndex]}
+                      editable={rowsAreEditable}
+                      selected={selectedRow}
+                      setSelected={setSelectedRow}
+                      type={
+                        config.printDirection === 'horizontal'
+                          ? 'row'
+                          : 'column'
                       }
-                      value={cellValue}
-                      cellIndex={cellIndex}
+                    />
+                  )}
+                  {isMultiDimensional ? (
+                    item?.map((cellValue: any, cellIndex: number) => (
+                      <DataCell
+                        key={`${dataGridId}_row_${calculatedIndex}_cell_${cellIndex}`}
+                        selected={
+                          selectedRow === calculatedIndex ||
+                          selectedColumn === cellIndex
+                        }
+                        config={config}
+                        value={cellValue}
+                        cellIndex={cellIndex}
+                        rowIndex={calculatedIndex}
+                        data={data}
+                        setData={setData}
+                        attributeType={attributeType}
+                      />
+                    ))
+                  ) : (
+                    <DataCell
+                      key={`${dataGridId}_row_${calculatedIndex}_cell`}
+                      config={config}
+                      selected={selectedRow === calculatedIndex}
+                      value={item}
                       rowIndex={calculatedIndex}
                       data={data}
                       setData={setData}
                       attributeType={attributeType}
                     />
-                  ))
-                ) : (
-                  <DataCell
-                    key={`${dataGridId}_row_${calculatedIndex}_cell`}
-                    selected={selectedRow === calculatedIndex}
-                    value={item}
-                    rowIndex={calculatedIndex}
-                    data={data}
-                    setData={setData}
-                    attributeType={attributeType}
-                  />
-                )}
-              </Styled.Row>
-            )
-          })}
+                  )}
+                </Styled.Row>
+              )
+            })}
+          </tbody>
         </Styled.DataGrid>
       </EdsProvider>
       <Styled.ActionRow>
         <Stack direction='row'>
-          {!rowsAreSetDimension && (
+          {addButtonIsEnabled && (
             <Styled.ActionRowButton
               aria-label='Add data row'
-              onClick={() => addRow()}
+              onClick={() =>
+                addButtonFunctionality === 'addRow'
+                  ? addRow()
+                  : addColumn(columnLabels.length)
+              }
             >
               <Icon size={16} data={add} />
             </Styled.ActionRowButton>
           )}
           {selectedRow !== undefined && (
             <>
-              {definedRows === '*' && (
+              {rowsAreEditable && (
                 <Styled.ActionRowButton onClick={deleteRow}>
                   <Icon size={16} data={minimize} />
                 </Styled.ActionRowButton>
               )}
-              <Styled.ActionRowButton onClick={() => moveRow('up')}>
-                <Icon size={16} data={chevron_up} />
-              </Styled.ActionRowButton>
-              <Styled.ActionRowButton onClick={() => moveRow('down')}>
-                <Icon size={16} data={chevron_down} />
-              </Styled.ActionRowButton>
+              {isSortEnabled && (
+                <>
+                  <Styled.ActionRowButton onClick={() => moveRow('up')}>
+                    <Icon size={16} data={chevron_up} />
+                  </Styled.ActionRowButton>
+                  <Styled.ActionRowButton onClick={() => moveRow('down')}>
+                    <Icon size={16} data={chevron_down} />
+                  </Styled.ActionRowButton>
+                </>
+              )}
             </>
           )}
         </Stack>

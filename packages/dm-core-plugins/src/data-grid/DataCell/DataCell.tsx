@@ -1,19 +1,22 @@
 import React, { ChangeEvent } from 'react'
 import * as Styled from '../styles'
 import { Checkbox } from '@equinor/eds-core-react'
+import { DataGridConfig } from '../types'
 
 type DataCellProps = {
-  selected: boolean
-  rowIndex: number
-  cellIndex?: number
-  value: string | number | boolean
-  data: any[]
-  setData: (data: any[]) => void
   attributeType: string
+  cellIndex?: number
+  config: DataGridConfig
+  data: any[]
+  rowIndex: number
+  selected: boolean
+  setData: (data: any[]) => void
+  value: string | number | boolean
 }
 
 export function DataCell(props: DataCellProps) {
-  const { attributeType, data, setData, rowIndex, value, cellIndex } = props
+  const { attributeType, data, setData, rowIndex, value, cellIndex, config } =
+    props
 
   function parseValue(event: ChangeEvent<HTMLInputElement>) {
     const { value, checked } = event.target
@@ -47,12 +50,14 @@ export function DataCell(props: DataCellProps) {
         <Checkbox
           checked={value as boolean}
           onChange={(event) => updateValue(event, rowIndex, cellIndex)}
+          readOnly={!config.editable}
         />
       ) : (
         <Styled.Input
           value={value as string}
           onChange={(event) => updateValue(event, rowIndex, cellIndex)}
           attributeType={attributeType}
+          readOnly={!config.editable}
         />
       )}
     </Styled.Cell>
