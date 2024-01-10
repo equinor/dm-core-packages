@@ -16,12 +16,6 @@ jobs:
       - name: Install pre-commit
         run: pip install pre-commit
 
-      - name: Setup Biome CLI
-        uses: biomejs/setup-biome@v1
-
-      - name: Run Biome
-        run: biome ci .
-
       - name: Cache pre-commit environment
         uses: actions/cache@v3
         env:
@@ -33,7 +27,7 @@ jobs:
       - name: Run pre-commit
         env:
           # These need node_modules, and will be covered in the build step anyway
-          SKIP: type_check_core,type_check_plugins,biome_check
+          SKIP: type_check_core,type_check_plugins
         run: pre-commit run --all-files
 
   tests:
