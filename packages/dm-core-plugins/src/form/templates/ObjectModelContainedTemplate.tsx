@@ -33,6 +33,7 @@ export const ObjectModelContainedTemplate = (
     uiAttribute,
     onOpen
   )
+  console.log(uiAttribute)
   return (
     <FormTemplate>
       <FormTemplate.Header>
