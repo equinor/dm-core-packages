@@ -4427,3 +4427,14 @@ fix: entity picker (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 5e1f5df 2024-01-03 githu..[bot] chore(master): release 1.15.3 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.4.3
     * **JOB VERSION**: a7f03e0 2023-11-27 githu..[bot] chore(main): release 1.4.2 grafted, HEAD -> main, origin/main
+* Feat/form label config (#1117)
+
+* fix: hide optional
+
+* feat: form label is configurable
+
+* fix: remove test that was failing and irrelevant for the test scenario. Nothing was wrong (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7488085817/1)
+    * **DMSS VERSION**: 155b857 2024-01-09 githu..[bot] chore(master): release 1.16.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.4.3
+    * **JOB VERSION**: f78d4f5 2024-01-10 githu..[bot] chore(main): release 1.5.1 grafted, HEAD -> main, origin/main
