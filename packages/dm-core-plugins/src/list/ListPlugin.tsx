@@ -74,8 +74,6 @@ const defaultConfig: TListConfig = {
 
 export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const { idReference, config, type, onOpen } = props
-  if (!idReference)
-    throw new Error('idReference is missing when calling ListPlugin!')
   const internalConfig: TListConfig = {
     ...defaultConfig,
     ...config,
