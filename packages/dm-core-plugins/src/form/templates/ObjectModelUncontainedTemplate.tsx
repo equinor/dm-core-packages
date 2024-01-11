@@ -45,6 +45,7 @@ export const ObjectModelUncontainedTemplate = (
     uiAttribute,
     onOpen
   )
+  console.log(uiAttribute)
   return (
     <FormTemplate>
       <FormTemplate.Header>
@@ -60,6 +61,7 @@ export const ObjectModelUncontainedTemplate = (
           }
           icon={link}
           hideOptionalLabel={uiAttribute?.hideOptionalLabel}
+          uiAttribute={uiAttribute}
         />
         <FormTemplate.Header.Actions>
           {canOpen && (

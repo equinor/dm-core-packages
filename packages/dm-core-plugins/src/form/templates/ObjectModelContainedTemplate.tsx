@@ -51,6 +51,7 @@ export const ObjectModelContainedTemplate = (
             )
           }
           hideOptionalLabel={uiAttribute?.config?.hideOptionalLabel}
+          uiAttribute={uiAttribute}
         />
         <FormTemplate.Header.Actions>
           {canOpen && (

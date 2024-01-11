@@ -28,7 +28,8 @@ export default function ArrayField(props: TArrayTemplate) {
         value={value}
         label={getDisplayLabel(
           attribute,
-          uiAttribute?.config?.hideOptionalLabel
+          uiAttribute?.config?.hideOptionalLabel,
+          uiAttribute
         )}
       />
     )

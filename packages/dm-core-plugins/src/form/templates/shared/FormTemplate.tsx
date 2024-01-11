@@ -4,6 +4,7 @@ import { IconData, file, file_description } from '@equinor/eds-icons'
 import ExpandChevron from '../../components/ExpandChevron'
 import { TAttribute } from '@development-framework/dm-core'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
+import { TUiAttribute } from '../../types'
 
 const FormTemplate = ({ children }: PropsWithChildren) => {
   return <div className='border border-[#dddddd] rounded-md'>{children}</div>
@@ -54,6 +55,7 @@ const FormTemplateHeaderTitle = ({
   objectIsNotEmpty,
   icon,
   hideOptionalLabel,
+  uiAttribute,
 }: {
   canExpand: boolean | undefined
   canOpen: boolean | undefined
@@ -64,6 +66,7 @@ const FormTemplateHeaderTitle = ({
   onOpen?: () => void
   icon?: IconData
   hideOptionalLabel?: boolean
+  uiAttribute?: TUiAttribute
 }) => {
   const [isHovering, setIsHovering] = useState(false)
 
@@ -124,7 +127,7 @@ const FormTemplateHeaderTitle = ({
               : ''
           }`}
         >
-          {getDisplayLabel(attribute, true)}
+          {getDisplayLabel(attribute, true, uiAttribute)}
         </Typography>
         {attribute.optional && !hideOptionalLabel && (
           <p className='ps-1 mt-0.5 text-xs'>Optional</p>

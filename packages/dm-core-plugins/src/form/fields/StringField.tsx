@@ -35,7 +35,8 @@ export const StringField = (props: TField) => {
               !uiAttribute?.config?.hideLabel
                 ? getDisplayLabel(
                     attribute,
-                    uiAttribute?.hideOptionalLabel || uiAttribute?.readOnly
+                    uiAttribute?.hideOptionalLabel || uiAttribute?.readOnly,
+                    uiAttribute
                   )
                 : ''
             }

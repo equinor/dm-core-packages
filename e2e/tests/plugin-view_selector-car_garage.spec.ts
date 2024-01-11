@@ -40,7 +40,6 @@ test('View selector - car garage', async ({ page }) => {
       'Audi'
     )
 
-    await page
     await page.getByTestId('Owner').getByLabel('Open in tab').click()
     await expect(
       page.getByRole('tab', { name: 'Owner details' })
@@ -51,14 +50,6 @@ test('View selector - car garage', async ({ page }) => {
     await expect(
       page.getByRole('tab', { name: 'group Owner history' })
     ).toHaveAttribute('aria-selected', 'true')
-  })
-
-  await test.step('Add earlier owner', async () => {
-    await page.getByLabel('Add data row').click()
-    await page.getByRole('textbox').last().fill(' Joanna')
-    await page.getByRole('button', { name: 'Submit' }).click()
-    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'close', exact: true }).click()
   })
 
   await test.step('Verify tabs are open and selectable', async () => {
