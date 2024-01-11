@@ -168,10 +168,14 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           showModal={showModal}
           setShowModal={setShowModal}
           typeFilter={type}
-          scope={resolveRelativeAddressSimplified(
-            config.selectFromScope,
-            idReference
-          )}
+          scope={
+            config.selectFromScope
+              ? resolveRelativeAddressSimplified(
+                  config.selectFromScope,
+                  idReference
+                )
+              : undefined
+          }
           onChange={async (entities: TEntityPickerReturn[]) => {
             const newKeys: Record<string, boolean> = {}
             for (const { address, entity } of entities) {
