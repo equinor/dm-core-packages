@@ -150,7 +150,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             <span> {meta.filetype}</span>
             <label className='font-bold'>Filesize:</label>
             <span> {formatBytes(meta.fileSize)}</span>
-            <label className='font-bold'>Date:</label>
+            <label className='font-bold'>Upload date:</label>
             <span>
               {DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
                 'dd/MM/yyyy HH:mm'
