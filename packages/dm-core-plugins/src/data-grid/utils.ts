@@ -92,7 +92,8 @@ export function getFunctionalityVariables(
   const addButtonIsEnabled =
     (isMultiPrimitive && printDirection === 'vertical') ||
     (rowsAreEditable && printDirection === 'horizontal') ||
-    (columnsAreEditable && printDirection === 'vertical')
+    (columnsAreEditable && printDirection === 'vertical') ||
+    (!isMultiDimensional && columnDimensions === '*')
 
   return [
     rowsAreEditable,
