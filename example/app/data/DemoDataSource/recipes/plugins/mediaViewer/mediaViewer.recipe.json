@@ -16,7 +16,6 @@
         "config": {
           "type": "PLUGINS:dm-core-plugins/media_viewer/MediaViewerConfig",
           "width": 1000,
-          "height": 100,
           "showMeta": true,
           "caption": "some header",
           "description": "some description"

@@ -23,7 +23,8 @@
       "name": "showMeta",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "default": true
+      "default": false,
+      "optional": true
     },
     {
       "name": "caption",

@@ -10,7 +10,7 @@ test('Media viewer', async ({ page }) => {
   const dialog = page.getByRole('dialog')
 
   await test.step('video', async () => {
-    await page.getByRole('button', { name: 'video' }).click()
+    await page.getByRole('button', { name: 'mediaViewerMOV' }).click()
     await expect(page.locator('video')).toBeVisible()
     await page.getByRole('button', { name: 'view meta info' }).click()
 
@@ -26,7 +26,7 @@ test('Media viewer', async ({ page }) => {
     await download.createReadStream()
   })
   await test.step('gif', async () => {
-    await page.getByRole('button', { name: 'fast' }).click()
+    await page.getByRole('button', { name: 'mediaViewerGIF' }).click()
     await expect(page.locator('img')).toHaveJSProperty('complete', true)
     await expect(page.locator('img')).not.toHaveJSProperty('naturalWidth', 0)
     await expect(page.getByRole('img', { name: 'fast' })).toBeVisible()
@@ -44,7 +44,7 @@ test('Media viewer', async ({ page }) => {
   })
 
   await test.step('image', async () => {
-    await page.getByRole('button', { name: 'beauty' }).click()
+    await page.getByRole('button', { name: 'mediaViewerIMG' }).click()
     await expect(page.locator('img')).toHaveJSProperty('complete', true)
     await expect(page.locator('img')).not.toHaveJSProperty('naturalWidth', 0)
     await expect(page.getByRole('img', { name: 'beauty' })).toBeVisible()

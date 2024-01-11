@@ -113,18 +113,17 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   return (
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
-        {!['pdf'].includes(meta.filetype) &&
-          (config.showMeta !== undefined ? config.showMeta : true) && (
-            <MetaPopoverButton
-              onClick={() => setShowMeta(!showMeta)}
-              variant='ghost_icon'
-              aria-haspopup
-              aria-expanded={showMeta}
-              ref={referenceElement}
-            >
-              <Icon data={info_circle} title='view meta info' />
-            </MetaPopoverButton>
-          )}
+        {!['pdf'].includes(meta.filetype) && (
+          <MetaPopoverButton
+            onClick={() => setShowMeta(!showMeta)}
+            variant='ghost_icon'
+            aria-haspopup
+            aria-expanded={showMeta}
+            ref={referenceElement}
+          >
+            <Icon data={info_circle} title='view meta info' />
+          </MetaPopoverButton>
+        )}
         {renderMediaElement(meta.filetype)}
       </MediaWrapper>
       <Popover
@@ -141,22 +140,24 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             <label className='font-bold text-sm'>Description</label>
             <p>{config.description}</p>
           </div>
-          <div className='grid grid-cols-2 font-normal text-xs'>
-            <label className='font-bold'>File name:</label>
-            <span> {meta.title}</span>
-            <label className='font-bold'>Author:</label>
-            <span> {meta.author}</span>
-            <label className='font-bold'>Filetype:</label>
-            <span> {meta.filetype}</span>
-            <label className='font-bold'>Filesize:</label>
-            <span> {formatBytes(meta.fileSize)}</span>
-            <label className='font-bold'>Upload date:</label>
-            <span>
-              {DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
-                'dd/MM/yyyy HH:mm'
-              )}
-            </span>
-          </div>
+          {config.showMeta && (
+            <div className='grid grid-cols-2 font-normal text-xs'>
+              <label className='font-bold'>File name:</label>
+              <span> {meta.title}</span>
+              <label className='font-bold'>Author:</label>
+              <span> {meta.author}</span>
+              <label className='font-bold'>Filetype:</label>
+              <span> {meta.filetype}</span>
+              <label className='font-bold'>Filesize:</label>
+              <span> {formatBytes(meta.fileSize)}</span>
+              <label className='font-bold'>Date:</label>
+              <span>
+                {DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
+                  'dd/MM/yyyy HH:mm'
+                )}
+              </span>
+            </div>
+          )}
         </Popover.Content>
         <Popover.Actions>
           <div className='flex justify-start w-full'>
