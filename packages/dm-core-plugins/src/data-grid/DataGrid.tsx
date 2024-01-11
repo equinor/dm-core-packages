@@ -231,7 +231,7 @@ export function DataGrid(props: DataGridProps) {
                   </Styled.ActionRowButton>
                   <Styled.ActionRowButton
                     onClick={() => moveRow('down')}
-                    disabled={selectedRow === data?.length}
+                    disabled={selectedRow === data?.length - 1}
                   >
                     <Icon size={16} data={chevron_down} />
                   </Styled.ActionRowButton>
