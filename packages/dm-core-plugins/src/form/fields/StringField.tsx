@@ -3,10 +3,10 @@ import { Controller } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
-import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 export const StringField = (props: TField) => {
-  const { namePath, uiAttribute, attribute, backgroundColor } = props
+  const { namePath, uiAttribute, attribute } = props
   const Widget = getWidget(uiAttribute?.widget ?? 'TextWidget')
   const { config } = useRegistryContext()
   const readOnly = uiAttribute?.readOnly || config.readOnly
@@ -33,7 +33,10 @@ export const StringField = (props: TField) => {
             id={namePath}
             label={
               !uiAttribute?.config?.hideLabel
-                ? getDisplayLabelWithOptional(attribute)
+                ? getDisplayLabel(
+                    attribute,
+                    uiAttribute?.hideOptionalLabel || uiAttribute?.readOnly
+                  )
                 : ''
             }
             inputRef={ref}

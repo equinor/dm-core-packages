@@ -33,7 +33,7 @@ test('Simple form', async ({ page }) => {
   })
 
   await test.step('Check checkbox', async () => {
-    await page.getByLabel('An optional checkbox (Optional)').check()
+    await page.getByLabel('An optional checkbox').check()
     //await page.getByTestId('form-submit').click()
     // await expect(page.getByText('<Field is mandatory>')).toBeVisible() //Known bug (itemid:37251754)
     await page
@@ -57,9 +57,7 @@ test('Simple form', async ({ page }) => {
     await expect(page.getByLabel('Required string')).toHaveValue('Foo')
     await expect(page.getByLabel('Numbers only (Optional)')).toHaveValue('3.14')
     await expect(page.getByLabel('Integer only (Optional)')).toHaveValue('123')
-    await expect(
-      page.getByLabel('An optional checkbox (Optional)')
-    ).toBeChecked()
+    await expect(page.getByLabel('An optional checkbox')).toBeChecked()
     await expect(
       page.getByLabel('A required checkbox (e.g. for confirmation purposes)')
     ).toBeChecked()

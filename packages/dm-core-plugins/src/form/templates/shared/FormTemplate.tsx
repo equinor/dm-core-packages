@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useState } from 'react'
 import { Icon, Typography } from '@equinor/eds-core-react'
 import { IconData, file, file_description } from '@equinor/eds-icons'
 import ExpandChevron from '../../components/ExpandChevron'
-import { TAttribute, useSearch } from '@development-framework/dm-core'
+import { TAttribute } from '@development-framework/dm-core'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
 const FormTemplate = ({ children }: PropsWithChildren) => {
@@ -53,6 +53,7 @@ const FormTemplateHeaderTitle = ({
   onOpen,
   objectIsNotEmpty,
   icon,
+  hideOptionalLabel,
 }: {
   canExpand: boolean | undefined
   canOpen: boolean | undefined
@@ -62,6 +63,7 @@ const FormTemplateHeaderTitle = ({
   setIsExpanded?: (expanded: boolean) => void
   onOpen?: () => void
   icon?: IconData
+  hideOptionalLabel?: boolean
 }) => {
   const [isHovering, setIsHovering] = useState(false)
 
@@ -122,9 +124,11 @@ const FormTemplateHeaderTitle = ({
               : ''
           }`}
         >
-          {getDisplayLabel(attribute)}
+          {getDisplayLabel(attribute, true)}
         </Typography>
-        {attribute.optional && <p className='ps-1 mt-0.5 text-xs'>Optional</p>}
+        {attribute.optional && !hideOptionalLabel && (
+          <p className='ps-1 mt-0.5 text-xs'>Optional</p>
+        )}
       </div>
     </div>
   )

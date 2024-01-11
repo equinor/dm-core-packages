@@ -45,7 +45,6 @@ export const Form = (props: TFormProps) => {
   const { blueprint, isLoading, error } = useBlueprint(type)
   const dmssAPI = useDMSS()
   const { name } = useContext(ApplicationContext)
-  const [refresh, forceRefresh] = useState(0)
   const [showComponent, setShowComponent] = useState(true)
 
   const methods = useForm({

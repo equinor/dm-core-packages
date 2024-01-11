@@ -2,7 +2,7 @@ import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { TArrayTemplate } from '../types'
 import { getWidget } from '../context/WidgetContext'
-import { getDisplayLabelWithOptional } from '../utils/getDisplayLabel'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 import { ArrayComplexTemplate } from '../templates/ArrayComplexTemplate'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
 import arrayTemplates from '../templates'
@@ -26,7 +26,10 @@ export default function ArrayField(props: TArrayTemplate) {
         config={uiAttribute?.config}
         enumType={attribute.enumType || undefined}
         value={value}
-        label={getDisplayLabelWithOptional(attribute)}
+        label={getDisplayLabel(
+          attribute,
+          uiAttribute?.config?.hideOptionalLabel
+        )}
       />
     )
   }
