@@ -69,6 +69,14 @@ test('resolve address with ^', () => {
   expect(resolved).toBe('dmss://test_source/$1.cars[0]')
 })
 
+test('resolve address with .', () => {
+  const resolved = resolveRelativeAddressSimplified(
+    '.cars[0]',
+    'dmss://test_source/$1'
+  )
+  expect(resolved).toBe('dmss://test_source/$1.cars[0]')
+})
+
 test('resolve address with multiple attributes', () => {
   const resolved = resolveRelativeAddressSimplified(
     '$2.cars[0].engine',
@@ -149,4 +157,14 @@ test('resolve relative to parent address again', () => {
     'dmss://test_source/$2.t_y[2].char-lie'
   )
   expect(resolved).toBe('dmss://test_source/$2.car_s[0]')
+})
+
+test('resolve relative to parent address again', () => {
+  const resolved = resolveRelativeAddressSimplified(
+    '~.~',
+    'dmss://DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.cases[0]'
+  )
+  expect(resolved).toBe(
+    'dmss://DemoDataSource/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study'
+  )
 })

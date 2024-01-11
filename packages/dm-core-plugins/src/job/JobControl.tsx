@@ -18,66 +18,25 @@ import {
 import React, { useEffect, useState } from 'react'
 import { Button, Chip, Icon, Tooltip } from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
-import styled from 'styled-components'
 import { scheduleTemplate } from './templateEntities'
-import { ConfigureRecurring, getVariant, JobLog, Progress } from './common'
 import {
-  CompletedButton,
-  LoadingButton,
-  RerunButton,
-  StartButton,
-} from './SimpleJobControlButtons'
+  ConfigureRecurring,
+  getControlButton,
+  getVariant,
+  JobButtonWrapper,
+  JobLog,
+  Progress,
+} from './common'
 import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 import _ from 'lodash'
 
-const JobButtonWrapper = styled.div`
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 0.5rem;
-`
-const getControlButton = (
-  status: JobStatus,
-  remove: () => Promise<DeleteJobResponse | null>,
-  start: () => void,
-  asCronJob: boolean = false,
-  isLoading: boolean = false
-) => {
-  if (isLoading) return <LoadingButton jobStatus={status} remove={remove} />
-  switch (status) {
-    case JobStatus.Completed:
-      return (
-        <CompletedButton jobStatus={status} remove={remove} start={start} />
-      )
-    case JobStatus.Failed:
-      return <RerunButton jobStatus={status} remove={remove} start={start} />
-    case JobStatus.Unknown:
-    case JobStatus.Running:
-    case JobStatus.Starting:
-    case JobStatus.Registered:
-      return <LoadingButton jobStatus={status} remove={remove} />
-    case JobStatus.NotStarted:
-      return (
-        <StartButton jobStatus={status} start={start} asCronJob={asCronJob} />
-      )
-    default:
-      return (
-        <StartButton jobStatus={status} start={start} asCronJob={asCronJob} />
-      )
-  }
-}
-
 type TJobControlConfig = {
-  recurring?: boolean
   hideLogs?: boolean
   runnerTemplates?: TTemplate[]
 }
 
 const defaultConfig: TJobControlConfig = {
-  recurring: undefined,
   hideLogs: false,
 }
 
@@ -131,7 +90,7 @@ export const JobControl = (props: IUIPlugin) => {
 
   return (
     <>
-      {internalConfig.recurring !== true && (
+      {jobEntity.type === EBlueprint.RECURRING_JOB && (
         <ConfigureRecurring
           asCron={asCronJob}
           setAsCron={setAsCronJob}

@@ -79,7 +79,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   const [hookJobId, setHookJobId] = useState<string | undefined>(jobId)
   const [logs, setLogs] = useState<string[]>(['No logs fetched'])
   const [progress, setProgress] = useState<GLfloat | null>(null)
-  const [status, setStatus] = useState<JobStatus>(JobStatus.Unknown)
+  const [status, setStatus] = useState<JobStatus>(JobStatus.NotStarted)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse>()
   const dmJobApi = useDmJob()

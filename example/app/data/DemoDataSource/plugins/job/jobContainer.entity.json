@@ -1,0 +1,37 @@
+{
+  "name": "jobContainer",
+  "description": "some description",
+  "type": "./JobContainer",
+  "_templates_": [
+    {
+      "label": "Example job",
+      "name": "exampleJob",
+      "type": "JOBCORE:Job",
+      "status": "not started",
+      "triggeredBy": "me",
+      "applicationInput": {
+        "address": "/$5203cc68-4b9f-40a9-bd4c-a48c35815e06",
+        "type": "CORE:Reference",
+        "referenceType": "link"
+      },
+      "runner": {
+        "type": "JOBCORE:ReverseDescription"
+      }
+    },
+    {
+      "label": "Example job2",
+      "name": "exampleJob2",
+      "type": "JOBCORE:Job",
+      "status": "not started",
+      "triggeredBy": "me",
+      "applicationInput": {
+        "address": "/$5203cc68-4b9f-40a9-bd4c-a48c35815e06",
+        "type": "CORE:Reference",
+        "referenceType": "link"
+      },
+      "runner": {
+        "type": "JOBCORE:ReverseDescription"
+      }
+    }
+  ]
+}

@@ -35,7 +35,7 @@ class JobHandler(JobHandlerInterface):
             result_file.write(result)
         logger.info("ReverseDescription job completed")
         self.job.status = JobStatus.COMPLETED
-        self.job.stopped = datetime.now()
+        self.job.ended = datetime.now()
         return "OK"
 
     def result(self) -> Tuple[str, bytes]:

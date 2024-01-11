@@ -7,6 +7,18 @@
   "dataSources": ["AppStorage"],
   "study": {
     "type": "AppModels:signals_simple/Study",
+    "jobTemplate": {
+      "label": "signal job",
+      "name": "exampleJob",
+      "type": "JOBCORE:Job",
+      "status": "not started",
+      "triggeredBy": "me",
+      "outputTarget": ".signal",
+      "applicationInput": {},
+      "runner": {
+        "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob"
+      }
+    },
     "cases": [
       {
         "name": "case1",

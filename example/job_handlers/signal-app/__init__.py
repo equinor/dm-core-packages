@@ -41,6 +41,8 @@ class JobHandler(JobHandlerInterface):
         logger.info("after sleep")
         application_input_reference = self.job.application_input['address']
         input_entity = self._get_by_id(application_input_reference)
+        if input_entity["type"] != "dmss://DemoDataSource/apps/MySignalApp/models/signals_simple/Case":
+            raise ValueError(f" Wrong type! {input_entity['type']}")
         signal_length = int(input_entity["duration"] / input_entity["timeStep"])
         new_signal_value = [random.randint(-50, 50) for value in range(signal_length)]
         signal_reference: str = self.job.outputTarget

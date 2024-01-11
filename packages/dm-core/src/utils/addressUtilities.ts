@@ -80,17 +80,19 @@ export const resolveRelativeAddressSimplified = (
   relativeAddress: string,
   location: string
 ): string => {
+  if (!relativeAddress)
+    throw new Error('Cannot resolve an empty address. Check your recipe.')
+
   if (relativeAddress.includes('://')) return relativeAddress // It's absolute
 
   const { dataSource, documentPath, attributePath, protocol } =
     splitAddress(location)
-  relativeAddress = relativeAddress.replace(/^[/. ]+|[/. ]+$/g, '')
 
   if (relativeAddress[0] === '~') {
     let go_up = relativeAddress.split('~').length - 1
 
     // Split a string like "$23.car[5].b" into ["$23", "car", "[5]", "b"]
-    const regex = /(\$[\w]+|[a-zA-Z0-9-_]+|\[\d+\])/g
+    const regex = /((\$[\w\-]+|[\w\-]+|\[\d+\]))/g
     const pathElements = `${documentPath}.${attributePath}`.match(
       regex
     ) as string[]
@@ -107,11 +109,20 @@ export const resolveRelativeAddressSimplified = (
   if (relativeAddress[0] === '$') {
     return `${protocol}://${dataSource}/${relativeAddress}`
   }
+  if (relativeAddress[0] === '/') {
+    return `${protocol}://${dataSource}${relativeAddress}`
+  }
+  if (['.', 'self'].includes(relativeAddress)) {
+    return location
+  }
+  if (relativeAddress[0] === '.') {
+    return `${location}${relativeAddress}`
+  }
   if (relativeAddress[0] === '^') {
     const attributes = relativeAddress.slice(1)
     return `${protocol}://${dataSource}/${documentPath}${attributes}`
   }
-  return `/${documentPath === '^' ? location : documentPath}${
-    attributePath ? '.' + attributePath : ''
-  }`
+  throw new Error(
+    `Invalid format for relative address '${relativeAddress}' at location '${location}'. Check format and update recipes.`
+  )
 }

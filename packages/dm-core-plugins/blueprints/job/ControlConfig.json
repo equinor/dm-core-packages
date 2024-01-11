@@ -9,10 +9,11 @@
       "attributeType": "string"
     },
     {
-      "name": "recurring",
+      "name": "hideLogs",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true
+      "optional": true,
+      "default": false
     },
     {
       "name": "runnerTemplates",

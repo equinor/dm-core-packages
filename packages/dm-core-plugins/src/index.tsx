@@ -80,15 +80,15 @@ export default ({
       )
     ),
   },
-  '@development-framework/dm-core-plugins/job/single_job': {
+  '@development-framework/dm-core-plugins/job/create': {
     // TODO: Rename to job/create-from-recipe
     component: lazy(() =>
-      import('./job/CrateFromRecipe').then((module) => ({
-        default: module.CrateFromRecipe,
+      import('./job/JobCreate').then((module) => ({
+        default: module.JobCreate,
       }))
     ),
   },
-  '@development-framework/dm-core-plugins/job/controls': {
+  '@development-framework/dm-core-plugins/job': {
     component: lazy(() =>
       import('./job/JobControl').then((module) => ({
         default: module.JobControl,

@@ -9,6 +9,7 @@ import { DeleteJobResponse, JobStatus } from '@development-framework/dm-core'
 import React, { useState } from 'react'
 import { RemoveJobDialog } from './RemoveJobDialog'
 
+const loadingColor = '#eb9131'
 export const StartButton = (props: {
   jobStatus: JobStatus
   start: () => void
@@ -17,7 +18,14 @@ export const StartButton = (props: {
   const { start } = props
 
   return (
-    <Button variant='contained_icon' aria-label='Run' onClick={() => start()}>
+    <Button
+      variant='contained_icon'
+      style={{
+        backgroundColor: 'green',
+      }}
+      aria-label='Run'
+      onClick={() => start()}
+    >
       <Icon data={play} />
     </Button>
   )
@@ -34,6 +42,13 @@ export const LoadingButton = (props: {
     <Button
       variant='contained_icon'
       aria-label='Remove'
+      style={{
+        backgroundColor: `${
+          isHovering || jobStatus === JobStatus.Registered
+            ? 'red'
+            : loadingColor
+        }`,
+      }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onClick={() => remove()}
@@ -59,6 +74,9 @@ export const RerunButton = (props: {
         <Button
           variant='contained_icon'
           color={'danger'}
+          style={{
+            backgroundColor: loadingColor,
+          }}
           aria-label='Rerun'
           onClick={() => setShowRestartDialog(true)}
         >
@@ -66,7 +84,7 @@ export const RerunButton = (props: {
         </Button>
         <RemoveJobDialog
           isOpen={showRestartDialog}
-          title={'Remove old job and rerun?'}
+          title={'Remove previous job and rerun?'}
           onConfirm={async () => {
             await props.remove()
             props.start()
@@ -93,20 +111,16 @@ export const CompletedButton = (props: {
       {isHovering ? (
         <RerunButton jobStatus={jobStatus} remove={remove} start={start} />
       ) : (
-        <div
+        <Button
+          variant='contained_icon'
           style={{
-            height: '40px',
-            width: '40px',
-            borderRadius: '50%',
-            display: 'flex',
             backgroundColor: 'green',
-            justifyItems: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
           }}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
         >
           <Icon data={check} style={{ color: 'white' }} />
-        </div>
+        </Button>
       )}
     </div>
   )
