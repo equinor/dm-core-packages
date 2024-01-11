@@ -1,5 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { Autocomplete, Button, TextField } from '@equinor/eds-core-react'
+import {
+  Autocomplete,
+  Button,
+  TextField,
+  Typography,
+} from '@equinor/eds-core-react'
 import DateRangePicker from './DateRangePicker'
 import styled from 'styled-components'
 import { TSchedule } from '@development-framework/dm-core'
@@ -94,9 +99,7 @@ export function ConfigureSchedule(props: {
     >
       <div>
         {isRegistered && (
-          <div style={{ paddingBottom: '10px' }}>
-            A job is already scheduled. You can update it here.
-          </div>
+          <Typography color='primary'>The job is scheduled</Typography>
         )}
         <DateRangePicker
           setDateRange={(dateRange) =>

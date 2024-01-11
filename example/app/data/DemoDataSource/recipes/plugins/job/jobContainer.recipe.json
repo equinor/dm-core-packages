@@ -1,0 +1,27 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/job/JobContainer",
+  "initialUiRecipe": {
+    "name": "Create job",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/job/create",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/job/CreateConfig",
+      "recurring": false,
+      "hideLogs": true,
+      "jobTemplates": [
+        {
+          "type": "PLUGINS:dm-core-plugins/common/Template",
+          "path": "._templates_[0]",
+          "label": "Reverse description job"
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/common/Template",
+          "path": "._templates_[1]",
+          "label": "Also a reverse description job"
+        }
+      ],
+      "jobTargetAddress": ".job"
+    }
+  }
+}

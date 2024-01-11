@@ -1,0 +1,21 @@
+{
+  "name": "JobContainer",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Entity"],
+  "attributes": [
+    {
+      "name": "job",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "JOBCORE:Job",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "name": "_templates_",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "JOBCORE:Job",
+      "dimensions": "*",
+      "contained": true
+    }
+  ]
+}

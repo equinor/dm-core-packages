@@ -15,6 +15,12 @@
       "attributeType": "./Case",
       "dimensions": "*",
       "contained": true
+    },
+    {
+      "name": "jobTemplate",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "JOBCORE:Job",
+      "contained": true
     }
   ]
 }

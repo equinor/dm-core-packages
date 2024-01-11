@@ -1,4 +1,5 @@
 import {
+  DeleteJobResponse,
   ErrorResponse,
   JobStatus,
   TSchedule,
@@ -8,6 +9,13 @@ import React, { ChangeEvent, useState } from 'react'
 import { Button, Icon, LinearProgress, Switch } from '@equinor/eds-core-react'
 import { expand_screen } from '@equinor/eds-icons'
 import { ConfigureSchedule } from './CronJob'
+import {
+  CompletedButton,
+  LoadingButton,
+  RerunButton,
+  StartButton,
+} from './SimpleJobControlButtons'
+import styled from 'styled-components'
 
 export const getVariant = (status: JobStatus) => {
   switch (status) {
@@ -40,6 +48,45 @@ export const JobLog = (props: {
       />
     </>
   )
+}
+export const JobButtonWrapper = styled.div`
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+`
+export const getControlButton = (
+  status: JobStatus,
+  remove: () => Promise<DeleteJobResponse | null>,
+  start: () => void,
+  asCronJob: boolean = false,
+  isLoading: boolean = false
+) => {
+  // return <LoadingButton jobStatus={status} remove={remove} />
+  if (isLoading) return <LoadingButton jobStatus={status} remove={remove} />
+  switch (status) {
+    case JobStatus.Completed:
+      return (
+        <CompletedButton jobStatus={status} remove={remove} start={start} />
+      )
+    case JobStatus.Failed:
+      return <RerunButton jobStatus={status} remove={remove} start={start} />
+    case JobStatus.Unknown:
+    case JobStatus.Running:
+    case JobStatus.Starting:
+    case JobStatus.Registered:
+      return <LoadingButton jobStatus={status} remove={remove} />
+    case JobStatus.NotStarted:
+      return (
+        <StartButton jobStatus={status} start={start} asCronJob={asCronJob} />
+      )
+    default:
+      return (
+        <StartButton jobStatus={status} start={start} asCronJob={asCronJob} />
+      )
+  }
 }
 
 export const Progress = (props: { progress: number }) => {

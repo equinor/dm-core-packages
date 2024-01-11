@@ -8,7 +8,7 @@ export type TTemplate = {
 
 interface TemplateMenuProps {
   templates: TTemplate[]
-  onSelect: (template: TTemplate) => void
+  onSelect: (template: TTemplate, index: number) => void
   isOpen: boolean
   title?: string
   selected?: number
@@ -35,7 +35,7 @@ export const TemplateMenu = (props: TemplateMenuProps) => {
             return (
               <Menu.Item
                 key={`${template.label}-${index}`}
-                onClick={() => onSelect(template)}
+                onClick={() => onSelect(template, index)}
                 active={selected === index}
               >
                 {template.label}

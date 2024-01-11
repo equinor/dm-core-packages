@@ -25,7 +25,7 @@ export const RemoveJobDialog = (props: RemoveJobDialogProps) => {
           }}
           color={'danger'}
         >
-          Ok
+          Rerun
         </Button>
         <Button onClick={close}>Cancel</Button>
       </Dialog.Actions>
