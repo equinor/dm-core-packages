@@ -74,3 +74,28 @@ test('Delete folder with content', async ({ page }) => {
     page.getByRole('button', { name: 'package Playwright' })
   ).not.toBeVisible()
 })
+
+test('Create entity with required name', async ({ page }) => {
+  await page.getByRole('button', { name: 'form' }).click()
+  await page.getByRole('button', { name: 'uncontained_object' }).click({
+    button: 'right',
+  })
+  await page.getByRole('menuitem', { name: 'New entity' }).click()
+  const dialog = page.getByRole('dialog')
+  await expect(dialog).toBeVisible()
+  await expect(dialog.getByRole('button', { name: 'Create' })).toBeDisabled()
+  await dialog.getByPlaceholder('Select').click()
+  await dialog.getByRole('button', { name: 'DemoDataSource' }).click()
+  await dialog.getByRole('button', { name: 'plugins' }).click()
+  await dialog.getByRole('button', { name: 'form' }).click()
+  await dialog.getByRole('button', { name: 'uncontained_object' }).click()
+  await dialog.getByRole('button', { name: 'blueprints' }).click()
+  await dialog.getByRole('button', { name: 'person' }).click()
+  await expect(dialog.getByRole('button', { name: 'Create' })).toBeDisabled()
+  await dialog.getByLabel('Name').fill('Jessica')
+  await expect(dialog.getByRole('button', { name: 'Create' })).toBeEnabled()
+  await dialog.getByRole('button', { name: 'Create' }).click()
+  await expect(page.getByRole('alert')).toHaveText(['Entity is created'])
+  await page.getByRole('button', { name: 'Jessica' }).click()
+  await expect(page.getByTestId('form-text-widget-Name')).toHaveValue('Jessica')
+})
