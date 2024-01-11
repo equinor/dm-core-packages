@@ -50,6 +50,14 @@
       "optional": true,
       "default": false,
       "attributeType": "boolean"
+    },
+    {
+      "name": "hideDelete",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Only applicable if entity is optional. If this is true, then it hides delete button in form.",
+      "optional": true,
+      "default": false,
+      "attributeType": "boolean"
     }
   ]
 }

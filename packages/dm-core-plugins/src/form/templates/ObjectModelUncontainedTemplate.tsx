@@ -45,7 +45,6 @@ export const ObjectModelUncontainedTemplate = (
     uiAttribute,
     onOpen
   )
-  console.log(uiAttribute)
   return (
     <FormTemplate>
       <FormTemplate.Header>
