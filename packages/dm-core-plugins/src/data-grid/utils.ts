@@ -83,7 +83,10 @@ export function getFunctionalityVariables(
     columnDimensions === '*' &&
     config.editable &&
     config.movableRows
-  const rowsAreEditable = editable && adjustableRows && rowDimensions === '*'
+  const rowsAreEditable =
+    editable && adjustableRows && isMultiDimensional
+      ? rowDimensions === '*'
+      : columnDimensions === '*'
   const columnsAreEditable =
     editable &&
     adjustableColumns &&
@@ -92,7 +95,8 @@ export function getFunctionalityVariables(
   const addButtonIsEnabled =
     (isMultiPrimitive && printDirection === 'vertical') ||
     (rowsAreEditable && printDirection === 'horizontal') ||
-    (columnsAreEditable && printDirection === 'vertical')
+    (columnsAreEditable && printDirection === 'vertical') ||
+    (!isMultiDimensional && columnDimensions === '*')
 
   return [
     rowsAreEditable,

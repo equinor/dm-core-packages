@@ -223,10 +223,16 @@ export function DataGrid(props: DataGridProps) {
               )}
               {isSortEnabled && (
                 <>
-                  <Styled.ActionRowButton onClick={() => moveRow('up')}>
+                  <Styled.ActionRowButton
+                    onClick={() => moveRow('up')}
+                    disabled={selectedRow === 0}
+                  >
                     <Icon size={16} data={chevron_up} />
                   </Styled.ActionRowButton>
-                  <Styled.ActionRowButton onClick={() => moveRow('down')}>
+                  <Styled.ActionRowButton
+                    onClick={() => moveRow('down')}
+                    disabled={selectedRow === data?.length - 1}
+                  >
                     <Icon size={16} data={chevron_down} />
                   </Styled.ActionRowButton>
                 </>
