@@ -83,7 +83,10 @@ export function getFunctionalityVariables(
     columnDimensions === '*' &&
     config.editable &&
     config.movableRows
-  const rowsAreEditable = editable && adjustableRows && rowDimensions === '*'
+  const rowsAreEditable =
+    editable && adjustableRows && isMultiDimensional
+      ? rowDimensions === '*'
+      : columnDimensions === '*'
   const columnsAreEditable =
     editable &&
     adjustableColumns &&
