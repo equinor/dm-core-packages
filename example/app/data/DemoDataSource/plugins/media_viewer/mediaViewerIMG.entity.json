@@ -1,9 +1,9 @@
 {
-  "name": "mediaViewerMOV",
+  "name": "mediaViewerIMG",
   "type": "./MediaViewer",
   "file": {
     "type": "dmss://system/SIMOS/Reference",
-    "address": "./assets/video",
+    "address": "./assets/beauty",
     "referenceType": "link"
   }
 }
