@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useState } from 'react'
-import { Icon, Typography } from '@equinor/eds-core-react'
+import { Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { IconData, file, file_description } from '@equinor/eds-icons'
 import ExpandChevron from '../../components/ExpandChevron'
 import { TAttribute } from '@development-framework/dm-core'
@@ -70,56 +70,57 @@ const FormTemplateHeaderTitle = ({
 
   const hideOptional = uiAttribute?.hideOptionalLabel ?? false
   return (
-    <div
-      className={`flex flex-start items-center w-full h-full ${
-        !canExpand ? 'ps-2' : 'ps-1'
-      }`}
-    >
-      {canExpand && (
-        <span
-          className={`flex w-fit rounded-full items-center ${
-            canExpand && isHovering ? 'bg-equinor-lightgreen' : ''
-          }`}
-        >
-          <ExpandChevron
-            isExpanded={isExpanded ?? false}
-            setIsExpanded={(exp) => setIsExpanded?.(exp)}
-          />
-        </span>
-      )}
+    <Tooltip title={uiAttribute?.tooltip ?? ''}>
       <div
-        className={`flex items-center space-x-1 w-full h-full ${
-          objectIsNotEmpty ? '' : 'opacity-40'
-        }
+        className={`flex flex-start items-center w-full h-full ${
+          !canExpand ? 'ps-2' : 'ps-1'
+        }`}
+      >
+        {canExpand && (
+          <span
+            className={`flex w-fit rounded-full items-center ${
+              canExpand && isHovering ? 'bg-equinor-lightgreen' : ''
+            }`}
+          >
+            <ExpandChevron
+              isExpanded={isExpanded ?? false}
+              setIsExpanded={(exp) => setIsExpanded?.(exp)}
+            />
+          </span>
+        )}
+        <div
+          className={`flex items-center space-x-1 w-full h-full ${
+            objectIsNotEmpty ? '' : 'opacity-40'
+          }
         ${
           objectIsNotEmpty && (canOpen || canExpand)
             ? 'cursor-pointer hover:opacity-80'
             : ''
         }
     `}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-        onClick={(event) => {
-          if (!objectIsNotEmpty) return
-          if (event.ctrlKey || event.metaKey) {
-            event.preventDefault()
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+          onClick={(event) => {
+            if (!objectIsNotEmpty) return
+            if (event.ctrlKey || event.metaKey) {
+              event.preventDefault()
+              canOpen && onOpen?.()
+              return
+            }
+            if (canExpand) {
+              setIsExpanded?.(!isExpanded)
+              return
+            }
             canOpen && onOpen?.()
-            return
-          }
-          if (canExpand) {
-            setIsExpanded?.(!isExpanded)
-            return
-          }
-          canOpen && onOpen?.()
-        }}
-      >
-        <Icon
-          data={icon ?? (objectIsNotEmpty ? file_description : file)}
-          color='#3d3d3d'
-        />
-        <Typography
-          bold={true}
-          className={`
+          }}
+        >
+          <Icon
+            data={icon ?? (objectIsNotEmpty ? file_description : file)}
+            color='#3d3d3d'
+          />
+          <Typography
+            bold={true}
+            className={`
           ${
             objectIsNotEmpty && isHovering && canOpen && !canExpand
               ? 'underline'

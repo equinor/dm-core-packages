@@ -59,7 +59,8 @@
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
               "open": false,
               "expand": true
-            }
+            },
+            "tooltip": "This is my accountant. "
           },
           {
             "name": "cars",
@@ -78,7 +79,8 @@
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
               "open": false,
               "expand": true
-            }
+            },
+            "tooltip": "Locations"
           }
         ],
         "compactButtons": true,

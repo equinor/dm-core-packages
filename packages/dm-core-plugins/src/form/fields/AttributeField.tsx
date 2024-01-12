@@ -9,6 +9,7 @@ import { ObjectField } from './ObjectField'
 import { StringField } from './StringField'
 import { TField } from '../types'
 import { collapse } from '@equinor/eds-icons'
+import { Tooltip } from '@equinor/eds-core-react'
 
 const getFieldType = (attribute: any) => {
   const { attributeType, dimensions } = attribute

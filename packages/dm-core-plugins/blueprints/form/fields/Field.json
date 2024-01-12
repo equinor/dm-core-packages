@@ -50,6 +50,12 @@
       "attributeType": "string",
       "optional": true,
       "description": "What will be displayed in form. If this is not set, then form will use the attribute 'name'."
+    },
+    {
+      "name": "tooltip",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
     }
   ]
 }
