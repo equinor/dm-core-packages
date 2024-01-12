@@ -2,6 +2,7 @@ import '@development-framework/dm-core/dist/main.css'
 import {
   ApplicationContext,
   EntityView,
+  ErrorGroup,
   FSTreeProvider,
   Loading,
   RoleProvider,
@@ -20,6 +21,9 @@ import { refresh } from '@equinor/eds-icons'
 import React from 'react'
 import './main.css'
 import plugins from './plugins'
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ViewPage from './ViewPage'
 
 const appNotReadyPage = () => (
   <div
@@ -74,16 +78,44 @@ function App() {
     console.error(error)
     return appNotReadyPage()
   }
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: (
+        <EntityView idReference={idReference} type={application?.type} />
+      ),
+    },
+    {
+      path: '/view',
+      element: <ViewPage />,
+      errorElement: (
+        <div
+          style={{
+            border: '2px solid',
+            borderColor: '#6a94c6',
+            backgroundColor: '#cadcf1',
+            padding: '20px',
+            margin: '20px',
+            borderRadius: '5px',
+          }}
+        >
+          To view a specific entity, provide it's ID as a parameter in the URL.{' '}
+          <p>
+            For example:{' '}
+            <code>'/view/?documentId=dmss://dataSource/123.attribute' </code>
+          </p>
+        </div>
+      ),
+    },
+  ])
 
   return (
     <ApplicationContext.Provider value={application}>
-      <UiPluginProvider pluginsToLoad={plugins}>
-        <RoleProvider roles={application?.roles || []}>
-          <FSTreeProvider visibleDataSources={application?.dataSources || []}>
-            <EntityView idReference={idReference} type={application?.type} />
-          </FSTreeProvider>
-        </RoleProvider>
-      </UiPluginProvider>
+      <RoleProvider roles={application?.roles || []}>
+        <FSTreeProvider visibleDataSources={application?.dataSources || []}>
+          <RouterProvider router={router} />
+        </FSTreeProvider>
+      </RoleProvider>
     </ApplicationContext.Provider>
   )
 }
