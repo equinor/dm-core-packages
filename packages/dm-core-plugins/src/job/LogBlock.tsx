@@ -8,7 +8,7 @@ export interface LogBlockProps {
   content: any
 }
 
-const FormattedLogContainer = styled.pre`
+const FormattedLogContainer = styled.div`
   font-size: 0.8rem;
   line-height: normal;
   position: relative;
@@ -18,7 +18,8 @@ const FormattedLogContainer = styled.pre`
   padding: 1rem;
   border-radius: 0.5rem;
   color: #dcdde0;
-  overflow: auto;
+  white-space: pre-wrap; 
+  overflow-x: hidden;
 
   & .hljs-string {
     color: #a5ff90;
@@ -38,6 +39,7 @@ const LogLine = styled.pre`
   &:hover {
     background-color: #316082;
   }
+  white-space: pre-wrap; 
 `
 
 export const LogBlock = (props: LogBlockProps) => {
@@ -62,7 +64,9 @@ export const LogBlock = (props: LogBlockProps) => {
         {content.constructor === Array ? (
           content.map((line) => <LogLine key={line}>{line}</LogLine>)
         ) : (
-          <pre>{JSON.stringify(content, null, 2)}</pre>
+          <pre className='whitespace-pre-wrap'>
+            {JSON.stringify(content, null, 2)}
+          </pre>
         )}
       </FormattedLogContainer>
     </>
