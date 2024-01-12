@@ -34,6 +34,7 @@ export const SidebarPlugin = (
         display: 'flex',
         flexDirection: 'row',
         width: '100%',
+        height: '100%',
       }}
     >
       <Sidebar
@@ -42,28 +43,19 @@ export const SidebarPlugin = (
         setSelectedViewId={setSelectedViewId}
         addView={addView}
       />
-      <div
+      <Content
+        type={type}
+        onOpen={addView}
+        formData={formData}
+        selectedViewId={selectedViewId}
+        viewSelectorItems={viewSelectorItems}
+        setFormData={setFormData}
         style={{
-          paddingLeft: '8px',
-          paddingRight: '8px',
-          width: '100%',
-          marginRight: '.5rem',
+          height: '100%',
+          flexGrow: '1',
+          paddingLeft: '10px',
         }}
-      >
-        <Content
-          style={{
-            paddingLeft: '8px',
-            paddingRight: '8px',
-            width: '100%',
-          }}
-          type={type}
-          onOpen={addView}
-          formData={formData}
-          selectedViewId={selectedViewId}
-          viewSelectorItems={viewSelectorItems}
-          setFormData={setFormData}
-        />
-      </div>
+      />
     </div>
   )
 }

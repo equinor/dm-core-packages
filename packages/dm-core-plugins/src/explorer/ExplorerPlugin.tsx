@@ -22,7 +22,7 @@ export default () => {
     undefined
   )
   return (
-    <div style={{ display: 'flex', height: '100vh', width: '100%' }}>
+    <div style={{ display: 'flex', height: '100%', width: '100%' }}>
       {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Progress.Circular />
@@ -41,7 +41,13 @@ export default () => {
         </Sidebar>
       )}
       {selectedType && selectedEntity && (
-        <div style={{ width: '100%', padding: '20px' }}>
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+          }}
+        >
           <EntityView
             type={selectedType}
             idReference={selectedEntity}

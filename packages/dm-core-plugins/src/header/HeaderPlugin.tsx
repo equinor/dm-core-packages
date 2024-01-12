@@ -118,13 +118,21 @@ export default (props: IUIPlugin): React.ReactElement => {
       ? config.uiRecipesList
       : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        flexDirection: 'column',
+      }}
+    >
       <TopBar
         style={{
           display: 'flex',
           justifyItems: 'center',
           justifyContent: 'space-between',
           marginBottom: '8px',
+          height: '64px',
         }}
       >
         <TopBar.Header
@@ -169,12 +177,20 @@ export default (props: IUIPlugin): React.ReactElement => {
         setIsOpen={setVisibleUserInfo}
         applicationEntity={entity}
       />
-      <UIPlugin
-        key={idReference + selectedRecipe.name}
-        idReference={idReference}
-        type={entity.type}
-        config={selectedRecipe.config}
-      />
+      <div
+        style={{
+          height: 'calc(100% - 64px)',
+          width: '100%',
+          display: 'flex',
+        }}
+      >
+        <UIPlugin
+          key={idReference + selectedRecipe.name}
+          idReference={idReference}
+          type={entity.type}
+          config={selectedRecipe.config}
+        />
+      </div>
     </div>
   )
 }

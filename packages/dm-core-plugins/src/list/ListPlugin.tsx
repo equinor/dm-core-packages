@@ -162,7 +162,14 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const { documentPath, dataSource } = splitAddress(idReference)
 
   return (
-    <Stack style={{ width: '100%' }}>
+    <Stack
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        overflow: 'hidden',
+      }}
+    >
       {attribute && !attribute.contained && (
         <EntityPickerDialog
           showModal={showModal}
@@ -190,186 +197,203 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           hideInvalidTypes={internalConfig.hideInvalidTypes}
         />
       )}
-      {currentItems &&
-        currentItems.map((item: TItem<TGenericObject>, index: number) => (
-          <Stack key={item?.key} style={{ width: '100%' }}>
+      <div
+        style={{
+          width: '100%',
+          maxHeight: 'calc(100% - 48px)',
+          overflow: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {currentItems &&
+          currentItems.map((item: TItem<TGenericObject>, index: number) => (
             <Stack
-              direction='row'
-              role='row'
-              justifyContent='space-between'
-              alignItems='center'
-              className={`border-b border-[#ccc]`}
-              style={{
-                paddingBlock: internalConfig.compact ? '' : '2px',
-                paddingInline: '4px',
-                width: '100%',
-              }}
+              key={item?.key}
+              style={{ width: '100%', height: 'auto', display: 'flex' }}
             >
               <Stack
                 direction='row'
+                role='row'
+                justifyContent='space-between'
                 alignItems='center'
+                className={`border-b border-[#ccc]`}
                 style={{
                   width: '100%',
+                  height: '100%',
+                  padding: '4px',
                   overflow: 'hidden',
                 }}
               >
-                {internalConfig.functionality.expand && (
-                  <EdsProvider
-                    density={internalConfig.compact ? 'compact' : 'comfortable'}
-                  >
-                    <Tooltip title={expanded[item.key] ? 'Minimize' : 'Expand'}>
-                      <div className='w-fit'>
-                        <Button
-                          variant='ghost_icon'
-                          color='secondary'
-                          disabled={!item.isSaved}
-                          data-testid={`expandListItem-${index}`}
-                          onClick={() => handleExpand(item)}
-                        >
-                          <Icon
-                            data={chevron_right}
-                            size={internalConfig.compact ? 18 : 24}
-                            title={
-                              expanded[item.key]
-                                ? 'Minimize item'
-                                : 'Expand item'
-                            }
-                            className='transition-all'
-                            style={{
-                              padding: '0px',
-                              transform: expanded[item.key]
-                                ? 'rotate(90deg)'
-                                : 'rotate(0deg)',
-                            }}
-                          />
-                        </Button>
-                      </div>
-                    </Tooltip>
-                  </EdsProvider>
-                )}
-                {attribute && !attribute.contained && <Icon data={link} />}
-                <div
-                  onClick={() =>
-                    internalConfig.functionality.expand &&
-                    item.isSaved &&
-                    handleExpand(item)
-                  }
-                  className={`px-2 overflow-hidden text-ellipsis whitespace-nowrap
+                <Stack
+                  direction='row'
+                  alignItems='center'
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                >
+                  {internalConfig.functionality.expand && (
+                    <EdsProvider
+                      density={
+                        internalConfig.compact ? 'compact' : 'comfortable'
+                      }
+                    >
+                      <Tooltip
+                        title={expanded[item.key] ? 'Minimize' : 'Expand'}
+                      >
+                        <div className='w-fit'>
+                          <Button
+                            variant='ghost_icon'
+                            color='secondary'
+                            disabled={!item.isSaved}
+                            data-testid={`expandListItem-${index}`}
+                            onClick={() => handleExpand(item)}
+                          >
+                            <Icon
+                              data={chevron_right}
+                              size={internalConfig.compact ? 18 : 24}
+                              title={
+                                expanded[item.key]
+                                  ? 'Minimize item'
+                                  : 'Expand item'
+                              }
+                              className='transition-all'
+                              style={{
+                                transform: expanded[item.key]
+                                  ? 'rotate(90deg)'
+                                  : 'rotate(0deg)',
+                              }}
+                            />
+                          </Button>
+                        </div>
+                      </Tooltip>
+                    </EdsProvider>
+                  )}
+                  {attribute && !attribute.contained && <Icon data={link} />}
+                  <div
+                    onClick={() =>
+                      internalConfig.functionality.expand &&
+                      item.isSaved &&
+                      handleExpand(item)
+                    }
+                    className={`px-2 overflow-hidden text-ellipsis whitespace-nowrap
                     ${
                       internalConfig.functionality.expand
                         ? 'cursor-pointer'
                         : ''
                     }`}
-                >
-                  {internalConfig.headers.map(
-                    (attribute: string, index: number) => {
-                      if (item.data && item.data?.[attribute]) {
-                        return (
-                          <Typography
-                            key={attribute}
-                            variant='body_short'
-                            bold={index === 0}
-                            style={{
-                              marginLeft: index !== 0 ? '10px' : '0',
-                              display: 'inline',
-                            }}
-                          >
-                            {ensureNotObject(item?.data[attribute])}
-                          </Typography>
-                        )
-                      }
-                    }
-                  )}
-                </div>
-              </Stack>
-              <Stack direction='row' alignItems='center'>
-                {internalConfig.functionality.open && (
-                  <Tooltip title='Open in new tab'>
-                    <Button
-                      variant='ghost_icon'
-                      color='secondary'
-                      disabled={!item.isSaved}
-                      data-testid={`open-list-item-${index}`}
-                      onClick={() => handleOpen(item)}
-                    >
-                      <Icon
-                        data={external_link}
-                        size={18}
-                        title={'Open in tab'}
-                        aria-label={'Open in tab'}
-                      />
-                    </Button>
-                  </Tooltip>
-                )}
-                {internalConfig.functionality.sort && (
-                  <>
-                    <ListChevronButton
-                      disabled={index === 0}
-                      onClick={() => {
-                        moveItem(item, 'up')
-                      }}
-                      type='up'
-                    />
-                    <ListChevronButton
-                      type='down'
-                      disabled={
-                        index === itemsPerPage - 1 ||
-                        index === items?.length - 1
-                      }
-                      onClick={() => {
-                        moveItem(item, 'down')
-                      }}
-                    />
-                  </>
-                )}
-                {internalConfig.functionality.delete && (
-                  <DeleteSoftButton
-                    onClick={() => removeItem(item, false)}
-                    title={'Delete'}
-                  />
-                )}
-              </Stack>
-            </Stack>
-            <Stack>
-              {expanded[item.key] && (
-                <div className='m-2 border-b border-[#ccc] pb-4'>
-                  <ViewCreator
-                    onSubmit={
-                      config.saveExpanded
-                        ? undefined
-                        : (data: TGenericObject) => handleItemUpdate(item, data)
-                    }
-                    onChange={
-                      config.saveExpanded
-                        ? (data: TGenericObject) => handleItemUpdate(item, data)
-                        : undefined
-                    }
-                    idReference={
-                      attribute && !attribute.contained
-                        ? resolveRelativeAddress(
-                            item?.reference?.address || '',
-                            documentPath,
-                            dataSource
+                  >
+                    {internalConfig.headers.map(
+                      (attribute: string, index: number) => {
+                        if (item.data && item.data?.[attribute]) {
+                          return (
+                            <Typography
+                              key={attribute}
+                              variant='body_short'
+                              bold={index === 0}
+                              style={{
+                                marginLeft: index !== 0 ? '10px' : '0',
+                                display: 'inline',
+                              }}
+                            >
+                              {ensureNotObject(item?.data[attribute])}
+                            </Typography>
                           )
-                        : `${idReference}[${item.index}]`
-                    }
-                    viewConfig={internalConfig.expandViewConfig}
-                  />
-                </div>
+                        }
+                      }
+                    )}
+                  </div>
+                </Stack>
+                <Stack direction='row' alignItems='center'>
+                  {internalConfig.functionality.open && (
+                    <Tooltip title='Open in new tab'>
+                      <Button
+                        variant='ghost_icon'
+                        color='secondary'
+                        disabled={!item.isSaved}
+                        data-testid={`open-list-item-${index}`}
+                        onClick={() => handleOpen(item)}
+                      >
+                        <Icon
+                          data={external_link}
+                          size={18}
+                          title={'Open in tab'}
+                          aria-label={'Open in tab'}
+                        />
+                      </Button>
+                    </Tooltip>
+                  )}
+                  {internalConfig.functionality.sort && (
+                    <>
+                      <ListChevronButton
+                        disabled={index === 0}
+                        onClick={() => {
+                          moveItem(item, 'up')
+                        }}
+                        type='up'
+                      />
+                      <ListChevronButton
+                        type='down'
+                        disabled={
+                          index === itemsPerPage - 1 ||
+                          index === items?.length - 1
+                        }
+                        onClick={() => {
+                          moveItem(item, 'down')
+                        }}
+                      />
+                    </>
+                  )}
+                  {internalConfig.functionality.delete && (
+                    <DeleteSoftButton
+                      onClick={() => removeItem(item, false)}
+                      title={'Delete'}
+                    />
+                  )}
+                </Stack>
+              </Stack>
+              {expanded[item.key] && (
+                <Stack>
+                  <div className='m-2 border-b border-[#ccc] pb-4'>
+                    <ViewCreator
+                      onSubmit={
+                        config.saveExpanded
+                          ? undefined
+                          : (data: TGenericObject) =>
+                              handleItemUpdate(item, data)
+                      }
+                      onChange={
+                        config.saveExpanded
+                          ? (data: TGenericObject) =>
+                              handleItemUpdate(item, data)
+                          : undefined
+                      }
+                      idReference={
+                        attribute && !attribute.contained
+                          ? resolveRelativeAddress(
+                              item?.reference?.address || '',
+                              documentPath,
+                              dataSource
+                            )
+                          : `${idReference}[${item.index}]`
+                      }
+                      viewConfig={internalConfig.expandViewConfig}
+                    />
+                  </div>
+                </Stack>
               )}
             </Stack>
-          </Stack>
-        ))}
+          ))}
+      </div>
       <EdsProvider density={internalConfig.compact ? 'compact' : 'comfortable'}>
         <Stack
           direction='row'
           justifyContent={showPagination ? 'space-between' : 'flex-end'}
           spacing={1}
-          style={
-            showPagination
-              ? { padding: '0.2rem 0 0.2rem 0.5rem' }
-              : { padding: '0.5rem 0 0.5rem 0' }
-          }
+          style={{
+            padding: '6px',
+          }}
         >
           {showPagination && (
             <Pagination

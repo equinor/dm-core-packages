@@ -9,11 +9,9 @@ import { Loading } from './Loading'
 import RefreshButton from './RefreshButton'
 
 const Wrapper = styled.div`
-  align-self: start;
-  justify-content: space-evenly;
-  width: 100%;
+  display: flex;
   height: 100%;
-  position: relative;
+  width: 100%;
 `
 
 type IEntityView = IUIPlugin & {
@@ -82,45 +80,29 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     <Wrapper>
       <Suspense fallback={<Loading />}>
         <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
-          <div
-            onMouseEnter={() => setHoverOver({ ...hoverOver, component: true })}
-            onMouseLeave={() =>
-              setHoverOver({ refreshButton: false, component: false })
-            }
-            style={
-              refreshable && hoverOver.refreshButton
-                ? {
-                    outline: '1px solid rgba(220,220,220)',
-                    outlineOffset: '10px',
-                    borderRadius: '10px',
-                  }
-                : {}
-            }
-          >
-            {refreshable && (
-              <RefreshButton
-                hidden={!hoverOver.component}
-                tooltip={recipe.plugin.split('/').at(-1)}
-                onMouseLeave={() =>
-                  setHoverOver({ ...hoverOver, refreshButton: false })
-                }
-                onMouseEnter={() =>
-                  setHoverOver({ ...hoverOver, refreshButton: true })
-                }
-                onClick={() => setReloadCounter(reloadCounter + 1)}
-              />
-            )}
-            <MemoizedUiPlugin
-              getPlugin={getUiPlugin}
-              recipe={recipe}
-              idReference={idReference}
-              type={type}
-              onSubmit={onSubmit}
-              onOpen={onOpen}
-              onChange={onChange}
-              key={reloadCounter}
+          {refreshable && (
+            <RefreshButton
+              hidden={!hoverOver.component}
+              tooltip={recipe.plugin.split('/').at(-1)}
+              onMouseLeave={() =>
+                setHoverOver({ ...hoverOver, refreshButton: false })
+              }
+              onMouseEnter={() =>
+                setHoverOver({ ...hoverOver, refreshButton: true })
+              }
+              onClick={() => setReloadCounter(reloadCounter + 1)}
             />
-          </div>
+          )}
+          <MemoizedUiPlugin
+            getPlugin={getUiPlugin}
+            recipe={recipe}
+            idReference={idReference}
+            type={type}
+            onSubmit={onSubmit}
+            onOpen={onOpen}
+            onChange={onChange}
+            key={reloadCounter}
+          />
         </ErrorBoundary>
       </Suspense>
     </Wrapper>

@@ -21,7 +21,6 @@ const Element = styled.div<TElementProps>`
     `${props.itemBorder.size} ${props.itemBorder.style} ${props.itemBorder.color}`};
   border-radius: ${(props: TElementProps) =>
     props.showItemBorders && props.itemBorder.radius};
-  padding: 10px;
 `
 
 type TGridItemProps = {
@@ -46,12 +45,20 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       itemBorder={itemBorder}
     >
       {item?.title && <Typography variant='h4'>{item.title}</Typography>}
-      <ViewCreator
-        idReference={idReference}
-        viewConfig={item.viewConfig}
-        onSubmit={onSubmit}
-        onChange={onChange}
-      />
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+        }}
+      >
+        <ViewCreator
+          idReference={idReference}
+          viewConfig={item.viewConfig}
+          onSubmit={onSubmit}
+          onChange={onChange}
+        />
+      </div>
     </Element>
   )
 }

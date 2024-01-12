@@ -13,8 +13,22 @@ export const Sidebar = (props: {
   const { selectedViewId, setSelectedViewId, viewSelectorItems, addView } =
     props
   return (
-    <SideBar open style={{ height: 'auto' }}>
-      <SideBar.Content>
+    <SideBar
+      open
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: '100%',
+      }}
+    >
+      <SideBar.Content
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'auto',
+        }}
+      >
         {viewSelectorItems.map((viewItem: TItemData) => {
           // subItem's will be rendered inside other items. Don't add them here
           if (viewItem.isSubItem) return null

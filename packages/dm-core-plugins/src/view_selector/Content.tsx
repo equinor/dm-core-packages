@@ -13,9 +13,10 @@ type LazyProps = {
 }
 
 const HideContentWrapper = styled.div<any>`
-  display: ${(props: { hidden: boolean }) => (props.hidden && 'none') || 'flex'}
+  display: ${(props: { hidden: boolean }) => (props.hidden && 'none') || 'flex'};
   align-self: normal;
   width: 100%;
+  height: 100%;
 `
 
 const Lazy = ({ visible, children }: PropsWithChildren<LazyProps>) => {

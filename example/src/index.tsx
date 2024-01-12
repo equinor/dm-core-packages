@@ -36,7 +36,16 @@ const Content = () => {
     <DMSSProvider dmssBasePath={import.meta.env.VITE_DMSS_URL}>
       <DMJobProvider dmJobPath={import.meta.env.VITE_DM_JOB_URL}>
         <UiPluginProvider pluginsToLoad={plugins}>
-          <App />
+          <div
+            style={{
+              display: 'flex',
+              height: '100vh',
+              width: '100vw',
+              overflow: 'hidden',
+            }}
+          >
+            <App />
+          </div>
         </UiPluginProvider>
         <ToastContainer />
       </DMJobProvider>

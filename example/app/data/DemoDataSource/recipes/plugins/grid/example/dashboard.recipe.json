@@ -68,7 +68,7 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 4,
             "columnStart": 1,
-            "rowEnd": 5,
+            "rowEnd": 4,
             "columnEnd": 3
           }
         },
@@ -83,7 +83,7 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 4,
             "columnStart": 4,
-            "rowEnd": 5,
+            "rowEnd": 4,
             "columnEnd": 6
           }
         },
@@ -101,7 +101,7 @@
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
             "rowStart": 5,
             "columnStart": 1,
-            "rowEnd": 6,
+            "rowEnd": 5,
             "columnEnd": 6
           }
         }
