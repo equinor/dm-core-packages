@@ -42,6 +42,34 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.39.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.38.2...dm-core-plugins-v1.39.0) (2024-01-12)
+
+
+### Features
+
+* add additional config to DataGridPlugin ([6c0a446](https://github.com/equinor/dm-core-packages/commit/6c0a4460ab39ca34f6e2e4f4f44cb009e08e7199))
+* can hide delete now ([#1123](https://github.com/equinor/dm-core-packages/issues/1123)) ([d932cc2](https://github.com/equinor/dm-core-packages/commit/d932cc2e9c5689eb5dd7c985bd6b754ede1f80ba))
+* make datagridplugin and component support additional config ([24e5d45](https://github.com/equinor/dm-core-packages/commit/24e5d45dee5806f44facd1df2ed9779f71462a58))
+* name in new entity picker ([65d41bd](https://github.com/equinor/dm-core-packages/commit/65d41bd5f3f72525841b210592408f7f4c70ef19))
+
+
+### Bug Fixes
+
+* disable sort when first or last, enable add on 1d primitive ([#1120](https://github.com/equinor/dm-core-packages/issues/1120)) ([7555e79](https://github.com/equinor/dm-core-packages/commit/7555e79164d5f007e693551f7bb16284effc4557))
+* hide optional ([#1115](https://github.com/equinor/dm-core-packages/issues/1115)) ([d8c6134](https://github.com/equinor/dm-core-packages/commit/d8c6134c55b7b653737e79cc8cacef57e0248abb))
+* **job/control:** modify runner from template ([7b7d8c3](https://github.com/equinor/dm-core-packages/commit/7b7d8c3e201e473f276830946ea6efe4d7b12f68))
+* **list:** check for scope before trying to resolve potentially undefined ([#1114](https://github.com/equinor/dm-core-packages/issues/1114)) ([2524203](https://github.com/equinor/dm-core-packages/commit/2524203621202016ea754afec7ef7b0bcf539f92))
+* logs viewer scrolling ([#1129](https://github.com/equinor/dm-core-packages/issues/1129)) ([2de43a9](https://github.com/equinor/dm-core-packages/commit/2de43a96698fafc5a8cb5f12dda1156dd43ac2dc))
+* remove close button ([#1130](https://github.com/equinor/dm-core-packages/issues/1130)) ([24064a3](https://github.com/equinor/dm-core-packages/commit/24064a3e52f0a7a75e7fc03200962fa3bc12bfdf))
+* remove logging ([d932cc2](https://github.com/equinor/dm-core-packages/commit/d932cc2e9c5689eb5dd7c985bd6b754ede1f80ba))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.32.1 to ^1.33.0
+
 ## [1.38.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.38.1...dm-core-plugins-v1.38.2) (2024-01-10)
 
 
