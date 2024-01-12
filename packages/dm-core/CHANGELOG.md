@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.33.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.32.1...dm-core-v1.33.0) (2024-01-12)
+
+
+### Features
+
+* name in new entity picker ([65d41bd](https://github.com/equinor/dm-core-packages/commit/65d41bd5f3f72525841b210592408f7f4c70ef19))
+
+
+### Bug Fixes
+
+* **job/control:** modify runner from template ([7b7d8c3](https://github.com/equinor/dm-core-packages/commit/7b7d8c3e201e473f276830946ea6efe4d7b12f68))
+* rename to upload date ([936dec3](https://github.com/equinor/dm-core-packages/commit/936dec397993c0e66f190100b89fefc1bdbe079b))
+
 ## [1.32.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.32.0...dm-core-v1.32.1) (2024-01-10)
 
 
