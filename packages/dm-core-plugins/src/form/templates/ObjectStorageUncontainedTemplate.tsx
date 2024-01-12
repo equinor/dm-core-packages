@@ -54,7 +54,7 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
           }
           uiAttribute={uiAttribute}
         />
-        <FormTemplate.Header.Actions>
+        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
           {canOpen && referenceExists && (
             <OpenObjectButton
               viewId={namePath}

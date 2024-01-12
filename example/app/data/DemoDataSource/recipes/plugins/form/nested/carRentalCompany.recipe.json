@@ -81,6 +81,11 @@
               "expand": true
             },
             "tooltip": "Locations"
+          },
+          {
+            "name": "operable",
+            "type": "PLUGINS:dm-core-plugins/form/fields/BooleanField",
+            "tooltip": "Check me pls. "
           }
         ],
         "compactButtons": true,

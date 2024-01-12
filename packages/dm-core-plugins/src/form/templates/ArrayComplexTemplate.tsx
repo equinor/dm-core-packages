@@ -59,7 +59,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
             viewConfig={getOpenViewConfig(uiAttribute, namePath)}
           />
         )}
-        <FormTemplate.Header.Actions>
+        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
           {attribute.optional &&
             !config.readOnly &&
             (isDefined ? (

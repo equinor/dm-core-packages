@@ -61,7 +61,7 @@ export const ObjectModelUncontainedTemplate = (
           icon={link}
           uiAttribute={uiAttribute}
         />
-        <FormTemplate.Header.Actions>
+        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
           {canOpen && (
             <OpenObjectButton
               viewId={namePath}

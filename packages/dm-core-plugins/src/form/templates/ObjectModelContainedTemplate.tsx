@@ -53,7 +53,7 @@ export const ObjectModelContainedTemplate = (
           }
           uiAttribute={uiAttribute}
         />
-        <FormTemplate.Header.Actions>
+        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
           {canOpen && (
             <OpenObjectButton
               viewId={namePath}

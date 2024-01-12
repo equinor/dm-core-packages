@@ -4,6 +4,7 @@ import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
 import { useRegistryContext } from '../context/RegistryContext'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { Tooltip } from '@equinor/eds-core-react'
 
 export const BooleanField = (props: TField) => {
   const { namePath, uiAttribute, attribute } = props
@@ -33,6 +34,7 @@ export const BooleanField = (props: TField) => {
           helperText={error?.message}
           variant={invalid ? 'error' : undefined}
           config={uiAttribute?.config}
+          tooltip={uiAttribute?.tooltip}
         />
       )}
     />

@@ -107,6 +107,7 @@ export type TWidget = {
   config?: Record<any, any>
   isDirty?: boolean
   enumType?: any
+  tooltip?: string
 }
 
 export type TWidgets = {
