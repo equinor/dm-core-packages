@@ -33,11 +33,6 @@ export const JobLogsDialog = (props: AboutDialogProps) => {
         />
         {result && <LogBlock title='Result' content={result} />}
       </Dialog.CustomContent>
-      <Dialog.Actions
-        style={{ display: 'flex', flexDirection: 'row', justifyContent: 'end' }}
-      >
-        <Button onClick={() => setIsOpen(false)}>Close</Button>
-      </Dialog.Actions>
     </Dialog>
   )
 }
