@@ -42,12 +42,7 @@ type TUiAttributeBase = {
   showInline?: boolean
   config?: Record<any, any>
   readOnly?: boolean
-  expandViewConfig?: TViewConfig
-  openViewConfig?: TViewConfig
-  functionality?: {
-    expand: boolean
-    open: boolean
-  }
+
   hideOptionalLabel?: boolean
   label?: string
 }
@@ -66,6 +61,13 @@ export type TUiAttributeObject = TUiAttributeBase & {
   uiRecipe?: string
   showExpanded?: boolean
   searchByType?: boolean
+  expandViewConfig?: TViewConfig
+  openViewConfig?: TViewConfig
+  functionality?: {
+    expand: boolean
+    open: boolean
+  }
+  hideDelete?: boolean
 }
 
 export type TPrimitive = string | number | boolean

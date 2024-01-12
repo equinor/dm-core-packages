@@ -78,13 +78,16 @@ export const ObjectModelContainedTemplate = (
               )}
             </>
           )}
-          {attribute.optional && objectIsNotEmpty && !config.readOnly && (
-            <RemoveObject
-              popupTitle={`Confirm Removal`}
-              popupMessage={`Are sure you want to remove reference to '${namePath}'`}
-              namePath={namePath}
-            />
-          )}
+          {attribute.optional &&
+            objectIsNotEmpty &&
+            !config.readOnly &&
+            !uiAttribute?.hideDelete && (
+              <RemoveObject
+                popupTitle={`Confirm Removal`}
+                popupMessage={`Are sure you want to remove reference to '${namePath}'`}
+                namePath={namePath}
+              />
+            )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
       {canExpand && isExpanded && (
