@@ -6,18 +6,17 @@ import { TGridPluginConfig, TGridSize } from './types'
 
 const Grid = styled.div<TGridSize>`
   display: grid;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
   grid-template-rows: ${(props) =>
     props.rowSizes
       ? props.rowSizes.join(' ')
-      : Array(props.rows + 1)
-          .fill('1fr')
-          .join('')};
+      : 'repeat(' + props.rows + ', 1fr)'};
   grid-template-columns: ${(props) =>
     props.columnSizes
       ? props.columnSizes.join(' ')
-      : Array(props.columns + 1)
-          .fill('1fr')
-          .join('')};
+      : 'repeat(' + props.columns + ', 1fr)'};
   grid-column-gap: ${(props) => props.columnGap};
   grid-row-gap: ${(props) => props.rowGap};
 `

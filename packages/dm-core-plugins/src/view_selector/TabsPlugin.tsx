@@ -35,36 +35,37 @@ export const TabsPlugin = (
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
+        height: '100%',
       }}
     >
-      <Tabs
-        viewSelectorItems={viewSelectorItems}
-        selectedViewId={selectedViewId}
-        setSelectedViewId={setSelectedViewId}
-        removeView={removeView}
-      />
       <div
         style={{
-          paddingTop: '8px',
-          paddingRight: '8px',
+          height: '48px',
           width: '100%',
-          marginRight: '.5rem',
+          display: 'flex',
         }}
       >
-        <Content
-          style={{
-            paddingTop: '8px',
-            paddingRight: '8px',
-            width: '100%',
-          }}
-          type={type}
-          onOpen={addView}
-          formData={formData}
-          selectedViewId={selectedViewId}
+        <Tabs
           viewSelectorItems={viewSelectorItems}
-          setFormData={setFormData}
+          selectedViewId={selectedViewId}
+          setSelectedViewId={setSelectedViewId}
+          removeView={removeView}
         />
       </div>
+      <Content
+        type={type}
+        onOpen={addView}
+        formData={formData}
+        selectedViewId={selectedViewId}
+        viewSelectorItems={viewSelectorItems}
+        setFormData={setFormData}
+        style={{
+          height: 'calc(100% - 48px)',
+          width: '100%',
+          display: 'flex',
+          padding: '10px',
+        }}
+      />
     </div>
   )
 }

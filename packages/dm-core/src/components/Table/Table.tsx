@@ -96,8 +96,14 @@ export function Table(props: TableProps) {
   }
 
   return (
-    <Stack spacing={1}>
-      <Stack>
+    <Stack style={{ display: 'flex', width: '100%', height: '100%' }}>
+      <Stack
+        style={{
+          width: '100%',
+          maxHeight: 'calc(100% - 40px)',
+          overflow: 'auto',
+        }}
+      >
         <SortableContext items={items} onReorder={reorderItems}>
           <EDSTable
             style={{
@@ -185,7 +191,12 @@ export function Table(props: TableProps) {
           </>
         )}
       </Stack>
-      <Stack direction='row' spacing={1} justifyContent='space-between'>
+      <Stack
+        direction='row'
+        spacing={1}
+        justifyContent='space-between'
+        style={{ height: '40px' }}
+      >
         <Pagination
           count={items?.length || 0}
           rowsPerPage={itemsPerPage}

@@ -110,7 +110,11 @@ export function DataGridPlugin(props: IUIPlugin) {
   }
 
   return !data ? null : (
-    <Stack alignItems='flex-end' spacing={1}>
+    <Stack
+      alignItems='flex-start'
+      spacing={1}
+      style={{ width: '100%', height: '100%', overflow: 'auto' }}
+    >
       <DataGrid
         attributeType={attribute?.attributeType || 'string'}
         config={userConfig}
@@ -123,9 +127,17 @@ export function DataGridPlugin(props: IUIPlugin) {
         title={document?.title}
       />
       {config.editable && (
-        <Button onClick={saveDocument} disabled={!isDirty || loading}>
-          Save
-        </Button>
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            overflow: 'hidden',
+          }}
+        >
+          <Button onClick={saveDocument} disabled={!isDirty || loading}>
+            Save
+          </Button>
+        </div>
       )}
     </Stack>
   )
