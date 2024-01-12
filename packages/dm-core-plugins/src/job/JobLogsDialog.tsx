@@ -24,7 +24,7 @@ export const JobLogsDialog = (props: AboutDialogProps) => {
       open={isOpen}
       onClose={() => setIsOpen(false)}
       width={'60vw'}
-      style={{ maxHeight: '70vh' }}
+      style={{ maxHeight: '70vh', overflow: 'hidden' }}
     >
       <Dialog.CustomContent>
         <LogBlock
