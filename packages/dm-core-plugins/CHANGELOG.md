@@ -42,6 +42,25 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.39.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.39.0...dm-core-plugins-v1.39.1) (2024-01-12)
+
+
+### Bug Fixes
+
+* optional showmeta for mediaviewer ([1f86085](https://github.com/equinor/dm-core-packages/commit/1f860855a8be19b0dffece8300d1ed9b8fa94e9e))
+
+
+### Tests
+
+* added view page for easier testing ([6b8ed5d](https://github.com/equinor/dm-core-packages/commit/6b8ed5d52bfc2fe27706d9ec33b19b1759267a9f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.33.0 to ^1.33.1
+
 ## [1.39.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.38.2...dm-core-plugins-v1.39.0) (2024-01-12)
 
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.33.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.33.0...dm-core-v1.33.1) (2024-01-12)
+
+
+### Bug Fixes
+
+* optional showmeta for mediaviewer ([1f86085](https://github.com/equinor/dm-core-packages/commit/1f860855a8be19b0dffece8300d1ed9b8fa94e9e))
+
+
+### Tests
+
+* added view page for easier testing ([6b8ed5d](https://github.com/equinor/dm-core-packages/commit/6b8ed5d52bfc2fe27706d9ec33b19b1759267a9f))
+
 ## [1.33.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.32.1...dm-core-v1.33.0) (2024-01-12)
 
 
