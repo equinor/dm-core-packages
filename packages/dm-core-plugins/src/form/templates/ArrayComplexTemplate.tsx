@@ -51,7 +51,6 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
           setIsExpanded={setIsExpanded}
           attribute={attribute}
           icon={list}
-          hideOptionalLabel={uiAttribute?.hideOptionalLabel}
           uiAttribute={uiAttribute}
         />
         {canOpen && (
