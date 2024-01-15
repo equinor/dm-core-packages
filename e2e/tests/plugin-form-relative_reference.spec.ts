@@ -2,12 +2,10 @@ import { Page, expect, test } from '@playwright/test'
 
 test('Relative reference', async ({ page }) => {
   test.setTimeout(120000)
-  await page.goto('http://localhost:3000/')
-  await page.getByRole('button', { name: 'DemoDataSource' }).click()
-  await page.getByRole('button', { name: 'plugins' }).click()
-  await page.getByRole('button', { name: 'form' }).click()
-  await page.getByRole('button', { name: 'relative_reference' }).click()
-  await page.getByRole('button', { name: 'TestData' }).click()
+
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$relativeReference'
+  )
 
   await expect(page.getByRole('code')).toBeVisible()
   await page.getByRole('button', { name: 'edit Edit' }).click()
