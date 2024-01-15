@@ -1,12 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 test('uncontainedObject', async ({ page }) => {
-  await page.goto('http://localhost:3000/')
-  await page.getByRole('button', { name: 'DemoDataSource' }).click()
-  await page.getByRole('button', { name: 'plugins' }).click()
-  await page.getByRole('button', { name: 'form' }).click()
-  await page.getByRole('button', { name: 'uncontained_object' }).click()
-  await page.getByRole('button', { name: 'UncontainedObject' }).click()
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$UncontainedObject'
+  )
 
   const dialog = page.getByRole('dialog')
   const selectJohn = async () => {
