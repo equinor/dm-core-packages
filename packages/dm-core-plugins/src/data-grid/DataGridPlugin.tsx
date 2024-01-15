@@ -84,6 +84,7 @@ export function DataGridPlugin(props: IUIPlugin) {
           multiplePrimitives ? `*,${fieldNames.length}` : attribute?.dimensions
         }
         initialRowsPerPage={rowsPerPage}
+        name={blueprint?.name}
         setData={onChange}
         title={document?.title}
       />
