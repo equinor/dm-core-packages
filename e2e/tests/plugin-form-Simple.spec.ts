@@ -1,18 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 test('Simple form', async ({ page }) => {
-  const navigate = async () => {
-    await page.getByRole('button', { name: 'DemoDataSource' }).click()
-    await page.getByRole('button', { name: 'plugins' }).click()
-    await page.getByRole('button', { name: 'form' }).click()
-    await page.getByRole('button', { name: 'simple' }).click()
-    await page.getByRole('button', { name: 'DemoDataSource/$Simple' }).click()
-  }
-
-  await test.step('Open simple form', async () => {
-    await page.goto('http://localhost:3000/')
-    await navigate()
-  })
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$Simple'
+  )
 
   await test.step('Remove prefilled optional string', async () => {
     await page.getByLabel('An optional string (Optional)').fill('')
@@ -52,7 +43,6 @@ test('Simple form', async ({ page }) => {
 
   await test.step('Reloading form, expecting entered values to be stored', async () => {
     await page.reload()
-    await navigate()
     await expect(page.getByLabel('Optional string (Optional)')).toHaveValue('')
     await expect(page.getByLabel('Required string')).toHaveValue('Foo')
     await expect(page.getByLabel('Numbers only (Optional)')).toHaveValue('3.14')
