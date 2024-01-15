@@ -6,25 +6,18 @@ let page: Page
 
 test.beforeAll(async ({ browser }) => {
   page = await browser.newPage()
-  await page.goto('http://localhost:3000/')
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$Nested'
+  )
 })
 
 test.beforeEach(async () => {
   await page.reload()
-  await navigate()
 })
 
 test.afterAll(async () => {
   await page.close()
 })
-
-const navigate = async () => {
-  await page.getByRole('button', { name: 'DemoDataSource' }).click()
-  await page.getByRole('button', { name: 'plugins' }).click()
-  await page.getByRole('button', { name: 'form' }).click()
-  await page.getByRole('button', { name: 'nested' }).click()
-  await page.getByRole('button', { name: 'DemoDataSource/$Nested' }).click()
-}
 
 test('Change owner', async () => {
   await expect(page.getByText('Owner', { exact: true })).toBeVisible
@@ -110,7 +103,6 @@ test('Adding a trainee', async () => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
-  await navigate()
   await expect(trainee.getByTestId('form-text-widget-Name')).toHaveValue(
     'Peter Pan'
   )
@@ -130,7 +122,6 @@ test('Locations', async () => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
-  await navigate()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
   await expect(locationsDiv.getByRole('textbox').first()).toHaveValue(
     'Trondheim'
@@ -143,7 +134,6 @@ test('Locations', async () => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
-  await navigate()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
 })
 
@@ -157,7 +147,6 @@ test('New car', async () => {
   await carsDiv.getByTestId('form-submit').click()
   await page.getByText('Document updated').click()
   await page.reload()
-  await navigate()
   await expect(carsDiv.getByText('McLaren')).toBeVisible()
   await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
   await expect(carsDiv.getByTestId('form-text-widget-Name')).toHaveValue(
@@ -184,7 +173,6 @@ test('New customer', async () => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
-  await navigate()
   await customersDiv.getByRole('button', { name: 'Open' }).click()
   await expect(page.getByText('Lewis')).toBeVisible()
   await page
