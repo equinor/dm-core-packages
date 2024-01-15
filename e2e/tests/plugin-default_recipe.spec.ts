@@ -1,11 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 test('Form default DMSS UI Recipe', async ({ page }) => {
-  await page.goto('http://localhost:3000/')
-  await page.getByRole('button', { name: 'DemoDataSource' }).click()
-  await page.getByRole('button', { name: 'plugins' }).click()
-  await page.getByRole('button', { name: 'default_recipe' }).click()
-  await page.getByRole('button', { name: 'file Form' }).click()
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$Form'
+  )
   await page.getByRole('tab', { name: 'Edit' }).click()
 
   await expect(page.getByLabel('name')).toHaveValue('Form')
@@ -19,11 +17,9 @@ test('Form default DMSS UI Recipe', async ({ page }) => {
 
 test('TableList default DMSS UI Recipe', async ({ page }) => {
   await test.step('Open plugin', async () => {
-    await page.goto('http://localhost:3000/')
-    await page.getByRole('button', { name: 'DemoDataSource' }).click()
-    await page.getByRole('button', { name: 'plugins' }).click()
-    await page.getByRole('button', { name: 'default_recipe' }).click()
-    await page.getByRole('button', { name: 'TableList' }).click()
+    await page.goto(
+      'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$tableList'
+    )
     await page.getByRole('tab', { name: 'Edit' }).click()
   })
 
