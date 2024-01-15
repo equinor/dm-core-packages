@@ -1,4 +1,5 @@
 {
+  "_id": "relativeReference",
   "type": "./blueprints/Task",
   "name": "TestData",
   "data": {
