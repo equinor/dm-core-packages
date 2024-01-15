@@ -1,4 +1,5 @@
 {
+  "_id": "TheBlackPearl",
   "name": "TheBlackPearl",
   "type": "./blueprints/Ship",
   "captain": {

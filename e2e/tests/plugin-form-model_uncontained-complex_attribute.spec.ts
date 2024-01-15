@@ -2,13 +2,9 @@ import { expect, test } from '@playwright/test'
 
 test('Model uncontained complex attribute', async ({ page }) => {
   await test.step('Open plugin', async () => {
-    await page.goto('http://localhost:3000/')
-    await page.getByRole('button', { name: 'DemoDataSource' }).click()
-    await page.getByRole('button', { name: 'plugins' }).click()
-    await page.getByRole('button', { name: 'form' }).click()
-    await page.getByRole('button', { name: 'model_uncontained' }).click()
-    await page.getByRole('button', { name: 'complex_attribute' }).click()
-    await page.getByRole('button', { name: 'TheBlackPearl' }).click()
+    await page.goto(
+      'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$TheBlackPearl'
+    )
     await expect(
       page.getByRole('button', { name: 'Copy as YAML' })
     ).toBeVisible()
