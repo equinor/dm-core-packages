@@ -54,7 +54,6 @@ const FormTemplateHeaderTitle = ({
   onOpen,
   objectIsNotEmpty,
   icon,
-  hideOptionalLabel,
   uiAttribute,
 }: {
   canExpand: boolean | undefined
@@ -65,11 +64,11 @@ const FormTemplateHeaderTitle = ({
   setIsExpanded?: (expanded: boolean) => void
   onOpen?: () => void
   icon?: IconData
-  hideOptionalLabel?: boolean
   uiAttribute?: TUiAttribute
 }) => {
   const [isHovering, setIsHovering] = useState(false)
 
+  const hideOptional = uiAttribute?.hideOptionalLabel ?? false
   return (
     <div
       className={`flex flex-start items-center w-full h-full ${
@@ -129,7 +128,7 @@ const FormTemplateHeaderTitle = ({
         >
           {getDisplayLabel(attribute, true, uiAttribute)}
         </Typography>
-        {attribute.optional && !hideOptionalLabel && (
+        {attribute.optional && !hideOptional && (
           <p className='ps-1 mt-0.5 text-xs'>Optional</p>
         )}
       </div>
