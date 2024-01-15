@@ -39,8 +39,19 @@ export type DataGridProps = {
   description?: string
   dimensions?: string
   initialRowsPerPage?: number
+  name?: string
   setData: (data: any[]) => void
   title?: string
+}
+
+export type TFunctionalityChecks = {
+  addButtonFunctionality: string
+  addButtonIsEnabled: boolean
+  columnDimensions: string
+  columnsAreEditable: boolean
+  isMultiDimensional: boolean
+  isSortEnabled: boolean
+  rowsAreEditable: boolean
 }
 
 export type PredefinedLabels = '...ABC' | '...ZYX' | '...123'

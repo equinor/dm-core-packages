@@ -48,13 +48,14 @@ export function HeaderCell(props: HeaderCellProps) {
 
   return (
     <Styled.Header
-      onClick={() => changeSelected(index)}
+      aria-haspopup
       onContextMenu={handleColumnRightClick}
+      onClick={() => changeSelected(index)}
+      onKeyDown={setSelectedOnKeyDown}
       //@ts-ignore
       ref={setMenuButtonAnchor}
       selected={index === selected}
       tabIndex={0}
-      onKeyDown={setSelectedOnKeyDown}
     >
       {label}
       <Menu

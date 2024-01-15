@@ -1,13 +1,18 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { Stack } from '@development-framework/dm-core'
-import { EdsProvider, Icon, Typography } from '@equinor/eds-core-react'
-import { add, chevron_down, chevron_up, minimize } from '@equinor/eds-icons'
+import { EdsProvider, Typography } from '@equinor/eds-core-react'
 import * as Styled from './styles'
 import * as utils from './utils'
 import { DataCell } from './DataCell/DataCell'
 import { DataGridPagination } from './DataGridPagination/DataGridPagination'
 import { HeaderCell } from './HeaderCell/HeaderCell'
-import { DataGridConfig, DataGridProps, defaultConfig } from './types'
+import {
+  DataGridConfig,
+  DataGridProps,
+  TFunctionalityChecks,
+  defaultConfig,
+} from './types'
+import { DataGridActions } from './DataGridActions/DataGridActions'
 
 export function DataGrid(props: DataGridProps) {
   const { data, attributeType, dimensions, setData, config: userConfig } = props
@@ -27,26 +32,21 @@ export function DataGrid(props: DataGridProps) {
     paginationPage * rowsPerPage,
     paginationPage * rowsPerPage + rowsPerPage
   )
-  const [
-    rowsAreEditable,
-    columnsAreEditable,
-    addButtonFunctionality,
-    addButtonIsEnabled,
-    isMultiDimensional,
-    columnDimensions,
-    isSortEnabled,
-  ] = utils.getFunctionalityVariables(config, dimensions)
+  const functionality: TFunctionalityChecks = utils.getFunctionalityVariables(
+    config,
+    dimensions
+  )
 
   useEffect(() => {
-    const columnLabels = isMultiDimensional
-      ? columnDimensions === '*'
+    const columnLabels = functionality.isMultiDimensional
+      ? functionality.columnDimensions === '*'
         ? utils.createLabels(
             config.columnLabels,
             data.length > 0 ? data[0].length : 0
           )
         : utils.createLabels(
             config.columnLabels,
-            parseInt(columnDimensions, 10)
+            parseInt(functionality.columnDimensions, 10)
           )
       : ['1']
     const rowLabels = utils.createLabels(config.rowLabels, data?.length)
@@ -85,7 +85,8 @@ export function DataGrid(props: DataGridProps) {
     }
   }
 
-  function addColumn(newIndex: number) {
+  function addColumn(newIndex?: number) {
+    newIndex = newIndex || columnLabels.length
     const newColumns = utils.createLabels(
       config.columnLabels,
       columnLabels.length + 1
@@ -130,7 +131,7 @@ export function DataGrid(props: DataGridProps) {
                   <HeaderCell
                     key={`${dataGridId}_header_${index}`}
                     add={addColumn}
-                    editable={columnsAreEditable}
+                    editable={functionality.columnsAreEditable}
                     delete={deleteColumn}
                     index={index}
                     label={column}
@@ -155,7 +156,7 @@ export function DataGrid(props: DataGridProps) {
                       delete={deleteRow}
                       index={calculatedIndex}
                       label={rowLabels[calculatedIndex]}
-                      editable={rowsAreEditable}
+                      editable={functionality.rowsAreEditable}
                       selected={selectedRow}
                       setSelected={setSelectedRow}
                       type={
@@ -165,7 +166,7 @@ export function DataGrid(props: DataGridProps) {
                       }
                     />
                   )}
-                  {isMultiDimensional ? (
+                  {functionality.isMultiDimensional ? (
                     item?.map((cellValue: any, cellIndex: number) => (
                       <DataCell
                         key={`${dataGridId}_row_${calculatedIndex}_cell_${cellIndex}`}
@@ -201,45 +202,19 @@ export function DataGrid(props: DataGridProps) {
         </Styled.DataGrid>
       </EdsProvider>
       <Styled.ActionRow>
-        <Stack direction='row'>
-          {addButtonIsEnabled && (
-            <Styled.ActionRowButton
-              aria-label='Add data row'
-              onClick={() =>
-                addButtonFunctionality === 'addRow'
-                  ? addRow()
-                  : addColumn(columnLabels.length)
-              }
-            >
-              <Icon size={16} data={add} />
-            </Styled.ActionRowButton>
-          )}
-          {selectedRow !== undefined && (
-            <>
-              {rowsAreEditable && (
-                <Styled.ActionRowButton onClick={deleteRow}>
-                  <Icon size={16} data={minimize} />
-                </Styled.ActionRowButton>
-              )}
-              {isSortEnabled && (
-                <>
-                  <Styled.ActionRowButton
-                    onClick={() => moveRow('up')}
-                    disabled={selectedRow === 0}
-                  >
-                    <Icon size={16} data={chevron_up} />
-                  </Styled.ActionRowButton>
-                  <Styled.ActionRowButton
-                    onClick={() => moveRow('down')}
-                    disabled={selectedRow === data?.length - 1}
-                  >
-                    <Icon size={16} data={chevron_down} />
-                  </Styled.ActionRowButton>
-                </>
-              )}
-            </>
-          )}
-        </Stack>
+        <DataGridActions
+          addRow={addRow}
+          addColumn={addColumn}
+          columnLabels={columnLabels}
+          data={data}
+          deleteRow={deleteRow}
+          functionality={functionality}
+          moveRow={moveRow}
+          name={props.name || dataGridId}
+          printDirection={config.printDirection}
+          rowLabels={rowLabels}
+          selectedRow={selectedRow}
+        />
         <DataGridPagination
           count={data.length}
           page={paginationPage}

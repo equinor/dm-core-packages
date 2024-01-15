@@ -1,4 +1,4 @@
-import { DataGridConfig, PredefinedLabels } from './types'
+import { DataGridConfig, PredefinedLabels, TFunctionalityChecks } from './types'
 
 const predefinedLabels: PredefinedLabels[] = ['...ABC', '...ZYX', '...123']
 
@@ -63,7 +63,7 @@ export const getFillValue = (type: string) =>
 export function getFunctionalityVariables(
   config: DataGridConfig,
   dimensions: string | undefined
-): [boolean, boolean, string, boolean, boolean, string, boolean] {
+): TFunctionalityChecks {
   const {
     editable,
     adjustableColumns,
@@ -98,7 +98,7 @@ export function getFunctionalityVariables(
     (columnsAreEditable && printDirection === 'vertical') ||
     (!isMultiDimensional && columnDimensions === '*')
 
-  return [
+  return {
     rowsAreEditable,
     columnsAreEditable,
     addButtonFunctionality,
@@ -106,5 +106,5 @@ export function getFunctionalityVariables(
     isMultiDimensional,
     columnDimensions,
     isSortEnabled,
-  ]
+  }
 }

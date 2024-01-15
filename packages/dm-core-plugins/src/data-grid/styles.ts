@@ -136,7 +136,6 @@ export const Input = styled.input<{ attributeType: string }>`
 export const ActionRow = styled.div`
   display: flex;
   justify-content: space-between;
-  background: ${tokens.colors.ui.background__light.rgba};
   border-bottom: 1px solid ${tokens.colors.ui.background__medium.rgba};
 `
 
