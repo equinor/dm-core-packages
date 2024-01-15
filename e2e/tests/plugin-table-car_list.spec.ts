@@ -1,18 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 test('Table car list example', async ({ page }) => {
-  const navigate = async () => {
-    await page.getByRole('button', { name: 'DemoDataSource' }).click()
-    await page.getByRole('button', { name: 'plugins' }).click()
-    await page.getByRole('button', { name: 'table' }).click()
-    await page.getByRole('button', { name: 'car_list' }).click()
-    await page.getByRole('button', { name: 'CarList' }).click()
-    const lastTabPanel = page.getByRole('tabpanel').first()
-    await expect(lastTabPanel).toBeVisible()
-  }
-
-  await page.goto('http://localhost:3000/')
-  await navigate()
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$carList'
+  )
 
   await test.step('Add a new car by using expand', async () => {
     await expect(page.getByText('1 - 1 of 1')).toBeVisible()
@@ -33,7 +24,6 @@ test('Table car list example', async ({ page }) => {
 
     //Currently we need to reload application to view saved values...
     await page.reload()
-    await navigate()
     await expect(page.getByText('1 - 2 of 2')).toBeVisible()
     await expect(page.getByText('Audi')).toBeVisible()
     await expect(page.getByText('e-tron')).toBeVisible()
@@ -53,7 +43,6 @@ test('Table car list example', async ({ page }) => {
 
     //Currently we need to reload application to view saved values...
     await page.reload()
-    await navigate()
     await expect(page.getByText('1 - 2 of 2')).toBeVisible()
     await expect(page.getByText('Polestar')).toBeVisible()
     await expect(page.getByText('2023')).toBeVisible()
@@ -67,7 +56,6 @@ test('Table car list example', async ({ page }) => {
       page.getByRole('button', { name: 'Open expandable row' })
     ).toHaveCount(1)
     await page.reload()
-    await navigate()
     await expect(page.getByText('1 - 1 of 1')).toBeVisible()
   })
 
@@ -104,7 +92,6 @@ test('Table car list example', async ({ page }) => {
 
   await test.step('Adding several cars to test pagination', async () => {
     await page.reload()
-    await navigate()
     await expect(
       page.getByRole('button', { name: 'Open expandable row' })
     ).toHaveCount(3)
