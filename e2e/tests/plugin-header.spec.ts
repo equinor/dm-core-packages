@@ -3,23 +3,20 @@ import { expect, test } from '@playwright/test'
 test.describe.configure({ mode: 'serial' })
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:3000/')
-  await page.getByRole('button', { name: 'DemoDataSource' }).click()
-  await page.getByRole('button', { name: 'plugins' }).click()
-  await page.getByRole('button', { name: 'header' }).click()
-  await page.getByRole('button', { name: 'package example_app' }).click()
-  await page.getByRole('button', { name: 'file example' }).click()
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$headerExample'
+  )
 })
 
 test('Load header', async ({ page }) => {
-  await expect(page.getByLabel('AppSelector').nth(1)).toBeVisible()
-  await expect(page.getByLabel('main-heading').nth(1)).toBeVisible()
-  await expect(page.getByRole('button', { name: 'User' }).nth(1)).toBeVisible()
-  await expect(page.getByRole('button', { name: 'About' }).nth(1)).toBeVisible()
+  await expect(page.getByLabel('AppSelector')).toBeVisible()
+  await expect(page.getByLabel('main-heading')).toBeVisible()
+  await expect(page.getByRole('button', { name: 'User' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'About' })).toBeVisible()
 })
 
 test('User info', async ({ page }) => {
-  await page.getByRole('button', { name: 'User' }).nth(1).click()
+  await page.getByRole('button', { name: 'User' }).click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(
     page.getByRole('dialog').getByText('User info', { exact: true })
@@ -32,7 +29,7 @@ test('User info', async ({ page }) => {
 })
 
 test('About', async ({ page }) => {
-  await page.getByRole('button', { name: 'About' }).nth(1).click()
+  await page.getByRole('button', { name: 'About' }).click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(
     page
@@ -47,7 +44,7 @@ test('About', async ({ page }) => {
 })
 
 test('Recipe list', async ({ page }) => {
-  await page.getByLabel('AppSelector').nth(1).click()
+  await page.getByLabel('AppSelector').click()
   await page.getByRole('button', { name: 'Edit' }).click()
   await expect(page.getByTestId('form-text-widget-Name')).toHaveValue('example')
 })
