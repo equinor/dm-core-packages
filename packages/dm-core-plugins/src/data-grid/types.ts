@@ -45,7 +45,6 @@ export type DataGridProps = {
 }
 
 export type TFunctionalityChecks = {
-  addButtonFunctionality: string
   addButtonIsEnabled: boolean
   columnDimensions: string
   columnsAreEditable: boolean

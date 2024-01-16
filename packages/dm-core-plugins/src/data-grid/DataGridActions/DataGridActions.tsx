@@ -23,28 +23,19 @@ import { TFunctionalityChecks } from '../types'
 
 type DataGridActionsProps = {
   addRow: () => void
-  addColumn: () => void
   columnLabels: string[]
   data: any[]
   deleteRow: () => void
   functionality: TFunctionalityChecks
   moveRow: (direction: 'up' | 'down') => void
   name: string
-  printDirection: 'horizontal' | 'vertical'
   rowLabels: string[]
   selectedRow: number | undefined
 }
 
 export function DataGridActions(props: DataGridActionsProps) {
-  const {
-    columnLabels,
-    data,
-    functionality,
-    moveRow,
-    printDirection,
-    rowLabels,
-    selectedRow,
-  } = props
+  const { columnLabels, data, functionality, moveRow, rowLabels, selectedRow } =
+    props
   const [includeColumnLabels, setIsIncludeColumnLabels] =
     useState<boolean>(false)
   const [includeRowLabels, setIsIncludeRowLabels] = useState<boolean>(false)
@@ -54,35 +45,20 @@ export function DataGridActions(props: DataGridActionsProps) {
   const [menuButtonAnchor, setMenuButtonAnchor] =
     useState<HTMLButtonElement | null>(null)
 
-  function reverseData(dataArray: string[][]) {
-    const reversedData: any[] = []
-    for (let index = 0; index < columnLabels.length; index++) {
-      const values = dataArray.map((item) => item[index])
-      reversedData.push(values)
-    }
-    return reversedData
-  }
-
   function mapData(separator: string) {
     let dataCopy = window.structuredClone(data)
-    if (printDirection === 'vertical') {
-      dataCopy = reverseData(dataCopy)
-    }
-    const currentColumnLabels =
-      printDirection === 'vertical' ? [...rowLabels] : [...columnLabels]
-    const currentRowLabels =
-      printDirection === 'vertical' ? [...columnLabels] : [...rowLabels]
+    const columnLabelsCopy = [...columnLabels]
     if (includeRowLabels) {
-      dataCopy.map((item, index) => item.unshift(currentRowLabels[index]))
+      dataCopy.map((item, index) => item.unshift(rowLabels[index]))
     }
     if (functionality.isMultiDimensional) {
       dataCopy = dataCopy?.map((line: any[]) => line.join(separator))
     }
     if (includeColumnLabels) {
       if (includeRowLabels) {
-        currentColumnLabels.unshift('')
+        columnLabelsCopy.unshift('')
       }
-      dataCopy.unshift(currentColumnLabels?.join(separator))
+      dataCopy.unshift(columnLabelsCopy?.join(separator))
     }
     return dataCopy.join('\n')
   }
@@ -115,11 +91,7 @@ export function DataGridActions(props: DataGridActionsProps) {
       {functionality.addButtonIsEnabled && (
         <Styled.ActionRowButton
           aria-label='Add data row'
-          onClick={() =>
-            functionality.addButtonFunctionality === 'addRow'
-              ? props.addRow()
-              : props.addColumn()
-          }
+          onClick={() => props.addRow()}
         >
           <Icon size={16} data={add} />
         </Styled.ActionRowButton>

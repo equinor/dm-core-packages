@@ -122,7 +122,7 @@ export function DataGrid(props: DataGridProps) {
         {config.description && <Typography>{config.description}</Typography>}
       </Stack>
       <EdsProvider density='compact'>
-        <Styled.DataGrid flip={config.printDirection === 'vertical'}>
+        <Styled.DataGrid>
           {config.showColumns && (
             <Styled.Head>
               <Styled.Row>
@@ -137,9 +137,7 @@ export function DataGrid(props: DataGridProps) {
                     label={column}
                     selected={selectedColumn}
                     setSelected={setSelectedColumn}
-                    type={
-                      config.printDirection === 'horizontal' ? 'column' : 'row'
-                    }
+                    type='column'
                   />
                 ))}
               </Styled.Row>
@@ -159,11 +157,7 @@ export function DataGrid(props: DataGridProps) {
                       editable={functionality.rowsAreEditable}
                       selected={selectedRow}
                       setSelected={setSelectedRow}
-                      type={
-                        config.printDirection === 'horizontal'
-                          ? 'row'
-                          : 'column'
-                      }
+                      type='row'
                     />
                   )}
                   {functionality.isMultiDimensional ? (
@@ -204,14 +198,12 @@ export function DataGrid(props: DataGridProps) {
       <Styled.ActionRow>
         <DataGridActions
           addRow={addRow}
-          addColumn={addColumn}
           columnLabels={columnLabels}
           data={data}
           deleteRow={deleteRow}
           functionality={functionality}
           moveRow={moveRow}
           name={props.name || dataGridId}
-          printDirection={config.printDirection}
           rowLabels={rowLabels}
           selectedRow={selectedRow}
         />
