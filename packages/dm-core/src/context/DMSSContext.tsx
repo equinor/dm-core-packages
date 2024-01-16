@@ -9,7 +9,28 @@ export const DMSSProvider = (props: {
   dmssBasePath?: string
 }) => {
   const { token } = useContext(AuthContext)
+  const dmssAPIOriginal = new DmssAPI(token, props.dmssBasePath)
   const dmssAPI = new DmssAPI(token, props.dmssBasePath)
+
+  // @ts-ignore
+  dmssAPI.blueprintGet = async (requestParameters, options) => {
+    const cacheKey = `${requestParameters.typeRef}${requestParameters.context}`
+    const cachedValue = window.sessionStorage.getItem(cacheKey)
+    if (!cachedValue) {
+      return dmssAPIOriginal
+        .blueprintGet(requestParameters)
+        .then((response) => {
+          window.sessionStorage.setItem(cacheKey, JSON.stringify(response.data))
+          return response
+        })
+    }
+    return {
+      data: JSON.parse(cachedValue),
+      status: 200,
+      statusText: 'ok',
+    }
+  }
+
   return (
     <DMSSContext.Provider value={dmssAPI}>
       {props.children}

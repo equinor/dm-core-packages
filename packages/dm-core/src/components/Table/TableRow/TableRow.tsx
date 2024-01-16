@@ -42,7 +42,6 @@ export function TableRow(props: TableRowProps) {
     functionalityConfig,
     tableVariant
   )
-
   const handleItemUpdate = (itemToChange: TItem<any>, data: any) => {
     updateItem(itemToChange, data, false)
   }
