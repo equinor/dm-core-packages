@@ -63,7 +63,7 @@ test('Change to operator role and back', async ({ page }) => {
       .click()
     await page.getByRole('button', { name: 'file elonMusk' }).nth(1).click()
     await expect(page.getByRole('code')).toBeVisible()
-    await page.getByLabel('AppSelector').nth(2).click()
+    await page.getByLabel('AppSelector').nth(1).click()
     await expect(
       page.getByRole('button', { name: 'Yaml', exact: true })
     ).toBeVisible()
