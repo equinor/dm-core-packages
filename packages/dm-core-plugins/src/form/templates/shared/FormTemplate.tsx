@@ -37,11 +37,13 @@ const FormTemplateHeaderActions = ({
 }: PropsWithChildren & { uiAttribute?: TUiAttribute }) => {
   return (
     <div className='flex items-center'>
-      <EdsProvider density='compact'>
-        <Tooltip title={uiAttribute?.tooltip}>
-          <Icon data={info_circle} size={16} color={colors.equinorGreen} />
-        </Tooltip>
-      </EdsProvider>
+      {uiAttribute?.tooltip && (
+        <EdsProvider density='compact'>
+          <Tooltip title={uiAttribute?.tooltip}>
+            <Icon data={info_circle} size={16} color={colors.equinorGreen} />
+          </Tooltip>
+        </EdsProvider>
+      )}
       {children}
     </div>
   )
