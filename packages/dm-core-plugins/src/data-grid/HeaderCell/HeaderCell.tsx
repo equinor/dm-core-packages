@@ -74,13 +74,13 @@ export function HeaderCell(props: HeaderCellProps) {
             <Menu.Item onClick={() => props.delete(index)}>
               <Icon size={16} data={delete_to_trash} /> Delete {type}
             </Menu.Item>
-            <Menu.Item onClick={() => add(index - 1)}>
+            <Menu.Item onClick={() => add(index)}>
               <Icon size={16} data={addIcon} /> Add 1 {type}{' '}
               {type === 'column' ? 'left' : 'above'}
             </Menu.Item>
-            <Menu.Item onClick={() => add(index)}>
+            <Menu.Item onClick={() => add(index + 1)}>
               <Icon size={16} data={addIcon} /> Add 1 {type}{' '}
-              {type === 'column' ? 'left' : 'below'}
+              {type === 'column' ? 'right' : 'below'}
             </Menu.Item>
           </>
         )}

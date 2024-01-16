@@ -11,6 +11,7 @@ import { Button } from '@equinor/eds-core-react'
 import { useEffect, useState } from 'react'
 import { DataGrid } from './DataGrid'
 import { DataGridConfig, defaultConfig } from './types'
+import { getFunctionalityVariables, reverseData } from './utils'
 
 export function DataGridPlugin(props: IUIPlugin) {
   const { idReference, config: userConfig, type } = props
@@ -33,15 +34,33 @@ export function DataGridPlugin(props: IUIPlugin) {
     blueprint?.attributes.find((att: TAttribute) => att.name === field)
   )
 
+  function getColumnsLength(data: any[]) {
+    const dimensions = multiplePrimitives
+      ? `*,${fieldNames.length}`
+      : attribute?.dimensions
+    const functionality = getFunctionalityVariables(config, dimensions)
+    const columnLength = functionality.isMultiDimensional
+      ? functionality.columnDimensions === '*'
+        ? data.length > 0
+          ? data[0].length
+          : 0
+        : parseInt(functionality.columnDimensions, 10)
+      : 1
+    return columnLength
+  }
+
   useEffect(() => {
     if (isLoading || !document) return
+    let modifiedData = document?.[fieldNames[0]] || []
     if (multiplePrimitives) {
       const mergedData: string[] = []
       fieldNames.forEach((field) => mergedData.push(document[field]))
-      setData(mergedData)
-      return
+      modifiedData = mergedData
     }
-    setData(document?.[fieldNames[0]] || [])
+    if (config.printDirection === 'vertical') {
+      modifiedData = reverseData(modifiedData, getColumnsLength(modifiedData))
+    }
+    setData(modifiedData)
   }, [document, isLoading])
 
   function onChange(data: any[]) {
@@ -52,13 +71,17 @@ export function DataGridPlugin(props: IUIPlugin) {
   async function saveDocument() {
     setLoading(true)
     try {
-      let newData = { [fieldNames[0]]: data }
+      let modifiedData = data
+      if (config.printDirection === 'vertical') {
+        modifiedData = reverseData(data || [], getColumnsLength(data || []))
+      }
+      let dataToSave = { [fieldNames[0]]: modifiedData }
       if (multiplePrimitives) {
-        newData = Object.fromEntries(
-          (data || []).map((value, index) => [fieldNames[index], value])
+        dataToSave = Object.fromEntries(
+          (modifiedData || []).map((value, index) => [fieldNames[index], value])
         )
       }
-      const payload = { ...document, ...newData }
+      const payload = { ...document, ...dataToSave }
       await dmssAPI.documentUpdate({
         idAddress: idReference,
         data: JSON.stringify(payload),
@@ -73,6 +96,19 @@ export function DataGridPlugin(props: IUIPlugin) {
     }
   }
 
+  function getDimensions() {
+    if (multiplePrimitives) {
+      return config.printDirection === 'vertical'
+        ? `${fieldNames.length},*`
+        : `*,${fieldNames.length}`
+    }
+    if (config.printDirection === 'vertical') {
+      const reversed = attribute?.dimensions.split('').reverse().join('')
+      return reversed
+    }
+    return attribute?.dimensions
+  }
+
   return !data ? null : (
     <Stack alignItems='flex-end' spacing={1}>
       <DataGrid
@@ -80,9 +116,7 @@ export function DataGridPlugin(props: IUIPlugin) {
         config={userConfig}
         data={data || []}
         description={document?.description}
-        dimensions={
-          multiplePrimitives ? `*,${fieldNames.length}` : attribute?.dimensions
-        }
+        dimensions={getDimensions()}
         initialRowsPerPage={rowsPerPage}
         name={blueprint?.name}
         setData={onChange}

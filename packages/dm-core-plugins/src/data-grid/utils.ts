@@ -60,6 +60,15 @@ export function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
 export const getFillValue = (type: string) =>
   type === 'boolean' ? false : type === 'number' ? 0 : ''
 
+export function reverseData(dataArray: string[][], columnsLength: number) {
+  const reversedData: any[] = []
+  for (let index = 0; index < columnsLength; index++) {
+    const values = dataArray.map((item) => item[index])
+    reversedData.push(values)
+  }
+  return reversedData
+}
+
 export function getFunctionalityVariables(
   config: DataGridConfig,
   dimensions: string | undefined
@@ -75,8 +84,6 @@ export function getFunctionalityVariables(
   const [columnDimensions, rowDimensions] = dimensions?.split(',') || ['*', '*']
   const isMultiPrimitive = fieldNames.length > 1
   const isMultiDimensional: boolean = dimensions?.includes(',') || false
-  const addButtonFunctionality =
-    printDirection === 'horizontal' ? 'addRow' : 'addColumn'
   const isSortEnabled =
     !isMultiPrimitive &&
     config.adjustableRows &&
@@ -101,7 +108,6 @@ export function getFunctionalityVariables(
   return {
     rowsAreEditable,
     columnsAreEditable,
-    addButtonFunctionality,
     addButtonIsEnabled,
     isMultiDimensional,
     columnDimensions,

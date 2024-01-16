@@ -1,7 +1,7 @@
 import { tokens } from '@equinor/eds-tokens'
 import styled, { css } from 'styled-components'
 
-export const DataGrid = styled.table<{ flip?: boolean }>`
+export const DataGrid = styled.table`
   width: 100%;
   max-width: 100%;
   vertical-align: top;
@@ -19,37 +19,6 @@ export const DataGrid = styled.table<{ flip?: boolean }>`
       }
     }
   }
-
-  ${({ flip }) =>
-    flip &&
-    css`
-    display: flex;
-    overflow: hidden;
-    thead {
-      display: flex;
-      flex-shrink: 0;
-      min-width: min-content;
-      th {
-        border-bottom: 0;
-        position: relative;
-      }
-    }
-    tbody {
-      display: flex;
-      position: relative;
-      overflow-x: auto;
-      overflow-y: hidden;
-    }
-    tr {
-      display: flex;
-      flex-direction: column;
-      min-width: min-content;
-      flex-shrink: 0;
-    }
-    th, td {
-      display: block;
-    }
-  `}
 `
 
 export const Row = styled.tr`
