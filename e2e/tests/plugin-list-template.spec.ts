@@ -1,12 +1,9 @@
 import { Page, expect, test } from '@playwright/test'
 
 test('Add list item using template', async ({ page }) => {
-  await page.goto('http://localhost:3000/')
-  await page.getByRole('button', { name: 'DemoDataSource' }).click()
-  await page.getByRole('button', { name: 'plugins' }).click()
-  await page.getByRole('button', { name: 'list' }).click()
-  await page.getByRole('button', { name: 'templates' }).click()
-  await page.getByRole('button', { name: 'file templates' }).click()
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$templates'
+  )
   await page.getByRole('button', { name: 'edit' }).click()
 
   await page.getByTestId('task_list').getByLabel('Open in tab').click()
@@ -40,11 +37,6 @@ test('Add list item using template', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
 
   await page.reload()
-  await page.getByRole('button', { name: 'DemoDataSource' }).click()
-  await page.getByRole('button', { name: 'plugins' }).click()
-  await page.getByRole('button', { name: 'list' }).click()
-  await page.getByRole('button', { name: 'templates' }).click()
-  await page.getByRole('button', { name: 'file templates' }).click()
   await page.getByRole('button', { name: 'edit' }).click()
   await page.getByTestId('task_list').getByLabel('Open in tab').click()
   await expect(page.getByRole('tabpanel')).toContainText('Fix bicycle')
