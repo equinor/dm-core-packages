@@ -42,6 +42,28 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.40.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.39.2...dm-core-plugins-v1.40.0) (2024-01-17)
+
+
+### Features
+
+* export data as csv or copy ([2c0402c](https://github.com/equinor/dm-core-packages/commit/2c0402c34fd4e96b74582c348644918a63932509))
+* **job:** create job plugin supports templates ([78d6b37](https://github.com/equinor/dm-core-packages/commit/78d6b370230d0917080051fddab8be777e638a2e))
+
+
+### Bug Fixes
+
+* remove log ([#1143](https://github.com/equinor/dm-core-packages/issues/1143)) ([8aa65ee](https://github.com/equinor/dm-core-packages/commit/8aa65ee39639b6f661b50ee1f3d54d9916632d3f))
+* ui that tooltip was placed wrong ([#1146](https://github.com/equinor/dm-core-packages/issues/1146)) ([7f57a32](https://github.com/equinor/dm-core-packages/commit/7f57a32e0f2d5bf351f8fa51ba484680f7ce28b5))
+* use form state to update entity ([8f21670](https://github.com/equinor/dm-core-packages/commit/8f21670e0cf81004d89a8f3047fd34b2e8eed8bd))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.33.1 to ^1.34.0
+
 ## [1.39.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.39.1...dm-core-plugins-v1.39.2) (2024-01-15)
 
 
