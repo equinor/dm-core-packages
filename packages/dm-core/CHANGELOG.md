@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.34.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.33.1...dm-core-v1.34.0) (2024-01-17)
+
+
+### Features
+
+* **job:** create job plugin supports templates ([78d6b37](https://github.com/equinor/dm-core-packages/commit/78d6b370230d0917080051fddab8be777e638a2e))
+
+
+### Bug Fixes
+
+* wrapping in mediaView text box ([cb9cb6e](https://github.com/equinor/dm-core-packages/commit/cb9cb6ec3126cc3a0046a19f1f2af835b6f10d14))
+
 ## [1.33.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.33.0...dm-core-v1.33.1) (2024-01-12)
 
 
