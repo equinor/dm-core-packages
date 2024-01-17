@@ -1,20 +1,19 @@
-import React, { useRef, useState } from 'react'
 import { EdsProvider, Icon, Table } from '@equinor/eds-core-react'
+import { add } from '@equinor/eds-icons'
+import { useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import {
-  AddRowButton,
-  TemplateMenu,
   TGenericObject,
   TItem,
   TTemplate,
+  TemplateMenu,
   ViewCreator,
 } from '../../../'
-import { TableRowProps, TTableColumnConfig } from '../types'
+import { TTableColumnConfig, TableRowProps } from '../types'
 import * as utils from '../utils'
-import * as Styled from './styles'
-import { TableRowActions } from './TableRowActions/TableRowActions'
 import { TableCell } from './TableCell/TableCell'
-import { add } from '@equinor/eds-icons'
-import { toast } from 'react-toastify'
+import { TableRowActions } from './TableRowActions/TableRowActions'
+import * as Styled from './styles'
 
 export function TableRow(props: TableRowProps) {
   const {

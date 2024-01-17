@@ -1,7 +1,6 @@
 import { TAttribute } from '@development-framework/dm-core'
 import lodash from 'lodash'
 import { TUiAttribute } from '../types'
-import { label } from '@equinor/eds-icons'
 
 export const getDisplayLabel = (
   attribute: TAttribute,

@@ -1,8 +1,8 @@
-import React from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Button, Icon } from '@equinor/eds-core-react'
 import { drag_handle } from '@equinor/eds-icons'
+import React from 'react'
 import { SortableItemProps } from './types'
 
 export const SortableItem = <T extends { key: string | number }>({

@@ -1,7 +1,5 @@
-import React from 'react'
-
-import { TWidget } from '../types'
 import { Datepicker } from '@development-framework/dm-core'
+import { TWidget } from '../types'
 
 interface DatePickerConfig {
   variant: 'datetime' | 'date'

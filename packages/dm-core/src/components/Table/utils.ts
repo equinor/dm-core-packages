@@ -1,3 +1,4 @@
+import { isObject } from 'lodash'
 import { TGenericObject } from '../..'
 import { TItem } from '../../hooks/useList/types'
 import {
@@ -6,7 +7,6 @@ import {
   TTableSortDirection,
   TableVariantNameEnum,
 } from './types'
-import { isObject } from 'lodash'
 
 function setValue(object: TGenericObject, attribute: string, value: any) {
   const properties = attribute.split('.')

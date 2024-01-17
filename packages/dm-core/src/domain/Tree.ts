@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios'
-import { splitAddress } from '../utils/addressUtilities'
 import { EBlueprint } from '../Enums'
 import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
 import { TAttribute, TBlueprint, TPackage } from '../types'
+import { splitAddress } from '../utils/addressUtilities'
 
 type TTreeMap = {
   [nodeId: string]: TreeNode

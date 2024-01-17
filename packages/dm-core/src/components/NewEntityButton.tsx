@@ -3,7 +3,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useDMSS } from '../context/DMSSContext'
-import { TGenericObject, TReference, TValidEntity } from '../types'
+import { TGenericObject, TReference } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
 import { Dialog } from './Dialog'
 import {

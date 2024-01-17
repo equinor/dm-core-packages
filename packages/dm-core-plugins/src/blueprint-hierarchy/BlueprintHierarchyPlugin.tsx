@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useEffect, useState } from 'react'
 
 import {
@@ -8,8 +7,8 @@ import {
   useDMSS,
   useDocument,
 } from '@development-framework/dm-core'
-import { dfs, loader, Node } from './loader'
 import MermaidWrapper from './MermaidWrapper'
+import { Node, dfs, loader } from './loader'
 import { TAttributeType } from './types'
 
 const classElement = (node: Node) => {

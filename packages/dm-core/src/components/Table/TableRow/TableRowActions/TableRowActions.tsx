@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
 import { Button, Icon, Menu, Table } from '@equinor/eds-core-react'
-import { delete_to_trash, more_vertical } from '@equinor/eds-icons'
-import { TableRowActionsProps } from '../../types'
+import { more_vertical } from '@equinor/eds-icons'
+import { useState } from 'react'
 import { DeleteSoftButton } from '../../../DeleteSoftButton'
+import { TableRowActionsProps } from '../../types'
 
 export function TableRowActions(props: TableRowActionsProps) {
   const { editMode, item, removeItem } = props

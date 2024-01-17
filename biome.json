@@ -1,8 +1,5 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.4.0/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
   "files": {
     "ignore": [
       "packages/dm-core/src/services/api/configs/**",
@@ -40,6 +37,9 @@
     ],
     "enabled": true,
     "rules": {
+      "nursery": {
+        "noUnusedImports": "error"
+      },
       "recommended": true,
       "suspicious": {
         "noExplicitAny": "off",

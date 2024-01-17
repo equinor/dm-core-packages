@@ -3,13 +3,8 @@ import {
   Dialog,
   TreeNode,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
-import React from 'react'
 import { EDialog } from '../../types'
-import {
-  STANDARD_DIALOG_HEIGHT,
-  STANDARD_DIALOG_WIDTH,
-} from '../context-menu/NodeRightClickMenu'
+import { STANDARD_DIALOG_WIDTH } from '../context-menu/NodeRightClickMenu'
 
 type TProps = {
   setDialogId: (id: EDialog | undefined) => void

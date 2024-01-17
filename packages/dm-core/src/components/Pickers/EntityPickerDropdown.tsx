@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from 'react'
-import { Select } from '../Select'
+import { ChangeEvent } from 'react'
 import { useSearch } from '../../hooks/useSearch'
+import { Select } from '../Select'
 
 export const EntityPickerDropdown = (props: {
   onChange: (data: any) => void

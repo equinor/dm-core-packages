@@ -1,7 +1,6 @@
 import { Button, Checkbox, Icon, Progress, Tabs } from '@equinor/eds-core-react'
 import { save } from '@equinor/eds-icons'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 
 import { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'

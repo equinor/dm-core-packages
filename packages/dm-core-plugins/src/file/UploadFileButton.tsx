@@ -1,7 +1,6 @@
 import { TStorageReference, useDMSS } from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
-import * as React from 'react'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { ErrorGroup } from './ErrorGroup'
 

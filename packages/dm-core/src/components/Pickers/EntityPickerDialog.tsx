@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 
 import {
   Button,
@@ -7,15 +7,15 @@ import {
   Progress,
 } from '@equinor/eds-core-react'
 import { toast } from 'react-toastify'
+import styled from 'styled-components'
+import { EBlueprint } from '../../Enums'
 import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { TValidEntity } from '../../types'
+import { truncatePathString } from '../../utils/truncatePathString'
 import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
 import { Dialog } from '../Dialog'
 import { TNodeWrapperProps, TreeView } from '../TreeView'
-import styled from 'styled-components'
-import { truncatePathString } from '../../utils/truncatePathString'
-import { EBlueprint } from '../../Enums'
 
 const Wrapper = styled.div<{ selected: boolean }>`
   display: flex;

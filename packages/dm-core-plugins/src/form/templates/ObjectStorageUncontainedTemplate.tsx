@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { useFormContext } from 'react-hook-form'
 import {
+  ViewCreator,
   resolveRelativeAddress,
   splitAddress,
-  ViewCreator,
 } from '@development-framework/dm-core'
+import { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
+import { OpenObjectButton } from '../components/OpenObjectButton'
+import RemoveObject from '../components/RemoveObjectButton'
+import { SelectReference } from '../components/SelectReference'
 import { useRegistryContext } from '../context/RegistryContext'
 import { TObjectTemplate } from '../types'
-import RemoveObject from '../components/RemoveObjectButton'
-import { OpenObjectButton } from '../components/OpenObjectButton'
-import { SelectReference } from '../components/SelectReference'
 import FormTemplate from './shared/FormTemplate'
 import {
   getCanOpenOrExpand,

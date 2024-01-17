@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from 'react'
-import { Stack } from '../common'
 import { Button, Icon, NativeSelect, Typography } from '@equinor/eds-core-react'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
+import { useMemo } from 'react'
+import { Stack } from '../common'
 
 type PaginationProps = {
   count: number

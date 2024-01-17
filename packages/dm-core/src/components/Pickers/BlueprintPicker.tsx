@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import { EBlueprint } from '../../Enums'
 import {
@@ -16,12 +16,12 @@ import {
   Tooltip,
 } from '@equinor/eds-core-react'
 import { Variants } from '@equinor/eds-core-react/dist/types/components/types'
+import { add } from '@equinor/eds-icons'
 import { FSTreeContext } from '../../context/FileSystemTreeContext'
 import { TreeNode } from '../../domain/Tree'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
 import { TreeView } from '../TreeView'
-import { add } from '@equinor/eds-icons'
 
 export type TBlueprintPickerProps = {
   /** A function to trigger with the onChange event */

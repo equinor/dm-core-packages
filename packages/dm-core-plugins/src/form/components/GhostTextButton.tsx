@@ -1,5 +1,4 @@
 import { Button, EdsProvider, Tooltip } from '@equinor/eds-core-react'
-import React from 'react'
 
 interface FormObjectTextButtonProps {
   onClick: () => void

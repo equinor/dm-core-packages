@@ -1,26 +1,25 @@
-import * as React from 'react'
 import { useContext, useState } from 'react'
 
 import {
   ApplicationContext,
   EBlueprint,
-  findRecipe,
   Loading,
   TAttribute,
   TGenericObject,
   TUiRecipe,
+  findRecipe,
   useBlueprint,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
+import { undo } from '@equinor/eds-icons'
 import { FormProvider, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { RegistryProvider } from '../context/RegistryContext'
-import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
-import { AttributeList } from './AttributeList'
-import { isPrimitiveType } from '../utils/isPrimitiveType'
 import { getCanOpenOrExpand } from '../templates/shared/utils'
-import { undo } from '@equinor/eds-icons'
+import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
+import { isPrimitiveType } from '../utils/isPrimitiveType'
+import { AttributeList } from './AttributeList'
 
 const Wrapper = styled.div`
   max-width: 650px;

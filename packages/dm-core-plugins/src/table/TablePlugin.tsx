@@ -1,10 +1,9 @@
-import React from 'react'
 import {
   IUIPlugin,
+  TGenericObject,
   TTableConfig,
   Table,
   useList,
-  TGenericObject,
 } from '@development-framework/dm-core'
 import * as utils from './utils'
 

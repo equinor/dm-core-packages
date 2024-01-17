@@ -1,14 +1,11 @@
-import * as React from 'react'
-
 import {
   EntityPickerDialog,
   TEntityPickerReturn,
-  TValidEntity,
 } from '@development-framework/dm-core'
+import { TextField } from '@equinor/eds-core-react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { TWidget } from '../types'
-import { useState } from 'react'
-import { Button, TextField } from '@equinor/eds-core-react'
 
 // The custom widgets goes under here,
 // this may at some point be moved out from the form package.

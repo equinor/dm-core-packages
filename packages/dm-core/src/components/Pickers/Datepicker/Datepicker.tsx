@@ -1,9 +1,9 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Icon, InputWrapper } from '@equinor/eds-core-react'
+import { calendar } from '@equinor/eds-icons'
+import { DateTime } from 'luxon'
+import { ReactElement, useEffect, useRef, useState } from 'react'
 import { Calendar } from './Calendar'
 import { Timefield } from './Timefield'
-import { DateTime } from 'luxon'
-import { calendar } from '@equinor/eds-icons'
 import { DateSelection, zeroPad } from './calendarUtils'
 import { extractDateComponents, formatTime } from './datepickerUtils'
 

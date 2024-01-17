@@ -3,8 +3,6 @@ import {
   ErrorResponse,
   GetJobResultResponse,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
-import React from 'react'
 import { LogBlock } from './LogBlock'
 
 type AboutDialogProps = {

@@ -2,18 +2,16 @@ import {
   INPUT_FIELD_WIDTH,
   IUIPlugin,
   Loading,
-  TAttribute,
   TBlueprint,
   useDocument,
 } from '@development-framework/dm-core'
-import * as React from 'react'
-import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { Button, Icon, TextField, Typography } from '@equinor/eds-core-react'
-import { add, save, undo } from '@equinor/eds-icons'
-import styled from 'styled-components'
-import { Extends } from './Extends'
-import { BlueprintAttributeList } from './BlueprintAttributeList'
+import { save, undo } from '@equinor/eds-icons'
 import { isEqual } from 'lodash'
+import { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import styled from 'styled-components'
+import { BlueprintAttributeList } from './BlueprintAttributeList'
+import { Extends } from './Extends'
 
 export const Spacer = styled.div`
   margin-top: 20px;

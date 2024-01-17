@@ -1,22 +1,22 @@
-import { TObjectTemplate } from '../types'
-import React, { useState } from 'react'
-import { useFormContext } from 'react-hook-form'
-import { useRegistryContext } from '../context/RegistryContext'
 import {
+  ViewCreator,
   resolveRelativeAddress,
   splitAddress,
-  ViewCreator,
 } from '@development-framework/dm-core'
-import RemoveObject from '../components/RemoveObjectButton'
+import { link } from '@equinor/eds-icons'
+import React, { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { OpenObjectButton } from '../components/OpenObjectButton'
+import RemoveObject from '../components/RemoveObjectButton'
 import { SelectReference } from '../components/SelectReference'
+import { useRegistryContext } from '../context/RegistryContext'
+import { TObjectTemplate } from '../types'
 import FormTemplate from './shared/FormTemplate'
 import {
-  getExpandViewConfig,
   getCanOpenOrExpand,
+  getExpandViewConfig,
   getOpenViewConfig,
 } from './shared/utils'
-import { link } from '@equinor/eds-icons'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate

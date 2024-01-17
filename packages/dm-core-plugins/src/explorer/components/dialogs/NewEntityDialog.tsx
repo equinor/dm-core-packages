@@ -10,7 +10,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { EDialog } from '../../types'
 import {

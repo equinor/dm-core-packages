@@ -6,12 +6,12 @@ import {
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button, Icon, Radio, Typography } from '@equinor/eds-core-react'
+import { close } from '@equinor/eds-icons'
 import { AxiosResponse } from 'axios'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
-import { close } from '@equinor/eds-icons'
 
 const UnstyledList = styled.ul`
   margin: 0;

@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 import { Tree, TreeNode } from '../domain/Tree'
 
 export const FSTreeContext = createContext<{

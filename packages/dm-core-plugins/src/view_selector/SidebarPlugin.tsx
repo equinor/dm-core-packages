@@ -1,9 +1,9 @@
-import React from 'react'
 import { IUIPlugin, Loading } from '@development-framework/dm-core'
+import React from 'react'
+import { Content } from './Content'
+import { Sidebar } from './Sidebar'
 import { TViewSelectorConfig } from './types'
 import { useViewSelector } from './useViewSelector'
-import { Sidebar } from './Sidebar'
-import { Content } from './Content'
 
 export const SidebarPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }

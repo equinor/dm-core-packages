@@ -1,16 +1,14 @@
-import { useFormContext } from 'react-hook-form'
 import {
-  ErrorResponse,
   useApplication,
   useDMSS,
   useSearch,
 } from '@development-framework/dm-core'
-import { useRegistryContext } from '../context/RegistryContext'
-import { AxiosError } from 'axios'
-import TooltipButton from '../../common/TooltipButton'
-import { add } from '@equinor/eds-icons'
-import React, { useState } from 'react'
 import { EdsProvider, Menu } from '@equinor/eds-core-react'
+import { add } from '@equinor/eds-icons'
+import { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
+import TooltipButton from '../../common/TooltipButton'
+import { useRegistryContext } from '../context/RegistryContext'
 
 type Hit = { dataSource: string; id: string; label: string }
 

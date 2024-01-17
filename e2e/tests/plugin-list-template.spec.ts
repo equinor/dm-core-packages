@@ -1,4 +1,4 @@
-import { Page, expect, test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('Add list item using template', async ({ page }) => {
   await page.goto(

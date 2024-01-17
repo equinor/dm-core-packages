@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import { colors } from '@development-framework/dm-core'
 import { TextField } from '@equinor/eds-core-react'
 import React from 'react'
-import { colors } from '@development-framework/dm-core'
+import styled from 'styled-components'
 
 const StyledInputField = styled(TextField)`
   & :disabled {

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
 import { Icon, Menu, Typography } from '@equinor/eds-core-react'
-import * as Styled from '../styles'
 import { add as addIcon, delete_to_trash } from '@equinor/eds-icons'
+import React, { useState } from 'react'
+import * as Styled from '../styles'
 
 type HeaderCellProps = {
   add: (newIndex: number) => void

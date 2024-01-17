@@ -1,6 +1,6 @@
 import {
-  TReferenceViewConfig,
   TInlineRecipeViewConfig,
+  TReferenceViewConfig,
   TViewConfig,
 } from '@development-framework/dm-core'
 

@@ -1,6 +1,6 @@
 import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useDMSS } from '../context/DMSSContext'
 import { TGenericObject, TReference, TValidEntity } from '../types'

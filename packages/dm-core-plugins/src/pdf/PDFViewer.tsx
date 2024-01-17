@@ -1,13 +1,13 @@
 // import { formatBytes } from './formatBytes'
 import {
   ErrorResponse,
-  formatBytes,
   Loading,
   TGenericObject,
+  formatBytes,
   useDMSS,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 export const ErrorGroup = styled.div`

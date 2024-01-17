@@ -1,11 +1,6 @@
-import React, { useState, ChangeEvent } from 'react'
+import { EdsProvider, Tooltip, Typography } from '@equinor/eds-core-react'
+import { ChangeEvent, useState } from 'react'
 import { TWidget } from '../types'
-import {
-  EdsProvider,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@equinor/eds-core-react'
 import { StyledNumberField, StyledTextField } from './common/StyledInputFields'
 
 const parseWidthString = (widthString: string) => {

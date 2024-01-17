@@ -1,7 +1,6 @@
 import React from 'react'
 import { TWidget } from '../types'
 import { StyledTextField } from './common/StyledInputFields'
-import { Tooltip } from '@equinor/eds-core-react'
 
 const TextWidget = (props: TWidget) => {
   const { onChange } = props

@@ -1,25 +1,23 @@
-import React, { useState } from 'react'
 import {
+  DeleteSoftButton,
   EntityPickerDialog,
   IUIPlugin,
   Loading,
   Pagination,
-  resolveRelativeAddress,
-  splitAddress,
   Stack,
+  TEntityPickerReturn,
   TGenericObject,
   TItem,
-  TViewConfig,
-  useList,
-  ViewCreator,
-  DeleteSoftButton,
-  TEntityPickerReturn,
-  TemplateMenu,
   TTemplate,
-  usePagination,
+  TViewConfig,
+  TemplateMenu,
+  ViewCreator,
+  resolveRelativeAddress,
   resolveRelativeAddressSimplified,
+  splitAddress,
+  useList,
+  usePagination,
 } from '@development-framework/dm-core'
-import { toast } from 'react-toastify'
 import {
   Button,
   EdsProvider,
@@ -27,8 +25,10 @@ import {
   Tooltip,
   Typography,
 } from '@equinor/eds-core-react'
-import { external_link, undo, chevron_right, link } from '@equinor/eds-icons'
-import { AppendButton, ListChevronButton, FormButton } from './Components'
+import { chevron_right, external_link, link, undo } from '@equinor/eds-icons'
+import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { AppendButton, FormButton, ListChevronButton } from './Components'
 
 type TListConfig = {
   expanded?: boolean

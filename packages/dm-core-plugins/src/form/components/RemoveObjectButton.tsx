@@ -1,12 +1,11 @@
-import { useFormContext } from 'react-hook-form'
-import { useRegistryContext } from '../context/RegistryContext'
 import {
+  DeleteHardButton,
   ErrorResponse,
   useDMSS,
-  DeleteHardButton,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
-import React from 'react'
+import { useFormContext } from 'react-hook-form'
+import { useRegistryContext } from '../context/RegistryContext'
 
 const RemoveObject = (props: {
   namePath: string

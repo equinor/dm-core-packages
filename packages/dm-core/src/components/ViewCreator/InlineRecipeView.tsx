@@ -1,4 +1,3 @@
-import React from 'react'
 import { ErrorBoundary, IUIPlugin, useUiPlugins } from '../../index'
 import { TInlineRecipeViewConfig } from '../../types'
 

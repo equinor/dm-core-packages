@@ -1,13 +1,13 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import { TSchedule } from '@development-framework/dm-core'
 import {
   Autocomplete,
   Button,
   TextField,
   Typography,
 } from '@equinor/eds-core-react'
-import DateRangePicker from './DateRangePicker'
+import { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { TSchedule } from '@development-framework/dm-core'
+import DateRangePicker from './DateRangePicker'
 
 enum EInterval {
   HOURLY = 'Hourly',

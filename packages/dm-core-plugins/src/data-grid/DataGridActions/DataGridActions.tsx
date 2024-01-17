@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { Stack } from '@development-framework/dm-core'
 import {
   Button,
@@ -18,6 +17,7 @@ import {
   minimize,
   settings,
 } from '@equinor/eds-icons'
+import { useState } from 'react'
 import * as Styled from '../styles'
 import { TFunctionalityChecks } from '../types'
 

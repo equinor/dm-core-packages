@@ -5,10 +5,10 @@ import {
   TreeNode,
   TreeView,
 } from '@development-framework/dm-core'
-import React, { useContext, useState } from 'react'
+import { Progress } from '@equinor/eds-core-react'
+import { useContext, useState } from 'react'
 import Sidebar from './components/Sidebar'
 import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
-import { Progress } from '@equinor/eds-core-react'
 
 export default () => {
   const { treeNodes, loading } = useContext<{

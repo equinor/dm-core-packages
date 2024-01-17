@@ -1,8 +1,8 @@
 import { IUIPlugin } from '@development-framework/dm-core'
-import { TViewSelectorConfig } from './types'
 import * as React from 'react'
-import { Tabs } from './Tabs'
 import { Content } from './Content'
+import { Tabs } from './Tabs'
+import { TViewSelectorConfig } from './types'
 import { useViewSelector } from './useViewSelector'
 
 export const TabsPlugin = (

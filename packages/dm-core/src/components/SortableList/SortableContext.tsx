@@ -1,10 +1,9 @@
-import React from 'react'
 import {
-  closestCenter,
   DndContext,
   DragEndEvent,
   KeyboardSensor,
   PointerSensor,
+  closestCenter,
   useSensor,
   useSensors,
 } from '@dnd-kit/core'

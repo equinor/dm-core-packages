@@ -1,29 +1,29 @@
+import { Button, Progress, Table as EDSTable } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
 import {
-  Pagination,
-  Stack,
-  SortableList,
   ConditionalWrapper,
+  Pagination,
   SortableItem,
+  SortableList,
+  Stack,
   TGenericObject,
   TTemplate,
   usePagination,
 } from '../../'
-import { Button, Table as EDSTable, Progress } from '@equinor/eds-core-react'
-import * as utils from './utils'
-import {
-  TableProps,
-  TTableSortDirection,
-  TableVariantNameEnum,
-  TTableVariant,
-  TTableConfig,
-} from './types'
-import { TableHead } from './TableHead/TableHead'
-import { TableRow } from './TableRow/TableRow'
-import { SortableContext } from '../SortableList/SortableContext'
 import { TItem } from '../../hooks/useList/types'
 import { AddRowButton } from '../AddRowButton'
+import { SortableContext } from '../SortableList/SortableContext'
 import { TemplateMenu } from '../TemplateMenu'
+import { TableHead } from './TableHead/TableHead'
+import { TableRow } from './TableRow/TableRow'
+import {
+  TTableConfig,
+  TTableSortDirection,
+  TTableVariant,
+  TableProps,
+  TableVariantNameEnum,
+} from './types'
+import * as utils from './utils'
 
 export type { TTableConfig }
 

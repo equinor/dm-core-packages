@@ -1,4 +1,3 @@
-import React from 'react'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 import { SortableListProps } from './types'

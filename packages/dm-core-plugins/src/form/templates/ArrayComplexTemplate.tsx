@@ -1,18 +1,18 @@
-import { TArrayTemplate } from '../types'
+import { ViewCreator } from '@development-framework/dm-core'
+import { list } from '@equinor/eds-icons'
+import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { useRegistryContext } from '../context/RegistryContext'
-import React, { useState } from 'react'
-import { getKey, ViewCreator } from '@development-framework/dm-core'
-import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
 import { OpenObjectButton } from '../components/OpenObjectButton'
+import RemoveObject from '../components/RemoveObjectButton'
+import { useRegistryContext } from '../context/RegistryContext'
+import { TArrayTemplate } from '../types'
 import FormTemplate from './shared/FormTemplate'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
   getOpenViewConfig,
 } from './shared/utils'
-import { list } from '@equinor/eds-icons'
 
 export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   const { namePath, attribute, uiAttribute } = props

@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
+import { DmssAPI } from '../../services'
 import { TGenericObject, TLinkReference } from '../../types'
 import { TItem } from './types'
-import { DmssAPI } from '../../services'
 
 export function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
   const arrayCopy = [...arr]

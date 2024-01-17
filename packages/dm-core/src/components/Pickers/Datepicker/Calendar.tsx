@@ -1,15 +1,3 @@
-import React, { ReactElement, useState } from 'react'
-import {
-  calendar,
-  CALENDAR_MONTHS,
-  DateSelection,
-  getNextMonth,
-  getPreviousMonth,
-  isSameDay,
-  isSameMonth,
-  THIS_MONTH,
-  THIS_YEAR,
-} from './calendarUtils'
 import { Icon } from '@equinor/eds-core-react'
 import {
   calendar_today,
@@ -18,6 +6,18 @@ import {
   chevron_right,
 } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
+import { ReactElement, useState } from 'react'
+import {
+  CALENDAR_MONTHS,
+  DateSelection,
+  THIS_MONTH,
+  THIS_YEAR,
+  calendar,
+  getNextMonth,
+  getPreviousMonth,
+  isSameDay,
+  isSameMonth,
+} from './calendarUtils'
 
 interface CalendarProps {
   dateTime: DateTime | null

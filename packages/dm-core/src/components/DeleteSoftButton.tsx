@@ -1,6 +1,5 @@
 import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'
-import * as React from 'react'
 import { MouseEventHandler } from 'react'
 
 interface DeleteSoftButtonProps {

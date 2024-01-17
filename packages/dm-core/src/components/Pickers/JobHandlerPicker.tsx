@@ -1,7 +1,7 @@
-import React, { ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
+import { useDMSS } from '../../context/DMSSContext'
 import { useSearch } from '../../hooks/useSearch'
 import { Select } from '../Select'
-import { useDMSS } from '../../context/DMSSContext'
 
 export const JobHandlerPicker = (props: {
   onChange: (data: string) => void

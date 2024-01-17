@@ -1,12 +1,12 @@
 import {
   IUIPlugin,
   Loading,
+  TApplication,
   TGenericObject,
   TUiRecipe,
   useBlueprint,
   useDocument,
   useUiPlugins,
-  TApplication,
 } from '@development-framework/dm-core'
 import { Icon, TopBar } from '@equinor/eds-core-react'
 import React, { useEffect, useState } from 'react'
@@ -15,8 +15,8 @@ import styled from 'styled-components'
 import { account_circle, info_circle } from '@equinor/eds-icons'
 
 import { AboutDialog } from './components/AboutDialog'
-import { UserInfoDialog } from './components/UserInfoDialog'
 import { AppSelector } from './components/AppSelector'
+import { UserInfoDialog } from './components/UserInfoDialog'
 
 const Icons = styled.div`
   display: flex;

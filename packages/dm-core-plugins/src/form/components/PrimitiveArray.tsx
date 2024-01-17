@@ -1,13 +1,13 @@
-import { Tooltip } from '@equinor/eds-core-react'
-import React, { useState } from 'react'
-import { AttributeField } from '../fields/AttributeField'
-import { TPrimitive, TUiAttributeObject } from '../types'
 import {
   AddRowButton,
   DeleteSoftButton,
   TAttribute,
 } from '@development-framework/dm-core'
+import { Tooltip } from '@equinor/eds-core-react'
+import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { AttributeField } from '../fields/AttributeField'
+import { TPrimitive, TUiAttributeObject } from '../types'
 
 interface PrimitiveArrayProps {
   uiAttribute: TUiAttributeObject | undefined

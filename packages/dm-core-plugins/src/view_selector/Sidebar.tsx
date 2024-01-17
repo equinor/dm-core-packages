@@ -1,8 +1,8 @@
-import * as React from 'react'
-import { Divider, SideBar } from '@equinor/eds-core-react'
-import * as EdsIcons from '@equinor/eds-icons'
-import { TItemData, TViewSelectorItem } from './types'
 import { TOnOpen } from '@development-framework/dm-core'
+import { SideBar } from '@equinor/eds-core-react'
+import * as EdsIcons from '@equinor/eds-icons'
+import * as React from 'react'
+import { TItemData, TViewSelectorItem } from './types'
 
 export const Sidebar = (props: {
   selectedViewId: string

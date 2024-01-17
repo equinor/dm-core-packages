@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import {
   Button,
   Icon,
@@ -7,6 +6,7 @@ import {
   Typography,
 } from '@equinor/eds-core-react'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
+import { useState } from 'react'
 
 import {
   IUIPlugin,

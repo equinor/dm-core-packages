@@ -1,8 +1,8 @@
+import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vite'
 import checker from 'vite-plugin-checker'
-import react from '@vitejs/plugin-react-swc'
-import viteTsConfigPaths from 'vite-tsconfig-paths'
 import svgrPlugin from 'vite-plugin-svgr'
+import viteTsConfigPaths from 'vite-tsconfig-paths'
 import { localConfig } from './vite.local.config'
 
 export default defineConfig({

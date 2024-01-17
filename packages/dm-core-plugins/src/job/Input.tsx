@@ -1,5 +1,5 @@
-import { primaryGray } from './Colors'
 import styled from 'styled-components'
+import { primaryGray } from './Colors'
 
 // This should be used instead of the EDS SingleSelect as that one is broken
 export const StyledSelect = styled.select`

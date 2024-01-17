@@ -1,8 +1,8 @@
-import React from 'react'
 import { Stack } from '@development-framework/dm-core'
 import { Icon, Typography } from '@equinor/eds-core-react'
-import * as Styled from '../styles'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
+import React from 'react'
+import * as Styled from '../styles'
 
 type DataGridPaginationProps = {
   count: number
