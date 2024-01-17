@@ -38,16 +38,15 @@ export const ArrayPrimitiveListTemplate = (
           <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
         </FormTemplate.Header>
         <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
-          <FormTemplate.Content padding=''>
-            <PrimitiveArray
-              uiAttribute={uiAttribute}
-              data={value}
-              namePath={namePath}
-              attribute={attribute}
-              onChange={onChange}
-            />
-          </FormTemplate.Content>
-        </div>
+        <FormTemplate.Content padding='' expanded={!!isExpanded}>
+          <PrimitiveArray
+            uiAttribute={uiAttribute}
+            data={value}
+            namePath={namePath}
+            attribute={attribute}
+            onChange={onChange}
+          />
+        </FormTemplate.Content>
       </FormTemplate>
   )
 }

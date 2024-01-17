@@ -85,15 +85,13 @@ export const ObjectModelUncontainedTemplate = (
           )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
-      <div className={`${canExpand && isExpanded ? '' : 'hidden'}`}>
-        <FormTemplate.Content>
-          <ViewCreator
-            idReference={address ?? ''}
-            onOpen={onOpen}
-            viewConfig={getExpandViewConfig(uiAttribute)}
-          />
-        </FormTemplate.Content>
-      </div>
+      <FormTemplate.Content expanded={!!(canExpand && isExpanded)}>
+        <ViewCreator
+          idReference={address ?? ''}
+          onOpen={onOpen}
+          viewConfig={getExpandViewConfig(uiAttribute)}
+        />
+      </FormTemplate.Content>
     </FormTemplate>
   )
 }
