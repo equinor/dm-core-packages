@@ -89,7 +89,7 @@ export const ObjectModelContainedTemplate = (
             )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
-      <FormTemplate.Content expanded={!!(canExpand && isExpanded)}>
+      <FormTemplate.Content expanded={!!isExpanded} canExpand={!!canExpand}>
         <ViewCreator
           idReference={`${idReference}.${namePath}`}
           onOpen={onOpen}

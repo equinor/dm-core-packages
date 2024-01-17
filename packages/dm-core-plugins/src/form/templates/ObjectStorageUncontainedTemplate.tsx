@@ -79,7 +79,8 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
         }`}
       >
         <FormTemplate.Content
-          expanded={!!(canExpand && isExpanded && referenceExists)}
+          expanded={!!isExpanded}
+          canExpand={!!(canExpand && referenceExists)}
         >
           <ViewCreator
             idReference={address}

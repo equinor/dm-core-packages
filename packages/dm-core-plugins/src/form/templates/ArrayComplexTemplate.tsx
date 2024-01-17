@@ -81,7 +81,8 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
       <FormTemplate.Content
-        expanded={!!(canExpand && isExpanded)}
+        expanded={!!isExpanded}
+        canExpand={!!canExpand}
         padding='px-2 pt-2'
       >
         <ViewCreator
