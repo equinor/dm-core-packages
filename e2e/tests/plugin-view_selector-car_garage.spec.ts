@@ -1,13 +1,10 @@
 import { expect, test } from '@playwright/test'
 
 test('View selector - car garage', async ({ page }) => {
-  await test.step('Open self and verify page content and the sidebar', async () => {
-    await page.goto('http://localhost:3000/')
-    await page.getByRole('button', { name: 'DemoDataSource' }).click()
-    await page.getByRole('button', { name: 'plugins' }).click()
-    await page.getByRole('button', { name: 'view_selector' }).click()
-    await page.getByRole('button', { name: 'car_garage' }).click()
-    await page.getByRole('button', { name: 'carGarage' }).click()
+  await test.step('Open self and verify page content', async () => {
+    await page.goto(
+      'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$carGarage'
+    )
     await expect(page.getByLabel('Name')).toHaveValue('CarGarage')
     await expect(page.getByLabel('Description')).toHaveValue(
       'Here you will find detailed information about the cars in our garage'
@@ -130,6 +127,9 @@ test('View selector - car garage', async ({ page }) => {
     ).toHaveValue('4500')
     await page.getByRole('tab', { name: 'Home' }).click()
     await page.getByLabel('Open in tab').nth(2).click()
+    await expect(
+      page.getByTestId('form-text-widget-Name of Owner').nth(1)
+    ).toBeVisible()
     await page.getByRole('tab', { name: 'Owner history' }).click()
     await expect(page.getByRole('textbox').first()).toHaveValue('Jack')
     await expect(page.getByRole('textbox').last()).toHaveValue('Maria')
