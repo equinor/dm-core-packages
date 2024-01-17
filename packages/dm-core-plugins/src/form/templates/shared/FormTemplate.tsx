@@ -52,15 +52,25 @@ const FormTemplateHeaderActions = ({
 const FormTemplateContent = ({
   children,
   padding,
-}: PropsWithChildren & { padding?: string }) => {
+  expanded,
+  canExpand,
+}: PropsWithChildren & {
+  expanded: boolean
+  canExpand: boolean
+  padding?: string
+}) => {
   return (
-    <div
-      className={`border-t border-[#dddddd] ${
-        padding ?? 'p-2'
-      } max-h-300 overflow-auto w-full`}
-    >
-      {children}
-    </div>
+    <>
+      {canExpand && (
+        <div
+          className={`border-t border-[#dddddd] ${padding ?? 'p-2'} max-h-300 overflow-auto w-full
+      ${expanded ? '' : 'hidden'}
+      `}
+        >
+          {children}
+        </div>
+      )}
+    </>
   )
 }
 

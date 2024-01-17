@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { list } from '@equinor/eds-icons'
 import FormTemplate from './shared/FormTemplate'
 import PrimitiveArray from '../components/PrimitiveArray'
-import GhostTextButton from '../components/GhostTextButton'
 
 export const ArrayPrimitiveListTemplate = (
   props: TArrayTemplate & {
@@ -37,17 +36,19 @@ export const ArrayPrimitiveListTemplate = (
           />{' '}
           <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
         </FormTemplate.Header>
-        {isExpanded && (
-          <FormTemplate.Content padding=''>
-            <PrimitiveArray
-              uiAttribute={uiAttribute}
-              data={value}
-              namePath={namePath}
-              attribute={attribute}
-              onChange={onChange}
-            />
-          </FormTemplate.Content>
-        )}
+        <FormTemplate.Content
+          padding=''
+          expanded={!!isExpanded}
+          canExpand={true}
+        >
+          <PrimitiveArray
+            uiAttribute={uiAttribute}
+            data={value}
+            namePath={namePath}
+            attribute={attribute}
+            onChange={onChange}
+          />
+        </FormTemplate.Content>
       </FormTemplate>
     </div>
   )

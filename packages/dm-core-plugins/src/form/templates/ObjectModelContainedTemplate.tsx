@@ -89,21 +89,19 @@ export const ObjectModelContainedTemplate = (
             )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
-      {canExpand && isExpanded && (
-        <FormTemplate.Content>
-          <ViewCreator
-            idReference={`${idReference}.${namePath}`}
-            onOpen={onOpen}
-            viewConfig={getExpandViewConfig(uiAttribute)}
-            onChange={(data: Record<string, unknown>) =>
-              setValue(namePath, data, {
-                shouldValidate: true,
-                shouldDirty: true,
-              })
-            }
-          />
-        </FormTemplate.Content>
-      )}
+      <FormTemplate.Content expanded={!!isExpanded} canExpand={!!canExpand}>
+        <ViewCreator
+          idReference={`${idReference}.${namePath}`}
+          onOpen={onOpen}
+          viewConfig={getExpandViewConfig(uiAttribute)}
+          onChange={(data: Record<string, unknown>) =>
+            setValue(namePath, data, {
+              shouldValidate: true,
+              shouldDirty: true,
+            })
+          }
+        />
+      </FormTemplate.Content>
     </FormTemplate>
   )
 }
