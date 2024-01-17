@@ -80,7 +80,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
             ))}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
-      {canExpand && isExpanded && (
+      <div className={`${canExpand && isExpanded ? '' : 'hidden'}`}>
         <FormTemplate.Content padding='px-2 pt-2'>
           <ViewCreator
             idReference={`${idReference}.${namePath}`}
@@ -88,7 +88,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
             viewConfig={getExpandViewConfig(uiAttribute)}
           />
         </FormTemplate.Content>
-      )}
+      </div>
     </FormTemplate>
   )
 }

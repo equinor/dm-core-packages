@@ -89,7 +89,7 @@ export const ObjectModelContainedTemplate = (
             )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
-      {canExpand && isExpanded && (
+      <div className={`${canExpand && isExpanded ? '' : 'hidden'}`}>
         <FormTemplate.Content>
           <ViewCreator
             idReference={`${idReference}.${namePath}`}
@@ -103,7 +103,7 @@ export const ObjectModelContainedTemplate = (
             }
           />
         </FormTemplate.Content>
-      )}
+      </div>
     </FormTemplate>
   )
 }

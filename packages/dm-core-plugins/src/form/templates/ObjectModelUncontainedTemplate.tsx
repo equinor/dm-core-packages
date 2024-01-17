@@ -85,7 +85,7 @@ export const ObjectModelUncontainedTemplate = (
           )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
-      {canExpand && isExpanded && (
+      <div className={`${canExpand && isExpanded ? '' : 'hidden'}`}>
         <FormTemplate.Content>
           <ViewCreator
             idReference={address ?? ''}
@@ -93,7 +93,7 @@ export const ObjectModelUncontainedTemplate = (
             viewConfig={getExpandViewConfig(uiAttribute)}
           />
         </FormTemplate.Content>
-      )}
+      </div>
     </FormTemplate>
   )
 }

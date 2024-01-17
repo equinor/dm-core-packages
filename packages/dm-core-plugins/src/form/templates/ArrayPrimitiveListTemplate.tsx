@@ -37,7 +37,7 @@ export const ArrayPrimitiveListTemplate = (
           />{' '}
           <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
         </FormTemplate.Header>
-        {isExpanded && (
+        <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
           <FormTemplate.Content padding=''>
             <PrimitiveArray
               uiAttribute={uiAttribute}
@@ -47,9 +47,8 @@ export const ArrayPrimitiveListTemplate = (
               onChange={onChange}
             />
           </FormTemplate.Content>
-        )}
+        </div>
       </FormTemplate>
-    </div>
   )
 }
 
