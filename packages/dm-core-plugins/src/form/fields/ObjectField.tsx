@@ -2,11 +2,11 @@ import { EBlueprint } from '@development-framework/dm-core'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { getWidget } from '../context/WidgetContext'
-import { TField } from '../types'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
-import { ObjectStorageUncontainedTemplate } from '../templates/ObjectStorageUncontainedTemplate'
 import { ObjectModelContainedTemplate } from '../templates/ObjectModelContainedTemplate'
 import { ObjectModelUncontainedTemplate } from '../templates/ObjectModelUncontainedTemplate'
+import { ObjectStorageUncontainedTemplate } from '../templates/ObjectStorageUncontainedTemplate'
+import { TField } from '../types'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 export const ObjectField = (props: TField): React.ReactElement => {
   const { namePath, uiAttribute, attribute } = props

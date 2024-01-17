@@ -1,4 +1,4 @@
-import { Page, expect, test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('Relative reference', async ({ page }) => {
   test.setTimeout(120000)

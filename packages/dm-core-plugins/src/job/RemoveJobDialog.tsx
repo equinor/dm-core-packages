@@ -1,6 +1,5 @@
-import React from 'react'
-import { Button } from '@equinor/eds-core-react'
 import { Dialog } from '@development-framework/dm-core'
+import { Button } from '@equinor/eds-core-react'
 
 type RemoveJobDialogProps = {
   isOpen: boolean

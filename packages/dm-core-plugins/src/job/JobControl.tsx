@@ -1,35 +1,34 @@
 import {
-  DeleteJobResponse,
   EBlueprint,
   ErrorResponse,
   IUIPlugin,
   JobStatus,
   Loading,
-  TemplateMenu,
   TJob,
   TJobHandler,
   TRecurringJob,
   TSchedule,
   TTemplate,
+  TemplateMenu,
   useDMSS,
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
-import React, { useEffect, useState } from 'react'
 import { Button, Chip, Icon, Tooltip } from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
-import { scheduleTemplate } from './templateEntities'
+import { AxiosError } from 'axios'
+import _ from 'lodash'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import {
   ConfigureRecurring,
-  getControlButton,
-  getVariant,
   JobButtonWrapper,
   JobLog,
   Progress,
+  getControlButton,
+  getVariant,
 } from './common'
-import { toast } from 'react-toastify'
-import { AxiosError } from 'axios'
-import _ from 'lodash'
+import { scheduleTemplate } from './templateEntities'
 
 type TJobControlConfig = {
   hideLogs?: boolean

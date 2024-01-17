@@ -1,9 +1,9 @@
-import React from 'react'
 import {
   IUIPlugin,
   TViewConfig,
   ViewCreator,
 } from '@development-framework/dm-core'
+import React from 'react'
 
 export const SingleViewPlugin = (
   props: IUIPlugin & { config: TViewConfig }

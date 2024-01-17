@@ -1,8 +1,8 @@
 import { EBlueprint, TreeNode } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import React from 'react'
-import { EDialog } from '../../types'
 import { toast } from 'react-toastify'
+import { EDialog } from '../../types'
 
 // This function must return a list of Menu.Item, ie not wrapped in a <></>.
 // See https://github.com/equinor/design-system/issues/2659

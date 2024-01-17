@@ -1,5 +1,5 @@
 import { Menu } from '@equinor/eds-core-react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 export type TTemplate = {
   label: string

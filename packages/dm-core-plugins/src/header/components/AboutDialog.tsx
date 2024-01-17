@@ -1,6 +1,5 @@
 import { Dialog, TApplication } from '@development-framework/dm-core'
 import { Button, Icon } from '@equinor/eds-core-react'
-import React from 'react'
 import { close } from '@equinor/eds-icons'
 
 type AboutDialogProps = {

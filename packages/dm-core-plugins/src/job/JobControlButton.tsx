@@ -1,7 +1,7 @@
+import { JobStatus } from '@development-framework/dm-core'
 import { Button, CircularProgress, Icon } from '@equinor/eds-core-react'
 import { IconData, play, refresh, save, stop } from '@equinor/eds-icons'
-import { JobStatus } from '@development-framework/dm-core'
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
 
 export const JobControlButton = (props: {
   jobStatus: JobStatus

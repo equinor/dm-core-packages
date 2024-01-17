@@ -1,6 +1,6 @@
 import {
-  DmssAPI,
   DMSSProvider,
+  DmssAPI,
   TUiPluginMap,
   UiPluginProvider,
 } from '@development-framework/dm-core'

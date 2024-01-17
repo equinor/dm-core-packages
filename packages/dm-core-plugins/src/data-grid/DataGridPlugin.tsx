@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react'
 import {
   IUIPlugin,
   Stack,
@@ -9,8 +8,9 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
-import { DataGridConfig, defaultConfig } from './types'
+import { useEffect, useState } from 'react'
 import { DataGrid } from './DataGrid'
+import { DataGridConfig, defaultConfig } from './types'
 
 export function DataGridPlugin(props: IUIPlugin) {
   const { idReference, config: userConfig, type } = props

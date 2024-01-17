@@ -1,7 +1,6 @@
 import { Icon, Tooltip } from '@equinor/eds-core-react'
-import React from 'react'
-import styled from 'styled-components'
 import { refresh } from '@equinor/eds-icons'
+import styled from 'styled-components'
 
 const StyledRefreshButton = styled.button`
   position: absolute;

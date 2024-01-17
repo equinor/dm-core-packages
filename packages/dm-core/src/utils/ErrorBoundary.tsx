@@ -1,6 +1,6 @@
+import { Typography } from '@equinor/eds-core-react'
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import { Typography } from '@equinor/eds-core-react'
 
 export const ErrorGroup = styled.div`
   display: flex;

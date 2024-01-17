@@ -1,9 +1,9 @@
-import { Button, Input, TextField, Typography } from '@equinor/eds-core-react'
+import { Button, TextField } from '@equinor/eds-core-react'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { AccessControlList, AccessLevel } from '../../services'
-import { ACLSelect } from './ACLSelect'
 import { DeleteSoftButton } from '../DeleteSoftButton'
+import { ACLSelect } from './ACLSelect'
 
 interface IURPanelProps {
   roles: { [key: string]: AccessLevel }

@@ -1,5 +1,5 @@
+import { ReactNode, createContext, useContext } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
-import React, { createContext, ReactNode, useContext } from 'react'
 import DmssAPI from '../services/api/DmssAPI'
 
 const DMSSContext = createContext<DmssAPI | undefined>(undefined)

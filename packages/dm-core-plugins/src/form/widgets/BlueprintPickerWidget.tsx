@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { BlueprintPicker } from '@development-framework/dm-core'
 import styled from 'styled-components'
 import { TWidget } from '../types'

@@ -4,7 +4,6 @@ import {
   TViewConfig,
 } from '@development-framework/dm-core'
 import { external_link } from '@equinor/eds-icons'
-import React from 'react'
 import TooltipButton from '../../common/TooltipButton'
 import { useRegistryContext } from '../context/RegistryContext'
 

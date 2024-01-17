@@ -1,12 +1,11 @@
-import { Accordion, Button, Icon, Typography } from '@equinor/eds-core-react'
 import {
-  truncatePathString,
   DeleteSoftButton,
+  truncatePathString,
 } from '@development-framework/dm-core'
-import { BlueprintAttribute } from './BlueprintAttribute'
-import { Fieldset } from '../form/styles'
-import * as React from 'react'
+import { Accordion, Button, Icon, Typography } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
+import { Fieldset } from '../form/styles'
+import { BlueprintAttribute } from './BlueprintAttribute'
 
 interface BlueprintAttributeListProps {
   formData: any

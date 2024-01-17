@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Switch } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
 

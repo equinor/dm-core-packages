@@ -1,4 +1,3 @@
-import React, { ChangeEvent } from 'react'
 import { Button, Checkbox, Icon, Tooltip } from '@equinor/eds-core-react'
 import {
   checkbox,
@@ -7,9 +6,10 @@ import {
   chevron_up,
   external_link,
 } from '@equinor/eds-icons'
-import * as Styled from '../styles'
+import { ChangeEvent } from 'react'
 import { TableCellProps } from '../../types'
 import { resolvePath } from '../../utils'
+import * as Styled from '../styles'
 
 export function TableCell(props: TableCellProps) {
   const {

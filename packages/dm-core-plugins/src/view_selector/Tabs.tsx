@@ -1,5 +1,5 @@
 import { Button, Tabs as EdsTabs, Tooltip } from '@equinor/eds-core-react'
-import { close, subdirectory_arrow_right } from '@equinor/eds-icons'
+import { close } from '@equinor/eds-icons'
 import * as React from 'react'
 import Icon from './Icon'
 import { TItemData } from './types'

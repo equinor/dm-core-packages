@@ -1,5 +1,4 @@
-import React from 'react'
-
+import { TField } from '../types'
 import { isArray, isPrimitive } from '../utils'
 import ArrayField from './ArrayField'
 import { BinaryField } from './BinaryField'
@@ -7,9 +6,6 @@ import { BooleanField } from './BooleanField'
 import { NumberField } from './NumberField'
 import { ObjectField } from './ObjectField'
 import { StringField } from './StringField'
-import { TField } from '../types'
-import { collapse } from '@equinor/eds-icons'
-import { Tooltip } from '@equinor/eds-core-react'
 
 const getFieldType = (attribute: any) => {
   const { attributeType, dimensions } = attribute

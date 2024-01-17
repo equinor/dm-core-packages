@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import {
   getMonthDays,
   getNextMonth,
@@ -6,7 +7,6 @@ import {
   isSameDay,
   isSameMonth,
 } from './calendarUtils'
-import { DateTime } from 'luxon'
 
 test('get month days', () => {
   expect(getMonthDays(1, 2023)).toBe(31)

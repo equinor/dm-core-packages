@@ -1,8 +1,7 @@
-import React from 'react'
 import { Controller } from 'react-hook-form'
+import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
-import { useRegistryContext } from '../context/RegistryContext'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
 
 export const StringField = (props: TField) => {

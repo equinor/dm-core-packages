@@ -1,4 +1,6 @@
-import React, {
+import { Checkbox, Icon, InputWrapper } from '@equinor/eds-core-react'
+import { arrow_drop_down, arrow_drop_up } from '@equinor/eds-icons'
+import {
   Dispatch,
   ReactElement,
   SetStateAction,
@@ -7,8 +9,6 @@ import React, {
   useState,
 } from 'react'
 import styled from 'styled-components'
-import { Checkbox, Icon, InputWrapper } from '@equinor/eds-core-react'
-import { arrow_drop_down, arrow_drop_up } from '@equinor/eds-icons'
 
 const DropdownPanel = styled.div`
   position: absolute;

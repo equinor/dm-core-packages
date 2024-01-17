@@ -4,9 +4,9 @@ import {
   ViewCreator,
 } from '@development-framework/dm-core'
 import * as React from 'react'
-import { TItemData } from './types'
 import { PropsWithChildren, useRef } from 'react'
 import styled from 'styled-components'
+import { TItemData } from './types'
 
 type LazyProps = {
   visible: boolean

@@ -1,13 +1,12 @@
-import '@development-framework/dm-core/dist/main.css'
 import {
   EntityView,
+  ErrorGroup,
   Loading,
   TValidEntity,
   useDocument,
-  ErrorGroup,
 } from '@development-framework/dm-core'
+import '@development-framework/dm-core/dist/main.css'
 import { Typography } from '@equinor/eds-core-react'
-import React from 'react'
 import './main.css'
 
 function ViewPage() {

@@ -1,10 +1,8 @@
-import React from 'react'
-
 import { Autocomplete } from '@equinor/eds-core-react'
 
-import { TWidget } from '../types'
 import { TEnum, useDocument } from '@development-framework/dm-core'
 import { AutocompleteChanges } from '@equinor/eds-core-react/dist/types/components/Autocomplete/Autocomplete'
+import { TWidget } from '../types'
 
 type TOption = {
   value: string

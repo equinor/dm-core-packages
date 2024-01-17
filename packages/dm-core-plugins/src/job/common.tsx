@@ -4,18 +4,18 @@ import {
   JobStatus,
   TSchedule,
 } from '@development-framework/dm-core'
-import { JobLogsDialog } from './JobLogsDialog'
-import React, { ChangeEvent, useState } from 'react'
 import { Button, Icon, LinearProgress, Switch } from '@equinor/eds-core-react'
 import { expand_screen } from '@equinor/eds-icons'
+import { ChangeEvent, useState } from 'react'
+import styled from 'styled-components'
 import { ConfigureSchedule } from './CronJob'
+import { JobLogsDialog } from './JobLogsDialog'
 import {
   CompletedButton,
   LoadingButton,
   RerunButton,
   StartButton,
 } from './SimpleJobControlButtons'
-import styled from 'styled-components'
 
 export const getVariant = (status: JobStatus) => {
   switch (status) {

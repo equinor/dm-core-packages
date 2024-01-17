@@ -19,6 +19,12 @@ repos:
         args: [ --branch, main ]
         stages: [ commit-msg ]
 
+  - repo: https://github.com/biomejs/pre-commit
+    rev: "v0.1.0"
+    hooks:
+      - id: biome-check
+        additional_dependencies: [ "@biomejs/biome@1.4.1" ]
+
   - repo: local
     hooks:
       - id: type_check_core
@@ -39,8 +45,4 @@ repos:
       - id: conventional-pre-commit
         stages: [ commit-msg ]
 
-  - repo: https://github.com/biomejs/pre-commit
-    rev: "v0.1.0"
-    hooks:
-      - id: biome-check
-        additional_dependencies: [ "@biomejs/biome@1.4.1" ]
+

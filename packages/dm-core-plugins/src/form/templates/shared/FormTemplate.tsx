@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from 'react'
+import { TAttribute, colors } from '@development-framework/dm-core'
 import { EdsProvider, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import {
   IconData,
@@ -6,10 +6,10 @@ import {
   file_description,
   info_circle,
 } from '@equinor/eds-icons'
+import { PropsWithChildren, useState } from 'react'
 import ExpandChevron from '../../components/ExpandChevron'
-import { TAttribute, colors } from '@development-framework/dm-core'
-import { getDisplayLabel } from '../../utils/getDisplayLabel'
 import { TUiAttribute } from '../../types'
+import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
 const FormTemplate = ({ children }: PropsWithChildren) => {
   return <div className='border border-[#dddddd] rounded-md'>{children}</div>

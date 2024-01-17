@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from 'react'
-import * as Styled from '../styles'
 import { Checkbox } from '@equinor/eds-core-react'
+import { ChangeEvent } from 'react'
+import * as Styled from '../styles'
 import { DataGridConfig } from '../types'
 
 type DataCellProps = {

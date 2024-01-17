@@ -1,28 +1,18 @@
-import '@development-framework/dm-core/dist/main.css'
 import {
   ApplicationContext,
   EntityView,
-  ErrorGroup,
   FSTreeProvider,
   Loading,
   RoleProvider,
   TApplication,
-  UiPluginProvider,
   useDocument,
 } from '@development-framework/dm-core'
-import {
-  Button,
-  Card,
-  Icon,
-  Progress,
-  Typography,
-} from '@equinor/eds-core-react'
+import '@development-framework/dm-core/dist/main.css'
+import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { refresh } from '@equinor/eds-icons'
-import React from 'react'
 import './main.css'
-import plugins from './plugins'
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ViewPage from './ViewPage'
 
 const appNotReadyPage = () => (

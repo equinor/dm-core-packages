@@ -1,11 +1,11 @@
-import React, { useState, Suspense, memo } from 'react'
+import React, { Suspense, memo, useState } from 'react'
 
+import { Typography } from '@equinor/eds-core-react'
 import styled from 'styled-components'
-import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { useRecipe } from '../hooks'
 import { IUIPlugin, TUiRecipe } from '../types'
+import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { Loading } from './Loading'
-import { Typography } from '@equinor/eds-core-react'
 import RefreshButton from './RefreshButton'
 
 const Wrapper = styled.div`

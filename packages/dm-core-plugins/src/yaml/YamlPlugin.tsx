@@ -5,12 +5,12 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { Button, Input, Label } from '@equinor/eds-core-react'
+import DOMPurify from 'dompurify'
 import hljs from 'highlight.js'
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import YAML from 'yaml'
-import DOMPurify from 'dompurify'
 
 const CodeContainer = styled.pre`
   background-color: #193549;

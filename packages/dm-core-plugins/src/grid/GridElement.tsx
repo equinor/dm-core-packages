@@ -1,10 +1,8 @@
 import { ViewCreator } from '@development-framework/dm-core'
+import { Typography } from '@equinor/eds-core-react'
 import React from 'react'
 import styled from 'styled-components'
-import { TItemBorder, TGridItem } from './types'
-import { Typography } from '@equinor/eds-core-react'
-import { toast } from 'react-toastify'
-import onChange = toast.onChange
+import { TGridItem, TItemBorder } from './types'
 
 type TElementProps = {
   item: TGridItem

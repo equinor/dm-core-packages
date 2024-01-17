@@ -1,3 +1,4 @@
+import { DeleteJobResponse, JobStatus } from '@development-framework/dm-core'
 import {
   Button,
   CircularProgress,
@@ -5,8 +6,7 @@ import {
   Tooltip,
 } from '@equinor/eds-core-react'
 import { check, play, refresh, stop } from '@equinor/eds-icons'
-import { DeleteJobResponse, JobStatus } from '@development-framework/dm-core'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { RemoveJobDialog } from './RemoveJobDialog'
 
 const loadingColor = '#eb9131'

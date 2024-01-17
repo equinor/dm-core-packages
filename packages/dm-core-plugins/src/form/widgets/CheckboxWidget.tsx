@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Checkbox, Tooltip } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
 

@@ -1,7 +1,7 @@
 import { Input } from '@equinor/eds-core-react'
-import { ACLSelect } from './ACLSelect'
-import { AccessControlList, AccessLevel } from '../../services'
 import React from 'react'
+import { AccessControlList, AccessLevel } from '../../services'
+import { ACLSelect } from './ACLSelect'
 
 interface IACLOwnerPanelProps {
   acl: AccessControlList

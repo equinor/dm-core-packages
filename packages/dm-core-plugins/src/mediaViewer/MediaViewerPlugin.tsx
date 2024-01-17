@@ -1,16 +1,16 @@
-import React, { Suspense, useEffect, useState } from 'react'
 import {
   EBlueprint,
   ErrorResponse,
   IUIPlugin,
   Loading,
   MediaContent,
+  mimeTypes,
   splitAddress,
   useDMSS,
   useDocument,
-  mimeTypes,
 } from '@development-framework/dm-core'
 import { AxiosError, AxiosRequestConfig } from 'axios'
+import React, { Suspense, useEffect, useState } from 'react'
 
 interface MediaObject {
   type: string

@@ -1,17 +1,17 @@
-import { TFormConfig, TObjectTemplate } from '../types'
+import { ViewCreator } from '@development-framework/dm-core'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { useRegistryContext } from '../context/RegistryContext'
-import RemoveObject from '../components/RemoveObjectButton'
 import AddObject from '../components/AddObjectButton'
-import { OpenObjectButton } from '../components/OpenObjectButton'
-import { ViewCreator } from '@development-framework/dm-core'
 import AddObjectBySearchButton from '../components/AddObjectBySearchButton'
+import { OpenObjectButton } from '../components/OpenObjectButton'
+import RemoveObject from '../components/RemoveObjectButton'
+import { useRegistryContext } from '../context/RegistryContext'
+import { TObjectTemplate } from '../types'
 import FormTemplate from './shared/FormTemplate'
 import {
+  getCanOpenOrExpand as getCanOpenExpand,
   getExpandViewConfig,
   getOpenViewConfig,
-  getCanOpenOrExpand as getCanOpenExpand,
 } from './shared/utils'
 
 export const ObjectModelContainedTemplate = (

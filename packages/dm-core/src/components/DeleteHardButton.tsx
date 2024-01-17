@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Button, EdsProvider, Icon, Tooltip } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'

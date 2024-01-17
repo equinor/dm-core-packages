@@ -3,9 +3,9 @@ import {
   RoleContext,
   ViewCreator,
 } from '@development-framework/dm-core'
-import React, { useContext, useEffect, useState } from 'react'
 import { Banner, Icon } from '@equinor/eds-core-react'
 import { thumbs_down } from '@equinor/eds-icons'
+import React, { useContext, useEffect, useState } from 'react'
 
 type FilteredView = {
   type: string

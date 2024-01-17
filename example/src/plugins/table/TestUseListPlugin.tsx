@@ -6,11 +6,10 @@ import {
   TEntityPickerReturn,
   TGenericObject,
   TItem,
-  TValidEntity,
   useList,
 } from '@development-framework/dm-core'
-import React, { useMemo, useState } from 'react'
 import { Button } from '@equinor/eds-core-react'
+import { useMemo, useState } from 'react'
 
 const TestUseListPlugin = (props: IUIPlugin) => {
   const { idReference: address } = props

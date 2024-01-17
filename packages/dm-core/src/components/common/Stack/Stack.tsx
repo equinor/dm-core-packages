@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyledStack } from './styles'
 import { StackProps } from './types'
 

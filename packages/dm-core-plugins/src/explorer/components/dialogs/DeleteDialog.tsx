@@ -6,7 +6,7 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { EDialog } from '../../types'
 import {

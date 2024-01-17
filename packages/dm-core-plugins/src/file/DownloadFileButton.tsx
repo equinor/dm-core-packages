@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react'
 import {
   ErrorResponse,
   Loading,
   TFileEntity,
   useDMSS,
 } from '@development-framework/dm-core'
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Button } from '@equinor/eds-core-react'
-import * as React from 'react'
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { useEffect, useState } from 'react'
 import { ErrorGroup } from './ErrorGroup'
 
 export interface DownloadButtonProps {

@@ -1,12 +1,11 @@
 import {
   ErrorResponse,
-  splitAddress,
   TGenericObject,
+  splitAddress,
   useDMSS,
 } from '@development-framework/dm-core'
 import { Button, Label } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import { TField } from '../types'

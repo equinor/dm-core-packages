@@ -1,11 +1,10 @@
-import * as React from 'react'
 import { ViewerPDFPlugin } from './PDFViewer'
 
 import {
   IUIPlugin,
   Loading,
-  splitAddress,
   TGenericObject,
+  splitAddress,
   useDocument,
 } from '@development-framework/dm-core'
 

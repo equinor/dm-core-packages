@@ -1,18 +1,18 @@
+import { Typography } from '@equinor/eds-core-react'
+import { AxiosResponse } from 'axios'
+import React, { useEffect, useState } from 'react'
+import { EntityView, Loading, TAttribute, useDMSS } from '../../index'
 import {
-  isInlineRecipeViewConfig,
-  isReferenceViewConfig,
-  isViewConfig,
   IUIPlugin,
   TInlineRecipeViewConfig,
   TReferenceViewConfig,
   TViewConfig,
+  isInlineRecipeViewConfig,
+  isReferenceViewConfig,
+  isViewConfig,
 } from '../../types'
-import { EntityView, Loading, TAttribute, useDMSS } from '../../index'
-import React, { useEffect, useState } from 'react'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget } from './utils'
-import { AxiosResponse } from 'axios'
-import { Typography } from '@equinor/eds-core-react'
 
 type TViewCreator = Omit<IUIPlugin, 'type'> & {
   viewConfig: TViewConfig | TInlineRecipeViewConfig | TReferenceViewConfig

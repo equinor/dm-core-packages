@@ -1,12 +1,10 @@
-import * as React from 'react'
-
 import {
   EBlueprint,
   IUIPlugin,
   Loading,
-  splitAddress,
   TFileEntity,
   TStorageReference,
+  splitAddress,
   useDocument,
 } from '@development-framework/dm-core'
 import { DownloadFileButton } from './DownloadFileButton'

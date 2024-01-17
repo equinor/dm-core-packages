@@ -1,17 +1,9 @@
 import {
-  Button,
-  Icon,
-  Label,
-  TextField,
-  Typography,
-} from '@equinor/eds-core-react'
-import {
   BlueprintPicker,
   DeleteSoftButton,
 } from '@development-framework/dm-core'
+import { TextField, Typography } from '@equinor/eds-core-react'
 import { Fieldset } from '../form/styles'
-import { close } from '@equinor/eds-icons'
-import * as React from 'react'
 
 export const Extends = (props: {
   formData: string[]

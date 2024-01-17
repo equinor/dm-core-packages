@@ -1,11 +1,10 @@
-import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { TArrayTemplate } from '../types'
 import { getWidget } from '../context/WidgetContext'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
-import { ArrayComplexTemplate } from '../templates/ArrayComplexTemplate'
-import { isPrimitiveType } from '../utils/isPrimitiveType'
 import arrayTemplates from '../templates'
+import { ArrayComplexTemplate } from '../templates/ArrayComplexTemplate'
+import { TArrayTemplate } from '../types'
+import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { isPrimitiveType } from '../utils/isPrimitiveType'
 
 export default function ArrayField(props: TArrayTemplate) {
   const { uiAttribute, namePath, attribute } = props

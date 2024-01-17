@@ -1,6 +1,5 @@
-import { TItemBorder, TGridItem } from './types'
-import React from 'react'
 import { GridElement } from './GridElement'
+import { TGridItem, TItemBorder } from './types'
 
 type GridItemsProps = {
   items: TGridItem[]

@@ -1,4 +1,4 @@
-import { expect, Page, test } from '@playwright/test'
+import { Page, expect, test } from '@playwright/test'
 
 test.describe.configure({ mode: 'serial' })
 

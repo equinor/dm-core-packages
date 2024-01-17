@@ -1,18 +1,18 @@
-import React, { useState, useMemo, useEffect } from 'react'
 import { Stack } from '@development-framework/dm-core'
 import { EdsProvider, Typography } from '@equinor/eds-core-react'
-import * as Styled from './styles'
-import * as utils from './utils'
+import { useEffect, useMemo, useState } from 'react'
 import { DataCell } from './DataCell/DataCell'
+import { DataGridActions } from './DataGridActions/DataGridActions'
 import { DataGridPagination } from './DataGridPagination/DataGridPagination'
 import { HeaderCell } from './HeaderCell/HeaderCell'
+import * as Styled from './styles'
 import {
   DataGridConfig,
   DataGridProps,
   TFunctionalityChecks,
   defaultConfig,
 } from './types'
-import { DataGridActions } from './DataGridActions/DataGridActions'
+import * as utils from './utils'
 
 export function DataGrid(props: DataGridProps) {
   const { data, attributeType, dimensions, setData, config: userConfig } = props

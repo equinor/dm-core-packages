@@ -1,12 +1,12 @@
-import React, { ReactElement, useRef, useState } from 'react'
-import styled from 'styled-components'
 import { Button, Icon, Popover } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
+import { ReactElement, useRef, useState } from 'react'
+import styled from 'styled-components'
 
-import { formatBytes } from '../utils/stringUtilities'
+import { DateTime } from 'luxon'
 import { imageFiletypes, videoFiletypes } from '../utils/filetypes'
 import { mimeTypes } from '../utils/mime-types'
-import { DateTime } from 'luxon'
+import { formatBytes } from '../utils/stringUtilities'
 
 interface MediaContentConfig {
   height?: number

@@ -1,4 +1,3 @@
-import React, { ReactNode, MouseEvent } from 'react'
 import {
   Button,
   EdsProvider,
@@ -6,7 +5,8 @@ import {
   Progress,
   Tooltip,
 } from '@equinor/eds-core-react'
-import { chevron_down, chevron_up, add } from '@equinor/eds-icons'
+import { add, chevron_down, chevron_up } from '@equinor/eds-icons'
+import { MouseEvent, ReactNode } from 'react'
 export const AppendButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
   compact?: boolean

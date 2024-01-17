@@ -1,4 +1,3 @@
-import React from 'react'
 import { Datepicker } from '@development-framework/dm-core'
 
 const DateRangePicker = (props: {

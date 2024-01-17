@@ -1,8 +1,8 @@
+import { IUIPlugin } from '@development-framework/dm-core'
 import React from 'react'
 import styled from 'styled-components'
 import { GridItems } from './GridItems'
 import { TGridPluginConfig, TGridSize } from './types'
-import { IUIPlugin } from '@development-framework/dm-core'
 
 const Grid = styled.div<TGridSize>`
   display: grid;

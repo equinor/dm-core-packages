@@ -1,7 +1,6 @@
 import { TAttribute, TBlueprint } from '@development-framework/dm-core'
-import React from 'react'
-import { AttributeField } from '../fields/AttributeField'
 import { useRegistryContext } from '../context/RegistryContext'
+import { AttributeField } from '../fields/AttributeField'
 
 export const AttributeList = (props: {
   namePath: string

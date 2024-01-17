@@ -1,10 +1,8 @@
-import React from 'react'
 import { Controller } from 'react-hook-form'
+import { useRegistryContext } from '../context/RegistryContext'
 import { getWidget } from '../context/WidgetContext'
 import { TField } from '../types'
-import { useRegistryContext } from '../context/RegistryContext'
 import { getDisplayLabel } from '../utils/getDisplayLabel'
-import { Tooltip } from '@equinor/eds-core-react'
 
 export const BooleanField = (props: TField) => {
   const { namePath, uiAttribute, attribute } = props

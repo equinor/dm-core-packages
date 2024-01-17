@@ -1,5 +1,3 @@
-import { Input, Label, Switch, TextField } from '@equinor/eds-core-react'
-import { ChangeEvent } from 'react'
 import {
   BlueprintPicker,
   EPrimitiveTypes,
@@ -8,7 +6,8 @@ import {
   TGenericObject,
   truncatePathString,
 } from '@development-framework/dm-core'
-import * as React from 'react'
+import { Input, Label, Switch, TextField } from '@equinor/eds-core-react'
+import { ChangeEvent } from 'react'
 import { Spacer } from './BlueprintPlugin'
 
 type TAttribute = {
