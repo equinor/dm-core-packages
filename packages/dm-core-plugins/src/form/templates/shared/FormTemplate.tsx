@@ -1,8 +1,13 @@
 import React, { PropsWithChildren, useState } from 'react'
-import { Icon, Typography } from '@equinor/eds-core-react'
-import { IconData, file, file_description } from '@equinor/eds-icons'
+import { EdsProvider, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
+import {
+  IconData,
+  file,
+  file_description,
+  info_circle,
+} from '@equinor/eds-icons'
 import ExpandChevron from '../../components/ExpandChevron'
-import { TAttribute } from '@development-framework/dm-core'
+import { TAttribute, colors } from '@development-framework/dm-core'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
 import { TUiAttribute } from '../../types'
 
@@ -26,8 +31,22 @@ const FormTemplateHeader = ({
   )
 }
 
-const FormTemplateHeaderActions = ({ children }: PropsWithChildren) => {
-  return <div className='flex items-center'>{children}</div>
+const FormTemplateHeaderActions = ({
+  children,
+  uiAttribute,
+}: PropsWithChildren & { uiAttribute?: TUiAttribute }) => {
+  return (
+    <div className='flex items-center'>
+      {uiAttribute?.tooltip && (
+        <EdsProvider density='compact'>
+          <Tooltip title={uiAttribute?.tooltip}>
+            <Icon data={info_circle} size={16} color={colors.equinorGreen} />
+          </Tooltip>
+        </EdsProvider>
+      )}
+      {children}
+    </div>
+  )
 }
 
 const FormTemplateContent = ({

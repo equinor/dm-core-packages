@@ -33,6 +33,7 @@ export const ObjectModelContainedTemplate = (
     uiAttribute,
     onOpen
   )
+  console.log(uiAttribute)
   return (
     <FormTemplate>
       <FormTemplate.Header>
@@ -52,7 +53,7 @@ export const ObjectModelContainedTemplate = (
           }
           uiAttribute={uiAttribute}
         />
-        <FormTemplate.Header.Actions>
+        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
           {canOpen && (
             <OpenObjectButton
               viewId={namePath}

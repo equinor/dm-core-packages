@@ -42,7 +42,7 @@ type TUiAttributeBase = {
   showInline?: boolean
   config?: Record<any, any>
   readOnly?: boolean
-
+  tooltip?: string
   hideOptionalLabel?: boolean
   label?: string
 }
@@ -107,6 +107,7 @@ export type TWidget = {
   config?: Record<any, any>
   isDirty?: boolean
   enumType?: any
+  tooltip?: string
 }
 
 export type TWidgets = {
