@@ -49,11 +49,17 @@ export function Table(props: TableProps) {
     useState<TTableSortDirection>('ascending')
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
 
-  const { currentItems, itemsPerPage, currentPage, setItemsPerPage, setPage } =
-    usePagination(
-      TableVariantNameEnum.Edit || !sortColumn ? items : sortedItems,
-      10
-    )
+  const {
+    currentItems,
+    itemsPerPage,
+    currentPage,
+    setItemsPerPage,
+    setPage,
+    setLastPage,
+  } = usePagination(
+    TableVariantNameEnum.Edit || !sortColumn ? items : sortedItems,
+    10
+  )
   const functionalityConfig =
     config.variant.length === 1
       ? config.variant[0].functionality
@@ -151,24 +157,27 @@ export function Table(props: TableProps) {
             <AddRowButton
               onClick={() => {
                 const saveOnAdd = tableVariant === TableVariantNameEnum.View
-                if (!(config.templates && config.templates.length))
+                if (!(config.templates && config.templates.length)) {
                   addItem(saveOnAdd)
-                else if (config.templates.length === 1)
+                  setLastPage()
+                } else if (config.templates.length === 1) {
                   addItem(saveOnAdd, undefined, config.templates[0].path)
-                else setTemplateMenuIsOpen(true)
+                  setLastPage()
+                } else setTemplateMenuIsOpen(true)
               }}
               ariaLabel={'Add new row'}
             />
             {config.templates?.length && (
               <TemplateMenu
                 templates={config.templates}
-                onSelect={(template: TTemplate) =>
+                onSelect={(template: TTemplate) => {
                   addItem(
                     tableVariant === TableVariantNameEnum.View,
                     undefined,
                     template?.path
                   )
-                }
+                  setLastPage()
+                }}
                 onClose={() => setTemplateMenuIsOpen(false)}
                 isOpen={isTemplateMenuOpen}
               />
