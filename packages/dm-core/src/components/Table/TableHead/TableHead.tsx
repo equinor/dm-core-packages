@@ -32,7 +32,7 @@ export function TableHead(props: TableHeadProps) {
             return tableVariant === TableVariantNameEnum.View ? (
               <Table.Cell
                 key={column.data}
-                width={column.data === '^expandable' ? '80' : '48'}
+                width={'48'}
                 aria-label={
                   column.data === '^expandable'
                     ? 'Open as expandable'

@@ -41,7 +41,6 @@ export function TableCell(props: TableCellProps) {
               isExpanded ? 'Close expandable row' : 'Open expandable row'
             }
             variant='ghost_icon'
-            color='secondary'
             onClick={() => setIsExpanded(!isExpanded)}
           >
             <Icon data={isExpanded ? chevron_up : chevron_down} />
@@ -60,7 +59,7 @@ export function TableCell(props: TableCellProps) {
             aria-label='Open in new tab'
             onClick={openItemAsTab}
           >
-            <Icon data={external_link} aria-hidden />
+            <Icon data={external_link} aria-hidden size={18} />
           </Button>
         </Tooltip>
       </Styled.TableCell>
