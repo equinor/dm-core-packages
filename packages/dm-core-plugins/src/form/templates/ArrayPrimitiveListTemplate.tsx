@@ -34,9 +34,9 @@ export const ArrayPrimitiveListTemplate = (
             objectIsNotEmpty={true}
             icon={list}
             uiAttribute={uiAttribute}
-          />
+          />{' '}
+          <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
         </FormTemplate.Header>
-        <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
         {isExpanded && (
           <FormTemplate.Content padding=''>
             <PrimitiveArray
