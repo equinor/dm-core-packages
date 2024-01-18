@@ -1,0 +1,20 @@
+{
+  "_id": "PrimitiveArrays",
+  "type": "./blueprints/PrimitiveArrays",
+  "requiredList": [40, 20, 60],
+  "requiredSetList": [50, 40, 30, 20, 10],
+  "requiredGrid": [[30, 60, 90], [40, 20, 50]],
+  "requiredSetGrid": [
+    [10, 20, 30, 40],
+    [15, 25, 35, 45],
+    [90, 80, 70, 60],
+    [95, 85, 75, 65],
+    [15, 25, 35, 45]
+  ],
+  "requiredSetColumnsGrid": [
+    [20, 10, 30, 20, 50],
+    [30, 20, 25, 15, 10],
+    [45, 64, 90, 40, 30]
+  ],
+  "requiredSetRowsGrid": [[400, 20, 180], [200, 10, 90], [110, 50, 70]]
+}

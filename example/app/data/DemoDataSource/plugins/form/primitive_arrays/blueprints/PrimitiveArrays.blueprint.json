@@ -1,0 +1,101 @@
+{
+  "name": "PrimitiveArrays",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "requiredList",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions: * (required)",
+      "dimensions": "*"
+    },
+    {
+      "name": "optionalList",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions: * (optional)",
+      "optional": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "requiredSetList",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions: 5 (required)",
+      "dimensions": "5"
+    },
+    {
+      "name": "optionalSetList",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions: 5 (optional)",
+      "dimensions": "5",
+      "optional": true
+    },
+    {
+      "name": "requiredGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions: *,* (required)",
+      "dimensions": "*,*"
+    },
+    {
+      "name": "optionalGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions: *,* (optional)",
+      "dimensions": "*,*",
+      "optional": true
+    },
+    {
+      "name": "requiredSetGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions 4,5 (required)",
+      "dimensions": "4,5"
+    },
+    {
+      "name": "optionalSetGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions 4,5 (optional)",
+      "dimensions": "4,5",
+      "optional": true
+    },
+    {
+      "name": "requiredSetColumnsGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions 5,* (required)",
+      "dimensions": "5,*"
+    },
+    {
+      "name": "optionalSetColumnsGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions 5,* (optional)",
+      "dimensions": "5,*",
+      "optional": true
+    },
+    {
+      "name": "requiredSetRowsGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions *,3 (required)",
+      "dimensions": "*,3"
+    },
+    {
+      "name": "optionalSetRowsGrid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "label": "Dimensions *,3 (optional)",
+      "dimensions": "*,3",
+      "optional": true
+    }
+  ]
+}

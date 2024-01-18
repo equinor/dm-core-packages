@@ -49,7 +49,7 @@ export default function ArrayField(props: TArrayTemplate) {
             <Template
               namePath={namePath}
               onChange={onChange}
-              value={value ?? []}
+              value={value}
               uiAttribute={uiAttribute}
               attribute={attribute}
             />
