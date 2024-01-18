@@ -73,13 +73,15 @@
             "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
             "widget": "TextareaWidget",
             "hideOptionalLabel": true,
-            "readOnly": true
+            "readOnly": true,
+            "tooltip": "tooltip"
           },
           {
             "name": "averageSalary",
             "type": "PLUGINS:dm-core-plugins/form/fields/NumberField",
             "hideOptionalLabel": true,
-            "label": "Salary (avg)"
+            "label": "Salary (avg)",
+            "tooltip": "tooltip"
           }
         ],
         "fields": [

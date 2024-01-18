@@ -51,6 +51,11 @@
             }
           },
           {
+            "name": "name",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+            "tooltip": "This is the name of the company"
+          },
+          {
             "name": "accountant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "uiRecipe": "defaultYaml",

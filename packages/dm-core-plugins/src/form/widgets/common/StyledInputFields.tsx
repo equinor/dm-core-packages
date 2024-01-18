@@ -1,5 +1,6 @@
 import { colors } from '@development-framework/dm-core'
-import { TextField } from '@equinor/eds-core-react'
+import { Icon, TextField, Tooltip } from '@equinor/eds-core-react'
+import { info_circle } from '@equinor/eds-icons'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -25,6 +26,7 @@ const StyledInputField = styled(TextField)`
 const StyledEDSField = (
   props: React.ComponentProps<typeof StyledInputField> & {
     isDirty?: boolean
+    tooltip?: string
   }
 ) => {
   let background = props.config?.backgroundColor ?? colors.equinorLightGray
@@ -41,6 +43,16 @@ const StyledEDSField = (
         // @ts-ignore
         '--eds-input-background': background,
       }}
+      rightAdornments={
+        <span className='flex space-x-2'>
+          <p>{props?.unit}</p>
+          {props.tooltip && (
+            <Tooltip title={props.tooltip ?? ''}>
+              <Icon data={info_circle} size={16} />
+            </Tooltip>
+          )}
+        </span>
+      }
     ></StyledInputField>
   )
 }
@@ -48,11 +60,11 @@ const StyledEDSField = (
 export const StyledTextField = (
   props: React.ComponentProps<typeof StyledEDSField>
 ) => {
-  const { value, ...propsWithoutValue } = props
+  const { value, ...restProps } = props
 
   return (
     <StyledEDSField
-      {...propsWithoutValue}
+      {...restProps}
       defaultValue={
         props.readOnly && props.value === ''
           ? '-'

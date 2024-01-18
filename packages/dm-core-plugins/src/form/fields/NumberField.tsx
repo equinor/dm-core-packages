@@ -45,6 +45,7 @@ export const NumberField = (props: TField) => {
                 : ''
             }
             inputRef={ref}
+            tooltip={uiAttribute?.tooltip}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
             isDirty={value !== null ? isDirty : false}

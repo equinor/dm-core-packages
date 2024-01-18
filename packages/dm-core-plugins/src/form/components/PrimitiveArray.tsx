@@ -94,6 +94,7 @@ const PrimitiveArray = ({
                     name: '',
                     type: '',
                     ...uiAttribute,
+                    tooltip: '',
                     config: {
                       hideLabel: true,
                       ...uiAttribute?.config,
