@@ -4,9 +4,9 @@ import { EBlueprint } from '../../Enums'
 import { useDMSS } from '../../context/DMSSContext'
 import { ErrorResponse } from '../../services'
 import { TAttribute, TGenericObject, TLinkReference } from '../../types'
+import { resolveRelativeAddressSimplified } from '../../utils/addressUtilities'
 import { IUseListReturnType, TItem } from './types'
 import * as utils from './utils'
-import { getTemplate } from './utils'
 
 export type { TItem }
 
@@ -101,7 +101,12 @@ export function useList<T extends object>(
       setDirtyState(true)
       let newEntity: TGenericObject
       if (template) {
-        newEntity = await getTemplate(dmssAPI, idReference, template)
+        newEntity = (
+          await dmssAPI.documentGet({
+            address: resolveRelativeAddressSimplified(template, idReference),
+            depth: 99,
+          })
+        ).data
       } else {
         const instantiateResponse = await dmssAPI.instantiateEntity({
           entity: {
