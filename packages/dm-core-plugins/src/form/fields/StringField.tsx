@@ -40,6 +40,7 @@ export const StringField = (props: TField) => {
                 : ''
             }
             inputRef={ref}
+            tooltip={uiAttribute?.tooltip}
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
             config={{

@@ -70,9 +70,7 @@ test('Dimensional scalar', async ({ page }) => {
     await page.getByRole('button', { name: 'close', exact: true }).click()
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'waveForm' }).click()
-    await expect(
-      page.getByTestId('significantWaveHeight').getByRole('paragraph')
-    ).toContainText('significantWaveHeight (config)')
+    await expect(page.getByText('significantWaveHeight (config)')).toBeVisible()
     await expect(
       page.getByText('Should not show as config overrides')
     ).not.toBeVisible()
@@ -102,7 +100,7 @@ test('Dimensional scalar', async ({ page }) => {
       page.getByTestId('maximumWaveHeight').getByRole('spinbutton')
     ).toHaveValue('88888')
     await expect(
-      page.getByTestId('maximumWaveHeight').getByRole('paragraph')
+      page.getByTestId('maximumWaveHeight').getByRole('paragraph').first()
     ).toContainText('New Maximum')
     await expect(
       page.getByTestId('maximumWaveHeight').locator('span')

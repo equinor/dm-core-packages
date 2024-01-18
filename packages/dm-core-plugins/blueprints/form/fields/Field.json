@@ -1,19 +1,8 @@
 {
   "name": "Field",
   "type": "dmss://system/SIMOS/Blueprint",
+  "extends": ["CORE:NamedEntity"],
   "attributes": [
-    {
-      "name": "name",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": false,
-      "attributeType": "string"
-    },
-    {
-      "name": "type",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": false,
-      "attributeType": "string"
-    },
     {
       "name": "showInline",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
