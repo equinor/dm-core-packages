@@ -14,20 +14,31 @@ export const ArrayPrimitiveDatagridTemplate = (
 ) => {
   const { attribute, value, onChange } = props
 
-  const multi: boolean = attribute.dimensions?.includes(',') || false
+  const multiDimensional: boolean = attribute.dimensions?.includes(',') || false
   const [definedColumns, definedRows] = attribute.dimensions?.split(',') || [
     '*,*',
   ]
-  const showCreateButton = definedRows !== '*' && value.length === 0
+  const undefinedColumnDimensions = definedColumns === '*'
+  const undefinedRowDimensions = definedRows === '*'
+  const showCreateButton = !Array.isArray(value)
 
-  const getFillValue = (type: string) =>
-    type === 'boolean' ? false : type === 'number' ? 0 : ''
+  const fillValue =
+    attribute.attributeType === 'boolean'
+      ? false
+      : attribute.attributeType === 'number'
+        ? 0
+        : ''
 
   function createPrimitiveArray() {
-    if (multi && definedRows !== '*') {
-      const fillValue = getFillValue(attribute.attributeType)
-      const definedRowsAmount = parseInt(definedRows, 10)
-      const definedColumnsAmount = parseInt(definedColumns, 10)
+    const definedColumnsAmount = parseInt(definedColumns, 10)
+    const definedRowsAmount = parseInt(definedRows, 10)
+
+    // example: dimensions = 3,3
+    if (
+      multiDimensional &&
+      !undefinedRowDimensions &&
+      !undefinedColumnDimensions
+    ) {
       const emptyRow = Array.from({ length: definedColumnsAmount }).fill(
         fillValue
       )
@@ -36,7 +47,57 @@ export const ArrayPrimitiveDatagridTemplate = (
         newRows.push(emptyRow)
       }
       onChange(newRows)
+      return
     }
+    // example dimensions = 4,*
+    if (
+      multiDimensional &&
+      undefinedRowDimensions &&
+      !undefinedColumnDimensions
+    ) {
+      const emptyRow = Array.from({ length: definedColumnsAmount }).fill(
+        fillValue
+      )
+      onChange([emptyRow] as any[])
+      return
+    }
+    // example dimensions = *,3
+    if (
+      multiDimensional &&
+      !undefinedRowDimensions &&
+      undefinedColumnDimensions
+    ) {
+      const newRows: any[] = []
+      for (let i = definedRowsAmount; i > 0; i--) {
+        newRows.push([fillValue])
+      }
+      onChange(newRows)
+      return
+    }
+    // example: dimensions = *,*
+    if (
+      multiDimensional &&
+      undefinedRowDimensions &&
+      undefinedColumnDimensions
+    ) {
+      onChange([[fillValue]] as any[])
+      return
+    }
+    // example: dimensions = *
+    if (!multiDimensional && undefinedColumnDimensions) {
+      onChange([fillValue])
+      return
+    }
+    // example: dimensions = 4
+    if (!multiDimensional && !undefinedColumnDimensions) {
+      const newRows: any[] = []
+      for (let i = definedColumnsAmount; i > 0; i--) {
+        newRows.push([fillValue])
+      }
+      onChange(newRows)
+      return
+    }
+    throw new Error('Use-case for these dimensions are not handled.')
   }
 
   return (
