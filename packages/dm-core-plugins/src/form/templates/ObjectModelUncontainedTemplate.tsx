@@ -69,20 +69,23 @@ export const ObjectModelUncontainedTemplate = (
               idReference={address}
             />
           )}
-          {!config.readOnly && (
+          {!config.readOnly && !uiAttribute?.readOnly && (
             <SelectReference
               attributeType={attribute.attributeType}
               namePath={namePath}
               buttonText={referenceExists ? 'Change' : 'Select'}
             />
           )}
-          {attribute.optional && referenceExists && !config.readOnly && (
-            <RemoveObject
-              popupTitle={`Confirm Removal`}
-              popupMessage={`Are sure you want to remove reference to '${namePath}'`}
-              namePath={namePath}
-            />
-          )}
+          {attribute.optional &&
+            referenceExists &&
+            !config.readOnly &&
+            !uiAttribute?.readOnly && (
+              <RemoveObject
+                popupTitle={`Confirm Removal`}
+                popupMessage={`Are sure you want to remove reference to '${namePath}'`}
+                namePath={namePath}
+              />
+            )}
         </FormTemplate.Header.Actions>
       </FormTemplate.Header>
       <FormTemplate.Content expanded={!!isExpanded} canExpand={!!canExpand}>

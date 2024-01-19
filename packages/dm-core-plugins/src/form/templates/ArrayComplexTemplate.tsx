@@ -62,6 +62,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
         <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
           {attribute.optional &&
             !config.readOnly &&
+            !uiAttribute?.readOnly &&
             (isDefined ? (
               <RemoveObject
                 namePath={namePath}
