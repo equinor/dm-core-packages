@@ -42,6 +42,35 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.40.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.40.0...dm-core-plugins-v1.40.1) (2024-01-19)
+
+
+### Bug Fixes
+
+* adding tooltip ([07f5723](https://github.com/equinor/dm-core-packages/commit/07f5723f6ed8ff53c8ac9c2153b4d3952929f45f))
+* also for numberfield ([07f5723](https://github.com/equinor/dm-core-packages/commit/07f5723f6ed8ff53c8ac9c2153b4d3952929f45f))
+* **job:** inverted logic for showing recurring ([255384a](https://github.com/equinor/dm-core-packages/commit/255384a581185bf40867a7eb583fe187676032e3))
+* not propagate the tooltip to every element in the primitive array ([07f5723](https://github.com/equinor/dm-core-packages/commit/07f5723f6ed8ff53c8ac9c2153b4d3952929f45f))
+* tests ([07f5723](https://github.com/equinor/dm-core-packages/commit/07f5723f6ed8ff53c8ac9c2153b4d3952929f45f))
+* tests ([07f5723](https://github.com/equinor/dm-core-packages/commit/07f5723f6ed8ff53c8ac9c2153b4d3952929f45f))
+
+
+### Styles
+
+* let biome handle imports ([af8634d](https://github.com/equinor/dm-core-packages/commit/af8634d0fe8c41c0f8b850923d59ea2e958be7d7))
+
+
+### Code Refactoring
+
+* actually reverse data instead of using css ([5ef01e7](https://github.com/equinor/dm-core-packages/commit/5ef01e75b77b2f3cb3ecd92f987a7564846e0b9a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.34.0 to ^1.34.1
+
 ## [1.40.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.39.2...dm-core-plugins-v1.40.0) (2024-01-17)
 
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.34.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.34.0...dm-core-v1.34.1) (2024-01-19)
+
+
+### Bug Fixes
+
+* minor ui changes to icons in table ([#1151](https://github.com/equinor/dm-core-packages/issues/1151)) ([933a52a](https://github.com/equinor/dm-core-packages/commit/933a52a4533a65e1025a4199b53c863ea5255da4))
+
+
+### Styles
+
+* let biome handle imports ([af8634d](https://github.com/equinor/dm-core-packages/commit/af8634d0fe8c41c0f8b850923d59ea2e958be7d7))
+
 ## [1.34.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.33.1...dm-core-v1.34.0) (2024-01-17)
 
 
