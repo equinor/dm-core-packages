@@ -4,6 +4,7 @@ import {
   IUIPlugin,
   LazyLoad,
   Loading,
+  NewListItemButton,
   Pagination,
   Stack,
   TEntityPickerReturn,
@@ -29,7 +30,7 @@ import {
 import { chevron_right, external_link, link, undo } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { AppendButton, FormButton, ListChevronButton } from './Components'
+import { FormButton, ListChevronButton } from './Components'
 
 type TListConfig = {
   expanded?: boolean
@@ -414,7 +415,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           >
             {internalConfig.functionality.add && (
               <>
-                <AppendButton
+                <NewListItemButton
                   onClick={() => {
                     if (attribute && !attribute.contained) {
                       setShowModal(true)
