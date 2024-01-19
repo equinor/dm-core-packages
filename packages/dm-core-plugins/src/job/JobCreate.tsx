@@ -160,8 +160,7 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
   }, [jobDocument])
   return (
     <>
-      {config.recurring !== true && (
-        // {config.recurring !== false && (
+      {config.recurring !== false && (
         <ConfigureRecurring
           asCron={asCronJob}
           setAsCron={setAsCronJob}
