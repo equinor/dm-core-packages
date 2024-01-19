@@ -60,27 +60,30 @@ export const ObjectModelContainedTemplate = (
               viewConfig={getOpenViewConfig(uiAttribute, namePath)}
             />
           )}
-          {attribute.optional && !config.readOnly && !objectIsNotEmpty && (
-            <>
-              {uiAttribute?.searchByType && (
-                <AddObjectBySearchButton
-                  namePath={namePath}
-                  type={attribute.attributeType}
-                />
-              )}
-              {!uiAttribute?.searchByType && (
-                <AddObject
-                  namePath={namePath}
-                  type={attribute.attributeType}
-                  defaultValue={attribute.default}
-                />
-              )}
-            </>
-          )}
+          {attribute.optional &&
+            !config.readOnly &&
+            !uiAttribute?.readOnly &&
+            !objectIsNotEmpty && (
+              <>
+                {uiAttribute?.searchByType && (
+                  <AddObjectBySearchButton
+                    namePath={namePath}
+                    type={attribute.attributeType}
+                  />
+                )}
+                {!uiAttribute?.searchByType && (
+                  <AddObject
+                    namePath={namePath}
+                    type={attribute.attributeType}
+                    defaultValue={attribute.default}
+                  />
+                )}
+              </>
+            )}
           {attribute.optional &&
             objectIsNotEmpty &&
             !config.readOnly &&
-            !uiAttribute?.hideDelete && (
+            !uiAttribute?.readOnly && (
               <RemoveObject
                 popupTitle={`Confirm Removal`}
                 popupMessage={`Are sure you want to remove reference to '${namePath}'`}

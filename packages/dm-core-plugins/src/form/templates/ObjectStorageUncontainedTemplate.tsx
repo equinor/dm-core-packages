@@ -5,7 +5,6 @@ import {
 } from '@development-framework/dm-core'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-// import AddStorageUncontained from '../components/AddStorageUncontained'
 import { OpenObjectButton } from '../components/OpenObjectButton'
 import RemoveObject from '../components/RemoveObjectButton'
 import { useRegistryContext } from '../context/RegistryContext'

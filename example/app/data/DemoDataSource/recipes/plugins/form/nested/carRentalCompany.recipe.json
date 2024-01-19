@@ -42,7 +42,6 @@
             "name": "trainee",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
             "uiRecipe": "defaultForm",
-            "hideDelete": true,
             "hideOptionalLabel": true,
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
