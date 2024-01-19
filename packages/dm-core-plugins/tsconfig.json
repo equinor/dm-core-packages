@@ -7,11 +7,8 @@
   },
   "include": [
     "src",
-    "src/**/*.json"
+    "src/**/*.json",
+    "../dm-core/src/components/NewListItemButton.tsx"
   ],
-  "exclude": [
-    "node_modules",
-    "src/**/*.spec.ts",
-    "dist"
-  ]
+  "exclude": ["node_modules", "src/**/*.spec.ts", "dist"]
 }

@@ -5,23 +5,8 @@ import {
   Progress,
   Tooltip,
 } from '@equinor/eds-core-react'
-import { add, chevron_down, chevron_up } from '@equinor/eds-icons'
+import { chevron_down, chevron_up } from '@equinor/eds-icons'
 import { MouseEvent, ReactNode } from 'react'
-export const AppendButton = (props: {
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void
-  compact?: boolean
-}) => (
-  <Tooltip title='Add item'>
-    <Button
-      variant='outlined'
-      onClick={props.onClick}
-      style={{ paddingInline: props.compact ? '0.5rem' : '0.7rem' }}
-      aria-label='append-item'
-    >
-      <Icon data={add} size={18} title='Append' />
-    </Button>
-  </Tooltip>
-)
 
 export const FormButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
