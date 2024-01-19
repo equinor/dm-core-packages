@@ -21,7 +21,11 @@ export function DataCell(props: DataCellProps) {
   function parseValue(event: ChangeEvent<HTMLInputElement>) {
     const { value, checked } = event.target
     if (attributeType === 'number') {
-      return value === '' ? undefined : parseInt(value, 10)
+      return value === ''
+        ? undefined
+        : value === '-'
+          ? '-'
+          : parseInt(value, 10)
     }
     if (attributeType === 'boolean') {
       return checked
