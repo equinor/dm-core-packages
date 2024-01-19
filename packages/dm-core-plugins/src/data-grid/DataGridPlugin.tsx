@@ -7,7 +7,8 @@ import {
   useDMSS,
   useDocument,
 } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
+import { Button, Icon, Tooltip } from '@equinor/eds-core-react'
+import { undo } from '@equinor/eds-icons'
 import { useEffect, useState } from 'react'
 import { DataGrid } from './DataGrid'
 import { DataGridConfig, defaultConfig } from './types'
@@ -18,6 +19,7 @@ export function DataGridPlugin(props: IUIPlugin) {
   const config: DataGridConfig = { ...defaultConfig, ...userConfig }
   const dmssAPI = useDMSS()
   const [data, setData] = useState<any[]>()
+  const [initialData, setInitialData] = useState<any[]>()
   const [loading, setLoading] = useState<boolean>(false)
   const [isDirty, setIsDirty] = useState<boolean>(false)
   const { blueprint } = useBlueprint(type)
@@ -61,11 +63,17 @@ export function DataGridPlugin(props: IUIPlugin) {
       modifiedData = reverseData(modifiedData, getColumnsLength(modifiedData))
     }
     setData(modifiedData)
+    setInitialData(window.structuredClone(modifiedData))
   }, [document, isLoading])
 
   function onChange(data: any[]) {
     setData(data)
     setIsDirty(true)
+  }
+
+  function revertChanges() {
+    setData(window.structuredClone(initialData))
+    setIsDirty(false)
   }
 
   async function saveDocument() {
@@ -86,6 +94,7 @@ export function DataGridPlugin(props: IUIPlugin) {
         idAddress: idReference,
         data: JSON.stringify(payload),
       })
+      setInitialData(window.structuredClone(data))
       setIsDirty(false)
     } catch (error) {
       throw new Error(
@@ -127,17 +136,20 @@ export function DataGridPlugin(props: IUIPlugin) {
         title={document?.title}
       />
       {config.editable && (
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            overflow: 'hidden',
-          }}
-        >
+        <Stack direction='row' spacing={1}>
+          <Tooltip title={isDirty ? 'Undo changes' : ''}>
+            <Button
+              onClick={revertChanges}
+              disabled={!isDirty}
+              variant='outlined'
+            >
+              <Icon data={undo} size={16} />
+            </Button>
+          </Tooltip>
           <Button onClick={saveDocument} disabled={!isDirty || loading}>
             Save
           </Button>
-        </div>
+        </Stack>
       )}
     </Stack>
   )
