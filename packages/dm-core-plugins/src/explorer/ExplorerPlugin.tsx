@@ -1,4 +1,5 @@
 import {
+  EBlueprint,
   EntityView,
   FSTreeContext,
   Tree,
@@ -32,6 +33,7 @@ export default () => {
           <TreeView
             nodes={treeNodes}
             onSelect={(node: TreeNode) => {
+              if (node.type === EBlueprint.PACKAGE) return
               setSelectedType(node.type)
               setSelectedEntity(node.nodeId)
               setNodeDimensions(Array.isArray(node.entity) ? '*' : undefined)

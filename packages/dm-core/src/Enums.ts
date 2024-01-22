@@ -18,6 +18,7 @@ export enum EBlueprint {
   JOB = 'dmss://WorkflowDS/Blueprints/Job',
   RECURRING_JOB = 'dmss://WorkflowDS/Blueprints/RecurringJob',
   RECURRING_JOB_HANDLER = 'dmss://WorkflowDS/Blueprints/RecurringJobHandler',
+  RECIPE_LINK = 'dmss://system/SIMOS/RecipeLink',
 
   CRON_JOB = 'dmss://WorkflowDS/Blueprints/CronJob',
   REFERENCE = 'dmss://system/SIMOS/Reference',
