@@ -118,9 +118,9 @@ test('Relative reference', async ({ page }) => {
 
   await test.step('Nested root reference', async () => {
     await page.getByText('ChildTask root reference', { exact: true }).click()
-    await expect(page.locator('pre').nth(1).getByRole('code')).toBeVisible()
+    await expect(page.locator('pre').nth(4)).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
-    await page.getByText('Data', { exact: true }).nth(1).click()
+    await page.getByLabel('form-complex-data').nth(1).click()
     await expect(page.locator('pre').nth(2).getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
