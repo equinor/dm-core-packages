@@ -1,0 +1,30 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/form/hyperlinks/LinkForm",
+  "initialUiRecipe": {
+    "name": "Edit",
+    "type": "CORE:UiRecipe",
+    "description": "Default edit",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "attributes": [
+        {
+          "name": "stringLink1",
+          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+          "widget": "HyperlinkWidget"
+        },
+        {
+          "name": "stringLink2",
+          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+          "widget": "HyperlinkWidget",
+          "config": {
+            "type": "PLUGINS:dm-core-plugins/form/widgets/HyperlinkWidgetConfig",
+            "label": "Go To This Page"
+          }
+        }
+      ],
+      "fields": ["stringLink1", "stringLink2"]
+    }
+  }
+}

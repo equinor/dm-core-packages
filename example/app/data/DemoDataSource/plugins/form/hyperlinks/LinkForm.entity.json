@@ -1,0 +1,7 @@
+{
+  "name": "linkForm",
+  "type": "./LinkForm",
+  "_id": "linkForm",
+  "stringLink1": "https://google.com",
+  "stringLink2": "http://localhost:3000/view/?documentId=dmss://DemoDataSource/$linkForm"
+}

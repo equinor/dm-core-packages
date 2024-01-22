@@ -1,0 +1,13 @@
+{
+  "name": "HyperlinkWidgetConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "extends": ["CORE:Entity"],
+  "attributes": [
+    {
+      "name": "label",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
+}
