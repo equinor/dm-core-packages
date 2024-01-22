@@ -84,6 +84,7 @@ const FormTemplateHeaderTitle = ({
   objectIsNotEmpty,
   icon,
   uiAttribute,
+  namePath,
 }: {
   canExpand: boolean | undefined
   canOpen: boolean | undefined
@@ -94,6 +95,7 @@ const FormTemplateHeaderTitle = ({
   onOpen?: () => void
   icon?: IconData
   uiAttribute?: TUiAttribute
+  namePath?: string
 }) => {
   const [isHovering, setIsHovering] = useState(false)
 
@@ -154,6 +156,7 @@ const FormTemplateHeaderTitle = ({
               ? 'underline'
               : ''
           }`}
+          aria-label={`form-complex-${namePath}`}
         >
           {getDisplayLabel(attribute, true, uiAttribute)}
         </Typography>
