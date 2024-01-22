@@ -118,36 +118,36 @@ test('Relative reference', async ({ page }) => {
 
   await test.step('Nested root reference', async () => {
     await page.getByText('ChildTask root reference', { exact: true }).click()
-    await expect(page.locator('pre').nth(4)).toBeVisible()
+    await expect(page.locator('pre').getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
-    await page.getByLabel('form-complex-data').nth(1).click()
-    await expect(page.locator('pre').nth(2).getByRole('code')).toBeVisible()
+    await page.getByText('Data', { exact: true }).nth(2).click()
+    await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
-    await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
-      '400'
-    )
-    await page.getByTestId('form-number-widget-A Number').fill('4')
+    await expect(
+      page.getByTestId('form-number-widget-A Number').last()
+    ).toHaveValue('400')
+    await page.getByTestId('form-number-widget-A Number').last().fill('4')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByRole('button', { name: 'close', exact: true }).click()
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'Close data' }).click()
-    await page.getByText('Job', { exact: true }).nth(3).click()
-    await expect(page.locator('pre').nth(2).getByRole('code')).toBeVisible()
+    await page.getByText('Job', { exact: true }).nth(4).click()
+    await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
-    await page.getByText('Input', { exact: true }).last().click()
-    await expect(page.locator('pre').nth(3).getByRole('code')).toBeVisible()
+    await page.getByText('Input', { exact: true }).nth(1).click()
+    await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
-    await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
-      '10'
-    )
+    await expect(
+      page.getByTestId('form-number-widget-A Number').last()
+    ).toHaveValue('10')
     await page.getByRole('button', { name: 'Close job' }).click()
 
-    await page.getByText('Data', { exact: true }).nth(1).click()
-    await expect(page.locator('pre').nth(2).getByRole('code')).toBeVisible()
+    await page.getByText('Data', { exact: true }).nth(2).click()
+    await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
-    await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
-      '4'
-    )
+    await expect(
+      page.getByTestId('form-number-widget-A Number').last()
+    ).toHaveValue('4')
   })
 })

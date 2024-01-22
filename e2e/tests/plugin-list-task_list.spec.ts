@@ -51,10 +51,10 @@ test('task list', async ({ page }) => {
       .first()
       .click()
     await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible()
-    await expect(page.getByTestId('form-text-widget-Task title:')).toHaveValue(
-      'Wash the car'
-    )
-    await page.getByText('Mark task as complete').click()
+    await expect(
+      page.getByTestId('form-text-widget-Task title:').first()
+    ).toHaveValue('Wash the car')
+    await page.getByText('Mark task as complete').first().click()
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByRole('button', { name: 'close', exact: true }).click()
