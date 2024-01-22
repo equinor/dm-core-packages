@@ -6,4 +6,5 @@ export enum EDialog {
   NewFolder = 4,
   NewRootPackage = 5,
   EditACL = 6,
+  CopyLink = 7,
 }

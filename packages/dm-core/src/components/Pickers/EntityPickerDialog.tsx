@@ -17,7 +17,7 @@ import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
 import { Dialog } from '../Dialog'
 import { TNodeWrapperProps, TreeView } from '../TreeView'
 
-const Wrapper = styled.div<{ selected: boolean }>`
+const Wrapper = styled.div`
   display: flex;
   border-radius: 5px;
   justify-content: space-between;
@@ -29,7 +29,7 @@ const Wrapper = styled.div<{ selected: boolean }>`
 const CheckSelectNode = (
   props: TNodeWrapperProps & {
     onSelect: (node: TreeNode, selected: boolean) => void
-    typeFilter: string
+    typeFilter?: string
     selectedNodeIds: string[]
     multiple: boolean
   }
@@ -38,7 +38,7 @@ const CheckSelectNode = (
     props
   const nodeIsSelected = selectedNodeIds.includes(node.nodeId)
   return (
-    <Wrapper selected={nodeIsSelected}>
+    <Wrapper>
       {children}
       {node.type === typeFilter && (
         <EdsProvider density={'compact'}>
@@ -55,9 +55,39 @@ const CheckSelectNode = (
   )
 }
 
+const ButtonSelectNode = (
+  props: TNodeWrapperProps & {
+    onSelect: (node: TreeNode) => void
+    typeFilter?: string
+  }
+) => {
+  const { node, children, onSelect, typeFilter } = props
+  const [hover, setHover] = useState<boolean>(false)
+  return (
+    <Wrapper
+      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => setHover(true)}
+    >
+      {children}
+      {hover && (
+        <EdsProvider density={'compact'}>
+          <Button
+            variant='outlined'
+            data-testid='select-single-entity-button'
+            onClick={() => onSelect(node)}
+          >
+            Select
+          </Button>
+        </EdsProvider>
+      )}
+    </Wrapper>
+  )
+}
+
 export type TEntityPickerReturn = {
   address: string
   entity: TValidEntity
+  path: string
 }
 
 type TCommonProps = {
@@ -96,6 +126,7 @@ export const EntityPickerDialog = (
   const {
     onChange,
     showModal,
+    title,
     setShowModal,
     typeFilter,
     scope,
@@ -121,7 +152,7 @@ export const EntityPickerDialog = (
   }, [scope])
 
   const handleSelect = (node: TreeNode, selected: boolean) => {
-    if (node.type !== typeFilter || node.isArray()) return
+    if (typeFilter && (node.type !== typeFilter || node.isArray())) return
     if (selected) {
       // It has already been added
       if (selectedNodes.find((v) => node.nodeId === v.address)) return
@@ -132,11 +163,15 @@ export const EntityPickerDialog = (
         .then((doc: any) => {
           setSelectedNodes([
             ...(selectedNodes as []),
-            { address: node.nodeId, entity: doc },
+            { address: node.nodeId, entity: doc, path: node.getPath() },
           ])
           if (!multiple) {
             // @ts-ignore  We know it should be singular
-            onChange({ address: node.nodeId, entity: doc })
+            onChange({
+              address: node.nodeId,
+              entity: doc,
+              path: node.getPath(),
+            })
             setShowModal(false)
             setSelectedNodes([])
           }
@@ -169,9 +204,10 @@ export const EntityPickerDialog = (
     >
       <Dialog.Header>
         <Dialog.Title>
-          {`Select an Entity ${
-            typeFilter ? `of type '${truncatePathString(typeFilter)}'` : ''
-          }`}
+          {title ||
+            `Select an Entity ${
+              typeFilter ? `of type '${truncatePathString(typeFilter)}'` : ''
+            }`}
         </Dialog.Title>
       </Dialog.Header>
       <Dialog.CustomContent style={{ overflow: 'hidden' }}>
@@ -190,24 +226,27 @@ export const EntityPickerDialog = (
                     : undefined
                 }
                 nodes={treeNodes}
-                // If not 'multiple', clicking a valid entity selects it, and closes the dialog
-                onSelect={(node: TreeNode) => {
-                  if (!multiple) handleSelect(node, true)
+                // If 'multiple', add a checkbox to handle selection, else a select button
+                NodeWrapper={(props: TNodeWrapperProps) => {
+                  if (props.node.type === 'dataSource')
+                    return <>{props.children}</>
+
+                  if (multiple)
+                    return CheckSelectNode({
+                      ...props,
+                      multiple,
+                      typeFilter,
+                      selectedNodeIds: selectedNodes.map((n) => n.address),
+                      onSelect: (node: TreeNode, selected: boolean) =>
+                        handleSelect(node, selected),
+                    })
+
+                  return ButtonSelectNode({
+                    ...props,
+                    typeFilter,
+                    onSelect: (node: TreeNode) => handleSelect(node, true),
+                  })
                 }}
-                // If 'multiple', add a checkbox to handle selection
-                NodeWrapper={
-                  multiple
-                    ? (props: any) =>
-                        CheckSelectNode({
-                          ...props,
-                          multiple,
-                          typeFilter,
-                          selectedNodeIds: selectedNodes.map((n) => n.address),
-                          onSelect: (node: TreeNode, selected: boolean) =>
-                            handleSelect(node, selected),
-                        })
-                    : undefined
-                }
               />
             </div>
           )}

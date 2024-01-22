@@ -1,4 +1,7 @@
-import { TNodeWrapperProps } from '@development-framework/dm-core'
+import {
+  CopyLinkDialog,
+  TNodeWrapperProps,
+} from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import { useState } from 'react'
 import { EDialog } from '../../types'
@@ -85,6 +88,13 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
           setDialogId={setDialogId}
           node={node}
           setNodeOpen={setNodeOpen}
+        />
+      )}
+      {dialogId === EDialog.CopyLink && (
+        <CopyLinkDialog
+          idReference={node.nodeId}
+          open={true}
+          setOpen={() => setDialogId(undefined)}
         />
       )}
       {dialogId === EDialog.EditACL && (

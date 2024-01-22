@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { TreeNode } from '../domain/Tree'
 
 import { Button, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
-import { chevron_right } from '@equinor/eds-icons'
+import { chevron_right, miniplayer } from '@equinor/eds-icons'
 import {
   FaDatabase,
   FaExclamationTriangle,
@@ -85,6 +85,8 @@ const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
       return <FaDatabase style={{ color: 'gray' }} title='data source' />
     case EBlueprint.BLUEPRINT:
       return <FaRegFileAlt style={{ color: '#2966FF' }} title='blueprint' />
+    case EBlueprint.RECIPE_LINK:
+      return <Icon data={miniplayer} size={18} />
     case EBlueprint.PACKAGE:
       if (expanded) {
         if (node.isRoot) {
@@ -178,7 +180,7 @@ const TreeListItem = (props: {
   const setOpen = async (x: boolean) => (x ? await open() : close())
   const clickHandler = async () => {
     setOpen(!expanded)
-    if (![EBlueprint.PACKAGE, 'dataSource'].includes(node.type)) {
+    if (!['dataSource'].includes(node.type)) {
       if (onSelect) {
         onSelect(node)
       }

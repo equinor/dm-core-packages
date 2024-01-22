@@ -53,7 +53,7 @@ export type TReference = {
 }
 
 export type TLinkReference = {
-  type: string
+  type: 'dmss://system/SIMOS/Reference'
   referenceType: 'link'
   address: string
 }

@@ -44,7 +44,7 @@ export function getMenuItems(
       <Menu.Item
         key={'view'}
         as='a'
-        href={`dmt/view/${node.nodeId}`}
+        href={`/view/?documentId=${node.nodeId}`}
         target='_blank'
       >
         View in new tab
@@ -52,10 +52,11 @@ export function getMenuItems(
     )
   }
 
-  // Everything besides dataSources can be deleted and edited AccessControl
+  // Everything besides dataSources can be deleted, copied, and edited AccessControl
   if (node.type !== 'dataSource') {
     menuItems.push(getMenuItem(EDialog.Delete, 'Delete'))
     menuItems.push(getMenuItem(EDialog.EditACL, 'Change permissions'))
+    menuItems.push(getMenuItem(EDialog.CopyLink, 'Copy or link'))
   }
 
   // Every node gets the "copy address" entry

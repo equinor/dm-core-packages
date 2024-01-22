@@ -19,7 +19,8 @@ test('uncontainedObject', async ({ page }) => {
       .filter({ hasText: 'employees' })
       .last() // Get innermost list
       .getByRole('button', { name: 'John' })
-      .click()
+      .hover()
+    await dialog.getByTestId('select-single-entity-button').click()
     await expect(dialog).not.toBeVisible()
   }
 
