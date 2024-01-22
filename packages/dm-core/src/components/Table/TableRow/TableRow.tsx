@@ -3,6 +3,7 @@ import { add } from '@equinor/eds-icons'
 import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import {
+  LazyLoad,
   TGenericObject,
   TItem,
   TTemplate,
@@ -161,7 +162,7 @@ export function TableRow(props: TableRowProps) {
           )}
         </Table.Row>
       </EdsProvider>
-      {isExpanded && (
+      <LazyLoad visible={isExpanded}>
         <Table.Row>
           <Table.Cell colSpan={columnsLength}>
             <ViewCreator
@@ -175,7 +176,7 @@ export function TableRow(props: TableRowProps) {
             />
           </Table.Cell>
         </Table.Row>
-      )}
+      </LazyLoad>
     </>
   )
 }

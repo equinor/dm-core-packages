@@ -1,39 +1,11 @@
 import {
+  LazyLoad,
   TGenericObject,
   TOnOpen,
   ViewCreator,
 } from '@development-framework/dm-core'
 import * as React from 'react'
-import { PropsWithChildren, useRef } from 'react'
-import styled from 'styled-components'
 import { TItemData } from './types'
-
-type LazyProps = {
-  visible: boolean
-}
-
-const HideContentWrapper = styled.div<any>`
-  display: ${(props: { hidden: boolean }) => (props.hidden && 'none') || 'flex'};
-  align-self: normal;
-  width: 100%;
-  height: 100%;
-`
-
-const Lazy = ({ visible, children }: PropsWithChildren<LazyProps>) => {
-  const rendered = useRef(visible)
-
-  if (visible && !rendered.current) {
-    rendered.current = true
-  }
-
-  if (!rendered.current) return null
-
-  return (
-    <HideContentWrapper hidden={!visible} role='tabpanel'>
-      {children}
-    </HideContentWrapper>
-  )
-}
 
 export const Content = (props: {
   type: string
@@ -49,7 +21,11 @@ export const Content = (props: {
   return (
     <div style={props.style}>
       {viewSelectorItems.map((config: TItemData) => (
-        <Lazy key={config.viewId} visible={selectedViewId === config.viewId}>
+        <LazyLoad
+          key={config.viewId}
+          visible={selectedViewId === config.viewId}
+          role='tabpanel'
+        >
           {config.viewConfig ? (
             <ViewCreator
               idReference={config.rootEntityId}
@@ -70,7 +46,7 @@ export const Content = (props: {
               defined
             </p>
           )}
-        </Lazy>
+        </LazyLoad>
       ))}
     </div>
   )
