@@ -37,6 +37,7 @@ test('Add list item using template', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
 
   await page.reload()
+  await expect(page.getByRole('code')).toBeVisible()
   await page.getByRole('button', { name: 'edit' }).click()
   await page.getByTestId('task_list').getByLabel('Open in tab').click()
   await expect(page.getByRole('tabpanel')).toContainText('Fix bicycle')
