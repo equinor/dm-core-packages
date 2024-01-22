@@ -106,6 +106,7 @@ export const ActionRow = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid ${tokens.colors.ui.background__medium.rgba};
+  min-width: max-content;
 `
 
 export const ActionRowButton = styled.button`

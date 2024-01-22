@@ -5,7 +5,6 @@ export const Dialog = styled(EdsDialog)<{ width?: string; height?: string }>`
   height: ${(props) => props.height || '100%'};
   overflow: auto;
   width: ${(props) => props.width || '100%'};
-  min-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -45,9 +45,10 @@ export default () => {
       {selectedType && selectedEntity && (
         <div
           style={{
-            width: '100%',
             height: '100%',
             display: 'flex',
+            overflow: 'auto',
+            flexGrow: '1',
           }}
         >
           <EntityView

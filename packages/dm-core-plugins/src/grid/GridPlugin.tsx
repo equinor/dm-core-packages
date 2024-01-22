@@ -6,7 +6,6 @@ import { TGridPluginConfig, TGridSize } from './types'
 
 const Grid = styled.div<TGridSize>`
   display: grid;
-  overflow: auto;
   width: 100%;
   height: 100%;
   grid-template-rows: ${(props) =>

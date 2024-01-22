@@ -169,7 +169,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         width: '100%',
         height: '100%',
         display: 'flex',
-        overflow: 'hidden',
+        maxWidth: 'max-content',
       }}
     >
       {attribute && !attribute.contained && (
@@ -202,10 +202,9 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       <div
         style={{
           width: '100%',
-          maxHeight: 'calc(100% - 48px)',
-          overflow: 'auto',
           display: 'flex',
           flexDirection: 'column',
+          minWidth: 'max-content',
         }}
       >
         {currentItems &&
@@ -224,15 +223,15 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   width: '100%',
                   height: '100%',
                   padding: '4px',
-                  overflow: 'hidden',
                 }}
               >
                 <Stack
                   direction='row'
                   alignItems='center'
                   style={{
-                    width: '100%',
                     height: '100%',
+                    display: 'flex',
+                    width: '100%',
                   }}
                 >
                   {internalConfig.functionality.expand && (
@@ -279,7 +278,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       item.isSaved &&
                       handleExpand(item)
                     }
-                    className={`px-2 overflow-hidden text-ellipsis whitespace-nowrap
+                    className={`px-2 text-ellipsis whitespace-nowrap
                     ${
                       internalConfig.functionality.expand
                         ? 'cursor-pointer'
@@ -395,6 +394,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           spacing={1}
           style={{
             padding: '6px',
+            minWidth: 'max-content',
           }}
         >
           {showPagination && (

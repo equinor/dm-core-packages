@@ -54,6 +54,7 @@ export const SidebarPlugin = (
           height: '100%',
           flexGrow: '1',
           paddingLeft: '10px',
+          overflow: 'auto',
         }}
       />
     </div>

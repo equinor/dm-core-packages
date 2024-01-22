@@ -116,7 +116,12 @@ export function DataGrid(props: DataGridProps) {
   }
 
   return (
-    <Stack>
+    <Stack
+      style={{
+        overflow: 'auto',
+        height: 'calc(100% - 36px)',
+      }}
+    >
       <Stack>
         {config.title && <Typography variant='h5'>{config.title}</Typography>}
         {config.description && <Typography>{config.description}</Typography>}

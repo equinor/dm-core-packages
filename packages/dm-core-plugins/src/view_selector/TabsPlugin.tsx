@@ -34,14 +34,14 @@ export const TabsPlugin = (
       style={{
         display: 'flex',
         flexDirection: 'column',
-        width: '100%',
         height: '100%',
+        flexGrow: 1,
       }}
     >
       <div
         style={{
           height: '48px',
-          width: '100%',
+          minWidth: 'max-content',
           display: 'flex',
         }}
       >
@@ -63,6 +63,7 @@ export const TabsPlugin = (
           height: 'calc(100% - 48px)',
           width: '100%',
           display: 'flex',
+          overflow: 'auto',
           padding: '10px',
         }}
       />

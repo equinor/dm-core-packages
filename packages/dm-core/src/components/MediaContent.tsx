@@ -32,6 +32,7 @@ const MediaWrapper = styled.div<{ $height?: number; $width?: number }>`
   height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
   width: ${(props) => (props.$width ? props.$width + 'px' : undefined)};
   position: relative;
+  overflow-x: hidden;
 `
 
 const MetaPopoverButton = styled(Button)`
@@ -56,6 +57,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           style={{
             width: config.width ?? '100%',
             height: config.height ?? 'auto',
+            maxWidth: 'unset',
           }}
         />
       )
@@ -69,6 +71,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           style={{
             width: config.width ?? '100% ',
             height: config.height ?? 'auto',
+            maxWidth: 'unset',
           }}
         />
       )
@@ -131,6 +134,10 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         anchorEl={referenceElement.current}
         onClose={() => setShowMeta(false)}
         role='dialog'
+        style={{
+          overflow: 'auto',
+          maxWidth: '100vw',
+        }}
       >
         <Popover.Header>
           <Popover.Title>{config.caption ?? 'Meta'}</Popover.Title>
