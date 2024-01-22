@@ -4,6 +4,7 @@ import CheckboxWidget from './CheckboxWidget'
 import DateTimeWidget from './DateTimeWidget'
 import DimensionalScalarWidget from './DimensionalScalarWidget'
 import EntityPickerWidget from './EntityPickerWidget'
+import HyperlinkWidget from './HyperlinkWidget'
 import NumberWidget from './NumberWidget'
 import SelectWidget from './SelectWidget'
 import SwitchWidget from './SwitchWidget'
@@ -23,6 +24,7 @@ const widgets: TWidgets = {
   DateTimeWidget,
   DimensionalScalarWidget,
   EntityPickerWidget,
+  HyperlinkWidget,
 }
 
 export default widgets

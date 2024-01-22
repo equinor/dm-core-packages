@@ -1,0 +1,17 @@
+{
+  "name": "LinkForm",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "name": "stringLink1",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "stringLink2",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}
