@@ -41,7 +41,9 @@ export function TableCell(props: TableCellProps) {
               isExpanded ? 'Close expandable row' : 'Open expandable row'
             }
             variant='ghost_icon'
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={() => {
+              setIsExpanded(!isExpanded)
+            }}
           >
             <Icon data={isExpanded ? chevron_up : chevron_down} />
           </Button>

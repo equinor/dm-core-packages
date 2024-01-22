@@ -2,6 +2,7 @@ import {
   DeleteSoftButton,
   EntityPickerDialog,
   IUIPlugin,
+  LazyLoad,
   Loading,
   Pagination,
   Stack,
@@ -353,7 +354,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   )}
                 </Stack>
               </Stack>
-              {expanded[item.key] && (
+              <LazyLoad visible={expanded[item.key]}>
                 <Stack>
                   <div className='m-2 border-b border-[#ccc] pb-4'>
                     <ViewCreator
@@ -382,7 +383,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     />
                   </div>
                 </Stack>
-              )}
+              </LazyLoad>
             </Stack>
           ))}
       </div>
