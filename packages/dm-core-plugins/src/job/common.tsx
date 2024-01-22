@@ -56,6 +56,7 @@ export const JobButtonWrapper = styled.div`
   align-items: center;
   gap: 8px;
   margin-bottom: 0.5rem;
+min-width: max-content;
 `
 export const getControlButton = (
   status: JobStatus,

@@ -17,7 +17,7 @@ const CodeContainer = styled.pre`
   margin: 0;
   padding: 1rem;
   border-radius: 0.5rem;
-  overflow: auto;
+  width: fit-content;
 
   & .hljs-string {
     color: #a5ff90;
@@ -57,38 +57,34 @@ const YamlView = (props: {
   }
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        overflow: 'auto',
-      }}
-    >
-      <div className='flex justify-end items-center my-2 gap-1'>
-        <Button variant='ghost' onClick={() => onClick(asYAML)}>
-          Copy as YAML
-        </Button>
-        <Button variant='ghost' onClick={() => onClick(asJSON)}>
-          Copy as JSON
-        </Button>
-        <div style={{ width: '5rem' }}>
-          <Label htmlFor='yaml-depth-input' label='Depth' />
-          <Input
-            id='yaml-depth-input'
-            type='number'
-            value={depth}
-            onChange={setDepth}
-            label='Depth'
-          />
+    <div className='w-full h-full overflow-auto'>
+      <div className='flex flex-col items-end w-max'>
+        <div className='flex justify-end items-center my-2 gap-1 w-fit'>
+          <Button variant='ghost' onClick={() => onClick(asYAML)}>
+            Copy as YAML
+          </Button>
+          <Button variant='ghost' onClick={() => onClick(asJSON)}>
+            Copy as JSON
+          </Button>
+          <div style={{ width: '5rem' }}>
+            <Label htmlFor='yaml-depth-input' label='Depth' />
+            <Input
+              id='yaml-depth-input'
+              type='number'
+              value={depth}
+              onChange={setDepth}
+              label='Depth'
+            />
+          </div>
         </div>
+        <CodeContainer>
+          <code
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(highlighted.value),
+            }}
+          />
+        </CodeContainer>
       </div>
-      <CodeContainer>
-        <code
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(highlighted.value),
-          }}
-        />
-      </CodeContainer>
     </div>
   )
 }

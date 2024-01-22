@@ -23,10 +23,11 @@ import { AttributeList } from './AttributeList'
 
 const Wrapper = styled.div`
   max-width: 650px;
-  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
 `
 
 export const defaultConfig: TFormConfig = {
@@ -184,7 +185,7 @@ export const Form = (props: TFormProps) => {
               density={config?.compactButtons ? 'compact' : 'comfortable'}
             >
               <div
-                className={`flex space-x-2 justify-start ${
+                className={`flex space-x-2 justify-start items-center h-fit ${
                   config?.compactButtons ? 'mt-2' : 'mt-4'
                 }`}
               >
@@ -195,6 +196,7 @@ export const Form = (props: TFormProps) => {
                   tooltip={'Revert changes'}
                   variant={'outlined'}
                   data-testid='form-reset'
+                  className='w-max h-max overflow-hidden'
                 >
                   <Icon data={undo} size={16} />
                 </Button>
@@ -202,6 +204,7 @@ export const Form = (props: TFormProps) => {
                   type='submit'
                   data-testid='form-submit'
                   onClick={handleSubmit}
+                  className='w-max h-max overflow-hidden'
                 >
                   Submit
                 </Button>

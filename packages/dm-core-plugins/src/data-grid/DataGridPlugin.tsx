@@ -122,7 +122,7 @@ export function DataGridPlugin(props: IUIPlugin) {
     <Stack
       alignItems='flex-start'
       spacing={1}
-      style={{ width: '100%', height: '100%', overflow: 'auto' }}
+      style={{ width: '100%', height: '100%' }}
     >
       <DataGrid
         attributeType={attribute?.attributeType || 'string'}
@@ -142,11 +142,16 @@ export function DataGridPlugin(props: IUIPlugin) {
               onClick={revertChanges}
               disabled={!isDirty}
               variant='outlined'
+              className='w-max h-max overflow-hidden'
             >
               <Icon data={undo} size={16} />
             </Button>
           </Tooltip>
-          <Button onClick={saveDocument} disabled={!isDirty || loading}>
+          <Button
+            onClick={saveDocument}
+            disabled={!isDirty || loading}
+            className='w-max h-max overflow-hidden'
+          >
             Save
           </Button>
         </Stack>

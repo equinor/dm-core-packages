@@ -12,7 +12,9 @@ import { TUiAttribute } from '../../types'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
 const FormTemplate = ({ children }: PropsWithChildren) => {
-  return <div className='border border-[#dddddd] rounded-md'>{children}</div>
+  return (
+    <div className='border border-[#dddddd] rounded-md w-full'>{children}</div>
+  )
 }
 
 const FormTemplateHeader = ({

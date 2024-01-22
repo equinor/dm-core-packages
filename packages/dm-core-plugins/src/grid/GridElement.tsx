@@ -21,6 +21,7 @@ const Element = styled.div<TElementProps>`
     `${props.itemBorder.size} ${props.itemBorder.style} ${props.itemBorder.color}`};
   border-radius: ${(props: TElementProps) =>
     props.showItemBorders && props.itemBorder.radius};
+  overflow: auto;
 `
 
 type TGridItemProps = {
@@ -44,20 +45,20 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       showItemBorders={showItemBorders}
       itemBorder={itemBorder}
     >
-      {item?.title && <Typography variant='h4'>{item.title}</Typography>}
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-        }}
-      >
-        <ViewCreator
-          idReference={idReference}
-          viewConfig={item.viewConfig}
-          onSubmit={onSubmit}
-          onChange={onChange}
-        />
+      <div className='flex flex-col w-full h-full'>
+        {item?.title && <Typography variant='h4'>{item.title}</Typography>}
+        <div
+          style={{
+            height: item?.title ? 'calc(100% - 32px)' : '100%',
+          }}
+        >
+          <ViewCreator
+            idReference={idReference}
+            viewConfig={item.viewConfig}
+            onSubmit={onSubmit}
+            onChange={onChange}
+          />
+        </div>
       </div>
     </Element>
   )

@@ -96,12 +96,16 @@ export function Table(props: TableProps) {
   }
 
   return (
-    <Stack style={{ display: 'flex', width: '100%', height: '100%' }}>
+    <Stack
+      style={{
+        display: 'flex',
+        width: 'fit-content',
+        height: '100%',
+      }}
+    >
       <Stack
         style={{
-          width: '100%',
-          maxHeight: 'calc(100% - 40px)',
-          overflow: 'auto',
+          width: 'fit-content',
         }}
       >
         <SortableContext items={items} onReorder={reorderItems}>
@@ -195,7 +199,7 @@ export function Table(props: TableProps) {
         direction='row'
         spacing={1}
         justifyContent='space-between'
-        style={{ height: '40px' }}
+        style={{ height: '40px', width: 'max-content' }}
       >
         <Pagination
           count={items?.length || 0}
@@ -208,6 +212,9 @@ export function Table(props: TableProps) {
           <Button
             disabled={loadingState || !props.dirtyState}
             onClick={() => saveTable(items)}
+            style={{
+              width: '100%',
+            }}
           >
             {loadingState ? <Progress.Dots color={'primary'} /> : 'Save'}
           </Button>

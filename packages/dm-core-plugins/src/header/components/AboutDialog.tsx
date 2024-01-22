@@ -12,29 +12,31 @@ export const AboutDialog = (props: AboutDialogProps) => {
   const { isOpen, setIsOpen, applicationEntity } = props
 
   return (
-    <Dialog
-      isDismissable
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-      width={'40vw'}
-    >
-      <Dialog.Header>
-        <Dialog.Title>About {applicationEntity.label}</Dialog.Title>
-        <Button
-          variant='ghost'
-          onClick={() => {
-            setIsOpen(false)
-          }}
-        >
-          <Icon data={close} size={16} title='Close' />
-        </Button>
-      </Dialog.Header>
-      <Dialog.CustomContent>
-        {applicationEntity.description}
-      </Dialog.CustomContent>
-      <Dialog.Actions>
-        <Button onClick={() => setIsOpen(false)}>Ok</Button>
-      </Dialog.Actions>
+    <Dialog isDismissable open={isOpen} onClose={() => setIsOpen(false)}>
+      <div
+        style={{
+          minWidth: '291px',
+          maxWidth: '400px',
+        }}
+      >
+        <Dialog.Header>
+          <Dialog.Title>About {applicationEntity.label}</Dialog.Title>
+          <Button
+            variant='ghost'
+            onClick={() => {
+              setIsOpen(false)
+            }}
+          >
+            <Icon data={close} size={16} title='Close' />
+          </Button>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          {applicationEntity.description}
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button onClick={() => setIsOpen(false)}>Ok</Button>
+        </Dialog.Actions>
+      </div>
     </Dialog>
   )
 }

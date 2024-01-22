@@ -63,104 +63,110 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
         setSelectedRole(role)
         setIsOpen(false)
       }}
-      width={'720px'}
     >
-      <Dialog.Header>
-        <Dialog.Title>User info</Dialog.Title>
-        <Button
-          variant='ghost'
-          onClick={() => {
-            setSelectedRole(role)
-            setIsOpen(false)
-          }}
-        >
-          <Icon data={close} size={16} title='Close' />
-        </Button>
-      </Dialog.Header>
-      <Dialog.CustomContent>
-        <Row>
-          Name:
-          <UserInfoLabel>
-            {tokenData?.name || 'Not authenticated'}
-          </UserInfoLabel>
-        </Row>
-        <Row>
-          Username:
-          <UserInfoLabel>
-            {tokenData?.preferred_username || 'Not authenticated'}
-          </UserInfoLabel>
-        </Row>
-        {apiKey && (
+      <div
+        style={{
+          minWidth: '720px',
+          width: 'fit-content',
+        }}
+      >
+        <Dialog.Header>
+          <Dialog.Title>User info</Dialog.Title>
+          <Button
+            variant='ghost'
+            onClick={() => {
+              setSelectedRole(role)
+              setIsOpen(false)
+            }}
+          >
+            <Icon data={close} size={16} title='Close' />
+          </Button>
+        </Dialog.Header>
+        <Dialog.CustomContent>
           <Row>
-            API Key:
-            <pre>{apiKey}</pre>
+            Name:
+            <UserInfoLabel>
+              {tokenData?.name || 'Not authenticated'}
+            </UserInfoLabel>
           </Row>
-        )}
+          <Row>
+            Username:
+            <UserInfoLabel>
+              {tokenData?.preferred_username || 'Not authenticated'}
+            </UserInfoLabel>
+          </Row>
+          {apiKey && (
+            <Row>
+              API Key:
+              <pre>{apiKey}</pre>
+            </Row>
+          )}
 
-        {roles.length > 1 && (
-          <>
-            <Typography variant='h6'>Chose role (UI only)</Typography>
-            <UnstyledList>
-              {roles.map((role: TRole) => (
-                <li key={role.name}>
-                  <Radio
-                    label={role.label}
-                    name='impersonate-role'
-                    value={role.name}
-                    checked={role.name === selectedRole.name}
-                    onChange={() => setSelectedRole(role)}
-                  />
-                </li>
-              ))}
-            </UnstyledList>
-          </>
-        )}
-      </Dialog.CustomContent>
-      <Dialog.Actions>
-        <FlexRow style={{ justifyContent: 'space-between', width: '100%' }}>
-          <FlexRow>
-            <Button
-              variant='ghost'
-              onClick={() => {
-                navigator.clipboard.writeText(token)
-                toast.success('Copied token to clipboard')
-              }}
-            >
-              Copy token to clipboard
-            </Button>
-            <Button
-              variant='ghost'
-              onClick={() =>
-                dmssAPI
-                  .tokenCreate()
-                  .then((response: AxiosResponse<string>) =>
-                    setAPIKey(response.data)
-                  )
-                  .catch((error: any) => {
-                    console.error(error)
-                    toast.error('Failed to create personal access token')
-                  })
-              }
-            >
-              Create API-Key
-            </Button>
+          {roles.length > 1 && (
+            <>
+              <Typography variant='h6'>Chose role (UI only)</Typography>
+              <UnstyledList>
+                {roles.map((role: TRole) => (
+                  <li key={role.name}>
+                    <Radio
+                      label={role.label}
+                      name='impersonate-role'
+                      value={role.name}
+                      checked={role.name === selectedRole.name}
+                      onChange={() => setSelectedRole(role)}
+                    />
+                  </li>
+                ))}
+              </UnstyledList>
+            </>
+          )}
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <FlexRow style={{ justifyContent: 'space-between', width: '100%' }}>
+            <FlexRow>
+              <Button
+                variant='ghost'
+                onClick={() => {
+                  navigator.clipboard.writeText(token)
+                  toast.success('Copied token to clipboard')
+                }}
+              >
+                Copy token to clipboard
+              </Button>
+              <Button
+                variant='ghost'
+                onClick={() =>
+                  dmssAPI
+                    .tokenCreate()
+                    .then((response: AxiosResponse<string>) =>
+                      setAPIKey(response.data)
+                    )
+                    .catch((error: any) => {
+                      console.error(error)
+                      toast.error('Failed to create personal access token')
+                    })
+                }
+              >
+                Create API-Key
+              </Button>
+            </FlexRow>
+            <FlexRow>
+              <Button variant='ghost' color='danger' onClick={() => logOut()}>
+                Log out
+              </Button>
+              <Button
+                onClick={() => {
+                  setRole(selectedRole)
+                  setIsOpen(false)
+                }}
+                disabled={role === selectedRole}
+              >
+                Save
+              </Button>
+            </FlexRow>
           </FlexRow>
-          <FlexRow>
-            <Button variant='ghost' color='danger' onClick={() => logOut()}>
-              Log out
-            </Button>
-            <Button
-              onClick={() => {
-                setRole(selectedRole)
-                setIsOpen(false)
-              }}
-              disabled={role === selectedRole}
-            >
-              Save
-            </Button>
-          </FlexRow>
-        </FlexRow>
-      </Dialog.Actions>
+        </Dialog.Actions>
+      </div>
     </Dialog>
   )
 }

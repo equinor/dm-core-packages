@@ -41,7 +41,7 @@ const Content = () => {
               display: 'flex',
               height: '100vh',
               width: '100vw',
-              overflow: 'hidden',
+              overflow: 'auto',
             }}
           >
             <App />
