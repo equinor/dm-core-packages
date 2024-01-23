@@ -12,6 +12,16 @@
       "name": "stringLink2",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string"
+    },
+    {
+      "name": "urlLink1",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:Url"
+    },
+    {
+      "name": "urlLink2",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:Url"
     }
   ]
 }
