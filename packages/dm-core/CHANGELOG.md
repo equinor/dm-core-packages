@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.34.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.34.1...dm-core-v1.34.2) (2024-01-23)
+
+
+### Bug Fixes
+
+* add form context only to the form wich controls submit ([fea9005](https://github.com/equinor/dm-core-packages/commit/fea90050bd93b6c4f8a7971daad71ca3184ae9db))
+* export ([61c1a76](https://github.com/equinor/dm-core-packages/commit/61c1a76aec9c0409271c527f54dc390c04f68a0a))
+* lazyload using component ([61c1a76](https://github.com/equinor/dm-core-packages/commit/61c1a76aec9c0409271c527f54dc390c04f68a0a))
+* new list butotn ([76dbad4](https://github.com/equinor/dm-core-packages/commit/76dbad42fa7165891b556ac704f4cc5f84f649ea))
+* new list button ([76dbad4](https://github.com/equinor/dm-core-packages/commit/76dbad42fa7165891b556ac704f4cc5f84f649ea))
+* replace temporary template resolver with common ([912b448](https://github.com/equinor/dm-core-packages/commit/912b448e14495bc696c7f10a10e71526d0d7f7a1))
+* scroll when extending parent container ([014ed92](https://github.com/equinor/dm-core-packages/commit/014ed92445231880484b36d050b675406d47c739))
+* test? ([61c1a76](https://github.com/equinor/dm-core-packages/commit/61c1a76aec9c0409271c527f54dc390c04f68a0a))
+
 ## [1.34.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.34.0...dm-core-v1.34.1) (2024-01-19)
 
 
