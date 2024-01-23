@@ -43,7 +43,7 @@ export const MediaViewerPlugin = (
     document,
     isLoading,
     error: documentError,
-  } = useDocument<MediaObject>(idReference, 999)
+  } = useDocument<MediaObject>(idReference, 1)
   const { dataSource } = splitAddress(idReference)
   const options: AxiosRequestConfig = { responseType: 'blob' }
   useEffect(() => {

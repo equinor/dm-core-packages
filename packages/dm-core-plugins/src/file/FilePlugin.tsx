@@ -17,7 +17,7 @@ export const FilePlugin = (props: IUIPlugin) => {
     isLoading,
     updateDocument,
     error,
-  } = useDocument<TFileEntity>(idReference, 999)
+  } = useDocument<TFileEntity>(idReference, 1)
   const { dataSource } = splitAddress(idReference)
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading || fileEntity === null) return <Loading />
