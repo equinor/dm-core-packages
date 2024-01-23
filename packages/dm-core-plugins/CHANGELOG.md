@@ -42,6 +42,32 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.42.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.41.0...dm-core-plugins-v1.42.0) (2024-01-23)
+
+
+### Features
+
+* copy or link dialog in Explorer ([d5e88e2](https://github.com/equinor/dm-core-packages/commit/d5e88e22f17ae079f981fbf2b1dd5ac650260506))
+
+
+### Bug Fixes
+
+* bug with negative page ([a5c6458](https://github.com/equinor/dm-core-packages/commit/a5c6458bf5adc3bc69f71d6a8e672b3380db4e9d))
+* new nasdlkfj ([a5c6458](https://github.com/equinor/dm-core-packages/commit/a5c6458bf5adc3bc69f71d6a8e672b3380db4e9d))
+* tests ([a5c6458](https://github.com/equinor/dm-core-packages/commit/a5c6458bf5adc3bc69f71d6a8e672b3380db4e9d))
+
+
+### Miscellaneous Chores
+
+* bump dm-cli and fix invalid entities ([a422802](https://github.com/equinor/dm-core-packages/commit/a422802691283e9118c8ffee9e2e3cf5db895266))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.34.2 to ^1.35.0
+
 ## [1.41.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.40.1...dm-core-plugins-v1.41.0) (2024-01-23)
 
 

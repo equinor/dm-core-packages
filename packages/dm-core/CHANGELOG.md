@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.35.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.34.2...dm-core-v1.35.0) (2024-01-23)
+
+
+### Features
+
+* copy or link dialog in Explorer ([d5e88e2](https://github.com/equinor/dm-core-packages/commit/d5e88e22f17ae079f981fbf2b1dd5ac650260506))
+
+
+### Bug Fixes
+
+* bug with negative page ([a5c6458](https://github.com/equinor/dm-core-packages/commit/a5c6458bf5adc3bc69f71d6a8e672b3380db4e9d))
+* new nasdlkfj ([a5c6458](https://github.com/equinor/dm-core-packages/commit/a5c6458bf5adc3bc69f71d6a8e672b3380db4e9d))
+* tests ([a5c6458](https://github.com/equinor/dm-core-packages/commit/a5c6458bf5adc3bc69f71d6a8e672b3380db4e9d))
+
 ## [1.34.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.34.1...dm-core-v1.34.2) (2024-01-23)
 
 
