@@ -12,7 +12,7 @@ export const PdfPlugin = (props: IUIPlugin) => {
   const { idReference } = props
   const { document, isLoading, error } = useDocument<TGenericObject>(
     idReference,
-    999
+    1
   )
   const { dataSource } = splitAddress(idReference)
 
