@@ -42,6 +42,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.42.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.0...dm-core-plugins-v1.42.1) (2024-01-23)
+
+
+### Bug Fixes
+
+* adding files from outside package created bad dist structure ([1a8f5cc](https://github.com/equinor/dm-core-packages/commit/1a8f5cc4f08e752b2be55d61a9178ea2bf70ace1))
+
 ## [1.42.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.41.0...dm-core-plugins-v1.42.0) (2024-01-23)
 
 
