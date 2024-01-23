@@ -42,6 +42,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.42.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.1...dm-core-plugins-v1.42.2) (2024-01-23)
+
+
+### Code Refactoring
+
+* adjust depth levels ([88669a7](https://github.com/equinor/dm-core-packages/commit/88669a7402faa3b2d9af9a1639a99648786bf524))
+
 ## [1.42.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.0...dm-core-plugins-v1.42.1) (2024-01-23)
 
 
