@@ -20,8 +20,11 @@ export const usePagination = <T,>(items: T[], defaultItemsPerPage: number) => {
   const setPage = (page: number) => {
     setCurrentPage(Math.min(page, totalPages - 1))
   }
-  const setLastPage = () => {
-    setCurrentPage(totalPages - 1)
+  const goToLastPage = (addedItems: number = 0) => {
+    const newNumberOfPages = Math.ceil(
+      (items.length + addedItems) / itemsPerPage
+    )
+    setCurrentPage(newNumberOfPages - 1)
   }
 
   const showPagination = useMemo(
@@ -40,7 +43,7 @@ export const usePagination = <T,>(items: T[], defaultItemsPerPage: number) => {
     totalPages,
     itemsPerPage,
     setPage,
-    setLastPage,
+    goToLastPage,
     setItemsPerPage,
     showPagination,
     currentItems,
