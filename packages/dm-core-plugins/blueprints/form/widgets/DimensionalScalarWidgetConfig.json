@@ -8,7 +8,7 @@
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "optional": true,
-      "desctiption": "Width of the complete widget"
+      "description": "Width of the complete widget"
     },
     {
       "name": "label",
