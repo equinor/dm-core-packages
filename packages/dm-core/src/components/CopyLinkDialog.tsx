@@ -19,13 +19,23 @@ type TProps = {
   open: boolean
   setOpen: (v: boolean) => void
   mode?: 'copy' | 'link'
+  title?: string
+  buttonText?: string
   destination?: string
   hideProvidedFields?: boolean
 }
 
 export const CopyLinkDialog = (props: TProps) => {
-  const { idReference, mode, destination, open, setOpen, hideProvidedFields } =
-    props
+  const {
+    idReference,
+    mode,
+    destination,
+    open,
+    setOpen,
+    hideProvidedFields,
+    title,
+    buttonText,
+  } = props
   const [selectedDestination, setSelectedDestination] =
     useState<TEntityPickerReturn>({
       address: destination || '',
@@ -35,7 +45,6 @@ export const CopyLinkDialog = (props: TProps) => {
   const [selectedMode, setSelectedMode] = useState<'copy' | 'link'>(
     mode || 'copy'
   )
-  // const [showCopyDialog, setShowCopyDialog] = useState<boolean>(open)
   const [showDestinationDialog, setShowDestinationDialog] =
     useState<boolean>(false)
   const { document, isLoading: documentIsLoading } = useDocument<TValidEntity>(
@@ -92,9 +101,9 @@ export const CopyLinkDialog = (props: TProps) => {
   }
 
   return (
-    <Dialog open={open} width={'100%'} height={'300px'}>
+    <Dialog open={open} width={'100%'}>
       <Dialog.Header>
-        <Dialog.Title>Copy or link entity</Dialog.Title>
+        <Dialog.Title>{title || 'Copy or link entity'}</Dialog.Title>
       </Dialog.Header>
       <Dialog.CustomContent>
         <EntityPickerDialog
@@ -105,20 +114,26 @@ export const CopyLinkDialog = (props: TProps) => {
             setSelectedDestination(v)
           }}
         />
-        <div className={'flex justify-between align-center'}>
-          <div className={'flex items-center'}>
-            <Label label='Destination:' />
-            <p>{selectedDestination.path || '-'}</p>
+        {(!destination || !hideProvidedFields) && (
+          <div className={'flex justify-between align-center'}>
+            <div className={'flex items-center'}>
+              <Label label='Destination:' />
+              <p>{selectedDestination.path || '-'}</p>
+            </div>
+            <Button onClick={() => setShowDestinationDialog(true)}>
+              Browse
+            </Button>
           </div>
-          <Button onClick={() => setShowDestinationDialog(true)}>Browse</Button>
-        </div>
-        <Checkbox
-          label='Copy as link'
-          checked={selectedMode === 'link'}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSelectedMode(e.target.checked ? 'link' : 'copy')
-          }
-        />
+        )}
+        {(!mode || !hideProvidedFields) && (
+          <Checkbox
+            label='Copy as link'
+            checked={selectedMode === 'link'}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setSelectedMode(e.target.checked ? 'link' : 'copy')
+            }
+          />
+        )}
       </Dialog.CustomContent>
       <Dialog.Actions>
         <div className={'flex justify-around w-full'}>
@@ -139,13 +154,14 @@ export const CopyLinkDialog = (props: TProps) => {
               }
             }}
           >
-            {isLoading ? (
-              <Progress.Dots />
-            ) : selectedMode === 'copy' ? (
-              'Copy'
-            ) : (
-              'Insert link'
-            )}
+            {buttonText ||
+              (isLoading ? (
+                <Progress.Dots />
+              ) : selectedMode === 'copy' ? (
+                'Copy'
+              ) : (
+                'Insert link'
+              ))}
           </Button>
         </div>
       </Dialog.Actions>
