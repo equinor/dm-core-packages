@@ -100,11 +100,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const {
     currentItems,
     itemsPerPage,
-    setItemsPerPage,
-    setLastPage,
     currentPage,
     showPagination,
     setPage,
+    setItemsPerPage,
+    goToLastPage,
   } = usePagination(items, internalConfig.defaultPaginationRowsPerPage ?? 10)
 
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -423,10 +423,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     }
                     if (!(config.templates && config.templates.length)) {
                       addItem(false)
-                      setLastPage()
+                      goToLastPage(1)
                     } else if (config.templates.length === 1) {
                       addItem(false, undefined, config.templates[0].path)
-                      setLastPage()
+                      goToLastPage(1)
                     } else setTemplateMenuIsOpen(true)
                   }}
                   compact={internalConfig.compact}
@@ -436,7 +436,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     templates={config.templates}
                     onSelect={(template: TTemplate) => {
                       addItem(false, undefined, template?.path)
-                      setLastPage()
+                      goToLastPage(1)
                     }}
                     onClose={() => setTemplateMenuIsOpen(false)}
                     isOpen={isTemplateMenuOpen}

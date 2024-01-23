@@ -55,7 +55,7 @@ export function Table(props: TableProps) {
     currentPage,
     setItemsPerPage,
     setPage,
-    setLastPage,
+    goToLastPage,
   } = usePagination(
     TableVariantNameEnum.Edit || !sortColumn ? items : sortedItems,
     10
@@ -165,10 +165,10 @@ export function Table(props: TableProps) {
                 const saveOnAdd = tableVariant === TableVariantNameEnum.View
                 if (!(config.templates && config.templates.length)) {
                   addItem(saveOnAdd)
-                  setLastPage()
+                  goToLastPage(1)
                 } else if (config.templates.length === 1) {
                   addItem(saveOnAdd, undefined, config.templates[0].path)
-                  setLastPage()
+                  goToLastPage(1)
                 } else setTemplateMenuIsOpen(true)
               }}
               ariaLabel={'Add new row'}
@@ -182,7 +182,7 @@ export function Table(props: TableProps) {
                     undefined,
                     template?.path
                   )
-                  setLastPage()
+                  goToLastPage(1)
                 }}
                 onClose={() => setTemplateMenuIsOpen(false)}
                 isOpen={isTemplateMenuOpen}
