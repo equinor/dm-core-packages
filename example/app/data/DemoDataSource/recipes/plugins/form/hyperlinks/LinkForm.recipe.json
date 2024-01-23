@@ -23,9 +23,19 @@
             "type": "PLUGINS:dm-core-plugins/form/widgets/HyperlinkWidgetConfig",
             "label": "Go To This Page"
           }
+        },
+        {
+          "name": "urlLink1",
+          "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+          "widget": "HyperlinkWidget"
+        },
+        {
+          "name": "urlLink2",
+          "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+          "widget": "HyperlinkWidget"
         }
       ],
-      "fields": ["stringLink1", "stringLink2"]
+      "fields": ["stringLink1", "stringLink2", "urlLink1", "urlLink2"]
     }
   }
 }
