@@ -42,6 +42,43 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.41.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.40.1...dm-core-plugins-v1.41.0) (2024-01-23)
+
+
+### Features
+
+* datagrid undo changes button ([ebb452f](https://github.com/equinor/dm-core-packages/commit/ebb452f165fb945a64af381189dee2d90f21f0dc))
+* first ireataions ([4fc5040](https://github.com/equinor/dm-core-packages/commit/4fc50400186052c0db57cda29fc815fd1bb60bce))
+* first iteration of hyperlink widget ([4fc5040](https://github.com/equinor/dm-core-packages/commit/4fc50400186052c0db57cda29fc815fd1bb60bce))
+
+
+### Bug Fixes
+
+* add form context only to the form wich controls submit ([fea9005](https://github.com/equinor/dm-core-packages/commit/fea90050bd93b6c4f8a7971daad71ca3184ae9db))
+* allow negative numbers ([5c857da](https://github.com/equinor/dm-core-packages/commit/5c857da4a6f905823160d7aa7a535ac5ff91faed))
+* export ([61c1a76](https://github.com/equinor/dm-core-packages/commit/61c1a76aec9c0409271c527f54dc390c04f68a0a))
+* lazyload using component ([61c1a76](https://github.com/equinor/dm-core-packages/commit/61c1a76aec9c0409271c527f54dc390c04f68a0a))
+* new list butotn ([76dbad4](https://github.com/equinor/dm-core-packages/commit/76dbad42fa7165891b556ac704f4cc5f84f649ea))
+* new list button ([76dbad4](https://github.com/equinor/dm-core-packages/commit/76dbad42fa7165891b556ac704f4cc5f84f649ea))
+* scroll when extending parent container ([014ed92](https://github.com/equinor/dm-core-packages/commit/014ed92445231880484b36d050b675406d47c739))
+* skdlfj ([4fc5040](https://github.com/equinor/dm-core-packages/commit/4fc50400186052c0db57cda29fc815fd1bb60bce))
+* test? ([61c1a76](https://github.com/equinor/dm-core-packages/commit/61c1a76aec9c0409271c527f54dc390c04f68a0a))
+* testing not working ([6cc2410](https://github.com/equinor/dm-core-packages/commit/6cc24100c30dd4e10dc9b15b1c4ab20627cc8633))
+* tests ([97ac550](https://github.com/equinor/dm-core-packages/commit/97ac5505c1fedaa6d6776da490730dd2511ca33f))
+* tooltip on top instead of in the middle of the page ([ad624de](https://github.com/equinor/dm-core-packages/commit/ad624de9b9fb7344de2281f03c686d1e5d310292))
+
+
+### Code Refactoring
+
+* readonly instead of hideDelete ([97ac550](https://github.com/equinor/dm-core-packages/commit/97ac5505c1fedaa6d6776da490730dd2511ca33f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.34.1 to ^1.34.2
+
 ## [1.40.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.40.0...dm-core-plugins-v1.40.1) (2024-01-19)
 
 
