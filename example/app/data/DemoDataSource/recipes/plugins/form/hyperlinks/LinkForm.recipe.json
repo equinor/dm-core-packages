@@ -27,7 +27,11 @@
         {
           "name": "urlLink1",
           "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-          "widget": "HyperlinkWidget"
+          "widget": "HyperlinkWidget",
+          "config": {
+            "type": "PLUGINS:dm-core-plugins/form/widgets/HyperlinkWidgetConfig",
+            "label": "Overwritten from Config"
+          }
         },
         {
           "name": "urlLink2",
