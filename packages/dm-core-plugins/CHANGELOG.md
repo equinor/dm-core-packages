@@ -42,6 +42,26 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.42.4](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.3...dm-core-plugins-v1.42.4) (2024-01-24)
+
+
+### Bug Fixes
+
+* sldkfj ([8cb561f](https://github.com/equinor/dm-core-packages/commit/8cb561f990827c5aa0032348214018a512e563e0))
+
+
+### Code Refactoring
+
+* order keys ([8cb561f](https://github.com/equinor/dm-core-packages/commit/8cb561f990827c5aa0032348214018a512e563e0))
+* reorder keys ([8cb561f](https://github.com/equinor/dm-core-packages/commit/8cb561f990827c5aa0032348214018a512e563e0))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.35.0 to ^1.35.1
+
 ## [1.42.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.2...dm-core-plugins-v1.42.3) (2024-01-24)
 
 
