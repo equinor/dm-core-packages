@@ -42,6 +42,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.42.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.2...dm-core-plugins-v1.42.3) (2024-01-24)
+
+
+### Bug Fixes
+
+* URL type can be used with hyperlinkwidget ([a0621c3](https://github.com/equinor/dm-core-packages/commit/a0621c3b62fb2e301ef923c330581008ebb56096))
+
 ## [1.42.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.1...dm-core-plugins-v1.42.2) (2024-01-23)
 
 
