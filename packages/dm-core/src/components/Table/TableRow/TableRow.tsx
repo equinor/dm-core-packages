@@ -162,20 +162,18 @@ export function TableRow(props: TableRowProps) {
           )}
         </Table.Row>
       </EdsProvider>
-      <LazyLoad visible={isExpanded}>
-        <Table.Row>
-          <Table.Cell colSpan={columnsLength}>
-            <ViewCreator
-              idReference={`${idReference}[${item.index}]`}
-              onSubmit={(data: TGenericObject) => handleItemUpdate(item, data)}
-              viewConfig={
-                config.expandableRecipeViewConfig
-                  ? config.expandableRecipeViewConfig
-                  : { type: 'ViewConfig', scope: 'self' }
-              }
-            />
-          </Table.Cell>
-        </Table.Row>
+      <LazyLoad visible={isExpanded} element={Table.Row}>
+        <Table.Cell colSpan={columnsLength}>
+          <ViewCreator
+            idReference={`${idReference}[${item.index}]`}
+            onSubmit={(data: TGenericObject) => handleItemUpdate(item, data)}
+            viewConfig={
+              config.expandableRecipeViewConfig
+                ? config.expandableRecipeViewConfig
+                : { type: 'ViewConfig', scope: 'self' }
+            }
+          />
+        </Table.Cell>
       </LazyLoad>
     </>
   )
