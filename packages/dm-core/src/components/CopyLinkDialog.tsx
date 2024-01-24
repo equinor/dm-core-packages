@@ -1,8 +1,9 @@
 import { Button, Checkbox, Label, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import {
+  AuthContext,
   Dialog,
   EBlueprint,
   EntityPickerDialog,
@@ -13,6 +14,7 @@ import {
   useDMSS,
   useDocument,
 } from '../index'
+import { setMetaInDocument } from '../utils/setMetaInDocument'
 
 type TProps = {
   idReference: string
@@ -36,6 +38,11 @@ export const CopyLinkDialog = (props: TProps) => {
     title,
     buttonText,
   } = props
+  const { tokenData } = useContext(AuthContext)
+
+  const username =
+    tokenData?.preferred_username || tokenData?.name || 'Anonymous'
+
   const [selectedDestination, setSelectedDestination] =
     useState<TEntityPickerReturn>({
       address: destination || '',
@@ -58,12 +65,24 @@ export const CopyLinkDialog = (props: TProps) => {
   const copyEntityToDestination = () => {
     if (!selectedDestination) return
     setIsLoading(true)
+    let newDocument = window.structuredClone(document) as TValidEntity
     // @ts-ignore
-    document['_id'] = undefined // Remove any old ID, or we will get into trouble
+    newDocument['_id'] = undefined // Remove any old ID, or we will get into trouble
+
+    newDocument._meta_ = newDocument?._meta_ || {
+      type: EBlueprint.META,
+      version: '0.0.1',
+      dependencies: [],
+      createdBy: username,
+      createdTimestamp: new Date().toISOString(),
+    }
+
+    newDocument = setMetaInDocument(newDocument, username)
+
     dmss
       .documentAdd({
         address: selectedDestination.address,
-        document: JSON.stringify(document),
+        document: JSON.stringify(newDocument),
       })
       .then(() => {
         toast.success(`Entity copied to '${selectedDestination.path}'`)
