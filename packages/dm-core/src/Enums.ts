@@ -22,6 +22,7 @@ export enum EBlueprint {
 
   CRON_JOB = 'dmss://WorkflowDS/Blueprints/CronJob',
   REFERENCE = 'dmss://system/SIMOS/Reference',
+  META = 'dmss://system/SIMOS/Meta',
   FILE = 'dmss://system/SIMOS/File',
 }
 

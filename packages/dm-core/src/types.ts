@@ -1,3 +1,4 @@
+import { EBlueprint } from './Enums'
 import { JobStatus } from './services/api/configs/gen-job'
 
 export type TDataSource = {
@@ -100,6 +101,16 @@ export type TContainerJobHandler = {
   environmentVariables?: string[]
 }
 
+export type TMeta = {
+  type: EBlueprint.META
+  version: string
+  dependencies: any[]
+  createdBy?: string
+  createdTimestamp?: string
+  lastModifiedBy?: string
+  lastModifiedTimestamp?: string
+}
+
 export type TJob = {
   _id?: string
   label?: string
@@ -135,6 +146,7 @@ export type TJobWithRunner = TJob & {
 }
 
 type TValidAttribute =
+  | undefined
   | string
   | number
   | boolean
@@ -143,6 +155,7 @@ type TValidAttribute =
 
 export type TValidEntity = {
   type: string
+  _meta_?: TMeta
   [key: string]: TValidAttribute
 }
 
