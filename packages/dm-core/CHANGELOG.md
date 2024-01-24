@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.35.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.35.0...dm-core-v1.35.1) (2024-01-24)
+
+
+### Bug Fixes
+
+* sldkfj ([8cb561f](https://github.com/equinor/dm-core-packages/commit/8cb561f990827c5aa0032348214018a512e563e0))
+* table one cell bug ([8ef8ad9](https://github.com/equinor/dm-core-packages/commit/8ef8ad9ddceea007f482404c38b29d3204b1ba8c))
+
+
+### Code Refactoring
+
+* order keys ([8cb561f](https://github.com/equinor/dm-core-packages/commit/8cb561f990827c5aa0032348214018a512e563e0))
+* reorder keys ([8cb561f](https://github.com/equinor/dm-core-packages/commit/8cb561f990827c5aa0032348214018a512e563e0))
+
 ## [1.35.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.34.2...dm-core-v1.35.0) (2024-01-23)
 
 
