@@ -1,14 +1,16 @@
-import { PropsWithChildren, useRef } from 'react'
+import { ComponentType, PropsWithChildren, useRef } from 'react'
 
 type LazyProps = {
   visible: boolean
   role?: string
+  element?: ComponentType
 }
 
 export const LazyLoad = ({
   visible,
   children,
   role,
+  element,
 }: PropsWithChildren<LazyProps>) => {
   const rendered = useRef(visible)
 
@@ -18,9 +20,11 @@ export const LazyLoad = ({
 
   if (!rendered.current) return null
 
+  const Element = element || 'div'
+
   return (
-    <div className={`${visible ? '' : 'hidden'} w-full`} role={role}>
+    <Element className={`${visible ? '' : 'hidden'} w-full`} role={role}>
       {children}
-    </div>
+    </Element>
   )
 }
