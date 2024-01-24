@@ -27,8 +27,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Allow specifying minutes",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     }
   ]
 }

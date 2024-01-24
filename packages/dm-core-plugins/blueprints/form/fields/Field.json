@@ -7,9 +7,9 @@
       "name": "showInline",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "description": "If true, the attribute will be shown inline. If false, it will be opened in a new tab if possible",
-      "optional": true,
+      "attributeType": "boolean",
       "default": false,
-      "attributeType": "boolean"
+      "optional": true
     },
     {
       "name": "config",
@@ -22,23 +22,23 @@
       "name": "readOnly",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
       "contained": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "hideOptionalLabel",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "label",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "What will be displayed in form. If this is not set, then form will use the attribute 'name'.",
       "attributeType": "string",
-      "optional": true,
-      "description": "What will be displayed in form. If this is not set, then form will use the attribute 'name'."
+      "optional": true
     },
     {
       "name": "tooltip",

@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "items": [
@@ -17,7 +16,6 @@
               "name": "Edit",
               "type": "CORE:UiRecipe",
               "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "attributes": [
@@ -27,13 +25,15 @@
                     "widget": "TextareaWidget"
                   }
                 ]
-              }
+              },
+              "plugin": "@development-framework/dm-core-plugins/form"
             },
             "scope": "self"
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
@@ -49,19 +49,19 @@
     {
       "name": "List",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/list",
-      "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-        "headers": ["name", "compound"],
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
-          "delete": true,
           "add": true,
+          "delete": true,
           "expand": true,
           "sort": true
-        }
-      }
+        },
+        "headers": ["name", "compound"]
+      },
+      "dimensions": "*",
+      "plugin": "@development-framework/dm-core-plugins/list"
     }
   ]
 }

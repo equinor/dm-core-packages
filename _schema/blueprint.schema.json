@@ -1,9 +1,6 @@
 {
   "type": "object",
   "description": "Schema for writing correct blueprints",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Blueprint schema",
-  "additionalItems": false,
   "$defs": {
     "type": {
       "type": "string",
@@ -17,6 +14,8 @@
       ]
     }
   },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalItems": false,
   "properties": {
     "name": {
       "type": "string"
@@ -44,20 +43,21 @@
           "attributeType": {
             "type": "string"
           },
-          "optional": {
-            "type": "boolean"
+          "default": true,
+          "dimensions": {
+            "type": "string"
           },
           "label": {
             "type": "string"
           },
-          "dimensions": {
-            "type": "string"
-          },
-          "default": true
+          "optional": {
+            "type": "boolean"
+          }
         },
         "required": ["type", "attributeType"]
       }
     }
   },
-  "required": ["name", "type"]
+  "required": ["name", "type"],
+  "title": "Blueprint schema"
 }

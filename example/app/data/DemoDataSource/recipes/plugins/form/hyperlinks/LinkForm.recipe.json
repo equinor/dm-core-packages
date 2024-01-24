@@ -5,10 +5,8 @@
     "name": "Edit",
     "type": "CORE:UiRecipe",
     "description": "Default edit",
-    "plugin": "@development-framework/dm-core-plugins/form",
     "config": {
       "type": "PLUGINS:dm-core-plugins/form/FormInput",
-      "readOnly": true,
       "attributes": [
         {
           "name": "stringLink1",
@@ -18,20 +16,20 @@
         {
           "name": "stringLink2",
           "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-          "widget": "HyperlinkWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/HyperlinkWidgetConfig",
             "label": "Go To This Page"
-          }
+          },
+          "widget": "HyperlinkWidget"
         },
         {
           "name": "urlLink1",
           "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-          "widget": "HyperlinkWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/HyperlinkWidgetConfig",
             "label": "Overwritten from Config"
-          }
+          },
+          "widget": "HyperlinkWidget"
         },
         {
           "name": "urlLink2",
@@ -39,7 +37,9 @@
           "widget": "HyperlinkWidget"
         }
       ],
-      "fields": ["stringLink1", "stringLink2", "urlLink1", "urlLink2"]
-    }
+      "fields": ["stringLink1", "stringLink2", "urlLink1", "urlLink2"],
+      "readOnly": true
+    },
+    "plugin": "@development-framework/dm-core-plugins/form"
   }
 }

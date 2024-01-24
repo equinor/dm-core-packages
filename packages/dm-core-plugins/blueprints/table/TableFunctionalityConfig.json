@@ -11,15 +11,15 @@
       "name": "delete",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "add",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     }
   ]
 }

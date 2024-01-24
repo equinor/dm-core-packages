@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "items": [
@@ -17,11 +16,11 @@
               "name": "Default",
               "type": "CORE:UiRecipe",
               "description": "Single multidimensional primitive",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
                 "fieldNames": ["data"]
-              }
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
@@ -34,13 +33,13 @@
             "recipe": {
               "name": "Set Dimensions",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
+                "description": "Dimensions are set to 4,5",
                 "fieldNames": ["dimensional"],
-                "title": "Datagrid with set dimensions",
-                "description": "Dimensions are set to 4,5"
-              }
+                "title": "Datagrid with set dimensions"
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
@@ -53,14 +52,14 @@
             "recipe": {
               "name": "Vertical  (Set dimensions)",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
-                "fieldNames": ["dimensional"],
-                "title": "Vertical (Set dimensions)",
                 "description": "Vertical printing with set dimensions",
-                "printDirection": "vertical"
-              }
+                "fieldNames": ["dimensional"],
+                "printDirection": "vertical",
+                "title": "Vertical (Set dimensions)"
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
@@ -73,14 +72,14 @@
             "recipe": {
               "name": "Vertical  (Unknown dimensions)",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
-                "fieldNames": ["data"],
-                "title": "Vertical (Unknown dimensions)",
                 "description": "Vertical printing with unknown dimensions",
-                "printDirection": "vertical"
-              }
+                "fieldNames": ["data"],
+                "printDirection": "vertical",
+                "title": "Vertical (Unknown dimensions)"
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
@@ -93,15 +92,15 @@
             "recipe": {
               "name": "Custom labels",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
-                "fieldNames": ["dimensional"],
-                "title": "Datagrid with custom labels",
                 "description": "Set dimensions: 4,5. Custom column and row labels.",
                 "columnLabels": ["Manufacturer", "Name", "Type", "VIN"],
-                "rowLabels": ["John", "Joe", "Jason", "Jack", "Jay"]
-              }
+                "fieldNames": ["dimensional"],
+                "rowLabels": ["John", "Joe", "Jason", "Jack", "Jay"],
+                "title": "Datagrid with custom labels"
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
@@ -114,15 +113,15 @@
             "recipe": {
               "name": "Combined labels",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
-                "fieldNames": ["dimensional"],
-                "title": "Datagrid with combined labels",
                 "description": "Set dimensions: 4,5. Combined custom and pre-defined column and row labels.",
                 "columnLabels": ["Manufacturer", "Name", "Type", "VIN"],
-                "rowLabels": ["John", "...123"]
-              }
+                "fieldNames": ["dimensional"],
+                "rowLabels": ["John", "...123"],
+                "title": "Datagrid with combined labels"
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
@@ -135,16 +134,16 @@
             "recipe": {
               "name": "Hidden labels",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
-                "fieldNames": ["dimensional"],
-                "title": "Hidden labels",
-                "editable": false,
                 "description": "Hide labels for rows and columns. Set dimensions: 4,5.",
+                "editable": false,
+                "fieldNames": ["dimensional"],
                 "showColumns": false,
-                "showRows": false
-              }
+                "showRows": false,
+                "title": "Hidden labels"
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
@@ -157,15 +156,15 @@
             "recipe": {
               "name": "No-edit columns and rows",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
-                "fieldNames": ["data"],
-                "title": "No-edit columns and rows",
                 "description": "No-edit columns and rows. No set dimensions.",
                 "adjustableColumns": false,
-                "adjustableRows": false
-              }
+                "adjustableRows": false,
+                "fieldNames": ["data"],
+                "title": "No-edit columns and rows"
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
@@ -178,21 +177,22 @@
             "recipe": {
               "name": "Non-editable",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/data_grid",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
-                "fieldNames": ["data"],
-                "title": "Non-editable datagrid",
-                "editable": false,
                 "description": "Non-editable. Unknown dimensions. Custom column and row labels.",
                 "columnLabels": ["Manufacturer", "Name", "Type", "VIN"],
-                "rowLabels": ["John", "Joe", "Jason", "Jack", "Jay"]
-              }
+                "editable": false,
+                "fieldNames": ["data"],
+                "rowLabels": ["John", "Joe", "Jason", "Jack", "Jay"],
+                "title": "Non-editable datagrid"
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
             },
             "scope": "self"
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   }
 }

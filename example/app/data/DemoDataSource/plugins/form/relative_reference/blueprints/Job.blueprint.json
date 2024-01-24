@@ -1,6 +1,6 @@
 {
-  "type": "CORE:Blueprint",
   "name": "Job",
+  "type": "CORE:Blueprint",
   "description": "",
   "extends": ["dmss://system/SIMOS/NamedEntity"],
   "attributes": [
@@ -9,8 +9,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Input",
       "attributeType": "object",
-      "label": "Input",
       "contained": false,
+      "label": "Input",
       "optional": true
     }
   ]

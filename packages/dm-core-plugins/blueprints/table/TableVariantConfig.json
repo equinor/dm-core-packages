@@ -26,12 +26,12 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Table functionality config",
       "attributeType": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-      "optional": true,
       "default": {
         "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
         "add": true,
         "delete": true
-      }
+      },
+      "optional": true
     }
   ]
 }

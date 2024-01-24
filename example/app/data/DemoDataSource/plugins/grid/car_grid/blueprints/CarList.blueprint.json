@@ -18,14 +18,14 @@
     {
       "name": "Q1",
       "type": "CORE:BlueprintAttribute",
-      "dimensions": "*",
-      "attributeType": "./Car"
+      "attributeType": "./Car",
+      "dimensions": "*"
     },
     {
       "name": "Q2",
       "type": "CORE:BlueprintAttribute",
-      "dimensions": "*",
-      "attributeType": "./Car"
+      "attributeType": "./Car",
+      "dimensions": "*"
     }
   ]
 }

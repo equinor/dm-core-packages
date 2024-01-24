@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "RoleFilter",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/role_filter",
     "config": {
       "type": "PLUGINS:dm-core-plugins/role_filter/RoleFilterConfig",
       "viewConfigs": [
@@ -23,30 +22,31 @@
           "recipe": "Yaml"
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/role_filter"
   },
   "uiRecipes": [
     {
       "name": "AdminHeader",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/header",
       "config": {
         "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-        "uiRecipesList": ["Yaml", "Edit", "Explorer"],
         "hideAbout": false,
-        "hideUserInfo": true
-      }
+        "hideUserInfo": true,
+        "uiRecipesList": ["Yaml", "Edit", "Explorer"]
+      },
+      "plugin": "@development-framework/dm-core-plugins/header"
     },
     {
       "name": "OperatorHeader",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/header",
       "config": {
         "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-        "uiRecipesList": ["Yaml", "Explorer"],
         "hideAbout": false,
-        "hideUserInfo": true
-      }
+        "hideUserInfo": true,
+        "uiRecipesList": ["Yaml", "Explorer"]
+      },
+      "plugin": "@development-framework/dm-core-plugins/header"
     },
     {
       "name": "Yaml",

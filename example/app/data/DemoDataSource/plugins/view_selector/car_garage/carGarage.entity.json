@@ -6,7 +6,6 @@
   "Audi": {
     "name": "Audi",
     "type": "./blueprints/CarBlueprint",
-    "model": "2023",
     "Owner": {
       "name": "Aiden",
       "type": "./blueprints/OwnerBlueprint",
@@ -16,16 +15,16 @@
       "name": "Technical",
       "type": "./blueprints/TechBlueprint",
       "controlDate": "2023-06-01",
-      "nextControl": "2025-06-01",
-      "width": 1800,
+      "heigth": 1600,
       "length": 4500,
-      "heigth": 1600
-    }
+      "nextControl": "2025-06-01",
+      "width": 1800
+    },
+    "model": "2023"
   },
   "Volvo": {
     "name": "Volvo",
     "type": "./blueprints/CarBlueprint",
-    "model": "2023",
     "Owner": {
       "name": "Devon",
       "type": "./blueprints/OwnerBlueprint",
@@ -36,10 +35,11 @@
       "name": "Technical",
       "type": "./blueprints/TechBlueprint",
       "controlDate": "2023-06-01",
-      "nextControl": "2025-06-01",
-      "width": 1800,
+      "heigth": 1600,
       "length": 4500,
-      "heigth": 1600
-    }
+      "nextControl": "2025-06-01",
+      "width": 1800
+    },
+    "model": "2023"
   }
 }

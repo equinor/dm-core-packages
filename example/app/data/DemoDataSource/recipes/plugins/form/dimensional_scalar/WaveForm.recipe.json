@@ -5,84 +5,82 @@
     "name": "Edit",
     "type": "CORE:UiRecipe",
     "description": "Default edit",
-    "showRefreshButton": true,
-    "plugin": "@development-framework/dm-core-plugins/form",
     "config": {
       "type": "PLUGINS:dm-core-plugins/form/FormInput",
       "attributes": [
         {
           "name": "significantWaveHeight",
           "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-          "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
             "description": "config tooltip",
-            "label": "significantWaveHeight (config)",
-            "inline": true,
             "compact": true,
+            "inline": true,
+            "label": "significantWaveHeight (config)",
             "width": "500px"
-          }
+          },
+          "widget": "DimensionalScalarWidget"
         },
         {
           "name": "medianWaveHeight",
           "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-          "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
-            "inline": true,
             "compact": true,
+            "inline": true,
             "width": "500px"
-          }
+          },
+          "widget": "DimensionalScalarWidget"
         },
         {
           "name": "minimumWaveHeight",
           "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-          "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
-            "inline": true,
             "compact": true,
+            "inline": true,
             "width": "500px"
-          }
+          },
+          "widget": "DimensionalScalarWidget"
         },
         {
           "name": "maximumWaveHeight",
           "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-          "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
+            "compact": true,
             "inline": true,
-            "width": "500px",
-            "compact": true
-          }
+            "width": "500px"
+          },
+          "widget": "DimensionalScalarWidget"
         },
         {
           "name": "number",
           "type": "PLUGINS:dm-core-plugins/form/fields/NumberField",
-          "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
             "description": "This is a primitive.",
-            "label": "Primitive",
             "compact": true,
-            "width": "500px",
-            "unit": "m/s"
-          }
+            "label": "Primitive",
+            "unit": "m/s",
+            "width": "500px"
+          },
+          "widget": "DimensionalScalarWidget"
         },
         {
           "name": "string",
           "type": "PLUGINS:dm-core-plugins/form/fields/NumberField",
-          "widget": "DimensionalScalarWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DimensionalScalarWidgetConfig",
             "description": "This is a primitive string.",
+            "compact": true,
             "inline": true,
             "inputBoxWidth": "50%",
-            "width": "500px",
-            "compact": true,
             "label": "Primitive String notinlines long long long label",
-            "unit": "cm"
-          }
+            "unit": "cm",
+            "width": "500px"
+          },
+          "widget": "DimensionalScalarWidget"
         }
       ],
       "fields": [
@@ -93,6 +91,8 @@
         "string",
         "number"
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "showRefreshButton": true
   }
 }

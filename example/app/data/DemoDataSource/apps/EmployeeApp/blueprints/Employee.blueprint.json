@@ -22,8 +22,8 @@
       "name": "profilePicture",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "CORE:File",
-      "optional": true,
-      "contained": false
+      "contained": false,
+      "optional": true
     }
   ]
 }

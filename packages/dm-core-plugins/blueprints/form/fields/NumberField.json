@@ -6,8 +6,8 @@
     {
       "name": "widget",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": true,
-      "attributeType": "string"
+      "attributeType": "string",
+      "optional": true
     },
     {
       "name": "config",

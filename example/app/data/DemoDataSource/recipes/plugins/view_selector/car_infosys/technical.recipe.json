@@ -4,56 +4,56 @@
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
       "items": [
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "label": "EU control",
           "eds_icon": "check",
+          "label": "EU control",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "Edit",
               "type": "CORE:UiRecipe",
               "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "fields": ["controlDate", "nextControl"]
-              }
+              },
+              "plugin": "@development-framework/dm-core-plugins/form"
             }
           }
         },
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "label": "Dimensions",
           "eds_icon": "car",
+          "label": "Dimensions",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "Edit",
               "type": "CORE:UiRecipe",
               "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "fields": ["width", "length", "heigth"]
-              }
+              },
+              "plugin": "@development-framework/dm-core-plugins/form"
             }
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
       "name": "Yaml",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml",
-      "category": "container"
+      "category": "container",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
       "name": "Edit",

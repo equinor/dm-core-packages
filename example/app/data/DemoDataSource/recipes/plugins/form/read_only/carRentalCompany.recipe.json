@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
@@ -17,13 +16,13 @@
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
       "name": "ReadOnly",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
@@ -46,20 +45,20 @@
           {
             "name": "accountant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "defaultYaml",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": false,
-              "expand": true
-            }
+              "expand": true,
+              "open": false
+            },
+            "uiRecipe": "defaultYaml"
           },
           {
             "name": "cars",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": false,
-              "expand": true
+              "expand": true,
+              "open": false
             }
           },
           {
@@ -67,8 +66,8 @@
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": false,
-              "expand": true
+              "expand": true,
+              "open": false
             }
           },
           {
@@ -87,7 +86,8 @@
           "isBankrupt"
         ],
         "readOnly": true
-      }
+      },
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

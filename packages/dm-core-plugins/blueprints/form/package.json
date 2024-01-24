@@ -1,25 +1,25 @@
 {
   "name": "form",
   "type": "CORE:Package",
-  "isRoot": false,
   "_meta_": {
     "type": "CORE:Meta",
-    "version": "0.0.1",
     "dependencies": [
       {
         "type": "CORE:Dependency",
-        "alias": "CORE",
         "address": "system/SIMOS",
-        "version": "0.0.1",
-        "protocol": "dmss"
+        "alias": "CORE",
+        "protocol": "dmss",
+        "version": "0.0.1"
       },
       {
         "type": "CORE:Dependency",
-        "alias": "PLUGINS",
         "address": "system/Plugins",
-        "version": "0.0.1",
-        "protocol": "dmss"
+        "alias": "PLUGINS",
+        "protocol": "dmss",
+        "version": "0.0.1"
       }
-    ]
-  }
+    ],
+    "version": "0.0.1"
+  },
+  "isRoot": false
 }

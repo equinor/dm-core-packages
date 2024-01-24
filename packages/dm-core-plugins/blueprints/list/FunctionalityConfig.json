@@ -11,43 +11,43 @@
       "name": "delete",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "add",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "edit",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "sort",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "open",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "expand",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     }
   ]
 }

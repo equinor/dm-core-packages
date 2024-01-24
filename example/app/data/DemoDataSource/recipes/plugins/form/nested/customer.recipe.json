@@ -10,14 +10,14 @@
     {
       "name": "defaultYaml",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml",
-      "category": "view"
+      "category": "view",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
       "name": "defaultForm",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit"
+      "category": "edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

@@ -6,26 +6,26 @@
     {
       "name": "Table",
       "type": "./blueprints/Plugin",
-      "path": "@development-framework/dm-core-plugins/table",
       "developed": true,
       "documented": false,
-      "importance": 5
+      "importance": 5,
+      "path": "@development-framework/dm-core-plugins/table"
     },
     {
       "name": "Form",
       "type": "./blueprints/Plugin",
-      "path": "@development-framework/dm-core-plugins/form",
       "developed": true,
       "documented": false,
-      "importance": 5
+      "importance": 5,
+      "path": "@development-framework/dm-core-plugins/form"
     },
     {
       "name": "List",
       "type": "./blueprints/Plugin",
-      "path": "@development-framework/dm-core-plugins/list",
       "developed": false,
       "documented": false,
-      "importance": 3
+      "importance": 3,
+      "path": "@development-framework/dm-core-plugins/list"
     }
   ]
 }

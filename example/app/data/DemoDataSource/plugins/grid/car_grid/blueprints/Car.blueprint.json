@@ -12,26 +12,26 @@
     {
       "name": "position",
       "type": "CORE:BlueprintAttribute",
-      "label": "Position",
-      "attributeType": "number"
+      "attributeType": "number",
+      "label": "Position"
     },
     {
       "name": "name",
       "type": "CORE:BlueprintAttribute",
-      "label": "Manufacturer",
-      "attributeType": "string"
+      "attributeType": "string",
+      "label": "Manufacturer"
     },
     {
       "name": "team",
       "type": "CORE:BlueprintAttribute",
-      "label": "Team",
-      "attributeType": "string"
+      "attributeType": "string",
+      "label": "Team"
     },
     {
       "name": "lap time",
       "type": "CORE:BlueprintAttribute",
-      "label": "Lap Time",
       "attributeType": "string",
+      "label": "Lap Time",
       "optional": true
     }
   ]

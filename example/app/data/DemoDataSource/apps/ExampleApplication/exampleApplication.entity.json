@@ -2,26 +2,26 @@
   "_id": "example-application-id",
   "name": "exampleApplication",
   "type": "./ExampleApplication",
-  "label": "Example Application",
   "dataSources": ["DemoDataSource", "system", "WorkflowDS"],
+  "label": "Example Application",
   "roles": [
     {
-      "type": "CORE:Role",
       "name": "dmss-admin",
-      "label": "Administrator",
-      "authServerRoleName": "dmss-admin"
+      "type": "CORE:Role",
+      "authServerRoleName": "dmss-admin",
+      "label": "Administrator"
     },
     {
-      "type": "CORE:Role",
       "name": "operator",
-      "label": "Operator",
-      "authServerRoleName": "operator"
+      "type": "CORE:Role",
+      "authServerRoleName": "operator",
+      "label": "Operator"
     },
     {
-      "type": "CORE:Role",
       "name": "developer",
-      "label": "SIMPOS Developer",
-      "authServerRoleName": "developer"
+      "type": "CORE:Role",
+      "authServerRoleName": "developer",
+      "label": "SIMPOS Developer"
     }
   ]
 }

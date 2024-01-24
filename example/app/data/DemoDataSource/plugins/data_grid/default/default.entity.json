@@ -1,7 +1,7 @@
 {
   "_id": "Default",
-  "type": "./blueprints/Default",
   "name": "Default",
+  "type": "./blueprints/Default",
   "data": [
     ["Dodge", "Bentley Model T", "Extended Cab Pickup", "1D3MX48D48B28FPJU"],
     ["Volvo", "Volvo Camry", "Cargo Van", "5XYZGDAG8BDE8J42H"],

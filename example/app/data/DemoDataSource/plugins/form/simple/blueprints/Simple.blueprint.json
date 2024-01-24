@@ -39,44 +39,44 @@
       "name": "listOfNumbers",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
-      "label": "Numbers only",
-      "dimensions": "*"
+      "dimensions": "*",
+      "label": "Numbers only"
     },
     {
       "name": "2DListOfNumbers",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",
+      "dimensions": "7,4",
       "label": "Numbers only",
-      "optional": true,
-      "dimensions": "7,4"
+      "optional": true
     },
     {
       "name": "listOfStrings",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "label": "Many Strings",
-      "dimensions": "*"
+      "dimensions": "*",
+      "label": "Many Strings"
     },
     {
       "name": "2DListOfStrings",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "label": "Table of strings",
-      "dimensions": "*,*"
+      "dimensions": "*,*",
+      "label": "Table of strings"
     },
     {
       "name": "listOfBooleans",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "label": "Many booleans",
-      "dimensions": "*"
+      "dimensions": "*",
+      "label": "Many booleans"
     },
     {
       "name": "2DListOfBooleans",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "label": "Table of booleans",
-      "dimensions": "*,*"
+      "dimensions": "*,*",
+      "label": "Table of booleans"
     },
     {
       "name": "integer",

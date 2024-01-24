@@ -4,15 +4,14 @@
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
       "items": [
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "label": "Headmaster view",
           "eds_icon": "visibility",
+          "label": "Headmaster view",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "recipe": "AdminView"
@@ -20,15 +19,16 @@
         },
         {
           "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-          "label": "Student view",
           "eds_icon": "visibility",
+          "label": "Student view",
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
             "recipe": "OperatorView"
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
@@ -39,12 +39,12 @@
     {
       "name": "OperatorView",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "readOnly": true,
-        "fields": ["name", "headmaster", "teachers", "subjects"]
-      }
+        "fields": ["name", "headmaster", "teachers", "subjects"],
+        "readOnly": true
+      },
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

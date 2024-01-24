@@ -4,24 +4,24 @@
   "initialUiRecipe": {
     "name": "Create job",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/job/create",
     "config": {
       "type": "PLUGINS:dm-core-plugins/job/CreateConfig",
-      "recurring": false,
       "hideLogs": true,
+      "jobTargetAddress": ".job",
       "jobTemplates": [
         {
           "type": "PLUGINS:dm-core-plugins/common/Template",
-          "path": "._templates_[0]",
-          "label": "Reverse description job"
+          "label": "Reverse description job",
+          "path": "._templates_[0]"
         },
         {
           "type": "PLUGINS:dm-core-plugins/common/Template",
-          "path": "._templates_[1]",
-          "label": "Also a reverse description job"
+          "label": "Also a reverse description job",
+          "path": "._templates_[1]"
         }
       ],
-      "jobTargetAddress": ".job"
-    }
+      "recurring": false
+    },
+    "plugin": "@development-framework/dm-core-plugins/job/create"
   }
 }

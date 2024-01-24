@@ -1,14 +1,14 @@
 {
   "name": "helloWorldLocalContainerRunner",
   "type": "JOBCORE:LocalContainer",
-  "label": "Hello world",
+  "environmentVariables": [],
   "image": {
     "type": "JOBCORE:ContainerImage",
     "description": "Hello world test container",
     "imageName": "hello-world",
-    "version": "latest",
-    "registryName": "library"
+    "registryName": "library",
+    "version": "latest"
   },
-  "network": "example_default",
-  "environmentVariables": []
+  "label": "Hello world",
+  "network": "example_default"
 }

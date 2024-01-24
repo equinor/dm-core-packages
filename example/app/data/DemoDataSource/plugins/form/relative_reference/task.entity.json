@@ -1,68 +1,68 @@
 {
   "_id": "relativeReference",
-  "type": "./blueprints/Task",
   "name": "TestData",
+  "type": "./blueprints/Task",
   "data": {
     "type": "./blueprints/Data",
     "aNumber": 100
   },
   "job": {
-    "type": "./blueprints/Job",
     "name": "Job",
+    "type": "./blueprints/Job",
     "input": {
-      "address": "~.~.data",
       "type": "CORE:Reference",
+      "address": "~.~.data",
       "referenceType": "link"
     }
   },
   "task": {
-    "type": "./blueprints/ChildTask",
     "name": "ChildTask",
+    "type": "./blueprints/ChildTask",
     "data": {
       "type": "./blueprints/Data",
       "aNumber": 200
     },
     "job": {
-      "type": "./blueprints/Job",
       "name": "Sub Job",
+      "type": "./blueprints/Job",
       "input": {
-        "address": "~.~.data",
         "type": "CORE:Reference",
+        "address": "~.~.data",
         "referenceType": "link"
       }
     }
   },
   "tasks": [
     {
-      "type": "./blueprints/ChildTask",
       "name": "ChildTask local reference",
+      "type": "./blueprints/ChildTask",
       "data": {
         "type": "./blueprints/Data",
         "aNumber": 300
       },
       "job": {
-        "type": "./blueprints/Job",
         "name": "Task 1",
+        "type": "./blueprints/Job",
         "input": {
-          "address": "~.~.data",
           "type": "CORE:Reference",
+          "address": "~.~.data",
           "referenceType": "link"
         }
       }
     },
     {
-      "type": "./blueprints/ChildTask",
       "name": "ChildTask root reference",
+      "type": "./blueprints/ChildTask",
       "data": {
         "type": "./blueprints/Data",
         "aNumber": 400
       },
       "job": {
-        "type": "./blueprints/Job",
         "name": "Task 2",
+        "type": "./blueprints/Job",
         "input": {
-          "address": "~.~.~.data",
           "type": "CORE:Reference",
+          "address": "~.~.~.data",
           "referenceType": "link"
         }
       }

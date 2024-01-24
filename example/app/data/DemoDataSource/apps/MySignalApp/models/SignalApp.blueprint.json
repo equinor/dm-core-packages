@@ -7,15 +7,15 @@
     {
       "name": "study",
       "type": "CORE:BlueprintAttribute",
-      "label": "Study",
       "attributeType": "./signals_simple/Study",
+      "label": "Study",
       "optional": false
     },
     {
       "name": "studyNC",
       "type": "CORE:BlueprintAttribute",
-      "label": "Study NC",
       "attributeType": "./signals_simple/StudyNC",
+      "label": "Study NC",
       "optional": false
     }
   ]

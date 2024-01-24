@@ -6,21 +6,21 @@
     {
       "name": "widget",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": true,
-      "attributeType": "string"
+      "attributeType": "string",
+      "optional": true
     },
     {
       "name": "searchByType",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "uiRecipe",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": true,
-      "attributeType": "string"
+      "attributeType": "string",
+      "optional": true
     },
     {
       "name": "expandViewConfig",
@@ -47,9 +47,9 @@
       "name": "showExpanded",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "description": "If true, the attribute will be expanded if shown inline.",
-      "optional": true,
+      "attributeType": "boolean",
       "default": false,
-      "attributeType": "boolean"
+      "optional": true
     }
   ]
 }

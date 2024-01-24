@@ -12,21 +12,20 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Define table variants. Initial variant will be decided by which variant is passed first. Variants are 'view' and 'edit'",
       "attributeType": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
-      "optional": true,
-      "dimensions": "*",
       "default": [
         {
           "name": "view",
           "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
         }
-      ]
+      ],
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "columns",
       "type": "CORE:BlueprintAttribute",
       "description": "Name of primitive child attributes to display in header of item",
       "attributeType": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
-      "optional": true,
       "default": [
         {
           "type": "./TableColumnConfig",
@@ -39,7 +38,8 @@
           "editable": false
         }
       ],
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "expandableRecipeViewConfig",
@@ -52,16 +52,16 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Attribute on parent (of same type as list) which should be used as template when instantiating new items. (e.g. 'template' will use the 'template' attribute on the parent.)",
       "attributeType": "PLUGINS:dm-core-plugins/common/Template",
-      "optional": true,
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "labelByIndex",
       "type": "CORE:BlueprintAttribute",
       "description": "Control whether index should be appended to label when table item is opened.",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "label",

@@ -1,17 +1,17 @@
 {
+  "_id": "linkForm",
   "name": "linkForm",
   "type": "./LinkForm",
-  "_id": "linkForm",
   "stringLink1": "https://google.com",
   "stringLink2": "http://localhost:3000/view/?documentId=dmss://DemoDataSource/$linkForm",
   "urlLink1": {
     "type": "CORE:Url",
-    "value": "http://example.com",
-    "label": "Url Complex Link"
+    "label": "Url Complex Link",
+    "value": "http://example.com"
   },
   "urlLink2": {
     "type": "CORE:Url",
-    "value": "http://localhost:3000/view/?documentId=dmss://DemoDataSource/$linkForm",
-    "label": "Core:Url"
+    "label": "Core:Url",
+    "value": "http://localhost:3000/view/?documentId=dmss://DemoDataSource/$linkForm"
   }
 }

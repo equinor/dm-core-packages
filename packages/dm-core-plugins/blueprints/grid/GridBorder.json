@@ -11,29 +11,29 @@
       "name": "size",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": "1px"
+      "default": "1px",
+      "optional": true
     },
     {
       "name": "color",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": "black"
+      "default": "black",
+      "optional": true
     },
     {
       "name": "style",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": "solid"
+      "default": "solid",
+      "optional": true
     },
     {
       "name": "radius",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": "solid"
+      "default": "solid",
+      "optional": true
     }
   ]
 }

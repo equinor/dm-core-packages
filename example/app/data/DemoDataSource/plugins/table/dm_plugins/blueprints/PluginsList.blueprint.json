@@ -18,8 +18,8 @@
     {
       "name": "plugins",
       "type": "CORE:BlueprintAttribute",
-      "dimensions": "*",
-      "attributeType": "./Plugin"
+      "attributeType": "./Plugin",
+      "dimensions": "*"
     }
   ]
 }

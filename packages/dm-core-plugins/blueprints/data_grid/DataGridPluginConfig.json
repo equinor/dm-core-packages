@@ -11,15 +11,15 @@
       "name": "title",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": ""
+      "default": "",
+      "optional": true
     },
     {
       "name": "description",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": ""
+      "default": "",
+      "optional": true
     },
     {
       "name": "fieldNames",
@@ -32,85 +32,85 @@
       "name": "editable",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "showColumns",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "adjustableColumns",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "columnLabels",
       "type": "CORE:BlueprintAttribute",
       "description": "Define column labels or use predefined columns. Predefined values are ABC, ZYX, 123 and you can select those by using the spread operator ['...ABC']. You can also merge the two like this: ['custom field', 'custom field2', '...ABC']",
       "attributeType": "string",
-      "optional": true,
       "default": ["...ABC"],
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "showRows",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "adjustableRows",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "movableRows",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "rowLabels",
       "type": "CORE:BlueprintAttribute",
       "description": "Define row labels or use predefined rows. Predefined values are ABC, ZYX, 123and you can select those by using the spread operator ['...ABC']. You can also merge the two like this: ['custom field', 'custom field2', '...ABC']",
       "attributeType": "string",
-      "optional": true,
       "default": ["...123"],
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "printDirection",
       "type": "CORE:BlueprintAttribute",
       "description": "Which direction should rows be printed. Horizontal means printing rows top-down, vertical means left-right.",
       "attributeType": "string",
-      "optional": true,
-      "default": "horizontal"
+      "default": "horizontal",
+      "optional": true
     },
     {
       "name": "rowsPerPage",
       "type": "CORE:BlueprintAttribute",
       "description": "How many rows per page should be pre-selected in the pagination when datagrid loads.",
       "attributeType": "number",
-      "optional": true,
-      "default": 25
+      "default": 25,
+      "optional": true
     },
     {
       "name": "hidePaginationIfLessThan",
       "type": "CORE:BlueprintAttribute",
       "description": "Hide the pagination if rows are less than x values.",
       "attributeType": "number",
-      "optional": true,
-      "default": 0
+      "default": 0,
+      "optional": true
     }
   ]
 }

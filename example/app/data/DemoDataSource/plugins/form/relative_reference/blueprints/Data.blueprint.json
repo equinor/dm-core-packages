@@ -1,6 +1,6 @@
 {
-  "type": "CORE:Blueprint",
   "name": "Data",
+  "type": "CORE:Blueprint",
   "description": "",
   "attributes": [
     {

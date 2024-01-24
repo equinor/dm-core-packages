@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
@@ -23,20 +22,21 @@
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
       "name": "defaultYaml",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml",
-      "category": "view"
+      "category": "view",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
       "name": "defaultForm",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit"
+      "category": "edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

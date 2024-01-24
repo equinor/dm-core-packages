@@ -4,11 +4,11 @@
   "initialUiRecipe": {
     "name": "TyreList",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
@@ -24,12 +24,12 @@
     {
       "name": "List",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/list",
-      "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
         "headers": ["name", "compound"]
-      }
+      },
+      "dimensions": "*",
+      "plugin": "@development-framework/dm-core-plugins/list"
     }
   ]
 }

@@ -23,8 +23,8 @@
       "name": "ceo",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
-      "label": "CEO",
       "contained": false,
+      "label": "CEO",
       "optional": false
     },
     {
@@ -38,8 +38,8 @@
       "name": "accountant",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
-      "label": "Accountant",
       "contained": false,
+      "label": "Accountant",
       "optional": false
     },
     {
@@ -53,16 +53,16 @@
       "name": "assistant",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
-      "label": "Assistant",
       "contained": false,
+      "label": "Assistant",
       "optional": true
     },
     {
       "name": "trainee",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
-      "label": "Trainee",
       "contained": false,
+      "label": "Trainee",
       "optional": true
     },
     {

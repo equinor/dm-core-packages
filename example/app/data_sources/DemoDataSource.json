@@ -1,17 +1,17 @@
 {
   "name": "DemoDataSource",
+  "global_folders": ["global"],
   "repositories": {
     "exampleRepo": {
       "type": "mongo-db",
-      "host": "db",
-      "port": 27017,
-      "username": "maf",
-      "password": "xd7wCEhEx4kszsecYFfC",
-      "tls": false,
-      "database": "DemoDataSource",
       "collection": "default",
-      "data_types": ["blob"]
+      "data_types": ["blob"],
+      "database": "DemoDataSource",
+      "host": "db",
+      "password": "xd7wCEhEx4kszsecYFfC",
+      "port": 27017,
+      "tls": false,
+      "username": "maf"
     }
-  },
-  "global_folders": ["global"]
+  }
 }

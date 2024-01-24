@@ -16,8 +16,8 @@
       "name": "tasks",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Task",
-      "dimensions": "*",
-      "contained": false
+      "contained": false,
+      "dimensions": "*"
     }
   ]
 }

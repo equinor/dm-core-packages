@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
@@ -17,13 +16,13 @@
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
       "name": "Edit",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
@@ -40,41 +39,41 @@
               "type": "CORE:ReferenceViewConfig",
               "recipe": "defaultYaml"
             },
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "expand": true,
+              "open": true
+            },
             "openViewConfig": {
               "type": "CORE:ReferenceViewConfig",
               "recipe": "defaultForm"
             },
-            "showExpanded": true,
-            "functionality": {
-              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": true,
-              "expand": true
-            }
+            "showExpanded": true
           },
           {
             "name": "assistant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "defaultYaml",
-            "hideOptionalLabel": true
+            "hideOptionalLabel": true,
+            "uiRecipe": "defaultYaml"
           },
           {
             "name": "trainee",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "defaultYaml",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": false,
-              "expand": true
+              "expand": true,
+              "open": false
             },
-            "label": "The Trainee"
+            "label": "The Trainee",
+            "uiRecipe": "defaultYaml"
           },
           {
             "name": "description",
             "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-            "widget": "TextareaWidget",
             "hideOptionalLabel": true,
             "readOnly": true,
-            "tooltip": "tooltip"
+            "tooltip": "tooltip",
+            "widget": "TextareaWidget"
           },
           {
             "name": "averageSalary",
@@ -94,7 +93,8 @@
           "assistant",
           "trainee"
         ]
-      }
+      },
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

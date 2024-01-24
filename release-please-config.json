@@ -1,12 +1,70 @@
 {
-  "release-type": "node",
-  "monorepo-tags": true,
+  "always-link-local": true,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
-  "prerelease": true,
-  "separate-pull-requests": false,
-  "plugins": ["node-workspace"],
-  "always-link-local": true,
+  "changelog-sections": [
+    {
+      "type": "feat",
+      "hidden": false,
+      "section": "Features"
+    },
+    {
+      "type": "feature",
+      "hidden": false,
+      "section": "Features"
+    },
+    {
+      "type": "fix",
+      "hidden": false,
+      "section": "Bug Fixes"
+    },
+    {
+      "type": "perf",
+      "hidden": false,
+      "section": "Performance Improvements"
+    },
+    {
+      "type": "revert",
+      "hidden": false,
+      "section": "Reverts"
+    },
+    {
+      "type": "docs",
+      "hidden": false,
+      "section": "Documentation"
+    },
+    {
+      "type": "style",
+      "hidden": false,
+      "section": "Styles"
+    },
+    {
+      "type": "chore",
+      "hidden": false,
+      "section": "Miscellaneous Chores"
+    },
+    {
+      "type": "refactor",
+      "hidden": false,
+      "section": "Code Refactoring"
+    },
+    {
+      "type": "test",
+      "hidden": false,
+      "section": "Tests"
+    },
+    {
+      "type": "build",
+      "hidden": false,
+      "section": "Build System"
+    },
+    {
+      "type": "ci",
+      "hidden": false,
+      "section": "Continuous Integration"
+    }
+  ],
+  "monorepo-tags": true,
   "packages": {
     "packages/dm-core": {
       "package-name": "@development-framework/dm-core"
@@ -15,18 +73,8 @@
       "package-name": "@development-framework/dm-core-plugins"
     }
   },
-  "changelog-sections": [
-    { "type": "feat", "section": "Features", "hidden": false },
-    { "type": "feature", "section": "Features", "hidden": false },
-    { "type": "fix", "section": "Bug Fixes", "hidden": false },
-    { "type": "perf", "section": "Performance Improvements", "hidden": false },
-    { "type": "revert", "section": "Reverts", "hidden": false },
-    { "type": "docs", "section": "Documentation", "hidden": false },
-    { "type": "style", "section": "Styles", "hidden": false },
-    { "type": "chore", "section": "Miscellaneous Chores", "hidden": false },
-    { "type": "refactor", "section": "Code Refactoring", "hidden": false },
-    { "type": "test", "section": "Tests", "hidden": false },
-    { "type": "build", "section": "Build System", "hidden": false },
-    { "type": "ci", "section": "Continuous Integration", "hidden": false }
-  ]
+  "plugins": ["node-workspace"],
+  "prerelease": true,
+  "release-type": "node",
+  "separate-pull-requests": false
 }

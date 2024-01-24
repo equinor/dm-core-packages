@@ -10,19 +10,19 @@
     {
       "name": "List",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/list",
-      "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-        "headers": ["name", "type", "plateNumber"],
         "compact": true,
         "defaultPaginationRowsPerPage": 7,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
           "delete": true,
           "expand": true
-        }
-      }
+        },
+        "headers": ["name", "type", "plateNumber"]
+      },
+      "dimensions": "*",
+      "plugin": "@development-framework/dm-core-plugins/list"
     }
   ]
 }

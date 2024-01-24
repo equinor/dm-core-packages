@@ -1,9 +1,6 @@
 {
   "type": "object",
   "description": "Schema for writing correct blueprints",
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Blueprint schema",
-  "additionalItems": false,
   "$defs": {
     "type": {
       "type": "string",
@@ -14,6 +11,8 @@
       "enum": ["CORE:UiRecipe", "dmss://system/SIMOS/UiRecipe"]
     }
   },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalItems": false,
   "properties": {
     "type": {
       "$ref": "#/$defs/type"
@@ -30,11 +29,11 @@
         "type": {
           "$ref": "#/$defs/uiRecipes"
         },
-        "plugin": {
-          "type": "string"
-        },
         "config": {
           "$ref": "recipeConfig.schema.json"
+        },
+        "plugin": {
+          "type": "string"
         }
       },
       "required": ["type", "plugin", "config"]
@@ -61,5 +60,6 @@
       }
     }
   },
-  "required": ["type", "_blueprintPath_"]
+  "required": ["type", "_blueprintPath_"],
+  "title": "Blueprint schema"
 }

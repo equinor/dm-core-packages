@@ -12,33 +12,33 @@
       "name": "recurring",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "hideLogs",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "jobTemplates",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/common/Template",
-      "optional": true,
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "jobTargetAddress",
-      "description": "Where the created jobs should be placed. Absolute or relative address",
       "type": "CORE:BlueprintAttribute",
+      "description": "Where the created jobs should be placed. Absolute or relative address",
       "attributeType": "string"
     },
     {
       "name": "jobInputAddress",
-      "description": "'applicationInput' for the created job. Absolute or relative address",
       "type": "CORE:BlueprintAttribute",
+      "description": "'applicationInput' for the created job. Absolute or relative address",
       "attributeType": "string",
       "optional": true
     }

@@ -12,14 +12,14 @@
     {
       "name": "name",
       "type": "CORE:BlueprintAttribute",
-      "label": "Name of plugin",
-      "attributeType": "string"
+      "attributeType": "string",
+      "label": "Name of plugin"
     },
     {
       "name": "path",
       "type": "CORE:BlueprintAttribute",
-      "label": "Plugin path",
       "attributeType": "string",
+      "label": "Plugin path",
       "optional": true
     },
     {

@@ -30,14 +30,14 @@
       "name": "ceo",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
-      "label": "CEO",
-      "optional": true,
       "default": {
         "name": "Elon Musk",
         "type": "./Person",
-        "phoneNumber": 420420,
-        "age": 32
-      }
+        "age": 32,
+        "phoneNumber": 420420
+      },
+      "label": "CEO",
+      "optional": true
     },
     {
       "name": "accountant",

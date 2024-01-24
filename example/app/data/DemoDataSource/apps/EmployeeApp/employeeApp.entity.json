@@ -3,7 +3,6 @@
   "name": "employeeApp",
   "type": "./blueprints/EmployeeApp",
   "description": "This is an app for viewing employees.",
-  "label": "",
   "dataSources": ["DemoDataSource", "system", "WorkflowDS"],
   "employees": [
     {
@@ -24,5 +23,6 @@
         "referenceType": "link"
       }
     }
-  ]
+  ],
+  "label": ""
 }

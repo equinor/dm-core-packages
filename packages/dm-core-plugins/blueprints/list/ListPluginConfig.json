@@ -12,24 +12,24 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Initial expand state for items in list",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "compact",
       "type": "CORE:BlueprintAttribute",
       "description": "If table should be more compact, with less padding and smaller icons. ",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "saveExpanded",
       "type": "CORE:BlueprintAttribute",
       "description": "Use save button to save expanded items.",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "selectFromScope",
@@ -43,8 +43,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "When appending to the list, whether or not the user should see invalid types in the entity selector",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "headers",
@@ -80,16 +80,16 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Attribute on parent (of same type as list) which should be used as template when instantiating new items. (e.g. 'template' will use the 'template' attribute on the parent.)",
       "attributeType": "PLUGINS:dm-core-plugins/common/Template",
-      "optional": true,
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "labelByIndex",
       "type": "CORE:BlueprintAttribute",
       "description": "Control whether index should be appended to label when list item is opened.",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "label",

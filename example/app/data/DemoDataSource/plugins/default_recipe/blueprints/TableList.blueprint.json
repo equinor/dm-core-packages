@@ -18,8 +18,8 @@
     {
       "name": "cars",
       "type": "CORE:BlueprintAttribute",
-      "dimensions": "*",
       "attributeType": "./Table",
+      "dimensions": "*",
       "optional": true
     }
   ]

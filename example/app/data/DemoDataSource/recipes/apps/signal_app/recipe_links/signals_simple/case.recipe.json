@@ -5,68 +5,67 @@
     "name": "Dashboard",
     "type": "CORE:UiRecipe",
     "description": "ESS Plot",
-    "showRefreshButton": true,
-    "plugin": "@development-framework/dm-core-plugins/grid",
     "config": {
       "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "columnEnd": 1,
+            "columnStart": 1,
+            "rowEnd": 3,
+            "rowStart": 1
+          },
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Tabs"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "columnEnd": 2,
+            "columnStart": 2,
+            "rowEnd": 3,
+            "rowStart": 1
+          },
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "Plot",
+            "scope": "signal"
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "columnEnd": 2,
+            "columnStart": 1,
+            "rowEnd": 4,
+            "rowStart": 4
+          },
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "RunJob"
+          }
+        }
+      ],
+      "showItemBorders": false,
       "size": {
         "type": "PLUGINS:dm-core-plugins/grid/GridSize",
         "columns": 2,
         "rows": 4
-      },
-      "showItemBorders": false,
-      "items": [
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "recipe": "Tabs"
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 1,
-            "columnStart": 1,
-            "rowEnd": 3,
-            "columnEnd": 1
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "scope": "signal",
-            "recipe": "Plot"
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 1,
-            "columnStart": 2,
-            "rowEnd": 3,
-            "columnEnd": 2
-          }
-        },
-        {
-          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
-          "viewConfig": {
-            "type": "CORE:ReferenceViewConfig",
-            "recipe": "RunJob"
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 4,
-            "columnStart": 1,
-            "rowEnd": 4,
-            "columnEnd": 2
-          }
-        }
-      ]
-    }
+      }
+    },
+    "plugin": "@development-framework/dm-core-plugins/grid",
+    "showRefreshButton": true
   },
   "uiRecipes": [
     {
       "name": "Tabs",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
       "config": {
         "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
         "childTabsOnRender": true,
@@ -80,54 +79,43 @@
             }
           }
         ]
-      }
+      },
+      "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
     },
     {
       "name": "Edit",
       "type": "CORE:UiRecipe",
       "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
         "fields": ["name", "description", "duration", "timeStep", "components"]
-      }
+      },
+      "plugin": "@development-framework/dm-core-plugins/form"
     },
     {
       "name": "RunJob",
       "type": "CORE:UiRecipe",
       "description": "running",
-      "plugin": "@development-framework/dm-core-plugins/job/create",
       "config": {
         "type": "PLUGINS:dm-core-plugins/job/CreateConfig",
-        "jobTargetAddress": ".job",
         "jobInputAddress": ".",
-        "recurring": false,
+        "jobTargetAddress": ".job",
         "jobTemplates": [
           {
             "type": "PLUGINS:dm-core-plugins/common/Template",
-            "path": "/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.jobTemplate",
-            "label": "signal job"
+            "label": "signal job",
+            "path": "/$4483c9b0-d505-46c9-a157-94c79f4d7a6a.study.jobTemplate"
           }
-        ]
-      }
+        ],
+        "recurring": false
+      },
+      "plugin": "@development-framework/dm-core-plugins/job/create"
     },
     {
       "name": "Table",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/table",
-      "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-        "variant": [
-          {
-            "name": "view",
-            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
-          },
-          {
-            "name": "edit",
-            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
-          }
-        ],
         "columns": [
           {
             "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
@@ -148,15 +136,27 @@
         ],
         "expandableRecipeViewConfig": {
           "type": "CORE:InlineRecipeViewConfig",
-          "scope": "self",
           "recipe": {
             "name": "Edit",
             "type": "CORE:UiRecipe",
             "description": "Default edit",
             "plugin": "@development-framework/dm-core-plugins/form"
+          },
+          "scope": "self"
+        },
+        "variant": [
+          {
+            "name": "view",
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+          },
+          {
+            "name": "edit",
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
           }
-        }
-      }
+        ]
+      },
+      "dimensions": "*",
+      "plugin": "@development-framework/dm-core-plugins/table"
     }
   ]
 }

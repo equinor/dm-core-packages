@@ -19,8 +19,8 @@
       "name": "captain",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Person",
-      "label": "Captain",
-      "contained": false
+      "contained": false,
+      "label": "Captain"
     }
   ]
 }
