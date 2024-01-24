@@ -11,18 +11,18 @@
       "name": "singleString",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "label": "Select a single string option",
       "enumType": "./StringOptions",
+      "label": "Select a single string option",
       "optional": true
     },
     {
       "name": "manyStrings",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "label": "Select one or many string options",
+      "dimensions": "*",
       "enumType": "./StringOptions",
-      "optional": true,
-      "dimensions": "*"
+      "label": "Select one or many string options",
+      "optional": true
     }
   ]
 }

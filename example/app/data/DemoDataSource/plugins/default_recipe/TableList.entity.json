@@ -6,8 +6,8 @@
     {
       "name": "Volvo",
       "type": "./blueprints/Table",
-      "model": "XC40",
-      "color": "White"
+      "color": "White",
+      "model": "XC40"
     }
   ]
 }

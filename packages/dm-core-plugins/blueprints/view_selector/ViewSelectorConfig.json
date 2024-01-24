@@ -11,15 +11,15 @@
       "name": "childTabsOnRender",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "items",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
-      "dimensions": "*",
       "contained": true,
+      "dimensions": "*",
       "optional": true
     }
   ]

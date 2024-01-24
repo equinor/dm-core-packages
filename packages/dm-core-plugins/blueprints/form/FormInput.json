@@ -12,42 +12,42 @@
       "name": "attributes",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/form/fields/Field",
+      "contained": true,
       "dimensions": "*",
-      "optional": true,
-      "contained": true
+      "optional": true
     },
     {
       "name": "fields",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "description": "Define which attributes should be shown, and in what order",
       "attributeType": "string",
+      "contained": true,
       "dimensions": "*",
-      "optional": true,
-      "contained": true
+      "optional": true
     },
     {
       "name": "readOnly",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
       "contained": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "showExpanded",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "description": "If true, fields will be expanded by default if shown inline.",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "compactButtons",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "description": "If true, the submit and redo buttons in the form will be compact. ",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "functionality",

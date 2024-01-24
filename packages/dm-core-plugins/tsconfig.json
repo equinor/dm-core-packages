@@ -9,5 +9,9 @@
     "src",
     "src/**/*.json"
   ],
-  "exclude": ["node_modules", "src/**/*.spec.ts", "dist"]
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts",
+    "dist"
+  ]
 }

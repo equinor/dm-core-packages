@@ -13,8 +13,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "variable name for named accessing",
       "attributeType": "string",
-      "default": "signal",
       "contained": true,
+      "default": "signal",
       "optional": false
     },
     {
@@ -22,8 +22,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "instance description",
       "attributeType": "string",
-      "default": "signal desc",
       "contained": true,
+      "default": "signal desc",
       "optional": true
     },
     {
@@ -31,8 +31,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "data points.",
       "attributeType": "number",
-      "dimensions": "*",
       "contained": true,
+      "dimensions": "*",
       "optional": false
     },
     {
@@ -56,8 +56,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "x-axis unit.",
       "attributeType": "string",
-      "default": "s",
       "contained": true,
+      "default": "s",
       "optional": true
     },
     {
@@ -83,8 +83,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "label for the x-axis.",
       "attributeType": "string",
-      "default": "time",
       "contained": true,
+      "default": "time",
       "optional": false
     },
     {
@@ -92,8 +92,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "label for the y-axis.",
       "attributeType": "string",
-      "default": " ",
       "contained": true,
+      "default": " ",
       "optional": false
     },
     {
@@ -101,8 +101,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "description of xy values to be used as legend.",
       "attributeType": "string",
-      "default": " ",
       "contained": true,
+      "default": " ",
       "optional": false
     },
     {
@@ -110,8 +110,8 @@
       "type": "CORE:BlueprintAttribute",
       "description": "data unit.",
       "attributeType": "string",
-      "default": "m",
       "contained": true,
+      "default": "m",
       "optional": false
     }
   ]

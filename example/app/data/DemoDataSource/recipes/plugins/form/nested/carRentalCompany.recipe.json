@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "childTabsOnRender": true,
@@ -17,13 +16,13 @@
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
       "name": "Edit",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
@@ -31,23 +30,23 @@
           {
             "name": "owner",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "defaultForm",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": true,
-              "expand": true
-            }
+              "expand": true,
+              "open": true
+            },
+            "uiRecipe": "defaultForm"
           },
           {
             "name": "trainee",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "defaultForm",
-            "hideOptionalLabel": true,
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": false,
-              "expand": true
-            }
+              "expand": true,
+              "open": false
+            },
+            "hideOptionalLabel": true,
+            "uiRecipe": "defaultForm"
           },
           {
             "name": "name",
@@ -57,33 +56,33 @@
           {
             "name": "accountant",
             "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "defaultYaml",
-            "showExpanded": true,
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": false,
-              "expand": true
+              "expand": true,
+              "open": false
             },
-            "tooltip": "This is my accountant. "
+            "showExpanded": true,
+            "tooltip": "This is my accountant. ",
+            "uiRecipe": "defaultYaml"
           },
           {
             "name": "cars",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": false,
-              "expand": true
+              "expand": true,
+              "open": false
             }
           },
           {
             "name": "locations",
             "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
-            "template": "ArrayPrimitiveListTemplate",
             "functionality": {
               "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": false,
-              "expand": true
+              "expand": true,
+              "open": false
             },
+            "template": "ArrayPrimitiveListTemplate",
             "tooltip": "Locations"
           },
           {
@@ -93,7 +92,6 @@
           }
         ],
         "compactButtons": true,
-        "showExpanded": true,
         "fields": [
           "owner",
           "ceo",
@@ -104,8 +102,10 @@
           "locations",
           "cars",
           "customers"
-        ]
-      }
+        ],
+        "showExpanded": true
+      },
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

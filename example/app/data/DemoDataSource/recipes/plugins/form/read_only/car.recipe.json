@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "form",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/form",
     "config": {
       "type": "PLUGINS:dm-core-plugins/form/FormInput",
       "fields": [
@@ -16,6 +15,7 @@
         "plateNumber"
       ],
       "readOnly": true
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/form"
   }
 }

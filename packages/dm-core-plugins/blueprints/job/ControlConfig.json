@@ -12,15 +12,15 @@
       "name": "hideLogs",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": false
+      "default": false,
+      "optional": true
     },
     {
       "name": "runnerTemplates",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/common/Template",
-      "optional": true,
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     }
   ]
 }

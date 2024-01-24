@@ -1,53 +1,53 @@
 {
-  "type": "./blueprints/CarList",
   "_id": "carList",
   "name": "CarList",
+  "type": "./blueprints/CarList",
   "_templates_": [
     {
       "name": "Audi",
       "type": "./blueprints/Car",
-      "model": "A2",
       "color": "Black",
       "engine": {
-        "type": "./blueprints/Engine",
         "name": "TDI 1.6",
+        "type": "./blueprints/Engine",
         "hp": 120
-      }
+      },
+      "model": "A2"
     },
     {
       "name": "BMW",
       "type": "./blueprints/Car",
-      "model": "X1",
       "color": "Blue",
       "engine": {
-        "type": "./blueprints/Engine",
         "name": "TDI 1.8",
+        "type": "./blueprints/Engine",
         "hp": 122
-      }
+      },
+      "model": "X1"
     },
     {
       "name": "Chevrolet",
       "type": "./blueprints/Car",
-      "model": "Corvette",
       "color": "Cyan",
       "engine": {
-        "type": "./blueprints/Engine",
         "name": "TDI 2.0",
+        "type": "./blueprints/Engine",
         "hp": 123
-      }
+      },
+      "model": "Corvette"
     }
   ],
   "cars": [
     {
       "name": "Volvo",
       "type": "./blueprints/Car",
-      "model": "XC40",
       "color": "White",
       "engine": {
-        "type": "./blueprints/Engine",
         "name": "V60",
+        "type": "./blueprints/Engine",
         "hp": 1000
-      }
+      },
+      "model": "XC40"
     }
   ]
 }

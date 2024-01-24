@@ -4,25 +4,24 @@
   "initialUiRecipe": {
     "name": "Dashboard",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/grid",
     "config": {
       "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
-      "size": {
-        "type": "PLUGINS:dm-core-plugins/grid/GridSize",
-        "columns": 1,
-        "rows": 2
-      },
-      "showItemBorders": true,
       "items": [
         {
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "columnEnd": 1,
+            "columnStart": 1,
+            "rowEnd": 1,
+            "rowStart": 1
+          },
           "title": "Edit job",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "Job Edit",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "attributes": [
@@ -72,8 +71,8 @@
                   {
                     "name": "runner",
                     "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-                    "showExpanded": false,
-                    "searchByType": true
+                    "searchByType": true,
+                    "showExpanded": false
                   }
                 ],
                 "fields": [
@@ -89,52 +88,53 @@
                   "applicationInput",
                   "runner"
                 ]
-              }
+              },
+              "plugin": "@development-framework/dm-core-plugins/form"
             }
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 1,
-            "columnStart": 1,
-            "rowEnd": 1,
-            "columnEnd": 1
           }
         },
         {
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "columnEnd": 1,
+            "columnStart": 1,
+            "rowEnd": 2,
+            "rowStart": 2
+          },
           "title": "Control job",
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
             "recipe": {
               "name": "job-control",
               "type": "CORE:UiRecipe",
-              "plugin": "@development-framework/dm-core-plugins/job",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/job/ControlConfig",
                 "runnerTemplates": [
                   {
                     "type": "PLUGINS:dm-core-plugins/common/Template",
-                    "path": "dmss://DemoDataSource/plugins/job/helloWorldLocalContainerRunner",
-                    "label": "Hello world"
+                    "label": "Hello world",
+                    "path": "dmss://DemoDataSource/plugins/job/helloWorldLocalContainerRunner"
                   },
                   {
                     "type": "PLUGINS:dm-core-plugins/common/Template",
-                    "path": "dmss://DemoDataSource/plugins/job/reverseDescriptionRunner",
-                    "label": "Reverse description"
+                    "label": "Reverse description",
+                    "path": "dmss://DemoDataSource/plugins/job/reverseDescriptionRunner"
                   }
                 ]
-              }
+              },
+              "plugin": "@development-framework/dm-core-plugins/job"
             }
-          },
-          "gridArea": {
-            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "rowStart": 2,
-            "columnStart": 1,
-            "rowEnd": 2,
-            "columnEnd": 1
           }
         }
-      ]
-    }
+      ],
+      "showItemBorders": true,
+      "size": {
+        "type": "PLUGINS:dm-core-plugins/grid/GridSize",
+        "columns": 1,
+        "rows": 2
+      }
+    },
+    "plugin": "@development-framework/dm-core-plugins/grid"
   }
 }

@@ -11,10 +11,10 @@
     {
       "name": "cases",
       "type": "CORE:BlueprintAttribute",
-      "label": "Cases",
       "attributeType": "./Case",
+      "contained": true,
       "dimensions": "*",
-      "contained": true
+      "label": "Cases"
     },
     {
       "name": "jobTemplate",

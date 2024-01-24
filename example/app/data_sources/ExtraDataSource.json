@@ -3,14 +3,14 @@
   "repositories": {
     "exampleRepo": {
       "type": "mongo-db",
-      "host": "db",
-      "port": 27017,
-      "username": "maf",
-      "password": "xd7wCEhEx4kszsecYFfC",
-      "tls": false,
-      "database": "ExtraDataSource",
       "collection": "default",
-      "data_types": []
+      "data_types": [],
+      "database": "ExtraDataSource",
+      "host": "db",
+      "password": "xd7wCEhEx4kszsecYFfC",
+      "port": 27017,
+      "tls": false,
+      "username": "maf"
     }
   }
 }

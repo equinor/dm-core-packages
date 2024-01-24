@@ -7,8 +7,8 @@
       "name": "car",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Car",
-      "label": "Rented Car",
       "contained": false,
+      "label": "Rented Car",
       "optional": true
     }
   ]

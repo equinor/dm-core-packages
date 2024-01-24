@@ -5,18 +5,18 @@
     "name": "Edit",
     "type": "CORE:UiRecipe",
     "description": "Default edit",
-    "showRefreshButton": true,
-    "plugin": "@development-framework/dm-core-plugins/form",
     "config": {
       "type": "PLUGINS:dm-core-plugins/form/FormInput",
       "attributes": [
         {
-          "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
           "name": "array",
+          "type": "PLUGINS:dm-core-plugins/form/fields/ArrayField",
           "template": "ArrayPrimitiveListTemplate"
         }
       ],
       "fields": ["array"]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "showRefreshButton": true
   }
 }

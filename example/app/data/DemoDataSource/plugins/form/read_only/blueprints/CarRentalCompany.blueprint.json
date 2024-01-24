@@ -59,9 +59,9 @@
       "name": "isBankrupt",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
+      "default": false,
       "label": "Bankruptcy status",
-      "optional": true,
-      "default": false
+      "optional": true
     }
   ]
 }

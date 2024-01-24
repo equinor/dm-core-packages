@@ -5,7 +5,6 @@
     "name": "Tabs",
     "type": "CORE:UiRecipe",
     "description": "Default edit",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "items": [
@@ -18,31 +17,9 @@
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
-  "uiRecipes": [
-    {
-      "name": "Edit",
-      "type": "CORE:UiRecipe",
-      "description": "Default edit",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "config": {
-        "type": "PLUGINS:dm-core-plugins/form/FormInput",
-        "attributes": [
-          {
-            "name": "result",
-            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
-            "uiRecipe": "Form",
-            "functionality": {
-              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
-              "open": true,
-              "expand": true
-            }
-          }
-        ]
-      }
-    }
-  ],
   "storageRecipes": [
     {
       "name": "DEFAULT",
@@ -60,6 +37,29 @@
           "contained": false
         }
       ]
+    }
+  ],
+  "uiRecipes": [
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "description": "Default edit",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
+        "attributes": [
+          {
+            "name": "result",
+            "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/form/FormFunctionalityConfig",
+              "expand": true,
+              "open": true
+            },
+            "uiRecipe": "Form"
+          }
+        ]
+      },
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

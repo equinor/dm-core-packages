@@ -4,13 +4,13 @@
   "initialUiRecipe": {
     "name": "Header",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/header",
     "config": {
       "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
-      "uiRecipesList": ["Explorer", "Yaml"],
       "hideAbout": false,
-      "hideUserInfo": false
-    }
+      "hideUserInfo": false,
+      "uiRecipesList": ["Explorer", "Yaml"]
+    },
+    "plugin": "@development-framework/dm-core-plugins/header"
   },
   "uiRecipes": [
     {

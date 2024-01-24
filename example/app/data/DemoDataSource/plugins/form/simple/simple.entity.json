@@ -1,11 +1,16 @@
 {
   "_id": "Simple",
   "type": "./blueprints/Simple",
-  "stringRequired": "",
-  "numberRequired": 2,
-  "stringOptional": "a prefilled optional string",
-  "requiredCheckbox": false,
+  "2DListOfBooleans": [
+    [true, false, true, false, true, false, true, false],
+    [true, false, true, false, true, true, false]
+  ],
+  "2DListOfStrings": [
+    ["abcdefgh", "kjhnfdgkjhghgbs", "SADKHKJ"],
+    ["abcdefgh", "kjhnfdgkjhghgbs", "SADKHKJ"]
+  ],
   "date": "2023-10-17T13:30",
+  "listOfBooleans": [true, false, true, false, true, false, true, false],
   "listOfNumbers": [9, 9, 9, 9, 9, 9],
   "listOfStrings": [
     "abcdefghijklmnopqrst",
@@ -23,13 +28,8 @@
     "abcdefghijklmnopqrst",
     "abcdefghijklmnopqrst"
   ],
-  "2DListOfStrings": [
-    ["abcdefgh", "kjhnfdgkjhghgbs", "SADKHKJ"],
-    ["abcdefgh", "kjhnfdgkjhghgbs", "SADKHKJ"]
-  ],
-  "listOfBooleans": [true, false, true, false, true, false, true, false],
-  "2DListOfBooleans": [
-    [true, false, true, false, true, false, true, false],
-    [true, false, true, false, true, true, false]
-  ]
+  "numberRequired": 2,
+  "requiredCheckbox": false,
+  "stringOptional": "a prefilled optional string",
+  "stringRequired": ""
 }

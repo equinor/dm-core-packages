@@ -11,10 +11,10 @@
     {
       "name": "cases",
       "type": "CORE:BlueprintAttribute",
-      "label": "Cases",
       "attributeType": "./Case",
+      "contained": false,
       "dimensions": "*",
-      "contained": false
+      "label": "Cases"
     }
   ]
 }

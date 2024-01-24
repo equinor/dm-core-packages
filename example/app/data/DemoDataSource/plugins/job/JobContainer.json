@@ -14,8 +14,8 @@
       "name": "_templates_",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "JOBCORE:Job",
-      "dimensions": "*",
-      "contained": true
+      "contained": true,
+      "dimensions": "*"
     }
   ]
 }

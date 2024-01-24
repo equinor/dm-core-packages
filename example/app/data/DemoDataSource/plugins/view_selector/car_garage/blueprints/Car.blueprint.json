@@ -14,16 +14,16 @@
       "name": "Owner",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./OwnerBlueprint",
-      "label": "View owner details and history",
       "contained": true,
+      "label": "View owner details and history",
       "optional": false
     },
     {
       "name": "Technical",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./TechBlueprint",
-      "label": "View technical information",
       "contained": true,
+      "label": "View technical information",
       "optional": false
     }
   ]

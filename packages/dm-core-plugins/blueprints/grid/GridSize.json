@@ -17,8 +17,8 @@
       "name": "columnSizes",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "rows",
@@ -32,22 +32,22 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Defines row sizes in relation to each other.",
       "attributeType": "string",
-      "optional": true,
-      "dimensions": "*"
+      "dimensions": "*",
+      "optional": true
     },
     {
       "name": "rowGap",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": "16px"
+      "default": "16px",
+      "optional": true
     },
     {
       "name": "columnGap",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": "16px"
+      "default": "16px",
+      "optional": true
     }
   ]
 }

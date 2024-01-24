@@ -2,14 +2,14 @@
   "_id": "readOnlyPrimitives",
   "name": "ReadOnlyPrimitives",
   "type": "./blueprints/ReadOnlyPrimitives",
-  "stringRequired": "A required string",
-  "stringOptional": "an optional string",
-  "numberRequired": 2.34,
-  "numberOptional": 3.14,
-  "integer": 30,
   "checkboxOptional": false,
   "checkboxRequired": true,
-  "singleString": "option2",
+  "date": "2023-10-17T13:30",
+  "integer": 30,
   "manyStrings": ["option3"],
-  "date": "2023-10-17T13:30"
+  "numberOptional": 3.14,
+  "numberRequired": 2.34,
+  "singleString": "option2",
+  "stringOptional": "an optional string",
+  "stringRequired": "A required string"
 }

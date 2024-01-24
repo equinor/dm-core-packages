@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "ReadOnly",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/form",
     "category": "edit",
     "config": {
       "type": "PLUGINS:dm-core-plugins/form/FormInput",
@@ -12,13 +11,13 @@
         {
           "name": "date",
           "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-          "widget": "DateTimeWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DateTimeWidgetConfig",
-            "variant": "datetime",
             "label": "Date & Time",
-            "useMinutes": true
-          }
+            "useMinutes": true,
+            "variant": "datetime"
+          },
+          "widget": "DateTimeWidget"
         }
       ],
       "fields": [
@@ -34,6 +33,7 @@
         "date"
       ],
       "readOnly": true
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/form"
   }
 }

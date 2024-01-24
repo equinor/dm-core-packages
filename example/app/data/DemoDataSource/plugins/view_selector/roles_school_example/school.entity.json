@@ -30,6 +30,35 @@
       }
     ],
     "subjects": ["Defence against the Dark Arts", "Charms", "Herbology"],
+    "teacherSalaries": [
+      {
+        "type": "./blueprints/Salary",
+        "salary": 12345,
+        "teacher": {
+          "type": "CORE:Reference",
+          "address": "^.school.teachers[0]",
+          "referenceType": "link"
+        }
+      },
+      {
+        "type": "./blueprints/Salary",
+        "salary": 542,
+        "teacher": {
+          "type": "CORE:Reference",
+          "address": "^.school.teachers[1]",
+          "referenceType": "link"
+        }
+      },
+      {
+        "type": "./blueprints/Salary",
+        "salary": 99999,
+        "teacher": {
+          "type": "CORE:Reference",
+          "address": "^.school.teachers[2]",
+          "referenceType": "link"
+        }
+      }
+    ],
     "teachers": [
       {
         "name": "Severus Snape",
@@ -45,35 +74,6 @@
         "name": "Minerva McGonagall",
         "type": "./blueprints/Person",
         "age": 140
-      }
-    ],
-    "teacherSalaries": [
-      {
-        "type": "./blueprints/Salary",
-        "teacher": {
-          "type": "CORE:Reference",
-          "address": "^.school.teachers[0]",
-          "referenceType": "link"
-        },
-        "salary": 12345
-      },
-      {
-        "type": "./blueprints/Salary",
-        "teacher": {
-          "type": "CORE:Reference",
-          "address": "^.school.teachers[1]",
-          "referenceType": "link"
-        },
-        "salary": 542
-      },
-      {
-        "type": "./blueprints/Salary",
-        "teacher": {
-          "type": "CORE:Reference",
-          "address": "^.school.teachers[2]",
-          "referenceType": "link"
-        },
-        "salary": 99999
       }
     ]
   }

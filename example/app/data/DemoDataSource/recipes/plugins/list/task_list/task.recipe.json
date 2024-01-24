@@ -4,7 +4,6 @@
   "initialUiRecipe": {
     "name": "UiRecipesSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
     "config": {
       "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
       "items": [
@@ -17,7 +16,6 @@
               "name": "Edit",
               "type": "CORE:UiRecipe",
               "description": "Default edit",
-              "plugin": "@development-framework/dm-core-plugins/form",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/form/FormInput",
                 "attributes": [
@@ -27,13 +25,15 @@
                     "widget": "TextareaWidget"
                   }
                 ]
-              }
+              },
+              "plugin": "@development-framework/dm-core-plugins/form"
             },
             "scope": "self"
           }
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
@@ -49,30 +49,30 @@
     {
       "name": "List",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/list",
-      "dimensions": "*",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
-        "templates": [
-          {
-            "type": "PLUGINS:dm-core-plugins/common/Template",
-            "path": "~._template_",
-            "label": "Template1"
-          }
-        ],
-        "selectFromScope": "dmss://DemoDataSource/plugins/list/task_list",
-        "hideInvalidTypes": true,
-        "headers": ["name", "assigned"],
-        "saveExpanded": false,
         "defaultPaginationRowsPerPage": 5,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
-          "delete": true,
           "add": true,
-          "sort": true,
-          "expand": true
-        }
-      }
+          "delete": true,
+          "expand": true,
+          "sort": true
+        },
+        "headers": ["name", "assigned"],
+        "hideInvalidTypes": true,
+        "saveExpanded": false,
+        "selectFromScope": "dmss://DemoDataSource/plugins/list/task_list",
+        "templates": [
+          {
+            "type": "PLUGINS:dm-core-plugins/common/Template",
+            "label": "Template1",
+            "path": "~._template_"
+          }
+        ]
+      },
+      "dimensions": "*",
+      "plugin": "@development-framework/dm-core-plugins/list"
     }
   ]
 }

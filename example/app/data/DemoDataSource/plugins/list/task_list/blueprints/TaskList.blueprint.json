@@ -16,8 +16,8 @@
       "name": "task_list",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Task",
-      "dimensions": "*",
-      "contained": true
+      "contained": true,
+      "dimensions": "*"
     },
     {
       "name": "_template_",

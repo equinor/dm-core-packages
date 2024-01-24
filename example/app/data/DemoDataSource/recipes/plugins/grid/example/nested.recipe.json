@@ -4,26 +4,25 @@
   "initialUiRecipe": {
     "name": "ViewSelector",
     "type": "CORE:UiRecipe",
-    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
-    "config": {}
+    "config": {},
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
   },
   "uiRecipes": [
     {
       "name": "custom",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/yaml",
-      "category": "view"
+      "category": "view",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
     },
     {
       "name": "Form",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
-      "category": "edit"
+      "category": "edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
     },
     {
       "name": "aRecipeName",
       "type": "CORE:UiRecipe",
-      "plugin": "@development-framework/dm-core-plugins/form",
       "category": "edit",
       "config": {
         "type": "PLUGINS:dm-core-plugins/form/FormInput",
@@ -34,7 +33,8 @@
             "widget": "TextareaWidget"
           }
         ]
-      }
+      },
+      "plugin": "@development-framework/dm-core-plugins/form"
     }
   ]
 }

@@ -9,37 +9,37 @@
       {
         "name": "Lando Norris",
         "type": "./blueprints/Car",
+        "lap time": "1:29.03",
         "position": 1,
-        "team": "McLaren",
-        "lap time": "1:29.03"
+        "team": "McLaren"
       },
       {
         "name": "Kevin Magnussen",
         "type": "./blueprints/Car",
+        "lap time": "+ 0.103",
         "position": 2,
-        "team": "Haas",
-        "lap time": "+ 0.103"
+        "team": "Haas"
       }
     ],
     "Q2": [
       {
         "name": "Alexander Albon",
         "type": "./blueprints/Car",
+        "lap time": "1:30.231",
         "position": 1,
-        "team": "Williams",
-        "lap time": "1:30.231"
+        "team": "Williams"
       }
     ]
+  },
+  "nestedForm": {
+    "type": "./blueprints/Nested",
+    "bar": "hello",
+    "baz": "testing",
+    "foo": 1337
   },
   "tyreList": {
     "type": "CORE:Reference",
     "address": "dmss://DemoDataSource/$gridTyreList",
     "referenceType": "link"
-  },
-  "nestedForm": {
-    "type": "./blueprints/Nested",
-    "foo": 1337,
-    "bar": "hello",
-    "baz": "testing"
   }
 }

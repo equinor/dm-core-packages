@@ -11,8 +11,8 @@
       "name": "viewConfig",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "CORE:ViewConfig",
-      "dimensions": "*",
       "contained": true,
+      "dimensions": "*",
       "optional": true
     }
   ]

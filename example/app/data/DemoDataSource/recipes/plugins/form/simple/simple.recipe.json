@@ -5,23 +5,23 @@
     "name": "Edit",
     "type": "CORE:UiRecipe",
     "description": "Default edit",
-    "showRefreshButton": true,
-    "plugin": "@development-framework/dm-core-plugins/form",
     "config": {
       "type": "PLUGINS:dm-core-plugins/form/FormInput",
       "attributes": [
         {
           "name": "date",
           "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-          "widget": "DateTimeWidget",
           "config": {
             "type": "PLUGINS:dm-core-plugins/form/widgets/DateTimeWidgetConfig",
-            "variant": "datetime",
             "label": "Date & Time",
-            "useMinutes": true
-          }
+            "useMinutes": true,
+            "variant": "datetime"
+          },
+          "widget": "DateTimeWidget"
         }
       ]
-    }
+    },
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "showRefreshButton": true
   }
 }

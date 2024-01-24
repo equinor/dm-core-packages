@@ -18,8 +18,8 @@
       "name": "dataType",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "optional": true,
-      "default": "string"
+      "default": "string",
+      "optional": true
     },
     {
       "name": "presentAs",
@@ -41,15 +41,15 @@
       "type": "CORE:BlueprintAttribute",
       "description": "Should data be editable in table edit mode.",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     },
     {
       "name": "sortable",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
-      "optional": true,
-      "default": true
+      "default": true,
+      "optional": true
     }
   ]
 }

@@ -12,8 +12,8 @@
     {
       "name": "name",
       "type": "CORE:BlueprintAttribute",
-      "label": "Manufacturer",
-      "attributeType": "string"
+      "attributeType": "string",
+      "label": "Manufacturer"
     },
     {
       "name": "hp",

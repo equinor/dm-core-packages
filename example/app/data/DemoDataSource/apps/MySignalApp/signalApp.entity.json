@@ -3,29 +3,15 @@
   "name": "signalApp",
   "type": "AppModels:SignalApp",
   "description": "This is an app for generating and plotting sin signals.",
-  "label": "Signal App",
   "dataSources": ["AppStorage"],
+  "label": "Signal App",
   "study": {
     "type": "AppModels:signals_simple/Study",
-    "jobTemplate": {
-      "label": "signal job",
-      "name": "exampleJob",
-      "type": "JOBCORE:Job",
-      "status": "not started",
-      "triggeredBy": "me",
-      "outputTarget": ".signal",
-      "applicationInput": {},
-      "runner": {
-        "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob"
-      }
-    },
     "cases": [
       {
         "name": "case1",
         "type": "AppModels:signals_simple/Case",
         "description": "",
-        "duration": 100,
-        "timeStep": 0.1,
         "components": [
           {
             "type": "AppModels:signals_simple/SinComp",
@@ -46,21 +32,35 @@
             "phase": 0.05
           }
         ],
+        "duration": 100,
         "signal": {
           "name": "signal",
           "type": "AppModels:containers/EquallySpacedSignal",
-          "value": [],
-          "xname": "time",
-          "xunit": "s",
-          "xdelta": 0.1,
-          "xstart": 0,
-          "xlabel": "Time",
           "label": " ",
           "legend": " ",
-          "unit": "m"
-        }
+          "unit": "m",
+          "value": [],
+          "xdelta": 0.1,
+          "xlabel": "Time",
+          "xname": "time",
+          "xstart": 0,
+          "xunit": "s"
+        },
+        "timeStep": 0.1
       }
-    ]
+    ],
+    "jobTemplate": {
+      "name": "exampleJob",
+      "type": "JOBCORE:Job",
+      "applicationInput": {},
+      "label": "signal job",
+      "outputTarget": ".signal",
+      "runner": {
+        "type": "dmss://DemoDataSource/apps/MySignalApp/models/SignalGeneratorJob"
+      },
+      "status": "not started",
+      "triggeredBy": "me"
+    }
   },
   "studyNC": {
     "type": "AppModels:signals_simple/StudyNC",

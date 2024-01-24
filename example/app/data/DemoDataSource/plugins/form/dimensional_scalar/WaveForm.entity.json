@@ -1,38 +1,38 @@
 {
   "name": "waveForm",
   "type": "./blueprints/WaveForm",
-  "significantWaveHeight": {
-    "name": "significantWaveHeight",
+  "maximumWaveHeight": {
+    "name": "maximumWaveHeight",
     "type": "./blueprints/SignificantWaveHeight",
-    "description": "Wave height above sea level null",
-    "value": 14.687,
-    "label": "Significant Hs",
-    "unit": "m"
+    "description": "Maximum wave height",
+    "label": "Maximum Hs",
+    "unit": "m",
+    "value": 7.12
   },
   "medianWaveHeight": {
     "name": "medianWaveHeight",
     "type": "./blueprints/SignificantWaveHeight",
     "description": "Median wave height",
-    "value": 7.12,
     "label": "Median Hs",
-    "unit": "m"
+    "unit": "m",
+    "value": 7.12
   },
   "minimumWaveHeight": {
     "name": "minimumWaveHeight",
     "type": "./blueprints/SignificantWaveHeight",
     "description": "Minimum",
-    "value": 32.9,
     "label": "Minimum Hs",
-    "unit": "m"
-  },
-  "maximumWaveHeight": {
-    "name": "maximumWaveHeight",
-    "type": "./blueprints/SignificantWaveHeight",
-    "description": "Maximum wave height",
-    "value": 7.12,
-    "label": "Maximum Hs",
-    "unit": "m"
+    "unit": "m",
+    "value": 32.9
   },
   "number": 10,
+  "significantWaveHeight": {
+    "name": "significantWaveHeight",
+    "type": "./blueprints/SignificantWaveHeight",
+    "description": "Wave height above sea level null",
+    "label": "Significant Hs",
+    "unit": "m",
+    "value": 14.687
+  },
   "string": "One Hundred"
 }

@@ -1,8 +1,7 @@
 {
   "_id": "MultiplePrimitives",
-  "type": "./blueprints/MultiplePrimitives",
   "name": "MultiplePrimitives",
-  "manufacturer": ["Dodge", "Volvo", "Lamborghini", "Land Rover", "Ford"],
+  "type": "./blueprints/MultiplePrimitives",
   "car_name": [
     "Bentley Model T",
     "Volvo Camry",
@@ -10,6 +9,7 @@
     "Mazda Countach",
     "Jeep Spyder"
   ],
+  "manufacturer": ["Dodge", "Volvo", "Lamborghini", "Land Rover", "Ford"],
   "model": [
     "Extended Cab Pickup",
     "Cargo Van",

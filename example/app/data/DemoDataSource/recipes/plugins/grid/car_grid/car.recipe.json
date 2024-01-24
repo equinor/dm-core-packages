@@ -11,20 +11,8 @@
       "name": "cars",
       "type": "CORE:UiRecipe",
       "description": "List of cars",
-      "plugin": "@development-framework/dm-core-plugins/table",
       "config": {
         "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
-        "variant": [
-          {
-            "name": "view",
-            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
-            "functionality": {
-              "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
-              "delete": false,
-              "add": false
-            }
-          }
-        ],
         "columns": [
           {
             "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
@@ -50,8 +38,20 @@
             "label": "lap time",
             "sortable": true
           }
+        ],
+        "variant": [
+          {
+            "name": "view",
+            "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig",
+            "functionality": {
+              "type": "PLUGINS:dm-core-plugins/table/TableFunctionalityConfig",
+              "add": false,
+              "delete": false
+            }
+          }
         ]
-      }
+      },
+      "plugin": "@development-framework/dm-core-plugins/table"
     },
     {
       "name": "Yaml",

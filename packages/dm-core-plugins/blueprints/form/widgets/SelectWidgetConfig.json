@@ -5,15 +5,15 @@
     {
       "name": "type",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": false,
-      "attributeType": "string"
+      "attributeType": "string",
+      "optional": false
     },
     {
       "name": "multiline",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "optional": true,
+      "attributeType": "boolean",
       "default": false,
-      "attributeType": "boolean"
+      "optional": true
     }
   ]
 }
