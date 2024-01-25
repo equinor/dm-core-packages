@@ -72,7 +72,7 @@ jobs:
 
       - name: Install dm-cli
         working-directory: ./example
-        run: pip install -r requirements.txt
+        run: pip install dm-cli
 
       - uses: actions/setup-node@v3
         with:
