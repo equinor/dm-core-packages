@@ -95,7 +95,7 @@ export const ObjectModelContainedTemplate = (
       </FormTemplate.Header>
       <FormTemplate.Content expanded={!!isExpanded} canExpand={!!canExpand}>
         <ViewCreator
-          idReference={`${idReference}.${namePath}`}
+          idReference={`${idReference}.${attribute.name}`}
           onOpen={onOpen}
           viewConfig={getExpandViewConfig(uiAttribute)}
           onChange={(data: Record<string, unknown>) =>
