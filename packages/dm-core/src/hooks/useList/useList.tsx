@@ -104,7 +104,7 @@ export function useList<T extends object>(
         newEntity = (
           await dmssAPI.documentGet({
             address: resolveRelativeAddressSimplified(template, idReference),
-            depth: 99,
+            depth: 1,
           })
         ).data
       } else {
