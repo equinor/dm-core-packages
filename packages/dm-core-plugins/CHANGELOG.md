@@ -48,6 +48,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.36.0 to ^1.36.1
 
+## [1.42.7](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.6...dm-core-plugins-v1.42.7) (2024-01-25)
+
+
+### Bug Fixes
+
+* **form:** bad idRef concat for 2-nd-child ([a240ecb](https://github.com/equinor/dm-core-packages/commit/a240ecb7d8ac64121e13795f0133404dfa820304))
+
 ## [1.42.5](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.4...dm-core-plugins-v1.42.5) (2024-01-25)
 
 

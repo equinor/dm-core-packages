@@ -1,7 +1,7 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.42.6",
+  "version": "1.42.7",
   "main": "dist/index.js",
   "dependencies": {
     "@development-framework/dm-core": "^1.36.1",
