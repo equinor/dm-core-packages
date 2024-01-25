@@ -148,15 +148,21 @@ export const Calendar = (props: CalendarProps): ReactElement => {
         </>
       ) : (
         <div className='grid grid-cols-7 gap-1'>
-          {cal.map((date, index) => (
-            <button
-              type='button'
-              onClick={() => handleDateSelection(date)}
-              aria-label={`${date.day}. ${
-                Object.keys(CALENDAR_MONTHS)[date.month - 1]
-              }`}
-              className={`
-                p-1.5 w-9 rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green ${
+          {cal.map((date, index) => {
+            const hasData = isDateInDatelist(
+              DateTime.fromObject(date).toJSDate(),
+              props.highlightedDates
+            )
+
+            return (
+              <button
+                type='button'
+                onClick={() => handleDateSelection(date)}
+                aria-label={`${date.day}. ${
+                  Object.keys(CALENDAR_MONTHS)[date.month - 1]
+                }`}
+                className={`
+                p-1.5 w-9 rounded-full justify-center hover:bg-equinor-lightgreen hover:text-equinor-green ${
                   isSameDay(
                     DateTime.fromObject(date).toJSDate(),
                     dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
@@ -172,20 +178,14 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                       ? ''
                       : 'text-slate-400'
                 }
-                ${
-                  isDateInDatelist(
-                    DateTime.fromObject(date).toJSDate(),
-                    props.highlightedDates
-                  )
-                    ? 'font-bold'
-                    : ''
-                }
+                ${hasData ? 'font-bold underline' : ''}
               `}
-              key={index}
-            >
-              {date.day}
-            </button>
-          ))}
+                key={index}
+              >
+                {date.day}
+              </button>
+            )
+          })}
         </div>
       )}
     </div>
