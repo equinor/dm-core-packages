@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.36.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.36.1...dm-core-v1.36.2) (2024-01-25)
+
+
+### Bug Fixes
+
+* bold and underline if has data ([3694336](https://github.com/equinor/dm-core-packages/commit/3694336a6200352cff95c26634358b8744abfe73))
+* bold on dates with data ([954db49](https://github.com/equinor/dm-core-packages/commit/954db49a30051495744f172a8bf921d32e562f05))
+
+
+### Code Refactoring
+
+* rename to isHighlighted ([82be8d7](https://github.com/equinor/dm-core-packages/commit/82be8d7e4193241a8acbfed4b2104d11903f5ca6))
+
 ## [1.36.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.36.0...dm-core-v1.36.1) (2024-01-25)
 
 
