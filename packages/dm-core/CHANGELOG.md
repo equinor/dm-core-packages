@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.36.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.36.0...dm-core-v1.36.1) (2024-01-25)
+
+
+### Bug Fixes
+
+* need to resolve more to get attributes ([41f1482](https://github.com/equinor/dm-core-packages/commit/41f14822259362670bcfbb85d20070996f008cc9))
+
 ## [1.36.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.35.1...dm-core-v1.36.0) (2024-01-25)
 
 
