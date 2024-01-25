@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.36.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.35.1...dm-core-v1.36.0) (2024-01-25)
+
+
+### Features
+
+* copy entity also sets meta ([fcd0045](https://github.com/equinor/dm-core-packages/commit/fcd00456b505ae29d3c19b11a0f824e47141cee0))
+* CopyDialog can now hide provided fields and overwrite title ([e4ab822](https://github.com/equinor/dm-core-packages/commit/e4ab82202a5321e9e39bdf42349985b38c26fa4c))
+
+
+### Bug Fixes
+
+* scroll horizontally on entire app ([df4b741](https://github.com/equinor/dm-core-packages/commit/df4b741b2030e32dab7818927b203c5d4d475640))
+
 ## [1.35.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.35.0...dm-core-v1.35.1) (2024-01-24)
 
 

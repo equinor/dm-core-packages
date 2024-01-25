@@ -42,6 +42,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.31.0 to ^1.32.0
 
+## [1.42.5](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.4...dm-core-plugins-v1.42.5) (2024-01-25)
+
+
+### Bug Fixes
+
+* scroll horizontally on entire app ([df4b741](https://github.com/equinor/dm-core-packages/commit/df4b741b2030e32dab7818927b203c5d4d475640))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.35.1 to ^1.36.0
+
 ## [1.42.4](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.3...dm-core-plugins-v1.42.4) (2024-01-24)
 
 
