@@ -65,7 +65,7 @@ export function useList<T extends object>(
             resolveReferences &&
             (await dmssAPI.documentGet({
               address: idReference,
-              depth: 1,
+              depth: 2,
             }))
           const resolvedItems = (resolved ? resolved.data : []) as T[]
           const items = Object.values(response.data).map((data, index) => ({

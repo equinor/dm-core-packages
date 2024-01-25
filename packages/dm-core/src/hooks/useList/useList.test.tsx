@@ -479,7 +479,7 @@ const setupNonContained = () => {
   return {
     mock,
     referenceList: mockList['testDS/1'][0],
-    resolvedList: mockList['testDS/1'][1],
+    resolvedList: mockList['testDS/1'][2],
   }
 }
 
