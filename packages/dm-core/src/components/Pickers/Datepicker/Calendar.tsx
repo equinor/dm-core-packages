@@ -149,7 +149,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
       ) : (
         <div className='grid grid-cols-7 gap-1'>
           {cal.map((date, index) => {
-            const hasData = isDateInDatelist(
+            const isHighlighted = isDateInDatelist(
               DateTime.fromObject(date).toJSDate(),
               props.highlightedDates
             )
@@ -178,7 +178,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                       ? ''
                       : 'text-slate-400'
                 }
-                ${hasData ? 'font-bold underline' : ''}
+                ${isHighlighted ? 'font-bold underline' : ''}
               `}
                 key={index}
               >
