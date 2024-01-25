@@ -15,6 +15,7 @@ import {
   calendar,
   getNextMonth,
   getPreviousMonth,
+  isDateInDatelist,
   isSameDay,
   isSameMonth,
 } from './calendarUtils'
@@ -22,6 +23,7 @@ import {
 interface CalendarProps {
   dateTime: DateTime | null
   handleDateSelection: (selection: DateSelection) => void
+  highlightedDates?: Date[]
 }
 
 export const Calendar = (props: CalendarProps): ReactElement => {
@@ -169,6 +171,14 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                         )
                       ? ''
                       : 'text-slate-400'
+                }
+                ${
+                  isDateInDatelist(
+                    DateTime.fromObject(date).toJSDate(),
+                    props.highlightedDates
+                  )
+                    ? 'font-bold'
+                    : ''
                 }
               `}
               key={index}

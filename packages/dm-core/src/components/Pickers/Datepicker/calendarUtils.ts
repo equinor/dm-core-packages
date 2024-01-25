@@ -48,6 +48,19 @@ export const isDate = (date: Date): boolean => {
   return isDate && isValidDate
 }
 
+export const isDateInDatelist = (
+  date: Date,
+  highlightedDates?: Date[]
+): boolean => {
+  if (!highlightedDates) return false
+  return highlightedDates.some(
+    (d) =>
+      d.getFullYear() === date.getFullYear() &&
+      d.getMonth() === date.getMonth() &&
+      d.getDate() === date.getDate()
+  )
+}
+
 export const isSameMonth = (
   date: Date,
   basedate: Date = new Date()
