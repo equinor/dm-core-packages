@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   dmss:
-    image: datamodelingtool.azurecr.io/dmss:v1.18.0
+    image: datamodelingtool.azurecr.io/dmss:${DMSS_TAG:-latest}
     platform: linux/amd64
     restart: unless-stopped
     environment:
@@ -28,7 +28,7 @@ services:
       - ./dmss-data/db:/data/db
 
   job-api:
-    image: datamodelingtool.azurecr.io/dm-job:v1.5.1
+    image: datamodelingtool.azurecr.io/dm-job:${JOB_API_TAG:-latest}
     platform: linux/amd64
     restart: unless-stopped
     environment:

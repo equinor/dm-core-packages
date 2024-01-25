@@ -2,11 +2,8 @@
 
 set -euo pipefail
 
-MINIMUM_DM_CLI_VERSION="1.5.2"
-if [[ "$(dm --version)" < $MINIMUM_DM_CLI_VERSION ]]; then
-  echo "Your version of 'dm-cli' is not supported by this script. Update with 'pip install dm-cli --upgrade'"
-  exit 1
-fi
+pip install pip --quiet --upgrade
+pip install dm-cli --quiet --upgrade
 
 # Get the available docker-compose command
 docker compose &> /dev/null
