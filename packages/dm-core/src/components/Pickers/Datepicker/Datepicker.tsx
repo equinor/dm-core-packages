@@ -17,6 +17,7 @@ interface DatepickerProps {
   useMinutes?: boolean
   helperText?: string
   isDirty?: boolean
+  hightlightedDates?: string[]
 }
 
 export const Datepicker = (props: DatepickerProps): ReactElement => {
@@ -204,6 +205,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           <Calendar
             dateTime={datetime}
             handleDateSelection={handleDateSelection}
+            highlightedDates={props.hightlightedDates?.map((d) => new Date(d))}
           />
           {variant === 'datetime' && (
             <>
