@@ -451,6 +451,18 @@ const setupNonContained = () => {
       ],
       '1': [
         {
+          referenceType: 'link',
+          address: '$1',
+          type: 'dmss://system/SIMOS/Reference',
+        },
+        {
+          referenceType: 'link',
+          address: '$2',
+          type: 'dmss://system/SIMOS/Reference',
+        },
+      ],
+      '2': [
+        {
           name: 'document1',
           description: 'Description1',
         },
