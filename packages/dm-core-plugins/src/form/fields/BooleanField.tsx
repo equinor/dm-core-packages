@@ -16,9 +16,6 @@ export const BooleanField = (props: TField) => {
       name={namePath}
       control={control}
       defaultValue={attribute.default === 'True'} // we need to convert default values coming from the API since they are always strings
-      rules={{
-        required: attribute.optional ? false : 'Required',
-      }}
       render={({
         field: { ref, value, ...props },
         fieldState: { invalid, error },
