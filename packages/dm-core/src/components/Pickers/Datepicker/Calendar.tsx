@@ -170,7 +170,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                   Object.keys(CALENDAR_MONTHS)[date.month - 1]
                 }`}
                 className={`
-                p-1.5 w-9 rounded-full justify-center hover:bg-equinor-lightgreen hover:text-equinor-green ${
+                p-1.5 w-9 rounded-full relative justify-center hover:bg-equinor-lightgreen hover:text-equinor-green ${
                   isSelected
                     ? 'bg-equinor-lightgreen text-equinor-green font-medium'
                     : isSameMonth(
@@ -184,16 +184,23 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                       : 'text-slate-400'
                 }
               `}
-                style={
-                  isHighlighted && !isSelected
-                    ? { backgroundColor: '#ffe8d6', fontWeight: 'bold' }
-                    : isHighlighted
-                      ? { fontWeight: 'bold' }
-                      : {}
-                }
                 key={index}
               >
                 {date.day}
+                {isHighlighted && (
+                  <span
+                    style={{
+                      color: '#0b5d65',
+                      position: 'absolute',
+                      bottom: '-1px',
+                      left: 'calc(50% - 5px)',
+                      width: '10px',
+                      fontSize: '0.6rem',
+                    }}
+                  >
+                    &#9679;
+                  </span>
+                )}
               </button>
             )
           })}
