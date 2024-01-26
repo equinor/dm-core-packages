@@ -48,6 +48,18 @@
       "attributeType": "string",
       "default": "16px",
       "optional": true
+    },
+    {
+      "name": "gridWidth",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    },
+    {
+      "name": "gridHeight",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
     }
   ]
 }

@@ -11,7 +11,7 @@ import RefreshButton from './RefreshButton'
 const Wrapper = styled.div`
   display: flex;
   height: 100%;
-  flex-grow: 1;
+  width: 100%;
 `
 
 type IEntityView = IUIPlugin & {
