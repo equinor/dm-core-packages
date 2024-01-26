@@ -4799,3 +4799,8 @@ fix: new list button (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 6c5fb47 2024-01-25 githu..[bot] chore(master): release 1.18.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.5.2
     * **JOB VERSION**: 0727239 2024-01-17 Stig Ofstad fix: remove job even if handler does not implement grafted, HEAD -> main, origin/main
+* fix: required boolean field in form (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7665756301/1)
+    * **DMSS VERSION**: 6c5fb47 2024-01-25 githu..[bot] chore(master): release 1.18.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.5.2
+    * **JOB VERSION**: 0727239 2024-01-17 Stig Ofstad fix: remove job even if handler does not implement grafted, HEAD -> main, origin/main
