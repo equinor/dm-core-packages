@@ -11,10 +11,10 @@
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "columnEnd": 6,
+            "rowStart": 1,
             "columnStart": 1,
-            "rowEnd": 1,
-            "rowStart": 1
+            "rowEnd": 2,
+            "columnEnd": 6
           },
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
@@ -26,10 +26,10 @@
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "columnEnd": 6,
+            "rowStart": 3,
             "columnStart": 4,
-            "rowEnd": 2,
-            "rowStart": 2
+            "rowEnd": 4,
+            "columnEnd": 6
           },
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -55,10 +55,10 @@
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "columnEnd": 3,
+            "rowStart": 4,
             "columnStart": 1,
-            "rowEnd": 4,
-            "rowStart": 4
+            "rowEnd": 5,
+            "columnEnd": 3
           },
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
@@ -70,10 +70,10 @@
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "columnEnd": 6,
+            "rowStart": 5,
             "columnStart": 4,
-            "rowEnd": 4,
-            "rowStart": 4
+            "rowEnd": 6,
+            "columnEnd": 6
           },
           "viewConfig": {
             "type": "CORE:ReferenceViewConfig",
@@ -85,10 +85,10 @@
           "type": "PLUGINS:dm-core-plugins/grid/GridItem",
           "gridArea": {
             "type": "PLUGINS:dm-core-plugins/grid/GridArea",
-            "columnEnd": 6,
+            "rowStart": 7,
             "columnStart": 1,
-            "rowEnd": 5,
-            "rowStart": 5
+            "rowEnd": 10,
+            "columnEnd": 6
           },
           "viewConfig": {
             "type": "CORE:InlineRecipeViewConfig",
@@ -103,7 +103,7 @@
       "size": {
         "type": "PLUGINS:dm-core-plugins/grid/GridSize",
         "columns": 6,
-        "rows": 5
+        "rows": 10
       }
     },
     "plugin": "@development-framework/dm-core-plugins/grid"

@@ -7,6 +7,8 @@ export type TGridSize = {
   columnGap: string
   rowSizes?: string[]
   columnSizes?: string[]
+  gridWidth?: number
+  gridHeight?: number
 }
 
 export type TGridArea = {

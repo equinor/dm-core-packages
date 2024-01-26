@@ -6,8 +6,10 @@ import { TGridPluginConfig, TGridSize } from './types'
 
 const Grid = styled.div<TGridSize>`
   display: grid;
-  width: 100%;
-  height: 100%;
+  width: ${(props): string =>
+    props.gridWidth ? props.gridWidth + 'px' : '100%'};
+  height: ${(props): string =>
+    props.gridHeight ? props.gridHeight + 'px' : 'fit-content'};
   grid-template-rows: ${(props) =>
     props.rowSizes
       ? props.rowSizes.join(' ')
@@ -50,16 +52,18 @@ export const GridPlugin = (
   }
 
   return (
-    <Grid {...internalConfig.size}>
-      <GridItems
-        idReference={idReference}
-        items={internalConfig.items}
-        itemBorder={internalConfig.itemBorder}
-        showItemBorders={internalConfig.showItemBorders}
-        type={type}
-        onSubmit={onSubmit}
-        onChange={onChange}
-      />
-    </Grid>
+    <div className='w-full h-full overflow-auto'>
+      <Grid {...internalConfig.size}>
+        <GridItems
+          idReference={idReference}
+          items={internalConfig.items}
+          itemBorder={internalConfig.itemBorder}
+          showItemBorders={internalConfig.showItemBorders}
+          type={type}
+          onSubmit={onSubmit}
+          onChange={onChange}
+        />
+      </Grid>
+    </div>
   )
 }

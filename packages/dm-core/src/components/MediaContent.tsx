@@ -29,10 +29,9 @@ interface MediaContentProps {
 }
 
 const MediaWrapper = styled.div<{ $height?: number; $width?: number }>`
-  height: ${(props) => (props.$height ? props.$height + 'px' : undefined)};
-  width: ${(props) => (props.$width ? props.$width + 'px' : undefined)};
+  height: fit-content;
+  width: fit-content;
   position: relative;
-  overflow-x: hidden;
 `
 
 const MetaPopoverButton = styled(Button)`
