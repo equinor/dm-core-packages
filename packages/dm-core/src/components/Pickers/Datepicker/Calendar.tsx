@@ -6,7 +6,7 @@ import {
   chevron_right,
 } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
-import { ReactElement, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import {
   CALENDAR_MONTHS,
   DateSelection,
@@ -24,6 +24,7 @@ interface CalendarProps {
   dateTime: DateTime | null
   handleDateSelection: (selection: DateSelection) => void
   highlightedDates?: Date[]
+  onChangeMonthView?: (year: number, month: number) => void
 }
 
 export const Calendar = (props: CalendarProps): ReactElement => {
@@ -38,6 +39,10 @@ export const Calendar = (props: CalendarProps): ReactElement => {
   const cal = calendar(activeMonth, activeYear)
 
   const currentMonthName = Object.keys(CALENDAR_MONTHS)[activeMonth - 1]
+
+  useEffect(() => {
+    props.onChangeMonthView?.(activeYear, activeMonth)
+  }, [activeMonth, activeYear])
 
   function incrementMonth(): void {
     const nextMonth = getNextMonth(activeMonth, activeYear)
@@ -153,7 +158,10 @@ export const Calendar = (props: CalendarProps): ReactElement => {
               DateTime.fromObject(date).toJSDate(),
               props.highlightedDates
             )
-
+            const isSelected = isSameDay(
+              DateTime.fromObject(date).toJSDate(),
+              dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
+            )
             return (
               <button
                 type='button'
@@ -163,10 +171,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                 }`}
                 className={`
                 p-1.5 w-9 rounded-full justify-center hover:bg-equinor-lightgreen hover:text-equinor-green ${
-                  isSameDay(
-                    DateTime.fromObject(date).toJSDate(),
-                    dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
-                  )
+                  isSelected
                     ? 'bg-equinor-lightgreen text-equinor-green font-medium'
                     : isSameMonth(
                           DateTime.fromObject(date).toJSDate(),
@@ -178,8 +183,14 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                       ? ''
                       : 'text-slate-400'
                 }
-                ${isHighlighted ? 'font-bold underline' : ''}
               `}
+                style={
+                  isHighlighted && !isSelected
+                    ? { backgroundColor: '#ffe8d6', fontWeight: 'bold' }
+                    : isHighlighted
+                      ? { fontWeight: 'bold' }
+                      : {}
+                }
                 key={index}
               >
                 {date.day}
