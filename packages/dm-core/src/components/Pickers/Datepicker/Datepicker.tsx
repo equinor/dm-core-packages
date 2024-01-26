@@ -18,6 +18,7 @@ interface DatepickerProps {
   helperText?: string
   isDirty?: boolean
   hightlightedDates?: string[]
+  onChangeMonthView?: (year: number, month: number) => void
 }
 
 export const Datepicker = (props: DatepickerProps): ReactElement => {
@@ -31,6 +32,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     label,
     helperText,
     isDirty,
+    onChangeMonthView,
   } = props
   const [open, setOpen] = useState(false)
   const [openTop, setOpenTop] = useState(false)
@@ -206,6 +208,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             dateTime={datetime}
             handleDateSelection={handleDateSelection}
             highlightedDates={props.hightlightedDates?.map((d) => new Date(d))}
+            onChangeMonthView={onChangeMonthView}
           />
           {variant === 'datetime' && (
             <>
