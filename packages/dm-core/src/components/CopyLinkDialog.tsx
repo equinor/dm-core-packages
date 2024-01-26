@@ -120,7 +120,7 @@ export const CopyLinkDialog = (props: TProps) => {
   }
 
   return (
-    <Dialog open={open} width={'100%'}>
+    <Dialog open={open} style={{ minWidth: '20vw' }}>
       <Dialog.Header>
         <Dialog.Title>{title || 'Copy or link entity'}</Dialog.Title>
       </Dialog.Header>
