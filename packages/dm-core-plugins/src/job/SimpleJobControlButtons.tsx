@@ -23,10 +23,9 @@ export const StartButton = (props: {
       data={play_circle}
       color='rgb(21 128 61)'
       size={48}
-      aria-aria-label='Run'
+      aria-label='Run'
       onClick={() => start()}
-      cursor={'pointer'}
-      style={{ cursor: 'pointer' }}
+      className='cursor-pointer hover:opacity-80'
     ></Icon>
   )
 }
