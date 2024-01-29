@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.37.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.36.2...dm-core-v1.37.0) (2024-01-29)
+
+
+### Features
+
+* pass up selected month ([8e80b2b](https://github.com/equinor/dm-core-packages/commit/8e80b2be99070ad2fd8ed4761678ddbe122ea7a8))
+
+
+### Bug Fixes
+
+* other highligt color ([01b8a92](https://github.com/equinor/dm-core-packages/commit/01b8a92ff7488b5d06bc07e2c396c049a04facaf))
+* remove comments ([01b8a92](https://github.com/equinor/dm-core-packages/commit/01b8a92ff7488b5d06bc07e2c396c049a04facaf))
+* slight ui changes ([a60482f](https://github.com/equinor/dm-core-packages/commit/a60482f4a5fd7d95be6bbad60a9eaa001d2f15cf))
+* small ball under date to signify hasData ([01b8a92](https://github.com/equinor/dm-core-packages/commit/01b8a92ff7488b5d06bc07e2c396c049a04facaf))
+
+
+### Performance Improvements
+
+* cache api calls ([5ea768d](https://github.com/equinor/dm-core-packages/commit/5ea768d4b6bbc838d8611bab7a6d971ebd2a84cc))
+
+
+### Styles
+
+* min width for copy dialog ([b9268b4](https://github.com/equinor/dm-core-packages/commit/b9268b4e36c24d5a2082c73ff2a7ca80200dba5c))
+
 ## [1.36.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.36.1...dm-core-v1.36.2) (2024-01-25)
 
 
