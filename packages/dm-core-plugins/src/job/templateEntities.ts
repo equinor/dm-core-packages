@@ -5,12 +5,13 @@ import {
   TRecurringJob,
   TSchedule,
 } from '@development-framework/dm-core'
+import { DateTime } from 'luxon'
 
 export const scheduleTemplate = (): TSchedule => ({
   type: EBlueprint.CRON_JOB,
   cron: '0 8 * * *',
-  startDate: new Date().toISOString().slice(0, 16),
-  endDate: new Date().toISOString().slice(0, 16),
+  startDate: DateTime.now().startOf('day').toISO() || '',
+  endDate: DateTime.now().startOf('day').plus({ year: 1 }).toISO() || '',
   runs: [],
 })
 

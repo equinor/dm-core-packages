@@ -118,7 +118,7 @@ export function ConfigureSchedule(props: {
               unit='cron'
               id='advanced-schedule-syntax'
               type='text'
-              value={schedule.cron}
+              defaultValue={schedule.cron}
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 setSchedule({
                   ...schedule,

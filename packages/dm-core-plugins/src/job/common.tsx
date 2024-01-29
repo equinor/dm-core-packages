@@ -115,7 +115,7 @@ export const Progress = (props: { progress: number }) => {
 
 export const ConfigureRecurring = (props: {
   asCron: boolean
-  setAsCron: (v: boolean) => void
+  setAsCron?: (v: boolean) => void
   schedule: TSchedule
   setSchedule?: (s: TSchedule) => void
   registered: boolean
@@ -123,14 +123,16 @@ export const ConfigureRecurring = (props: {
 }) => {
   return (
     <>
-      <Switch
-        size='small'
-        label='Recurring'
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          if (props.setAsCron) props.setAsCron(e.target.checked)
-        }}
-        checked={props.asCron}
-      />
+      {props.setAsCron && (
+        <Switch
+          size='small'
+          label='Recurring'
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (props.setAsCron) props.setAsCron(e.target.checked)
+          }}
+          checked={props.asCron}
+        />
+      )}
       {props.asCron && (
         <ConfigureSchedule
           schedule={props.schedule}
