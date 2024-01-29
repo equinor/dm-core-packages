@@ -54,6 +54,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.36.1 to ^1.36.2
 
+## [1.42.10](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.9...dm-core-plugins-v1.42.10) (2024-01-29)
+
+
+### Bug Fixes
+
+* **job:** several minor bug fixes ([7ed8923](https://github.com/equinor/dm-core-packages/commit/7ed892380001e0a84154c0a0bedddd9a9e456d69))
+
 ## [1.42.9](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.8...dm-core-plugins-v1.42.9) (2024-01-29)
 
 
