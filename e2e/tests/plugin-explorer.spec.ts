@@ -98,4 +98,10 @@ test('Create entity with required name', async ({ page }) => {
   await expect(page.getByRole('alert')).toHaveText(['Entity is created'])
   await page.getByRole('button', { name: 'Jessica' }).click()
   await expect(page.getByTestId('form-text-widget-Name')).toHaveValue('Jessica')
+  await page.getByRole('button', { name: 'Jessica' }).click({
+    button: 'right',
+  })
+  await page.getByRole('menuitem', { name: 'Delete' }).click()
+  await dialog.getByRole('button', { name: 'Delete' }).click()
+  await expect(page.getByRole('button', { name: 'Jessica' })).not.toBeVisible()
 })

@@ -4,8 +4,8 @@ test('Form default DMSS UI Recipe', async ({ page }) => {
   await page.goto(
     'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$Form'
   )
+  await expect(page.getByRole('code')).toBeVisible()
   await page.getByRole('tab', { name: 'Edit' }).click()
-
   await expect(page.getByLabel('name')).toHaveValue('Form')
   await expect(page.getByLabel('A required string')).toHaveValue(
     'This form has no dedicated UI Recipe'
@@ -16,25 +16,19 @@ test('Form default DMSS UI Recipe', async ({ page }) => {
 })
 
 test('TableList default DMSS UI Recipe', async ({ page }) => {
-  await test.step('Open plugin', async () => {
-    await page.goto(
-      'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$tableList'
-    )
-    await page.getByRole('tab', { name: 'Edit' }).click()
-  })
-
-  await test.step('Open item in tab', async () => {
-    await page.getByLabel('Open in tab').click()
-    await page
-      .getByRole('row', { name: 'Volvo' })
-      .getByRole('button', { name: 'Expand item', exact: true })
-      .click()
-    await expect(
-      page.getByRole('button', { name: 'Copy as YAML' })
-    ).toBeVisible()
-    await page.getByRole('tab', { name: 'Edit' }).last().click()
-    await expect(page.getByTestId('form-text-widget-Manufacturer')).toHaveValue(
-      'Volvo'
-    )
-  })
+  await page.goto(
+    'http://localhost:3000/view/?documentId=dmss://DemoDataSource/$tableList'
+  )
+  await expect(page.getByRole('code')).toBeVisible()
+  await page.getByRole('tab', { name: 'Edit' }).click()
+  await page.getByLabel('Open in tab').click()
+  await page
+    .getByRole('row', { name: 'Volvo' })
+    .getByRole('button', { name: 'Expand item', exact: true })
+    .click()
+  await expect(page.getByRole('button', { name: 'Copy as YAML' })).toBeVisible()
+  await page.getByRole('tab', { name: 'Edit' }).last().click()
+  await expect(page.getByTestId('form-text-widget-Manufacturer')).toHaveValue(
+    'Volvo'
+  )
 })
