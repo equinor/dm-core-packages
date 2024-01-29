@@ -193,7 +193,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
               }
             />
           )}
-          <Icon data={calendar} size={18} className='w-6 mb-1' />
+          <Icon data={calendar} size={18} className='w-6' />
         </div>
       </InputWrapper>
       {open && (
