@@ -46,5 +46,6 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await expect(page.getByRole('tab', { name: 'captain' })).toBeVisible()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()
+    await expect(page.getByRole('textbox')).toHaveValue('Barbossa')
   })
 })
