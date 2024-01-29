@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { RemoveJobDialog } from './RemoveJobDialog'
 
 const loadingColor = '#eb9131'
+
 export const StartButton = (props: {
   jobStatus: JobStatus
   start: () => void
@@ -20,7 +21,7 @@ export const StartButton = (props: {
   return (
     <Icon
       data={play_circle}
-      color='green'
+      color='rgb(21 128 61)'
       size={48}
       aria-aria-label='Run'
       onClick={() => start()}
