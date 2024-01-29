@@ -54,6 +54,36 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.36.1 to ^1.36.2
 
+## [1.42.9](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.8...dm-core-plugins-v1.42.9) (2024-01-29)
+
+
+### Bug Fixes
+
+* add hover opacity effect ([c799a8b](https://github.com/equinor/dm-core-packages/commit/c799a8bacd0b353ad015cef32d8a0d984df84e78))
+* change color ([0551720](https://github.com/equinor/dm-core-packages/commit/0551720b4a17156fa1c52fd7aa9c5315262d309f))
+* different icon in job start button ([8dbf8ac](https://github.com/equinor/dm-core-packages/commit/8dbf8ac96707bed2c4329b43ea35e167298b65d0))
+* required boolean field in form ([8121977](https://github.com/equinor/dm-core-packages/commit/81219778b007bb62492e63bf2505e8dcd671f104))
+* sd¨f ([8dbf8ac](https://github.com/equinor/dm-core-packages/commit/8dbf8ac96707bed2c4329b43ea35e167298b65d0))
+* sdlfkjsd ([c799a8b](https://github.com/equinor/dm-core-packages/commit/c799a8bacd0b353ad015cef32d8a0d984df84e78))
+* sdlkfjasd ([c799a8b](https://github.com/equinor/dm-core-packages/commit/c799a8bacd0b353ad015cef32d8a0d984df84e78))
+
+
+### Code Refactoring
+
+* remove unused code ([4bd1a0a](https://github.com/equinor/dm-core-packages/commit/4bd1a0afa20d3dfa9e669817d3a6e75c3918c6c1))
+
+
+### Tests
+
+* clear sessionStorage before each test ([1c8b35c](https://github.com/equinor/dm-core-packages/commit/1c8b35cfe89c848ea3f92bf1fc23551f8fc8156a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.36.2 to ^1.37.0
+
 ## [1.42.7](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.6...dm-core-plugins-v1.42.7) (2024-01-25)
 
 
