@@ -192,10 +192,10 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                     style={{
                       color: '#0b5d65',
                       position: 'absolute',
-                      bottom: '-1px',
+                      bottom: '-3px',
                       left: 'calc(50% - 5px)',
                       width: '10px',
-                      fontSize: '0.6rem',
+                      fontSize: '0.7rem',
                     }}
                   >
                     &#9679;
