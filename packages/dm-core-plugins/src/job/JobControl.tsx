@@ -1,4 +1,5 @@
 import {
+  AuthContext,
   EBlueprint,
   ErrorResponse,
   IUIPlugin,
@@ -18,7 +19,7 @@ import { Button, Chip, Icon, Tooltip } from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
 import { AxiosError } from 'axios'
 import _ from 'lodash'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import {
   ConfigureRecurring,
@@ -42,6 +43,7 @@ const defaultConfig: TJobControlConfig = {
 export const JobControl = (props: IUIPlugin) => {
   const { idReference, config } = props
   const dmssAPI = useDMSS()
+  const { tokenData } = useContext(AuthContext)
 
   const internalConfig: TJobControlConfig = { ...defaultConfig, ...config }
   const {
@@ -57,7 +59,7 @@ export const JobControl = (props: IUIPlugin) => {
   const [templates, setTemplates] = useState<any[]>([])
 
   const {
-    start,
+    start: startJob,
     error,
     logs,
     progress,
@@ -66,10 +68,64 @@ export const JobControl = (props: IUIPlugin) => {
     isLoading: jobIsLoading,
   } = useJob(idReference, jobEntity?.uid)
 
+  function start() {
+    if (!jobEntity) return
+    jobEntity.triggeredBy =
+      tokenData?.preferred_username || tokenData?.name || 'Anonymous'
+    // @ts-ignore
+    if (asCronJob) jobEntity.schedule = schedule
+    updateDocument(jobEntity, false)
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        toast.error(error.response?.data.message)
+      })
+      .then(startJob)
+  }
+
+  function handleRunnerTemplateSelect(template: TTemplate) {
+    dmssAPI
+      .documentGet({ address: template.path })
+      .then((response) => {
+        const templateEntity: TJobHandler = response.data as TJobHandler
+        const newJobDocument = window.structuredClone(jobEntity) as TJob
+        if (asCronJob) {
+          newJobDocument.applicationInput = {
+            ...newJobDocument?.applicationInput,
+            runner: templateEntity,
+          }
+        } else {
+          newJobDocument.runner = templateEntity
+        }
+        updateDocument(newJobDocument, false).catch(
+          (error: AxiosError<ErrorResponse>) => {
+            console.error(error)
+            toast.error(error.response?.data.message)
+          }
+        )
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        toast.error(error.response?.data.message)
+      })
+  }
+
   useEffect(() => {
     if (!jobEntity) return
+    if (
+      ![String(EBlueprint.JOB), String(EBlueprint.RECURRING_JOB)].includes(
+        jobEntity.type
+      )
+    ) {
+      throw new Error(
+        `Wrong entity type recieved by job plugin. Got: \n ${JSON.stringify(
+          jobEntity,
+          null,
+          2
+        )}`
+      )
+    }
     if (asCronJob || jobEntity.type === EBlueprint.RECURRING_JOB)
-      setSchedule((jobEntity as TRecurringJob)?.schedule)
+      setSchedule({ ...schedule, ...(jobEntity as TRecurringJob)?.schedule })
     if (jobEntity.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
 
     Promise.all(
@@ -88,13 +144,13 @@ export const JobControl = (props: IUIPlugin) => {
     throw new Error(JSON.stringify(error || jobEntityError, null, 2))
 
   return (
-    <>
-      {jobEntity.type === EBlueprint.RECURRING_JOB && (
+    <div className={'flex-col'}>
+      {asCronJob && (
         <ConfigureRecurring
           asCron={asCronJob}
-          setAsCron={setAsCronJob}
           readOnly={true}
           schedule={schedule}
+          setSchedule={setSchedule}
           registered={status === JobStatus.Registered}
         />
       )}
@@ -102,54 +158,47 @@ export const JobControl = (props: IUIPlugin) => {
         {getControlButton(status, remove, start, false, jobIsLoading)}
         {!internalConfig.hideLogs && <JobLog logs={logs} error={error} />}
         <Chip variant={getVariant(status)}>{status ?? 'Not registered'}</Chip>
-        {internalConfig.runnerTemplates?.length && (
-          <div className={'flex flex-row items-center'}>
-            <Tooltip
-              title={`Change runner. Current: ${jobEntity.runner?.type
-                .split('/')
-                .at(-1)}`}
-            >
-              <Button
-                onClick={() => setTemplateMenuIsOpen(true)}
-                variant='ghost_icon'
+        {internalConfig.runnerTemplates &&
+          internalConfig.runnerTemplates.length > 0 && (
+            <div className={'flex flex-row items-center'}>
+              <Tooltip
+                title={`Change runner. Current: ${(
+                  (asCronJob
+                    ? jobEntity.applicationInput?.runner.type
+                    : jobEntity.runner?.type) || 'None'
+                )
+                  .split('/')
+                  .at(-1)}`}
               >
-                <Icon data={gear} size={24} />
-              </Button>
-            </Tooltip>
-            <TemplateMenu
-              templates={internalConfig.runnerTemplates || []}
-              onSelect={(template: TTemplate) => {
-                dmssAPI
-                  .documentGet({ address: template.path })
-                  .then((response) => {
-                    const templateEntity: TJobHandler =
-                      response.data as TJobHandler
-                    updateDocument(
-                      { ...jobEntity, runner: templateEntity },
-                      false
-                    ).catch((error: AxiosError<ErrorResponse>) => {
-                      console.error(error)
-                      toast.error(error.response?.data.message)
-                    })
-                  })
-                  .catch((error: AxiosError<ErrorResponse>) => {
-                    console.error(error)
-                    toast.error(error.response?.data.message)
-                  })
-              }}
-              onClose={() => setTemplateMenuIsOpen(false)}
-              isOpen={isTemplateMenuOpen}
-              title='Runner'
-              selected={templates.findIndex((template: TJobHandler) =>
-                _.isEqual(template, jobEntity.runner)
-              )}
-            />
-          </div>
-        )}
+                <Button
+                  disabled={[JobStatus.Starting, JobStatus.Running].includes(
+                    // @ts-ignore
+                    status
+                  )}
+                  onClick={() => setTemplateMenuIsOpen(true)}
+                  variant='ghost_icon'
+                >
+                  <Icon data={gear} size={24} />
+                </Button>
+              </Tooltip>
+              <TemplateMenu
+                templates={internalConfig.runnerTemplates || []}
+                onSelect={(template: TTemplate) =>
+                  handleRunnerTemplateSelect(template)
+                }
+                onClose={() => setTemplateMenuIsOpen(false)}
+                isOpen={isTemplateMenuOpen}
+                title='Runner'
+                selected={templates.findIndex((template: TJobHandler) =>
+                  _.isEqual(template, jobEntity.runner)
+                )}
+              />
+            </div>
+          )}
       </JobButtonWrapper>
       {status === JobStatus.Running && progress !== null && (
         <Progress progress={progress} />
       )}
-    </>
+    </div>
   )
 }

@@ -185,6 +185,10 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
               <Button
                 onClick={() => setTemplateMenuIsOpen(true)}
                 variant='ghost_icon'
+                disabled={[JobStatus.Starting, JobStatus.Running].includes(
+                  // @ts-ignore
+                  status
+                )}
               >
                 <Icon data={gear} size={24} />
               </Button>
