@@ -5,7 +5,7 @@ import {
   Icon,
   Tooltip,
 } from '@equinor/eds-core-react'
-import { check, play, refresh, stop } from '@equinor/eds-icons'
+import { check, play_circle, refresh, stop } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { RemoveJobDialog } from './RemoveJobDialog'
 
@@ -18,16 +18,15 @@ export const StartButton = (props: {
   const { start } = props
 
   return (
-    <Button
-      variant='contained_icon'
-      style={{
-        backgroundColor: 'green',
-      }}
-      aria-label='Run'
+    <Icon
+      data={play_circle}
+      color='green'
+      size={48}
+      aria-aria-label='Run'
       onClick={() => start()}
-    >
-      <Icon data={play} />
-    </Button>
+      cursor={'pointer'}
+      style={{ cursor: 'pointer' }}
+    ></Icon>
   )
 }
 
