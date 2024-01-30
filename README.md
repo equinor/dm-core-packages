@@ -4834,3 +4834,8 @@ fix: new list button (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 6c5fb47 2024-01-25 githu..[bot] chore(master): release 1.18.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.5.2
     * **JOB VERSION**: d353611 2024-01-29 githu..[bot] chore(main): release 1.5.2 grafted, HEAD -> main, origin/main
+* chore: release main (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7708262974/1)
+    * **DMSS VERSION**: 6c5fb47 2024-01-25 githu..[bot] chore(master): release 1.18.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.5.3
+    * **JOB VERSION**: d353611 2024-01-29 githu..[bot] chore(main): release 1.5.2 grafted, HEAD -> main, origin/main
