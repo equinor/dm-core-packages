@@ -54,6 +54,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.36.1 to ^1.36.2
 
+## [1.43.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.10...dm-core-plugins-v1.43.0) (2024-01-30)
+
+
+### Features
+
+* configure fixed grid size with panning ([911b452](https://github.com/equinor/dm-core-packages/commit/911b452306b5c4decac04835761fb5c5faa37c11))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.37.0 to ^1.38.0
+
 ## [1.42.10](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.9...dm-core-plugins-v1.42.10) (2024-01-29)
 
 

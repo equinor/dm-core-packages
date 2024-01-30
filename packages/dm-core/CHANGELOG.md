@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.38.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.37.0...dm-core-v1.38.0) (2024-01-30)
+
+
+### Features
+
+* configure fixed grid size with panning ([911b452](https://github.com/equinor/dm-core-packages/commit/911b452306b5c4decac04835761fb5c5faa37c11))
+
 ## [1.37.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.36.2...dm-core-v1.37.0) (2024-01-29)
 
 
