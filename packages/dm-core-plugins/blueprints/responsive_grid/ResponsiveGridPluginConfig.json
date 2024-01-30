@@ -1,0 +1,24 @@
+{
+  "name": "ResponsiveGridPluginConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "showItemBorders",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
+    },
+    {
+      "name": "rows",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
+      "dimensions": "*"
+    }
+  ]
+}

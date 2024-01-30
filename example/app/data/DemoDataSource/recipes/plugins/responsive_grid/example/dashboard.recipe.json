@@ -1,0 +1,75 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/responsive_grid/example/blueprints/Dashboard",
+  "initialUiRecipe": {
+    "name": "Dashboard",
+    "type": "CORE:UiRecipe",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/responsive_grid/ResponsiveGridPluginConfig",
+      "rows": [
+        {
+          "type": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
+          "columns": [
+            {
+              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
+              "viewConfig": {
+                "type": "CORE:ReferenceViewConfig",
+                "recipe": "aRecipeName",
+                "scope": "aNestedObjectWithCustomUI"
+              },
+              "size": {
+                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+                "sm": 12,
+                "md": 4
+              }
+            },
+            {
+              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
+              "viewConfig": {
+                "type": "CORE:ReferenceViewConfig",
+                "recipe": "aRecipeName",
+                "scope": "aNestedObjectWithCustomUI"
+              },
+              "size": {
+                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+                "sm": 12,
+                "md": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
+          "columns": [
+            {
+              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
+              "viewConfig": {
+                "type": "CORE:ReferenceViewConfig",
+                "recipe": "aRecipeName",
+                "scope": "aNestedObjectWithCustomUI"
+              },
+              "size": {
+                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+                "sm": 12,
+                "md": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "plugin": "@development-framework/dm-core-plugins/responsive_grid"
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}

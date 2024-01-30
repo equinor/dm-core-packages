@@ -1,0 +1,28 @@
+{
+  "name": "ColumnItem",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "viewConfig",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:ViewConfig"
+    },
+    {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "size",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./ColumnSize",
+      "optional": true
+    }
+  ]
+}

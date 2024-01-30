@@ -1,0 +1,47 @@
+{
+  "name": "ColumnSize",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "xs",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    },
+    {
+      "name": "sm",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    },
+    {
+      "name": "md",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    },
+    {
+      "name": "lg",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    },
+    {
+      "name": "xl",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    },
+    {
+      "name": "xxl",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "optional": true
+    }
+  ]
+}

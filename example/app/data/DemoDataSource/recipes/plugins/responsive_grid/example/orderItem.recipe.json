@@ -1,0 +1,55 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/responsive_grid/example/blueprints/OrderItem",
+  "initialUiRecipe": {
+    "name": "UiRecipesSelector",
+    "type": "CORE:UiRecipe",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Edit",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Edit",
+              "type": "CORE:UiRecipe",
+              "description": "Default edit",
+              "plugin": "@development-framework/dm-core-plugins/form"
+            },
+            "scope": "self"
+          }
+        }
+      ]
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
+  },
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "name": "List",
+      "type": "CORE:UiRecipe",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "functionality": {
+          "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",
+          "delete": true,
+          "expand": true
+        },
+        "headers": ["name", "quantity", "type"]
+      },
+      "dimensions": "*",
+      "plugin": "@development-framework/dm-core-plugins/list"
+    }
+  ]
+}

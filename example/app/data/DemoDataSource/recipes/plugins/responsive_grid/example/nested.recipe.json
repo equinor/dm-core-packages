@@ -1,0 +1,40 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/responsive_grid/example/blueprints/Nested",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "config": {},
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
+  },
+  "uiRecipes": [
+    {
+      "name": "custom",
+      "type": "CORE:UiRecipe",
+      "category": "view",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "Form",
+      "type": "CORE:UiRecipe",
+      "category": "edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    },
+    {
+      "name": "aRecipeName",
+      "type": "CORE:UiRecipe",
+      "category": "edit",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/form/FormInput",
+        "attributes": [
+          {
+            "name": "bar",
+            "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+            "widget": "TextareaWidget"
+          }
+        ]
+      },
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}

@@ -50,6 +50,13 @@ export default ({
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/responsive_grid': {
+    component: lazy(() =>
+      import('./responsive_grid/ResponsiveGridPlugin').then((module) => ({
+        default: module.ResponsiveGridPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/view_selector/sidebar': {
     component: lazy(() =>
       import('./view_selector/SidebarPlugin').then((module) => ({
