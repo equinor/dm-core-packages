@@ -1,0 +1,5 @@
+{
+  "_id": "responsiveProduct1",
+  "name": "ProductExample",
+  "type": "./blueprints/Product"
+}

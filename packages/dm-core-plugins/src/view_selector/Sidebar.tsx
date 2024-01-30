@@ -2,6 +2,7 @@ import { TOnOpen } from '@development-framework/dm-core'
 import { SideBar } from '@equinor/eds-core-react'
 import * as EdsIcons from '@equinor/eds-icons'
 import * as React from 'react'
+import { useScreenClass } from 'react-grid-system'
 import { TItemData, TViewSelectorItem } from './types'
 
 export const Sidebar = (props: {
@@ -12,9 +13,13 @@ export const Sidebar = (props: {
 }): React.ReactElement => {
   const { selectedViewId, setSelectedViewId, viewSelectorItems, addView } =
     props
+  const screenClass = useScreenClass()
+
+  const isOpen = !['xs', 'sm', 'md'].includes(screenClass)
+
   return (
     <SideBar
-      open
+      open={isOpen}
       style={{
         display: 'flex',
         flexDirection: 'column',
