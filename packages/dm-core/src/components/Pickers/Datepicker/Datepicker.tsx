@@ -2,6 +2,7 @@ import { Icon, InputWrapper } from '@equinor/eds-core-react'
 import { calendar } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
 import { ReactElement, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Calendar } from './Calendar'
 import { Timefield } from './Timefield'
 import { DateSelection, zeroPad } from './calendarUtils'
@@ -47,6 +48,8 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     datetime?.toFormat('HH:mm') ?? '--:--'
   )
   const inputWrapperRef = useRef<HTMLDivElement | null>(null)
+  // This is kind of a hack. The state is only used to trigger a recalculation of the popover position when scrolling
+  const [scrollChange, setScrollChange] = useState<number>(0)
 
   useEffect(() => {
     if (!useMinutes && datetime) {
@@ -75,6 +78,22 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [datepickerRef])
+
+  useEffect(() => {
+    document.addEventListener(
+      'scroll',
+      () => setScrollChange((v) => v + 1),
+      true
+    )
+
+    return () => {
+      document.removeEventListener(
+        'mousedown',
+        () => setScrollChange((v) => v + 1),
+        true
+      )
+    }
+  }, [])
 
   function handleDateInput(dateInput: string): void {
     if (dateInput) {
@@ -141,14 +160,17 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   }
 
   function handleClickInput(): void {
-    const boundingRect = inputWrapperRef.current?.getBoundingClientRect()
-    const spaceBeneath = window.innerHeight - (boundingRect?.bottom ?? 0)
-    setOpenTop(spaceBeneath < 500 && (boundingRect?.y ?? 0) > 500)
     if (!readonly) setOpen(!open)
   }
 
+  function getInputRect() {
+    const inputElement = inputWrapperRef.current
+    if (!inputElement) return new DOMRect()
+    return inputElement.getBoundingClientRect()
+  }
+
   return (
-    <div className='relative'>
+    <div>
       <InputWrapper
         labelProps={{
           label: label
@@ -196,39 +218,45 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           <Icon data={calendar} size={18} className='w-6' />
         </div>
       </InputWrapper>
-      {open && (
-        <div
-          ref={datepickerRef}
-          className={`absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1 ${
-            openTop ? 'bottom-14' : ''
-          }`}
-          style={{ zIndex: 9999, width: '25rem' }}
-        >
-          <Calendar
-            dateTime={datetime}
-            handleDateSelection={handleDateSelection}
-            highlightedDates={props.hightlightedDates?.map((d) => new Date(d))}
-            onChangeMonthView={onChangeMonthView}
-          />
-          {variant === 'datetime' && (
-            <>
-              <div className='w-full h-px bg-gray-300' />
-              <Timefield
-                useMinutes={useMinutes}
-                timeFieldValue={timeFieldValue}
-                handleTimeFieldChange={handleTimeInput}
-                formatTime={formatTime}
-              />
-              <span className='text-sm text-gray-600'>
-                <span className='font-bold text-purple-600 bg-purple-100 py-1 px-1.5 rounded'>
-                  Note:
-                </span>{' '}
-                This datepicker uses UTC timing
-              </span>
-            </>
-          )}
-        </div>
-      )}
+      {open &&
+        createPortal(
+          <div
+            id={`date-picker-popover-container`}
+            ref={datepickerRef}
+            className={`absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1`}
+            style={{
+              top: `${getInputRect().top + 38}px`,
+              left: `${getInputRect().left + 10}px`,
+            }}
+          >
+            <Calendar
+              dateTime={datetime}
+              handleDateSelection={handleDateSelection}
+              highlightedDates={props.hightlightedDates?.map(
+                (d) => new Date(d)
+              )}
+              onChangeMonthView={onChangeMonthView}
+            />
+            {variant === 'datetime' && (
+              <>
+                <div className='w-full h-px bg-gray-300' />
+                <Timefield
+                  useMinutes={useMinutes}
+                  timeFieldValue={timeFieldValue}
+                  handleTimeFieldChange={handleTimeInput}
+                  formatTime={formatTime}
+                />
+                <span className='text-sm text-gray-600'>
+                  <span className='font-bold text-purple-600 bg-purple-100 py-1 px-1.5 rounded'>
+                    Note:
+                  </span>{' '}
+                  This datepicker uses UTC timing
+                </span>
+              </>
+            )}
+          </div>,
+          document.body
+        )}
     </div>
   )
 }
