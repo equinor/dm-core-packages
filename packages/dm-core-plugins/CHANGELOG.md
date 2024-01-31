@@ -54,6 +54,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.36.1 to ^1.36.2
 
+## [1.44.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.43.0...dm-core-plugins-v1.44.0) (2024-01-31)
+
+
+### Features
+
+* **table:** support for datetime dataTypes ([a0b26e0](https://github.com/equinor/dm-core-packages/commit/a0b26e0fec60acec7839a09745cce9145369c9b5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.38.0 to ^1.39.0
+
 ## [1.43.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.42.10...dm-core-plugins-v1.43.0) (2024-01-30)
 
 

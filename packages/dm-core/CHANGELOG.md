@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.39.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.38.0...dm-core-v1.39.0) (2024-01-31)
+
+
+### Features
+
+* **table:** support for datetime dataTypes ([a0b26e0](https://github.com/equinor/dm-core-packages/commit/a0b26e0fec60acec7839a09745cce9145369c9b5))
+
+
+### Bug Fixes
+
+* **datepicker:** popover is now a portal on body. Always visible ([5cdb9f6](https://github.com/equinor/dm-core-packages/commit/5cdb9f655b8e357b7997946efa2bba3126621fd2))
+
+
+### Tests
+
+* fix bad calendar test ([608377d](https://github.com/equinor/dm-core-packages/commit/608377dfba1a4a8666a83fc74e5c6f5ae58326ff))
+
 ## [1.38.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.37.0...dm-core-v1.38.0) (2024-01-30)
 
 
