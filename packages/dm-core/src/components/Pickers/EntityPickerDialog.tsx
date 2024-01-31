@@ -18,27 +18,31 @@ import { Dialog } from '../Dialog'
 import { TNodeWrapperProps, TreeView } from '../TreeView'
 
 const Wrapper = styled.div`
-  display: flex;
-  border-radius: 5px;
-  justify-content: space-between;
-  align-items: center;
-  &:hover {
-    background-color: rgba(222, 237, 238, 1);
-  }
+    display: flex;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+
+    &:hover {
+        border-bottom: 1px solid rgba(179, 178, 178, 0.5);
+        border-radius: 0;
+    }
 `
 const CheckSelectNode = (
   props: TNodeWrapperProps & {
     onSelect: (node: TreeNode, selected: boolean) => void
     typeFilter?: string
     selectedNodeIds: string[]
-    multiple: boolean
   }
 ) => {
-  const { node, children, onSelect, typeFilter, selectedNodeIds, multiple } =
-    props
+  const { node, children, onSelect, typeFilter, selectedNodeIds } = props
   const nodeIsSelected = selectedNodeIds.includes(node.nodeId)
+
+  if (node.isArray()) return <>{children}</>
   return (
-    <Wrapper>
+    <Wrapper onClick={() => onSelect(node, !nodeIsSelected)}>
       {children}
       {node.type === typeFilter && (
         <EdsProvider density={'compact'}>
@@ -234,7 +238,6 @@ export const EntityPickerDialog = (
                   if (multiple)
                     return CheckSelectNode({
                       ...props,
-                      multiple,
                       typeFilter,
                       selectedNodeIds: selectedNodes.map((n) => n.address),
                       onSelect: (node: TreeNode, selected: boolean) =>
