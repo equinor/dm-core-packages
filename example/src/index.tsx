@@ -32,8 +32,13 @@ const authConfig = {
 }
 
 const Content = () => {
+  const enableBlueprintCache =
+    import.meta.env.VITE_BLUEPRINT_CACHE_ENABLED === '1' || true
   return (
-    <DMSSProvider dmssBasePath={import.meta.env.VITE_DMSS_URL}>
+    <DMSSProvider
+      dmssBasePath={import.meta.env.VITE_DMSS_URL}
+      enableBlueprintCache={enableBlueprintCache}
+    >
       <DMJobProvider dmJobPath={import.meta.env.VITE_DM_JOB_URL}>
         <UiPluginProvider pluginsToLoad={plugins}>
           <div
