@@ -6,7 +6,9 @@ import {
   chevron_up,
   external_link,
 } from '@equinor/eds-icons'
+import { DateTime } from 'luxon'
 import { ChangeEvent } from 'react'
+import { Datepicker } from '../../../Pickers'
 import { TableCellProps } from '../../types'
 import { resolvePath } from '../../utils'
 import * as Styled from '../styles'
@@ -70,6 +72,34 @@ export function TableCell(props: TableCellProps) {
 
   const isEditableField =
     editMode && (column.editable || column.editable === undefined)
+
+  if (column.dataType === 'datetime') {
+    return (
+      <Styled.TableCell
+        style={{ textAlign: column.presentAs === 'text' ? 'left' : 'center' }}
+      >
+        {isEditableField ? (
+          <Datepicker
+            id={'valla'}
+            variant={'datetime'}
+            value={value}
+            onChange={(date) => updateItem(column.data, date, 'datetime')}
+          />
+        ) : value ? (
+          DateTime.fromISO(value).toLocaleString({
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hourCycle: 'h23',
+          })
+        ) : (
+          '-'
+        )}
+      </Styled.TableCell>
+    )
+  }
 
   // Datatype is boolean. Input checkbox in editmode, using static icons to showcase values when not or as simple text
   if (column.dataType === 'boolean') {
