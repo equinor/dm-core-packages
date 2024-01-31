@@ -61,10 +61,7 @@ export const isDateInDatelist = (
   )
 }
 
-export const isSameMonth = (
-  date: Date,
-  basedate: Date = new Date()
-): boolean => {
+export const isSameMonth = (date: Date, basedate: Date): boolean => {
   if (!(isDate(date) && isDate(basedate))) return false
   const basedateMonth = basedate.getMonth() + 1
   const basedateYear = basedate.getFullYear()

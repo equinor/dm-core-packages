@@ -22,11 +22,11 @@ test('is date', () => {
 })
 
 test('is same month', () => {
-  const today = DateTime.now()
-  const tomorrow = today.plus({ day: 1 })
-  expect(isSameMonth(today.toJSDate(), tomorrow.toJSDate())).toBe(true)
+  const aDate = DateTime.now()
+  const anotherDate = DateTime.now()
+  expect(isSameMonth(aDate.toJSDate(), anotherDate.toJSDate())).toBe(true)
   expect(
-    isSameMonth(today.toJSDate(), tomorrow.plus({ month: 1 }).toJSDate())
+    isSameMonth(aDate.toJSDate(), anotherDate.plus({ month: 1 }).toJSDate())
   ).toBe(false)
 })
 
