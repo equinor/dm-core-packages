@@ -7,6 +7,7 @@ const DMSSContext = createContext<DmssAPI | undefined>(undefined)
 export const DMSSProvider = (props: {
   children: ReactNode
   dmssBasePath?: string
+  enableBlueprintCache?: boolean
 }) => {
   const { token } = useContext(AuthContext)
   const dmssAPIOriginal = new DmssAPI(token, props.dmssBasePath)
@@ -20,7 +21,11 @@ export const DMSSProvider = (props: {
       return dmssAPIOriginal
         .blueprintGet(requestParameters)
         .then((response) => {
-          window.sessionStorage.setItem(cacheKey, JSON.stringify(response.data))
+          if (props.enableBlueprintCache)
+            window.sessionStorage.setItem(
+              cacheKey,
+              JSON.stringify(response.data)
+            )
           return response
         })
     }
