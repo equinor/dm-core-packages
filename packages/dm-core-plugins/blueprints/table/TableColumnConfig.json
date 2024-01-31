@@ -17,6 +17,7 @@
     {
       "name": "dataType",
       "type": "CORE:BlueprintAttribute",
+      "description": "Allowed values are 'string' | 'boolean' | 'number' | 'datetime'",
       "attributeType": "string",
       "default": "string",
       "optional": true
