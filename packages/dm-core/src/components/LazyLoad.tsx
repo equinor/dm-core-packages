@@ -23,10 +23,7 @@ export const LazyLoad = ({
   const Element = element || 'div'
 
   return (
-    <Element
-      className={`${visible ? '' : 'hidden'} w-full h-full flex`}
-      role={role}
-    >
+    <Element className={`${visible ? '' : 'hidden'} w-full h-full`} role={role}>
       {children}
     </Element>
   )
