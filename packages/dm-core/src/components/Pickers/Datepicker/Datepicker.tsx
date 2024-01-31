@@ -36,7 +36,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     onChangeMonthView,
   } = props
   const [open, setOpen] = useState(false)
-  const [openTop, setOpenTop] = useState(false)
   const datepickerRef = useRef<HTMLDivElement | null>(null)
   const [datetime, setDatetime] = useState(() => {
     return selectedDate ? DateTime.fromISO(selectedDate) : null
@@ -189,7 +188,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           className={`h-9 px-2 border-b border-black flex items-center gap-2 w-fit ${
             readonly ? '' : 'cursor-pointer'
           } ${isDirty ? 'bg-[#85babf5e]' : 'bg-equinor-lightgray'}`}
-          onClick={() => handleClickInput()}
         >
           <input
             type='text'
@@ -198,7 +196,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             disabled={readonly}
             onChange={(e) => handleDateInput(e.target.value)}
             onBlur={(e) => formatDate(e.target.value)}
-            onFocus={() => (open ? setOpen(true) : null)}
             className='h-full bg-transparent appearance-none w-24'
           />
           {variant === 'datetime' && (
@@ -207,7 +204,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
               aria-label='Enter time'
               className='appearance-none bg-transparent h-full w-12 text-center'
               disabled={readonly}
-              onFocus={() => (open ? setOpen(true) : null)}
               value={timeFieldValue}
               onChange={(e: any) => handleTimeInput(e.target.value)}
               onBlur={(e) =>
@@ -215,7 +211,12 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
               }
             />
           )}
-          <Icon data={calendar} size={18} className='w-6' />
+          <Icon
+            data={calendar}
+            size={18}
+            className='w-6'
+            onClick={() => setOpen(!open)}
+          />
         </div>
       </InputWrapper>
       {open &&
