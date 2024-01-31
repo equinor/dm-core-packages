@@ -2,6 +2,7 @@ import { EdsProvider, Icon, Table } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import styled from 'styled-components'
 import {
   LazyLoad,
   TGenericObject,
@@ -15,6 +16,12 @@ import * as utils from '../utils'
 import { TableCell } from './TableCell/TableCell'
 import { TableRowActions } from './TableRowActions/TableRowActions'
 import * as Styled from './styles'
+
+const NotHoverColorTableRow = styled(Table.Row)`
+  &:hover {
+    background-color: white; // same as the non-hover state
+  }
+`
 
 export function TableRow(props: TableRowProps) {
   const {
@@ -161,7 +168,7 @@ export function TableRow(props: TableRowProps) {
           )}
         </Table.Row>
       </EdsProvider>
-      <LazyLoad visible={isExpanded} element={Table.Row}>
+      <LazyLoad visible={isExpanded} element={NotHoverColorTableRow}>
         <Table.Cell colSpan={columnsLength}>
           <ViewCreator
             idReference={`${idReference}[${item.index}]`}
