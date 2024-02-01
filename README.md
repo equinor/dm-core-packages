@@ -4879,3 +4879,8 @@ fix: new list button (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 6c5fb47 2024-01-25 githu..[bot] chore(master): release 1.18.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.5.4
     * **JOB VERSION**: d353611 2024-01-29 githu..[bot] chore(main): release 1.5.2 grafted, HEAD -> main, origin/main
+* feat: add responsive grid plugin (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7740989632/1)
+    * **DMSS VERSION**: 6c5fb47 2024-01-25 githu..[bot] chore(master): release 1.18.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.5.4
+    * **JOB VERSION**: b6d2d07 2024-02-01 Stig Ofstad fix: next schedule run message grafted, HEAD -> main, origin/main
