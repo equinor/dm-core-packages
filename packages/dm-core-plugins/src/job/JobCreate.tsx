@@ -27,10 +27,17 @@ import {
   JobButtonWrapper,
   JobLog,
   Progress,
+  TCronValues,
   getControlButton,
   getVariant,
+  parseCronStringToCronValues,
+  parseCronValuesToCronString,
 } from './common'
-import { getRecurringJobTemplate, scheduleTemplate } from './templateEntities'
+import {
+  defaultCronValues,
+  getRecurringJobTemplate,
+  scheduleTemplate,
+} from './templateEntities'
 
 interface TJobPluginConfig {
   jobTargetAddress: string
@@ -64,15 +71,13 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
 
   const [asCronJob, setAsCronJob] = useState<boolean>(config.recurring ?? false)
   const [schedule, setSchedule] = useState<TSchedule>(scheduleTemplate())
+  const [cronValues, setCronValues] = useState<TCronValues>(defaultCronValues())
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
   const [selectedTemplate, setSelectedTemplate] = useState<number>(0)
 
-  const {
-    document: jobDocument,
-    isLoading,
-    error: jobEntityError,
-    updateDocument,
-  } = useDocument<TJob | TRecurringJob>(jobTargetAddress, 0, false)
+  const { document: jobDocument, updateDocument } = useDocument<
+    TJob | TRecurringJob
+  >(jobTargetAddress, 0, false)
 
   const {
     start,
@@ -159,13 +164,22 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
     if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [jobDocument])
   return (
-    <>
+    <div className={'flex-col'}>
       {config.recurring !== false && (
         <ConfigureRecurring
           asCron={asCronJob}
           setAsCron={setAsCronJob}
           readOnly={true}
           schedule={schedule}
+          setSchedule={(s: TSchedule) => {
+            setSchedule(s)
+            setCronValues(parseCronStringToCronValues(s.cron))
+          }}
+          cronValues={cronValues}
+          setCronValues={(c: TCronValues) => {
+            setSchedule({ ...schedule, cron: parseCronValuesToCronString(c) })
+            setCronValues(c)
+          }}
           registered={status === JobStatus.Registered}
         />
       )}
@@ -207,6 +221,6 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
       {status === JobStatus.Running && progress !== null && (
         <Progress progress={progress} />
       )}
-    </>
+    </div>
   )
 }

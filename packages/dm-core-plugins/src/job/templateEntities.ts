@@ -6,10 +6,18 @@ import {
   TSchedule,
 } from '@development-framework/dm-core'
 import { DateTime } from 'luxon'
+import { EInterval, TCronValues } from './common'
+
+export const defaultCronValues = (): TCronValues => ({
+  interval: EInterval.HOURLY,
+  hour: '23',
+  hourStep: '1',
+  minute: '30',
+})
 
 export const scheduleTemplate = (): TSchedule => ({
   type: EBlueprint.CRON_JOB,
-  cron: '0 8 * * *',
+  cron: '00 08 * * *',
   startDate: DateTime.now().startOf('day').toISO() || '',
   endDate: DateTime.now().startOf('day').plus({ year: 1 }).toISO() || '',
   runs: [],
