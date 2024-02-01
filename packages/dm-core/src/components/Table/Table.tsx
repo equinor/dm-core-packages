@@ -99,7 +99,7 @@ export function Table(props: TableProps) {
     <Stack
       style={{
         display: 'flex',
-        width: '100%',
+        width: config?.width || '100%',
         height: '100%',
       }}
     >
