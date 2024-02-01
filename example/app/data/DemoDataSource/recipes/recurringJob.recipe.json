@@ -1,0 +1,138 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "JOBCORE:RecurringJob",
+  "initialUiRecipe": {
+    "name": "Dashboard",
+    "type": "CORE:UiRecipe",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "columnEnd": 1,
+            "columnStart": 1,
+            "rowEnd": 1,
+            "rowStart": 1
+          },
+          "title": "Edit job",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Job Edit",
+              "type": "CORE:UiRecipe",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/form/FormInput",
+                "attributes": [
+                  {
+                    "name": "uid",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "started",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "stopped",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "ended",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true,
+                    "widget": "DateTimeWidget"
+                  },
+                  {
+                    "name": "status",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "triggeredBy",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "readOnly": true
+                  },
+                  {
+                    "name": "outputTarget",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+                    "widget": "EntityPickerWidget"
+                  },
+                  {
+                    "name": "applicationInput",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+                    "showExpanded": false
+                  },
+                  {
+                    "name": "runner",
+                    "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+                    "searchByType": true,
+                    "showExpanded": false
+                  }
+                ],
+                "fields": [
+                  "uid",
+                  "name",
+                  "label",
+                  "triggeredBy",
+                  "status",
+                  "started",
+                  "stopped",
+                  "ended",
+                  "outputTarget",
+                  "applicationInput",
+                  "runner"
+                ]
+              },
+              "plugin": "@development-framework/dm-core-plugins/form"
+            }
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+          "gridArea": {
+            "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+            "columnEnd": 1,
+            "columnStart": 1,
+            "rowEnd": 2,
+            "rowStart": 2
+          },
+          "title": "Control job",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "job-control",
+              "type": "CORE:UiRecipe",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/job/ControlConfig",
+                "runnerTemplates": [
+                  {
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
+                    "label": "Hello world",
+                    "path": "dmss://DemoDataSource/plugins/job/helloWorldLocalContainerRunner"
+                  },
+                  {
+                    "type": "PLUGINS:dm-core-plugins/common/Template",
+                    "label": "Reverse description",
+                    "path": "dmss://DemoDataSource/plugins/job/reverseDescriptionRunner"
+                  }
+                ]
+              },
+              "plugin": "@development-framework/dm-core-plugins/job"
+            }
+          }
+        }
+      ],
+      "showItemBorders": true,
+      "size": {
+        "type": "PLUGINS:dm-core-plugins/grid/GridSize",
+        "columns": 1,
+        "rows": 2
+      }
+    },
+    "plugin": "@development-framework/dm-core-plugins/grid"
+  }
+}

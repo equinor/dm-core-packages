@@ -26,10 +26,13 @@ import {
   JobButtonWrapper,
   JobLog,
   Progress,
+  TCronValues,
   getControlButton,
   getVariant,
+  parseCronStringToCronValues,
+  parseCronValuesToCronString,
 } from './common'
-import { scheduleTemplate } from './templateEntities'
+import { defaultCronValues, scheduleTemplate } from './templateEntities'
 
 type TJobControlConfig = {
   hideLogs?: boolean
@@ -46,17 +49,17 @@ export const JobControl = (props: IUIPlugin) => {
   const { tokenData } = useContext(AuthContext)
 
   const internalConfig: TJobControlConfig = { ...defaultConfig, ...config }
+  const [asCronJob, setAsCronJob] = useState<boolean>(false)
+  const [schedule, setSchedule] = useState<TSchedule>(scheduleTemplate())
+  const [cronValues, setCronValues] = useState<TCronValues>(defaultCronValues())
+  const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
+  const [templates, setTemplates] = useState<any[]>([])
   const {
     document: jobEntity,
     isLoading,
     updateDocument,
     error: jobEntityError,
   } = useDocument<TJob | TRecurringJob>(idReference, 0, false)
-
-  const [asCronJob, setAsCronJob] = useState<boolean>(false)
-  const [schedule, setSchedule] = useState<TSchedule>(scheduleTemplate())
-  const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
-  const [templates, setTemplates] = useState<any[]>([])
 
   const {
     start: startJob,
@@ -124,8 +127,14 @@ export const JobControl = (props: IUIPlugin) => {
         )}`
       )
     }
-    if (asCronJob || jobEntity.type === EBlueprint.RECURRING_JOB)
-      setSchedule({ ...schedule, ...(jobEntity as TRecurringJob)?.schedule })
+    if (asCronJob || jobEntity.type === EBlueprint.RECURRING_JOB) {
+      const loadedSchedule = {
+        ...schedule,
+        ...(jobEntity as TRecurringJob)?.schedule,
+      }
+      setSchedule({ ...loadedSchedule })
+      setCronValues(parseCronStringToCronValues(loadedSchedule.cron))
+    }
     if (jobEntity.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
 
     Promise.all(
@@ -150,7 +159,15 @@ export const JobControl = (props: IUIPlugin) => {
           asCron={asCronJob}
           readOnly={true}
           schedule={schedule}
-          setSchedule={setSchedule}
+          setSchedule={(s: TSchedule) => {
+            setSchedule(s)
+            setCronValues(parseCronStringToCronValues(s.cron))
+          }}
+          cronValues={cronValues}
+          setCronValues={(c: TCronValues) => {
+            setSchedule({ ...schedule, cron: parseCronValuesToCronString(c) })
+            setCronValues(c)
+          }}
           registered={status === JobStatus.Registered}
         />
       )}

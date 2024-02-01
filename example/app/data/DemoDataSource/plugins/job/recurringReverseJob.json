@@ -1,0 +1,29 @@
+{
+  "_id": "6303cc68-4b9f-40a9-bd4c-a48c35815e06",
+  "name": "recurringExampleJob",
+  "label": "Recurring example job",
+  "type": "JOBCORE:RecurringJob",
+  "status": "not started",
+  "schedule": {
+    "type": "JOBCORE:CronJob",
+    "cron": "30 */1 * * *",
+    "runs": []
+  },
+  "applicationInput": {
+    "name": "exampleJob",
+    "type": "JOBCORE:Job",
+    "status": "not started",
+    "applicationInput": {
+      "type": "CORE:Reference",
+      "address": "dmss://DemoDataSource/$5203cc68-4b9f-40a9-bd4c-a48c35815e06",
+      "referenceType": "link"
+    },
+    "label": "Example job",
+    "runner": {
+      "type": "JOBCORE:ReverseDescription"
+    }
+  },
+  "runner": {
+    "type": "JOBCORE:RecurringJobHandler"
+  }
+}

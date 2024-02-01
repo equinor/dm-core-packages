@@ -28,6 +28,69 @@ export const getVariant = (status: JobStatus) => {
   }
 }
 
+export enum EInterval {
+  HOURLY = 'Hourly',
+  DAILY = 'Daily',
+  WEEKLY = 'Weekly',
+  MONTHLY = 'Monthly',
+}
+export type TCronValues = {
+  interval: EInterval
+  hour: string
+  hourStep: string
+  minute: string
+}
+
+export const parseCronValuesToCronString = (
+  cronValues: TCronValues
+): string => {
+  const newMinute = cronValues.minute
+  let newHour = cronValues.hour
+  let dayOfMonth = '*'
+  const month = '*'
+  let dayOfWeek = '*'
+
+  switch (cronValues.interval) {
+    case EInterval.WEEKLY:
+      dayOfMonth = '*'
+      dayOfWeek = '6'
+      break
+    case EInterval.MONTHLY:
+      dayOfMonth = '1'
+      break
+    case EInterval.HOURLY:
+      newHour = cronValues.hourStep ? `*/${cronValues.hourStep}` : '*'
+      break
+    case EInterval.DAILY:
+      newHour = cronValues.hour.split('/')[1]
+      if (!newHour) newHour = cronValues.hour
+      break
+  }
+  return `${newMinute} ${newHour} ${dayOfMonth} ${month} ${dayOfWeek}`
+}
+
+export const parseCronStringToCronValues = (
+  cronString: string
+): TCronValues => {
+  const [minute, hour, dayOfMonth, month, dayOfWeek] = cronString.split(' ')
+  const newHour = hour
+  let newHourStep = '1'
+  let newInterval = EInterval.DAILY
+
+  if (dayOfMonth !== '*') newInterval = EInterval.MONTHLY
+  if (dayOfWeek !== '*') newInterval = EInterval.WEEKLY
+  if (hour.includes('/')) newInterval = EInterval.HOURLY
+
+  if (newInterval === EInterval.HOURLY) newHourStep = hour.split('/')[1]
+
+  return {
+    minute: minute,
+    hour: newHour,
+    interval: newInterval,
+    hourStep: newHourStep,
+  }
+}
+
 export const JobLog = (props: {
   logs: string[]
   error: ErrorResponse | undefined
@@ -116,6 +179,8 @@ export const Progress = (props: { progress: number }) => {
 export const ConfigureRecurring = (props: {
   asCron: boolean
   setAsCron?: (v: boolean) => void
+  cronValues: TCronValues
+  setCronValues?: (s: TCronValues) => void
   schedule: TSchedule
   setSchedule?: (s: TSchedule) => void
   registered: boolean
@@ -136,8 +201,9 @@ export const ConfigureRecurring = (props: {
       {props.asCron && (
         <ConfigureSchedule
           schedule={props.schedule}
-          // @ts-ignore
           setSchedule={props.setSchedule || (() => null)}
+          cronValues={props.cronValues}
+          setCronValues={props.setCronValues || (() => null)}
           isRegistered={props.registered}
           readOnly={props.readOnly || false}
         />
