@@ -169,7 +169,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         width: '100%',
         height: '100%',
         display: 'flex',
-        maxWidth: 'max-content',
       }}
     >
       {attribute && !attribute.contained && (

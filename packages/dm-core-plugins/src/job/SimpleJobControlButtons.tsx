@@ -25,7 +25,7 @@ export const StartButton = (props: {
       size={48}
       aria-label='Run'
       onClick={() => start()}
-      className='cursor-pointer hover:opacity-80'
+      className='cursor-pointer hover:opacity-60'
     ></Icon>
   )
 }
