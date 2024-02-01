@@ -99,13 +99,13 @@ export function Table(props: TableProps) {
     <Stack
       style={{
         display: 'flex',
-        width: 'fit-content',
+        width: '100%',
         height: '100%',
       }}
     >
       <Stack
         style={{
-          width: 'fit-content',
+          width: '100%',
         }}
       >
         <SortableContext items={items} onReorder={reorderItems}>
