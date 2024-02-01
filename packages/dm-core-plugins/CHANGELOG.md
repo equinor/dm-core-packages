@@ -54,6 +54,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.36.1 to ^1.36.2
 
+## [1.45.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.44.0...dm-core-plugins-v1.45.0) (2024-02-01)
+
+
+### Features
+
+* add responsive grid plugin ([bbef3bf](https://github.com/equinor/dm-core-packages/commit/bbef3bfca0a1df9aecf6553fb1dab8b6c3798744))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.39.0 to ^1.39.1
+
 ## [1.44.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.43.0...dm-core-plugins-v1.44.0) (2024-01-31)
 
 

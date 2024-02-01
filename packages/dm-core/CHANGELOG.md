@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.39.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.0...dm-core-v1.39.1) (2024-02-01)
+
+
+### Bug Fixes
+
+* content in table not using full width ([13e94dd](https://github.com/equinor/dm-core-packages/commit/13e94dd9fcb761ebed728e02520783da2813ec67))
+* datepicker does not open when edit as text ([d665240](https://github.com/equinor/dm-core-packages/commit/d6652407819c4c289b82b227d8dab675b6060460))
+* **entityPicker:** hide checkbox for list nodes ([bd3b82e](https://github.com/equinor/dm-core-packages/commit/bd3b82e0baebe7780ed93f95b3988e6f3c49b62e))
+* loading ui ([53ae35c](https://github.com/equinor/dm-core-packages/commit/53ae35c46915957b062141d73a29294830facbbe))
+* table hover gray no more ([c51d8df](https://github.com/equinor/dm-core-packages/commit/c51d8df0ce8a856a16a5ab141341f059c6d7dfb8))
+
+
+### Miscellaneous Chores
+
+* disable blueprint cache by config ([02f0a53](https://github.com/equinor/dm-core-packages/commit/02f0a538718e605738bd7841d658ae10f61085bb))
+
 ## [1.39.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.38.0...dm-core-v1.39.0) (2024-01-31)
 
 
