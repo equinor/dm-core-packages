@@ -40,7 +40,7 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
       if (!viewConfig.roles) {
         // if viewConfig does not have roles specified, we interpret it as "everyone"
         openViewConfigs.push(viewConfig)
-      } else if (viewConfig.roles.includes(role.name)) {
+      } else if (viewConfig.roles.includes(role?.name)) {
         allowedViewConfigs.push(viewConfig)
       }
     })
@@ -50,7 +50,7 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
 
   return (
     <>
-      {allowedRoles.includes(role.name) ? (
+      {allowedRoles.includes(role?.name) ? (
         <>
           {allowedViewConfigs?.map((viewConfig) => (
             <ViewCreator
@@ -76,7 +76,7 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
             <Icon data={thumbs_down} />
           </Banner.Icon>
           <Banner.Message>
-            {`No views found, since you currently have role [${role.name}]. Please switch to one of these roles: [${allowedRoles}]`}
+            {`No views found, since you currently have role [${role?.name}]. Please switch to one of these roles: [${allowedRoles}]`}
           </Banner.Message>
         </Banner>
       )}

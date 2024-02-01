@@ -1,5 +1,5 @@
 import {
-  ApplicationContext,
+  ApplicationProvider,
   EntityView,
   FSTreeProvider,
   Loading,
@@ -100,13 +100,13 @@ function App() {
   ])
 
   return (
-    <ApplicationContext.Provider value={application}>
+    <ApplicationProvider application={application}>
       <RoleProvider roles={application?.roles || []}>
         <FSTreeProvider visibleDataSources={application?.dataSources || []}>
           <RouterProvider router={router} />
         </FSTreeProvider>
       </RoleProvider>
-    </ApplicationContext.Provider>
+    </ApplicationProvider>
   )
 }
 

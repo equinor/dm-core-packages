@@ -101,11 +101,11 @@ export const useRecipe = (
   const [error, setError] = useState<ErrorResponse | null>(null)
 
   const dmssAPI = useDMSS()
-  const { name } = useContext(ApplicationContext)
+  const { application } = useContext(ApplicationContext)
   useEffect(() => {
     setLoading(true)
     dmssAPI
-      .blueprintGet({ typeRef: typeRef, context: name })
+      .blueprintGet({ typeRef: typeRef, context: application?.name })
       .then((response: any) => {
         try {
           setFoundRecipe(

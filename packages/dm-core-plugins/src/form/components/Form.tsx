@@ -45,7 +45,7 @@ export const Form = (props: TFormProps) => {
   const { type, formData, onSubmit, idReference, onOpen } = props
   const { blueprint, storageRecipes, isLoading, error } = useBlueprint(type)
   const dmssAPI = useDMSS()
-  const { name } = useContext(ApplicationContext)
+  const { application } = useContext(ApplicationContext)
   const [showComponent, setShowComponent] = useState(true)
   const showSubmitButton = props.showSubmitButton ?? true
   // Every react hook form controller needs to have a unique name
@@ -130,7 +130,7 @@ export const Form = (props: TFormProps) => {
         // Remove if not use the form plugin
         const response: any = await dmssAPI.blueprintGet({
           typeRef: obj[key].type,
-          context: name,
+          context: application?.name,
         })
         const uiRecipe: TUiRecipe = findRecipe(
           response.data.uiRecipes,

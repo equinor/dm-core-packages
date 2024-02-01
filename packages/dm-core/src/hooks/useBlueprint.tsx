@@ -43,12 +43,12 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
   const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
-  const { name } = useContext(ApplicationContext)
+  const { application } = useContext(ApplicationContext)
   const dmssAPI = useDMSS()
 
   useEffect(() => {
     dmssAPI
-      .blueprintGet({ typeRef: typeRef, context: name })
+      .blueprintGet({ typeRef: typeRef, context: application.name })
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
         setInitialUiRecipe(response.data.initialUiRecipe)

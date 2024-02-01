@@ -30,7 +30,7 @@ type TDestinationPickerProps = {
 
 export const DestinationPicker = (props: TDestinationPickerProps) => {
   const { onChange, formData, disabled, scope, label } = props
-  const appConfig = useContext(ApplicationContext)
+  const { application } = useContext(ApplicationContext)
   const [showModal, setShowModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
@@ -43,7 +43,7 @@ export const DestinationPicker = (props: TDestinationPickerProps) => {
       tree.initFromPath(scope).finally(() => setLoading(false))
     } else {
       tree
-        .initFromDataSources(appConfig.visibleDataSources)
+        .initFromDataSources(application.visibleDataSources)
         .finally(() => setLoading(false))
     }
   }, [scope])

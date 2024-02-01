@@ -137,7 +137,7 @@ export const EntityPickerDialog = (
     multiple = false,
     hideInvalidTypes = false,
   } = props
-  const appConfig = useContext(ApplicationContext)
+  const { application } = useContext(ApplicationContext)
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
 
@@ -150,7 +150,7 @@ export const EntityPickerDialog = (
       tree.initFromPath(scope).finally(() => setLoading(false))
     } else {
       tree
-        .initFromDataSources(appConfig.visibleDataSources)
+        .initFromDataSources(application.visibleDataSources)
         .finally(() => setLoading(false))
     }
   }, [scope])

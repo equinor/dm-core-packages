@@ -32,12 +32,12 @@ const NewEntityDialog = (props: TProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const dmssAPI = useDMSS()
 
-  const { name } = useContext(ApplicationContext)
+  const { application } = useContext(ApplicationContext)
 
   useEffect(() => {
     if (!blueprintName) return
     dmssAPI
-      .blueprintGet({ typeRef: blueprintName, context: name })
+      .blueprintGet({ typeRef: blueprintName, context: application?.name })
       .then((response: any) => {
         setBlueprint(response.data.blueprint)
       })

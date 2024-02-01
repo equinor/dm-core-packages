@@ -64,7 +64,7 @@ export const RoleProvider = (props: {
     let newRoles = passedRoles
     if (tokenData) {
       newRoles = newRoles.filter((role) =>
-        tokenData.roles.includes(role.authServerRoleName)
+        tokenData.roles?.includes(role.authServerRoleName)
       )
     }
     if (passedRoles && !passedRoles.length) {
