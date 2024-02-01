@@ -387,15 +387,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           ))}
       </div>
       <EdsProvider density={internalConfig.compact ? 'compact' : 'comfortable'}>
-        <Stack
-          direction='row'
-          justifyContent={showPagination ? 'space-between' : 'flex-end'}
-          spacing={1}
-          style={{
-            padding: '6px',
-            minWidth: 'max-content',
-          }}
-        >
+        <div className={`w-full space-x-1`}>
           {showPagination && (
             <Pagination
               count={Object.keys(items).length}
@@ -410,7 +402,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             direction='row'
             alignItems='center'
             spacing={1}
-            justifyContent='space-between'
+            justifyContent='flex-end'
           >
             {internalConfig.functionality.add && (
               <>
@@ -463,7 +455,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               Save
             </FormButton>
           </Stack>
-        </Stack>
+        </div>
       </EdsProvider>
     </Stack>
   )
