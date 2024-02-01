@@ -1,4 +1,10 @@
-import { Button, Icon, NativeSelect, Typography } from '@equinor/eds-core-react'
+import {
+  Button,
+  EdsProvider,
+  Icon,
+  NativeSelect,
+  Typography,
+} from '@equinor/eds-core-react'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
 import { useMemo } from 'react'
 import { Stack } from '../common'
@@ -37,49 +43,51 @@ export function Pagination(props: PaginationProps) {
   }, [defaultRowsPerPage])
 
   return (
-    <Stack
-      direction='row'
-      spacing={1}
-      alignItems='center'
-      justifyContent='flex-end'
-    >
-      <Stack spacing={0.5} direction='row' alignItems='center'>
-        <Typography variant='label' group='input'>
-          Rows per page:{' '}
-        </Typography>
-        <NativeSelect
-          id='rowsPerPage'
-          label=''
-          value={rowsPerPage}
-          onChange={(event) => setRowsPerPage(Number(event.target.value))}
-          style={{ width: '70px' }}
-        >
-          {paginationSizes.map((amount) => (
-            <option key={amount}>{amount}</option>
-          ))}
-        </NativeSelect>
+    <EdsProvider density='compact'>
+      <Stack
+        direction='row'
+        spacing={1}
+        alignItems='center'
+        justifyContent='flex-end'
+      >
+        <Stack spacing={0.5} direction='row' alignItems='center'>
+          <Typography variant='label' group='input'>
+            Rows per page:{' '}
+          </Typography>
+          <NativeSelect
+            id='rowsPerPage'
+            label=''
+            value={rowsPerPage}
+            onChange={(event) => setRowsPerPage(Number(event.target.value))}
+            style={{ width: '70px' }}
+          >
+            {paginationSizes.map((amount) => (
+              <option key={amount}>{amount}</option>
+            ))}
+          </NativeSelect>
+        </Stack>
+        <Stack spacing={0.5} alignItems='center'>
+          <Typography variant='meta'>
+            {visibleFromLabel} - {visibleToLabel} of {count}
+          </Typography>
+        </Stack>
+        <Stack direction='row' spacing={0.5} alignItems='center'>
+          <Button
+            disabled={page === 0}
+            variant='ghost_icon'
+            onClick={() => setPage(page - 1)}
+          >
+            <Icon data={chevron_left} title='Previous page' />
+          </Button>
+          <Button
+            disabled={page + 1 === availablePages}
+            variant='ghost_icon'
+            onClick={() => setPage(page + 1)}
+          >
+            <Icon data={chevron_right} title='Next page' />
+          </Button>
+        </Stack>
       </Stack>
-      <Stack spacing={0.5} alignItems='center'>
-        <Typography variant='meta'>
-          {visibleFromLabel} - {visibleToLabel} of {count}
-        </Typography>
-      </Stack>
-      <Stack direction='row' spacing={0.5} alignItems='center'>
-        <Button
-          disabled={page === 0}
-          variant='ghost_icon'
-          onClick={() => setPage(page - 1)}
-        >
-          <Icon data={chevron_left} title='Previous page' />
-        </Button>
-        <Button
-          disabled={page + 1 === availablePages}
-          variant='ghost_icon'
-          onClick={() => setPage(page + 1)}
-        >
-          <Icon data={chevron_right} title='Next page' />
-        </Button>
-      </Stack>
-    </Stack>
+    </EdsProvider>
   )
 }
