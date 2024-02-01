@@ -1,18 +1,11 @@
 import React, { Suspense, memo, useState } from 'react'
 
 import { Typography } from '@equinor/eds-core-react'
-import styled from 'styled-components'
 import { useRecipe } from '../hooks'
 import { IUIPlugin, TUiRecipe } from '../types'
 import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { Loading } from './Loading'
 import RefreshButton from './RefreshButton'
-
-const Wrapper = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-`
 
 type IEntityView = IUIPlugin & {
   recipeName?: string
@@ -28,8 +21,6 @@ const MemoizedUiPlugin = memo(function UiPlugin(
   const UiPlugin = props.getPlugin(props.recipe.plugin)
   return <UiPlugin {...props} config={props.recipe.config ?? {}} />
 })
-
-// const MemoizedUiPlugin = memo(UiPlugin)
 
 export const EntityView = (props: IEntityView): React.ReactElement => {
   const {
@@ -52,10 +43,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
 
   // Refresh Button stuff
   const [reloadCounter, setReloadCounter] = useState(0)
-  const [hoverOver, setHoverOver] = useState({
-    refreshButton: false,
-    component: false,
-  })
+  const [hoverRefresh, setHoverRefresh] = useState(false)
   if (isLoading)
     return (
       <div style={{ alignSelf: 'center', padding: '50px' }}>
@@ -72,39 +60,55 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
       </ErrorGroup>
     )
   if (!recipe || !Object.keys(recipe).length)
-    return <Wrapper>No compatible uiRecipes for entity</Wrapper>
+    return (
+      <div className='w-full h-full flex'>
+        No compatible uiRecipes for entity
+      </div>
+    )
 
   const refreshable = showRefreshButton ?? recipe.showRefreshButton ?? false
-
   return (
-    <Wrapper>
+    <div className='flex w-full h-full'>
       <Suspense fallback={<Loading />}>
         <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
-          {refreshable && (
-            <RefreshButton
-              hidden={!hoverOver.component}
-              tooltip={recipe.plugin.split('/').at(-1)}
-              onMouseLeave={() =>
-                setHoverOver({ ...hoverOver, refreshButton: false })
-              }
-              onMouseEnter={() =>
-                setHoverOver({ ...hoverOver, refreshButton: true })
-              }
-              onClick={() => setReloadCounter(reloadCounter + 1)}
-            />
-          )}
-          <MemoizedUiPlugin
-            getPlugin={getUiPlugin}
-            recipe={recipe}
-            idReference={idReference}
-            type={type}
-            onSubmit={onSubmit}
-            onOpen={onOpen}
-            onChange={onChange}
+          <div
+            style={{
+              position: 'relative',
+              border: hoverRefresh
+                ? '1px solid #5c5c5c'
+                : '1px solid transparent',
+              borderRadius: hoverRefresh ? '4px' : '0',
+            }}
             key={reloadCounter}
-          />
+          >
+            {refreshable && (
+              <RefreshButton
+                hidden={false}
+                tooltip={recipe.plugin.split('/').at(-1)}
+                onMouseLeave={() => setHoverRefresh(false)}
+                onMouseEnter={() => {
+                  setHoverRefresh(true)
+                }}
+                onClick={() => {
+                  setReloadCounter(reloadCounter + 1)
+                  setHoverRefresh(false)
+                }}
+              />
+            )}
+            <div style={{ opacity: hoverRefresh ? 0.6 : 1 }}>
+              <MemoizedUiPlugin
+                getPlugin={getUiPlugin}
+                recipe={recipe}
+                idReference={idReference}
+                type={type}
+                onSubmit={onSubmit}
+                onOpen={onOpen}
+                onChange={onChange}
+              />
+            </div>
+          </div>
         </ErrorBoundary>
       </Suspense>
-    </Wrapper>
+    </div>
   )
 }
