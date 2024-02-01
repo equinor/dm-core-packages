@@ -1,5 +1,6 @@
 import { Icon, Tooltip } from '@equinor/eds-core-react'
 import { refresh } from '@equinor/eds-icons'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const StyledRefreshButton = styled.button`
@@ -18,9 +19,7 @@ const StyledRefreshButton = styled.button`
   width: 24px;
   padding: 0;
   color: rgba(0, 112, 121, 1); // eds green color
-  transition: opacity 0.2s;
   background-size: 16px;
-  opacity: 0.3;
 
   &:hover {
     background: rgba(222, 237, 238, 1); // eds ghost-icon hover background color
@@ -43,15 +42,22 @@ const RefreshButton = ({
   onMouseLeave,
   hidden,
 }: Props) => {
+  const [wait, setWait] = useState(true)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWait(false)
+    }, 100)
+    return () => clearInterval(interval)
+  }, [])
   return (
     <Tooltip title={`Refresh ${tooltip}`}>
       <StyledRefreshButton
-        style={hidden ? { opacity: 0 } : {}}
+        style={hidden || wait ? { opacity: 0 } : {}}
         onClick={() => onClick()}
         onMouseLeave={() => onMouseLeave()}
         onMouseEnter={() => onMouseEnter()}
       >
-        <Icon data={refresh} size={16} title='refresh' />
+        <Icon data={refresh} size={18} />
       </StyledRefreshButton>
     </Tooltip>
   )
