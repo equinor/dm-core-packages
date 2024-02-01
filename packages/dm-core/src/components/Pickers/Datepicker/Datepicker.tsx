@@ -1,4 +1,9 @@
-import { Icon, InputWrapper } from '@equinor/eds-core-react'
+import {
+  Button,
+  EdsProvider,
+  Icon,
+  InputWrapper,
+} from '@equinor/eds-core-react'
 import { calendar } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
 import { ReactElement, useEffect, useRef, useState } from 'react'
@@ -158,10 +163,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     }
   }
 
-  function handleClickInput(): void {
-    if (!readonly) setOpen(!open)
-  }
-
   function getInputRect() {
     const inputElement = inputWrapperRef.current
     if (!inputElement) return new DOMRect()
@@ -186,8 +187,8 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           id={id}
           ref={inputWrapperRef}
           className={`h-9 px-2 border-b border-black flex items-center gap-2 w-fit ${
-            readonly ? '' : 'cursor-pointer'
-          } ${isDirty ? 'bg-[#85babf5e]' : 'bg-equinor-lightgray'}`}
+            isDirty ? 'bg-[#85babf5e]' : 'bg-equinor-lightgray'
+          }`}
         >
           <input
             type='text'
@@ -211,14 +212,14 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
               }
             />
           )}
-          <Icon
-            data={calendar}
-            size={18}
-            className='w-6'
-            onClick={() => setOpen(!open)}
-          />
+          <EdsProvider density='compact'>
+            <Button variant='ghost_icon' onClick={() => setOpen(!open)}>
+              <Icon data={calendar} size={18} className='w-6' color='#2e2e2e' />
+            </Button>
+          </EdsProvider>
         </div>
       </InputWrapper>
+
       {open &&
         createPortal(
           <div
