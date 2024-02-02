@@ -76,6 +76,13 @@
       "optional": true
     },
     {
+      "name": "width",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Width of the complete list",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "templates",
       "type": "CORE:BlueprintAttribute",
       "description": "Attribute on parent (of same type as list) which should be used as template when instantiating new items. (e.g. 'template' will use the 'template' attribute on the parent.)",

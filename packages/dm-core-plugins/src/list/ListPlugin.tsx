@@ -53,6 +53,7 @@ type TListConfig = {
   labelByIndex?: boolean
   defaultPaginationRowsPerPage?: number
   label?: string
+  width?: string
 }
 const defaultConfig: TListConfig = {
   expanded: false,
@@ -72,6 +73,7 @@ const defaultConfig: TListConfig = {
     open: false,
   },
   resolveReferences: true,
+  width: '100%',
 }
 
 export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
@@ -166,9 +168,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   return (
     <Stack
       style={{
-        width: '100%',
+        width: config?.width || '100%',
         height: '100%',
         display: 'flex',
+        overflow: 'scroll',
       }}
     >
       {attribute && !attribute.contained && (
@@ -387,23 +390,24 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           ))}
       </div>
       <EdsProvider density={internalConfig.compact ? 'compact' : 'comfortable'}>
-        <div className={`w-full space-x-1`}>
-          {showPagination && (
-            <Pagination
-              count={Object.keys(items).length}
-              page={currentPage}
-              setPage={setPage}
-              rowsPerPage={itemsPerPage}
-              setRowsPerPage={setItemsPerPage}
-              defaultRowsPerPage={internalConfig?.defaultPaginationRowsPerPage}
-            />
-          )}
-          <Stack
-            direction='row'
-            alignItems='center'
-            spacing={1}
-            justifyContent='flex-end'
-          >
+        <div
+          className={`w-full space-x-1 flex flex-wrap my-2 justify-between overflow-scroll`}
+        >
+          <div className='flex'>
+            {showPagination && (
+              <Pagination
+                count={Object.keys(items).length}
+                page={currentPage}
+                setPage={setPage}
+                rowsPerPage={itemsPerPage}
+                setRowsPerPage={setItemsPerPage}
+                defaultRowsPerPage={
+                  internalConfig?.defaultPaginationRowsPerPage
+                }
+              />
+            )}
+          </div>
+          <div className='flex justify-end grow space-x-2 self-center'>
             {internalConfig.functionality.add && (
               <>
                 <NewListItemButton
@@ -454,7 +458,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             >
               Save
             </FormButton>
-          </Stack>
+          </div>
         </div>
       </EdsProvider>
     </Stack>

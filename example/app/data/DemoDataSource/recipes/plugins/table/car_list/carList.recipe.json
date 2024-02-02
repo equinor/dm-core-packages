@@ -18,6 +18,7 @@
               "description": "List of cars",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+                "width": "50%",
                 "columns": [
                   {
                     "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
@@ -75,6 +76,7 @@
               "description": "List of cars",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+                "width": "500px",
                 "columns": [
                   {
                     "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",

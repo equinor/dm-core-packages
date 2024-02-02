@@ -51,6 +51,7 @@
       "type": "CORE:UiRecipe",
       "config": {
         "type": "PLUGINS:dm-core-plugins/list/ListPluginConfig",
+        "width": "50%",
         "defaultPaginationRowsPerPage": 5,
         "functionality": {
           "type": "PLUGINS:dm-core-plugins/list/FunctionalityConfig",

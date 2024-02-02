@@ -94,12 +94,12 @@ export function Table(props: TableProps) {
     setItems(reorderedItems)
     setDirtyState(true)
   }
-
+  console.log(config)
   return (
     <Stack
       style={{
         display: 'flex',
-        width: '100%',
+        width: config?.width || '100%',
         overflow: 'scroll',
         height: '100%',
       }}
