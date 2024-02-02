@@ -78,6 +78,8 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
                 ? '1px solid #5c5c5c'
                 : '1px solid transparent',
               borderRadius: hoverRefresh ? '4px' : '0',
+              width: '100%',
+              height: '100%',
             }}
             key={reloadCounter}
           >
@@ -95,7 +97,13 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
                 }}
               />
             )}
-            <div style={{ opacity: hoverRefresh ? 0.6 : 1 }}>
+            <div
+              style={{
+                opacity: hoverRefresh ? 0.6 : 1,
+                width: '100%',
+                height: '100%',
+              }}
+            >
               <MemoizedUiPlugin
                 getPlugin={getUiPlugin}
                 recipe={recipe}
