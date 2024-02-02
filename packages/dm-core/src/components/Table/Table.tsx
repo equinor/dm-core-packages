@@ -99,7 +99,8 @@ export function Table(props: TableProps) {
     <Stack
       style={{
         display: 'flex',
-        width: config?.width || '100%',
+        width: '100%',
+        overflow: 'scroll',
         height: '100%',
       }}
     >
