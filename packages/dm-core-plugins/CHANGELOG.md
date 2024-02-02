@@ -54,6 +54,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.36.1 to ^1.36.2
 
+## [1.45.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.45.0...dm-core-plugins-v1.45.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* **job:** simple schedule control not loading existing cron ([8420527](https://github.com/equinor/dm-core-packages/commit/8420527a86f93abefd9bb1483084390aeb3a3878))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.39.1 to ^1.39.2
+
 ## [1.45.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.44.0...dm-core-plugins-v1.45.0) (2024-02-01)
 
 

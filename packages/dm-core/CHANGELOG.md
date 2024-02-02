@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.39.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.1...dm-core-v1.39.2) (2024-02-02)
+
+
+### Bug Fixes
+
+* make refresh button appear again ([53c2d03](https://github.com/equinor/dm-core-packages/commit/53c2d031d20e323988e45e5ccd4c50b1ee34d4f8))
+* **table:** fixed nb locale for table datetime ([29e5e58](https://github.com/equinor/dm-core-packages/commit/29e5e58bdd6ed34b05b2fbf0e6a838f5d3e73e8d))
+
 ## [1.39.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.0...dm-core-v1.39.1) (2024-02-01)
 
 
