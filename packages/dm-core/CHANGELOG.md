@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.39.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.2...dm-core-v1.39.3) (2024-02-02)
+
+
+### Bug Fixes
+
+* make refresh button container full widh + height ([da80332](https://github.com/equinor/dm-core-packages/commit/da803320249af38d84fa9eccba058221f3badc82))
+
 ## [1.39.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.1...dm-core-v1.39.2) (2024-02-02)
 
 
