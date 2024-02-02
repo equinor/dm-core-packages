@@ -3,6 +3,7 @@ import {
   EdsProvider,
   Icon,
   InputWrapper,
+  Popover,
 } from '@equinor/eds-core-react'
 import { calendar } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
@@ -52,8 +53,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     datetime?.toFormat('HH:mm') ?? '--:--'
   )
   const inputWrapperRef = useRef<HTMLDivElement | null>(null)
-  // This is kind of a hack. The state is only used to trigger a recalculation of the popover position when scrolling
-  const [scrollChange, setScrollChange] = useState<number>(0)
 
   useEffect(() => {
     if (!useMinutes && datetime) {
@@ -82,22 +81,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [datepickerRef])
-
-  useEffect(() => {
-    document.addEventListener(
-      'scroll',
-      () => setScrollChange((v) => v + 1),
-      true
-    )
-
-    return () => {
-      document.removeEventListener(
-        'mousedown',
-        () => setScrollChange((v) => v + 1),
-        true
-      )
-    }
-  }, [])
 
   function handleDateInput(dateInput: string): void {
     if (dateInput) {
@@ -163,12 +146,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
     }
   }
 
-  function getInputRect() {
-    const inputElement = inputWrapperRef.current
-    if (!inputElement) return new DOMRect()
-    return inputElement.getBoundingClientRect()
-  }
-
   return (
     <div>
       <InputWrapper
@@ -219,17 +196,12 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           </EdsProvider>
         </div>
       </InputWrapper>
-
-      {open &&
-        createPortal(
+      {createPortal(
+        <Popover open={open} anchorEl={inputWrapperRef.current}>
           <div
             id={`date-picker-popover-container`}
             ref={datepickerRef}
-            className={`absolute p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1`}
-            style={{
-              top: `${getInputRect().top + 38}px`,
-              left: `${getInputRect().left + 10}px`,
-            }}
+            className={`p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1`}
           >
             <Calendar
               dateTime={datetime}
@@ -256,9 +228,10 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
                 </span>
               </>
             )}
-          </div>,
-          document.body
-        )}
+          </div>
+        </Popover>,
+        document.body
+      )}
     </div>
   )
 }
