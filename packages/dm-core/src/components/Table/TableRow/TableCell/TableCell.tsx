@@ -86,14 +86,17 @@ export function TableCell(props: TableCellProps) {
             onChange={(date) => updateItem(column.data, date, 'datetime')}
           />
         ) : value ? (
-          DateTime.fromISO(value).toLocaleString({
-            day: '2-digit',
-            month: '2-digit',
-            year: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hourCycle: 'h23',
-          })
+          DateTime.fromISO(value).toLocaleString(
+            {
+              day: '2-digit',
+              month: '2-digit',
+              year: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              hourCycle: 'h23',
+            },
+            { locale: 'nb' }
+          )
         ) : (
           '-'
         )}
