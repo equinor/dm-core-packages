@@ -8,14 +8,7 @@
       "attributeType": "string"
     },
     {
-      "name": "minWidth",
-      "type": "dmss://system/SIMOS/BlueprintAttribute",
-      "description": "Width of the complete table",
-      "attributeType": "string",
-      "optional": true
-    },
-    {
-      "name": "maxWidth",
+      "name": "width",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "description": "Width of the complete table",
       "attributeType": "string",

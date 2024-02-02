@@ -52,6 +52,7 @@ export type TTableConfig = {
   templates?: TTemplate[]
   labelByIndex?: boolean
   label?: string
+  width?: string
 }
 
 // Table components types
