@@ -16,6 +16,7 @@ export function TableHead(props: TableHeadProps) {
     sortColumn,
     sortDirection,
     sortByColumn,
+    functionalityConfig,
   } = props
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [menuButtonAnchor, setMenuButtonAnchor] =

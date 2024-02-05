@@ -5,7 +5,7 @@ import { DeleteSoftButton } from '../../../DeleteSoftButton'
 import { TableRowActionsProps } from '../../types'
 
 export function TableRowActions(props: TableRowActionsProps) {
-  const { editMode, item, removeItem } = props
+  const { editMode, item, removeItem, disabled } = props
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [menuButtonAnchor, setMenuButtonAnchor] =
     useState<HTMLButtonElement | null>(null)
@@ -18,6 +18,7 @@ export function TableRowActions(props: TableRowActionsProps) {
             onClick={() => removeItem(item, false)}
             title={'Remove row'}
             ariaLabel={'Remove row'}
+            disabled={disabled}
           />
         ) : (
           <>
@@ -29,6 +30,7 @@ export function TableRowActions(props: TableRowActionsProps) {
               variant='ghost_icon'
               onClick={() => setIsMenuOpen(true)}
               ref={setMenuButtonAnchor}
+              disabled={disabled}
             >
               <Icon data={more_vertical} aria-hidden />
             </Button>
