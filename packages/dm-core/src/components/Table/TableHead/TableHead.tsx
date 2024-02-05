@@ -72,42 +72,46 @@ export function TableHead(props: TableHeadProps) {
             </SortCell>
           )
         })}
-        <Table.Cell width='40'>
-          <>
-            <Button
-              aria-label='Table actions'
-              aria-haspopup='true'
-              aria-expanded={isMenuOpen}
-              aria-controls={`tablehead-menu`}
-              onClick={() => setIsMenuOpen(true)}
-              ref={setMenuButtonAnchor}
-              variant='ghost_icon'
-            >
-              <Icon data={more_vertical} aria-hidden />
-            </Button>
-            <Menu
-              anchorEl={menuButtonAnchor}
-              aria-labelledby='anchor-default'
-              id={`tablehead-menu`}
-              onClose={() => setIsMenuOpen(false)}
-              open={isMenuOpen}
-            >
-              {config.variant?.length === 2 && (
-                <Menu.Item
-                  onClick={() =>
-                    setTableVariant(
-                      tableVariant === TableVariantNameEnum.View
-                        ? TableVariantNameEnum.Edit
-                        : TableVariantNameEnum.View
-                    )
-                  }
-                >
-                  {tableVariant === TableVariantNameEnum.View ? 'Edit' : 'View'}
-                </Menu.Item>
-              )}
-            </Menu>
-          </>
-        </Table.Cell>
+        {props.showAdditionalCell && (
+          <Table.Cell width='40'>
+            <>
+              <Button
+                aria-label='Table actions'
+                aria-haspopup='true'
+                aria-expanded={isMenuOpen}
+                aria-controls={`tablehead-menu`}
+                onClick={() => setIsMenuOpen(true)}
+                ref={setMenuButtonAnchor}
+                variant='ghost_icon'
+              >
+                <Icon data={more_vertical} aria-hidden />
+              </Button>
+              <Menu
+                anchorEl={menuButtonAnchor}
+                aria-labelledby='anchor-default'
+                id={`tablehead-menu`}
+                onClose={() => setIsMenuOpen(false)}
+                open={isMenuOpen}
+              >
+                {config.variant?.length === 2 && (
+                  <Menu.Item
+                    onClick={() =>
+                      setTableVariant(
+                        tableVariant === TableVariantNameEnum.View
+                          ? TableVariantNameEnum.Edit
+                          : TableVariantNameEnum.View
+                      )
+                    }
+                  >
+                    {tableVariant === TableVariantNameEnum.View
+                      ? 'Edit'
+                      : 'View'}
+                  </Menu.Item>
+                )}
+              </Menu>
+            </>
+          </Table.Cell>
+        )}
       </Table.Row>
     </Table.Head>
   )

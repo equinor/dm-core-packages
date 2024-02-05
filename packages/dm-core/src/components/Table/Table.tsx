@@ -67,6 +67,9 @@ export function Table(props: TableProps) {
           (variant: TTableVariant) => variant.name === tableVariant
         ).functionality
 
+  const showAdditionalCell =
+    config.variant?.length === 2 || functionalityConfig.delete
+
   /**
    * Start with ascending order if sorting on new column, switch to descending if already sorted, turn off sorting and reset to initial data if sorting was descending
    */
@@ -97,11 +100,12 @@ export function Table(props: TableProps) {
   return (
     <Stack
       style={{
-        display: 'flex',
         width: config?.width || '100%',
         overflow: 'scroll',
         height: '100%',
       }}
+      spacing={0.5}
+      alignItems='flex-end'
     >
       <Stack
         style={{
@@ -118,6 +122,7 @@ export function Table(props: TableProps) {
             <TableHead
               config={config}
               tableVariant={tableVariant}
+              showAdditionalCell={showAdditionalCell}
               setTableVariant={setTableVariant}
               sortColumn={sortColumn}
               sortDirection={sortDirection}
@@ -151,6 +156,7 @@ export function Table(props: TableProps) {
                       items={items}
                       onOpen={props.onOpen}
                       rowsPerPage={itemsPerPage}
+                      showAdditionalCell={showAdditionalCell}
                       setDirtyState={setDirtyState}
                       setItems={setItems}
                       tableVariant={tableVariant}
@@ -199,7 +205,7 @@ export function Table(props: TableProps) {
         direction='row'
         spacing={1}
         justifyContent='space-between'
-        style={{ height: '40px', width: 'max-content' }}
+        style={{ width: 'max-content' }}
       >
         <Pagination
           count={items?.length || 0}
