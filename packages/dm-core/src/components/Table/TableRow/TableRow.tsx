@@ -2,7 +2,6 @@ import { EdsProvider, Icon, Table } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import styled from 'styled-components'
 import {
   LazyLoad,
   TGenericObject,
@@ -11,17 +10,12 @@ import {
   TemplateMenu,
   ViewCreator,
 } from '../../../'
+import { NotHoverColorTableRow } from '../components'
 import { TTableColumnConfig, TableRowProps } from '../types'
 import * as utils from '../utils'
 import { TableCell } from './TableCell/TableCell'
 import { TableRowActions } from './TableRowActions/TableRowActions'
 import * as Styled from './styles'
-
-const NotHoverColorTableRow = styled(Table.Row)`
-  &:hover {
-    background-color: white; // same as the non-hover state
-  }
-`
 
 export function TableRow(props: TableRowProps) {
   const {
@@ -38,6 +32,7 @@ export function TableRow(props: TableRowProps) {
     updateItem,
     setDirtyState,
     tableVariant,
+    disableActions,
     ...dragProps
   } = props
 
@@ -165,6 +160,7 @@ export function TableRow(props: TableRowProps) {
               item={item}
               removeItem={props.removeItem}
               functionalityConfig={functionalityConfig}
+              disabled={disableActions}
             />
           )}
         </Table.Row>

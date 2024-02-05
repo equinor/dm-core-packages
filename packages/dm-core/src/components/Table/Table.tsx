@@ -1,5 +1,5 @@
 import { Button, Progress, Table as EDSTable } from '@equinor/eds-core-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ConditionalWrapper,
   Pagination,
@@ -16,6 +16,8 @@ import { SortableContext } from '../SortableList/SortableContext'
 import { TemplateMenu } from '../TemplateMenu'
 import { TableHead } from './TableHead/TableHead'
 import { TableRow } from './TableRow/TableRow'
+
+import { TableRowSkeleton } from './components'
 import {
   TTableConfig,
   TTableSortDirection,
@@ -36,7 +38,7 @@ export function Table(props: TableProps) {
     updateItem,
     config,
     setDirtyState,
-    loadingState,
+    loadingState: isLoading,
     saveTable,
   } = props
 
@@ -48,6 +50,32 @@ export function Table(props: TableProps) {
   const [sortDirection, setSortDirection] =
     useState<TTableSortDirection>('ascending')
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
+  const [addingRow, setAddingRow] = useState<boolean>(false)
+  const [deletingRow, setDeletingRow] = useState<string>('')
+
+  useEffect(() => {
+    if (isLoading) return
+    setAddingRow(false)
+    setDeletingRow('')
+  }, [isLoading])
+
+  const handleAddItem = (
+    saveOnAdd: boolean,
+    insertAtIndex?: number | undefined,
+    template?: string | undefined
+  ) => {
+    goToLastPage(1)
+    setAddingRow(true)
+    addItem(saveOnAdd, insertAtIndex, template)
+  }
+
+  const handleRemoveItem = async (
+    itemToDelete: TItem<TGenericObject>,
+    saveOnRemove?: boolean | undefined
+  ) => {
+    setDeletingRow(itemToDelete.key)
+    removeItem(itemToDelete, saveOnRemove)
+  }
 
   const {
     currentItems,
@@ -97,6 +125,11 @@ export function Table(props: TableProps) {
     setItems(reorderedItems)
     setDirtyState(true)
   }
+  const columnsLength: number = utils.getColumnsLength(
+    config,
+    functionalityConfig,
+    tableVariant
+  )
   return (
     <Stack
       style={{
@@ -127,6 +160,7 @@ export function Table(props: TableProps) {
               sortColumn={sortColumn}
               sortDirection={sortDirection}
               sortByColumn={sortByColumn}
+              functionalityConfig={functionalityConfig}
             />
             <EDSTable.Body>
               <ConditionalWrapper
@@ -143,28 +177,39 @@ export function Table(props: TableProps) {
                       <SortableItem item={item}>{children}</SortableItem>
                     )}
                   >
-                    <TableRow
-                      key={item.key}
-                      addItem={addItem}
-                      config={config}
-                      removeItem={removeItem}
-                      editMode={tableVariant === TableVariantNameEnum.Edit}
-                      functionalityConfig={functionalityConfig}
-                      idReference={props.idReference}
-                      index={index}
-                      item={item}
-                      items={items}
-                      onOpen={props.onOpen}
-                      rowsPerPage={itemsPerPage}
-                      showActionsCell={showActionsCell}
-                      setDirtyState={setDirtyState}
-                      setItems={setItems}
-                      tableVariant={tableVariant}
-                      updateItem={updateItem}
-                    />
+                    {deletingRow === item.key ? (
+                      <TableRowSkeleton columnsLength={columnsLength} />
+                    ) : (
+                      <TableRow
+                        key={item.key}
+                        addItem={addItem}
+                        config={config}
+                        removeItem={handleRemoveItem}
+                        editMode={tableVariant === TableVariantNameEnum.Edit}
+                        functionalityConfig={functionalityConfig}
+                        idReference={props.idReference}
+                        index={index}
+                        item={item}
+                        items={items}
+                        onOpen={props.onOpen}
+                        rowsPerPage={itemsPerPage}
+                        showActionsCell={showActionsCell}
+                        setDirtyState={setDirtyState}
+                        setItems={setItems}
+                        tableVariant={tableVariant}
+                        updateItem={updateItem}
+                        disableActions={isLoading}
+                      />
+                    )}
                   </ConditionalWrapper>
                 ))}
               </ConditionalWrapper>
+              {isLoading && !deletingRow && !items.length && (
+                <TableRowSkeleton
+                  columnsLength={columnsLength}
+                  count={addingRow ? 1 : 5}
+                />
+              )}
             </EDSTable.Body>
           </EDSTable>
         </SortableContext>
@@ -174,25 +219,23 @@ export function Table(props: TableProps) {
               onClick={() => {
                 const saveOnAdd = tableVariant === TableVariantNameEnum.View
                 if (!(config.templates && config.templates.length)) {
-                  addItem(saveOnAdd)
-                  goToLastPage(1)
+                  handleAddItem(saveOnAdd)
                 } else if (config.templates.length === 1) {
-                  addItem(saveOnAdd, undefined, config.templates[0].path)
-                  goToLastPage(1)
+                  handleAddItem(saveOnAdd, undefined, config.templates[0].path)
                 } else setTemplateMenuIsOpen(true)
               }}
               ariaLabel={'Add new row'}
+              disabled={isLoading}
             />
             {config.templates?.length && (
               <TemplateMenu
                 templates={config.templates}
                 onSelect={(template: TTemplate) => {
-                  addItem(
+                  handleAddItem(
                     tableVariant === TableVariantNameEnum.View,
                     undefined,
                     template?.path
                   )
-                  goToLastPage(1)
                 }}
                 onClose={() => setTemplateMenuIsOpen(false)}
                 isOpen={isTemplateMenuOpen}
@@ -216,13 +259,13 @@ export function Table(props: TableProps) {
         />
         {tableVariant === TableVariantNameEnum.Edit && (
           <Button
-            disabled={loadingState || !props.dirtyState}
+            disabled={isLoading || !props.dirtyState}
             onClick={() => saveTable(items)}
             style={{
               width: '100%',
             }}
           >
-            {loadingState ? <Progress.Dots color={'primary'} /> : 'Save'}
+            {isLoading ? <Progress.Dots color={'primary'} /> : 'Save'}
           </Button>
         )}
       </Stack>
