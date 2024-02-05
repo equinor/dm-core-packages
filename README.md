@@ -4926,3 +4926,8 @@ Co-authored-by: Stig Oskar Ofstad <stigofstad@gmail.com> (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 6c5fb47 2024-01-25 githu..[bot] chore(master): release 1.18.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.5.4
     * **JOB VERSION**: e5a2a2c 2024-02-01 githu..[bot] chore(main): release 1.5.3 grafted, HEAD -> main, origin/main
+* refactor: better variable naming (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7790162592/1)
+    * **DMSS VERSION**: df85d3d 2024-02-05 githu..[bot] chore(master): release 1.18.3 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.5.4
+    * **JOB VERSION**: e5a2a2c 2024-02-01 githu..[bot] chore(main): release 1.5.3 grafted, HEAD -> main, origin/main
