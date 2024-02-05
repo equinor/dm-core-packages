@@ -97,41 +97,46 @@ export function useViewSelector(
     let selectedViewId: string = ''
     const newViews: TItemData[] = []
     if (internalConfig.items && internalConfig.items.length) {
-      internalConfig.items.forEach((viewItem: TViewSelectorItem) => {
-        const backupKey: string = viewItem.viewConfig?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
-        const viewId = crypto.randomUUID()
-        newViews.push({
-          viewConfig: viewItem.viewConfig,
-          subItems: viewItem.subItems,
-          eds_icon: viewItem.eds_icon,
-          label: viewItem.label ?? backupKey,
-          viewId: viewId,
-          // Generate UUID to allow for multiple view of same scope
-          rootEntityId: idReference,
-          onSubmit: onSubmit,
-          onChange: onChange,
-        })
-        viewItem.subItems?.forEach((subItem) => {
-          const subBackupKey: string = backupKey + subItem.viewConfig?.scope
-          const subViewId = viewId + subItem.viewConfig?.scope
-          if (!selectedViewId && viewItem.viewConfig) selectedViewId = viewId
-          if (!selectedViewId) selectedViewId = subViewId
+      if (viewSelectorItems.length > 0) {
+        return
+      }
+      internalConfig.items.forEach(
+        (viewItem: TViewSelectorItem, index: number) => {
+          const backupKey: string = viewItem.viewConfig?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
+          const viewId: string = `${backupKey}_${index}`
           newViews.push({
-            viewConfig: subItem.viewConfig,
-            subItems: subItem.subItems,
-            eds_icon: subItem.eds_icon,
-            label: subItem.label ?? subBackupKey,
+            viewConfig: viewItem.viewConfig,
+            subItems: viewItem.subItems,
+            eds_icon: viewItem.eds_icon,
+            label: viewItem.label ?? backupKey,
+            viewId: viewId,
             // Generate UUID to allow for multiple view of same scope
-            viewId: subViewId,
             rootEntityId: idReference,
             onSubmit: onSubmit,
             onChange: onChange,
-            closeable: true,
-            isSubItem: true,
           })
-        })
-        if (!selectedViewId && viewItem.viewConfig) selectedViewId = viewId
-      })
+          viewItem.subItems?.forEach((subItem) => {
+            const subBackupKey: string = backupKey + subItem.viewConfig?.scope
+            const subViewId = viewId + subItem.viewConfig?.scope
+            if (!selectedViewId && viewItem.viewConfig) selectedViewId = viewId
+            if (!selectedViewId) selectedViewId = subViewId
+            newViews.push({
+              viewConfig: subItem.viewConfig,
+              subItems: subItem.subItems,
+              eds_icon: subItem.eds_icon,
+              label: subItem.label ?? subBackupKey,
+              // Generate UUID to allow for multiple view of same scope
+              viewId: subViewId,
+              rootEntityId: idReference,
+              onSubmit: onSubmit,
+              onChange: onChange,
+              closeable: true,
+              isSubItem: true,
+            })
+          })
+          if (!selectedViewId && viewItem.viewConfig) selectedViewId = viewId
+        }
+      )
     } else {
       // No views where passed. Create default for all complex attributes and "self"
       newViews.push({
