@@ -67,7 +67,7 @@ export function Table(props: TableProps) {
           (variant: TTableVariant) => variant.name === tableVariant
         ).functionality
 
-  const showAdditionalCell =
+  const showActionsCell =
     config.variant?.length === 2 || functionalityConfig.delete
 
   /**
@@ -122,7 +122,7 @@ export function Table(props: TableProps) {
             <TableHead
               config={config}
               tableVariant={tableVariant}
-              showAdditionalCell={showAdditionalCell}
+              showActionsCell={showActionsCell}
               setTableVariant={setTableVariant}
               sortColumn={sortColumn}
               sortDirection={sortDirection}
@@ -156,7 +156,7 @@ export function Table(props: TableProps) {
                       items={items}
                       onOpen={props.onOpen}
                       rowsPerPage={itemsPerPage}
-                      showAdditionalCell={showAdditionalCell}
+                      showActionsCell={showActionsCell}
                       setDirtyState={setDirtyState}
                       setItems={setItems}
                       tableVariant={tableVariant}

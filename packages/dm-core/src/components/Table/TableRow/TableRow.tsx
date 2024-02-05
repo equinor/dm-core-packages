@@ -159,7 +159,7 @@ export function TableRow(props: TableRowProps) {
               updateItem={updateCell}
             ></TableCell>
           ))}
-          {props.showAdditionalCell && (
+          {props.showActionsCell && (
             <TableRowActions
               editMode={editMode}
               item={item}

@@ -72,7 +72,7 @@ export function TableHead(props: TableHeadProps) {
             </SortCell>
           )
         })}
-        {props.showAdditionalCell && (
+        {props.showActionsCell && (
           <Table.Cell width='40'>
             <>
               <Button
