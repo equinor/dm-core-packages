@@ -39,7 +39,7 @@ describe('List of strings', () => {
     }
     mockBlueprintGet([blueprint])
     const utils = render(
-      <Form idReference="ds/$1" type="MyBlueprint" formData={data} config={{
+      <Form idReference="ds/$1" type="MyBlueprint" formData={data || { array: []}} config={{
         attributes: [
           {
             type: "dm-core-plugins/form/fields/ArrayField",
