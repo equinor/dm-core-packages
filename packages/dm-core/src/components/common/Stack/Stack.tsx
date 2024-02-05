@@ -23,5 +23,5 @@ Stack.defaultProps = {
   wrap: 'initial',
   padding: 0,
   grow: 0,
-  shrink: 1,
+  shrink: 0,
 }

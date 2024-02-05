@@ -84,6 +84,7 @@ export type TableProps = {
 export type TableHeadProps = {
   config: TTableConfig
   setTableVariant: React.Dispatch<React.SetStateAction<TableVariantNameEnum>>
+  showAdditionalCell: boolean
   sortColumn: string | undefined
   sortDirection: TTableSortDirection
   sortByColumn: (column: string) => void
@@ -111,6 +112,7 @@ export type TableRowProps = {
   rowsPerPage: number
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
   setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
+  showAdditionalCell: boolean
   updateItem: (
     itemToUpdate: TItem<TGenericObject>,
     newDocument: TGenericObject,
@@ -126,6 +128,7 @@ export type TableRowActionsProps = {
     itemToDelete: TItem<TGenericObject>,
     saveOnRemove?: boolean
   ) => Promise<void>
+  functionalityConfig: TTableFunctionalityConfig
 }
 
 export type TableCellProps = {

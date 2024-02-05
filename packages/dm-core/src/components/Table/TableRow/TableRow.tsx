@@ -159,11 +159,12 @@ export function TableRow(props: TableRowProps) {
               updateItem={updateCell}
             ></TableCell>
           ))}
-          {functionalityConfig?.delete && (
+          {props.showAdditionalCell && (
             <TableRowActions
               editMode={editMode}
               item={item}
               removeItem={props.removeItem}
+              functionalityConfig={functionalityConfig}
             />
           )}
         </Table.Row>
