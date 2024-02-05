@@ -5,6 +5,7 @@ import {
   Tree,
   TreeNode,
   TreeView,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Progress } from '@equinor/eds-core-react'
 import { useContext, useState } from 'react'
@@ -17,11 +18,13 @@ export default () => {
     treeNodes: TreeNode[]
     loading: boolean
   }>(FSTreeContext)
+  const { setSelectedEntity } = useApplication()
   const [selectedType, setSelectedType] = useState<string>()
-  const [selectedEntity, setSelectedEntity] = useState<string>()
+  const [referenceId, setReferenceId] = useState<string>('')
   const [nodeDimensions, setNodeDimensions] = useState<string | undefined>(
     undefined
   )
+
   return (
     <div style={{ display: 'flex', height: '100%', width: '100%' }}>
       {loading ? (
@@ -35,14 +38,15 @@ export default () => {
             onSelect={(node: TreeNode) => {
               if (node.type === EBlueprint.PACKAGE) return
               setSelectedType(node.type)
-              setSelectedEntity(node.nodeId)
+              setSelectedEntity(node.entity)
+              setReferenceId(node.nodeId)
               setNodeDimensions(Array.isArray(node.entity) ? '*' : undefined)
             }}
             NodeWrapper={NodeRightClickMenu}
           />
         </Sidebar>
       )}
-      {selectedType && selectedEntity && (
+      {selectedType && referenceId && (
         <div
           style={{
             height: '100%',
@@ -53,7 +57,7 @@ export default () => {
         >
           <EntityView
             type={selectedType}
-            idReference={selectedEntity}
+            idReference={referenceId}
             dimensions={nodeDimensions}
           />
         </div>

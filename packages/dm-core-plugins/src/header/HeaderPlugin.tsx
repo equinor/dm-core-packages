@@ -4,6 +4,7 @@ import {
   TApplication,
   TGenericObject,
   TUiRecipe,
+  useApplication,
   useBlueprint,
   useDocument,
   useUiPlugins,
@@ -74,6 +75,7 @@ export default (props: IUIPlugin): React.ReactElement => {
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
+  const { setSelectedEntity } = useApplication()
   const { getUiPlugin } = useUiPlugins()
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
     component: () => <div />,
@@ -142,9 +144,10 @@ export default (props: IUIPlugin): React.ReactElement => {
             <Logo aria-label='main-heading'>{entity.label}</Logo>
             <AppSelector
               items={recipeNames}
-              onSelectItem={(item) =>
+              onSelectItem={(item) => {
+                setSelectedEntity(undefined)
                 setSelectedRecipe(getRecipeConfigAndPlugin(item))
-              }
+              }}
               currentItem={selectedRecipe.name}
             />
           </TopBar.Header>

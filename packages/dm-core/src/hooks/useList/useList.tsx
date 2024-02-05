@@ -7,6 +7,9 @@ import { TAttribute, TGenericObject, TLinkReference } from '../../types'
 import { resolveRelativeAddressSimplified } from '../../utils/addressUtilities'
 import { IUseListReturnType, TItem } from './types'
 import * as utils from './utils'
+import { useApplication } from '../../context/ApplicationContext'
+import { rescopeUsingIdReference } from '../../utils/objectUtilities'
+import { TEntityPickerReturn } from '../../components'
 
 export type { TItem }
 
@@ -21,6 +24,7 @@ export function useList<T extends object>(
   const [dirtyState, setDirtyState] = useState<boolean>(false)
   const [refresh, reloadData] = useState()
   const dmssAPI = useDMSS()
+  const { selectedEntity, updateEntity } = useApplication()
 
   useEffect(() => {
     dmssAPI
@@ -35,55 +39,45 @@ export function useList<T extends object>(
       })
   }, [dmssAPI, idReference])
 
+  const scoped = rescopeUsingIdReference(selectedEntity, idReference)
+
   useEffect(() => {
     if (!attribute) return
     setLoading(true)
     setDirtyState(false)
-    dmssAPI
-      .documentGet({
-        address: idReference,
-        depth: 0,
-      })
-      .then(async (response: AxiosResponse) => {
-        if (attribute.contained) {
-          if (!Array.isArray(response.data)) {
-            throw new Error(
-              `Not an array! Got document ${JSON.stringify(response.data)} `
-            )
-          }
-          const items = Object.values(response.data).map((data, index) => ({
-            key: crypto.randomUUID() as string,
-            index: index,
-            data: data,
-            reference: null,
-            isSaved: true,
-          }))
-          setItems(items)
-          setError(null)
-        } else {
-          const resolved =
-            resolveReferences &&
-            (await dmssAPI.documentGet({
-              address: idReference,
-              depth: 2,
-            }))
-          const resolvedItems = (resolved ? resolved.data : []) as T[]
-          const items = Object.values(response.data).map((data, index) => ({
-            key: crypto.randomUUID() as string,
-            index: index,
-            data: resolveReferences ? resolvedItems[index] : (data as T),
-            reference: data as TLinkReference,
-            isSaved: true,
-          }))
-          setItems(items)
-          setError(null)
+    async function getEntity() {
+      let values = []
+      if (!selectedEntity) {
+        // Fetch entity if no entity exists in context
+        const response = await dmssAPI.documentGet({
+          address: idReference,
+          depth: resolveReferences ? 2 : 0,
+        })
+        if (!Array.isArray(response.data)) {
+          throw new Error(
+            `Not an array! Got document ${JSON.stringify(response.data)} `
+          )
         }
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        setError(error.response?.data || { message: error.name, data: error })
-      })
-      .finally(() => setLoading(false))
-  }, [attribute, refresh])
+        values = response.data as any[]
+      } else {
+        if (idReference.includes('.')) {
+          const scoped = rescopeUsingIdReference(selectedEntity, idReference)
+          values = scoped as any[]
+        }
+      }
+      const items = Object.values(values).map((data, index) => ({
+        key: crypto.randomUUID() as string,
+        index: index,
+        data: data,
+        reference: null,
+        isSaved: true,
+      }))
+      setItems(items)
+      setError(null)
+      setLoading(false)
+    }
+    getEntity()
+  }, [attribute, refresh, scoped])
 
   async function addItem(
     saveOnAdd: boolean = true,
@@ -122,24 +116,13 @@ export function useList<T extends object>(
         saveOnAdd
       )
 
-      if (insertAtIndex !== undefined) {
-        const itemsCopy = [...items]
-        itemsCopy.splice(insertAtIndex, 0, newItem)
-        setItems(itemsCopy)
-        if (saveOnAdd) {
-          await save(itemsCopy)
-          setDirtyState(false)
-        }
-      } else {
-        if (saveOnAdd) {
-          await dmssAPI.documentAdd({
-            address: idReference,
-            document: JSON.stringify(newItem.data),
-          })
-          setDirtyState(false)
-        }
-        const itemsCopy = [...items, newItem]
-        setItems(itemsCopy)
+      const itemsCopy = [...items]
+      itemsCopy.splice(insertAtIndex || items.length, 0, newItem)
+      setItems(itemsCopy)
+      if (saveOnAdd) {
+        await save(itemsCopy)
+        updateEntity(idReference, itemsCopy)
+        setDirtyState(false)
       }
     } catch (error) {
       if (isAxiosError(error)) {
@@ -161,15 +144,16 @@ export function useList<T extends object>(
       (item: TItem<T>) => item.key === itemToDelete.key
     )
     try {
+      const newList = [...items]
+      newList.splice(index, 1)
       if (saveOnRemove) {
         await dmssAPI.documentRemove({
           address: `${idReference}[${index}]`,
         })
+        updateEntity(idReference, newList)
       } else {
         setDirtyState(true)
       }
-      const newList = [...items]
-      newList.splice(index, 1)
       setItems(newList)
     } catch (error) {
       if (isAxiosError(error)) {
@@ -199,17 +183,8 @@ export function useList<T extends object>(
     }
     const newKey = crypto.randomUUID() as string
     try {
-      if (saveOnAdd) {
-        await dmssAPI.documentAdd({
-          address: idReference,
-          document: JSON.stringify(reference),
-        })
-      } else {
-        setDirtyState(true)
-      }
-      // The 'previousState' is needed incase multiple items are added at the same time
-      setItems((v) => [
-        ...v,
+      const newItems = [
+        ...items,
         {
           key: newKey,
           index: items?.length,
@@ -217,7 +192,17 @@ export function useList<T extends object>(
           reference: reference,
           isSaved: saveOnAdd,
         },
-      ])
+      ]
+      if (saveOnAdd) {
+        await dmssAPI.documentAdd({
+          address: idReference,
+          document: JSON.stringify(reference),
+        })
+        updateEntity(idReference, newItems)
+      } else {
+        setDirtyState(true)
+      }
+      setItems(newItems)
     } catch (error) {
       if (isAxiosError(error)) {
         setError(error.response?.data || { message: error.name, data: error })
@@ -227,6 +212,54 @@ export function useList<T extends object>(
       setLoading(false)
     }
     return newKey
+  }
+
+  async function addReferences(
+    entities: TEntityPickerReturn[],
+    saveOnAdd: boolean = true
+  ): Promise<string[]> {
+    if (!attribute) throw new Error('Missing attribute')
+    if (attribute.contained)
+      throw new Error(
+        "Can't add reference to a list that has contained items, need to use addItem method instead"
+      )
+    setLoading(true)
+    const newItems: TItem<T>[] = []
+    for (const { address, entity } of entities) {
+      const reference: TLinkReference = {
+        type: EBlueprint.REFERENCE,
+        referenceType: 'link',
+        address: address,
+      }
+      try {
+        if (saveOnAdd) {
+          await dmssAPI.documentAdd({
+            address: idReference,
+            document: JSON.stringify(reference),
+          })
+        } else {
+          setDirtyState(true)
+        }
+        newItems.push({
+          key: crypto.randomUUID(),
+          index: items?.length,
+          data: entity as T,
+          reference: reference,
+          isSaved: saveOnAdd,
+        })
+      } catch (error) {
+        if (isAxiosError(error)) {
+          setError(error.response?.data || { message: error.name, data: error })
+        }
+        throw error
+      } finally {
+        if (saveOnAdd) {
+          updateEntity(idReference, newItems)
+        }
+        setLoading(false)
+      }
+    }
+    return newItems.map((item) => item.key)
   }
 
   async function updateItem(
@@ -244,16 +277,17 @@ export function useList<T extends object>(
       : items[index].reference?.address
     if (!address) throw new Error('Missing address')
     try {
+      const newList = [...items]
+      newList[index].data = newDocument
       if (saveOnUpdate) {
         await dmssAPI.documentUpdate({
           idAddress: address,
           data: JSON.stringify(newDocument),
         })
+        updateEntity(idReference, newList)
       } else {
         setDirtyState(true)
       }
-      const newList = [...items]
-      newList[index].data = newDocument
       setItems(newList)
       setError(null)
     } catch (error) {
@@ -279,6 +313,7 @@ export function useList<T extends object>(
       const updatedItems: TItem<T>[] = itemsToSave.map((item) => {
         return { ...item, isSaved: true }
       })
+      updateEntity(idReference, updatedItems)
       setItems(updatedItems)
       setDirtyState(false)
     } catch (error) {
@@ -328,6 +363,7 @@ export function useList<T extends object>(
     addItem,
     removeItem,
     addReference,
+    addReferences,
     updateItem,
     save,
     updateAttribute,

@@ -4,6 +4,8 @@ import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
 
 import { toast } from 'react-toastify'
+import { useApplication } from '../context/ApplicationContext'
+import { rescopeUsingIdReference } from '../utils/objectUtilities'
 
 interface IUseDocumentReturnType<T> {
   document: T | null
@@ -57,9 +59,24 @@ export function useDocument<T>(
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
   const dmssAPI = useDMSS()
+  const { selectedEntity, setSelectedEntity, application, updateEntity } =
+    useApplication()
+
+  const scoped = rescopeUsingIdReference(selectedEntity, idReference)
 
   useEffect(() => {
     setLoading(true)
+    if (selectedEntity && (depth || 0) < 2) {
+      if (idReference.includes('.') || idReference.includes('[')) {
+        const scoped = rescopeUsingIdReference(selectedEntity, idReference)
+        setDocument(scoped)
+        setLoading(false)
+        return
+      }
+      setDocument(selectedEntity as any)
+      setLoading(false)
+      return
+    }
     const documentDepth: number = depth ?? 0
     if (documentDepth < 0 || documentDepth > 999)
       throw new Error('Depth must be a positive number < 999')
@@ -70,6 +87,9 @@ export function useDocument<T>(
       })
       .then((response: any) => {
         const data = response.data
+        if (application && !selectedEntity && !(application._id === data._id)) {
+          setSelectedEntity(data as any)
+        }
         setDocument(data)
         setError(null)
       })
@@ -83,7 +103,7 @@ export function useDocument<T>(
         setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
-  }, [idReference, depth])
+  }, [idReference, depth, scoped])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function updateDocument(
@@ -100,6 +120,7 @@ export function useDocument<T>(
       })
       .then((response: any) => {
         const data = response.data.data
+        updateEntity(idReference, data)
         setDocument(data)
         setError(null)
         if (notify) toast.success('Document updated')

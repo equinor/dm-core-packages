@@ -1,3 +1,4 @@
+import { TEntityPickerReturn } from '../../components'
 import { ErrorResponse } from '../../services'
 import { TAttribute, TLinkReference } from '../../types'
 
@@ -31,6 +32,10 @@ export interface IUseListReturnType<T> {
     entity: T | null,
     saveOnAdd?: boolean
   ) => Promise<string>
+  addReferences: (
+    entities: TEntityPickerReturn[],
+    saveOnAdd?: boolean
+  ) => Promise<string[]>
   save: (itemsToSave: TItem<T>[]) => Promise<void>
   updateAttribute: (
     itemToUpdate: TItem<T>,

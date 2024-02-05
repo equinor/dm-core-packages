@@ -91,7 +91,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     error,
     dirtyState,
     addItem,
-    addReference,
+    addReferences,
     removeItem,
     save,
     moveItem,
@@ -188,13 +188,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               : undefined
           }
           onChange={async (entities: TEntityPickerReturn[]) => {
-            const newKeys: Record<string, boolean> = {}
-            for (const { address, entity } of entities) {
-              const newKey = await addReference(address, entity, false)
-              newKeys[newKey] = true
-            }
+            const newKeys = await addReferences(entities, false)
             if (internalConfig.expanded) {
-              setExpanded({ ...expanded, ...newKeys })
+              const newExpandedKeys: { [key: string]: boolean } = {}
+              newKeys.forEach((key) => (newExpandedKeys[key] = true))
+              setExpanded({ ...expanded, ...expanded })
             }
           }}
           multiple
