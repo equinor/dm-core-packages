@@ -94,7 +94,6 @@ export function Table(props: TableProps) {
     setItems(reorderedItems)
     setDirtyState(true)
   }
-  console.log(config)
   return (
     <Stack
       style={{
