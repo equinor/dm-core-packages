@@ -170,8 +170,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       style={{
         width: config?.width || '100%',
         height: '100%',
-        display: 'flex',
-        overflow: 'scroll',
+        overflow: 'auto',
       }}
     >
       {attribute && !attribute.contained && (
@@ -201,7 +200,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           hideInvalidTypes={internalConfig.hideInvalidTypes}
         />
       )}
-      <div
+      <Stack
         style={{
           width: '100%',
           display: 'flex',
@@ -211,10 +210,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
       >
         {currentItems &&
           currentItems.map((item: TItem<TGenericObject>, index: number) => (
-            <Stack
-              key={item?.key}
-              style={{ width: '100%', height: 'auto', display: 'flex' }}
-            >
+            <Stack key={item?.key}>
               <Stack
                 direction='row'
                 role='row'
@@ -222,20 +218,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 alignItems='center'
                 className={`border-b border-[#ccc]`}
                 style={{
-                  width: '100%',
-                  height: '100%',
                   padding: '4px',
                 }}
               >
-                <Stack
-                  direction='row'
-                  alignItems='center'
-                  style={{
-                    height: '100%',
-                    display: 'flex',
-                    width: '100%',
-                  }}
-                >
+                <Stack direction='row' alignItems='center'>
                   {internalConfig.functionality.expand && (
                     <EdsProvider
                       density={
@@ -388,7 +374,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               </LazyLoad>
             </Stack>
           ))}
-      </div>
+      </Stack>
       <EdsProvider density={internalConfig.compact ? 'compact' : 'comfortable'}>
         <div
           className={`w-full space-x-1 flex flex-wrap my-2 justify-between overflow-scroll`}
