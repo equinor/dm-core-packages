@@ -17,7 +17,7 @@ import { TemplateMenu } from '../TemplateMenu'
 import { TableHead } from './TableHead/TableHead'
 import { TableRow } from './TableRow/TableRow'
 
-import { TableRowSkeleton } from './components'
+import { SkeletonRow } from './TableRow/SkeletonRow'
 import {
   TTableConfig,
   TTableSortDirection,
@@ -38,7 +38,7 @@ export function Table(props: TableProps) {
     updateItem,
     config,
     setDirtyState,
-    loadingState: isLoading,
+    isLoading,
     saveTable,
   } = props
 
@@ -178,7 +178,7 @@ export function Table(props: TableProps) {
                     )}
                   >
                     {deletingRow === item.key ? (
-                      <TableRowSkeleton columnsLength={columnsLength} />
+                      <SkeletonRow columnsLength={columnsLength} />
                     ) : (
                       <TableRow
                         key={item.key}
@@ -204,10 +204,10 @@ export function Table(props: TableProps) {
                   </ConditionalWrapper>
                 ))}
               </ConditionalWrapper>
-              {isLoading && !deletingRow && !items.length && (
-                <TableRowSkeleton
+              {((isLoading && !items.length && !deletingRow) || addingRow) && (
+                <SkeletonRow
                   columnsLength={columnsLength}
-                  count={addingRow ? 1 : 5}
+                  count={addingRow ? 1 : 3}
                 />
               )}
             </EDSTable.Body>

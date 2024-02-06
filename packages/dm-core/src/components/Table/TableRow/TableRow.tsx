@@ -10,12 +10,12 @@ import {
   TemplateMenu,
   ViewCreator,
 } from '../../../'
-import { NotHoverColorTableRow } from '../components'
 import { TTableColumnConfig, TableRowProps } from '../types'
 import * as utils from '../utils'
 import { TableCell } from './TableCell/TableCell'
 import { TableRowActions } from './TableRowActions/TableRowActions'
 import * as Styled from './styles'
+import { NotHoverColorTableRow } from './styles'
 
 export function TableRow(props: TableRowProps) {
   const {

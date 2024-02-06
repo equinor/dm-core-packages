@@ -33,7 +33,7 @@ export const TablePlugin = (props: IUIPlugin) => {
       dirtyState={dirtyState}
       idReference={idReference}
       items={items}
-      loadingState={isLoading}
+      isLoading={isLoading}
       onOpen={props.onOpen}
       removeItem={removeItem}
       saveTable={save}
