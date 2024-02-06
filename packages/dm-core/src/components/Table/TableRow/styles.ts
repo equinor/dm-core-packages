@@ -69,3 +69,11 @@ export const InsertRowButton = styled.button`
     }
   }
 `
+
+export const NotHoverColorTableRow = styled(Table.Row)`
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  &:hover {
+    background-color: white; // same as the non-hover state
+  }
+`
