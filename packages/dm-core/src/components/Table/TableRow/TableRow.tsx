@@ -166,7 +166,7 @@ export function TableRow(props: TableRowProps) {
         </Table.Row>
       </EdsProvider>
       <LazyLoad visible={isExpanded} element={NotHoverColorTableRow}>
-        <Table.Cell colSpan={columnsLength}>
+        <Table.Cell colSpan={columnsLength} style={{ height: '100%' }}>
           <ViewCreator
             idReference={`${idReference}[${item.index}]`}
             onSubmit={(data: TGenericObject) => handleItemUpdate(item, data)}
