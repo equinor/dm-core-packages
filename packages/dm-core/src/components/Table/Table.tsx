@@ -134,7 +134,7 @@ export function Table(props: TableProps) {
     <Stack
       style={{
         width: config?.width || '100%',
-        overflow: 'scroll',
+        overflow: 'auto',
         height: '100%',
       }}
       spacing={0.5}
@@ -247,8 +247,8 @@ export function Table(props: TableProps) {
       <Stack
         direction='row'
         spacing={1}
-        justifyContent='space-between'
-        style={{ width: 'max-content' }}
+        justifyContent='flex-end'
+        style={{ width: '100%' }}
       >
         <Pagination
           count={items?.length || 0}
@@ -261,9 +261,6 @@ export function Table(props: TableProps) {
           <Button
             disabled={isLoading || !props.dirtyState}
             onClick={() => saveTable(items)}
-            style={{
-              width: '100%',
-            }}
           >
             {isLoading ? <Progress.Dots color={'primary'} /> : 'Save'}
           </Button>
