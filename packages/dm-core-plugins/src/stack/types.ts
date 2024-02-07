@@ -17,7 +17,7 @@ export const defaultConfig: StackPluginConfig = {
   verticalPlacement: 'left',
   horizontalPlacement: 'top',
   spacing: 2,
-  maxWidth: '100%',
+  maxWidth: 'none',
   wrap: false,
   classNames: [],
 }

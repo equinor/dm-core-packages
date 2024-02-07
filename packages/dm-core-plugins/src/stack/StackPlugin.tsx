@@ -32,6 +32,7 @@ export const StackPlugin = (props: IUIPlugin) => {
     className: config.classNames?.join(' '),
     spacing: config.spacing !== undefined ? config.spacing : 1.5,
     wrap: config.wrap ? 'wrap' : 'no-wrap',
+    style: { maxWidth: config.maxWidth },
   }
 
   return (
