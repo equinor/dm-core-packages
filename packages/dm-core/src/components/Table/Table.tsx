@@ -248,7 +248,7 @@ export function Table(props: TableProps) {
         direction='row'
         spacing={1}
         justifyContent='flex-end'
-        style={{ width: '100%' }}
+        style={{ width: '100%', marginInlineEnd: '1px' }}
       >
         <Pagination
           count={items?.length || 0}
