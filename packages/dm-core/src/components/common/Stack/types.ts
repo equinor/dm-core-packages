@@ -42,7 +42,7 @@ export interface StackProps extends React.ComponentPropsWithoutRef<'div'> {
     | 'max-content'
   grow?: number
   shrink?: number
-  direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse'
+  direction?: DirectionTypes
   wrap?: 'initial' | 'no-wrap' | 'wrap' | 'wrap-reverse'
   order?: number
   className?: string

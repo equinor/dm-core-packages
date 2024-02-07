@@ -225,6 +225,7 @@ export type TViewConfig = {
   eds_icon?: string
   roles?: string[]
   showRefreshButton?: boolean
+  recipe?: string
 }
 
 export type TReferenceViewConfig = TViewConfig & {
