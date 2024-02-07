@@ -44,12 +44,7 @@ export function Pagination(props: PaginationProps) {
 
   return (
     <EdsProvider density='compact'>
-      <Stack
-        direction='row'
-        spacing={1}
-        alignItems='center'
-        justifyContent='flex-end'
-      >
+      <Stack direction='row' spacing={1} alignItems='center'>
         <Stack spacing={0.5} direction='row' alignItems='center'>
           <Typography variant='label' group='input'>
             Rows per page:{' '}
