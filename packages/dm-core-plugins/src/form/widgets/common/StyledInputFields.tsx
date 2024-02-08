@@ -61,7 +61,6 @@ export const StyledTextField = (
   props: React.ComponentProps<typeof StyledEDSField>
 ) => {
   const { value, ...restProps } = props
-
   return (
     <StyledEDSField
       {...restProps}

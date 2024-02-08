@@ -46,7 +46,7 @@ export const Form = (props: TFormProps) => {
   const { blueprint, storageRecipes, isLoading, error } = useBlueprint(type)
   const dmssAPI = useDMSS()
   const { name } = useContext(ApplicationContext)
-  const [showComponent, setShowComponent] = useState(true)
+  const [reloadCounter, setReloadCounter] = useState(0)
   const showSubmitButton = props.showSubmitButton ?? true
   // Every react hook form controller needs to have a unique name
   const namePath: string = showSubmitButton
@@ -65,9 +65,8 @@ export const Form = (props: TFormProps) => {
   const methods = showSubmitButton ? rootMethods : childMethods
 
   const handleCustomReset = () => {
-    setShowComponent(false)
     methods.reset()
-    setTimeout(() => setShowComponent(true), 0)
+    setReloadCounter(reloadCounter + 1)
   }
 
   const config: TFormConfig = {
@@ -217,12 +216,12 @@ export const Form = (props: TFormProps) => {
   }
 
   return (
-    <>
-      {showComponent && showSubmitButton ? (
+    <div key={reloadCounter} className='w-full h-full'>
+      {showSubmitButton ? (
         <FormProvider {...methods}>{content()}</FormProvider>
       ) : (
         <>{content()}</>
       )}
-    </>
+    </div>
   )
 }
