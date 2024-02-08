@@ -376,9 +376,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           ))}
       </Stack>
       <EdsProvider density={internalConfig.compact ? 'compact' : 'comfortable'}>
-        <div
-          className={`w-full space-x-1 flex flex-wrap my-2 justify-between overflow-scroll`}
-        >
+        <div className={`w-full space-x-1 flex flex-wrap my-2 justify-between`}>
           <div className='flex'>
             {showPagination && (
               <Pagination
