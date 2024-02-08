@@ -55,7 +55,7 @@
     {
       "name": "wrapItems",
       "type": "CORE:BlueprintAttribute",
-      "description": "When using vertical direction, make items wrap under eachother when width is getting too small to fit all items",
+      "description": "When using horizontal direction, make items wrap under eachother when width is getting too small to fit all items",
       "attributeType": "boolean",
       "optional": true,
       "default": false
