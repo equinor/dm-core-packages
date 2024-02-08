@@ -22,7 +22,7 @@ export const StackPlugin = (props: IUIPlugin) => {
     right: 'flex-end',
     top: 'flex-start',
     bottom: 'flex-end',
-    spaceItems: 'space-between',
+    spaceEvenly: 'space-between',
   }
 
   const stackProps: StackProps = {
