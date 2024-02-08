@@ -13,11 +13,16 @@ export const SkeletonRow = ({
   columnsLength,
   count = 1,
 }: { columnsLength: number; count?: number }) => {
-  return Array.from({ length: count }).map(() => (
-    <NotHoverColorTableRow>
-      <SkeletonCell colSpan={columnsLength}>
-        <Skeleton height={'100%'} />
-      </SkeletonCell>
-    </NotHoverColorTableRow>
-  ))
+  let keyCounter = 0
+
+  return Array.from({ length: count }).map(() => {
+    keyCounter = keyCounter + 1
+    return (
+      <NotHoverColorTableRow key={keyCounter}>
+        <SkeletonCell colSpan={columnsLength}>
+          <Skeleton height={'100%'} />
+        </SkeletonCell>
+      </NotHoverColorTableRow>
+    )
+  })
 }
