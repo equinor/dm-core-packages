@@ -24,7 +24,7 @@
     {
       "name": "horizontalPlacement",
       "type": "CORE:BlueprintAttribute",
-      "description": "left, center, right or spaceItems",
+      "description": "left, center, right or spaceEvenly",
       "attributeType": "string",
       "optional": true,
       "default": "left"
