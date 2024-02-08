@@ -178,7 +178,10 @@ export function Table(props: TableProps) {
                     )}
                   >
                     {deletingRow === item.key ? (
-                      <SkeletonRow columnsLength={columnsLength} />
+                      <SkeletonRow
+                        columnsLength={columnsLength}
+                        key={item.key}
+                      />
                     ) : (
                       <TableRow
                         key={item.key}
