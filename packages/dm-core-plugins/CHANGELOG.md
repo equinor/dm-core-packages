@@ -60,6 +60,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.46.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.46.0...dm-core-plugins-v1.46.1) (2024-02-08)
+
+
+### Bug Fixes
+
+* form crashing bug ([77118b7](https://github.com/equinor/dm-core-packages/commit/77118b7c3a8df8e8ba8b605c6286563cddf86f5e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.39.4 to ^1.39.5
+
 ## [1.46.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.45.2...dm-core-plugins-v1.46.0) (2024-02-08)
 
 
