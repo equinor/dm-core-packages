@@ -11,11 +11,11 @@ export const StackPlugin = (props: IUIPlugin) => {
 
   // map plugin language to stack props/css language
   const configMap: { [name: string]: string } = {
-    horizontal: 'column',
-    vertical: 'row',
-    verticalPlacement:
-      config.direction === 'horizontal' ? 'alignItems' : 'justifyContent',
+    vertical: 'column',
+    horizontal: 'row',
     horizontalPlacement:
+      config.direction === 'horizontal' ? 'alignItems' : 'justifyContent',
+    verticalPlacement:
       config.direction === 'horizontal' ? 'justifyContent' : 'alignItems',
     left: 'flex-start',
     center: 'center',
@@ -30,7 +30,7 @@ export const StackPlugin = (props: IUIPlugin) => {
     [configMap.verticalPlacement]: configMap[config.verticalPlacement],
     [configMap.horizontalPlacement]: configMap[config.horizontalPlacement],
     className: config.classNames?.join(' '),
-    spacing: config.spacing !== undefined ? config.spacing : 1.5,
+    spacing: config.spacing,
     wrap: config.wrap ? 'wrap' : 'no-wrap',
     style: { maxWidth: config.maxWidth },
   }

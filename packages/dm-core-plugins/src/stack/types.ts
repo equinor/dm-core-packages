@@ -3,8 +3,8 @@ import { TViewConfig } from '@development-framework/dm-core'
 export type StackPluginConfig = {
   items: TViewConfig[]
   direction: 'horizontal' | 'vertical'
-  verticalPlacement: 'left' | 'center' | 'right' | 'spaceItems'
-  horizontalPlacement: 'top' | 'center' | 'bottom'
+  horizontalPlacement: 'left' | 'center' | 'right' | 'spaceItems'
+  verticalPlacement: 'top' | 'center' | 'bottom'
   spacing: number
   maxWidth: string
   wrap: boolean
@@ -13,9 +13,9 @@ export type StackPluginConfig = {
 
 export const defaultConfig: StackPluginConfig = {
   items: [],
-  direction: 'horizontal',
-  verticalPlacement: 'left',
-  horizontalPlacement: 'top',
+  direction: 'vertical',
+  horizontalPlacement: 'left',
+  verticalPlacement: 'top',
   spacing: 2,
   maxWidth: 'none',
   wrap: false,
