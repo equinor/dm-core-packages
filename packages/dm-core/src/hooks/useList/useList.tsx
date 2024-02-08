@@ -46,9 +46,15 @@ export function useList<T extends object>(
     setLoading(true)
     setDirtyState(false)
     async function getEntity() {
-      let values = []
-      if (!selectedEntity) {
-        // Fetch entity if no entity exists in context
+      let values: any[] = []
+
+      if (selectedEntity) {
+        if (idReference.includes('.')) {
+          values = [...scoped]
+        }
+      }
+      const includesReferences = values.some((item) => item.referenceType)
+      if (!selectedEntity || includesReferences) {
         const response = await dmssAPI.documentGet({
           address: idReference,
           depth: resolveReferences ? 2 : 0,
@@ -59,17 +65,13 @@ export function useList<T extends object>(
           )
         }
         values = response.data as any[]
-      } else {
-        if (idReference.includes('.')) {
-          const scoped = rescopeUsingIdReference(selectedEntity, idReference)
-          values = scoped as any[]
-        }
       }
+
       const items = Object.values(values).map((data, index) => ({
         key: crypto.randomUUID() as string,
         index: index,
         data: data,
-        reference: null,
+        reference: scoped[index],
         isSaved: true,
       }))
       setItems(items)
@@ -231,6 +233,7 @@ export function useList<T extends object>(
         referenceType: 'link',
         address: address,
       }
+      console.log(reference)
       try {
         if (saveOnAdd) {
           await dmssAPI.documentAdd({
@@ -256,6 +259,7 @@ export function useList<T extends object>(
         if (saveOnAdd) {
           updateEntity(idReference, newItems)
         }
+        setItems([...items, ...newItems])
         setLoading(false)
       }
     }
@@ -313,7 +317,7 @@ export function useList<T extends object>(
       const updatedItems: TItem<T>[] = itemsToSave.map((item) => {
         return { ...item, isSaved: true }
       })
-      updateEntity(idReference, updatedItems)
+      updateEntity(idReference, payload)
       setItems(updatedItems)
       setDirtyState(false)
     } catch (error) {

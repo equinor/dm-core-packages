@@ -66,7 +66,7 @@ export function useDocument<T>(
 
   useEffect(() => {
     setLoading(true)
-    if (selectedEntity && (depth || 0) < 2) {
+    if (selectedEntity && (depth || 0) < 1) {
       if (idReference.includes('.') || idReference.includes('[')) {
         const scoped = rescopeUsingIdReference(selectedEntity, idReference)
         setDocument(scoped)
