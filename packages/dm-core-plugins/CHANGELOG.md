@@ -60,6 +60,32 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.46.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.45.2...dm-core-plugins-v1.46.0) (2024-02-08)
+
+
+### Features
+
+* support create primitive arrays based on dimensions in form ([ebf1b31](https://github.com/equinor/dm-core-packages/commit/ebf1b3130b1527e26d84b3fbba2e2af6fc57c6db))
+
+
+### Bug Fixes
+
+* job control had a huge scroll bar ([ee71521](https://github.com/equinor/dm-core-packages/commit/ee715216341fccb6183d98b581c2e19568a9064b))
+* list scroll when it should not ([ae5fc34](https://github.com/equinor/dm-core-packages/commit/ae5fc34e07b9e95fd4a57eca41fe314934b3e5fd))
+* okdsfd ([448ecbf](https://github.com/equinor/dm-core-packages/commit/448ecbf5637c69459ac422440bb190b5691e7588))
+* skeleton custom component and padding issues ([448ecbf](https://github.com/equinor/dm-core-packages/commit/448ecbf5637c69459ac422440bb190b5691e7588))
+* **table-list-width:** config ([a8a27f6](https://github.com/equinor/dm-core-packages/commit/a8a27f6810ee64b70f0483cf65bca1212c37b9c6))
+* test doesn't have default empty array as value ([1dcba36](https://github.com/equinor/dm-core-packages/commit/1dcba3666f911ab0baeb900540e652f3b3bf6b3f))
+* work in progress ([6d0b9d2](https://github.com/equinor/dm-core-packages/commit/6d0b9d292f2c1f83e5a4583086c4940ed37a9fb2))
+* work in progress ([a9464a9](https://github.com/equinor/dm-core-packages/commit/a9464a940609cfa7c53b315bf4175036dfb032e4))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.39.3 to ^1.39.4
+
 ## [1.45.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.45.0...dm-core-plugins-v1.45.1) (2024-02-02)
 
 

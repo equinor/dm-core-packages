@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.39.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.3...dm-core-v1.39.4) (2024-02-08)
+
+
+### Bug Fixes
+
+* actually fix horisontal sroll on table ([605c638](https://github.com/equinor/dm-core-packages/commit/605c63853abbc54a9ba0ddd1fe7554d82aee7754))
+* adding skeletons to table ([17c634f](https://github.com/equinor/dm-core-packages/commit/17c634fdec05c42e54beaf038dfce7de14e85e23))
+* correct cells based on enabled functionality + pagination styling ([830c4be](https://github.com/equinor/dm-core-packages/commit/830c4be4687011e6f59bc535ce7b670eed5328ea))
+* datepicker calendar ([2062133](https://github.com/equinor/dm-core-packages/commit/206213322a2eb979d73b6da7a663150cce3ca907))
+* okdsfd ([448ecbf](https://github.com/equinor/dm-core-packages/commit/448ecbf5637c69459ac422440bb190b5691e7588))
+* popovers always on top ([44ed0f5](https://github.com/equinor/dm-core-packages/commit/44ed0f502ff3d9390a2a6e76afaecb12793bf93d))
+* remove config options ([4432060](https://github.com/equinor/dm-core-packages/commit/44320603d36d6b287d59a4a1bdd8a8c72f9b28ac))
+* scroll bar always there pagination bug ([98482eb](https://github.com/equinor/dm-core-packages/commit/98482ebee8bf9ae7f2b7535427b8f8dcdc6321f1))
+* skeleton custom component and padding issues ([448ecbf](https://github.com/equinor/dm-core-packages/commit/448ecbf5637c69459ac422440bb190b5691e7588))
+* table expand bug ([a524237](https://github.com/equinor/dm-core-packages/commit/a524237ac2bb5f52574c0404b2cc14098ec40b8e))
+* table spans 100% of width ([efd222a](https://github.com/equinor/dm-core-packages/commit/efd222a796b8f4ed0a1f5b22e7af98d3f0b7017c))
+* table-horitontal-scroll ([63ed68c](https://github.com/equinor/dm-core-packages/commit/63ed68c703ee8ff26bb5fef4982d3921fd6b1991))
+* **table-list-width:** config ([a8a27f6](https://github.com/equinor/dm-core-packages/commit/a8a27f6810ee64b70f0483cf65bca1212c37b9c6))
+* work in progress ([6d0b9d2](https://github.com/equinor/dm-core-packages/commit/6d0b9d292f2c1f83e5a4583086c4940ed37a9fb2))
+* work in progress ([a9464a9](https://github.com/equinor/dm-core-packages/commit/a9464a940609cfa7c53b315bf4175036dfb032e4))
+
+
+### Code Refactoring
+
+* better variable naming ([366e5b3](https://github.com/equinor/dm-core-packages/commit/366e5b33ef3bcc028f5d8231d833dde051d0635a))
+
 ## [1.39.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.2...dm-core-v1.39.3) (2024-02-02)
 
 
