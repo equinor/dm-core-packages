@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.39.5](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.4...dm-core-v1.39.5) (2024-02-08)
+
+
+### Bug Fixes
+
+* form crashing bug ([77118b7](https://github.com/equinor/dm-core-packages/commit/77118b7c3a8df8e8ba8b605c6286563cddf86f5e))
+* skeleton rows also want keys ([61bfb64](https://github.com/equinor/dm-core-packages/commit/61bfb648cb0c64219e85609e02070c739a03dc1a))
+
 ## [1.39.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.3...dm-core-v1.39.4) (2024-02-08)
 
 
