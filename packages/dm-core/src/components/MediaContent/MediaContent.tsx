@@ -1,47 +1,14 @@
 import { Button, Icon, Popover } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
 import { ReactElement, useRef, useState } from 'react'
-import styled from 'styled-components'
 
 import { DateTime } from 'luxon'
 import { createPortal } from 'react-dom'
-import { imageFiletypes, videoFiletypes } from '../utils/filetypes'
-import { mimeTypes } from '../utils/mime-types'
-import { formatBytes } from '../utils/stringUtilities'
-
-interface MediaContentConfig {
-  height?: number
-  width?: number
-  showMeta?: boolean
-  caption?: string
-  description?: string
-}
-
-interface MediaContentProps {
-  blobUrl: string
-  config: MediaContentConfig
-  meta: {
-    author: string
-    fileSize: number
-    title?: string
-    date: string
-    filetype: string
-  }
-}
-
-const MediaWrapper = styled.div<{ $height?: number; $width?: number }>`
-  height: fit-content;
-  width: fit-content;
-  position: relative;
-`
-
-const MetaPopoverButton = styled(Button)`
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 50;
-  color: #595959;
-`
+import { imageFiletypes, videoFiletypes } from './filetypes'
+import { mimeTypes } from '../../utils/mime-types'
+import { formatBytes } from '../../utils/stringUtilities'
+import { MediaContentProps } from './types'
+import { MediaWrapper, MetaPopoverButton } from './styles'
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, meta, config } = props
