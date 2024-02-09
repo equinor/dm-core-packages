@@ -60,6 +60,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.46.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.46.1...dm-core-plugins-v1.46.2) (2024-02-09)
+
+
+### Bug Fixes
+
+* no scroll bar on pagination in list ([8666b75](https://github.com/equinor/dm-core-packages/commit/8666b7593c169da2d1df5cfd1d99f220c61637e2))
+
 ## [1.46.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.46.0...dm-core-plugins-v1.46.1) (2024-02-08)
 
 
