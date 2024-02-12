@@ -5003,3 +5003,8 @@ fix: okdsfd (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 3de103a 2024-02-08 githu..[bot] chore(master): release 1.18.5 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.5.4
     * **JOB VERSION**: 426e2a5 2024-02-12 githu..[bot] chore(main): release 1.5.4 grafted, HEAD -> main, origin/main
+* fix(table): indexing problem (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7873761444/1)
+    * **DMSS VERSION**: 3de103a 2024-02-08 githu..[bot] chore(master): release 1.18.5 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.5.4
+    * **JOB VERSION**: 426e2a5 2024-02-12 githu..[bot] chore(main): release 1.5.4 grafted, HEAD -> main, origin/main
