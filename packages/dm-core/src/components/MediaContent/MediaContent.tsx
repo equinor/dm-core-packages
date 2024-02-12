@@ -18,7 +18,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   const [showMeta, setShowMeta] = useState(false)
   const referenceElement = useRef()
 
-  async function fetchBlobAndCreateDownload() {
+  async function downloadFile() {
     const url = blobUrl || (await getBlobUrl())
     createSyntheticFileDownload(url, `${meta.title}.${meta.filetype}`)
   }
@@ -79,10 +79,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             files cannot be shown. Please download the file and open it in the
             appropriate software.
           </p>
-          <Button
-            download={`${meta.title}.${meta.filetype}`}
-            onClick={fetchBlobAndCreateDownload}
-          >
+          <Button onClick={downloadFile}>
             <Icon size={16} data={download} />
             Download
           </Button>
