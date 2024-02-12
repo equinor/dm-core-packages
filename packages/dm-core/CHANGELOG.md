@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.39.6](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.5...dm-core-v1.39.6) (2024-02-12)
+
+
+### Bug Fixes
+
+* another linting issue ([233d328](https://github.com/equinor/dm-core-packages/commit/233d328a504768171705c0c4f29a4d62574e72fd))
+* linting and import issues ([18b67e8](https://github.com/equinor/dm-core-packages/commit/18b67e8baaeb63a465273c268fa390d2dfede79b))
+* only pre-fetch files we can preview, otherwise fetch on download ([c070272](https://github.com/equinor/dm-core-packages/commit/c070272679499827de6d01e9df2581eabb5450ee))
+* remove unused download attribute, rename function ([e336309](https://github.com/equinor/dm-core-packages/commit/e3363091bcd7be9ee257c41530019b3cae77626f))
+* **table:** indexing problem ([d5d6f4a](https://github.com/equinor/dm-core-packages/commit/d5d6f4acdfe4bca3becf7b52ef59b7791dc9daf4))
+
+
+### Code Refactoring
+
+* extract syntethic download to reusable function ([19ae691](https://github.com/equinor/dm-core-packages/commit/19ae6913ec2eb7766bf4f62b8c2beb53ede939f7))
+* restructure MediaContent component ([37ce86b](https://github.com/equinor/dm-core-packages/commit/37ce86b620e05702690b0cb56353e224b36797a1))
+
 ## [1.39.5](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.4...dm-core-v1.39.5) (2024-02-08)
 
 

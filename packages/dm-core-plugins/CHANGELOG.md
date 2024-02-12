@@ -60,6 +60,26 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.46.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.46.2...dm-core-plugins-v1.46.3) (2024-02-12)
+
+
+### Bug Fixes
+
+* linting and import issues ([18b67e8](https://github.com/equinor/dm-core-packages/commit/18b67e8baaeb63a465273c268fa390d2dfede79b))
+* only pre-fetch files we can preview, otherwise fetch on download ([c070272](https://github.com/equinor/dm-core-packages/commit/c070272679499827de6d01e9df2581eabb5450ee))
+
+
+### Code Refactoring
+
+* extract syntethic download to reusable function ([19ae691](https://github.com/equinor/dm-core-packages/commit/19ae6913ec2eb7766bf4f62b8c2beb53ede939f7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.39.5 to ^1.39.6
+
 ## [1.46.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.46.1...dm-core-plugins-v1.46.2) (2024-02-09)
 
 
