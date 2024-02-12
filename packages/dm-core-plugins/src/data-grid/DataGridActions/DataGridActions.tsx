@@ -20,6 +20,7 @@ import {
 import { useState } from 'react'
 import * as Styled from '../styles'
 import { TFunctionalityChecks } from '../types'
+import { createSyntheticFileDownload } from '@development-framework/dm-core/src/utils/fileUtilities'
 
 type DataGridActionsProps = {
   addRow: () => void
@@ -78,12 +79,10 @@ export function DataGridActions(props: DataGridActionsProps) {
       type: 'text/plain',
       endings: 'native',
     })
-    // create anchor element and fake click
-    const element = document.createElement('a')
-    element.href = URL.createObjectURL(file)
-    element.download = props.name.replace('.csv', '') + '.csv'
-    document.body.appendChild(element)
-    element.click()
+    createSyntheticFileDownload(
+      URL.createObjectURL(file),
+      props.name.replace('.csv', '') + '.csv'
+    )
   }
 
   return (
