@@ -191,7 +191,7 @@ export function Table(props: TableProps) {
                         editMode={tableVariant === TableVariantNameEnum.Edit}
                         functionalityConfig={functionalityConfig}
                         idReference={props.idReference}
-                        index={index}
+                        index={items.findIndex((it) => it.key === item.key)}
                         item={item}
                         items={items}
                         onOpen={props.onOpen}
