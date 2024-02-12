@@ -1,16 +1,17 @@
 import {
   EBlueprint,
-  ErrorResponse,
   IUIPlugin,
   Loading,
   MediaContent,
+  imageFiletypes,
   mimeTypes,
   splitAddress,
   useDMSS,
   useDocument,
+  videoFiletypes,
 } from '@development-framework/dm-core'
-import { AxiosError, AxiosRequestConfig } from 'axios'
-import React, { Suspense, useEffect, useState } from 'react'
+import { AxiosRequestConfig } from 'axios'
+import React, { Suspense, useEffect, useState, useCallback } from 'react'
 
 interface MediaObject {
   type: string
@@ -46,25 +47,42 @@ export const MediaViewerPlugin = (
   } = useDocument<MediaObject>(idReference, 1)
   const { dataSource } = splitAddress(idReference)
   const options: AxiosRequestConfig = { responseType: 'blob' }
-  useEffect(() => {
-    if (document?.content?.address)
-      dmssAPI
-        .blobGetById(
+
+  const getBlobUrl = useCallback(async () => {
+    if (document?.content?.address) {
+      try {
+        const response = await dmssAPI.blobGetById(
           {
             dataSourceId: dataSource,
             blobId: document?.content?.address.slice(1),
           },
           options
         )
-        .then((response: any) => {
-          const blob = new Blob([response.data], {
-            type: mimeTypes[document.filetype] || 'application/octet-stream',
-          })
-          setBlobUrl(window.URL.createObjectURL(blob))
+        const blob = new Blob([response.data], {
+          type: mimeTypes[document.filetype] || 'application/octet-stream',
         })
-        .catch((error: AxiosError<ErrorResponse>) => {
-          console.error(error)
-        })
+        const url = window.URL.createObjectURL(blob)
+        setBlobUrl(url)
+        return url
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    return ''
+  }, [document?.content])
+
+  useEffect(() => {
+    if (document) {
+      const { filetype } = document as MediaObject
+      // Only fetch file types we have previews for
+      if (
+        imageFiletypes.includes(filetype) ||
+        videoFiletypes.includes(filetype) ||
+        filetype === 'pdf'
+      ) {
+        getBlobUrl()
+      }
+    }
   }, [document])
 
   if (documentError) throw new Error(JSON.stringify(documentError, null, 2))
@@ -72,23 +90,18 @@ export const MediaViewerPlugin = (
   if (document.type !== EBlueprint.FILE) throw new Error('This is not a file')
   return (
     <Suspense fallback={<Loading />}>
-      {
-        blobUrl ? (
-          <MediaContent
-            blobUrl={blobUrl}
-            config={config}
-            meta={{
-              author: document.author,
-              fileSize: document.size,
-              title: document.name,
-              filetype: document.filetype,
-              date: document.date,
-            }}
-          />
-        ) : (
-          <Loading />
-        ) // Downloading blob...
-      }
+      <MediaContent
+        blobUrl={blobUrl}
+        getBlobUrl={getBlobUrl}
+        config={config}
+        meta={{
+          author: document.author,
+          fileSize: document.size,
+          title: document.name,
+          filetype: document.filetype,
+          date: document.date,
+        }}
+      />
     </Suspense>
   )
 }
