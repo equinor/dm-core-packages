@@ -1,4 +1,7 @@
-import { Stack } from '@development-framework/dm-core'
+import {
+  Stack,
+  createSyntheticFileDownload,
+} from '@development-framework/dm-core'
 import {
   Button,
   Checkbox,
@@ -20,7 +23,6 @@ import {
 import { useState } from 'react'
 import * as Styled from '../styles'
 import { TFunctionalityChecks } from '../types'
-import { createSyntheticFileDownload } from '@development-framework/dm-core/src/utils/fileUtilities'
 
 type DataGridActionsProps = {
   addRow: () => void

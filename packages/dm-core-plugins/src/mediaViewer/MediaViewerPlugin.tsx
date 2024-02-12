@@ -11,7 +11,7 @@ import {
   videoFiletypes,
 } from '@development-framework/dm-core'
 import { AxiosRequestConfig } from 'axios'
-import React, { Suspense, useEffect, useState, useCallback } from 'react'
+import React, { Suspense, useCallback, useEffect, useState } from 'react'
 
 interface MediaObject {
   type: string
