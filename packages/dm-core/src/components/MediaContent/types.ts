@@ -7,7 +7,8 @@ export interface MediaContentConfig {
 }
 
 export interface MediaContentProps {
-  blobUrl: string
+  blobUrl: string | undefined
+  getBlobUrl: () => Promise<string>
   config: MediaContentConfig
   meta: {
     author: string

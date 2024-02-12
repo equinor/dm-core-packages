@@ -9,11 +9,19 @@ import { mimeTypes } from '../../utils/mime-types'
 import { formatBytes } from '../../utils/stringUtilities'
 import { MediaContentProps } from './types'
 import { MediaWrapper, MetaPopoverButton } from './styles'
+import { createSyntheticFileDownload } from '../../utils/fileUtilities'
+
+export { imageFiletypes, videoFiletypes }
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
-  const { blobUrl, meta, config } = props
+  const { blobUrl, getBlobUrl, meta, config } = props
   const [showMeta, setShowMeta] = useState(false)
   const referenceElement = useRef()
+
+  async function fetchBlobAndCreateDownload() {
+    const url = blobUrl || (await getBlobUrl())
+    createSyntheticFileDownload(url, `${meta.title}.${meta.filetype}`)
+  }
 
   function renderMediaElement(filetype: string) {
     if (imageFiletypes.includes(filetype)) {
@@ -71,7 +79,10 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             files cannot be shown. Please download the file and open it in the
             appropriate software.
           </p>
-          <Button download={`${meta.title}.${meta.filetype}`} href={blobUrl}>
+          <Button
+            download={`${meta.title}.${meta.filetype}`}
+            onClick={fetchBlobAndCreateDownload}
+          >
             <Icon size={16} data={download} />
             Download
           </Button>
