@@ -4,7 +4,7 @@ import { ReactElement, useRef, useState } from 'react'
 
 import { DateTime } from 'luxon'
 import { createPortal } from 'react-dom'
-import { createSyntheticFileDownload, mimeTypes, formatBytes } from '../..'
+import { createSyntheticFileDownload, formatBytes, mimeTypes } from '../..'
 import { imageFiletypes, videoFiletypes } from './filetypes'
 import { MediaWrapper, MetaPopoverButton } from './styles'
 import { MediaContentProps } from './types'
