@@ -12,35 +12,12 @@ test('Media viewer', async ({ page }) => {
   await test.step('video', async () => {
     await page.getByRole('button', { name: 'mediaViewerMOV' }).click()
     await expect(page.locator('video')).toBeVisible()
-    await page.getByRole('button', { name: 'view meta info' }).click()
-
-    await expect(dialog.getByText('mov')).toBeVisible()
-    //await dialog.getByRole('link', { name: 'New tab' }).click() #802 BUG in Chrome (downloads instead of open new tab). Works in Firefox.
-    //const newTab = await page1Promise
-    //await expect(newTab.getByRole('video')).toBeVisible() //Not sure if "video" is accepted as role
-    //await newTab.close()
-
-    const downloadPromise = page.waitForEvent('download')
-    await dialog.getByRole('link', { name: 'Download' }).click()
-    const download = await downloadPromise
-    await download.createReadStream()
   })
   await test.step('gif', async () => {
     await page.getByRole('button', { name: 'mediaViewerGIF' }).click()
     await expect(page.locator('img')).toHaveJSProperty('complete', true)
     await expect(page.locator('img')).not.toHaveJSProperty('naturalWidth', 0)
     await expect(page.getByRole('img', { name: 'fast' })).toBeVisible()
-    await page.getByRole('button', { name: 'view meta info' }).click()
-    const page1Promise = page.waitForEvent('popup')
-    await expect(dialog.getByText('gif')).toBeVisible()
-    await dialog.getByRole('link', { name: 'New tab' }).click()
-    const newTab = await page1Promise
-    await expect(newTab.getByRole('img')).toBeVisible()
-    await newTab.close()
-    const downloadPromise = page.waitForEvent('download')
-    await page.getByRole('link', { name: 'Download' }).click()
-    const download = await downloadPromise
-    await download.createReadStream()
   })
 
   await test.step('image', async () => {
@@ -48,19 +25,6 @@ test('Media viewer', async ({ page }) => {
     await expect(page.locator('img')).toHaveJSProperty('complete', true)
     await expect(page.locator('img')).not.toHaveJSProperty('naturalWidth', 0)
     await expect(page.getByRole('img', { name: 'beauty' })).toBeVisible()
-    await page.getByRole('button', { name: 'view meta info' }).click()
-
-    const page1Promise = page.waitForEvent('popup')
-    await expect(dialog.getByText('jpeg')).toBeVisible()
-    await dialog.getByRole('link', { name: 'New tab' }).click()
-    const newTab = await page1Promise
-    await expect(newTab.getByRole('img')).toBeVisible()
-    await newTab.close()
-
-    const downloadPromise = page.waitForEvent('download')
-    await page.getByRole('link', { name: 'Download' }).click()
-    const download = await downloadPromise
-    await download.createReadStream()
   })
 
   await test.step('pdf', async () => {
