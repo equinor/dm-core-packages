@@ -89,7 +89,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   return (
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
-        {!['pdf'].includes(meta.filetype) && (
+        {meta.filetype === 'pfd' && config.showMeta && (
           <MetaPopoverButton
             onClick={() => setShowMeta(!showMeta)}
             variant='ghost_icon'
@@ -102,69 +102,70 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         )}
         {renderMediaElement(meta.filetype)}
       </MediaWrapper>
-      {createPortal(
-        <Popover
-          open={showMeta}
-          anchorEl={referenceElement.current}
-          onClose={() => setShowMeta(false)}
-          role='dialog'
-          style={{
-            overflow: 'auto',
-            maxWidth: '100vw',
-          }}
-        >
-          <Popover.Header>
-            <Popover.Title>{config.caption ?? 'Meta'}</Popover.Title>
-          </Popover.Header>
-          <Popover.Content>
-            <div className='mb-5'>
-              <label className='font-bold text-sm'>Description</label>
-              <p>{config.description}</p>
-            </div>
-            {config.showMeta && (
-              <div className='grid grid-cols-2 font-normal text-xs'>
-                <label className='font-bold'>File name:</label>
-                <span> {meta.title}</span>
-                <label className='font-bold'>Author:</label>
-                <span> {meta.author}</span>
-                <label className='font-bold'>Filetype:</label>
-                <span> {meta.filetype}</span>
-                <label className='font-bold'>Filesize:</label>
-                <span> {formatBytes(meta.fileSize)}</span>
-                <label className='font-bold'>Date:</label>
-                <span>
-                  {DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
-                    'dd/MM/yyyy HH:mm'
-                  )}
-                </span>
-              </div>
-            )}
-          </Popover.Content>
-          <Popover.Actions>
-            <div className='flex justify-start w-full'>
-              <Button
-                variant='ghost'
-                as='a'
-                className='transition-all'
-                href={blobUrl}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <Icon size={16} data={external_link} />
-                New tab
-              </Button>
-              <Button
-                download={`${meta.title}.${meta.filetype}`}
-                href={blobUrl}
-                variant='ghost'
-              >
-                <Icon size={16} data={download} />
-                Download
-              </Button>
-            </div>
-          </Popover.Actions>
-        </Popover>,
-        document.body
+      {config.showMeta && (
+        <>
+          {createPortal(
+            <Popover
+              open={showMeta}
+              anchorEl={referenceElement.current}
+              onClose={() => setShowMeta(false)}
+              role='dialog'
+              style={{
+                overflow: 'auto',
+                maxWidth: '100vw',
+              }}
+            >
+              <Popover.Header>
+                <Popover.Title>{config.caption ?? meta?.title}</Popover.Title>
+              </Popover.Header>
+              <Popover.Content>
+                <div className='grid grid-cols-2 font-normal text-xs'>
+                  <label className='font-bold'>File name:</label>
+                  <span>
+                    {' '}
+                    {meta.title}.{meta.filetype}
+                  </span>
+                  <label className='font-bold'>Author:</label>
+                  <span> {meta.author}</span>
+                  <label className='font-bold'>Filetype:</label>
+                  <span> {meta.filetype}</span>
+                  <label className='font-bold'>Filesize:</label>
+                  <span> {formatBytes(meta.fileSize)}</span>
+                  <label className='font-bold'>Date:</label>
+                  <span>
+                    {DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
+                      'dd/MM/yyyy HH:mm'
+                    )}
+                  </span>
+                </div>
+              </Popover.Content>
+              <Popover.Actions>
+                <div className='flex justify-start w-full'>
+                  <Button
+                    variant='ghost'
+                    as='a'
+                    className='transition-all'
+                    href={blobUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Icon size={16} data={external_link} />
+                    New tab
+                  </Button>
+                  <Button
+                    download={`${meta.title}.${meta.filetype}`}
+                    href={blobUrl}
+                    variant='ghost'
+                  >
+                    <Icon size={16} data={download} />
+                    Download
+                  </Button>
+                </div>
+              </Popover.Actions>
+            </Popover>,
+            document.body
+          )}
+        </>
       )}
     </>
   )
