@@ -2,6 +2,7 @@ export interface MediaContentConfig {
   height?: number
   width?: number
   showMeta?: boolean
+  showDescription?: boolean
   caption?: string
   description?: string
 }

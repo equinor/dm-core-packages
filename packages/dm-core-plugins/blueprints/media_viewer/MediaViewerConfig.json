@@ -27,6 +27,13 @@
       "optional": true
     },
     {
+      "name": "showDescription",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
+    },
+    {
       "name": "caption",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
