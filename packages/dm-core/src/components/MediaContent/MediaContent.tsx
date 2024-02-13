@@ -13,7 +13,7 @@ export { imageFiletypes, videoFiletypes }
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, getBlobUrl, meta, config } = props
-  const [showMeta, setShowMeta] = useState(false)
+  const [showInfoPopover, setShowInfoPopover] = useState(false)
   const referenceElement = useRef()
 
   async function downloadFile() {
@@ -89,42 +89,43 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   return (
     <>
       <MediaWrapper $height={config.height} $width={config.width}>
-        {meta.filetype === 'pfd' && config.showMeta && (
-          <MetaPopoverButton
-            onClick={() => setShowMeta(!showMeta)}
-            variant='ghost_icon'
-            aria-haspopup
-            aria-expanded={showMeta}
-            ref={referenceElement}
-          >
-            <Icon data={info_circle} title='view meta info' />
-          </MetaPopoverButton>
-        )}
+        {!(meta.filetype === 'pfd') &&
+          (config.showMeta || config.showDescription) && (
+            <MetaPopoverButton
+              onClick={() => setShowInfoPopover(!showInfoPopover)}
+              variant='ghost_icon'
+              aria-haspopup
+              aria-expanded={showInfoPopover}
+              ref={referenceElement}
+            >
+              <Icon data={info_circle} title='view meta info' />
+            </MetaPopoverButton>
+          )}
         {renderMediaElement(meta.filetype)}
       </MediaWrapper>
-      {config.showMeta && (
-        <>
-          {createPortal(
-            <Popover
-              open={showMeta}
-              anchorEl={referenceElement.current}
-              onClose={() => setShowMeta(false)}
-              role='dialog'
-              style={{
-                overflow: 'auto',
-                maxWidth: '100vw',
-              }}
-            >
-              <Popover.Header>
-                <Popover.Title>{config.caption ?? meta?.title}</Popover.Title>
-              </Popover.Header>
-              <Popover.Content>
-                {config.description && (
-                  <div className='mb-5'>
-                    <label className='font-bold text-sm'>Description</label>
-                    <p>{config.description}</p>
-                  </div>
-                )}
+      {(config.showMeta || config.showDescription) &&
+        createPortal(
+          <Popover
+            open={showInfoPopover}
+            anchorEl={referenceElement.current}
+            onClose={() => setShowInfoPopover(false)}
+            role='dialog'
+            style={{
+              overflow: 'auto',
+              maxWidth: '100vw',
+            }}
+          >
+            <Popover.Header>
+              <Popover.Title>{config.caption ?? meta?.title}</Popover.Title>
+            </Popover.Header>
+            <Popover.Content>
+              {config.showDescription && config.description && (
+                <div className='mb-5'>
+                  <label className='font-bold text-sm'>Description</label>
+                  <p>{config.description}</p>
+                </div>
+              )}
+              {config.showMeta && (
                 <div className='grid grid-cols-2 font-normal text-xs'>
                   <label className='font-bold'>File name:</label>
                   <span>
@@ -144,35 +145,34 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
                     )}
                   </span>
                 </div>
-              </Popover.Content>
-              <Popover.Actions>
-                <div className='flex justify-start w-full'>
-                  <Button
-                    variant='ghost'
-                    as='a'
-                    className='transition-all'
-                    href={blobUrl}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <Icon size={16} data={external_link} />
-                    New tab
-                  </Button>
-                  <Button
-                    download={`${meta.title}.${meta.filetype}`}
-                    href={blobUrl}
-                    variant='ghost'
-                  >
-                    <Icon size={16} data={download} />
-                    Download
-                  </Button>
-                </div>
-              </Popover.Actions>
-            </Popover>,
-            document.body
-          )}
-        </>
-      )}
+              )}
+            </Popover.Content>
+            <Popover.Actions>
+              <div className='flex justify-start w-full'>
+                <Button
+                  variant='ghost'
+                  as='a'
+                  className='transition-all'
+                  href={blobUrl}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <Icon size={16} data={external_link} />
+                  New tab
+                </Button>
+                <Button
+                  download={`${meta.title}.${meta.filetype}`}
+                  href={blobUrl}
+                  variant='ghost'
+                >
+                  <Icon size={16} data={download} />
+                  Download
+                </Button>
+              </div>
+            </Popover.Actions>
+          </Popover>,
+          document.body
+        )}
     </>
   )
 }
