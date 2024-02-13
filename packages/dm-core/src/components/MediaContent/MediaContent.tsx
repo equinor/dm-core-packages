@@ -119,6 +119,12 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
                 <Popover.Title>{config.caption ?? meta?.title}</Popover.Title>
               </Popover.Header>
               <Popover.Content>
+                {config.description && (
+                  <div className='mb-5'>
+                    <label className='font-bold text-sm'>Description</label>
+                    <p>{config.description}</p>
+                  </div>
+                )}
                 <div className='grid grid-cols-2 font-normal text-xs'>
                   <label className='font-bold'>File name:</label>
                   <span>
