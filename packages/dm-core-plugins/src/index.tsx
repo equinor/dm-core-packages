@@ -151,4 +151,18 @@ export default ({
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/meta': {
+    component: lazy(() =>
+      import('./meta/MetaPlugin').then((module) => ({
+        default: module.MetaPlugin,
+      }))
+    ),
+  },
+  '@development-framework/dm-core-plugins/publish': {
+    component: lazy(() =>
+      import('./publish/PublishPlugin').then((module) => ({
+        default: module.PublishPlugin,
+      }))
+    ),
+  },
 } as TUiPluginMap)

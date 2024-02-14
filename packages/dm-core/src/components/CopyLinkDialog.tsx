@@ -16,7 +16,7 @@ import {
 } from '../index'
 import { setMetaInDocument } from '../utils/setMetaInDocument'
 
-type TProps = {
+type TPropsBase = {
   idReference: string
   open: boolean
   setOpen: (v: boolean) => void
@@ -26,6 +26,13 @@ type TProps = {
   destination?: string
   hideProvidedFields?: boolean
 }
+
+type TProps =
+  | (TPropsBase & { wrapper?: undefined; wrapperAttribute?: undefined })
+  | (TPropsBase & {
+      wrapper: string
+      wrapperAttribute: string
+    })
 
 export const CopyLinkDialog = (props: TProps) => {
   const {
@@ -37,6 +44,8 @@ export const CopyLinkDialog = (props: TProps) => {
     hideProvidedFields,
     title,
     buttonText,
+    wrapper,
+    wrapperAttribute,
   } = props
   const { tokenData } = useContext(AuthContext)
 
@@ -62,7 +71,7 @@ export const CopyLinkDialog = (props: TProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const dmss = useDMSS()
 
-  const copyEntityToDestination = () => {
+  const copyEntityToDestination = async () => {
     if (!selectedDestination) return
     setIsLoading(true)
     let newDocument = window.structuredClone(document) as TValidEntity
@@ -79,6 +88,16 @@ export const CopyLinkDialog = (props: TProps) => {
 
     newDocument = setMetaInDocument(newDocument, username)
 
+    if (wrapper) {
+      const wrapperEntity: TValidEntity =
+        // TODO: Handle relative/unresolved addresses? Perhaps in blueprint upload?
+        (await dmss.instantiateEntity({ entity: { type: wrapper } }))
+          .data as TValidEntity
+      wrapperEntity[wrapperAttribute] = newDocument
+      wrapperEntity._meta_ = newDocument._meta_
+      newDocument = wrapperEntity
+    }
+
     dmss
       .documentAdd({
         address: selectedDestination.address,
@@ -86,13 +105,15 @@ export const CopyLinkDialog = (props: TProps) => {
       })
       .then(() => {
         toast.success(`Entity copied to '${selectedDestination.path}'`)
-        setOpen(false)
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
         toast.error(error.response?.data.message)
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setOpen(false)
+        setIsLoading(false)
+      })
   }
 
   const insertLinkAtDestination = () => {
@@ -120,7 +141,7 @@ export const CopyLinkDialog = (props: TProps) => {
   }
 
   return (
-    <Dialog open={open} style={{ minWidth: '20vw' }}>
+    <Dialog open={open} style={{ minWidth: '230px' }}>
       <Dialog.Header>
         <Dialog.Title>{title || 'Copy or link entity'}</Dialog.Title>
       </Dialog.Header>
