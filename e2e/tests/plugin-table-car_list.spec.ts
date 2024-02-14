@@ -52,11 +52,11 @@ test('Table car list example', async ({ page }) => {
   await test.step('Delete a car from the table', async () => {
     await page.getByRole('button', { name: 'Row actions' }).last().click()
     await page.getByRole('menuitem', { name: 'Delete' }).click()
+    await expect(page.getByText('1 - 1 of 1')).toBeVisible()
+    await page.reload()
     await expect(
       page.getByRole('button', { name: 'Open expandable row' })
     ).toHaveCount(1)
-    await page.reload()
-    await expect(page.getByText('1 - 1 of 1')).toBeVisible()
   })
 
   await test.step('Add car using multiple template', async () => {
