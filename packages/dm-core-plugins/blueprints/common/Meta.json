@@ -1,0 +1,19 @@
+{
+  "name": "Meta",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Entity"],
+  "description": "Purely for convenience. A wrapper that contains any entity. Used to render the 'meta' plugin around entities.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "content",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "object",
+      "optional": true
+    }
+  ]
+}
