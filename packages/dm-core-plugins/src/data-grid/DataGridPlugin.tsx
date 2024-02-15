@@ -78,16 +78,16 @@ export function DataGridPlugin(props: IUIPlugin) {
 
   function parseDataBeforeSave() {
     let modifiedData = data
-      if (config.printDirection === 'vertical') {
-        modifiedData = reverseData(data || [], getColumnsLength(data || []))
-      }
-      let dataToSave = { [fieldNames[0]]: modifiedData }
-      if (multiplePrimitives) {
-        dataToSave = Object.fromEntries(
-          (modifiedData || []).map((value, index) => [fieldNames[index], value])
-        )
-      }
-      return dataToSave
+    if (config.printDirection === 'vertical') {
+      modifiedData = reverseData(data || [], getColumnsLength(data || []))
+    }
+    let dataToSave = { [fieldNames[0]]: modifiedData }
+    if (multiplePrimitives) {
+      dataToSave = Object.fromEntries(
+        (modifiedData || []).map((value, index) => [fieldNames[index], value])
+      )
+    }
+    return dataToSave
   }
 
   function updateForm() {
@@ -162,7 +162,7 @@ export function DataGridPlugin(props: IUIPlugin) {
             disabled={!isDirty || loading}
             className='w-max h-max overflow-hidden'
           >
-            {onChange ? "Update" : "Save"}
+            {onChange ? 'Update' : 'Save'}
           </Button>
         </Stack>
       )}
