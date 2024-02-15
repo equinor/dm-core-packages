@@ -5028,3 +5028,8 @@ fix: okdsfd (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: b05ef80 2024-02-15 githu..[bot] chore(master): release 1.19.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.5.4
     * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
+* chore: release main (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7917832794/3)
+    * **DMSS VERSION**: b05ef80 2024-02-15 githu..[bot] chore(master): release 1.19.1 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.5.4
+    * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
