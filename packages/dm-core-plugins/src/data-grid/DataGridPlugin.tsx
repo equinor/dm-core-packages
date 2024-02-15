@@ -15,7 +15,7 @@ import { DataGridConfig, defaultConfig } from './types'
 import { getFunctionalityVariables, reverseData } from './utils'
 
 export function DataGridPlugin(props: IUIPlugin) {
-  const { idReference, config: userConfig, type } = props
+  const { idReference, config: userConfig, type, onChange } = props
   const config: DataGridConfig = { ...defaultConfig, ...userConfig }
   const dmssAPI = useDMSS()
   const [data, setData] = useState<any[]>()
@@ -66,7 +66,7 @@ export function DataGridPlugin(props: IUIPlugin) {
     setInitialData(window.structuredClone(modifiedData))
   }, [document, isLoading])
 
-  function onChange(data: any[]) {
+  function onDataChange(data: any[]) {
     setData(data)
     setIsDirty(true)
   }
@@ -76,10 +76,8 @@ export function DataGridPlugin(props: IUIPlugin) {
     setIsDirty(false)
   }
 
-  async function saveDocument() {
-    setLoading(true)
-    try {
-      let modifiedData = data
+  function parseDataBeforeSave() {
+    let modifiedData = data
       if (config.printDirection === 'vertical') {
         modifiedData = reverseData(data || [], getColumnsLength(data || []))
       }
@@ -89,6 +87,18 @@ export function DataGridPlugin(props: IUIPlugin) {
           (modifiedData || []).map((value, index) => [fieldNames[index], value])
         )
       }
+      return dataToSave
+  }
+
+  function updateForm() {
+    if (onChange) onChange(parseDataBeforeSave())
+    setIsDirty(false)
+  }
+
+  async function saveDocument() {
+    setLoading(true)
+    try {
+      const dataToSave = parseDataBeforeSave()
       const payload = { ...document, ...dataToSave }
       await dmssAPI.documentUpdate({
         idAddress: idReference,
@@ -132,7 +142,7 @@ export function DataGridPlugin(props: IUIPlugin) {
         dimensions={getDimensions()}
         initialRowsPerPage={rowsPerPage}
         name={blueprint?.name}
-        setData={onChange}
+        setData={onDataChange}
         title={document?.title}
       />
       {config.editable && (
@@ -148,11 +158,11 @@ export function DataGridPlugin(props: IUIPlugin) {
             </Button>
           </Tooltip>
           <Button
-            onClick={saveDocument}
+            onClick={onChange ? updateForm : saveDocument}
             disabled={!isDirty || loading}
             className='w-max h-max overflow-hidden'
           >
-            Save
+            {onChange ? "Update" : "Save"}
           </Button>
         </Stack>
       )}
