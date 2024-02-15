@@ -60,6 +60,21 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.47.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.46.3...dm-core-plugins-v1.47.0) (2024-02-15)
+
+
+### Features
+
+* create showDescription attribute ([c898f1b](https://github.com/equinor/dm-core-packages/commit/c898f1b1b903047f66060c2c56d477997ae8fef0))
+* **publish:** add meta and publish plugins ([eea5411](https://github.com/equinor/dm-core-packages/commit/eea54117aeadba2633ae5509eee70b14028ce83b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.39.6 to ^1.40.0
+
 ## [1.46.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.46.2...dm-core-plugins-v1.46.3) (2024-02-12)
 
 
