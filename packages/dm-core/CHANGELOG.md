@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.40.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.6...dm-core-v1.40.0) (2024-02-15)
+
+
+### Features
+
+* create showDescription attribute ([c898f1b](https://github.com/equinor/dm-core-packages/commit/c898f1b1b903047f66060c2c56d477997ae8fef0))
+* **publish:** add meta and publish plugins ([eea5411](https://github.com/equinor/dm-core-packages/commit/eea54117aeadba2633ae5509eee70b14028ce83b))
+
+
+### Bug Fixes
+
+* add missing description ([cd31c7b](https://github.com/equinor/dm-core-packages/commit/cd31c7bd2f2bec680eb6ef4defd8269dcf6d423c))
+* hide meta when disabled ([ff2ae16](https://github.com/equinor/dm-core-packages/commit/ff2ae160ad240a77c8cefc77024465baac41ef43))
+
 ## [1.39.6](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.5...dm-core-v1.39.6) (2024-02-12)
 
 
