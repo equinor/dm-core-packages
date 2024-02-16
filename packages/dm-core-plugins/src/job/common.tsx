@@ -12,6 +12,7 @@ import { ConfigureSchedule } from './CronJob'
 import { JobLogsDialog } from './JobLogsDialog'
 import {
   CompletedButton,
+  ErrorButton,
   LoadingButton,
   RerunButton,
   StartButton,
@@ -126,10 +127,13 @@ export const getControlButton = (
   remove: () => Promise<DeleteJobResponse | null>,
   start: () => void,
   asCronJob: boolean = false,
-  isLoading: boolean = false
+  isLoading: boolean = false,
+  error: ErrorResponse | undefined = undefined
 ) => {
   // return <LoadingButton jobStatus={status} remove={remove} />
   if (isLoading) return <LoadingButton jobStatus={status} remove={remove} />
+  if (error) return <ErrorButton error={error} />
+
   switch (status) {
     case JobStatus.Completed:
       return (

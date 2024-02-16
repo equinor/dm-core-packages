@@ -1,11 +1,21 @@
-import { DeleteJobResponse, JobStatus } from '@development-framework/dm-core'
+import {
+  DeleteJobResponse,
+  ErrorResponse,
+  JobStatus,
+} from '@development-framework/dm-core'
 import {
   Button,
   CircularProgress,
   Icon,
   Tooltip,
 } from '@equinor/eds-core-react'
-import { check, play_circle, refresh, stop } from '@equinor/eds-icons'
+import {
+  check,
+  error_outlined,
+  play_circle,
+  refresh,
+  stop,
+} from '@equinor/eds-icons'
 import { useState } from 'react'
 import { RemoveJobDialog } from './RemoveJobDialog'
 
@@ -122,5 +132,19 @@ export const CompletedButton = (props: {
         </Button>
       )}
     </div>
+  )
+}
+
+export const ErrorButton = (props: { error: ErrorResponse }) => {
+  return (
+    <Button
+      style={{
+        backgroundColor: loadingColor,
+        cursor: 'not-allowed',
+      }}
+      variant='contained_icon'
+    >
+      <Icon data={error_outlined} style={{ color: 'white' }} />
+    </Button>
   )
 }

@@ -17,20 +17,20 @@ const DateRangePicker = (props: {
     >
       <Datepicker
         id='cron-job-start-date'
-        variant='datetime'
+        variant='date'
         value={value.startDate || DateTime.now().startOf('day').toISO()}
-        onChange={(date) => setDateRange({ ...value, startDate: date })}
-        label='Valid from'
+        onChange={(date: string) => setDateRange({ ...value, startDate: date })}
+        label='Jobs will be scheduled from'
       />
       <Datepicker
         id='cron-job-end-date'
-        variant='datetime'
+        variant='date'
         value={
           value.endDate ||
           DateTime.now().startOf('day').plus({ year: 1 }).toISO()
         }
-        onChange={(date) => setDateRange({ ...value, endDate: date })}
-        label='Valid to'
+        onChange={(date: string) => setDateRange({ ...value, endDate: date })}
+        label='Jobs will no longer be scheduled after'
       />
     </div>
   )
