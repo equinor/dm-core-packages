@@ -19,7 +19,9 @@ import { Button, Chip, Icon, Tooltip } from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
 import { AxiosError } from 'axios'
 import _ from 'lodash'
+import { DateTime } from 'luxon'
 import { useContext, useEffect, useState } from 'react'
+import { IAuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
 import {
   ConfigureRecurring,
@@ -46,7 +48,7 @@ const defaultConfig: TJobControlConfig = {
 export const JobControl = (props: IUIPlugin) => {
   const { idReference, config } = props
   const dmssAPI = useDMSS()
-  const { tokenData } = useContext(AuthContext)
+  const { tokenData }: IAuthContext = useContext(AuthContext)
 
   const internalConfig: TJobControlConfig = { ...defaultConfig, ...config }
   const [asCronJob, setAsCronJob] = useState<boolean>(false)
@@ -73,11 +75,23 @@ export const JobControl = (props: IUIPlugin) => {
 
   function start() {
     if (!jobEntity) return
-    jobEntity.triggeredBy =
+
+    const newJob = structuredClone(jobEntity)
+    newJob.triggeredBy =
       tokenData?.preferred_username || tokenData?.name || 'Anonymous'
-    // @ts-ignore
-    if (asCronJob) jobEntity.schedule = schedule
-    updateDocument(jobEntity, false)
+    if (asCronJob) {
+      ;(newJob as TRecurringJob).schedule = schedule
+      if (
+        DateTime.fromISO(schedule.endDate) <
+        DateTime.fromISO(schedule.startDate)
+      ) {
+        toast.error(
+          'Invalid date range for schedule. End date must be after start date'
+        )
+        return
+      }
+    }
+    updateDocument(newJob, false)
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
         toast.error(error.response?.data.message)
@@ -149,7 +163,7 @@ export const JobControl = (props: IUIPlugin) => {
 
   if (isLoading || !jobEntity) return <Loading />
 
-  if (error || jobEntityError)
+  if (jobEntityError)
     throw new Error(JSON.stringify(error || jobEntityError, null, 2))
 
   return (

@@ -190,7 +190,10 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         return response.data
       })
       .catch((error: AxiosError<ErrorResponse>) => {
-        setError(error.response?.data)
+        console.error(error)
+        setLogs([
+          JSON.stringify(error.response?.data || 'An unknown error occurred'),
+        ])
         clearInterval(statusIntervalId)
         return null
       })
@@ -212,6 +215,9 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       .removeJob({ jobUid: hookJobId })
       .then((response: AxiosResponse<DeleteJobResponse>) => {
         setStatus(response.data.status)
+        setError(undefined)
+        setLogs([])
+        setProgress(0.0)
         return response.data
       })
       .catch((error: AxiosError<ErrorResponse>) => {
@@ -219,10 +225,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
         return null
       })
       .finally(() => {
-        setError(undefined)
         setIsLoading(false)
-        setLogs([])
-        setProgress(0.0)
       })
   }
 

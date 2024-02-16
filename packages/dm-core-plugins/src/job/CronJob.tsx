@@ -43,29 +43,29 @@ export function ConfigureSchedule(props: {
     if (cronValues.interval === 'Weekly') {
       return (
         <small>
-          Will run every sunday at {cronValues.hour + ':' + cronValues.minute}{' '}
-          O'clock. cron: <code>{schedule.cron}</code>
+          Will run every sunday at {cronValues.hour + ':' + cronValues.minute}
+          {' UTC'} - cron: <code>{schedule.cron}</code>
         </small>
       )
     } else if (cronValues.interval === 'Monthly') {
       return (
         <small>
           Will run on the 1st on every month at{' '}
-          {cronValues.hour + ':' + cronValues.minute} O'clock. cron:{' '}
+          {cronValues.hour + ':' + cronValues.minute} UTC - cron:{' '}
           <code>{schedule.cron}</code>
         </small>
       )
     } else if (cronValues.interval === 'Daily') {
       return (
         <small>
-          Will run at {cronValues.hour + ':' + cronValues.minute} O'clock every
-          day. cron: <code>{schedule.cron}</code>
+          Will run at {cronValues.hour + ':' + cronValues.minute} UTC every day
+          - cron: <code>{schedule.cron}</code>
         </small>
       )
     } else if (cronValues.interval === 'Hourly') {
       return (
         <small>
-          Will run every {cronValues.hourStep} hour. cron:{' '}
+          Will run every {cronValues.hourStep} hour - cron:{' '}
           <code>{schedule.cron}</code>
         </small>
       )
@@ -177,6 +177,10 @@ export function ConfigureSchedule(props: {
               if (showAdvanced) setCronValues(defaultCronValues())
             }}
             variant='ghost'
+            style={{
+              alignSelf: 'flex-start',
+              marginTop: `${showAdvanced ? '20px' : '15px'}`,
+            }}
             className={showAdvanced ? 'self-center -translate-y-1' : 'self-end'}
           >
             {showAdvanced ? 'Simple' : 'Advanced'}
