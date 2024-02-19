@@ -76,6 +76,8 @@ jobs:
         working-directory: example/
 
       - name: Run docker images
+        env:
+          ENVIRONMENT: CI
         run: docker-compose up -d
         working-directory: example/
 
@@ -112,6 +114,10 @@ jobs:
 
       - name: Run reset-app script
         run: ./reset-app.sh
+        working-directory: example/
+
+      - name: Warmup cache
+        run: ./heat-cache.sh
         working-directory: example/
 
       - name: Cache e2e dependencies
