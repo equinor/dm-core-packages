@@ -5038,3 +5038,8 @@ fix: okdsfd (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 46fb91a 2024-02-16 Stig Ofstad feat: option to enforce uid on all complex children grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
+* chore: release main (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7958542352/2)
+    * **DMSS VERSION**: 32d1c42 2024-02-19 githu..[bot] chore(master): release 1.20.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
