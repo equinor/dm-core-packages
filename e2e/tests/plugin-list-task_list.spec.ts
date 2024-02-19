@@ -39,10 +39,7 @@ test('task list', async ({ page }) => {
     await expect(page.getByLabel('Task description: (Optional)')).toHaveValue(
       'Review and submit the tax return.'
     )
-    await page
-      .getByRole('button', { name: 'Minimize item', exact: true })
-      .last()
-      .click()
+    await page.getByTestId('expandListItem-3').click()
   })
 
   await test.step('Mark task as complete', async () => {

@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     environment:
       AUTH_ENABLED: 0
-      ENVIRONMENT: local
+      ENVIRONMENT: ${ENVIRONMENT:-local}
 #      RESET_DATA_SOURCE: off
       MONGO_USERNAME: maf
       MONGO_PASSWORD: xd7wCEhEx4kszsecYFfC
