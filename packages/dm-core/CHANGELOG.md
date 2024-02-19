@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.40.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.40.0...dm-core-v1.40.1) (2024-02-19)
+
+
+### Code Refactoring
+
+* expect and use contentType from document + use main type checks ([0745285](https://github.com/equinor/dm-core-packages/commit/0745285b06f6a9f8c08a2b6559c92fcdf0a48ba9))
+* only show new tab when supported contenttype ([d6585d5](https://github.com/equinor/dm-core-packages/commit/d6585d571d11230888e270540ab385e2f561e35e))
+
 ## [1.40.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.39.6...dm-core-v1.40.0) (2024-02-15)
 
 

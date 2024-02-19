@@ -60,6 +60,26 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.47.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.47.0...dm-core-plugins-v1.47.1) (2024-02-19)
+
+
+### Bug Fixes
+
+* call form onChange instead of save in DataGridPlugin if passed ([8eab7f4](https://github.com/equinor/dm-core-packages/commit/8eab7f4db839f36c50d04407247c6bd397fa6a50))
+* linting issue ([c3ba0fa](https://github.com/equinor/dm-core-packages/commit/c3ba0fafb46286f5e088bfe7c1cfed9c533c044d))
+
+
+### Code Refactoring
+
+* expect and use contentType from document + use main type checks ([0745285](https://github.com/equinor/dm-core-packages/commit/0745285b06f6a9f8c08a2b6559c92fcdf0a48ba9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.40.0 to ^1.40.1
+
 ## [1.47.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.46.3...dm-core-plugins-v1.47.0) (2024-02-15)
 
 
