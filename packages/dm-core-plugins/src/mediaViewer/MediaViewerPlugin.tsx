@@ -3,12 +3,10 @@ import {
   IUIPlugin,
   Loading,
   MediaContent,
-  imageFiletypes,
   mimeTypes,
   splitAddress,
   useDMSS,
   useDocument,
-  videoFiletypes,
 } from '@development-framework/dm-core'
 import { AxiosRequestConfig } from 'axios'
 import React, { Suspense, useCallback, useEffect, useState } from 'react'
@@ -21,6 +19,7 @@ interface MediaObject {
   date: string
   size: number
   filetype: string
+  contentType?: string
   content: {
     type: string
     referenceType: string
@@ -39,6 +38,7 @@ export const MediaViewerPlugin = (
 ): React.ReactElement => {
   const { idReference, config } = props
   const [blobUrl, setBlobUrl] = useState<string>()
+  const [contentType, setContentType] = useState<string>('')
   const dmssAPI = useDMSS()
   const {
     document,
@@ -48,39 +48,46 @@ export const MediaViewerPlugin = (
   const { dataSource } = splitAddress(idReference)
   const options: AxiosRequestConfig = { responseType: 'blob' }
 
-  const getBlobUrl = useCallback(async () => {
-    if (document?.content?.address) {
-      try {
-        const response = await dmssAPI.blobGetById(
-          {
-            dataSourceId: dataSource,
-            blobId: document?.content?.address.slice(1),
-          },
-          options
-        )
-        const blob = new Blob([response.data], {
-          type: mimeTypes[document.filetype] || 'application/octet-stream',
-        })
-        const url = window.URL.createObjectURL(blob)
-        setBlobUrl(url)
-        return url
-      } catch (error) {
-        console.error(error)
+  const getBlobUrl = useCallback(
+    async (passedContentType?: string) => {
+      if (document?.content?.address) {
+        try {
+          const response = await dmssAPI.blobGetById(
+            {
+              dataSourceId: dataSource,
+              blobId: document?.content?.address.slice(1),
+            },
+            options
+          )
+          const blob = new Blob([response.data], {
+            type: passedContentType || contentType,
+          })
+          const url = window.URL.createObjectURL(blob)
+          setBlobUrl(url)
+          return url
+        } catch (error) {
+          console.error(error)
+        }
       }
-    }
-    return ''
-  }, [document?.content])
+      return ''
+    },
+    [document?.content]
+  )
 
   useEffect(() => {
     if (document) {
-      const { filetype } = document as MediaObject
+      const contentType =
+        document?.contentType ||
+        mimeTypes[document.filetype] ||
+        'application/octet-stream'
+      setContentType(contentType)
       // Only fetch file types we have previews for
       if (
-        imageFiletypes.includes(filetype) ||
-        videoFiletypes.includes(filetype) ||
-        filetype === 'pdf'
+        contentType.includes('image') ||
+        contentType.includes('video') ||
+        contentType === 'application/pdf'
       ) {
-        getBlobUrl()
+        getBlobUrl(contentType)
       }
     }
   }, [document])
@@ -100,6 +107,7 @@ export const MediaViewerPlugin = (
           title: document.name,
           filetype: document.filetype,
           date: document.date,
+          contentType,
         }}
       />
     </Suspense>

@@ -17,5 +17,6 @@ export interface MediaContentProps {
     title?: string
     date: string
     filetype: string
+    contentType?: string
   }
 }

@@ -4,12 +4,9 @@ import { ReactElement, useRef, useState } from 'react'
 
 import { DateTime } from 'luxon'
 import { createPortal } from 'react-dom'
-import { createSyntheticFileDownload, formatBytes, mimeTypes } from '../..'
-import { imageFiletypes, videoFiletypes } from './filetypes'
+import { createSyntheticFileDownload, formatBytes } from '../..'
 import { MediaWrapper, MetaPopoverButton } from './styles'
 import { MediaContentProps } from './types'
-
-export { imageFiletypes, videoFiletypes }
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, getBlobUrl, meta, config } = props
@@ -21,8 +18,8 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
     createSyntheticFileDownload(url, `${meta.title}.${meta.filetype}`)
   }
 
-  function renderMediaElement(filetype: string) {
-    if (imageFiletypes.includes(filetype)) {
+  function renderMediaElement() {
+    if (meta.contentType?.includes('image')) {
       return (
         <img
           src={blobUrl}
@@ -34,7 +31,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           }}
         />
       )
-    } else if (videoFiletypes.includes(filetype)) {
+    } else if (meta.contentType?.includes('video')) {
       return (
         // biome-ignore lint/a11y/useMediaCaption: No captions for example video
         <video
@@ -48,12 +45,12 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           }}
         />
       )
-    } else if (filetype === 'pdf') {
+    } else if (meta.contentType === 'application/pdf') {
       return (
         <embed
           title={meta.title}
           src={blobUrl}
-          type={mimeTypes[filetype] || 'application/octet-stream'}
+          type={meta.contentType}
           style={{ width: '100%', height: '100%' }}
           height={config.height}
           width={config.width}
@@ -101,7 +98,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
               <Icon data={info_circle} title='view meta info' />
             </MetaPopoverButton>
           )}
-        {renderMediaElement(meta.filetype)}
+        {renderMediaElement()}
       </MediaWrapper>
       {(config.showMeta || config.showDescription) &&
         createPortal(
