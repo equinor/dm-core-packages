@@ -7,6 +7,7 @@ import { createPortal } from 'react-dom'
 import { createSyntheticFileDownload, formatBytes } from '../..'
 import { MediaWrapper, MetaPopoverButton } from './styles'
 import { MediaContentProps } from './types'
+import { isViewableInBrowser } from './utils'
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, getBlobUrl, meta, config } = props
@@ -146,17 +147,19 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             </Popover.Content>
             <Popover.Actions>
               <div className='flex justify-start w-full'>
-                <Button
-                  variant='ghost'
-                  as='a'
-                  className='transition-all'
-                  href={blobUrl}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Icon size={16} data={external_link} />
-                  New tab
-                </Button>
+                {isViewableInBrowser(meta.contentType) && (
+                  <Button
+                    variant='ghost'
+                    as='a'
+                    className='transition-all'
+                    href={blobUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Icon size={16} data={external_link} />
+                    New tab
+                  </Button>
+                )}
                 <Button
                   download={`${meta.title}.${meta.filetype}`}
                   href={blobUrl}
