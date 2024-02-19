@@ -5043,3 +5043,8 @@ fix: okdsfd (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 32d1c42 2024-02-19 githu..[bot] chore(master): release 1.20.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
+* fix(job): a few minor bugs in scheduler ui (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/7960279308/1)
+    * **DMSS VERSION**: 32d1c42 2024-02-19 githu..[bot] chore(master): release 1.20.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
