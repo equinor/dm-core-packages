@@ -43,12 +43,6 @@
                     "widget": "DateTimeWidget"
                   },
                   {
-                    "name": "ended",
-                    "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
-                    "readOnly": true,
-                    "widget": "DateTimeWidget"
-                  },
-                  {
                     "name": "status",
                     "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
                     "readOnly": true
@@ -83,7 +77,6 @@
                   "status",
                   "started",
                   "stopped",
-                  "ended",
                   "outputTarget",
                   "applicationInput",
                   "runner"
