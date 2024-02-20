@@ -30,7 +30,7 @@ const DateRangePicker = (props: {
           DateTime.now().startOf('day').plus({ year: 1 }).toISO()
         }
         onChange={(date: string) => setDateRange({ ...value, endDate: date })}
-        label='Jobs will no longer be scheduled after'
+        label='Jobs will not be scheduled after'
       />
     </div>
   )

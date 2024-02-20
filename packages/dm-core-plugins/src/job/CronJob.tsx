@@ -1,7 +1,7 @@
 import { TSchedule } from '@development-framework/dm-core'
 import {
-  Autocomplete,
   Button,
+  NativeSelect,
   TextField,
   Typography,
 } from '@equinor/eds-core-react'
@@ -121,14 +121,14 @@ export function ConfigureSchedule(props: {
             </div>
           ) : (
             <>
-              <Autocomplete
-                options={Object.values(EInterval)}
+              <NativeSelect
+                id={'interval'}
                 label={'Interval'}
                 style={{ maxWidth: '200px' }}
-                initialSelectedOptions={[cronValues.interval]}
-                onInputChange={(label: string) => {
+                value={cronValues.interval}
+                onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                   const chosenIntervalType = Object.entries(EInterval)
-                    .filter((l) => l.length > 0 && l[1] === label)
+                    .filter((l) => l.length > 0 && l[1] === e.target.value)
                     .pop()
                   setCronValues({
                     ...cronValues,
@@ -137,37 +137,45 @@ export function ConfigureSchedule(props: {
                       : EInterval.HOURLY,
                   })
                 }}
-              />
+              >
+                {Object.values(EInterval).map((interval: string) => (
+                  <option key={interval}>{interval}</option>
+                ))}
+              </NativeSelect>
               {cronValues.interval !== EInterval.HOURLY && (
-                <Autocomplete
+                <NativeSelect
+                  id={'time'}
                   style={{ maxWidth: '200px' }}
-                  options={generateSelectableTimes().map(
-                    (value: string) => value
-                  )}
                   label={'Time'}
-                  initialSelectedOptions={[
-                    `${cronValues.hour}:${cronValues.minute}`,
-                  ]}
-                  onInputChange={(timestamp) => {
-                    const [newHour, newMinute] = timestamp.split(':')
+                  value={`${cronValues.hour}:${cronValues.minute}`}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                    const [newHour, newMinute] = e.target.value.split(':')
                     setCronValues({
                       ...cronValues,
                       minute: newMinute,
                       hour: newHour,
                     })
                   }}
-                />
+                >
+                  {generateSelectableTimes().map((value: string) => (
+                    <option key={value}>{value}</option>
+                  ))}
+                </NativeSelect>
               )}
               {cronValues.interval === EInterval.HOURLY && (
-                <Autocomplete
+                <NativeSelect
+                  id={'hour step'}
                   style={{ maxWidth: '200px' }}
-                  options={[...Array(12).keys()].map((i) => i + 1)}
-                  initialSelectedOptions={[Number(cronValues.hourStep)]}
+                  value={Number(cronValues.hourStep)}
                   label={'Hour step'}
-                  onInputChange={(step) =>
-                    setCronValues({ ...cronValues, hourStep: step })
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                    setCronValues({ ...cronValues, hourStep: e.target.value })
                   }
-                />
+                >
+                  {[...Array(12).keys()].map((i) => (
+                    <option key={i}>{i + 1} </option>
+                  ))}
+                </NativeSelect>
               )}
             </>
           )}
