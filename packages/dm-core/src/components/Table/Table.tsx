@@ -1,4 +1,9 @@
-import { Button, Progress, Table as EDSTable } from '@equinor/eds-core-react'
+import {
+  Button,
+  Icon,
+  Progress,
+  Table as EDSTable,
+} from '@equinor/eds-core-react'
 import React, { useEffect, useState } from 'react'
 import {
   ConditionalWrapper,
@@ -17,6 +22,7 @@ import { TemplateMenu } from '../TemplateMenu'
 import { TableHead } from './TableHead/TableHead'
 import { TableRow } from './TableRow/TableRow'
 
+import { undo } from '@equinor/eds-icons'
 import { SkeletonRow } from './TableRow/SkeletonRow'
 import {
   TTableConfig,
@@ -40,6 +46,7 @@ export function Table(props: TableProps) {
     setDirtyState,
     isLoading,
     saveTable,
+    reloadData,
   } = props
 
   const [tableVariant, setTableVariant] = useState<TableVariantNameEnum>(
@@ -260,6 +267,16 @@ export function Table(props: TableProps) {
           page={currentPage}
           setPage={setPage}
         />
+        {tableVariant === TableVariantNameEnum.Edit && reloadData && (
+          <Button
+            aria-label='Revert changes'
+            variant='outlined'
+            disabled={isLoading || !props.dirtyState}
+            onClick={reloadData}
+          >
+            <Icon data={undo} size={16} />
+          </Button>
+        )}
         {tableVariant === TableVariantNameEnum.Edit && (
           <Button
             disabled={isLoading || !props.dirtyState}

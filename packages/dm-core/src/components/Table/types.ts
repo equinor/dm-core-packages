@@ -67,6 +67,7 @@ export type TableProps = {
   dirtyState: boolean
   items: TItem<TGenericObject>[]
   isLoading: boolean
+  reloadData?: () => void
   removeItem: (
     itemToDelete: TItem<TGenericObject>,
     saveOnRemove?: boolean
