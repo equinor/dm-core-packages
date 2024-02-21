@@ -17,6 +17,7 @@ export const Tabs = (props: {
       activeTab={viewSelectorItems.findIndex(
         (x) => x.viewId === selectedViewId
       )}
+      scrollable
     >
       <EdsTabs.List>
         {viewSelectorItems.map((config: TItemData) => {
@@ -24,12 +25,8 @@ export const Tabs = (props: {
             <EdsTabs.Tab
               key={config.viewId}
               as='div'
-              style={{
-                overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'row',
-                padding: 0,
-              }}
+              className='flex-row'
+              style={{ padding: 0, overflow: 'hidden' }}
             >
               <Button
                 onClick={() => {
@@ -38,7 +35,7 @@ export const Tabs = (props: {
                   }
                 }}
                 variant='ghost'
-                style={{ fontSize: '16px' }}
+                style={{ fontSize: '1rem' }}
               >
                 {(config.eds_icon ?? config.viewConfig?.eds_icon) && (
                   <Icon

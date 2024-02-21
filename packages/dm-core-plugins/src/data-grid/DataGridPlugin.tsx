@@ -129,11 +129,7 @@ export function DataGridPlugin(props: IUIPlugin) {
   }
 
   return !data ? null : (
-    <Stack
-      alignItems='flex-start'
-      spacing={1}
-      style={{ width: '100%', height: '100%' }}
-    >
+    <Stack className='dm-plugin-wrapper' alignItems='flex-start' spacing={1}>
       <DataGrid
         attributeType={attribute?.attributeType || 'string'}
         config={userConfig}
@@ -152,7 +148,7 @@ export function DataGridPlugin(props: IUIPlugin) {
               onClick={revertChanges}
               disabled={!isDirty}
               variant='outlined'
-              className='w-max h-max overflow-hidden'
+              className='overflow-hidden'
             >
               <Icon data={undo} size={16} />
             </Button>
@@ -160,7 +156,7 @@ export function DataGridPlugin(props: IUIPlugin) {
           <Button
             onClick={onChange ? updateForm : saveDocument}
             disabled={!isDirty || loading}
-            className='w-max h-max overflow-hidden'
+            className='overflow-hidden'
           >
             {onChange ? 'Update' : 'Save'}
           </Button>

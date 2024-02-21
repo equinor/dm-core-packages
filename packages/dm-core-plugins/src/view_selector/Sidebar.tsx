@@ -18,22 +18,8 @@ export const Sidebar = (props: {
   const isOpen = !['xs', 'sm', 'md'].includes(screenClass)
 
   return (
-    <SideBar
-      open={isOpen}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        height: '100%',
-      }}
-    >
-      <SideBar.Content
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'auto',
-        }}
-      >
+    <SideBar open={isOpen}>
+      <SideBar.Content className='flex flex-col scroll'>
         {viewSelectorItems.map((viewItem: TItemData) => {
           // subItem's will be rendered inside other items. Don't add them here
           if (viewItem.isSubItem) return null
@@ -108,7 +94,7 @@ export const Sidebar = (props: {
           )
         })}
       </SideBar.Content>
-      <SideBar.Footer>
+      <SideBar.Footer className='flex justify-end'>
         <SideBar.Toggle />
       </SideBar.Footer>
     </SideBar>

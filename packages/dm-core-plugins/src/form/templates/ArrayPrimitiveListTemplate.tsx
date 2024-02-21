@@ -21,36 +21,30 @@ export const ArrayPrimitiveListTemplate = (
   )
 
   return (
-    <div className='w-fit min-w-[220px]'>
-      <FormTemplate>
-        <FormTemplate.Header>
-          <FormTemplate.Header.Title
-            canExpand={true}
-            canOpen={false}
-            isExpanded={isExpanded}
-            setIsExpanded={setIsExpanded}
-            attribute={attribute}
-            objectIsNotEmpty={true}
-            icon={list}
-            uiAttribute={uiAttribute}
-          />{' '}
-          <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
-        </FormTemplate.Header>
-        <FormTemplate.Content
-          padding=''
-          expanded={!!isExpanded}
+    <FormTemplate>
+      <FormTemplate.Header>
+        <FormTemplate.Header.Title
           canExpand={true}
-        >
-          <PrimitiveArray
-            uiAttribute={uiAttribute}
-            data={value}
-            namePath={namePath}
-            attribute={attribute}
-            onChange={onChange}
-          />
-        </FormTemplate.Content>
-      </FormTemplate>
-    </div>
+          canOpen={false}
+          isExpanded={isExpanded}
+          setIsExpanded={setIsExpanded}
+          attribute={attribute}
+          objectIsNotEmpty={true}
+          icon={list}
+          uiAttribute={uiAttribute}
+        />
+        <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
+      </FormTemplate.Header>
+      <FormTemplate.Content padding='' expanded={!!isExpanded} canExpand={true}>
+        <PrimitiveArray
+          uiAttribute={uiAttribute}
+          data={value}
+          namePath={namePath}
+          attribute={attribute}
+          onChange={onChange}
+        />
+      </FormTemplate.Content>
+    </FormTemplate>
   )
 }
 

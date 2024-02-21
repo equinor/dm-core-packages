@@ -52,18 +52,16 @@ export const GridPlugin = (
   }
 
   return (
-    <div className='w-full h-full overflow-auto'>
-      <Grid {...internalConfig.size}>
-        <GridItems
-          idReference={idReference}
-          items={internalConfig.items}
-          itemBorder={internalConfig.itemBorder}
-          showItemBorders={internalConfig.showItemBorders}
-          type={type}
-          onSubmit={onSubmit}
-          onChange={onChange}
-        />
-      </Grid>
-    </div>
+    <Grid className='dm-parent-plugin' {...internalConfig.size}>
+      <GridItems
+        idReference={idReference}
+        items={internalConfig.items}
+        itemBorder={internalConfig.itemBorder}
+        showItemBorders={internalConfig.showItemBorders}
+        type={type}
+        onSubmit={onSubmit}
+        onChange={onChange}
+      />
+    </Grid>
   )
 }

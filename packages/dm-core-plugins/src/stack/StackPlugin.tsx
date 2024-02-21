@@ -36,7 +36,7 @@ export const StackPlugin = (props: IUIPlugin) => {
   }
 
   return (
-    <Stack {...stackProps}>
+    <Stack className='dm-parent-plugin' {...stackProps}>
       {config.items?.map((item, index) => (
         <ViewCreator
           key={`${item.recipe}_${index}`}

@@ -29,14 +29,7 @@ export const SidebarPlugin = (
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        height: '100%',
-      }}
-    >
+    <div className='wrapper flex-row'>
       <Sidebar
         viewSelectorItems={viewSelectorItems}
         selectedViewId={selectedViewId}
@@ -50,12 +43,6 @@ export const SidebarPlugin = (
         selectedViewId={selectedViewId}
         viewSelectorItems={viewSelectorItems}
         setFormData={setFormData}
-        style={{
-          height: '100%',
-          flexGrow: '1',
-          paddingLeft: '10px',
-          overflow: 'auto',
-        }}
       />
     </div>
   )

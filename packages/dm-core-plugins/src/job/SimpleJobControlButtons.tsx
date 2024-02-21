@@ -16,10 +16,15 @@ import {
   refresh,
   stop,
 } from '@equinor/eds-icons'
+import { tokens } from '@equinor/eds-tokens'
 import { useState } from 'react'
 import { RemoveJobDialog } from './RemoveJobDialog'
 
-const loadingColor = '#eb9131'
+const colors = {
+  loading: '#eb9131',
+  run: tokens.colors.interactive.success__resting.rgba,
+  error: tokens.colors.interactive.danger__resting.rgba,
+}
 
 export const StartButton = (props: {
   jobStatus: JobStatus
@@ -31,7 +36,7 @@ export const StartButton = (props: {
   return (
     <Icon
       data={play_circle}
-      color='rgb(21 128 61)'
+      color={tokens.colors.interactive.success__resting.rgba}
       size={48}
       aria-label='Run'
       onClick={() => start()}
@@ -54,8 +59,8 @@ export const LoadingButton = (props: {
       style={{
         backgroundColor: `${
           isHovering || jobStatus === JobStatus.Registered
-            ? 'red'
-            : loadingColor
+            ? colors.error
+            : colors.loading
         }`,
       }}
       onMouseEnter={() => setIsHovering(true)}
@@ -84,7 +89,7 @@ export const RerunButton = (props: {
           variant='contained_icon'
           color={'danger'}
           style={{
-            backgroundColor: loadingColor,
+            backgroundColor: colors.loading,
           }}
           aria-label='Rerun'
           onClick={() => setShowRestartDialog(true)}
@@ -123,7 +128,7 @@ export const CompletedButton = (props: {
         <Button
           variant='contained_icon'
           style={{
-            backgroundColor: 'green',
+            backgroundColor: colors.run,
           }}
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
@@ -139,7 +144,7 @@ export const ErrorButton = (props: { error: ErrorResponse }) => {
   return (
     <Button
       style={{
-        backgroundColor: loadingColor,
+        backgroundColor: colors.error,
         cursor: 'not-allowed',
       }}
       variant='contained_icon'

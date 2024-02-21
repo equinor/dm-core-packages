@@ -118,71 +118,46 @@ export default (props: IUIPlugin): React.ReactElement => {
       ? config.uiRecipesList
       : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
   return (
-    <div className='w-full h-full flex flex-col overflow-auto'>
-      <div
-        className='w-full flex'
-        style={{ minWidth: 'max-content', flexGrow: 1 }}
-      >
-        <TopBar
-          style={{
-            display: 'flex',
-            justifyItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: '8px',
-            height: '64px',
-            width: '100%',
-          }}
-        >
-          <TopBar.Header
-            style={{
-              display: 'flex',
-              alignContent: 'center',
-            }}
-          >
-            <Logo aria-label='main-heading'>{entity.label}</Logo>
-            <AppSelector
-              items={recipeNames}
-              onSelectItem={(item) =>
-                setSelectedRecipe(getRecipeConfigAndPlugin(item))
-              }
-              currentItem={selectedRecipe.name}
-            />
-          </TopBar.Header>
-          <TopBar.Actions>
-            <Icons>
-              <ClickableIcon
-                onClick={() => setAboutOpen(true)}
-                hidden={config.hideAbout}
-              >
-                <Icon data={info_circle} size={24} title='About' />
-              </ClickableIcon>
-              <ClickableIcon
-                onClick={() => setVisibleUserInfo(true)}
-                hidden={config.hideUserInfo}
-              >
-                <Icon data={account_circle} size={24} title='User' />
-              </ClickableIcon>
-            </Icons>
-          </TopBar.Actions>
-        </TopBar>
-      </div>
-      <div
-        style={{
-          height: 'calc(100% - 72px)',
-          width: '100%',
-          display: 'flex',
-        }}
-      >
-        <AboutDialog
-          isOpen={aboutOpen}
-          setIsOpen={setAboutOpen}
-          applicationEntity={entity}
-        />
-        <UserInfoDialog
-          isOpen={visibleUserInfo}
-          setIsOpen={setVisibleUserInfo}
-          applicationEntity={entity}
-        />
+    <div className='wrapper'>
+      <TopBar className='w-full shrink-0'>
+        <TopBar.Header>
+          <Logo aria-label='main-heading'>{entity.label}</Logo>
+          <AppSelector
+            items={recipeNames}
+            onSelectItem={(item) =>
+              setSelectedRecipe(getRecipeConfigAndPlugin(item))
+            }
+            currentItem={selectedRecipe.name}
+          />
+        </TopBar.Header>
+        <TopBar.Actions>
+          <Icons>
+            <ClickableIcon
+              onClick={() => setAboutOpen(true)}
+              hidden={config.hideAbout}
+            >
+              <Icon data={info_circle} size={24} title='About' />
+            </ClickableIcon>
+            <ClickableIcon
+              onClick={() => setVisibleUserInfo(true)}
+              hidden={config.hideUserInfo}
+            >
+              <Icon data={account_circle} size={24} title='User' />
+            </ClickableIcon>
+          </Icons>
+        </TopBar.Actions>
+      </TopBar>
+      <AboutDialog
+        isOpen={aboutOpen}
+        setIsOpen={setAboutOpen}
+        applicationEntity={entity}
+      />
+      <UserInfoDialog
+        isOpen={visibleUserInfo}
+        setIsOpen={setVisibleUserInfo}
+        applicationEntity={entity}
+      />
+      <div className='wrapper'>
         <UIPlugin
           key={idReference + selectedRecipe.name}
           idReference={idReference}

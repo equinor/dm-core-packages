@@ -21,16 +21,14 @@ const FormTemplateHeader = ({
   children,
   objectIsNotEmpty = true,
 }: PropsWithChildren & { objectIsNotEmpty?: boolean }) => {
-  return (
-    <legend
-      className={`flex h-10 justify-between bg-equinor-lightgray ${
-        objectIsNotEmpty ? 'hover:bg-equinor-lightgray' : ''
-      } items-center pr-2 rounded-[inherit] transition duration-75`}
-      aria-label='object-legend'
-    >
-      {children}
-    </legend>
-  )
+  const classNames = [
+    'flex h-10 justify-between bg-equinor-lightgray items-center pr-2 rounded-[inherit] transition duration-75',
+  ]
+  if (objectIsNotEmpty) {
+    // TODO: This bg is the same as the resting state, should it be different?
+    classNames.push('hover:bg-equinor-lightgray')
+  }
+  return <legend className={classNames.join(' ')}>{children}</legend>
 }
 
 const FormTemplateHeaderActions = ({
@@ -65,7 +63,7 @@ const FormTemplateContent = ({
     <>
       {canExpand && (
         <div
-          className={`border-t border-[#dddddd] ${padding ?? 'p-2'} max-h-300 overflow-auto w-full
+          className={`border-t border-[#dddddd] ${padding ?? 'p-2'} w-full
       ${expanded ? '' : 'hidden'}
       `}
         >
@@ -104,9 +102,7 @@ const FormTemplateHeaderTitle = ({
   const hideOptional = uiAttribute?.hideOptionalLabel ?? false
   return (
     <div
-      className={`flex flex-start items-center w-full h-full ${
-        !canExpand ? 'ps-2' : 'ps-1'
-      }`}
+      className={`flex flex-start items-center ${!canExpand ? 'ps-2' : 'ps-1'}`}
     >
       {canExpand && (
         <span
@@ -121,7 +117,7 @@ const FormTemplateHeaderTitle = ({
         </span>
       )}
       <div
-        className={`flex items-center space-x-1 w-full h-full ${
+        className={`flex items-center space-x-1 ${
           objectIsNotEmpty ? '' : 'opacity-40'
         }
         ${

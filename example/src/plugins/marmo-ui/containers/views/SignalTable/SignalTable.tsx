@@ -71,7 +71,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
   const visibleToLabel = getLabelDisplayedRowsTo()
 
   return (
-    <div>
+    <div className='dm-plugin-wrapper'>
       <Table style={{ width: '100%' }}>
         <Table.Head sticky>
           <Table.Row>
@@ -128,6 +128,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
             disabled={page === 0}
             variant='ghost_icon'
             onClick={() => setPage((prevPage) => prevPage - 1)}
+            className='overflow-hidden'
           >
             <Icon data={chevron_left} />
           </Button>
@@ -135,6 +136,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
             disabled={page + 1 === availablePages}
             variant='ghost_icon'
             onClick={() => setPage((prevPage) => prevPage + 1)}
+            className='overflow-hidden'
           >
             <Icon data={chevron_right} />
           </Button>

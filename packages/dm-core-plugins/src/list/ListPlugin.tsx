@@ -167,10 +167,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   return (
     <Stack
+      className='dm-plugin-wrapper'
       style={{
         width: config?.width || '100%',
-        height: '100%',
-        overflow: 'auto',
+        overflowX: 'auto',
       }}
     >
       {attribute && !attribute.contained && (
@@ -200,14 +200,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           hideInvalidTypes={internalConfig.hideInvalidTypes}
         />
       )}
-      <Stack
-        style={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          minWidth: 'max-content',
-        }}
-      >
+      <Stack role='rowgroup' style={{ minWidth: 'max-content' }}>
         {currentItems &&
           currentItems.map((item: TItem<TGenericObject>, index: number) => (
             <Stack key={item?.key}>
@@ -217,9 +210,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 justifyContent='space-between'
                 alignItems='center'
                 className={`border-b border-[#ccc]`}
-                style={{
-                  padding: '4px',
-                }}
+                padding={0.25}
               >
                 <Stack direction='row' alignItems='center'>
                   {internalConfig.functionality.expand && (
@@ -231,48 +222,34 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       <Tooltip
                         title={expanded[item.key] ? 'Minimize' : 'Expand'}
                       >
-                        <div className='w-fit'>
-                          <Button
-                            variant='ghost_icon'
-                            color='secondary'
-                            disabled={!item.isSaved}
-                            data-testid={`expandListItem-${index}`}
-                            onClick={() => handleExpand(item)}
-                          >
-                            <Icon
-                              data={chevron_right}
-                              size={internalConfig.compact ? 18 : 24}
-                              title={
-                                expanded[item.key]
-                                  ? 'Minimize item'
-                                  : 'Expand item'
-                              }
-                              className='transition-all'
-                              style={{
-                                transform: expanded[item.key]
-                                  ? 'rotate(90deg)'
-                                  : 'rotate(0deg)',
-                              }}
-                            />
-                          </Button>
-                        </div>
+                        <Button
+                          variant='ghost_icon'
+                          color='secondary'
+                          disabled={!item.isSaved}
+                          data-testid={`expandListItem-${index}`}
+                          onClick={() => handleExpand(item)}
+                        >
+                          <Icon
+                            data={chevron_right}
+                            size={internalConfig.compact ? 18 : 24}
+                            title={
+                              expanded[item.key]
+                                ? 'Minimize item'
+                                : 'Expand item'
+                            }
+                            className='transition-all'
+                            style={{
+                              transform: expanded[item.key]
+                                ? 'rotate(90deg)'
+                                : 'rotate(0deg)',
+                            }}
+                          />
+                        </Button>
                       </Tooltip>
                     </EdsProvider>
                   )}
                   {attribute && !attribute.contained && <Icon data={link} />}
-                  <div
-                    onClick={() =>
-                      internalConfig.functionality.expand &&
-                      item.isSaved &&
-                      handleExpand(item)
-                    }
-                    className={`px-2 text-ellipsis whitespace-nowrap
-                    ${
-                      internalConfig.functionality.expand
-                        ? 'cursor-pointer'
-                        : ''
-                    }`}
-                  >
+                  <Stack direction='row' wrap='wrap'>
                     {internalConfig.headers.map(
                       (attribute: string, index: number) => {
                         if (item.data && item.data?.[attribute]) {
@@ -292,7 +269,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                         }
                       }
                     )}
-                  </div>
+                  </Stack>
                 </Stack>
                 <Stack direction='row' alignItems='center'>
                   {internalConfig.functionality.open && (
@@ -343,55 +320,47 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 </Stack>
               </Stack>
               <LazyLoad visible={expanded[item.key]}>
-                <Stack>
-                  <div className='m-2 border-b border-[#ccc] pb-4'>
-                    <ViewCreator
-                      onSubmit={
-                        config.saveExpanded
-                          ? undefined
-                          : (data: TGenericObject) =>
-                              handleItemUpdate(item, data)
-                      }
-                      onChange={
-                        config.saveExpanded
-                          ? (data: TGenericObject) =>
-                              handleItemUpdate(item, data)
-                          : undefined
-                      }
-                      idReference={
-                        attribute && !attribute.contained
-                          ? resolveRelativeAddress(
-                              item?.reference?.address || '',
-                              documentPath,
-                              dataSource
-                            )
-                          : `${idReference}[${item.index}]`
-                      }
-                      viewConfig={internalConfig.expandViewConfig}
-                    />
-                  </div>
-                </Stack>
+                <div className='m-2 border-b border-[#ccc] pb-4'>
+                  <ViewCreator
+                    onSubmit={
+                      config.saveExpanded
+                        ? undefined
+                        : (data: TGenericObject) => handleItemUpdate(item, data)
+                    }
+                    onChange={
+                      config.saveExpanded
+                        ? (data: TGenericObject) => handleItemUpdate(item, data)
+                        : undefined
+                    }
+                    idReference={
+                      attribute && !attribute.contained
+                        ? resolveRelativeAddress(
+                            item?.reference?.address || '',
+                            documentPath,
+                            dataSource
+                          )
+                        : `${idReference}[${item.index}]`
+                    }
+                    viewConfig={internalConfig.expandViewConfig}
+                  />
+                </div>
               </LazyLoad>
             </Stack>
           ))}
       </Stack>
       <EdsProvider density={internalConfig.compact ? 'compact' : 'comfortable'}>
         <div className={`w-full space-x-1 flex flex-wrap my-2 justify-between`}>
-          <div className='flex'>
-            {showPagination && (
-              <Pagination
-                count={Object.keys(items).length}
-                page={currentPage}
-                setPage={setPage}
-                rowsPerPage={itemsPerPage}
-                setRowsPerPage={setItemsPerPage}
-                defaultRowsPerPage={
-                  internalConfig?.defaultPaginationRowsPerPage
-                }
-              />
-            )}
-          </div>
-          <div className='flex justify-end grow space-x-2 self-center'>
+          {showPagination && (
+            <Pagination
+              count={Object.keys(items).length}
+              page={currentPage}
+              setPage={setPage}
+              rowsPerPage={itemsPerPage}
+              setRowsPerPage={setItemsPerPage}
+              defaultRowsPerPage={internalConfig?.defaultPaginationRowsPerPage}
+            />
+          )}
+          <div className='flex justify-end grow space-x-2'>
             {internalConfig.functionality.add && (
               <>
                 <NewListItemButton
