@@ -22,6 +22,7 @@ export const TablePlugin = (props: IUIPlugin) => {
     addItem,
     removeItem,
     save,
+    reloadData,
   } = useList<TGenericObject>(idReference, true)
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
@@ -35,6 +36,7 @@ export const TablePlugin = (props: IUIPlugin) => {
       items={items}
       isLoading={isLoading}
       onOpen={props.onOpen}
+      reloadData={reloadData}
       removeItem={removeItem}
       saveTable={save}
       setDirtyState={setDirtyState}
