@@ -4,6 +4,7 @@ type LazyProps = {
   visible: boolean
   role?: string
   element?: ComponentType
+  className?: string
 }
 
 export const LazyLoad = ({
@@ -11,6 +12,7 @@ export const LazyLoad = ({
   children,
   role,
   element,
+  className,
 }: PropsWithChildren<LazyProps>) => {
   const rendered = useRef(visible)
 
@@ -22,8 +24,12 @@ export const LazyLoad = ({
 
   const Element = element || 'div'
 
+  const classNames = ['wrapper']
+  if (!visible) classNames.push('hidden')
+  if (className) classNames.push(className)
+
   return (
-    <Element className={`${visible ? '' : 'hidden'} w-full h-full`} role={role}>
+    <Element className={classNames.join(' ')} role={role}>
       {children}
     </Element>
   )

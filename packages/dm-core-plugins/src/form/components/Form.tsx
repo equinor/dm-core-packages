@@ -14,21 +14,13 @@ import {
 import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
 import { FormProvider, useForm, useFormContext } from 'react-hook-form'
-import styled from 'styled-components'
 import { RegistryProvider } from '../context/RegistryContext'
 import { getCanOpenOrExpand } from '../templates/shared/utils'
 import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
 import { isPrimitiveType } from '../utils/isPrimitiveType'
 import { AttributeList } from './AttributeList'
 
-const Wrapper = styled.div`
-  max-width: 650px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: auto;
-`
+const FORM_DEFAULT_MAX_WIDTH = '650px'
 
 export const defaultConfig: TFormConfig = {
   attributes: [],
@@ -173,7 +165,10 @@ export const Form = (props: TFormProps) => {
         idReference={idReference}
         config={{ ...defaultConfig, ...props.config }}
       >
-        <Wrapper>
+        <div
+          className='wrapper dm-plugin-wrapper dm-parent-plugin'
+          style={{ maxWidth: FORM_DEFAULT_MAX_WIDTH }}
+        >
           <AttributeList
             namePath={namePath}
             blueprint={blueprint}
@@ -184,7 +179,7 @@ export const Form = (props: TFormProps) => {
               density={config?.compactButtons ? 'compact' : 'comfortable'}
             >
               <div
-                className={`flex space-x-2 justify-start items-center h-fit ${
+                className={`flex space-x-2 justify-start items-center ${
                   config?.compactButtons ? 'mt-2' : 'mt-4'
                 }`}
               >
@@ -195,7 +190,7 @@ export const Form = (props: TFormProps) => {
                   tooltip={'Revert changes'}
                   variant={'outlined'}
                   data-testid='form-reset'
-                  className='w-max h-max overflow-hidden'
+                  className='overflow-hidden'
                 >
                   <Icon data={undo} size={16} />
                 </Button>
@@ -203,20 +198,20 @@ export const Form = (props: TFormProps) => {
                   type='submit'
                   data-testid='form-submit'
                   onClick={handleSubmit}
-                  className='w-max h-max overflow-hidden'
+                  className='overflow-hidden'
                 >
                   Submit
                 </Button>
               </div>
             </EdsProvider>
           )}
-        </Wrapper>
+        </div>
       </RegistryProvider>
     )
   }
 
   return (
-    <div key={reloadCounter} className='w-full h-full'>
+    <div key={reloadCounter}>
       {showSubmitButton ? (
         <FormProvider {...methods}>{content()}</FormProvider>
       ) : (

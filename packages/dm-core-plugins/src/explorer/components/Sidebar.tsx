@@ -31,12 +31,12 @@ export default function Sidebar(props: TProps) {
   }, [])
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className='flex'>
       <div
         style={{
           width: `${width / 16}rem`,
-          overflowX: 'hidden',
           overflowY: 'auto',
+          paddingRight: '1rem',
         }}
       >
         {children}

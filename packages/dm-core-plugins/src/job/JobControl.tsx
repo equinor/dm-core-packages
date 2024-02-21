@@ -167,7 +167,7 @@ export const JobControl = (props: IUIPlugin) => {
     throw new Error(JSON.stringify(error || jobEntityError, null, 2))
 
   return (
-    <div className={'flex-col'}>
+    <div className='dm-plugin-wrapper flex-col'>
       {asCronJob && (
         <ConfigureRecurring
           asCron={asCronJob}

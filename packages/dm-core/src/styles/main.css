@@ -18,6 +18,46 @@ body {
   box-sizing: inherit;
 }
 
+#root {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.scroll {
+  overflow-y: auto;
+}
+
+/* Add padding to plugins */
+.dm-plugin-wrapper {
+  padding: 1rem;
+}
+
+/* Plugins inside plugins like form, grid and stack should not have additional padding*/
+.dm-parent-plugin .dm-plugin-wrapper {
+  padding: 0;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.p-0 {
+  padding: 0;
+}
+
 Button,
 .transition-all {
   transition-property: all;

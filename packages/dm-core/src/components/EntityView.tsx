@@ -60,63 +60,52 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
       </ErrorGroup>
     )
   if (!recipe || !Object.keys(recipe).length)
-    return (
-      <div className='w-full h-full flex'>
-        No compatible uiRecipes for entity
-      </div>
-    )
+    return <div className='w-full flex'>No compatible uiRecipes for entity</div>
 
   const refreshable = showRefreshButton ?? recipe.showRefreshButton ?? false
   return (
-    <div className='flex w-full h-full'>
-      <Suspense fallback={<Loading />}>
-        <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
-          <div
-            style={{
-              position: 'relative',
-              border: hoverRefresh
-                ? '1px solid #5c5c5c'
-                : '1px solid transparent',
-              borderRadius: hoverRefresh ? '4px' : '0',
-              width: '100%',
-              height: '100%',
-            }}
-            key={reloadCounter}
-          >
-            {refreshable && (
-              <RefreshButton
-                hidden={false}
-                tooltip={recipe.plugin.split('/').at(-1)}
-                onMouseLeave={() => setHoverRefresh(false)}
-                onMouseEnter={() => {
-                  setHoverRefresh(true)
-                }}
-                onClick={() => {
-                  setReloadCounter(reloadCounter + 1)
-                  setHoverRefresh(false)
-                }}
-              />
-            )}
-            <div
-              style={{
-                opacity: hoverRefresh ? 0.6 : 1,
-                width: '100%',
-                height: '100%',
+    <Suspense fallback={<Loading />}>
+      <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
+        <div
+          className='wrapper relative'
+          style={{
+            boxShadow: hoverRefresh ? 'inset 0px 0px 0px 1px #5c5c5c' : 'none',
+            borderRadius: hoverRefresh ? '4px' : '0',
+          }}
+          key={reloadCounter}
+        >
+          {refreshable && (
+            <RefreshButton
+              hidden={false}
+              tooltip={recipe.plugin.split('/').at(-1)}
+              onMouseLeave={() => setHoverRefresh(false)}
+              onMouseEnter={() => {
+                setHoverRefresh(true)
               }}
-            >
-              <MemoizedUiPlugin
-                getPlugin={getUiPlugin}
-                recipe={recipe}
-                idReference={idReference}
-                type={type}
-                onSubmit={onSubmit}
-                onOpen={onOpen}
-                onChange={onChange}
-              />
-            </div>
+              onClick={() => {
+                setReloadCounter(reloadCounter + 1)
+                setHoverRefresh(false)
+              }}
+            />
+          )}
+          <div
+            className='wrapper'
+            style={{
+              opacity: hoverRefresh ? 0.6 : 1,
+            }}
+          >
+            <MemoizedUiPlugin
+              getPlugin={getUiPlugin}
+              recipe={recipe}
+              idReference={idReference}
+              type={type}
+              onSubmit={onSubmit}
+              onOpen={onOpen}
+              onChange={onChange}
+            />
           </div>
-        </ErrorBoundary>
-      </Suspense>
-    </div>
+        </div>
+      </ErrorBoundary>
+    </Suspense>
   )
 }

@@ -30,29 +30,13 @@ export const TabsPlugin = (
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        width: '100%',
-        flexGrow: 1,
-      }}
-    >
-      <div
-        style={{
-          height: '48px',
-          minWidth: 'max-content',
-          display: 'flex',
-        }}
-      >
-        <Tabs
-          viewSelectorItems={viewSelectorItems}
-          selectedViewId={selectedViewId}
-          setSelectedViewId={setSelectedViewId}
-          removeView={removeView}
-        />
-      </div>
+    <div className='wrapper'>
+      <Tabs
+        viewSelectorItems={viewSelectorItems}
+        selectedViewId={selectedViewId}
+        setSelectedViewId={setSelectedViewId}
+        removeView={removeView}
+      />
       <Content
         type={type}
         onOpen={addView}
@@ -60,13 +44,6 @@ export const TabsPlugin = (
         selectedViewId={selectedViewId}
         viewSelectorItems={viewSelectorItems}
         setFormData={setFormData}
-        style={{
-          height: 'calc(100% - 48px)',
-          width: '100%',
-          display: 'flex',
-          overflow: 'auto',
-          padding: '10px',
-        }}
       />
     </div>
   )

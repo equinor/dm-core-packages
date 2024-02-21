@@ -41,16 +41,7 @@ const Content = () => {
     >
       <DMJobProvider dmJobPath={import.meta.env.VITE_DM_JOB_URL}>
         <UiPluginProvider pluginsToLoad={plugins}>
-          <div
-            style={{
-              display: 'flex',
-              height: '100vh',
-              width: '100vw',
-              overflow: 'hidden',
-            }}
-          >
-            <App />
-          </div>
+          <App />
         </UiPluginProvider>
         <ToastContainer />
       </DMJobProvider>

@@ -74,23 +74,6 @@ export const Header = styled.th<{ selected?: boolean }>`
   }
 `
 
-export const RowButton = styled.button<{ selected?: boolean }>`
-  background: ${({ selected }) =>
-    selected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'};
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  &:hover {
-    background: rgba(0, 0, 0, 0.2);
-  }
-  svg {
-    fill: #666;
-  }
-`
-
 export const Input = styled.input<{ attributeType: string }>`
   width: 100%;
   padding: 0 0.25rem;

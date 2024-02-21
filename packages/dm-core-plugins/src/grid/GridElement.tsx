@@ -45,13 +45,9 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       showItemBorders={showItemBorders}
       itemBorder={itemBorder}
     >
-      <div className='flex flex-col w-full h-full'>
+      <div className='flex flex-col w-full'>
         {item?.title && <Typography variant='h4'>{item.title}</Typography>}
-        <div
-          style={{
-            height: item?.title ? 'calc(100% - 32px)' : '100%',
-          }}
-        >
+        <div className='wrapper'>
           <ViewCreator
             idReference={idReference}
             viewConfig={item.viewConfig}
