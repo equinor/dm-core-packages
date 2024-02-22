@@ -20,7 +20,7 @@ services:
       - db
 
   db:
-    image: mongo:3.4
+    image: mongo:3.6
     environment:
       MONGO_INITDB_ROOT_USERNAME: maf
       MONGO_INITDB_ROOT_PASSWORD: xd7wCEhEx4kszsecYFfC
