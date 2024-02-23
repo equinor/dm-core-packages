@@ -5058,3 +5058,8 @@ fix: okdsfd (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: fea9d76 2024-02-22 githu..[bot] chore(master): release 1.22.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
+* chore: release main (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/8018528930/1)
+    * **DMSS VERSION**: 2803551 2024-02-23 Stig Ofstad chore: upgrade to pydantic v2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: 52269dd 2024-02-23 githu..[bot] chore(main): release 1.6.1 grafted, HEAD -> main, origin/main
