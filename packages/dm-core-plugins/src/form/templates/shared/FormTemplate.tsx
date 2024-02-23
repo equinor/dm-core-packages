@@ -21,14 +21,11 @@ const FormTemplateHeader = ({
   children,
   objectIsNotEmpty = true,
 }: PropsWithChildren & { objectIsNotEmpty?: boolean }) => {
-  const classNames = [
-    'flex h-10 justify-between bg-equinor-lightgray items-center pr-2 rounded-[inherit] transition duration-75',
-  ]
-  if (objectIsNotEmpty) {
-    // TODO: This bg is the same as the resting state, should it be different?
-    classNames.push('hover:bg-equinor-lightgray')
-  }
-  return <legend className={classNames.join(' ')}>{children}</legend>
+  return (
+    <legend className='flex h-10 justify-between bg-equinor-lightgray items-center pr-2 rounded-[inherit] transition duration-75'>
+      {children}
+    </legend>
+  )
 }
 
 const FormTemplateHeaderActions = ({
