@@ -58,7 +58,7 @@ const YamlView = (props: {
   }
 
   return (
-    <div className='dm-plugin-wrapper flex flex-col w-full'>
+    <div className='dm-plugin-padding flex flex-col w-full'>
       <div className='flex justify-end items-center my-2 gap-1 w-fit'>
         <Button variant='ghost' onClick={() => onClick(asYAML)}>
           Copy as YAML

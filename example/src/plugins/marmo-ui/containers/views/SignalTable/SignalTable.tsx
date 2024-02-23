@@ -71,7 +71,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
   const visibleToLabel = getLabelDisplayedRowsTo()
 
   return (
-    <div className='dm-plugin-wrapper'>
+    <div className='dm-plugin-padding'>
       <Table style={{ width: '100%' }}>
         <Table.Head sticky>
           <Table.Row>

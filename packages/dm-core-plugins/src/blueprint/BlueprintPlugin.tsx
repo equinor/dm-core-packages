@@ -50,7 +50,7 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
   if (!document || isLoading) return <Loading />
 
   return (
-    <div className='dm-plugin-wrapper max-w-full p-2 w-full'>
+    <div className='dm-plugin-padding max-w-full p-2 w-full'>
       <h1 className='text-3xl'>{document.name}</h1>
       <Spacer />
       <Typography className='self-center pb-2' bold={true}>

@@ -129,7 +129,7 @@ export function DataGridPlugin(props: IUIPlugin) {
   }
 
   return !data ? null : (
-    <Stack className='dm-plugin-wrapper' alignItems='flex-start' spacing={1}>
+    <Stack className='dm-plugin-padding' alignItems='flex-start' spacing={1}>
       <DataGrid
         attributeType={attribute?.attributeType || 'string'}
         config={userConfig}

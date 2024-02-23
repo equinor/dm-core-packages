@@ -167,7 +167,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   return (
     <Stack
-      className='dm-plugin-wrapper'
+      className='dm-plugin-padding'
       style={{
         width: config?.width || '100%',
         overflowX: 'auto',
