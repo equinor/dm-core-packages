@@ -96,7 +96,7 @@ export const MediaViewerPlugin = (
   if (isLoading || document === null) return <Loading />
   if (document.type !== EBlueprint.FILE) throw new Error('This is not a file')
   return (
-    <div className='dm-plugin-wrapper'>
+    <div className='dm-plugin-padding'>
       <Suspense fallback={<Loading />}>
         <MediaContent
           blobUrl={blobUrl}

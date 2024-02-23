@@ -138,7 +138,7 @@ export function Table(props: TableProps) {
     tableVariant
   )
   return (
-    <div className='dm-plugin-wrapper w-full' data-testid='table-wrapper'>
+    <div className='dm-plugin-padding w-full' data-testid='table-wrapper'>
       <Stack
         style={{
           width: config?.width || '100%',

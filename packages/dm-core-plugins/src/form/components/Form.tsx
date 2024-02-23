@@ -166,7 +166,7 @@ export const Form = (props: TFormProps) => {
         config={{ ...defaultConfig, ...props.config }}
       >
         <div
-          className='wrapper dm-plugin-wrapper dm-parent-plugin'
+          className='wrapper dm-plugin-padding dm-parent-plugin'
           style={{ maxWidth: FORM_DEFAULT_MAX_WIDTH }}
         >
           <AttributeList

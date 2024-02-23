@@ -37,12 +37,12 @@ body {
 }
 
 /* Add padding to plugins */
-.dm-plugin-wrapper {
+.dm-plugin-padding {
   padding: 1rem;
 }
 
 /* Plugins inside plugins like form, grid and stack should not have additional padding*/
-.dm-parent-plugin .dm-plugin-wrapper {
+.dm-parent-plugin .dm-plugin-padding {
   padding: 0;
 }
 
