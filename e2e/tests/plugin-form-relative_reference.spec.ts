@@ -89,7 +89,7 @@ test('Relative reference', async ({ page }) => {
 
   await test.step('Nested local reference', async () => {
     await page.getByTestId('tasks').getByText('Tasks').click()
-    await page.getByText('ChildTask local reference', { exact: true }).click()
+    await page.getByTestId('expandListItem-0').click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await page.getByText('Data', { exact: true }).nth(1).click()
@@ -117,7 +117,7 @@ test('Relative reference', async ({ page }) => {
   })
 
   await test.step('Nested root reference', async () => {
-    await page.getByText('ChildTask root reference', { exact: true }).click()
+    await page.getByTestId('expandListItem-1').click()
     await expect(page.locator('pre').getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await page.getByText('Data', { exact: true }).nth(2).click()
