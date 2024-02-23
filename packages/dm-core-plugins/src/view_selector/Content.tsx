@@ -19,7 +19,7 @@ export const Content = (props: {
   const { selectedViewId, viewSelectorItems, setFormData, formData, onOpen } =
     props
   return (
-    <div className='wrapper scroll' style={props.style}>
+    <div className='flex-layout-container scroll' style={props.style}>
       {viewSelectorItems.map((config: TItemData) => (
         <LazyLoad
           key={config.viewId}

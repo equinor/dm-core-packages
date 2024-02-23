@@ -29,7 +29,7 @@ export const SidebarPlugin = (
   }
 
   return (
-    <div className='wrapper flex-row'>
+    <div className='flex-layout-container flex-row'>
       <Sidebar
         viewSelectorItems={viewSelectorItems}
         selectedViewId={selectedViewId}

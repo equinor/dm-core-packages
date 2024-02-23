@@ -118,7 +118,7 @@ export default (props: IUIPlugin): React.ReactElement => {
       ? config.uiRecipesList
       : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
   return (
-    <div className='wrapper'>
+    <div className='flex-layout-container'>
       <TopBar className='w-full shrink-0'>
         <TopBar.Header>
           <Logo aria-label='main-heading'>{entity.label}</Logo>
@@ -157,7 +157,7 @@ export default (props: IUIPlugin): React.ReactElement => {
         setIsOpen={setVisibleUserInfo}
         applicationEntity={entity}
       />
-      <div className='wrapper'>
+      <div className='flex-layout-container'>
         <UIPlugin
           key={idReference + selectedRecipe.name}
           idReference={idReference}

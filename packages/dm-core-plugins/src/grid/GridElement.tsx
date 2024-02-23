@@ -47,7 +47,7 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
     >
       <div className='flex flex-col w-full'>
         {item?.title && <Typography variant='h4'>{item.title}</Typography>}
-        <div className='wrapper'>
+        <div className='flex-layout-container'>
           <ViewCreator
             idReference={idReference}
             viewConfig={item.viewConfig}
