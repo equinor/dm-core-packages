@@ -53,15 +53,17 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
           icon={list}
           uiAttribute={uiAttribute}
         />
-        {attribute.optional && !config.readOnly && !uiAttribute?.readOnly && (
-          <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
-            {canOpen && (
-              <OpenObjectButton
-                viewId={namePath}
-                viewConfig={getOpenViewConfig(uiAttribute, namePath)}
-              />
-            )}
-            {isDefined ? (
+        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
+          {canOpen && (
+            <OpenObjectButton
+              viewId={namePath}
+              viewConfig={getOpenViewConfig(uiAttribute, namePath)}
+            />
+          )}
+          {attribute.optional &&
+            !config.readOnly &&
+            !uiAttribute?.readOnly &&
+            (isDefined ? (
               <RemoveObject
                 namePath={namePath}
                 onRemove={() => {
@@ -76,9 +78,8 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
                 defaultValue={[]}
                 onAdd={() => setInitialValue([])}
               />
-            )}
-          </FormTemplate.Header.Actions>
-        )}
+            ))}
+        </FormTemplate.Header.Actions>
       </FormTemplate.Header>
       <FormTemplate.Content
         expanded={!!isExpanded}
