@@ -36,7 +36,7 @@ export const StartButton = (props: {
   return (
     <Icon
       data={play_circle}
-      color={tokens.colors.interactive.success__resting.rgba}
+      color={colors.run}
       size={48}
       aria-label='Run'
       onClick={() => start()}
