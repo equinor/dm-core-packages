@@ -67,7 +67,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     <Suspense fallback={<Loading />}>
       <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
         <div
-          className='wrapper relative'
+          className='flex-layout-container relative'
           style={{
             boxShadow: hoverRefresh ? 'inset 0px 0px 0px 1px #5c5c5c' : 'none',
             borderRadius: hoverRefresh ? '4px' : '0',
@@ -89,7 +89,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
             />
           )}
           <div
-            className='wrapper'
+            className='flex-layout-container'
             style={{
               opacity: hoverRefresh ? 0.6 : 1,
             }}

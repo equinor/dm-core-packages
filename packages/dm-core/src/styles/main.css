@@ -24,7 +24,7 @@ body {
   width: 100%;
 }
 
-.wrapper {
+.flex-layout-container {
   display: flex;
   flex-direction: column;
   flex-grow: 1;

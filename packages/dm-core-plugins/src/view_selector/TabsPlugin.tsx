@@ -30,7 +30,7 @@ export const TabsPlugin = (
   }
 
   return (
-    <div className='wrapper'>
+    <div className='flex-layout-container'>
       <Tabs
         viewSelectorItems={viewSelectorItems}
         selectedViewId={selectedViewId}

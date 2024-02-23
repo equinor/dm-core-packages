@@ -23,7 +23,7 @@ export default () => {
     undefined
   )
   return (
-    <div className='wrapper flex-row h-full'>
+    <div className='flex-layout-container flex-row h-full'>
       {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Progress.Circular />
@@ -43,7 +43,7 @@ export default () => {
         </Sidebar>
       )}
       {selectedType && selectedEntity && (
-        <div className='wrapper scroll'>
+        <div className='flex-layout-container scroll'>
           <EntityView
             type={selectedType}
             idReference={selectedEntity}
