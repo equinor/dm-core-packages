@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.41.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.40.1...dm-core-v1.41.0) (2024-02-23)
+
+
+### Features
+
+* allow revert table changes in edit mode ([61d8d4b](https://github.com/equinor/dm-core-packages/commit/61d8d4b7e2b5659da2e176b46670dcd30e3b895f))
+
+
+### Bug Fixes
+
+* **job:** a few minor bugs in scheduler ui ([dbde777](https://github.com/equinor/dm-core-packages/commit/dbde777e16a594156aa75d7669c7452ae5e5bba1))
+
 ## [1.40.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.40.0...dm-core-v1.40.1) (2024-02-19)
 
 

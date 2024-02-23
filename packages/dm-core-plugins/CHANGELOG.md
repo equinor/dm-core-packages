@@ -60,6 +60,26 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.48.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.47.1...dm-core-plugins-v1.48.0) (2024-02-23)
+
+
+### Features
+
+* allow revert table changes in edit mode ([61d8d4b](https://github.com/equinor/dm-core-packages/commit/61d8d4b7e2b5659da2e176b46670dcd30e3b895f))
+
+
+### Bug Fixes
+
+* **job:** a few minor bugs in scheduler ui ([dbde777](https://github.com/equinor/dm-core-packages/commit/dbde777e16a594156aa75d7669c7452ae5e5bba1))
+* **job:** replace eds autocomplete with the new NativeSelect ([fc1928a](https://github.com/equinor/dm-core-packages/commit/fc1928a73be66b105245d462b0e1b32873885fd9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.40.1 to ^1.41.0
+
 ## [1.47.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.47.0...dm-core-plugins-v1.47.1) (2024-02-19)
 
 
