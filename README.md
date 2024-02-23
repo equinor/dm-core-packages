@@ -5053,3 +5053,8 @@ fix: okdsfd (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 660feb2 2024-02-20 githu..[bot] chore(master): release 1.20.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
+* feat: allow revert table changes in edit mode (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/8017652734/1)
+    * **DMSS VERSION**: fea9d76 2024-02-22 githu..[bot] chore(master): release 1.22.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: 8bb652e 2024-02-14 githu..[bot] chore(main): release 1.6.0 grafted, HEAD -> main, origin/main
