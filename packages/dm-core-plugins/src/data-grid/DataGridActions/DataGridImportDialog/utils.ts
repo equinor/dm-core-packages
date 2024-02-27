@@ -8,7 +8,7 @@ export async function checkAndParseToAttributeType(
 
   function parseValue(value: any, rowIndex: number, colIndex: number) {
     if (attributeType === 'number') {
-      const parsedValue = parseInt(value, 10)
+      const parsedValue = parseFloat(value.replace(',', '.'))
       if (Number.isNaN(parsedValue)) {
         errors.push(
           `Data in cell ${colIndex + 1}, row ${
@@ -23,7 +23,7 @@ export async function checkAndParseToAttributeType(
         errors.push(
           `Data in cell ${colIndex + 1}, row ${
             rowIndex + 1
-          } of value "${value}" is not a valid boolean`
+          } of value "${value}" is not a valid boolean "true" or "false"`
         )
       }
       return value === 'true'
