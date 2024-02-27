@@ -1,6 +1,6 @@
 import { Stack } from '@development-framework/dm-core'
 import { EdsProvider, Typography } from '@equinor/eds-core-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { DataCell } from './DataCell/DataCell'
 import { DataGridActions } from './DataGridActions/DataGridActions'
 import { DataGridPagination } from './DataGridPagination/DataGridPagination'
@@ -37,22 +37,32 @@ export function DataGrid(props: DataGridProps) {
     dimensions
   )
 
-  useEffect(() => {
-    const columnLabels = functionality.isMultiDimensional
-      ? functionality.columnDimensions === '*'
-        ? utils.createLabels(
-            config.columnLabels,
-            data.length > 0 ? data[0].length : 0
-          )
-        : utils.createLabels(
-            config.columnLabels,
-            parseInt(functionality.columnDimensions, 10)
-          )
-      : ['1']
-    const rowLabels = utils.createLabels(config.rowLabels, data?.length)
+  const updateColumnLabels = useCallback(
+    (length: number) => {
+      const updatedLabels = utils.createLabels(config.columnLabels, length)
+      setColumnLabels(updatedLabels)
+    },
+    [config]
+  )
 
-    setRowLabels(rowLabels)
-    setColumnLabels(columnLabels)
+  const updateRowLabels = useCallback(
+    (length: number) => {
+      const updatedLabels = utils.createLabels(config.rowLabels, length)
+      setRowLabels(updatedLabels)
+    },
+    [config]
+  )
+
+  useEffect(() => {
+    const columnsLength = functionality.isMultiDimensional
+      ? functionality.columnDimensions === '*'
+        ? data.length > 0
+          ? data[0].length
+          : 0
+        : parseInt(functionality.columnDimensions, 10)
+      : ['1']
+    updateColumnLabels(columnsLength)
+    updateRowLabels(data?.length)
   }, [])
 
   function addRow(newIndex?: number) {
@@ -62,8 +72,7 @@ export function DataGrid(props: DataGridProps) {
         : fillValue
     const dataCopy = [...data]
     dataCopy.splice(newIndex || data.length, 0, newRow)
-    const newLabels = utils.createLabels(config.rowLabels, data.length + 1)
-    setRowLabels(newLabels)
+    updateRowLabels(data.length + 1)
     setData(dataCopy)
   }
 
@@ -87,30 +96,22 @@ export function DataGrid(props: DataGridProps) {
 
   function addColumn(newIndex?: number) {
     newIndex = newIndex || columnLabels.length
-    const newColumns = utils.createLabels(
-      config.columnLabels,
-      columnLabels.length + 1
-    )
     const fillValue = utils.getFillValue(attributeType)
     const updatedData = data.map((item) => {
       item.splice(newIndex, 0, fillValue)
       return item
     })
     setData(updatedData)
-    setColumnLabels(newColumns)
+    updateColumnLabels(columnLabels.length + 1)
     setSelectedColumn(newIndex)
   }
 
   function deleteColumn(index: number) {
-    const newColumns = utils.createLabels(
-      config.columnLabels,
-      columnLabels.length - 1
-    )
     const updatedData = data.map((item) => {
       item.splice(index, 1)
       return item
     })
-    setColumnLabels(newColumns)
+    updateColumnLabels(columnLabels.length - 1)
     setData(updatedData)
     setSelectedColumn(undefined)
   }
@@ -198,14 +199,20 @@ export function DataGrid(props: DataGridProps) {
       <Styled.ActionRow>
         <DataGridActions
           addRow={addRow}
+          attributeType={attributeType}
           columnLabels={columnLabels}
+          config={config}
           data={data}
           deleteRow={deleteRow}
+          dimensions={dimensions}
           functionality={functionality}
           moveRow={moveRow}
           name={props.name || dataGridId}
           rowLabels={rowLabels}
           selectedRow={selectedRow}
+          setData={setData}
+          updateColumnLabels={updateColumnLabels}
+          updateRowLabels={updateRowLabels}
         />
         <DataGridPagination
           count={data.length}
