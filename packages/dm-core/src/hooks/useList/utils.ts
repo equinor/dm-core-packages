@@ -1,3 +1,5 @@
+import { TItem } from './types'
+
 export function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
   const arrayCopy = [...arr]
   const element = arrayCopy[fromIndex]
@@ -6,17 +8,16 @@ export function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
   return arrayCopy
 }
 
-export function createNewItemObject(
+export const createNewItemObject = (
   data: any,
   newItemIndex: number,
-  isSaved: boolean
-) {
-  const id: string = crypto.randomUUID()
-  return {
-    key: id,
-    data,
-    index: newItemIndex,
-    reference: null,
-    isSaved,
-  }
-}
+  isSaved: boolean,
+  idReference: string
+): TItem<any> => ({
+  key: crypto.randomUUID(),
+  idReference: idReference,
+  data,
+  index: newItemIndex,
+  reference: null,
+  isSaved,
+})

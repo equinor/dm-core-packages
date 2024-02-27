@@ -27,6 +27,7 @@ export type TAttribute = {
   name: string
   type: string
   attributeType: string
+  ensureUID?: boolean
   dimensions?: string
   optional?: boolean
   contained?: boolean
