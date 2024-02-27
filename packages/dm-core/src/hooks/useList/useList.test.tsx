@@ -58,11 +58,13 @@ describe('contained list', () => {
           index: 0,
           isSaved: true,
           reference: null,
+          idReference: "testDS/1[0]",
           key: expect.any(String),
           data: mockList[0],
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -110,9 +112,11 @@ describe('contained list', () => {
           isSaved: true,
           reference: null,
           key: expect.any(String),
+          idReference: "testDS/1[0]",
           data: mockList[0],
         },
         {
+          idReference: "testDS/1[1]",
           index: 1,
           isSaved: true,
           reference: null,
@@ -121,6 +125,7 @@ describe('contained list', () => {
         },
         {
           index: 2,
+          idReference: "testDS/1[2]",
           isSaved: false,
           reference: null,
           key: expect.any(String),
@@ -151,6 +156,7 @@ describe('contained list', () => {
           index: 0,
           isSaved: true,
           reference: null,
+          idReference: "testDS/1[0]",
           key: expect.any(String),
           data: mockList[0],
         },
@@ -160,9 +166,11 @@ describe('contained list', () => {
           reference: null,
           key: expect.any(String),
           data: mockList[1],
+          idReference: "testDS/1[1]",
         },
         {
           index: 2,
+          idReference: "testDS/1[2]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -184,6 +192,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "testDS/1[0]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -191,6 +200,7 @@ describe('contained list', () => {
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -208,6 +218,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -225,6 +236,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "testDS/1[0]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -233,6 +245,7 @@ describe('contained list', () => {
         {
           index: 1,
           isSaved: true,
+          idReference: "testDS/1[1]",
           reference: null,
           key: expect.any(String),
           data: mockList[1],
@@ -249,6 +262,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -265,6 +279,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "testDS/1[0]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -272,6 +287,7 @@ describe('contained list', () => {
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -291,6 +307,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "testDS/1[0]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -298,6 +315,7 @@ describe('contained list', () => {
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -315,12 +333,14 @@ describe('contained list', () => {
         {
           index: 0,
           isSaved: true,
+          idReference: "testDS/1[0]",
           reference: null,
           key: expect.any(String),
           data: mockList[0],
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -340,6 +360,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "testDS/1[0]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -347,6 +368,7 @@ describe('contained list', () => {
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -364,6 +386,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "testDS/1[0]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -371,6 +394,7 @@ describe('contained list', () => {
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -394,6 +418,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "testDS/1[0]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -401,6 +426,7 @@ describe('contained list', () => {
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: false,
           reference: null,
           key: expect.any(String),
@@ -413,6 +439,7 @@ describe('contained list', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "testDS/1[0]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -420,6 +447,7 @@ describe('contained list', () => {
         },
         {
           index: 1,
+          idReference: "testDS/1[1]",
           isSaved: true,
           reference: null,
           key: expect.any(String),
@@ -491,6 +519,7 @@ describe('non contained list with resolve references enabled', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "$1",
           isSaved: true,
           reference: referenceList[0],
           key: expect.any(String),
@@ -498,6 +527,7 @@ describe('non contained list with resolve references enabled', () => {
         },
         {
           index: 1,
+          idReference: "$2",
           isSaved: true,
           reference: referenceList[1],
           key: expect.any(String),
@@ -532,6 +562,7 @@ describe('non contained list with resolve references enabled', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "$1",
           isSaved: true,
           reference: referenceList[0],
           key: expect.any(String),
@@ -539,6 +570,7 @@ describe('non contained list with resolve references enabled', () => {
         },
         {
           index: 1,
+          idReference: "$2",
           isSaved: true,
           reference: referenceList[1],
           key: expect.any(String),
@@ -546,6 +578,7 @@ describe('non contained list with resolve references enabled', () => {
         },
         {
           index: 2,
+          idReference: "$3",
           isSaved: false,
           reference: newReference,
           key: expect.any(String),
@@ -580,6 +613,7 @@ describe('non contained list with resolve references enabled', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "$1",
           isSaved: true,
           reference: referenceList[0],
           key: expect.any(String),
@@ -587,6 +621,7 @@ describe('non contained list with resolve references enabled', () => {
         },
         {
           index: 1,
+          idReference: "$2",
           isSaved: true,
           reference: referenceList[1],
           key: expect.any(String),
@@ -594,6 +629,7 @@ describe('non contained list with resolve references enabled', () => {
         },
         {
           index: 2,
+          idReference: "$3",
           isSaved: true,
           reference: newReference,
           key: expect.any(String),
@@ -617,6 +653,7 @@ describe('non contained list with resolve references disabled', () => {
       expect(result.current.items).toEqual([
         {
           index: 0,
+          idReference: "$1",
           isSaved: true,
           reference: referenceList[0],
           key: expect.any(String),
@@ -624,6 +661,7 @@ describe('non contained list with resolve references disabled', () => {
         },
         {
           index: 1,
+          idReference: "$2",
           isSaved: true,
           reference: referenceList[1],
           key: expect.any(String),
@@ -656,11 +694,13 @@ describe('non contained list with resolve references disabled', () => {
           index: 0,
           isSaved: true,
           reference: referenceList[0],
+          idReference: "$1",
           key: expect.any(String),
           data: referenceList[0],
         },
         {
           index: 1,
+          idReference: "$2",
           isSaved: true,
           reference: referenceList[1],
           key: expect.any(String),
@@ -668,6 +708,7 @@ describe('non contained list with resolve references disabled', () => {
         },
         {
           index: 2,
+          idReference: "$3",
           isSaved: false,
           reference: newReference,
           key: expect.any(String),
@@ -702,15 +743,18 @@ describe('non contained list with resolve references disabled', () => {
           reference: referenceList[0],
           key: expect.any(String),
           data: referenceList[0],
+          idReference: "$1",
         },
         {
           index: 1,
           isSaved: true,
           reference: referenceList[1],
+          idReference: "$2",
           key: expect.any(String),
           data: referenceList[1],
         },
         {
+          idReference: "$3",
           index: 2,
           isSaved: true,
           reference: newReference,

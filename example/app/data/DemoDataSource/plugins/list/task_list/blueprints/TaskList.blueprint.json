@@ -17,7 +17,8 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Task",
       "contained": true,
-      "dimensions": "*"
+      "dimensions": "*",
+      "ensureUID": true
     },
     {
       "name": "_template_",
