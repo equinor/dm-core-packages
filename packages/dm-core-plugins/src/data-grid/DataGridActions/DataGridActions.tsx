@@ -19,29 +19,45 @@ import {
   download,
   minimize,
   settings,
+  upload,
 } from '@equinor/eds-icons'
 import { useState } from 'react'
 import * as Styled from '../styles'
-import { TFunctionalityChecks } from '../types'
+import { DataGridConfig, TFunctionalityChecks } from '../types'
+import { DataGridImportDialog } from './DataGridImportDialog/DataGridImportDialog'
 
 type DataGridActionsProps = {
   addRow: () => void
+  attributeType: string
   columnLabels: string[]
+  config: DataGridConfig
   data: any[]
   deleteRow: () => void
+  dimensions: string | undefined
   functionality: TFunctionalityChecks
   moveRow: (direction: 'up' | 'down') => void
   name: string
   rowLabels: string[]
   selectedRow: number | undefined
+  setData: (data: any[]) => void
+  updateColumnLabels: (length: number) => void
+  updateRowLabels: (length: number) => void
 }
 
 export function DataGridActions(props: DataGridActionsProps) {
-  const { columnLabels, data, functionality, moveRow, rowLabels, selectedRow } =
-    props
+  const {
+    columnLabels,
+    config,
+    data,
+    functionality,
+    moveRow,
+    rowLabels,
+    selectedRow,
+  } = props
   const [includeColumnLabels, setIsIncludeColumnLabels] =
     useState<boolean>(false)
   const [includeRowLabels, setIsIncludeRowLabels] = useState<boolean>(false)
+  const [isImportDialogOpen, setIsImportDialogOpen] = useState<boolean>(false)
   const [isExportDialogOpen, setIsExportDialogOpen] = useState<boolean>(false)
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false)
@@ -136,10 +152,25 @@ export function DataGridActions(props: DataGridActionsProps) {
         onClose={() => setIsMenuOpen(false)}
         open={isMenuOpen}
       >
+        {config.editable && (
+          <Menu.Item onClick={() => setIsImportDialogOpen(true)}>
+            <Icon data={upload} size={16} /> Import
+          </Menu.Item>
+        )}
         <Menu.Item onClick={() => setIsExportDialogOpen(true)}>
           <Icon data={download} size={16} /> Export
         </Menu.Item>
       </Menu>
+      <DataGridImportDialog
+        attributeType={props.attributeType}
+        closeModal={() => setIsImportDialogOpen(false)}
+        data={data}
+        dimensions={props.dimensions}
+        open={isImportDialogOpen}
+        setData={props.setData}
+        updateColumnLabels={props.updateColumnLabels}
+        updateRowLabels={props.updateRowLabels}
+      />
       <Dialog
         isDismissable
         onClose={() => setIsExportDialogOpen(false)}
