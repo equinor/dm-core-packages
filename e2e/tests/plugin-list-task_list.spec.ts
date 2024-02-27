@@ -214,7 +214,7 @@ test('task list', async ({ page }) => {
 
   await test.step('Edit a task', async () => {
     await page.getByTestId('expandListItem-2').click()
-    await expect(page.getByRole('tab', { name: 'Edit' })).toBeVisible()
+    await expect(page.getByRole('tab', { name: 'Edit' }).last()).toBeVisible()
     await page
       .getByTestId('form-text-widget-Task title:')
       .fill('Paint the living room green')

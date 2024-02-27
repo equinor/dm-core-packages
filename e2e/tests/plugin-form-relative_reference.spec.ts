@@ -129,7 +129,10 @@ test('Relative reference', async ({ page }) => {
     await page.getByTestId('form-number-widget-A Number').last().fill('4')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'close', exact: true }).click()
+    await page
+      .getByRole('button', { name: 'close', exact: true })
+      .last()
+      .click()
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'Close data' }).click()
     await page.getByText('Job', { exact: true }).nth(4).click()
