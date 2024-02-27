@@ -99,11 +99,12 @@ export function getFunctionalityVariables(
     adjustableColumns &&
     columnDimensions === '*' &&
     isMultiDimensional
-  const addButtonIsEnabled =
-    (isMultiPrimitive && printDirection === 'vertical') ||
-    (rowsAreEditable && printDirection === 'horizontal') ||
-    (columnsAreEditable && printDirection === 'vertical') ||
-    (!isMultiDimensional && columnDimensions === '*')
+  const addButtonIsEnabled = config.editable
+    ? (isMultiPrimitive && printDirection === 'vertical') ||
+      (rowsAreEditable && printDirection === 'horizontal') ||
+      (columnsAreEditable && printDirection === 'vertical') ||
+      (!isMultiDimensional && columnDimensions === '*')
+    : false
 
   return {
     rowsAreEditable,
