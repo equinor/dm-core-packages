@@ -146,6 +146,7 @@ export function DataGridImportDialog(props: DataGridImportDialogProps) {
                   label='Or upload .csv file'
                   type='file'
                   onChange={importFromFileUpload}
+                  accept='.csv'
                 />
               </>
             )}
