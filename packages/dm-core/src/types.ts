@@ -105,6 +105,7 @@ export type TContainerJobHandler = {
 export type TMeta = {
   type: EBlueprint.META
   version: string
+  versionNote?: string
   dependencies: any[]
   createdBy?: string
   createdTimestamp?: string

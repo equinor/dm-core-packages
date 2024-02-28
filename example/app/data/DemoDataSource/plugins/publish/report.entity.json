@@ -1,0 +1,9 @@
+{
+  "type": "./PublishWrapper",
+  "name": "publishWrapper",
+  "report": {
+    "type": "./Report",
+    "name": "Minority",
+    "description": "This is a report that might get published"
+  }
+}

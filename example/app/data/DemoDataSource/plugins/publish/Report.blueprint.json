@@ -1,0 +1,5 @@
+{
+  "name": "Report",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"]
+}

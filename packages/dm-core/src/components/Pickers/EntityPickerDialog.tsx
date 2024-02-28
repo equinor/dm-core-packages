@@ -17,17 +17,16 @@ import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
 import { Dialog } from '../Dialog'
 import { TNodeWrapperProps, TreeView } from '../TreeView'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ cursor?: string }>`
     display: flex;
     border-radius: 5px;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
+    cursor: ${(props) => props.cursor ?? ''};
     border-bottom: 1px solid transparent;
 
     &:hover {
-        border-bottom: 1px solid rgba(179, 178, 178, 0.5);
-        border-radius: 0;
+        background-color: rgba(229, 231, 235, 0.43);
     }
 `
 const CheckSelectNode = (
@@ -42,7 +41,7 @@ const CheckSelectNode = (
 
   if (node.isArray()) return <>{children}</>
   return (
-    <Wrapper onClick={() => onSelect(node, !nodeIsSelected)}>
+    <Wrapper cursor='pointer' onClick={() => onSelect(node, !nodeIsSelected)}>
       {children}
       {node.type === typeFilter && (
         <EdsProvider density={'compact'}>

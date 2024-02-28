@@ -1,0 +1,6 @@
+{
+  "_id": "45dcc280-8350-4bef-bf75-ff09db23732c",
+  "type": "dmss://DemoDataSource/plugins/publish/Archive",
+  "name": "archive",
+  "publishedReports": []
+}

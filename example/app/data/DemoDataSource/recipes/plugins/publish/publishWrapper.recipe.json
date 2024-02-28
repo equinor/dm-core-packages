@@ -1,0 +1,25 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/publish/PublishWrapper",
+  "initialUiRecipe": {
+    "name": "SingleView",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/single_view",
+    "config": {
+      "type": "CORE:InlineRecipeViewConfig",
+      "scope": "report",
+      "recipe": {
+        "name": "Publish",
+        "plugin": "@development-framework/dm-core-plugins/publish",
+        "type": "CORE:UiRecipe",
+        "config": {
+          "type": "PLUGINS:dm-core-plugins/publish/PublishConfig",
+          "destination": "dmss://DemoDataSource/plugins/publish",
+          "linkDestination": "dmss://DemoDataSource/plugins/publish/archive.publishedReports",
+          "mode": "copy&link",
+          "description": "Create a copy of the report, and a link in the list of official reports."
+        }
+      }
+    }
+  }
+}
