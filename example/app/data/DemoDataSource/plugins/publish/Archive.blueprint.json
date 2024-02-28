@@ -1,0 +1,13 @@
+{
+  "name": "Archive",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": [
+    {
+      "name": "publishedReports",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/common/Meta",
+      "dimensions": "*"
+    }
+  ]
+}

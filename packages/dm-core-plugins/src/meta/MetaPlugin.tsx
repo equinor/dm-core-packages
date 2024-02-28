@@ -12,7 +12,7 @@ import { DateTime } from 'luxon'
 export const MetaPlugin = (props: IUIPlugin) => {
   const { document, isLoading, error } = useDocument<TGenericObject>(
     props.idReference,
-    0
+    1
   )
 
   if (isLoading) return <Loading />
@@ -23,11 +23,6 @@ export const MetaPlugin = (props: IUIPlugin) => {
 
   const meta: TMeta = document._meta_
 
-  if (document.type !== 'dmss://system/Plugins/dm-core-plugins/common/Meta')
-    throw new Error(
-      'The meta plugin only supports entities of type "Meta" at this stage'
-    )
-
   return (
     <>
       <Table className={'w-full'}>
@@ -37,6 +32,7 @@ export const MetaPlugin = (props: IUIPlugin) => {
             <Table.Cell>Created time</Table.Cell>
             <Table.Cell>Last modified by</Table.Cell>
             <Table.Cell>Last modified time</Table.Cell>
+            <Table.Cell>Note</Table.Cell>
           </Table.Row>
         </Table.Head>
         <Table.Body>
@@ -73,16 +69,26 @@ export const MetaPlugin = (props: IUIPlugin) => {
                   )
                 : '-'}
             </Table.Cell>
+            <Table.Cell>{meta?.versionNote}</Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
       {/*This empty div wrapper is kind of a hack to avoid EntityView take the same height as the entire plugin*/}
       <div>
-        <EntityView
-          {...props}
-          type={document.content.type}
-          idReference={`${props.idReference}.content`}
-        />
+        {document.type ===
+        'dmss://system/Plugins/dm-core-plugins/common/Meta' ? (
+          <EntityView
+            {...props}
+            type={document.content.type}
+            idReference={`${props.idReference}.content`}
+          />
+        ) : (
+          <EntityView
+            {...props}
+            type={document.type}
+            idReference={props.idReference}
+          />
+        )}
       </div>
     </>
   )

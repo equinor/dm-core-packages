@@ -1,0 +1,9 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "PLUGINS:dm-core-plugins/common/Meta",
+  "initialUiRecipe": {
+    "name": "Meta",
+    "plugin": "@development-framework/dm-core-plugins/meta",
+    "type": "CORE:UiRecipe"
+  }
+}

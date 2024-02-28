@@ -1,0 +1,12 @@
+{
+  "name": "PublishWrapper",
+  "type": "CORE:Blueprint",
+  "extends": ["CORE:Entity"],
+  "attributes": [
+    {
+      "name": "report",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "./Report"
+    }
+  ]
+}

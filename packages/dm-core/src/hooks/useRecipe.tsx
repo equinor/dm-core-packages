@@ -102,8 +102,11 @@ export const useRecipe = (
 
   const dmssAPI = useDMSS()
   const { name } = useContext(ApplicationContext)
+
   useEffect(() => {
     setLoading(true)
+    setError(null)
+    setFindRecipeError(null)
     dmssAPI
       .blueprintGet({ typeRef: typeRef, context: name })
       .then((response: any) => {
