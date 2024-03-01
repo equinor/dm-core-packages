@@ -117,6 +117,7 @@ test('Relative reference', async ({ page }) => {
   })
 
   await test.step('Nested root reference', async () => {
+    await expect(page.getByTestId('expandListItem-1')).toBeVisible()
     await page.getByTestId('expandListItem-1').click()
     await expect(page.locator('pre').getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
