@@ -19,7 +19,8 @@
       "name": "cars",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "./Car",
-      "dimensions": "*"
+      "dimensions": "*",
+      "ensureUID": true
     },
     {
       "name": "_templates_",

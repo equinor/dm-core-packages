@@ -4,6 +4,7 @@ import { TAttribute, TLinkReference } from '../../types'
 export type TItem<T> = {
   key: string
   index: number
+  idReference: string
   data: T | null
   reference?: TLinkReference | null
   isSaved?: boolean

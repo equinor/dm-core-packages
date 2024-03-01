@@ -66,7 +66,7 @@ export function TableRow(props: TableRowProps) {
         label: config.labelByIndex ? `${label} #${index + 1}` : label,
         type: 'ViewConfig',
       },
-      `${idReference}[${index}]`,
+      item.idReference,
       false,
       (data: any) => handleItemUpdate(item, data)
     )
@@ -175,7 +175,7 @@ export function TableRow(props: TableRowProps) {
           style={{ maxWidth: config.width || 'none' }}
         >
           <ViewCreator
-            idReference={`${idReference}[${item.index}]`}
+            idReference={item.idReference}
             onSubmit={(data: TGenericObject) => handleItemUpdate(item, data)}
             viewConfig={
               config.expandableRecipeViewConfig

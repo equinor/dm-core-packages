@@ -14,7 +14,6 @@ import {
   TViewConfig,
   TemplateMenu,
   ViewCreator,
-  resolveRelativeAddress,
   resolveRelativeAddressSimplified,
   splitAddress,
   useList,
@@ -150,7 +149,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     onOpen(
       item.key,
       view,
-      `${idReference}[${item.index}]`,
+      item.idReference,
       false,
       config.saveExpanded
         ? undefined
@@ -160,6 +159,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         : undefined
     )
   }
+
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading) return <Loading />
 
@@ -320,30 +320,24 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 </Stack>
               </Stack>
               <LazyLoad visible={expanded[item.key]}>
-                <div className='m-2 border-b border-[#ccc] pb-4'>
-                  <ViewCreator
-                    onSubmit={
-                      config.saveExpanded
-                        ? undefined
-                        : (data: TGenericObject) => handleItemUpdate(item, data)
-                    }
-                    onChange={
-                      config.saveExpanded
-                        ? (data: TGenericObject) => handleItemUpdate(item, data)
-                        : undefined
-                    }
-                    idReference={
-                      attribute && !attribute.contained
-                        ? resolveRelativeAddress(
-                            item?.reference?.address || '',
-                            documentPath,
-                            dataSource
-                          )
-                        : `${idReference}[${item.index}]`
-                    }
-                    viewConfig={internalConfig.expandViewConfig}
-                  />
-                </div>
+                  <div className='m-2 border-b border-[#ccc] pb-4'>
+                    <ViewCreator
+                      onSubmit={
+                        config.saveExpanded
+                          ? undefined
+                          : (data: TGenericObject) =>
+                              handleItemUpdate(item, data)
+                      }
+                      onChange={
+                        config.saveExpanded
+                          ? (data: TGenericObject) =>
+                              handleItemUpdate(item, data)
+                          : undefined
+                      }
+                      idReference={item.idReference}
+                      viewConfig={internalConfig.expandViewConfig}
+                    />
+                  </div>
               </LazyLoad>
             </Stack>
           ))}

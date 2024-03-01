@@ -39,6 +39,7 @@
   ],
   "cars": [
     {
+      "_id": "volvo-in-car-list",
       "name": "Volvo",
       "type": "./blueprints/Car",
       "color": "White",

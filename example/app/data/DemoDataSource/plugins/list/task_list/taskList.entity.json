@@ -9,6 +9,7 @@
   },
   "task_list": [
     {
+      "_id": "wash",
       "name": "Wash the car",
       "type": "./blueprints/Task",
       "description": "Car needs a thorough wash inside and outside.",
@@ -16,6 +17,7 @@
       "complete": false
     },
     {
+      "_id": "mow",
       "name": "Mow the lawn",
       "type": "./blueprints/Task",
       "description": "",
@@ -23,6 +25,7 @@
       "complete": false
     },
     {
+      "_id": "paint",
       "name": "Paint the living room",
       "type": "./blueprints/Task",
       "description": "",

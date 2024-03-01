@@ -51,13 +51,18 @@ export function useList<T extends object>(
               `Not an array! Got document ${JSON.stringify(response.data)} `
             )
           }
-          const items = Object.values(response.data).map((data, index) => ({
-            key: crypto.randomUUID() as string,
-            index: index,
-            data: data,
-            reference: null,
-            isSaved: true,
-          }))
+          const items: TItem<any>[] = Object.values(response.data).map(
+            (data, index) => ({
+              key: crypto.randomUUID() as string,
+              index: index,
+              idReference: `${idReference}${
+                data._id ? `(_id=${data._id})` : `[${index}]`
+              }`,
+              data: data,
+              reference: null,
+              isSaved: true,
+            })
+          )
           setItems(items)
           setError(null)
         } else {
@@ -70,6 +75,7 @@ export function useList<T extends object>(
           const resolvedItems = (resolved ? resolved.data : []) as T[]
           const items = Object.values(response.data).map((data, index) => ({
             key: crypto.randomUUID() as string,
+            idReference: (data as TLinkReference).address,
             index: index,
             data: resolveReferences ? resolvedItems[index] : (data as T),
             reference: data as TLinkReference,
@@ -116,10 +122,18 @@ export function useList<T extends object>(
         newEntity = instantiateResponse.data
       }
 
+      if (attribute.ensureUID || newEntity._id)
+        newEntity._id = crypto.randomUUID()
+
       const newItem: TItem<T> = utils.createNewItemObject(
         newEntity,
         insertAtIndex || items.length,
-        saveOnAdd
+        saveOnAdd,
+        `${idReference}${
+          newEntity._id
+            ? `(_id=${newEntity._id})`
+            : `[${insertAtIndex || items.length}]`
+        }`
       )
 
       if (insertAtIndex !== undefined) {
@@ -213,6 +227,7 @@ export function useList<T extends object>(
         {
           key: newKey,
           index: items?.length,
+          idReference: reference.address,
           data: entity,
           reference: reference,
           isSaved: saveOnAdd,
@@ -312,7 +327,11 @@ export function useList<T extends object>(
     const toIndex = direction === 'up' ? itemIndex - 1 : itemIndex + 1
     const updatedList = utils.arrayMove(items, itemIndex, toIndex)
     updatedList[itemIndex].index = itemIndex
+    if (!updatedList[itemIndex].data._id)
+      updatedList[itemIndex].idReference = `${idReference}[${itemIndex}]`
     updatedList[toIndex].index = toIndex
+    if (!updatedList[toIndex].data._id)
+      updatedList[toIndex].idReference = `${idReference}[${toIndex}]`
     setDirtyState(true)
     setItems(updatedList)
   }
