@@ -168,7 +168,8 @@ export function TableRow(props: TableRowProps) {
       <LazyLoad
         visible={isExpanded}
         element={NotHoverColorTableRow}
-        className='table-row'
+        style={{ display: 'table-row' }}
+        className='dm-table-row'
       >
         <Table.Cell
           colSpan={columnsLength}

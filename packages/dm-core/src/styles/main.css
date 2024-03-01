@@ -46,6 +46,10 @@ body {
   padding: 0;
 }
 
+.dm-table-row .dm-plugin-padding {
+  padding: 0.5rem;
+}
+
 Button,
 .transition-all {
   transition-property: all;
