@@ -13,6 +13,7 @@
 
 [![License][license-badge]][license]
 [![On push main branch][on-push-main]][on-push-main]
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/dm-core-packages/badge)](https://scm-compliance-api.radix.equinor.com/repos/equinor/dm-core-packages/badge)
 
 Contains the core package and UI plugins.
 
