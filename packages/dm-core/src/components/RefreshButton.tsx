@@ -52,6 +52,7 @@ const RefreshButton = ({
   return (
     <Tooltip title={`Refresh ${tooltip}`}>
       <StyledRefreshButton
+        data-testid={'refreshButton'}
         style={hidden || wait ? { opacity: 0 } : {}}
         onClick={() => onClick()}
         onMouseLeave={() => onMouseLeave()}
