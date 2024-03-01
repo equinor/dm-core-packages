@@ -188,7 +188,9 @@ export const JobControl = (props: IUIPlugin) => {
       <JobButtonWrapper>
         {getControlButton(status, remove, start, false, jobIsLoading)}
         {!internalConfig.hideLogs && <JobLog logs={logs} error={error} />}
-        <Chip variant={getVariant(status)}>{status ?? 'Not registered'}</Chip>
+        <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
+          {status ?? 'Not registered'}
+        </Chip>
         {internalConfig.runnerTemplates &&
           internalConfig.runnerTemplates.length > 0 && (
             <div className={'flex flex-row items-center'}>
