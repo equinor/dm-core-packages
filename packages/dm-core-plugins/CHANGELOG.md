@@ -60,6 +60,40 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.49.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.48.0...dm-core-plugins-v1.49.0) (2024-03-01)
+
+
+### Features
+
+* allow user to import data using clipboard or csv file ([a054289](https://github.com/equinor/dm-core-packages/commit/a054289273abba10e2a86d44d95fc8168ebdbf63))
+* don't use index for address of item when 'ensureUID' ([901c76f](https://github.com/equinor/dm-core-packages/commit/901c76f4cb1a7c068f0f2af814f75be06dc711da))
+* **publish:** copy and link mode ([8d8de10](https://github.com/equinor/dm-core-packages/commit/8d8de106bbac3301f83ddb2498602d4c31f18dae))
+
+
+### Bug Fixes
+
+* dont allow add row when grid is non-editable ([8b31981](https://github.com/equinor/dm-core-packages/commit/8b319810606f4798d730c50d8c6df0acb583bb77))
+* formatting ([5700ff4](https://github.com/equinor/dm-core-packages/commit/5700ff430f8a7e8b0ff3a9b84df5c6dc5914a608))
+* missing open object button ([862c3dd](https://github.com/equinor/dm-core-packages/commit/862c3dd503bee64f47d6a9731d13c2e053201735))
+* only allow csv filetype ([85d98aa](https://github.com/equinor/dm-core-packages/commit/85d98aa74b5775821666556e1a995520aef7b754))
+* parse float to keep decimals ([716dc1d](https://github.com/equinor/dm-core-packages/commit/716dc1df7b8a13e0a9a10d9aa32a9df7238c1917))
+* table overflow bug and adding tooltip to job runner ([5700ff4](https://github.com/equinor/dm-core-packages/commit/5700ff430f8a7e8b0ff3a9b84df5c6dc5914a608))
+
+
+### Code Refactoring
+
+* dm-plugin-wrapper -&gt; dm-plugin-padding ([e862c63](https://github.com/equinor/dm-core-packages/commit/e862c634ee05e17c07ca888cdc1bc115332da761))
+* layout and styling cleanup ([ac2eb9a](https://github.com/equinor/dm-core-packages/commit/ac2eb9afde1527f0b0393b37ebd680b9a8ee8342))
+* unnecessary code ([48c7742](https://github.com/equinor/dm-core-packages/commit/48c77421f64d142494cf803f47f826da78e20afe))
+* wrapper -&gt; flex-layout-container ([825f64f](https://github.com/equinor/dm-core-packages/commit/825f64fdebf29f1f66b4fb0c786f6430533f1ddc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.41.0 to ^1.42.0
+
 ## [1.48.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.47.1...dm-core-plugins-v1.48.0) (2024-02-23)
 
 

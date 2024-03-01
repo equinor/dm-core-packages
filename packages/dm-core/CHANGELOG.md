@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.42.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.41.0...dm-core-v1.42.0) (2024-03-01)
+
+
+### Features
+
+* add message component to project ([3c1c368](https://github.com/equinor/dm-core-packages/commit/3c1c36871d59422a51f193b602ef193d17946e6d))
+* don't use index for address of item when 'ensureUID' ([901c76f](https://github.com/equinor/dm-core-packages/commit/901c76f4cb1a7c068f0f2af814f75be06dc711da))
+* **publish:** copy and link mode ([8d8de10](https://github.com/equinor/dm-core-packages/commit/8d8de106bbac3301f83ddb2498602d4c31f18dae))
+
+
+### Bug Fixes
+
+* formatting ([5700ff4](https://github.com/equinor/dm-core-packages/commit/5700ff430f8a7e8b0ff3a9b84df5c6dc5914a608))
+* table overflow bug and adding tooltip to job runner ([5700ff4](https://github.com/equinor/dm-core-packages/commit/5700ff430f8a7e8b0ff3a9b84df5c6dc5914a608))
+
+
+### Miscellaneous Chores
+
+* remove tailwind test classes ([b5b729b](https://github.com/equinor/dm-core-packages/commit/b5b729b1f17658d9306439589b01658d82b77d1b))
+
+
+### Code Refactoring
+
+* dm-plugin-wrapper -&gt; dm-plugin-padding ([e862c63](https://github.com/equinor/dm-core-packages/commit/e862c634ee05e17c07ca888cdc1bc115332da761))
+* layout and styling cleanup ([ac2eb9a](https://github.com/equinor/dm-core-packages/commit/ac2eb9afde1527f0b0393b37ebd680b9a8ee8342))
+* wrapper -&gt; flex-layout-container ([825f64f](https://github.com/equinor/dm-core-packages/commit/825f64fdebf29f1f66b4fb0c786f6430533f1ddc))
+
 ## [1.41.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.40.1...dm-core-v1.41.0) (2024-02-23)
 
 
