@@ -22,8 +22,9 @@ import { RemoveJobDialog } from './RemoveJobDialog'
 
 const colors = {
   loading: '#eb9131',
-  run: tokens.colors.interactive.success__resting.rgba,
+  run: tokens.colors.interactive.success__text.rgba,
   error: tokens.colors.interactive.danger__resting.rgba,
+  hover: tokens.colors.interactive.success__resting.rgba,
 }
 
 export const StartButton = (props: {
@@ -34,14 +35,16 @@ export const StartButton = (props: {
   const { start } = props
 
   return (
-    <Icon
-      data={play_circle}
-      color={colors.run}
-      size={48}
-      aria-label='Run'
-      onClick={() => start()}
-      className='cursor-pointer hover:opacity-60'
-    ></Icon>
+    <Tooltip title='Start Job'>
+      <Icon
+        data={play_circle}
+        color={colors.run}
+        size={48}
+        aria-label='Run'
+        onClick={() => start()}
+        className='cursor-pointer hover:opacity-60'
+      ></Icon>
+    </Tooltip>
   )
 }
 

@@ -1,10 +1,11 @@
-import { ComponentType, PropsWithChildren, useRef } from 'react'
+import React, { ComponentType, PropsWithChildren, useRef } from 'react'
 
 type LazyProps = {
   visible: boolean
   role?: string
   element?: ComponentType
   className?: string
+  style?: React.CSSProperties
 }
 
 export const LazyLoad = ({
@@ -13,6 +14,7 @@ export const LazyLoad = ({
   role,
   element,
   className,
+  style,
 }: PropsWithChildren<LazyProps>) => {
   const rendered = useRef(visible)
 
@@ -29,7 +31,11 @@ export const LazyLoad = ({
   if (className) classNames.push(className)
 
   return (
-    <Element className={classNames.join(' ')} role={role}>
+    <Element
+      className={classNames.join(' ')}
+      role={role}
+      style={visible ? style : {}}
+    >
       {children}
     </Element>
   )
