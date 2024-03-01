@@ -320,24 +320,22 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 </Stack>
               </Stack>
               <LazyLoad visible={expanded[item.key]}>
-                  <div className='m-2 border-b border-[#ccc] pb-4'>
-                    <ViewCreator
-                      onSubmit={
-                        config.saveExpanded
-                          ? undefined
-                          : (data: TGenericObject) =>
-                              handleItemUpdate(item, data)
-                      }
-                      onChange={
-                        config.saveExpanded
-                          ? (data: TGenericObject) =>
-                              handleItemUpdate(item, data)
-                          : undefined
-                      }
-                      idReference={item.idReference}
-                      viewConfig={internalConfig.expandViewConfig}
-                    />
-                  </div>
+                <div className='m-2 border-b border-[#ccc] pb-4'>
+                  <ViewCreator
+                    onSubmit={
+                      config.saveExpanded
+                        ? undefined
+                        : (data: TGenericObject) => handleItemUpdate(item, data)
+                    }
+                    onChange={
+                      config.saveExpanded
+                        ? (data: TGenericObject) => handleItemUpdate(item, data)
+                        : undefined
+                    }
+                    idReference={item.idReference}
+                    viewConfig={internalConfig.expandViewConfig}
+                  />
+                </div>
               </LazyLoad>
             </Stack>
           ))}
