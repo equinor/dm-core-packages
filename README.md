@@ -5068,3 +5068,8 @@ fix: okdsfd (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 3c0d8d3 2024-03-01 githu..[bot] chore(master): release 1.23.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: 52269dd 2024-02-23 githu..[bot] chore(main): release 1.6.1 grafted, HEAD -> main, origin/main
+* test: fix flaky form test (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/8111945419/1)
+    * **DMSS VERSION**: 3c0d8d3 2024-03-01 githu..[bot] chore(master): release 1.23.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: ed5e09f 2024-03-01 Stig Ofstad fix: fetching progres from a radix job with no status failes grafted, HEAD -> main, origin/main
