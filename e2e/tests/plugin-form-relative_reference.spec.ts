@@ -113,7 +113,7 @@ test('Relative reference', async ({ page }) => {
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
       '3'
     )
-    await page.getByTestId('expandListItem-0').click()
+    // await page.getByTestId('expandListItem-0').click()
   })
 
   await test.step('Nested root reference', async () => {
@@ -127,7 +127,7 @@ test('Relative reference', async ({ page }) => {
       page.getByTestId('form-number-widget-A Number').last()
     ).toHaveValue('400')
     await page.getByTestId('form-number-widget-A Number').last().fill('4')
-    await page.getByRole('button', { name: 'Submit' }).click()
+    await page.getByRole('button', { name: 'Submit' }).last().click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page
       .getByRole('button', { name: 'close', exact: true })
@@ -144,7 +144,7 @@ test('Relative reference', async ({ page }) => {
     await expect(
       page.getByTestId('form-number-widget-A Number').last()
     ).toHaveValue('10')
-    await page.getByRole('button', { name: 'Close job' }).click()
+    await page.getByRole('button', { name: 'Close job' }).last().click()
 
     await page.getByText('Data', { exact: true }).nth(2).click()
     await expect(page.getByRole('code')).toBeVisible()
