@@ -1,21 +1,13 @@
-import { useState } from 'react'
-
-import {
-  EBlueprint,
-  Loading,
-  TAttribute,
-  TGenericObject,
-  TUiRecipe,
-  findRecipe,
-  useApplication,
-  useBlueprint,
-} from '@development-framework/dm-core'
+import { Loading, useBlueprint } from '@development-framework/dm-core'
+import { Loading, useBlueprint } from '@development-framework/dm-core'
 import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
+import { pick } from 'lodash'
+import { useState } from 'react'
 import { FormProvider, useForm, useFormContext } from 'react-hook-form'
 import { RegistryProvider } from '../context/RegistryContext'
-import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
-import { getCanOpenOrExpand, isPrimitiveType } from '../utils'
+import { TFormConfig, TFormProps } from '../types'
+import { TFormConfig, TFormProps } from '../types'
 import { AttributeList } from './AttributeList'
 
 const FORM_DEFAULT_MAX_WIDTH = '650px'
@@ -34,7 +26,6 @@ export const defaultConfig: TFormConfig = {
 export const Form = (props: TFormProps) => {
   const { type, formData, onSubmit, idReference, onOpen } = props
   const { blueprint, storageRecipes, isLoading, error } = useBlueprint(type)
-  const { dmssAPI, name } = useApplication()
   const [reloadCounter, setReloadCounter] = useState(0)
   const showSubmitButton = props.showSubmitButton ?? true
   // Every react hook form controller needs to have a unique name
@@ -67,86 +58,28 @@ export const Form = (props: TFormProps) => {
     },
   }
 
-  const replaceNull = (obj: TGenericObject) => {
-    for (const key of Object.keys(obj)) {
-      if (obj[key] === null) {
-        obj[key] = undefined
-      } else if (isComplexObject(obj[key])) {
-        replaceNull(obj[key])
-      }
-    }
-  }
-
-  const isComplexObject = (attr: TGenericObject) => {
-    return (
-      attr !== null &&
-      typeof attr === 'object' &&
-      'type' in attr &&
-      attr.type !== EBlueprint.REFERENCE
-    )
-  }
-
-  const preparePayload = async (obj: TGenericObject) => {
-    // Since react-hook-form cannot handle null values,
-    // we have to convert null values to undefined before submitting.
-    replaceNull(obj)
-
-    // Remove attributes that should not be in the payload,
-    // that is complex objects that are not using the form plugin (or is not shown inline),
-    // and complex arrays (since they are using other plugins then the form plugin).
-
-    const toRemoveFromPayload: string[] = []
-    for (const key of Object.keys(obj)) {
-      if (isComplexObject(obj[key])) {
-        // Remove if not shown inline
-        const uiAttribute: TUiAttributeObject | undefined =
-          config?.attributes.find((attribute) => attribute.name === key)
-
-        if (uiAttribute?.widget) continue
-
-        const { canExpand } = getCanOpenOrExpand(
-          obj[key] !== undefined,
-          config,
-          uiAttribute
+  function createPathsOfDirtyFields(obj: any): string[] {
+    const typePaths: string[] = []
+    const paths = Object.keys(obj).flatMap((key: string) => {
+      if (typeof obj[key] === 'object' && obj[key]) {
+        // add type attribute for each child-entity
+        typePaths.push(`${key}.type`)
+        return createPathsOfDirtyFields(obj[key]).map(
+          (innerKey: string) => `${key}.${innerKey}`
         )
-
-        if (!canExpand) {
-          toRemoveFromPayload.push(key)
-          continue
-        }
-
-        // Remove if not use the form plugin
-        const response: any = await dmssAPI.blueprintGet({
-          typeRef: obj[key].type,
-          context: name,
-        })
-        const uiRecipe: TUiRecipe = findRecipe(
-          response.data.uiRecipes,
-          response.data.initialUiRecipe,
-          uiAttribute?.uiRecipe
-        )
-        // TODO: Find a better way to determine if the target plugin support onSubmit
-        if (uiRecipe.plugin !== '@development-framework/dm-core-plugins/form') {
-          toRemoveFromPayload.push(key)
-          continue
-        }
       }
-
-      const attribute = blueprint?.attributes.find(
-        (attribute: TAttribute) => attribute.name === key
-      )
-      const isComplexArray =
-        Array.isArray(obj[key]) && !isPrimitiveType(attribute.attributeType)
-      if (isComplexArray) {
-        toRemoveFromPayload.push(key)
-      }
-    }
-    toRemoveFromPayload.forEach((key) => delete obj[key])
-    return obj
+      return key
+    })
+    return [...typePaths, ...paths]
   }
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    if (onSubmit !== undefined) onSubmit(await preparePayload(data))
+    const changedFields = pick(
+      data,
+      ['_id', 'type'],
+      createPathsOfDirtyFields(methods.formState.dirtyFields)
+    )
+    if (onSubmit !== undefined) onSubmit(changedFields)
   })
 
   if (isLoading) return <Loading />
