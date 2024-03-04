@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.42.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.42.0...dm-core-v1.42.1) (2024-03-04)
+
+
+### Bug Fixes
+
+* added testid to refresh button ([63c7c07](https://github.com/equinor/dm-core-packages/commit/63c7c07d13dd43e16f3020c7d7caf14903790777))
+
 ## [1.42.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.41.0...dm-core-v1.42.0) (2024-03-01)
 
 

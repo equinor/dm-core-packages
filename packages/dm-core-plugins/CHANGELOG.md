@@ -60,6 +60,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.49.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.49.0...dm-core-plugins-v1.49.1) (2024-03-04)
+
+
+### Bug Fixes
+
+* add jobstatus testid ([152acd2](https://github.com/equinor/dm-core-packages/commit/152acd288a83322ddbb149d82d263eff1620fd62))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.42.0 to ^1.42.1
+
 ## [1.49.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.48.0...dm-core-plugins-v1.49.0) (2024-03-01)
 
 
