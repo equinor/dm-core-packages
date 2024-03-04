@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useRegistryContext } from '../../../../context/RegistryContext'
 import FormTemplate from '../../../../templates/shared/FormTemplate'
 import { TArrayTemplate, TPrimitive } from '../../../../types'
-import PrimitiveArray from './PrimitiveArray/PrimitiveArray'
+import { PrimitiveArray } from './PrimitiveArray/PrimitiveArray'
 
 export const ArrayPrimitiveListTemplate = (
   props: TArrayTemplate & {
@@ -47,5 +47,3 @@ export const ArrayPrimitiveListTemplate = (
     </FormTemplate>
   )
 }
-
-export default ArrayPrimitiveListTemplate

@@ -4,7 +4,6 @@ import {
   TAttribute,
 } from '@development-framework/dm-core'
 import { Tooltip } from '@equinor/eds-core-react'
-import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { TPrimitive, TUiAttributeObject } from '../../../../../types'
 import { AttributeFieldSelector } from '../../../../AttributeFieldSelector'
@@ -28,31 +27,20 @@ const getDefaultValue = (type: string): TPrimitive => {
   }
 }
 
-const PrimitiveArray = ({
+export const PrimitiveArray = ({
   data,
   attribute,
   uiAttribute,
   namePath,
   onChange,
 }: PrimitiveArrayProps) => {
-  const [hovering, setHovering] = useState<number>(-1)
   const { getValues } = useFormContext()
 
-  const updateValues = (index: number, newValue: TPrimitive): void => {
+  const addItem = (): void => {
+    const newValue = getDefaultValue(attribute.attributeType)
     const newValues = getValues(namePath) || []
-    switch (attribute.attributeType) {
-      case 'boolean':
-        newValues[index] = newValue
-        onChange(newValues)
-        break
-      case 'number':
-        newValues[index] = Number(newValue) ?? 0
-        onChange(newValues)
-        break
-      default:
-        newValues[index] = newValue
-        onChange(newValues)
-    }
+    newValues.push(newValue)
+    onChange(newValues)
   }
   const removeItem = (index: number) => {
     const newValues = getValues(namePath) || []
@@ -61,81 +49,49 @@ const PrimitiveArray = ({
   }
 
   return (
-    <div
-      className='
-    flex
-    flex-col
-    w-full
-    content-start
-    overflow-x-hidden
-    justify-center
-  '
-    >
-      <div
-        className='w-full rounded-b-md border-equinor-charcoal]
-'
-      >
-        <div>
-          {data.map((item: TPrimitive, index: number) => (
-            <Tooltip
-              title={`Index: ${index}`}
-              placement={'right-start'}
-              enterDelay={300}
-              key={`${index}-${item}`}
+    <div className='flex flex-col w-full'>
+      {data.map((item: TPrimitive, index: number) => (
+        <Tooltip
+          key={`${index}-${item}`}
+          title={`Index: ${index}`}
+          placement={'right-start'}
+          enterDelay={300}
+        >
+          <div className='flex items-center m-0.5'>
+            <AttributeFieldSelector
+              namePath={`${namePath}.${index}`}
+              uiAttribute={{
+                name: '',
+                type: '',
+                ...uiAttribute,
+                tooltip: '',
+                config: {
+                  hideLabel: true,
+                  ...uiAttribute?.config,
+                  backgroundColor: 'white',
+                },
+              }}
+              attribute={{ ...attribute, dimensions: '' }}
+            />
+            <div
+              className={`pb-[3px] w-fit ${
+                typeof item !== 'boolean'
+                  ? 'border-b border-equinor-charcoal'
+                  : ''
+              }`}
             >
-              <div
-                className='flex items-center m-0.5'
-                onMouseEnter={() => setHovering(index)}
-                onMouseLeave={() => setHovering(-1)}
-              >
-                <AttributeFieldSelector
-                  namePath={`${namePath}.${index}`}
-                  uiAttribute={{
-                    name: '',
-                    type: '',
-                    ...uiAttribute,
-                    tooltip: '',
-                    config: {
-                      hideLabel: true,
-                      ...uiAttribute?.config,
-                      backgroundColor: 'white',
-                    },
-                  }}
-                  attribute={{ ...attribute, dimensions: '' }}
-                />
-                <div
-                  className={`pb-[3px] w-fit ${
-                    typeof item !== 'boolean'
-                      ? 'border-b border-equinor-charcoal'
-                      : ''
-                  }`}
-                >
-                  <DeleteSoftButton
-                    onClick={() => removeItem(index)}
-                    title={'Remove list item'}
-                    ariaLabel='remove-action'
-                    dataTestId={`form-primitive-array-remove-${index}`}
-                    visibilityWhenNotHover={'opaque'}
-                  />
-                </div>
-              </div>
-            </Tooltip>
-          ))}
-        </div>
-        <div className='ps-30 border-t'>
-          <AddRowButton
-            ariaLabel='Append primitive'
-            onClick={() =>
-              updateValues(
-                data.length,
-                getDefaultValue(attribute.attributeType)
-              )
-            }
-          />
-        </div>
-      </div>
+              <DeleteSoftButton
+                onClick={() => removeItem(index)}
+                title={'Remove list item'}
+                ariaLabel='remove-action'
+                dataTestId={`form-primitive-array-remove-${index}`}
+                visibilityWhenNotHover={'opaque'}
+              />
+            </div>
+          </div>
+        </Tooltip>
+      ))}
+      <AddRowButton ariaLabel='Add new item to list' onClick={addItem} />
     </div>
   )
 }
-
-export default PrimitiveArray

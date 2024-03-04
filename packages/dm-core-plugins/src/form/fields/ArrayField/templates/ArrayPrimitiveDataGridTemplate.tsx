@@ -124,5 +124,3 @@ export const ArrayPrimitiveDatagridTemplate = (
     </Fieldset>
   )
 }
-
-export default ArrayPrimitiveDatagridTemplate
