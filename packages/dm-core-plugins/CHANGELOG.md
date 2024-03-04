@@ -60,6 +60,17 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.49.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.49.1...dm-core-plugins-v1.49.2) (2024-03-04)
+
+
+### Bug Fixes
+
+* datacell ([8aa6253](https://github.com/equinor/dm-core-packages/commit/8aa6253a2a3ece1b65f20e7ce3290ad941ed135b))
+* **datagrid:** pagination should be high enough for numbers to fit ([482cc74](https://github.com/equinor/dm-core-packages/commit/482cc7461f46cc96e7c4d4813418983d5e827c8f))
+* make it type number and without arrows ([cfe871c](https://github.com/equinor/dm-core-packages/commit/cfe871cf98a7dc7d842c6b8bbd1e03206c17e2b5))
+* skdljf ([cfe871c](https://github.com/equinor/dm-core-packages/commit/cfe871cf98a7dc7d842c6b8bbd1e03206c17e2b5))
+* use parsefloat instead of parseint ([def3879](https://github.com/equinor/dm-core-packages/commit/def3879d3c57e61994d07f1d9eea7ca4a2f81716))
+
 ## [1.49.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.49.0...dm-core-plugins-v1.49.1) (2024-03-04)
 
 
