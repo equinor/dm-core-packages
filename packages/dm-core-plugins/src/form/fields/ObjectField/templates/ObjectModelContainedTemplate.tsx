@@ -7,12 +7,12 @@ import { OpenObjectButton } from '../../../components/OpenObjectButton'
 import RemoveObject from '../../../components/RemoveObjectButton'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import FormTemplate from '../../../templates/shared/FormTemplate'
+import { TObjectTemplate } from '../../../types'
 import {
   getCanOpenOrExpand as getCanOpenExpand,
   getExpandViewConfig,
   getOpenViewConfig,
-} from '../../../templates/shared/utils'
-import { TObjectTemplate } from '../../../types'
+} from '../../../utils'
 
 export const ObjectModelContainedTemplate = (
   props: TObjectTemplate

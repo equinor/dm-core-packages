@@ -7,12 +7,12 @@ import { OpenObjectButton } from '../../../components/OpenObjectButton'
 import RemoveObject from '../../../components/RemoveObjectButton'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import FormTemplate from '../../../templates/shared/FormTemplate'
+import { TArrayTemplate } from '../../../types'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
   getOpenViewConfig,
-} from '../../../templates/shared/utils'
-import { TArrayTemplate } from '../../../types'
+} from '../../../utils'
 
 export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   const { namePath, attribute, uiAttribute } = props

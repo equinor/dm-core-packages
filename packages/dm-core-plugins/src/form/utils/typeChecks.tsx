@@ -1,3 +1,7 @@
+export const isPrimitiveType = (value: string): boolean => {
+  return ['string', 'number', 'integer', 'boolean'].includes(value)
+}
+
 export const isArray = (dimensions: string) => {
   return dimensions && dimensions !== ''
 }

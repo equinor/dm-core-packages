@@ -9,12 +9,12 @@ import { OpenObjectButton } from '../../../components/OpenObjectButton'
 import RemoveObject from '../../../components/RemoveObjectButton'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import FormTemplate from '../../../templates/shared/FormTemplate'
+import { TObjectTemplate } from '../../../types'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
   getOpenViewConfig,
-} from '../../../templates/shared/utils'
-import { TObjectTemplate } from '../../../types'
+} from '../../../utils'
 
 export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
   const { namePath, attribute, uiAttribute } = props
