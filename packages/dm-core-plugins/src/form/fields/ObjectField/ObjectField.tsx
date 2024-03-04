@@ -1,12 +1,12 @@
 import { EBlueprint } from '@development-framework/dm-core'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { getWidget } from '../context/WidgetContext'
-import { ObjectModelContainedTemplate } from '../templates/ObjectModelContainedTemplate'
-import { ObjectModelUncontainedTemplate } from '../templates/ObjectModelUncontainedTemplate'
-import { ObjectStorageUncontainedTemplate } from '../templates/ObjectStorageUncontainedTemplate'
-import { TField } from '../types'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { getWidget } from '../../context/WidgetContext'
+import { TField } from '../../types'
+import { getDisplayLabel } from '../../utils/getDisplayLabel'
+import { ObjectModelContainedTemplate } from './templates/ObjectModelContainedTemplate'
+import { ObjectModelUncontainedTemplate } from './templates/ObjectModelUncontainedTemplate'
+import { ObjectStorageUncontainedTemplate } from './templates/ObjectStorageUncontainedTemplate'
 
 export const ObjectField = (
   props: TField & { isStorageUncontained: boolean }
@@ -14,6 +14,7 @@ export const ObjectField = (
   const { namePath, uiAttribute, attribute, isStorageUncontained } = props
   const { getValues, control } = useFormContext()
   const values = getValues(namePath)
+
   if (uiAttribute?.widget) {
     const Widget = getWidget(uiAttribute.widget)
     return (

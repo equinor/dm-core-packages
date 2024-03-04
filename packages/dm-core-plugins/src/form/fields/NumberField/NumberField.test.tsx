@@ -7,10 +7,10 @@ import {
 } from '@testing-library/react'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { NumberField } from './NumberField'
+import { NumberField } from '../NumberField/NumberField'
 import { EBlueprint } from '@development-framework/dm-core'
-import { RegistryProvider } from '../context/RegistryContext'
-import { defaultConfig } from '../components/Form'
+import { RegistryProvider } from '../../context/RegistryContext'
+import { defaultConfig } from '../../components/Form'
 
 afterEach(() => cleanup())
 

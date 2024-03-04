@@ -6,9 +6,9 @@ import {
   waitFor,
 } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Form } from '../components/Form'
-import { mockBlueprintGet, wrapper } from '../test-utils'
-import { TFormProps } from '../types'
+import { Form } from '../../components/Form'
+import { mockBlueprintGet, wrapper } from '../../test-utils'
+import { TFormProps } from '../../types'
 
 afterEach(() => cleanup())
 

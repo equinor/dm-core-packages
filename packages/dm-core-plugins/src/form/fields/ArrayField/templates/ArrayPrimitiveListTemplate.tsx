@@ -1,9 +1,9 @@
 import { list } from '@equinor/eds-icons'
 import { useState } from 'react'
-import PrimitiveArray from '../components/PrimitiveArray'
-import { useRegistryContext } from '../context/RegistryContext'
-import { TArrayTemplate, TPrimitive } from '../types'
-import FormTemplate from './shared/FormTemplate'
+import PrimitiveArray from '../../../components/PrimitiveArray'
+import { useRegistryContext } from '../../../context/RegistryContext'
+import FormTemplate from '../../../templates/shared/FormTemplate'
+import { TArrayTemplate, TPrimitive } from '../../../types'
 
 export const ArrayPrimitiveListTemplate = (
   props: TArrayTemplate & {

@@ -7,9 +7,9 @@ import {
 import { Button, Label } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useFormContext } from 'react-hook-form'
-import { useRegistryContext } from '../context/RegistryContext'
-import { TField } from '../types'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { useRegistryContext } from '../../context/RegistryContext'
+import { TField } from '../../types'
+import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
 const getTarget = (initialValue: any) => {
   const { idReference } = useRegistryContext()

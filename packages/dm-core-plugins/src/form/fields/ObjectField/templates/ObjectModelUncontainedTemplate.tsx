@@ -6,17 +6,17 @@ import {
 import { link } from '@equinor/eds-icons'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { OpenObjectButton } from '../components/OpenObjectButton'
-import RemoveObject from '../components/RemoveObjectButton'
-import { SelectReference } from '../components/SelectReference'
-import { useRegistryContext } from '../context/RegistryContext'
-import { TObjectTemplate } from '../types'
-import FormTemplate from './shared/FormTemplate'
+import { OpenObjectButton } from '../../../components/OpenObjectButton'
+import RemoveObject from '../../../components/RemoveObjectButton'
+import { SelectReference } from '../../../components/SelectReference'
+import { useRegistryContext } from '../../../context/RegistryContext'
+import FormTemplate from '../../../templates/shared/FormTemplate'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
   getOpenViewConfig,
-} from './shared/utils'
+} from '../../../templates/shared/utils'
+import { TObjectTemplate } from '../../../types'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
