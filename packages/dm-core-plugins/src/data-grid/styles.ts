@@ -78,10 +78,23 @@ export const Input = styled.input<{ attributeType: string }>`
   width: 100%;
   padding: 0 0.25rem;
   background: transparent;
+
   ${({ attributeType }) =>
     attributeType === 'number' &&
     css`
-      text-align: right;
+    text-align: right;
+
+    /* Chrome, Safari, newer versions of Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
   `}
 `
 
