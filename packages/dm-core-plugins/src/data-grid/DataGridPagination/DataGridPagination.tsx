@@ -32,6 +32,7 @@ export function DataGridPagination(props: DataGridPaginationProps) {
         <Styled.Select
           id='rowsPerPage'
           value={rowsPerPage}
+          style={{ height: '100%' }}
           onChange={(event) => setRowsPerPage(Number(event.target.value))}
         >
           {[5, 10, 25, 50, 100, 500].map((amount) => (
