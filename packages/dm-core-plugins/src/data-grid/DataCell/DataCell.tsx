@@ -20,9 +20,9 @@ export function DataCell(props: DataCellProps) {
 
   function parseValue(event: ChangeEvent<HTMLInputElement>) {
     const { value, checked } = event.target
-    if (attributeType === 'number') {
-      return value === '' ? undefined : value === '-' ? '-' : parseFloat(value)
-    }
+    // if (attributeType === 'number') {
+    //   return value === '' ? undefined : value === '-' ? '-' : parseFloat(value)
+    // }
     if (attributeType === 'boolean') {
       return checked
     }
