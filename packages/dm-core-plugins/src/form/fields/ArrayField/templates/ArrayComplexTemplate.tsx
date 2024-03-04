@@ -2,17 +2,17 @@ import { ViewCreator } from '@development-framework/dm-core'
 import { list } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import AddObject from '../components/AddObjectButton'
-import { OpenObjectButton } from '../components/OpenObjectButton'
-import RemoveObject from '../components/RemoveObjectButton'
-import { useRegistryContext } from '../context/RegistryContext'
-import { TArrayTemplate } from '../types'
-import FormTemplate from './shared/FormTemplate'
+import AddObject from '../../../components/AddObjectButton'
+import { OpenObjectButton } from '../../../components/OpenObjectButton'
+import RemoveObject from '../../../components/RemoveObjectButton'
+import { useRegistryContext } from '../../../context/RegistryContext'
+import FormTemplate from '../../../templates/shared/FormTemplate'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
   getOpenViewConfig,
-} from './shared/utils'
+} from '../../../templates/shared/utils'
+import { TArrayTemplate } from '../../../types'
 
 export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   const { namePath, attribute, uiAttribute } = props

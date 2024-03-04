@@ -11,3 +11,21 @@ export const isPrimitive = (attributeType: string): boolean => {
     attributeType as string
   )
 }
+
+export const getFieldType = (attribute: any) => {
+  const { attributeType, dimensions } = attribute
+
+  if (attributeType === 'binary') {
+    return 'binary'
+  }
+
+  if (!isArray(dimensions) && isPrimitive(attributeType)) {
+    return attributeType
+  }
+
+  if (isArray(dimensions)) {
+    return 'array'
+  } else {
+    return 'object'
+  }
+}

@@ -7,9 +7,9 @@ import {
   waitFor,
 } from '@testing-library/react'
 import React from 'react'
-import { Form } from '../components/Form'
-import { mockBlueprintGet, wrapper } from '../test-utils'
-import { TFormConfig } from '../types'
+import { Form } from '../../components/Form'
+import { mockBlueprintGet, wrapper } from '../../test-utils'
+import { TFormConfig } from '../../types'
 
 const ViewCreatorMock = jest.fn()
 jest.mock('@development-framework/dm-core', () => ({

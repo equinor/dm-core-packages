@@ -1,8 +1,8 @@
 import { Controller, useFormContext } from 'react-hook-form'
-import { useRegistryContext } from '../context/RegistryContext'
-import { getWidget } from '../context/WidgetContext'
-import { TField } from '../types'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import { useRegistryContext } from '../../context/RegistryContext'
+import { getWidget } from '../../context/WidgetContext'
+import { TField } from '../../types'
+import { getDisplayLabel } from '../../utils/getDisplayLabel'
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
 export const NumberField = (props: TField) => {
@@ -51,9 +51,7 @@ export const NumberField = (props: TField) => {
             helperText={error?.message || error?.type}
             variant={invalid ? 'error' : undefined}
             isDirty={value !== null ? isDirty : false}
-            config={{
-              ...uiAttribute?.config,
-            }}
+            config={uiAttribute?.config}
           />
         )
       }}

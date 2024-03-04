@@ -12,25 +12,16 @@ export const AttributeList = (props: {
   storageRecipes: TStorageRecipe[]
 }) => {
   const { namePath, blueprint, storageRecipes } = props
-  const prefix = namePath === '' ? `` : `${namePath}.`
   const { config } = useRegistryContext()
+  const prefix = namePath === '' ? '' : `${namePath}.`
   const attributes: TAttribute[] | undefined = blueprint.attributes
 
-  let filteredAttributes =
-    config && config.fields.length
-      ? config.fields
-          .map((name: string) =>
-            attributes?.find((attribute: TAttribute) => attribute.name === name)
-          )
-          .filter((attribute): attribute is TAttribute => !!attribute)
-      : attributes
-
   const hideByDefaultFields: string[] = ['type', '_meta_']
-  if (!(config && config.fields.length)) {
-    filteredAttributes = filteredAttributes?.filter(
-      (attribute) => !hideByDefaultFields.includes(attribute.name)
-    )
-  }
+  const filteredAttributes =
+    Array.isArray(config.fields) && config.fields.length > 0
+      ? attributes.filter((attr) => config.fields.includes(attr.name))
+      : attributes.filter((attr) => !hideByDefaultFields.includes(attr.name))
+
   return (
     <>
       {filteredAttributes?.map((attribute: TAttribute) => {

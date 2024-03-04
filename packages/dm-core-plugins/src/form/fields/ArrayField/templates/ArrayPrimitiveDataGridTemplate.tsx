@@ -1,10 +1,10 @@
 import { Typography } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
-import TooltipButton from '../../common/TooltipButton'
-import { DataGrid } from '../../data-grid/DataGrid'
-import { Fieldset, Legend } from '../styles'
-import { TArrayTemplate, TPrimitive } from '../types'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
+import TooltipButton from '../../../../common/TooltipButton'
+import { DataGrid } from '../../../../data-grid/DataGrid'
+import { Fieldset, Legend } from '../../../styles'
+import { TArrayTemplate, TPrimitive } from '../../../types'
+import { getDisplayLabel } from '../../../utils/getDisplayLabel'
 
 export const ArrayPrimitiveDatagridTemplate = (
   props: TArrayTemplate & {

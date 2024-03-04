@@ -1,12 +1,12 @@
 import { Controller, useFormContext } from 'react-hook-form'
-import { getWidget } from '../context/WidgetContext'
-import arrayTemplates from '../templates'
-import { ArrayComplexTemplate } from '../templates/ArrayComplexTemplate'
-import { TArrayTemplate } from '../types'
-import { getDisplayLabel } from '../utils/getDisplayLabel'
-import { isPrimitiveType } from '../utils/isPrimitiveType'
+import { getWidget } from '../../context/WidgetContext'
+import { TArrayTemplate } from '../../types'
+import { getDisplayLabel } from '../../utils/getDisplayLabel'
+import { isPrimitiveType } from '../../utils/isPrimitiveType'
+import arrayTemplates from './templates'
+import { ArrayComplexTemplate } from './templates/ArrayComplexTemplate'
 
-export default function ArrayField(props: TArrayTemplate) {
+export function ArrayField(props: TArrayTemplate) {
   const { uiAttribute, namePath, attribute } = props
   const { getValues, setValue, control } = useFormContext()
 
@@ -40,11 +40,10 @@ export default function ArrayField(props: TArrayTemplate) {
         name={namePath}
         control={control}
         render={({ field: { value, onChange } }) => {
-          // TODO: make this into same as getWidget(uiAttribute?.template)
-          const templates = { ...arrayTemplates }
-          const templateName = uiAttribute?.template
           const Template =
-            templates[templateName ?? 'ArrayPrimitiveDatagridTemplate']
+            arrayTemplates[
+              uiAttribute?.template ?? 'ArrayPrimitiveDatagridTemplate'
+            ]
           return (
             <Template
               namePath={namePath}
