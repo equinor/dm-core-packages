@@ -1,5 +1,5 @@
 export * from './ArrayField/ArrayField'
-export * from './AttributeField'
+export * from './AttributeFieldSelector'
 export * from './BinaryField/BinaryField'
 export * from './BooleanField/BooleanField'
 export * from './NumberField/NumberField'

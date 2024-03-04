@@ -4,7 +4,7 @@ import {
   TStorageRecipe,
 } from '@development-framework/dm-core'
 import { useRegistryContext } from '../context/RegistryContext'
-import { AttributeField } from '../fields/AttributeField'
+import { AttributeFieldSelector } from '../fields/AttributeFieldSelector'
 
 export const AttributeList = (props: {
   namePath: string
@@ -37,7 +37,7 @@ export const AttributeList = (props: {
             key={`${prefix}${attribute.name}`}
             className='pb-3'
           >
-            <AttributeField
+            <AttributeFieldSelector
               namePath={`${prefix}${attribute.name}`}
               attribute={attribute}
               uiAttribute={uiAttribute}

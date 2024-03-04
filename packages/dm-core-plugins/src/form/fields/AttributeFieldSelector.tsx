@@ -22,11 +22,11 @@ const ATTRIBUTE_FIELD_MAPPING: Record<string, any> = {
 
 const getField = (fieldType: string) => ATTRIBUTE_FIELD_MAPPING[fieldType]
 
-type AttributeFieldProps = {
+type AttributeFieldSelectorProps = {
   storageRecipe?: TStorageRecipe
 } & TField
 
-export const AttributeField = (props: AttributeFieldProps) => {
+export const AttributeFieldSelector = (props: AttributeFieldSelectorProps) => {
   const { namePath, attribute, uiAttribute, storageRecipe } = props
   const fieldType = getFieldType(attribute)
   const Field = getField(fieldType)
