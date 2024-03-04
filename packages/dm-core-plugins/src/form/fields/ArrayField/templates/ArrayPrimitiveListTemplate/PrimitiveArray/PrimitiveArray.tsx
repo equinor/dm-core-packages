@@ -6,8 +6,8 @@ import {
 import { Tooltip } from '@equinor/eds-core-react'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { AttributeField } from '../fields/AttributeField'
-import { TPrimitive, TUiAttributeObject } from '../types'
+import { TPrimitive, TUiAttributeObject } from '../../../../../types'
+import { AttributeFieldSelector } from '../../../../AttributeFieldSelector'
 
 interface PrimitiveArrayProps {
   uiAttribute: TUiAttributeObject | undefined
@@ -88,7 +88,7 @@ const PrimitiveArray = ({
                 onMouseEnter={() => setHovering(index)}
                 onMouseLeave={() => setHovering(-1)}
               >
-                <AttributeField
+                <AttributeFieldSelector
                   namePath={`${namePath}.${index}`}
                   uiAttribute={{
                     name: '',
