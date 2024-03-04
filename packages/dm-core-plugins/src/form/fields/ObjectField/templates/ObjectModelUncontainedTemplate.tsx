@@ -11,12 +11,12 @@ import RemoveObject from '../../../components/RemoveObjectButton'
 import { SelectReference } from '../../../components/SelectReference'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import FormTemplate from '../../../templates/shared/FormTemplate'
+import { TObjectTemplate } from '../../../types'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
   getOpenViewConfig,
-} from '../../../templates/shared/utils'
-import { TObjectTemplate } from '../../../types'
+} from '../../../utils'
 
 export const ObjectModelUncontainedTemplate = (
   props: TObjectTemplate
