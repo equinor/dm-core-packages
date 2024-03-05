@@ -6,7 +6,7 @@ import AddObjectBySearchButton from '../../../components/AddObjectBySearchButton
 import { OpenObjectButton } from '../../../components/OpenObjectButton'
 import RemoveObject from '../../../components/RemoveObjectButton'
 import { useRegistryContext } from '../../../context/RegistryContext'
-import FormTemplate from '../../../templates/shared/FormTemplate'
+import { ComplexAttributeTemplate } from '../../../templates'
 import { TObjectTemplate } from '../../../types'
 import {
   getCanOpenOrExpand as getCanOpenExpand,
@@ -34,9 +34,9 @@ export const ObjectModelContainedTemplate = (
     onOpen
   )
   return (
-    <FormTemplate>
-      <FormTemplate.Header>
-        <FormTemplate.Header.Title
+    <ComplexAttributeTemplate>
+      <ComplexAttributeTemplate.Header>
+        <ComplexAttributeTemplate.Header.Title
           canExpand={canExpand}
           canOpen={canOpen}
           isExpanded={isExpanded}
@@ -53,7 +53,7 @@ export const ObjectModelContainedTemplate = (
           uiAttribute={uiAttribute}
           namePath={namePath}
         />
-        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
+        <ComplexAttributeTemplate.Header.Actions uiAttribute={uiAttribute}>
           {canOpen && (
             <OpenObjectButton
               viewId={namePath}
@@ -91,9 +91,12 @@ export const ObjectModelContainedTemplate = (
                 namePath={namePath}
               />
             )}
-        </FormTemplate.Header.Actions>
-      </FormTemplate.Header>
-      <FormTemplate.Content expanded={!!isExpanded} canExpand={!!canExpand}>
+        </ComplexAttributeTemplate.Header.Actions>
+      </ComplexAttributeTemplate.Header>
+      <ComplexAttributeTemplate.Content
+        expanded={!!isExpanded}
+        canExpand={!!canExpand}
+      >
         <ViewCreator
           idReference={`${idReference}.${attribute.name}`}
           onOpen={onOpen}
@@ -109,7 +112,7 @@ export const ObjectModelContainedTemplate = (
             )
           }
         />
-      </FormTemplate.Content>
-    </FormTemplate>
+      </ComplexAttributeTemplate.Content>
+    </ComplexAttributeTemplate>
   )
 }

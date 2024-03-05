@@ -8,7 +8,7 @@ import { useFormContext } from 'react-hook-form'
 import { OpenObjectButton } from '../../../components/OpenObjectButton'
 import RemoveObject from '../../../components/RemoveObjectButton'
 import { useRegistryContext } from '../../../context/RegistryContext'
-import FormTemplate from '../../../templates/shared/FormTemplate'
+import { ComplexAttributeTemplate } from '../../../templates'
 import { TObjectTemplate } from '../../../types'
 import {
   getCanOpenOrExpand,
@@ -36,9 +36,9 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
   )
 
   return (
-    <FormTemplate>
-      <FormTemplate.Header>
-        <FormTemplate.Header.Title
+    <ComplexAttributeTemplate>
+      <ComplexAttributeTemplate.Header>
+        <ComplexAttributeTemplate.Header.Title
           canExpand={canExpand}
           canOpen={canOpen}
           isExpanded={isExpanded}
@@ -50,7 +50,7 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
           }
           uiAttribute={uiAttribute}
         />
-        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
+        <ComplexAttributeTemplate.Header.Actions uiAttribute={uiAttribute}>
           {canOpen && referenceExists && (
             <OpenObjectButton
               viewId={namePath}
@@ -68,14 +68,14 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
           {attribute.optional && referenceExists && !config.readOnly && (
             <RemoveObject namePath={namePath} />
           )}
-        </FormTemplate.Header.Actions>
-      </FormTemplate.Header>
+        </ComplexAttributeTemplate.Header.Actions>
+      </ComplexAttributeTemplate.Header>
       <div
         className={`${
           canExpand && isExpanded && referenceExists ? '' : 'hidden'
         }`}
       >
-        <FormTemplate.Content
+        <ComplexAttributeTemplate.Content
           expanded={!!isExpanded}
           canExpand={!!(canExpand && referenceExists)}
         >
@@ -84,8 +84,8 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
             onOpen={onOpen}
             viewConfig={getExpandViewConfig(uiAttribute)}
           />
-        </FormTemplate.Content>
+        </ComplexAttributeTemplate.Content>
       </div>
-    </FormTemplate>
+    </ComplexAttributeTemplate>
   )
 }

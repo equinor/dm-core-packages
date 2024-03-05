@@ -1,7 +1,7 @@
 import { list } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { useRegistryContext } from '../../../../context/RegistryContext'
-import FormTemplate from '../../../../templates/shared/FormTemplate'
+import { ComplexAttributeTemplate } from '../../../../templates'
 import { TArrayTemplate, TPrimitive } from '../../../../types'
 import { PrimitiveArray } from './PrimitiveArray/PrimitiveArray'
 
@@ -21,9 +21,9 @@ export const ArrayPrimitiveListTemplate = (
   )
 
   return (
-    <FormTemplate>
-      <FormTemplate.Header>
-        <FormTemplate.Header.Title
+    <ComplexAttributeTemplate>
+      <ComplexAttributeTemplate.Header>
+        <ComplexAttributeTemplate.Header.Title
           canExpand={true}
           canOpen={false}
           isExpanded={isExpanded}
@@ -33,9 +33,13 @@ export const ArrayPrimitiveListTemplate = (
           icon={list}
           uiAttribute={uiAttribute}
         />
-        <FormTemplate.Header.Actions uiAttribute={uiAttribute} />
-      </FormTemplate.Header>
-      <FormTemplate.Content padding='' expanded={!!isExpanded} canExpand={true}>
+        <ComplexAttributeTemplate.Header.Actions uiAttribute={uiAttribute} />
+      </ComplexAttributeTemplate.Header>
+      <ComplexAttributeTemplate.Content
+        padding=''
+        expanded={!!isExpanded}
+        canExpand={true}
+      >
         <PrimitiveArray
           uiAttribute={uiAttribute}
           data={value}
@@ -43,7 +47,7 @@ export const ArrayPrimitiveListTemplate = (
           attribute={attribute}
           onChange={onChange}
         />
-      </FormTemplate.Content>
-    </FormTemplate>
+      </ComplexAttributeTemplate.Content>
+    </ComplexAttributeTemplate>
   )
 }
