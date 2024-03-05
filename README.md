@@ -5105,3 +5105,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 3c0d8d3 2024-03-01 githu..[bot] chore(master): release 1.23.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: 006188f 2024-03-01 githu..[bot] chore(main): release 1.6.2 grafted, HEAD -> main, origin/main
+* chore: release main (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/8153288291/1)
+    * **DMSS VERSION**: 0943483 2024-03-05 Stig Ofstad fix: partial update only worked with complex grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: 006188f 2024-03-01 githu..[bot] chore(main): release 1.6.2 grafted, HEAD -> main, origin/main
