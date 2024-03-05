@@ -10,7 +10,7 @@ import { OpenObjectButton } from '../../../components/OpenObjectButton'
 import RemoveObject from '../../../components/RemoveObjectButton'
 import { SelectReference } from '../../../components/SelectReference'
 import { useRegistryContext } from '../../../context/RegistryContext'
-import FormTemplate from '../../../templates/shared/FormTemplate'
+import { ComplexAttributeTemplate } from '../../../templates'
 import { TObjectTemplate } from '../../../types'
 import {
   getCanOpenOrExpand,
@@ -46,9 +46,9 @@ export const ObjectModelUncontainedTemplate = (
     onOpen
   )
   return (
-    <FormTemplate>
-      <FormTemplate.Header>
-        <FormTemplate.Header.Title
+    <ComplexAttributeTemplate>
+      <ComplexAttributeTemplate.Header>
+        <ComplexAttributeTemplate.Header.Title
           canExpand={canExpand}
           canOpen={canOpen}
           isExpanded={isExpanded}
@@ -61,7 +61,7 @@ export const ObjectModelUncontainedTemplate = (
           icon={link}
           uiAttribute={uiAttribute}
         />
-        <FormTemplate.Header.Actions uiAttribute={uiAttribute}>
+        <ComplexAttributeTemplate.Header.Actions uiAttribute={uiAttribute}>
           {canOpen && (
             <OpenObjectButton
               viewId={namePath}
@@ -86,15 +86,18 @@ export const ObjectModelUncontainedTemplate = (
                 namePath={namePath}
               />
             )}
-        </FormTemplate.Header.Actions>
-      </FormTemplate.Header>
-      <FormTemplate.Content expanded={!!isExpanded} canExpand={!!canExpand}>
+        </ComplexAttributeTemplate.Header.Actions>
+      </ComplexAttributeTemplate.Header>
+      <ComplexAttributeTemplate.Content
+        expanded={!!isExpanded}
+        canExpand={!!canExpand}
+      >
         <ViewCreator
           idReference={address ?? ''}
           onOpen={onOpen}
           viewConfig={getExpandViewConfig(uiAttribute)}
         />
-      </FormTemplate.Content>
-    </FormTemplate>
+      </ComplexAttributeTemplate.Content>
+    </ComplexAttributeTemplate>
   )
 }
