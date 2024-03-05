@@ -352,7 +352,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               defaultRowsPerPage={internalConfig?.defaultPaginationRowsPerPage}
             />
           )}
-          <div className='flex justify-end grow space-x-2'>
+          <div className='flex justify-end grow space-x-2 items-center'>
             {internalConfig.functionality.add && (
               <>
                 <NewListItemButton
