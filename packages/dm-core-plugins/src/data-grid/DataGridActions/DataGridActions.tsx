@@ -8,6 +8,7 @@ import {
   Dialog,
   Icon,
   Menu,
+  Tooltip,
   Typography,
 } from '@equinor/eds-core-react'
 import {
@@ -16,6 +17,7 @@ import {
   chevron_down,
   chevron_up,
   copy,
+  delete_to_trash,
   download,
   minimize,
   settings,
@@ -42,6 +44,7 @@ type DataGridActionsProps = {
   setData: (data: any[]) => void
   updateColumnLabels: (length: number) => void
   updateRowLabels: (length: number) => void
+  clearTable: () => void
 }
 
 export function DataGridActions(props: DataGridActionsProps) {
@@ -53,6 +56,7 @@ export function DataGridActions(props: DataGridActionsProps) {
     moveRow,
     rowLabels,
     selectedRow,
+    clearTable,
   } = props
   const [includeColumnLabels, setIsIncludeColumnLabels] =
     useState<boolean>(false)
@@ -106,19 +110,23 @@ export function DataGridActions(props: DataGridActionsProps) {
   return (
     <Stack direction='row'>
       {functionality.addButtonIsEnabled && (
-        <Styled.ActionRowButton
-          aria-label='Add data row'
-          onClick={() => props.addRow()}
-        >
-          <Icon size={16} data={add} />
-        </Styled.ActionRowButton>
+        <Tooltip title='Add row'>
+          <Styled.ActionRowButton
+            aria-label='Add data row'
+            onClick={() => props.addRow()}
+          >
+            <Icon size={16} data={add} />
+          </Styled.ActionRowButton>
+        </Tooltip>
       )}
       {selectedRow !== undefined && (
         <>
           {functionality.rowsAreEditable && (
-            <Styled.ActionRowButton onClick={props.deleteRow}>
-              <Icon size={16} data={minimize} />
-            </Styled.ActionRowButton>
+            <Tooltip title='Delete selected row'>
+              <Styled.ActionRowButton onClick={props.deleteRow}>
+                <Icon size={16} data={minimize} />
+              </Styled.ActionRowButton>
+            </Tooltip>
           )}
           {functionality.isSortEnabled && (
             <>
@@ -146,6 +154,16 @@ export function DataGridActions(props: DataGridActionsProps) {
       >
         <Icon size={16} data={settings} />
       </Styled.ActionRowButton>
+      <Tooltip title='Clear table content'>
+        <Styled.ActionRowButton
+          aria-haspopup
+          aria-expanded={isMenuOpen}
+          onClick={() => clearTable()}
+          ref={setMenuButtonAnchor}
+        >
+          <Icon size={16} data={delete_to_trash} />
+        </Styled.ActionRowButton>
+      </Tooltip>
       <Menu
         anchorEl={menuButtonAnchor}
         id='table-setting-menu'

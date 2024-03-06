@@ -23,17 +23,11 @@ export function DataGridPlugin(props: IUIPlugin) {
   const [loading, setLoading] = useState<boolean>(false)
   const [isDirty, setIsDirty] = useState<boolean>(false)
   const { blueprint } = useBlueprint(type)
-  const { document, isLoading, error } = useDocument<TGenericObject>(
-    idReference,
-    1
-  )
+  const { document, isLoading } = useDocument<TGenericObject>(idReference, 1)
   const { fieldNames, rowsPerPage } = config
   const multiplePrimitives = fieldNames?.length > 1
   const attribute = blueprint?.attributes?.find(
     (atts: TAttribute) => atts.name === fieldNames[0]
-  )
-  const attributes = fieldNames.map((field) =>
-    blueprint?.attributes.find((att: TAttribute) => att.name === field)
   )
 
   function getColumnsLength(data: any[]) {
@@ -82,7 +76,7 @@ export function DataGridPlugin(props: IUIPlugin) {
       modifiedData = reverseData(data || [], getColumnsLength(data || []))
     }
     let dataToSave = { [fieldNames[0]]: modifiedData }
-    if (multiplePrimitives) {
+    if (multiplePrimitives && data?.length) {
       dataToSave = Object.fromEntries(
         (modifiedData || []).map((value, index) => [fieldNames[index], value])
       )

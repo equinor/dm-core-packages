@@ -132,6 +132,7 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
       return null
     }
     setIsLoading(true)
+    console.log(' --- Peter --- ')
     return dmJobApi
       .startJob({ jobDmssId: entityId })
       .then((response: AxiosResponse<StartJobResponse>) => {
