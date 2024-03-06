@@ -146,14 +146,16 @@ export function DataGridActions(props: DataGridActionsProps) {
           )}
         </>
       )}
-      <Styled.ActionRowButton
-        aria-haspopup
-        aria-expanded={isMenuOpen}
-        onClick={() => setIsMenuOpen(true)}
-        ref={setMenuButtonAnchor}
-      >
-        <Icon size={16} data={settings} />
-      </Styled.ActionRowButton>
+      <Tooltip title='Import and Export'>
+        <Styled.ActionRowButton
+          aria-haspopup
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen(true)}
+          ref={setMenuButtonAnchor}
+        >
+          <Icon size={16} data={settings} />
+        </Styled.ActionRowButton>
+      </Tooltip>
       <Tooltip title='Clear table content'>
         <Styled.ActionRowButton
           aria-haspopup
