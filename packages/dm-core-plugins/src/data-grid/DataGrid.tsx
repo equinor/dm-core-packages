@@ -85,6 +85,13 @@ export function DataGrid(props: DataGridProps) {
     }
   }
 
+  function clearTable() {
+    setData([])
+    setSelectedRow(undefined)
+    setSelectedColumn(undefined)
+    setPaginationPage(0)
+  }
+
   function moveRow(direction: 'up' | 'down') {
     if (selectedRow !== undefined) {
       const toIndex = direction === 'up' ? selectedRow - 1 : selectedRow + 1
@@ -117,7 +124,7 @@ export function DataGrid(props: DataGridProps) {
   }
 
   return (
-    <Stack>
+    <Stack className='w-full'>
       <Stack>
         {config.title && <Typography variant='h5'>{config.title}</Typography>}
         {config.description && <Typography>{config.description}</Typography>}
@@ -213,6 +220,7 @@ export function DataGrid(props: DataGridProps) {
           setData={setData}
           updateColumnLabels={updateColumnLabels}
           updateRowLabels={updateRowLabels}
+          clearTable={clearTable}
         />
         <DataGridPagination
           count={data.length}
