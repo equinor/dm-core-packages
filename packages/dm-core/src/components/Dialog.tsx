@@ -2,7 +2,7 @@ import { Dialog as EdsDialog } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 
 export const Dialog = styled(EdsDialog)<{ width?: string; height?: string }>`
-  height: ${(props) => props.height || '100%'};
+  height: ${(props) => props.height};
   overflow: auto;
   width: ${(props) => props.width || '100%'};
   display: flex;
