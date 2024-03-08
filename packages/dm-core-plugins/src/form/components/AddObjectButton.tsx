@@ -1,4 +1,4 @@
-import { ErrorResponse, useDMSS } from '@development-framework/dm-core'
+import { ErrorResponse, useApplication } from '@development-framework/dm-core'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
@@ -12,7 +12,7 @@ const AddObject = (props: {
 }) => {
   const { type, namePath, defaultValue, onAdd } = props
   const { setValue } = useFormContext()
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const { idReference } = useRegistryContext()
   const handleAdd = () => {
     if (!defaultValue) {

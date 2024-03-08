@@ -11,7 +11,7 @@ import {
   TSchedule,
   TTemplate,
   TemplateMenu,
-  useDMSS,
+  useApplication,
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
@@ -47,7 +47,7 @@ const defaultConfig: TJobControlConfig = {
 
 export const JobControl = (props: IUIPlugin) => {
   const { idReference, config } = props
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const { tokenData }: IAuthContext = useContext(AuthContext)
 
   const internalConfig: TJobControlConfig = { ...defaultConfig, ...config }

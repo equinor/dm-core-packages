@@ -1,4 +1,4 @@
-import { useDMSS } from '@development-framework/dm-core'
+import { useApplication } from '@development-framework/dm-core'
 import { IBlueprintType, TAttributeType } from './types'
 
 export class Node {
@@ -58,7 +58,7 @@ const nonPrimitiveAttributes = (blueprint: IBlueprintType): TAttributeType[] =>
   )
 
 const search = async (query: any) => {
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   const response = await dmssAPI.search({
     dataSources: ['WorkflowDS'],

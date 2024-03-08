@@ -1,8 +1,4 @@
-import {
-  useApplication,
-  useDMSS,
-  useSearch,
-} from '@development-framework/dm-core'
+import { useApplication, useSearch } from '@development-framework/dm-core'
 import { EdsProvider, Menu } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { useState } from 'react'
@@ -19,17 +15,16 @@ const AddObjectBySearchButton = (props: {
 }) => {
   const { type, namePath, onAdd } = props
   const { setValue } = useFormContext()
-  const dmssAPI = useDMSS()
+  const { dmssAPI, visibleDataSources } = useApplication()
   const { idReference } = useRegistryContext()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-  const application = useApplication()
   const [searchResult] = useSearch<any>(
     {
       type: 'dmss://system/SIMOS/Blueprint',
       extends: [type],
     },
-    application.dataSources
+    visibleDataSources
   )
 
   const openMenu = () => {

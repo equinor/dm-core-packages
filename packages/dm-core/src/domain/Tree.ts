@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios'
 import { EBlueprint } from '../Enums'
-import { useDMSS } from '../context/DMSSContext'
 import { DmssAPI } from '../services'
 import { TAttribute, TBlueprint, TPackage } from '../types'
 import { splitAddress } from '../utils/addressUtilities'
@@ -275,8 +274,8 @@ export class Tree {
   dmssApi: DmssAPI
   updateCallback: (t: Tree) => void
 
-  constructor(updateCallback: (t: Tree) => void) {
-    this.dmssApi = useDMSS()
+  constructor(dmssAPI: DmssAPI, updateCallback: (t: Tree) => void) {
+    this.dmssApi = dmssAPI
     this.updateCallback = updateCallback
   }
 
@@ -293,6 +292,7 @@ export class Tree {
   }
 
   async initFromDataSources(dataSources?: string[]) {
+    if (!dataSources) return
     // Add the dataSources as the top-level nodes
     const allDataSources = await this.dmssApi
       .dataSourceGetAll()

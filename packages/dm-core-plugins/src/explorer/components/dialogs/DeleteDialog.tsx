@@ -2,7 +2,7 @@ import {
   Dialog,
   ErrorResponse,
   TreeNode,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
@@ -22,7 +22,7 @@ type TProps = {
 const DeleteDialog = (props: TProps) => {
   const { setDialogId, node } = props
   const [loading, setLoading] = useState<boolean>(false)
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   const handleDelete = () => {
     setLoading(true)

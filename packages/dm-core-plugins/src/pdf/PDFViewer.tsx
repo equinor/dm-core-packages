@@ -4,7 +4,7 @@ import {
   Loading,
   TGenericObject,
   formatBytes,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
@@ -40,7 +40,7 @@ export const ViewerPDFPlugin = (props: {
   const [blobUrl, setBlobUrl] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   useEffect(() => {
     setError(null)

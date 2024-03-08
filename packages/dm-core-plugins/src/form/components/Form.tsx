@@ -1,15 +1,14 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 import {
-  ApplicationContext,
   EBlueprint,
   Loading,
   TAttribute,
   TGenericObject,
   TUiRecipe,
   findRecipe,
+  useApplication,
   useBlueprint,
-  useDMSS,
 } from '@development-framework/dm-core'
 import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
@@ -36,8 +35,7 @@ export const defaultConfig: TFormConfig = {
 export const Form = (props: TFormProps) => {
   const { type, formData, onSubmit, idReference, onOpen } = props
   const { blueprint, storageRecipes, isLoading, error } = useBlueprint(type)
-  const dmssAPI = useDMSS()
-  const { name } = useContext(ApplicationContext)
+  const { dmssAPI, name } = useApplication()
   const [reloadCounter, setReloadCounter] = useState(0)
   const showSubmitButton = props.showSubmitButton ?? true
   // Every react hook form controller needs to have a unique name

@@ -3,8 +3,8 @@ import {
   Stack,
   TAttribute,
   TGenericObject,
+  useApplication,
   useBlueprint,
-  useDMSS,
   useDocument,
 } from '@development-framework/dm-core'
 import { Button, Icon, Tooltip } from '@equinor/eds-core-react'
@@ -17,7 +17,7 @@ import { getFunctionalityVariables, reverseData } from './utils'
 export function DataGridPlugin(props: IUIPlugin) {
   const { idReference, config: userConfig, type, onChange } = props
   const config: DataGridConfig = { ...defaultConfig, ...userConfig }
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const [data, setData] = useState<any[]>()
   const [initialData, setInitialData] = useState<any[]>()
   const [loading, setLoading] = useState<boolean>(false)

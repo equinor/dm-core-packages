@@ -4,9 +4,9 @@ import {
   TApplication,
   TGenericObject,
   TUiRecipe,
+  useApplication,
   useBlueprint,
   useDocument,
-  useUiPlugins,
 } from '@development-framework/dm-core'
 import { Icon, TopBar } from '@equinor/eds-core-react'
 import React, { useEffect, useState } from 'react'
@@ -74,7 +74,7 @@ export default (props: IUIPlugin): React.ReactElement => {
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
-  const { getUiPlugin } = useUiPlugins()
+  const { getUiPlugin } = useApplication()
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
     component: () => <div />,
     config: {},

@@ -4,7 +4,7 @@ import {
   DmssAPI,
   IUIPlugin,
   Loading,
-  useDMSS,
+  useApplication,
   useDocument,
 } from '@development-framework/dm-core'
 import MermaidWrapper from './MermaidWrapper'
@@ -74,7 +74,7 @@ function useExplorer(dmssAPI: DmssAPI) {
 
 export const BlueprintHierarchyPlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const explorer = useExplorer(dmssAPI)
 
   const [chart, setChart] = useState<string | undefined>(undefined)

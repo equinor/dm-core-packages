@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
 import { useEffect, useState } from 'react'
+import { useApplication } from '../../ApplicationContext'
 import { EBlueprint } from '../../Enums'
-import { useDMSS } from '../../context/DMSSContext'
 import { ErrorResponse } from '../../services'
 import { TAttribute, TGenericObject, TLinkReference } from '../../types'
 import { resolveRelativeAddressSimplified } from '../../utils/addressUtilities'
@@ -20,7 +20,7 @@ export function useList<T extends object>(
   const [error, setError] = useState<ErrorResponse | null>(null)
   const [dirtyState, setDirtyState] = useState<boolean>(false)
   const [refresh, reloadData] = useState()
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   useEffect(() => {
     dmssAPI

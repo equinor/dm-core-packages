@@ -1,7 +1,7 @@
 import { Typography } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
-import { EntityView, Loading, TAttribute, useDMSS } from '../../index'
+import { EntityView, Loading, TAttribute, useApplication } from '../../index'
 import {
   IUIPlugin,
   TInlineRecipeViewConfig,
@@ -39,7 +39,7 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
  */
 export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   const { idReference, viewConfig, onOpen, onSubmit, onChange } = props
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error>()
   const [attribute, setAttribute] = useState<TAttribute>()

@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { useDocument } from './useDocument'
 import React from 'react'
-import { DMSSProvider } from '../context/DMSSContext'
 import { mockGetDocument } from '../utils/test-utils-dm-core'
+import { DMApplicationProvider } from "../ApplicationContext";
 
 const mockDocument = [
   {
@@ -12,8 +12,15 @@ const mockDocument = [
 ]
 
 const wrapper = (props: { children: React.ReactNode }) => (
-  <DMSSProvider>{props.children}</DMSSProvider>
-)
+      <DMApplicationProvider
+    plugins={{}}
+    application={{ name: 'test', type: 'test' }}
+    dmJobPath={''}
+    enableBlueprintCache
+  >
+  {props.children}
+      </DMApplicationProvider>
+        )
 
 describe('useDocumentHook', () => {
   afterEach(() => {

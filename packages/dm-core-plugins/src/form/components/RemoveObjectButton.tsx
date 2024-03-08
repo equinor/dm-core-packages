@@ -1,7 +1,7 @@
 import {
   DeleteHardButton,
   ErrorResponse,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
 import { useFormContext } from 'react-hook-form'
@@ -19,7 +19,7 @@ const RemoveObject = (props: {
     props
   const { unregister } = useFormContext()
   const { idReference } = useRegistryContext()
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   const onClick = () => {
     dmssAPI

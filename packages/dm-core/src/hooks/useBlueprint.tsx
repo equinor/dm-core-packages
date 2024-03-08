@@ -1,8 +1,7 @@
 import { AxiosError } from 'axios'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TBlueprint, TStorageRecipe, TUiRecipe } from 'src/types'
-import { ApplicationContext } from '../context/ApplicationContext'
-import { useDMSS } from '../context/DMSSContext'
+import { useApplication } from '../ApplicationContext'
 import { ErrorResponse } from '../services'
 
 interface IUseBlueprint {
@@ -43,8 +42,7 @@ export const useBlueprint = (typeRef: string): IUseBlueprint => {
   const [initialUiRecipe, setInitialUiRecipe] = useState<TUiRecipe>()
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
-  const { name } = useContext(ApplicationContext)
-  const dmssAPI = useDMSS()
+  const { dmssAPI, name } = useApplication()
 
   useEffect(() => {
     dmssAPI

@@ -5,7 +5,7 @@ import {
   MediaContent,
   mimeTypes,
   splitAddress,
-  useDMSS,
+  useApplication,
   useDocument,
 } from '@development-framework/dm-core'
 import { AxiosRequestConfig } from 'axios'
@@ -39,7 +39,7 @@ export const MediaViewerPlugin = (
   const { idReference, config } = props
   const [blobUrl, setBlobUrl] = useState<string>()
   const [contentType, setContentType] = useState<string>('')
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const {
     document,
     isLoading,

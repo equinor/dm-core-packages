@@ -1,9 +1,8 @@
 import {
   Dialog,
-  RoleContext,
   TApplication,
   TRole,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Button, Icon, Radio, Typography } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'
@@ -51,8 +50,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const { isOpen, setIsOpen } = props
   const [apiKey, setAPIKey] = useState<string | null>(null)
   const { tokenData, token, logOut } = useContext(AuthContext)
-  const dmssAPI = useDMSS()
-  const { role, setRole, roles } = useContext(RoleContext)
+  const { dmssAPI, role, setRole, roles } = useApplication()
   const [selectedRole, setSelectedRole] = useState<TRole>(role)
 
   return (

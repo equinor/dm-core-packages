@@ -1,4 +1,7 @@
-import { resolveRelativeAddressSimplified } from '@development-framework/dm-core'
+import {
+  resolveRelativeAddressSimplified,
+  useApplication,
+} from '@development-framework/dm-core'
 import { useContext, useMemo } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 
@@ -12,7 +15,6 @@ import {
   TSchedule,
   TTemplate,
   TemplateMenu,
-  useDMSS,
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
@@ -54,7 +56,7 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
     config,
     idReference,
   }: { config: TJobPluginConfig; idReference: string } = props
-  const dmssApi = useDMSS()
+  const { dmssAPI } = useApplication()
   const { tokenData } = useContext(AuthContext)
   const username = tokenData?.preferred_username ?? 'unknown user'
 
@@ -109,7 +111,7 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
     }
 
     // Get template
-    dmssApi
+    dmssAPI
       .documentGet({
         address: templateAddress,
       })
@@ -137,7 +139,7 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
           updateDocument(newJob, false).then(() => start())
         } else {
           // Add template to job container
-          dmssApi
+          dmssAPI
             .documentAdd({
               address: jobTargetAddress,
               document: JSON.stringify(newJob),
