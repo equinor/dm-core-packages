@@ -5130,3 +5130,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 1171ac7 2024-03-08 githu..[bot] chore(master): release 1.23.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: a0f5fe1 2024-03-05 Stig Ofstad fix: don't prefix every log entry with 'JOBAPI' grafted, HEAD -> main, origin/main
+* fix: Dialog got height 0 on webkit(safari) (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/8200603226/1)
+    * **DMSS VERSION**: 1171ac7 2024-03-08 githu..[bot] chore(master): release 1.23.1 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: a0f5fe1 2024-03-05 Stig Ofstad fix: don't prefix every log entry with 'JOBAPI' grafted, HEAD -> main, origin/main
