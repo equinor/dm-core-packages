@@ -60,6 +60,29 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.49.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.49.2...dm-core-plugins-v1.49.3) (2024-03-08)
+
+
+### Bug Fixes
+
+* action row border missing on the left side ([d2f7650](https://github.com/equinor/dm-core-packages/commit/d2f76506b32624fe82773ec1928a300f811405d0))
+* bug with reverting and rowlabels not updating ([3f55a15](https://github.com/equinor/dm-core-packages/commit/3f55a15b813b89e2bd11c579eb9929a25213f3ed))
+* make clear work ([8139c58](https://github.com/equinor/dm-core-packages/commit/8139c5861d756455952dd24771c143c7dd6a789e))
+* make list buttons aligned ([74d0704](https://github.com/equinor/dm-core-packages/commit/74d07047e081b7666a4c22c7f892890451fa69bc))
+* tooltip and remove console.log ([4a06358](https://github.com/equinor/dm-core-packages/commit/4a06358b5ceba4c0ea84bbe8db6429f59e43f879))
+
+
+### Code Refactoring
+
+* merge all contexts into one ([f602af8](https://github.com/equinor/dm-core-packages/commit/f602af8404c2010259d6277afbaf5cb45a042409))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.42.1 to ^1.42.2
+
 ## [1.49.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.49.1...dm-core-plugins-v1.49.2) (2024-03-04)
 
 
