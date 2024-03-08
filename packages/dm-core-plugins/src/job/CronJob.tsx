@@ -74,123 +74,119 @@ export function ConfigureSchedule(props: {
 
   return (
     <div>
-      <div>
-        {isRegistered && (
-          <Typography color='primary'>The job is scheduled</Typography>
-        )}
-        <DateRangePicker
-          setDateRange={(dateRange) =>
-            setSchedule({
-              ...schedule,
-              startDate: dateRange.startDate,
-              endDate: dateRange.endDate,
-            })
-          }
-          value={{ startDate: schedule.startDate, endDate: schedule.endDate }}
-        />
-        <InputWrapper>
-          {showAdvanced ? (
-            <div className={'flex-col'}>
-              <TextField
-                style={{ maxWidth: '400px' }}
-                unit='cron'
-                id='advanced-schedule-syntax'
-                type='text'
-                defaultValue={schedule.cron}
-                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  setSchedule({
-                    ...schedule,
-                    cron: event?.target.value,
-                  })
-                }
-                label='Enter explicit cron syntax'
-                helperText='minute hour day(month) month day(week)'
-              />
-              <small style={{ color: 'red' }}>
-                {' '}
-                Controls might not show correct values after manually entering
-                cron syntax
-              </small>
-            </div>
-          ) : (
-            <>
+      {isRegistered && (
+        <Typography color='primary'>The job is scheduled</Typography>
+      )}
+      <DateRangePicker
+        setDateRange={(dateRange) =>
+          setSchedule({
+            ...schedule,
+            startDate: dateRange.startDate,
+            endDate: dateRange.endDate,
+          })
+        }
+        value={{ startDate: schedule.startDate, endDate: schedule.endDate }}
+      />
+      <InputWrapper>
+        {showAdvanced ? (
+          <div className={'flex-col'}>
+            <TextField
+              style={{ maxWidth: '400px' }}
+              unit='cron'
+              id='advanced-schedule-syntax'
+              type='text'
+              defaultValue={schedule.cron}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setSchedule({
+                  ...schedule,
+                  cron: event?.target.value,
+                })
+              }
+              label='Enter explicit cron syntax'
+              helperText='minute hour day(month) month day(week)'
+            />
+            <small style={{ color: 'red' }}>
+              {' '}
+              Controls might not show correct values after manually entering
+              cron syntax
+            </small>
+          </div>
+        ) : (
+          <>
+            <NativeSelect
+              id={'interval'}
+              label={'Interval'}
+              style={{ maxWidth: '200px' }}
+              value={cronValues.interval}
+              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                const chosenIntervalType = Object.entries(EInterval)
+                  .filter((l) => l.length > 0 && l[1] === e.target.value)
+                  .pop()
+                setCronValues({
+                  ...cronValues,
+                  interval: chosenIntervalType
+                    ? chosenIntervalType[1]
+                    : EInterval.HOURLY,
+                })
+              }}
+            >
+              {Object.values(EInterval).map((interval: string) => (
+                <option key={interval}>{interval}</option>
+              ))}
+            </NativeSelect>
+            {cronValues.interval !== EInterval.HOURLY && (
               <NativeSelect
-                id={'interval'}
-                label={'Interval'}
+                id={'time'}
                 style={{ maxWidth: '200px' }}
-                value={cronValues.interval}
+                label={'Time'}
+                value={`${cronValues.hour}:${cronValues.minute}`}
                 onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                  const chosenIntervalType = Object.entries(EInterval)
-                    .filter((l) => l.length > 0 && l[1] === e.target.value)
-                    .pop()
+                  const [newHour, newMinute] = e.target.value.split(':')
                   setCronValues({
                     ...cronValues,
-                    interval: chosenIntervalType
-                      ? chosenIntervalType[1]
-                      : EInterval.HOURLY,
+                    minute: newMinute,
+                    hour: newHour,
                   })
                 }}
               >
-                {Object.values(EInterval).map((interval: string) => (
-                  <option key={interval}>{interval}</option>
+                {generateSelectableTimes().map((value: string) => (
+                  <option key={value}>{value}</option>
                 ))}
               </NativeSelect>
-              {cronValues.interval !== EInterval.HOURLY && (
-                <NativeSelect
-                  id={'time'}
-                  style={{ maxWidth: '200px' }}
-                  label={'Time'}
-                  value={`${cronValues.hour}:${cronValues.minute}`}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                    const [newHour, newMinute] = e.target.value.split(':')
-                    setCronValues({
-                      ...cronValues,
-                      minute: newMinute,
-                      hour: newHour,
-                    })
-                  }}
-                >
-                  {generateSelectableTimes().map((value: string) => (
-                    <option key={value}>{value}</option>
-                  ))}
-                </NativeSelect>
-              )}
-              {cronValues.interval === EInterval.HOURLY && (
-                <NativeSelect
-                  id={'hour step'}
-                  style={{ maxWidth: '200px' }}
-                  value={Number(cronValues.hourStep)}
-                  label={'Hour step'}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setCronValues({ ...cronValues, hourStep: e.target.value })
-                  }
-                >
-                  {[...Array(12).keys()].map((i) => (
-                    <option key={i}>{i + 1} </option>
-                  ))}
-                </NativeSelect>
-              )}
-            </>
-          )}
-          <Button
-            onClick={() => {
-              setShowAdvanced(!showAdvanced)
-              if (showAdvanced) setCronValues(defaultCronValues())
-            }}
-            variant='ghost'
-            style={{
-              alignSelf: 'flex-start',
-              marginTop: `${showAdvanced ? '20px' : '15px'}`,
-            }}
-            className={showAdvanced ? 'self-center -translate-y-1' : 'self-end'}
-          >
-            {showAdvanced ? 'Simple' : 'Advanced'}
-          </Button>
-        </InputWrapper>
-      </div>
-      {!showAdvanced && (
-        <div style={{ paddingTop: '.5rem', height: '1rem' }}>{getLabel()}</div>
-      )}
+            )}
+            {cronValues.interval === EInterval.HOURLY && (
+              <NativeSelect
+                id={'hour step'}
+                style={{ maxWidth: '200px' }}
+                value={Number(cronValues.hourStep)}
+                label={'Hour step'}
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setCronValues({ ...cronValues, hourStep: e.target.value })
+                }
+              >
+                {[...Array(12).keys()].map((i) => (
+                  <option key={i}>{i + 1} </option>
+                ))}
+              </NativeSelect>
+            )}
+          </>
+        )}
+        <Button
+          onClick={() => {
+            setShowAdvanced(!showAdvanced)
+            if (showAdvanced) setCronValues(defaultCronValues())
+          }}
+          variant='ghost'
+          style={{
+            alignSelf: 'flex-start',
+            marginTop: `${showAdvanced ? '20px' : '15px'}`,
+          }}
+          className={showAdvanced ? 'self-center -translate-y-1' : ''}
+        >
+          {showAdvanced ? 'Simple' : 'Advanced'}
+        </Button>
+      </InputWrapper>
+      {!showAdvanced && <div>{getLabel()}</div>}
     </div>
   )
 }
