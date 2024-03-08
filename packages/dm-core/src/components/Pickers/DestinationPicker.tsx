@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { EBlueprint } from '../../Enums'
 import {
   PATH_INPUT_FIELD_WIDTH,
@@ -15,7 +15,7 @@ import {
   Tooltip,
 } from '@equinor/eds-core-react'
 import styled from 'styled-components'
-import { ApplicationContext } from '../../context/ApplicationContext'
+import { useApplication } from '../../ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
@@ -30,12 +30,12 @@ type TDestinationPickerProps = {
 
 export const DestinationPicker = (props: TDestinationPickerProps) => {
   const { onChange, formData, disabled, scope, label } = props
-  const appConfig = useContext(ApplicationContext)
+  const { visibleDataSources, dmssAPI } = useApplication()
   const [showModal, setShowModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
 
-  const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
+  const tree: Tree = new Tree(dmssAPI, (t: Tree) => setTreeNodes([...t]))
 
   useEffect(() => {
     setLoading(true)
@@ -43,7 +43,7 @@ export const DestinationPicker = (props: TDestinationPickerProps) => {
       tree.initFromPath(scope).finally(() => setLoading(false))
     } else {
       tree
-        .initFromDataSources(appConfig.visibleDataSources)
+        .initFromDataSources(visibleDataSources)
         .finally(() => setLoading(false))
     }
   }, [scope])

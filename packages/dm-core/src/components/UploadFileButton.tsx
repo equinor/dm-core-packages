@@ -2,7 +2,7 @@ import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import { useDMSS } from '../context/DMSSContext'
+import { useApplication } from '../ApplicationContext'
 import { TGenericObject, TReference, TValidEntity } from '../types'
 import { getKey } from '../utils/objectUtilities'
 
@@ -21,7 +21,7 @@ export function UploadFileButton(props: {
   const textInput = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   useEffect(() => setError(undefined), [formData])
 

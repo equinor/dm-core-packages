@@ -2,7 +2,7 @@ import {
   ErrorResponse,
   TGenericObject,
   splitAddress,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Button, Label } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -29,7 +29,7 @@ const DownloadBinary = (props: {
   initialValue: TGenericObject & { address: string }
 }) => {
   const { namePath, initialValue, displayLabel } = props
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const [data_source_id, blob_id] = getTarget(initialValue)
 
   const handleDownload = () => {

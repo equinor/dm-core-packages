@@ -1,7 +1,6 @@
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
 import { useList } from './useList'
 import React from 'react'
-import { DMSSProvider } from '../../context/DMSSContext'
 import {
   mockAttributeGet,
   mockDocumentAdd,
@@ -10,6 +9,7 @@ import {
   mockInstantiateEntity,
   mockUpdateDocument,
 } from '../../utils/test-utils-dm-core'
+import { DMApplicationProvider } from "../../ApplicationContext";
 
 const setupContained = () => {
   const attribute = {
@@ -40,8 +40,16 @@ const setupContained = () => {
 }
 
 const wrapper = (props: { children: React.ReactNode }) => (
-  <DMSSProvider>{props.children}</DMSSProvider>
-)
+    <DMApplicationProvider
+    plugins={{}}
+    application={{ name: 'test', type: 'test' }}
+    dmJobPath={''}
+    dmssBasePath={''}
+    enableBlueprintCache
+  >
+  {props.children}
+    </DMApplicationProvider>
+      )
 
 afterEach(() => {
   cleanup()

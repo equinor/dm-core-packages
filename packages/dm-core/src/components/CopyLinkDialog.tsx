@@ -21,7 +21,7 @@ import {
   TLinkReference,
   TValidEntity,
   truncatePathString,
-  useDMSS,
+  useApplication,
   useDocument,
 } from '../index'
 import { setMetaInDocument } from '../utils/setMetaInDocument'
@@ -85,12 +85,9 @@ export const CopyLinkDialog = (props: TProps) => {
     useState<boolean>(false)
   const [showLinkTargetDialog, setShowLinkTargetDialog] =
     useState<boolean>(false)
-  const { document, isLoading: documentIsLoading } = useDocument<TValidEntity>(
-    idReference,
-    9
-  )
+  const { document } = useDocument<TValidEntity>(idReference, 9)
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const dmss = useDMSS()
+  const { dmssAPI } = useApplication()
 
   const copyEntityToDestination = async (): Promise<
     Promise<TEntityPickerReturn> | Promise<void>
@@ -114,14 +111,14 @@ export const CopyLinkDialog = (props: TProps) => {
     if (wrapper) {
       const wrapperEntity: TValidEntity =
         // TODO: Handle relative/unresolved addresses? Perhaps in blueprint upload?
-        (await dmss.instantiateEntity({ entity: { type: wrapper } }))
+        (await dmssAPI.instantiateEntity({ entity: { type: wrapper } }))
           .data as TValidEntity
       wrapperEntity[wrapperAttribute] = newDocument
       wrapperEntity._meta_ = newDocument._meta_
       newDocument = wrapperEntity
     }
 
-    return dmss
+    return dmssAPI
       .documentAdd({
         address: selectedDestination.address,
         document: JSON.stringify(newDocument),
@@ -152,7 +149,7 @@ export const CopyLinkDialog = (props: TProps) => {
       referenceType: 'link',
       type: EBlueprint.REFERENCE,
     }
-    dmss
+    dmssAPI
       .documentAdd({
         address: selectedLinkTarget.address,
         document: JSON.stringify(linkReference),

@@ -1,4 +1,7 @@
-import { TStorageReference, useDMSS } from '@development-framework/dm-core'
+import {
+  TStorageReference,
+  useApplication,
+} from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
@@ -14,7 +17,7 @@ export const UploadFileButton = (props: UploadButtonProps) => {
   const textInput = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   useEffect(() => setError(undefined))
 

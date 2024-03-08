@@ -1,4 +1,4 @@
-import { splitAddress, useDMSS } from '@development-framework/dm-core'
+import { splitAddress, useApplication } from '@development-framework/dm-core'
 import { AxiosResponse } from 'axios'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
@@ -19,7 +19,7 @@ const AddStorageUncontained = (props: {
   const { idReference } = useRegistryContext()
   const { setValue } = useFormContext()
 
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const addDocument = () => {
     const options = {
       shouldDirty: true,

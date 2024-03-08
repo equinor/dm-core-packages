@@ -1,9 +1,9 @@
 import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
-import { useDMSS } from '../context/DMSSContext'
 import { ErrorResponse } from '../services'
 
 import { toast } from 'react-toastify'
+import { useApplication } from '../ApplicationContext'
 
 interface IUseDocumentReturnType<T> {
   document: T | null
@@ -56,7 +56,7 @@ export function useDocument<T>(
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   useEffect(() => {
     setLoading(true)

@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react'
-import { useDMSS } from '../../context/DMSSContext'
-import { useSearch } from '../../hooks/useSearch'
+import { useApplication } from '../../ApplicationContext'
+import { useSearch } from '../../hooks'
 import { Select } from '../Select'
 
 export const JobHandlerPicker = (props: {
@@ -9,7 +9,7 @@ export const JobHandlerPicker = (props: {
 }) => {
   const { onChange, formData } = props
   const blueprintName = formData.split('/').pop()
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const [searchResult] = useSearch<any>(
     {
       type: 'dmss://system/SIMOS/Blueprint',

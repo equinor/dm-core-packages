@@ -1,7 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
-import { useDmJob } from '../context/DMJobContext'
-import { useDMSS } from '../context/DMSSContext'
+import { useApplication } from '../ApplicationContext'
 import {
   DeleteJobResponse,
   ErrorResponse,
@@ -82,8 +81,8 @@ export function useJob(entityId?: string, jobId?: string): IUseJob {
   const [status, setStatus] = useState<JobStatus>(JobStatus.NotStarted)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse>()
-  const dmJobApi = useDmJob()
-  const dmssAPI = useDMSS()
+  const { dmJobApi } = useApplication()
+  const { dmssAPI } = useApplication()
 
   let statusIntervalId: NodeJS.Timeout
 

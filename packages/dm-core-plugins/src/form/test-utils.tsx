@@ -1,8 +1,7 @@
 import {
-  DMSSProvider,
+  DMApplicationProvider,
   DmssAPI,
   TUiPluginMap,
-  UiPluginProvider,
 } from '@development-framework/dm-core'
 import React from 'react'
 import { FormPlugin } from './FormPlugin'
@@ -42,7 +41,12 @@ const plugins = {
 } as TUiPluginMap
 
 export const wrapper = (props: { children: React.ReactNode }) => (
-  <UiPluginProvider pluginsToLoad={plugins}>
-    <DMSSProvider>{props.children}</DMSSProvider>
-  </UiPluginProvider>
+  <DMApplicationProvider
+    plugins={plugins}
+    application={{ name: 'test', type: 'test' }}
+    dmJobPath={''}
+    enableBlueprintCache
+  >
+    {props.children}
+  </DMApplicationProvider>
 )

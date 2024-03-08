@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
-import { useDMSS } from '../../context/DMSSContext'
+import { useApplication } from '../../ApplicationContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { AccessControlList, AccessLevel } from '../../services'
 import { TUserIdMapping } from '../../types'
@@ -29,7 +29,7 @@ export const AccessControlListComponent = (props: {
   const [loadingACLDocument, setLoadingACLDocument] = useState<boolean>(false)
   const [tokenWithReadAccess, setTokenWithReadAccess] = useState<string>('')
   const [refreshToken] = useLocalStorage('ROCP_refreshToken', '')
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   const [documentACL, setDocumentACL] = useState<AccessControlList>({
     owner: '',

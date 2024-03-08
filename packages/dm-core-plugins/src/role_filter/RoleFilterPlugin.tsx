@@ -1,11 +1,11 @@
 import {
   IUIPlugin,
-  RoleContext,
   ViewCreator,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Banner, Icon } from '@equinor/eds-core-react'
 import { thumbs_down } from '@equinor/eds-icons'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type FilteredView = {
   type: string
@@ -22,7 +22,7 @@ export const RoleFilterPlugin = (props: IUIPlugin): React.ReactElement => {
   )
   const [openViewConfigs, setOpenViewConfigs] = useState<FilteredView[]>([])
   const [allowedRoles, setAllowedRoles] = useState<string[]>([])
-  const { role } = useContext(RoleContext)
+  const { role } = useApplication()
 
   useEffect(() => {
     let roles: string[] = []

@@ -1,16 +1,15 @@
 import {
-  ApplicationContext,
   BlueprintPicker,
   Dialog,
   ErrorResponse,
   TAttribute,
   TBlueprint,
   TreeNode,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { EDialog } from '../../types'
 import {
@@ -30,9 +29,7 @@ const NewEntityDialog = (props: TProps) => {
   const [blueprint, setBlueprint] = useState<TBlueprint>()
   const [newName, setNewName] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const dmssAPI = useDMSS()
-
-  const { name } = useContext(ApplicationContext)
+  const { dmssAPI, name } = useApplication()
 
   useEffect(() => {
     if (!blueprintName) return

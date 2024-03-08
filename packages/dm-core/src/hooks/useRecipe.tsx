@@ -1,13 +1,6 @@
 import { AxiosError } from 'axios'
-import { useContext, useEffect, useState } from 'react'
-import {
-  ApplicationContext,
-  ErrorResponse,
-  IUIPlugin,
-  TUiRecipe,
-  useDMSS,
-  useUiPlugins,
-} from '../index'
+import { useEffect, useState } from 'react'
+import { ErrorResponse, IUIPlugin, TUiRecipe, useApplication } from '../index'
 
 export const findRecipe = (
   recipes: TUiRecipe[],
@@ -92,7 +85,7 @@ export const useRecipe = (
   recipeName?: string,
   dimensions: string = ''
 ): IUseRecipe => {
-  const { getUiPlugin } = useUiPlugins()
+  const { getUiPlugin } = useApplication()
   const [foundRecipe, setFoundRecipe] = useState<TUiRecipe>()
   const [findRecipeError, setFindRecipeError] = useState<ErrorResponse | null>(
     null
@@ -100,8 +93,7 @@ export const useRecipe = (
   const [isLoading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<ErrorResponse | null>(null)
 
-  const dmssAPI = useDMSS()
-  const { name } = useContext(ApplicationContext)
+  const { dmssAPI, name } = useApplication()
 
   useEffect(() => {
     setLoading(true)

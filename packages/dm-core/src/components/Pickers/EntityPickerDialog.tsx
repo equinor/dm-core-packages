@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import {
   Button,
@@ -8,8 +8,8 @@ import {
 } from '@equinor/eds-core-react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
+import { useApplication } from '../../ApplicationContext'
 import { EBlueprint } from '../../Enums'
-import { ApplicationContext } from '../../context/ApplicationContext'
 import { Tree, TreeNode } from '../../domain/Tree'
 import { TValidEntity } from '../../types'
 import { truncatePathString } from '../../utils/truncatePathString'
@@ -136,20 +136,21 @@ export const EntityPickerDialog = (
     multiple = false,
     hideInvalidTypes = false,
   } = props
-  const appConfig = useContext(ApplicationContext)
+  const { dmssAPI, visibleDataSources } = useApplication()
   const [loading, setLoading] = useState<boolean>(true)
   const [treeNodes, setTreeNodes] = useState<TreeNode[]>([])
 
-  const tree: Tree = new Tree((t: Tree) => setTreeNodes([...t]))
+  const tree: Tree = new Tree(dmssAPI, (t: Tree) => setTreeNodes([...t]))
   const [selectedNodes, setSelectedNodes] = useState<TEntityPickerReturn[]>([])
 
   useEffect(() => {
     setLoading(true)
     if (scope) {
+      2
       tree.initFromPath(scope).finally(() => setLoading(false))
     } else {
       tree
-        .initFromDataSources(appConfig.visibleDataSources)
+        .initFromDataSources(visibleDataSources)
         .finally(() => setLoading(false))
     }
   }, [scope])

@@ -4,7 +4,7 @@ import {
   ErrorResponse,
   TEntityPickerReturn,
   TLinkReference,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios/index'
 import { useState } from 'react'
@@ -19,7 +19,7 @@ export const SelectReference = (props: {
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
   const { setValue, watch } = useFormContext()
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
   const { idReference } = useRegistryContext()
   const value = watch(props.namePath)
 

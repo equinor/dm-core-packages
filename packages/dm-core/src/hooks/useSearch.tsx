@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDMSS } from '../context/DMSSContext'
+import { useApplication } from '../ApplicationContext'
 
 export function useSearch<T>(
   body: any,
@@ -9,7 +9,7 @@ export function useSearch<T>(
   const [searchResult, setSearchResult] = useState<T[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   useEffect(() => {
     setIsLoading(true)

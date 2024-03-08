@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { EBlueprint } from '../../Enums'
 import {
@@ -17,7 +17,7 @@ import {
 } from '@equinor/eds-core-react'
 import { Variants } from '@equinor/eds-core-react/dist/types/components/types'
 import { add } from '@equinor/eds-icons'
-import { FSTreeContext } from '../../context/FileSystemTreeContext'
+import { useApplication } from '../../ApplicationContext'
 import { TreeNode } from '../../domain/Tree'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
@@ -71,7 +71,7 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
     ...props,
   }
   const [showModal, setShowModal] = useState<boolean>(false)
-  const { treeNodes, loading } = useContext(FSTreeContext)
+  const { treeNodes, loading } = useApplication()
 
   return (
     <div>

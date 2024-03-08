@@ -1,20 +1,21 @@
 import {
-  ApplicationContext,
+  AuthContext,
+  DMApplicationProvider,
+  DmssAPI,
   EntityView,
-  FSTreeProvider,
-  Loading,
-  RoleProvider,
+  ErrorResponse,
   TApplication,
-  useDocument,
 } from '@development-framework/dm-core'
 import '@development-framework/dm-core/dist/main.css'
 import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { refresh } from '@equinor/eds-icons'
 import './main.css'
 
+import { AxiosError } from 'axios'
+import { useContext, useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ViewPage from './ViewPage'
-
+import plugins from './plugins'
 const appNotReadyPage = () => (
   <div
     style={{
@@ -56,18 +57,33 @@ function App() {
   const idReference: string = `${import.meta.env.VITE_DATA_SOURCE}/$${
     import.meta.env.VITE_APPLICATION_ID
   }`
-  const {
-    document: application,
-    isLoading,
-    error,
-  } = useDocument<TApplication>(idReference)
+  const [application, setApplication] = useState<TApplication>()
+  const [error, setError] = useState<any>()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const { token } = useContext(AuthContext)
 
-  if (isLoading) return <Loading />
+  useEffect(() => {
+    setIsLoading(true)
+    const dmssAPI = new DmssAPI(token, import.meta.env.VITE_DMSS_URL)
+    dmssAPI
+      .documentGet({ address: idReference })
+      .then((response: any) => {
+        setApplication(response.data)
+        setError(null)
+      })
+      .catch((error: AxiosError<ErrorResponse>) => {
+        console.error(error)
+        setError(error.response?.data || { message: error.name, data: error })
+      })
+      .finally(() => setIsLoading(false))
+  }, [])
 
-  if (error || !application) {
+  if (isLoading) return <></>
+  if (error || !application || !application.type) {
     console.error(error)
     return appNotReadyPage()
   }
+
   const router = createBrowserRouter([
     {
       path: '/',
@@ -98,15 +114,19 @@ function App() {
       ),
     },
   ])
+  const enableBlueprintCache =
+    import.meta.env.VITE_BLUEPRINT_CACHE_ENABLED === '1' || true
 
   return (
-    <ApplicationContext.Provider value={application}>
-      <RoleProvider roles={application?.roles || []}>
-        <FSTreeProvider visibleDataSources={application?.dataSources || []}>
-          <RouterProvider router={router} />
-        </FSTreeProvider>
-      </RoleProvider>
-    </ApplicationContext.Provider>
+    <DMApplicationProvider
+      plugins={plugins}
+      application={application}
+      dmJobPath={import.meta.env.VITE_DM_JOB_URL}
+      dmssBasePath={import.meta.env.VITE_DMSS_URL}
+      enableBlueprintCache={enableBlueprintCache}
+    >
+      <RouterProvider router={router} />
+    </DMApplicationProvider>
   )
 }
 

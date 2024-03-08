@@ -37,7 +37,7 @@ describe('Form', () => {
         expect(container.querySelector(`input[id="bar"]`)).toBeTruthy()
         expect(container.querySelector(`input[id="baz"]`)).toBeNull()
         // Should only call get blueprint once
-        expect(mock).toHaveBeenCalledWith({ typeRef: 'Root' })
+        expect(mock).toHaveBeenCalledWith({ typeRef: 'Root', context: 'test' })
         expect(mock).toHaveBeenCalledTimes(1)
       })
     })
@@ -134,7 +134,7 @@ describe('Form', () => {
       await waitFor(() => {
         expect(container.querySelector(`input[id="foo"]`)).toBeTruthy()
         // Should only call get blueprint once
-        expect(mock).toHaveBeenCalledWith({ typeRef: 'Root' })
+        expect(mock).toHaveBeenCalledWith({ typeRef: 'Root', context: 'test' })
         expect(mock).toHaveBeenCalledTimes(1)
       })
     })

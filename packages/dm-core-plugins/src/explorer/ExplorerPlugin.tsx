@@ -1,22 +1,17 @@
 import {
   EBlueprint,
   EntityView,
-  FSTreeContext,
-  Tree,
   TreeNode,
   TreeView,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Progress } from '@equinor/eds-core-react'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import Sidebar from './components/Sidebar'
 import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
 
 export default () => {
-  const { treeNodes, loading } = useContext<{
-    tree: null | Tree
-    treeNodes: TreeNode[]
-    loading: boolean
-  }>(FSTreeContext)
+  const { treeNodes, loading } = useApplication()
   const [selectedType, setSelectedType] = useState<string>()
   const [selectedEntity, setSelectedEntity] = useState<string>()
   const [nodeDimensions, setNodeDimensions] = useState<string | undefined>(

@@ -2,7 +2,7 @@ import {
   ErrorResponse,
   Loading,
   TFileEntity,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -20,7 +20,7 @@ export const DownloadFileButton = (props: DownloadButtonProps) => {
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   useEffect(() => {
     setError(null)

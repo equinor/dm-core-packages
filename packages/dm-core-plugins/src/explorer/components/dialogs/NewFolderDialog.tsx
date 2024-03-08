@@ -3,7 +3,7 @@ import {
   ErrorResponse,
   INPUT_FIELD_WIDTH,
   TreeNode,
-  useDMSS,
+  useApplication,
 } from '@development-framework/dm-core'
 import { Button, Progress, TextField } from '@equinor/eds-core-react'
 import { AxiosError } from 'axios'
@@ -26,7 +26,7 @@ const NewFolderDialog = (props: TProps) => {
   const { setDialogId, node, setNodeOpen, isRoot } = props
   const [folderName, setFolderName] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   const handleCreate = () => {
     const newFolder = {

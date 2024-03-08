@@ -2,7 +2,7 @@ import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { useDMSS } from '../context/DMSSContext'
+import { useApplication } from '../ApplicationContext'
 import { TGenericObject, TReference } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
 import { Dialog } from './Dialog'
@@ -33,7 +33,7 @@ export function NewEntityButton(props: {
   >(undefined)
   const [typeToCreate, setTypeToCreate] = useState<string>(type || '')
   const [loading, setLoading] = useState<boolean>(false)
-  const dmssAPI = useDMSS()
+  const { dmssAPI } = useApplication()
 
   useEffect(() => setTypeToCreate(type || ''), [type])
   useEffect(() => {

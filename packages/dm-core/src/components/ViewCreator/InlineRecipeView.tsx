@@ -1,4 +1,4 @@
-import { ErrorBoundary, IUIPlugin, useUiPlugins } from '../../index'
+import { ErrorBoundary, IUIPlugin, useApplication } from '../../index'
 import { TInlineRecipeViewConfig } from '../../types'
 
 type TInlineRecipeViewProps = IUIPlugin & {
@@ -7,7 +7,7 @@ type TInlineRecipeViewProps = IUIPlugin & {
 
 export const InlineRecipeView = (props: TInlineRecipeViewProps) => {
   const { idReference, type, viewConfig, onOpen, onSubmit, onChange } = props
-  const { getUiPlugin } = useUiPlugins()
+  const { getUiPlugin } = useApplication()
 
   const UiPlugin = getUiPlugin(viewConfig.recipe.plugin)
   return (
