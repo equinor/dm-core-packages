@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.42.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.42.1...dm-core-v1.42.2) (2024-03-08)
+
+
+### Bug Fixes
+
+* Dialog got height 0 on webkit(safari) ([f102e85](https://github.com/equinor/dm-core-packages/commit/f102e85178ba4eba62304c726174b8df00e184f5))
+* make clear work ([8139c58](https://github.com/equinor/dm-core-packages/commit/8139c5861d756455952dd24771c143c7dd6a789e))
+* tooltip and remove console.log ([4a06358](https://github.com/equinor/dm-core-packages/commit/4a06358b5ceba4c0ea84bbe8db6429f59e43f879))
+
+
+### Code Refactoring
+
+* merge all contexts into one ([f602af8](https://github.com/equinor/dm-core-packages/commit/f602af8404c2010259d6277afbaf5cb45a042409))
+
 ## [1.42.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.42.0...dm-core-v1.42.1) (2024-03-04)
 
 
