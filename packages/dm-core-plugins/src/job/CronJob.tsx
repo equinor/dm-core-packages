@@ -73,14 +73,7 @@ export function ConfigureSchedule(props: {
   }
 
   return (
-    <div
-      style={{
-        border: '1px solid lightgray',
-        borderRadius: '.4rem',
-        padding: '1rem',
-        maxWidth: '800px',
-      }}
-    >
+    <div>
       <div>
         {isRegistered && (
           <Typography color='primary'>The job is scheduled</Typography>
