@@ -175,7 +175,7 @@ export const JobControl = (props: IUIPlugin) => {
   return (
     <div className='dm-plugin-padding'>
       <div className='flex-col border rounded-md bg-equinor-lightgray'>
-        <div className='pb-2'>
+        <div>
           <div className='border-b flex justify-between items-center p-2'>
             <Typography bold>Job Control</Typography>
           </div>
