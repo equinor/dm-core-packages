@@ -18,8 +18,12 @@ export const AttributeList = (props: {
 
   const hideByDefaultFields: string[] = ['type', '_meta_']
   const filteredAttributes =
-    Array.isArray(config.fields) && config.fields.length > 0
-      ? attributes.filter((attr) => config.fields.includes(attr.name))
+    Array.isArray(config.fields) && config.fields.length
+      ? config.fields
+          .map((field) =>
+            attributes?.find((attribute) => attribute.name === field)
+          )
+          .filter((attribute): attribute is TAttribute => !!attribute)
       : attributes.filter((attr) => !hideByDefaultFields.includes(attr.name))
 
   return (
