@@ -202,9 +202,9 @@ export const JobControl = (props: IUIPlugin) => {
             </div>
           )}
           <JobButtonWrapper>
-            <div className='flex items-center'>
+            <div className='flex items-center space-x-2'>
               {getControlButton(status, remove, start, false, jobIsLoading)}
-              <div className='space-x-2'>
+              <div>
                 <p className='text-sm -mb-2'>Status:</p>
                 <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
                   {status ?? 'Not registered'}
