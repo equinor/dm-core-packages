@@ -156,16 +156,18 @@ export function DataGridActions(props: DataGridActionsProps) {
           <Icon size={16} data={settings} />
         </Styled.ActionRowButton>
       </Tooltip>
-      <Tooltip title='Clear table content'>
-        <Styled.ActionRowButton
-          aria-haspopup
-          aria-expanded={isMenuOpen}
-          onClick={() => clearTable()}
-          ref={setMenuButtonAnchor}
-        >
-          <Icon size={16} data={delete_to_trash} />
-        </Styled.ActionRowButton>
-      </Tooltip>
+      {functionality.rowsAreEditable && functionality.addButtonIsEnabled && (
+        <Tooltip title='Clear table content'>
+          <Styled.ActionRowButton
+            aria-haspopup
+            aria-expanded={isMenuOpen}
+            onClick={() => clearTable()}
+            ref={setMenuButtonAnchor}
+          >
+            <Icon size={16} data={delete_to_trash} />
+          </Styled.ActionRowButton>
+        </Tooltip>
+      )}
       <Menu
         anchorEl={menuButtonAnchor}
         id='table-setting-menu'
