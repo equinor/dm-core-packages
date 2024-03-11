@@ -119,7 +119,6 @@ export const JobButtonWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   text-align: center;
-  gap: 8px;
   padding-inline: 0.5rem; 
   margin-bottom: 0.5rem;
   justify-content: space-between;
