@@ -115,7 +115,7 @@ test('Locations', async () => {
   const locationsDiv = page.getByTestId('locations')
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
   await expect(locationsDiv.getByRole('textbox')).toHaveValue('Trondheim')
-  await locationsDiv.getByLabel('Append primitive').click()
+  await locationsDiv.getByLabel('Add new item to list').click()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
   await locationsDiv.getByRole('textbox').last().fill('Oslo')
   await page.getByTestId('form-submit').click()
