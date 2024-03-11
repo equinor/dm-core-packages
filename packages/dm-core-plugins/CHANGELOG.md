@@ -60,6 +60,33 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.50.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.49.3...dm-core-plugins-v1.50.0) (2024-03-11)
+
+
+### Features
+
+* iteration of job control style improvements ([a08850a](https://github.com/equinor/dm-core-packages/commit/a08850aa9f114b63df6a5555abfc4210096fe88f))
+* job control finished ([e1681d9](https://github.com/equinor/dm-core-packages/commit/e1681d9d1b39960698df11492e64da5e627d333d))
+* job control styling improvements ([d4abeb6](https://github.com/equinor/dm-core-packages/commit/d4abeb6404af6bf62c4976b637bb01b9745ae349))
+
+
+### Bug Fixes
+
+* added header ([e1681d9](https://github.com/equinor/dm-core-packages/commit/e1681d9d1b39960698df11492e64da5e627d333d))
+* feedback ([bd0cc49](https://github.com/equinor/dm-core-packages/commit/bd0cc499a5d70d00043636ee352413a987b1a3e9))
+* feedback after PR ([84412e1](https://github.com/equinor/dm-core-packages/commit/84412e193e8ac7bf982837133bd64623fd3e0bc4))
+* further job control styling ([733df40](https://github.com/equinor/dm-core-packages/commit/733df40f9b77411934a7d53a5da8a3ed5f1aafb1))
+* job control styling ([6b6def5](https://github.com/equinor/dm-core-packages/commit/6b6def5c4762d53149103af28332a2c931dfa922))
+* remove commented out code ([d1e33c0](https://github.com/equinor/dm-core-packages/commit/d1e33c04d75bbbee9573d030720ccb6768a17a81))
+* remove info circle ([e1681d9](https://github.com/equinor/dm-core-packages/commit/e1681d9d1b39960698df11492e64da5e627d333d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.42.2 to ^1.43.0
+
 ## [1.49.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.49.2...dm-core-plugins-v1.49.3) (2024-03-08)
 
 
