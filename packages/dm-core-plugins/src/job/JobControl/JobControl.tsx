@@ -174,13 +174,13 @@ export const JobControl = (props: IUIPlugin) => {
 
   return (
     <div className='dm-plugin-padding'>
-      <div className='flex-col border rounded-md bg-equinor-lightgray w-20'>
-        <div className='ps-2 pb-2'>
+      <div className='flex-col border rounded-md bg-equinor-lightgray'>
+        <div className='pb-2'>
           <div className='border-b flex justify-between items-center p-2'>
             <Typography bold>Job Control</Typography>
           </div>
           {asCronJob && (
-            <div className='rounded-md p-2 bg-white border'>
+            <div className='rounded-md p-2 m-2 bg-white border'>
               <ConfigureRecurring
                 asCron={asCronJob}
                 readOnly={true}
@@ -204,8 +204,8 @@ export const JobControl = (props: IUIPlugin) => {
           <JobButtonWrapper>
             <div className='flex items-center'>
               {getControlButton(status, remove, start, false, jobIsLoading)}
-              <div>
-                <p style={{ fontSize: '12px' }}>Status: </p>
+              <div className='space-x-2'>
+                <p className='text-sm -mb-2'>Status:</p>
                 <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
                   {status ?? 'Not registered'}
                 </Chip>
