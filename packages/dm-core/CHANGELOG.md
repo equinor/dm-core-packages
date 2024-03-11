@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.43.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.42.2...dm-core-v1.43.0) (2024-03-11)
+
+
+### Features
+
+* job control styling improvements ([d4abeb6](https://github.com/equinor/dm-core-packages/commit/d4abeb6404af6bf62c4976b637bb01b9745ae349))
+
 ## [1.42.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.42.1...dm-core-v1.42.2) (2024-03-08)
 
 
