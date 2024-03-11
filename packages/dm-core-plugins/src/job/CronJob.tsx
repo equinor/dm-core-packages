@@ -90,7 +90,7 @@ export function ConfigureSchedule(props: {
       />
       <InputWrapper>
         {showAdvanced ? (
-          <div className={'flex-col'}>
+          <div>
             <TextField
               style={{ maxWidth: '400px' }}
               unit='cron'
