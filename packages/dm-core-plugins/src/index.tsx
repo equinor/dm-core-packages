@@ -104,7 +104,7 @@ export default ({
   },
   '@development-framework/dm-core-plugins/job': {
     component: lazy(() =>
-      import('./job/JobControl').then((module) => ({
+      import('./job/JobControl/JobControl').then((module) => ({
         default: module.JobControl,
       }))
     ),
