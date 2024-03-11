@@ -34,7 +34,9 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     onChange,
   } = props
   if (!type)
-    throw new Error(`<EntityView> must be called with a type. Got "${type}"`)
+    throw new Error(
+      `<EntityView> must be called with a type. Got "${type}", idReference: "${idReference}"`
+    )
   const { recipe, isLoading, error, getUiPlugin } = useRecipe(
     type,
     recipeName,
@@ -44,6 +46,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
   // Refresh Button stuff
   const [reloadCounter, setReloadCounter] = useState(0)
   const [hoverRefresh, setHoverRefresh] = useState(false)
+
   if (isLoading)
     return (
       <div style={{ alignSelf: 'center', padding: '50px' }}>
@@ -63,6 +66,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     return <div className='w-full flex'>No compatible uiRecipes for entity</div>
 
   const refreshable = showRefreshButton ?? recipe.showRefreshButton ?? false
+
   return (
     <Suspense fallback={<Loading />}>
       <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>

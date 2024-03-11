@@ -1,6 +1,6 @@
 import { Typography } from '@equinor/eds-core-react'
 import { AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { EntityView, Loading, TAttribute, useApplication } from '../../index'
 import {
   IUIPlugin,
@@ -43,9 +43,12 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error>()
   const [attribute, setAttribute] = useState<TAttribute>()
-  const [directAddress, setDirectAddress] = useState<string>(idReference)
+  const [directAddress, setDirectAddress] = useState<string>()
 
-  const reference = getTarget(idReference, viewConfig)
+  const reference = useMemo(
+    () => getTarget(idReference, viewConfig),
+    [idReference, viewConfig]
+  )
 
   useEffect(() => {
     dmssAPI
@@ -61,7 +64,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
       .finally(() => setIsLoading(false))
   }, [reference])
 
-  if (isLoading) return <Loading />
+  if (isLoading || !directAddress) return <Loading />
   if (error)
     return (
       <Typography>
@@ -76,7 +79,6 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
     throw new Error(
       'Cannot create a View without a "viewConfig". Sure the attribute is properly named?'
     )
-
   if (isInlineRecipeViewConfig(viewConfig)) {
     return (
       <InlineRecipeView
