@@ -14,9 +14,8 @@ import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
 import { FormProvider, useForm, useFormContext } from 'react-hook-form'
 import { RegistryProvider } from '../context/RegistryContext'
-import { getCanOpenOrExpand } from '../templates/shared/utils'
 import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
-import { isPrimitiveType } from '../utils/isPrimitiveType'
+import { getCanOpenOrExpand, isPrimitiveType } from '../utils'
 import { AttributeList } from './AttributeList'
 
 const FORM_DEFAULT_MAX_WIDTH = '650px'
@@ -183,7 +182,6 @@ export const Form = (props: TFormProps) => {
               >
                 <Button
                   onClick={handleCustomReset}
-                  type='button'
                   disabled={disabled}
                   tooltip={'Revert changes'}
                   variant={'outlined'}
