@@ -5,6 +5,7 @@ import {
   TextField,
   Typography,
 } from '@equinor/eds-core-react'
+import { tokens } from '@equinor/eds-tokens'
 import { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import DateRangePicker from './DateRangePicker'
@@ -105,8 +106,9 @@ export function ConfigureSchedule(props: {
               label='Enter explicit cron syntax'
               helperText='minute hour day(month) month day(week)'
             />
-            <small style={{ color: 'red' }}>
-              {' '}
+            <small
+              style={{ color: `${tokens.colors.interactive.danger__text.hex}` }}
+            >
               Controls might not show correct values after manually entering
               cron syntax
             </small>
