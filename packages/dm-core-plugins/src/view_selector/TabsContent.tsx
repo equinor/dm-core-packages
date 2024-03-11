@@ -7,7 +7,7 @@ import {
 import * as React from 'react'
 import { TItemData } from './types'
 
-export const Content = (props: {
+export const TabsContent = (props: {
   type: string
   selectedViewId: string
   viewSelectorItems: TItemData[]

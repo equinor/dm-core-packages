@@ -1,8 +1,12 @@
-import { IUIPlugin, Loading } from '@development-framework/dm-core'
+import {
+  IUIPlugin,
+  Loading,
+  TGenericObject,
+  ViewCreator,
+} from '@development-framework/dm-core'
 import React from 'react'
-import { Content } from './Content'
 import { Sidebar } from './Sidebar'
-import { TViewSelectorConfig } from './types'
+import { TItemData, TViewSelectorConfig } from './types'
 import { useViewSelector } from './useViewSelector'
 
 export const SidebarPlugin = (
@@ -28,6 +32,10 @@ export const SidebarPlugin = (
     return <Loading />
   }
 
+  const viewItem: TItemData = viewSelectorItems.find(
+    (viewItem: TItemData) => viewItem.viewId === selectedViewId
+  ) as TItemData
+
   return (
     <div className='flex-layout-container flex-row'>
       <Sidebar
@@ -36,14 +44,26 @@ export const SidebarPlugin = (
         setSelectedViewId={setSelectedViewId}
         addView={addView}
       />
-      <Content
-        type={type}
-        onOpen={addView}
-        formData={formData}
-        selectedViewId={selectedViewId}
-        viewSelectorItems={viewSelectorItems}
-        setFormData={setFormData}
-      />
+      {viewItem.viewConfig ? (
+        <ViewCreator
+          idReference={viewItem.rootEntityId}
+          viewConfig={viewItem.viewConfig}
+          onOpen={addView}
+          onSubmit={(data: TGenericObject) => {
+            if (viewItem?.onSubmit) viewItem?.onSubmit(data)
+            setFormData({
+              ...formData,
+              [viewItem.viewId]: data,
+            })
+          }}
+          onChange={viewItem?.onChange}
+        />
+      ) : (
+        <p>
+          {viewItem.label ?? viewItem.viewId} was selected, but has no view
+          defined
+        </p>
+      )}
     </div>
   )
 }
