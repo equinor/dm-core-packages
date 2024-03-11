@@ -8,6 +8,7 @@ import React, {
 } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { Tree, TreeNode } from './domain/Tree'
 import { DmJobAPI } from './services'
 import DmssAPI from './services/api/DmssAPI'
@@ -160,7 +161,9 @@ export const DMApplicationProvider = (props: {
 export const useApplication = () => {
   const context = useContext(ApplicationContext)
   if (context === undefined) {
-    throw new Error('useApplication must be used within a ApplicationProvider')
+    throw new Error(
+      'useApplication must be used within an DMApplicationProvider'
+    )
   }
   return context
 }

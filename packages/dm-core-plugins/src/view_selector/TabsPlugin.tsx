@@ -1,7 +1,7 @@
 import { IUIPlugin } from '@development-framework/dm-core'
 import * as React from 'react'
-import { Content } from './Content'
 import { Tabs } from './Tabs'
+import { TabsContent } from './TabsContent'
 import { TViewSelectorConfig } from './types'
 import { useViewSelector } from './useViewSelector'
 
@@ -37,7 +37,7 @@ export const TabsPlugin = (
         setSelectedViewId={setSelectedViewId}
         removeView={removeView}
       />
-      <Content
+      <TabsContent
         type={type}
         onOpen={addView}
         formData={formData}
