@@ -15,7 +15,13 @@ import {
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
-import { Button, Chip, Icon, Tooltip } from '@equinor/eds-core-react'
+import {
+  Button,
+  Chip,
+  Icon,
+  Tooltip,
+  Typography,
+} from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
 import { AxiosError } from 'axios'
 import _ from 'lodash'
@@ -33,8 +39,8 @@ import {
   getVariant,
   parseCronStringToCronValues,
   parseCronValuesToCronString,
-} from './common'
-import { defaultCronValues, scheduleTemplate } from './templateEntities'
+} from '../common'
+import { defaultCronValues, scheduleTemplate } from '../templateEntities'
 
 type TJobControlConfig = {
   hideLogs?: boolean
@@ -168,8 +174,11 @@ export const JobControl = (props: IUIPlugin) => {
 
   return (
     <div className='dm-plugin-padding'>
-      <div className='flex-col border rounded-md bg-equinor-lightgray'>
-        <div className='p-2'>
+      <div className='flex-col border rounded-md bg-equinor-lightgray w-20'>
+        <div className='ps-2 pb-2'>
+          <div className='border-b flex justify-between items-center p-2'>
+            <Typography bold>Job Control</Typography>
+          </div>
           {asCronJob && (
             <div className='rounded-md p-2 bg-white border'>
               <ConfigureRecurring
@@ -193,14 +202,20 @@ export const JobControl = (props: IUIPlugin) => {
             </div>
           )}
           <JobButtonWrapper>
-            {getControlButton(status, remove, start, false, jobIsLoading)}
-            {!internalConfig.hideLogs && <JobLog logs={logs} error={error} />}
-            <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
-              {status ?? 'Not registered'}
-            </Chip>
+            <div className='flex items-center'>
+              {getControlButton(status, remove, start, false, jobIsLoading)}
+              <div>
+                <p style={{ fontSize: '12px' }}>Status: </p>
+                <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
+                  {status ?? 'Not registered'}
+                </Chip>
+              </div>
+              {!internalConfig.hideLogs && <JobLog logs={logs} error={error} />}
+            </div>
+
             {internalConfig.runnerTemplates &&
               internalConfig.runnerTemplates.length > 0 && (
-                <div className={'flex flex-row items-center'}>
+                <div className={'flex flex-row items-center justify-end'}>
                   <Tooltip
                     title={`Change runner. Current: ${(
                       (asCronJob
