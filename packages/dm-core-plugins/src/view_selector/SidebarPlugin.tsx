@@ -46,6 +46,7 @@ export const SidebarPlugin = (
       />
       {viewItem.viewConfig ? (
         <ViewCreator
+          key={`${viewItem.rootEntityId}-${viewItem.viewConfig.scope}`}
           idReference={viewItem.rootEntityId}
           viewConfig={viewItem.viewConfig}
           onOpen={addView}
