@@ -161,7 +161,7 @@ export function DataGridActions(props: DataGridActionsProps) {
           <Styled.ActionRowButton
             aria-haspopup
             aria-expanded={isMenuOpen}
-            onClick={() => clearTable()}
+            onClick={clearTable}
             ref={setMenuButtonAnchor}
           >
             <Icon size={16} data={delete_to_trash} />
