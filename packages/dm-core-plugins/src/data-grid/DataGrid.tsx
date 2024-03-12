@@ -63,7 +63,7 @@ export function DataGrid(props: DataGridProps) {
       : ['1']
     updateColumnLabels(columnsLength)
     updateRowLabels(data?.length)
-  }, [data?.length])
+  }, [])
 
   function addRow(newIndex?: number) {
     const newRow =
