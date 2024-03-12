@@ -38,6 +38,7 @@ export type DataGridProps = {
   data: any[]
   description?: string
   dimensions?: string
+  isDirty?: boolean
   initialRowsPerPage?: number
   name?: string
   setData: (data: any[]) => void

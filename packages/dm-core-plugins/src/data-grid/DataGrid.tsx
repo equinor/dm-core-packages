@@ -15,7 +15,14 @@ import {
 import * as utils from './utils'
 
 export function DataGrid(props: DataGridProps) {
-  const { data, attributeType, dimensions, setData, config: userConfig } = props
+  const {
+    data,
+    attributeType,
+    dimensions,
+    setData,
+    config: userConfig,
+    isDirty = false,
+  } = props
   const config: DataGridConfig = { ...defaultConfig, ...userConfig }
   const [columnLabels, setColumnLabels] = useState<string[]>([])
   const [rowLabels, setRowLabels] = useState<string[]>([])
@@ -54,16 +61,19 @@ export function DataGrid(props: DataGridProps) {
   )
 
   useEffect(() => {
-    const columnsLength = functionality.isMultiDimensional
-      ? functionality.columnDimensions === '*'
-        ? data.length > 0
-          ? data[0].length
-          : 0
-        : parseInt(functionality.columnDimensions, 10)
-      : ['1']
-    updateColumnLabels(columnsLength)
-    updateRowLabels(data?.length)
-  }, [])
+    // use isDirty to see if data has been reset from the outside, meaning we have to rerender mount function
+    if (!isDirty) {
+      const columnsLength = functionality.isMultiDimensional
+        ? functionality.columnDimensions === '*'
+          ? data.length > 0
+            ? data[0].length
+            : 0
+          : parseInt(functionality.columnDimensions, 10)
+        : ['1']
+      updateColumnLabels(columnsLength)
+      updateRowLabels(data?.length)
+    }
+  }, [isDirty])
 
   function addRow(newIndex?: number) {
     const newRow =
