@@ -42,7 +42,9 @@ test('View selector - car garage', async ({ page }) => {
       page.getByRole('tab', { name: 'Owner details' })
     ).toHaveAttribute('aria-selected', 'true')
     await expect(page.getByRole('tab', { name: 'Owner history' })).toBeVisible()
-    await expect(page.locator('#name').nth(2)).toHaveValue('Aiden')
+    await expect(
+      page.getByTestId('form-text-widget-Name of Owner')
+    ).toHaveValue('Aiden')
     await page.getByText('Owner history').click()
     await expect(
       page.getByRole('tab', { name: 'group Owner history' })
@@ -100,23 +102,14 @@ test('View selector - car garage', async ({ page }) => {
     ).not.toBeVisible()
   })
 
-  await test.step('Testing that tabs are still open for the first car when going back and forth', async () => {
+  await test.step('Testing that tabs are reset for the first car when going back and forth', async () => {
     await page.getByRole('tab', { name: 'Audi' }).click()
-    await expect(page.getByRole('tab', { name: 'Owner' })).toBeVisible()
-    await expect(page.getByRole('tab', { name: 'Technical' })).toHaveAttribute(
-      'aria-selected',
-      'true'
-    )
-    await expect(page.getByRole('tab', { name: 'EU control' })).toBeVisible()
-    await expect(page.getByRole('tab', { name: 'Dimensions' })).toHaveAttribute(
-      'aria-selected',
-      'true'
-    )
+    await expect(page.getByRole('tab', { name: 'Owner' })).not.toBeVisible()
   })
 
   await test.step('Testing that saving one car does not override the other car', async () => {
     await page.getByRole('tab', { name: 'Volvo' }).click()
-    await page.getByLabel('Open in tab').nth(3).click()
+    await page.getByTestId('Technical').getByLabel('Open in tab').click()
 
     await expect(
       page.getByTestId('form-text-widget-Next control date').last()
@@ -126,9 +119,9 @@ test('View selector - car garage', async ({ page }) => {
       page.getByTestId('form-number-widget-Length (mm) (Optional)').last()
     ).toHaveValue('4500')
     await page.getByRole('tab', { name: 'Home' }).click()
-    await page.getByLabel('Open in tab').nth(2).click()
+    await page.getByTestId('Owner').getByLabel('Open in tab').click()
     await expect(
-      page.getByTestId('form-text-widget-Name of Owner').nth(1)
+      page.getByTestId('form-text-widget-Name of Owner')
     ).toBeVisible()
     await page.getByRole('tab', { name: 'Owner history' }).click()
     await expect(page.getByRole('textbox').first()).toHaveValue('Jack')
