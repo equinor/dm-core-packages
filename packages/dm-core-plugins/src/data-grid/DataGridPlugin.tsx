@@ -134,6 +134,7 @@ export function DataGridPlugin(props: IUIPlugin) {
         data={data || []}
         description={document?.description}
         dimensions={getDimensions()}
+        isDirty={isDirty}
         initialRowsPerPage={rowsPerPage}
         name={blueprint?.name}
         setData={onDataChange}
