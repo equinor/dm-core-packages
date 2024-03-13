@@ -5170,3 +5170,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 1171ac7 2024-03-08 githu..[bot] chore(master): release 1.23.1 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: a81d29d 2024-03-08 githu..[bot] chore(main): release 1.6.3 grafted, HEAD -> main, origin/main
+* fix: can't click name on dropdown (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/8265372043/1)
+    * **DMSS VERSION**: 1171ac7 2024-03-08 githu..[bot] chore(master): release 1.23.1 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: a81d29d 2024-03-08 githu..[bot] chore(main): release 1.6.3 grafted, HEAD -> main, origin/main
