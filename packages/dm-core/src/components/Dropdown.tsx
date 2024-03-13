@@ -116,11 +116,7 @@ export const Dropdown = (props: {
           {items && items.length > 0 && (
             <ul style={{ padding: 0, listStyleType: 'none' }}>
               {items.map((item: string, idx: number) => (
-                <li
-                  key={idx}
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => handleSelect(item)}
-                >
+                <li key={idx}>
                   <Checkbox
                     label={item}
                     checked={selectedItems.includes(item)}
