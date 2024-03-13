@@ -1,4 +1,4 @@
-import { TTableConfig } from '@development-framework/dm-core'
+import { TTableConfig } from './Table/types'
 
 const defaultConfig: TTableConfig = {
   columns: [{ data: 'name', label: 'Name' }, { data: 'type' }],

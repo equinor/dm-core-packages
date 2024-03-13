@@ -2,13 +2,12 @@ import {
   IUIPlugin,
   TGenericObject,
   TInlineRecipeViewConfig,
+  TItem,
   TOnOpen,
   TReferenceViewConfig,
-  TSortableItem,
-  TTemplate,
   TViewConfig,
-} from '../../'
-import { TItem } from '../../hooks/useList/types'
+} from '@development-framework/dm-core'
+import { TSortableItem, TTemplate } from '../../common'
 
 // Table Config types
 
