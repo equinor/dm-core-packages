@@ -1,12 +1,12 @@
 import {
   IUIPlugin,
-  JsonView,
   Loading,
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import { toast } from 'react-toastify'
+import { JsonView } from './JsonView/JsonView'
 
 export default (props: IUIPlugin) => {
   const { idReference } = props

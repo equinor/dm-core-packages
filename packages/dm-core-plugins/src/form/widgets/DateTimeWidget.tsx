@@ -1,4 +1,4 @@
-import { Datepicker } from '@development-framework/dm-core'
+import { Datepicker } from '../../common/Datepicker'
 import { TWidget } from '../types'
 
 interface DatePickerConfig {

@@ -1,9 +1,7 @@
-import {
-  CopyLinkDialog,
-  TNodeWrapperProps,
-} from '@development-framework/dm-core'
+import { TNodeWrapperProps } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import { useState } from 'react'
+import { CopyLinkDialog } from '../../../common'
 import { EDialog } from '../../types'
 import AppendEntityDialog from '../dialogs/AppendEntityDialog'
 import DeleteDialog from '../dialogs/DeleteDialog'

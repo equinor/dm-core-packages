@@ -1,8 +1,8 @@
-import { Button, TextField } from '@equinor/eds-core-react'
+import { Button, EdsProvider, Icon, TextField } from '@equinor/eds-core-react'
+import { close } from '@equinor/eds-icons'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { AccessControlList, AccessLevel } from '../../services'
-import { DeleteSoftButton } from '../DeleteSoftButton'
 import { ACLSelect } from './ACLSelect'
 
 interface IURPanelProps {
@@ -77,13 +77,18 @@ export const ACLUserRolesPanel = ({
                 }}
               />
             </div>
-            <DeleteSoftButton
-              onClick={() => {
-                delete roles[role]
-                handleChange({ [aclKey]: roles })
-              }}
-              title={'Remove role from acl'}
-            />
+            <EdsProvider density={'compact'}>
+              <Button
+                variant='ghost_icon'
+                onClick={() => {
+                  delete roles[role]
+                  handleChange({ [aclKey]: roles })
+                }}
+                aria-label='Remove role from acl'
+              >
+                <Icon size={16} data={close} />
+              </Button>
+            </EdsProvider>
           </GridContainer>
         ))}
       </TableWrapper>

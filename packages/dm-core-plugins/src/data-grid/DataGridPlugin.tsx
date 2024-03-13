@@ -1,6 +1,5 @@
 import {
   IUIPlugin,
-  Stack,
   TAttribute,
   TGenericObject,
   useApplication,
@@ -10,6 +9,7 @@ import {
 import { Button, Icon, Tooltip } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
 import { useEffect, useState } from 'react'
+import { Stack } from '../common'
 import { DataGrid } from './DataGrid'
 import { DataGridConfig, defaultConfig } from './types'
 import { getFunctionalityVariables, reverseData } from './utils'

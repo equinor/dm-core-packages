@@ -9,8 +9,6 @@ import {
   TJobHandler,
   TRecurringJob,
   TSchedule,
-  TTemplate,
-  TemplateMenu,
   useApplication,
   useDocument,
   useJob,
@@ -23,6 +21,7 @@ import { DateTime } from 'luxon'
 import { useContext, useEffect, useState } from 'react'
 import { IAuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
+import { TTemplate, TemplateMenu } from '../../common'
 import {
   ConfigureRecurring,
   JobButtonWrapper,

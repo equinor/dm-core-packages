@@ -1,8 +1,6 @@
-import {
-  BlueprintPicker,
-  DeleteSoftButton,
-} from '@development-framework/dm-core'
+import { BlueprintPicker } from '@development-framework/dm-core'
 import { TextField, Typography } from '@equinor/eds-core-react'
+import { DeleteSoftButton } from '../common'
 import { Fieldset } from '../form/styles'
 
 export const Extends = (props: {

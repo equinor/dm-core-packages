@@ -1,18 +1,11 @@
 import {
-  DeleteSoftButton,
   EntityPickerDialog,
   IUIPlugin,
-  LazyLoad,
   Loading,
-  NewListItemButton,
-  Pagination,
-  Stack,
   TEntityPickerReturn,
   TGenericObject,
   TItem,
-  TTemplate,
   TViewConfig,
-  TemplateMenu,
   ViewCreator,
   resolveRelativeAddressSimplified,
   useList,
@@ -28,7 +21,15 @@ import {
 import { chevron_right, external_link, link, undo } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { FormButton, ListChevronButton } from './Components'
+import {
+  DeleteSoftButton,
+  LazyLoad,
+  Pagination,
+  Stack,
+  TTemplate,
+  TemplateMenu,
+} from '../common'
+import { FormButton, ListChevronButton, NewListItemButton } from './Components'
 
 type TListConfig = {
   expanded?: boolean

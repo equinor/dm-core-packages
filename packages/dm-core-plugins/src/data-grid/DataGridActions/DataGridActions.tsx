@@ -1,8 +1,4 @@
 import {
-  Stack,
-  createSyntheticFileDownload,
-} from '@development-framework/dm-core'
-import {
   Button,
   Checkbox,
   Dialog,
@@ -24,6 +20,8 @@ import {
   upload,
 } from '@equinor/eds-icons'
 import { useState } from 'react'
+import { Stack } from '../../common'
+import { createSyntheticFileDownload } from '../../utils'
 import * as Styled from '../styles'
 import { DataGridConfig, TFunctionalityChecks } from '../types'
 import { DataGridImportDialog } from './DataGridImportDialog/DataGridImportDialog'

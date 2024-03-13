@@ -1,8 +1,5 @@
-import { IUIPlugin, Stack, ViewCreator } from '@development-framework/dm-core'
-import {
-  DirectionTypes,
-  StackProps,
-} from '@development-framework/dm-core/dist/components/common/Stack/types'
+import { IUIPlugin, ViewCreator } from '@development-framework/dm-core'
+import { DirectionTypes, Stack, StackProps } from '../common'
 import { StackPluginConfig, defaultConfig } from './types'
 
 export const StackPlugin = (props: IUIPlugin) => {

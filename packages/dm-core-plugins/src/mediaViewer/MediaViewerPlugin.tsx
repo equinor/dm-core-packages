@@ -2,14 +2,14 @@ import {
   EBlueprint,
   IUIPlugin,
   Loading,
-  MediaContent,
-  mimeTypes,
   splitAddress,
   useApplication,
   useDocument,
 } from '@development-framework/dm-core'
 import { AxiosRequestConfig } from 'axios'
 import React, { Suspense, useCallback, useEffect, useState } from 'react'
+import { MediaContent } from './MediaContent/MediaContent'
+import { mimeTypes } from './mime-types'
 
 interface MediaObject {
   type: string

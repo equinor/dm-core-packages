@@ -1,9 +1,7 @@
-import {
-  DeleteSoftButton,
-  truncatePathString,
-} from '@development-framework/dm-core'
+import { truncatePathString } from '@development-framework/dm-core'
 import { Accordion, Button, Icon, Typography } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
+import { DeleteSoftButton } from '../common'
 import { Fieldset } from '../form/styles'
 import { BlueprintAttribute } from './BlueprintAttribute'
 

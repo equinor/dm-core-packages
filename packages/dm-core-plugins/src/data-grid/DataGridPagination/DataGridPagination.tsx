@@ -1,7 +1,7 @@
-import { Stack } from '@development-framework/dm-core'
 import { Icon, Typography } from '@equinor/eds-core-react'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
 import React from 'react'
+import { Stack } from '../../common'
 import * as Styled from '../styles'
 
 type DataGridPaginationProps = {

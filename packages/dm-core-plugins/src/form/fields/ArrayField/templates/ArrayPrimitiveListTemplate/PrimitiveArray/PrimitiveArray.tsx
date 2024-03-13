@@ -1,10 +1,7 @@
-import {
-  AddRowButton,
-  DeleteSoftButton,
-  TAttribute,
-} from '@development-framework/dm-core'
+import { TAttribute } from '@development-framework/dm-core'
 import { Tooltip } from '@equinor/eds-core-react'
 import { useFormContext } from 'react-hook-form'
+import { AddRowButton, DeleteSoftButton } from '../../../../../../common'
 import { TPrimitive, TUiAttributeObject } from '../../../../../types'
 import { AttributeFieldSelector } from '../../../../AttributeFieldSelector'
 

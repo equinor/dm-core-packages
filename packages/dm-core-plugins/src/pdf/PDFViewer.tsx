@@ -1,4 +1,3 @@
-// import { formatBytes } from './formatBytes'
 import {
   ErrorResponse,
   Loading,
