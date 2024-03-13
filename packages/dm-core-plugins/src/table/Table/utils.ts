@@ -1,6 +1,5 @@
+import { TGenericObject, TItem } from '@development-framework/dm-core'
 import { isObject } from 'lodash'
-import { TGenericObject } from '../..'
-import { TItem } from '../../hooks/useList/types'
 import {
   TTableConfig,
   TTableFunctionalityConfig,

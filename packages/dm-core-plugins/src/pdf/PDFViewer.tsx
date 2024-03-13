@@ -2,12 +2,12 @@ import {
   ErrorResponse,
   Loading,
   TGenericObject,
-  formatBytes,
   useApplication,
 } from '@development-framework/dm-core'
 import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { formatBytes } from '../utils'
 
 export const ErrorGroup = styled.div`
   display: flex;
