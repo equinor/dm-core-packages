@@ -6,9 +6,11 @@ import {
 import { link } from '@equinor/eds-icons'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { OpenObjectButton } from '../../../components/OpenObjectButton'
-import RemoveObject from '../../../components/RemoveObjectButton'
-import { SelectReference } from '../../../components/SelectReference'
+import {
+  OpenObjectButton,
+  RemoveObject,
+  SelectReference,
+} from '../../../components'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import { ComplexAttributeTemplate } from '../../../templates'
 import { TObjectTemplate } from '../../../types'

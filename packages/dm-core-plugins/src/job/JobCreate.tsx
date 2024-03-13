@@ -13,8 +13,6 @@ import {
   TJob,
   TRecurringJob,
   TSchedule,
-  TTemplate,
-  TemplateMenu,
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
@@ -24,6 +22,7 @@ import { useEffect, useState } from 'react'
 
 import { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
+import { TTemplate, TemplateMenu } from '../common'
 import {
   ConfigureRecurring,
   JobButtonWrapper,

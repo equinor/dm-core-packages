@@ -1,6 +1,6 @@
-import { colors } from '@development-framework/dm-core'
 import { Icon, TextField, Tooltip } from '@equinor/eds-core-react'
 import { info_circle } from '@equinor/eds-icons'
+import { tokens } from '@equinor/eds-tokens'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -29,7 +29,8 @@ const StyledEDSField = (
     tooltip?: string
   }
 ) => {
-  let background = props.config?.backgroundColor ?? colors.equinorLightGray
+  let background =
+    props.config?.backgroundColor ?? tokens.colors.ui.background__light.hex
 
   background =
     props.isDirty && props.variant !== 'error' ? '#85babf5e' : background

@@ -1,4 +1,3 @@
-import { Message, Skeleton, Stack } from '@development-framework/dm-core'
 import {
   Button,
   Dialog,
@@ -7,6 +6,7 @@ import {
   Typography,
 } from '@equinor/eds-core-react'
 import { useState } from 'react'
+import { Message, Skeleton, Stack } from '../../../common'
 import { DataGridImportDialogProps } from './types'
 import { checkAndParseToAttributeType, checkDimensions } from './utils'
 

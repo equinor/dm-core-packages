@@ -8,7 +8,7 @@ import { useRegistryContext } from '../context/RegistryContext'
 
 type Hit = { dataSource: string; id: string; label: string }
 
-const AddObjectBySearchButton = (props: {
+export const AddObjectBySearchButton = (props: {
   type: string
   namePath: string
   onAdd?: () => void
@@ -103,5 +103,3 @@ const AddObjectBySearchButton = (props: {
     </EdsProvider>
   )
 }
-
-export default AddObjectBySearchButton

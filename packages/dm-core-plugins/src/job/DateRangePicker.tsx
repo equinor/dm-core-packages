@@ -1,5 +1,5 @@
-import { Datepicker } from '@development-framework/dm-core'
 import { DateTime } from 'luxon'
+import { Datepicker } from '../common/Datepicker'
 
 const DateRangePicker = (props: {
   setDateRange: (dateRange: { startDate: string; endDate: string }) => void

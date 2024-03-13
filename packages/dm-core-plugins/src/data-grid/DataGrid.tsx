@@ -1,6 +1,6 @@
-import { Stack } from '@development-framework/dm-core'
 import { EdsProvider, Typography } from '@equinor/eds-core-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Stack } from '../common'
 import { DataCell } from './DataCell/DataCell'
 import { DataGridActions } from './DataGridActions/DataGridActions'
 import { DataGridPagination } from './DataGridPagination/DataGridPagination'

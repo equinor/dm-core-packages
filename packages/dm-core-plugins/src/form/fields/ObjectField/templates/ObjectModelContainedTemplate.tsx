@@ -1,10 +1,12 @@
 import { ViewCreator } from '@development-framework/dm-core'
 import React, { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import AddObject from '../../../components/AddObjectButton'
-import AddObjectBySearchButton from '../../../components/AddObjectBySearchButton'
-import { OpenObjectButton } from '../../../components/OpenObjectButton'
-import RemoveObject from '../../../components/RemoveObjectButton'
+import {
+  AddObject,
+  AddObjectBySearchButton,
+  OpenObjectButton,
+  RemoveObject,
+} from '../../../components'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import { ComplexAttributeTemplate } from '../../../templates'
 import { TObjectTemplate } from '../../../types'
