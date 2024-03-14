@@ -254,11 +254,12 @@ export const JobControl = (props: IUIPlugin) => {
                 </div>
               )}
           </JobButtonWrapper>
-          <div className='p-2'>
-            {status === JobStatus.Running && progress !== null && (
+
+          {status === JobStatus.Running && progress !== null && (
+            <div className='ps-2'>
               <Progress progress={progress} />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
