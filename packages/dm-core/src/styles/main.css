@@ -47,7 +47,8 @@ body {
 }
 
 .dm-table-row .dm-plugin-padding {
-  padding: 0.5rem;
+  padding-block: 0.5rem;
+  padding-inline: 0;
 }
 
 Button,
