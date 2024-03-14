@@ -270,6 +270,7 @@ export function Table(props: TableProps) {
           {tableVariant === TableVariantNameEnum.Edit && reloadData && (
             <Button
               aria-label='Revert changes'
+              className='overflow-hidden'
               variant='outlined'
               disabled={isLoading || !props.dirtyState}
               onClick={reloadData}
