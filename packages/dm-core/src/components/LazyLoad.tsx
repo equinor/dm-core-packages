@@ -26,7 +26,7 @@ export const LazyLoad = ({
 
   const Element = element || 'div'
 
-  const classNames = ['flex-layout-container']
+  const classNames = ['flex flex-col flex-grow min-h-0 w-full']
   if (!visible) classNames.push('hidden')
   if (className) classNames.push(className)
 
