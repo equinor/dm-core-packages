@@ -15,13 +15,7 @@ import {
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
-import {
-  Button,
-  Chip,
-  Icon,
-  Tooltip,
-  Typography,
-} from '@equinor/eds-core-react'
+import { Button, Chip, Icon, Tooltip } from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
 import { AxiosError } from 'axios'
 import _ from 'lodash'
@@ -176,9 +170,6 @@ export const JobControl = (props: IUIPlugin) => {
     <div className='dm-plugin-padding'>
       <div className='flex-col border rounded-md bg-equinor-lightgray'>
         <div>
-          <div className='border-b flex justify-between items-center p-2'>
-            <Typography bold>Job Control</Typography>
-          </div>
           {asCronJob && (
             <div className='rounded-md p-2 m-2 bg-white border'>
               <ConfigureRecurring
