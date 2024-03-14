@@ -1,5 +1,7 @@
+import '@development-framework/dm-core-plugins/dist/main.css'
 import React from 'react'
 import 'react-toastify/dist/ReactToastify.min.css'
+import './main.css'
 
 import ReactDOM from 'react-dom/client'
 import { AuthProvider } from 'react-oauth2-code-pkce'
