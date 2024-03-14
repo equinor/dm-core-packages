@@ -6,10 +6,8 @@ import {
   ErrorResponse,
   TApplication,
 } from '@development-framework/dm-core'
-import '@development-framework/dm-core/dist/main.css'
 import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { refresh } from '@equinor/eds-icons'
-import './main.css'
 
 import { AxiosError } from 'axios'
 import { useContext, useEffect, useState } from 'react'

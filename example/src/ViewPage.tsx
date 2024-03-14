@@ -5,9 +5,7 @@ import {
   TValidEntity,
   useDocument,
 } from '@development-framework/dm-core'
-import '@development-framework/dm-core/dist/main.css'
 import { Typography } from '@equinor/eds-core-react'
-import './main.css'
 
 function ViewPage() {
   const urlParams = new URLSearchParams(window.location.search)
