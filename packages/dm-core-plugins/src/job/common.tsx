@@ -166,7 +166,6 @@ export const Progress = (props: { progress: number }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: '50%',
       }}
     >
       <LinearProgress

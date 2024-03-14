@@ -202,7 +202,7 @@ export const JobControl = (props: IUIPlugin) => {
             </div>
           )}
           <JobButtonWrapper>
-            <div className='flex items-center space-x-2'>
+            <div className='flex items-center space-x-[1rem]'>
               {getControlButton(status, remove, start, false, jobIsLoading)}
               <div>
                 <p className='text-sm'>Status:</p>
@@ -254,9 +254,11 @@ export const JobControl = (props: IUIPlugin) => {
                 </div>
               )}
           </JobButtonWrapper>
-          {status === JobStatus.Running && progress !== null && (
-            <Progress progress={progress} />
-          )}
+          <div className='p-2'>
+            {status === JobStatus.Running && progress !== null && (
+              <Progress progress={progress} />
+            )}
+          </div>
         </div>
       </div>
     </div>
