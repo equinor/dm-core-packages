@@ -202,14 +202,22 @@ export const JobControl = (props: IUIPlugin) => {
             </div>
           )}
           <JobButtonWrapper>
-            <div className='flex items-center space-x-[1rem]'>
+            <div className='flex items-center space-x-2'>
               {getControlButton(status, remove, start, false, jobIsLoading)}
-              <div>
-                <p className='text-sm'>Status:</p>
+              <div
+                style={{
+                  width: '100px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <p className='text-sm text-center'>Status:</p>
                 <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
                   {status ?? 'Not registered'}
                 </Chip>
               </div>
+
               {!internalConfig.hideLogs && <JobLog logs={logs} error={error} />}
             </div>
 
@@ -256,7 +264,7 @@ export const JobControl = (props: IUIPlugin) => {
           </JobButtonWrapper>
 
           {status === JobStatus.Running && progress !== null && (
-            <div className='ps-2'>
+            <div className='px-4 pb-2'>
               <Progress progress={progress} />
             </div>
           )}
