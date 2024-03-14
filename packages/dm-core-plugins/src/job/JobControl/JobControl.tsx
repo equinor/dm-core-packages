@@ -205,7 +205,7 @@ export const JobControl = (props: IUIPlugin) => {
             <div className='flex items-center space-x-2'>
               {getControlButton(status, remove, start, false, jobIsLoading)}
               <div>
-                <p className='text-sm -mb-2'>Status:</p>
+                <p className='text-sm'>Status:</p>
                 <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
                   {status ?? 'Not registered'}
                 </Chip>
