@@ -56,8 +56,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",
-    "build:css": "npx tailwindcss -i ./src/styles/base.css -o ./dist/main.css",
-    "build": "tsc && yarn build:css",
+    "build:css": "npx tailwindcss -i ./src/styles/base.css -o ./src/build.css --minify",
+    "copy-css-file": "cp ./src/build.css ./dist/main.css",
+    "build": "tsc && yarn build:css && yarn copy-css-file",
     "test": "jest test"
   }
 }
