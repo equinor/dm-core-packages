@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.43.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.43.1...dm-core-v1.43.2) (2024-03-15)
+
+
+### Bug Fixes
+
+* comile straight to dist folder ([fa3616f](https://github.com/equinor/dm-core-packages/commit/fa3616fe10129ea40d4ea3cb9242c8e3d9aa52b7))
+* don't copy to dist until after build ([9668333](https://github.com/equinor/dm-core-packages/commit/966833346a062bd1550bb710cd7d6964f6151d32))
+* test separating build calls ([4aaac7d](https://github.com/equinor/dm-core-packages/commit/4aaac7d95e9bd7607e9d3287e578f528065b2250))
+
+
+### Miscellaneous Chores
+
+* always use latest eds versions ([c5363b8](https://github.com/equinor/dm-core-packages/commit/c5363b8bac26f2b4a3548a94696af3ca7d957e52))
+
+
+### Code Refactoring
+
+* remove dm-plugins styles from dm-core and only use tailwind ([46504b6](https://github.com/equinor/dm-core-packages/commit/46504b6e6611494be1c3c75e5b2c65076cc59b6f))
+* tailwind build cleanup ([fc58075](https://github.com/equinor/dm-core-packages/commit/fc580752aa414352e7f1ba5265818ead1d42100e))
+
 ## [1.43.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.43.0...dm-core-v1.43.1) (2024-03-15)
 
 
