@@ -5180,3 +5180,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 6f95b0a 2024-03-14 Stig Ofstad fix: more info on 'failed to resolve reference' grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: a81d29d 2024-03-08 githu..[bot] chore(main): release 1.6.3 grafted, HEAD -> main, origin/main
+* fix: remove 'job control' header from plugin (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/8293818285/1)
+    * **DMSS VERSION**: 6f95b0a 2024-03-14 Stig Ofstad fix: more info on 'failed to resolve reference' grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: a81d29d 2024-03-08 githu..[bot] chore(main): release 1.6.3 grafted, HEAD -> main, origin/main
