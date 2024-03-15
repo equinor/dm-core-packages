@@ -98,7 +98,7 @@ export const JobLog = (props: {
 }) => {
   const [showLogs, setShowLogs] = useState(false)
   return (
-    <>
+    <div className='block'>
       <Button onClick={() => setShowLogs(!showLogs)} variant='ghost'>
         {showLogs ? 'Hide' : 'Show'} logs
         <Icon data={expand_screen} size={16} />
@@ -110,7 +110,7 @@ export const JobLog = (props: {
         error={props.error}
         result={null}
       />
-    </>
+    </div>
   )
 }
 export const JobButtonWrapper = styled.div`
