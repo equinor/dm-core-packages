@@ -60,6 +60,33 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.50.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.1...dm-core-plugins-v1.50.2) (2024-03-15)
+
+
+### Bug Fixes
+
+* comile straight to dist folder ([fa3616f](https://github.com/equinor/dm-core-packages/commit/fa3616fe10129ea40d4ea3cb9242c8e3d9aa52b7))
+* don't copy to dist until after build ([9668333](https://github.com/equinor/dm-core-packages/commit/966833346a062bd1550bb710cd7d6964f6151d32))
+* job dialog misaligned when in flex ([7d667de](https://github.com/equinor/dm-core-packages/commit/7d667de7a058f768383fc6c7b5fa01e344d0a2b5))
+
+
+### Miscellaneous Chores
+
+* always use latest eds versions ([c5363b8](https://github.com/equinor/dm-core-packages/commit/c5363b8bac26f2b4a3548a94696af3ca7d957e52))
+* bump node version ([d9a5039](https://github.com/equinor/dm-core-packages/commit/d9a50393ce0adfe30cf912bdb18a831df9728594))
+
+
+### Code Refactoring
+
+* tailwind build cleanup ([fc58075](https://github.com/equinor/dm-core-packages/commit/fc580752aa414352e7f1ba5265818ead1d42100e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.43.1 to ^1.43.2
+
 ## [1.50.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.0...dm-core-plugins-v1.50.1) (2024-03-15)
 
 
