@@ -60,6 +60,42 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.50.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.0...dm-core-plugins-v1.50.1) (2024-03-15)
+
+
+### Bug Fixes
+
+* **data-grid:** disable clear button when rows are not editable ([d2ca001](https://github.com/equinor/dm-core-packages/commit/d2ca001ceb42e46cba793d24de7b9d10fe981ca9))
+* keep fields order again ([6f48b21](https://github.com/equinor/dm-core-packages/commit/6f48b211d83eb6078f2bc341692cb97d4b8dbe05))
+* listen to revert from outside ([6d1281f](https://github.com/equinor/dm-core-packages/commit/6d1281fff4b6076d0b4248e6fcadb4fd203215a4))
+* more job control ui ([e957aaa](https://github.com/equinor/dm-core-packages/commit/e957aaae0a56d778a8f26e609b851690e04a661b))
+* no padding when there is no progress bar ([9976736](https://github.com/equinor/dm-core-packages/commit/9976736427ef07ad93957eaab4fd83e8c854a83f))
+* padding on both sides of the progress bar. also more changes ([2045aea](https://github.com/equinor/dm-core-packages/commit/2045aea0bbf9f767edd8fed101a451a00c8ea506))
+* remove 'job control' header from plugin ([dc0327a](https://github.com/equinor/dm-core-packages/commit/dc0327aaaa2edddde479535ba9ad985c474fecd0))
+* remove dependency + call function so that it doesn't create loop ([558d2b2](https://github.com/equinor/dm-core-packages/commit/558d2b2f1b0dfc09f7598cc6849c60391133a859))
+* **sidebar:** reload on navigation ([4026408](https://github.com/equinor/dm-core-packages/commit/402640814597265ecc397a09057784e9112bcbf7))
+* small ui thing in job contrl ([eeebd4e](https://github.com/equinor/dm-core-packages/commit/eeebd4e07925eafed00b5b780294ccee85ad1158))
+* ui issue job control ([10c34c2](https://github.com/equinor/dm-core-packages/commit/10c34c2a05f9a326a9e69643305196c74b1a4219))
+* **viewCreator:** cache reference calculation ([74d2b2e](https://github.com/equinor/dm-core-packages/commit/74d2b2e8f76d04aa8ae58c338d29eaa67329a41a))
+
+
+### Code Refactoring
+
+* array file structure + AttributeField -&gt; AttributeFieldSelector ([13819de](https://github.com/equinor/dm-core-packages/commit/13819de6848d6cdc1b79273ba084c00d64fc70be))
+* fields cleanup ([7765434](https://github.com/equinor/dm-core-packages/commit/7765434fdc58ffdad6e754008b5b8436aca6a183))
+* form array components cleanup ([ba2b475](https://github.com/equinor/dm-core-packages/commit/ba2b475a5b0145c800b32a58f02f50cbfb608cd0))
+* form utils cleanup ([7087943](https://github.com/equinor/dm-core-packages/commit/708794307b4a68f57dc7fdcfe8402eaee0eb147d))
+* FormTemplate -&gt; ComplexAttributeTemplate ([d84a880](https://github.com/equinor/dm-core-packages/commit/d84a880c49abcbda8989bc18692d7b214d587fb7))
+* update form imports ([7d7bfd4](https://github.com/equinor/dm-core-packages/commit/7d7bfd4843346f124196f132cc0b9e5b28980dd9))
+* update primitive add label in tests ([02a4f63](https://github.com/equinor/dm-core-packages/commit/02a4f6371861c6811c1b28fba315688ca1d82f2d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.43.0 to ^1.43.1
+
 ## [1.50.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.49.3...dm-core-plugins-v1.50.0) (2024-03-11)
 
 
