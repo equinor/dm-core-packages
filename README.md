@@ -5185,3 +5185,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 6f95b0a 2024-03-14 Stig Ofstad fix: more info on 'failed to resolve reference' grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.6.0
     * **JOB VERSION**: a81d29d 2024-03-08 githu..[bot] chore(main): release 1.6.3 grafted, HEAD -> main, origin/main
+* chore: always use latest eds versions (2023-12-02T08:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/8295116566/1)
+    * **DMSS VERSION**: 1a7cdf6 2024-03-15 githu..[bot] chore(master): release 1.23.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.6.0
+    * **JOB VERSION**: a81d29d 2024-03-08 githu..[bot] chore(main): release 1.6.3 grafted, HEAD -> main, origin/main
