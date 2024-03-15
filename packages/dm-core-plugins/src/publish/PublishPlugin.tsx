@@ -1,8 +1,11 @@
-import { EntityView, IUIPlugin } from '@development-framework/dm-core'
+import {
+  CopyLinkDialog,
+  EntityView,
+  IUIPlugin,
+} from '@development-framework/dm-core'
 import { Button, Icon } from '@equinor/eds-core-react'
 import { approve } from '@equinor/eds-icons'
 import { useState } from 'react'
-import { CopyLinkDialog } from '../common'
 
 export const PublishPlugin = (
   props: IUIPlugin & {

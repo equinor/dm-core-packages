@@ -1,4 +1,4 @@
-import { EBlueprint, TMeta, TValidEntity } from '@development-framework/dm-core'
+import { EBlueprint, TMeta, TValidEntity } from '../../'
 
 export function setMetaInDocument(
   document: TValidEntity,

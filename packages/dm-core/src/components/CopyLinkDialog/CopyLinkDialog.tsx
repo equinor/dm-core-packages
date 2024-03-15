@@ -1,17 +1,4 @@
 import {
-  AuthContext,
-  Dialog,
-  EBlueprint,
-  EntityPickerDialog,
-  ErrorResponse,
-  TEntityPickerReturn,
-  TLinkReference,
-  TValidEntity,
-  truncatePathString,
-  useApplication,
-  useDocument,
-} from '@development-framework/dm-core'
-import {
   Button,
   Icon,
   Label,
@@ -24,6 +11,19 @@ import { folder_open } from '@equinor/eds-icons'
 import { AxiosError } from 'axios'
 import { ChangeEvent, useContext, useState } from 'react'
 import { toast } from 'react-toastify'
+import {
+  AuthContext,
+  Dialog,
+  EBlueprint,
+  EntityPickerDialog,
+  ErrorResponse,
+  TEntityPickerReturn,
+  TLinkReference,
+  TValidEntity,
+  truncatePathString,
+  useApplication,
+  useDocument,
+} from '../../'
 import { setMetaInDocument } from './utils'
 
 type TPropsBase = {

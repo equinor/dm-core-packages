@@ -1,4 +1,5 @@
 export * from './AccessControl/AccessControlListComponent'
+export * from './CopyLinkDialog/CopyLinkDialog'
 export * from './Dialog'
 export * from './DynamicTable'
 export * from './EntityView'
