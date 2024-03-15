@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.43.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.43.0...dm-core-v1.43.1) (2024-03-15)
+
+
+### Bug Fixes
+
+* can't click name on dropdown ([20023cc](https://github.com/equinor/dm-core-packages/commit/20023cc228c92529287856db74ce9e1ffb8bf4f6))
+* edsbutton overflow minor fix ([a037718](https://github.com/equinor/dm-core-packages/commit/a0377186a27cbd942ba59820bef46706fc4fef54))
+* less inline padding in table row ([349bf45](https://github.com/equinor/dm-core-packages/commit/349bf4587da90fc32c337ec7d7bafe1c88c45154))
+* **sidebar:** reload on navigation ([4026408](https://github.com/equinor/dm-core-packages/commit/402640814597265ecc397a09057784e9112bcbf7))
+* **viewCreator:** cache reference calculation ([74d2b2e](https://github.com/equinor/dm-core-packages/commit/74d2b2e8f76d04aa8ae58c338d29eaa67329a41a))
+
+
+### Code Refactoring
+
+* unnecessary test ([7a7fba9](https://github.com/equinor/dm-core-packages/commit/7a7fba929856261b35529db96a93d9f8ad83ccdd))
+
 ## [1.43.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.42.2...dm-core-v1.43.0) (2024-03-11)
 
 
