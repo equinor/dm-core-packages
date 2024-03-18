@@ -36,6 +36,10 @@ body {
   overflow-y: auto;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
 /* Add padding to plugins */
 .dm-plugin-padding {
   padding: 1rem;
