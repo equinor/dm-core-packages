@@ -60,6 +60,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.50.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.2...dm-core-plugins-v1.50.3) (2024-03-18)
+
+
+### Bug Fixes
+
+* add flex-row class after custom layout class ([5b3cbc7](https://github.com/equinor/dm-core-packages/commit/5b3cbc7ccd7028891ec56f536c51bf1befdf8ea2))
+
 ## [1.50.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.1...dm-core-plugins-v1.50.2) (2024-03-15)
 
 
