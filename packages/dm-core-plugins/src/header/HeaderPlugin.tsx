@@ -70,8 +70,7 @@ type TRecipeConfigAndPlugin = {
  * @docs Plugins
  * @scope HeaderPlugin
  *
- * @params THeaderPluginConfig
- *
+ * @param {THeaderPluginConfig} props {@link THeaderPluginConfig} *
  */
 
 export default (props: IUIPlugin): React.ReactElement => {
