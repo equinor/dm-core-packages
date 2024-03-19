@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.43.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.43.2...dm-core-v1.43.3) (2024-03-19)
+
+
+### Code Refactoring
+
+* dm-core to dm-core-plugins migration ([d484717](https://github.com/equinor/dm-core-packages/commit/d4847175e913cd5a953fe6b7402e8c4774eb808a))
+* fix remaining imports ([a051942](https://github.com/equinor/dm-core-packages/commit/a051942a464594566559a54443438c3b56c064a1))
+* move CopyLinkDialog to dm-core ([b8a5ee3](https://github.com/equinor/dm-core-packages/commit/b8a5ee3c16b2ac4387723a018ec743ec673d9ad7))
+
 ## [1.43.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.43.1...dm-core-v1.43.2) (2024-03-15)
 
 
