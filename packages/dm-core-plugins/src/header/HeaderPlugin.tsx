@@ -64,6 +64,16 @@ type TRecipeConfigAndPlugin = {
   name: string
 }
 
+/**
+ * Component which renders a header.
+ *
+ * @docs Plugins
+ * @scope HeaderPlugin
+ *
+ * @params THeaderPluginConfig
+ *
+ */
+
 export default (props: IUIPlugin): React.ReactElement => {
   const { idReference, config: passedConfig, type } = props
   const config: THeaderPluginConfig = {
