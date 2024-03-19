@@ -60,6 +60,34 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.50.4](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.3...dm-core-plugins-v1.50.4) (2024-03-19)
+
+
+### Bug Fixes
+
+* reset job popup was misaligned like job logs flex issue ([fd7f806](https://github.com/equinor/dm-core-packages/commit/fd7f80626dddc10862e2c8e0b4e6b451dca40279))
+
+
+### Documentation
+
+* add headerpluginconfig ([7416783](https://github.com/equinor/dm-core-packages/commit/7416783adebe0e441175b22ca1dca05c15669bfc))
+* adding header config ([fd1f96b](https://github.com/equinor/dm-core-packages/commit/fd1f96b67cf074c728538d9588f358b98b32915e))
+* adding image of the header plugin ([33b6485](https://github.com/equinor/dm-core-packages/commit/33b648582fd1e68e3cb4e57ec7ff8956be326022))
+
+
+### Code Refactoring
+
+* dm-core to dm-core-plugins migration ([d484717](https://github.com/equinor/dm-core-packages/commit/d4847175e913cd5a953fe6b7402e8c4774eb808a))
+* fix remaining imports ([a051942](https://github.com/equinor/dm-core-packages/commit/a051942a464594566559a54443438c3b56c064a1))
+* move CopyLinkDialog to dm-core ([b8a5ee3](https://github.com/equinor/dm-core-packages/commit/b8a5ee3c16b2ac4387723a018ec743ec673d9ad7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.43.2 to ^1.43.3
+
 ## [1.50.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.2...dm-core-plugins-v1.50.3) (2024-03-18)
 
 
