@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.43.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.43.3...dm-core-v1.43.4) (2024-03-22)
+
+
+### Code Refactoring
+
+* clean up TreeView component ([ea56ef2](https://github.com/equinor/dm-core-packages/commit/ea56ef257bc965f5406cfa8e827fea646332b75d))
+* remove deprecated components ([af27b61](https://github.com/equinor/dm-core-packages/commit/af27b61270376426be89779621f36b5c6f3cc290))
+
 ## [1.43.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.43.2...dm-core-v1.43.3) (2024-03-19)
 
 
