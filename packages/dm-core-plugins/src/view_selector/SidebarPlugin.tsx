@@ -44,27 +44,29 @@ export const SidebarPlugin = (
         setSelectedViewId={setSelectedViewId}
         addView={addView}
       />
-      {viewItem.viewConfig ? (
-        <ViewCreator
-          key={`${viewItem.rootEntityId}-${viewItem.viewConfig.scope}`}
-          idReference={viewItem.rootEntityId}
-          viewConfig={viewItem.viewConfig}
-          onOpen={addView}
-          onSubmit={(data: TGenericObject) => {
-            if (viewItem?.onSubmit) viewItem?.onSubmit(data)
-            setFormData({
-              ...formData,
-              [viewItem.viewId]: data,
-            })
-          }}
-          onChange={viewItem?.onChange}
-        />
-      ) : (
-        <p>
-          {viewItem.label ?? viewItem.viewId} was selected, but has no view
-          defined
-        </p>
-      )}
+      <div className='flex-layout-container scroll'>
+        {viewItem.viewConfig ? (
+          <ViewCreator
+            key={`${viewItem.rootEntityId}-${viewItem.viewConfig.scope}`}
+            idReference={viewItem.rootEntityId}
+            viewConfig={viewItem.viewConfig}
+            onOpen={addView}
+            onSubmit={(data: TGenericObject) => {
+              if (viewItem?.onSubmit) viewItem?.onSubmit(data)
+              setFormData({
+                ...formData,
+                [viewItem.viewId]: data,
+              })
+            }}
+            onChange={viewItem?.onChange}
+          />
+        ) : (
+          <p>
+            {viewItem.label ?? viewItem.viewId} was selected, but has no view
+            defined
+          </p>
+        )}
+      </div>
     </div>
   )
 }
