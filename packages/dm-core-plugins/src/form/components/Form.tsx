@@ -1,12 +1,10 @@
 import { Loading, useBlueprint } from '@development-framework/dm-core'
-import { Loading, useBlueprint } from '@development-framework/dm-core'
 import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
 import { pick } from 'lodash'
 import { useState } from 'react'
 import { FormProvider, useForm, useFormContext } from 'react-hook-form'
 import { RegistryProvider } from '../context/RegistryContext'
-import { TFormConfig, TFormProps } from '../types'
 import { TFormConfig, TFormProps } from '../types'
 import { AttributeList } from './AttributeList'
 
