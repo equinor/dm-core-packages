@@ -16,8 +16,10 @@ import { getMenuItems } from './getMenuItems'
 export const STANDARD_DIALOG_WIDTH = '100%'
 export const STANDARD_DIALOG_HEIGHT = '300px'
 
-const NodeRightClickMenu = (props: TNodeWrapperProps) => {
-  const { node, children, setNodeOpen } = props
+const NodeRightClickMenu = (
+  props: TNodeWrapperProps & { setRawView: (type: string, id: string) => void }
+) => {
+  const { node, children, setNodeOpen, setRawView } = props
   const [dialogId, setDialogId] = useState<EDialog | undefined>()
   const [showMenu, setShowMenu] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -42,7 +44,7 @@ const NodeRightClickMenu = (props: TNodeWrapperProps) => {
         placement='bottom-start'
         matchAnchorWidth={true}
       >
-        {getMenuItems(node, setDialogId)}
+        {getMenuItems(node, setDialogId, setRawView)}
       </Menu>
 
       {dialogId === EDialog.NewFolder && (

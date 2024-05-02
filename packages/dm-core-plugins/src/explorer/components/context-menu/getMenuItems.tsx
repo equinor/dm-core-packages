@@ -8,7 +8,8 @@ import { EDialog } from '../../types'
 // See https://github.com/equinor/design-system/issues/2659
 export function getMenuItems(
   node: TreeNode,
-  setDialogId: (id: EDialog | undefined) => void
+  setDialogId: (id: EDialog | undefined) => void,
+  setRawView: (type: string, id: string) => void
 ): React.ReactElement[] {
   const menuItems = []
   const getMenuItem = (id: EDialog, text: string) => {
@@ -54,6 +55,14 @@ export function getMenuItems(
 
   // Everything besides dataSources can be deleted, copied, and edited AccessControl
   if (node.type !== 'dataSource') {
+    menuItems.push(
+      <Menu.Item
+        key={'viewRaw'}
+        onClick={() => setRawView(node.type, node.nodeId)}
+      >
+        View raw
+      </Menu.Item>
+    )
     menuItems.push(getMenuItem(EDialog.Delete, 'Delete'))
     menuItems.push(getMenuItem(EDialog.EditACL, 'Change permissions'))
     menuItems.push(getMenuItem(EDialog.CopyLink, 'Copy or link'))

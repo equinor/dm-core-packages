@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { toast } from 'react-toastify'
 import { EBlueprint } from '../../Enums'
 import {
   PATH_INPUT_FIELD_WIDTH,
@@ -123,10 +122,7 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
             <TreeView
               nodes={treeNodes}
               onSelect={(node: TreeNode) => {
-                if (node.type !== EBlueprint.BLUEPRINT) {
-                  toast.warning('You can only select a blueprint')
-                  return
-                } // Only allowed to select blueprints
+                if (node.type !== EBlueprint.BLUEPRINT) return // Only allowed to select blueprints
                 setShowModal(false)
                 onChange(node.getPath())
               }}
