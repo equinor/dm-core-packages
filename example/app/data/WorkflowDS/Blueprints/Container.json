@@ -1,0 +1,31 @@
+{
+  "name": "Container",
+  "type": "CORE:Blueprint",
+  "description": "A container job",
+  "extends": ["JobHandler"],
+  "attributes": [
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "image",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "ContainerImage"
+    },
+    {
+      "name": "customCommand",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}

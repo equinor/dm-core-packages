@@ -1,0 +1,93 @@
+{
+  "name": "Job",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "uid",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "triggeredBy",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "status",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false,
+      "default": "not started",
+      "enumType": "./JobStatus"
+    },
+    {
+      "name": "applicationInput",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Input entity to a job",
+      "attributeType": "object",
+      "label": "Input",
+      "contained": false,
+      "optional": true
+    },
+    {
+      "name": "started",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "ended",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "outputTarget",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "result",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "object",
+      "contained": false,
+      "optional": true
+    },
+    {
+      "name": "runner",
+      "type": "CORE:BlueprintAttribute",
+      "description": "JobRunner that will handle this job",
+      "attributeType": "JobHandler",
+      "label": "Runner",
+      "optional": true
+    },
+    {
+      "name": "referenceTarget",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Dotted id to an analysis entity's job result. Should be on the format: entityId.jobs.*index*.result. Must be generated at run time since the index can vary.",
+      "attributeType": "string",
+      "label": "Reference target",
+      "optional": true
+    }
+  ]
+}

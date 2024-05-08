@@ -1,0 +1,26 @@
+{
+  "type": "dmss://system/SIMOS/RecipeLink",
+  "_blueprintPath_": "dmss://system/SIMOS/Package",
+  "storageRecipes": [
+    {
+      "name": "DEFAULT",
+      "type": "dmss://system/SIMOS/StorageRecipe",
+      "description": "",
+      "attributes": [
+        {
+          "name": "content",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "contained": false
+        }
+      ]
+    }
+  ],
+  "uiRecipes": [
+    {
+      "name": "DEFAULT_CREATE",
+      "type": "dmss://system/SIMOS/UiRecipe",
+      "description": "",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}

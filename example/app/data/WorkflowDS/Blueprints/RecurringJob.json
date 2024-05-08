@@ -1,0 +1,23 @@
+{
+  "name": "RecurringJob",
+  "type": "CORE:Blueprint",
+  "extends": ["./Job"],
+  "attributes": [
+    {
+      "name": "applicationInput",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Job entity to run on a schedule",
+      "attributeType": "./Job",
+      "label": "Job template",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "name": "schedule",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Schedule for a cronjob",
+      "attributeType": "CronJob",
+      "label": "Schedule"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "dmss://system/SIMOS/RecipeLink",
+  "_blueprintPath_": "_default_",
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "dmss://system/SIMOS/UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml",
+      "roles": ["dmss-admin"],
+      "category": "view"
+    },
+    {
+      "name": "Edit",
+      "type": "dmss://system/SIMOS/UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/form",
+      "category": "edit"
+    }
+  ]
+}

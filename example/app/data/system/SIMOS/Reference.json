@@ -1,0 +1,25 @@
+{
+  "name": "Reference",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "Can be of type link, pointer or storage.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "referenceType",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false,
+      "default": "link"
+    },
+    {
+      "name": "address",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
+    }
+  ]
+}

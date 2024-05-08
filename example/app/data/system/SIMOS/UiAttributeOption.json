@@ -1,0 +1,13 @@
+{
+  "name": "UiAttributeOption",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This describes an ui recipe attribute option",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "value",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}

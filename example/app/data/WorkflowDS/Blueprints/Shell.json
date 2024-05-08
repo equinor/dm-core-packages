@@ -1,0 +1,13 @@
+{
+  "name": "Shell",
+  "type": "CORE:Blueprint",
+  "description": "Description of a shell-job. That is a job that will run in the shell. Only for testing.",
+  "extends": ["CORE:NamedEntity", "JobHandler"],
+  "attributes": [
+    {
+      "name": "script",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}

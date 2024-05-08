@@ -1,0 +1,123 @@
+{
+  "name": "UiAttribute",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This describes an ui recipe attribute",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "attributeType",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "default": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true
+    },
+    {
+      "name": "label",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "uiRecipe",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "default": "",
+      "optional": true
+    },
+    {
+      "name": "dimensions",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "arrayField",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "enumType",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "field",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "widget",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Widget for this property",
+      "attributeType": "string",
+      "optional": true,
+      "enumType": "DMT-Internal/DMT/plugins/ui/edit/WidgetEnum",
+      "default": ""
+    },
+    {
+      "name": "default",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "options",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "dmss://system/SIMOS/UiAttributeOption",
+      "dimensions": "*",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "name": "optional",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
+      "name": "contained",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    },
+    {
+      "name": "disabled",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
+    },
+    {
+      "name": "required",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
+    },
+    {
+      "name": "mapping",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "collapsible",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    }
+  ]
+}

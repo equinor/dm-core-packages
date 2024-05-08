@@ -1,0 +1,17 @@
+{
+  "name": "Blueprints",
+  "type": "CORE:Package",
+  "_meta_": {
+    "type": "CORE:Meta",
+    "version": "0.0.1",
+    "dependencies": [
+      {
+        "type": "CORE:Dependency",
+        "alias": "CORE",
+        "address": "system/SIMOS",
+        "version": "0.0.1",
+        "protocol": "dmss"
+      }
+    ]
+  }
+}

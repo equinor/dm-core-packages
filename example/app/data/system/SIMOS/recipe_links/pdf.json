@@ -1,0 +1,13 @@
+{
+  "type": "dmss://system/SIMOS/RecipeLink",
+  "_blueprintPath_": "dmss://system/SIMOS/PDF",
+  "extends": ["dmss://system/SIMOS/NamedEntity", "_default_"],
+  "uiRecipes": [
+    {
+      "name": "PDFView",
+      "type": "dmss://system/SIMOS/UiRecipe",
+      "description": "Embedded PDF View",
+      "plugin": "'@development-framework/dm-core-plugins/pdf"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "JobStatus",
+  "type": "CORE:Enum",
+  "description": "String enum for valid job statuses",
+  "values": [
+    "registered",
+    "not started",
+    "starting",
+    "running",
+    "failed",
+    "completed",
+    "removed",
+    "unknown"
+  ],
+  "labels": [
+    "Registered",
+    "Not Started",
+    "Starting",
+    "Running",
+    "Failed",
+    "Completed",
+    "Removed",
+    "Unknown"
+  ]
+}

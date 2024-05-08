@@ -1,0 +1,56 @@
+{
+  "name": "StorageAttribute",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This describes a storage recipe attribute",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Which attribute this StorageAttribute applies to.",
+      "attributeType": "string",
+      "default": "root"
+    },
+    {
+      "name": "contained",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "WARNING: Change how the entity is stored. Changing this value will make current entities unavailable. If True, storageTypeAffinity will have no effect",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": true
+    },
+    {
+      "name": "storageAffinity",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Will be used to decide how the data will be stored",
+      "attributeType": "string",
+      "default": "default",
+      "enumType": "dmss://system/SIMOS/enums/StorageTypes",
+      "optional": true
+    },
+    {
+      "name": "label",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Friendly name visible to user",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "description",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Description for the StoreAttribute",
+      "attributeType": "string",
+      "default": "",
+      "optional": true
+    },
+    {
+      "name": "dimensions",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "dimensions",
+      "attributeType": "string",
+      "default": "",
+      "optional": true
+    }
+  ]
+}

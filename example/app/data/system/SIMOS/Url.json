@@ -1,0 +1,20 @@
+{
+  "name": "Url",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This an object containing a url, ie. 'https://example.com'.",
+  "extends": ["dmss://system/SIMOS/Entity"],
+  "attributes": [
+    {
+      "name": "value",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "This is the url string, ie. 'https://example.com'.",
+      "attributeType": "string"
+    },
+    {
+      "name": "label",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "The label for the url, will often be what is seen by the user instead of the url string itself.",
+      "attributeType": "string"
+    }
+  ]
+}

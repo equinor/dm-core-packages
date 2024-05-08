@@ -1,0 +1,25 @@
+{
+  "name": "Blob",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "Reference to a BLOB",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "_blob_id",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "id for the raw blob",
+      "attributeType": "string",
+      "optional": true,
+      "contained": true
+    },
+    {
+      "name": "size",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Size of the blob in bytes",
+      "attributeType": "integer",
+      "default": 0,
+      "optional": true,
+      "contained": true
+    }
+  ]
+}

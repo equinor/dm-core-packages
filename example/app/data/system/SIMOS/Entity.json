@@ -1,0 +1,44 @@
+{
+  "name": "Entity",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "Blueprint for an entity.",
+  "attributes": [
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": true,
+      "attributeType": "string",
+      "label": "Name"
+    },
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Type",
+      "default": "",
+      "optional": false
+    },
+    {
+      "name": "description",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "default": "",
+      "optional": true,
+      "label": "Description"
+    },
+    {
+      "name": "label",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "default": "",
+      "optional": true,
+      "label": "Label"
+    },
+    {
+      "name": "_meta_",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "dmss://system/SIMOS/Meta",
+      "optional": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Radix",
+  "type": "CORE:Blueprint",
+  "description": "Description of a executable job running as an Radix job",
+  "extends": ["JobHandler"],
+  "attributes": [
+    {
+      "name": "jobName",
+      "type": "CORE:BlueprintAttribute",
+      "description": "The name defined in the radixconfig.yaml file",
+      "attributeType": "string"
+    },
+    {
+      "name": "schedulerPort",
+      "type": "CORE:BlueprintAttribute",
+      "description": "The schedulerPort defined in the radixconfig.yaml file",
+      "attributeType": "string"
+    }
+  ]
+}

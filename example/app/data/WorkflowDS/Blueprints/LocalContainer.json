@@ -1,0 +1,13 @@
+{
+  "name": "LocalContainer",
+  "type": "CORE:Blueprint",
+  "description": "Description of a executable job running as a Container in a local Docker network",
+  "extends": ["Container"],
+  "attributes": [
+    {
+      "name": "network",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}

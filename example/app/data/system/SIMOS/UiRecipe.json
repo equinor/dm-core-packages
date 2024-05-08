@@ -1,0 +1,49 @@
+{
+  "name": "UiRecipe",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This describes uiRecipes",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "plugin",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
+    },
+    {
+      "name": "showRefreshButton",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
+      "name": "category",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "roles",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "dimensions": "*"
+    },
+    {
+      "name": "config",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "object",
+      "contained": true,
+      "optional": true
+    },
+    {
+      "name": "dimensions",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    }
+  ]
+}
