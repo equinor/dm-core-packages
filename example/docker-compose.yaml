@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   dmss:
     image: datamodelingtool.azurecr.io/dmss:${DMSS_TAG:-latest}
@@ -7,10 +5,10 @@ services:
     restart: unless-stopped
     environment:
       AUTH_ENABLED: 0
+      REDIS_PASSWORD: maf
+      MONGO_PASSWORD: maf
       ENVIRONMENT: ${ENVIRONMENT:-local}
 #      RESET_DATA_SOURCE: off
-      MONGO_USERNAME: maf
-      MONGO_PASSWORD: xd7wCEhEx4kszsecYFfC
       SECRET_KEY: sg9aeUM5i1JO4gNN8fQadokJa3_gXQMLBjSGGYcfscs= # Don't reuse this in production...
 #    volumes:
 #      - ../../data-modelling-storage-service/src:/code/src
@@ -18,12 +16,13 @@ services:
       - '5000:5000'
     depends_on:
       - db
+      - redis
 
   db:
     image: mongo:3.6
     environment:
       MONGO_INITDB_ROOT_USERNAME: maf
-      MONGO_INITDB_ROOT_PASSWORD: xd7wCEhEx4kszsecYFfC
+      MONGO_INITDB_ROOT_PASSWORD: maf
     volumes:
       - ./dmss-data/db:/data/db
 
@@ -33,11 +32,9 @@ services:
     restart: unless-stopped
     environment:
       SCHEDULER_ENVS_TO_EXPORT: 'PUBLIC_DMSS_API,SIMA_LICENSE'
-      SCHEDULER_REDIS_HOST: job-store
-      SCHEDULER_REDIS_PORT: 6379
-      SCHEDULER_REDIS_SSL: 'false'
+      SCHEDULER_REDIS_HOST: redis
+      SCHEDULER_REDIS_PASSWORD: maf
       DMSS_API: http://dmss:5000
-      API_DEBUG: 1
       AUTH_ENABLED: 0
       ENVIRONMENT: local
       AZURE_JOB_SUBSCRIPTION: 14d57366-b2ae-4da8-8b75-e273c6fdabe2
@@ -45,10 +42,10 @@ services:
       AZURE_SP_SECRET: ${AZURE_SP_SECRET}
       AZURE_JOB_TENANT_ID: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
       AZURE_JOB_CLIENT_ID: 97a6b5bd-63fb-42c6-bb75-7e5de2394ba0
-      MONGO_PASSWORD: xd7wCEhEx4kszsecYFfC
+      MONGO_PASSWORD: maf
       #SIMA_LICENSE: |
     depends_on:
-      - job-store
+      - redis
       - db
     volumes:
 #      - /var/run/docker.sock:/var/run/docker.sock # Needed for docker-in-docker jobs
@@ -69,8 +66,9 @@ services:
   #      ME_CONFIG_MONGODB_ADMINPASSWORD: xd7wCEhEx4kszsecYFfC
   #      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
 
-  job-store:
-    image: redis:6.2.5-alpine
-    command: 'redis-server --save 30 1 --loglevel notice'
-    #    volumes:
-    #     - ./redis_data:/data
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      REDIS_PASSWORD: maf
+      #    volumes:
+      #     - ./dmss-data/redis:/bitnami
