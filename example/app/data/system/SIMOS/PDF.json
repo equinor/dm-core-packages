@@ -1,0 +1,42 @@
+{
+  "name": "PDF",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "Contains metadata for a PDF, and a Blob type for the blob data",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "blob",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "id for the data blob",
+      "attributeType": "dmss://system/SIMOS/Blob",
+      "contained": true
+    },
+    {
+      "name": "size",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Size of the PDF in bytes",
+      "attributeType": "integer",
+      "default": 0,
+      "optional": true,
+      "contained": true
+    },
+    {
+      "name": "tags",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "List of tags used for indexing",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": true,
+      "contained": true
+    },
+    {
+      "name": "author",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Author of the PDF",
+      "attributeType": "string",
+      "default": "",
+      "contained": true,
+      "optional": true
+    }
+  ]
+}

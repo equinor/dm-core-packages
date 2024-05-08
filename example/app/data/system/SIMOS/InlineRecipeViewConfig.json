@@ -1,0 +1,12 @@
+{
+  "name": "InlineRecipeViewConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "extends": ["dmss://system/SIMOS/ViewConfig"],
+  "attributes": [
+    {
+      "name": "recipe",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "dmss://system/SIMOS/UiRecipe"
+    }
+  ]
+}

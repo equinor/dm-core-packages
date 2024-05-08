@@ -1,0 +1,21 @@
+{
+  "name": "Package",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This is a blueprint for a package that contains documents and other packages",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "isRoot",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean"
+    },
+    {
+      "name": "content",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "object",
+      "contained": true,
+      "dimensions": "*",
+      "optional": false
+    }
+  ]
+}

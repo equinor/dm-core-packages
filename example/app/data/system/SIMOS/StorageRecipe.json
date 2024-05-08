@@ -1,0 +1,30 @@
+{
+  "name": "StorageRecipe",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This describes a storage recipe",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "default": "default"
+    },
+    {
+      "name": "storageAffinity",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Will be used to decide how the data will be stored",
+      "attributeType": "string",
+      "default": "default",
+      "enumType": "dmss://system/SIMOS/enums/StorageTypes",
+      "optional": true
+    },
+    {
+      "name": "attributes",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "dmss://system/SIMOS/StorageAttribute",
+      "dimensions": "*",
+      "contained": true
+    }
+  ]
+}

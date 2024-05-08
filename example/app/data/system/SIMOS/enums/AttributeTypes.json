@@ -1,0 +1,7 @@
+{
+  "name": "AttributeTypes",
+  "type": "dmss://system/SIMOS/Enum",
+  "description": "This describes a list of attribute types",
+  "values": ["string", "integer", "number", "boolean", "blueprint"],
+  "labels": ["String", "Integer", "Number", "Boolean", "Blueprint"]
+}

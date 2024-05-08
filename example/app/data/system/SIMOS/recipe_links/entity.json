@@ -1,0 +1,12 @@
+{
+  "type": "dmss://system/SIMOS/RecipeLink",
+  "_blueprintPath_": "dmss://system/SIMOS/Entity",
+  "uiRecipes": [
+    {
+      "name": "DEFAULT_CREATE",
+      "type": "dmss://system/SIMOS/UiRecipe",
+      "description": "",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "File",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This describes a file",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "author",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "date",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "size",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "integer"
+    },
+    {
+      "name": "filetype",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "content",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "binary",
+      "optional": true
+    }
+  ]
+}

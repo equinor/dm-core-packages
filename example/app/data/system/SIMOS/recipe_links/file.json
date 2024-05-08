@@ -1,0 +1,10 @@
+{
+  "type": "dmss://system/SIMOS/RecipeLink",
+  "_blueprintPath_": "dmss://system/SIMOS/File",
+  "initialUiRecipe": {
+    "name": "Edit",
+    "type": "dmss://system/SIMOS/UiRecipe",
+    "description": "",
+    "plugin": "@development-framework/dm-core-plugins/yaml"
+  }
+}

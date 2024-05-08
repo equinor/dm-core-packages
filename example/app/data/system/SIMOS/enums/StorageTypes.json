@@ -1,0 +1,7 @@
+{
+  "name": "StorageTypes",
+  "type": "dmss://system/SIMOS/Enum",
+  "description": "Will be used to decide in which repository the data will be stored",
+  "values": ["default", "blob", "video", "large", "veryLarge"],
+  "labels": ["Default", "Blob data", "Video", "Large", "Very Large"]
+}

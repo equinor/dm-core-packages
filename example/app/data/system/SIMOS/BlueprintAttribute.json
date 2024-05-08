@@ -1,0 +1,72 @@
+{
+  "name": "BlueprintAttribute",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This describes a blueprint attribute",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Type",
+      "default": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": false
+    },
+    {
+      "name": "attributeType",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false,
+      "default": "string"
+    },
+    {
+      "name": "dimensions",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "ensureUID",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "If true, DMSS will ensure every complex child governed by this attribute, has a UUID",
+      "attributeType": "boolean",
+      "optional": true,
+      "default": false
+    },
+    {
+      "name": "label",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    },
+    {
+      "name": "default",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "any",
+      "optional": true
+    },
+    {
+      "name": "optional",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
+    },
+    {
+      "name": "contained",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": true,
+      "optional": true
+    },
+    {
+      "name": "enumType",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": ""
+    }
+  ]
+}

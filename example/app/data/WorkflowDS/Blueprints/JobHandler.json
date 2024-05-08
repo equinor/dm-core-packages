@@ -1,0 +1,27 @@
+{
+  "name": "JobHandler",
+  "type": "CORE:Blueprint",
+  "description": "Base jobHandler type. Other jobHandlers should extend from this one",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "environmentVariables",
+      "type": "CORE:BlueprintAttribute",
+      "description": "a list of strings on format 'myVar=myValue'",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": true
+    }
+  ]
+}

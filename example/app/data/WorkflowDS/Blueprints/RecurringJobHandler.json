@@ -1,0 +1,6 @@
+{
+  "name": "RecurringJobHandler",
+  "type": "CORE:Blueprint",
+  "description": "",
+  "extends": ["JobHandler"]
+}

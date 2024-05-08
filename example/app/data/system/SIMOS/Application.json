@@ -1,0 +1,28 @@
+{
+  "name": "Application",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "This describes an application",
+  "extends": ["dmss://system/SIMOS/NamedEntity"],
+  "attributes": [
+    {
+      "name": "label",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "dataSources",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": false
+    },
+    {
+      "name": "roles",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "dmss://system/SIMOS/Role",
+      "optional": true,
+      "dimensions": "*"
+    }
+  ]
+}

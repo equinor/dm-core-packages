@@ -1,0 +1,49 @@
+{
+  "type": "dmss://system/SIMOS/RecipeLink",
+  "_blueprintPath_": "dmss://system/SIMOS/Blueprint",
+  "uiRecipes": [
+    {
+      "name": "Yaml",
+      "type": "dmss://system/SIMOS/UiRecipe",
+      "plugin": "@development-framework/dm-core-plugins/yaml"
+    },
+    {
+      "name": "Edit",
+      "type": "dmss://system/SIMOS/UiRecipe",
+      "description": "Default blueprint edit",
+      "plugin": "@development-framework/dm-core-plugins/blueprint"
+    },
+    {
+      "name": "Diagram",
+      "type": "dmss://system/SIMOS/UiRecipe",
+      "plugin": "blueprint-hierarchy"
+    }
+  ],
+  "storageRecipes": [
+    {
+      "name": "DefaultStorageRecipe",
+      "type": "dmss://system/SIMOS/StorageRecipe",
+      "description": "",
+      "attributes": [
+        {
+          "name": "attributes",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "dimensions": "*",
+          "contained": true
+        },
+        {
+          "name": "storageRecipes",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "dimensions": "*",
+          "contained": true
+        },
+        {
+          "name": "uiRecipes",
+          "type": "dmss://system/SIMOS/StorageAttribute",
+          "dimensions": "*",
+          "contained": true
+        }
+      ]
+    }
+  ]
+}

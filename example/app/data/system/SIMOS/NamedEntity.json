@@ -1,0 +1,15 @@
+{
+  "name": "NamedEntity",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "Blueprint for an entity which MUST have a name",
+  "extends": ["dmss://system/SIMOS/Entity"],
+  "attributes": [
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "optional": false,
+      "attributeType": "string",
+      "label": "Name"
+    }
+  ]
+}
