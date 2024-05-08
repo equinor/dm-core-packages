@@ -59,10 +59,16 @@ jobs:
         run: docker-compose pull
         working-directory: example/
 
+      - name: Run docker images
+        env:
+          ENVIRONMENT: CI
+        run: docker-compose up -d
+        working-directory: example/
+
       - name: Capture output DMSS version
         id: capture_dmss_version
         run: |
-          docker-compose run --rm dmss cat src/version.txt > dmss_version.txt
+          docker-compose exec -t dmss cat src/version.txt > dmss_version.txt
           dmss_version=$(tail -n 1 dmss_version.txt)
           echo "dmss_version=$dmss_version" >> "$GITHUB_OUTPUT"
         working-directory: example/
@@ -70,15 +76,9 @@ jobs:
       - name: Capture job-api version
         id: capture_job_version
         run: |
-          docker-compose run --rm job-api cat version.txt > job_version.txt
+          docker-compose exec -t job-api cat version.txt > job_version.txt
           job_version=$(tail -n 1 job_version.txt)
           echo "job_version=$job_version" >> "$GITHUB_OUTPUT"
-        working-directory: example/
-
-      - name: Run docker images
-        env:
-          ENVIRONMENT: CI
-        run: docker-compose up -d
         working-directory: example/
 
       - name: Pack core plugins
@@ -154,6 +154,10 @@ jobs:
           name: test-results
           path: e2e/test-results/
           retention-days: 30
+
+      - name: Output dmss logs on failure
+        if: failure()
+        run: docker logs example_dmss_1
 
       - uses: actions/upload-artifact@v3
         if: always()
