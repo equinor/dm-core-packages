@@ -8,7 +8,7 @@
       "data_types": ["blob"],
       "database": "DemoDataSource",
       "host": "db",
-      "password": "xd7wCEhEx4kszsecYFfC",
+      "password": "maf",
       "port": 27017,
       "tls": false,
       "username": "maf"
