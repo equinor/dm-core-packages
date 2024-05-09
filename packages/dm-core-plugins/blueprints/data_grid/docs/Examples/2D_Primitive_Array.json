@@ -1,0 +1,44 @@
+{
+  "title": "2D Primitive Array",
+  "description": "Implementation of two dimensional lists of primitives doesn't really differ from one-dimensional lists in recipe config, but it is somewhat expected that your nested data has the same length.",
+  "note": "",
+  "showDemo": true,
+  "entityFilePrefix": "colors",
+  "blueprint": {
+    "name": "ColorList",
+    "type": "dmss://system/SIMOS/Blueprint",
+    "attributes": [
+      {
+        "name": "type",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string"
+      },
+      {
+        "name": "colors",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string",
+        "dimensions": "*,*"
+      }
+    ]
+  },
+  "entity": {
+    "type": "./ColorList",
+    "colors": [
+      ["red", "#FF0000", "rgb(255, 0, 0)"],
+      ["blue", "#0000FF", "rgb(0, 0, 255)"],
+      ["green", "#00FF00", "rgb(0, 255, 0)"]
+    ]
+  },
+  "recipe": {
+    "name": "colors",
+    "type": "CORE:UiRecipe",
+    "description": "List of colors",
+    "plugin": "@development-framework/dm-core-plugins/data_grid",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
+      "fieldNames": ["colors"],
+      "columnLabels": ["NAME", "HEX", "RGB"],
+      "showRows": false
+    }
+  }
+}

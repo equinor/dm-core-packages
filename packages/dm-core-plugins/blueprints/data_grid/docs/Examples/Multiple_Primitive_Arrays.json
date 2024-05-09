@@ -1,0 +1,54 @@
+{
+  "title": "Multiple Primitive Arrays",
+  "description": "Example with multiple list-attributes passed to DataGrid",
+  "note": "It is only possible to pass multiple list fields to DataGrid if they are one-dimensional.",
+  "showDemo": true,
+  "entityFilePrefix": "colors",
+  "blueprint": {
+    "name": "ColorList",
+    "type": "dmss://system/SIMOS/Blueprint",
+    "attributes": [
+      {
+        "name": "type",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string"
+      },
+      {
+        "name": "red",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string",
+        "dimensions": "*"
+      },
+      {
+        "name": "blue",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string",
+        "dimensions": "*"
+      },
+      {
+        "name": "green",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string",
+        "dimensions": "*"
+      }
+    ]
+  },
+  "entity": {
+    "type": "./ColorList",
+    "red": ["red", "#FF0000", "rgb(255, 0, 0)"],
+    "blue": ["blue", "#0000FF", "rgb(0, 0, 255)"],
+    "green": ["green", "#00FF00", "rgb(0, 255, 0)"]
+  },
+  "recipe": {
+    "name": "cars",
+    "type": "CORE:UiRecipe",
+    "description": "List of cars",
+    "plugin": "@development-framework/dm-core-plugins/data_grid",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
+      "fieldNames": ["red", "blue", "green"],
+      "columnLabels": ["NAME", "HEX", "RGB"],
+      "showRows": false
+    }
+  }
+}

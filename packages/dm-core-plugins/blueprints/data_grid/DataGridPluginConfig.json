@@ -99,7 +99,7 @@
     {
       "name": "rowsPerPage",
       "type": "CORE:BlueprintAttribute",
-      "description": "How many rows per page should be pre-selected in the pagination when datagrid loads.",
+      "description": "How many rows per page should be pre-selected in the pagination when DataGrid loads.",
       "attributeType": "number",
       "default": 25,
       "optional": true
