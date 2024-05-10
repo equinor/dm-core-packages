@@ -1,0 +1,56 @@
+{
+  "title": "Basic Form",
+  "description": "Minimal example for use of form plugin",
+  "note": "",
+  "showDemo": true,
+  "entityFilePrefix": "car",
+  "blueprint": {
+    "name": "Car",
+    "type": "CORE:Blueprint",
+    "description": "",
+    "attributes": [
+      {
+        "name": "type",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string",
+        "optional": false
+      },
+      {
+        "name": "name",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "string",
+        "label": "Manufacturer"
+      },
+      {
+        "name": "model",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "string",
+        "label": "Model"
+      },
+      {
+        "name": "color",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "string",
+        "label": "Color",
+        "optional": true
+      }
+    ]
+  },
+  "entity": {
+    "type": "./Car",
+    "_id": "volvo-in-car-list",
+    "name": "Volvo",
+    "color": "White",
+    "model": "XC40"
+  },
+  "recipe": {
+    "name": "car",
+    "type": "CORE:UiRecipe",
+    "description": "Car form",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "fields": ["name", "color", "model"]
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "title": "Nested Form",
+  "description": "Nested example for use of form plugin",
+  "note": "",
+  "showDemo": false,
+  "entityFilePrefix": "person",
+  "blueprint": {
+    "name": "Person",
+    "type": "CORE:Blueprint",
+    "description": "",
+    "attributes": [
+      {
+        "name": "type",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string",
+        "optional": false
+      },
+      {
+        "name": "name",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "string",
+        "label": "Name"
+      },
+      {
+        "name": "data_of_birth",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "string",
+        "label": "Date of birth"
+      },
+      {
+        "name": "address",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "./Address",
+        "label": "Address"
+      }
+    ]
+  },
+  "entity": {
+    "type": "./Person",
+    "_id": "1179c897-df62-445f-87e4-f393b4253936",
+    "name": "Joe Biden",
+    "date_of_birth": "1942-11-20T00:00:00.000+01:00",
+    "address": {
+      "street": "1600 Pennsylvania Avenue NW",
+      "postal_code": "20500",
+      "city": "Washington DC"
+    }
+  },
+  "recipe": {
+    "name": "person",
+    "type": "CORE:UiRecipe",
+    "description": "Person form",
+    "plugin": "@development-framework/dm-core-plugins/form",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/form/FormInput",
+      "attributes": [
+        {
+          "name": "date_of_birth",
+          "type": "PLUGINS:dm-core-plugins/form/fields/StringField",
+          "widget": "DateTimeWidget"
+        },
+        {
+          "name": "address",
+          "type": "PLUGINS:dm-core-plugins/form/fields/ObjectField",
+          "showInline": true,
+          "uiRecipe": "Edit"
+        }
+      ],
+      "fields": ["name", "date_of_birth", "address"]
+    }
+  },
+  "childBlueprints": [
+    {
+      "name": "Address",
+      "type": "CORE:Blueprint",
+      "description": "",
+      "attributes": [
+        {
+          "name": "type",
+          "type": "dmss://system/SIMOS/BlueprintAttribute",
+          "attributeType": "string",
+          "optional": false
+        },
+        {
+          "name": "street",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Street"
+        },
+        {
+          "name": "postal_code",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Postal code"
+        },
+        {
+          "name": "city",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "City"
+        }
+      ]
+    }
+  ]
+}
