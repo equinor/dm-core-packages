@@ -1,0 +1,66 @@
+{
+  "title": "Basic Example",
+  "description": "Minimal example of how to configure tab plugin",
+  "note": "",
+  "showDemo": true,
+  "entityFilePrefix": "sections",
+  "blueprint": {
+    "name": "Section",
+    "type": "CORE:Blueprint",
+    "description": "",
+    "attributes": [
+      {
+        "name": "type",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string",
+        "optional": false
+      }
+    ]
+  },
+  "entity": {
+    "type": "./Section",
+    "_id": "1179c897-df62-445f-87e4-f393b4253936"
+  },
+  "recipe": {
+    "name": "UiRecipesSelector",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Tab 1",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "box",
+              "type": "CORE:UiRecipe",
+              "plugin": "custom-box-plugin",
+              "config": {
+                "type": "PLUGINS:custom-box-plugin-blueprint",
+                "content": "Item 1"
+              }
+            }
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Tab 2",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "box",
+              "type": "CORE:UiRecipe",
+              "plugin": "custom-box-plugin",
+              "config": {
+                "type": "PLUGINS:custom-box-plugin-blueprint",
+                "content": "Item 2"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
