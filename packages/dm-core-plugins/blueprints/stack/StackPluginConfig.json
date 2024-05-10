@@ -10,6 +10,7 @@
     {
       "name": "items",
       "type": "CORE:BlueprintAttribute",
+      "description": "Pass list of viewConfigs",
       "attributeType": "CORE:ViewConfig",
       "dimensions": "*"
     },
@@ -55,7 +56,7 @@
     {
       "name": "wrapItems",
       "type": "CORE:BlueprintAttribute",
-      "description": "When using horizontal direction, make items wrap under eachother when width is getting too small to fit all items",
+      "description": "When using horizontal direction, make items wrap under each other when width is getting too small to fit all items",
       "attributeType": "boolean",
       "optional": true,
       "default": false
@@ -63,7 +64,7 @@
     {
       "name": "classNames",
       "type": "CORE:BlueprintAttribute",
-      "description": "Add tailwind classNames to wrapper",
+      "description": "Add classNames to wrapper",
       "attributeType": "string",
       "dimensions": "*",
       "optional": true
