@@ -1,0 +1,173 @@
+{
+  "title": "Nested Data",
+  "description": "Example for using and configuring nested data in table",
+  "note": "",
+  "showDemo": true,
+  "entityFilePrefix": "cars",
+  "blueprint": {
+    "name": "CarList",
+    "type": "dmss://system/SIMOS/Blueprint",
+    "attributes": [
+      {
+        "name": "type",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string"
+      },
+      {
+        "name": "name",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string"
+      },
+      {
+        "name": "cars",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "./Car",
+        "dimensions": "*"
+      }
+    ]
+  },
+  "entity": {
+    "type": "./CarList",
+    "cars": [
+      {
+        "_id": "volvo-in-car-list",
+        "name": "Volvo",
+        "type": "./Car",
+        "color": "White",
+        "model": "XC40",
+        "engine": {
+          "name": "V60",
+          "type": "./blueprints/Engine",
+          "hp": 1000
+        }
+      },
+      {
+        "_id": "audi-in-car-list",
+        "name": "Audi",
+        "type": "./Car",
+        "color": "Black",
+        "model": "A2",
+        "engine": {
+          "name": "TDI 1.6",
+          "type": "./blueprints/Engine",
+          "hp": 120
+        }
+      },
+      {
+        "_id": "bmw-in-car-list",
+        "name": "BMW",
+        "type": "./Car",
+        "color": "Blue",
+        "model": "X1",
+        "engine": {
+          "name": "TDI 1.8",
+          "type": "./blueprints/Engine",
+          "hp": 122
+        }
+      }
+    ]
+  },
+  "recipe": {
+    "name": "cars",
+    "type": "CORE:UiRecipe",
+    "description": "List of cars",
+    "plugin": "@development-framework/dm-core-plugins/table",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+      "columns": [
+        {
+          "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+          "data": "name",
+          "label": "Name"
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+          "data": "model",
+          "label": "Model"
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+          "data": "color",
+          "label": "Color"
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+          "data": "engine.name",
+          "label": "Engine"
+        }
+      ],
+      "variant": [
+        {
+          "name": "view",
+          "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+        }
+      ]
+    }
+  },
+  "scope": "cars",
+  "childBlueprints": [
+    {
+      "name": "Car",
+      "type": "CORE:Blueprint",
+      "description": "",
+      "attributes": [
+        {
+          "name": "type",
+          "type": "dmss://system/SIMOS/BlueprintAttribute",
+          "attributeType": "string",
+          "optional": false
+        },
+        {
+          "name": "name",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Manufacturer"
+        },
+        {
+          "name": "model",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Model"
+        },
+        {
+          "name": "color",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Color",
+          "optional": true
+        },
+        {
+          "name": "engine",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "./Engine",
+          "label": "Engine",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Engine",
+      "type": "CORE:Blueprint",
+      "description": "",
+      "attributes": [
+        {
+          "name": "type",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "optional": false
+        },
+        {
+          "name": "name",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Manufacturer"
+        },
+        {
+          "name": "hp",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "number"
+        }
+      ]
+    }
+  ]
+}
