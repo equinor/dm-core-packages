@@ -60,6 +60,25 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.51.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.4...dm-core-plugins-v1.51.0) (2024-05-10)
+
+
+### Features
+
+* **explorer:** menu item to 'view raw' (yaml and basic edit) ([fa495f0](https://github.com/equinor/dm-core-packages/commit/fa495f041460fd67ee8e23d32547ab0cccaa268c))
+
+
+### Bug Fixes
+
+* add missing wrapper to sidebar content ([5d78cd4](https://github.com/equinor/dm-core-packages/commit/5d78cd495536af1fd6fac7be92060395c87189bf))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.43.3 to ^1.44.0
+
 ## [1.50.4](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.3...dm-core-plugins-v1.50.4) (2024-03-19)
 
 
