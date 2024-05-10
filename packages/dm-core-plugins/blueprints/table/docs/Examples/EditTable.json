@@ -1,0 +1,122 @@
+{
+  "title": "Edit Table",
+  "description": "Modify, add and delete data in edit variant of table",
+  "note": "",
+  "showDemo": true,
+  "entityFilePrefix": "cars",
+  "blueprint": {
+    "name": "CarList",
+    "type": "dmss://system/SIMOS/Blueprint",
+    "attributes": [
+      {
+        "name": "type",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string"
+      },
+      {
+        "name": "name",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "string"
+      },
+      {
+        "name": "cars",
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "attributeType": "./Car",
+        "dimensions": "*"
+      }
+    ]
+  },
+  "entity": {
+    "type": "./CarList",
+    "cars": [
+      {
+        "_id": "volvo-in-car-list",
+        "name": "Volvo",
+        "type": "./Car",
+        "color": "White",
+        "model": "XC40"
+      },
+      {
+        "_id": "audi-in-car-list",
+        "name": "Audi",
+        "type": "./Car",
+        "color": "Black",
+        "model": "A2"
+      },
+      {
+        "_id": "bmw-in-car-list",
+        "name": "BMW",
+        "type": "./Car",
+        "color": "Blue",
+        "model": "X1"
+      }
+    ]
+  },
+  "recipe": {
+    "name": "cars",
+    "type": "CORE:UiRecipe",
+    "description": "List of cars",
+    "plugin": "@development-framework/dm-core-plugins/table",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+      "columns": [
+        {
+          "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+          "data": "name",
+          "label": "Name"
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+          "data": "model",
+          "label": "Model"
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+          "data": "color",
+          "label": "Color"
+        }
+      ],
+      "variant": [
+        {
+          "name": "edit",
+          "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+        }
+      ]
+    }
+  },
+  "scope": "cars",
+  "childBlueprints": [
+    {
+      "name": "Car",
+      "type": "CORE:Blueprint",
+      "description": "",
+      "attributes": [
+        {
+          "name": "type",
+          "type": "dmss://system/SIMOS/BlueprintAttribute",
+          "attributeType": "string",
+          "optional": false
+        },
+        {
+          "name": "name",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Manufacturer"
+        },
+        {
+          "name": "model",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Model"
+        },
+        {
+          "name": "color",
+          "type": "CORE:BlueprintAttribute",
+          "attributeType": "string",
+          "label": "Color",
+          "optional": true
+        }
+      ]
+    }
+  ]
+}
