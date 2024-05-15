@@ -5265,3 +5265,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.0
     * **JOB VERSION**: 
+* chore: move from blueprints folder (2024-05-15T18:32:21Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9101200604/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.0
+    * **JOB VERSION**: 
