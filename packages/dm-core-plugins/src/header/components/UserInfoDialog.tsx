@@ -50,7 +50,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
   const { isOpen, setIsOpen } = props
   const [apiKey, setAPIKey] = useState<string | null>(null)
   const { tokenData, token, logOut } = useContext(AuthContext)
-  const { dmssAPI, role, setRole, roles } = useApplication()
+  const { dmssAPI, role, setRole, roles, name } = useApplication()
   const [selectedRole, setSelectedRole] = useState<TRole>(role)
 
   return (

@@ -24,6 +24,12 @@
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
       "dimensions": "*"
+    },
+    {
+      "name": "adminRole",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
     }
   ]
 }
