@@ -1,0 +1,5 @@
+{
+  "folder": "form",
+  "main": "FormInput",
+  "subfolders": ["fields", "widgets"]
+}
