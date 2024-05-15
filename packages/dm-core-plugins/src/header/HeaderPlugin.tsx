@@ -8,11 +8,12 @@ import {
   useBlueprint,
   useDocument,
 } from '@development-framework/dm-core'
-import { Icon, TopBar } from '@equinor/eds-core-react'
+import { Icon, Menu, TopBar, Typography } from '@equinor/eds-core-react'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { account_circle, info_circle } from '@equinor/eds-icons'
+import { account_circle, info_circle, menu, refresh } from '@equinor/eds-icons'
+import { toast } from 'react-toastify'
 
 import { AboutDialog } from './components/AboutDialog'
 import { AppSelector } from './components/AppSelector'
@@ -21,7 +22,7 @@ import { UserInfoDialog } from './components/UserInfoDialog'
 const Icons = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: row-reverse;
+  flex-direction: row;
 
   > * {
     margin-left: 40px;
@@ -50,12 +51,14 @@ type THeaderPluginConfig = {
   uiRecipesList: string[]
   hideUserInfo: boolean
   hideAbout: boolean
+  adminRole?: string
 }
 
 const defaultHeaderPluginConfig = {
   uiRecipesList: [],
   hideUserInfo: false,
   hideAbout: false,
+  adminRole: 'dmss-admin',
 }
 
 type TRecipeConfigAndPlugin = {
@@ -75,12 +78,15 @@ type TRecipeConfigAndPlugin = {
 
 export default (props: IUIPlugin): React.ReactElement => {
   const { idReference, config: passedConfig, type } = props
-  const config: THeaderPluginConfig = {
+  const config: THeaderPluginConfig & { adminRole: string } = {
     ...defaultHeaderPluginConfig,
     ...passedConfig,
   }
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const { document: entity, isLoading } = useDocument<TApplication>(idReference)
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
+  const { roles, role, dmssAPI, name } = useApplication()
   const [aboutOpen, setAboutOpen] = useState(false)
   const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
   const { getUiPlugin } = useApplication()
@@ -142,18 +148,59 @@ export default (props: IUIPlugin): React.ReactElement => {
         <TopBar.Actions>
           <Icons>
             <ClickableIcon
-              onClick={() => setAboutOpen(true)}
-              hidden={config.hideAbout}
-            >
-              <Icon data={info_circle} size={24} title='About' />
-            </ClickableIcon>
-            <ClickableIcon
               onClick={() => setVisibleUserInfo(true)}
               hidden={config.hideUserInfo}
             >
               <Icon data={account_circle} size={24} title='User' />
             </ClickableIcon>
+            <ClickableIcon
+              onClick={() => setAboutOpen(true)}
+              hidden={config.hideAbout}
+            >
+              <Icon data={info_circle} size={24} title='About' />
+            </ClickableIcon>
+            {roles.map((r) => r.name).includes(config.adminRole) && (
+              <ClickableIcon
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                ref={setAnchorEl}
+              >
+                <Icon data={menu} />
+              </ClickableIcon>
+            )}
           </Icons>
+          <Menu
+            open={isMenuOpen}
+            id='menu-default'
+            aria-labelledby='anchor-default'
+            onClose={() => setIsMenuOpen(false)}
+            anchorEl={anchorEl}
+          >
+            <Menu.Item>
+              <Icon data={refresh} title='refresh_app' />
+              <Typography
+                group='navigation'
+                variant='menu_title'
+                as='span'
+                onClick={() => {
+                  dmssAPI
+                    .refreshLookup({ application: name })
+                    .then(() =>
+                      toast.warning(
+                        `RecipeLookup for app '${name}' changed. Close open tabs to clear cache.`,
+                        { autoClose: false }
+                      )
+                    )
+                    .catch((error: any) => {
+                      console.error(error)
+                      toast.error(`Failed to refresh application '${name}'`)
+                    })
+                  setIsMenuOpen(false)
+                }}
+              >
+                Refresh application recipes
+              </Typography>
+            </Menu.Item>
+          </Menu>
         </TopBar.Actions>
       </TopBar>
       <AboutDialog
