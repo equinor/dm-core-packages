@@ -14,7 +14,9 @@ export const ACLSelect = ({
       width={'120px'}
       value={value}
       onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-        handleChange(AccessLevel[event.target.value as AccessLevel])
+        handleChange(
+          AccessLevel[event.target.value as keyof typeof AccessLevel]
+        )
       }}
     >
       {Object.keys(AccessLevel).map((accessLevelKey) => (

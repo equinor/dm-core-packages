@@ -51,7 +51,7 @@ export const ACLUserRolesPanel = ({
         <Button
           onClick={() =>
             handleChange({
-              [aclKey]: { ...roles, [newRole]: AccessLevel.NONE },
+              [aclKey]: { ...roles, [newRole]: AccessLevel.None },
             })
           }
           disabled={!newRole}
