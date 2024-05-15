@@ -27,7 +27,7 @@ export const ACLOwnerPanel = ({
       <div className='flex items-center'>
         Others:
         <ACLSelect
-          value={acl.others || AccessLevel.NONE}
+          value={acl.others || AccessLevel.None}
           handleChange={(newValue: AccessLevel) =>
             handleChange({ others: newValue })
           }

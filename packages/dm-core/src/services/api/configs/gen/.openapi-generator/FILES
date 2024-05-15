@@ -33,11 +33,11 @@ models/export-meta-response.ts
 models/get-attribute-response.ts
 models/get-blueprint-response.ts
 models/index.ts
+models/initialuirecipes.ts
 models/lookup.ts
 models/patdata.ts
 models/recipe-attribute.ts
 models/recipe.ts
-models/repository-type.ts
 models/repository.ts
 models/storage-attribute.ts
 models/storage-data-types.ts

@@ -35,7 +35,7 @@ export const AccessControlListComponent = (props: {
     owner: '',
     roles: {},
     users: {},
-    others: AccessLevel.READ,
+    others: AccessLevel.Read,
   })
 
   const convertACLFromUserIdToUsername = async (
