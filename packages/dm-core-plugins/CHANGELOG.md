@@ -60,6 +60,36 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.52.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.51.0...dm-core-plugins-v1.52.0) (2024-05-16)
+
+
+### Features
+
+* add datagrid docs and examples ([bbd44b4](https://github.com/equinor/dm-core-packages/commit/bbd44b4148340a72895adb1b4b16b38ef57046aa))
+* form docs ([46e66fb](https://github.com/equinor/dm-core-packages/commit/46e66fb434df3bfd2a2fb667299c9796e6a873cc))
+* listplugin docs ([640165d](https://github.com/equinor/dm-core-packages/commit/640165d163b0b97e75074ead853927acb8a5b9a2))
+* refresh application button ([14173ef](https://github.com/equinor/dm-core-packages/commit/14173efa8d664ac2f6a0c4a2f15e30db094ea03d))
+* stack docs ([4e6aa56](https://github.com/equinor/dm-core-packages/commit/4e6aa56034b9247779c305c09661786bae19e5a8))
+* table docs ([0676703](https://github.com/equinor/dm-core-packages/commit/0676703307bd921d3cea8d9d1cfe51dd150f6567))
+* view selector docs ([906f87f](https://github.com/equinor/dm-core-packages/commit/906f87fe15cb2b1776801552b3cef1cb8a7b5aa0))
+
+
+### Miscellaneous Chores
+
+* move from blueprints folder ([a383f2f](https://github.com/equinor/dm-core-packages/commit/a383f2fd77e9c2b8298422dc2e7a207d54d04c2a))
+* move from blueprints folder ([474e025](https://github.com/equinor/dm-core-packages/commit/474e025b345bcf4e042e72889833a9fcfaa6d865))
+* move from blueprints folder ([4d3640a](https://github.com/equinor/dm-core-packages/commit/4d3640ab96379ef4adb68a1ec999e14a8daecbd4))
+* move from blueprints folder ([a5739ae](https://github.com/equinor/dm-core-packages/commit/a5739ae85b1b2690bcd254aaec783e709b8fc941))
+* move from blueprints folder ([929b532](https://github.com/equinor/dm-core-packages/commit/929b5320ddd90640545a2b3caae864a5ee4cbff7))
+* move from blueprints folder ([5c7370d](https://github.com/equinor/dm-core-packages/commit/5c7370d245867db08fc1853d28c144d68b2b2801))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.44.0 to ^1.44.1
+
 ## [1.51.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.50.4...dm-core-plugins-v1.51.0) (2024-05-10)
 
 

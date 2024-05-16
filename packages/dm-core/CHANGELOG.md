@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.44.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.44.0...dm-core-v1.44.1) (2024-05-16)
+
+
+### Miscellaneous Chores
+
+* update generated API ([c76a52b](https://github.com/equinor/dm-core-packages/commit/c76a52bd25344576b5b5ccf9c648fcaec2bb9db8))
+
 ## [1.44.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.43.3...dm-core-v1.44.0) (2024-05-10)
 
 
