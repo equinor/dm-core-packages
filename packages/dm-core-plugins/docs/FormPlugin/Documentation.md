@@ -49,26 +49,26 @@ Pass field names defined in blueprint to fields array.
 
 
 ### Available Widgets \{#available-widgets}
-`CheckboxWidget`: [Blueprint](./Blueprints.md#CheckboxWidget)
+`CheckboxWidget`
 
-`TextWidget`: [Blueprint](./Blueprints.md#TextWidget)
+`TextWidget`
 
-`TextareaWidget`: [Blueprint](./Blueprints.md#TextareaWidget)
+`TextareaWidget`
 
-`BlueprintPickerWidget`: [Blueprint](./Blueprints.md#BlueprintPickerWidget)
+`BlueprintPickerWidget`
 
-`TypeWidget`: [Blueprint](./Blueprints.md#TypeWidget)
+`TypeWidget`
 
-`SwitchWidget`: [Blueprint](./Blueprints.md#SwitchWidget)
+`SwitchWidget`
 
-`SelectWidget`: [Blueprint](./Blueprints.md#SelectWidget)
+`SelectWidget`
 
-`NumberWidget`: [Blueprint](./Blueprints.md#NumberWidget)
+`NumberWidget`
 
-`DateTimeWidget`: [Blueprint](./Blueprints.md#DateTimeWidget)
+`DateTimeWidget`
 
-`DimensionalScalarWidget`: [Blueprint](./Blueprints.md#DimensionalScalarWidget)
+`DimensionalScalarWidget`
 
-`EntityPickerWidget`: [Blueprint](./Blueprints.md#EntityPickerWidget)
+`EntityPickerWidget`
 
-`HyperlinkWidget`: [Blueprint](./Blueprints.md#HyperlinkWidget)
+`HyperlinkWidget`
