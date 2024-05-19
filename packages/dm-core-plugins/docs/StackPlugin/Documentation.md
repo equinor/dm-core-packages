@@ -25,4 +25,4 @@ items: [
 ```
 
 ### Placement config \{#placement-config}
-In the plugins [config blueprint](./Blueprints.md) you can see all the ways you can place and space views.
+In the plugins [config blueprint](./Blueprints) you can see all the ways you can place and space views.
