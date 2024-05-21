@@ -106,10 +106,7 @@ export function useDocument<T>(
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)
-        if (notify)
-          toast.error(
-            'Unable to update document, with message: ' + error.message
-          )
+        if (notify) toast.error(error.response?.data.message ?? error.message)
         setError(error.response?.data || { message: error.name, data: error })
       })
       .finally(() => setLoading(false))
