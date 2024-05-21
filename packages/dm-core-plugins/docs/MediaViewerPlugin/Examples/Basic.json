@@ -1,0 +1,51 @@
+{
+  "title": "Basic Example",
+  "description": "Minimal example of how to configure media viewer plugin",
+  "note": "",
+  "showDemo": false,
+  "entityFilePrefix": "sections",
+  "blueprint": {
+    "name": "MediaViewer",
+    "type": "CORE:Blueprint",
+    "attributes": [
+      {
+        "name": "type",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "string"
+      },
+      {
+        "name": "name",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "string"
+      },
+      {
+        "name": "file",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "CORE:File",
+        "contained": false
+      }
+    ]
+  },
+  "entity": {
+    "name": "mediaViewerMOV",
+    "type": "./MediaViewer",
+    "file": {
+      "type": "dmss://system/SIMOS/Reference",
+      "address": "./static/example_image",
+      "referenceType": "link"
+    }
+  },
+  "recipe": {
+    "name": "MediaExample",
+    "type": "CORE:UiRecipe",
+    "description": "Media example with basic config",
+    "plugin": "@development-framework/dm-core-plugins/media-viewer",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/media_viewer/MediaViewerConfig",
+      "description": "some description",
+      "caption": "some header",
+      "showMeta": true,
+      "width": 1000
+    }
+  }
+}
