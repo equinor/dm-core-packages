@@ -5285,3 +5285,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.0
     * **JOB VERSION**: 
+* feat: missing mediaviewer and responsive grid docs (2024-05-16T12:17:58Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9170580820/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.0
+    * **JOB VERSION**: 
