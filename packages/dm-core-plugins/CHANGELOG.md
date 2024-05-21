@@ -60,6 +60,23 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.53.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.52.0...dm-core-plugins-v1.53.0) (2024-05-21)
+
+
+### Features
+
+* missing mediaviewer and responsive grid docs ([a5bca34](https://github.com/equinor/dm-core-packages/commit/a5bca34e3c62c283bee74c9458c9a7667661f6f6))
+
+
+### Bug Fixes
+
+* better linking ([8b81dac](https://github.com/equinor/dm-core-packages/commit/8b81dacf6a074e3ceabf7f98f7d56aff09ef80da))
+
+
+### Miscellaneous Chores
+
+* remove deprecated links to blueprints ([b2c0897](https://github.com/equinor/dm-core-packages/commit/b2c08973af32d2acbc517ff8d9f23a87c5088a2a))
+
 ## [1.52.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.51.0...dm-core-plugins-v1.52.0) (2024-05-16)
 
 
