@@ -1,0 +1,105 @@
+{
+  "title": "Basic Example",
+  "description": "Minimal example of how to configure responsive grid plugin",
+  "note": "As you can see in the config - this example is configured for items to take up 4/12 column on medium (md) sized screens or bigger, and 12/12 columns on small screens.",
+  "showDemo": true,
+  "entityFilePrefix": "example",
+  "blueprint": {
+    "type": "CORE:Blueprint",
+    "name": "Example",
+    "description": "",
+    "attributes": [
+      {
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "name": "type",
+        "attributeType": "string",
+        "optional": false
+      }
+    ]
+  },
+  "entity": {
+    "type": "./Example",
+    "_id": "1179c897-df62-445f-87e4-f393b4253936"
+  },
+  "recipe": {
+    "type": "CORE:UiRecipe",
+    "name": "grid_example",
+    "description": "Person form",
+    "plugin": "@development-framework/dm-core-plugins/responsive_grid",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/responsive_grid/ResponsiveGridPluginConfig",
+      "rows": [
+        {
+          "type": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
+          "columns": [
+            {
+              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
+              "viewConfig": {
+                "type": "CORE:InlineRecipeViewConfig",
+                "recipe": {
+                  "type": "CORE:UiRecipe",
+                  "name": "box",
+                  "plugin": "custom-box-plugin",
+                  "config": {
+                    "type": "PLUGINS:custom-box-plugin-blueprint",
+                    "content": "Item 1"
+                  }
+                }
+              },
+              "size": {
+                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+                "sm": 12,
+                "md": 4
+              }
+            },
+            {
+              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
+              "viewConfig": {
+                "type": "CORE:InlineRecipeViewConfig",
+                "recipe": {
+                  "type": "CORE:UiRecipe",
+                  "name": "box",
+                  "plugin": "custom-box-plugin",
+                  "config": {
+                    "type": "PLUGINS:custom-box-plugin-blueprint",
+                    "content": "Item 2"
+                  }
+                }
+              },
+              "size": {
+                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+                "sm": 12,
+                "md": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
+          "columns": [
+            {
+              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
+              "viewConfig": {
+                "type": "CORE:InlineRecipeViewConfig",
+                "recipe": {
+                  "type": "CORE:UiRecipe",
+                  "name": "box",
+                  "plugin": "custom-box-plugin",
+                  "config": {
+                    "type": "PLUGINS:custom-box-plugin-blueprint",
+                    "content": "Item 3"
+                  }
+                }
+              },
+              "size": {
+                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+                "sm": 12,
+                "md": 4
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
