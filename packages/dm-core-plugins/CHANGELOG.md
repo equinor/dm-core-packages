@@ -60,6 +60,18 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.54.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.53.0...dm-core-plugins-v1.54.0) (2024-05-21)
+
+
+### Features
+
+* add missing blueprints config ([cbad76b](https://github.com/equinor/dm-core-packages/commit/cbad76b5b2e0eddded8704daf62aa483f1ba37bf))
+
+
+### Miscellaneous Chores
+
+* include docs in project files config ([2293335](https://github.com/equinor/dm-core-packages/commit/229333585c0e3e280146f20a4764e2af41558860))
+
 ## [1.53.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.52.0...dm-core-plugins-v1.53.0) (2024-05-21)
 
 
