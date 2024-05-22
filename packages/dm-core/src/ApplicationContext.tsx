@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, {
   Dispatch,
   ReactNode,
@@ -20,6 +21,7 @@ const DEFAULT_ROLE: TRole = {
   authServerRoleName: 'anonymous',
   label: 'Anonymous',
 }
+const queryClient = new QueryClient()
 export const ApplicationContext = React.createContext<
   | {
       name: string
@@ -153,7 +155,9 @@ export const DMApplicationProvider = (props: {
         loading,
       }}
     >
-      {props.children}
+      <QueryClientProvider client={queryClient}>
+        {props.children}
+      </QueryClientProvider>
       <ToastContainer />
     </ApplicationContext.Provider>
   )

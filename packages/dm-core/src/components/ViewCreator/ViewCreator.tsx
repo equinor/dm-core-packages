@@ -1,7 +1,14 @@
 import { Typography } from '@equinor/eds-core-react'
-import { AxiosResponse } from 'axios'
-import React, { useEffect, useMemo, useState } from 'react'
-import { EntityView, Loading, TAttribute, useApplication } from '../../index'
+import { useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import React, { useMemo, useState } from 'react'
+import {
+  EntityView,
+  ErrorResponse,
+  Loading,
+  TAttribute,
+  useApplication,
+} from '../../index'
 import {
   IUIPlugin,
   TInlineRecipeViewConfig,
@@ -40,31 +47,32 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
 export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   const { idReference, viewConfig, onOpen, onSubmit, onChange } = props
   const { dmssAPI } = useApplication()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error>()
-  const [attribute, setAttribute] = useState<TAttribute>()
-  const [directAddress, setDirectAddress] = useState<string>()
 
   const reference = useMemo(
     () => getTarget(idReference, viewConfig),
     [idReference, viewConfig]
   )
+  const queryKeys = ['attributes', reference, viewConfig.resolve]
 
-  useEffect(() => {
-    dmssAPI
-      .attributeGet({
-        address: reference,
-        resolve: props.viewConfig.resolve,
-      })
-      .then((response: AxiosResponse) => {
-        setAttribute(response.data.attribute)
-        setDirectAddress(response.data.address)
-      })
-      .catch((error) => setError(error))
-      .finally(() => setIsLoading(false))
-  }, [reference])
+  const { isPending, data } = useQuery<{
+    address: string
+    attribute: TAttribute
+  }>({
+    staleTime: 5 * 1000,
+    refetchOnMount: false,
+    queryKey: queryKeys,
+    queryFn: () =>
+      dmssAPI
+        .attributeGet({
+          address: reference,
+          resolve: props.viewConfig.resolve,
+        })
+        .then((response: any) => response.data)
+        .catch((error: AxiosError<ErrorResponse>) => setError(error)),
+  })
 
-  if (isLoading || !directAddress) return <Loading />
+  if (isPending || !data?.address) return <Loading />
   if (error)
     return (
       <Typography>
@@ -72,7 +80,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
         {error.message})
       </Typography>
     )
-  if (attribute === undefined)
+  if (data.attribute === undefined)
     throw new Error('Unable to find type and dimensions for view')
 
   if (viewConfig === undefined)
@@ -82,8 +90,8 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   if (isInlineRecipeViewConfig(viewConfig)) {
     return (
       <InlineRecipeView
-        idReference={directAddress}
-        type={attribute.attributeType}
+        idReference={data.address}
+        type={data.attribute.attributeType}
         viewConfig={viewConfig}
         onOpen={onOpen}
         onSubmit={onSubmit}
@@ -95,11 +103,11 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   if (isReferenceViewConfig(viewConfig)) {
     return (
       <EntityView
-        type={attribute.attributeType}
-        idReference={directAddress}
+        type={data.attribute.attributeType}
+        idReference={data.address}
         recipeName={viewConfig.recipe}
         onOpen={onOpen}
-        dimensions={attribute.dimensions}
+        dimensions={data.attribute.dimensions}
         showRefreshButton={viewConfig.showRefreshButton}
         onSubmit={onSubmit}
         onChange={onChange}
@@ -108,10 +116,10 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   } else if (isViewConfig(viewConfig)) {
     return (
       <EntityView
-        idReference={directAddress}
-        type={attribute.attributeType}
+        idReference={data.address}
+        type={data.attribute.attributeType}
         onOpen={onOpen}
-        dimensions={attribute.dimensions}
+        dimensions={data.attribute.dimensions}
         showRefreshButton={viewConfig.showRefreshButton}
         onSubmit={onSubmit}
         onChange={onChange}

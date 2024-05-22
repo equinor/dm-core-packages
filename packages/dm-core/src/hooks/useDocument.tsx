@@ -1,10 +1,11 @@
 import { AxiosError } from 'axios'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { ErrorResponse } from '../services'
 
 import { toast } from 'react-toastify'
 import { useApplication } from '../ApplicationContext'
 
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 interface IUseDocumentReturnType<T> {
   document: T | null
   isLoading: boolean
@@ -55,68 +56,80 @@ export function useDocument<T>(
   depth?: number | undefined,
   notify: boolean = true
 ): IUseDocumentReturnType<T> {
-  const [document, setDocument] = useState<T | null>(null)
-  const [isLoading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<ErrorResponse | null>(null)
   const { dmssAPI } = useApplication()
+  const [errorResponse, setErrorResponse] = useState<ErrorResponse | null>(null)
+  const queryClient = useQueryClient()
 
-  useEffect(() => {
-    setLoading(true)
-    const documentDepth: number = depth ?? 0
-    if (documentDepth < 0 || documentDepth > 999)
-      throw new Error('Depth must be a positive number < 999')
-    dmssAPI
-      .documentGet({
-        address: idReference,
-        depth: documentDepth,
-      })
-      .then((response: any) => {
-        const data = response.data
-        setDocument(data)
-        setError(null)
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-        if (notify)
-          toast.error(
-            'Unable to retrieve document, with message: ' +
-              error.response?.data.message ?? error.message
+  const queryKeys = ['documents', idReference, depth]
+  const documentDepth: number = depth ?? 0
+  if (documentDepth < 0 || documentDepth > 999)
+    throw new Error('Depth must be a positive number < 999')
+
+  const { isPending, data } = useQuery({
+    staleTime: 5 * 1000,
+    refetchOnMount: false,
+    queryKey: queryKeys,
+    queryFn: () =>
+      dmssAPI
+        .documentGet({
+          address: idReference,
+          depth: documentDepth,
+        })
+        .then((response: any) => response.data)
+        .catch((error: AxiosError<ErrorResponse>) => {
+          console.error(error)
+          if (notify)
+            toast.error(
+              'Unable to retrieve document, with message: ' +
+                error.response?.data.message ?? error.message
+            )
+          setErrorResponse(
+            error.response?.data || { message: error.name, data: error }
           )
-        setError(error.response?.data || { message: error.name, data: error })
-      })
-      .finally(() => setLoading(false))
-  }, [idReference, depth])
+        }),
+  })
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async function updateDocument(
-    newDocument: T,
-    notify: boolean = true,
-    partialUpdate: boolean = false,
-    throwError: boolean = false
-  ): Promise<void> {
-    setLoading(true)
-    return dmssAPI
-      .documentUpdate({
-        idAddress: idReference,
-        data: JSON.stringify(newDocument),
-        partialUpdate: partialUpdate,
-      })
-      .then((response: any) => {
-        const data = response.data.data
-        setDocument(data)
-        setError(null)
-        if (notify) toast.success('Document updated')
-      })
-      .catch((error: AxiosError<ErrorResponse>) => {
-        console.error(error)
-        if (notify) toast.error(error.response?.data.message ?? error.message)
-        setError(error.response?.data || { message: error.name, data: error })
-        if (throwError) {
+  const mutation = useMutation({
+    mutationFn: ({
+      newDocument,
+      partialUpdate,
+      notify,
+      throwError,
+    }: {
+      newDocument: T
+      notify?: boolean
+      partialUpdate?: boolean
+      throwError?: boolean
+    }) =>
+      dmssAPI
+        .documentUpdate({
+          idAddress: idReference,
+          data: JSON.stringify(newDocument),
+          partialUpdate: partialUpdate,
+        })
+        .then((response: any) => {
+          queryClient.setQueryData(queryKeys, response.data.data)
+          setErrorResponse(null)
+          if (notify) toast.success('Document updated')
+        })
+        .catch((error: AxiosError<ErrorResponse>) => {
+          console.error(error)
+          if (notify) toast.error(error.response?.data.message ?? error.message)
+          setErrorResponse(
+            error.response?.data || { message: error.name, data: error }
+          )
+          if (throwError) {
           throw new Error(JSON.stringify(error, null, 2))
         }
-      })
-      .finally(() => setLoading(false))
-  }
+        }),
+  })
 
-  return { document, isLoading, updateDocument, error, setError }
+  return {
+    document: data || null,
+    isLoading: isPending,
+    updateDocument: (newDocument: T, notify, partialUpdate, throwError) =>
+      mutation.mutateAsync({ newDocument, notify, partialUpdate, throwError }),
+    error: errorResponse,
+    setError: setErrorResponse
+  }
 }
