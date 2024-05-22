@@ -5305,3 +5305,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.0
     * **JOB VERSION**: 
+* feat(yaml): raw json edit (2024-05-22T07:05:10Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9187665766/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.0
+    * **JOB VERSION**: 
