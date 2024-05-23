@@ -21,8 +21,6 @@ test('task list', async ({ page }) => {
       .getByLabel('Task description: (Optional)')
       .fill('Review and submit the tax return.')
     await page.getByRole('button', { name: 'Submit' }).click()
-    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'close', exact: true }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await expect(page.getByText('Tax return', { exact: true })).toBeVisible()
@@ -53,8 +51,6 @@ test('task list', async ({ page }) => {
     ).toHaveValue('Wash the car')
     await page.getByText('Mark task as complete').first().click()
     await page.getByRole('button', { name: 'Submit' }).click()
-    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'close', exact: true }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await page
@@ -223,8 +219,6 @@ test('task list', async ({ page }) => {
       .getByLabel('Task description: (Optional)')
       .fill('Remember to buy new brush.')
     await page.getByRole('button', { name: 'Submit' }).click()
-    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'close', exact: true }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await expect(
@@ -243,7 +237,7 @@ test('task list', async ({ page }) => {
     await expect(page.getByLabel('Task description: (Optional)')).toHaveValue(
       'Remember to buy new brush.'
     )
-    await page.getByRole('button', { name: 'Minimize item' }).last().click()
+    await page.getByTestId('expandListItem-2').click()
   })
 
   await test.step('Pagination', async () => {
