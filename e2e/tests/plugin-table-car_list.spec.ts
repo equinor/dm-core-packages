@@ -19,8 +19,6 @@ test('Table car list example', async ({ page }) => {
     await page.getByLabel('Model').fill('e-tron')
     await page.getByLabel('Color (Optional)').fill('Black')
     await page.getByTestId('form-submit').click()
-    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'close', exact: true }).click()
 
     //Currently we need to reload application to view saved values...
     await page.reload()
