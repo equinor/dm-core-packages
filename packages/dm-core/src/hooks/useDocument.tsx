@@ -59,7 +59,6 @@ export function useDocument<T>(
   const { dmssAPI } = useApplication()
   const [errorResponse, setErrorResponse] = useState<ErrorResponse | null>(null)
   const queryClient = useQueryClient()
-
   const queryKeys = ['documents', idReference, depth]
   const documentDepth: number = depth ?? 0
   if (documentDepth < 0 || documentDepth > 999)
