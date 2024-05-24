@@ -184,12 +184,13 @@ export default (props: IUIPlugin): React.ReactElement => {
                 onClick={() => {
                   dmssAPI
                     .refreshLookup({ application: name })
-                    .then(() =>
-                      toast.warning(
-                        `RecipeLookup for app '${name}' changed. Close open tabs to clear cache.`,
-                        { autoClose: false }
-                      )
-                    )
+                    .then(() => {
+                      Object.keys(window.sessionStorage).forEach((key) => {
+                        if (key.startsWith('BLUEPRINT::'))
+                          window.sessionStorage.removeItem(key)
+                      })
+                      toast.success(`RecipeLookup for app '${name}' updated`)
+                    })
                     .catch((error: any) => {
                       console.error(error)
                       toast.error(`Failed to refresh application '${name}'`)

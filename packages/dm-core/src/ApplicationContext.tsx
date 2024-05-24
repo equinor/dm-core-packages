@@ -83,7 +83,7 @@ export const DMApplicationProvider = (props: {
 
   // @ts-ignore
   dmssAPI.blueprintGet = async (requestParameters, options) => {
-    const cacheKey = `${requestParameters.typeRef}${requestParameters.context}`
+    const cacheKey = `BLUEPRINT::${requestParameters.typeRef}${requestParameters.context}`
     const cachedValue = window.sessionStorage.getItem(cacheKey)
     if (!cachedValue) {
       return dmssAPIOriginal
