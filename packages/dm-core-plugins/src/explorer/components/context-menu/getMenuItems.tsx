@@ -2,6 +2,7 @@ import { EBlueprint, TreeNode } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import React from 'react'
 import { toast } from 'react-toastify'
+import { downloadNode } from '../../downloadNode'
 import { EDialog } from '../../types'
 
 // This function must return a list of Menu.Item, ie not wrapped in a <></>.
@@ -61,6 +62,11 @@ export function getMenuItems(
         onClick={() => setRawView(node.type, node.nodeId)}
       >
         View raw
+      </Menu.Item>
+    )
+    menuItems.push(
+      <Menu.Item key={'export'} onClick={() => downloadNode(node)}>
+        Export
       </Menu.Item>
     )
     menuItems.push(getMenuItem(EDialog.Delete, 'Delete'))
