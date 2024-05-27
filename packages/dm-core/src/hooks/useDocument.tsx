@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { ErrorResponse } from '../services'
 
 import { toast } from 'react-toastify'
@@ -14,6 +14,7 @@ interface IUseDocumentReturnType<T> {
     partialUpdate?: boolean
   ) => Promise<void>
   error: ErrorResponse | null
+  setError: Dispatch<SetStateAction<ErrorResponse | null>>
 }
 
 /**
@@ -51,7 +52,8 @@ interface IUseDocumentReturnType<T> {
 export function useDocument<T>(
   idReference: string,
   depth?: number | undefined,
-  notify: boolean = true
+  notify: boolean = true,
+  throwError: boolean = false
 ): IUseDocumentReturnType<T> {
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
@@ -108,9 +110,12 @@ export function useDocument<T>(
         console.error(error)
         if (notify) toast.error(error.response?.data.message ?? error.message)
         setError(error.response?.data || { message: error.name, data: error })
+        if (throwError) {
+          throw new Error(JSON.stringify(error, null, 2))
+        }
       })
       .finally(() => setLoading(false))
   }
 
-  return { document, isLoading, updateDocument, error }
+  return { document, isLoading, updateDocument, error, setError }
 }
