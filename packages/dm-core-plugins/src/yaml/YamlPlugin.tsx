@@ -161,11 +161,13 @@ export const YamlPlugin = (props: YamlPluginProps) => {
                 </ActionButton>
               </Tooltip>
             )}
-            <Tooltip title={`Switch to ${showAsJSON ? 'YAML' : 'JSON'}`}>
-              <ActionButton onClick={() => setShowAsJSON(!showAsJSON)}>
-                {showAsJSON ? 'YAML' : 'JSON'}
-              </ActionButton>
-            </Tooltip>
+            {config.languages?.length > 1 && (
+              <Tooltip title={`Switch to ${showAsJSON ? 'YAML' : 'JSON'}`}>
+                <ActionButton onClick={() => setShowAsJSON(!showAsJSON)}>
+                  {showAsJSON ? 'YAML' : 'JSON'}
+                </ActionButton>
+              </Tooltip>
+            )}
             <Tooltip title='Copy'>
               <ActionButton onClick={copyToClipboard}>
                 <Icon data={copy} />
