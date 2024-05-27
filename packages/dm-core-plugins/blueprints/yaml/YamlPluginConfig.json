@@ -1,0 +1,28 @@
+{
+  "name": "YamlPluginConfig",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "languages",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "What languages should be available. Expects a list of language names. Only yaml and json is supported. Initial language is based on order its passed and only passing 1 language will disable toggling between languages.",
+      "dimensions": "*",
+      "optional": true,
+      "default": ["yaml", "json"]
+    },
+    {
+      "name": "editable",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "description": "Should raw code be editable.",
+      "optional": true,
+      "default": true
+    }
+  ]
+}
