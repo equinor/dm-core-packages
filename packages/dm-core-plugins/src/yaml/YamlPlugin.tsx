@@ -1,173 +1,179 @@
 import {
   ErrorGroup,
-  IUIPlugin,
   Loading,
   TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
-import { Button, Input, Label, Switch } from '@equinor/eds-core-react'
+import { Icon, Popover, TextField, Tooltip } from '@equinor/eds-core-react'
+import { close, copy, edit, filter_alt, save } from '@equinor/eds-icons'
 import DOMPurify from 'dompurify'
 import hljs from 'highlight.js'
-import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import styled from 'styled-components'
 import YAML from 'yaml'
+import { ActionButton, ActionsWrapper, CodeContainer } from './styles'
+import { YamlPluginProps, defaultConfig } from './types'
 
-const StyledPre = styled.pre`
-  white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
-  white-space: -pre-wrap; /* Opera */
-  white-space: -o-pre-wrap; /* Opera */
-  white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
-  word-wrap: break-word; /* IE 5.5+ */
-  background-color: #e0e3e5;
-  margin: 0;
-  padding: 1rem;
-  border-radius: 0.2rem;
-  border-style: ridge;
-  border-width: 0.2rem;
-  border-color: #193549;
-  width: 100%;
-  overflow-y: auto;
-`
+export const YamlPlugin = (props: YamlPluginProps) => {
+  const { idReference, config: userConfig } = props
+  const config = { ...defaultConfig, ...userConfig }
+  const [depth, setDepth] = useState(0)
+  const [asYAML, setAsYAML] = useState<string>('')
+  const [asJSON, setAsJSON] = useState<string>('')
+  const [isEditMode, setIsEditMode] = useState<boolean>(false)
+  const [showAsJSON, setShowAsJSON] = useState<boolean>(
+    config?.languages[0] === 'json'
+  )
+  const [isDepthPopoverOpen, setIsDepthPopoverOpen] = useState<boolean>(false)
 
-const CodeContainer = styled.pre`
-  background-color: #193549;
-  margin: 0;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  width: 100%;
-  overflow-y: auto;
+  const textEditor = useRef<HTMLInputElement>(null)
+  const depthPopoverTrigger = useRef<HTMLButtonElement>(null)
 
-  & .hljs-string {
-    color: #a5ff90;
+  const { document, isLoading, error, setError, updateDocument } =
+    useDocument<TGenericObject>(idReference, depth, false, true)
+
+  useEffect(() => {
+    if (document) {
+      setAsYAML(YAML.stringify(document))
+      setAsJSON(JSON.stringify(document, null, 2))
+    }
+  }, [document])
+
+  const copyToClipboard = () => {
+    try {
+      navigator.clipboard.writeText(showAsJSON ? asJSON : asYAML)
+      toast.success('Successfully copied to clipboard!')
+    } catch (e) {
+      toast.error('Could not copy to clipboard. ' + e)
+    }
   }
 
-  & .hljs-literal,
-  & .hljs-number {
-    color: #f53b6e;
-  }
-
-  & .hljs-attr,
-  & .hljs-bullet {
-    color: #99ffff;
-  }
-`
-
-const YamlView = (props: {
-  document: TGenericObject
-  updateDocument: (
-    document: TGenericObject,
-    notify: boolean,
-    partialUpdate?: boolean | undefined
-  ) => Promise<void>
-  depth?: number
-  _setDepth?: Dispatch<SetStateAction<number>>
-}) => {
-  const { document, depth, _setDepth, updateDocument } = props
-  const asYAML: string = YAML.stringify(document)
-  const asJSON: string = JSON.stringify(document)
-  const highlighted = hljs.highlight(asYAML, { language: 'yaml' })
-  const [isEditMode, setIsEditMode] = useState(false)
-  const textInput = useRef<HTMLInputElement>(null)
-
-  const onClick = (text: string) => {
-    navigator.clipboard.writeText(text)
-    toast.success('Copied!')
-  }
-
-  function setDepth(event: ChangeEvent<HTMLInputElement>): void {
+  function updateDepth(event: ChangeEvent<HTMLInputElement>): void {
     const newDepth = Number(event.target.value)
-    if (_setDepth && newDepth >= 0 && newDepth <= 999) {
-      _setDepth(newDepth)
+    if (setDepth && newDepth >= 0 && newDepth <= 999) {
+      setDepth(newDepth)
     }
   }
 
   const saveChanges = () => {
     try {
-      const parsed = JSON.parse(textInput.current?.innerText || '{}')
-      updateDocument(parsed, true)
+      const clean = DOMPurify.sanitize(textEditor.current?.innerText || '{}')
+      const parsedJSON = showAsJSON ? JSON.parse(clean) : YAML.parse(clean)
+      updateDocument(parsedJSON, true).then(() => {
+        setAsYAML(YAML.stringify(parsedJSON))
+        setAsJSON(JSON.stringify(parsedJSON, null, 2))
+        setIsEditMode(false)
+      })
     } catch (e) {
       console.log(e)
       toast.error(`Invalid JSON - ${e.message}`, { autoClose: false })
     }
   }
 
-  return (
-    <div className='dm-plugin-padding flex flex-col w-full'>
-      <div className='flex justify-end items-center my-2 gap-1 w-fit'>
-        <Button variant='ghost' onClick={() => onClick(asYAML)}>
-          Copy as YAML
-        </Button>
-        <Button variant='ghost' onClick={() => onClick(asJSON)}>
-          Copy as JSON
-        </Button>
-        <div style={{ width: '5rem' }}>
-          <Label htmlFor='yaml-depth-input' label='Depth' />
-          <Input
-            id='yaml-depth-input'
-            type='number'
-            value={depth}
-            onChange={setDepth}
-            label='Depth'
-          />
-        </div>
-        <Switch
-          label='Edit'
-          checked={isEditMode}
-          onChange={() => setIsEditMode(!isEditMode)}
-        />
-      </div>
-      {isEditMode ? (
-        <>
-          <div className='flex justify-end p-1'>
-            <Button onClick={saveChanges}>Save</Button>
-          </div>
-          <StyledPre
-            ref={textInput}
-            contentEditable={isEditMode}
-            suppressContentEditableWarning={true}
-          >
-            {JSON.stringify(document, null, 2)}
-          </StyledPre>
-          <div className='flex justify-end p-1'>
-            <Button onClick={saveChanges}>Save</Button>
-          </div>
-        </>
-      ) : (
-        <CodeContainer>
-          <code
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(highlighted.value),
-            }}
-          />
-        </CodeContainer>
-      )}
-    </div>
-  )
-}
-
-export const YamlPlugin = (props: IUIPlugin) => {
-  const { idReference } = props
-  const [depth, setDepth] = useState(0)
-  const { document, isLoading, error, updateDocument } =
-    useDocument<TGenericObject>(idReference, depth)
-  if (isLoading) return <Loading />
-
+  if (!document && isLoading) return <Loading />
   if (error && !error.message) throw new Error(JSON.stringify(error, null, 2))
 
   return (
-    <>
+    <div className='dm-plugin-padding flex flex-col w-full min-h-0 grow gap-1'>
       {error && (
-        <div className='p-1'>
+        <div>
           <ErrorGroup>{error.message}</ErrorGroup>
         </div>
       )}
-      <YamlView
-        document={document || {}}
-        _setDepth={setDepth}
-        depth={depth}
-        updateDocument={updateDocument}
-      />
-    </>
+      <div className='flex min-h-0 grow bg-[#132634]'>
+        <div className='flex flex-col min-h-0 grow w-full'>
+          <CodeContainer
+            ref={textEditor}
+            contentEditable={isEditMode}
+            suppressContentEditableWarning={true}
+          >
+            {isEditMode ? (
+              <code>{showAsJSON ? asJSON : asYAML}</code>
+            ) : (
+              <code
+                dangerouslySetInnerHTML={{
+                  __html: hljs.highlight(showAsJSON ? asJSON : asYAML, {
+                    language: showAsJSON ? 'json' : 'yaml',
+                  })?.value,
+                }}
+              />
+            )}
+          </CodeContainer>
+        </div>
+        {isEditMode ? (
+          <ActionsWrapper>
+            <Tooltip title='Save'>
+              <ActionButton bg='green' onClick={saveChanges}>
+                <Icon data={save} />
+              </ActionButton>
+            </Tooltip>
+            <Tooltip title='Cancel'>
+              <ActionButton
+                onClick={() => {
+                  setIsEditMode(false)
+                  setError(null)
+                }}
+              >
+                <Icon data={close} />
+              </ActionButton>
+            </Tooltip>
+          </ActionsWrapper>
+        ) : (
+          <ActionsWrapper>
+            <Tooltip title='Change depth'>
+              <ActionButton
+                aria-controls='depth-popover'
+                aria-expanded={isDepthPopoverOpen}
+                aria-haspopup
+                bg='yellow'
+                id='depth-popover-anchor'
+                onClick={() => setIsDepthPopoverOpen(!isDepthPopoverOpen)}
+                ref={depthPopoverTrigger}
+              >
+                <Icon data={filter_alt} />
+                <span className='depth-indicator'>{depth}</span>
+              </ActionButton>
+            </Tooltip>
+            <Popover
+              anchorEl={depthPopoverTrigger.current}
+              id='depth-popover'
+              onClose={() => setIsDepthPopoverOpen(false)}
+              open={isDepthPopoverOpen}
+              placement='left'
+              trapFocus
+            >
+              <Popover.Content>
+                <div className='p-0.5'>
+                  <TextField
+                    id='depth_input'
+                    label='Set depth'
+                    type='number'
+                    value={depth}
+                    onChange={updateDepth}
+                  />
+                </div>
+              </Popover.Content>
+            </Popover>
+            {config.editable && (
+              <Tooltip title='Edit'>
+                <ActionButton bg='green' onClick={() => setIsEditMode(true)}>
+                  <Icon data={edit} />
+                </ActionButton>
+              </Tooltip>
+            )}
+            <Tooltip title={`Switch to ${showAsJSON ? 'YAML' : 'JSON'}`}>
+              <ActionButton onClick={() => setShowAsJSON(!showAsJSON)}>
+                {showAsJSON ? 'YAML' : 'JSON'}
+              </ActionButton>
+            </Tooltip>
+            <Tooltip title='Copy'>
+              <ActionButton onClick={copyToClipboard}>
+                <Icon data={copy} />
+              </ActionButton>
+            </Tooltip>
+          </ActionsWrapper>
+        )}
+      </div>
+    </div>
   )
 }
