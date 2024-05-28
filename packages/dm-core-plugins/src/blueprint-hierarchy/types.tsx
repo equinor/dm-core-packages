@@ -1,7 +1,7 @@
 export type TAttributeType = {
   type: string
   name: string
-  attributeType?: string
+  attributeType: string
   description?: string
   label?: string
   optional?: boolean
@@ -18,9 +18,6 @@ export type TBaseBlueprint = {
 }
 
 export interface IBlueprintType extends TBaseBlueprint {
-  abstract: boolean
   description: string
   attributes: TAttributeType[]
-  uiRecipes?: any[]
-  storageRecipes?: any[]
 }

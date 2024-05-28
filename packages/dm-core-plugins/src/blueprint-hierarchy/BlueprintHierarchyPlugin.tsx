@@ -82,11 +82,12 @@ export const BlueprintHierarchyPlugin = (props: IUIPlugin) => {
   const { document, isLoading } = useDocument(idReference)
 
   useEffect(() => {
+    if (!document) return
     loader(explorer, document).then(async (tree: Node) => {
       const chart = createChart(tree)
       setChart(chart)
     })
-  }, [])
+  }, [document])
 
   if (!chart) return <div>Creating chart...</div>
   if (isLoading) {
