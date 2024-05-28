@@ -11,24 +11,29 @@
       "name": "hideAbout",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "boolean",
+      "description": "Hide the about link in the header",
       "default": false
     },
     {
       "name": "hideUserInfo",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "boolean",
+      "description": "Hide the user info in the header",
       "default": false
     },
     {
       "name": "uiRecipesList",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
-      "dimensions": "*"
+      "dimensions": "*",
+      "description": "Can be used to specify a list of UI recipes the user can select. By default, the fist UI recipe in\n  the list is displayed. If the list is empty, all UI recipes will be included."
     },
     {
       "name": "adminRole",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "string",
+      "default": "dmss-admin",
+      "description": "The role that is considered an admin role. If the user has this role, the user will see the 'admin menu' in the header.",
       "optional": true
     }
   ]
