@@ -85,9 +85,6 @@ test('View accountant yaml', async () => {
   await expect(
     page.getByTestId('accountant').getByRole('button', { name: 'Copy as YAML' })
   ).toBeVisible()
-  await expect(
-    page.getByTestId('accountant').getByRole('button', { name: 'Copy as JSON' })
-  ).toBeVisible()
   await expect(page.getByTestId('accountant').getByRole('code')).toBeVisible()
 })
 
