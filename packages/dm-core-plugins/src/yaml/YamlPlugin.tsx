@@ -161,7 +161,10 @@ export const YamlPlugin = (props: YamlPluginProps) => {
               </Tooltip>
             )}
             <Tooltip title='Copy'>
-              <ActionButton onClick={copyToClipboard}>
+              <ActionButton
+                title={`Copy as ${showAsJSON ? 'JSON' : 'YAML'}`}
+                onClick={copyToClipboard}
+              >
                 <Icon data={copy} />
               </ActionButton>
             </Tooltip>
