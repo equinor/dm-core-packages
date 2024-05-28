@@ -122,13 +122,6 @@ export default ({
   '@development-framework/dm-core-plugins/json': {
     component: lazy(() => import('./json/JsonPlugin')),
   },
-  '@development-framework/dm-core-plugins/pdf': {
-    component: lazy(() =>
-      import('./pdf/PdfPlugin').then((module) => ({
-        default: module.PdfPlugin,
-      }))
-    ),
-  },
   '@development-framework/dm-core-plugins/blueprint': {
     component: lazy(() =>
       import('./blueprint/BlueprintPlugin').then((module) => ({
