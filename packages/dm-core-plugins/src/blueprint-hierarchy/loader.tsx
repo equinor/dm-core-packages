@@ -1,4 +1,3 @@
-import { useApplication } from '@development-framework/dm-core'
 import { IBlueprintType, TAttributeType } from './types'
 
 export class Node {
@@ -12,6 +11,7 @@ export class Node {
     this.attribute = {
       name: '',
       type: '',
+      attributeType: '',
     }
     this.parent = null
     this.entity = entity
@@ -57,48 +57,17 @@ const nonPrimitiveAttributes = (blueprint: IBlueprintType): TAttributeType[] =>
     isNonPrimitive(attribute)
   )
 
-const search = async (query: any) => {
-  const { dmssAPI } = useApplication()
-
-  const response = await dmssAPI.search({
-    dataSources: ['WorkflowDS'],
-    body: query,
-    sortByAttribute: 'name',
-  })
-  const result = response.data
-  return Object.values(result)
-}
-
 export const loader = async (explorer: any, document: any): Promise<Node> => {
   const node = new Node(document)
   await Promise.all(
     nonPrimitiveAttributes(document).map(async (attribute: TAttributeType) => {
-      if (attribute['attributeType'] !== 'object') {
-        const child: IBlueprintType = await explorer.blueprintGet(
-          attribute['attributeType']
-        ).data
+      if (!['binary', 'object', 'any'].includes(attribute.attributeType)) {
+        const child: IBlueprintType = (
+          await explorer.blueprintGet(attribute.attributeType)
+        ).data.blueprint
         const childNode: Node = await loader(explorer, child)
         childNode.attribute = attribute
         childNode.entity = child
-        // If the attribute is abstract, we need to search for concrete definitions.
-        if (child['abstract']) {
-          const concreteDefinitions: IBlueprintType[] = await search({
-            type: child['type'],
-            extends: attribute['attributeType'],
-          })
-          await Promise.all(
-            concreteDefinitions.map(
-              async (concreteDefinition: IBlueprintType) => {
-                const concertNode = await loader(explorer, concreteDefinition)
-                concertNode.concrete = true
-                concertNode.attribute = attribute
-                // Connect the concrete definition to the abstract definition,
-                // so that we can draw the complete graph
-                childNode.addChild(concertNode)
-              }
-            )
-          )
-        }
         node.addChild(childNode)
       }
     })
