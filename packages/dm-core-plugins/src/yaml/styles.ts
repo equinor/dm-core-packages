@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components'
 
 export const ActionsWrapper = styled.div`
+    position: sticky;
     display: flex;
     flex-direction: column;
     padding: 1rem;
     gap: 0.5rem;
-    min-height: 0;
-    flex-grow: 1;
+    top: 0;
+    right: 0;
 `
 
 export const ActionButton = styled.button<{ bg?: 'green' | 'yellow' }>`
@@ -56,7 +57,6 @@ export const CodeContainer = styled.pre`
   padding: 1rem;
   border-radius: 0.5rem;
   width: 100%;
-  overflow-y: auto;
   min-height: 0;
   flex-grow: 1;
   color: white;

@@ -80,7 +80,7 @@ export const YamlPlugin = (props: YamlPluginProps) => {
           <ErrorGroup>{error.message}</ErrorGroup>
         </div>
       )}
-      <div className='flex min-h-0 grow bg-[#132634]'>
+      <div className='flex min-h-0 grow bg-[#132634] overflow-auto relative'>
         <div className='flex flex-col min-h-0 grow w-full'>
           <CodeContainer
             ref={textEditor}
