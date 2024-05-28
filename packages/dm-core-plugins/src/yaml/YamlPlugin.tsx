@@ -8,7 +8,7 @@ import { Icon, Popover, TextField, Tooltip } from '@equinor/eds-core-react'
 import { close, copy, edit, filter_alt, save } from '@equinor/eds-icons'
 import DOMPurify from 'dompurify'
 import hljs from 'highlight.js'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import YAML from 'yaml'
 import { ActionButton, ActionsWrapper, CodeContainer } from './styles'
@@ -18,8 +18,6 @@ export const YamlPlugin = (props: YamlPluginProps) => {
   const { idReference, config: userConfig } = props
   const config = { ...defaultConfig, ...userConfig }
   const [depth, setDepth] = useState(0)
-  const [asYAML, setAsYAML] = useState<string>('')
-  const [asJSON, setAsJSON] = useState<string>('')
   const [isEditMode, setIsEditMode] = useState<boolean>(false)
   const [showAsJSON, setShowAsJSON] = useState<boolean>(
     config?.languages[0] === 'json'
@@ -32,12 +30,8 @@ export const YamlPlugin = (props: YamlPluginProps) => {
   const { document, isLoading, error, setError, updateDocument } =
     useDocument<TGenericObject>(idReference, depth, false, true)
 
-  useEffect(() => {
-    if (document) {
-      setAsYAML(YAML.stringify(document))
-      setAsJSON(JSON.stringify(document, null, 2))
-    }
-  }, [document])
+  const asYAML = useMemo(() => YAML.stringify(document), [document])
+  const asJSON = useMemo(() => JSON.stringify(document, null, 2), [document])
 
   const copyToClipboard = () => {
     try {
@@ -60,8 +54,6 @@ export const YamlPlugin = (props: YamlPluginProps) => {
       const clean = DOMPurify.sanitize(textEditor.current?.innerText || '{}')
       const parsedJSON = showAsJSON ? JSON.parse(clean) : YAML.parse(clean)
       updateDocument(parsedJSON, true).then(() => {
-        setAsYAML(YAML.stringify(parsedJSON))
-        setAsJSON(JSON.stringify(parsedJSON, null, 2))
         setIsEditMode(false)
       })
     } catch (e) {
