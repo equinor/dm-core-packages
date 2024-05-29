@@ -5315,3 +5315,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* fix: missing type in updateDocument (2024-05-27T12:24:43Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9281700142/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
