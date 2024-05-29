@@ -38,6 +38,7 @@ import { defaultCronValues, scheduleTemplate } from '../templateEntities'
 type TJobControlConfig = {
   hideLogs?: boolean
   runnerTemplates?: TTemplate[]
+  title?: string
 }
 
 const defaultConfig: TJobControlConfig = {
@@ -166,100 +167,87 @@ export const JobControl = (props: IUIPlugin) => {
     throw new Error(JSON.stringify(error || jobEntityError, null, 2))
 
   return (
-    <div className='dm-plugin-padding'>
-      <div className='flex-col border rounded-md bg-equinor-lightgray'>
-        <div>
-          {asCronJob && (
-            <div className='rounded-md p-2 m-2 bg-white border'>
-              <ConfigureRecurring
-                asCron={asCronJob}
-                readOnly={true}
-                schedule={schedule}
-                setSchedule={(s: TSchedule) => {
-                  setSchedule(s)
-                  setCronValues(parseCronStringToCronValues(s.cron))
-                }}
-                cronValues={cronValues}
-                setCronValues={(c: TCronValues) => {
-                  setSchedule({
-                    ...schedule,
-                    cron: parseCronValuesToCronString(c),
-                  })
-                  setCronValues(c)
-                }}
-                registered={status === JobStatus.Registered}
+    <div className=' dm-plugin-padding flex-col border rounded-md bg-equinor-lightgray'>
+      {internalConfig.title && <h2>{config.title}</h2>}
+      {asCronJob && (
+        <div className='rounded-md p-2 m-2 bg-white border'>
+          <ConfigureRecurring
+            asCron={asCronJob}
+            readOnly={true}
+            schedule={schedule}
+            setSchedule={(s: TSchedule) => {
+              setSchedule(s)
+              setCronValues(parseCronStringToCronValues(s.cron))
+            }}
+            cronValues={cronValues}
+            setCronValues={(c: TCronValues) => {
+              setSchedule({
+                ...schedule,
+                cron: parseCronValuesToCronString(c),
+              })
+              setCronValues(c)
+            }}
+            registered={status === JobStatus.Registered}
+          />
+        </div>
+      )}
+      <JobButtonWrapper>
+        <div className='flex items-center space-x-2'>
+          {getControlButton(status, remove, start, false, jobIsLoading)}
+          <div className='flex flex-row items-center'>
+            <p className='text-sm text-center'>Status:</p>
+            <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
+              {status ?? 'Not registered'}
+            </Chip>
+          </div>
+
+          {!internalConfig.hideLogs && <JobLog logs={logs} error={error} />}
+        </div>
+
+        {internalConfig.runnerTemplates &&
+          internalConfig.runnerTemplates.length > 0 && (
+            <div className={'flex flex-row items-center justify-end'}>
+              <Tooltip
+                title={`Change runner. Current: ${(
+                  (asCronJob
+                    ? jobEntity.applicationInput?.runner.type
+                    : jobEntity.runner?.type) || 'None'
+                )
+                  .split('/')
+                  .at(-1)}`}
+              >
+                <Button
+                  disabled={[JobStatus.Starting, JobStatus.Running].includes(
+                    // @ts-ignore
+                    status
+                  )}
+                  onClick={() => setTemplateMenuIsOpen(true)}
+                  variant='ghost_icon'
+                >
+                  <Icon data={gear} size={24} />
+                </Button>
+              </Tooltip>
+              <TemplateMenu
+                templates={internalConfig.runnerTemplates || []}
+                onSelect={(template: TTemplate) =>
+                  handleRunnerTemplateSelect(template)
+                }
+                onClose={() => setTemplateMenuIsOpen(false)}
+                isOpen={isTemplateMenuOpen}
+                title='Runner'
+                selected={templates.findIndex((template: TJobHandler) =>
+                  _.isEqual(template, jobEntity.runner)
+                )}
               />
             </div>
           )}
-          <JobButtonWrapper>
-            <div className='flex items-center space-x-2'>
-              {getControlButton(status, remove, start, false, jobIsLoading)}
-              <div
-                style={{
-                  width: '100px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
-              >
-                <p className='text-sm text-center'>Status:</p>
-                <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
-                  {status ?? 'Not registered'}
-                </Chip>
-              </div>
+      </JobButtonWrapper>
 
-              {!internalConfig.hideLogs && <JobLog logs={logs} error={error} />}
-            </div>
-
-            {internalConfig.runnerTemplates &&
-              internalConfig.runnerTemplates.length > 0 && (
-                <div className={'flex flex-row items-center justify-end'}>
-                  <Tooltip
-                    title={`Change runner. Current: ${(
-                      (asCronJob
-                        ? jobEntity.applicationInput?.runner.type
-                        : jobEntity.runner?.type) || 'None'
-                    )
-                      .split('/')
-                      .at(-1)}`}
-                  >
-                    <Button
-                      disabled={[
-                        JobStatus.Starting,
-                        JobStatus.Running,
-                      ].includes(
-                        // @ts-ignore
-                        status
-                      )}
-                      onClick={() => setTemplateMenuIsOpen(true)}
-                      variant='ghost_icon'
-                    >
-                      <Icon data={gear} size={24} />
-                    </Button>
-                  </Tooltip>
-                  <TemplateMenu
-                    templates={internalConfig.runnerTemplates || []}
-                    onSelect={(template: TTemplate) =>
-                      handleRunnerTemplateSelect(template)
-                    }
-                    onClose={() => setTemplateMenuIsOpen(false)}
-                    isOpen={isTemplateMenuOpen}
-                    title='Runner'
-                    selected={templates.findIndex((template: TJobHandler) =>
-                      _.isEqual(template, jobEntity.runner)
-                    )}
-                  />
-                </div>
-              )}
-          </JobButtonWrapper>
-
-          {status === JobStatus.Running && progress !== null && (
-            <div className='px-4 pb-2'>
-              <Progress progress={progress} />
-            </div>
-          )}
+      {status === JobStatus.Running && progress !== null && (
+        <div className='px-4 pb-2'>
+          <Progress progress={progress} />
         </div>
-      </div>
+      )}
     </div>
   )
 }

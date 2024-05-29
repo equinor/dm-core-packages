@@ -41,6 +41,13 @@
       "description": "'applicationInput' for the created job. Absolute or relative address",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "description": "Show a title for the job controls"
     }
   ]
 }

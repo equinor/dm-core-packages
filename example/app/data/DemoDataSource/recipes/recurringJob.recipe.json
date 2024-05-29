@@ -108,6 +108,7 @@
               "type": "CORE:UiRecipe",
               "config": {
                 "type": "PLUGINS:dm-core-plugins/job/ControlConfig",
+                "title": "Schedule an example recurring job",
                 "runnerTemplates": [
                   {
                     "type": "PLUGINS:dm-core-plugins/common/Template",
