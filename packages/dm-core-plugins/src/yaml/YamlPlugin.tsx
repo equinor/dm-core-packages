@@ -28,7 +28,7 @@ export const YamlPlugin = (props: YamlPluginProps) => {
   const depthPopoverTrigger = useRef<HTMLButtonElement>(null)
 
   const { document, isLoading, error, setError, updateDocument } =
-    useDocument<TGenericObject>(idReference, depth, false, true)
+    useDocument<TGenericObject>(idReference, depth, false)
 
   const asYAML = useMemo(() => YAML.stringify(document), [document])
   const asJSON = useMemo(() => JSON.stringify(document, null, 2), [document])
@@ -53,7 +53,7 @@ export const YamlPlugin = (props: YamlPluginProps) => {
     try {
       const clean = DOMPurify.sanitize(textEditor.current?.innerText || '{}')
       const parsedJSON = showAsJSON ? JSON.parse(clean) : YAML.parse(clean)
-      updateDocument(parsedJSON, true).then(() => {
+      updateDocument(parsedJSON, true, false, true).then(() => {
         setIsEditMode(false)
       })
     } catch (e) {
