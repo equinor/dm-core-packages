@@ -52,8 +52,7 @@ interface IUseDocumentReturnType<T> {
 export function useDocument<T>(
   idReference: string,
   depth?: number | undefined,
-  notify: boolean = true,
-  throwError: boolean = false
+  notify: boolean = true
 ): IUseDocumentReturnType<T> {
   const [document, setDocument] = useState<T | null>(null)
   const [isLoading, setLoading] = useState<boolean>(true)
@@ -91,7 +90,8 @@ export function useDocument<T>(
   async function updateDocument(
     newDocument: T,
     notify: boolean = true,
-    partialUpdate: boolean = false
+    partialUpdate: boolean = false,
+    throwError: boolean = false
   ): Promise<void> {
     setLoading(true)
     return dmssAPI
