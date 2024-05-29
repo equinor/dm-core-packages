@@ -6,6 +6,7 @@
     "type": "CORE:UiRecipe",
     "config": {
       "type": "PLUGINS:dm-core-plugins/job/CreateConfig",
+      "title": "Run a reverse description job",
       "hideLogs": true,
       "jobTargetAddress": ".job",
       "jobTemplates": [

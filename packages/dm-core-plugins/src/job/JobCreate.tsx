@@ -48,6 +48,7 @@ interface TJobPluginConfig {
   showGetResult?: boolean
   jobTemplates: TTemplate[]
   hideLogs?: boolean
+  title?: string
 }
 
 export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
@@ -165,7 +166,12 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
     if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [jobDocument])
   return (
-    <div className={'flex-col'}>
+    <div
+      className={
+        'dm-plugin-padding flex-col border rounded-md bg-equinor-lightgray'
+      }
+    >
+      {config.title && <h2>{config.title}</h2>}
       {config.recurring !== false && (
         <ConfigureRecurring
           asCron={asCronJob}
@@ -185,15 +191,22 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
         />
       )}
       <JobButtonWrapper>
-        {getControlButton(
-          status,
-          deregister,
-          createAndStartJob,
-          false,
-          jobIsLoading
-        )}
-        {!config.hideLogs && <JobLog logs={logs} error={error} />}
-        <Chip variant={getVariant(status)}>{status ?? 'Not registered'}</Chip>
+        <div className='flex items-center space-x-2'>
+          {getControlButton(
+            status,
+            deregister,
+            createAndStartJob,
+            false,
+            jobIsLoading
+          )}
+          <div className='flex flex-row items-center'>
+            <p className='text-sm text-center'>Status:</p>
+            <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
+              {status ?? 'Not registered'}
+            </Chip>
+          </div>
+          {!config.hideLogs && <JobLog logs={logs} error={error} />}
+        </div>
         {config.jobTemplates.length > 1 && (
           <div className={'flex flex-row items-center'}>
             <Tooltip title={`Change Job template. Current: `}>

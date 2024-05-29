@@ -21,6 +21,13 @@
       "attributeType": "PLUGINS:dm-core-plugins/common/Template",
       "dimensions": "*",
       "optional": true
+    },
+    {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "description": "Show a title for the job controls"
     }
   ]
 }
