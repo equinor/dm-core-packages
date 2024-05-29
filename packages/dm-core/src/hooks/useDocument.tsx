@@ -11,7 +11,8 @@ interface IUseDocumentReturnType<T> {
   updateDocument: (
     newDocument: T,
     notify: boolean,
-    partialUpdate?: boolean
+    partialUpdate?: boolean,
+    throwError?: boolean
   ) => Promise<void>
   error: ErrorResponse | null
   setError: Dispatch<SetStateAction<ErrorResponse | null>>
