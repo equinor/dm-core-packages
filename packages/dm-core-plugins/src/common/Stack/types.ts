@@ -64,3 +64,15 @@ export interface StyledStackProps {
   spacing?: number
   flexWrap?: 'initial' | 'no-wrap' | 'wrap' | 'wrap-reverse'
 }
+
+export const defaultProps: StackProps = {
+  direction: 'column',
+  alignContent: 'initial',
+  alignItems: 'initial',
+  alignSelf: 'initial',
+  justifyContent: 'initial',
+  wrap: 'initial',
+  padding: 0,
+  grow: 0,
+  shrink: 0,
+}

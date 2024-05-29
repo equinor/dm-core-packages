@@ -1,8 +1,9 @@
 import { StyledStack } from './styles'
-import { StackProps } from './types'
+import { StackProps, defaultProps } from './types'
 
 export const Stack = (props: StackProps) => {
-  const { grow, shrink, direction, wrap, ...restProps } = props
+  const mergedProps = { ...defaultProps, ...props }
+  const { grow, shrink, direction, wrap, ...restProps } = mergedProps
   return (
     <StyledStack
       flexDirection={direction}
@@ -12,16 +13,4 @@ export const Stack = (props: StackProps) => {
       {...restProps}
     />
   )
-}
-
-Stack.defaultProps = {
-  direction: 'column',
-  alignContent: 'initial',
-  alignItems: 'initial',
-  alignSelf: 'initial',
-  justifyContent: 'initial',
-  wrap: 'initial',
-  padding: 0,
-  grow: 0,
-  shrink: 0,
 }
