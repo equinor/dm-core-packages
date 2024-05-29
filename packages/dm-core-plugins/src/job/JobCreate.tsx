@@ -16,7 +16,13 @@ import {
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
-import { Button, Chip, Icon, Tooltip } from '@equinor/eds-core-react'
+import {
+  Button,
+  Chip,
+  Icon,
+  Tooltip,
+  Typography,
+} from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
 import { useEffect, useState } from 'react'
 
@@ -166,75 +172,73 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
     if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
   }, [jobDocument])
   return (
-    <div
-      className={
-        'dm-plugin-padding flex-col border rounded-md bg-equinor-lightgray'
-      }
-    >
-      {config.title && <h2>{config.title}</h2>}
-      {config.recurring !== false && (
-        <ConfigureRecurring
-          asCron={asCronJob}
-          setAsCron={setAsCronJob}
-          readOnly={true}
-          schedule={schedule}
-          setSchedule={(s: TSchedule) => {
-            setSchedule(s)
-            setCronValues(parseCronStringToCronValues(s.cron))
-          }}
-          cronValues={cronValues}
-          setCronValues={(c: TCronValues) => {
-            setSchedule({ ...schedule, cron: parseCronValuesToCronString(c) })
-            setCronValues(c)
-          }}
-          registered={status === JobStatus.Registered}
-        />
-      )}
-      <JobButtonWrapper>
-        <div className='flex items-center space-x-2'>
-          {getControlButton(
-            status,
-            deregister,
-            createAndStartJob,
-            false,
-            jobIsLoading
-          )}
-          <div className='flex flex-row items-center'>
-            <p className='text-sm text-center'>Status:</p>
-            <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
-              {status ?? 'Not registered'}
-            </Chip>
-          </div>
-          {!config.hideLogs && <JobLog logs={logs} error={error} />}
-        </div>
-        {config.jobTemplates.length > 1 && (
-          <div className={'flex flex-row items-center'}>
-            <Tooltip title={`Change Job template. Current: `}>
-              <Button
-                onClick={() => setTemplateMenuIsOpen(true)}
-                variant='ghost_icon'
-                disabled={[JobStatus.Starting, JobStatus.Running].includes(
-                  // @ts-ignore
-                  status
-                )}
-              >
-                <Icon data={gear} size={24} />
-              </Button>
-            </Tooltip>
-            <TemplateMenu
-              templates={config.jobTemplates || []}
-              onSelect={(_: any, index: number) => setSelectedTemplate(index)}
-              onClose={() => setTemplateMenuIsOpen(false)}
-              isOpen={isTemplateMenuOpen}
-              title='Job template'
-              selected={selectedTemplate}
-            />
-          </div>
+    <div className='dm-plugin-padding'>
+      <div className='flex-col border rounded-md bg-equinor-lightgray p-2'>
+        {config.title && <Typography variant='h6'>{config.title}</Typography>}
+        {config.recurring !== false && (
+          <ConfigureRecurring
+            asCron={asCronJob}
+            setAsCron={setAsCronJob}
+            readOnly={true}
+            schedule={schedule}
+            setSchedule={(s: TSchedule) => {
+              setSchedule(s)
+              setCronValues(parseCronStringToCronValues(s.cron))
+            }}
+            cronValues={cronValues}
+            setCronValues={(c: TCronValues) => {
+              setSchedule({ ...schedule, cron: parseCronValuesToCronString(c) })
+              setCronValues(c)
+            }}
+            registered={status === JobStatus.Registered}
+          />
         )}
-      </JobButtonWrapper>
-      {status === JobStatus.Running && progress !== null && (
-        <Progress progress={progress} />
-      )}
+        <JobButtonWrapper>
+          <div className='flex items-center space-x-2'>
+            {getControlButton(
+              status,
+              deregister,
+              createAndStartJob,
+              false,
+              jobIsLoading
+            )}
+            <div className='flex flex-row items-center'>
+              <p className='text-sm text-center'>Status:</p>
+              <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
+                {status ?? 'Not registered'}
+              </Chip>
+            </div>
+            {!config.hideLogs && <JobLog logs={logs} error={error} />}
+          </div>
+          {config.jobTemplates.length > 1 && (
+            <div className={'flex flex-row items-center'}>
+              <Tooltip title={`Change Job template. Current: `}>
+                <Button
+                  onClick={() => setTemplateMenuIsOpen(true)}
+                  variant='ghost_icon'
+                  disabled={[JobStatus.Starting, JobStatus.Running].includes(
+                    // @ts-ignore
+                    status
+                  )}
+                >
+                  <Icon data={gear} size={24} />
+                </Button>
+              </Tooltip>
+              <TemplateMenu
+                templates={config.jobTemplates || []}
+                onSelect={(_: any, index: number) => setSelectedTemplate(index)}
+                onClose={() => setTemplateMenuIsOpen(false)}
+                isOpen={isTemplateMenuOpen}
+                title='Job template'
+                selected={selectedTemplate}
+              />
+            </div>
+          )}
+        </JobButtonWrapper>
+        {status === JobStatus.Running && progress !== null && (
+          <Progress progress={progress} />
+        )}
+      </div>
     </div>
   )
 }
