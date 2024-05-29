@@ -115,12 +115,8 @@ export const JobLog = (props: {
 }
 export const JobButtonWrapper = styled.div`
   display: flex;
-  padding-top: 0.5rem;
   flex-direction: row;
   align-items: center;
-  text-align: center;
-  padding-inline: 0.5rem; 
-  margin-bottom: 0.5rem;
   justify-content: space-between;
   min-width: max-content;
 `
