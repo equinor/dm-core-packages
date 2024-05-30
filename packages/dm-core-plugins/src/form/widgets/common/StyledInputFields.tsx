@@ -65,7 +65,7 @@ export const StyledTextField = (
   return (
     <StyledEDSField
       {...restProps}
-      defaultValue={
+      value={
         props.readOnly && props.value === ''
           ? '-'
           : props.defaultValue ?? props.value
@@ -99,7 +99,7 @@ export const StyledNumberField = (
       onWheel={(event: React.UIEvent<HTMLInputElement>) =>
         (event.target as HTMLInputElement).blur()
       }
-      defaultValue={value ?? props.defaultValue}
+      value={value ?? props.defaultValue}
       type={'number'}
     />
   )

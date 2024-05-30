@@ -7,12 +7,14 @@ import {
 import { Form } from './components/Form'
 
 export const FormPlugin = (props: IUIPlugin) => {
-  const { document, isLoading, updateDocument, error, isFetching } =
-    useDocument<any>(props.idReference, 0)
+  const { document, isLoading, updateDocument, error } = useDocument<any>(
+    props.idReference,
+    0
+  )
 
   // react-hook-form is unable to rerender when the document is updated.
   // This means that the form will not benefit from react-query caching.
-  if (isLoading || isFetching) return <Loading />
+  if (isLoading) return <Loading />
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 

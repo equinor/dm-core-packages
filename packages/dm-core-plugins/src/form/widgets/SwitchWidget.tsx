@@ -8,7 +8,7 @@ const SwitchWidget = (props: TWidget) => {
     <Switch
       {...props}
       disabled={readOnly}
-      defaultChecked={typeof value === 'undefined' ? false : value}
+      checked={typeof value === 'undefined' ? false : value}
       data-testid='form-switch'
     />
   )

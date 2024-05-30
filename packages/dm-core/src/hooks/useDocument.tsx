@@ -66,7 +66,7 @@ export function useDocument<T>(
 
   const { isPending, data } = useQuery({
     staleTime: 5 * 1000,
-    refetchOnMount: false,
+    refetchOnMount: true,
     queryKey: queryKeys,
     queryFn: () =>
       dmssAPI
@@ -118,8 +118,8 @@ export function useDocument<T>(
             error.response?.data || { message: error.name, data: error }
           )
           if (throwError) {
-          throw new Error(JSON.stringify(error, null, 2))
-        }
+            throw new Error(JSON.stringify(error, null, 2))
+          }
         }),
   })
 
@@ -129,6 +129,6 @@ export function useDocument<T>(
     updateDocument: (newDocument: T, notify, partialUpdate, throwError) =>
       mutation.mutateAsync({ newDocument, notify, partialUpdate, throwError }),
     error: errorResponse,
-    setError: setErrorResponse
+    setError: setErrorResponse,
   }
 }

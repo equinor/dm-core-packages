@@ -27,7 +27,7 @@ const EntityPickerWidget = (props: TWidget) => {
       <TextField
         id={props.id}
         readOnly={props.readOnly}
-        defaultValue={props.value}
+        value={props.value}
         inputRef={props.inputRef}
         variant={props.variant}
         helperText={props.helperText}
