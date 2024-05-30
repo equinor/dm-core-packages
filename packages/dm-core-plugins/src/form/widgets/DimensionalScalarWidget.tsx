@@ -88,7 +88,7 @@ const DimensionalScalarWidget = (props: TWidget) => {
             helperText={error}
             variant={error ? 'error' : undefined}
             onChange={onChangeHandler}
-            defaultValue={isPrimitive ? entity : entity?.value ?? ''}
+            value={isPrimitive ? entity : entity?.value ?? ''}
           />
         </EdsProvider>
       </div>
