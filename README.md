@@ -5330,3 +5330,13 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* refactor: padding and sizing improvements
+
+- Use eds typography, reduce hierarchy size on title
+- Make parent space items, not individually
+- Re-insert the plugin wrapper (created duplicate padding)
+- Remove unecessary css classes (2024-05-30T07:55:49Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9301115288/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
