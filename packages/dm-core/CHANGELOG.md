@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.45.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.44.1...dm-core-v1.45.0) (2024-05-31)
+
+
+### Features
+
+* export setError and allow throw actual error in useDocument ([fcdbd82](https://github.com/equinor/dm-core-packages/commit/fcdbd8294f53756aee3d7701d98bc401b1fbaa49))
+* **yaml:** raw json edit ([70753eb](https://github.com/equinor/dm-core-packages/commit/70753eb41f7f9e88fada50c64c2c40e4a73fe24f))
+
+
+### Bug Fixes
+
+* **form-plugin:** reset form on changed document ([43afa8d](https://github.com/equinor/dm-core-packages/commit/43afa8d7a6b1f3cb6231ce147599f01797b9c2ea))
+* **form:** wait for background fetch ([d448ea5](https://github.com/equinor/dm-core-packages/commit/d448ea553873178b34b5e760d2ec0670e444e91f))
+* **header:** Automatically clear blueprint cache ([d8cc86b](https://github.com/equinor/dm-core-packages/commit/d8cc86b952003fdfaed7b538d089327bd7954ba6))
+* missing type in updateDocument ([bfb2a73](https://github.com/equinor/dm-core-packages/commit/bfb2a733ddcbc5f8f38c9d17949463ddfa088fac))
+
+
+### Performance Improvements
+
+* use tanstack query to cache attribute and useDocument requests ([3865373](https://github.com/equinor/dm-core-packages/commit/3865373a5b09f14fd86b4ba19e55e4fc86564946))
+
+
+### Code Refactoring
+
+* move throwError param to individual function, not hook ([5a95b94](https://github.com/equinor/dm-core-packages/commit/5a95b94e3c7b4ddee65b46d4139c7ae2bdc7669f))
+
 ## [1.44.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.44.0...dm-core-v1.44.1) (2024-05-16)
 
 

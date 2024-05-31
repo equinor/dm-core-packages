@@ -60,6 +60,53 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.55.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.54.0...dm-core-plugins-v1.55.0) (2024-05-31)
+
+
+### Features
+
+* expand some YamlPlugin functionality and clean up UI ([b729594](https://github.com/equinor/dm-core-packages/commit/b72959476bff9077267f3e07cd642ea5146ef9da))
+* **explorer:** export files and packages ([d689c64](https://github.com/equinor/dm-core-packages/commit/d689c641033e41bd21421534280f2248bf797455))
+* **job:** configurable title ([3ee18f1](https://github.com/equinor/dm-core-packages/commit/3ee18f13ed91272dc5a83dfd6e7e99521e650e20))
+* **yaml:** raw json edit ([70753eb](https://github.com/equinor/dm-core-packages/commit/70753eb41f7f9e88fada50c64c2c40e4a73fe24f))
+
+
+### Bug Fixes
+
+* **form-plugin:** reset form on changed document ([43afa8d](https://github.com/equinor/dm-core-packages/commit/43afa8d7a6b1f3cb6231ce147599f01797b9c2ea))
+* **form:** wait for background fetch ([d448ea5](https://github.com/equinor/dm-core-packages/commit/d448ea553873178b34b5e760d2ec0670e444e91f))
+* **header:** Automatically clear blueprint cache ([d8cc86b](https://github.com/equinor/dm-core-packages/commit/d8cc86b952003fdfaed7b538d089327bd7954ba6))
+* mermaid hiearchy plugin was broken. Add docs ([f5a0468](https://github.com/equinor/dm-core-packages/commit/f5a04680e88b3b47c878b8d9256993431d4fa11b))
+
+
+### Documentation
+
+* add docs on ExplorerPlugin ([bfac4b9](https://github.com/equinor/dm-core-packages/commit/bfac4b9bdbbe734e373f93c837f4df28f7e02900))
+* add docs on HeaderPlugin ([2b9dcf9](https://github.com/equinor/dm-core-packages/commit/2b9dcf9565a38ce6def32a47c05f792c506289b6))
+
+
+### Miscellaneous Chores
+
+* delete superseeded pdf plugin ([0f24ec3](https://github.com/equinor/dm-core-packages/commit/0f24ec3a7b312c713fbd3f63228fefa780be2c91))
+* disable language toggle if only one language ([d0ad079](https://github.com/equinor/dm-core-packages/commit/d0ad0790bd621983804e66685e17023e5a68c291))
+
+
+### Code Refactoring
+
+* bring back copy title ([b7afac6](https://github.com/equinor/dm-core-packages/commit/b7afac647f04819de77b1a065c69624640ffd204))
+* move throwError param to individual function, not hook ([5a95b94](https://github.com/equinor/dm-core-packages/commit/5a95b94e3c7b4ddee65b46d4139c7ae2bdc7669f))
+* padding and sizing improvements ([4040605](https://github.com/equinor/dm-core-packages/commit/4040605bd738008b986f75e1af81f92db99ea239))
+* remove deprecated react defaultProps ([0ffd9be](https://github.com/equinor/dm-core-packages/commit/0ffd9be2675beefccd88ba57f61968396f6a5edd))
+* sticky sidebar, scroll on everything ([917e8f4](https://github.com/equinor/dm-core-packages/commit/917e8f4fa6f3c70418c418330605f0799cb190d7))
+* use memo for code state ([2bce4bf](https://github.com/equinor/dm-core-packages/commit/2bce4bf873553c13f9a8a0aa0a56a53c6bea9e38))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.44.1 to ^1.45.0
+
 ## [1.54.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.53.0...dm-core-plugins-v1.54.0) (2024-05-21)
 
 
