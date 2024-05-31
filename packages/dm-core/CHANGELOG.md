@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.45.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.45.0...dm-core-v1.45.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* add react-query to correct package.json ([a2aa86a](https://github.com/equinor/dm-core-packages/commit/a2aa86aa935ff12e67094c776a258cf358ed7e1f))
+
 ## [1.45.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.44.1...dm-core-v1.45.0) (2024-05-31)
 
 
