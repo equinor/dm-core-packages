@@ -5340,3 +5340,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* fix(form-plugin): reset form on changed document (2024-05-30T10:34:05Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9313933220/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
