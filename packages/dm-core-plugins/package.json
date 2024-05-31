@@ -53,8 +53,7 @@
   },
   "files": [
     "blueprints",
-    "dist",
-    "docs"
+    "dist"
   ],
   "types": "dist/index.d.ts",
   "scripts": {

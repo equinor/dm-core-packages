@@ -50,7 +50,10 @@ export const BlueprintAttributeList = ({
         <Accordion>
           {Array.isArray(formData?.attributes) &&
             formData.attributes.map((attribute: any, index: number) => (
-              <Accordion.Item key={attribute._id} className={'ms-5'}>
+              <Accordion.Item
+                key={attribute._id || attribute.name}
+                className={'ms-5'}
+              >
                 <Accordion.Header>
                   <div className={'flex space-x-2 justify-between w-full'}>
                     <div
