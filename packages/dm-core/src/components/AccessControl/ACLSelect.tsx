@@ -11,7 +11,7 @@ export const ACLSelect = ({
 }): React.ReactElement => {
   return (
     <Select
-      width={'120px'}
+      width={'150px'}
       value={value}
       onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
         handleChange(
