@@ -6,6 +6,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
 import { useApplication } from '../../ApplicationContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { Stack } from '../../layout'
 import { AccessControlList, AccessLevel } from '../../services'
 import { TUserIdMapping } from '../../types'
 import {
@@ -269,8 +270,12 @@ export const AccessControlListComponent = (props: {
           </Tabs.Panel>
         </Tabs.Panels>
       </Tabs>
-      <div className='flex justify-between mt-10'>
-        <div className={'flex'}>
+      <Stack
+        direction='row'
+        justifyContent='space-between'
+        margin={[2, 0, 0, 0]}
+      >
+        <Stack direction='row' alignItems='center' spacing={0.5}>
           <Button onClick={() => saveAccessControlList(documentACL)}>
             {(loading && <Progress.Dots color='neutral' />) || 'Save'}
             {!loading && <Icon data={save} title='save' size={24} />}
@@ -280,12 +285,12 @@ export const AccessControlListComponent = (props: {
             label='Update recursively'
             onChange={() => setUpdateACLRecursively(!updateACLRecursively)}
           ></Checkbox>
-        </div>
+        </Stack>
 
         <Button variant='outlined' onClick={close}>
           Cancel
         </Button>
-      </div>
+      </Stack>
     </div>
   )
 }

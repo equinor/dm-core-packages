@@ -1,5 +1,6 @@
-import { Input } from '@equinor/eds-core-react'
+import { Input, Typography } from '@equinor/eds-core-react'
 import React from 'react'
+import { Stack } from '../../layout'
 import { AccessControlList, AccessLevel } from '../../services'
 import { ACLSelect } from './ACLSelect'
 
@@ -13,26 +14,30 @@ export const ACLOwnerPanel = ({
   handleChange,
 }: IACLOwnerPanelProps): React.ReactElement => {
   return (
-    <div className='flex justify-between'>
-      <div className='flex content-center items-center'>
-        Owner:
+    <Stack spacing={0.5} direction='row'>
+      <Stack spacing={0.125}>
+        <Typography variant='label' group='input'>
+          Owner:
+        </Typography>
         <Input
-          style={{ width: '150px', marginLeft: '5px' }}
+          style={{ width: '150px' }}
           placeholder={acl.owner}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleChange({ owner: event.target.value })
           }
         />
-      </div>
-      <div className='flex items-center'>
-        Others:
+      </Stack>
+      <Stack spacing={0.125}>
+        <Typography variant='label' group='input'>
+          Others:
+        </Typography>
         <ACLSelect
           value={acl.others || AccessLevel.None}
           handleChange={(newValue: AccessLevel) =>
             handleChange({ others: newValue })
           }
         />
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   )
 }
