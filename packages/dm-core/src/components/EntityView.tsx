@@ -2,6 +2,7 @@ import React, { Suspense, memo, useState } from 'react'
 
 import { Typography } from '@equinor/eds-core-react'
 import { useRecipe } from '../hooks'
+import { Stack } from '../layout'
 import { IUIPlugin, TUiRecipe } from '../types'
 import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { Loading } from './Loading'
@@ -63,15 +64,18 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
       </ErrorGroup>
     )
   if (!recipe || !Object.keys(recipe).length)
-    return <div className='w-full flex'>No compatible uiRecipes for entity</div>
+    return <Stack fullWidth>No compatible uiRecipes for entity</Stack>
 
   const refreshable = showRefreshButton ?? recipe.showRefreshButton ?? false
 
   return (
     <Suspense fallback={<Loading />}>
       <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
-        <div
-          className='flex flex-col flex-grow min-h-0 w-full relative'
+        <Stack
+          grow={1}
+          minHeight={0}
+          fullWidth
+          position='relative'
           style={{
             boxShadow: hoverRefresh ? 'inset 0px 0px 0px 1px #5c5c5c' : 'none',
             borderRadius: hoverRefresh ? '4px' : '0',
@@ -92,8 +96,10 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
               }}
             />
           )}
-          <div
-            className='flex flex-col flex-grow min-h-0 w-full'
+          <Stack
+            grow={1}
+            minHeight={0}
+            fullWidth
             style={{
               opacity: hoverRefresh ? 0.6 : 1,
             }}
@@ -107,8 +113,8 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
               onOpen={onOpen}
               onChange={onChange}
             />
-          </div>
-        </div>
+          </Stack>
+        </Stack>
       </ErrorBoundary>
     </Suspense>
   )

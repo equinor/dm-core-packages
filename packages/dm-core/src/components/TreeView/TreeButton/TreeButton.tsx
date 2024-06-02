@@ -51,8 +51,10 @@ export const TreeButton = (props: {
         {isExpandable ? (
           <Icon
             data={chevron_right}
-            className='transition-all'
-            style={{ transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
+            style={{
+              transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
+              transition: 'ease-in-out all 0.15s',
+            }}
           />
         ) : (
           <span style={{ width: '25px' }}></span>

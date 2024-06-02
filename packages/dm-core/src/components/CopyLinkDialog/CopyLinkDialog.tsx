@@ -24,6 +24,7 @@ import {
   useApplication,
   useDocument,
 } from '../../'
+import { Stack } from '../../layout'
 import { setMetaInDocument } from './utils'
 
 type TPropsBase = {
@@ -180,103 +181,114 @@ export const CopyLinkDialog = (props: TProps) => {
         <Dialog.Title>{title || 'Copy or link entity'}</Dialog.Title>
       </Dialog.Header>
       <Dialog.CustomContent>
-        {description && <p className='mb-4'>{description}</p>}
-        <TextField
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setNote(e.target.value)
-          }
-          id='textfield-normal'
-          placeholder='Note on published version'
-          label='Note'
-          autoComplete='off'
-        />
-        {(!destination || !hideProvidedFields) && (
-          <div className={'flex justify-between align-center py-2'}>
-            <div className={'flex items-center'}>
-              <Label label='Destination:' />
-              <p>{truncatePathString(selectedDestination.path || '-')}</p>
-            </div>
-            <Button
-              variant='ghost_icon'
-              aria-label='browse destination action'
-              onClick={() => setShowDestinationDialog(true)}
+        <Stack spacing={0.5}>
+          {description && <p>{description}</p>}
+          <TextField
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setNote(e.target.value)
+            }
+            id='textfield-normal'
+            placeholder='Note on published version'
+            label='Note'
+            autoComplete='off'
+          />
+          {(!destination || !hideProvidedFields) && (
+            <Stack
+              direction='row'
+              alignItems='center'
+              justifyContent='space-between'
             >
-              <Icon data={folder_open}></Icon>
-            </Button>
-          </div>
-        )}
-        {(!linkTarget || !hideProvidedFields) &&
-          selectedMode === 'copy&link' && (
-            <div className={'flex justify-between align-center py-2'}>
-              <div className={'flex items-center'}>
-                <Label label='Link target:' />
-                <p>{truncatePathString(selectedLinkTarget.path || '-')}</p>
-              </div>
+              <Stack direction='row' alignItems='center'>
+                <Label label='Destination:' />
+                <p>{truncatePathString(selectedDestination.path || '-')}</p>
+              </Stack>
               <Button
                 variant='ghost_icon'
-                aria-label='browse link action'
-                onClick={() => setShowLinkTargetDialog(true)}
+                aria-label='browse destination action'
+                onClick={() => setShowDestinationDialog(true)}
               >
                 <Icon data={folder_open}></Icon>
               </Button>
-            </div>
+            </Stack>
           )}
-        {(!mode || !hideProvidedFields) && (
-          <fieldset>
-            <legend>Publish mode</legend>
-            <Tooltip title='Make a copy at the destination'>
-              <Radio
-                label='Copy'
-                name='group'
-                value='copy'
-                checked={selectedMode === 'copy'}
-                onChange={() => setSelectedMode('copy')}
-              />
-            </Tooltip>
-            <Tooltip title='Insert a link at destination'>
-              <Radio
-                label='Link'
-                name='group'
-                value='link'
-                checked={selectedMode === 'link'}
-                onChange={() => setSelectedMode('link')}
-              />
-            </Tooltip>
-            <Tooltip title='Make a copy at destination, and insert a link at link target'>
-              <Radio
-                label='Copy & Link'
-                name='group'
-                value='copy&link'
-                checked={selectedMode === 'copy&link'}
-                onChange={() => setSelectedMode('copy&link')}
-              />
-            </Tooltip>
-          </fieldset>
-        )}
-        <EntityPickerDialog
-          title={`Select destination for the copy`}
-          showModal={showDestinationDialog}
-          setShowModal={setShowDestinationDialog}
-          onChange={(v: TEntityPickerReturn) => {
-            setSelectedDestination(v)
-          }}
-        />
-        <EntityPickerDialog
-          title={`Select target to insert link`}
-          showModal={showLinkTargetDialog}
-          setShowModal={setShowLinkTargetDialog}
-          onChange={(v: TEntityPickerReturn) => {
-            setLinkTarget(v)
-          }}
-        />
+          {(!linkTarget || !hideProvidedFields) &&
+            selectedMode === 'copy&link' && (
+              <Stack
+                direction='row'
+                alignItems='center'
+                justifyContent='space-between'
+              >
+                <Stack direction='row' alignItems='center'>
+                  <Label label='Link target:' />
+                  <p>{truncatePathString(selectedLinkTarget.path || '-')}</p>
+                </Stack>
+                <Button
+                  variant='ghost_icon'
+                  aria-label='browse link action'
+                  onClick={() => setShowLinkTargetDialog(true)}
+                >
+                  <Icon data={folder_open}></Icon>
+                </Button>
+              </Stack>
+            )}
+          {(!mode || !hideProvidedFields) && (
+            <fieldset>
+              <legend>Publish mode</legend>
+              <Tooltip title='Make a copy at the destination'>
+                <Radio
+                  label='Copy'
+                  name='group'
+                  value='copy'
+                  checked={selectedMode === 'copy'}
+                  onChange={() => setSelectedMode('copy')}
+                />
+              </Tooltip>
+              <Tooltip title='Insert a link at destination'>
+                <Radio
+                  label='Link'
+                  name='group'
+                  value='link'
+                  checked={selectedMode === 'link'}
+                  onChange={() => setSelectedMode('link')}
+                />
+              </Tooltip>
+              <Tooltip title='Make a copy at destination, and insert a link at link target'>
+                <Radio
+                  label='Copy & Link'
+                  name='group'
+                  value='copy&link'
+                  checked={selectedMode === 'copy&link'}
+                  onChange={() => setSelectedMode('copy&link')}
+                />
+              </Tooltip>
+            </fieldset>
+          )}
+          <EntityPickerDialog
+            title={`Select destination for the copy`}
+            showModal={showDestinationDialog}
+            setShowModal={setShowDestinationDialog}
+            onChange={(v: TEntityPickerReturn) => {
+              setSelectedDestination(v)
+            }}
+          />
+          <EntityPickerDialog
+            title={`Select target to insert link`}
+            showModal={showLinkTargetDialog}
+            setShowModal={setShowLinkTargetDialog}
+            onChange={(v: TEntityPickerReturn) => {
+              setLinkTarget(v)
+            }}
+          />
+        </Stack>
       </Dialog.CustomContent>
       <Dialog.Actions>
-        <div className={'flex justify-around w-full'}>
-          <Button
-            variant='outlined'
-            color='danger'
-            onClick={() => setOpen(false)}
-          >
+        <Stack
+          direction='row'
+          fullWidth
+          justifyContent='flex-end'
+          spacing={0.5}
+        >
+          <Button variant='outlined' onClick={() => setOpen(false)}>
             Cancel
           </Button>
           <Button
@@ -301,7 +313,7 @@ export const CopyLinkDialog = (props: TProps) => {
                 'Insert link'
               ))}
           </Button>
-        </div>
+        </Stack>
       </Dialog.Actions>
     </Dialog>
   )
