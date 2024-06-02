@@ -128,7 +128,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
             disabled={page === 0}
             variant='ghost_icon'
             onClick={() => setPage((prevPage) => prevPage - 1)}
-            className='overflow-hidden'
+            style={{ overflow: 'hidden' }}
           >
             <Icon data={chevron_left} />
           </Button>
@@ -136,7 +136,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
             disabled={page + 1 === availablePages}
             variant='ghost_icon'
             onClick={() => setPage((prevPage) => prevPage + 1)}
-            className='overflow-hidden'
+            style={{ overflow: 'hidden' }}
           >
             <Icon data={chevron_right} />
           </Button>

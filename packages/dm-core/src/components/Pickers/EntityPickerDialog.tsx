@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import { useApplication } from '../../ApplicationContext'
 import { EBlueprint } from '../../Enums'
 import { Tree, TreeNode } from '../../domain/Tree'
+import { Stack } from '../../layout'
 import { TValidEntity } from '../../types'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
@@ -215,13 +216,17 @@ export const EntityPickerDialog = (
         </Dialog.Title>
       </Dialog.Header>
       <Dialog.CustomContent style={{ overflow: 'hidden' }}>
-        <div className='flex flex-col h-full'>
+        <Stack
+          fullHeight
+          padding={[0, 0, 1, 0]}
+          style={{ borderBottom: '1px solid #e0dcdc' }}
+        >
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Progress.Circular />
             </div>
           ) : (
-            <div className='overflow-auto h-full'>
+            <Stack fullHeight scrollY padding={[0, 1, 0, 0]}>
               <TreeView
                 // If configured to hide "invalidTypes", only show the "typeFilter", along with data sources and packages to allow for browsing
                 includeTypes={
@@ -251,10 +256,9 @@ export const EntityPickerDialog = (
                   })
                 }}
               />
-            </div>
+            </Stack>
           )}
-          <div className='bg-[#e0dcdc] h-px inline mt-5'></div>
-        </div>
+        </Stack>
       </Dialog.CustomContent>
       <Dialog.Actions style={{ justifyContent: 'right' }}>
         <Button
