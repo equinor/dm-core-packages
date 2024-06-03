@@ -5365,3 +5365,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* Update and rename Documentation.mdx to Documentation.md (2024-06-03T10:48:57Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9348885692/2)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
