@@ -1,4 +1,4 @@
-import headerPluginConfig from '../../blueprints/header/HeaderPluginConfig.json'
+
 
 The `header` plugin is meant to be used as a web application header. Providing user information, application
 information, and an application recipe selector. Below the header, another UI plugin is displayed.
