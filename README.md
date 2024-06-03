@@ -5360,3 +5360,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* docs: job plugin (2024-05-31T07:23:53Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9348803854/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
