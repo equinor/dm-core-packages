@@ -1,3 +1,4 @@
+import { TextField, Typography } from '@equinor/eds-core-react'
 import { ReactElement } from 'react'
 
 interface TimefieldProps {
@@ -12,17 +13,16 @@ export const Timefield = (props: TimefieldProps): ReactElement => {
     props
 
   return (
-    <div className='flex flex-col'>
-      <label className='text-sm text-gray-600' htmlFor='timeInput'>
+    <div>
+      <Typography htmlFor='datepicker-time-input' group='input' variant='label'>
         Time {!useMinutes && ' - only' + ' hours'}
-      </label>
-      <input
-        id='timeInput'
-        type='string'
-        className='border border-gray-300 rounded py-1 px-2 appearance-none'
+      </Typography>
+      <TextField
+        id='datepicker-time-input'
         value={timeFieldValue}
-        onChange={(e) => handleTimeFieldChange(e.target.value)}
-        onBlur={(e) => formatTime(e.target.value)}
+        onChange={(e: any) => handleTimeFieldChange(e.target.value)}
+        onBlur={(e: any) => formatTime(e.target.value)}
+        helperText='NOTE: This datepicker uses UTC timing'
       />
     </div>
   )

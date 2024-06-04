@@ -1,12 +1,20 @@
-import { Icon } from '@equinor/eds-core-react'
+import {
+  Button,
+  EdsProvider,
+  Icon,
+  TextField,
+  Typography,
+} from '@equinor/eds-core-react'
 import {
   calendar_today,
   chevron_down,
   chevron_left,
   chevron_right,
+  chevron_up,
 } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
 import { ReactElement, useEffect, useState } from 'react'
+import { Stack } from '../Stack/Stack'
 import {
   CALENDAR_MONTHS,
   DateSelection,
@@ -19,6 +27,7 @@ import {
   isSameDay,
   isSameMonth,
 } from './calendarUtils'
+import { OptionsGrid, StyledOptionButton } from './styles'
 
 interface CalendarProps {
   dateTime: DateTime | null
@@ -64,95 +73,85 @@ export const Calendar = (props: CalendarProps): ReactElement => {
   }
 
   return (
-    <div className='w-full'>
-      <div className='flex justify-between items-center mb-3'>
-        <button
-          type='button'
+    <Stack fullWidth spacing={0.75} style={{ minWidth: '320px' }}>
+      <Stack direction='row' justifyContent='space-between' alignItems='center'>
+        <Button
+          variant='ghost'
           onClick={() => setShowMonthPicker(!showMonthPicker)}
-          className={'flex group hover:text-equinor-green items-center gap-1'}
         >
-          <span>
-            {currentMonthName} {activeYear}
-          </span>
-          <span
-            className={
-              'transition-all duration-250 ' +
-              (showMonthPicker ? 'rotate-180' : '')
-            }
-          >
-            <Icon
-              className={
-                'group-hover:bg-equinor-lightgreen rounded-full transition-all duration-250'
-              }
-              data={chevron_down}
-            />
-          </span>
-        </button>
-        <div className='flex gap-2 justify-between items-center'>
-          <button
-            type='button'
-            onClick={() => decrementMonth()}
-            aria-label='Previous month'
-            className='flex items-center rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green'
-          >
-            <Icon data={chevron_left} />
-          </button>
-          <button
-            type='button'
-            onClick={() => goToToday()}
-            aria-label='Go to today'
-            className=' p-0.5flex items-center rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green'
-          >
-            <Icon data={calendar_today} size={16} />
-          </button>
-
-          <button
-            type='button'
-            onClick={() => incrementMonth()}
-            aria-label='Next month'
-            className='flex items-center rounded-full hover:bg-equinor-lightgreen hover:text-equinor-green'
-          >
-            <Icon data={chevron_right} />
-          </button>
-        </div>
-      </div>
+          {currentMonthName} {activeYear}
+          <Icon data={showMonthPicker ? chevron_up : chevron_down} />
+        </Button>
+        <EdsProvider density='compact'>
+          <Stack direction='row'>
+            <Button
+              variant='ghost_icon'
+              onClick={() => decrementMonth()}
+              aria-label='Previous month'
+            >
+              <Icon data={chevron_left} />
+            </Button>
+            <Button
+              variant='ghost_icon'
+              onClick={() => goToToday()}
+              aria-label='Go to today'
+            >
+              <Icon data={calendar_today} size={16} />
+            </Button>
+            <Button
+              variant='ghost_icon'
+              onClick={() => incrementMonth()}
+              aria-label='Next month'
+            >
+              <Icon data={chevron_right} />
+            </Button>
+          </Stack>
+        </EdsProvider>
+      </Stack>
       {showMonthPicker ? (
         <>
-          <div className='flex flex-col mb-3'>
-            <span className='text-sm text-gray-600'>Year</span>
-            <input
-              className='border border-gray-300 rounded px-2 py-1'
+          <div>
+            <Typography htmlFor='datepicker-year' group='input' variant='label'>
+              Year
+            </Typography>
+            <TextField
+              id='datepicker-year'
               type='number'
               value={activeYear}
-              onChange={(event) => setActiveYear(Number(event.target.value))}
+              onChange={(event: any) =>
+                setActiveYear(Number(event.target.value))
+              }
             />
           </div>
-          <div className=''>
-            <span className='text-sm text-gray-600'>Month</span>
-            <div className='grid grid-cols-3 gap-2.5 rounded py-2'>
+          <div role='radiogroup' aria-labelledby='datepicker-month-label'>
+            <Typography
+              id='datepicker-month-label'
+              group='input'
+              variant='label'
+            >
+              Month
+            </Typography>
+            <OptionsGrid>
               {Object.keys(CALENDAR_MONTHS).map((month, index) => (
-                <button
-                  type='button'
+                <StyledOptionButton
+                  key={month}
+                  variant='ghost'
+                  role='radio'
+                  aria-checked={index + 1 === activeMonth}
+                  selected={index + 1 === activeMonth}
                   onClick={() => {
                     setActiveMonth(index + 1)
                     setShowMonthPicker(false)
                   }}
-                  className={
-                    'hover:bg-equinor-lightgreen hover:text-equinor-green px-2 rounded py-1 ' +
-                    (index + 1 === activeMonth
-                      ? 'bg-equinor-lightgreen text-equinor-green'
-                      : '')
-                  }
-                  key={index}
                 >
                   {month}
-                </button>
+                </StyledOptionButton>
               ))}
-            </div>
+            </OptionsGrid>
           </div>
         </>
       ) : (
-        <div className='grid grid-cols-7 gap-1'>
+        <OptionsGrid columns={7}>
           {cal.map((date, index) => {
             const isHighlighted = isDateInDatelist(
               DateTime.fromObject(date).toJSDate(),
@@ -163,49 +162,32 @@ export const Calendar = (props: CalendarProps): ReactElement => {
               dateTime ? dateTime.toJSDate() : DateTime.now().toJSDate()
             )
             return (
-              <button
+              <StyledOptionButton
                 type='button'
+                variant='ghost_icon'
                 onClick={() => handleDateSelection(date)}
                 aria-label={`${date.day}. ${
                   Object.keys(CALENDAR_MONTHS)[date.month - 1]
                 }`}
-                className={`
-                p-1.5 w-9 rounded-full relative justify-center hover:bg-equinor-lightgreen hover:text-equinor-green ${
-                  isSelected
-                    ? 'bg-equinor-lightgreen text-equinor-green font-medium'
-                    : isSameMonth(
-                          DateTime.fromObject(date).toJSDate(),
-                          DateTime.fromObject({
-                            year: activeYear,
-                            month: activeMonth,
-                          }).toJSDate()
-                        )
-                      ? ''
-                      : 'text-slate-400'
+                selected={isSelected}
+                highlighted={isHighlighted}
+                lessVisible={
+                  !isSameMonth(
+                    DateTime.fromObject(date).toJSDate(),
+                    DateTime.fromObject({
+                      year: activeYear,
+                      month: activeMonth,
+                    }).toJSDate()
+                  )
                 }
-              `}
                 key={index}
               >
                 {date.day}
-                {isHighlighted && (
-                  <span
-                    style={{
-                      color: '#0b5d65',
-                      position: 'absolute',
-                      bottom: '-3px',
-                      left: 'calc(50% - 5px)',
-                      width: '10px',
-                      fontSize: '0.7rem',
-                    }}
-                  >
-                    &#9679;
-                  </span>
-                )}
-              </button>
+              </StyledOptionButton>
             )
           })}
-        </div>
+        </OptionsGrid>
       )}
-    </div>
+    </Stack>
   )
 }

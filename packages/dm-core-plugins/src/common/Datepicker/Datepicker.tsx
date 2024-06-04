@@ -4,11 +4,13 @@ import {
   Icon,
   InputWrapper,
   Popover,
+  TextField,
 } from '@equinor/eds-core-react'
 import { calendar } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
 import { ReactElement, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { Stack } from '../Stack/Stack'
 import { Calendar } from './Calendar'
 import { Timefield } from './Timefield'
 import { DateSelection, zeroPad } from './calendarUtils'
@@ -24,7 +26,7 @@ interface DatepickerProps {
   useMinutes?: boolean
   helperText?: string
   isDirty?: boolean
-  hightlightedDates?: string[]
+  highlightedDates?: string[]
   onChangeMonthView?: (year: number, month: number) => void
 }
 
@@ -160,75 +162,64 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           text: helperText,
         }}
       >
-        <div
-          id={id}
+        <Stack
           ref={inputWrapperRef}
-          className={`h-9 px-2 border-b border-black flex items-center gap-2 w-fit ${
-            isDirty ? 'bg-[#85babf5e]' : 'bg-equinor-lightgray'
-          }`}
+          direction='row'
+          alignItems='center'
+          style={{ maxWidth: 'max-content' }}
         >
-          <input
-            type='text'
+          <TextField
+            id={`${id}-date-field`}
             aria-label='Enter date'
             value={dateFieldValue}
             disabled={readonly}
-            onChange={(e) => handleDateInput(e.target.value)}
-            onBlur={(e) => formatDate(e.target.value)}
-            className='h-full bg-transparent appearance-none w-24'
+            onChange={(e: any) => handleDateInput(e.target.value)}
+            onBlur={(e: any) => formatDate(e.target.value)}
+            style={{ width: '8rem' }}
           />
           {variant === 'datetime' && (
-            <input
-              type='text'
+            <TextField
+              id={`${id}-time-field`}
               aria-label='Enter time'
-              className='appearance-none bg-transparent h-full w-12 text-center'
               disabled={readonly}
               value={timeFieldValue}
               onChange={(e: any) => handleTimeInput(e.target.value)}
-              onBlur={(e) =>
+              onBlur={(e: any) =>
                 setTimeFieldValue(formatTime(e.target.value, useMinutes))
               }
+              style={{ width: '4rem' }}
             />
           )}
           <EdsProvider density='compact'>
             <Button variant='ghost_icon' onClick={() => setOpen(!open)}>
-              <Icon data={calendar} size={18} className='w-6' color='#2e2e2e' />
+              <Icon data={calendar} size={18} color='#2e2e2e' />
             </Button>
           </EdsProvider>
-        </div>
+        </Stack>
       </InputWrapper>
       {createPortal(
         <Popover open={open} anchorEl={inputWrapperRef.current}>
-          <div
-            id={`date-picker-popover-container`}
+          <Stack
+            id='date-picker-popover-container'
             ref={datepickerRef}
-            className={`p-4 gap-3 bg-white shadow border border-gray-300 flex flex-col rounded-sm mt-1`}
+            padding={1}
+            spacing={0.75}
           >
             <Calendar
               dateTime={datetime}
               handleDateSelection={handleDateSelection}
-              highlightedDates={props.hightlightedDates?.map(
-                (d) => new Date(d)
-              )}
+              highlightedDates={props.highlightedDates?.map((d) => new Date(d))}
               onChangeMonthView={onChangeMonthView}
             />
             {variant === 'datetime' && (
-              <>
-                <div className='w-full h-px bg-gray-300' />
-                <Timefield
-                  useMinutes={useMinutes}
-                  timeFieldValue={timeFieldValue}
-                  handleTimeFieldChange={handleTimeInput}
-                  formatTime={formatTime}
-                />
-                <span className='text-sm text-gray-600'>
-                  <span className='font-bold text-purple-600 bg-purple-100 py-1 px-1.5 rounded'>
-                    Note:
-                  </span>{' '}
-                  This datepicker uses UTC timing
-                </span>
-              </>
+              <Timefield
+                useMinutes={useMinutes}
+                timeFieldValue={timeFieldValue}
+                handleTimeFieldChange={handleTimeInput}
+                formatTime={formatTime}
+              />
             )}
-          </div>
+          </Stack>
         </Popover>,
         document.body
       )}
