@@ -1,16 +1,13 @@
+import { forwardRef } from 'react'
 import { StyledStack } from './styles'
 import { StackProps, defaultProps } from './types'
 
-export const Stack = (props: StackProps) => {
+export const Stack = forwardRef((props: StackProps, ref) => {
   const mergedProps = { ...defaultProps, ...props }
-  const { grow, shrink, direction, wrap, ...restProps } = mergedProps
   return (
     <StyledStack
-      flexDirection={direction}
-      flexGrow={grow}
-      flexShrink={shrink}
-      flexWrap={wrap}
-      {...restProps}
+      ref={ref as React.RefObject<HTMLDivElement>}
+      {...mergedProps}
     />
   )
-}
+})
