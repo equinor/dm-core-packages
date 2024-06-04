@@ -1,7 +1,6 @@
 import { BlueprintPicker } from '@development-framework/dm-core'
 import { TextField, Typography } from '@equinor/eds-core-react'
-import { DeleteSoftButton } from '../common'
-import { Fieldset } from '../form/styles'
+import { DeleteSoftButton, Stack } from '../common'
 
 export const Extends = (props: {
   formData: string[]
@@ -9,46 +8,34 @@ export const Extends = (props: {
 }) => {
   const { formData, setExtends } = props
   return (
-    <>
-      <div className={'flex justify-start'}>
-        <Typography className={'self-center'} bold={true}>
-          Extends
-        </Typography>
-        <div style={{ display: 'flex' }}>
-          <BlueprintPicker
-            onChange={(newBlueprint: string) =>
-              setExtends([...formData, newBlueprint])
-            }
-            fieldType={'button'}
-            label={'Add extends'}
-          />
-        </div>
-      </div>
+    <Stack>
+      <Stack direction='row' alignItems='center' spacing={0.5}>
+        <Typography bold={true}>Extends</Typography>
+        <BlueprintPicker
+          onChange={(newBlueprint: string) =>
+            setExtends([...formData, newBlueprint])
+          }
+          label='Add blueprints to extend from'
+        />
+      </Stack>
       <ul>
-        <Fieldset className={'ms-2'}>
-          {formData.length > 0 && (
-            <div>
-              {formData.map((typeRef: string, index: number) => (
-                <li key={index}>
-                  <div className={'flex align-middle justify-between ms-5'}>
-                    <TextField readOnly={true} value={typeRef} id={'123'} />
-                    <DeleteSoftButton
-                      onClick={() =>
-                        setExtends(
-                          formData.filter(
-                            (typeToRemove: string) => typeToRemove !== typeRef
-                          )
-                        )
-                      }
-                      title={'Remove blueprint'}
-                    />
-                  </div>
-                </li>
-              ))}
-            </div>
-          )}
-        </Fieldset>
+        {formData.length > 0 &&
+          formData.map((typeRef: string) => (
+            <Stack key={typeRef} as='li' direction='row' spacing={0.5}>
+              <TextField id={typeRef} readOnly={true} value={typeRef} />
+              <DeleteSoftButton
+                title='Remove blueprint'
+                onClick={() =>
+                  setExtends(
+                    formData.filter(
+                      (typeToRemove: string) => typeToRemove !== typeRef
+                    )
+                  )
+                }
+              />
+            </Stack>
+          ))}
       </ul>
-    </>
+    </Stack>
   )
 }

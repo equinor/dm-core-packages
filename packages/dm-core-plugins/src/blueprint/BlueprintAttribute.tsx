@@ -6,9 +6,9 @@ import {
   TGenericObject,
   truncatePathString,
 } from '@development-framework/dm-core'
-import { Input, Label, Switch, TextField } from '@equinor/eds-core-react'
+import { Input, Label, Radio, Switch, TextField } from '@equinor/eds-core-react'
 import { ChangeEvent } from 'react'
-import { Spacer } from './BlueprintPlugin'
+import { Stack } from '../common'
 
 type TAttribute = {
   type: string
@@ -34,7 +34,7 @@ export const BlueprintAttribute = (props: {
 }) => {
   const { attribute, setAttribute } = props
   return (
-    <div>
+    <Stack spacing={0.5}>
       <TextField
         id='name'
         label={'Name'}
@@ -45,7 +45,6 @@ export const BlueprintAttribute = (props: {
         }
         style={{ width: INPUT_FIELD_WIDTH }}
       />
-      <Spacer />
       <TextField
         id='label'
         label={'Label'}
@@ -55,11 +54,11 @@ export const BlueprintAttribute = (props: {
         }
         style={{ width: INPUT_FIELD_WIDTH }}
       />
-      <Spacer />
-      <div style={{ display: 'flex', alignItems: 'self-end' }}>
-        <div style={{ display: 'block' }}>
-          <Label label={'Type'} />
+      <Stack>
+        <Label label={'Type'} htmlFor={`${attribute.name}-type`} />
+        <Stack direction='row' alignItems='center' spacing={0.5}>
           <Select
+            id={`${attribute.name}-type`}
             value={truncatePathString(attribute.attributeType)}
             onChange={(e: ChangeEvent<HTMLSelectElement>) => {
               const newType = e.target.value
@@ -76,63 +75,63 @@ export const BlueprintAttribute = (props: {
               return <option key={key}>{key}</option>
             })}
             <option key={attribute.attributeType}>
-              {attribute.attributeType}
+              {truncatePathString(attribute.attributeType)}
             </option>
           </Select>
-        </div>
-        {!['string', 'number', 'boolean'].includes(attribute.attributeType) && (
-          <div style={{ marginLeft: '10px' }}>
+          {!['string', 'number', 'boolean'].includes(
+            attribute.attributeType
+          ) && (
             <BlueprintPicker
-              label={'Select'}
+              label='Select blueprint'
               onChange={(selectedBlueprint: string) =>
                 setAttribute({
                   ...attribute,
                   attributeType: selectedBlueprint,
                 })
               }
-              fieldType={'button'}
             />
-          </div>
-        )}
-      </div>
-      <Spacer />
-      <Label htmlFor='default' label='Default value' />
-      {attribute.attributeType === 'boolean' ? (
-        <>
-          <Switch
-            defaultChecked={!!attribute?.default ?? false}
-            onChange={(e: any) =>
-              setAttribute({ ...attribute, default: e.target.checked })
-            }
+          )}
+        </Stack>
+      </Stack>
+      <Stack>
+        <Label htmlFor='default' label='Default value' />
+        {attribute.attributeType === 'boolean' ? (
+          <Stack role='radiogroup' direction='row' spacing={1}>
+            {[true, false].map((option) => (
+              <Radio
+                key={String(option)}
+                checked={attribute?.default === option}
+                label={String(option)}
+                onChange={(e: any) =>
+                  setAttribute({ ...attribute, default: option })
+                }
+              />
+            ))}
+          </Stack>
+        ) : (
+          <Input
+            type={attribute.attributeType === 'number' ? 'number' : 'text'}
+            id='default'
+            value={attribute?.default || ''}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              let value: string | number = event.target.value
+              if (attribute.attributeType === 'number') value = Number(value)
+              setAttribute({ ...attribute, default: value })
+            }}
+            style={{ width: INPUT_FIELD_WIDTH }}
           />
-          {attribute.default ? String(attribute.default) : 'false'}
-        </>
-      ) : (
-        <Input
-          type={attribute.attributeType === 'number' ? 'number' : 'text'}
-          id='default'
-          value={attribute?.default || ''}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            let value: string | number = event.target.value
-            if (attribute.attributeType === 'number') value = Number(value)
-            setAttribute({ ...attribute, default: value })
-          }}
-          style={{ width: INPUT_FIELD_WIDTH }}
-        />
-      )}
-      <Spacer />
-      <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-        <TextField
-          id='dimensions'
-          label={'Dimensions'}
-          value={attribute?.dimensions || ''}
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setAttribute({ ...attribute, dimensions: event.target.value })
-          }
-          style={{ width: '140px' }}
-        />
-        <Label label='Example: "*,2,99"' />
-      </div>
+        )}
+      </Stack>
+      <TextField
+        id='dimensions'
+        label={'Dimensions'}
+        value={attribute?.dimensions || ''}
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+          setAttribute({ ...attribute, dimensions: event.target.value })
+        }
+        placeholder='Example: "*,2,99"'
+        style={{ width: '140px' }}
+      />
       {!Object.values(EPrimitiveTypes).includes(attribute.attributeType) && (
         <Switch
           label='Contained'
@@ -149,6 +148,6 @@ export const BlueprintAttribute = (props: {
           setAttribute({ ...attribute, optional: e.target.checked })
         }
       />
-    </div>
+    </Stack>
   )
 }
