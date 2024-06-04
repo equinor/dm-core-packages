@@ -95,7 +95,7 @@ export const BlueprintPicker = (props: TBlueprintPickerProps) => {
       ) : (
         <Tooltip title={label || 'Select Blueprint'}>
           <Button
-            title='Add and save'
+            aria-label='Select blueprint'
             variant='ghost_icon'
             onClick={() => setShowModal(true)}
           >

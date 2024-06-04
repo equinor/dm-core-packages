@@ -1,8 +1,8 @@
 import { truncatePathString } from '@development-framework/dm-core'
 import { Accordion, Button, Icon, Typography } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
-import { DeleteSoftButton } from '../common'
-import { Fieldset } from '../form/styles'
+import styled from 'styled-components'
+import { DeleteSoftButton, Stack } from '../common'
 import { BlueprintAttribute } from './BlueprintAttribute'
 
 interface BlueprintAttributeListProps {
@@ -11,82 +11,71 @@ interface BlueprintAttributeListProps {
   setFormData: (data: object) => void
 }
 
+const AttributeWrapper = styled.div`
+  width: 25%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
 export const BlueprintAttributeList = ({
   formData,
   setFormData,
 }: BlueprintAttributeListProps) => {
   return (
     <>
-      <div className={'flex justify-start'}>
-        <Typography className={'self-center'} bold={true}>
-          Attributes
-        </Typography>
-        <div className='flex justify-end m-1'>
-          <Button
-            as='button'
-            variant='ghost_icon'
-            onClick={() =>
-              setFormData({
-                ...formData,
-                attributes: [
-                  ...formData.attributes,
-                  {
-                    name: 'new-attribute',
-                    attributeType: 'string',
-                    type: 'dmss://system/SIMOS/BlueprintAttribute',
-                    contained: true,
-                    optional: true,
-                    _id: crypto.randomUUID(),
-                  },
-                ],
-              })
-            }
-          >
-            <Icon data={add}></Icon>
-          </Button>
-        </div>
-      </div>
-      <Fieldset className={'m-2 w-full'}>
+      <Stack direction='row' spacing={0.5} alignItems='center'>
+        <Typography bold={true}>Attributes</Typography>
+        <Button
+          as='button'
+          variant='ghost_icon'
+          onClick={() =>
+            setFormData({
+              ...formData,
+              attributes: [
+                ...formData.attributes,
+                {
+                  name: 'new-attribute',
+                  attributeType: 'string',
+                  type: 'dmss://system/SIMOS/BlueprintAttribute',
+                  contained: true,
+                  optional: true,
+                  _id: crypto.randomUUID(),
+                },
+              ],
+            })
+          }
+        >
+          <Icon data={add}></Icon>
+        </Button>
+      </Stack>
+      <Stack padding={0.5}>
         <Accordion>
           {Array.isArray(formData?.attributes) &&
             formData.attributes.map((attribute: any, index: number) => (
-              <Accordion.Item
-                key={attribute._id || attribute.name}
-                className={'ms-5'}
-              >
+              <Accordion.Item key={attribute._id || attribute.name}>
                 <Accordion.Header>
-                  <div className={'flex space-x-2 justify-between w-full'}>
-                    <div
-                      className={
-                        'w-1/4 self-center whitespace-nowrap overflow-hidden font-bold overflow-ellipsis'
-                      }
-                    >
+                  <Stack
+                    spacing={0.5}
+                    direction='row'
+                    fullWidth
+                    alignItems='center'
+                  >
+                    <AttributeWrapper style={{ fontWeight: 'bold' }}>
                       {attribute.name}
-                    </div>
-                    <div
-                      className={
-                        'w-1/4 self-center whitespace-nowrap overflow-ellipsis overflow-hidden'
-                      }
-                    >
+                    </AttributeWrapper>
+                    <AttributeWrapper>
                       {truncatePathString(attribute.attributeType)}{' '}
-                    </div>{' '}
-                    <div
-                      className={
-                        'w-1/4 self-center whitespace-nowrap overflow-ellipsis overflow-hidden'
-                      }
-                    >
+                    </AttributeWrapper>{' '}
+                    <AttributeWrapper>
                       {attribute?.contained === undefined ||
                       attribute?.contained === true
                         ? 'Contained'
                         : 'Uncontained'}
-                    </div>
-                    <div
-                      className={
-                        'w-1/4 self-center whitespace-nowrap overflow-ellipsis overflow-hidden'
-                      }
-                    >
+                    </AttributeWrapper>
+                    <AttributeWrapper>
                       Dim: {attribute?.dimensions || ' - '}
-                    </div>
+                    </AttributeWrapper>
                     <DeleteSoftButton
                       onClick={(event) => {
                         formData.attributes.splice(index, 1)
@@ -98,7 +87,7 @@ export const BlueprintAttributeList = ({
                       }}
                       title='Remove attribute'
                     />
-                  </div>
+                  </Stack>
                 </Accordion.Header>
                 <Accordion.Panel>
                   <BlueprintAttribute
@@ -113,7 +102,7 @@ export const BlueprintAttributeList = ({
               </Accordion.Item>
             ))}
         </Accordion>
-      </Fieldset>
+      </Stack>
     </>
   )
 }
