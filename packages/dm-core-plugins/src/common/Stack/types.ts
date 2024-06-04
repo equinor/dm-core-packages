@@ -24,7 +24,12 @@ export type JustifyContentTypes =
 
 export type DirectionTypes = 'row' | 'column' | 'row-reverse' | 'column-reverse'
 
-export interface StackProps extends React.ComponentPropsWithoutRef<'div'> {
+export type SpacingType =
+  | number
+  | [y: number, x: number]
+  | [top: number, right: number, bottom: number, left: number]
+
+export interface StackProps extends React.ComponentPropsWithRef<'div'> {
   children?: React.ReactNode
   spacing?: number
   inline?: boolean
@@ -32,37 +37,21 @@ export interface StackProps extends React.ComponentPropsWithoutRef<'div'> {
   alignItems?: AlignItemsTypes
   alignSelf?: AlignSelfTypes
   justifyContent?: JustifyContentTypes
-  basis?:
-    | 'none'
-    | 'auto'
-    | 'fill'
-    | 'content'
-    | 'fit-content'
-    | 'min-content'
-    | 'max-content'
   grow?: number
   shrink?: number
   direction?: DirectionTypes
   wrap?: 'initial' | 'no-wrap' | 'wrap' | 'wrap-reverse'
-  order?: number
   className?: string
   style?: React.CSSProperties
-  padding?: number
+  padding?: SpacingType
+  margin?: SpacingType
+  fullWidth?: boolean
+  fullHeight?: boolean
+  position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'
+  minHeight?: number
+  scrollY?: boolean
+  scrollX?: boolean
   as?: keyof JSX.IntrinsicElements
-}
-
-export interface StyledStackProps {
-  alignItems?: AlignItemsTypes
-  alignContent?: AlignContentTypes
-  alignSelf?: AlignSelfTypes
-  justifyContent?: JustifyContentTypes
-  flexDirection?: DirectionTypes
-  flexGrow?: number
-  flexShrink?: number
-  inline?: boolean
-  padding?: number
-  spacing?: number
-  flexWrap?: 'initial' | 'no-wrap' | 'wrap' | 'wrap-reverse'
 }
 
 export const defaultProps: StackProps = {
@@ -73,6 +62,8 @@ export const defaultProps: StackProps = {
   justifyContent: 'initial',
   wrap: 'initial',
   padding: 0,
+  margin: 0,
   grow: 0,
-  shrink: 0,
+  shrink: 1,
+  fullWidth: false,
 }
