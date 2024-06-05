@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import { account_circle, info_circle, menu, refresh } from '@equinor/eds-icons'
 import { toast } from 'react-toastify'
 
+import { Stack } from '../common'
 import { AboutDialog } from './components/AboutDialog'
 import { AppSelector } from './components/AppSelector'
 import { UserInfoDialog } from './components/UserInfoDialog'
@@ -133,8 +134,8 @@ export default (props: IUIPlugin): React.ReactElement => {
       ? config.uiRecipesList
       : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
   return (
-    <div className='flex-layout-container'>
-      <TopBar className='w-full shrink-0'>
+    <Stack fullWidth grow={1} minHeight={0}>
+      <TopBar style={{ width: '100%', flexShrink: 0 }}>
         <TopBar.Header>
           <Logo aria-label='main-heading'>{entity.label}</Logo>
           <AppSelector
@@ -214,14 +215,14 @@ export default (props: IUIPlugin): React.ReactElement => {
         setIsOpen={setVisibleUserInfo}
         applicationEntity={entity}
       />
-      <div className='flex-layout-container'>
+      <Stack fullWidth grow={1} minHeight={0}>
         <UIPlugin
           key={idReference + selectedRecipe.name}
           idReference={idReference}
           type={entity.type}
           config={selectedRecipe.config}
         />
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   )
 }
