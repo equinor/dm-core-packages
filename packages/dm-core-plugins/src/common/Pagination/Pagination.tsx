@@ -71,7 +71,7 @@ export function Pagination(props: PaginationProps) {
             disabled={page === 0}
             variant='ghost_icon'
             onClick={() => setPage(page - 1)}
-            className='overflow-hidden'
+            style={{ overflow: 'hidden' }}
           >
             <Icon data={chevron_left} title='Previous page' />
           </Button>
@@ -79,7 +79,7 @@ export function Pagination(props: PaginationProps) {
             disabled={page + 1 === availablePages}
             variant='ghost_icon'
             onClick={() => setPage(page + 1)}
-            className='overflow-hidden'
+            style={{ overflow: 'hidden' }}
           >
             <Icon data={chevron_right} title='Next page' />
           </Button>

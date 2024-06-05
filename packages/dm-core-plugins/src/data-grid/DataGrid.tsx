@@ -134,7 +134,7 @@ export function DataGrid(props: DataGridProps) {
   }
 
   return (
-    <Stack className='w-full'>
+    <Stack fullWidth>
       <Stack>
         {config.title && <Typography variant='h5'>{config.title}</Typography>}
         {config.description && <Typography>{config.description}</Typography>}

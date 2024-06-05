@@ -123,44 +123,42 @@ export function DataGridPlugin(props: IUIPlugin) {
   }
 
   return !data ? null : (
-    <Stack
-      className='dm-plugin-padding w-full'
-      alignItems='flex-start'
-      spacing={1}
-    >
-      <DataGrid
-        attributeType={attribute?.attributeType || 'string'}
-        config={userConfig}
-        data={data || []}
-        description={document?.description}
-        dimensions={getDimensions()}
-        isDirty={isDirty}
-        initialRowsPerPage={rowsPerPage}
-        name={blueprint?.name}
-        setData={onDataChange}
-        title={document?.title}
-      />
-      {config.editable && (
-        <Stack direction='row' spacing={1}>
-          <Tooltip title={isDirty ? 'Undo changes' : ''}>
+    <div className='dm-plugin-padding'>
+      <Stack fullWidth alignItems='flex-start' spacing={1}>
+        <DataGrid
+          attributeType={attribute?.attributeType || 'string'}
+          config={userConfig}
+          data={data || []}
+          description={document?.description}
+          dimensions={getDimensions()}
+          isDirty={isDirty}
+          initialRowsPerPage={rowsPerPage}
+          name={blueprint?.name}
+          setData={onDataChange}
+          title={document?.title}
+        />
+        {config.editable && (
+          <Stack direction='row' spacing={1}>
+            <Tooltip title={isDirty ? 'Undo changes' : ''}>
+              <Button
+                onClick={revertChanges}
+                disabled={!isDirty}
+                variant='outlined'
+                style={{ overflow: 'hidden' }}
+              >
+                <Icon data={undo} size={16} />
+              </Button>
+            </Tooltip>
             <Button
-              onClick={revertChanges}
-              disabled={!isDirty}
-              variant='outlined'
-              className='overflow-hidden'
+              onClick={onChange ? updateForm : saveDocument}
+              disabled={!isDirty || loading}
+              style={{ overflow: 'hidden' }}
             >
-              <Icon data={undo} size={16} />
+              {onChange ? 'Update' : 'Save'}
             </Button>
-          </Tooltip>
-          <Button
-            onClick={onChange ? updateForm : saveDocument}
-            disabled={!isDirty || loading}
-            className='overflow-hidden'
-          >
-            {onChange ? 'Update' : 'Save'}
-          </Button>
-        </Stack>
-      )}
-    </Stack>
+          </Stack>
+        )}
+      </Stack>
+    </div>
   )
 }
