@@ -3,6 +3,7 @@ import { info_circle } from '@equinor/eds-icons'
 import { tokens } from '@equinor/eds-tokens'
 import React from 'react'
 import styled from 'styled-components'
+import { Stack } from '../../../common'
 
 const StyledInputField = styled(TextField)`
   & :disabled {
@@ -45,14 +46,14 @@ const StyledEDSField = (
         '--eds-input-background': background,
       }}
       rightAdornments={
-        <span className='flex space-x-2'>
-          <p>{props?.unit}</p>
+        <Stack as='span' direction='row' spacing={0.5}>
+          <span>{props?.unit}</span>
           {props.tooltip && (
             <Tooltip title={props.tooltip ?? ''}>
               <Icon data={info_circle} size={16} />
             </Tooltip>
           )}
-        </span>
+        </Stack>
       }
     ></StyledInputField>
   )

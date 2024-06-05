@@ -3,6 +3,7 @@ import {
   TBlueprint,
   TStorageRecipe,
 } from '@development-framework/dm-core'
+import { Stack } from '../../common'
 import { useRegistryContext } from '../context/RegistryContext'
 import { AttributeFieldSelector } from '../fields/AttributeFieldSelector'
 
@@ -27,7 +28,7 @@ export const AttributeList = (props: {
       : attributes.filter((attr) => !hideByDefaultFields.includes(attr.name))
 
   return (
-    <>
+    <Stack spacing={0.75}>
       {filteredAttributes?.map((attribute: TAttribute) => {
         const uiAttribute = config?.attributes.find(
           (uiAttribute) => uiAttribute.name === attribute.name
@@ -39,7 +40,6 @@ export const AttributeList = (props: {
           <div
             data-testid={`${prefix}${attribute.name}`}
             key={`${prefix}${attribute.name}`}
-            className='pb-3'
           >
             <AttributeFieldSelector
               namePath={`${prefix}${attribute.name}`}
@@ -50,6 +50,6 @@ export const AttributeList = (props: {
           </div>
         )
       })}
-    </>
+    </Stack>
   )
 }

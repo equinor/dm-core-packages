@@ -1,5 +1,6 @@
 import { EdsProvider, Tooltip, Typography } from '@equinor/eds-core-react'
 import { ChangeEvent, useState } from 'react'
+import { Stack } from '../../common'
 import { TWidget } from '../types'
 import { StyledNumberField, StyledTextField } from './common/StyledInputFields'
 
@@ -39,11 +40,8 @@ const DimensionalScalarWidget = (props: TWidget) => {
     (widgetConfig?.inline ? '50%' : '100%')
 
   return (
-    <div
-      className={`overflow-hidden ${
-        widgetConfig?.inline ? 'flex justify-between' : ''
-      }
-    `}
+    <Stack
+      direction={widgetConfig?.inline ? 'row' : 'column'}
       style={{ width: widgetWidth }}
     >
       <div
@@ -92,7 +90,7 @@ const DimensionalScalarWidget = (props: TWidget) => {
           />
         </EdsProvider>
       </div>
-    </div>
+    </Stack>
   )
 }
 
