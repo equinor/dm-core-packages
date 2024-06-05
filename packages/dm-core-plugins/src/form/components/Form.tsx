@@ -13,6 +13,7 @@ import {
 import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
 import { FormProvider, useForm, useFormContext } from 'react-hook-form'
+import { Stack } from '../../common'
 import { RegistryProvider } from '../context/RegistryContext'
 import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
 import { getCanOpenOrExpand, isPrimitiveType } from '../utils'
@@ -168,45 +169,51 @@ export const Form = (props: TFormProps) => {
         idReference={idReference}
         config={{ ...defaultConfig, ...props.config }}
       >
-        <div
-          className='flex-layout-container dm-plugin-padding dm-parent-plugin'
-          style={{ maxWidth: FORM_DEFAULT_MAX_WIDTH }}
-        >
-          <AttributeList
-            namePath={namePath}
-            blueprint={blueprint}
-            storageRecipes={storageRecipes ?? []}
-          />
-          {showSubmitButton && !config?.readOnly && (
-            <EdsProvider
-              density={config?.compactButtons ? 'compact' : 'comfortable'}
-            >
-              <div
-                className={`flex space-x-2 justify-start items-center ${
-                  config?.compactButtons ? 'mt-2' : 'mt-4'
-                }`}
+        <div className='dm-plugin-padding dm-parent-plugin'>
+          <Stack
+            grow={1}
+            minHeight={0}
+            fullWidth
+            style={{ maxWidth: FORM_DEFAULT_MAX_WIDTH }}
+          >
+            <AttributeList
+              namePath={namePath}
+              blueprint={blueprint}
+              storageRecipes={storageRecipes ?? []}
+            />
+            {showSubmitButton && !config?.readOnly && (
+              <EdsProvider
+                density={config?.compactButtons ? 'compact' : 'comfortable'}
               >
-                <Button
-                  onClick={handleCustomReset}
-                  disabled={disabled}
-                  tooltip={'Revert changes'}
-                  variant={'outlined'}
-                  data-testid='form-reset'
-                  className='overflow-hidden'
+                <Stack
+                  direction='row'
+                  spacing={0.5}
+                  justifyContent='flex-start'
+                  alignItems='center'
+                  margin={config?.compactButtons ? [0.25, 0] : [0.75, 0]}
                 >
-                  <Icon data={undo} size={16} />
-                </Button>
-                <Button
-                  type='submit'
-                  data-testid='form-submit'
-                  onClick={handleSubmit}
-                  className='overflow-hidden'
-                >
-                  Submit
-                </Button>
-              </div>
-            </EdsProvider>
-          )}
+                  <Button
+                    onClick={handleCustomReset}
+                    disabled={disabled}
+                    tooltip={'Revert changes'}
+                    variant={'outlined'}
+                    data-testid='form-reset'
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <Icon data={undo} size={16} />
+                  </Button>
+                  <Button
+                    type='submit'
+                    data-testid='form-submit'
+                    onClick={handleSubmit}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    Submit
+                  </Button>
+                </Stack>
+              </EdsProvider>
+            )}
+          </Stack>
         </div>
       </RegistryProvider>
     )

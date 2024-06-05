@@ -1,7 +1,7 @@
 import { TAttribute } from '@development-framework/dm-core'
 import { Tooltip } from '@equinor/eds-core-react'
 import { useFormContext } from 'react-hook-form'
-import { AddRowButton, DeleteSoftButton } from '../../../../../../common'
+import { AddRowButton, DeleteSoftButton, Stack } from '../../../../../../common'
 import { TPrimitive, TUiAttributeObject } from '../../../../../types'
 import { AttributeFieldSelector } from '../../../../AttributeFieldSelector'
 
@@ -46,7 +46,7 @@ export const PrimitiveArray = ({
   }
 
   return (
-    <div className='flex flex-col w-full'>
+    <Stack>
       {data.map((item: TPrimitive, index: number) => (
         <Tooltip
           key={`${index}-${item}`}
@@ -54,7 +54,12 @@ export const PrimitiveArray = ({
           placement={'right-start'}
           enterDelay={300}
         >
-          <div className='flex items-center m-0.5'>
+          <Stack
+            direction='row'
+            justifyContent='space-between'
+            alignItems='center'
+            padding={0.25}
+          >
             <AttributeFieldSelector
               namePath={`${namePath}.${index}`}
               uiAttribute={{
@@ -65,30 +70,21 @@ export const PrimitiveArray = ({
                 config: {
                   hideLabel: true,
                   ...uiAttribute?.config,
-                  backgroundColor: 'white',
                 },
               }}
               attribute={{ ...attribute, dimensions: '' }}
             />
-            <div
-              className={`pb-[3px] w-fit ${
-                typeof item !== 'boolean'
-                  ? 'border-b border-equinor-charcoal'
-                  : ''
-              }`}
-            >
-              <DeleteSoftButton
-                onClick={() => removeItem(index)}
-                title={'Remove list item'}
-                ariaLabel='remove-action'
-                dataTestId={`form-primitive-array-remove-${index}`}
-                visibilityWhenNotHover={'opaque'}
-              />
-            </div>
-          </div>
+            <DeleteSoftButton
+              onClick={() => removeItem(index)}
+              title={'Remove list item'}
+              ariaLabel='remove-action'
+              dataTestId={`form-primitive-array-remove-${index}`}
+              visibilityWhenNotHover={'opaque'}
+            />
+          </Stack>
         </Tooltip>
       ))}
       <AddRowButton ariaLabel='Add new item to list' onClick={addItem} />
-    </div>
+    </Stack>
   )
 }
