@@ -1,5 +1,4 @@
-import { Icon, Tooltip, Typography } from '@equinor/eds-core-react'
-import { link } from '@equinor/eds-icons'
+import { Tooltip, Typography } from '@equinor/eds-core-react'
 import { TWidget } from '../types'
 
 function ensureProtocol(url: string): string {
@@ -41,28 +40,18 @@ const HyperlinkWidget = (props: TWidget) => {
     label = config?.label
   }
   url = ensureProtocol(url)
+
   return (
-    <div
-      style={{
-        marginInlineStart: '4px',
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
-      <Tooltip title={url}>
-        <a href={url}>
-          <Typography color='blue' className='hover:underline flex' style={{}}>
-            <Icon
-              data={link}
-              size={18}
-              style={{ transform: 'rotate(315deg)' }}
-              className='me-1'
-            />
-            {label ?? url}
-          </Typography>
-        </a>
-      </Tooltip>
-    </div>
+    <Tooltip title={url}>
+      <a href={url} style={{ display: 'inline-block' }}>
+        <Typography
+          color='primary'
+          token={{ textDecoration: 'underline', fontWeight: 500 }}
+        >
+          {label ?? url}
+        </Typography>
+      </a>
+    </Tooltip>
   )
 }
 
