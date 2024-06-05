@@ -1,0 +1,28 @@
+{
+  "title": "Example",
+  "description": "Minimal example of meta plugin",
+  "note": "",
+  "showDemo": true,
+  "blueprint": {
+    "type": "CORE:Blueprint",
+    "name": "Example",
+    "description": "",
+    "attributes": [
+      {
+        "type": "dmss://system/SIMOS/BlueprintAttribute",
+        "name": "type",
+        "attributeType": "string",
+        "optional": false
+      }
+    ]
+  },
+  "entity": {
+    "type": "./Example",
+    "_id": "1179c897-df62-445f-87e4-f393b4253936"
+  },
+  "recipe": {
+    "type": "CORE:UiRecipe",
+    "name": "Meta",
+    "plugin": "@development-framework/dm-core-plugins/meta"
+  }
+}
