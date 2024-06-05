@@ -108,7 +108,7 @@ export function DataGridImportDialog(props: DataGridImportDialogProps) {
         <Typography variant='h4'>Import data</Typography>
         {canAddRows && (
           <Stack>
-            <Typography className='pl-2' group='input' variant='label'>
+            <Typography group='input' variant='label'>
               Data action
             </Typography>
             <Stack role='radiogroup' direction='row' spacing={1}>
