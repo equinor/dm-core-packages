@@ -24,7 +24,7 @@ export const ObjectModelContainedTemplate = (
   const { idReference, onOpen, config } = useRegistryContext()
 
   const [isExpanded, setIsExpanded] = useState(
-    uiAttribute?.showExpanded ?? config.showExpanded
+    uiAttribute?.showExpanded ?? !!config.showExpanded
   )
   const value = watch(namePath)
   const objectIsNotEmpty = value && Object.keys(value).length > 0
@@ -96,6 +96,7 @@ export const ObjectModelContainedTemplate = (
         </ComplexAttributeTemplate.Header.Actions>
       </ComplexAttributeTemplate.Header>
       <ComplexAttributeTemplate.Content
+        id={`${namePath}-content`}
         expanded={!!isExpanded}
         canExpand={!!canExpand}
       >

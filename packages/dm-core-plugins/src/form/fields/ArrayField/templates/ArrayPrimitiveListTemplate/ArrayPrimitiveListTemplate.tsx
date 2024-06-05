@@ -17,7 +17,7 @@ export const ArrayPrimitiveListTemplate = (
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
-      : config.showExpanded
+      : !!config.showExpanded
   )
 
   return (
@@ -36,7 +36,8 @@ export const ArrayPrimitiveListTemplate = (
         <ComplexAttributeTemplate.Header.Actions uiAttribute={uiAttribute} />
       </ComplexAttributeTemplate.Header>
       <ComplexAttributeTemplate.Content
-        padding=''
+        id={`${namePath}-content`}
+        padding='0'
         expanded={!!isExpanded}
         canExpand={true}
       >

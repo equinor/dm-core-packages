@@ -1,10 +1,15 @@
 import { TAttribute } from '@development-framework/dm-core'
-import { Icon, Typography } from '@equinor/eds-core-react'
-import { IconData, file, file_description } from '@equinor/eds-icons'
-import { useState } from 'react'
-import ExpandChevron from '../../components/ExpandChevron'
+import { Icon, Tooltip, Typography } from '@equinor/eds-core-react'
+import {
+  IconData,
+  chevron_right,
+  file,
+  file_description,
+} from '@equinor/eds-icons'
+import { Stack } from '../../../common'
 import { TUiAttribute } from '../../types'
 import { getDisplayLabel } from '../../utils'
+import { TitleButton } from './styles'
 
 type ComplexAttributeTemplateHeaderTitleProps = {
   canExpand: boolean | undefined
@@ -12,38 +17,31 @@ type ComplexAttributeTemplateHeaderTitleProps = {
   isExpanded: boolean | undefined
   attribute: TAttribute
   objectIsNotEmpty: boolean
-  setIsExpanded?: (expanded: boolean) => void
+  setIsExpanded?: React.Dispatch<React.SetStateAction<boolean>>
   onOpen?: () => void
   icon?: IconData
   uiAttribute?: TUiAttribute
   namePath?: string
 }
 
-export const ComplexAttributeTemplateHeaderTitle = ({
-  canExpand,
-  canOpen,
-  isExpanded,
-  setIsExpanded,
-  attribute,
-  onOpen,
-  objectIsNotEmpty,
-  icon,
-  uiAttribute,
-  namePath,
-}: ComplexAttributeTemplateHeaderTitleProps) => {
-  const [isHovering, setIsHovering] = useState(false)
+export const ComplexAttributeTemplateHeaderTitle = (
+  props: ComplexAttributeTemplateHeaderTitleProps
+) => {
+  const {
+    canExpand,
+    canOpen,
+    isExpanded,
+    setIsExpanded,
+    attribute,
+    onOpen,
+    objectIsNotEmpty,
+    uiAttribute,
+  } = props
 
   const hideOptional = uiAttribute?.hideOptionalLabel ?? false
+  const displayLabel = getDisplayLabel(attribute, true, uiAttribute)
 
-  function handleLabelClick(
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) {
-    if (!objectIsNotEmpty) return
-    if (event.ctrlKey || event.metaKey) {
-      event.preventDefault()
-      canOpen && onOpen?.()
-      return
-    }
+  function handleLabelClick() {
     if (canExpand) {
       setIsExpanded?.(!isExpanded)
       return
@@ -51,56 +49,47 @@ export const ComplexAttributeTemplateHeaderTitle = ({
     canOpen && onOpen?.()
   }
 
+  const getTooltipTitle: () => string = () => {
+    if (!objectIsNotEmpty) return `Create ${displayLabel} before opening it`
+    if (canExpand && isExpanded) return `Collapse ${displayLabel}`
+    if (canExpand && !isExpanded) return `Expand ${displayLabel}`
+    if (canOpen) return `Open ${displayLabel} in new tab`
+    return ''
+  }
+
+  const tooltipTitle = getTooltipTitle()
+
   return (
-    <div
-      className={`flex flex-start items-center ${!canExpand ? 'ps-2' : 'ps-1'}`}
+    <Stack
+      direction='row'
+      alignItems='center'
+      padding={canExpand ? [0, 0.25] : [0, 0.5]}
+      fullWidth
     >
-      {canExpand && (
-        <span
-          className={`flex w-fit rounded-full items-center ${
-            canExpand && isHovering ? 'bg-equinor-lightgreen' : ''
-          }`}
+      <Tooltip title={tooltipTitle}>
+        <TitleButton
+          aria-expanded={isExpanded}
+          aria-controls={`${props.namePath}-content`}
+          onClick={handleLabelClick}
+          disabled={!objectIsNotEmpty}
+          isExpanded={!!isExpanded}
         >
-          <ExpandChevron
-            isExpanded={isExpanded ?? false}
-            setIsExpanded={(exp) => setIsExpanded?.(exp)}
+          {canExpand && setIsExpanded && (
+            <span className='title-chevron'>
+              <Icon data={chevron_right} />
+            </span>
+          )}
+          <Icon
+            className='title-icon'
+            data={props.icon ?? (objectIsNotEmpty ? file_description : file)}
+            color='#3d3d3d'
           />
-        </span>
-      )}
-      <div
-        className={`flex items-center space-x-1 ${
-          objectIsNotEmpty ? '' : 'opacity-40'
-        }
-          ${
-            objectIsNotEmpty && (canOpen || canExpand)
-              ? 'cursor-pointer hover:opacity-80'
-              : ''
-          }
-      `}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-        onClick={handleLabelClick}
-      >
-        <Icon
-          data={icon ?? (objectIsNotEmpty ? file_description : file)}
-          color='#3d3d3d'
-        />
-        <Typography
-          bold={true}
-          className={`
-            ${
-              objectIsNotEmpty && isHovering && canOpen && !canExpand
-                ? 'underline'
-                : ''
-            }`}
-          aria-label={`form-complex-${namePath}`}
-        >
-          {getDisplayLabel(attribute, true, uiAttribute)}
-        </Typography>
-        {attribute.optional && !hideOptional && (
-          <p className='ps-1 mt-0.5 text-xs'>Optional</p>
-        )}
-      </div>
-    </div>
+          <Typography bold={true}>{displayLabel}</Typography>
+          {attribute.optional && !hideOptional && (
+            <Typography variant='meta'>Optional</Typography>
+          )}
+        </TitleButton>
+      </Tooltip>
+    </Stack>
   )
 }
