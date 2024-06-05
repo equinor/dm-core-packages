@@ -1,12 +1,21 @@
 import { PropsWithChildren } from 'react'
-import { ComplexAttributeTemplateContent } from './ComplexAttributeTemplateContent'
-import { ComplexAttributeTemplateHeader } from './ComplexAttributeTemplateHeader'
+import { ComplexAttributeTemplateHeaderActions } from './ComplexAttributeTemplateHeaderActions'
+import { ComplexAttributeTemplateHeaderTitle } from './ComplexAttributeTemplateHeaderTitle'
+import * as Styled from './styles'
 
-export const ComplexAttributeTemplate = ({ children }: PropsWithChildren) => {
-  return (
-    <div className='border border-[#dddddd] rounded-md w-full'>{children}</div>
-  )
-}
+export const ComplexAttributeTemplate = (props: PropsWithChildren) => (
+  <Styled.ComplexAttributeTemplate {...props} />
+)
+
+export const ComplexAttributeTemplateHeader = (props: PropsWithChildren) => (
+  <Styled.ComplexAttributeTemplateHeader {...props} />
+)
+
+export const ComplexAttributeTemplateContent = (
+  props: PropsWithChildren & Styled.TComplexAttributeTemplateContent
+) => <Styled.ComplexAttributeTemplateContent {...props} />
 
 ComplexAttributeTemplate.Header = ComplexAttributeTemplateHeader
 ComplexAttributeTemplate.Content = ComplexAttributeTemplateContent
+ComplexAttributeTemplateHeader.Title = ComplexAttributeTemplateHeaderTitle
+ComplexAttributeTemplateHeader.Actions = ComplexAttributeTemplateHeaderActions

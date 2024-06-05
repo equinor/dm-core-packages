@@ -69,22 +69,17 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
           )}
         </ComplexAttributeTemplate.Header.Actions>
       </ComplexAttributeTemplate.Header>
-      <div
-        className={`${
-          canExpand && isExpanded && referenceExists ? '' : 'hidden'
-        }`}
+      <ComplexAttributeTemplate.Content
+        id={`${namePath}-content`}
+        expanded={!!isExpanded}
+        canExpand={canExpand && referenceExists}
       >
-        <ComplexAttributeTemplate.Content
-          expanded={!!isExpanded}
-          canExpand={!!(canExpand && referenceExists)}
-        >
-          <ViewCreator
-            idReference={address}
-            onOpen={onOpen}
-            viewConfig={getExpandViewConfig(uiAttribute)}
-          />
-        </ComplexAttributeTemplate.Content>
-      </div>
+        <ViewCreator
+          idReference={address}
+          onOpen={onOpen}
+          viewConfig={getExpandViewConfig(uiAttribute)}
+        />
+      </ComplexAttributeTemplate.Content>
     </ComplexAttributeTemplate>
   )
 }

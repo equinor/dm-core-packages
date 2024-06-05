@@ -21,7 +21,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
   const [isExpanded, setIsExpanded] = useState(
     uiAttribute?.showExpanded !== undefined
       ? uiAttribute?.showExpanded
-      : config.showExpanded
+      : !!config.showExpanded
   )
   const isDefined = initialValue !== undefined
 
@@ -80,9 +80,10 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
         </ComplexAttributeTemplate.Header.Actions>
       </ComplexAttributeTemplate.Header>
       <ComplexAttributeTemplate.Content
+        id={`${namePath}-content`}
         expanded={!!isExpanded}
         canExpand={!!canExpand}
-        padding='px-2 pt-2'
+        padding='0.5rem 0.125rem 0.125rem'
       >
         <ViewCreator
           idReference={`${idReference}.${namePath}`}

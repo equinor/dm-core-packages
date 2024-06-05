@@ -2,6 +2,7 @@ import { EdsProvider, Icon, Tooltip } from '@equinor/eds-core-react'
 import { info_circle } from '@equinor/eds-icons'
 import { tokens } from '@equinor/eds-tokens'
 import React from 'react'
+import { Stack } from '../../../common'
 import { TUiAttribute } from '../../types'
 
 export const ComplexAttributeTemplateHeaderActions = ({
@@ -9,7 +10,7 @@ export const ComplexAttributeTemplateHeaderActions = ({
   uiAttribute,
 }: { children?: React.ReactNode; uiAttribute?: TUiAttribute }) => {
   return (
-    <div className='flex items-center'>
+    <Stack direction='row' alignItems='center'>
       {uiAttribute?.tooltip && (
         <EdsProvider density='compact'>
           <Tooltip title={uiAttribute?.tooltip}>
@@ -22,6 +23,6 @@ export const ComplexAttributeTemplateHeaderActions = ({
         </EdsProvider>
       )}
       {children}
-    </div>
+    </Stack>
   )
 }

@@ -27,7 +27,7 @@ export const ObjectModelUncontainedTemplate = (
   const { watch } = useFormContext()
   const { idReference, onOpen, config } = useRegistryContext()
   const [isExpanded, setIsExpanded] = useState(
-    uiAttribute?.showExpanded ?? config.showExpanded
+    uiAttribute?.showExpanded ?? !!config.showExpanded
   )
   const value = watch(namePath)
   const { dataSource, documentPath, attributePath } = splitAddress(idReference)
@@ -91,6 +91,7 @@ export const ObjectModelUncontainedTemplate = (
         </ComplexAttributeTemplate.Header.Actions>
       </ComplexAttributeTemplate.Header>
       <ComplexAttributeTemplate.Content
+        id={`${namePath}-content`}
         expanded={!!isExpanded}
         canExpand={!!canExpand}
       >
