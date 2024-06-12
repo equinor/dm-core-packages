@@ -1,13 +1,8 @@
 import { Button, Checkbox, Icon, Tooltip } from '@equinor/eds-core-react'
-import {
-  checkbox,
-  checkbox_outline,
-  chevron_down,
-  chevron_up,
-  external_link,
-} from '@equinor/eds-icons'
+import { checkbox, checkbox_outline, external_link } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
 import { ChangeEvent } from 'react'
+import { CollapseExpandButton } from '../../../../common'
 import { Datepicker } from '../../../../common/Datepicker'
 import { TableCellProps } from '../../types'
 import { resolvePath } from '../../utils'
@@ -37,19 +32,10 @@ export function TableCell(props: TableCellProps) {
   if (column.data === '^expandable') {
     return !editMode ? (
       <Styled.TableCell>
-        <Tooltip title={isExpanded ? 'Collapse row' : 'Expand row'}>
-          <Button
-            aria-label={
-              isExpanded ? 'Close expandable row' : 'Open expandable row'
-            }
-            variant='ghost_icon'
-            onClick={() => {
-              setIsExpanded(!isExpanded)
-            }}
-          >
-            <Icon data={isExpanded ? chevron_up : chevron_down} />
-          </Button>
-        </Tooltip>
+        <CollapseExpandButton
+          isExpanded={isExpanded}
+          setIsExpanded={() => setIsExpanded(!isExpanded)}
+        />
       </Styled.TableCell>
     ) : null
   }
