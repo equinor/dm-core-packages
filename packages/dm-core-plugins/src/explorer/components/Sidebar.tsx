@@ -31,7 +31,7 @@ export default function Sidebar(props: TProps) {
   }, [])
 
   return (
-    <div className='flex'>
+    <div style={{ display: 'flex' }}>
       <div
         style={{
           width: `${width / 16}rem`,

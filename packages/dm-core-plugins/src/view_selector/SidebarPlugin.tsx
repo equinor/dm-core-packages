@@ -5,6 +5,7 @@ import {
   ViewCreator,
 } from '@development-framework/dm-core'
 import React from 'react'
+import { Stack } from '../common'
 import { Sidebar } from './Sidebar'
 import { TItemData, TViewSelectorConfig } from './types'
 import { useViewSelector } from './useViewSelector'
@@ -37,14 +38,14 @@ export const SidebarPlugin = (
   ) as TItemData
 
   return (
-    <div className='flex-layout-container flex-row'>
+    <Stack direction='row' fullWidth grow={1} minHeight={0}>
       <Sidebar
         viewSelectorItems={viewSelectorItems}
         selectedViewId={selectedViewId}
         setSelectedViewId={setSelectedViewId}
         addView={addView}
       />
-      <div className='flex-layout-container scroll'>
+      <Stack direction='row' fullWidth grow={1} minHeight={0} scrollY>
         {viewItem.viewConfig ? (
           <ViewCreator
             key={`${viewItem.rootEntityId}-${viewItem.viewConfig.scope}`}
@@ -66,7 +67,7 @@ export const SidebarPlugin = (
             defined
           </p>
         )}
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   )
 }

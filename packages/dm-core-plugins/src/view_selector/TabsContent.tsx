@@ -4,7 +4,7 @@ import {
   ViewCreator,
 } from '@development-framework/dm-core'
 import * as React from 'react'
-import { LazyLoad } from '../common'
+import { LazyLoad, Stack } from '../common'
 import { TItemData } from './types'
 
 export const TabsContent = (props: {
@@ -19,7 +19,7 @@ export const TabsContent = (props: {
   const { selectedViewId, viewSelectorItems, setFormData, formData, onOpen } =
     props
   return (
-    <div className='flex-layout-container scroll' style={props.style}>
+    <Stack grow={1} minHeight={0} fullWidth scrollY style={props.style}>
       {viewSelectorItems.map((config: TItemData) => (
         <LazyLoad
           key={config.viewId}
@@ -48,6 +48,6 @@ export const TabsContent = (props: {
           )}
         </LazyLoad>
       ))}
-    </div>
+    </Stack>
   )
 }
