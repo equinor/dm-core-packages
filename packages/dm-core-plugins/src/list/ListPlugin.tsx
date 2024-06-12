@@ -18,10 +18,11 @@ import {
   Tooltip,
   Typography,
 } from '@equinor/eds-core-react'
-import { chevron_right, external_link, link, undo } from '@equinor/eds-icons'
+import { external_link, link, undo } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import {
+  CollapseExpandButton,
   DeleteSoftButton,
   LazyLoad,
   Pagination,
@@ -207,44 +208,16 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   role='row'
                   justifyContent='space-between'
                   alignItems='center'
-                  className={`border-b border-[#ccc]`}
+                  style={{ borderBottom: '1px solid #ccc' }}
                   padding={0.25}
                 >
                   <Stack direction='row' alignItems='center'>
                     {internalConfig.functionality.expand && (
-                      <EdsProvider
-                        density={
-                          internalConfig.compact ? 'compact' : 'comfortable'
-                        }
-                      >
-                        <Tooltip
-                          title={expanded[item.key] ? 'Minimize' : 'Expand'}
-                        >
-                          <Button
-                            variant='ghost_icon'
-                            color='secondary'
-                            disabled={!item.isSaved}
-                            data-testid={`expandListItem-${index}`}
-                            onClick={() => handleExpand(item)}
-                          >
-                            <Icon
-                              data={chevron_right}
-                              size={internalConfig.compact ? 18 : 24}
-                              title={
-                                expanded[item.key]
-                                  ? 'Minimize item'
-                                  : 'Expand item'
-                              }
-                              className='transition-all'
-                              style={{
-                                transform: expanded[item.key]
-                                  ? 'rotate(90deg)'
-                                  : 'rotate(0deg)',
-                              }}
-                            />
-                          </Button>
-                        </Tooltip>
-                      </EdsProvider>
+                      <CollapseExpandButton
+                        isExpanded={expanded[item.key]}
+                        setIsExpanded={() => handleExpand(item)}
+                        disabled={!item.isSaved}
+                      />
                     )}
                     {attribute && !attribute.contained && <Icon data={link} />}
                     <Stack direction='row' wrap='wrap'>
@@ -278,13 +251,9 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                           disabled={!item.isSaved}
                           data-testid={`open-list-item-${index}`}
                           onClick={() => handleOpen(item)}
+                          aria-label='Open in new tab'
                         >
-                          <Icon
-                            data={external_link}
-                            size={18}
-                            title={'Open in tab'}
-                            aria-label={'Open in tab'}
-                          />
+                          <Icon data={external_link} />
                         </Button>
                       </Tooltip>
                     )}
@@ -318,7 +287,10 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   </Stack>
                 </Stack>
                 <LazyLoad visible={expanded[item.key]}>
-                  <div className='m-2 border-b border-[#ccc] pb-4'>
+                  <Stack
+                    padding={[0, 0, 0.5, 0]}
+                    style={{ borderBottom: '1px solid #ccc' }}
+                  >
                     <ViewCreator
                       onSubmit={
                         config.saveExpanded
@@ -335,7 +307,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       idReference={item.idReference}
                       viewConfig={internalConfig.expandViewConfig}
                     />
-                  </div>
+                  </Stack>
                 </LazyLoad>
               </Stack>
             ))}
@@ -343,8 +315,12 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
         <EdsProvider
           density={internalConfig.compact ? 'compact' : 'comfortable'}
         >
-          <div
-            className={`w-full space-x-1 flex flex-wrap my-2 justify-between`}
+          <Stack
+            direction='row'
+            spacing={0.5}
+            wrap='wrap'
+            justifyContent='space-between'
+            margin={[0.5, 0]}
           >
             {showPagination && (
               <Pagination
@@ -358,7 +334,13 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                 }
               />
             )}
-            <div className='flex justify-end grow space-x-2 items-center'>
+            <Stack
+              grow={1}
+              direction='row'
+              spacing={0.5}
+              justifyContent='flex-end'
+              alignItems='center'
+            >
               {internalConfig.functionality.add && (
                 <>
                   <NewListItemButton
@@ -409,8 +391,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
               >
                 Save
               </FormButton>
-            </div>
-          </div>
+            </Stack>
+          </Stack>
         </EdsProvider>
       </Stack>
     </div>

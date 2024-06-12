@@ -27,7 +27,7 @@ export const TablePlugin = (props: IUIPlugin) => {
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
   return (
-    <div className='dm-plugin-padding w-full'>
+    <div className='dm-plugin-padding'>
       <Table
         addItem={addItem}
         config={config}

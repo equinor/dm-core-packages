@@ -94,7 +94,11 @@ export function Table(props: TableProps) {
     setPage,
     goToLastPage,
   } = usePagination(
-    TableVariantNameEnum.Edit || !sortColumn ? items : sortedItems,
+    TableVariantNameEnum.Edit === tableVariant
+      ? items
+      : !sortColumn
+        ? items
+        : sortedItems,
     10
   )
   const functionalityConfig =
@@ -140,159 +144,148 @@ export function Table(props: TableProps) {
     tableVariant
   )
   return (
-    <div className='w-full' data-testid='table-wrapper'>
+    <Stack
+      data-testid='table-wrapper'
+      style={{
+        width: config?.width || '100%',
+      }}
+      spacing={0.5}
+      alignItems='flex-end'
+    >
       <Stack
+        fullWidth
         style={{
-          width: config?.width || '100%',
+          paddingRight: tableVariant === TableVariantNameEnum.Edit ? 32 : 0,
         }}
-        spacing={0.5}
-        alignItems='flex-end'
       >
-        <Stack
-          className='w-full'
-          style={{
-            paddingRight: tableVariant === TableVariantNameEnum.Edit ? 32 : 0,
-          }}
-        >
-          <SortableContext items={items} onReorder={reorderItems}>
-            <EDSTable className='w-full'>
-              <TableHead
-                config={config}
-                tableVariant={tableVariant}
-                showActionsCell={showActionsCell}
-                setTableVariant={setTableVariant}
-                sortColumn={sortColumn}
-                sortDirection={sortDirection}
-                sortByColumn={sortByColumn}
-                functionalityConfig={functionalityConfig}
-              />
-              <EDSTable.Body>
-                <ConditionalWrapper
-                  condition={tableVariant === TableVariantNameEnum.Edit}
-                  wrapper={(children: React.ReactNode) => (
-                    <SortableList items={items}>{children}</SortableList>
-                  )}
-                >
-                  {currentItems?.map((item: any, index) => (
-                    <ConditionalWrapper
-                      key={item.key}
-                      condition={tableVariant === TableVariantNameEnum.Edit}
-                      wrapper={(children: React.ReactNode) => (
-                        <SortableItem item={item}>{children}</SortableItem>
-                      )}
-                    >
-                      {deletingRow === item.key ? (
-                        <SkeletonRow
-                          columnsLength={columnsLength}
-                          key={item.key}
-                        />
-                      ) : (
-                        <TableRow
-                          key={item.key}
-                          addItem={addItem}
-                          config={config}
-                          removeItem={handleRemoveItem}
-                          editMode={tableVariant === TableVariantNameEnum.Edit}
-                          functionalityConfig={functionalityConfig}
-                          idReference={props.idReference}
-                          index={items.findIndex(
-                            (it: TItem<TGenericObject>) => it.key === item.key
-                          )}
-                          item={item}
-                          items={items}
-                          onOpen={props.onOpen}
-                          rowsPerPage={itemsPerPage}
-                          showActionsCell={showActionsCell}
-                          setDirtyState={setDirtyState}
-                          setItems={setItems}
-                          tableVariant={tableVariant}
-                          updateItem={updateItem}
-                          disableActions={isLoading}
-                        />
-                      )}
-                    </ConditionalWrapper>
-                  ))}
-                </ConditionalWrapper>
-                {((isLoading && !items.length && !deletingRow) ||
-                  addingRow) && (
-                  <SkeletonRow
-                    columnsLength={columnsLength}
-                    count={addingRow ? 1 : 3}
-                  />
+        <SortableContext items={items} onReorder={reorderItems}>
+          <EDSTable style={{ width: '100%' }}>
+            <TableHead
+              config={config}
+              tableVariant={tableVariant}
+              showActionsCell={showActionsCell}
+              setTableVariant={setTableVariant}
+              sortColumn={sortColumn}
+              sortDirection={sortDirection}
+              sortByColumn={sortByColumn}
+              functionalityConfig={functionalityConfig}
+            />
+            <EDSTable.Body>
+              <ConditionalWrapper
+                condition={tableVariant === TableVariantNameEnum.Edit}
+                wrapper={(children: React.ReactNode) => (
+                  <SortableList items={items}>{children}</SortableList>
                 )}
-              </EDSTable.Body>
-            </EDSTable>
-          </SortableContext>
-          {functionalityConfig.add && (
-            <>
-              <AddRowButton
-                onClick={() => {
-                  const saveOnAdd = tableVariant === TableVariantNameEnum.View
-                  if (!(config.templates && config.templates.length)) {
-                    handleAddItem(saveOnAdd)
-                  } else if (config.templates.length === 1) {
-                    handleAddItem(
-                      saveOnAdd,
-                      undefined,
-                      config.templates[0].path
-                    )
-                  } else setTemplateMenuIsOpen(true)
-                }}
-                ariaLabel={'Add new row'}
-                disabled={isLoading}
-              />
-              {config.templates?.length && (
-                <TemplateMenu
-                  templates={config.templates}
-                  onSelect={(template: TTemplate) => {
-                    handleAddItem(
-                      tableVariant === TableVariantNameEnum.View,
-                      undefined,
-                      template?.path
-                    )
-                  }}
-                  onClose={() => setTemplateMenuIsOpen(false)}
-                  isOpen={isTemplateMenuOpen}
+              >
+                {currentItems?.map((item: any, index) => (
+                  <ConditionalWrapper
+                    key={item.key}
+                    condition={tableVariant === TableVariantNameEnum.Edit}
+                    wrapper={(children: React.ReactNode) => (
+                      <SortableItem item={item}>{children}</SortableItem>
+                    )}
+                  >
+                    {deletingRow === item.key ? (
+                      <SkeletonRow
+                        columnsLength={columnsLength}
+                        key={item.key}
+                      />
+                    ) : (
+                      <TableRow
+                        key={item.key}
+                        addItem={addItem}
+                        config={config}
+                        removeItem={handleRemoveItem}
+                        editMode={tableVariant === TableVariantNameEnum.Edit}
+                        functionalityConfig={functionalityConfig}
+                        idReference={props.idReference}
+                        index={items.findIndex(
+                          (it: TItem<TGenericObject>) => it.key === item.key
+                        )}
+                        item={item}
+                        items={items}
+                        onOpen={props.onOpen}
+                        rowsPerPage={itemsPerPage}
+                        showActionsCell={showActionsCell}
+                        setDirtyState={setDirtyState}
+                        setItems={setItems}
+                        tableVariant={tableVariant}
+                        updateItem={updateItem}
+                        disableActions={isLoading}
+                      />
+                    )}
+                  </ConditionalWrapper>
+                ))}
+              </ConditionalWrapper>
+              {((isLoading && !items.length && !deletingRow) || addingRow) && (
+                <SkeletonRow
+                  columnsLength={columnsLength}
+                  count={addingRow ? 1 : 3}
                 />
               )}
-            </>
-          )}
-        </Stack>
-        <Stack
-          direction='row'
-          spacing={1}
-          justifyContent='flex-end'
-          style={{ width: '100%' }}
-        >
-          <Pagination
-            count={items?.length || 0}
-            rowsPerPage={itemsPerPage}
-            setRowsPerPage={setItemsPerPage}
-            page={currentPage}
-            setPage={setPage}
-          />
-          {tableVariant === TableVariantNameEnum.Edit && reloadData && (
-            <Button
-              aria-label='Revert changes'
-              className='overflow-hidden'
-              variant='outlined'
-              disabled={isLoading || !props.dirtyState}
-              onClick={reloadData}
-            >
-              <Icon data={undo} size={16} />
-            </Button>
-          )}
-          {tableVariant === TableVariantNameEnum.Edit && (
-            <Button
-              className='overflow-hidden'
-              disabled={isLoading || !props.dirtyState}
-              onClick={() => saveTable(items)}
-            >
-              {isLoading ? <Progress.Dots color={'primary'} /> : 'Save'}
-            </Button>
-          )}
-        </Stack>
+            </EDSTable.Body>
+          </EDSTable>
+        </SortableContext>
+        {functionalityConfig.add && (
+          <>
+            <AddRowButton
+              onClick={() => {
+                const saveOnAdd = tableVariant === TableVariantNameEnum.View
+                if (!(config.templates && config.templates.length)) {
+                  handleAddItem(saveOnAdd)
+                } else if (config.templates.length === 1) {
+                  handleAddItem(saveOnAdd, undefined, config.templates[0].path)
+                } else setTemplateMenuIsOpen(true)
+              }}
+              ariaLabel={'Add new row'}
+              disabled={isLoading}
+            />
+            {config.templates?.length && (
+              <TemplateMenu
+                templates={config.templates}
+                onSelect={(template: TTemplate) => {
+                  handleAddItem(
+                    tableVariant === TableVariantNameEnum.View,
+                    undefined,
+                    template?.path
+                  )
+                }}
+                onClose={() => setTemplateMenuIsOpen(false)}
+                isOpen={isTemplateMenuOpen}
+              />
+            )}
+          </>
+        )}
       </Stack>
-    </div>
+      <Stack direction='row' spacing={1} justifyContent='flex-end' fullWidth>
+        <Pagination
+          count={items?.length || 0}
+          rowsPerPage={itemsPerPage}
+          setRowsPerPage={setItemsPerPage}
+          page={currentPage}
+          setPage={setPage}
+        />
+        {tableVariant === TableVariantNameEnum.Edit && reloadData && (
+          <Button
+            aria-label='Revert changes'
+            style={{ overflow: 'hidden' }}
+            variant='outlined'
+            disabled={isLoading || !props.dirtyState}
+            onClick={reloadData}
+          >
+            <Icon data={undo} size={16} />
+          </Button>
+        )}
+        {tableVariant === TableVariantNameEnum.Edit && (
+          <Button
+            style={{ overflow: 'hidden' }}
+            disabled={isLoading || !props.dirtyState}
+            onClick={() => saveTable(items)}
+          >
+            {isLoading ? <Progress.Dots color={'primary'} /> : 'Save'}
+          </Button>
+        )}
+      </Stack>
+    </Stack>
   )
 }

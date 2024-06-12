@@ -23,6 +23,7 @@ export const FormButton = (props: {
       onClick={props.onClick}
       data-testid={props.dataTestid}
       variant={props.variant ?? undefined}
+      aria-label={props.tooltip}
     >
       {props.isLoading ? <Progress.Dots color={'primary'} /> : props.children}
     </Button>
@@ -39,16 +40,16 @@ export const ListChevronButton = (props: {
     up: chevron_up,
     down: chevron_down,
   }
-  const iconTitle =
-    type === 'up' ? 'Move up' : type === 'down' ? 'Move Down' : 'Delete'
+
   return (
     <EdsProvider density='compact'>
       <Button
         disabled={props.disabled}
         variant='ghost_icon'
         onClick={props.onClick}
+        aria-label={type === 'up' ? 'Move up' : 'Move Down'}
       >
-        <Icon data={ICONS[type]} title={iconTitle} />
+        <Icon data={ICONS[type]} />
       </Button>
     </EdsProvider>
   )
