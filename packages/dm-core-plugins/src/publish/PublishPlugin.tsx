@@ -6,6 +6,7 @@ import {
 import { Button, Icon } from '@equinor/eds-core-react'
 import { approve } from '@equinor/eds-icons'
 import { useState } from 'react'
+import { Stack } from '../common'
 
 export const PublishPlugin = (
   props: IUIPlugin & {
@@ -22,8 +23,8 @@ export const PublishPlugin = (
   const [showPublishDialog, setShowPublishDialog] = useState<boolean>(false)
 
   return (
-    <div className={'flex flex-col'}>
-      <div className={'justify-end flex'}>
+    <div className='dm-plugin-padding'>
+      <Stack alignItems='flex-end'>
         <Button
           variant='outlined'
           color='secondary'
@@ -46,7 +47,7 @@ export const PublishPlugin = (
           open={showPublishDialog}
           setOpen={setShowPublishDialog}
         />
-      </div>
+      </Stack>
       <EntityView {...props} />
     </div>
   )
