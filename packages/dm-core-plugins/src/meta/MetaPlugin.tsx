@@ -25,7 +25,7 @@ export const MetaPlugin = (props: IUIPlugin) => {
 
   return (
     <>
-      <Table className={'w-full'}>
+      <Table style={{ width: '100%' }}>
         <Table.Head>
           <Table.Row>
             <Table.Cell>Created by</Table.Cell>

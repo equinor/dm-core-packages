@@ -1,13 +1,22 @@
-import { Button, Icon, Popover } from '@equinor/eds-core-react'
+import { Button, Icon, Popover, Typography } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
 import { ReactElement, useRef, useState } from 'react'
 
+import { tokens } from '@equinor/eds-tokens'
 import { DateTime } from 'luxon'
 import { createPortal } from 'react-dom'
+import styled from 'styled-components'
+import { Stack } from '../../common'
 import { createSyntheticFileDownload, formatBytes } from '../../utils'
+import { MetaItem } from './MetaItem/MetaItem'
 import { MediaWrapper, MetaPopoverButton } from './styles'
 import { MediaContentProps } from './types'
 import { isViewableInBrowser } from './utils'
+
+const NoPreviewMessage = styled(Stack)`
+  border: 1px solid ${tokens.colors.interactive.primary__resting.rgba};
+  background: ${tokens.colors.interactive.primary__hover_alt.rgba};
+`
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, getBlobUrl, meta, config } = props
@@ -60,26 +69,30 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
       )
     } else {
       return (
-        <div
-          className='border border-equinor-green bg-equinor-lightgreen p-3 '
+        <NoPreviewMessage
+          spacing={1}
+          padding={0.75}
+          alignItems='flex-start'
           data-testid='unknown-file-message'
         >
-          <h2 className='text-lg text-equinor-green font-medium'>
-            No preview available
-          </h2>
-          <p className='gap-1 mb-3 items-center block'>
-            A preview for{' '}
-            <code className='text-sm'>
-              {meta.filetype.length > 0 ? meta.filetype : 'binary'}
-            </code>{' '}
-            files cannot be shown. Please download the file and open it in the
-            appropriate software.
-          </p>
+          <Stack>
+            <Typography as='h5' color='primary' token={{ fontWeight: 500 }}>
+              No preview available
+            </Typography>
+            <Typography>
+              A preview for{' '}
+              <Typography as='span' token={{ fontFamily: 'monospace' }}>
+                {meta.filetype.length > 0 ? meta.filetype : 'binary'}
+              </Typography>{' '}
+              files cannot be shown. Please download the file and open it in the
+              appropriate software.
+            </Typography>
+          </Stack>
           <Button onClick={downloadFile}>
             <Icon size={16} data={download} />
             Download
           </Button>
-        </div>
+        </NoPreviewMessage>
       )
     }
   }
@@ -117,41 +130,43 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
               <Popover.Title>{config.caption ?? meta?.title}</Popover.Title>
             </Popover.Header>
             <Popover.Content>
-              {config.showDescription && config.description && (
-                <div className='mb-5'>
-                  <label className='font-bold text-sm'>Description</label>
-                  <p>{config.description}</p>
-                </div>
-              )}
-              {config.showMeta && (
-                <div className='grid grid-cols-2 font-normal text-xs'>
-                  <label className='font-bold'>File name:</label>
-                  <span>
-                    {' '}
-                    {meta.title}.{meta.filetype}
-                  </span>
-                  <label className='font-bold'>Author:</label>
-                  <span> {meta.author}</span>
-                  <label className='font-bold'>Filetype:</label>
-                  <span> {meta.filetype}</span>
-                  <label className='font-bold'>Filesize:</label>
-                  <span> {formatBytes(meta.fileSize)}</span>
-                  <label className='font-bold'>Date:</label>
-                  <span>
-                    {DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
-                      'dd/MM/yyyy HH:mm'
-                    )}
-                  </span>
-                </div>
-              )}
+              <Stack spacing={0.5} fullWidth style={{ minWidth: 280 }}>
+                {config.showDescription && config.description && (
+                  <p style={{ maxWidth: '320px' }}>{config.description}</p>
+                )}
+                {config.showMeta && (
+                  <Stack spacing={0.25} fullWidth>
+                    <MetaItem
+                      title='File name'
+                      value={`${meta.title}.${meta.filetype}`}
+                    />
+                    <MetaItem title='Author' value={meta.author} />
+                    <MetaItem title='Filetype' value={meta.filetype} />
+                    <MetaItem
+                      title='File size'
+                      value={formatBytes(meta.fileSize)}
+                    />
+                    <MetaItem
+                      title='Date'
+                      value={DateTime.fromISO(
+                        meta.date.replace(' ', 'T')
+                      ).toFormat('dd/MM/yyyy HH:mm')}
+                    />
+                  </Stack>
+                )}
+              </Stack>
             </Popover.Content>
             <Popover.Actions>
-              <div className='flex justify-start w-full'>
+              <Stack
+                direction='row'
+                spacing={0.25}
+                fullWidth
+                justifyContent='center'
+              >
                 {isViewableInBrowser(meta.contentType) && (
                   <Button
                     variant='ghost'
                     as='a'
-                    className='transition-all'
                     href={blobUrl}
                     target='_blank'
                     rel='noopener noreferrer'
@@ -168,7 +183,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
                   <Icon size={16} data={download} />
                   Download
                 </Button>
-              </div>
+              </Stack>
             </Popover.Actions>
           </Popover>,
           document.body
