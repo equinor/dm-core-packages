@@ -8,6 +8,7 @@ import {
 } from '@development-framework/dm-core'
 import { Progress } from '@equinor/eds-core-react'
 import { useCallback, useState } from 'react'
+import { Stack } from '../common'
 import Sidebar from './components/Sidebar'
 import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
 import { default_raw_view_ui_recipe_config } from './constants'
@@ -36,7 +37,7 @@ export default () => {
     '@development-framework/dm-core-plugins/view_selector/tabs'
   )
   return (
-    <div className='flex-layout-container flex-row h-full'>
+    <Stack direction='row' fullWidth fullHeight minHeight={0} grow={1}>
       {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Progress.Circular />
@@ -57,7 +58,7 @@ export default () => {
         </Sidebar>
       )}
       {selectedType && selectedEntity && (
-        <div className='flex-layout-container scroll'>
+        <Stack fullWidth grow={1} minHeight={0} scrollY>
           {asRawView ? (
             <TabsPlugin
               type={selectedType}
@@ -71,8 +72,8 @@ export default () => {
               dimensions={nodeDimensions}
             />
           )}
-        </div>
+        </Stack>
       )}
-    </div>
+    </Stack>
   )
 }

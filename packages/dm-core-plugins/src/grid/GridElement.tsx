@@ -2,6 +2,7 @@ import { ViewCreator } from '@development-framework/dm-core'
 import { Typography } from '@equinor/eds-core-react'
 import React from 'react'
 import styled from 'styled-components'
+import { Stack } from '../common'
 import { TGridItem, TItemBorder } from './types'
 
 type TElementProps = {
@@ -45,17 +46,15 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       showItemBorders={showItemBorders}
       itemBorder={itemBorder}
     >
-      <div className='flex flex-col w-full'>
-        {item?.title && <Typography variant='h4'>{item.title}</Typography>}
-        <div className='flex-layout-container'>
-          <ViewCreator
-            idReference={idReference}
-            viewConfig={item.viewConfig}
-            onSubmit={onSubmit}
-            onChange={onChange}
-          />
-        </div>
-      </div>
+      {item?.title && <Typography variant='h4'>{item.title}</Typography>}
+      <Stack grow={1} minHeight={0} fullWidth>
+        <ViewCreator
+          idReference={idReference}
+          viewConfig={item.viewConfig}
+          onSubmit={onSubmit}
+          onChange={onChange}
+        />
+      </Stack>
     </Element>
   )
 }

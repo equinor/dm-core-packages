@@ -25,8 +25,7 @@ export const Tabs = (props: {
             <EdsTabs.Tab
               key={config.viewId}
               as='div'
-              className='flex-row'
-              style={{ padding: 0, overflow: 'hidden' }}
+              style={{ padding: 0, overflow: 'hidden', flexDirection: 'row' }}
             >
               <Button
                 onClick={() => {

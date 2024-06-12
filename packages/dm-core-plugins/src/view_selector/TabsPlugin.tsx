@@ -1,5 +1,6 @@
 import { IUIPlugin } from '@development-framework/dm-core'
 import * as React from 'react'
+import { Stack } from '../common'
 import { Tabs } from './Tabs'
 import { TabsContent } from './TabsContent'
 import { TViewSelectorConfig } from './types'
@@ -30,7 +31,7 @@ export const TabsPlugin = (
   }
 
   return (
-    <div className='flex-layout-container'>
+    <Stack grow={1} minHeight={0} fullWidth>
       <Tabs
         viewSelectorItems={viewSelectorItems}
         selectedViewId={selectedViewId}
@@ -45,6 +46,6 @@ export const TabsPlugin = (
         viewSelectorItems={viewSelectorItems}
         setFormData={setFormData}
       />
-    </div>
+    </Stack>
   )
 }
