@@ -7,10 +7,6 @@ export const localConfig = () => {
     const alias_config = {
       alias: {
         // react: path.resolve(__dirname, './node_modules/react'),
-        '@development-framework/dm-core-plugins/dist/main.css': path.resolve(
-          __dirname,
-          './../packages/dm-core-plugins/dist/main.css'
-        ),
         '@development-framework/dm-core': path.resolve(
           __dirname,
           './../packages/dm-core/src/index.tsx'
