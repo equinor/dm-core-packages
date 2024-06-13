@@ -6,8 +6,10 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Icon, LinearProgress, Switch } from '@equinor/eds-core-react'
 import { expand_screen } from '@equinor/eds-icons'
+import { tokens } from '@equinor/eds-tokens'
 import { ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
+import { Stack } from '../common'
 import { ConfigureSchedule } from './CronJob'
 import { JobLogsDialog } from './JobLogsDialog'
 import {
@@ -98,7 +100,7 @@ export const JobLog = (props: {
 }) => {
   const [showLogs, setShowLogs] = useState(false)
   return (
-    <div className='block'>
+    <div>
       <Button onClick={() => setShowLogs(!showLogs)} variant='ghost'>
         {showLogs ? 'Hide' : 'Show'} logs
         <Icon data={expand_screen} size={16} />
@@ -113,6 +115,14 @@ export const JobLog = (props: {
     </div>
   )
 }
+
+export const JobWrapper = styled(Stack)`
+  background: ${tokens.colors.ui.background__light.rgba};
+  border-radius: 0.375rem;
+  border-width: 1px;
+  padding: 0.5rem;
+`
+
 export const JobButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -120,6 +130,7 @@ export const JobButtonWrapper = styled.div`
   justify-content: space-between;
   min-width: max-content;
 `
+
 export const getControlButton = (
   status: JobStatus,
   remove: () => Promise<DeleteJobResponse | null>,

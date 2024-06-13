@@ -15,6 +15,7 @@ export interface MessageProps {
   iconPosition?: 'start' | 'end' | 'none'
   onDismiss?: () => void
   type?: MessageTypes
+  compact?: boolean
 }
 
 export const ICON_TYPES: { [key in MessageTypes]: IconData } = {

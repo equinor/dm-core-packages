@@ -28,11 +28,11 @@ import { useEffect, useState } from 'react'
 
 import { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
-import { TTemplate, TemplateMenu } from '../common'
+import { Stack, TTemplate, TemplateMenu } from '../common'
 import {
   ConfigureRecurring,
-  JobButtonWrapper,
   JobLog,
+  JobWrapper,
   Progress,
   TCronValues,
   getControlButton,
@@ -96,6 +96,14 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
     remove: deregister,
     isLoading: jobIsLoading,
   } = useJob(jobTargetAddress, jobDocument?.uid)
+
+  useEffect(() => {
+    if (!jobDocument) return
+    if (asCronJob || jobDocument.type === EBlueprint.RECURRING_JOB)
+      // @ts-ignore
+      setSchedule(jobDocument.schedule?.cron ? jobDocument?.schedule : schedule)
+    if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
+  }, [jobDocument])
 
   function createAndStartJob() {
     let templateAddress = ''
@@ -164,16 +172,9 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
       })
   }
 
-  useEffect(() => {
-    if (!jobDocument) return
-    if (asCronJob || jobDocument.type === EBlueprint.RECURRING_JOB)
-      // @ts-ignore
-      setSchedule(jobDocument.schedule?.cron ? jobDocument?.schedule : schedule)
-    if (jobDocument.type === EBlueprint.RECURRING_JOB) setAsCronJob(true)
-  }, [jobDocument])
   return (
     <div className='dm-plugin-padding'>
-      <div className='flex-col border rounded-md bg-equinor-lightgray p-2'>
+      <JobWrapper>
         {config.title && <Typography variant='h6'>{config.title}</Typography>}
         {config.recurring !== false && (
           <ConfigureRecurring
@@ -193,8 +194,12 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
             registered={status === JobStatus.Registered}
           />
         )}
-        <JobButtonWrapper>
-          <div className='flex items-center space-x-2'>
+        <Stack
+          direction='row'
+          alignItems='center'
+          justifyContent='space-between'
+        >
+          <Stack direction='row' alignItems='center' spacing={0.5}>
             {getControlButton(
               status,
               deregister,
@@ -202,16 +207,16 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
               false,
               jobIsLoading
             )}
-            <div className='flex flex-row items-center'>
-              <p className='text-sm text-center'>Status:</p>
+            <Stack direction='row' alignItems='center'>
+              <Typography token={{ fontSize: '0.75rem' }}>Status:</Typography>
               <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
                 {status ?? 'Not registered'}
               </Chip>
-            </div>
+            </Stack>
             {!config.hideLogs && <JobLog logs={logs} error={error} />}
-          </div>
+          </Stack>
           {config.jobTemplates.length > 1 && (
-            <div className={'flex flex-row items-center'}>
+            <Stack>
               <Tooltip title={`Change Job template. Current: `}>
                 <Button
                   onClick={() => setTemplateMenuIsOpen(true)}
@@ -232,13 +237,13 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
                 title='Job template'
                 selected={selectedTemplate}
               />
-            </div>
+            </Stack>
           )}
-        </JobButtonWrapper>
+        </Stack>
         {status === JobStatus.Running && progress !== null && (
           <Progress progress={progress} />
         )}
-      </div>
+      </JobWrapper>
     </div>
   )
 }

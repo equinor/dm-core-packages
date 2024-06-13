@@ -15,10 +15,11 @@ export const Message = (props: MessageProps) => {
     iconPosition = 'start',
     dismissButtonContent = 'icon',
     onDismiss,
+    compact = false,
   } = props
   return (
     <StyledMessage type={type}>
-      <StyledMessageContent>
+      <StyledMessageContent compact={compact}>
         {iconPosition === 'start' && <Icon data={ICON_TYPES[type]} />}
         <Typography token={{ fontSize: '0.875rem', fontWeight: '500' }}>
           {children}

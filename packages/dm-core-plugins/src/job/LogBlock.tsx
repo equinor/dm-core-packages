@@ -1,5 +1,6 @@
 import { Typography } from '@equinor/eds-core-react'
 import styled from 'styled-components'
+import { Stack } from '../common'
 
 export interface LogBlockProps {
   title?: string
@@ -45,29 +46,17 @@ export const LogBlock = (props: LogBlockProps) => {
   const { title, content, style } = props
 
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '100%',
-        }}
-      >
-        <Typography variant='h6' style={{ paddingBottom: '.4rem' }}>
-          {title}:
-        </Typography>
-      </div>
+    <Stack spacing={0.5}>
+      <Typography variant='h6'>{title}:</Typography>
       <FormattedLogContainer style={style}>
         {content.constructor === Array ? (
           content.map((line) => <LogLine key={line}>{line}</LogLine>)
         ) : (
-          <pre className='whitespace-pre-wrap'>
+          <pre style={{ whiteSpace: 'pre-wrap' }}>
             {JSON.stringify(content, null, 2)}
           </pre>
         )}
       </FormattedLogContainer>
-    </>
+    </Stack>
   )
 }
