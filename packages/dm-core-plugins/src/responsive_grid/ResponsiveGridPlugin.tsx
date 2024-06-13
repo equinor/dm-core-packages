@@ -19,7 +19,7 @@ export const ResponsiveGridPlugin = (
   }
 
   return (
-    <Container className='w-full'>
+    <Container style={{ width: '100%' }}>
       {internalConfig.rows.map((row: TRow) => {
         const columns = row.columns.map((col: TCol) => {
           return (

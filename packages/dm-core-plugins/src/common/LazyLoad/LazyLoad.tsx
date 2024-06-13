@@ -26,15 +26,18 @@ export const LazyLoad = ({
 
   const Element = element || 'div'
 
-  const classNames = ['flex flex-col flex-grow min-h-0 w-full']
-  if (!visible) classNames.push('hidden')
-  if (className) classNames.push(className)
-
   return (
     <Element
-      className={classNames.join(' ')}
+      style={{
+        flexDirection: 'column',
+        flexGrow: 1,
+        minHeight: 0,
+        width: '100%',
+        ...style,
+        display: visible ? style?.display || 'flex' : 'none',
+      }}
       role={role}
-      style={visible ? style : {}}
+      className={className}
     >
       {children}
     </Element>
