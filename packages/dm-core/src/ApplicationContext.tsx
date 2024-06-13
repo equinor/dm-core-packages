@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Tree, TreeNode } from './domain/Tree'
 import { DmJobAPI } from './services'
 import DmssAPI from './services/api/DmssAPI'
+import GlobalStyle from './styles/global'
 import { IUIPlugin, TApplication, TRole, TUiPluginMap } from './types'
 import { ErrorGroup } from './utils/ErrorBoundary'
 
@@ -144,26 +145,29 @@ export const DMApplicationProvider = (props: {
   }, [])
 
   return (
-    <ApplicationContext.Provider
-      value={{
-        dmJobApi,
-        dmssAPI,
-        getUiPlugin,
-        visibleDataSources: props.application.dataSources || [],
-        name: props.application.name,
-        role,
-        setRole,
-        roles,
-        tree,
-        treeNodes,
-        loading,
-      }}
-    >
-      <QueryClientProvider client={queryClient}>
-        {props.children}
-      </QueryClientProvider>
+    <>
+      <GlobalStyle />
       <ToastContainer />
-    </ApplicationContext.Provider>
+      <ApplicationContext.Provider
+        value={{
+          dmJobApi,
+          dmssAPI,
+          getUiPlugin,
+          visibleDataSources: props.application.dataSources || [],
+          name: props.application.name,
+          role,
+          setRole,
+          roles,
+          tree,
+          treeNodes,
+          loading,
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
+          {props.children}
+        </QueryClientProvider>
+      </ApplicationContext.Provider>
+    </>
   )
 }
 export const useApplication = () => {
