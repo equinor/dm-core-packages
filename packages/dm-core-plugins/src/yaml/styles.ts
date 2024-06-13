@@ -17,12 +17,14 @@ export const ActionButton = styled.button<{ bg?: 'green' | 'yellow' }>`
     color: white;
     padding: 0.5rem;
     background: rgba(173, 226, 230, 0.1);
+    border: none;
     border-radius: 50px;
     font-weight: 900;
     font-size:0.875rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     ${({ bg }) =>
       bg === 'green' &&
       css`
