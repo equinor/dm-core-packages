@@ -8,19 +8,17 @@ interface DeleteSoftButtonProps {
   ariaLabel?: string
   dataTestId?: string
   disabled?: boolean
-  visibilityWhenNotHover?: 'opaque' | 'visible'
+  visibility?: 'opaque' | 'normal'
 }
 
 export const DeleteSoftButton = ({
   onClick,
   title,
   ariaLabel,
-  visibilityWhenNotHover,
+  visibility = 'normal',
   dataTestId,
   disabled,
 }: DeleteSoftButtonProps) => {
-  const opacity =
-    visibilityWhenNotHover === 'opaque' ? 'opacity-50 hover:opacity-100' : ''
   return (
     <EdsProvider density={'compact'}>
       <Button
@@ -28,10 +26,14 @@ export const DeleteSoftButton = ({
         onClick={onClick}
         aria-label={ariaLabel}
         data-testid={dataTestId}
-        className={opacity}
         disabled={disabled}
+        title={title}
       >
-        <Icon size={16} data={close} title={title} />
+        <Icon
+          size={16}
+          data={close}
+          color={visibility === 'opaque' ? 'rgba(150, 150, 150, 1)' : 'primary'}
+        />
       </Button>
     </EdsProvider>
   )
