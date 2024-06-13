@@ -55,7 +55,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",
-    "build": "tsc && yarn build:css",
+    "build": "tsc",
     "test": "jest test",
     "test-watch": "jest test --watchAll"
   }
