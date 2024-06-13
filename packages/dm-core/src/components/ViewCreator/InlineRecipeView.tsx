@@ -1,4 +1,5 @@
 import { ErrorBoundary, IUIPlugin, useApplication } from '../../index'
+import { Stack } from '../../layout'
 import { TInlineRecipeViewConfig } from '../../types'
 
 type TInlineRecipeViewProps = IUIPlugin & {
@@ -11,15 +12,19 @@ export const InlineRecipeView = (props: TInlineRecipeViewProps) => {
 
   const UiPlugin = getUiPlugin(viewConfig.recipe.plugin)
   return (
-    <ErrorBoundary message={`Plugin "${viewConfig.recipe.plugin}" crashed...`}>
-      <UiPlugin
-        idReference={idReference}
-        type={type}
-        config={viewConfig.recipe.config || {}}
-        onOpen={onOpen}
-        onSubmit={onSubmit}
-        onChange={onChange}
-      />
-    </ErrorBoundary>
+    <Stack grow={1} minHeight={0} fullWidth>
+      <ErrorBoundary
+        message={`Plugin "${viewConfig.recipe.plugin}" crashed...`}
+      >
+        <UiPlugin
+          idReference={idReference}
+          type={type}
+          config={viewConfig.recipe.config || {}}
+          onOpen={onOpen}
+          onSubmit={onSubmit}
+          onChange={onChange}
+        />
+      </ErrorBoundary>
+    </Stack>
   )
 }
