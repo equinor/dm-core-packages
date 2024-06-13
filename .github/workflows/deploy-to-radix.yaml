@@ -91,9 +91,11 @@ jobs:
         run: yarn install
 
       - name: Reset application
-        working-directory: ./example
+        working-directory: ./application
         env:
           RESET_APP_TOKEN: ${{ env.RESET_APP_TOKEN }}
+          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD_DEV }}
         run: |
-          sleep 30 # Wait for the services to be restarted
+          rm -rf app/data_source_templates
+          mv app/data_source_templates_radix_demo app/data_source_templates
           ./reset-app.sh dev ${{ env.RESET_APP_TOKEN }}

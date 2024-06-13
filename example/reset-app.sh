@@ -39,7 +39,23 @@ service_is_ready() {
   done
   echo "DMSS is ready!"
 }
+
+# Replace any $ENV_VAR in file. Write to tmp before moving back
+substitute_env_in_file() {
+  TEMPFILE=$(mktemp)
+  envsubst < $1 > $TEMPFILE
+  mv $TEMPFILE $1
+}
+
 service_is_ready
+
+mkdir -p app/data_sources
+cp -r app/data_source_templates/* app/data_sources/
+
+for ds_file in ./app/data_sources/*; do
+  substitute_env_in_file $ds_file
+  dm --url "$VITE_DMSS_URL" --token "$TOKEN" --force ds import $ds_file
+done
 
 main () {
   for ds_file in ./app/data_sources/*; do

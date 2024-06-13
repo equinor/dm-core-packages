@@ -1,0 +1,17 @@
+{
+  "name": "DemoDataSource",
+  "global_folders": ["global"],
+  "repositories": {
+    "exampleRepo": {
+      "type": "mongo-db",
+      "collection": "default",
+      "data_types": ["blob"],
+      "database": "DemoDataSource",
+      "host": "db",
+      "password": "maf",
+      "port": 27017,
+      "tls": false,
+      "username": "maf"
+    }
+  }
+}
