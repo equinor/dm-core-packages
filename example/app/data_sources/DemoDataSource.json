@@ -12,6 +12,23 @@
       "port": 27017,
       "tls": false,
       "username": "maf"
+    },
+    "secretVault": {
+      "type": "mongo-db",
+      "data_types": ["secret"],
+      "host": "db",
+      "port": 27017,
+      "username": "maf",
+      "password": "maf",
+      "tls": false,
+      "database": "secrets",
+      "collection": "secrets",
+      "encryptAtRest": true,
+      "defaultACL": {
+        "others": "NONE",
+        "roles": {},
+        "users": {}
+      }
     }
   }
 }
