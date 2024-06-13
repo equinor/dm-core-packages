@@ -78,6 +78,7 @@ export const Input = styled.input<{ attributeType: string }>`
   width: 100%;
   padding: 0 0.25rem;
   background: transparent;
+  border: none;
 
   ${({ attributeType }) =>
     attributeType === 'number' &&
@@ -107,9 +108,13 @@ export const ActionRow = styled.div`
 `
 
 export const ActionRowButton = styled.button`
+  background: none;
   margin: 0;
   padding: 0.25rem;
+  border: none;
   border-right: 1px solid ${tokens.colors.ui.background__medium.rgba};
+  height: 1.5rem;
+  cursor: pointer;
   &:hover {
     background: ${tokens.colors.ui.background__medium.rgba};
   }
@@ -128,4 +133,5 @@ export const Select = styled.select`
   background: transparent;
   font-size: 0.75rem;
   height: 0.75rem;
+  border: none;
 `
