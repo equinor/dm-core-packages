@@ -79,7 +79,7 @@ export const PrimitiveArray = ({
               title={'Remove list item'}
               ariaLabel='remove-action'
               dataTestId={`form-primitive-array-remove-${index}`}
-              visibilityWhenNotHover={'opaque'}
+              visibility='opaque'
             />
           </Stack>
         </Tooltip>
