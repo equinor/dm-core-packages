@@ -26,8 +26,8 @@ jobs:
     with:
       image-tags: latest,${{ inputs.release-tag }}
 
-  # deploy:
-  #   needs: publish-image
-  #   uses: ./.github/workflows/deploy-to-radix.yaml
-  #   with:
-  #     radix-environment: "dev"
+  deploy:
+   needs: publish-image
+   uses: ./.github/workflows/deploy-to-radix.yaml
+   with:
+     radix-environment: "dev"

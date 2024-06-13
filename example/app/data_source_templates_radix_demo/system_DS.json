@@ -1,0 +1,15 @@
+{
+  "name": "system",
+  "repositories": {
+    "a": {
+      "type": "mongo-db",
+      "host": "db",
+      "port": 27017,
+      "username": "maf",
+      "password": "$MONGO_PASSWORD",
+      "tls": false,
+      "database": "DMSS-core",
+      "collection": "DMSS-core"
+    }
+  }
+}

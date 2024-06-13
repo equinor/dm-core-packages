@@ -19,3 +19,4 @@ packages/dm-core-plugins/src/build.css
 
 *.tsbuildinfo
 /example/job_handlers/reverse_description/results/
+/example/app/data_sources/

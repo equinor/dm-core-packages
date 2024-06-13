@@ -1,0 +1,16 @@
+{
+  "name": "WorkflowDS",
+  "repositories": {
+    "forecastDB": {
+      "type": "mongo-db",
+      "host": "db",
+      "port": 27017,
+      "username": "maf",
+      "password": "$MONGO_PASSWORD",
+      "tls": false,
+      "database": "workflowDS",
+      "collection": "default",
+      "data_types": []
+    }
+  }
+}
