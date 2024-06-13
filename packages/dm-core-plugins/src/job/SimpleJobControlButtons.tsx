@@ -36,6 +36,7 @@ const StyledStartButton = styled.button`
   border: none;
   padding: 0;
   border-radius: 50%;
+  cursor: pointer;
   &:focus {
     outline: 2px dashed ${tokens.colors.interactive.primary__resting.rgba}
   }

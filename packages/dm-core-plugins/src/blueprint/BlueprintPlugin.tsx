@@ -51,8 +51,8 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
   if (!document || isLoading) return <Loading />
 
   return (
-    <div className='dm-plugin-padding'>
-      <Stack spacing={1}>
+    <div className='dm-plugin-padding' style={{ width: '100%' }}>
+      <Stack spacing={1} fullWidth>
         <Typography variant='h2'>{document.name}</Typography>
         <Stack spacing={0.5}>
           <Typography as='label' htmlFor='blueprint-name' bold={true}>

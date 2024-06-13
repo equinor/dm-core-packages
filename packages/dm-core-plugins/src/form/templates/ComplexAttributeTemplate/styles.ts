@@ -36,6 +36,8 @@ export const ComplexAttributeTemplateContent = styled.div<TComplexAttributeTempl
 export const TitleButton = styled.button<{ isExpanded: boolean }>`
   width: 100%;
   background: none;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.25rem;
