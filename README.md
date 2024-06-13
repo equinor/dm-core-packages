@@ -5375,3 +5375,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* ci: fix broken demo deploy (2024-06-13T12:50:48Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9500117391/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
