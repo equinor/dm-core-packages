@@ -5,9 +5,8 @@ import {
   TextField,
   Typography,
 } from '@equinor/eds-core-react'
-import { tokens } from '@equinor/eds-tokens'
 import { ChangeEvent, useState } from 'react'
-import styled from 'styled-components'
+import { Message, Stack } from '../common'
 import DateRangePicker from './DateRangePicker'
 import { EInterval, TCronValues } from './common'
 import { defaultCronValues } from './templateEntities'
@@ -21,13 +20,6 @@ function generateSelectableTimes(): string[] {
   return selectableTimes
 }
 
-const InputWrapper = styled.div`
-  flex-direction: row;
-  display: flex;
-  column-gap: 0.5rem;
-  padding-top: 1rem;
-`
-
 export function ConfigureSchedule(props: {
   isRegistered: boolean
   setCronValues: (s: TCronValues) => void
@@ -40,41 +32,16 @@ export function ConfigureSchedule(props: {
     props
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false)
 
-  const getLabel = () => {
-    if (cronValues.interval === 'Weekly') {
-      return (
-        <small>
-          Will run every sunday at {cronValues.hour + ':' + cronValues.minute}
-          {' UTC'} - cron: <code>{schedule.cron}</code>
-        </small>
-      )
-    } else if (cronValues.interval === 'Monthly') {
-      return (
-        <small>
-          Will run on the 1st on every month at{' '}
-          {cronValues.hour + ':' + cronValues.minute} UTC - cron:{' '}
-          <code>{schedule.cron}</code>
-        </small>
-      )
-    } else if (cronValues.interval === 'Daily') {
-      return (
-        <small>
-          Will run at {cronValues.hour + ':' + cronValues.minute} UTC every day
-          - cron: <code>{schedule.cron}</code>
-        </small>
-      )
-    } else if (cronValues.interval === 'Hourly') {
-      return (
-        <small>
-          Will run every {cronValues.hourStep} hour - cron:{' '}
-          <code>{schedule.cron}</code>
-        </small>
-      )
-    }
+  const intervalDescriptions = {
+    Weekly: `Will run every sunday at ${cronValues.hour}:${cronValues.minute} UTC - cron:`,
+    Monthly: `Will run on the 1st on every month at ${cronValues.hour}:${cronValues.minute} UTC - cron:`,
+    Daily: `Will run at ${cronValues.hour}:${cronValues.minute} UTC every day
+    - cron:`,
+    Hourly: `Will run every ${cronValues.hourStep} hour - cron:`,
   }
 
   return (
-    <div>
+    <Stack spacing={0.5}>
       {isRegistered && (
         <Typography color='primary'>The job is scheduled</Typography>
       )}
@@ -88,9 +55,9 @@ export function ConfigureSchedule(props: {
         }
         value={{ startDate: schedule.startDate, endDate: schedule.endDate }}
       />
-      <InputWrapper>
-        {showAdvanced ? (
-          <div>
+      <Stack spacing={0.5}>
+        <Stack direction='row' spacing={0.5} alignItems='flex-end'>
+          {showAdvanced ? (
             <TextField
               style={{ maxWidth: '400px' }}
               unit='cron'
@@ -104,91 +71,98 @@ export function ConfigureSchedule(props: {
                 })
               }
               label='Enter explicit cron syntax'
-              helperText='minute hour day(month) month day(week)'
             />
-            <small
-              style={{ color: `${tokens.colors.interactive.danger__text.hex}` }}
-            >
-              Controls might not show correct values after manually entering
-              cron syntax
-            </small>
-          </div>
-        ) : (
-          <>
-            <NativeSelect
-              id={'interval'}
-              label={'Interval'}
-              style={{ maxWidth: '200px' }}
-              value={cronValues.interval}
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                const chosenIntervalType = Object.entries(EInterval)
-                  .filter((l) => l.length > 0 && l[1] === e.target.value)
-                  .pop()
-                setCronValues({
-                  ...cronValues,
-                  interval: chosenIntervalType
-                    ? chosenIntervalType[1]
-                    : EInterval.HOURLY,
-                })
-              }}
-            >
-              {Object.values(EInterval).map((interval: string) => (
-                <option key={interval}>{interval}</option>
-              ))}
-            </NativeSelect>
-            {cronValues.interval !== EInterval.HOURLY && (
+          ) : (
+            <>
               <NativeSelect
-                id={'time'}
+                id={'interval'}
+                label={'Interval'}
                 style={{ maxWidth: '200px' }}
-                label={'Time'}
-                value={`${cronValues.hour}:${cronValues.minute}`}
+                value={cronValues.interval}
                 onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                  const [newHour, newMinute] = e.target.value.split(':')
+                  const chosenIntervalType = Object.entries(EInterval)
+                    .filter((l) => l.length > 0 && l[1] === e.target.value)
+                    .pop()
                   setCronValues({
                     ...cronValues,
-                    minute: newMinute,
-                    hour: newHour,
+                    interval: chosenIntervalType
+                      ? chosenIntervalType[1]
+                      : EInterval.HOURLY,
                   })
                 }}
               >
-                {generateSelectableTimes().map((value: string) => (
-                  <option key={value}>{value}</option>
+                {Object.values(EInterval).map((interval: string) => (
+                  <option key={interval}>{interval}</option>
                 ))}
               </NativeSelect>
-            )}
-            {cronValues.interval === EInterval.HOURLY && (
-              <NativeSelect
-                id={'hour step'}
-                style={{ maxWidth: '200px' }}
-                value={Number(cronValues.hourStep)}
-                label={'Hour step'}
-                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                  setCronValues({ ...cronValues, hourStep: e.target.value })
-                }
-              >
-                {[...Array(12).keys()].map((i) => (
-                  <option key={i}>{i + 1} </option>
-                ))}
-              </NativeSelect>
-            )}
-          </>
+              {cronValues.interval !== EInterval.HOURLY && (
+                <NativeSelect
+                  id={'time'}
+                  style={{ maxWidth: '200px' }}
+                  label={'Time'}
+                  value={`${cronValues.hour}:${cronValues.minute}`}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                    const [newHour, newMinute] = e.target.value.split(':')
+                    setCronValues({
+                      ...cronValues,
+                      minute: newMinute,
+                      hour: newHour,
+                    })
+                  }}
+                >
+                  {generateSelectableTimes().map((value: string) => (
+                    <option key={value}>{value}</option>
+                  ))}
+                </NativeSelect>
+              )}
+              {cronValues.interval === EInterval.HOURLY && (
+                <NativeSelect
+                  id={'hour step'}
+                  style={{ maxWidth: '200px' }}
+                  value={Number(cronValues.hourStep)}
+                  label={'Hour step'}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                    setCronValues({ ...cronValues, hourStep: e.target.value })
+                  }
+                >
+                  {[...Array(12).keys()].map((i) => (
+                    <option key={i}>{i + 1} </option>
+                  ))}
+                </NativeSelect>
+              )}
+            </>
+          )}
+          <Button
+            onClick={() => {
+              setShowAdvanced(!showAdvanced)
+              if (showAdvanced) setCronValues(defaultCronValues())
+            }}
+            variant='ghost'
+          >
+            {showAdvanced ? 'Simple' : 'Advanced'}
+          </Button>
+        </Stack>
+        {showAdvanced ? (
+          <Stack spacing={0.5}>
+            <Typography
+              group='input'
+              variant='helper'
+              style={{ paddingLeft: '0.5rem' }}
+            >
+              minute hour day(month) month day(week)
+            </Typography>
+            <Message type='warning' compact>
+              Controls might not show correct values after manually entering
+              cron syntax
+            </Message>
+          </Stack>
+        ) : (
+          <Typography group='input' variant='helper'>
+            {intervalDescriptions[cronValues.interval]}
+            <code> {schedule.cron}</code>
+          </Typography>
         )}
-        <Button
-          onClick={() => {
-            setShowAdvanced(!showAdvanced)
-            if (showAdvanced) setCronValues(defaultCronValues())
-          }}
-          variant='ghost'
-          style={{
-            alignSelf: 'flex-start',
-            marginTop: `${showAdvanced ? '20px' : '15px'}`,
-          }}
-          className={showAdvanced ? 'self-center -translate-y-1' : ''}
-        >
-          {showAdvanced ? 'Simple' : 'Advanced'}
-        </Button>
-      </InputWrapper>
-      {!showAdvanced && <div>{getLabel()}</div>}
-    </div>
+      </Stack>
+    </Stack>
   )
 }

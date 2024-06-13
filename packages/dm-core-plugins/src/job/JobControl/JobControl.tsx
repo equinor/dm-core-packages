@@ -27,11 +27,12 @@ import { DateTime } from 'luxon'
 import { useContext, useEffect, useState } from 'react'
 import { IAuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
-import { TTemplate, TemplateMenu } from '../../common'
+import { Stack, TTemplate, TemplateMenu } from '../../common'
 import {
   ConfigureRecurring,
   JobButtonWrapper,
   JobLog,
+  JobWrapper,
   Progress,
   TCronValues,
   getControlButton,
@@ -140,7 +141,7 @@ export const JobControl = (props: IUIPlugin) => {
       )
     ) {
       throw new Error(
-        `Wrong entity type recieved by job plugin. Got: \n ${JSON.stringify(
+        `Wrong entity type received by job plugin. Got: \n ${JSON.stringify(
           jobEntity,
           null,
           2
@@ -174,12 +175,12 @@ export const JobControl = (props: IUIPlugin) => {
 
   return (
     <div className='dm-plugin-padding'>
-      <div className='flex flex-col gap-1 border rounded-md bg-equinor-lightgray p-2'>
+      <JobWrapper spacing={0.25}>
         {internalConfig.title && (
           <Typography variant='h6'>{config.title}</Typography>
         )}
         {asCronJob && (
-          <div className='rounded-md p-2 bg-white border'>
+          <JobWrapper style={{ background: 'white' }}>
             <ConfigureRecurring
               asCron={asCronJob}
               readOnly={true}
@@ -198,24 +199,23 @@ export const JobControl = (props: IUIPlugin) => {
               }}
               registered={status === JobStatus.Registered}
             />
-          </div>
+          </JobWrapper>
         )}
         <JobButtonWrapper>
-          <div className='flex items-center space-x-2'>
+          <Stack direction='row' alignItems='center' spacing={0.5}>
             {getControlButton(status, remove, start, false, jobIsLoading)}
-            <div className='flex flex-row items-center'>
-              <p className='text-sm'>Status:</p>
+            <Stack direction='row' alignItems='center'>
+              <Typography token={{ fontSize: '0.75rem' }}>Status:</Typography>
               <Chip variant={getVariant(status)} data-testid={'jobStatus'}>
                 {status ?? 'Not registered'}
               </Chip>
-            </div>
-
+            </Stack>
             {!internalConfig.hideLogs && <JobLog logs={logs} error={error} />}
-          </div>
+          </Stack>
 
           {internalConfig.runnerTemplates &&
             internalConfig.runnerTemplates.length > 0 && (
-              <div className={'flex flex-row items-center justify-end'}>
+              <Stack>
                 <Tooltip
                   title={`Change runner. Current: ${(
                     (asCronJob
@@ -227,8 +227,7 @@ export const JobControl = (props: IUIPlugin) => {
                 >
                   <Button
                     disabled={[JobStatus.Starting, JobStatus.Running].includes(
-                      // @ts-ignore
-                      status
+                      status as any
                     )}
                     onClick={() => setTemplateMenuIsOpen(true)}
                     variant='ghost_icon'
@@ -248,16 +247,16 @@ export const JobControl = (props: IUIPlugin) => {
                     _.isEqual(template, jobEntity.runner)
                   )}
                 />
-              </div>
+              </Stack>
             )}
         </JobButtonWrapper>
 
         {status === JobStatus.Running && progress !== null && (
-          <div className='px-4 pb-2'>
+          <Stack padding={[0, 1, 0.5, 1]}>
             <Progress progress={progress} />
-          </div>
+          </Stack>
         )}
-      </div>
+      </JobWrapper>
     </div>
   )
 }

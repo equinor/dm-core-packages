@@ -18,6 +18,7 @@ import {
 } from '@equinor/eds-icons'
 import { tokens } from '@equinor/eds-tokens'
 import { useState } from 'react'
+import styled from 'styled-components'
 import { RemoveJobDialog } from './RemoveJobDialog'
 
 const colors = {
@@ -26,6 +27,19 @@ const colors = {
   error: tokens.colors.interactive.danger__resting.rgba,
   hover: tokens.colors.interactive.success__resting.rgba,
 }
+
+const StyledStartButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+  &:focus {
+    outline: 2px dashed ${tokens.colors.interactive.primary__resting.rgba}
+  }
+`
 
 export const StartButton = (props: {
   jobStatus: JobStatus
@@ -36,14 +50,9 @@ export const StartButton = (props: {
 
   return (
     <Tooltip title='Start Job'>
-      <Icon
-        data={play_circle}
-        color={colors.run}
-        size={48}
-        aria-label='Run'
-        onClick={() => start()}
-        className='cursor-pointer hover:opacity-60'
-      ></Icon>
+      <StyledStartButton aria-label='Start job' onClick={() => start()}>
+        <Icon data={play_circle} color={colors.run} size={48} />
+      </StyledStartButton>
     </Tooltip>
   )
 }

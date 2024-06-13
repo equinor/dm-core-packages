@@ -10,7 +10,7 @@ type RemoveJobDialogProps = {
 export const RemoveJobDialog = (props: RemoveJobDialogProps) => {
   const { isOpen, onConfirm, close, title } = props
   return (
-    <div className='block'>
+    <div>
       <Dialog open={isOpen}>
         <Dialog.Header>
           <Dialog.Title>

@@ -7,9 +7,11 @@ export const StyledMessage = styled.div<{ type: MessageTypes }>`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  max-width: max-content;
   gap: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
+  border-radius: 0.25rem;
   background-color: ${({ type }) =>
     type === 'error'
       ? '#FFC1C1'
@@ -31,12 +33,12 @@ export const StyledMessage = styled.div<{ type: MessageTypes }>`
   }
 `
 
-export const StyledMessageContent = styled.div`
+export const StyledMessageContent = styled.div<{ compact?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem;
+  padding: ${({ compact }) => (compact ? '0.5rem' : '0.75rem')};
 `
 
 export const StyledDismissButton = styled.button<{ messageType: MessageTypes }>`
