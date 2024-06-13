@@ -175,6 +175,7 @@ export class TreeNode {
           const parentBlueprint: TBlueprint = await this.tree.dmssApi
             .blueprintGet({
               typeRef: this.type,
+              context: this.tree.context,
             })
             .then((response: any) => response.data.blueprint)
           this.tree.dmssApi
@@ -273,10 +274,16 @@ export class Tree {
   index: TTreeMap = {}
   dmssApi: DmssAPI
   updateCallback: (t: Tree) => void
+  context: string | undefined
 
-  constructor(dmssAPI: DmssAPI, updateCallback: (t: Tree) => void) {
+  constructor(
+    dmssAPI: DmssAPI,
+    updateCallback: (t: Tree) => void,
+    context?: string
+  ) {
     this.dmssApi = dmssAPI
     this.updateCallback = updateCallback
+    this.context = context
   }
 
   async init(path?: string[]) {

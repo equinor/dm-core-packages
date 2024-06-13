@@ -81,7 +81,11 @@ export const DMApplicationProvider = (props: {
 
   const dmssAPIOriginal = new DmssAPI(token, props.dmssBasePath)
   const dmssAPI = new DmssAPI(token, props.dmssBasePath)
-  const tree: Tree = new Tree(dmssAPI, (t: Tree) => setTreeNodes([...t]))
+  const tree: Tree = new Tree(
+    dmssAPI,
+    (t: Tree) => setTreeNodes([...t]),
+    props.application.name
+  )
 
   // @ts-ignore
   dmssAPI.blueprintGet = async (requestParameters, options) => {
