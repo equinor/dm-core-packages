@@ -5370,3 +5370,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* fix: include application context in Tree (2024-06-13T12:50:35Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9499964897/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
