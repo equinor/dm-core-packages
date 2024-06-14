@@ -91,7 +91,7 @@ jobs:
         run: yarn install
 
       - name: Reset application
-        working-directory: ./application
+        working-directory: ./example
         env:
           RESET_APP_TOKEN: ${{ env.RESET_APP_TOKEN }}
           MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD_DEV }}
