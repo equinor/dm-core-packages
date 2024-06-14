@@ -5380,3 +5380,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* ci: fix working dir (2024-06-13T13:00:31Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9511500530/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
