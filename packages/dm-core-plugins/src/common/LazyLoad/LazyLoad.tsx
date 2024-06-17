@@ -6,16 +6,11 @@ type LazyProps = {
   element?: ComponentType
   className?: string
   style?: React.CSSProperties
+  'data-testid'?: string
 }
 
-export const LazyLoad = ({
-  visible,
-  children,
-  role,
-  element,
-  className,
-  style,
-}: PropsWithChildren<LazyProps>) => {
+export const LazyLoad = (props: PropsWithChildren<LazyProps>) => {
+  const { visible, element, style } = props
   const rendered = useRef(visible)
 
   if (visible && !rendered.current) {
@@ -36,10 +31,11 @@ export const LazyLoad = ({
         ...style,
         display: visible ? style?.display || 'flex' : 'none',
       }}
-      role={role}
-      className={className}
+      role={props.role}
+      className={props.className}
+      data-testid={props['data-testid']}
     >
-      {children}
+      {props.children}
     </Element>
   )
 }

@@ -15,9 +15,7 @@ test('Model uncontained complex attribute', async ({ page }) => {
     await expect(page.getByLabel('Name')).toHaveValue('TheBlackPearl')
     await page.getByLabel('Open in tab').click()
     await expect(page.getByRole('tab', { name: 'captain' })).toBeVisible()
-    await expect(
-      page.getByText('CaptainJackSparrow', { exact: true })
-    ).toBeVisible()
+    await expect(page.getByRole('code')).toContainText('CaptainJackSparrow')
     await page.getByRole('button', { name: 'Edit' }).nth(1).click()
     await expect(page.getByRole('textbox')).toHaveValue('CaptainJackSparrow')
     await expect(

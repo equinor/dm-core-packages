@@ -39,6 +39,7 @@ export const AppSelector = ({
               onSelectItem(recipe)
               setAppSelectorOpen(false)
             }}
+            aria-label={recipe}
           >
             {recipe}
           </Menu.Item>
