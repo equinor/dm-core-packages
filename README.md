@@ -5385,3 +5385,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* radix: fix redirect URI (2024-06-14T06:10:08Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9542902802/1)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
