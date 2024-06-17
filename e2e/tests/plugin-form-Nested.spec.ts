@@ -90,8 +90,7 @@ test('View accountant yaml', async () => {
 
 test('Adding a trainee', async () => {
   const trainee = page.getByTestId('trainee')
-  // await trainee.getByLabel('Add and save').click()
-  await page.getByTestId('trainee').getByLabel('Create new entity').click()
+  await page.getByTestId('trainee').getByText('Create').click()
   await trainee.getByTestId('form-text-widget-Name').fill('Peter Pan')
   await trainee
     .getByTestId('form-number-widget-Phone Number (Optional)')

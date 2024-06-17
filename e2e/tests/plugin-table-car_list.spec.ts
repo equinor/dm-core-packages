@@ -8,13 +8,10 @@ test('Table car list example', async ({ page }) => {
   await test.step('Add a new car by using expand', async () => {
     await expect(page.getByText('1 - 1 of 1')).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(2)
-    await page
-      .getByRole('button', { name: 'Open expandable row' })
-      .last()
-      .click()
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      2
+    )
+    await page.getByRole('button', { name: 'Expand item' }).last().click()
     await page.getByLabel('Manufacturer').fill('Audi')
     await page.getByLabel('Model').fill('e-tron')
     await page.getByLabel('Color (Optional)').fill('Black')
@@ -52,21 +49,21 @@ test('Table car list example', async ({ page }) => {
     await page.getByRole('menuitem', { name: 'Delete' }).click()
     await expect(page.getByText('1 - 1 of 1')).toBeVisible()
     await page.reload()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(1)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      1
+    )
   })
 
   await test.step('Add car using multiple template', async () => {
     await page.getByRole('tab', { name: 'cars (using many templates)' }).click()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(1)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      1
+    )
     await page.getByRole('button', { name: 'Add new row' }).click()
     await page.getByRole('menuitem', { name: 'Template2' }).click()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(2)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      2
+    )
     await expect(page.getByText('BMW')).toBeVisible()
     await expect(page.getByText('X1')).toBeVisible()
     await expect(page.getByText('Blue', { exact: true })).toBeVisible()
@@ -75,13 +72,13 @@ test('Table car list example', async ({ page }) => {
 
   await test.step('Add car using single template', async () => {
     await page.getByRole('tab', { name: 'cars (using one template)' }).click()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(2)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      2
+    )
     await page.getByRole('button', { name: 'Add new row' }).click()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(3)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      3
+    )
     await expect(page.getByText('Audi', { exact: true })).toBeVisible()
     await expect(page.getByText('A2')).toBeVisible()
     await expect(page.getByText('Black')).toBeVisible()
@@ -90,30 +87,30 @@ test('Table car list example', async ({ page }) => {
 
   await test.step('Adding several cars to test pagination', async () => {
     await page.reload()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(3)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      3
+    )
     await expect(
       page.getByRole('tabpanel').getByText('1 - 3 of 3')
     ).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(4)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      4
+    )
     await expect(
       page.getByRole('tabpanel').getByText('1 - 4 of 4')
     ).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(5)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      5
+    )
     await expect(
       page.getByRole('tabpanel').getByText('1 - 5 of 5')
     ).toBeVisible()
     await page.getByRole('button', { name: 'Add new row' }).click()
-    await expect(
-      page.getByRole('button', { name: 'Open expandable row' })
-    ).toHaveCount(6)
+    await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
+      6
+    )
     await expect(
       page.getByRole('tabpanel').getByText('1 - 6 of 6')
     ).toBeVisible()

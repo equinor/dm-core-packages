@@ -25,6 +25,9 @@ export const TabsContent = (props: {
           key={config.viewId}
           visible={selectedViewId === config.viewId}
           role='tabpanel'
+          data-testid={`${
+            selectedViewId === config.viewId ? 'enabled' : 'disabled'
+          }:${config.rootEntityId}`}
         >
           {config.viewConfig ? (
             <ViewCreator

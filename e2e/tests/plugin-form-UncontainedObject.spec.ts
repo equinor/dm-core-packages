@@ -34,7 +34,7 @@ test('uncontainedObject', async ({ page }) => {
   await test.step('Assert Accountant', async () => {
     await page
       .getByTestId('accountant')
-      .getByRole('button', { name: 'Collapse' })
+      .getByRole('button', { name: 'Collapse Accountant' })
       .click()
     await expect(
       page.getByTestId('accountant').getByRole('code').getByText('Miranda')

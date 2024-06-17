@@ -22,7 +22,7 @@ test('Relative reference', async ({ page }) => {
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'Close data' }).click()
 
-    await page.getByTestId('job').getByText('Job').click()
+    await page.getByTestId('job').getByRole('button').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await page.getByTestId('input').getByText('Input').click()
@@ -37,7 +37,7 @@ test('Relative reference', async ({ page }) => {
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByRole('button', { name: 'Close job' }).click()
     await page.waitForTimeout(5000) // Wait for react-query cache to expire
-    await page.getByTestId('data').getByText('Data').click()
+    await page.getByTestId('data').getByRole('button').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
@@ -47,13 +47,13 @@ test('Relative reference', async ({ page }) => {
   })
 
   await test.step('Update local reference', async () => {
-    await page.getByTestId('task').getByText('Task').click()
+    await page.getByTestId('task').getByRole('button').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-text-widget-Name').last()).toHaveValue(
       'ChildTask'
     )
-    await page.getByTestId('data').getByText('Data').last().click()
+    await page.getByTestId('data').getByRole('button').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
@@ -63,7 +63,7 @@ test('Relative reference', async ({ page }) => {
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByRole('button', { name: 'Close data' }).click()
-    await page.getByTestId('job').getByText('Job').last().click()
+    await page.getByTestId('job').getByRole('button').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await page.getByTestId('input').getByText('Input').click()
@@ -73,7 +73,7 @@ test('Relative reference', async ({ page }) => {
       '2'
     )
     await page.getByRole('button', { name: 'Close task' }).click()
-    await page.getByTestId('data').getByText('Data').click()
+    await page.getByTestId('data').getByRole('button').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
@@ -83,11 +83,11 @@ test('Relative reference', async ({ page }) => {
   })
 
   await test.step('Nested local reference', async () => {
-    await page.getByTestId('tasks').getByText('Tasks').click()
+    await page.getByTestId('tasks').getByRole('button').first().click()
     await page.getByTestId('expandListItem-0').click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
-    await page.getByText('Data', { exact: true }).nth(1).click()
+    await page.getByTestId('data').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(
@@ -97,10 +97,10 @@ test('Relative reference', async ({ page }) => {
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByRole('button', { name: 'Close data' }).click()
-    await page.getByText('Job', { exact: true }).nth(3).click()
+    await page.getByTestId('job').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
-    await page.getByText('Input', { exact: true }).last().click()
+    await page.getByTestId('input').getByRole('button').first().click()
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await expect(page.getByTestId('form-number-widget-A Number')).toHaveValue(

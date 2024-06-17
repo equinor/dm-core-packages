@@ -217,6 +217,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                         isExpanded={expanded[item.key]}
                         setIsExpanded={() => handleExpand(item)}
                         disabled={!item.isSaved}
+                        data-testid={`expandListItem-${index}`}
                       />
                     )}
                     {attribute && !attribute.contained && <Icon data={link} />}
@@ -290,6 +291,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   <Stack
                     padding={[0, 0, 0.5, 0]}
                     style={{ borderBottom: '1px solid #ccc' }}
+                    data-testid={`expandListItemContent-${index}`}
                   >
                     <ViewCreator
                       onSubmit={

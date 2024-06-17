@@ -97,7 +97,7 @@ test('Dimensional scalar', async ({ page }) => {
       page.getByTestId('maximumWaveHeight').getByRole('paragraph').first()
     ).toContainText('New Maximum')
     await expect(
-      page.getByTestId('maximumWaveHeight').locator('span')
+      page.getByTestId('maximumWaveHeight').locator('span').locator('span')
     ).toContainText('€')
   })
 })

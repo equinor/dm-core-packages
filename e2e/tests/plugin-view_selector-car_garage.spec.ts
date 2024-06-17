@@ -43,9 +43,12 @@ test('View selector - car garage', async ({ page }) => {
     ).toHaveAttribute('aria-selected', 'true')
     await expect(page.getByRole('tab', { name: 'Owner history' })).toBeVisible()
     await expect(
-      page.getByTestId('form-text-widget-Name of Owner')
+      page
+        .getByRole('tabpanel')
+        .last()
+        .getByTestId('form-text-widget-Name of Owner')
     ).toHaveValue('Aiden')
-    await page.getByText('Owner history').click()
+    await page.getByText('Owner history').last().click()
     await expect(
       page.getByRole('tab', { name: 'group Owner history' })
     ).toHaveAttribute('aria-selected', 'true')
@@ -66,7 +69,7 @@ test('View selector - car garage', async ({ page }) => {
       page.getByRole('tab', { name: 'car Dimensions' })
     ).toBeVisible()
 
-    await page.getByTestId('form-text-widget-Next control date')
+    await page.getByTestId('form-text-widget-Next control date').last()
 
     .fill('2025-06-31')
     await page.getByRole('button', { name: 'Submit' }).click()
@@ -121,7 +124,7 @@ test('View selector - car garage', async ({ page }) => {
     await page.getByRole('tab', { name: 'Home' }).click()
     await page.getByTestId('Owner').getByLabel('Open in tab').click()
     await expect(
-      page.getByTestId('form-text-widget-Name of Owner')
+      page.getByTestId('form-text-widget-Name of Owner').last()
     ).toBeVisible()
     await page.getByRole('tab', { name: 'Owner history' }).click()
     await expect(page.getByRole('textbox').first()).toHaveValue('Jack')

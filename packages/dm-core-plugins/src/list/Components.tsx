@@ -64,7 +64,8 @@ export const NewListItemButton = (props: {
       variant='ghost'
       onClick={props.onClick}
       style={{ paddingInline: props.compact ? '0.5rem' : '0.7rem' }}
-      aria-label='append-item'
+      aria-label='Add to list'
+      data-testid='append-to-list'
     >
       <Icon data={add} size={18} title='Append' /> New Item
     </Button>

@@ -45,6 +45,6 @@ test('About', async ({ page }) => {
 
 test('Recipe list', async ({ page }) => {
   await page.getByLabel('AppSelector').click()
-  await page.getByRole('button', { name: 'Edit' }).click()
+  await page.getByRole('menuitem', { name: 'Edit' }).click()
   await expect(page.getByTestId('form-text-widget-Name')).toHaveValue('example')
 })
