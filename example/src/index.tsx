@@ -17,7 +17,7 @@ const authConfig = {
     import.meta.env.VITE_TENANT_ID
   }/oauth2/v2.0/token`,
   scope: import.meta.env.VITE_AUTH_SCOPE,
-  redirectUri: import.meta.env.VITE_REDIRECT_URI,
+  redirectUri: window.location.origin + window.location.pathname,
   logoutEndpoint: `https://login.microsoftonline.com/${
     import.meta.env.VITE_TENANT_ID
   }/oauth2/logout`,
