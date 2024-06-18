@@ -55,7 +55,6 @@ test('task list', async ({ page }) => {
     await contentWrapper.getByText('Mark task as complete').click()
     await contentWrapper.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'close', exact: true }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await page
