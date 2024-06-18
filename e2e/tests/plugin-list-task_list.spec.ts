@@ -148,7 +148,6 @@ test('task list', async ({ page }) => {
       .fill('Remember to buy new brush.')
     await contentWrapper.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
-    await page.getByRole('button', { name: 'close', exact: true }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await expect(
