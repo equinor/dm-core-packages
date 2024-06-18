@@ -98,4 +98,5 @@ jobs:
         run: |
           rm -rf app/data_source_templates
           mv app/data_source_templates_radix_demo app/data_source_templates
+          export MONGO_PASSWORD=$MONGO_PASSWORD
           ./reset-app.sh dev ${{ env.RESET_APP_TOKEN }}
