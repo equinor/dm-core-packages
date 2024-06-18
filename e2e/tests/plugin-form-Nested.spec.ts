@@ -89,21 +89,23 @@ test('View accountant yaml', async () => {
 })
 
 test('Adding a trainee', async () => {
-  const trainee = page.getByTestId('trainee')
   await page.getByTestId('trainee').getByText('Create').click()
-  await trainee.getByTestId('form-text-widget-Name').fill('Peter Pan')
-  await trainee
+  await page.reload()
+  await expect(page.getByTestId('form-text-widget-Name').last()).toBeVisible()
+  await page.getByTestId('form-text-widget-Name').last().fill('Peter Pan')
+  await page
     .getByTestId('form-number-widget-Phone Number (Optional)')
+    .last()
     .fill('123')
   await page.getByRole('button', { name: 'Submit' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
-  await expect(trainee.getByTestId('form-text-widget-Name')).toHaveValue(
+  await expect(page.getByTestId('form-text-widget-Name').last()).toHaveValue(
     'Peter Pan'
   )
   await expect(
-    trainee.getByTestId('form-number-widget-Phone Number (Optional)')
+    page.getByTestId('form-number-widget-Phone Number (Optional)').last()
   ).toHaveValue('123')
 })
 
@@ -135,7 +137,7 @@ test('Locations', async () => {
 
 test('New car', async () => {
   const carsDiv = page.getByTestId('cars')
-  await carsDiv.getByLabel('append-item').click()
+  await carsDiv.getByLabel('Add to list').click()
   await carsDiv.getByRole('button', { name: 'Save' }).click()
   await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
   await carsDiv.getByTestId('form-text-widget-Name').fill('McLaren')
@@ -158,7 +160,7 @@ test('New customer', async () => {
   await customersDiv.getByRole('button', { name: 'Open' }).click()
   const lastTabPanel = page.getByRole('tabpanel').last()
   await expect(lastTabPanel).toBeVisible()
-  await lastTabPanel.getByLabel('append-item').click()
+  await lastTabPanel.getByLabel('Add to list').click()
   await lastTabPanel.getByRole('button', { name: 'Save' }).click()
   await lastTabPanel.getByRole('button', { name: 'Expand item' }).last().click()
   await lastTabPanel.getByTestId('form-text-widget-Name').fill('Lewis')
@@ -170,7 +172,7 @@ test('New customer', async () => {
   await page.getByRole('button', { name: 'close', exact: true }).click()
   await page.reload()
   await customersDiv.getByRole('button', { name: 'Open' }).click()
-  await expect(page.getByText('Lewis')).toBeVisible()
+  await expect(page.getByText('Lewis').last()).toBeVisible()
   await page
     .getByRole('button', { name: 'Expand item', exact: true })
     .last()

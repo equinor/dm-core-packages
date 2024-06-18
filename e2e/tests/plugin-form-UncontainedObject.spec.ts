@@ -34,7 +34,7 @@ test('uncontainedObject', async ({ page }) => {
   await test.step('Assert Accountant', async () => {
     await page
       .getByTestId('accountant')
-      .getByRole('button', { name: 'Collapse Accountant' })
+      .getByRole('button', { name: 'Accountant' })
       .click()
     await expect(
       page.getByTestId('accountant').getByRole('code').getByText('Miranda')
@@ -42,7 +42,7 @@ test('uncontainedObject', async ({ page }) => {
     await expect(page.getByRole('code').getByText('1337')).not.toBeVisible()
     await page
       .getByTestId('accountant')
-      .getByRole('button', { name: 'Expand' })
+      .getByRole('button', { name: 'Accountant' })
       .click()
     await expect(
       page.getByTestId('accountant').getByRole('code').getByText('Miranda')
