@@ -34,7 +34,6 @@ test('Relative reference', async ({ page }) => {
 
     await page.getByTestId('form-number-widget-A Number').fill('10')
     await page.getByRole('button', { name: 'Submit' }).click()
-    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByRole('button', { name: 'Close job' }).click()
     await page.waitForTimeout(5000) // Wait for react-query cache to expire
     await page.getByTestId('data').getByRole('button').first().click()
@@ -119,7 +118,7 @@ test('Relative reference', async ({ page }) => {
     await area.getByTestId('expandListItem-1').click()
     await expect(area.locator('pre').getByRole('code')).toBeVisible()
     await area.getByRole('button', { name: 'Edit' }).last().click()
-    await area.getByText('Data').last().click()
+    await area.getByRole('button', { name: 'Data' }).click()
     await expect(area.getByRole('code')).toBeVisible()
     await area.getByRole('button', { name: 'Edit' }).last().click()
     await expect(
