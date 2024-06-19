@@ -1,13 +1,13 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.55.1",
+  "version": "1.56.0",
   "main": "dist/index.js",
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/modifiers": "^6.0.1",
     "@dnd-kit/sortable": "^7.0.2",
-    "@development-framework/dm-core": "^1.45.1",
+    "@development-framework/dm-core": "^1.46.0",
     "@equinor/eds-core-react": ">0.33.0",
     "@equinor/eds-icons": ">0.19.3",
     "@equinor/eds-tokens": ">0.9.0",

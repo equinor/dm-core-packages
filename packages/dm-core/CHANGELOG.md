@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.46.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.45.1...dm-core-v1.46.0) (2024-06-19)
+
+
+### Features
+
+* add dm-core layout component ([d562f60](https://github.com/equinor/dm-core-packages/commit/d562f604e35f1d5247d9fee7120b2cbf77994b4f))
+* minor global styles included in ApplicationProvider ([421752a](https://github.com/equinor/dm-core-packages/commit/421752a4592339232d2ca3a44ea456144418984c))
+
+
+### Bug Fixes
+
+* include application context in Tree ([266ff1b](https://github.com/equinor/dm-core-packages/commit/266ff1b8e564150322bf7c3c5ea675780450facf))
+* InlineRecipeView doesn't stretch width ([f9fe604](https://github.com/equinor/dm-core-packages/commit/f9fe604f253d085564a06c29a6372793b5b8e0e6))
+* move dnd packages to correct project ([1b52856](https://github.com/equinor/dm-core-packages/commit/1b528566b2fcebfcd676f48cd463b12c951a3cc8))
+
+
+### Miscellaneous Chores
+
+* remove autoprefixer package ([ec891ff](https://github.com/equinor/dm-core-packages/commit/ec891ff57e6ee9ec8ce2f16faa0066f9cf0cb7ec))
+* remove tailwind from dm-core ([ecbe5dc](https://github.com/equinor/dm-core-packages/commit/ecbe5dce742ecdddee3c78b969d7c318c2311ad2))
+
+
+### Code Refactoring
+
+* ACL components tw removal + more cohesive design, remove unnecessary custom styled components ([253637d](https://github.com/equinor/dm-core-packages/commit/253637d840bd96eb042140ec5cf71890395bdfc1))
+* remove margin treeview ([aa92e84](https://github.com/equinor/dm-core-packages/commit/aa92e84038eb1e469a8d10123d216dbf742977e5))
+* remove tw classes on dm-core components ([3032c15](https://github.com/equinor/dm-core-packages/commit/3032c154fac126404732533516c21d4ce85ffbd5))
+* remove tw from blueprint components ([60a0d93](https://github.com/equinor/dm-core-packages/commit/60a0d93c9c07a8b38dbde8b73f3d68d093f2973b))
+
 ## [1.45.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.45.0...dm-core-v1.45.1) (2024-05-31)
 
 
