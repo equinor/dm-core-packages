@@ -12,7 +12,8 @@ export type { TItem }
 
 export function useList<T extends object>(
   idReference: string,
-  resolveReferences: boolean = true
+  resolveReferences: boolean = true,
+  entity?: T
 ): IUseListReturnType<T> {
   const [attribute, setAttribute] = useState<TAttribute | null>(null)
   const [items, setItems] = useState<TItem<T>[]>([])
@@ -39,6 +40,23 @@ export function useList<T extends object>(
     if (!attribute) return
     setLoading(true)
     setDirtyState(false)
+    if (entity) {
+      const items: TItem<any>[] = Object.values(entity).map((data, index) => ({
+        key: crypto.randomUUID() as string,
+        index: index,
+        idReference: `${idReference}${
+          data._id ? `(_id=${data._id})` : `[${index}]`
+        }`,
+        data: data,
+        reference: null,
+        isSaved: true,
+      }))
+      setItems(items)
+      setError(null)
+      setLoading(false)
+      return
+    }
+    console.log(`Did not recive entity for ${idReference}`)
     dmssAPI
       .documentGet({
         address: idReference,

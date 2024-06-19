@@ -1,6 +1,7 @@
 import {
   TGenericObject,
   TOnOpen,
+  TValidEntity,
   ViewCreator,
 } from '@development-framework/dm-core'
 import * as React from 'react'
@@ -15,6 +16,7 @@ export const TabsContent = (props: {
   onOpen: TOnOpen
   formData: TGenericObject
   style?: Record<string, string | number>
+  entity?: TValidEntity
 }): React.ReactElement => {
   const { selectedViewId, viewSelectorItems, setFormData, formData, onOpen } =
     props
@@ -29,6 +31,7 @@ export const TabsContent = (props: {
           {config.viewConfig ? (
             <ViewCreator
               idReference={config.rootEntityId}
+              entity={config.entity}
               viewConfig={config.viewConfig}
               onOpen={onOpen}
               onSubmit={(data: TGenericObject) => {

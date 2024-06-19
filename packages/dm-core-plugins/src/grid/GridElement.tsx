@@ -1,4 +1,4 @@
-import { ViewCreator } from '@development-framework/dm-core'
+import { TValidEntity, ViewCreator } from '@development-framework/dm-core'
 import { Typography } from '@equinor/eds-core-react'
 import React from 'react'
 import styled from 'styled-components'
@@ -32,11 +32,19 @@ type TGridItemProps = {
   showItemBorders: boolean
   onSubmit?: (data: any) => void
   onChange?: (data: any) => void
+  entity?: TValidEntity
 }
 
 export const GridElement = (props: TGridItemProps): React.ReactElement => {
-  const { idReference, item, itemBorder, showItemBorders, onSubmit, onChange } =
-    props
+  const {
+    idReference,
+    item,
+    itemBorder,
+    showItemBorders,
+    onSubmit,
+    onChange,
+    entity,
+  } = props
 
   return (
     <Element
@@ -49,6 +57,7 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
         {item?.title && <Typography variant='h4'>{item.title}</Typography>}
         <div className='flex-layout-container'>
           <ViewCreator
+            entity={entity}
             idReference={idReference}
             viewConfig={item.viewConfig}
             onSubmit={onSubmit}

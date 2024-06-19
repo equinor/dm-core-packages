@@ -8,8 +8,7 @@ import { useViewSelector } from './useViewSelector'
 export const TabsPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
 ): React.ReactElement | null => {
-  const { idReference, config, type, onSubmit, onChange } = props
-
+  const { idReference, config, type, onSubmit, onChange, entity } = props
   const {
     addView,
     removeView,
@@ -20,7 +19,7 @@ export const TabsPlugin = (
     formData,
     setSelectedViewId,
     setFormData,
-  } = useViewSelector(idReference, config, onSubmit, onChange)
+  } = useViewSelector(idReference, config, entity, onSubmit, onChange)
 
   if (error) {
     throw new Error(JSON.stringify(error, null, 2))
@@ -39,6 +38,7 @@ export const TabsPlugin = (
       />
       <TabsContent
         type={type}
+        entity={entity}
         onOpen={addView}
         formData={formData}
         selectedViewId={selectedViewId}

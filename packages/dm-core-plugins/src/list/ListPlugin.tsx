@@ -76,7 +76,7 @@ const defaultConfig: TListConfig = {
 }
 
 export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
-  const { idReference, config, type, onOpen } = props
+  const { idReference, config, type, onOpen, entity } = props
   const internalConfig: TListConfig = {
     ...defaultConfig,
     ...config,
@@ -96,7 +96,11 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     moveItem,
     reloadData,
     updateItem,
-  } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
+  } = useList<TGenericObject>(
+    idReference,
+    internalConfig.resolveReferences,
+    entity
+  )
 
   const {
     currentItems,
@@ -149,6 +153,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     onOpen(
       item.key,
       view,
+      item.data,
       item.idReference,
       false,
       config.saveExpanded

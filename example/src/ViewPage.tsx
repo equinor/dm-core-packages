@@ -36,7 +36,13 @@ function ViewPage() {
     )
   }
 
-  return <EntityView idReference={idReference} type={document.type} />
+  return (
+    <EntityView
+      idReference={idReference}
+      type={document.type}
+      entity={document}
+    />
+  )
 }
 
 export default ViewPage

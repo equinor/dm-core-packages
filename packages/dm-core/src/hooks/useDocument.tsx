@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { useApplication } from '../ApplicationContext'
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { TValidEntity } from '../types'
 interface IUseDocumentReturnType<T> {
   document: T | null
   isLoading: boolean
@@ -54,7 +55,8 @@ interface IUseDocumentReturnType<T> {
 export function useDocument<T>(
   idReference: string,
   depth?: number | undefined,
-  notify: boolean = true
+  notify: boolean = true,
+  entity?: TValidEntity | undefined
 ): IUseDocumentReturnType<T> {
   const { dmssAPI } = useApplication()
   const [errorResponse, setErrorResponse] = useState<ErrorResponse | null>(null)
@@ -68,8 +70,13 @@ export function useDocument<T>(
     staleTime: 5 * 1000,
     refetchOnMount: true,
     queryKey: queryKeys,
-    queryFn: () =>
-      dmssAPI
+    queryFn: () => {
+      if (entity && depth === 0) {
+        console.log(`Recived entity for ${idReference}. Will not fetch`)
+        return entity
+      }
+      console.log(`UseDocument did not recieve entity for ${idReference}`)
+      return dmssAPI
         .documentGet({
           address: idReference,
           depth: documentDepth,
@@ -85,7 +92,8 @@ export function useDocument<T>(
           setErrorResponse(
             error.response?.data || { message: error.name, data: error }
           )
-        }),
+        })
+    },
   })
 
   const mutation = useMutation({

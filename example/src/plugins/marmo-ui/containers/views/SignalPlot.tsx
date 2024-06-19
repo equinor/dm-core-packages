@@ -57,10 +57,12 @@ const ESSPlotPlugin = (props: { document: TGenericObject }) => {
 }
 
 const SignalPlot_Component = (props: IUIPlugin) => {
-  const { idReference } = props
+  const { idReference, entity } = props
   const { document, isLoading, error } = useDocument<TGenericObject>(
     idReference,
-    1
+    1,
+    true,
+    entity
   )
 
   if (isLoading) return <Loading />

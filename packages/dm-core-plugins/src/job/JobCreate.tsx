@@ -58,10 +58,7 @@ interface TJobPluginConfig {
 }
 
 export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
-  const {
-    config,
-    idReference,
-  }: { config: TJobPluginConfig; idReference: string } = props
+  const { config, idReference, entity } = props
   const { dmssAPI } = useApplication()
   const { tokenData } = useContext(AuthContext)
   const username = tokenData?.preferred_username ?? 'unknown user'
@@ -85,7 +82,7 @@ export const JobCreate = (props: IUIPlugin & { config: TJobPluginConfig }) => {
 
   const { document: jobDocument, updateDocument } = useDocument<
     TJob | TRecurringJob
-  >(jobTargetAddress, 0, false)
+  >(jobTargetAddress, 0, false, entity)
 
   const {
     start,

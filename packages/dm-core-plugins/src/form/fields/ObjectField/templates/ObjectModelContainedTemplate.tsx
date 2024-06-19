@@ -49,6 +49,7 @@ export const ObjectModelContainedTemplate = (
             onOpen?.(
               namePath,
               getOpenViewConfig(uiAttribute, namePath),
+              value,
               idReference
             )
           }
@@ -61,6 +62,7 @@ export const ObjectModelContainedTemplate = (
               viewId={namePath}
               idReference={idReference}
               viewConfig={getOpenViewConfig(uiAttribute, namePath)}
+              entity={value}
             />
           )}
           {attribute.optional &&
@@ -103,6 +105,7 @@ export const ObjectModelContainedTemplate = (
           idReference={`${idReference}.${attribute.name}`}
           onOpen={onOpen}
           viewConfig={getExpandViewConfig(uiAttribute)}
+          entity={value}
           onChange={(data: Record<string, unknown>) =>
             setValue(
               namePath,

@@ -1,3 +1,4 @@
+import { TValidEntity } from '../types'
 import { splitString } from './stringUtilities'
 
 /**
@@ -125,4 +126,45 @@ export const resolveRelativeAddressSimplified = (
   throw new Error(
     `Invalid format for relative address '${relativeAddress}' at location '${location}'. Check format and update recipes.`
   )
+}
+
+export function getScopedEntity(
+  entity?: TValidEntity,
+  scope?: string
+): TValidEntity | undefined {
+  if (!entity) {
+    return undefined
+  }
+  if (!scope) return entity
+
+  if (['self', '.'].includes(scope)) return entity
+
+  let subEntity = entity
+  const scopeParts = scope.split('.')
+
+  for (const part of scopeParts) {
+    if (part.endsWith(']')) {
+      const leftBracketIndex = part.indexOf('[')
+      const rightBracketIndex = part.indexOf(']')
+      const beforeBracket = part.slice(0, leftBracketIndex)
+      const listIndex = parseInt(
+        part.slice(leftBracketIndex + 1, rightBracketIndex)
+      )
+      // @ts-ignore
+      subEntity = subEntity[beforeBracket][listIndex]
+    } else {
+      // @ts-ignore
+      subEntity = subEntity[part]
+    }
+  }
+  if (!subEntity) {
+    console.error(
+      `Could not find scoped entity for scope ${scope} in entity ${JSON.stringify(
+        entity
+      )}`
+    )
+    console.error(entity)
+    console.error(scope)
+  }
+  return subEntity
 }

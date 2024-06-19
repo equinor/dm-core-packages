@@ -43,6 +43,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
             onOpen?.(
               namePath,
               getOpenViewConfig(uiAttribute, namePath),
+              getValues(namePath),
               idReference
             )
           }
@@ -56,6 +57,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
             <OpenObjectButton
               viewId={namePath}
               viewConfig={getOpenViewConfig(uiAttribute, namePath)}
+              entity={getValues(namePath)}
             />
           )}
           {attribute.optional &&
@@ -88,6 +90,7 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
           idReference={`${idReference}.${namePath}`}
           onOpen={onOpen}
           viewConfig={getExpandViewConfig(uiAttribute)}
+          entity={getValues(namePath)}
         />
       </ComplexAttributeTemplate.Content>
     </ComplexAttributeTemplate>

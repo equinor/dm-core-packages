@@ -42,7 +42,7 @@ const defaultConfig: TGridPluginConfig = {
 export const GridPlugin = (
   props: IUIPlugin & { config: TGridPluginConfig }
 ): React.ReactElement => {
-  const { config, idReference, type, onSubmit, onChange } = props
+  const { config, idReference, type, onSubmit, onChange, entity } = props
 
   const internalConfig: TGridPluginConfig = {
     ...defaultConfig,
@@ -54,6 +54,7 @@ export const GridPlugin = (
   return (
     <Grid className='dm-parent-plugin' {...internalConfig.size}>
       <GridItems
+        entity={entity}
         idReference={idReference}
         items={internalConfig.items}
         itemBorder={internalConfig.itemBorder}

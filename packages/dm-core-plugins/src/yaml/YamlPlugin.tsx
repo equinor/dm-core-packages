@@ -15,7 +15,7 @@ import { ActionButton, ActionsWrapper, CodeContainer } from './styles'
 import { YamlPluginProps, defaultConfig } from './types'
 
 export const YamlPlugin = (props: YamlPluginProps) => {
-  const { idReference, config: userConfig } = props
+  const { idReference, config: userConfig, entity } = props
   const config = { ...defaultConfig, ...userConfig }
   const [depth, setDepth] = useState(0)
   const [isEditMode, setIsEditMode] = useState<boolean>(false)
@@ -28,7 +28,7 @@ export const YamlPlugin = (props: YamlPluginProps) => {
   const depthPopoverTrigger = useRef<HTMLButtonElement>(null)
 
   const { document, isLoading, error, setError, updateDocument } =
-    useDocument<TGenericObject>(idReference, depth, false)
+    useDocument<TGenericObject>(idReference, depth, false, entity)
 
   const asYAML = useMemo(() => YAML.stringify(document), [document])
   const asJSON = useMemo(() => JSON.stringify(document, null, 2), [document])

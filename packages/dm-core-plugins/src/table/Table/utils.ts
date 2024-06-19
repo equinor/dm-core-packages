@@ -1,4 +1,4 @@
-import { TGenericObject, TItem } from '@development-framework/dm-core'
+import { TItem, TValidEntity } from '@development-framework/dm-core'
 import { isObject } from 'lodash'
 import {
   TTableConfig,
@@ -7,14 +7,16 @@ import {
   TableVariantNameEnum,
 } from './types'
 
-function setValue(object: TGenericObject, attribute: string, value: any) {
+function setValue(object: TValidEntity, attribute: string, value: any) {
   const properties = attribute.split('.')
   const lastProperty = properties.pop()
   const lastObject = properties.reduce(
+    // @ts-ignore
     (a, prop) => (isObject(a) ? a[prop] : null),
     object
   )
   if (isObject(lastObject) && lastProperty) {
+    // @ts-ignore
     lastObject[lastProperty] = value
     return true
   } else {
@@ -23,25 +25,22 @@ function setValue(object: TGenericObject, attribute: string, value: any) {
 }
 
 export function updateItemAttribute(
-  items: TItem<TGenericObject>[],
+  items: TItem<TValidEntity>[],
   key: string,
   attribute: string,
   newValue: string | number | boolean
 ) {
   const itemsCopy = [...items]
   const index = itemsCopy.findIndex((item) => item.key === key)
-  const itemData = itemsCopy[index].data || {}
+  const itemData = itemsCopy[index].data || { type: 'unknown' }
   const success = setValue(itemData, attribute, newValue)
   if (success && itemsCopy[index].data) {
-    ;(itemsCopy[index].data as TGenericObject) = itemData
+    ;(itemsCopy[index].data as TValidEntity) = itemData
   }
   return itemsCopy
 }
 
-export function createNewItemObject(
-  data: TGenericObject,
-  newItemIndex: number
-) {
+export function createNewItemObject(data: TValidEntity, newItemIndex: number) {
   const id: string = crypto.randomUUID()
   return {
     key: id,
@@ -52,9 +51,9 @@ export function createNewItemObject(
 }
 
 export function removeItemFromList(
-  items: TItem<TGenericObject>[],
+  items: TItem<TValidEntity>[],
   key: string
-): TItem<TGenericObject>[] {
+): TItem<TValidEntity>[] {
   const itemIndex = items.findIndex((item) => item.key === key)
   const itemsCopy = [...items]
   itemsCopy.splice(itemIndex, 1)
@@ -87,7 +86,7 @@ export function dynamicSort(direction: TTableSortDirection, property: string) {
 }
 
 export const resolvePath = (
-  object: TGenericObject,
+  object: TValidEntity,
   path: string,
   defaultValue: any
 ) =>

@@ -12,7 +12,7 @@ import { useViewSelector } from './useViewSelector'
 export const SidebarPlugin = (
   props: IUIPlugin & { config?: TViewSelectorConfig }
 ): React.ReactElement => {
-  const { idReference, config, type } = props
+  const { idReference, config, type, entity } = props
 
   const {
     addView,
@@ -23,7 +23,7 @@ export const SidebarPlugin = (
     formData,
     setSelectedViewId,
     setFormData,
-  } = useViewSelector(idReference, config)
+  } = useViewSelector(idReference, config, entity)
 
   if (error) {
     throw new Error(JSON.stringify(error, null, 2))
@@ -47,6 +47,7 @@ export const SidebarPlugin = (
       <div className='flex-layout-container scroll'>
         {viewItem.viewConfig ? (
           <ViewCreator
+            entity={entity}
             key={`${viewItem.rootEntityId}-${viewItem.viewConfig.scope}`}
             idReference={viewItem.rootEntityId}
             viewConfig={viewItem.viewConfig}

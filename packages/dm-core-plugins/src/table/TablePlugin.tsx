@@ -1,13 +1,13 @@
 import {
   IUIPlugin,
-  TGenericObject,
+  TValidEntity,
   useList,
 } from '@development-framework/dm-core'
 import { TTableConfig, Table } from './Table/Table'
 import * as utils from './utils'
 
 export const TablePlugin = (props: IUIPlugin) => {
-  const { idReference } = props
+  const { idReference, entity } = props
   const config: TTableConfig = utils.mergeConfigs(props.config)
 
   const {
@@ -22,7 +22,7 @@ export const TablePlugin = (props: IUIPlugin) => {
     removeItem,
     save,
     reloadData,
-  } = useList<TGenericObject>(idReference, true)
+  } = useList<TValidEntity>(idReference, true, entity)
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 

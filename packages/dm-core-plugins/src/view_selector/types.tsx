@@ -1,6 +1,7 @@
 import {
   TInlineRecipeViewConfig,
   TReferenceViewConfig,
+  TValidEntity,
   TViewConfig,
 } from '@development-framework/dm-core'
 
@@ -15,6 +16,7 @@ export type TItemData = TViewSelectorItem & {
   viewId: string
   label: string
   closeable?: boolean
+  entity?: TValidEntity
   rootEntityId: string
   onSubmit?: (data: any) => void
   onChange?: (data: any) => void

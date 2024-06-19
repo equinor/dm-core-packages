@@ -1,6 +1,6 @@
 import {
-  TGenericObject,
   TItem,
+  TValidEntity,
   usePagination,
 } from '@development-framework/dm-core'
 import {
@@ -54,7 +54,7 @@ export function Table(props: TableProps) {
   const [tableVariant, setTableVariant] = useState<TableVariantNameEnum>(
     config.variant[0].name
   )
-  const [sortedItems, setSortedItems] = useState<TItem<TGenericObject>[]>([])
+  const [sortedItems, setSortedItems] = useState<TItem<TValidEntity>[]>([])
   const [sortColumn, setSortColumn] = useState<string | undefined>(undefined)
   const [sortDirection, setSortDirection] =
     useState<TTableSortDirection>('ascending')
@@ -79,7 +79,7 @@ export function Table(props: TableProps) {
   }
 
   const handleRemoveItem = async (
-    itemToDelete: TItem<TGenericObject>,
+    itemToDelete: TItem<TValidEntity>,
     saveOnRemove?: boolean | undefined
   ) => {
     setDeletingRow(itemToDelete.key)
@@ -130,7 +130,7 @@ export function Table(props: TableProps) {
     setPage(0)
   }
 
-  function reorderItems(reorderedItems: TItem<TGenericObject>[]) {
+  function reorderItems(reorderedItems: TItem<TValidEntity>[]) {
     setItems(reorderedItems)
     setDirtyState(true)
   }
@@ -196,7 +196,7 @@ export function Table(props: TableProps) {
                           functionalityConfig={functionalityConfig}
                           idReference={props.idReference}
                           index={items.findIndex(
-                            (it: TItem<TGenericObject>) => it.key === item.key
+                            (it: TItem<TValidEntity>) => it.key === item.key
                           )}
                           item={item}
                           items={items}

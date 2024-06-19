@@ -1,3 +1,4 @@
+import { TValidEntity } from '@development-framework/dm-core'
 import { GridElement } from './GridElement'
 import { TGridItem, TItemBorder } from './types'
 
@@ -9,6 +10,7 @@ type GridItemsProps = {
   showItemBorders: boolean
   onSubmit?: (data: any) => void
   onChange?: (data: any) => void
+  entity?: TValidEntity
 }
 
 export const GridItems = (props: GridItemsProps) => {
@@ -20,10 +22,12 @@ export const GridItems = (props: GridItemsProps) => {
     showItemBorders,
     onChange,
     onSubmit,
+    entity,
   } = props
   const elements = items.map((item: TGridItem, index) => {
     return (
       <GridElement
+        entity={entity}
         key={`${idReference}-${index}`}
         idReference={idReference}
         item={item}

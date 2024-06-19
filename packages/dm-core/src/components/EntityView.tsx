@@ -25,6 +25,7 @@ const MemoizedUiPlugin = memo(function UiPlugin(
 export const EntityView = (props: IEntityView): React.ReactElement => {
   const {
     idReference,
+    entity,
     type,
     onSubmit,
     onOpen,
@@ -99,6 +100,7 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
             }}
           >
             <MemoizedUiPlugin
+              entity={entity}
               getPlugin={getUiPlugin}
               recipe={recipe}
               idReference={idReference}

@@ -10,8 +10,8 @@ services:
       ENVIRONMENT: ${ENVIRONMENT:-local}
       RESET_DATA_SOURCE: "off"
       SECRET_KEY: sg9aeUM5i1JO4gNN8fQadokJa3_gXQMLBjSGGYcfscs= # Don't reuse this in production...
-#    volumes:
-#      - ../../data-modelling-storage-service/src:/code/src
+    volumes:
+      - ../../data-modelling-storage-service/src:/code/src
     ports:
       - '5000:5000'
     depends_on:

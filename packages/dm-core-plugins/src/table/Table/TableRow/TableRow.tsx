@@ -52,17 +52,17 @@ export function TableRow(props: TableRowProps) {
       )
       return
     }
-    const label =
-      config.label ||
+    const label = (config.label ||
       item.data?.label ||
       item.data?.name ||
-      `${idReference.split('.').slice(-1)}`
+      `${idReference.split('.').slice(-1)}`) as string
     props.onOpen(
       item.key,
       {
         label: config.labelByIndex ? `${label} #${index + 1}` : label,
         type: 'ViewConfig',
       },
+      item.data ?? undefined,
       item.idReference,
       false,
       (data: any) => handleItemUpdate(item, data)

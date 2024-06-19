@@ -45,7 +45,7 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
  * @param props
  */
 export const ViewCreator = (props: TViewCreator): React.ReactElement => {
-  const { idReference, viewConfig, onOpen, onSubmit, onChange } = props
+  const { idReference, viewConfig, onOpen, onSubmit, onChange, entity } = props
   const { dmssAPI } = useApplication()
   const [error, setError] = useState<Error>()
 
@@ -53,7 +53,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
     () => getTarget(idReference, viewConfig),
     [idReference, viewConfig]
   )
-  const queryKeys = ['attributes', reference, viewConfig.resolve]
+  const queryKeys = ['attributes', reference, viewConfig.resolve ?? false]
 
   const { isPending, data } = useQuery<{
     address: string
@@ -69,10 +69,13 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
           resolve: props.viewConfig.resolve,
         })
         .then((response: any) => response.data)
-        .catch((error: AxiosError<ErrorResponse>) => setError(error)),
+        .catch((error: AxiosError<ErrorResponse>) => {
+          setError(error)
+          return null
+        }),
   })
 
-  if (isPending || !data?.address) return <Loading />
+  if (isPending) return <Loading />
   if (error)
     return (
       <Typography>
@@ -80,18 +83,24 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
         {error.message})
       </Typography>
     )
-  if (data.attribute === undefined)
+  if (!data || data.attribute === undefined) {
     throw new Error('Unable to find type and dimensions for view')
+  }
 
   if (viewConfig === undefined)
     throw new Error(
       'Cannot create a View without a "viewConfig". Sure the attribute is properly named?'
     )
+  if (entity === undefined) {
+    console.log('UNDEFINED ENTITY')
+    console.log(viewConfig.scope)
+  }
   if (isInlineRecipeViewConfig(viewConfig)) {
     return (
       <InlineRecipeView
         idReference={data.address}
         type={data.attribute.attributeType}
+        entity={entity}
         viewConfig={viewConfig}
         onOpen={onOpen}
         onSubmit={onSubmit}
@@ -105,6 +114,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
       <EntityView
         type={data.attribute.attributeType}
         idReference={data.address}
+        entity={entity}
         recipeName={viewConfig.recipe}
         onOpen={onOpen}
         dimensions={data.attribute.dimensions}
@@ -117,6 +127,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
     return (
       <EntityView
         idReference={data.address}
+        entity={entity}
         type={data.attribute.attributeType}
         onOpen={onOpen}
         dimensions={data.attribute.dimensions}

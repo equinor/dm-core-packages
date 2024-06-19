@@ -4,7 +4,9 @@ import {
   TInlineRecipeViewConfig,
   TOnOpen,
   TReferenceViewConfig,
+  TValidEntity,
   TViewConfig,
+  getScopedEntity,
   useDocument,
 } from '@development-framework/dm-core'
 import * as React from 'react'
@@ -27,6 +29,7 @@ interface IUseViewSelector {
 export function useViewSelector(
   idReference: string,
   config: Record<string, any>,
+  passedEntity?: TValidEntity | undefined,
   onSubmit?: (data: any) => void,
   onChange?: (data: any) => void
 ): IUseViewSelector {
@@ -34,7 +37,7 @@ export function useViewSelector(
     document: entity,
     isLoading,
     error,
-  } = useDocument<TGenericObject>(idReference)
+  } = useDocument<TValidEntity>(idReference, 0, true, passedEntity)
   const [selectedViewId, setSelectedViewId] = useState<string | undefined>()
   const [viewSelectorItems, setViewSelectorItems] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
@@ -47,6 +50,7 @@ export function useViewSelector(
   const addView: TOnOpen = (
     viewId: string,
     viewConfig: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
+    entity?: TValidEntity,
     rootId?: string,
     isSubItem?: boolean,
     onSubmitAdded?: (data: any) => void,
@@ -57,6 +61,7 @@ export function useViewSelector(
     )
     const newView: TItemData = {
       viewId: viewId,
+      entity: entity,
       viewConfig: viewConfig,
       label: viewConfig.label ?? viewId,
       rootEntityId: rootId || idReference,
@@ -101,6 +106,7 @@ export function useViewSelector(
         const backupKey: string = viewItem.viewConfig?.scope ?? 'self' // If the view does not have a scope, the scope is 'self'
         const viewId = crypto.randomUUID()
         newViews.push({
+          entity: getScopedEntity(entity, viewItem.viewConfig?.scope),
           viewConfig: viewItem.viewConfig,
           subItems: viewItem.subItems,
           eds_icon: viewItem.eds_icon,
@@ -117,6 +123,7 @@ export function useViewSelector(
           if (!selectedViewId && viewItem.viewConfig) selectedViewId = viewId
           if (!selectedViewId) selectedViewId = subViewId
           newViews.push({
+            entity: getScopedEntity(entity, viewItem.viewConfig?.scope),
             viewConfig: subItem.viewConfig,
             subItems: subItem.subItems,
             eds_icon: subItem.eds_icon,
@@ -135,6 +142,7 @@ export function useViewSelector(
     } else {
       // No views where passed. Create default for all complex attributes and "self"
       newViews.push({
+        entity: entity,
         label: 'self',
         viewId: 'self',
         eds_icon: 'home',
@@ -155,6 +163,7 @@ export function useViewSelector(
         ([key, attributeEntity]: [string, any]) => {
           if (typeof attributeEntity === 'object') {
             newViews.push({
+              entity: getScopedEntity(entity, key),
               viewId: key,
               label: key,
               onSubmit: onSubmit,

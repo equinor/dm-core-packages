@@ -58,7 +58,7 @@ export const ObjectModelUncontainedTemplate = (
           objectIsNotEmpty={referenceExists}
           setIsExpanded={setIsExpanded}
           onOpen={() =>
-            onOpen?.(namePath, getOpenViewConfig(uiAttribute), address)
+            onOpen?.(namePath, getOpenViewConfig(uiAttribute), value, address)
           }
           icon={link}
           uiAttribute={uiAttribute}
@@ -98,6 +98,7 @@ export const ObjectModelUncontainedTemplate = (
           idReference={address ?? ''}
           onOpen={onOpen}
           viewConfig={getExpandViewConfig(uiAttribute)}
+          entity={value}
         />
       </ComplexAttributeTemplate.Content>
     </ComplexAttributeTemplate>

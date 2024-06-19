@@ -77,14 +77,24 @@ type TRecipeConfigAndPlugin = {
  */
 
 export default (props: IUIPlugin): React.ReactElement => {
-  const { idReference, config: passedConfig, type } = props
+  const {
+    idReference,
+    config: passedConfig,
+    type,
+    entity: passedEntity,
+  } = props
   const config: THeaderPluginConfig & { adminRole: string } = {
     ...defaultHeaderPluginConfig,
     ...passedConfig,
   }
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-  const { document: entity, isLoading } = useDocument<TApplication>(idReference)
+  const { document: entity, isLoading } = useDocument<TApplication>(
+    idReference,
+    0,
+    true,
+    passedEntity
+  )
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
   const { roles, role, dmssAPI, name } = useApplication()
   const [aboutOpen, setAboutOpen] = useState(false)
@@ -216,6 +226,7 @@ export default (props: IUIPlugin): React.ReactElement => {
       />
       <div className='flex-layout-container'>
         <UIPlugin
+          entity={entity}
           key={idReference + selectedRecipe.name}
           idReference={idReference}
           type={entity.type}

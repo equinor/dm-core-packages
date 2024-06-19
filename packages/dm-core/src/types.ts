@@ -10,6 +10,7 @@ export type TDataSource = {
 
 export type TRole = {
   name: string
+  type: string
   label: string
   authServerRoleName: string
 }
@@ -173,6 +174,7 @@ export type TPackage = {
 export interface IUIPlugin {
   type: string
   idReference: string
+  entity?: TValidEntity
   onSubmit?: (data: any) => void // Listen to submits
   onChange?: (data: any) => void // Listen to changes
   onOpen?: TOnOpen
@@ -183,6 +185,7 @@ export interface IUIPlugin {
 export type TOnOpen = (
   viewId: string,
   view: TViewConfig | TReferenceViewConfig | TInlineRecipeViewConfig,
+  entity?: TValidEntity,
   rootId?: string,
   isSubItem?: boolean,
   onSubmit?: (data: any) => void,
@@ -221,6 +224,7 @@ export type TUserIdMapping = { userId: string; username: string }
 
 export type TViewConfig = {
   type: string
+  entity?: TValidEntity
   scope?: string
   resolve?: boolean
   label?: string

@@ -1,10 +1,10 @@
 import {
   IUIPlugin,
-  TGenericObject,
   TInlineRecipeViewConfig,
   TItem,
   TOnOpen,
   TReferenceViewConfig,
+  TValidEntity,
   TViewConfig,
 } from '@development-framework/dm-core'
 import { TSortableItem, TTemplate } from '../../common'
@@ -64,18 +64,18 @@ export type TableProps = {
   ) => void
   config: TTableConfig
   dirtyState: boolean
-  items: TItem<TGenericObject>[]
+  items: TItem<TValidEntity>[]
   isLoading: boolean
   reloadData?: () => void
   removeItem: (
-    itemToDelete: TItem<TGenericObject>,
+    itemToDelete: TItem<TValidEntity>,
     saveOnRemove?: boolean
   ) => Promise<void>
-  saveTable: (items: TItem<TGenericObject>[]) => void
-  setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
+  saveTable: (items: TItem<TValidEntity>[]) => void
+  setItems: React.Dispatch<React.SetStateAction<TItem<TValidEntity>[]>>
   updateItem: (
-    itemToUpdate: TItem<TGenericObject>,
-    newDocument: TGenericObject,
+    itemToUpdate: TItem<TValidEntity>,
+    newDocument: TValidEntity,
     saveOnUpdate?: boolean
   ) => Promise<void>
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
@@ -100,24 +100,24 @@ export type TableRowProps = {
   ) => void
   config: TTableConfig
   removeItem: (
-    itemToDelete: TItem<TGenericObject>,
+    itemToDelete: TItem<TValidEntity>,
     saveOnRemove?: boolean
   ) => Promise<void>
   editMode: boolean
   functionalityConfig: TTableFunctionalityConfig
-  item: TItem<TGenericObject>
+  item: TItem<TValidEntity>
   index: number
   idReference: string
-  items: TItem<TGenericObject>[]
+  items: TItem<TValidEntity>[]
   onOpen?: TOnOpen
   rowsPerPage: number
   disableActions: boolean
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
-  setItems: React.Dispatch<React.SetStateAction<TItem<TGenericObject>[]>>
+  setItems: React.Dispatch<React.SetStateAction<TItem<TValidEntity>[]>>
   showActionsCell: boolean
   updateItem: (
-    itemToUpdate: TItem<TGenericObject>,
-    newDocument: TGenericObject,
+    itemToUpdate: TItem<TValidEntity>,
+    newDocument: TValidEntity,
     saveOnUpdate?: boolean
   ) => Promise<void>
   tableVariant: TableVariantNameEnum
@@ -125,9 +125,9 @@ export type TableRowProps = {
 
 export type TableRowActionsProps = {
   editMode: boolean
-  item: TItem<TGenericObject>
+  item: TItem<TValidEntity>
   removeItem: (
-    itemToDelete: TItem<TGenericObject>,
+    itemToDelete: TItem<TValidEntity>,
     saveOnRemove?: boolean
   ) => Promise<void>
   functionalityConfig: TTableFunctionalityConfig
@@ -138,7 +138,7 @@ export type TableCellProps = {
   column: TTableColumnConfig
   editMode: boolean
   isExpanded: boolean
-  item: TItem<TGenericObject>
+  item: TItem<TValidEntity>
   openItemAsTab: () => void
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>
   updateItem: (

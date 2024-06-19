@@ -26,7 +26,7 @@ export function TableCell(props: TableCellProps) {
 
   // TODO: Add more logic for creating better default values.
   //  If pointing to complex optional object, it has to be created.
-  const value = resolvePath(item.data || {}, column?.data, '')
+  const value = resolvePath(item.data || { type: 'unknown' }, column?.data, '')
 
   if (typeof value === 'object') {
     throw new Error(

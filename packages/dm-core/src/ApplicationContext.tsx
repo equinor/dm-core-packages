@@ -17,6 +17,7 @@ import { IUIPlugin, TApplication, TRole, TUiPluginMap } from './types'
 import { ErrorGroup } from './utils/ErrorBoundary'
 
 const DEFAULT_ROLE: TRole = {
+  type: 'role',
   name: 'anonymous',
   authServerRoleName: 'anonymous',
   label: 'Anonymous',
@@ -61,6 +62,7 @@ function generateFallbackRoles(roles: string[] | undefined): TRole[] {
     name: r,
     label: capitalizeFirstLetter(r),
     authServerRoleName: r,
+    type: 'role',
   }))
 }
 

@@ -1,5 +1,4 @@
 import '@development-framework/dm-core-plugins/dist/main.css'
-import React from 'react'
 import 'react-toastify/dist/ReactToastify.min.css'
 import './main.css'
 
@@ -26,7 +25,7 @@ const authConfig = {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-  <React.StrictMode>
+  <div>
     {authEnabled ? (
       <AuthProvider authConfig={authConfig}>
         <App />
@@ -34,5 +33,5 @@ root.render(
     ) : (
       <App />
     )}
-  </React.StrictMode>
+  </div>
 )
