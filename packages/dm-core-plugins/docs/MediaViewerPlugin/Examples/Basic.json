@@ -36,6 +36,7 @@
     }
   },
   "recipe": {
+    "_blueprintPath_": "./MediaViewer",
     "name": "MediaExample",
     "type": "CORE:UiRecipe",
     "description": "Media example with basic config",

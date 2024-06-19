@@ -53,6 +53,7 @@
     ]
   },
   "recipe": {
+    "_blueprintPath_": "EditTable",
     "name": "cars",
     "type": "CORE:UiRecipe",
     "description": "List of cars",

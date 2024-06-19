@@ -53,6 +53,7 @@
     ]
   },
   "recipe": {
+    "_blueprintPath_": "./CarList",
     "name": "cars",
     "type": "CORE:UiRecipe",
     "description": "List of cars",

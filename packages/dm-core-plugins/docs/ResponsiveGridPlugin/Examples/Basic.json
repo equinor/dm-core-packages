@@ -22,6 +22,7 @@
     "_id": "1179c897-df62-445f-87e4-f393b4253936"
   },
   "recipe": {
+    "_blueprintPath_": "./Example",
     "type": "CORE:UiRecipe",
     "name": "grid_example",
     "description": "Person form",
