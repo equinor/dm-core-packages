@@ -5405,3 +5405,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* chore: release main (2024-06-19T09:53:45Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/9580030461/2)
+    * **DMSS VERSION**: 
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 
