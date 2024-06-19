@@ -60,6 +60,54 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.56.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.55.1...dm-core-plugins-v1.56.0) (2024-06-19)
+
+
+### Features
+
+* improve stack component ([5b2bf9d](https://github.com/equinor/dm-core-packages/commit/5b2bf9dce978f938146576237d70f2691ee09468))
+
+
+### Bug Fixes
+
+* add blueprint paths to recipe examples ([3c0e921](https://github.com/equinor/dm-core-packages/commit/3c0e9210e7f8e48068377e86dd6c24fe61225107))
+* move dnd packages to correct project ([1b52856](https://github.com/equinor/dm-core-packages/commit/1b528566b2fcebfcd676f48cd463b12c951a3cc8))
+* remove build:css step ([f8b6ddb](https://github.com/equinor/dm-core-packages/commit/f8b6ddba86eb21a65a349cd9840bf202bbcbacd0))
+* update tests ([2c327a3](https://github.com/equinor/dm-core-packages/commit/2c327a3df4fa1086dbfe83fb69d4b0be1a741a18))
+
+
+### Documentation
+
+* add docs on meta-plugin ([3ba750e](https://github.com/equinor/dm-core-packages/commit/3ba750e3beefe2375e066750a3537b4534f0bdac))
+* job plugin ([cf200ef](https://github.com/equinor/dm-core-packages/commit/cf200ef1eb9e10b5f4055655367ee953f80efd36))
+
+
+### Code Refactoring
+
+* HyperlinkWidget tw remove + redesign ([08f945c](https://github.com/equinor/dm-core-packages/commit/08f945c46ed565ec913c14cd60bba1526ad07a53))
+* remove tailwind from dm-core-plugins ([62f2678](https://github.com/equinor/dm-core-packages/commit/62f267899cad1b422b79fbde6b478b9a289ccd75))
+* remove tw ComplexAttributeTemplate, make header title one singular button, semantic improvements ([0ddd4e9](https://github.com/equinor/dm-core-packages/commit/0ddd4e98d42340bd976c687b2fe7c593ac977305))
+* remove tw datagrid components ([a98ed16](https://github.com/equinor/dm-core-packages/commit/a98ed1692c02f04b2f489888fb1dcbd187cbc2d7))
+* remove tw datepicker ([48f71c8](https://github.com/equinor/dm-core-packages/commit/48f71c8944de487972eae9777aa2637dbc53e5ce))
+* remove tw DeleteSoftButton ([6e27218](https://github.com/equinor/dm-core-packages/commit/6e272189391f2f96da84772f6de3cf9e6bb3ec19))
+* remove tw form components ([7ae9865](https://github.com/equinor/dm-core-packages/commit/7ae9865f172f3b24d8b80428e267b0ba25a623b9))
+* remove tw from blueprint components ([60a0d93](https://github.com/equinor/dm-core-packages/commit/60a0d93c9c07a8b38dbde8b73f3d68d093f2973b))
+* remove tw HeaderPlugin ([7f7b000](https://github.com/equinor/dm-core-packages/commit/7f7b0001d9997442df9501b166716abdb8aed934))
+* remove tw job plugins and components ([2de9392](https://github.com/equinor/dm-core-packages/commit/2de939244a082749dfd039fe53c52ffbfdf4a853))
+* remove tw layout components ([b75829a](https://github.com/equinor/dm-core-packages/commit/b75829a9e850756008d5afd0ed1e20f324d80a42))
+* remove tw layout plugins ([e91d36c](https://github.com/equinor/dm-core-packages/commit/e91d36c2bb833e5d448afe79d027a1cb689819af))
+* remove tw media, meta and publish plugins ([bd7523e](https://github.com/equinor/dm-core-packages/commit/bd7523e77e5c429be00793e7b7579d069692587e))
+* remove tw table and list plugin + add component CollapseExpandButton ([0f03ad0](https://github.com/equinor/dm-core-packages/commit/0f03ad070a99d5ba3e9a6c828402b523ea178999))
+* remove tw YamlPlugin ([0cb5ce1](https://github.com/equinor/dm-core-packages/commit/0cb5ce1f3a3fa174bf707eecf49be6f530cd78fd))
+* reset css cleanup ([5ca9959](https://github.com/equinor/dm-core-packages/commit/5ca995926a971b5039039735113a3400c498deac))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.45.1 to ^1.46.0
+
 ## [1.55.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.55.0...dm-core-plugins-v1.55.1) (2024-05-31)
 
 
