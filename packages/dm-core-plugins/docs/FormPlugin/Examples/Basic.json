@@ -44,6 +44,7 @@
     "model": "XC40"
   },
   "recipe": {
+    "_blueprintPath_": "./Car",
     "name": "car",
     "type": "CORE:UiRecipe",
     "description": "Car form",

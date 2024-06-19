@@ -47,6 +47,7 @@
     }
   },
   "recipe": {
+    "_blueprintPath_": "./Person",
     "name": "person",
     "type": "CORE:UiRecipe",
     "description": "Person form",

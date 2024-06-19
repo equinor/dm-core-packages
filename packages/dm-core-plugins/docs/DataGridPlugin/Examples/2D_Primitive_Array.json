@@ -30,6 +30,7 @@
     ]
   },
   "recipe": {
+    "_blueprintPath_": "./ColorList",
     "name": "colors",
     "type": "CORE:UiRecipe",
     "description": "List of colors",

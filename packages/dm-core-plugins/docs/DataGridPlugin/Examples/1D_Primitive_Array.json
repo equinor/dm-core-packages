@@ -26,9 +26,10 @@
     "colors": ["red", "blue", "green", "yellow", "black"]
   },
   "recipe": {
-    "name": "cars",
+    "_blueprintPath_": "./ColorList",
+    "name": "colors",
     "type": "CORE:UiRecipe",
-    "description": "List of cars",
+    "description": "List of colors",
     "plugin": "@development-framework/dm-core-plugins/data_grid",
     "config": {
       "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
