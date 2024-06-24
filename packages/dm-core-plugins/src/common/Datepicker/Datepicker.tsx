@@ -149,7 +149,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
   }
 
   return (
-    <div>
+    <>
       <InputWrapper
         labelProps={{
           label: label
@@ -166,7 +166,7 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
           ref={inputWrapperRef}
           direction='row'
           alignItems='center'
-          style={{ maxWidth: 'max-content' }}
+          fullWidth
         >
           <TextField
             id={`${id}-date-field`}
@@ -175,7 +175,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
             disabled={readonly}
             onChange={(e: any) => handleDateInput(e.target.value)}
             onBlur={(e: any) => formatDate(e.target.value)}
-            style={{ width: '8rem' }}
           />
           {variant === 'datetime' && (
             <TextField
@@ -223,6 +222,6 @@ export const Datepicker = (props: DatepickerProps): ReactElement => {
         </Popover>,
         document.body
       )}
-    </div>
+    </>
   )
 }
