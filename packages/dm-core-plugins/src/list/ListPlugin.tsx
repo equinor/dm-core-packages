@@ -33,6 +33,8 @@ import {
 import { FormButton, ListChevronButton, NewListItemButton } from './Components'
 
 type TListConfig = {
+  title?: string
+  description?: string
   expanded?: boolean
   headers: string[]
   expandViewConfig: TViewConfig
@@ -172,6 +174,17 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
           overflowX: 'auto',
         }}
       >
+        {internalConfig?.title ||
+          (internalConfig?.description && (
+            <Stack padding={[0, 0, 1, 0]}>
+              {internalConfig?.title && (
+                <Typography variant='h3'>{internalConfig.title}</Typography>
+              )}
+              {internalConfig?.description && (
+                <Typography>{internalConfig.description}</Typography>
+              )}
+            </Stack>
+          ))}
         {attribute && !attribute.contained && (
           <EntityPickerDialog
             showModal={showModal}

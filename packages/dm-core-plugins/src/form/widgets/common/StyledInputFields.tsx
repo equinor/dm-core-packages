@@ -16,7 +16,7 @@ const StyledInputField = styled(TextField)`
   }
 
   input {
-    padding: 0 8px
+    padding: 0 8px;
   }
 
   span {

@@ -10,10 +10,13 @@ import {
   useApplication,
   useBlueprint,
 } from '@development-framework/dm-core'
-import { Button, EdsProvider, Icon } from '@equinor/eds-core-react'
+import { Button, EdsProvider, Icon, Typography } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
+import { tokens } from '@equinor/eds-tokens'
 import { FormProvider, useForm, useFormContext } from 'react-hook-form'
+import styled from 'styled-components'
 import { Stack } from '../../common'
+import { ConditionalWrapper } from '../../utils'
 import { RegistryProvider } from '../context/RegistryContext'
 import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
 import { getCanOpenOrExpand, isPrimitiveType } from '../utils'
@@ -31,6 +34,13 @@ export const defaultConfig: TFormConfig = {
     open: true,
   },
 }
+
+export const FormWrapper = styled(Stack)`
+  background: ${tokens.colors.ui.background__light.rgba};
+  border-radius: 0.375rem;
+  border-width: 1px;
+  padding: 0.5rem;
+`
 
 export const Form = (props: TFormProps) => {
   const { type, formData, onSubmit, idReference, onOpen } = props
@@ -170,17 +180,42 @@ export const Form = (props: TFormProps) => {
         config={{ ...defaultConfig, ...props.config }}
       >
         <div className='dm-plugin-padding dm-parent-plugin'>
-          <Stack
-            grow={1}
-            minHeight={0}
-            fullWidth
-            style={{ maxWidth: FORM_DEFAULT_MAX_WIDTH }}
+          <ConditionalWrapper
+            condition={showSubmitButton}
+            wrapper={(child: any) => (
+              <FormWrapper style={{ maxWidth: FORM_DEFAULT_MAX_WIDTH }}>
+                {child}
+              </FormWrapper>
+            )}
           >
-            <AttributeList
-              namePath={namePath}
-              blueprint={blueprint}
-              storageRecipes={storageRecipes ?? []}
-            />
+            <Stack
+              grow={1}
+              minHeight={0}
+              fullWidth
+              padding={showSubmitButton ? 0.5 : 0}
+              style={{
+                maxWidth: FORM_DEFAULT_MAX_WIDTH,
+                background: 'white',
+                borderRadius: '0.375rem',
+              }}
+            >
+              {config?.title ||
+                (config?.description && (
+                  <Stack padding={[0, 0, 1, 0]}>
+                    {config?.title && (
+                      <Typography variant='h3'>{config.title}</Typography>
+                    )}
+                    {config?.description && (
+                      <Typography>{config.description}</Typography>
+                    )}
+                  </Stack>
+                ))}
+              <AttributeList
+                namePath={namePath}
+                blueprint={blueprint}
+                storageRecipes={storageRecipes ?? []}
+              />
+            </Stack>
             {showSubmitButton && !config?.readOnly && (
               <EdsProvider
                 density={config?.compactButtons ? 'compact' : 'comfortable'}
@@ -188,9 +223,9 @@ export const Form = (props: TFormProps) => {
                 <Stack
                   direction='row'
                   spacing={0.5}
-                  justifyContent='flex-start'
+                  justifyContent='flex-end'
                   alignItems='center'
-                  margin={config?.compactButtons ? [0.25, 0] : [0.75, 0]}
+                  padding={[0.5, 0.5]}
                 >
                   <Button
                     onClick={handleCustomReset}
@@ -213,7 +248,7 @@ export const Form = (props: TFormProps) => {
                 </Stack>
               </EdsProvider>
             )}
-          </Stack>
+          </ConditionalWrapper>
         </div>
       </RegistryProvider>
     )

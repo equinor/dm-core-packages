@@ -78,6 +78,8 @@ export type TUiAttribute =
   | TUiAttributeString
 
 export type TFormConfig = {
+  title?: string
+  description?: string
   attributes: TUiAttribute[]
   fields: string[]
   readOnly?: boolean
