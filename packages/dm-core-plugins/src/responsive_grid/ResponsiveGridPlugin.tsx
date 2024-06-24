@@ -1,17 +1,13 @@
 import { IUIPlugin, ViewCreator } from '@development-framework/dm-core'
 import { Typography } from '@equinor/eds-core-react'
 import React from 'react'
-import { Col, Container, Row } from 'react-grid-system'
-import { TCol, TGridPluginConfig, TRow } from './types'
-
-const defaultConfig: TGridPluginConfig = {
-  rows: [],
-}
+import * as Styled from './styles'
+import { TCol, TGridPluginConfig, defaultConfig } from './types'
 
 export const ResponsiveGridPlugin = (
   props: IUIPlugin & { config: TGridPluginConfig }
 ): React.ReactElement => {
-  const { config, idReference, type, onSubmit, onChange } = props
+  const { config, idReference, onSubmit, onChange } = props
 
   const internalConfig: TGridPluginConfig = {
     ...defaultConfig,
@@ -19,27 +15,23 @@ export const ResponsiveGridPlugin = (
   }
 
   return (
-    <Container style={{ width: '100%' }}>
-      {internalConfig.rows.map((row: TRow) => {
-        const columns = row.columns.map((col: TCol) => {
-          return (
-            <Col {...col.size}>
-              <div style={{ marginBottom: '20px' }}>
-                {col?.title && (
-                  <Typography variant='h4'>{col.title}</Typography>
-                )}
-                <ViewCreator
-                  idReference={idReference}
-                  viewConfig={col.viewConfig}
-                  onSubmit={onSubmit}
-                  onChange={onChange}
-                />
-              </div>
-            </Col>
-          )
-        })
-        return <Row gutterWidth={row.gutterWidth || 30}>{columns}</Row>
+    <Styled.Grid
+      className='dm-plugin-padding dm-parent-plugin'
+      spacing={internalConfig.spacing}
+    >
+      {internalConfig.views.map((col: TCol) => {
+        return (
+          <Styled.GridItem size={col.size}>
+            {col?.title && <Typography variant='h4'>{col.title}</Typography>}
+            <ViewCreator
+              idReference={idReference}
+              viewConfig={col.viewConfig}
+              onSubmit={onSubmit}
+              onChange={onChange}
+            />
+          </Styled.GridItem>
+        )
       })}
-    </Container>
+    </Styled.Grid>
   )
 }

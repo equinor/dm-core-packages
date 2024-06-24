@@ -52,7 +52,10 @@ export const GridPlugin = (
   }
 
   return (
-    <Grid className='dm-parent-plugin' {...internalConfig.size}>
+    <Grid
+      className='dm-plugin-padding dm-parent-plugin'
+      {...internalConfig.size}
+    >
       <GridItems
         idReference={idReference}
         items={internalConfig.items}

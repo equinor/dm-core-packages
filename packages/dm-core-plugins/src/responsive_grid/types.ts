@@ -1,32 +1,28 @@
 import { TViewConfig } from '@development-framework/dm-core'
 
-export type TColSize = {
-  xs: number
-  sm: number
-  md: number
-  lg: number
-  xl: number
-  xxl: number
+export type TBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+export type TBreakpoints = Record<TBreakpoint, number>
+
+export const breakpoints: TBreakpoints = {
+  xs: 576,
+  sm: 768,
+  md: 992,
+  lg: 1200,
+  xl: 1600,
+  xxl: 1920,
 }
 
 export type TCol = {
   viewConfig: TViewConfig
-  size: TColSize
+  size: TBreakpoints
   title?: string
 }
 
-export type TRow = {
-  columns: TCol[]
-  gutterWidth: number
-}
-
 export type TGridPluginConfig = {
-  rows: TRow[]
+  views: TCol[]
+  spacing?: TBreakpoints
 }
 
-export type TItemBorder = {
-  size: string
-  style: string
-  color: string
-  radius: string
+export const defaultConfig: TGridPluginConfig = {
+  views: [],
 }

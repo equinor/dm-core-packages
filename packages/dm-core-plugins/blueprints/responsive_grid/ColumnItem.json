@@ -1,5 +1,5 @@
 {
-  "name": "ColumnItem",
+  "name": "GridItem",
   "type": "dmss://system/SIMOS/Blueprint",
   "attributes": [
     {
