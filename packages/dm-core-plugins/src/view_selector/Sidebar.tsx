@@ -1,8 +1,9 @@
 import { TOnOpen } from '@development-framework/dm-core'
-import { SideBar } from '@equinor/eds-core-react'
+import { Button, Icon, SideBar } from '@equinor/eds-core-react'
 import * as EdsIcons from '@equinor/eds-icons'
 import * as React from 'react'
-import { useScreenClass } from 'react-grid-system'
+import { breakpoints } from '../responsive_grid/types'
+import { CustomToggle } from './styles'
 import { TItemData, TViewSelectorItem } from './types'
 
 export const Sidebar = (props: {
@@ -13,12 +14,23 @@ export const Sidebar = (props: {
 }): React.ReactElement => {
   const { selectedViewId, setSelectedViewId, viewSelectorItems, addView } =
     props
-  const screenClass = useScreenClass()
+  const [isOpen, setIsOpen] = React.useState<boolean>(true)
 
-  const isOpen = !['xs', 'sm', 'md'].includes(screenClass)
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < breakpoints?.md) {
+        setIsOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
-    <SideBar open={isOpen}>
+    <SideBar open={isOpen} onToggle={(state: boolean) => setIsOpen(state)}>
       <SideBar.Content
         style={{
           display: 'flex',
@@ -101,7 +113,15 @@ export const Sidebar = (props: {
         })}
       </SideBar.Content>
       <SideBar.Footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <SideBar.Toggle />
+        <CustomToggle expanded={isOpen}>
+          <Button
+            onClick={() => setIsOpen(!isOpen)}
+            variant='ghost_icon'
+            color='secondary'
+          >
+            <Icon data={EdsIcons.expand} />
+          </Button>
+        </CustomToggle>
       </SideBar.Footer>
     </SideBar>
   )
