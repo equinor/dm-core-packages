@@ -8,6 +8,20 @@
       "attributeType": "string"
     },
     {
+      "name": "title",
+      "description": "Add title to top section of plugin",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "description",
+      "description": "Add a small description to top section of plugin",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "expanded",
       "type": "CORE:BlueprintAttribute",
       "description": "Initial expand state for items in list",

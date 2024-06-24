@@ -9,6 +9,20 @@
       "attributeType": "string"
     },
     {
+      "name": "title",
+      "description": "Add title to top section of plugin",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "description",
+      "description": "Add a small description to top section of plugin",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "attributes",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/form/fields/Field",
