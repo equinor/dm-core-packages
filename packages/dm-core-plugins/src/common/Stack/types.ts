@@ -66,4 +66,5 @@ export const defaultProps: StackProps = {
   grow: 0,
   shrink: 1,
   fullWidth: false,
+  spacing: 0,
 }

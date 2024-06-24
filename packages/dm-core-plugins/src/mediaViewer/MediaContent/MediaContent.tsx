@@ -35,9 +35,9 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           src={blobUrl}
           alt={meta.title}
           style={{
-            width: config.width ?? '100%',
+            maxWidth: config.width ?? '100%',
+            width: '100%',
             height: config.height ?? 'auto',
-            maxWidth: 'unset',
           }}
         />
       )
