@@ -8,17 +8,17 @@
       "attributeType": "string"
     },
     {
-      "name": "showItemBorders",
+      "name": "views",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "default": false,
-      "optional": true
+      "attributeType": "PLUGINS:dm-core-plugins/responsive_grid/GridItem",
+      "dimensions": "*"
     },
     {
-      "name": "rows",
+      "name": "spacing",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
-      "dimensions": "*"
+      "attributeType": "number",
+      "default": 1,
+      "optional": true
     }
   ]
 }

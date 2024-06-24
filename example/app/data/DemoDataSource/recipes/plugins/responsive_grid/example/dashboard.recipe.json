@@ -6,55 +6,45 @@
     "type": "CORE:UiRecipe",
     "config": {
       "type": "PLUGINS:dm-core-plugins/responsive_grid/ResponsiveGridPluginConfig",
-      "rows": [
+      "views": [
         {
-          "type": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
-          "columns": [
-            {
-              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
-              "viewConfig": {
-                "type": "CORE:ReferenceViewConfig",
-                "recipe": "aRecipeName",
-                "scope": "aNestedObjectWithCustomUI"
-              },
-              "size": {
-                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
-                "sm": 12,
-                "md": 4
-              }
-            },
-            {
-              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
-              "viewConfig": {
-                "type": "CORE:ReferenceViewConfig",
-                "recipe": "aRecipeName",
-                "scope": "aNestedObjectWithCustomUI"
-              },
-              "size": {
-                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
-                "sm": 12,
-                "md": 4
-              }
-            }
-          ]
+          "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "aRecipeName",
+            "scope": "aNestedObjectWithCustomUI"
+          },
+          "size": {
+            "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+            "sm": 12,
+            "md": 4
+          }
         },
         {
-          "type": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
-          "columns": [
-            {
-              "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
-              "viewConfig": {
-                "type": "CORE:ReferenceViewConfig",
-                "recipe": "aRecipeName",
-                "scope": "aNestedObjectWithCustomUI"
-              },
-              "size": {
-                "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
-                "sm": 12,
-                "md": 4
-              }
-            }
-          ]
+          "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "aRecipeName",
+            "scope": "aNestedObjectWithCustomUI"
+          },
+          "size": {
+            "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+            "sm": 12,
+            "md": 4
+          }
+        },
+        {
+          "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItem",
+          "viewConfig": {
+            "type": "CORE:ReferenceViewConfig",
+            "recipe": "aRecipeName",
+            "scope": "aNestedObjectWithCustomUI"
+          },
+          "size": {
+            "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+            "sm": 12,
+            "md": 4
+          }
         }
       ]
     },
