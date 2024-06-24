@@ -1,10 +1,4 @@
-import {
-  Button,
-  EdsProvider,
-  Icon,
-  NativeSelect,
-  Typography,
-} from '@equinor/eds-core-react'
+import { Button, EdsProvider, Icon, Typography } from '@equinor/eds-core-react'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
 import { useMemo } from 'react'
 import { Stack } from '..'
@@ -49,17 +43,20 @@ export function Pagination(props: PaginationProps) {
           <Typography variant='label' group='input'>
             Rows per page:{' '}
           </Typography>
-          <NativeSelect
+          <select
             id='rowsPerPage'
-            label=''
             value={rowsPerPage}
             onChange={(event) => setRowsPerPage(Number(event.target.value))}
-            style={{ width: '70px' }}
+            style={{
+              background: 'none',
+              border: 'none',
+              width: '3rem',
+            }}
           >
             {paginationSizes.map((amount) => (
               <option key={amount}>{amount}</option>
             ))}
-          </NativeSelect>
+          </select>
         </Stack>
         <Stack spacing={0.5} alignItems='center'>
           <Typography variant='meta'>
