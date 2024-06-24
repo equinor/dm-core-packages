@@ -124,7 +124,7 @@ export function DataGridPlugin(props: IUIPlugin) {
 
   return !data ? null : (
     <div className='dm-plugin-padding'>
-      <Stack fullWidth alignItems='flex-start' spacing={1}>
+      <Stack fullWidth alignItems='flex-start' spacing={1} scrollX>
         <DataGrid
           attributeType={attribute?.attributeType || 'string'}
           config={userConfig}

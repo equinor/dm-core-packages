@@ -26,14 +26,17 @@ export const StackPlugin = (props: IUIPlugin) => {
     direction: configMap[config.direction] as DirectionTypes,
     [configMap.verticalPlacement]: configMap[config.verticalPlacement],
     [configMap.horizontalPlacement]: configMap[config.horizontalPlacement],
-    className: config.classNames?.join(' '),
+    className: config.classNames.join(' '),
     spacing: config.spacing,
     wrap: config.wrap ? 'wrap' : 'no-wrap',
     style: { maxWidth: config.maxWidth },
   }
 
   return (
-    <Stack className='dm-parent-plugin' {...stackProps}>
+    <Stack
+      {...stackProps}
+      className={`dm-plugin-padding dm-parent-plugin ${config.classNames}`}
+    >
       {config.items?.map((item, index) => (
         <ViewCreator
           key={`${item.recipe}_${index}`}
