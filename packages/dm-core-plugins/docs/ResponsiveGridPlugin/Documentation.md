@@ -1,45 +1,40 @@
-Plugin based on [react-grid-system](https://www.npmjs.com/package/react-grid-system) npm package which is a Bootstrap-like responsive grid system.
+Plugin based on a basic Bootstrap-like responsive grid system.
 
 ### Passing views
 
-ResponsiveGridPlugin config takes a list of rows.
+ResponsiveGridPlugin config takes a list of views.
 
 ```json {3}
  "config": {
     "type": "PLUGINS:dm-core-plugins/responsive_grid/ResponsiveGridPluginConfig",
-    "rows": []
+    "views": []
  }
 ```
 
-A list of rows expects a column attribute which contains a list of `ColumnItems`. A ColumnItem expects a viewConfig and also allows you set what kind of width the column item should have based on various breakpoints.
+A grid expects a list of `GridItems`. A GridItem expects a viewConfig and also allows you set what kind of width the item should have based on various breakpoints.
 
 ```json {6}
  "config": {
     "type": "PLUGINS:dm-core-plugins/responsive_grid/ResponsiveGridPluginConfig",
-    "rows": [
+    "views": [
         {
-            "type": "PLUGINS:dm-core-plugins/responsive_grid/RowItem",
-            "columns": [
-                {
-                    "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
-                    "viewConfig": {},
-                    "size": {
-                        "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
-                        "sm": 12,
-                        "md": 4
-                    }
-                },
-                {
-                    "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnItem",
-                    "viewConfig": {},
-                    "size": {
-                        "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
-                        "sm": 12,
-                        "md": 4
-                    }
-                }
-            ]
+            "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItem",
+            "viewConfig": {},
+            "size": {
+                "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItemSize",
+                "sm": 12,
+                "md": 4
+            }
         },
+        {
+            "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItem",
+            "viewConfig": {},
+            "size": {
+                "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItemSize",
+                "sm": 12,
+                "md": 4
+            }
+        }
     ]
  }
 ```
@@ -47,7 +42,7 @@ A list of rows expects a column attribute which contains a list of `ColumnItems`
 ### Sizing and breakpoints
 
 #### Breakpoints
-CSS breakpoints allow you to style the website and specify layout according to the device width it's being viewed on. This plugin uses react-grid-system default breakpoints.
+CSS breakpoints allow you to style the website and specify layout according to the device width it's being viewed on. This plugin uses these default breakpoints.
 
 | **size** | **pixels** |
 | -------- | ---------- |
@@ -78,3 +73,6 @@ In this example: on small devices the configured item would span 12 grid columns
     "md": 4,
 }
 ```
+
+### Spacing
+Space items using the `spacing` attribute field. Pass numbers representing REM value. Default is 1 = 16px
