@@ -2,7 +2,10 @@ import { expect, test } from '@playwright/test'
 
 test.describe.configure({ mode: 'serial' })
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page, browser }) => {
+  browser.newContext({
+    viewport: { width: 1920, height: 1024 },
+  })
   await page.goto('http://localhost:3000/')
   await page.getByRole('button', { name: 'data source DemoDataSource' }).click()
   await page.getByRole('button', { name: 'root package plugins' }).click()
