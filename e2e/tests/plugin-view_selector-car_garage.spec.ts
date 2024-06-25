@@ -13,7 +13,7 @@ test('View selector - car garage', async ({ page }) => {
 
   await test.step('Collapse and expand sidebar', async () => {
     await page.getByRole('tab', { name: 'Self' }).click()
-    await page.getByRole('button', { name: 'Collapse' }).click()
+    await page.getByRole('button', { name: 'Collapse sidebar' }).click()
     await expect(page.getByRole('tab', { name: 'Self' })).not.toBeVisible()
     await expect(page.getByRole('tab', { name: 'Audi' })).not.toBeVisible()
     await expect(page.getByRole('tab', { name: 'Volvo' })).not.toBeVisible()
@@ -23,7 +23,7 @@ test('View selector - car garage', async ({ page }) => {
     )
     await page.getByRole('tab').first().click()
     await expect(page.getByLabel('Name')).toHaveValue('CarGarage')
-    await page.getByRole('button', { name: 'Expand' }).click()
+    await page.getByRole('button', { name: 'Expand sidebar' }).click()
     await expect(page.getByRole('tab', { name: 'Self' })).toBeVisible()
     await expect(page.getByRole('tab', { name: 'Audi' })).toBeVisible()
     await expect(page.getByRole('tab', { name: 'Volvo' })).toBeVisible()
