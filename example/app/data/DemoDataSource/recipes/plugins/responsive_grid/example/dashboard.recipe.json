@@ -15,7 +15,7 @@
             "scope": "aNestedObjectWithCustomUI"
           },
           "size": {
-            "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+            "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItemSize",
             "sm": 12,
             "md": 4
           }
@@ -28,7 +28,7 @@
             "scope": "aNestedObjectWithCustomUI"
           },
           "size": {
-            "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+            "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItemSize",
             "sm": 12,
             "md": 4
           }
@@ -41,7 +41,7 @@
             "scope": "aNestedObjectWithCustomUI"
           },
           "size": {
-            "type": "PLUGINS:dm-core-plugins/responsive_grid/ColumnSize",
+            "type": "PLUGINS:dm-core-plugins/responsive_grid/GridItemSize",
             "sm": 12,
             "md": 4
           }

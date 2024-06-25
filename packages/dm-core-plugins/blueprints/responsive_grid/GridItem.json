@@ -21,7 +21,7 @@
     {
       "name": "size",
       "type": "CORE:BlueprintAttribute",
-      "attributeType": "./ColumnSize",
+      "attributeType": "./GridItemSize",
       "optional": true
     }
   ]
