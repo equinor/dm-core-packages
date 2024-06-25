@@ -115,6 +115,7 @@ export const Sidebar = (props: {
       <SideBar.Footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <CustomToggle expanded={isOpen}>
           <Button
+            aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
             onClick={() => setIsOpen(!isOpen)}
             variant='ghost_icon'
             color='secondary'
