@@ -81,6 +81,7 @@ test('Create entity with required name', async ({ page }) => {
   await page.getByRole('button', { name: 'uncontained_object' }).click({
     button: 'right',
   })
+  await page.mouse.wheel(0, -300)
   await page.getByRole('menuitem', { name: 'New entity' }).click()
   const dialog = page.getByRole('dialog')
   await expect(dialog).toBeVisible()
