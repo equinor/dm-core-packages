@@ -60,6 +60,28 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.57.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.56.0...dm-core-plugins-v1.57.0) (2024-06-26)
+
+
+### Features
+
+* add title and description fields to list and form + form wrapper ([2235e1d](https://github.com/equinor/dm-core-packages/commit/2235e1d276ef026c89418f9d9210a830aeaf703e))
+
+
+### Bug Fixes
+
+* remove rhf hook from sidebar + no re-open on expanding resize ([07ddad7](https://github.com/equinor/dm-core-packages/commit/07ddad78526be9a2c30e31dac5de103e9c370cbc))
+* responsive ui + ui props fixes ([37201c7](https://github.com/equinor/dm-core-packages/commit/37201c78b996f98bc8b1e37a22635e22bed74777))
+* sidebar collapse ([a0717fd](https://github.com/equinor/dm-core-packages/commit/a0717fdbd1a8912601ef0fa61a02bd8bd8ba3312))
+* stretch datepicker to match rest of form inputs ([23be046](https://github.com/equinor/dm-core-packages/commit/23be0465cf2facd4b0ba03c0cb67c5385e1ee4b5))
+
+
+### Code Refactoring
+
+* Column to GridItem rename + docs update ([f1776cc](https://github.com/equinor/dm-core-packages/commit/f1776cc6b8bdfb394dd4b30a324f77a03ccabc09))
+* less invasive select in pagination ([b84d04f](https://github.com/equinor/dm-core-packages/commit/b84d04f581495b8af2ff490e6f18693f7185a8c4))
+* responsive grid rewrite + remove react-grid-system package ([75dd225](https://github.com/equinor/dm-core-packages/commit/75dd22539db2abb5f1da89e1fdd8a8b24540c819))
+
 ## [1.56.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.55.1...dm-core-plugins-v1.56.0) (2024-06-19)
 
 
