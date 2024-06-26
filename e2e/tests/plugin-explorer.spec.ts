@@ -4,7 +4,7 @@ test.describe.configure({ mode: 'serial' })
 
 test.beforeEach(async ({ page, browser }) => {
   browser.newContext({
-    viewport: { width: 1920, height: 1024 },
+    viewport: { width: 1920, height: 1800 },
   })
   await page.goto('http://localhost:3000/')
   await page.getByRole('button', { name: 'data source DemoDataSource' }).click()
