@@ -1,7 +1,7 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.56.0",
+  "version": "1.57.0",
   "main": "dist/index.js",
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
