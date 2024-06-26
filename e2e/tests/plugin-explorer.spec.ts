@@ -3,9 +3,6 @@ import { expect, test } from '@playwright/test'
 test.describe.configure({ mode: 'serial' })
 
 test.beforeEach(async ({ page, browser }) => {
-  browser.newContext({
-    viewport: { width: 1920, height: 1800 },
-  })
   await page.goto('http://localhost:3000/')
   await page.getByRole('button', { name: 'data source DemoDataSource' }).click()
   await page.getByRole('button', { name: 'root package plugins' }).click()
@@ -47,6 +44,7 @@ test('Create entity with name', async ({ page }) => {
   await page
     .getByRole('button', { name: 'package Playwright', exact: true })
     .click({ button: 'right' })
+  await page.mouse.wheel(0, 300)
   await page.getByRole('menuitem', { name: 'New entity' }).click()
   const dialog = page.getByRole('dialog')
   await expect(dialog).toBeVisible()
