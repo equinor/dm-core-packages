@@ -1,5 +1,5 @@
-import { TreeNode } from '@development-framework/dm-core'
-import { AxiosResponse } from 'axios'
+import type { TreeNode } from '@development-framework/dm-core'
+import type { AxiosResponse } from 'axios'
 import { createSyntheticFileDownload } from '../utils'
 
 export function downloadNode(node: TreeNode) {

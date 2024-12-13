@@ -1,4 +1,4 @@
-import { TFormConfig, TUiAttributeObject } from '../types'
+import type { TFormConfig, TUiAttributeObject } from '../types'
 
 export const getExpandViewConfig = (uiAttribute?: TUiAttributeObject) => {
   return (

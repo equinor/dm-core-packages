@@ -7,7 +7,7 @@ import {
 } from '@equinor/eds-core-react'
 import { useState } from 'react'
 import { Message, Skeleton, Stack } from '../../../common'
-import { DataGridImportDialogProps } from './types'
+import type { DataGridImportDialogProps } from './types'
 import { checkAndParseToAttributeType, checkDimensions } from './utils'
 
 export function DataGridImportDialog(props: DataGridImportDialogProps) {

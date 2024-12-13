@@ -1,4 +1,4 @@
-import { TWidgets } from '../types'
+import type { TWidgets } from '../types'
 import BlueprintPickerWidget from './BlueprintPickerWidget'
 import CheckboxWidget from './CheckboxWidget'
 import DateTimeWidget from './DateTimeWidget'

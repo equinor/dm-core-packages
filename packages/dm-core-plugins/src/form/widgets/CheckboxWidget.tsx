@@ -1,13 +1,14 @@
 import { Checkbox, Tooltip } from '@equinor/eds-core-react'
-import { TWidget } from '../types'
+import type { TWidget } from '../types'
 
 const CheckboxWidget = (props: TWidget) => {
-  const { value, readOnly, tooltip } = props
+  const { value, readOnly, tooltip, inputRef, ...checkboxProps } = props
   return (
     <Tooltip title={tooltip ?? ''}>
       <span>
         <Checkbox
-          {...props}
+          {...checkboxProps}
+          ref={inputRef}
           disabled={readOnly}
           checked={value !== undefined ? value : false}
           type='checkbox'

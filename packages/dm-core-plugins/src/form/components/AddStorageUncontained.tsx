@@ -1,5 +1,5 @@
 import { splitAddress, useApplication } from '@development-framework/dm-core'
-import { AxiosResponse } from 'axios'
+import type { AxiosResponse } from 'axios'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import GhostTextButton from './GhostTextButton'

@@ -1,7 +1,7 @@
 import {
-  IUIPlugin,
-  TAttribute,
-  TGenericObject,
+  type IUIPlugin,
+  type TAttribute,
+  type TGenericObject,
   useApplication,
   useBlueprint,
   useDocument,
@@ -11,7 +11,7 @@ import { undo } from '@equinor/eds-icons'
 import { useEffect, useState } from 'react'
 import { Stack } from '../common'
 import { DataGrid } from './DataGrid'
-import { DataGridConfig, defaultConfig } from './types'
+import { type DataGridConfig, defaultConfig } from './types'
 import { getFunctionalityVariables, reverseData } from './utils'
 
 export function DataGridPlugin(props: IUIPlugin) {
@@ -40,7 +40,7 @@ export function DataGridPlugin(props: IUIPlugin) {
         ? data.length > 0
           ? data[0].length
           : 0
-        : parseInt(functionality.columnDimensions, 10)
+        : Number.parseInt(functionality.columnDimensions, 10)
       : 1
     return columnLength
   }

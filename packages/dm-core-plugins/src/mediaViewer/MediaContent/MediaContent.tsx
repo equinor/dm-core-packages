@@ -1,6 +1,6 @@
 import { Button, Icon, Popover, Typography } from '@equinor/eds-core-react'
 import { download, external_link, info_circle } from '@equinor/eds-icons'
-import { ReactElement, useRef, useState } from 'react'
+import { type ReactElement, useRef, useState } from 'react'
 
 import { tokens } from '@equinor/eds-tokens'
 import { DateTime } from 'luxon'
@@ -10,7 +10,7 @@ import { Stack } from '../../common'
 import { createSyntheticFileDownload, formatBytes } from '../../utils'
 import { MetaItem } from './MetaItem/MetaItem'
 import { MediaWrapper, MetaPopoverButton } from './styles'
-import { MediaContentProps } from './types'
+import type { MediaContentProps } from './types'
 import { isViewableInBrowser } from './utils'
 
 const NoPreviewMessage = styled(Stack)`
@@ -21,7 +21,7 @@ const NoPreviewMessage = styled(Stack)`
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, getBlobUrl, meta, config } = props
   const [showInfoPopover, setShowInfoPopover] = useState(false)
-  const referenceElement = useRef()
+  const referenceElement = useRef<HTMLButtonElement>(null)
 
   async function downloadFile() {
     const url = blobUrl || (await getBlobUrl())
@@ -120,7 +120,6 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             open={showInfoPopover}
             anchorEl={referenceElement.current}
             onClose={() => setShowInfoPopover(false)}
-            role='dialog'
             style={{
               overflow: 'auto',
               maxWidth: '100vw',

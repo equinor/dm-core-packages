@@ -1,13 +1,13 @@
 import {
   EBlueprint,
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
   splitAddress,
   useApplication,
   useDocument,
 } from '@development-framework/dm-core'
-import { AxiosRequestConfig } from 'axios'
-import React, { Suspense, useCallback, useEffect, useState } from 'react'
+import type { AxiosRequestConfig } from 'axios'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import { MediaContent } from './MediaContent/MediaContent'
 import { mimeTypes } from './mime-types'
 

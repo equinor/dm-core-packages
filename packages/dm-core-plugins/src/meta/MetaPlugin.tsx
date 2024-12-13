@@ -1,9 +1,9 @@
 import {
   EntityView,
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TGenericObject,
-  TMeta,
+  type TGenericObject,
+  type TMeta,
   useDocument,
 } from '@development-framework/dm-core'
 import { Table } from '@equinor/eds-core-react'

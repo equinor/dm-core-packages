@@ -1,9 +1,9 @@
 import { Checkbox, Icon, InputWrapper } from '@equinor/eds-core-react'
 import { arrow_drop_down, arrow_drop_up } from '@equinor/eds-icons'
 import {
-  Dispatch,
-  ReactElement,
-  SetStateAction,
+  type Dispatch,
+  type ReactElement,
+  type SetStateAction,
   useEffect,
   useRef,
   useState,

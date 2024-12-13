@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const crypto = require('crypto')
+const crypto = await import('node:crypto')
 
 Object.defineProperty(window, 'crypto', {
   value: crypto,

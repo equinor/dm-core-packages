@@ -1,5 +1,5 @@
-import React, { createContext, useContext } from 'react'
-import { TWidgets } from '../types'
+import { createContext, useContext } from 'react'
+import type { TWidgets } from '../types'
 import defaultWidgets from '../widgets'
 
 const WidgetContext = createContext<TWidgets | undefined>(undefined)

@@ -1,6 +1,6 @@
-import { AxiosError } from 'axios'
-import { Dispatch, SetStateAction, useState } from 'react'
-import { ErrorResponse } from '../services'
+import type { AxiosError } from 'axios'
+import { type Dispatch, type SetStateAction, useState } from 'react'
+import type { ErrorResponse } from '../services'
 
 import { toast } from 'react-toastify'
 import { useApplication } from '../ApplicationContext'
@@ -80,7 +80,7 @@ export function useDocument<T>(
           if (notify)
             toast.error(
               'Unable to retrieve document, with message: ' +
-                error.response?.data.message ?? error.message
+                error.response?.data.message || error.message
             )
           setErrorResponse(
             error.response?.data || { message: error.name, data: error }

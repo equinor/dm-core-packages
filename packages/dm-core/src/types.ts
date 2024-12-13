@@ -1,5 +1,5 @@
-import { EBlueprint } from './Enums'
-import { JobStatus } from './services/api/configs/gen-job'
+import type { EBlueprint } from './Enums'
+import type { JobStatus } from './services/api/configs/gen-job'
 
 export type TDataSource = {
   id: string

@@ -1,4 +1,4 @@
-import { IBlueprintType, TAttributeType } from './types'
+import type { IBlueprintType, TAttributeType } from './types'
 
 export class Node {
   public attribute: TAttributeType

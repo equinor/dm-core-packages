@@ -1,8 +1,8 @@
-import { TAttribute } from '@development-framework/dm-core'
+import type { TAttribute } from '@development-framework/dm-core'
 import { Tooltip } from '@equinor/eds-core-react'
 import { useFormContext } from 'react-hook-form'
 import { AddRowButton, DeleteSoftButton, Stack } from '../../../../../../common'
-import { TPrimitive, TUiAttributeObject } from '../../../../../types'
+import type { TPrimitive, TUiAttributeObject } from '../../../../../types'
 import { AttributeFieldSelector } from '../../../../AttributeFieldSelector'
 
 interface PrimitiveArrayProps {

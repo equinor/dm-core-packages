@@ -1,6 +1,6 @@
-import { IUIPlugin, ViewCreator } from '@development-framework/dm-core'
-import { DirectionTypes, Stack, StackProps } from '../common'
-import { StackPluginConfig, defaultConfig } from './types'
+import { type IUIPlugin, ViewCreator } from '@development-framework/dm-core'
+import { type DirectionTypes, Stack, type StackProps } from '../common'
+import { type StackPluginConfig, defaultConfig } from './types'
 
 export const StackPlugin = (props: IUIPlugin) => {
   const { idReference } = props

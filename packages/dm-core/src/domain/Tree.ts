@@ -1,7 +1,7 @@
-import { AxiosResponse } from 'axios'
+import type { AxiosResponse } from 'axios'
 import { EBlueprint } from '../Enums'
-import { DmssAPI } from '../services'
-import { TAttribute, TBlueprint, TPackage } from '../types'
+import type { DmssAPI } from '../services'
+import type { TAttribute, TBlueprint, TPackage } from '../types'
 import { splitAddress } from '../utils/addressUtilities'
 
 type TTreeMap = {

@@ -1,14 +1,14 @@
 import {
   INPUT_FIELD_WIDTH,
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TBlueprint,
+  type TBlueprint,
   useDocument,
 } from '@development-framework/dm-core'
 import { Button, Icon, TextField, Typography } from '@equinor/eds-core-react'
 import { save, undo } from '@equinor/eds-icons'
 import { isEqual } from 'lodash'
-import { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import { type ChangeEvent, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Stack } from '../common'
 import { BlueprintAttributeList } from './BlueprintAttributeList'

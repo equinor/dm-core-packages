@@ -1,5 +1,3 @@
-import React from 'react'
-
 export type AlignDefaultTypes =
   | 'center'
   | 'flex-start'
@@ -51,7 +49,7 @@ export interface StackProps extends React.ComponentPropsWithoutRef<'div'> {
   minHeight?: number
   scrollY?: boolean
   scrollX?: boolean
-  as?: keyof JSX.IntrinsicElements
+  as?: keyof React.JSX.IntrinsicElements
 }
 
 export const defaultProps: StackProps = {

@@ -1,12 +1,12 @@
 import {
   Dialog,
-  TApplication,
-  TRole,
+  type TApplication,
+  type TRole,
   useApplication,
 } from '@development-framework/dm-core'
 import { Button, Icon, Radio, Typography } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'
-import { AxiosResponse } from 'axios'
+import type { AxiosResponse } from 'axios'
 import { useContext, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'

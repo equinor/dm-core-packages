@@ -1,5 +1,5 @@
 import { useLocalStorage } from '@development-framework/dm-core'
-import { ReactNode, useEffect, useRef } from 'react'
+import { type ReactNode, useEffect, useRef } from 'react'
 
 const [minWidth, maxWidth, defaultWidth] = [200, 500, 250]
 

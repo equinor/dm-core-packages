@@ -1,4 +1,4 @@
-import { IUIPlugin } from '@development-framework/dm-core'
+import type { IUIPlugin } from '@development-framework/dm-core'
 
 export type TLanguages = 'json' | 'yaml'
 

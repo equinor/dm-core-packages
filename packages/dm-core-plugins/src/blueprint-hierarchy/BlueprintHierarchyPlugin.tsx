@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 
 import {
-  DmssAPI,
-  IUIPlugin,
+  type DmssAPI,
+  type IUIPlugin,
   Loading,
   useApplication,
   useDocument,
 } from '@development-framework/dm-core'
 import MermaidWrapper from './MermaidWrapper'
-import { Node, dfs, loader } from './loader'
-import { TAttributeType } from './types'
+import { type Node, dfs, loader } from './loader'
+import type { TAttributeType } from './types'
 
 const classElement = (node: Node) => {
   const primitiveAttributeElements = node

@@ -1,9 +1,9 @@
-import { TUiPluginMap } from '@development-framework/dm-core'
+import type { TUiPluginMap } from '@development-framework/dm-core'
 import { lazy } from 'react'
 
 export { WidgetProvider } from './form/context/WidgetContext'
 
-export default ({
+export default {
   '@development-framework/dm-core-plugins/explorer': {
     component: lazy(() => import('./explorer/ExplorerPlugin')),
   },
@@ -157,4 +157,4 @@ export default ({
       }))
     ),
   },
-} as TUiPluginMap)
+} as TUiPluginMap

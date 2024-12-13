@@ -1,9 +1,9 @@
 import {
-  IUIPlugin,
-  TGenericObject,
+  type IUIPlugin,
+  type TGenericObject,
   useList,
 } from '@development-framework/dm-core'
-import { TTableConfig, Table } from './Table/Table'
+import { type TTableConfig, Table } from './Table/Table'
 import * as utils from './utils'
 
 export const TablePlugin = (props: IUIPlugin) => {

@@ -1,5 +1,8 @@
-import { ErrorResponse, useApplication } from '@development-framework/dm-core'
-import { AxiosError, AxiosResponse } from 'axios'
+import {
+  type ErrorResponse,
+  useApplication,
+} from '@development-framework/dm-core'
+import type { AxiosError, AxiosResponse } from 'axios'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
 import GhostTextButton from './GhostTextButton'

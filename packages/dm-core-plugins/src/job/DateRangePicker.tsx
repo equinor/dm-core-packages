@@ -4,7 +4,7 @@ import { Datepicker } from '../common/Datepicker'
 const DateRangePicker = (props: {
   setDateRange: (dateRange: { startDate: string; endDate: string }) => void
   value: any
-}): JSX.Element => {
+}): React.ReactElement => {
   const { setDateRange, value } = props
 
   return (

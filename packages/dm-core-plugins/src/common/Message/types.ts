@@ -1,11 +1,10 @@
 import {
-  IconData,
+  type IconData,
   check_circle_outlined,
   error_outlined,
   info_circle,
   warning_outlined,
 } from '@equinor/eds-icons'
-import React from 'react'
 
 export type MessageTypes = 'success' | 'error' | 'info' | 'warning'
 

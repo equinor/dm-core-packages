@@ -1,4 +1,4 @@
-import React, { ComponentType, PropsWithChildren, useRef } from 'react'
+import { type ComponentType, type PropsWithChildren, useRef } from 'react'
 
 type LazyProps = {
   visible: boolean

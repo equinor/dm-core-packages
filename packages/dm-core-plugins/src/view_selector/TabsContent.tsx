@@ -1,11 +1,10 @@
 import {
-  TGenericObject,
-  TOnOpen,
+  type TGenericObject,
+  type TOnOpen,
   ViewCreator,
 } from '@development-framework/dm-core'
-import * as React from 'react'
 import { LazyLoad, Stack } from '../common'
-import { TItemData } from './types'
+import type { TItemData } from './types'
 
 export const TabsContent = (props: {
   type: string

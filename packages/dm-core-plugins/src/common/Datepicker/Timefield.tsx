@@ -1,5 +1,5 @@
 import { TextField, Typography } from '@equinor/eds-core-react'
-import { ReactElement } from 'react'
+import type { ReactElement } from 'react'
 
 interface TimefieldProps {
   useMinutes?: boolean

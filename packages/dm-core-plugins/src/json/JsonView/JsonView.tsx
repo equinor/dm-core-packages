@@ -1,4 +1,4 @@
-import { TGenericObject } from '@development-framework/dm-core'
+import type { TGenericObject } from '@development-framework/dm-core'
 import styled from 'styled-components'
 
 const Pre = styled.pre`

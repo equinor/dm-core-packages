@@ -1,15 +1,14 @@
 import {
-  ErrorResponse,
-  TGenericObject,
-  TInlineRecipeViewConfig,
-  TOnOpen,
-  TReferenceViewConfig,
-  TViewConfig,
+  type ErrorResponse,
+  type TGenericObject,
+  type TInlineRecipeViewConfig,
+  type TOnOpen,
+  type TReferenceViewConfig,
+  type TViewConfig,
   useDocument,
 } from '@development-framework/dm-core'
-import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
+import type { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
 
 interface IUseViewSelector {
   addView: TOnOpen

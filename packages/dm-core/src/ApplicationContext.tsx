@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import React, {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
+import {
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+  createContext,
   useContext,
   useEffect,
   useState,
@@ -10,11 +11,11 @@ import React, {
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Tree, TreeNode } from './domain/Tree'
+import { Tree, type TreeNode } from './domain/Tree'
 import { DmJobAPI } from './services'
 import DmssAPI from './services/api/DmssAPI'
 import GlobalStyle from './styles/global'
-import { IUIPlugin, TApplication, TRole, TUiPluginMap } from './types'
+import type { IUIPlugin, TApplication, TRole, TUiPluginMap } from './types'
 import { ErrorGroup } from './utils/ErrorBoundary'
 
 const DEFAULT_ROLE: TRole = {
@@ -23,7 +24,7 @@ const DEFAULT_ROLE: TRole = {
   label: 'Anonymous',
 }
 const queryClient = new QueryClient()
-export const ApplicationContext = React.createContext<
+export const ApplicationContext = createContext<
   | {
       name: string
       dmssAPI: DmssAPI

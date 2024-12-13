@@ -1,11 +1,11 @@
 import {
   EntityPickerDialog,
-  TEntityPickerReturn,
+  type TEntityPickerReturn,
 } from '@development-framework/dm-core'
 import { TextField } from '@equinor/eds-core-react'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { TWidget } from '../types'
+import type { TWidget } from '../types'
 
 // The custom widgets goes under here,
 // this may at some point be moved out from the form package.
@@ -32,6 +32,7 @@ const EntityPickerWidget = (props: TWidget) => {
         variant={props.variant}
         helperText={props.helperText}
         onClick={handleAddReference}
+        onChange={() => null}
         label={label}
         type='string'
         data-testid={`form-text-widget-${props.id}`}

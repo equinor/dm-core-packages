@@ -1,4 +1,4 @@
-import { TViewConfig } from '../../types'
+import type { TViewConfig } from '../../types'
 
 export const getTarget = (idReference: string, viewConfig: TViewConfig) => {
   if (viewConfig?.scope && viewConfig.scope !== 'self')

@@ -1,8 +1,18 @@
 import styled, { css } from 'styled-components'
 
-import { StackProps } from './types'
+import type { StackProps } from './types'
 
-export const StyledStack = styled.div<StackProps>`
+const props_to_pass: string[] = [
+  'children',
+  'style',
+  'date-testid',
+  'id',
+  'className',
+]
+
+export const StyledStack = styled('div').withConfig({
+  shouldForwardProp: (propName) => props_to_pass.includes(propName),
+})<StackProps>`
   display: ${(props) => (props.inline ? 'inline-flex' : 'flex')};
   flex-direction: ${(props) => props.direction};
   flex-grow: ${(props) => props.grow};

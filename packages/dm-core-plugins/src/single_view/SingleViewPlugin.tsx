@@ -1,9 +1,8 @@
 import {
-  IUIPlugin,
-  TViewConfig,
+  type IUIPlugin,
+  type TViewConfig,
   ViewCreator,
 } from '@development-framework/dm-core'
-import React from 'react'
 
 export const SingleViewPlugin = (
   props: IUIPlugin & { config: TViewConfig }

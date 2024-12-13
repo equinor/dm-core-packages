@@ -1,12 +1,12 @@
 import {
   EBlueprint,
   EntityPickerDialog,
-  ErrorResponse,
-  TEntityPickerReturn,
-  TLinkReference,
+  type ErrorResponse,
+  type TEntityPickerReturn,
+  type TLinkReference,
   useApplication,
 } from '@development-framework/dm-core'
-import { AxiosError } from 'axios/index'
+import type { AxiosError } from 'axios/index'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'

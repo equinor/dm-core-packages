@@ -1,6 +1,5 @@
-import { EBlueprint, TreeNode } from '@development-framework/dm-core'
+import { EBlueprint, type TreeNode } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
-import React from 'react'
 import { toast } from 'react-toastify'
 import { downloadNode } from '../../downloadNode'
 import { EDialog } from '../../types'

@@ -14,10 +14,10 @@ import {
   Progress,
   Tooltip,
 } from '@equinor/eds-core-react'
-import { Variants } from '@equinor/eds-core-react/dist/types/components/types'
+import type { Variants } from '@equinor/eds-core-react/dist/types/components/types'
 import { add } from '@equinor/eds-icons'
 import { useApplication } from '../../ApplicationContext'
-import { TreeNode } from '../../domain/Tree'
+import type { TreeNode } from '../../domain/Tree'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
 import { TreeView } from '../TreeView'

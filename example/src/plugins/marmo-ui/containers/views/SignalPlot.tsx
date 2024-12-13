@@ -1,7 +1,7 @@
 import {
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TGenericObject,
+  type TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
 // @ts-ignore

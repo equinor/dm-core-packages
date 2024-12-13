@@ -1,17 +1,17 @@
 import {
   BlueprintPicker,
   Dialog,
-  ErrorResponse,
-  TAttribute,
-  TBlueprint,
-  TreeNode,
+  type ErrorResponse,
+  type TAttribute,
+  type TBlueprint,
+  type TreeNode,
   useApplication,
 } from '@development-framework/dm-core'
 import { Button, Progress, TextField } from '@equinor/eds-core-react'
-import { AxiosError } from 'axios'
+import type { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { EDialog } from '../../types'
+import type { EDialog } from '../../types'
 import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,

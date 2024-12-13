@@ -1,5 +1,5 @@
 import { Datepicker } from '../../common/Datepicker'
-import { TWidget } from '../types'
+import type { TWidget } from '../types'
 
 interface DatePickerConfig {
   variant: 'datetime' | 'date'

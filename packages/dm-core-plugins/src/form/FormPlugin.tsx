@@ -1,7 +1,7 @@
 import {
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TGenericObject,
+  type TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
 import { Form } from './components/Form'
@@ -37,7 +37,7 @@ export const FormPlugin = (props: IUIPlugin) => {
       formData={document}
       onSubmit={handleOnSubmit}
       onChange={props?.onChange && handleOnChange}
-      showSubmitButton={!props?.onChange ?? true}
+      showSubmitButton={!props?.onChange}
     />
   )
 }

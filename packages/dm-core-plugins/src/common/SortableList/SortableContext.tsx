@@ -1,6 +1,6 @@
 import {
   DndContext,
-  DragEndEvent,
+  type DragEndEvent,
   KeyboardSensor,
   PointerSensor,
   closestCenter,
@@ -9,7 +9,7 @@ import {
 } from '@dnd-kit/core'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
-import { SortableContextProps } from './types'
+import type { SortableContextProps } from './types'
 
 export const SortableContext = <T extends { key: string | number }>({
   items,

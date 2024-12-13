@@ -1,14 +1,14 @@
-import { TSchedule } from '@development-framework/dm-core'
+import type { TSchedule } from '@development-framework/dm-core'
 import {
   Button,
   NativeSelect,
   TextField,
   Typography,
 } from '@equinor/eds-core-react'
-import { ChangeEvent, useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 import { Message, Stack } from '../common'
 import DateRangePicker from './DateRangePicker'
-import { EInterval, TCronValues } from './common'
+import { EInterval, type TCronValues } from './common'
 import { defaultCronValues } from './templateEntities'
 
 // Creates a list like ["00:00",...,"24:00"]

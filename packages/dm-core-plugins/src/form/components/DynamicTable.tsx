@@ -1,5 +1,5 @@
 import { Table } from '@equinor/eds-core-react'
-import React, { MouseEventHandler } from 'react'
+import type { MouseEventHandler } from 'react'
 
 type TColumn = { name: string; accessor: string }
 

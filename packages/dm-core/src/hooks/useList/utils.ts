@@ -1,4 +1,4 @@
-import { TItem } from './types'
+import type { TItem } from './types'
 
 export function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
   const arrayCopy = [...arr]

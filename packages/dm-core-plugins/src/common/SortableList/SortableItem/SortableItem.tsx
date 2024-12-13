@@ -3,7 +3,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { Button, Icon } from '@equinor/eds-core-react'
 import { drag_handle } from '@equinor/eds-icons'
 import React from 'react'
-import { SortableItemProps } from './types'
+import type { SortableItemProps } from './types'
 
 export const SortableItem = <T extends { key: string | number }>({
   children,
@@ -25,6 +25,7 @@ export const SortableItem = <T extends { key: string | number }>({
 
   return React.Children.only(
     React.cloneElement(children as React.ReactElement, {
+      // @ts-expect-error
       setNodeRef: setNodeRef,
       style: draggableStyle,
       dragHandle: () => (

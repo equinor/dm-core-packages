@@ -1,14 +1,13 @@
 import { Button, Checkbox, Icon, Progress, Tabs } from '@equinor/eds-core-react'
 import { save } from '@equinor/eds-icons'
-import React, { useEffect, useState } from 'react'
-
-import { AxiosError, AxiosResponse } from 'axios'
+import type { AxiosError, AxiosResponse } from 'axios'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useApplication } from '../../ApplicationContext'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { Stack } from '../../layout'
-import { AccessControlList, AccessLevel } from '../../services'
-import { TUserIdMapping } from '../../types'
+import { type AccessControlList, AccessLevel } from '../../services'
+import type { TUserIdMapping } from '../../types'
 import {
   getTokenWithUserReadAccess,
   getUsernameMappingFromUserId,

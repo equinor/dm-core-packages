@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { TUserIdMapping } from '../types'
+import type { TUserIdMapping } from '../types'
 
 const GRAPH_API = 'https://graph.microsoft.com/v1.0'
 

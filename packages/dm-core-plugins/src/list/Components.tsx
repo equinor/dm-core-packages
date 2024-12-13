@@ -6,13 +6,13 @@ import {
   Tooltip,
 } from '@equinor/eds-core-react'
 import { add, chevron_down, chevron_up } from '@equinor/eds-icons'
-import { MouseEvent, ReactNode } from 'react'
+import type { MouseEvent } from 'react'
 
 export const FormButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
   disabled: boolean
   isLoading: boolean
-  children: ReactNode
+  children: React.ReactNode
   variant?: 'contained' | 'contained_icon' | 'outlined' | 'ghost' | 'ghost_icon'
   tooltip: string
   dataTestid: string

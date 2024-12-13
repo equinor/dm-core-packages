@@ -13,7 +13,7 @@ import {
   FaRegFileAlt,
 } from 'react-icons/fa'
 import { EBlueprint } from '../../../Enums'
-import { TreeNode } from '../../../domain/Tree'
+import type { TreeNode } from '../../../domain/Tree'
 
 export const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
   const { node, expanded } = props
@@ -42,7 +42,7 @@ export const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
     return <FaList title='list' />
   }
   if (Array.isArray(node?.parent?.entity)) {
-    return <label>{'{}'}</label>
+    return <span>{'{}'}</span>
   }
   switch (node.type) {
     case EBlueprint.FILE: {

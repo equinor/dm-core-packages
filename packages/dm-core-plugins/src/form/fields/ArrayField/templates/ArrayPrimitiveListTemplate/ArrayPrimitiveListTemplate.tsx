@@ -2,7 +2,7 @@ import { list } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { useRegistryContext } from '../../../../context/RegistryContext'
 import { ComplexAttributeTemplate } from '../../../../templates'
-import { TArrayTemplate, TPrimitive } from '../../../../types'
+import type { TArrayTemplate, TPrimitive } from '../../../../types'
 import { PrimitiveArray } from './PrimitiveArray/PrimitiveArray'
 
 export const ArrayPrimitiveListTemplate = (
@@ -37,9 +37,9 @@ export const ArrayPrimitiveListTemplate = (
       </ComplexAttributeTemplate.Header>
       <ComplexAttributeTemplate.Content
         id={`${namePath}-content`}
-        padding='0'
-        expanded={!!isExpanded}
-        canExpand={true}
+        $padding='0'
+        $expanded={!!isExpanded}
+        $canExpand={true}
       >
         <PrimitiveArray
           uiAttribute={uiAttribute}

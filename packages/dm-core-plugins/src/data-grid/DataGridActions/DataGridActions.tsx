@@ -23,7 +23,7 @@ import { useState } from 'react'
 import { Stack } from '../../common'
 import { createSyntheticFileDownload } from '../../utils'
 import * as Styled from '../styles'
-import { DataGridConfig, TFunctionalityChecks } from '../types'
+import type { DataGridConfig, TFunctionalityChecks } from '../types'
 import { DataGridImportDialog } from './DataGridImportDialog/DataGridImportDialog'
 
 type DataGridActionsProps = {

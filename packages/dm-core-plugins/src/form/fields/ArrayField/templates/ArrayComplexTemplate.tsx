@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form'
 import { AddObject, OpenObjectButton, RemoveObject } from '../../../components'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import { ComplexAttributeTemplate } from '../../../templates'
-import { TArrayTemplate } from '../../../types'
+import type { TArrayTemplate } from '../../../types'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
@@ -81,9 +81,9 @@ export const ArrayComplexTemplate = (props: TArrayTemplate) => {
       </ComplexAttributeTemplate.Header>
       <ComplexAttributeTemplate.Content
         id={`${namePath}-content`}
-        expanded={!!isExpanded}
-        canExpand={!!canExpand}
-        padding='0.5rem 0.125rem 0.125rem'
+        $expanded={!!isExpanded}
+        $canExpand={!!canExpand}
+        $padding='0.5rem 0.125rem 0.125rem'
       >
         <ViewCreator
           idReference={`${idReference}.${namePath}`}

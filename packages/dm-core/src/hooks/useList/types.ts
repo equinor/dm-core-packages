@@ -1,5 +1,5 @@
-import { ErrorResponse } from '../../services'
-import { TAttribute, TLinkReference } from '../../types'
+import type { ErrorResponse } from '../../services'
+import type { TAttribute, TLinkReference } from '../../types'
 
 export type TItem<T> = {
   key: string

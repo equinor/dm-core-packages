@@ -1,8 +1,7 @@
 import { Button, Tabs as EdsTabs, Tooltip } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'
-import * as React from 'react'
 import Icon from './Icon'
-import { TItemData } from './types'
+import type { TItemData } from './types'
 
 export const Tabs = (props: {
   selectedViewId: string
@@ -21,6 +20,7 @@ export const Tabs = (props: {
     >
       <EdsTabs.List>
         {viewSelectorItems.map((config: TItemData) => {
+          const icon = config.eds_icon || config.viewConfig?.eds_icon
           return (
             <EdsTabs.Tab
               key={config.viewId}
@@ -36,12 +36,7 @@ export const Tabs = (props: {
                 variant='ghost'
                 style={{ fontSize: '1rem' }}
               >
-                {(config.eds_icon ?? config.viewConfig?.eds_icon) && (
-                  <Icon
-                    name={config.eds_icon ?? config.viewConfig?.eds_icon}
-                    title={config.eds_icon ?? config.viewConfig?.eds_icon}
-                  />
-                )}
+                {icon && <Icon name={icon} title={icon} />}
                 {config.label}
               </Button>
               {config.closeable && (

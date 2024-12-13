@@ -1,10 +1,10 @@
 import {
-  TStorageReference,
+  type TStorageReference,
   useApplication,
 } from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
-import { AxiosError } from 'axios'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import type { AxiosError } from 'axios'
+import { type ChangeEvent, useEffect, useRef, useState } from 'react'
 import { ErrorGroup } from './ErrorGroup'
 
 export interface UploadButtonProps {

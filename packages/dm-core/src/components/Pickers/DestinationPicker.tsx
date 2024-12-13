@@ -5,7 +5,7 @@ import {
   TREE_DIALOG_HEIGHT,
   TREE_DIALOG_WIDTH,
 } from '../../utils/variables'
-import { TNodeWrapperProps, TreeView } from '../TreeView'
+import { type TNodeWrapperProps, TreeView } from '../TreeView'
 
 import {
   Button,
@@ -16,7 +16,7 @@ import {
 } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 import { useApplication } from '../../ApplicationContext'
-import { Tree, TreeNode } from '../../domain/Tree'
+import { Tree, type TreeNode } from '../../domain/Tree'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { Dialog } from '../Dialog'
 

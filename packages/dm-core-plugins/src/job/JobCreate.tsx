@@ -7,12 +7,12 @@ import { AuthContext } from 'react-oauth2-code-pkce'
 
 import {
   EBlueprint,
-  ErrorResponse,
-  IUIPlugin,
+  type ErrorResponse,
+  type IUIPlugin,
   JobStatus,
-  TJob,
-  TRecurringJob,
-  TSchedule,
+  type TJob,
+  type TRecurringJob,
+  type TSchedule,
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
@@ -26,15 +26,15 @@ import {
 import { gear } from '@equinor/eds-icons'
 import { useEffect, useState } from 'react'
 
-import { AxiosError, AxiosResponse } from 'axios'
+import type { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'react-toastify'
-import { Stack, TTemplate, TemplateMenu } from '../common'
+import { Stack, type TTemplate, TemplateMenu } from '../common'
 import {
   ConfigureRecurring,
   JobLog,
   JobWrapper,
   Progress,
-  TCronValues,
+  type TCronValues,
   getControlButton,
   getVariant,
   parseCronStringToCronValues,

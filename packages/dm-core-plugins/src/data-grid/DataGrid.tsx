@@ -7,9 +7,9 @@ import { DataGridPagination } from './DataGridPagination/DataGridPagination'
 import { HeaderCell } from './HeaderCell/HeaderCell'
 import * as Styled from './styles'
 import {
-  DataGridConfig,
-  DataGridProps,
-  TFunctionalityChecks,
+  type DataGridConfig,
+  type DataGridProps,
+  type TFunctionalityChecks,
   defaultConfig,
 } from './types'
 import * as utils from './utils'
@@ -68,7 +68,7 @@ export function DataGrid(props: DataGridProps) {
           ? data.length > 0
             ? data[0].length
             : 0
-          : parseInt(functionality.columnDimensions, 10)
+          : Number.parseInt(functionality.columnDimensions, 10)
         : ['1']
       updateColumnLabels(columnsLength)
       updateRowLabels(data?.length)

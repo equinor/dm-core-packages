@@ -1,8 +1,8 @@
 import {
   EBlueprint,
   EntityView,
-  TNodeWrapperProps,
-  TreeNode,
+  type TNodeWrapperProps,
+  type TreeNode,
   TreeView,
   useApplication,
 } from '@development-framework/dm-core'

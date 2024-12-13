@@ -1,19 +1,19 @@
 import { Typography } from '@equinor/eds-core-react'
 import { useQuery } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import React, { useMemo, useState } from 'react'
+import type { AxiosError } from 'axios'
+import { useMemo, useState } from 'react'
 import {
   EntityView,
-  ErrorResponse,
+  type ErrorResponse,
   Loading,
-  TAttribute,
+  type TAttribute,
   useApplication,
 } from '../../index'
 import {
-  IUIPlugin,
-  TInlineRecipeViewConfig,
-  TReferenceViewConfig,
-  TViewConfig,
+  type IUIPlugin,
+  type TInlineRecipeViewConfig,
+  type TReferenceViewConfig,
+  type TViewConfig,
   isInlineRecipeViewConfig,
   isReferenceViewConfig,
   isViewConfig,

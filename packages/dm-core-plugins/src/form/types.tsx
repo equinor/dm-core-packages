@@ -1,10 +1,9 @@
-import {
+import type {
   TAttribute,
   TOnOpen,
   TUiRecipe,
   TViewConfig,
 } from '@development-framework/dm-core'
-import React from 'react'
 
 export type TFormProps = {
   idReference: string

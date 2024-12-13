@@ -1,6 +1,5 @@
 import { Button, EdsProvider, Icon, Tooltip } from '@equinor/eds-core-react'
-import { IconData } from '@equinor/eds-icons'
-import React from 'react'
+import type { IconData } from '@equinor/eds-icons'
 
 type Prefix<T, P extends string> = {
   [K in keyof T as `${P}-${string & K}`]: T[K]

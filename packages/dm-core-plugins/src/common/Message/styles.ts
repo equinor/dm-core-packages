@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { MessageTypes } from './types'
+import type { MessageTypes } from './types'
 
 export const StyledMessage = styled.div<{ type: MessageTypes }>`
   display: flex;

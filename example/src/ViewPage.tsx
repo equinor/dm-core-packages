@@ -2,7 +2,7 @@ import {
   EntityView,
   ErrorGroup,
   Loading,
-  TValidEntity,
+  type TValidEntity,
   useDocument,
 } from '@development-framework/dm-core'
 import { Typography } from '@equinor/eds-core-react'

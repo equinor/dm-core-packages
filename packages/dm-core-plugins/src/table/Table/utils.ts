@@ -1,9 +1,9 @@
-import { TGenericObject, TItem } from '@development-framework/dm-core'
+import type { TGenericObject, TItem } from '@development-framework/dm-core'
 import { isObject } from 'lodash'
 import {
-  TTableConfig,
-  TTableFunctionalityConfig,
-  TTableSortDirection,
+  type TTableConfig,
+  type TTableFunctionalityConfig,
+  type TTableSortDirection,
   TableVariantNameEnum,
 } from './types'
 

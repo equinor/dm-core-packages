@@ -1,8 +1,8 @@
-import { AxiosError } from 'axios'
+import type { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
-import { TBlueprint, TStorageRecipe, TUiRecipe } from 'src/types'
+import type { TBlueprint, TStorageRecipe, TUiRecipe } from 'src/types'
 import { useApplication } from '../ApplicationContext'
-import { ErrorResponse } from '../services'
+import type { ErrorResponse } from '../services'
 
 interface IUseBlueprint {
   blueprint: TBlueprint | undefined

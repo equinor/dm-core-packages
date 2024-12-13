@@ -3,11 +3,11 @@ import {
   EPrimitiveTypes,
   INPUT_FIELD_WIDTH,
   Select,
-  TGenericObject,
+  type TGenericObject,
   truncatePathString,
 } from '@development-framework/dm-core'
 import { Input, Label, Radio, Switch, TextField } from '@equinor/eds-core-react'
-import { ChangeEvent } from 'react'
+import type { ChangeEvent } from 'react'
 import { Stack } from '../common'
 
 type TAttribute = {

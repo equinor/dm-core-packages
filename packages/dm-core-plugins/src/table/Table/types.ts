@@ -1,4 +1,4 @@
-import {
+import type {
   IUIPlugin,
   TGenericObject,
   TInlineRecipeViewConfig,
@@ -7,7 +7,7 @@ import {
   TReferenceViewConfig,
   TViewConfig,
 } from '@development-framework/dm-core'
-import { TSortableItem, TTemplate } from '../../common'
+import type { TSortableItem, TTemplate } from '../../common'
 
 // Table Config types
 

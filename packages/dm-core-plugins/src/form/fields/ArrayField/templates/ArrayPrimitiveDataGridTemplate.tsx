@@ -3,7 +3,7 @@ import { add } from '@equinor/eds-icons'
 import TooltipButton from '../../../../common/TooltipButton'
 import { DataGrid } from '../../../../data-grid/DataGrid'
 import { Fieldset, Legend } from '../../../styles'
-import { TArrayTemplate, TPrimitive } from '../../../types'
+import type { TArrayTemplate, TPrimitive } from '../../../types'
 import { getDisplayLabel } from '../../../utils/getDisplayLabel'
 
 export const ArrayPrimitiveDatagridTemplate = (
@@ -30,8 +30,8 @@ export const ArrayPrimitiveDatagridTemplate = (
         : ''
 
   function createPrimitiveArray() {
-    const definedColumnsAmount = parseInt(definedColumns, 10)
-    const definedRowsAmount = parseInt(definedRows, 10)
+    const definedColumnsAmount = Number.parseInt(definedColumns, 10)
+    const definedRowsAmount = Number.parseInt(definedRows, 10)
 
     // example: dimensions = 3,3
     if (

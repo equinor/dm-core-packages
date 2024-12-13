@@ -1,6 +1,6 @@
 import {
   CopyLinkDialog,
-  TNodeWrapperProps,
+  type TNodeWrapperProps,
 } from '@development-framework/dm-core'
 import { Menu } from '@equinor/eds-core-react'
 import { useState } from 'react'

@@ -1,11 +1,11 @@
 import {
   EntityPickerDialog,
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TEntityPickerReturn,
-  TGenericObject,
-  TItem,
-  TViewConfig,
+  type TEntityPickerReturn,
+  type TGenericObject,
+  type TItem,
+  type TViewConfig,
   ViewCreator,
   resolveRelativeAddressSimplified,
   useList,
@@ -27,7 +27,7 @@ import {
   LazyLoad,
   Pagination,
   Stack,
-  TTemplate,
+  type TTemplate,
   TemplateMenu,
 } from '../common'
 import { FormButton, ListChevronButton, NewListItemButton } from './Components'
@@ -212,12 +212,14 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             hideInvalidTypes={internalConfig.hideInvalidTypes}
           />
         )}
+        {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
         <Stack role='rowgroup' style={{ minWidth: 'max-content' }}>
           {currentItems &&
             currentItems.map((item: TItem<TGenericObject>, index: number) => (
               <Stack key={item?.key}>
                 <Stack
                   direction='row'
+                  // biome-ignore lint/a11y/useSemanticElements: <explanation>
                   role='row'
                   justifyContent='space-between'
                   alignItems='center'

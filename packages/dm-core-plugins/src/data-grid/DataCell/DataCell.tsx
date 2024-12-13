@@ -1,7 +1,7 @@
 import { Checkbox } from '@equinor/eds-core-react'
-import { ChangeEvent } from 'react'
+import type { ChangeEvent } from 'react'
 import * as Styled from '../styles'
-import { DataGridConfig } from '../types'
+import type { DataGridConfig } from '../types'
 
 type DataCellProps = {
   attributeType: string
@@ -21,7 +21,11 @@ export function DataCell(props: DataCellProps) {
   function parseValue(event: ChangeEvent<HTMLInputElement>) {
     const { value, checked } = event.target
     if (attributeType === 'number') {
-      return value === '' ? undefined : value === '-' ? '-' : parseFloat(value)
+      return value === ''
+        ? undefined
+        : value === '-'
+          ? '-'
+          : Number.parseFloat(value)
     }
     if (attributeType === 'boolean') {
       return checked

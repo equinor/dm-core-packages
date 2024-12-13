@@ -1,10 +1,22 @@
-import { IUIPlugin } from '@development-framework/dm-core'
-import React from 'react'
+import type { IUIPlugin } from '@development-framework/dm-core'
 import styled from 'styled-components'
 import { GridItems } from './GridItems'
-import { TGridPluginConfig, TGridSize } from './types'
+import type { TGridPluginConfig, TGridSize } from './types'
 
-const Grid = styled.div<TGridSize>`
+const props_to_pass: string[] = [
+  'columns',
+  'rows',
+  'columnGap',
+  'rowGap',
+  'gridWidth',
+  'gridHeight',
+  'rowSizes',
+  'columnSizes',
+]
+
+const Grid = styled('div').withConfig({
+  shouldForwardProp: (propName) => !props_to_pass.includes(propName),
+})<TGridSize>`
   display: grid;
   width: ${(props): string =>
     props.gridWidth ? props.gridWidth + 'px' : '100%'};
