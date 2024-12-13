@@ -3,7 +3,7 @@ import { defineConfig } from 'vite'
 import checker from 'vite-plugin-checker'
 import svgrPlugin from 'vite-plugin-svgr'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
-import { localConfig } from './vite.local.config'
+import { localConfig } from './vite.local.config.mjs'
 
 export default defineConfig({
   base: '/',

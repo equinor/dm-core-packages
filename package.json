@@ -1,10 +1,6 @@
 {
   "private": true,
-  "workspaces": [
-    "example",
-    "packages/dm-core",
-    "packages/dm-core-plugins"
-  ],
+  "workspaces": ["example", "packages/dm-core", "packages/dm-core-plugins"],
   "scripts": {
     "start:example": "yarn workspace example start",
     "build:dm-core": "yarn workspace @development-framework/dm-core build",
