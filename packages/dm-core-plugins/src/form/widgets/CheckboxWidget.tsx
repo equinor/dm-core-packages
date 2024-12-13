@@ -11,7 +11,7 @@ const CheckboxWidget = (props: TWidget) => {
           ref={inputRef}
           disabled={readOnly}
           checked={value !== undefined ? value : false}
-          type='checkbox'
+          data-test-checked={value !== undefined ? value : false}
           data-testid='form-checkbox'
         />
       </span>
