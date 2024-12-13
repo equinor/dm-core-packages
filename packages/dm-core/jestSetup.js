@@ -1,4 +1,4 @@
-const crypto = await import('node:crypto')
+const crypto = require('node:crypto')
 
 Object.defineProperty(window, 'crypto', {
   value: crypto,
