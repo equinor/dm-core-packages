@@ -56,19 +56,19 @@ jobs:
         working-directory: example/
 
       - name: Pull docker images
-        run: docker-compose pull
+        run: docker compose pull
         working-directory: example/
 
       - name: Run docker images
         env:
           ENVIRONMENT: CI
-        run: docker-compose up -d
+        run: docker compose up -d
         working-directory: example/
 
       - name: Capture output DMSS version
         id: capture_dmss_version
         run: |
-          docker-compose exec -t dmss cat src/version.txt > dmss_version.txt
+          docker compose exec -t dmss cat src/version.txt > dmss_version.txt
           dmss_version=$(tail -n 1 dmss_version.txt)
           echo "dmss_version=$dmss_version" >> "$GITHUB_OUTPUT"
         working-directory: example/
@@ -76,7 +76,7 @@ jobs:
       - name: Capture job-api version
         id: capture_job_version
         run: |
-          docker-compose exec -t job-api cat version.txt > job_version.txt
+          docker compose exec -t job-api cat version.txt > job_version.txt
           job_version=$(tail -n 1 job_version.txt)
           echo "job_version=$job_version" >> "$GITHUB_OUTPUT"
         working-directory: example/
