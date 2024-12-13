@@ -79,7 +79,7 @@ test('should show foo after bar if order states it', async () => {
 test('should handle a default object value', async () => {
   const utils = await setupSimple({ idReference: 'ds/$1', type: 'MyBlueprint' })
   expect(utils.fooInput.getAttribute('value')).toBe('beep')
-  expect(utils.barInput.getAttribute('value')).toBe('false')
+  expect(utils.barInput.getAttribute('data-test-checked')).toBe('false')
 })
 
 test('should handle object fields change events', async () => {
