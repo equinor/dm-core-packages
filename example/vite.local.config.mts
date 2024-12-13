@@ -1,4 +1,4 @@
-import * as path from 'path'
+import * as path from 'node:path'
 
 export const localConfig = () => {
   if ((process.env.ALIAS || 'on').trim() === 'on') {
