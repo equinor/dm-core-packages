@@ -1,14 +1,14 @@
 import {
-  ErrorResponse,
-  TGenericObject,
+  type ErrorResponse,
+  type TGenericObject,
   splitAddress,
   useApplication,
 } from '@development-framework/dm-core'
 import { Button, Label } from '@equinor/eds-core-react'
-import { AxiosError, AxiosResponse } from 'axios'
+import type { AxiosError, AxiosResponse } from 'axios'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../../context/RegistryContext'
-import { TField } from '../../types'
+import type { TField } from '../../types'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
 
 const getTarget = (initialValue: any) => {

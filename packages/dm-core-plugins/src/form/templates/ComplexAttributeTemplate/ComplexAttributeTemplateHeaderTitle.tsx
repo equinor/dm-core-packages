@@ -1,13 +1,13 @@
-import { TAttribute } from '@development-framework/dm-core'
+import type { TAttribute } from '@development-framework/dm-core'
 import { Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import {
-  IconData,
+  type IconData,
   chevron_right,
   file,
   file_description,
 } from '@equinor/eds-icons'
 import { Stack } from '../../../common'
-import { TUiAttribute } from '../../types'
+import type { TUiAttribute } from '../../types'
 import { getDisplayLabel } from '../../utils'
 import { TitleButton } from './styles'
 
@@ -72,7 +72,7 @@ export const ComplexAttributeTemplateHeaderTitle = (
           aria-controls={`${props.namePath}-content`}
           onClick={handleLabelClick}
           disabled={!objectIsNotEmpty}
-          isExpanded={!!isExpanded}
+          $isExpanded={!!isExpanded}
         >
           {canExpand && setIsExpanded && (
             <span className='title-chevron'>

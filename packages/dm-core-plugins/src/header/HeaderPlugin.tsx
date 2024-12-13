@@ -1,15 +1,15 @@
 import {
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TApplication,
-  TGenericObject,
-  TUiRecipe,
+  type TApplication,
+  type TGenericObject,
+  type TUiRecipe,
   useApplication,
   useBlueprint,
   useDocument,
 } from '@development-framework/dm-core'
 import { Icon, Menu, TopBar, Typography } from '@equinor/eds-core-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { account_circle, info_circle, menu, refresh } from '@equinor/eds-icons'

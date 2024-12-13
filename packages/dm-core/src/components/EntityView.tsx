@@ -1,9 +1,9 @@
-import React, { Suspense, memo, useState } from 'react'
+import { Suspense, memo, useState } from 'react'
 
 import { Typography } from '@equinor/eds-core-react'
 import { useRecipe } from '../hooks'
 import { Stack } from '../layout'
-import { IUIPlugin, TUiRecipe } from '../types'
+import type { IUIPlugin, TUiRecipe } from '../types'
 import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
 import { Loading } from './Loading'
 import RefreshButton from './RefreshButton'

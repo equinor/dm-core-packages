@@ -1,9 +1,13 @@
-import { Dialog, ErrorResponse, TreeNode } from '@development-framework/dm-core'
+import {
+  Dialog,
+  type ErrorResponse,
+  type TreeNode,
+} from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
-import { AxiosError } from 'axios'
+import type { AxiosError } from 'axios'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { EDialog } from '../../types'
+import type { EDialog } from '../../types'
 import { STANDARD_DIALOG_WIDTH } from '../context-menu/NodeRightClickMenu'
 
 type TProps = {

@@ -1,11 +1,11 @@
 import {
-  IUIPlugin,
+  type IUIPlugin,
   ViewCreator,
   useApplication,
 } from '@development-framework/dm-core'
 import { Banner, Icon } from '@equinor/eds-core-react'
 import { thumbs_down } from '@equinor/eds-icons'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type FilteredView = {
   type: string

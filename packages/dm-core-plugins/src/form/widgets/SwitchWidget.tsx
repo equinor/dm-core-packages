@@ -1,5 +1,5 @@
 import { Switch } from '@equinor/eds-core-react'
-import { TWidget } from '../types'
+import type { TWidget } from '../types'
 
 const SwitchWidget = (props: TWidget) => {
   const { value, readOnly } = props

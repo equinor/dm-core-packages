@@ -1,7 +1,7 @@
 import {
   CopyLinkDialog,
   EntityView,
-  IUIPlugin,
+  type IUIPlugin,
 } from '@development-framework/dm-core'
 import { Button, Icon } from '@equinor/eds-core-react'
 import { approve } from '@equinor/eds-icons'

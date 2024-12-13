@@ -8,18 +8,18 @@ import {
   Tooltip,
 } from '@equinor/eds-core-react'
 import { folder_open } from '@equinor/eds-icons'
-import { AxiosError } from 'axios'
-import { ChangeEvent, useContext, useState } from 'react'
+import type { AxiosError } from 'axios'
+import { type ChangeEvent, useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import {
   AuthContext,
   Dialog,
   EBlueprint,
   EntityPickerDialog,
-  ErrorResponse,
-  TEntityPickerReturn,
-  TLinkReference,
-  TValidEntity,
+  type ErrorResponse,
+  type TEntityPickerReturn,
+  type TLinkReference,
+  type TValidEntity,
   truncatePathString,
   useApplication,
   useDocument,

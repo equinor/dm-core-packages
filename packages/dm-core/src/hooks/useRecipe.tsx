@@ -1,6 +1,11 @@
-import { AxiosError } from 'axios'
+import type { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
-import { ErrorResponse, IUIPlugin, TUiRecipe, useApplication } from '../index'
+import {
+  type ErrorResponse,
+  type IUIPlugin,
+  type TUiRecipe,
+  useApplication,
+} from '../index'
 
 export const findRecipe = (
   recipes: TUiRecipe[],

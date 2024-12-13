@@ -1,11 +1,11 @@
 import {
-  ErrorResponse,
+  type ErrorResponse,
   Loading,
-  TFileEntity,
+  type TFileEntity,
   useApplication,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import { ErrorGroup } from './ErrorGroup'
 

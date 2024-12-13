@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import type { ChangeEvent } from 'react'
 import { useSearch } from '../../hooks/useSearch'
 import { Select } from '../Select'
 
@@ -15,7 +15,7 @@ export const EntityPickerDropdown = (props: {
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <Select
         onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-          onChange({ ...searchResult[parseInt(e.target.value)] })
+          onChange({ ...searchResult[Number.parseInt(e.target.value)] })
         }
         value={searchResult.findIndex(
           (resultEntry: any) => resultEntry._id === formData._id

@@ -1,6 +1,6 @@
-import { TOnOpen } from '@development-framework/dm-core'
-import React, { createContext, useContext } from 'react'
-import { TFormConfig } from '../types'
+import type { TOnOpen } from '@development-framework/dm-core'
+import { createContext, useContext } from 'react'
+import type { TFormConfig } from '../types'
 
 type Props = {
   idReference: string

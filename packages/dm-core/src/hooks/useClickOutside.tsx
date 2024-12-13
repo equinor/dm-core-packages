@@ -1,7 +1,7 @@
-import { MutableRefObject, useEffect } from 'react'
+import { type RefObject, useEffect } from 'react'
 
 export function useClickOutside(
-  elementRef: MutableRefObject<HTMLDivElement | null>,
+  elementRef: RefObject<HTMLDivElement | null>,
   callback: () => any
 ): any {
   useEffect(() => {

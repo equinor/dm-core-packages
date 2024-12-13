@@ -1,6 +1,6 @@
 import { Loading, useBlueprint } from '@development-framework/dm-core'
 import { TextField } from '@equinor/eds-core-react'
-import { TWidget } from '../types'
+import type { TWidget } from '../types'
 
 const TypeWidget = (props: TWidget) => {
   const { id, label, value } = props

@@ -1,5 +1,5 @@
 import { Tooltip, Typography } from '@equinor/eds-core-react'
-import { TWidget } from '../types'
+import type { TWidget } from '../types'
 
 function ensureProtocol(url: string): string {
   if (!url.includes('://')) {
@@ -30,8 +30,8 @@ type Url = {
 const HyperlinkWidget = (props: TWidget) => {
   const { value, config } = props
 
-  let url
-  let label
+  let url: string
+  let label: string
   if (isComplex(value) && isUrl(value)) {
     url = value.value
     label = config?.label || value.label

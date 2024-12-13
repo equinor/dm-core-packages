@@ -8,7 +8,7 @@ export async function checkAndParseToAttributeType(
 
   function parseValue(value: any, rowIndex: number, colIndex: number) {
     if (attributeType === 'number') {
-      const parsedValue = parseFloat(value.replace(',', '.'))
+      const parsedValue = Number.parseFloat(value.replace(',', '.'))
       if (Number.isNaN(parsedValue)) {
         errors.push(
           `Data in cell ${colIndex + 1}, row ${
@@ -62,11 +62,11 @@ export async function checkDimensions(
   const isMultiDimensional: boolean = dimensions?.includes(',') || false
   if (definedColumns === '*' && definedRows === '*') return []
   const definedColumnsAmount =
-    definedColumns !== '*' ? parseInt(definedColumns, 10) : '*'
+    definedColumns !== '*' ? Number.parseInt(definedColumns, 10) : '*'
   const definedRowsAmount = !isMultiDimensional
     ? definedColumnsAmount
     : definedRows !== '*'
-      ? parseInt(definedRows, 10)
+      ? Number.parseInt(definedRows, 10)
       : '*'
   const dataColumnsLength = data[0].length
   const dataRowsLength = data.length

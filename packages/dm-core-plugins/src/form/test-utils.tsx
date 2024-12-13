@@ -1,9 +1,8 @@
 import {
   DMApplicationProvider,
   DmssAPI,
-  TUiPluginMap,
+  type TUiPluginMap,
 } from '@development-framework/dm-core'
-import React from 'react'
 import { FormPlugin } from './FormPlugin'
 
 export const mockBlueprintGet = (blueprints: Array<any>) => {

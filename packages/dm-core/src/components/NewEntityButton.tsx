@@ -1,16 +1,16 @@
 import { Button, Input, Label, Progress } from '@equinor/eds-core-react'
-import { AxiosError, AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
+import type { AxiosError, AxiosResponse } from 'axios'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useApplication } from '../ApplicationContext'
-import { TGenericObject, TReference } from '../types'
+import type { TGenericObject, TReference } from '../types'
 import { INPUT_FIELD_WIDTH } from '../utils/variables'
 import { Dialog } from './Dialog'
 import {
   BlueprintPicker,
   DestinationPicker,
   EntityPickerDialog,
-  TEntityPickerReturn,
+  type TEntityPickerReturn,
 } from './Pickers'
 
 // TODO fix this component - the component is not working due to a hook error somewhere, probably in the context

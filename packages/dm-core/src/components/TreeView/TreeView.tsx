@@ -1,8 +1,7 @@
-import React from 'react'
-import { TreeNode } from '../../domain/Tree'
+import type { TreeNode } from '../../domain/Tree'
 import { TreeListItem } from './TreeListItem/TreeListItem'
 import { StyledList } from './styles'
-import { TNodeWrapperProps } from './types'
+import type { TNodeWrapperProps } from './types'
 
 export const TreeView = (props: {
   nodes: TreeNode[]

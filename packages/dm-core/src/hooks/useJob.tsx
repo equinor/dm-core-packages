@@ -1,15 +1,15 @@
-import { AxiosError, AxiosResponse } from 'axios'
+import type { AxiosError, AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import { useApplication } from '../ApplicationContext'
 import {
-  DeleteJobResponse,
-  ErrorResponse,
-  GetJobResultResponse,
+  type DeleteJobResponse,
+  type ErrorResponse,
+  type GetJobResultResponse,
   JobStatus,
-  StartJobResponse,
-  StatusJobResponse,
+  type StartJobResponse,
+  type StatusJobResponse,
 } from '../services/api/configs/gen-job'
-import { TJob } from '../types'
+import type { TJob } from '../types'
 
 interface IUseJob {
   start: () => Promise<StartJobResponse | null>

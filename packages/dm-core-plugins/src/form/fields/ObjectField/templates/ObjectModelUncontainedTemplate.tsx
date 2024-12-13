@@ -4,7 +4,7 @@ import {
   splitAddress,
 } from '@development-framework/dm-core'
 import { link } from '@equinor/eds-icons'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import {
   OpenObjectButton,
@@ -13,7 +13,7 @@ import {
 } from '../../../components'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import { ComplexAttributeTemplate } from '../../../templates'
-import { TObjectTemplate } from '../../../types'
+import type { TObjectTemplate } from '../../../types'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
@@ -92,8 +92,8 @@ export const ObjectModelUncontainedTemplate = (
       </ComplexAttributeTemplate.Header>
       <ComplexAttributeTemplate.Content
         id={`${namePath}-content`}
-        expanded={!!isExpanded}
-        canExpand={!!canExpand}
+        $expanded={!!isExpanded}
+        $canExpand={!!canExpand}
       >
         <ViewCreator
           idReference={address ?? ''}

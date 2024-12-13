@@ -1,4 +1,4 @@
-import { TTableConfig } from './Table/types'
+import type { TTableConfig } from './Table/types'
 
 const defaultConfig: TTableConfig = {
   columns: [{ data: 'name', label: 'Name' }, { data: 'type' }],
@@ -18,8 +18,8 @@ export function mergeConfigs(config: TTableConfig): TTableConfig {
     variant: config.variant.map((variant) => ({
       ...variant,
       functionality: {
-        delete: variant.functionality?.delete !== false ? true : false,
-        add: variant.functionality?.add !== false ? true : false,
+        delete: variant.functionality?.delete !== false,
+        add: variant.functionality?.add !== false,
       },
     })),
   }

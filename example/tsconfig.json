@@ -3,20 +3,14 @@
     "baseUrl": "./src",
     "incremental": true,
     "paths": {
-      "@development-framework/dm-core/*": [
-        "../packages/dm-core/src/*"
-      ],
+      "@development-framework/dm-core/*": ["../packages/dm-core/src/*"],
       "@development-framework/dm-core-plugins/*": [
         "../packages/dm-core-plugins/src/*"
       ]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -30,17 +24,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": [
-      "vite/client",
-      "vite-plugin-svgr/client",
-      "node"
-    ]
+    "types": ["vite/client", "vite-plugin-svgr/client", "node"]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "tsconfig.tsbuildinfo"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "tsconfig.tsbuildinfo"]
 }

@@ -1,7 +1,6 @@
 import { Input, Typography } from '@equinor/eds-core-react'
-import React from 'react'
 import { Stack } from '../../layout'
-import { AccessControlList, AccessLevel } from '../../services'
+import { type AccessControlList, AccessLevel } from '../../services'
 import { ACLSelect } from './ACLSelect'
 
 interface IACLOwnerPanelProps {

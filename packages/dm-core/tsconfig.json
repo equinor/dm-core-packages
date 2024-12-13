@@ -2,12 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "lib": [
-      "ES2020",
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["ES2020", "dom", "dom.iterable", "esnext"],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
@@ -29,9 +24,7 @@
     "composite": false,
     "useUnknownInCatchVariables": false
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",

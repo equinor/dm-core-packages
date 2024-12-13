@@ -1,9 +1,8 @@
 import { EdsProvider, Icon, Tooltip } from '@equinor/eds-core-react'
 import { info_circle } from '@equinor/eds-icons'
 import { tokens } from '@equinor/eds-tokens'
-import React from 'react'
 import { Stack } from '../../../common'
-import { TUiAttribute } from '../../types'
+import type { TUiAttribute } from '../../types'
 
 export const ComplexAttributeTemplateHeaderActions = ({
   children,

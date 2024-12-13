@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { TreeNode } from '../../../domain/Tree'
+import type { TreeNode } from '../../../domain/Tree'
 import { TreeButton } from '../TreeButton/TreeButton'
 import { TreeView } from '../TreeView'
-import { TNodeWrapperProps } from '../types'
+import type { TNodeWrapperProps } from '../types'
 
 const StyledListItem = styled.li`
   list-style: none;

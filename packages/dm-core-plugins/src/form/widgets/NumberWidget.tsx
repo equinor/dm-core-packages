@@ -1,5 +1,4 @@
-import React from 'react'
-import { TWidget } from '../types'
+import type { TWidget } from '../types'
 import { StyledNumberField } from './common/StyledInputFields'
 
 const NumberWidget = (props: TWidget) => {

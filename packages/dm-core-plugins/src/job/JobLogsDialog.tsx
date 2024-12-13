@@ -1,7 +1,7 @@
 import {
   Dialog,
-  ErrorResponse,
-  GetJobResultResponse,
+  type ErrorResponse,
+  type GetJobResultResponse,
 } from '@development-framework/dm-core'
 import { LogBlock } from './LogBlock'
 

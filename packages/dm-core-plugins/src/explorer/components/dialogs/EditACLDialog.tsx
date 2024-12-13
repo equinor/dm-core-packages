@@ -1,9 +1,9 @@
 import {
   AccessControlListComponent,
   Dialog,
-  TreeNode,
+  type TreeNode,
 } from '@development-framework/dm-core'
-import { EDialog } from '../../types'
+import type { EDialog } from '../../types'
 import { STANDARD_DIALOG_WIDTH } from '../context-menu/NodeRightClickMenu'
 
 type TProps = {

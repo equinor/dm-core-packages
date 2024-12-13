@@ -1,6 +1,6 @@
-import { ErrorBoundary, IUIPlugin, useApplication } from '../../index'
+import { ErrorBoundary, type IUIPlugin, useApplication } from '../../index'
 import { Stack } from '../../layout'
-import { TInlineRecipeViewConfig } from '../../types'
+import type { TInlineRecipeViewConfig } from '../../types'
 
 type TInlineRecipeViewProps = IUIPlugin & {
   viewConfig: TInlineRecipeViewConfig

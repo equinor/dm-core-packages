@@ -1,7 +1,6 @@
 import { Icon } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { tokens } from '@equinor/eds-tokens'
-import React from 'react'
 import styled from 'styled-components'
 
 const StyledButton = styled.button`

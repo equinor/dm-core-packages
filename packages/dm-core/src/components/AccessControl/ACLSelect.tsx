@@ -1,4 +1,3 @@
-import React from 'react'
 import { AccessLevel } from '../../services'
 import { Select } from '../Select'
 

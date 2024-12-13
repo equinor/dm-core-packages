@@ -1,14 +1,14 @@
 import {
-  TGenericObject,
-  TItem,
+  type TGenericObject,
+  type TItem,
   ViewCreator,
 } from '@development-framework/dm-core'
 import { EdsProvider, Icon, Table } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import { LazyLoad, TTemplate, TemplateMenu } from '../../../common'
-import { TTableColumnConfig, TableRowProps } from '../types'
+import { LazyLoad, type TTemplate, TemplateMenu } from '../../../common'
+import type { TTableColumnConfig, TableRowProps } from '../types'
 import * as utils from '../utils'
 import { TableCell } from './TableCell/TableCell'
 import { TableRowActions } from './TableRowActions/TableRowActions'

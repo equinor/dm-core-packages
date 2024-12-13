@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import {
   EBlueprint,
   Loading,
-  TAttribute,
-  TGenericObject,
-  TUiRecipe,
+  type TAttribute,
+  type TGenericObject,
+  type TUiRecipe,
   findRecipe,
   useApplication,
   useBlueprint,
@@ -18,7 +18,7 @@ import styled from 'styled-components'
 import { Stack } from '../../common'
 import { ConditionalWrapper } from '../../utils'
 import { RegistryProvider } from '../context/RegistryContext'
-import { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
+import type { TFormConfig, TFormProps, TUiAttributeObject } from '../types'
 import { getCanOpenOrExpand, isPrimitiveType } from '../utils'
 import { AttributeList } from './AttributeList'
 
@@ -230,7 +230,6 @@ export const Form = (props: TFormProps) => {
                   <Button
                     onClick={handleCustomReset}
                     disabled={disabled}
-                    tooltip={'Revert changes'}
                     variant={'outlined'}
                     data-testid='form-reset'
                     style={{ overflow: 'hidden' }}

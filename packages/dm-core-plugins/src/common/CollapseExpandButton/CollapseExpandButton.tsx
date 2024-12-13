@@ -1,6 +1,6 @@
 import {
   Button,
-  ButtonProps,
+  type ButtonProps,
   EdsProvider,
   Icon,
   Tooltip,
@@ -8,7 +8,7 @@ import {
 import { chevron_right } from '@equinor/eds-icons'
 import styled from 'styled-components'
 
-const StyledButton = styled(Button)<{ expanded: boolean }>`
+const StyledButton = styled(Button)<{ $expanded: boolean }>`
     span {
         transition: transform ease-in-out 0.2s;
         transform: ${(props) => (props.expanded ? 'rotate(90deg)' : 'none')};
@@ -30,7 +30,7 @@ export function CollapseExpandButton(props: CollapseExpandButtonProps) {
           aria-expanded={isExpanded}
           aria-controls={props.controls}
           aria-label={isExpanded ? 'Collapse item' : 'Expand item'}
-          expanded={isExpanded}
+          $expanded={isExpanded}
           variant='ghost_icon'
           color={color}
           onClick={setIsExpanded}

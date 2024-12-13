@@ -1,14 +1,14 @@
 import {
   AuthContext,
   EBlueprint,
-  ErrorResponse,
-  IUIPlugin,
+  type ErrorResponse,
+  type IUIPlugin,
   JobStatus,
   Loading,
-  TJob,
-  TJobHandler,
-  TRecurringJob,
-  TSchedule,
+  type TJob,
+  type TJobHandler,
+  type TRecurringJob,
+  type TSchedule,
   useApplication,
   useDocument,
   useJob,
@@ -21,20 +21,20 @@ import {
   Typography,
 } from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
-import { AxiosError } from 'axios'
+import type { AxiosError } from 'axios'
 import _ from 'lodash'
 import { DateTime } from 'luxon'
 import { useContext, useEffect, useState } from 'react'
-import { IAuthContext } from 'react-oauth2-code-pkce'
+import type { IAuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
-import { Stack, TTemplate, TemplateMenu } from '../../common'
+import { Stack, type TTemplate, TemplateMenu } from '../../common'
 import {
   ConfigureRecurring,
   JobButtonWrapper,
   JobLog,
   JobWrapper,
   Progress,
-  TCronValues,
+  type TCronValues,
   getControlButton,
   getVariant,
   parseCronStringToCronValues,

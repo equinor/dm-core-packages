@@ -1,6 +1,6 @@
-import { TAttribute } from '@development-framework/dm-core'
+import type { TAttribute } from '@development-framework/dm-core'
 import lodash from 'lodash'
-import { TUiAttribute } from '../types'
+import type { TUiAttribute } from '../types'
 
 export const getDisplayLabel = (
   attribute: TAttribute,

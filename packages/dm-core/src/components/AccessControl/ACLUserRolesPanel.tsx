@@ -6,9 +6,9 @@ import {
   TextField,
 } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Stack } from '../../layout'
-import { AccessControlList, AccessLevel } from '../../services'
+import { type AccessControlList, AccessLevel } from '../../services'
 import { ACLSelect } from './ACLSelect'
 
 interface IURPanelProps {

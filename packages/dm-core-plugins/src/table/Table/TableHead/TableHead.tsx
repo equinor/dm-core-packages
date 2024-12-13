@@ -2,8 +2,8 @@ import { Button, Icon, Menu, Table } from '@equinor/eds-core-react'
 import { arrow_down, arrow_up, more_vertical } from '@equinor/eds-icons'
 import { useState } from 'react'
 import {
-  TTableColumnConfig,
-  TableHeadProps,
+  type TTableColumnConfig,
+  type TableHeadProps,
   TableVariantNameEnum,
 } from '../types'
 import { SortCell } from './styles'
@@ -52,7 +52,7 @@ export function TableHead(props: TableHeadProps) {
                     : 'none'
               }
               key={column.data}
-              isSorted={
+              $isSorted={
                 column.data === sortColumn &&
                 tableVariant === TableVariantNameEnum.View
               }

@@ -1,6 +1,6 @@
 import { BlueprintPicker } from '@development-framework/dm-core'
 import styled from 'styled-components'
-import { TWidget } from '../types'
+import type { TWidget } from '../types'
 
 // The custom widgets goes under here,
 // this may at some point be moved out from the form package.

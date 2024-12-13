@@ -1,10 +1,10 @@
 import { Button, Checkbox, Icon, Tooltip } from '@equinor/eds-core-react'
 import { checkbox, checkbox_outline, external_link } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
-import { ChangeEvent } from 'react'
+import type { ChangeEvent } from 'react'
 import { CollapseExpandButton } from '../../../../common'
 import { Datepicker } from '../../../../common/Datepicker'
-import { TableCellProps } from '../../types'
+import type { TableCellProps } from '../../types'
 import { resolvePath } from '../../utils'
 import * as Styled from '../styles'
 
@@ -117,7 +117,7 @@ export function TableCell(props: TableCellProps) {
   }
 
   return (
-    <Styled.TableCell noPadding={isEditableField}>
+    <Styled.TableCell $noPadding={isEditableField}>
       {isEditableField ? (
         <Styled.Input
           defaultValue={value ?? ''}

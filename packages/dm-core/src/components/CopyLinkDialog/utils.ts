@@ -1,4 +1,4 @@
-import { EBlueprint, TMeta, TValidEntity } from '../../'
+import { EBlueprint, type TMeta, type TValidEntity } from '../../'
 
 export function setMetaInDocument(
   document: TValidEntity,

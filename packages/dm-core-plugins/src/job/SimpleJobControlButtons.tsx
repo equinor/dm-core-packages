@@ -1,6 +1,6 @@
 import {
-  DeleteJobResponse,
-  ErrorResponse,
+  type DeleteJobResponse,
+  type ErrorResponse,
   JobStatus,
 } from '@development-framework/dm-core'
 import {

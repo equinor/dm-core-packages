@@ -1,4 +1,8 @@
-import { DataGridConfig, PredefinedLabels, TFunctionalityChecks } from './types'
+import type {
+  DataGridConfig,
+  PredefinedLabels,
+  TFunctionalityChecks,
+} from './types'
 
 const predefinedLabels: PredefinedLabels[] = ['...ABC', '...ZYX', '...123']
 

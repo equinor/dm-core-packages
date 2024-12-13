@@ -1,4 +1,4 @@
-import { TTemplates } from '../../../types'
+import type { TTemplates } from '../../../types'
 import { ArrayPrimitiveDatagridTemplate } from './ArrayPrimitiveDataGridTemplate'
 import { ArrayPrimitiveListTemplate } from './ArrayPrimitiveListTemplate/ArrayPrimitiveListTemplate'
 

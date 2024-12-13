@@ -1,19 +1,19 @@
 import {
   ErrorGroup,
   Loading,
-  TGenericObject,
+  type TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
 import { Icon, Popover, TextField, Tooltip } from '@equinor/eds-core-react'
 import { close, copy, edit, filter_alt, save } from '@equinor/eds-icons'
 import DOMPurify from 'dompurify'
 import hljs from 'highlight.js'
-import { ChangeEvent, useMemo, useRef, useState } from 'react'
+import { type ChangeEvent, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import YAML from 'yaml'
 import { Stack } from '../common'
 import { ActionButton, ActionsWrapper, CodeContainer } from './styles'
-import { YamlPluginProps, defaultConfig } from './types'
+import { type YamlPluginProps, defaultConfig } from './types'
 
 export const YamlPlugin = (props: YamlPluginProps) => {
   const { idReference, config: userConfig } = props
@@ -104,7 +104,7 @@ export const YamlPlugin = (props: YamlPluginProps) => {
           {isEditMode ? (
             <ActionsWrapper>
               <Tooltip title='Save'>
-                <ActionButton bg='green' onClick={saveChanges}>
+                <ActionButton $bg='green' onClick={saveChanges}>
                   <Icon data={save} />
                 </ActionButton>
               </Tooltip>
@@ -126,7 +126,7 @@ export const YamlPlugin = (props: YamlPluginProps) => {
                   aria-controls='depth-popover'
                   aria-expanded={isDepthPopoverOpen}
                   aria-haspopup
-                  bg='yellow'
+                  $bg='yellow'
                   id='depth-popover-anchor'
                   onClick={() => setIsDepthPopoverOpen(!isDepthPopoverOpen)}
                   ref={depthPopoverTrigger}
@@ -155,7 +155,7 @@ export const YamlPlugin = (props: YamlPluginProps) => {
               </Popover>
               {config.editable && (
                 <Tooltip title='Edit'>
-                  <ActionButton bg='green' onClick={() => setIsEditMode(true)}>
+                  <ActionButton $bg='green' onClick={() => setIsEditMode(true)}>
                     <Icon data={edit} />
                   </ActionButton>
                 </Tooltip>

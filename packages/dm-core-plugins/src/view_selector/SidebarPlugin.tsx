@@ -1,13 +1,12 @@
 import {
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TGenericObject,
+  type TGenericObject,
   ViewCreator,
 } from '@development-framework/dm-core'
-import React from 'react'
 import { Stack } from '../common'
 import { Sidebar } from './Sidebar'
-import { TItemData, TViewSelectorConfig } from './types'
+import type { TItemData, TViewSelectorConfig } from './types'
 import { useViewSelector } from './useViewSelector'
 
 export const SidebarPlugin = (

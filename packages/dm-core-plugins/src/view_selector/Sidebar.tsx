@@ -1,10 +1,10 @@
-import { TOnOpen } from '@development-framework/dm-core'
+import type { TOnOpen } from '@development-framework/dm-core'
 import { Button, Icon, SideBar } from '@equinor/eds-core-react'
 import * as EdsIcons from '@equinor/eds-icons'
 import * as React from 'react'
 import { breakpoints } from '../responsive_grid/types'
 import { CustomToggle } from './styles'
-import { TItemData, TViewSelectorItem } from './types'
+import type { TItemData, TViewSelectorItem } from './types'
 
 export const Sidebar = (props: {
   selectedViewId: string
@@ -30,7 +30,7 @@ export const Sidebar = (props: {
   }, [])
 
   return (
-    <SideBar open={isOpen} onToggle={(state: boolean) => setIsOpen(state)}>
+    <SideBar open={isOpen} onToggle={(state) => setIsOpen(state as boolean)}>
       <SideBar.Content
         style={{
           display: 'flex',
@@ -113,7 +113,7 @@ export const Sidebar = (props: {
         })}
       </SideBar.Content>
       <SideBar.Footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <CustomToggle expanded={isOpen}>
+        <CustomToggle $expanded={isOpen}>
           <Button
             aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
             onClick={() => setIsOpen(!isOpen)}

@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from 'react-hook-form'
 import { getWidget } from '../../context/WidgetContext'
-import { TArrayTemplate } from '../../types'
+import type { TArrayTemplate } from '../../types'
 import { getDisplayLabel, isPrimitiveType } from '../../utils'
 import arrayTemplates from './templates'
 import { ArrayComplexTemplate } from './templates/ArrayComplexTemplate'

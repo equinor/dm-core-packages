@@ -1,6 +1,7 @@
-import { Icon, Menu, Typography } from '@equinor/eds-core-react'
+import { Icon, Menu, Tooltip } from '@equinor/eds-core-react'
 import { add as addIcon, delete_to_trash } from '@equinor/eds-icons'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { ConditionalWrapper } from '../../utils'
 import * as Styled from '../styles'
 
 type HeaderCellProps = {
@@ -57,34 +58,39 @@ export function HeaderCell(props: HeaderCellProps) {
       selected={index === selected}
       tabIndex={0}
     >
-      {label}
-      <Menu
-        anchorEl={menuButtonAnchor}
-        id={`tablehead-menu`}
-        onClose={onContextMenuClose}
-        open={isMenuOpen}
-      >
-        {!props.editable ? (
-          <Typography variant='caption' style={{ padding: '0 0.5rem' }}>
-            {type === 'column' ? 'Columns' : 'Rows'} are pre-defined and cannot
-            be deleted or added.
-          </Typography>
-        ) : (
-          <>
-            <Menu.Item onClick={() => props.delete(index)}>
-              <Icon size={16} data={delete_to_trash} /> Delete {type}
-            </Menu.Item>
-            <Menu.Item onClick={() => add(index)}>
-              <Icon size={16} data={addIcon} /> Add 1 {type}{' '}
-              {type === 'column' ? 'left' : 'above'}
-            </Menu.Item>
-            <Menu.Item onClick={() => add(index + 1)}>
-              <Icon size={16} data={addIcon} /> Add 1 {type}{' '}
-              {type === 'column' ? 'right' : 'below'}
-            </Menu.Item>
-          </>
+      <ConditionalWrapper
+        condition={!props.editable}
+        wrapper={(child: React.ReactElement) => (
+          <Tooltip
+            title={`${type === 'column' ? 'Columns' : 'Rows'} are pre-defined and cannot
+            be deleted or added.}`}
+          >
+            <span>{child}</span>
+          </Tooltip>
         )}
-      </Menu>
+      >
+        {label}
+      </ConditionalWrapper>
+      {props.editable && (
+        <Menu
+          anchorEl={menuButtonAnchor}
+          id={`tablehead-menu`}
+          onClose={onContextMenuClose}
+          open={isMenuOpen}
+        >
+          <Menu.Item onClick={() => props.delete(index)}>
+            <Icon size={16} data={delete_to_trash} /> Delete {type}
+          </Menu.Item>
+          <Menu.Item onClick={() => add(index)}>
+            <Icon size={16} data={addIcon} /> Add 1 {type}{' '}
+            {type === 'column' ? 'left' : 'above'}
+          </Menu.Item>
+          <Menu.Item onClick={() => add(index + 1)}>
+            <Icon size={16} data={addIcon} /> Add 1 {type}{' '}
+            {type === 'column' ? 'right' : 'below'}
+          </Menu.Item>
+        </Menu>
+      )}
     </Styled.Header>
   )
 }

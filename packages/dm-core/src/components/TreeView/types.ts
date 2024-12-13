@@ -1,4 +1,4 @@
-import { TreeNode } from '../../domain/Tree'
+import type { TreeNode } from '../../domain/Tree'
 
 export type TNodeWrapperProps = {
   node: TreeNode

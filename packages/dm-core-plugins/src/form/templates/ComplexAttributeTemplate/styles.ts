@@ -18,22 +18,22 @@ export const ComplexAttributeTemplateHeader = styled.div`
 `
 
 export type TComplexAttributeTemplateContent = {
-  padding?: string
-  expanded?: boolean
-  canExpand?: boolean
+  $padding?: string
+  $expanded?: boolean
+  $canExpand?: boolean
   // Used to define aria-controls, should be [namePath]-content
   id: string
 }
 
 export const ComplexAttributeTemplateContent = styled.div<TComplexAttributeTemplateContent>`
     border-top: 1px solid #dddddd;
-    padding: ${(props) => (props.padding ? props.padding : '0.5rem')};
+    padding: ${(props) => (props.$padding ? props.$padding : '0.5rem')};
     width: 100%;
     display: ${(props) =>
-      !props.canExpand || !props.expanded ? 'none' : 'block'};
+      !props.$canExpand || !props.$expanded ? 'none' : 'block'};
 `
 
-export const TitleButton = styled.button<{ isExpanded: boolean }>`
+export const TitleButton = styled.button<{ $isExpanded: boolean }>`
   width: 100%;
   background: none;
   border: none;
@@ -47,7 +47,7 @@ export const TitleButton = styled.button<{ isExpanded: boolean }>`
   .title-chevron {
     padding: 0.25rem;
     border-radius: 50%;
-    transform: ${(props) => (props.isExpanded ? 'rotate(90deg)' : 'none')};
+    transform: ${(props) => (props.$isExpanded ? 'rotate(90deg)' : 'none')};
     transition: all ease-in-out 0.2s;
     svg {
       fill: ${tokens.colors.interactive.primary__resting.rgba};

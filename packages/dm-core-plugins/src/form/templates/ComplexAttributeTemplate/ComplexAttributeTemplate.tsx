@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 import { ComplexAttributeTemplateHeaderActions } from './ComplexAttributeTemplateHeaderActions'
 import { ComplexAttributeTemplateHeaderTitle } from './ComplexAttributeTemplateHeaderTitle'
 import * as Styled from './styles'

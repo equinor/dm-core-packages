@@ -1,4 +1,4 @@
-import { Dialog, TApplication } from '@development-framework/dm-core'
+import { Dialog, type TApplication } from '@development-framework/dm-core'
 import { Button, Icon } from '@equinor/eds-core-react'
 import { close } from '@equinor/eds-icons'
 

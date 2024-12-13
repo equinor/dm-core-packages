@@ -6,7 +6,7 @@ import {
   StyledMessage,
   StyledMessageContent,
 } from './styles'
-import { ICON_TYPES, MessageProps } from './types'
+import { ICON_TYPES, type MessageProps } from './types'
 
 export const Message = (props: MessageProps) => {
   const {

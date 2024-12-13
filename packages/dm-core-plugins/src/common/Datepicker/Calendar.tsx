@@ -13,11 +13,11 @@ import {
   chevron_up,
 } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
-import { ReactElement, useEffect, useState } from 'react'
+import { type ReactElement, useEffect, useState } from 'react'
 import { Stack } from '../Stack/Stack'
 import {
   CALENDAR_MONTHS,
-  DateSelection,
+  type DateSelection,
   THIS_MONTH,
   THIS_YEAR,
   calendar,
@@ -136,6 +136,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                 <StyledOptionButton
                   key={month}
                   variant='ghost'
+                  // biome-ignore lint/a11y/useSemanticElements:
                   role='radio'
                   aria-checked={index + 1 === activeMonth}
                   selected={index + 1 === activeMonth}

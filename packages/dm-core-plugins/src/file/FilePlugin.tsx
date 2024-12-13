@@ -1,9 +1,9 @@
 import {
   EBlueprint,
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TFileEntity,
-  TStorageReference,
+  type TFileEntity,
+  type TStorageReference,
   splitAddress,
   useDocument,
 } from '@development-framework/dm-core'

@@ -3,13 +3,13 @@ import {
   DMApplicationProvider,
   DmssAPI,
   EntityView,
-  ErrorResponse,
-  TApplication,
+  type ErrorResponse,
+  type TApplication,
 } from '@development-framework/dm-core'
 import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
 import { refresh } from '@equinor/eds-icons'
 
-import { AxiosError } from 'axios'
+import type { AxiosError } from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ViewPage from './ViewPage'

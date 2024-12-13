@@ -1,4 +1,4 @@
-import {
+import type {
   TAttribute,
   TBlueprint,
   TStorageRecipe,

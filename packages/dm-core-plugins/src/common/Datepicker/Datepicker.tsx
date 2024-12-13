@@ -8,12 +8,12 @@ import {
 } from '@equinor/eds-core-react'
 import { calendar } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
-import { ReactElement, useEffect, useRef, useState } from 'react'
+import { type ReactElement, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Stack } from '../Stack/Stack'
 import { Calendar } from './Calendar'
 import { Timefield } from './Timefield'
-import { DateSelection, zeroPad } from './calendarUtils'
+import { type DateSelection, zeroPad } from './calendarUtils'
 import { extractDateComponents, formatTime } from './datepickerUtils'
 
 interface DatepickerProps {

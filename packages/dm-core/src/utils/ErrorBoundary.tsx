@@ -1,5 +1,5 @@
 import { Typography } from '@equinor/eds-core-react'
-import React, { ReactNode } from 'react'
+import { Component, type ReactNode } from 'react'
 import styled from 'styled-components'
 
 export const ErrorGroup = styled.div`
@@ -17,7 +17,7 @@ const Message = styled.div`
   font-family: monospace;
 `
 
-export class ErrorBoundary extends React.Component<
+export class ErrorBoundary extends Component<
   any,
   { hasError: boolean; error: Error }
 > {

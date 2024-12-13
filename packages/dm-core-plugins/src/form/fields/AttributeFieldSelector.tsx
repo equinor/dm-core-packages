@@ -1,4 +1,4 @@
-import { TStorageRecipe } from '@development-framework/dm-core'
+import type { TStorageRecipe } from '@development-framework/dm-core'
 import {
   ArrayField,
   BinaryField,
@@ -7,7 +7,7 @@ import {
   ObjectField,
   StringField,
 } from '.'
-import { TField } from '../types'
+import type { TField } from '../types'
 import { getFieldType } from '../utils'
 
 const ATTRIBUTE_FIELD_MAPPING: Record<string, any> = {

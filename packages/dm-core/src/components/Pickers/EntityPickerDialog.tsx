@@ -1,22 +1,21 @@
-import { ChangeEvent, useEffect, useState } from 'react'
-
 import {
   Button,
   Checkbox,
   EdsProvider,
   Progress,
 } from '@equinor/eds-core-react'
+import { type ChangeEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { useApplication } from '../../ApplicationContext'
 import { EBlueprint } from '../../Enums'
-import { Tree, TreeNode } from '../../domain/Tree'
+import { Tree, type TreeNode } from '../../domain/Tree'
 import { Stack } from '../../layout'
-import { TValidEntity } from '../../types'
+import type { TValidEntity } from '../../types'
 import { truncatePathString } from '../../utils/truncatePathString'
 import { TREE_DIALOG_HEIGHT, TREE_DIALOG_WIDTH } from '../../utils/variables'
 import { Dialog } from '../Dialog'
-import { TNodeWrapperProps, TreeView } from '../TreeView'
+import { type TNodeWrapperProps, TreeView } from '../TreeView'
 
 const Wrapper = styled.div<{ cursor?: string }>`
     display: flex;

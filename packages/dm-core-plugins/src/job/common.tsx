@@ -1,13 +1,13 @@
 import {
-  DeleteJobResponse,
-  ErrorResponse,
+  type DeleteJobResponse,
+  type ErrorResponse,
   JobStatus,
-  TSchedule,
+  type TSchedule,
 } from '@development-framework/dm-core'
 import { Button, Icon, LinearProgress, Switch } from '@equinor/eds-core-react'
 import { expand_screen } from '@equinor/eds-icons'
 import { tokens } from '@equinor/eds-tokens'
-import { ChangeEvent, useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 import styled from 'styled-components'
 import { Stack } from '../common'
 import { ConfigureSchedule } from './CronJob'

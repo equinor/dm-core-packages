@@ -3,7 +3,7 @@ import { tokens } from '@equinor/eds-tokens'
 import styled from 'styled-components'
 
 type TStyledTableCell = {
-  noPadding?: boolean
+  $noPadding?: boolean
 }
 
 export const Input = styled(EDSInput)`
@@ -15,7 +15,7 @@ export const Input = styled(EDSInput)`
 
 export const TableCell = styled(Table.Cell)<TStyledTableCell>`
   border-right: 1px solid ${tokens.colors.ui.background__medium.hex};
-  padding: ${({ noPadding }) => (noPadding ? '0px' : '0 0.5rem')};
+  padding: ${({ $noPadding }) => ($noPadding ? '0px' : '0 0.5rem')};
 `
 
 export const InsertRowButton = styled.button`

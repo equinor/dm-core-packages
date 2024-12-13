@@ -8,7 +8,7 @@ import { useFormContext } from 'react-hook-form'
 import { OpenObjectButton, RemoveObject } from '../../../components'
 import { useRegistryContext } from '../../../context/RegistryContext'
 import { ComplexAttributeTemplate } from '../../../templates'
-import { TObjectTemplate } from '../../../types'
+import type { TObjectTemplate } from '../../../types'
 import {
   getCanOpenOrExpand,
   getExpandViewConfig,
@@ -71,8 +71,8 @@ export const ObjectStorageUncontainedTemplate = (props: TObjectTemplate) => {
       </ComplexAttributeTemplate.Header>
       <ComplexAttributeTemplate.Content
         id={`${namePath}-content`}
-        expanded={!!isExpanded}
-        canExpand={canExpand && referenceExists}
+        $expanded={!!isExpanded}
+        $canExpand={canExpand && referenceExists}
       >
         <ViewCreator
           idReference={address}

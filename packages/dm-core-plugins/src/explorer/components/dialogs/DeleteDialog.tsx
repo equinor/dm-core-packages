@@ -1,14 +1,14 @@
 import {
   Dialog,
-  ErrorResponse,
-  TreeNode,
+  type ErrorResponse,
+  type TreeNode,
   useApplication,
 } from '@development-framework/dm-core'
 import { Button, Progress } from '@equinor/eds-core-react'
-import { AxiosError } from 'axios'
+import type { AxiosError } from 'axios'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { EDialog } from '../../types'
+import type { EDialog } from '../../types'
 import {
   STANDARD_DIALOG_HEIGHT,
   STANDARD_DIALOG_WIDTH,

@@ -1,11 +1,11 @@
-import { AxiosError, AxiosResponse, isAxiosError } from 'axios'
+import { type AxiosError, type AxiosResponse, isAxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { useApplication } from '../../ApplicationContext'
 import { EBlueprint } from '../../Enums'
-import { ErrorResponse } from '../../services'
-import { TAttribute, TGenericObject, TLinkReference } from '../../types'
+import type { ErrorResponse } from '../../services'
+import type { TAttribute, TGenericObject, TLinkReference } from '../../types'
 import { resolveRelativeAddressSimplified } from '../../utils/addressUtilities'
-import { IUseListReturnType, TItem } from './types'
+import type { IUseListReturnType, TItem } from './types'
 import * as utils from './utils'
 
 export type { TItem }

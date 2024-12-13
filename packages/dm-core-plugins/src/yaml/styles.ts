@@ -10,7 +10,7 @@ export const ActionsWrapper = styled.div`
     right: 0;
 `
 
-export const ActionButton = styled.button<{ bg?: 'green' | 'yellow' }>`
+export const ActionButton = styled.button<{ $bg?: 'green' | 'yellow' }>`
     position: relative;
     width: 3rem;
     height: 3rem;
@@ -25,14 +25,14 @@ export const ActionButton = styled.button<{ bg?: 'green' | 'yellow' }>`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    ${({ bg }) =>
-      bg === 'green' &&
+    ${({ $bg }) =>
+      $bg === 'green' &&
       css`
         background: rgba(193, 231, 193, 1);
         color: rgba(19, 38, 52, 1);
     `}
-    ${({ bg }) =>
-      bg === 'yellow' &&
+    ${({ $bg }) =>
+      $bg === 'yellow' &&
       css`
         background: rgba(255, 218, 168, 1);
         color: rgba(19, 38, 52, 1);

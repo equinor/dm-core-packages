@@ -1,12 +1,12 @@
 import {
   EBlueprint,
   JobStatus,
-  TJob,
-  TRecurringJob,
-  TSchedule,
+  type TJob,
+  type TRecurringJob,
+  type TSchedule,
 } from '@development-framework/dm-core'
 import { DateTime } from 'luxon'
-import { EInterval, TCronValues } from './common'
+import { EInterval, type TCronValues } from './common'
 
 export const defaultCronValues = (): TCronValues => ({
   interval: EInterval.HOURLY,

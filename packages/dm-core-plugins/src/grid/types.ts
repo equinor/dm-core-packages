@@ -1,4 +1,4 @@
-import { TViewConfig } from '@development-framework/dm-core'
+import type { TViewConfig } from '@development-framework/dm-core'
 
 export type TGridSize = {
   columns: number

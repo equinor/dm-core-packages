@@ -1,15 +1,15 @@
 import {
-  TGenericObject,
-  TItem,
+  type TGenericObject,
+  type TItem,
   usePagination,
 } from '@development-framework/dm-core'
 import {
   Button,
+  Table as EDSTable,
   Icon,
   Progress,
-  Table as EDSTable,
 } from '@equinor/eds-core-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   AddRowButton,
   Pagination,
@@ -17,7 +17,7 @@ import {
   SortableItem,
   SortableList,
   Stack,
-  TTemplate,
+  type TTemplate,
   TemplateMenu,
 } from '../../common'
 import { ConditionalWrapper } from '../../utils/ConditionalWrapper'
@@ -27,10 +27,10 @@ import { TableRow } from './TableRow/TableRow'
 import { undo } from '@equinor/eds-icons'
 import { SkeletonRow } from './TableRow/SkeletonRow'
 import {
-  TTableConfig,
-  TTableSortDirection,
-  TTableVariant,
-  TableProps,
+  type TTableConfig,
+  type TTableSortDirection,
+  type TTableVariant,
+  type TableProps,
   TableVariantNameEnum,
 } from './types'
 import * as utils from './utils'
@@ -118,7 +118,7 @@ export function Table(props: TableProps) {
     let newSortColumn: string | undefined = column
     let newSortDirection: TTableSortDirection =
       column !== sortColumn ? 'ascending' : 'descending'
-    let newSortItems
+    let newSortItems: TItem<TGenericObject>[]
     if (sortDirection === 'descending' && column === sortColumn) {
       newSortDirection = 'ascending'
       newSortColumn = undefined

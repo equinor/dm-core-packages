@@ -2,7 +2,7 @@ import { Button, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
 import { chevron_right } from '@equinor/eds-icons'
 import styled from 'styled-components'
 import { EBlueprint } from '../../../Enums'
-import { TreeNode } from '../../../domain/Tree'
+import type { TreeNode } from '../../../domain/Tree'
 import { TypeIcon } from '../TypeIcon/TypeIcon'
 
 const StyledButton = styled(Button)`
@@ -43,7 +43,7 @@ export const TreeButton = (props: {
         data-testid={`tree-button_${node.name || node.nodeId}`}
         variant='ghost'
         color='secondary'
-        onClick={(e: MouseEvent) => {
+        onClick={(e) => {
           if (node.type !== 'error') onClick()
           e.stopPropagation() // Stop clicking on the <TreeButton> propagate to trigger any wrapper "onClicks"
         }}

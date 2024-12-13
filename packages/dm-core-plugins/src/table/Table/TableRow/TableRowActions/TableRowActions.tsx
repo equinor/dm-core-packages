@@ -2,7 +2,7 @@ import { Button, Icon, Menu, Table } from '@equinor/eds-core-react'
 import { more_vertical } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { DeleteSoftButton } from '../../../../common'
-import { TableRowActionsProps } from '../../types'
+import type { TableRowActionsProps } from '../../types'
 
 export function TableRowActions(props: TableRowActionsProps) {
   const { editMode, item, removeItem, disabled } = props

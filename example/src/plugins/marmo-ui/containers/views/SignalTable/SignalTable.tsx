@@ -9,9 +9,9 @@ import { chevron_left, chevron_right } from '@equinor/eds-icons'
 import { useState } from 'react'
 
 import {
-  IUIPlugin,
+  type IUIPlugin,
   Loading,
-  TGenericObject,
+  type TGenericObject,
   useDocument,
 } from '@development-framework/dm-core'
 import { PaginationWrapper, SectionWrapper } from './styles'
@@ -86,6 +86,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
           {rows
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row: any) => (
+              // biome-ignore lint/a11y/useSemanticElements: <explanation>
               <Table.Row role='checkbox' tabIndex={-1} key={row.index}>
                 {columns.map((column) => {
                   const value = row[column.id]
