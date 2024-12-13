@@ -141,7 +141,7 @@ describe('BooleanField', () => {
         const inputNode: Element | null =
           container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
-        const value = inputNode !== null ? inputNode.getAttribute('value') : ''
+        const value = inputNode !== null ? inputNode.getAttribute('checked') : ''
         expect(value).toBe('true')
         
       })
@@ -170,7 +170,7 @@ describe('BooleanField', () => {
         const inputNode: Element | null =
           container.querySelector(` input[id="foo"]`)
         expect(inputNode).toBeDefined()
-        const value = inputNode !== null ? inputNode.getAttribute('value') : ''
+        const value = inputNode !== null ? inputNode.getAttribute('checked') : ''
         expect(value).toBe('true')
         userEvent.click(screen.getByTestId('form-checkbox'))
         fireEvent.click(screen.getByTestId('form-submit'))
