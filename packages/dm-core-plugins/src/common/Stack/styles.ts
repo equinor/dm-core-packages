@@ -8,6 +8,7 @@ const props_to_pass: string[] = [
   'data-testid',
   'id',
   'className',
+  'role',
 ]
 
 export const StyledStack = styled('div').withConfig({
