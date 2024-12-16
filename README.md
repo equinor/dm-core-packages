@@ -5420,3 +5420,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 
+* fix: list test (2024-06-26T09:48:10Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/12357317655/1)
+    * **DMSS VERSION**: c62564a 2024-12-16 Stig Ofstad fix: invalidate BP cache on blueprint updates grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
