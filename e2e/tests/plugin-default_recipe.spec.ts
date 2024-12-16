@@ -22,10 +22,8 @@ test('TableList default DMSS UI Recipe', async ({ page }) => {
   await expect(page.getByRole('code')).toBeVisible()
   await page.getByRole('tab', { name: 'Edit' }).click()
   await page.getByLabel('Open in tab').click()
-  await page
-    .getByRole('row', { name: 'Volvo' })
-    .getByRole('button', { name: 'Expand item', exact: true })
-    .click()
+  await expect(page.getByTestId('expandListItem-0').last()).toBeVisible()
+  await page.getByTestId('expandListItem-0').last().click()
   await expect(page.getByRole('button', { name: 'Copy as YAML' })).toBeVisible()
   await page.getByRole('tab', { name: 'Edit' }).last().click()
   await expect(page.getByTestId('form-text-widget-Manufacturer')).toHaveValue(

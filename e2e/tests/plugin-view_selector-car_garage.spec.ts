@@ -11,7 +11,9 @@ test('View selector - car garage', async ({ page }) => {
     )
   })
 
-  await test.step('Collapse and expand sidebar', async () => {
+  // TODO: EDS ISSUE - Sidebar open state can't be controlled. Contact eds-team and wait for a solution or create own sidebar
+
+  /*   await test.step('Collapse and expand sidebar', async () => {
     await page.getByRole('tab', { name: 'Self' }).click()
     await page.getByRole('button', { name: 'Collapse sidebar' }).click()
     await expect(page.getByRole('tab', { name: 'Self' })).not.toBeVisible()
@@ -27,7 +29,7 @@ test('View selector - car garage', async ({ page }) => {
     await expect(page.getByRole('tab', { name: 'Self' })).toBeVisible()
     await expect(page.getByRole('tab', { name: 'Audi' })).toBeVisible()
     await expect(page.getByRole('tab', { name: 'Volvo' })).toBeVisible()
-  })
+  }) */
 
   await test.step('Open a car and verify that tabs opens within the car', async () => {
     await page.getByRole('tab', { name: 'Audi' }).click()

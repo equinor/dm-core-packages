@@ -38,24 +38,22 @@ test('Change to operator role and back', async ({ page }) => {
 
   await test.step('Edit option not visible through Explorer', async () => {
     await page.getByRole('menuitem', { name: 'Explorer' }).click()
-    await page
+    const demoDataSourceListItem = page
       .locator('li')
-      .filter({ hasText: /^data sourceDemoDataSource$/ })
-      .getByRole('button')
-      .click()
-    await page
+      .filter({ hasText: 'DemoDataSource' })
+      .last()
+    await demoDataSourceListItem.getByRole('button').click()
+    const pluginsListItem = demoDataSourceListItem
       .locator('li')
-      .filter({ hasText: /^root packageplugins$/ })
-      .getByRole('button')
-      .click()
-    await page
+      .filter({ hasText: 'plugins' })
+    await pluginsListItem.getByRole('button').click()
+    const headerListItem = pluginsListItem
       .locator('li')
-      .filter({ hasText: /^packageheader$/ })
-      .getByRole('button')
-      .click()
-    await page
+      .filter({ hasText: 'header' })
+    await headerListItem.getByRole('button').click()
+    await headerListItem
       .locator('li')
-      .filter({ hasText: /^packageroles_header_example$/ })
+      .filter({ hasText: 'roles_header_example' })
       .getByRole('button')
       .click()
     await page.getByRole('button', { name: 'file elonMusk' }).nth(1).click()
