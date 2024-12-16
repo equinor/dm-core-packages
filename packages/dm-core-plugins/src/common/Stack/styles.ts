@@ -5,7 +5,7 @@ import type { StackProps } from './types'
 const props_to_pass: string[] = [
   'children',
   'style',
-  'date-testid',
+  'data-testid',
   'id',
   'className',
 ]

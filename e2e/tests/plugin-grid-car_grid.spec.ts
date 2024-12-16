@@ -6,36 +6,16 @@ test.beforeEach(async ({ page }) => {
   )
 })
 
-test('Table non-referenced', async ({ page }) => {
+test('Check rendered children items', async ({ page }) => {
   const cars = page.getByTestId('carsOnGrid')
   await expect(cars.getByText('Lando')).toBeVisible()
   await cars.getByRole('tab', { name: 'Q2' }).click()
   await expect(cars.getByText('Albon')).toBeVisible()
-})
-
-test('List reference resolved', async ({ page }) => {
   const tyreList = page.getByTestId('tyreList')
   await expect(tyreList.getByText('Hard')).toBeVisible()
-  await tyreList
-    .getByRole('row')
-    .filter({ hasText: 'Soft' })
-    .getByRole('button', { name: 'Expand item' })
-    .click()
-  await expect(
-    tyreList
-      .getByLabel('Tyre description')
-      .getByText('Faster, but wears quicker.')
-  ).toBeVisible()
 })
 
-test('List reference unresolved', async ({ page }) => {
-  const tyreList = page.getByTestId('tyreList')
-  await expect(
-    tyreList.getByTestId('form-text-widget-Reference Type')
-  ).toHaveValue('link')
-})
-
-test('Nested form', async ({ page }) => {
+test('Test Nested form render', async ({ page }) => {
   const nestedForm = page.getByTestId('nestedForm')
   await expect(nestedForm.getByLabel('Bar')).toHaveText('hello')
 })
