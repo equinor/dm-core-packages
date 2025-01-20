@@ -1,0 +1,22 @@
+{
+  "name": "Numeric",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "data",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "dimensions": "*,*"
+    }
+  ]
+}
