@@ -1,0 +1,32 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/data_grid/numeric/blueprints/Numeric",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Numeric",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "Numeric",
+              "type": "CORE:UiRecipe",
+              "description": "Single multidimensional primitive",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/data_grid/DataGridPluginConfig",
+                "fieldNames": ["data"]
+              },
+              "plugin": "@development-framework/dm-core-plugins/data_grid"
+            },
+            "scope": "self"
+          }
+        }
+      ]
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
+  }
+}
