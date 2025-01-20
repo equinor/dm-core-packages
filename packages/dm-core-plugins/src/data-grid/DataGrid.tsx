@@ -1,5 +1,5 @@
 import { EdsProvider, Typography } from '@equinor/eds-core-react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Stack } from '../common'
 import { DataCell } from './DataCell/DataCell'
 import { DataGridActions } from './DataGridActions/DataGridActions'
@@ -15,74 +15,57 @@ import {
 import * as utils from './utils'
 
 export function DataGrid(props: DataGridProps) {
-  const {
-    data,
-    attributeType,
-    dimensions,
-    setData,
-    config: userConfig,
-    isDirty = false,
-  } = props
+  const { data, attributeType, dimensions, setData, config: userConfig } = props
   const config: DataGridConfig = { ...defaultConfig, ...userConfig }
-  const [columnLabels, setColumnLabels] = useState<string[]>([])
-  const [rowLabels, setRowLabels] = useState<string[]>([])
   const [selectedRow, setSelectedRow] = useState<number | undefined>(undefined)
   const [selectedColumn, setSelectedColumn] = useState<number | undefined>(
     undefined
   )
   const [paginationPage, setPaginationPage] = useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = useState(props.initialRowsPerPage || 25)
-
   const dataGridId: string = useMemo(() => crypto.randomUUID(), [])
-  const fillValue = utils.getFillValue(attributeType)
-  const paginatedRows = data.slice(
-    paginationPage * rowsPerPage,
-    paginationPage * rowsPerPage + rowsPerPage
+  const paginatedRows = useMemo(
+    () =>
+      data.slice(
+        paginationPage * rowsPerPage,
+        paginationPage * rowsPerPage + rowsPerPage
+      ),
+    [paginationPage, rowsPerPage, data]
   )
-  const functionality: TFunctionalityChecks = utils.getFunctionalityVariables(
-    config,
-    dimensions
+  const functionality: TFunctionalityChecks = useMemo(
+    () => utils.getFunctionalityVariables(config, dimensions),
+    [config, dimensions]
   )
+  const columns = functionality.isMultiDimensional ? data[0] : [0]
 
-  const updateColumnLabels = useCallback(
-    (length: number) => {
-      const updatedLabels = utils.createLabels(config.columnLabels, length)
-      setColumnLabels(updatedLabels)
-    },
-    [config]
-  )
-
-  const updateRowLabels = useCallback(
-    (length: number) => {
-      const updatedLabels = utils.createLabels(config.rowLabels, length)
-      setRowLabels(updatedLabels)
-    },
-    [config]
-  )
-
-  useEffect(() => {
-    // use isDirty to see if data has been reset from the outside, meaning we have to rerender mount function
-    if (!isDirty) {
-      const columnsLength = functionality.isMultiDimensional
-        ? functionality.columnDimensions === '*'
-          ? data.length > 0
-            ? data[0].length
-            : 0
-          : Number.parseInt(functionality.columnDimensions, 10)
-        : ['1']
-      updateColumnLabels(columnsLength)
-      updateRowLabels(data?.length)
-    }
-  }, [isDirty])
+  const [
+    columnLabels,
+    useIndexForColumnLabels,
+    rowLabels,
+    useIndexForRowLabels,
+  ] = useMemo(() => {
+    const [createdColumnLabels, useIndexForColumnLabels] = utils.createLabels(
+      config.columnLabels
+    )
+    const [createdRowLabels, useIndexForRowLabels] = utils.createLabels(
+      config.rowLabels
+    )
+    return [
+      createdColumnLabels,
+      useIndexForColumnLabels,
+      createdRowLabels,
+      useIndexForRowLabels,
+    ]
+  }, [config.columnLabels, config.rowLabels])
 
   function addRow(newIndex?: number) {
+    const fillValue = utils.getFillValue(attributeType)
     const newRow =
-      columnLabels.length > 1
-        ? Array.from({ length: columnLabels.length }).fill(fillValue)
+      typeof data[0] !== 'string'
+        ? Array.from({ length: columns.length }).fill(fillValue)
         : fillValue
     const dataCopy = [...data]
     dataCopy.splice(newIndex || data.length, 0, newRow)
-    updateRowLabels(data.length + 1)
     setData(dataCopy)
   }
 
@@ -96,7 +79,8 @@ export function DataGrid(props: DataGridProps) {
   }
 
   function clearTable() {
-    setData([])
+    const fill = utils.getFillValue(attributeType)
+    setData(functionality.isMultiDimensional ? [[fill]] : [fill])
     setSelectedRow(undefined)
     setSelectedColumn(undefined)
     setPaginationPage(0)
@@ -119,7 +103,6 @@ export function DataGrid(props: DataGridProps) {
       return item
     })
     setData(updatedData)
-    updateColumnLabels(columnLabels.length + 1)
     setSelectedColumn(newIndex)
   }
 
@@ -128,7 +111,6 @@ export function DataGrid(props: DataGridProps) {
       item.splice(index, 1)
       return item
     })
-    updateColumnLabels(columnLabels.length - 1)
     setData(updatedData)
     setSelectedColumn(undefined)
   }
@@ -144,15 +126,19 @@ export function DataGrid(props: DataGridProps) {
           {config.showColumns && (
             <Styled.Head>
               <Styled.Row>
-                {config.showRows && <th style={{ width: '2rem' }}>#</th>}
-                {columnLabels.map((column, index) => (
+                {config.showRows && <th style={{ width: '2rem' }}></th>}
+                {columns?.map((_: string, index: number) => (
                   <HeaderCell
                     key={`${dataGridId}_header_${index}`}
                     add={addColumn}
                     editable={functionality.columnsAreEditable}
                     delete={deleteColumn}
                     index={index}
-                    label={column}
+                    label={
+                      useIndexForColumnLabels
+                        ? String(index + 1)
+                        : columnLabels[index]
+                    }
                     selected={selectedColumn}
                     setSelected={setSelectedColumn}
                     type='column'
@@ -171,7 +157,11 @@ export function DataGrid(props: DataGridProps) {
                       add={addRow}
                       delete={deleteRow}
                       index={calculatedIndex}
-                      label={rowLabels[calculatedIndex]}
+                      label={
+                        useIndexForRowLabels
+                          ? String(calculatedIndex + 1)
+                          : rowLabels[calculatedIndex]
+                      }
                       editable={functionality.rowsAreEditable}
                       selected={selectedRow}
                       setSelected={setSelectedRow}
@@ -228,8 +218,6 @@ export function DataGrid(props: DataGridProps) {
           rowLabels={rowLabels}
           selectedRow={selectedRow}
           setData={setData}
-          updateColumnLabels={updateColumnLabels}
-          updateRowLabels={updateRowLabels}
           clearTable={clearTable}
         />
         <DataGridPagination

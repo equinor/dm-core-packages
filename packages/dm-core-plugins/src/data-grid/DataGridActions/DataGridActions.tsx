@@ -23,7 +23,11 @@ import { useState } from 'react'
 import { Stack } from '../../common'
 import { createSyntheticFileDownload } from '../../utils'
 import * as Styled from '../styles'
-import type { DataGridConfig, TFunctionalityChecks } from '../types'
+import {
+  type DataGridConfig,
+  PredefinedLabel,
+  type TFunctionalityChecks,
+} from '../types'
 import { DataGridImportDialog } from './DataGridImportDialog/DataGridImportDialog'
 
 type DataGridActionsProps = {
@@ -40,8 +44,6 @@ type DataGridActionsProps = {
   rowLabels: string[]
   selectedRow: number | undefined
   setData: (data: any[]) => void
-  updateColumnLabels: (length: number) => void
-  updateRowLabels: (length: number) => void
   clearTable: () => void
 }
 
@@ -66,20 +68,48 @@ export function DataGridActions(props: DataGridActionsProps) {
   const [menuButtonAnchor, setMenuButtonAnchor] =
     useState<HTMLButtonElement | null>(null)
 
+  function createLabels(type: 'columns' | 'rows') {
+    let dataLength = type === 'rows' ? data?.length : 1
+    if (type === 'columns' && functionality.isMultiDimensional) {
+      dataLength = data[0]?.length
+    }
+    const labelConfig =
+      type === 'columns' ? config.columnLabels : config.rowLabels
+    const labels = type === 'columns' ? columnLabels : rowLabels
+    const labelsToCopy = labelConfig.includes(PredefinedLabel.NUMERIC)
+      ? Array.from({ length: dataLength }, (_, i) => `${i + 1}`)
+      : labels.slice(0, dataLength)
+    return labelsToCopy
+  }
+
   function mapData(separator: string) {
     let dataCopy = window.structuredClone(data)
-    const columnLabelsCopy = [...columnLabels]
-    if (includeRowLabels) {
-      dataCopy.map((item, index) => item.unshift(rowLabels[index]))
+
+    if (includeColumnLabels || includeRowLabels) {
+      const columnLabels = createLabels('columns')
+      const rowLabels = createLabels('rows')
+      if (functionality.isMultiDimensional) {
+        if (includeColumnLabels) {
+          dataCopy.unshift(columnLabels) // add column labels
+        }
+        if (includeRowLabels) {
+          if (includeColumnLabels) rowLabels.unshift('') // add an empty labels if column labels are also included
+          dataCopy.map((data, index) => data.unshift(rowLabels[index])) // add row labels
+        }
+      } else {
+        if (includeColumnLabels) dataCopy.unshift(columnLabels)
+        if (includeRowLabels) {
+          if (includeColumnLabels) rowLabels.unshift('') // add an empty labels if column labels are also included
+          // add row labels before data primitive
+          dataCopy = dataCopy.map(
+            (data, index) => `${rowLabels[index]}${separator} ${data}`
+          )
+        }
+      }
     }
+
     if (functionality.isMultiDimensional) {
       dataCopy = dataCopy?.map((line: any[]) => line.join(separator))
-    }
-    if (includeColumnLabels) {
-      if (includeRowLabels) {
-        columnLabelsCopy.unshift('')
-      }
-      dataCopy.unshift(columnLabelsCopy?.join(separator))
     }
     return dataCopy.join('\n')
   }
@@ -107,7 +137,7 @@ export function DataGridActions(props: DataGridActionsProps) {
 
   return (
     <Stack direction='row'>
-      {functionality.addButtonIsEnabled && (
+      {functionality.addButtonIsEnabled && functionality.rowsAreEditable && (
         <Tooltip title='Add row'>
           <Styled.ActionRowButton
             aria-label='Add data row'
@@ -121,20 +151,25 @@ export function DataGridActions(props: DataGridActionsProps) {
         <>
           {functionality.rowsAreEditable && (
             <Tooltip title='Delete selected row'>
-              <Styled.ActionRowButton onClick={props.deleteRow}>
+              <Styled.ActionRowButton
+                aria-label='Delete selected row'
+                onClick={props.deleteRow}
+              >
                 <Icon size={16} data={minimize} />
               </Styled.ActionRowButton>
             </Tooltip>
           )}
-          {functionality.isSortEnabled && (
+          {functionality.isSortRowsEnabled && (
             <>
               <Styled.ActionRowButton
+                aria-label='Move selected row up'
                 onClick={() => moveRow('up')}
                 disabled={selectedRow === 0}
               >
                 <Icon size={16} data={chevron_up} />
               </Styled.ActionRowButton>
               <Styled.ActionRowButton
+                aria-label='Move selected row down'
                 onClick={() => moveRow('down')}
                 disabled={selectedRow === props.data?.length - 1}
               >
@@ -146,6 +181,7 @@ export function DataGridActions(props: DataGridActionsProps) {
       )}
       <Tooltip title='Import and Export'>
         <Styled.ActionRowButton
+          aria-label='Open table actions menu'
           aria-haspopup
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen(true)}
@@ -156,7 +192,10 @@ export function DataGridActions(props: DataGridActionsProps) {
       </Tooltip>
       {functionality.rowsAreEditable && functionality.addButtonIsEnabled && (
         <Tooltip title='Clear table content'>
-          <Styled.ActionRowButton onClick={clearTable}>
+          <Styled.ActionRowButton
+            aria-label='Clear table content'
+            onClick={clearTable}
+          >
             <Icon size={16} data={delete_to_trash} />
           </Styled.ActionRowButton>
         </Tooltip>
@@ -183,8 +222,6 @@ export function DataGridActions(props: DataGridActionsProps) {
         dimensions={props.dimensions}
         open={isImportDialogOpen}
         setData={props.setData}
-        updateColumnLabels={props.updateColumnLabels}
-        updateRowLabels={props.updateRowLabels}
       />
       <Dialog
         isDismissable

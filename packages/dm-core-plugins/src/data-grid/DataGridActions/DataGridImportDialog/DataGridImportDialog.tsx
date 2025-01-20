@@ -11,14 +11,7 @@ import type { DataGridImportDialogProps } from './types'
 import { checkAndParseToAttributeType, checkDimensions } from './utils'
 
 export function DataGridImportDialog(props: DataGridImportDialogProps) {
-  const {
-    dimensions,
-    attributeType,
-    setData,
-    data,
-    updateColumnLabels,
-    updateRowLabels,
-  } = props
+  const { dimensions, attributeType, setData, data } = props
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<string[]>([])
   const [successfullyPasted, setSuccessfullyPasted] = useState<boolean>(false)
@@ -56,10 +49,6 @@ export function DataGridImportDialog(props: DataGridImportDialogProps) {
         ? [...data, ...parsedData]
         : parsedData
 
-    if (isMultiDimensional) {
-      updateColumnLabels(updatedData[0].length)
-    }
-    updateRowLabels(updatedData.length)
     setData(updatedData)
     setIsLoading(false)
     setSuccessfullyPasted(true)
@@ -69,7 +58,10 @@ export function DataGridImportDialog(props: DataGridImportDialogProps) {
     event.preventDefault()
     setIsLoading(true)
     const value = event.clipboardData.getData('text')
-    const parsedValue = value?.split('\n').map((t: string) => t.split('\t'))
+    const parsedValue = value
+      ?.replace('\r', '')
+      .split('\n')
+      .map((t: string) => t.split('\t'))
     handleUpload(parsedValue)
   }
 
@@ -81,7 +73,8 @@ export function DataGridImportDialog(props: DataGridImportDialogProps) {
       const text = readerEvent.target?.result
       const separators = new RegExp(/;|\t/)
       const parsedValue = String(text)
-        ?.split('\n')
+        ?.replace('\r', '')
+        .split('\n')
         .map((t: string) => t.split(separators))
       handleUpload(parsedValue)
     }

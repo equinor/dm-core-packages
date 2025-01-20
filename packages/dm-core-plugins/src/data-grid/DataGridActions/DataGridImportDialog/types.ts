@@ -5,6 +5,4 @@ export type DataGridImportDialogProps = {
   closeModal: () => void
   open: boolean
   setData: (data: any[]) => void
-  updateColumnLabels: (length: number) => void
-  updateRowLabels: (length: number) => void
 }

@@ -8,11 +8,16 @@ import {
 } from '@development-framework/dm-core'
 import { Button, Icon, Tooltip } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
+import { toast } from 'react-toastify'
 import { Stack } from '../common'
 import { DataGrid } from './DataGrid'
 import { type DataGridConfig, defaultConfig } from './types'
-import { getFunctionalityVariables, reverseData } from './utils'
+import {
+  getCalculatedDimensions,
+  parseDataBeforeSave,
+  reverseData,
+} from './utils'
 
 export function DataGridPlugin(props: IUIPlugin) {
   const { idReference, config: userConfig, type, onChange } = props
@@ -24,28 +29,21 @@ export function DataGridPlugin(props: IUIPlugin) {
   const [isDirty, setIsDirty] = useState<boolean>(false)
   const { blueprint } = useBlueprint(type)
   const { document, isLoading } = useDocument<TGenericObject>(idReference, 1)
-  const { fieldNames, rowsPerPage } = config
+  const { fieldNames } = config
   const multiplePrimitives = fieldNames?.length > 1
-  const attribute = blueprint?.attributes?.find(
-    (atts: TAttribute) => atts.name === fieldNames[0]
+  const attribute: TAttribute = useMemo(
+    () =>
+      blueprint?.attributes?.find(
+        (attr: TAttribute) => attr.name === fieldNames[0]
+      ),
+    [blueprint, fieldNames]
+  )
+  const dimensions = useMemo(
+    () => getCalculatedDimensions(config, attribute),
+    [config, attribute]
   )
 
-  function getColumnsLength(data: any[]) {
-    const dimensions = multiplePrimitives
-      ? `*,${fieldNames.length}`
-      : attribute?.dimensions
-    const functionality = getFunctionalityVariables(config, dimensions)
-    const columnLength = functionality.isMultiDimensional
-      ? functionality.columnDimensions === '*'
-        ? data.length > 0
-          ? data[0].length
-          : 0
-        : Number.parseInt(functionality.columnDimensions, 10)
-      : 1
-    return columnLength
-  }
-
-  useEffect(() => {
+  useMemo(() => {
     if (isLoading || !document) return
     let modifiedData = document?.[fieldNames[0]] || []
     if (multiplePrimitives) {
@@ -54,7 +52,7 @@ export function DataGridPlugin(props: IUIPlugin) {
       modifiedData = mergedData
     }
     if (config.printDirection === 'vertical') {
-      modifiedData = reverseData(modifiedData, getColumnsLength(modifiedData))
+      modifiedData = reverseData(modifiedData, dimensions)
     }
     setData(modifiedData)
     setInitialData(window.structuredClone(modifiedData))
@@ -65,39 +63,21 @@ export function DataGridPlugin(props: IUIPlugin) {
     setIsDirty(true)
   }
 
-  function revertChanges() {
-    setData(window.structuredClone(initialData))
-    setIsDirty(false)
-  }
-
-  function parseDataBeforeSave() {
-    let modifiedData = data
-    if (config.printDirection === 'vertical') {
-      modifiedData = reverseData(data || [], getColumnsLength(data || []))
-    }
-    let dataToSave = { [fieldNames[0]]: modifiedData }
-    if (multiplePrimitives && data?.length) {
-      dataToSave = Object.fromEntries(
-        (modifiedData || []).map((value, index) => [fieldNames[index], value])
-      )
-    }
-    return dataToSave
-  }
-
   function updateForm() {
-    if (onChange) onChange(parseDataBeforeSave())
+    if (onChange) onChange(parseDataBeforeSave(data, config, dimensions))
     setIsDirty(false)
   }
 
   async function saveDocument() {
     setLoading(true)
     try {
-      const dataToSave = parseDataBeforeSave()
+      const dataToSave = parseDataBeforeSave(data, config, dimensions)
       const payload = { ...document, ...dataToSave }
       await dmssAPI.documentUpdate({
         idAddress: idReference,
         data: JSON.stringify(payload),
       })
+      toast.success('Updated document!')
       setInitialData(window.structuredClone(data))
       setIsDirty(false)
     } catch (error) {
@@ -109,30 +89,16 @@ export function DataGridPlugin(props: IUIPlugin) {
     }
   }
 
-  function getDimensions() {
-    if (multiplePrimitives) {
-      return config.printDirection === 'vertical'
-        ? `${fieldNames.length},*`
-        : `*,${fieldNames.length}`
-    }
-    if (config.printDirection === 'vertical') {
-      const reversed = attribute?.dimensions.split('').reverse().join('')
-      return reversed
-    }
-    return attribute?.dimensions
-  }
-
   return !data ? null : (
     <div className='dm-plugin-padding'>
       <Stack fullWidth alignItems='flex-start' spacing={1} scrollX>
         <DataGrid
           attributeType={attribute?.attributeType || 'string'}
-          config={userConfig}
+          config={config}
           data={data || []}
           description={document?.description}
-          dimensions={getDimensions()}
-          isDirty={isDirty}
-          initialRowsPerPage={rowsPerPage}
+          dimensions={dimensions}
+          initialRowsPerPage={config.rowsPerPage}
           name={blueprint?.name}
           setData={onDataChange}
           title={document?.title}
@@ -141,7 +107,10 @@ export function DataGridPlugin(props: IUIPlugin) {
           <Stack direction='row' spacing={1}>
             <Tooltip title={isDirty ? 'Undo changes' : ''}>
               <Button
-                onClick={revertChanges}
+                onClick={() => {
+                  setData(window.structuredClone(initialData))
+                  setIsDirty(false)
+                }}
                 disabled={!isDirty}
                 variant='outlined'
                 style={{ overflow: 'hidden' }}
