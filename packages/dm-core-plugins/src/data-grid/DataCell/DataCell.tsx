@@ -27,6 +27,13 @@ export function DataCell(props: DataCellProps) {
           ? '-'
           : Number.parseFloat(value)
     }
+    if (attributeType === 'integer') {
+      return value === ''
+        ? undefined
+        : value === '-'
+          ? '-'
+          : Number.parseInt(value, 10)
+    }
     if (attributeType === 'boolean') {
       return checked
     }
@@ -62,7 +69,11 @@ export function DataCell(props: DataCellProps) {
           onChange={(event) => updateValue(event, rowIndex, cellIndex)}
           attributeType={attributeType}
           readOnly={!config.editable}
-          type={attributeType === 'number' ? 'number' : 'text'}
+          type={
+            attributeType === 'number' || attributeType === 'integer'
+              ? 'number'
+              : 'text'
+          }
         />
       )}
     </Styled.Cell>

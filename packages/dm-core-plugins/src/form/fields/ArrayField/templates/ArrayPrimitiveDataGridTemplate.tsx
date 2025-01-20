@@ -117,7 +117,7 @@ export const ArrayPrimitiveDatagridTemplate = (
         <DataGrid
           data={value}
           attributeType={attribute.attributeType}
-          dimensions={attribute?.dimensions}
+          dimensions={attribute?.dimensions || '*'}
           setData={onChange}
         />
       )}

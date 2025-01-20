@@ -1,57 +1,77 @@
-import type {
-  DataGridConfig,
-  PredefinedLabels,
-  TFunctionalityChecks,
+import type { TAttribute } from '@development-framework/dm-core'
+import {
+  type DataGridConfig,
+  PredefinedLabel,
+  type TFunctionalityChecks,
 } from './types'
 
-const predefinedLabels: PredefinedLabels[] = ['...ABC', '...ZYX', '...123']
-
-function getPredefinedLabels(type: PredefinedLabels, length: number) {
-  if (type === '...ABC') {
-    const labels_ABC = Array.from({ length }, (_, i) =>
-      String.fromCharCode(i + 65)
-    )
-    return labels_ABC
+export function getCalculatedDimensions(
+  config: DataGridConfig,
+  attribute: TAttribute
+): string {
+  const { fieldNames, printDirection } = config
+  // If multi primitive (more than one data field)
+  if (fieldNames?.length > 1) {
+    return printDirection === 'vertical' ? `${fieldNames.length},*` : `*,*`
   }
-  if (type === '...ZYX') {
-    const labels_ZYX = Array.from({ length }, (_, i) =>
-      String.fromCharCode(90 - i)
-    )
-    return labels_ZYX
+  // If switched around
+  if (printDirection === 'vertical') {
+    const reversed = (attribute?.dimensions || '*,*')
+      ?.split('')
+      .reverse()
+      .join('')
+    return reversed
   }
-  if (type === '...123') {
-    const labels_123 = Array.from({ length }, (_, i) => `${i + 1}`)
-    return labels_123
-  }
-  return []
+  return attribute?.dimensions || '*,*'
 }
 
-export function createLabels(labels: string[], length: number): string[] {
-  const predefinedColumns = labels.filter((label) =>
-    predefinedLabels.includes(label as PredefinedLabels)
+export function parseDataBeforeSave(
+  data: any[] | undefined,
+  config: DataGridConfig,
+  dimensions: string
+) {
+  const { fieldNames } = config
+  const multiplePrimitives = fieldNames?.length > 1
+  let modifiedData = data
+  if (config.printDirection === 'vertical') {
+    modifiedData = reverseData(data || [], dimensions)
+  }
+  let dataToSave = { [fieldNames[0]]: modifiedData }
+  if (multiplePrimitives && data?.length) {
+    dataToSave = Object.fromEntries(
+      (modifiedData || []).map((value, index) => [fieldNames[index], value])
+    )
+  }
+  return dataToSave
+}
+
+const getPredefinedLabels = (type: PredefinedLabel) =>
+  Array.from({ length: 26 }, (_, i) =>
+    String.fromCharCode(type === PredefinedLabel.ABC ? i + 65 : 90 - i)
   )
-  if (predefinedColumns?.length > 0) {
-    const predefinedLabelsNeeded =
-      length - (labels?.length - predefinedColumns?.length)
-    let mappedLabels: string[] = []
-    labels.forEach((label) => {
-      if (predefinedLabels.includes(label as PredefinedLabels)) {
-        const createdLabels = getPredefinedLabels(
-          label as PredefinedLabels,
-          predefinedLabelsNeeded
-        )
-        mappedLabels = [...mappedLabels, ...createdLabels]
-      } else {
-        mappedLabels.push(label)
-      }
-    })
-    return mappedLabels as string[]
-  }
-  return labels
-}
 
-export const createArrayFromNumber = (number: number) =>
-  Array.from({ length: number }, (_, i) => i + 1)
+/**
+ * createLabels: Generate labels based on config
+ * @param labels: labels from config
+ * @returns labels: string[]
+ * @returns use index for numeric labels: boolean
+ */
+export function createLabels(labels: string[]): [string[], boolean] {
+  const predefinedLabels: PredefinedLabel[] = Object.values(PredefinedLabel)
+  const predefinedLabelUsage = labels.findIndex((label) =>
+    predefinedLabels.includes(label as PredefinedLabel)
+  )
+  if (labels[predefinedLabelUsage] === PredefinedLabel.NUMERIC) {
+    return [[], true]
+  }
+  if (predefinedLabelUsage !== -1) {
+    const createdLabels = getPredefinedLabels(
+      labels[predefinedLabelUsage] as PredefinedLabel
+    )
+    return [createdLabels, false]
+  }
+  return [labels, false]
+}
 
 export function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
   const arrayCopy = [...arr]
@@ -62,11 +82,14 @@ export function arrayMove(arr: any[], fromIndex: number, toIndex: number) {
 }
 
 export const getFillValue = (type: string) =>
-  type === 'boolean' ? false : type === 'number' ? 0 : ''
+  type === 'boolean' ? false : type === 'number' || type === 'integer' ? 0 : ''
 
-export function reverseData(dataArray: string[][], columnsLength: number) {
+export function reverseData(dataArray: string[][], dimensions: string) {
   const reversedData: any[] = []
-  for (let index = 0; index < columnsLength; index++) {
+  const dataLength = dimensions.includes(',')
+    ? dataArray[0]?.length
+    : dataArray?.length
+  for (let index = 0; index < dataLength; index++) {
     const values = dataArray.map((item) => item[index])
     reversedData.push(values)
   }
@@ -75,40 +98,30 @@ export function reverseData(dataArray: string[][], columnsLength: number) {
 
 export function getFunctionalityVariables(
   config: DataGridConfig,
-  dimensions: string | undefined
+  dimensions: string
 ): TFunctionalityChecks {
-  const {
-    editable,
-    adjustableColumns,
-    adjustableRows,
-    fieldNames,
-    printDirection,
-  } = config
+  const { editable, adjustableColumns, adjustableRows } = config
 
-  const [columnDimensions, rowDimensions] = dimensions?.split(',') || ['*', '*']
-  const isMultiPrimitive = fieldNames.length > 1
+  const [columnDimensions, rowDimensions] = dimensions.split(',')
   const isMultiDimensional: boolean = dimensions?.includes(',') || false
-  const isSortEnabled =
-    !isMultiPrimitive &&
-    config.adjustableRows &&
-    columnDimensions === '*' &&
-    config.editable &&
-    config.movableRows
+  const actualRowDimensions = isMultiDimensional
+    ? rowDimensions
+    : columnDimensions
+  const hasMultipleDataFields = config.fieldNames.length > 1
+  const isSortRowsEnabled =
+    rowDimensions === '*' && config.adjustableRows && config.editable
   const rowsAreEditable =
-    editable && adjustableRows && isMultiDimensional
-      ? rowDimensions === '*'
-      : columnDimensions === '*'
+    editable &&
+    adjustableRows &&
+    actualRowDimensions === '*' &&
+    !(hasMultipleDataFields && config.printDirection === 'horizontal')
+
   const columnsAreEditable =
     editable &&
     adjustableColumns &&
     columnDimensions === '*' &&
     isMultiDimensional
-  const addButtonIsEnabled = config.editable
-    ? (isMultiPrimitive && printDirection === 'vertical') ||
-      (rowsAreEditable && printDirection === 'horizontal') ||
-      (columnsAreEditable && printDirection === 'vertical') ||
-      (!isMultiDimensional && columnDimensions === '*')
-    : false
+  const addButtonIsEnabled = config.editable && rowsAreEditable
 
   return {
     rowsAreEditable,
@@ -116,6 +129,6 @@ export function getFunctionalityVariables(
     addButtonIsEnabled,
     isMultiDimensional,
     columnDimensions,
-    isSortEnabled,
+    isSortRowsEnabled,
   }
 }

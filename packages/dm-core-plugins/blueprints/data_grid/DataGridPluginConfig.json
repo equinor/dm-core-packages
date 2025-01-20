@@ -52,7 +52,7 @@
     {
       "name": "columnLabels",
       "type": "CORE:BlueprintAttribute",
-      "description": "Define column labels or use predefined columns. Predefined values are ABC, ZYX, 123 and you can select those by using the spread operator ['...ABC']. You can also merge the two like this: ['custom field', 'custom field2', '...ABC']",
+      "description": "Define column labels or use predefined columns. Predefined values are ABC, ZYX, 123 and you can select those by using the spread operator ['...ABC'].",
       "attributeType": "string",
       "default": ["...ABC"],
       "dimensions": "*",
@@ -73,16 +73,9 @@
       "optional": true
     },
     {
-      "name": "movableRows",
-      "type": "CORE:BlueprintAttribute",
-      "attributeType": "boolean",
-      "default": true,
-      "optional": true
-    },
-    {
       "name": "rowLabels",
       "type": "CORE:BlueprintAttribute",
-      "description": "Define row labels or use predefined rows. Predefined values are ABC, ZYX, 123and you can select those by using the spread operator ['...ABC']. You can also merge the two like this: ['custom field', 'custom field2', '...ABC']",
+      "description": "Define row labels or use predefined rows. Predefined values are ABC, ZYX, 123and you can select those by using the spread operator ['...ABC'].",
       "attributeType": "string",
       "default": ["...123"],
       "dimensions": "*",

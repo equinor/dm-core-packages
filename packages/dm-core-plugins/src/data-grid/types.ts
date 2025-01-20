@@ -1,3 +1,9 @@
+export enum PredefinedLabel {
+  ABC = '...ABC',
+  ZYX = '...ZYX',
+  NUMERIC = '...123',
+}
+
 export type DataGridConfig = {
   title: string
   description: string
@@ -9,7 +15,6 @@ export type DataGridConfig = {
   showRows: boolean
   adjustableRows: boolean
   rowLabels: string[]
-  movableRows: boolean
   printDirection: 'horizontal' | 'vertical'
   rowsPerPage: number
   hidePaginationIfLessThan: number
@@ -22,11 +27,10 @@ export const defaultConfig: DataGridConfig = {
   editable: true,
   showColumns: true,
   adjustableColumns: true,
-  columnLabels: ['...ABC'],
+  columnLabels: [PredefinedLabel.ABC],
   showRows: true,
   adjustableRows: true,
-  rowLabels: ['...123'],
-  movableRows: true,
+  rowLabels: [PredefinedLabel.NUMERIC],
   printDirection: 'horizontal',
   rowsPerPage: 25,
   hidePaginationIfLessThan: 0,
@@ -37,8 +41,7 @@ export type DataGridProps = {
   config?: DataGridConfig
   data: any[]
   description?: string
-  dimensions?: string
-  isDirty?: boolean
+  dimensions: string
   initialRowsPerPage?: number
   name?: string
   setData: (data: any[]) => void
@@ -50,8 +53,6 @@ export type TFunctionalityChecks = {
   columnDimensions: string
   columnsAreEditable: boolean
   isMultiDimensional: boolean
-  isSortEnabled: boolean
+  isSortRowsEnabled: boolean
   rowsAreEditable: boolean
 }
-
-export type PredefinedLabels = '...ABC' | '...ZYX' | '...123'
