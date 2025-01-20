@@ -9,6 +9,7 @@ export type StackPluginConfig = {
   maxWidth: string
   wrap: boolean
   classNames: string[]
+  itemMaxWidths: string[]
 }
 
 export const defaultConfig: StackPluginConfig = {
@@ -20,4 +21,5 @@ export const defaultConfig: StackPluginConfig = {
   maxWidth: 'none',
   wrap: false,
   classNames: [],
+  itemMaxWidths: [],
 }

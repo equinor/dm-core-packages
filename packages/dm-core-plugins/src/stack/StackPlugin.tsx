@@ -7,7 +7,7 @@ export const StackPlugin = (props: IUIPlugin) => {
   const config: StackPluginConfig = { ...defaultConfig, ...props.config }
 
   // map plugin language to stack props/css language
-  const configMap: { [name: string]: string } = {
+  const configMap: Record<string, string> = {
     vertical: 'column',
     horizontal: 'row',
     horizontalPlacement:
@@ -38,13 +38,20 @@ export const StackPlugin = (props: IUIPlugin) => {
       className={`dm-plugin-padding dm-parent-plugin ${config.classNames}`}
     >
       {config.items?.map((item, index) => (
-        <ViewCreator
+        <Stack
           key={`${item.recipe}_${index}`}
-          idReference={idReference}
-          viewConfig={item}
-          onSubmit={props.onSubmit}
-          onChange={props.onChange}
-        />
+          grow={1}
+          minHeight={0}
+          fullWidth
+          style={{ maxWidth: config.itemMaxWidths?.[index] || 'none' }}
+        >
+          <ViewCreator
+            idReference={idReference}
+            viewConfig={item}
+            onSubmit={props.onSubmit}
+            onChange={props.onChange}
+          />
+        </Stack>
       ))}
     </Stack>
   )
