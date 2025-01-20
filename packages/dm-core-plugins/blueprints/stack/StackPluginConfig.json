@@ -15,6 +15,14 @@
       "dimensions": "*"
     },
     {
+      "name": "itemMaxWidths",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Pass array maxWidths of child items. Matches based on index. Use 'none' for empty slots.",
+      "attributeType": "string",
+      "dimensions": "*",
+      "optional": true
+    },
+    {
       "name": "direction",
       "type": "CORE:BlueprintAttribute",
       "description": "horizontal or vertical",
