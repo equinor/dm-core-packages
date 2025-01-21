@@ -5440,3 +5440,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: c62564a 2024-12-16 Stig Ofstad fix: invalidate BP cache on blueprint updates grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
+* chore: release main (2025-01-21T14:15:08Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/12889847690/1)
+    * **DMSS VERSION**: bd5c25a 2025-01-21 Andre..erhus Merge pull request #862 from equinor/refactor/use-poetry-v2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
