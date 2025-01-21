@@ -60,6 +60,34 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.58.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.57.0...dm-core-plugins-v1.58.0) (2025-01-21)
+
+
+### Features
+
+* add itemMaxWidths attribute ([169d7c5](https://github.com/equinor/dm-core-packages/commit/169d7c58e9919ba1fc436434a480a077f69e88e3))
+
+
+### Bug Fixes
+
+* checkbox default value test ([7e8294a](https://github.com/equinor/dm-core-packages/commit/7e8294afdf5a95b60f55d20aae85df2666b2961d))
+* checked not testable html attribute ([752763c](https://github.com/equinor/dm-core-packages/commit/752763c11031e872f880e5a6937c7051a8fb07ba))
+* list test ([8d3c2bc](https://github.com/equinor/dm-core-packages/commit/8d3c2bc5a78305879b8262e18a19d877e1ef769c))
+* tests ([2fafe9b](https://github.com/equinor/dm-core-packages/commit/2fafe9bf57e782a984b8ed6d4dbee42fefff4eb8))
+* various datagrid bugs ([a303161](https://github.com/equinor/dm-core-packages/commit/a303161891b87a98d3e5f51c49c3f0bd6fe7646e))
+
+
+### Code Refactoring
+
+* linting and package update fixes ([ac6a6d4](https://github.com/equinor/dm-core-packages/commit/ac6a6d4bfaa7defec261731628c8e4ad486e3137))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.46.0 to ^1.46.1
+
 ## [1.57.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.56.0...dm-core-plugins-v1.57.0) (2024-06-26)
 
 

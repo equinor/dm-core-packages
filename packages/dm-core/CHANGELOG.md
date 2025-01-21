@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.46.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.0...dm-core-v1.46.1) (2025-01-21)
+
+
+### Bug Fixes
+
+* jest import ([1f57ff6](https://github.com/equinor/dm-core-packages/commit/1f57ff648d94212fea688ae32208f3848025d7ef))
+
+
+### Code Refactoring
+
+* linting and package update fixes ([ac6a6d4](https://github.com/equinor/dm-core-packages/commit/ac6a6d4bfaa7defec261731628c8e4ad486e3137))
+* update packages ([c102e64](https://github.com/equinor/dm-core-packages/commit/c102e6407678982bfebf338c3644de9a6ed38494))
+
 ## [1.46.0](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.45.1...dm-core-v1.46.0) (2024-06-19)
 
 
