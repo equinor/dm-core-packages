@@ -1,46 +1,28 @@
-import { Button, Icon, Popover, Typography } from '@equinor/eds-core-react'
-import { download, external_link, info_circle } from '@equinor/eds-icons'
+import { Button, Icon, Typography } from '@equinor/eds-core-react'
+import { download, info_circle } from '@equinor/eds-icons'
 import { type ReactElement, useRef, useState } from 'react'
-
-import { tokens } from '@equinor/eds-tokens'
-import { DateTime } from 'luxon'
-import { createPortal } from 'react-dom'
-import styled from 'styled-components'
 import { Stack } from '../../common'
-import { createSyntheticFileDownload, formatBytes } from '../../utils'
-import { MetaItem } from './MetaItem/MetaItem'
-import { MediaWrapper, MetaPopoverButton } from './styles'
+import { MediaContentPopover } from './MediaContentPopover/MediaContentPopover'
+import { MediaWrapper, MetaPopoverButton, NoPreviewMessage } from './styles'
 import type { MediaContentProps } from './types'
-import { isViewableInBrowser } from './utils'
-
-const NoPreviewMessage = styled(Stack)`
-  border: 1px solid ${tokens.colors.interactive.primary__resting.rgba};
-  background: ${tokens.colors.interactive.primary__hover_alt.rgba};
-`
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
-  const { blobUrl, getBlobUrl, meta, config } = props
+  const { blobUrl, downloadFile, meta, config } = props
   const [showInfoPopover, setShowInfoPopover] = useState(false)
   const referenceElement = useRef<HTMLButtonElement>(null)
 
-  async function downloadFile() {
-    const url = blobUrl || (await getBlobUrl())
-    createSyntheticFileDownload(url, `${meta.title}.${meta.filetype}`)
-  }
-
   function renderMediaElement() {
     if (meta.contentType?.includes('image')) {
-      return (
+      return blobUrl ? (
         <img
           src={blobUrl}
           alt={meta.title}
           style={{
-            maxWidth: config.width ?? '100%',
             width: '100%',
-            height: config.height ?? 'auto',
+            height: 'auto',
           }}
         />
-      )
+      ) : null
     } else if (meta.contentType?.includes('video')) {
       return (
         // biome-ignore lint/a11y/useMediaCaption: No captions for example video
@@ -49,9 +31,8 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           controls
           autoPlay={false}
           style={{
-            width: config.width ?? '100% ',
-            height: config.height ?? 'auto',
-            maxWidth: 'unset',
+            width: '100% ',
+            height: 'auto',
           }}
         />
       )
@@ -64,7 +45,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           style={{ width: '100%', height: '100%' }}
           height={config.height}
           width={config.width}
-          data-testid='embeded-document'
+          data-testid='embedded-document'
         />
       )
     } else {
@@ -98,95 +79,32 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   }
 
   return (
-    <>
-      <MediaWrapper $height={config.height} $width={config.width}>
-        {!(meta.filetype === 'pfd') &&
-          (config.showMeta || config.showDescription) && (
-            <MetaPopoverButton
-              onClick={() => setShowInfoPopover(!showInfoPopover)}
-              variant='ghost_icon'
-              aria-haspopup
-              aria-expanded={showInfoPopover}
-              ref={referenceElement}
-            >
-              <Icon data={info_circle} title='view meta info' />
-            </MetaPopoverButton>
-          )}
-        {renderMediaElement()}
-      </MediaWrapper>
-      {(config.showMeta || config.showDescription) &&
-        createPortal(
-          <Popover
-            open={showInfoPopover}
-            anchorEl={referenceElement.current}
-            onClose={() => setShowInfoPopover(false)}
-            style={{
-              overflow: 'auto',
-              maxWidth: '100vw',
-            }}
+    <MediaWrapper
+      $height={config.height}
+      $width={config.width}
+      $fill={config.fill}
+    >
+      {!(meta.filetype === 'pfd') &&
+        (config.showMeta || config.showDescription) && (
+          <MetaPopoverButton
+            onClick={() => setShowInfoPopover(!showInfoPopover)}
+            variant='ghost_icon'
+            aria-haspopup
+            aria-expanded={showInfoPopover}
+            ref={referenceElement}
           >
-            <Popover.Header>
-              <Popover.Title>{config.caption ?? meta?.title}</Popover.Title>
-            </Popover.Header>
-            <Popover.Content>
-              <Stack spacing={0.5} fullWidth style={{ minWidth: 280 }}>
-                {config.showDescription && config.description && (
-                  <p style={{ maxWidth: '320px' }}>{config.description}</p>
-                )}
-                {config.showMeta && (
-                  <Stack spacing={0.25} fullWidth>
-                    <MetaItem
-                      title='File name'
-                      value={`${meta.title}.${meta.filetype}`}
-                    />
-                    <MetaItem title='Author' value={meta.author} />
-                    <MetaItem title='Filetype' value={meta.filetype} />
-                    <MetaItem
-                      title='File size'
-                      value={formatBytes(meta.fileSize)}
-                    />
-                    <MetaItem
-                      title='Date'
-                      value={DateTime.fromISO(
-                        meta.date.replace(' ', 'T')
-                      ).toFormat('dd/MM/yyyy HH:mm')}
-                    />
-                  </Stack>
-                )}
-              </Stack>
-            </Popover.Content>
-            <Popover.Actions>
-              <Stack
-                direction='row'
-                spacing={0.25}
-                fullWidth
-                justifyContent='center'
-              >
-                {isViewableInBrowser(meta.contentType) && (
-                  <Button
-                    variant='ghost'
-                    as='a'
-                    href={blobUrl}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <Icon size={16} data={external_link} />
-                    New tab
-                  </Button>
-                )}
-                <Button
-                  download={`${meta.title}.${meta.filetype}`}
-                  href={blobUrl}
-                  variant='ghost'
-                >
-                  <Icon size={16} data={download} />
-                  Download
-                </Button>
-              </Stack>
-            </Popover.Actions>
-          </Popover>,
-          document.body
+            <Icon data={info_circle} title='view meta info' />
+          </MetaPopoverButton>
         )}
-    </>
+      {renderMediaElement()}
+      <MediaContentPopover
+        isOpen={showInfoPopover}
+        onClose={() => setShowInfoPopover(false)}
+        config={config}
+        meta={meta}
+        blobUrl={blobUrl}
+        popoverButtonRef={referenceElement}
+      />
+    </MediaWrapper>
   )
 }
