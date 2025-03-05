@@ -1,9 +1,7 @@
 import type { TOnOpen } from '@development-framework/dm-core'
-import { Button, Icon, SideBar } from '@equinor/eds-core-react'
+import { SideBar } from '@equinor/eds-core-react'
 import * as EdsIcons from '@equinor/eds-icons'
-import * as React from 'react'
-import { breakpoints } from '../responsive_grid/types'
-import { CustomToggle } from './styles'
+import { useState } from 'react'
 import type { TItemData, TViewSelectorItem } from './types'
 
 export const Sidebar = (props: {
@@ -11,12 +9,14 @@ export const Sidebar = (props: {
   setSelectedViewId: (k: string) => void
   viewSelectorItems: TItemData[]
   addView: TOnOpen
-}): React.ReactElement => {
+}) => {
   const { selectedViewId, setSelectedViewId, viewSelectorItems, addView } =
     props
-  const [isOpen, setIsOpen] = React.useState<boolean>(true)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
-  React.useEffect(() => {
+  /*
+   NOTE: CONTROLLED SIDEBAR NOT WORKING FOR NOW, CONSIDER CREATING ISSUE IN EDS 
+   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < breakpoints?.md) {
         setIsOpen(false)
@@ -27,7 +27,7 @@ export const Sidebar = (props: {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [])
+  }, []) */
 
   return (
     <SideBar open={isOpen} onToggle={(state) => setIsOpen(state as boolean)}>
@@ -113,16 +113,19 @@ export const Sidebar = (props: {
         })}
       </SideBar.Content>
       <SideBar.Footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <CustomToggle $expanded={isOpen}>
-          <Button
-            aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
-            onClick={() => setIsOpen(!isOpen)}
-            variant='ghost_icon'
-            color='secondary'
-          >
-            <Icon data={EdsIcons.expand} />
-          </Button>
-        </CustomToggle>
+        <SideBar.Toggle />
+        {/*  
+          NOTE: CONTROLLED SIDEBAR NOT WORKING FOR NOW, CONSIDER CREATING ISSUE IN EDS
+          <CustomToggle $expanded={isOpen}>
+            <Button
+              aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+              onClick={() => setIsOpen(!isOpen)}
+              variant='ghost_icon'
+              color='secondary'
+            >
+              <Icon data={EdsIcons.expand} />
+            </Button>
+        </CustomToggle> */}
       </SideBar.Footer>
     </SideBar>
   )
