@@ -74,7 +74,9 @@ export function TableRow(props: TableRowProps) {
     newValue: string | number | boolean,
     attributeType: string
   ) {
-    if (attributeType === 'number') newValue = Number(newValue)
+    if (attributeType === 'number' || attributeType === 'integer') {
+      newValue = Number(newValue)
+    }
     setItems(utils.updateItemAttribute(items, item.key, attribute, newValue))
     setDirtyState(true)
   }
