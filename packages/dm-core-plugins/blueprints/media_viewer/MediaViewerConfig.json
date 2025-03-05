@@ -20,6 +20,13 @@
       "optional": true
     },
     {
+      "name": "fill",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Choose between 'width', 'height' or 'both'",
+      "optional": true
+    },
+    {
       "name": "showMeta",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",

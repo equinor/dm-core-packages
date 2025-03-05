@@ -1,16 +1,9 @@
-export interface MediaContentConfig {
-  height?: number
-  width?: number
-  showMeta?: boolean
-  showDescription?: boolean
-  caption?: string
-  description?: string
-}
+import type { MediaViewerPluginConfig } from '../MediaViewerPlugin.types'
 
 export interface MediaContentProps {
   blobUrl: string | undefined
-  getBlobUrl: () => Promise<string>
-  config: MediaContentConfig
+  downloadFile: () => void
+  config: MediaViewerPluginConfig
   meta: {
     author: string
     fileSize: number
