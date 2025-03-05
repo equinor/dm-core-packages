@@ -24,7 +24,7 @@ jobs:
       dmss_version: ${{ steps.capture_dmss_version.outputs.dmss_version }}
       job_version: ${{ steps.capture_job_version.outputs.job_version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
@@ -35,7 +35,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-npm
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -121,7 +121,7 @@ jobs:
         working-directory: example/
 
       - name: Cache e2e dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache-e2e
         env:
           cache-name: cache-e2e-deps-modules
@@ -148,7 +148,7 @@ jobs:
           npx playwright test
         working-directory: e2e/
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
@@ -159,7 +159,7 @@ jobs:
         if: failure()
         run: docker logs example_dmss_1
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
