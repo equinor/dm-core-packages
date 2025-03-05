@@ -1,0 +1,9 @@
+{
+  "name": "mediaViewerPDF",
+  "type": "./MediaViewer",
+  "file": {
+    "type": "dmss://system/SIMOS/Reference",
+    "address": "./assets/engine_compartment",
+    "referenceType": "link"
+  }
+}
