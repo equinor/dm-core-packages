@@ -1,6 +1,6 @@
 {
   "name": "@development-framework/dm-core",
-  "version": "1.46.1",
+  "version": "1.46.2",
   "license": "MIT",
   "peerDependencies": {
     "@types/react": "^18.2.20",
@@ -42,7 +42,11 @@
     "ts-loader": "^9.5.1",
     "typescript": "^5.7.2"
   },
-  "files": ["dist", "src", "tsconfig.json"],
+  "files": [
+    "dist",
+    "src",
+    "tsconfig.json"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
