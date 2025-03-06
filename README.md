@@ -5445,3 +5445,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: bd5c25a 2025-01-21 Andre..erhus Merge pull request #862 from equinor/refactor/use-poetry-v2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
+* chore: update action versions (2025-02-05T14:00:04Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/13695695248/1)
+    * **DMSS VERSION**: ee29485 2025-01-21 Andre..erhus Merge pull request #863 from equinor/release-please--branches--master--components--@development-framework/data-modelling-storage-service grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
