@@ -29,7 +29,7 @@ test('Media viewer', async ({ page }) => {
 
   await test.step('pdf', async () => {
     await page.getByRole('button', { name: 'engine_compartment' }).click()
-    await expect(page.getByTestId('embeded-document')).toBeVisible()
+    await expect(page.getByTestId('embedded-document')).toBeVisible()
   })
 
   await test.step('bin', async () => {
