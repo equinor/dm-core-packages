@@ -6,6 +6,28 @@
     {
       "name": "label",
       "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "If label is not submitted, text will default to url",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "target",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Default html syntax. Choose between '_blank' (new tab/window), '_self' (default), '_parent', '_top' or name of iframe.",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "download",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Pass 'true' to make file download on link click",
+      "attributeType": "boolean",
+      "optional": true
+    },
+    {
+      "name": "customDownloadFilename",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "description": "Custom filename for when file downloads. Assumes download attribute is set to 'true'",
       "attributeType": "string",
       "optional": true
     }
