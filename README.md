@@ -5450,3 +5450,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: ee29485 2025-01-21 Andre..erhus Merge pull request #863 from equinor/release-please--branches--master--components--@development-framework/data-modelling-storage-service grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
+* fix: parse integers as numbers on edit cell (2025-03-10T19:11:08Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/13772850342/1)
+    * **DMSS VERSION**: 181a28e 2025-03-06 githu..[bot] chore(master): release 1.28.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
