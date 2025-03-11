@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.46.2](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.1...dm-core-v1.46.2) (2025-03-11)
+
+
+### Bug Fixes
+
+* lint ([bc13c10](https://github.com/equinor/dm-core-packages/commit/bc13c10f32175b321049492d3986035895b54b44))
+
 ## [1.46.1](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.0...dm-core-v1.46.1) (2025-01-21)
 
 
