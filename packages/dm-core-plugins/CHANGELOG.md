@@ -60,6 +60,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.59.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.59.0...dm-core-plugins-v1.59.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* pre-commit lint issue ([a59550a](https://github.com/equinor/dm-core-packages/commit/a59550abdf78e199fe61e0b45ea7c2a6f7c5d50f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.46.2 to ^1.46.3
+
 ## [1.59.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.58.0...dm-core-plugins-v1.59.0) (2025-03-11)
 
 
