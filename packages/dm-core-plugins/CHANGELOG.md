@@ -60,6 +60,28 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.59.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.58.0...dm-core-plugins-v1.59.0) (2025-03-11)
+
+
+### Features
+
+* expanded config for hyperlinkwidget ([b79889b](https://github.com/equinor/dm-core-packages/commit/b79889b2826c1f6bf9a43846a93cf2751fd076ac))
+
+
+### Bug Fixes
+
+* lint ([bc13c10](https://github.com/equinor/dm-core-packages/commit/bc13c10f32175b321049492d3986035895b54b44))
+* make media viewer respect style config ([d0077b9](https://github.com/equinor/dm-core-packages/commit/d0077b9aae1cfae1d75d6eac8ee800957c989cca))
+* parse integers as numbers on edit cell ([54d400d](https://github.com/equinor/dm-core-packages/commit/54d400db3e2676a9a6580c2a2bacca2af2e6274d))
+* use default eds sidebar toggle ([3be66b7](https://github.com/equinor/dm-core-packages/commit/3be66b7f1ea1c2c58571be35ed76e54eccbc0921))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.46.1 to ^1.46.2
+
 ## [1.58.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.57.0...dm-core-plugins-v1.58.0) (2025-01-21)
 
 
