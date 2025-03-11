@@ -50,10 +50,7 @@
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.13"
   },
-  "files": [
-    "blueprints",
-    "dist"
-  ],
+  "files": ["blueprints", "dist"],
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",
