@@ -5455,3 +5455,8 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 181a28e 2025-03-06 githu..[bot] chore(master): release 1.28.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
+* feat: expanded config for hyperlinkwidget (2025-03-10T19:11:20Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/13786795490/3)
+    * **DMSS VERSION**: 181a28e 2025-03-06 githu..[bot] chore(master): release 1.28.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
