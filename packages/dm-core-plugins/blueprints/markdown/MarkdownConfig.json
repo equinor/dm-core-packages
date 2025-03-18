@@ -1,0 +1,11 @@
+{
+  "name": "MarkdownConfig",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    }
+  ]
+}
