@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.46.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.3...dm-core-v1.46.4) (2025-03-18)
+
+
+### Miscellaneous Chores
+
+* run pre-commit ([30aa935](https://github.com/equinor/dm-core-packages/commit/30aa9352fbf81f6d42a453e77af7e8d57286f1e1))
+
 ## [1.46.3](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.2...dm-core-v1.46.3) (2025-03-11)
 
 
