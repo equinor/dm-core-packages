@@ -1,0 +1,9 @@
+{
+  "name": "MarkdownExample",
+  "type": "./Markdown",
+  "file": {
+    "type": "dmss://system/SIMOS/Reference",
+    "address": "./assets/content",
+    "referenceType": "link"
+  }
+}
