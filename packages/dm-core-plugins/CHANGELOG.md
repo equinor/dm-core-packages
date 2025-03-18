@@ -60,6 +60,20 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.60.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.59.1...dm-core-plugins-v1.60.0) (2025-03-18)
+
+
+### Features
+
+* add markdown plugin ([848bb7d](https://github.com/equinor/dm-core-packages/commit/848bb7d6f87693698bc7425c98d03966666f9c75))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.46.3 to ^1.46.4
+
 ## [1.59.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.59.0...dm-core-plugins-v1.59.1) (2025-03-11)
 
 

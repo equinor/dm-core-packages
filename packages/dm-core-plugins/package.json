@@ -1,13 +1,13 @@
 {
   "name": "@development-framework/dm-core-plugins",
   "license": "MIT",
-  "version": "1.59.1",
+  "version": "1.60.0",
   "main": "dist/index.js",
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
-    "@development-framework/dm-core": "^1.46.3",
+    "@development-framework/dm-core": "^1.46.4",
     "@equinor/eds-core-react": "^0.42.5",
     "@equinor/eds-icons": "^0.21.0",
     "@equinor/eds-tokens": "^0.9.2",
@@ -52,7 +52,10 @@
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.13"
   },
-  "files": ["blueprints", "dist"],
+  "files": [
+    "blueprints",
+    "dist"
+  ],
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",
