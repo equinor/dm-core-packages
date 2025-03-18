@@ -18,7 +18,9 @@
     "luxon": "^3.5.0",
     "mermaid": "^11.4.1",
     "react-hook-form": "^7.54.0",
+    "react-markdown": "^10.1.0",
     "react-toastify": "^10.0.6",
+    "remark-gfm": "^4.0.1",
     "ts-node": "^10.9.2",
     "yaml": "^2.6.1"
   },
@@ -50,10 +52,7 @@
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.13"
   },
-  "files": [
-    "blueprints",
-    "dist"
-  ],
+  "files": ["blueprints", "dist"],
   "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "shx rm -rf dist",

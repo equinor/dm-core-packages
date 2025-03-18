@@ -143,6 +143,13 @@ export default {
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/markdown': {
+    component: lazy(() =>
+      import('./markdown/MarkdownPlugin').then((module) => ({
+        default: module.MarkdownPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/meta': {
     component: lazy(() =>
       import('./meta/MetaPlugin').then((module) => ({
