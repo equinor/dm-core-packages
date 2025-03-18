@@ -1,0 +1,22 @@
+{
+  "name": "Markdown",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "file",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:File",
+      "contained": false
+    }
+  ]
+}

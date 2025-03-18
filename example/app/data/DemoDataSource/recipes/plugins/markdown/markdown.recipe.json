@@ -1,0 +1,22 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/markdown/Markdown",
+  "initialUiRecipe": {
+    "name": "SingleView",
+    "type": "CORE:UiRecipe",
+    "config": {
+      "type": "CORE:InlineRecipeViewConfig",
+      "recipe": {
+        "name": "Markdown",
+        "type": "CORE:UiRecipe",
+        "description": "Markdown example",
+        "config": {
+          "type": "PLUGINS:dm-core-plugins/markdown/MarkdownConfig"
+        },
+        "plugin": "@development-framework/dm-core-plugins/markdown"
+      },
+      "scope": "file"
+    },
+    "plugin": "@development-framework/dm-core-plugins/single_view"
+  }
+}
