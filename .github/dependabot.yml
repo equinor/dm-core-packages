@@ -1,0 +1,66 @@
+version: 2
+updates:
+  # npm dependencies (yarn workspaces — single root entry covers all packages)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 20
+    labels:
+      - "dependencies"
+    groups:
+      equinor-eds:
+        patterns:
+          - "@equinor/eds-*"
+      testing:
+        patterns:
+          - "@testing-library/*"
+          - "jest*"
+          - "@types/jest"
+      types:
+        patterns:
+          - "@types/*"
+        exclude-patterns:
+          - "@types/jest"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # Docker — root
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "docker"
+
+  # Docker — example app
+  - package-ecosystem: "docker"
+    directory: "/example"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "docker"
+
+  # Docker — signal-app-azure-container-job
+  - package-ecosystem: "docker"
+    directory: "/example/job_handlers/signal-app-azure-container-job"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "docker"
