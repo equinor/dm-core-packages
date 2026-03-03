@@ -240,19 +240,24 @@ export const EntityPickerDialog = (
                     return <>{props.children}</>
 
                   if (multiple)
-                    return CheckSelectNode({
-                      ...props,
-                      typeFilter,
-                      selectedNodeIds: selectedNodes.map((n) => n.address),
-                      onSelect: (node: TreeNode, selected: boolean) =>
-                        handleSelect(node, selected),
-                    })
+                    return (
+                      <CheckSelectNode
+                        {...props}
+                        typeFilter={typeFilter}
+                        selectedNodeIds={selectedNodes.map((n) => n.address)}
+                        onSelect={(node: TreeNode, selected: boolean) =>
+                          handleSelect(node, selected)
+                        }
+                      />
+                    )
 
-                  return ButtonSelectNode({
-                    ...props,
-                    typeFilter,
-                    onSelect: (node: TreeNode) => handleSelect(node, true),
-                  })
+                  return (
+                    <ButtonSelectNode
+                      {...props}
+                      typeFilter={typeFilter}
+                      onSelect={(node: TreeNode) => handleSelect(node, true)}
+                    />
+                  )
                 }}
               />
             </Stack>

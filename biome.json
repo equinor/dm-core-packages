@@ -8,7 +8,7 @@
   "files": {
     "includes": [
       "**",
-      "!**/packages/dm-core/src/services/api/configs/**",
+      "!**/packages/dm-core/src/services/api/configs",
       "!**/*.config.js",
       "!**/*.config.base.js",
       "!**/*.test.tsx"

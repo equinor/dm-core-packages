@@ -15,7 +15,7 @@ export const EntityPickerDropdown = (props: {
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <Select
         onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-          onChange({ ...searchResult[Number.parseInt(e.target.value)] })
+          onChange({ ...searchResult[Number.parseInt(e.target.value, 10)] })
         }
         value={searchResult.findIndex(
           (resultEntry: any) => resultEntry._id === formData._id
