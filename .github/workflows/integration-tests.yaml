@@ -148,7 +148,7 @@ jobs:
           npx playwright test
         working-directory: e2e/
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: test-results
@@ -160,7 +160,7 @@ jobs:
         run: docker compose logs dmss
         working-directory: example/
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report
