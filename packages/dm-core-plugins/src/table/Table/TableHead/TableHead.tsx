@@ -2,9 +2,9 @@ import { Button, Icon, Menu, Table } from '@equinor/eds-core-react'
 import { arrow_down, arrow_up, more_vertical } from '@equinor/eds-icons'
 import { useState } from 'react'
 import {
-  type TTableColumnConfig,
   type TableHeadProps,
   TableVariantNameEnum,
+  type TTableColumnConfig,
 } from '../types'
 import { SortCell } from './styles'
 

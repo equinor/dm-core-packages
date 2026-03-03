@@ -1,5 +1,5 @@
-default_stages: [ pre-commit ]
-default_install_hook_types: [ pre-commit, commit-msg ]
+default_stages: [pre-commit]
+default_install_hook_types: [pre-commit, commit-msg]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -16,14 +16,14 @@ repos:
         exclude: ^.*\.(lock)$||^docs\/
       - id: detect-private-key
       - id: no-commit-to-branch
-        args: [ --branch, main ]
-        stages: [ commit-msg ]
+        args: [--branch, main]
+        stages: [commit-msg]
 
   - repo: https://github.com/biomejs/pre-commit
-    rev: "v0.1.0"
+    rev: "v2.4.5"
     hooks:
       - id: biome-check
-        additional_dependencies: [ "@biomejs/biome@1.9.4" ]
+        additional_dependencies: ["@biomejs/biome@2.4.5"]
 
   - repo: local
     hooks:
@@ -31,18 +31,16 @@ repos:
         name: Run typecheck on dm-core
         language: system
         pass_filenames: false
-        entry: bash -c "cd packages/dm-core && tsc"
+        entry: bash -c "docker exec dm-core-dev yarn workspace @development-framework/dm-core run tsc"
 
       - id: type_check_plugins
         name: Run typecheck on dm-core-plugins
         language: system
         pass_filenames: false
-        entry: bash -c "cd packages/dm-core-plugins && tsc --noEmit"
+        entry: bash -c "docker exec dm-core-dev yarn workspace @development-framework/dm-core-plugins run tsc --noEmit"
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.3.0
     hooks:
       - id: conventional-pre-commit
-        stages: [ commit-msg ]
-
-
+        stages: [commit-msg]

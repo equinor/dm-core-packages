@@ -1,6 +1,5 @@
-import { Suspense, memo, useState } from 'react'
-
 import { Typography } from '@equinor/eds-core-react'
+import { memo, Suspense, useState } from 'react'
 import { useRecipe } from '../hooks'
 import { Stack } from '../layout'
 import type { IUIPlugin, TUiRecipe } from '../types'

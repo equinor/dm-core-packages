@@ -1,4 +1,4 @@
-import { TextField } from '@equinor/eds-core-react'
+import { Textarea, TextField } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 
 const props_to_remove = ['isDirty', 'config', 'tooltip', 'enumType']
@@ -32,8 +32,30 @@ export const StyledInputField = styled(TextField).withConfig({
   }
 
   /* Firefox */
-  input[type=number] {
+  input[type="number"] {
     appearance: textfield;
     -moz-appearance: textfield;
+  }
+`
+
+export const StyledTextareaField = styled(Textarea).withConfig({
+  shouldForwardProp: (propName) => !props_to_remove.includes(propName),
+})<{ $background: string }>`
+  & :disabled {
+    background: #f7f7f7;
+    color: black;
+  }
+
+  div {
+    border-radius: 2px;
+  }
+
+  textarea {
+    padding: 8px;
+    background: ${({ $background }) => $background};
+  }
+
+  span {
+    color: #6f6f6f;
   }
 `

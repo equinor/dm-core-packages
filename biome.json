@@ -1,14 +1,17 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.5/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "files": {
-    "ignore": [
-      "packages/dm-core/src/services/api/configs/**",
-      "*.config.js",
-      "*.config.base.js",
-      "*.test.tsx",
-      "dist",
-      "node_modules",
-      "build"
+    "includes": [
+      "**",
+      "!**/packages/dm-core/src/services/api/configs",
+      "!**/*.config.js",
+      "!**/*.config.base.js",
+      "!**/*.test.tsx"
     ]
   },
   "javascript": {
@@ -28,13 +31,7 @@
     }
   },
   "linter": {
-    "ignore": [
-      "build",
-      "coverage",
-      "node_modules",
-      "dist",
-      ".release-please-manifest.json"
-    ],
+    "includes": ["!**/coverage", "!**/.release-please-manifest.json"],
     "enabled": true,
     "rules": {
       "recommended": true,
@@ -43,15 +40,21 @@
         "noArrayIndexKey": "off",
         "noAssignInExpressions": "off",
         "useIsArray": "off",
-        "useValidTypeof": "off"
+        "noTsIgnore": "off",
+        "useIterableCallbackReturn": "off"
       },
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "off",
+        "useValidTypeof": "off",
+        "noUnusedVariables": "off",
+        "noUnusedFunctionParameters": "off",
+        "noUnusedImports": "off"
       },
       "complexity": {
         "noForEach": "off",
         "useLiteralKeys": "off",
-        "useOptionalChain": "off"
+        "useOptionalChain": "off",
+        "noUselessFragments": "off"
       },
       "style": {
         "noInferrableTypes": "off",
@@ -66,10 +69,13 @@
         "noDangerouslySetInnerHtml": "off"
       },
       "performance": {
-        "noDelete": "off"
+        "noDelete": "off",
+        "noDynamicNamespaceImportAccess": "off"
       },
       "a11y": {
-        "useKeyWithClickEvents": "off"
+        "useKeyWithClickEvents": "off",
+        "useSemanticElements": "off",
+        "noStaticElementInteractions": "off"
       }
     }
   }

@@ -5,7 +5,13 @@ import {
   type TBlueprint,
   useDocument,
 } from '@development-framework/dm-core'
-import { Button, Icon, TextField, Typography } from '@equinor/eds-core-react'
+import {
+  Button,
+  Icon,
+  Textarea,
+  TextField,
+  Typography,
+} from '@equinor/eds-core-react'
 import { save, undo } from '@equinor/eds-icons'
 import { isEqual } from 'lodash'
 import { type ChangeEvent, useEffect, useMemo, useState } from 'react'
@@ -78,11 +84,10 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
           <Typography as='label' htmlFor='blueprint-description' bold={true}>
             Description
           </Typography>
-          <TextField
+          <Textarea
             id='blueprint-description'
             value={formData?.description || ''}
-            multiline
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
               setFormData({ ...formData, description: event.target.value })
             }
           />

@@ -1,7 +1,7 @@
 import {
   type ErrorResponse,
-  type TGenericObject,
   splitAddress,
+  type TGenericObject,
   useApplication,
 } from '@development-framework/dm-core'
 import { Button, Label } from '@equinor/eds-core-react'

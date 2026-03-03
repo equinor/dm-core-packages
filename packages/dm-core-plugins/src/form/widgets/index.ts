@@ -8,8 +8,8 @@ import HyperlinkWidget from './HyperlinkWidget'
 import NumberWidget from './NumberWidget'
 import SelectWidget from './SelectWidget'
 import SwitchWidget from './SwitchWidget'
-import TextWidget from './TextWidget'
 import TextareaWidget from './TextareaWidget'
+import TextWidget from './TextWidget'
 import TypeWidget from './TypeWidget'
 
 const widgets: TWidgets = {

@@ -1,7 +1,7 @@
 import {
-  ViewCreator,
   resolveRelativeAddress,
   splitAddress,
+  ViewCreator,
 } from '@development-framework/dm-core'
 import { link } from '@equinor/eds-icons'
 import { useState } from 'react'
@@ -95,11 +95,13 @@ export const ObjectModelUncontainedTemplate = (
         $expanded={!!isExpanded}
         $canExpand={!!canExpand}
       >
-        <ViewCreator
-          idReference={address ?? ''}
-          onOpen={onOpen}
-          viewConfig={getExpandViewConfig(uiAttribute)}
-        />
+        {address && (
+          <ViewCreator
+            idReference={address}
+            onOpen={onOpen}
+            viewConfig={getExpandViewConfig(uiAttribute)}
+          />
+        )}
       </ComplexAttributeTemplate.Content>
     </ComplexAttributeTemplate>
   )

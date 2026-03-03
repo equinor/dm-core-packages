@@ -2,14 +2,14 @@ import {
   EntityPickerDialog,
   type IUIPlugin,
   Loading,
+  resolveRelativeAddressSimplified,
   type TEntityPickerReturn,
   type TGenericObject,
   type TItem,
   type TViewConfig,
-  ViewCreator,
-  resolveRelativeAddressSimplified,
   useList,
   usePagination,
+  ViewCreator,
 } from '@development-framework/dm-core'
 import {
   Button,
@@ -27,8 +27,8 @@ import {
   LazyLoad,
   Pagination,
   Stack,
-  type TTemplate,
   TemplateMenu,
+  type TTemplate,
 } from '../common'
 import { FormButton, ListChevronButton, NewListItemButton } from './Components'
 
@@ -212,14 +212,14 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             hideInvalidTypes={internalConfig.hideInvalidTypes}
           />
         )}
-        {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+        {/* biome-ignore lint/a11y/useSemanticElements: role needed for table semantics */}
         <Stack role='rowgroup' style={{ minWidth: 'max-content' }}>
           {currentItems &&
             currentItems.map((item: TItem<TGenericObject>, index: number) => (
               <Stack key={item?.key}>
                 <Stack
                   direction='row'
-                  // biome-ignore lint/a11y/useSemanticElements: <explanation>
+                  // biome-ignore lint/a11y/useSemanticElements: role needed for table row semantics
                   role='row'
                   justifyContent='space-between'
                   alignItems='center'

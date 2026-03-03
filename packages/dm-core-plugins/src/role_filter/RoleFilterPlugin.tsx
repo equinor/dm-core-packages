@@ -1,7 +1,7 @@
 import {
   type IUIPlugin,
-  ViewCreator,
   useApplication,
+  ViewCreator,
 } from '@development-framework/dm-core'
 import { Banner, Icon } from '@equinor/eds-core-react'
 import { thumbs_down } from '@equinor/eds-icons'

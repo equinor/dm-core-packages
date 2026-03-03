@@ -17,15 +17,15 @@ import { type ReactElement, useEffect, useState } from 'react'
 import { Stack } from '../Stack/Stack'
 import {
   CALENDAR_MONTHS,
-  type DateSelection,
-  THIS_MONTH,
-  THIS_YEAR,
   calendar,
+  type DateSelection,
   getNextMonth,
   getPreviousMonth,
   isDateInDatelist,
   isSameDay,
   isSameMonth,
+  THIS_MONTH,
+  THIS_YEAR,
 } from './calendarUtils'
 import { OptionsGrid, StyledOptionButton } from './styles'
 
@@ -136,7 +136,7 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                 <StyledOptionButton
                   key={month}
                   variant='ghost'
-                  // biome-ignore lint/a11y/useSemanticElements:
+                  // biome-ignore lint/a11y/useSemanticElements: role needed for radio behavior
                   role='radio'
                   aria-checked={index + 1 === activeMonth}
                   selected={index + 1 === activeMonth}

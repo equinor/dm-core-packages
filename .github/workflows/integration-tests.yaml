@@ -5,13 +5,13 @@ on:
   workflow_call:
     outputs:
       dm_cli_version:
-        description: 'DM CLI version used in test'
+        description: "DM CLI version used in test"
         value: ${{ jobs.integration-tests.outputs.dm_cli_version }}
       dmss_version:
-        description: 'DMSS version used in test'
+        description: "DMSS version used in test"
         value: ${{ jobs.integration-tests.outputs.dmss_version }}
       job_version:
-        description: 'Job version used in test'
+        description: "Job version used in test"
         value: ${{ jobs.integration-tests.outputs.job_version }}
 
 jobs:
@@ -99,7 +99,7 @@ jobs:
 
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dm-cli package
         run: |

@@ -1,8 +1,13 @@
-import { Icon, type TextFieldProps, Tooltip } from '@equinor/eds-core-react'
+import {
+  Icon,
+  type TextareaProps,
+  type TextFieldProps,
+  Tooltip,
+} from '@equinor/eds-core-react'
 import { info_circle } from '@equinor/eds-icons'
 import { tokens } from '@equinor/eds-tokens'
 import { Stack } from '../../../common'
-import { StyledInputField } from './styles'
+import { StyledInputField, StyledTextareaField } from './styles'
 
 type StyledTextFieldProps = {
   isDirty?: boolean
@@ -62,6 +67,32 @@ export const StyledNumberField = (
       {...props}
       value={props.value ?? props.defaultValue}
       type={'number'}
+    />
+  )
+}
+
+export const StyledTextArea = (props: TextareaProps & StyledTextFieldProps) => {
+  let background =
+    props.config?.backgroundColor ?? tokens.colors.ui.background__light.hex
+
+  background =
+    props.isDirty && props.variant !== 'error' ? '#85babf5e' : background
+
+  return (
+    <StyledTextareaField
+      {...props}
+      $background={background}
+      disabled={props.readOnly}
+      readOnly={false}
+      inputIcon={
+        <Stack as='span' direction='row' spacing={0.5}>
+          {props.tooltip && (
+            <Tooltip title={props.tooltip ?? ''}>
+              <Icon data={info_circle} size={16} />
+            </Tooltip>
+          )}
+        </Stack>
+      }
     />
   )
 }

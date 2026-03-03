@@ -12,9 +12,9 @@ import { type ReactElement, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Stack } from '../Stack/Stack'
 import { Calendar } from './Calendar'
-import { Timefield } from './Timefield'
 import { type DateSelection, zeroPad } from './calendarUtils'
 import { extractDateComponents, formatTime } from './datepickerUtils'
+import { Timefield } from './Timefield'
 
 interface DatepickerProps {
   id: string

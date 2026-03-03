@@ -1,6 +1,6 @@
 import type { TreeNode } from '../../domain/Tree'
-import { TreeListItem } from './TreeListItem/TreeListItem'
 import { StyledList } from './styles'
+import { TreeListItem } from './TreeListItem/TreeListItem'
 import type { TNodeWrapperProps } from './types'
 
 export const TreeView = (props: {

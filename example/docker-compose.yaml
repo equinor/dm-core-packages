@@ -10,10 +10,10 @@ services:
       ENVIRONMENT: ${ENVIRONMENT:-local}
       RESET_DATA_SOURCE: "off"
       SECRET_KEY: sg9aeUM5i1JO4gNN8fQadokJa3_gXQMLBjSGGYcfscs= # Don't reuse this in production...
-#    volumes:
-#      - ../../data-modelling-storage-service/src:/code/src
+    #    volumes:
+    #      - ../../data-modelling-storage-service/src:/code/src
     ports:
-      - '5000:5000'
+      - "5000:5000"
     depends_on:
       - db
       - redis
@@ -31,7 +31,7 @@ services:
     platform: linux/amd64
     restart: unless-stopped
     environment:
-      SCHEDULER_ENVS_TO_EXPORT: 'PUBLIC_DMSS_API,SIMA_LICENSE'
+      SCHEDULER_ENVS_TO_EXPORT: "PUBLIC_DMSS_API,SIMA_LICENSE"
       SCHEDULER_REDIS_HOST: redis
       SCHEDULER_REDIS_PASSWORD: maf
       DMSS_API: http://dmss:5000
@@ -48,12 +48,12 @@ services:
       - redis
       - db
     volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock # Needed for docker-in-docker jobs
+      #      - /var/run/docker.sock:/var/run/docker.sock # Needed for docker-in-docker jobs
       - ./job_handlers:/code/src/job_handler_plugins
-#      - ../../dm-job/src/job_handler_plugins:/code/src/job_handler_plugins
-#      - ../../dm-job/src:/code/src
+    #      - ../../dm-job/src/job_handler_plugins:/code/src/job_handler_plugins
+    #      - ../../dm-job/src:/code/src
     ports:
-      - '5001:5000'
+      - "5001:5000"
 
   #  db-ui:
   #    image: mongo-express:1.0.0-alpha

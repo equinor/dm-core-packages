@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
-import type DmssAPI from 'src/services/api/DmssAPI'
-
 import type { AxiosError, AxiosResponse } from 'axios'
+import { useEffect, useState } from 'react'
 import type { DataSourceInformation, ErrorResponse } from 'src/services'
+import type DmssAPI from 'src/services/api/DmssAPI'
 
 export const useDataSources = (dmssAPI: DmssAPI): DataSourceInformation[] => {
   const [dataSources, setDataSources] = useState<DataSourceInformation[]>([])

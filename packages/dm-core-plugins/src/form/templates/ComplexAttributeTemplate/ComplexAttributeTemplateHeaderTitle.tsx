@@ -1,10 +1,10 @@
 import type { TAttribute } from '@development-framework/dm-core'
 import { Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import {
-  type IconData,
   chevron_right,
   file,
   file_description,
+  type IconData,
 } from '@equinor/eds-icons'
 import { Stack } from '../../../common'
 import type { TUiAttribute } from '../../types'

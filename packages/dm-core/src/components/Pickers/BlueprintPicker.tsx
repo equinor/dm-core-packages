@@ -1,11 +1,3 @@
-import { useState } from 'react'
-import { EBlueprint } from '../../Enums'
-import {
-  PATH_INPUT_FIELD_WIDTH,
-  TREE_DIALOG_HEIGHT,
-  TREE_DIALOG_WIDTH,
-} from '../../utils/variables'
-
 import {
   Button,
   Icon,
@@ -16,9 +8,16 @@ import {
 } from '@equinor/eds-core-react'
 import type { Variants } from '@equinor/eds-core-react/dist/types/components/types'
 import { add } from '@equinor/eds-icons'
+import { useState } from 'react'
 import { useApplication } from '../../ApplicationContext'
 import type { TreeNode } from '../../domain/Tree'
+import { EBlueprint } from '../../Enums'
 import { truncatePathString } from '../../utils/truncatePathString'
+import {
+  PATH_INPUT_FIELD_WIDTH,
+  TREE_DIALOG_HEIGHT,
+  TREE_DIALOG_WIDTH,
+} from '../../utils/variables'
 import { Dialog } from '../Dialog'
 import { TreeView } from '../TreeView'
 

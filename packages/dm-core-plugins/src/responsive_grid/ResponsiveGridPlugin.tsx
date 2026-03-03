@@ -1,7 +1,7 @@
 import { type IUIPlugin, ViewCreator } from '@development-framework/dm-core'
 import { Typography } from '@equinor/eds-core-react'
 import * as Styled from './styles'
-import { type TCol, type TGridPluginConfig, defaultConfig } from './types'
+import { defaultConfig, type TCol, type TGridPluginConfig } from './types'
 
 export const ResponsiveGridPlugin = (
   props: IUIPlugin & { config: TGridPluginConfig }

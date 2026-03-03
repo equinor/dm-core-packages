@@ -12,7 +12,10 @@ export const SkeletonCell = styled(Table.Cell)`
 export const SkeletonRow = ({
   columnsLength,
   count = 1,
-}: { columnsLength: number; count?: number }) => {
+}: {
+  columnsLength: number
+  count?: number
+}) => {
   let keyCounter = 0
 
   return Array.from({ length: count }).map(() => {

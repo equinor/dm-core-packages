@@ -1,6 +1,5 @@
-import { Autocomplete } from '@equinor/eds-core-react'
-
 import { type TEnum, useDocument } from '@development-framework/dm-core'
+import { Autocomplete } from '@equinor/eds-core-react'
 import type { AutocompleteChanges } from '@equinor/eds-core-react/dist/types/components/Autocomplete/Autocomplete'
 import type { TWidget } from '../types'
 

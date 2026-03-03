@@ -7,7 +7,10 @@ import type { TUiAttribute } from '../../types'
 export const ComplexAttributeTemplateHeaderActions = ({
   children,
   uiAttribute,
-}: { children?: React.ReactNode; uiAttribute?: TUiAttribute }) => {
+}: {
+  children?: React.ReactNode
+  uiAttribute?: TUiAttribute
+}) => {
   return (
     <Stack direction='row' alignItems='center'>
       {uiAttribute?.tooltip && (

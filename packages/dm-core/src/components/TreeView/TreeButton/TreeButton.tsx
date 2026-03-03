@@ -2,8 +2,8 @@ import { Button, Icon, Progress, Tooltip } from '@equinor/eds-core-react'
 import { chevron_right } from '@equinor/eds-icons'
 import type { MouseEvent } from 'react'
 import styled from 'styled-components'
-import { EBlueprint } from '../../../Enums'
 import type { TreeNode } from '../../../domain/Tree'
+import { EBlueprint } from '../../../Enums'
 import { TypeIcon } from '../TypeIcon/TypeIcon'
 
 const StyledButton = styled(Button)`

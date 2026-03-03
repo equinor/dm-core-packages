@@ -1,11 +1,11 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import type { AxiosError } from 'axios'
 import { type Dispatch, type SetStateAction, useState } from 'react'
-import type { ErrorResponse } from '../services'
 
 import { toast } from 'react-toastify'
 import { useApplication } from '../ApplicationContext'
+import type { ErrorResponse } from '../services'
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 interface IUseDocumentReturnType<T> {
   document: T | null
   isLoading: boolean

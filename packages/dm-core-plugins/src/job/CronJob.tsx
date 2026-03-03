@@ -7,8 +7,8 @@ import {
 } from '@equinor/eds-core-react'
 import { type ChangeEvent, useState } from 'react'
 import { Message, Stack } from '../common'
-import DateRangePicker from './DateRangePicker'
 import { EInterval, type TCronValues } from './common'
+import DateRangePicker from './DateRangePicker'
 import { defaultCronValues } from './templateEntities'
 
 // Creates a list like ["00:00",...,"24:00"]
