@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/node": "^20.10.2",
+    "@types/node": "^25.3.3",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "@types/react-plotly.js": "^2.6.3",
