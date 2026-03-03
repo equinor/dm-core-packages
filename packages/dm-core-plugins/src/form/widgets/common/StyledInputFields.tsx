@@ -28,8 +28,7 @@ const StyledEDSField = (props: TextFieldProps & StyledTextFieldProps) => {
     <StyledInputField
       {...props}
       $background={background}
-      disabled={props.readOnly}
-      readOnly={false}
+      readOnly={props.readOnly}
       inputIcon={
         <Stack as='span' direction='row' spacing={0.5}>
           <span>{props?.unit}</span>
@@ -82,8 +81,7 @@ export const StyledTextArea = (props: TextareaProps & StyledTextFieldProps) => {
     <StyledTextareaField
       {...props}
       $background={background}
-      disabled={props.readOnly}
-      readOnly={false}
+      readOnly={props.readOnly}
       inputIcon={
         <Stack as='span' direction='row' spacing={0.5}>
           {props.tooltip && (
