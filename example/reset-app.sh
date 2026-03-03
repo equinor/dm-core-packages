@@ -54,8 +54,24 @@ cp -r app/data_source_templates/* app/data_sources/
 
 for ds_file in ./app/data_sources/*; do
   substitute_env_in_file $ds_file
-  dm --url "$VITE_DMSS_URL" --token "$TOKEN" --force ds import $ds_file
 done
+
+# Retry wrapper for flaky DMSS operations
+retry() {
+  local max_attempts=3
+  local attempt=1
+  local delay=5
+  while [ $attempt -le $max_attempts ]; do
+    if "$@"; then
+      return 0
+    fi
+    echo "Attempt $attempt/$max_attempts failed. Retrying in ${delay}s..."
+    sleep $delay
+    attempt=$((attempt + 1))
+  done
+  echo "ERROR: Command failed after $max_attempts attempts: $*"
+  return 1
+}
 
 main () {
   for ds_file in ./app/data_sources/*; do
@@ -63,7 +79,7 @@ main () {
   done
 
   echo "Upload DMSS core blueprints to DMSS"
-  dm --token "$TOKEN" --url  "$VITE_DMSS_URL" --force entities import --no-validate app/data/system/SIMOS system/
+  retry dm --token "$TOKEN" --url  "$VITE_DMSS_URL" --force entities import --no-validate app/data/system/SIMOS system/
   echo "Creating DMSS lookup"
   dm --token "$TOKEN" --url $VITE_DMSS_URL create-lookup DMSS "system/SIMOS/recipe_links"
 
