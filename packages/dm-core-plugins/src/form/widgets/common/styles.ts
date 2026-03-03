@@ -41,11 +41,6 @@ export const StyledInputField = styled(TextField).withConfig({
 export const StyledTextareaField = styled(Textarea).withConfig({
   shouldForwardProp: (propName) => !props_to_remove.includes(propName),
 })<{ $background: string }>`
-  & :disabled {
-    background: #f7f7f7;
-    color: black;
-  }
-
   div {
     border-radius: 2px;
   }
@@ -53,6 +48,11 @@ export const StyledTextareaField = styled(Textarea).withConfig({
   textarea {
     padding: 8px;
     background: ${({ $background }) => $background};
+  }
+
+  textarea:disabled {
+    background: #f7f7f7;
+    color: black;
   }
 
   span {
