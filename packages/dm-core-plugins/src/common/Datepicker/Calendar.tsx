@@ -136,7 +136,6 @@ export const Calendar = (props: CalendarProps): ReactElement => {
                 <StyledOptionButton
                   key={month}
                   variant='ghost'
-                  // biome-ignore lint/a11y/useSemanticElements: role needed for radio behavior
                   role='radio'
                   aria-checked={index + 1 === activeMonth}
                   selected={index + 1 === activeMonth}

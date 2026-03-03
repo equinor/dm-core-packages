@@ -92,7 +92,7 @@ export const resolveRelativeAddressSimplified = (
     let go_up = relativeAddress.split('~').length - 1
 
     // Split a string like "$23.car[5].b" into ["$23", "car", "[5]", "b"]
-    const regex = /((\$[\w\-]+|[\w\-]+|\[\d+\]))/g
+    const regex = /((\$[\w-]+|[\w-]+|\[\d+\]))/g
     const pathElements = `${documentPath}.${attributePath}`.match(
       regex
     ) as string[]

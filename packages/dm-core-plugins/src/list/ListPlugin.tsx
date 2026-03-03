@@ -212,14 +212,12 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
             hideInvalidTypes={internalConfig.hideInvalidTypes}
           />
         )}
-        {/* biome-ignore lint/a11y/useSemanticElements: role needed for table semantics */}
         <Stack role='rowgroup' style={{ minWidth: 'max-content' }}>
           {currentItems &&
             currentItems.map((item: TItem<TGenericObject>, index: number) => (
               <Stack key={item?.key}>
                 <Stack
                   direction='row'
-                  // biome-ignore lint/a11y/useSemanticElements: role needed for table row semantics
                   role='row'
                   justifyContent='space-between'
                   alignItems='center'

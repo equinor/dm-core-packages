@@ -85,7 +85,6 @@ const SignalTable = (props: { document: TGenericObject }) => {
           {rows
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row: any) => (
-              // biome-ignore lint/a11y/useSemanticElements: role needed for checkbox row
               <Table.Row role='checkbox' tabIndex={-1} key={row.index}>
                 {columns.map((column) => {
                   const value = row[column.id]
