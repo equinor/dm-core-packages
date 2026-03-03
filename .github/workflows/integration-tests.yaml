@@ -157,7 +157,8 @@ jobs:
 
       - name: Output dmss logs on failure
         if: failure()
-        run: docker logs example_dmss_1
+        run: docker compose logs dmss
+        working-directory: example/
 
       - uses: actions/upload-artifact@v4
         if: always()
