@@ -18,16 +18,16 @@ import { Dialog } from '../Dialog'
 import { type TNodeWrapperProps, TreeView } from '../TreeView'
 
 const Wrapper = styled.div<{ cursor?: string }>`
-    display: flex;
-    border-radius: 5px;
-    justify-content: space-between;
-    align-items: center;
-    cursor: ${(props) => props.cursor ?? ''};
-    border-bottom: 1px solid transparent;
+  display: flex;
+  border-radius: 5px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: ${(props) => props.cursor ?? ''};
+  border-bottom: 1px solid transparent;
 
-    &:hover {
-        background-color: rgba(229, 231, 235, 0.43);
-    }
+  &:hover {
+    background-color: rgba(229, 231, 235, 0.43);
+  }
 `
 const CheckSelectNode = (
   props: TNodeWrapperProps & {
