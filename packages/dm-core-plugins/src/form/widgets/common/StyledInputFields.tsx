@@ -17,7 +17,11 @@ type StyledTextFieldProps = {
   }
 }
 
-const StyledEDSField = (props: TextFieldProps & StyledTextFieldProps) => {
+const StyledEDSField = (
+  props: TextFieldProps &
+    StyledTextFieldProps & { inputRef?: React.Ref<HTMLInputElement> }
+) => {
+  const { inputRef, ...restProps } = props
   let background =
     props.config?.backgroundColor ?? tokens.colors.ui.background__light.hex
 
@@ -26,7 +30,8 @@ const StyledEDSField = (props: TextFieldProps & StyledTextFieldProps) => {
 
   return (
     <StyledInputField
-      {...props}
+      {...restProps}
+      ref={inputRef}
       $background={background}
       readOnly={props.readOnly}
       inputIcon={
@@ -70,7 +75,11 @@ export const StyledNumberField = (
   )
 }
 
-export const StyledTextArea = (props: TextareaProps & StyledTextFieldProps) => {
+export const StyledTextArea = (
+  props: TextareaProps &
+    StyledTextFieldProps & { inputRef?: React.Ref<HTMLTextAreaElement> }
+) => {
+  const { inputRef, ...restProps } = props
   let background =
     props.config?.backgroundColor ?? tokens.colors.ui.background__light.hex
 
@@ -79,7 +88,8 @@ export const StyledTextArea = (props: TextareaProps & StyledTextFieldProps) => {
 
   return (
     <StyledTextareaField
-      {...props}
+      {...restProps}
+      ref={inputRef}
       $background={background}
       readOnly={props.readOnly}
       inputIcon={

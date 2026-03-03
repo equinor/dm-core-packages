@@ -1,7 +1,7 @@
 import { Textarea, TextField } from '@equinor/eds-core-react'
 import styled from 'styled-components'
 
-const props_to_remove = ['isDirty', 'config', 'tooltip', 'enumType']
+const props_to_remove = ['isDirty', 'config', 'tooltip', 'enumType', 'inputRef']
 
 export const StyledInputField = styled(TextField).withConfig({
   shouldForwardProp: (propName) => !props_to_remove.includes(propName),

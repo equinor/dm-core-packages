@@ -28,7 +28,7 @@ const EntityPickerWidget = (props: TWidget) => {
         id={props.id}
         readOnly={props.readOnly}
         value={props.value}
-        inputRef={props.inputRef}
+        ref={props.inputRef}
         variant={props.variant}
         helperText={props.helperText}
         onClick={handleAddReference}
