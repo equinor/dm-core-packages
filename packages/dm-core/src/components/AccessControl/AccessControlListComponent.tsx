@@ -22,7 +22,7 @@ export const AccessControlListComponent = (props: {
 }): React.ReactElement => {
   const { documentId, close } = props
 
-  const [activeTab, setActiveTab] = useState<number>(0)
+  const [activeTab, setActiveTab] = useState<number | string>(0)
   const [updateACLRecursively, setUpdateACLRecursively] =
     useState<boolean>(true)
   const [loading, setLoading] = useState<boolean>(false)
@@ -241,7 +241,7 @@ export const AccessControlListComponent = (props: {
     <div style={{ maxWidth: '60vw' }}>
       <Tabs
         activeTab={activeTab}
-        onChange={(index: number | string) => setActiveTab(Number(index))}
+        onChange={(index: number | string) => setActiveTab(index)}
         variant='fullWidth'
       >
         <Tabs.List>
