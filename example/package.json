@@ -11,7 +11,7 @@
     "react-oauth2-code-pkce": "^1.22.2",
     "react-plotly.js": "^2.6.0",
     "react-router-dom": "^7.0.2",
-    "react-toastify": "10.0.6",
+    "react-toastify": "11.0.5",
     "styled-components": "^6.1.13",
     "ts-node": "^10.9.2",
     "tsconfig-paths-webpack-plugin": "^4.2.0"
