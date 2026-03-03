@@ -9,6 +9,7 @@ import {
   Icon,
   Progress,
 } from '@equinor/eds-core-react'
+import { undo } from '@equinor/eds-icons'
 import { useEffect, useState } from 'react'
 import {
   AddRowButton,
@@ -17,21 +18,19 @@ import {
   SortableItem,
   SortableList,
   Stack,
-  type TTemplate,
   TemplateMenu,
+  type TTemplate,
 } from '../../common'
 import { ConditionalWrapper } from '../../utils/ConditionalWrapper'
 import { TableHead } from './TableHead/TableHead'
-import { TableRow } from './TableRow/TableRow'
-
-import { undo } from '@equinor/eds-icons'
 import { SkeletonRow } from './TableRow/SkeletonRow'
+import { TableRow } from './TableRow/TableRow'
 import {
+  type TableProps,
+  TableVariantNameEnum,
   type TTableConfig,
   type TTableSortDirection,
   type TTableVariant,
-  type TableProps,
-  TableVariantNameEnum,
 } from './types'
 import * as utils from './utils'
 

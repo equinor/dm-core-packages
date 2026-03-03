@@ -1,7 +1,7 @@
 import {
-  type IconData,
   check_circle_outlined,
   error_outlined,
+  type IconData,
   info_circle,
   warning_outlined,
 } from '@equinor/eds-icons'

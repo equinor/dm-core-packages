@@ -1,12 +1,3 @@
-import { useEffect, useState } from 'react'
-import { EBlueprint } from '../../Enums'
-import {
-  PATH_INPUT_FIELD_WIDTH,
-  TREE_DIALOG_HEIGHT,
-  TREE_DIALOG_WIDTH,
-} from '../../utils/variables'
-import { type TNodeWrapperProps, TreeView } from '../TreeView'
-
 import {
   Button,
   Input,
@@ -14,11 +5,19 @@ import {
   Progress,
   Tooltip,
 } from '@equinor/eds-core-react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useApplication } from '../../ApplicationContext'
 import { Tree, type TreeNode } from '../../domain/Tree'
+import { EBlueprint } from '../../Enums'
 import { truncatePathString } from '../../utils/truncatePathString'
+import {
+  PATH_INPUT_FIELD_WIDTH,
+  TREE_DIALOG_HEIGHT,
+  TREE_DIALOG_WIDTH,
+} from '../../utils/variables'
 import { Dialog } from '../Dialog'
+import { type TNodeWrapperProps, TreeView } from '../TreeView'
 
 type TDestinationPickerProps = {
   onChange: (value: string) => void

@@ -1,18 +1,13 @@
 import {
-  resolveRelativeAddressSimplified,
-  useApplication,
-} from '@development-framework/dm-core'
-import { useContext, useMemo } from 'react'
-import { AuthContext } from 'react-oauth2-code-pkce'
-
-import {
   EBlueprint,
   type ErrorResponse,
   type IUIPlugin,
   JobStatus,
+  resolveRelativeAddressSimplified,
   type TJob,
   type TRecurringJob,
   type TSchedule,
+  useApplication,
   useDocument,
   useJob,
 } from '@development-framework/dm-core'
@@ -24,21 +19,21 @@ import {
   Typography,
 } from '@equinor/eds-core-react'
 import { gear } from '@equinor/eds-icons'
-import { useEffect, useState } from 'react'
-
 import type { AxiosError, AxiosResponse } from 'axios'
+import { useContext, useEffect, useMemo, useState } from 'react'
+import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
-import { Stack, type TTemplate, TemplateMenu } from '../common'
+import { Stack, TemplateMenu, type TTemplate } from '../common'
 import {
   ConfigureRecurring,
+  getControlButton,
+  getVariant,
   JobLog,
   JobWrapper,
   Progress,
-  type TCronValues,
-  getControlButton,
-  getVariant,
   parseCronStringToCronValues,
   parseCronValuesToCronString,
+  type TCronValues,
 } from './common'
 import {
   defaultCronValues,

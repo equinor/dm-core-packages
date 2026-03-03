@@ -1,19 +1,18 @@
 import type { TWidget } from '../types'
-import { StyledTextField } from './common/StyledInputFields'
+import { StyledTextArea } from './common/StyledInputFields'
 
 const TextareaWidget = (props: TWidget) => {
   const { label, onChange } = props
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target
     const formattedValue = value === '' ? null : value
     onChange?.(formattedValue)
   }
 
   return (
-    <StyledTextField
+    <StyledTextArea
       {...props}
-      multiline={true}
       rows={5}
       onChange={onChangeHandler}
       data-testid={`form-text-area-widget-${props.label}`}

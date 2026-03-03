@@ -11,10 +11,7 @@ const createStorageReference = (address: string) => {
     referenceType: 'storage',
   }
 }
-const AddStorageUncontained = (props: {
-  type: string
-  namePath: string
-}) => {
+const AddStorageUncontained = (props: { type: string; namePath: string }) => {
   const { type, namePath } = props
   const { idReference } = useRegistryContext()
   const { setValue } = useFormContext()

@@ -1,10 +1,10 @@
 import type { TGenericObject, TItem } from '@development-framework/dm-core'
 import { isObject } from 'lodash'
 import {
+  TableVariantNameEnum,
   type TTableConfig,
   type TTableFunctionalityConfig,
   type TTableSortDirection,
-  TableVariantNameEnum,
 } from './types'
 
 function setValue(object: TGenericObject, attribute: string, value: any) {

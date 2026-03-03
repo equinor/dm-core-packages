@@ -7,12 +7,12 @@ import { EdsProvider, Icon, Table } from '@equinor/eds-core-react'
 import { add } from '@equinor/eds-icons'
 import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import { LazyLoad, type TTemplate, TemplateMenu } from '../../../common'
-import type { TTableColumnConfig, TableRowProps } from '../types'
+import { LazyLoad, TemplateMenu, type TTemplate } from '../../../common'
+import type { TableRowProps, TTableColumnConfig } from '../types'
 import * as utils from '../utils'
+import * as Styled from './styles'
 import { TableCell } from './TableCell/TableCell'
 import { TableRowActions } from './TableRowActions/TableRowActions'
-import * as Styled from './styles'
 
 export function TableRow(props: TableRowProps) {
   const {

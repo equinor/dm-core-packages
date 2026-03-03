@@ -11,9 +11,10 @@ import { refresh } from '@equinor/eds-icons'
 
 import type { AxiosError } from 'axios'
 import { useContext, useEffect, useState } from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import ViewPage from './ViewPage'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import plugins from './plugins'
+import ViewPage from './ViewPage'
+
 const appNotReadyPage = () => (
   <div
     style={{

@@ -9,8 +9,8 @@ import * as Styled from './styles'
 import {
   type DataGridConfig,
   type DataGridProps,
-  type TFunctionalityChecks,
   defaultConfig,
+  type TFunctionalityChecks,
 } from './types'
 import * as utils from './utils'
 

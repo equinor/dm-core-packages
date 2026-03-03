@@ -13,7 +13,7 @@ import { toast } from 'react-toastify'
 import YAML from 'yaml'
 import { Stack } from '../common'
 import { ActionButton, ActionsWrapper, CodeContainer } from './styles'
-import { type YamlPluginProps, defaultConfig } from './types'
+import { defaultConfig, type YamlPluginProps } from './types'
 
 export const YamlPlugin = (props: YamlPluginProps) => {
   const { idReference, config: userConfig } = props

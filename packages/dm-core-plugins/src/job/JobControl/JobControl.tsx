@@ -27,18 +27,18 @@ import { DateTime } from 'luxon'
 import { useContext, useEffect, useState } from 'react'
 import type { IAuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
-import { Stack, type TTemplate, TemplateMenu } from '../../common'
+import { Stack, TemplateMenu, type TTemplate } from '../../common'
 import {
   ConfigureRecurring,
+  getControlButton,
+  getVariant,
   JobButtonWrapper,
   JobLog,
   JobWrapper,
   Progress,
-  type TCronValues,
-  getControlButton,
-  getVariant,
   parseCronStringToCronValues,
   parseCronValuesToCronString,
+  type TCronValues,
 } from '../common'
 import { defaultCronValues, scheduleTemplate } from '../templateEntities'
 

@@ -1,18 +1,17 @@
-import { useEffect, useState } from 'react'
-
 import {
   EBlueprint,
+  findRecipe,
   Loading,
   type TAttribute,
   type TGenericObject,
   type TUiRecipe,
-  findRecipe,
   useApplication,
   useBlueprint,
 } from '@development-framework/dm-core'
 import { Button, EdsProvider, Icon, Typography } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
 import { tokens } from '@equinor/eds-tokens'
+import { useEffect, useState } from 'react'
 import { FormProvider, useForm, useFormContext } from 'react-hook-form'
 import styled from 'styled-components'
 import { Stack } from '../../common'

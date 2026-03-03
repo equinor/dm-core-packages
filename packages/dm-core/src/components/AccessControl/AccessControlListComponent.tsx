@@ -241,7 +241,7 @@ export const AccessControlListComponent = (props: {
     <div style={{ maxWidth: '60vw' }}>
       <Tabs
         activeTab={activeTab}
-        onChange={(index: number) => setActiveTab(index)}
+        onChange={(index: number | string) => setActiveTab(Number(index))}
         variant='fullWidth'
       >
         <Tabs.List>

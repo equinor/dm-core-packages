@@ -138,7 +138,7 @@ test('resolve relative to parent address should raise error', () => {
   function badReference() {
     resolveRelativeAddressSimplified('~.cars[0]', 'dmss://test_source/$2')
   }
-  expect(badReference).toThrowError(
+  expect(badReference).toThrow(
     'Invalid relative reference. Cannot traverse out of uncontained parent'
   )
 })

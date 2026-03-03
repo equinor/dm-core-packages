@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import {
   type DmssAPI,
   type IUIPlugin,
@@ -7,8 +5,9 @@ import {
   useApplication,
   useDocument,
 } from '@development-framework/dm-core'
+import { useEffect, useState } from 'react'
+import { dfs, loader, type Node } from './loader'
 import MermaidWrapper from './MermaidWrapper'
-import { type Node, dfs, loader } from './loader'
 import type { TAttributeType } from './types'
 
 const classElement = (node: Node) => {

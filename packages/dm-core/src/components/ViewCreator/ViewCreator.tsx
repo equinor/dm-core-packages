@@ -11,12 +11,12 @@ import {
 } from '../../index'
 import {
   type IUIPlugin,
-  type TInlineRecipeViewConfig,
-  type TReferenceViewConfig,
-  type TViewConfig,
   isInlineRecipeViewConfig,
   isReferenceViewConfig,
   isViewConfig,
+  type TInlineRecipeViewConfig,
+  type TReferenceViewConfig,
+  type TViewConfig,
 } from '../../types'
 import { InlineRecipeView } from './InlineRecipeView'
 import { getTarget } from './utils'

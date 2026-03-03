@@ -3,6 +3,7 @@ import { useRegistryContext } from '../../context/RegistryContext'
 import { getWidget } from '../../context/WidgetContext'
 import type { TField } from '../../types'
 import { getDisplayLabel } from '../../utils/getDisplayLabel'
+
 const REGEX_FLOAT = /^\d+(\.\d+)?([eE][-+]?\d+)?$/
 
 export const NumberField = (props: TField) => {

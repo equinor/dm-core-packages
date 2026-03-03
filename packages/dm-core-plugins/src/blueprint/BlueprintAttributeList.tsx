@@ -55,27 +55,31 @@ export const BlueprintAttributeList = ({
             formData.attributes.map((attribute: any, index: number) => (
               <Accordion.Item key={attribute._id || attribute.name}>
                 <Accordion.Header>
-                  <Stack
-                    spacing={0.5}
-                    direction='row'
-                    fullWidth
-                    alignItems='center'
-                  >
-                    <AttributeWrapper style={{ fontWeight: 'bold' }}>
-                      {attribute.name}
-                    </AttributeWrapper>
-                    <AttributeWrapper>
-                      {truncatePathString(attribute.attributeType)}{' '}
-                    </AttributeWrapper>{' '}
-                    <AttributeWrapper>
-                      {attribute?.contained === undefined ||
-                      attribute?.contained === true
-                        ? 'Contained'
-                        : 'Uncontained'}
-                    </AttributeWrapper>
-                    <AttributeWrapper>
-                      Dim: {attribute?.dimensions || ' - '}
-                    </AttributeWrapper>
+                  <Accordion.HeaderTitle>
+                    <Stack
+                      spacing={0.5}
+                      direction='row'
+                      fullWidth
+                      alignItems='center'
+                    >
+                      <AttributeWrapper style={{ fontWeight: 'bold' }}>
+                        {attribute.name}
+                      </AttributeWrapper>
+                      <AttributeWrapper>
+                        {truncatePathString(attribute.attributeType)}{' '}
+                      </AttributeWrapper>{' '}
+                      <AttributeWrapper>
+                        {attribute?.contained === undefined ||
+                        attribute?.contained === true
+                          ? 'Contained'
+                          : 'Uncontained'}
+                      </AttributeWrapper>
+                      <AttributeWrapper>
+                        Dim: {attribute?.dimensions || ' - '}
+                      </AttributeWrapper>
+                    </Stack>
+                  </Accordion.HeaderTitle>
+                  <Accordion.HeaderActions>
                     <DeleteSoftButton
                       onClick={(event) => {
                         formData.attributes.splice(index, 1)
@@ -83,11 +87,11 @@ export const BlueprintAttributeList = ({
                           ...formData,
                           attributes: [...formData.attributes],
                         })
-                        event.stopPropagation() // Stop the Accordion header from registering the click event
+                        event.stopPropagation()
                       }}
                       title='Remove attribute'
                     />
-                  </Stack>
+                  </Accordion.HeaderActions>
                 </Accordion.Header>
                 <Accordion.Panel>
                   <BlueprintAttribute

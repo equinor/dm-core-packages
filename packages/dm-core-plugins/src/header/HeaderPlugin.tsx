@@ -9,11 +9,10 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { Icon, Menu, TopBar, Typography } from '@equinor/eds-core-react'
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
-
 import { account_circle, info_circle, menu, refresh } from '@equinor/eds-icons'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import styled from 'styled-components'
 
 import { Stack } from '../common'
 import { AboutDialog } from './components/AboutDialog'

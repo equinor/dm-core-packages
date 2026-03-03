@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { type TBreakpoint, type TBreakpoints, breakpoints } from './types'
+import { breakpoints, type TBreakpoint, type TBreakpoints } from './types'
 
 const createSpacingStyles = (spacing: TBreakpoints) =>
   Object.entries(spacing)

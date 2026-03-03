@@ -9,8 +9,8 @@ import {
 import { Progress } from '@equinor/eds-core-react'
 import { useCallback, useState } from 'react'
 import { Stack } from '../common'
-import Sidebar from './components/Sidebar'
 import NodeRightClickMenu from './components/context-menu/NodeRightClickMenu'
+import Sidebar from './components/Sidebar'
 import { default_raw_view_ui_recipe_config } from './constants'
 
 export default () => {

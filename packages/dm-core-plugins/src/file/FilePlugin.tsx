@@ -2,9 +2,9 @@ import {
   EBlueprint,
   type IUIPlugin,
   Loading,
+  splitAddress,
   type TFileEntity,
   type TStorageReference,
-  splitAddress,
   useDocument,
 } from '@development-framework/dm-core'
 import { DownloadFileButton } from './DownloadFileButton'

@@ -12,8 +12,8 @@ import {
   FaList,
   FaRegFileAlt,
 } from 'react-icons/fa'
-import { EBlueprint } from '../../../Enums'
 import type { TreeNode } from '../../../domain/Tree'
+import { EBlueprint } from '../../../Enums'
 
 export const TypeIcon = (props: { node: TreeNode; expanded: boolean }) => {
   const { node, expanded } = props

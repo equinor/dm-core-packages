@@ -3,7 +3,7 @@ import {
   type TGenericObject,
   useList,
 } from '@development-framework/dm-core'
-import { type TTableConfig, Table } from './Table/Table'
+import { Table, type TTableConfig } from './Table/Table'
 import * as utils from './utils'
 
 export const TablePlugin = (props: IUIPlugin) => {

@@ -1,4 +1,10 @@
 import {
+  type IUIPlugin,
+  Loading,
+  type TGenericObject,
+  useDocument,
+} from '@development-framework/dm-core'
+import {
   Button,
   Icon,
   NativeSelect,
@@ -7,13 +13,6 @@ import {
 } from '@equinor/eds-core-react'
 import { chevron_left, chevron_right } from '@equinor/eds-icons'
 import { useState } from 'react'
-
-import {
-  type IUIPlugin,
-  Loading,
-  type TGenericObject,
-  useDocument,
-} from '@development-framework/dm-core'
 import { PaginationWrapper, SectionWrapper } from './styles'
 
 interface Column {
@@ -86,7 +85,7 @@ const SignalTable = (props: { document: TGenericObject }) => {
           {rows
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row: any) => (
-              // biome-ignore lint/a11y/useSemanticElements: <explanation>
+              // biome-ignore lint/a11y/useSemanticElements: role needed for checkbox row
               <Table.Row role='checkbox' tabIndex={-1} key={row.index}>
                 {columns.map((column) => {
                   const value = row[column.id]
