@@ -6,7 +6,7 @@ const props_to_remove = ['isDirty', 'config', 'tooltip', 'enumType']
 export const StyledInputField = styled(TextField).withConfig({
   shouldForwardProp: (propName) => !props_to_remove.includes(propName),
 })<{ $background: string }>`
-  & :disabled {
+  input:read-only {
     background: #f7f7f7;
     color: black;
   }
@@ -50,7 +50,7 @@ export const StyledTextareaField = styled(Textarea).withConfig({
     background: ${({ $background }) => $background};
   }
 
-  textarea:disabled {
+  textarea:read-only {
     background: #f7f7f7;
     color: black;
   }
