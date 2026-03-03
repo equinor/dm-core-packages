@@ -24,7 +24,7 @@ jobs:
       dmss_version: ${{ steps.capture_dmss_version.outputs.dmss_version }}
       job_version: ${{ steps.capture_job_version.outputs.job_version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-node@v4
         with:

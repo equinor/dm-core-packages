@@ -37,7 +37,7 @@ jobs:
       report_url: ${{ steps.report-url.outputs.report_url }}
     steps:
       - name: Checkout GitHub Pages Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: gh-pages
 
