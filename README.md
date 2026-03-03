@@ -5485,3 +5485,12 @@ fix: skdljf (2023-12-02T08:41:55Z)
     * **DMSS VERSION**: 181a28e 2025-03-06 githu..[bot] chore(master): release 1.28.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
+* fix: upgrade MongoDB from 3.6 to 7.0
+
+MongoDB 3.6 only supports wire version 6, but the current PyMongo
+version used by DMSS requires at least wire version 8 (MongoDB 4.2+).
+Upgrading to 7.0 for long-term support. (2025-03-18T12:09:15Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/22614176779/1)
+    * **DMSS VERSION**: 1638876 2026-03-02 depen..[bot] build(deps): bump actions/stale from 1 to 10 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
