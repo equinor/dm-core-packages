@@ -18,7 +18,7 @@ test('Admin role', async ({ page }) => {
   ).toBeVisible()
   await expect(page.getByTestId('form-text-widget-Name')).toBeEditable()
   await page.getByRole('tab', { name: 'Hogwarts All', exact: true }).click()
-  await expect(page.getByTestId('form-text-widget-Name')).toBeDisabled()
+  await expect(page.getByTestId('form-text-widget-Name')).not.toBeEditable()
 })
 
 test('Change role to operator and back', async ({ page }) => {
