@@ -97,7 +97,7 @@ jobs:
         run: mv package/ node_modules/@development-framework/dm-core-plugins
         working-directory: example/
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
