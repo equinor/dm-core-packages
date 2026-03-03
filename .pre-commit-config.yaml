@@ -31,13 +31,13 @@ repos:
         name: Run typecheck on dm-core
         language: system
         pass_filenames: false
-        entry: bash -c "docker exec dm-core-dev yarn workspace @development-framework/dm-core run tsc"
+        entry: bash -c "docker compose -f docker-compose.dev.yaml exec -T dev yarn workspace @development-framework/dm-core run tsc 2>/dev/null || yarn workspace @development-framework/dm-core run tsc"
 
       - id: type_check_plugins
         name: Run typecheck on dm-core-plugins
         language: system
         pass_filenames: false
-        entry: bash -c "docker exec dm-core-dev yarn workspace @development-framework/dm-core-plugins run tsc --noEmit"
+        entry: bash -c "docker compose -f docker-compose.dev.yaml exec -T dev yarn workspace @development-framework/dm-core-plugins run tsc --noEmit 2>/dev/null || yarn workspace @development-framework/dm-core-plugins run tsc --noEmit"
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.3.0
