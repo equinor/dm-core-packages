@@ -60,12 +60,8 @@ test('uncontainedObject', async ({ page }) => {
       .getByTestId('assistant')
       .getByRole('button', { name: 'Open' })
       .click()
-    await expect(
-      page.getByTestId('assistant').getByRole('code').getByText('John')
-    ).toBeVisible()
-    await expect(
-      page.getByTestId('assistant').getByRole('code').getByText('1234')
-    ).toBeVisible()
+    await expect(page.getByRole('code').getByText('John')).toBeVisible()
+    await expect(page.getByRole('code').getByText('1234')).toBeVisible()
     await page.getByRole('button', { name: 'Close assistant' }).click()
   })
 
