@@ -19,7 +19,7 @@ services:
       - redis
 
   db:
-    image: mongo:3.6
+    image: mongo:7.0
     environment:
       MONGO_INITDB_ROOT_USERNAME: maf
       MONGO_INITDB_ROOT_PASSWORD: maf
