@@ -5,7 +5,7 @@
   "dependencies": {
     "@development-framework/dm-core": "^1.46.0",
     "@development-framework/dm-core-plugins": "^1.57.0",
-    "plotly.js": "^2.35.2",
+    "plotly.js": "^3.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-oauth2-code-pkce": "^1.22.2",
