@@ -46,7 +46,7 @@ const SelectWidget = (props: TWidget) => {
       loading={isLoading}
       readOnly={props.readOnly}
       initialSelectedOptions={initialSelectedOptions}
-      inputRef={props.inputRef}
+      ref={props.inputRef}
       variant={props.variant}
       helperText={props.helperText}
       onOptionsChange={onChangeHandler}
