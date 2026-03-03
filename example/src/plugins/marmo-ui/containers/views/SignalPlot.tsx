@@ -40,14 +40,14 @@ const ESSPlotPlugin = (props: { document: TGenericObject }) => {
       layout={{
         width: 620,
         height: 440,
-        title: document.name,
+        title: { text: document.name },
         xaxis: {
-          title: xLabel,
+          title: { text: xLabel },
           showgrid: true,
           zeroline: true,
         },
         yaxis: {
-          title: yLabel,
+          title: { text: yLabel },
           showgrid: true,
           zeroline: true,
         },

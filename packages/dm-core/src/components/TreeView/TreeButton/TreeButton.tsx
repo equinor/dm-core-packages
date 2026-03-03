@@ -43,7 +43,7 @@ export const TreeButton = (props: {
         data-testid={`tree-button_${node.name || node.nodeId}`}
         variant='ghost'
         color='secondary'
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent) => {
           if (node.type !== 'error') onClick()
           e.stopPropagation() // Stop clicking on the <TreeButton> propagate to trigger any wrapper "onClicks"
         }}
