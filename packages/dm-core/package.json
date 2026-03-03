@@ -19,7 +19,7 @@
     "json-loader": "^0.5.7",
     "lodash": "^4.17.21",
     "luxon": "^3.5.0",
-    "react-icons": "5.4.0",
+    "react-icons": "5.5.0",
     "react-oauth2-code-pkce": "^1.22.1",
     "react-toastify": "^10.0.6",
     "ts-node": "^10.9.2"
