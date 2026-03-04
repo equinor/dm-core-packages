@@ -21,6 +21,8 @@ jobs:
   publish-integration-tests-report:
     needs: integration-tests
     if: ${{ ! cancelled() }}
+    permissions:
+      contents: write
     uses: ./.github/workflows/publish-integration-tests-report.yaml
     with:
       dmss_version: ${{ needs.integration-tests.outputs.dmss_version }}
