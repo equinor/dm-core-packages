@@ -4,6 +4,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
@@ -30,6 +33,7 @@ jobs:
       pull-requests: write
       issues: write
     uses: ./.github/workflows/create-release-pr.yaml
+    secrets: inherit
 
   publish-packages:
     needs: release-please
