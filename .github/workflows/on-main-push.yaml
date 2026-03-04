@@ -25,6 +25,9 @@ jobs:
 
   release-please:
     needs: [tests, integration-tests]
+    permissions:
+      contents: write
+      pull-requests: write
     uses: ./.github/workflows/create-release-pr.yaml
 
   publish-packages:
