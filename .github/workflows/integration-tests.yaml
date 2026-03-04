@@ -24,9 +24,9 @@ jobs:
       dmss_version: ${{ steps.capture_dmss_version.outputs.dmss_version }}
       job_version: ${{ steps.capture_job_version.outputs.job_version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
 
@@ -35,7 +35,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-npm
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         env:
           cache-name: cache-node-modules
         with:
@@ -97,7 +97,7 @@ jobs:
         run: mv package/ node_modules/@development-framework/dm-core-plugins
         working-directory: example/
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -121,7 +121,7 @@ jobs:
         working-directory: example/
 
       - name: Cache e2e dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache-e2e
         env:
           cache-name: cache-e2e-deps-modules
@@ -148,7 +148,7 @@ jobs:
           npx playwright test
         working-directory: e2e/
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: test-results
@@ -160,7 +160,7 @@ jobs:
         run: docker compose logs dmss
         working-directory: example/
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report

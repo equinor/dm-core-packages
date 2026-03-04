@@ -14,13 +14,13 @@ jobs:
   deploy-on-radix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v6
 
       # You'll need an app registration with a Federated Credential for this to
       # work. Note that the credential will need to specify a branch name. This
       # step will therefore fail for all branches not mentioned in the credentials
       - name: Az CLI login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: 9bc1cfd7-c616-45d2-8827-22ae9d1e0567 # app registration Application ID
           tenant-id: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
@@ -53,20 +53,20 @@ jobs:
           echo "::add-mask::$token"
           echo "RESET_APP_TOKEN=$token" >> $GITHUB_ENV
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dm-cli
         working-directory: ./example
         run: pip install dm-cli
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
 
       - name: Cache node modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         env:
           cache-name: cache-example-node-modules
         with:
