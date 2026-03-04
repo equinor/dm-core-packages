@@ -9,6 +9,8 @@ on:
 
 jobs:
   remove-integration-tests-reports:
+    permissions:
+      contents: write
     uses: ./.github/workflows/remove-integration-tests-report.yaml
     with:
       deleted-branch: ${{ github.event.ref }}

@@ -2,7 +2,7 @@ name: "On schedule: healthcheck of standard and latest setup"
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *' # Every day at UTC 2.00
+    - cron: "0 2 * * *" # Every day at UTC 2.00
 
 jobs:
   integration-tests:
@@ -11,6 +11,8 @@ jobs:
   publish-integration-tests-report:
     needs: integration-tests
     if: ${{ ! cancelled() }}
+    permissions:
+      contents: write
     uses: ./.github/workflows/publish-integration-tests-report.yaml
     with:
       dmss_version: ${{ needs.integration-tests.outputs.dmss_version }}
