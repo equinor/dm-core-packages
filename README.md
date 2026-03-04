@@ -5494,3 +5494,18 @@ Upgrading to 7.0 for long-term support. (2025-03-18T12:09:15Z)
     * **DMSS VERSION**: 1638876 2026-03-02 depen..[bot] build(deps): bump actions/stale from 1 to 10 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 27a9c1a 2024-06-12 Stig Ofstad chore: bump dependencies grafted, HEAD -> main, origin/main
+* chore(deps): bump GitHub Actions to latest major versions
+
+- actions/checkout v4 → v6
+- actions/setup-node v4 → v6
+- actions/setup-python v5 → v6
+- actions/cache v4 → v5
+- actions/upload-artifact v4 → v7
+- actions/download-artifact v4 → v8
+- actions/stale v9 → v10
+- azure/login v1 → v2
+- github/codeql-action v2 → v4 (2026-03-03T12:57:00Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/22662575463/1)
+    * **DMSS VERSION**: a272754 2026-03-03 Marcu..gsten fix: regex pattern to prevent DOS attack grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 23f0307 2026-03-04 Marcu..gsten ci: build when no secret available grafted, HEAD -> main, origin/main
