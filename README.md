@@ -5598,3 +5598,8 @@ permissions block to all caller workflows. (2026-03-04T09:09:34Z)
     * **DMSS VERSION**: a272754 2026-03-03 Marcu..gsten fix: regex pattern to prevent DOS attack grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 89afd33 2026-03-04 depen..[bot] build(deps): bump actions/checkout from 4 to 6 grafted, HEAD -> main, origin/main
+* ci: debug release please (2026-03-04T19:03:14Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/22684907069/1)
+    * **DMSS VERSION**: a272754 2026-03-03 Marcu..gsten fix: regex pattern to prevent DOS attack grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 89afd33 2026-03-04 depen..[bot] build(deps): bump actions/checkout from 4 to 6 grafted, HEAD -> main, origin/main
