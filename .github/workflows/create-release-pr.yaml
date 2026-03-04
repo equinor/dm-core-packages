@@ -11,11 +11,15 @@ on:
         description: "The release tag. Ex v1.4.0"
         value: ${{ jobs.release-please.outputs.tag_name }}
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v4
+      - uses: googleapis/release-please-action@v4
         id: release
 
     outputs:
