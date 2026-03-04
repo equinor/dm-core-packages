@@ -28,6 +28,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
     uses: ./.github/workflows/create-release-pr.yaml
 
   publish-packages:
