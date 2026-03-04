@@ -4,6 +4,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
@@ -25,7 +30,12 @@ jobs:
 
   release-please:
     needs: [tests, integration-tests]
+    permissions:
+      contents: write
+      pull-requests: write
     uses: ./.github/workflows/create-release-pr.yaml
+    secrets:
+      RELEASE_PLEASE_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
 
   publish-packages:
     needs: release-please
