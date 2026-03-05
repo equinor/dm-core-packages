@@ -60,6 +60,36 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.60.1](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.60.0...dm-core-plugins-v1.60.1) (2026-03-05)
+
+
+### Bug Fixes
+
+* downgrade jest to v29 to align with ts-jest ([1c39e9b](https://github.com/equinor/dm-core-packages/commit/1c39e9b8b4beac10319bf9b4c4c67907ef68019a))
+* replace inputRef with ref for EDS v2 compatibility ([bc92f33](https://github.com/equinor/dm-core-packages/commit/bc92f3304311a2830345c992a8c448197c43194b))
+* resolve biome lint errors from upgraded rules ([8ab73c2](https://github.com/equinor/dm-core-packages/commit/8ab73c25e445badfb8d7a995896b321390691f60))
+* resolve TypeScript errors and apply biome formatting ([01b0c59](https://github.com/equinor/dm-core-packages/commit/01b0c59577b56a92808a4c61facc27107a8649ed))
+* target textarea:disabled directly for proper disabled styling ([3a3d575](https://github.com/equinor/dm-core-packages/commit/3a3d575e009d0296bea710bb8ffd7d6dd8fdec15))
+* use readOnly instead of disabled for read-only form fields ([5ec3e5f](https://github.com/equinor/dm-core-packages/commit/5ec3e5fc140b7cbb486ea2586274fb8135c72272))
+
+
+### Styles
+
+* apply biome formatting fixes ([973302f](https://github.com/equinor/dm-core-packages/commit/973302ff4f92b4c4f12c667904674d74387cb1fc))
+
+
+### Miscellaneous Chores
+
+* update remaining dependencies to latest versions ([a5185f7](https://github.com/equinor/dm-core-packages/commit/a5185f77aac6ec0a34ffb54b477b6ce84dffcc4a))
+* upgrade all dependencies to latest major versions ([67a656a](https://github.com/equinor/dm-core-packages/commit/67a656a3a704fad6005570f1fc01b9c5534bb82c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.46.4 to ^1.46.5
+
 ## [1.60.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.59.1...dm-core-plugins-v1.60.0) (2025-03-18)
 
 
