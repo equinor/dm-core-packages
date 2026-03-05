@@ -31,11 +31,12 @@ jobs:
   release-please:
     needs: [tests, integration-tests]
     permissions:
+      issues: write
       contents: write
       pull-requests: write
     uses: ./.github/workflows/create-release-pr.yaml
     secrets:
-      RELEASE_PLEASE_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
 
   publish-packages:
     needs: release-please
