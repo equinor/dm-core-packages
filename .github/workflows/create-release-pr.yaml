@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   workflow_call:
     secrets:
-      RELEASE_PLEASE_TOKEN:
-        description: "PAT for release-please to create releases and PRs"
+      APP_PRIVATE_KEY:
         required: true
     outputs:
       releases_created:
@@ -15,17 +14,27 @@ on:
         description: "The release tag. Ex v1.4.0"
         value: ${{ jobs.release-please.outputs.tag_name }}
 
+permissions:
+  issues: write
+  contents: write
+  pull-requests: write
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
-      - uses: googleapis/release-please-action@v4
-        id: release
+      - name: Generate Token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
         with:
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: release-please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
