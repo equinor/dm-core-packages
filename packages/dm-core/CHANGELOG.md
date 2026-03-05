@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.46.5](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.4...dm-core-v1.46.5) (2026-03-05)
+
+
+### Bug Fixes
+
+* accept number | string for Tabs activeTab state ([3e74593](https://github.com/equinor/dm-core-packages/commit/3e745938579dc59f6210d2b4dfac3e874d7c7538))
+* downgrade jest to v29 to align with ts-jest ([1c39e9b](https://github.com/equinor/dm-core-packages/commit/1c39e9b8b4beac10319bf9b4c4c67907ef68019a))
+* resolve biome lint errors from upgraded rules ([8ab73c2](https://github.com/equinor/dm-core-packages/commit/8ab73c25e445badfb8d7a995896b321390691f60))
+* resolve TypeScript errors and apply biome formatting ([01b0c59](https://github.com/equinor/dm-core-packages/commit/01b0c59577b56a92808a4c61facc27107a8649ed))
+* upgrade MongoDB from 3.6 to 7.0 ([7818af7](https://github.com/equinor/dm-core-packages/commit/7818af751879ff8f287545f02c2b4c7592eccf85))
+
+
+### Styles
+
+* apply biome formatting fixes ([973302f](https://github.com/equinor/dm-core-packages/commit/973302ff4f92b4c4f12c667904674d74387cb1fc))
+
+
+### Miscellaneous Chores
+
+* remove unused react-router-dom peer dependency from dm-core ([57cf860](https://github.com/equinor/dm-core-packages/commit/57cf860366cf911faa4d5664667fd1d4a571cba8))
+* update remaining dependencies to latest versions ([a5185f7](https://github.com/equinor/dm-core-packages/commit/a5185f77aac6ec0a34ffb54b477b6ce84dffcc4a))
+* upgrade all dependencies to latest major versions ([67a656a](https://github.com/equinor/dm-core-packages/commit/67a656a3a704fad6005570f1fc01b9c5534bb82c))
+
 ## [1.46.4](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.3...dm-core-v1.46.4) (2025-03-18)
 
 
