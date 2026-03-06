@@ -1,17 +1,16 @@
 {
   "private": true,
-  "packageManager": "yarn@4.12.0",
   "workspaces": [
     "example",
     "packages/dm-core",
     "packages/dm-core-plugins"
   ],
   "scripts": {
-    "start:example": "yarn workspace example start",
-    "build:dm-core": "yarn workspace @development-framework/dm-core build",
-    "build:dm-core-plugins": "yarn workspace @development-framework/dm-core-plugins build",
-    "clear-external-pckgs": "rm -rf node_modules && rm -rf packages/dm-core/node_modules && rm -rf packages/dm-core-plugins/node_modules && rm -rf example/node_modules && rm yarn.lock",
-    "build:packages": "yarn workspace @development-framework/dm-core build && yarn workspace @development-framework/dm-core-plugins build",
-    "test:packages": "yarn workspace @development-framework/dm-core test && yarn workspace @development-framework/dm-core-plugins test"
+    "start:example": "npm run start -w example",
+    "build:dm-core": "npm run build -w @development-framework/dm-core",
+    "build:dm-core-plugins": "npm run build -w @development-framework/dm-core-plugins",
+    "clear-external-pckgs": "rm -rf node_modules && rm -rf packages/dm-core/node_modules && rm -rf packages/dm-core-plugins/node_modules && rm -rf example/node_modules && rm package-lock.json",
+    "build:packages": "npm run build -w @development-framework/dm-core && npm run build -w @development-framework/dm-core-plugins",
+    "test:packages": "npm test -w @development-framework/dm-core && npm test -w @development-framework/dm-core-plugins"
   }
 }

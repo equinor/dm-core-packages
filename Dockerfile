@@ -1,4 +1,4 @@
-FROM node:22-alpine AS base
+FROM node:24-alpine AS base
 
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/
@@ -16,16 +16,16 @@ ENV REACT_APP_LOGOUT_ENDPOINT=https://login.microsoftonline.com/${REACT_APP_AUTH
 ENV REACT_APP_AUTH_REDIRECT_URI=$REDIRECT_URI
 
 WORKDIR /code/
-COPY jest.config.base.js package.json yarn.lock jest.config.js tsconfig.json .eslintignore .eslintrc.json ./
+COPY jest.config.base.js package.json package-lock.json jest.config.js tsconfig.json .eslintignore .eslintrc.json ./
 COPY --chown=1000 web/packages ./packages
-RUN yarn install --ignore-scripts  --frozen-lockfile --link-duplicates
+RUN npm ci --ignore-scripts
 
 FROM base AS development
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
 
 FROM base AS prod
 RUN npm install -g serve
-RUN yarn build
+RUN npm run build
 WORKDIR /code/packages/home
 EXPOSE 3000
 CMD ["serve", "--single", "build", "--listen", "3000"]

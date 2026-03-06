@@ -31,13 +31,13 @@ repos:
         name: Run typecheck on dm-core
         language: system
         pass_filenames: false
-        entry: bash -c "yarn workspace @development-framework/dm-core run tsc --noEmit"
+        entry: bash -c "cd packages/dm-core && npx tsc --noEmit"
 
       - id: type_check_plugins
         name: Run typecheck on dm-core-plugins
         language: system
         pass_filenames: false
-        entry: bash -c "yarn workspace @development-framework/dm-core-plugins run tsc --noEmit"
+        entry: bash -c "cd packages/dm-core-plugins && npx tsc --noEmit"
 
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v2.3.0

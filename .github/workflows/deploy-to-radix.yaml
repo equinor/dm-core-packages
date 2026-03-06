@@ -76,7 +76,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Cache node modules
         uses: actions/cache@v5
@@ -86,12 +86,9 @@ jobs:
           path: ./example/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./example/package.json')}}
 
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Install dependencies
         working-directory: ./example
-        run: yarn install
+        run: npm ci
 
       - name: Reset application
         working-directory: ./example

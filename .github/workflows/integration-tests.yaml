@@ -28,7 +28,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Install daemon process manager
         run: npm install pm2 -g
@@ -42,19 +42,17 @@ jobs:
           path: |
             ./example/node_modules
             ./node_modules
+            ./package-lock.json
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./packages/dm-core/package.json')}}-${{ hashFiles('./packages/dm-core-plugins/package.json') }}
 
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Build packages
-        run: yarn build:packages
+        run: npm run build:packages
 
       - name: Start example application
-        run: pm2 start "yarn build --mode test && yarn serve" --name web --wait-ready #--listen-timeout 10000 # wait for 10 seconds
+        run: pm2 start "npm run build -- --mode test && npm run serve" --name web --wait-ready #--listen-timeout 10000 # wait for 10 seconds
         working-directory: example/
 
       - name: Pull docker images
@@ -131,13 +129,11 @@ jobs:
           path: |
             ~/.cache/ms-playwright
             ./e2e/node_modules
-            ./yarn.lock
+            ./package-lock.json
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./package.json')}}
 
       - name: Install dependencies
-        run: |
-          npm install --package-lock-only
-          npm ci
+        run: npm ci
         working-directory: e2e/
 
       - run: npx playwright install --with-deps

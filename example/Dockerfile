@@ -1,11 +1,11 @@
-FROM node:22-bullseye-slim as base
+FROM node:24-bullseye-slim as base
 WORKDIR /code
-COPY package.json ./
-RUN yarn install  --immutable --immutable-cache
+COPY package.json package-lock.json ./
+RUN npm ci
 
 FROM base AS development
 COPY ./ ./
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
 USER 1000
 
 FROM base AS prod
