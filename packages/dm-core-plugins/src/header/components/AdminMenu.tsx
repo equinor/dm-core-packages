@@ -30,7 +30,7 @@ export function AdminMenu() {
   return (
     <>
       <Button
-        aria-label='Open application menu'
+        aria-label='Open admin menu'
         aria-haspopup='menu'
         aria-controls={`${menuButtonId}-menu`}
         variant='ghost_icon'

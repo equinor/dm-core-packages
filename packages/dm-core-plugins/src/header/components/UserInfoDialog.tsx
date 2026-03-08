@@ -29,10 +29,11 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
       <Button
         aria-haspopup='dialog'
         aria-label='Open user information dialog'
+        data-testid='header-user-info-button'
         variant='ghost_icon'
         onClick={() => setIsUserInfoDialogOpen(true)}
       >
-        <Icon data={account_circle} size={24} title='User' />
+        <Icon data={account_circle} size={24} />
       </Button>
       <Dialog
         isDismissable

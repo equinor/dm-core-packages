@@ -5,7 +5,7 @@ test('Dimensional scalar', async ({ page }) => {
     await page.goto('http://localhost:3000/')
     await page.getByRole('button', { name: 'DemoDataSource' }).click()
     await page.getByRole('button', { name: 'plugins' }).click()
-    await page.getByRole('button', { name: 'form' }).click()
+    await page.getByTestId('tree-button_form').click()
     await page.getByRole('button', { name: 'dimensional_scalar' }).click()
     await page.getByRole('button', { name: 'waveForm' }).click()
   }

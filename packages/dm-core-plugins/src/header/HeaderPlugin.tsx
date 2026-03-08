@@ -78,7 +78,7 @@ export default (props: IUIPlugin): React.ReactElement => {
     <Stack fullWidth grow={1} minHeight={0}>
       <TopBar style={{ width: '100%', flexShrink: 0 }}>
         <TopBar.Header>
-          <S.Logo>{entity.label}</S.Logo>
+          <S.Logo data-testid='application-label'>{entity.label}</S.Logo>
           <AppSelector
             isLoading={isBlueprintLoading}
             items={recipes}

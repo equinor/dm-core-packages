@@ -17,6 +17,7 @@ export const AboutDialog = (props: AboutDialogProps) => {
         aria-haspopup='dialog'
         aria-label='Open application information dialog'
         variant='ghost_icon'
+        data-testid='header-about-button'
         onClick={() => setIsInfoDialogOpen(true)}
       >
         <Icon data={info_circle} size={24} />
@@ -32,6 +33,7 @@ export const AboutDialog = (props: AboutDialogProps) => {
             aria-label='Close application information dialog'
             variant='ghost_icon'
             onClick={() => setIsInfoDialogOpen(false)}
+            data-testid='about-dialog-close-button'
           >
             <Icon data={close} size={16} />
           </Button>

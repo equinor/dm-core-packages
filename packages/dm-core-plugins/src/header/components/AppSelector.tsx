@@ -43,6 +43,7 @@ export const AppSelector = ({
         aria-label='AppSelector'
         aria-haspopup='menu'
         aria-controls={`${appSelectorId}-menu`}
+        data-testid='application-selector-button'
         disabled={isLoading}
         ref={appSelectorButtonRef}
         id={appSelectorId}

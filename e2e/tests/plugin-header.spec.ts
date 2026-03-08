@@ -10,13 +10,13 @@ test.beforeEach(async ({ page }) => {
 
 test('Load header', async ({ page }) => {
   await expect(page.getByLabel('AppSelector')).toBeVisible()
-  await expect(page.getByLabel('main-heading')).toBeVisible()
-  await expect(page.getByRole('button', { name: 'User' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'About' })).toBeVisible()
+  await expect(page.getByTestId('application-label')).toBeVisible()
+  await expect(page.getByTestId('header-user-info-button')).toBeVisible()
+  await expect(page.getByTestId('header-about-button')).toBeVisible()
 })
 
 test('User info', async ({ page }) => {
-  await page.getByRole('button', { name: 'User' }).click()
+  await page.getByTestId('header-user-info-button').click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(
     page.getByRole('dialog').getByText('User info', { exact: true })
@@ -24,12 +24,12 @@ test('User info', async ({ page }) => {
   await expect(
     page
       .getByRole('dialog')
-      .getByText('Name:Not authenticated', { exact: true })
+      .getByText('Name: Not authenticated', { exact: true })
   ).toBeVisible()
 })
 
 test('About', async ({ page }) => {
-  await page.getByRole('button', { name: 'About' }).click()
+  await page.getByTestId('header-about-button').click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(
     page
@@ -39,12 +39,17 @@ test('About', async ({ page }) => {
         { exact: true }
       )
   ).toBeVisible()
-  await page.getByRole('dialog').getByRole('button', { name: 'Ok' }).click()
+  await page
+    .getByRole('dialog')
+    .getByTestId('about-dialog-close-button')
+    .click()
   await expect(page.getByRole('dialog')).not.toBeVisible()
 })
 
 test('Recipe list', async ({ page }) => {
-  await page.getByLabel('AppSelector').click()
+  await page.getByTestId('application-selector-button').click()
+  await expect(page.getByRole('menu')).toBeVisible()
+  await expect(page.getByRole('menuitem', { name: 'Edit' })).toBeVisible()
   await page.getByRole('menuitem', { name: 'Edit' }).click()
   await expect(page.getByTestId('form-text-widget-Name')).toHaveValue('example')
 })
