@@ -33,7 +33,21 @@
         "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
         "hideAbout": false,
         "hideUserInfo": true,
-        "uiRecipesList": ["Yaml", "Edit", "Explorer"]
+        "uiRecipesList": [
+          {
+            "type": "PLUGINS:dm-core-plugins/header/HeaderUIRecipeItem",
+            "recipeName": "Yaml",
+            "label": "YAML"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/header/HeaderUIRecipeItem",
+            "recipeName": "Edit"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/header/HeaderUIRecipeItem",
+            "recipeName": "Explorer"
+          }
+        ]
       },
       "plugin": "@development-framework/dm-core-plugins/header"
     },
@@ -44,7 +58,16 @@
         "type": "PLUGINS:dm-core-plugins/header/HeaderPluginConfig",
         "hideAbout": false,
         "hideUserInfo": true,
-        "uiRecipesList": ["Yaml", "Explorer"]
+        "uiRecipesList": [
+          {
+            "type": "PLUGINS:dm-core-plugins/header/HeaderUIRecipeItem",
+            "recipeName": "Yaml"
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/header/HeaderUIRecipeItem",
+            "recipeName": "Explorer"
+          }
+        ]
       },
       "plugin": "@development-framework/dm-core-plugins/header"
     },

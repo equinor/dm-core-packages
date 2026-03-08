@@ -5,166 +5,143 @@ import {
   useApplication,
 } from '@development-framework/dm-core'
 import { Button, Icon, Radio, Typography } from '@equinor/eds-core-react'
-import { close } from '@equinor/eds-icons'
+import { account_circle, close } from '@equinor/eds-icons'
 import type { AxiosResponse } from 'axios'
-import { useContext, useState } from 'react'
+import { useContext, useId, useState } from 'react'
 import { AuthContext } from 'react-oauth2-code-pkce'
 import { toast } from 'react-toastify'
-import styled from 'styled-components'
-
-const UnstyledList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  display: inline-flex;
-`
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 5px;
-
-  > * {
-    margin-left: 10px;
-  }
-`
-
-const UserInfoLabel = styled.b`
-  margin-left: 5px;
-`
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-`
+import { Stack } from '../../common'
 
 type UserInfoDialogProps = {
-  isOpen: boolean
-  setIsOpen: (newValue: boolean) => void
   applicationEntity: TApplication
 }
 
 export const UserInfoDialog = (props: UserInfoDialogProps) => {
-  const { isOpen, setIsOpen } = props
+  const [isUserInfoDialogOpen, setIsUserInfoDialogOpen] = useState(false)
   const [apiKey, setAPIKey] = useState<string | null>(null)
   const { tokenData, token, logOut } = useContext(AuthContext)
-  const { dmssAPI, role, setRole, roles, name } = useApplication()
+  const { dmssAPI, role, setRole, roles } = useApplication()
   const [selectedRole, setSelectedRole] = useState<TRole>(role)
+  const uiRoleRadioGroupId = useId()
 
   return (
-    <Dialog
-      isDismissable
-      open={isOpen}
-      onClose={() => {
-        setSelectedRole(role)
-        setIsOpen(false)
-      }}
-    >
-      <div
-        style={{
-          minWidth: '720px',
-          width: 'fit-content',
+    <>
+      <Button
+        aria-haspopup='dialog'
+        aria-label='Open user information dialog'
+        variant='ghost_icon'
+        onClick={() => setIsUserInfoDialogOpen(true)}
+      >
+        <Icon data={account_circle} size={24} title='User' />
+      </Button>
+      <Dialog
+        isDismissable
+        open={isUserInfoDialogOpen}
+        onClose={() => {
+          setSelectedRole(role)
+          setIsUserInfoDialogOpen(false)
         }}
       >
         <Dialog.Header>
           <Dialog.Title>User info</Dialog.Title>
           <Button
-            variant='ghost'
+            aria-label='Close user information dialog'
+            variant='ghost_icon'
             onClick={() => {
               setSelectedRole(role)
-              setIsOpen(false)
+              setIsUserInfoDialogOpen(false)
             }}
           >
-            <Icon data={close} size={16} title='Close' />
+            <Icon data={close} size={16} />
           </Button>
         </Dialog.Header>
-        <Dialog.CustomContent>
-          <Row>
-            Name:
-            <UserInfoLabel>
-              {tokenData?.name || 'Not authenticated'}
-            </UserInfoLabel>
-          </Row>
-          <Row>
-            Username:
-            <UserInfoLabel>
-              {tokenData?.preferred_username || 'Not authenticated'}
-            </UserInfoLabel>
-          </Row>
-          {apiKey && (
-            <Row>
-              API Key:
-              <pre>{apiKey}</pre>
-            </Row>
-          )}
-
-          {roles.length > 1 && (
-            <>
-              <Typography variant='h6'>Chose role (UI only)</Typography>
-              <UnstyledList>
-                {roles.map((role: TRole) => (
-                  <li key={role.name}>
+        <Dialog.Content>
+          <Stack spacing={1}>
+            <Stack spacing={0.25}>
+              <Typography variant='body_short'>
+                Name: <b>{tokenData?.name || 'Not authenticated'}</b>
+              </Typography>
+              <Typography variant='body_short'>
+                Username:{' '}
+                <b>{tokenData?.preferred_username || 'Not authenticated'}</b>
+              </Typography>
+              {apiKey && (
+                <Typography variant='body_short'>
+                  API Key:{' '}
+                  <pre
+                    style={{ display: 'inline-block', padding: 0, margin: 0 }}
+                  >
+                    {apiKey}
+                  </pre>
+                </Typography>
+              )}
+            </Stack>
+            {roles.length > 1 && (
+              <div>
+                <Typography variant='h6' id={`${uiRoleRadioGroupId}_label`}>
+                  Chose role (UI only)
+                </Typography>
+                <Stack
+                  role='radiogroup'
+                  aria-labelledby={`${uiRoleRadioGroupId}_label`}
+                  direction='row'
+                  spacing={0.75}
+                >
+                  {roles.map((role: TRole) => (
                     <Radio
+                      key={role.name}
                       label={role.label}
                       name='impersonate-role'
                       value={role.name}
                       checked={role.name === selectedRole.name}
                       onChange={() => setSelectedRole(role)}
                     />
-                  </li>
-                ))}
-              </UnstyledList>
-            </>
-          )}
-        </Dialog.CustomContent>
+                  ))}
+                </Stack>
+              </div>
+            )}
+          </Stack>
+        </Dialog.Content>
         <Dialog.Actions>
-          <FlexRow style={{ justifyContent: 'space-between', width: '100%' }}>
-            <FlexRow>
-              <Button
-                variant='ghost'
-                onClick={() => {
-                  navigator.clipboard.writeText(token)
-                  toast.success('Copied token to clipboard')
-                }}
-              >
-                Copy token to clipboard
-              </Button>
-              <Button
-                variant='ghost'
-                onClick={() =>
-                  dmssAPI
-                    .tokenCreate()
-                    .then((response: AxiosResponse<string>) =>
-                      setAPIKey(response.data)
-                    )
-                    .catch((error: any) => {
-                      console.error(error)
-                      toast.error('Failed to create personal access token')
-                    })
-                }
-              >
-                Create API-Key
-              </Button>
-            </FlexRow>
-            <FlexRow>
-              <Button variant='ghost' color='danger' onClick={() => logOut()}>
-                Log out
-              </Button>
-              <Button
-                onClick={() => {
-                  setRole(selectedRole)
-                  setIsOpen(false)
-                }}
-                disabled={role === selectedRole}
-              >
-                Save
-              </Button>
-            </FlexRow>
-          </FlexRow>
+          <Button
+            variant='ghost'
+            onClick={() => {
+              navigator.clipboard.writeText(token)
+              toast.success('Copied token to clipboard')
+            }}
+          >
+            Copy token to clipboard
+          </Button>
+          <Button
+            variant='ghost'
+            onClick={() =>
+              dmssAPI
+                .tokenCreate()
+                .then((response: AxiosResponse<string>) =>
+                  setAPIKey(response.data)
+                )
+                .catch((error: any) => {
+                  console.error(error)
+                  toast.error('Failed to create personal access token')
+                })
+            }
+          >
+            Create API-Key
+          </Button>
+          <Button variant='ghost' color='danger' onClick={() => logOut()}>
+            Log out
+          </Button>
+          <Button
+            onClick={() => {
+              setRole(selectedRole)
+              setIsUserInfoDialogOpen(false)
+            }}
+            disabled={role === selectedRole}
+          >
+            Save
+          </Button>
         </Dialog.Actions>
-      </div>
-    </Dialog>
+      </Dialog>
+    </>
   )
 }

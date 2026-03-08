@@ -1,42 +1,46 @@
 import { Dialog, type TApplication } from '@development-framework/dm-core'
 import { Button, Icon } from '@equinor/eds-core-react'
-import { close } from '@equinor/eds-icons'
+import { close, info_circle } from '@equinor/eds-icons'
+import { useState } from 'react'
 
 type AboutDialogProps = {
-  isOpen: boolean
-  setIsOpen: (newValue: boolean) => void
   applicationEntity: TApplication
 }
 
 export const AboutDialog = (props: AboutDialogProps) => {
-  const { isOpen, setIsOpen, applicationEntity } = props
+  const { applicationEntity } = props
+  const [isInfoDialogOpen, setIsInfoDialogOpen] = useState(false)
 
   return (
-    <Dialog isDismissable open={isOpen} onClose={() => setIsOpen(false)}>
-      <div
-        style={{
-          minWidth: '291px',
-          maxWidth: '400px',
-        }}
+    <>
+      <Button
+        aria-haspopup='dialog'
+        aria-label='Open application information dialog'
+        variant='ghost_icon'
+        onClick={() => setIsInfoDialogOpen(true)}
+      >
+        <Icon data={info_circle} size={24} />
+      </Button>
+      <Dialog
+        isDismissable
+        open={isInfoDialogOpen}
+        onClose={() => setIsInfoDialogOpen(false)}
       >
         <Dialog.Header>
           <Dialog.Title>About {applicationEntity.label}</Dialog.Title>
           <Button
-            variant='ghost'
-            onClick={() => {
-              setIsOpen(false)
-            }}
+            aria-label='Close application information dialog'
+            variant='ghost_icon'
+            onClick={() => setIsInfoDialogOpen(false)}
           >
-            <Icon data={close} size={16} title='Close' />
+            <Icon data={close} size={16} />
           </Button>
         </Dialog.Header>
         <Dialog.CustomContent>
-          {applicationEntity.description}
+          {applicationEntity.description ||
+            'No description provided for this application.'}
         </Dialog.CustomContent>
-        <Dialog.Actions>
-          <Button onClick={() => setIsOpen(false)}>Ok</Button>
-        </Dialog.Actions>
-      </div>
-    </Dialog>
+      </Dialog>
+    </>
   )
 }
