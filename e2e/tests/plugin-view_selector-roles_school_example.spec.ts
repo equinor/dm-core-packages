@@ -36,7 +36,7 @@ test('Change role to operator and back', async ({ page }) => {
   ).not.toBeVisible()
   await expect(page.getByTestId('form-text-widget-Name')).not.toBeEditable()
   await page.getByRole('button', { name: 'User' }).click()
-  await page.getByLabel('admin').check()
+  await page.getByTestId('impersonate-role-dmss-admin').check()
   await page.getByRole('button', { name: 'Save', exact: true }).click()
   await page.getByRole('tab', { name: 'Hogwarts Admin', exact: true }).click()
   await expect(page.getByTestId('form-text-widget-Name')).toBeEditable()

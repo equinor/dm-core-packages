@@ -93,6 +93,7 @@ export const UserInfoDialog = (props: UserInfoDialogProps) => {
                       key={role.name}
                       label={role.label}
                       name='impersonate-role'
+                      data-testid={`impersonate-role-${role.name}`}
                       value={role.name}
                       checked={role.name === selectedRole.name}
                       onChange={() => setSelectedRole(role)}
