@@ -5643,3 +5643,23 @@ permissions block to all caller workflows. (2026-03-04T09:09:34Z)
     * **DMSS VERSION**: a272754 2026-03-03 Marcu..gsten fix: regex pattern to prevent DOS attack grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 89afd33 2026-03-04 depen..[bot] build(deps): bump actions/checkout from 4 to 6 grafted, HEAD -> main, origin/main
+* chore(deps-dev): bump serve from 14.2.5 to 14.2.6
+
+Bumps [serve](https://github.com/vercel/serve) from 14.2.5 to 14.2.6.
+- [Release notes](https://github.com/vercel/serve/releases)
+- [Changelog](https://github.com/vercel/serve/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/vercel/serve/compare/v14.2.5...v14.2.6)
+
+---
+updated-dependencies:
+- dependency-name: serve
+  dependency-version: 14.2.6
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+...
+
+Signed-off-by: dependabot[bot] <support@github.com> (2026-03-05T09:05:00Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/22907682580/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 7f54680 2026-03-06 githu..[bot] chore(main): release 1.6.6 grafted, HEAD -> main, origin/main
