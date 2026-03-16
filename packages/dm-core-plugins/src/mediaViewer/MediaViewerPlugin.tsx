@@ -30,10 +30,11 @@ export const MediaViewerPlugin = (
   )
   const { dataSource } = useMemo(() => splitAddress(idReference), [idReference])
   const [contentType, canPreview] = useMemo(() => {
+    const ext = document?.fileType?.toLowerCase?.(); // normalize if your keys are lowercase
     const contentType =
-      document?.contentType || document?.filetype
-        ? mimeTypes[document.filetype]
-        : 'application/octet-stream'
+      document?.contentType ??
+      (ext && mimeTypes[ext]) ??
+      'application/octet-stream';
     const canPreview =
       contentType.includes('image') ||
       contentType.includes('video') ||
