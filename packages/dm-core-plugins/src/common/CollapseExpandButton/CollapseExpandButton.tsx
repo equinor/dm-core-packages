@@ -9,7 +9,7 @@ import { chevron_right } from '@equinor/eds-icons'
 import styled from 'styled-components'
 
 const StyledButton = styled(Button)<{ $expanded: boolean }>`
-    span {
+    span, svg {
         transition: transform ease-in-out 0.2s;
         transform: ${(props) => (props.expanded ? 'rotate(90deg)' : 'none')};
     }
@@ -23,6 +23,12 @@ type CollapseExpandButtonProps = {
 
 export function CollapseExpandButton(props: CollapseExpandButtonProps) {
   const { isExpanded, setIsExpanded, color = 'primary', ...buttonProps } = props
+
+  const iconRotation = {
+    transition: 'transform ease-in-out 0.2s',
+    transform: isExpanded ? 'rotate(90deg)' : 'none',
+  }
+
   return (
     <EdsProvider density='compact'>
       <Tooltip title={isExpanded ? 'Collapse' : 'Expand'}>
@@ -36,7 +42,7 @@ export function CollapseExpandButton(props: CollapseExpandButtonProps) {
           onClick={setIsExpanded}
           {...buttonProps}
         >
-          <Icon data={chevron_right} />
+          <Icon data={chevron_right} style={iconRotation} />
         </StyledButton>
       </Tooltip>
     </EdsProvider>
