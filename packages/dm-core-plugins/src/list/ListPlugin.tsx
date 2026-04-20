@@ -49,6 +49,7 @@ type TListConfig = {
     delete: boolean
     expand: boolean
     open: boolean
+    show_edit_buttons?: boolean
   }
   resolveReferences: boolean
   templates?: TTemplate[]
@@ -73,6 +74,7 @@ const defaultConfig: TListConfig = {
     delete: true,
     expand: true,
     open: false,
+    show_edit_buttons: true,
   },
   resolveReferences: true,
   width: '100%',
@@ -114,6 +116,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const [showModal, setShowModal] = useState<boolean>(false)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
+
+  const showEditButtons = internalConfig.functionality.show_edit_buttons !== false
 
   const handleItemUpdate = (item: TItem<any>, data: any) => {
     updateItem(item, data, false)
@@ -387,25 +391,29 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   )}
                 </>
               )}
-              <FormButton
-                onClick={reloadData}
-                disabled={!dirtyState}
-                tooltip={'Revert changes'}
-                variant={'outlined'}
-                isLoading={isLoading}
-                dataTestid='RevertList'
-              >
-                <Icon data={undo} size={16} />
-              </FormButton>
-              <FormButton
-                onClick={() => save(items)}
-                disabled={!dirtyState}
-                isLoading={isLoading}
-                tooltip={'Save'}
-                dataTestid='SaveList'
-              >
-                Save
-              </FormButton>
+              {showEditButtons && (
+                <>
+                  <FormButton
+                    onClick={reloadData}
+                    disabled={!dirtyState}
+                    tooltip={'Revert changes'}
+                    variant={'outlined'}
+                    isLoading={isLoading}
+                    dataTestid='RevertList'
+                  >
+                    <Icon data={undo} size={16} />
+                  </FormButton>
+                  <FormButton
+                    onClick={() => save(items)}
+                    disabled={!dirtyState}
+                    isLoading={isLoading}
+                    tooltip={'Save'}
+                    dataTestid='SaveList'
+                  >
+                    Save
+                  </FormButton>
+                </>
+              )}
             </Stack>
           </Stack>
         </EdsProvider>
