@@ -5680,3 +5680,18 @@ Co-authored-by: awesthouse <avest@equinor.com> (2026-03-10T14:32:42Z)
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 7f54680 2026-03-06 githu..[bot] chore(main): release 1.6.6 grafted, HEAD -> main, origin/main
+* fixed returning undefined when contentType does not exist, and fileTy… (#1543)
+
+* fixed returning undefined when contentType does not exist, and fileType is not known.
+
+* fix: only map mimeType if filetype exists
+
+* fix type
+
+---------
+
+Co-authored-by: awesthouse <avest@equinor.com> (2026-04-20T07:30:19Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/24654110870/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 7f54680 2026-03-06 githu..[bot] chore(main): release 1.6.6 grafted, HEAD -> main, origin/main
