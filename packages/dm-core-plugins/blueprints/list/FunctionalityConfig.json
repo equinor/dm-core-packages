@@ -48,6 +48,13 @@
       "attributeType": "boolean",
       "default": true,
       "optional": true
-    }
+    },
+    {
+      "name": "show_edit_buttons",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "default": true,
+      "optional": true
+    }    
   ]
 }
