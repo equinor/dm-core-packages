@@ -5663,3 +5663,20 @@ Signed-off-by: dependabot[bot] <support@github.com> (2026-03-05T09:05:00Z)
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 7f54680 2026-03-06 githu..[bot] chore(main): release 1.6.6 grafted, HEAD -> main, origin/main
+* remmoving the bottons with a flag. fixing the expand icon. (#1544)
+
+* fixed returning undefined when contentType does not exist, and fileType is not known.
+
+* fix: only map mimeType if filetype exists
+
+* fix type
+
+* remmoving the bottons with a flag. fixing the expand icon.
+
+---------
+
+Co-authored-by: awesthouse <avest@equinor.com> (2026-03-10T14:32:42Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/24654068136/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 7f54680 2026-03-06 githu..[bot] chore(main): release 1.6.6 grafted, HEAD -> main, origin/main
