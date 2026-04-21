@@ -117,7 +117,8 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   const [isTemplateMenuOpen, setTemplateMenuIsOpen] = useState<boolean>(false)
 
-  const showEditButtons = internalConfig.functionality.show_edit_buttons !== false
+  const showEditButtons =
+    internalConfig.functionality.show_edit_buttons !== false
 
   const handleItemUpdate = (item: TItem<any>, data: any) => {
     updateItem(item, data, false)
