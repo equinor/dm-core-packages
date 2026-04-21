@@ -59,6 +59,7 @@ function App() {
   const [application, setApplication] = useState<TApplication>()
   const [error, setError] = useState<any>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  // @ts-ignore - external library type error
   const { token } = useContext(AuthContext)
 
   useEffect(() => {

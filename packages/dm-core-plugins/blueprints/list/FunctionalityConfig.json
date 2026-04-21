@@ -55,6 +55,6 @@
       "attributeType": "boolean",
       "default": true,
       "optional": true
-    }    
+    }
   ]
 }
