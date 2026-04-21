@@ -50,7 +50,6 @@ jobs:
             ./example/node_modules
             ./packages/dm-core/node_modules
             ./packages/dm-core-plugins/node_modules
-            ./yarn.lock
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./packages/dm-core/package.json')}}-${{ hashFiles('./packages/dm-core-plugins/package.json') }}
 
       - name: Enable Corepack
