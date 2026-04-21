@@ -73,6 +73,9 @@ jobs:
           path: ./example/node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./example/package.json')}}
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Install dependencies
         working-directory: ./example
         run: yarn install
