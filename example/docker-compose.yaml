@@ -34,7 +34,7 @@ services:
       SCHEDULER_ENVS_TO_EXPORT: "PUBLIC_DMSS_API,SIMA_LICENSE"
       SCHEDULER_REDIS_HOST: redis
       SCHEDULER_REDIS_PASSWORD: maf
-      DMSS_API: http://dmss:5000
+      DMSS_URL: http://dmss:5000
       AUTH_ENABLED: 0
       ENVIRONMENT: local
       AZURE_JOB_SUBSCRIPTION: 14d57366-b2ae-4da8-8b75-e273c6fdabe2
