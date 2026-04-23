@@ -5700,3 +5700,21 @@ Co-authored-by: awesthouse <avest@equinor.com> (2026-04-20T07:30:19Z)
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps): bump brace-expansion from 1.1.11 to 1.1.14
+
+Bumps [brace-expansion](https://github.com/juliangruber/brace-expansion) from 1.1.11 to 1.1.14.
+- [Release notes](https://github.com/juliangruber/brace-expansion/releases)
+- [Commits](https://github.com/juliangruber/brace-expansion/compare/1.1.11...v1.1.14)
+
+---
+updated-dependencies:
+- dependency-name: brace-expansion
+  dependency-version: 1.1.14
+  dependency-type: indirect
+...
+
+Signed-off-by: dependabot[bot] <support@github.com> (2026-04-23T08:31:27Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/24830637487/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
