@@ -10,19 +10,10 @@ updates:
     labels:
       - "dependencies"
     groups:
-      equinor-eds:
-        patterns:
-          - "@equinor/eds-*"
-      testing:
-        patterns:
-          - "@testing-library/*"
-          - "jest*"
-          - "@types/jest"
-      types:
-        patterns:
-          - "@types/*"
-        exclude-patterns:
-          - "@types/jest"
+      web:
+        update-types:
+          - "minor"
+          - "patch"
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
