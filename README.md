@@ -5723,3 +5723,253 @@ Signed-off-by: dependabot[bot] <support@github.com> (2026-04-23T08:31:27Z)
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps): bump the web group with 22 updates
+
+Bumps the web group with 22 updates:
+
+| Package | From | To |
+| --- | --- | --- |
+| [plotly.js](https://github.com/plotly/plotly.js) |  |  |
+| [react](https://github.com/facebook/react/tree/HEAD/packages/react) |  |  |
+| [react-dom](https://github.com/facebook/react/tree/HEAD/packages/react-dom) |  |  |
+| [react-router-dom](https://github.com/remix-run/react-router/tree/HEAD/packages/react-router-dom) |  |  |
+| [react-toastify](https://github.com/fkhadra/react-toastify) |  |  |
+| [styled-components](https://github.com/styled-components/styled-components) |  |  |
+| [@biomejs/biome](https://github.com/biomejs/biome/tree/HEAD/packages/@biomejs/biome) |  |  |
+| [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node) |  |  |
+| [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/tree/HEAD/packages/plugin-react-swc) |  |  |
+| [vite-plugin-checker](https://github.com/fi3ework/vite-plugin-checker) |  |  |
+| [vitest](https://github.com/vitest-dev/vitest/tree/HEAD/packages/vitest) |  |  |
+| [@equinor/eds-core-react](https://github.com/equinor/design-system/tree/HEAD/packages/eds-core-react) |  |  |
+| [@equinor/eds-icons](https://github.com/equinor/design-system/tree/HEAD/packages/eds-icons) |  |  |
+| [@tanstack/react-query](https://github.com/TanStack/query/tree/HEAD/packages/react-query) |  |  |
+| [axios](https://github.com/axios/axios) |  |  |
+| [dompurify](https://github.com/cure53/DOMPurify) |  |  |
+| [lodash](https://github.com/lodash/lodash) |  |  |
+| [ts-jest](https://github.com/kulshekhar/ts-jest) |  |  |
+| [ts-loader](https://github.com/TypeStrong/ts-loader) |  |  |
+| [mermaid](https://github.com/mermaid-js/mermaid) |  |  |
+| [react-hook-form](https://github.com/react-hook-form/react-hook-form) |  |  |
+| [yaml](https://github.com/eemeli/yaml) |  |  |
+
+
+Updates  from 3.4.0 to 3.5.0
+- [Release notes](https://github.com/plotly/plotly.js/releases)
+- [Changelog](https://github.com/plotly/plotly.js/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/plotly/plotly.js/compare/v3.4.0...v3.5.0)
+
+Updates  from 19.2.4 to 19.2.5
+- [Release notes](https://github.com/facebook/react/releases)
+- [Changelog](https://github.com/facebook/react/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/facebook/react/commits/v19.2.5/packages/react)
+
+Updates  from 19.2.4 to 19.2.5
+- [Release notes](https://github.com/facebook/react/releases)
+- [Changelog](https://github.com/facebook/react/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/facebook/react/commits/v19.2.5/packages/react-dom)
+
+Updates  from 7.13.1 to 7.14.2
+- [Release notes](https://github.com/remix-run/react-router/releases)
+- [Changelog](https://github.com/remix-run/react-router/blob/main/packages/react-router-dom/CHANGELOG.md)
+- [Commits](https://github.com/remix-run/react-router/commits/react-router-dom@7.14.2/packages/react-router-dom)
+
+Updates  from 11.0.5 to 11.1.0
+- [Release notes](https://github.com/fkhadra/react-toastify/releases)
+- [Commits](https://github.com/fkhadra/react-toastify/compare/v11.0.5...v11.1.0)
+
+Updates  from 6.3.11 to 6.4.1
+- [Release notes](https://github.com/styled-components/styled-components/releases)
+- [Commits](https://github.com/styled-components/styled-components/compare/styled-components@6.3.11...styled-components@6.4.1)
+
+Updates  from 2.4.5 to 2.4.13
+- [Release notes](https://github.com/biomejs/biome/releases)
+- [Changelog](https://github.com/biomejs/biome/blob/main/packages/@biomejs/biome/CHANGELOG.md)
+- [Commits](https://github.com/biomejs/biome/commits/@biomejs/biome@2.4.13/packages/@biomejs/biome)
+
+Updates  from 25.3.5 to 25.6.0
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
+
+Updates  from 4.2.3 to 4.3.0
+- [Release notes](https://github.com/vitejs/vite-plugin-react/releases)
+- [Changelog](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc/CHANGELOG.md)
+- [Commits](https://github.com/vitejs/vite-plugin-react/commits/v4.3.0/packages/plugin-react-swc)
+
+Updates  from 0.12.0 to 0.13.0
+- [Release notes](https://github.com/fi3ework/vite-plugin-checker/releases)
+- [Commits](https://github.com/fi3ework/vite-plugin-checker/compare/vite-plugin-checker@0.12.0...vite-plugin-checker@0.13.0)
+
+Updates  from 4.0.18 to 4.1.5
+- [Release notes](https://github.com/vitest-dev/vitest/releases)
+- [Commits](https://github.com/vitest-dev/vitest/commits/v4.1.5/packages/vitest)
+
+Updates  from 2.3.7 to 2.5.0
+- [Release notes](https://github.com/equinor/design-system/releases)
+- [Changelog](https://github.com/equinor/design-system/blob/main/packages/eds-core-react/CHANGELOG.md)
+- [Commits](https://github.com/equinor/design-system/commits/eds-core-react@v2.5.0/packages/eds-core-react)
+
+Updates  from 1.3.0 to 1.4.0
+- [Release notes](https://github.com/equinor/design-system/releases)
+- [Changelog](https://github.com/equinor/design-system/blob/main/packages/eds-icons/CHANGELOG.md)
+- [Commits](https://github.com/equinor/design-system/commits/eds-icons@v1.4.0/packages/eds-icons)
+
+Updates  from 5.90.21 to 5.100.1
+- [Release notes](https://github.com/TanStack/query/releases)
+- [Changelog](https://github.com/TanStack/query/blob/main/packages/react-query/CHANGELOG.md)
+- [Commits](https://github.com/TanStack/query/commits/@tanstack/react-query-devtools@5.100.1/packages/react-query)
+
+Updates  from 1.13.6 to 1.15.2
+- [Release notes](https://github.com/axios/axios/releases)
+- [Changelog](https://github.com/axios/axios/blob/v1.x/CHANGELOG.md)
+- [Commits](https://github.com/axios/axios/compare/v1.13.6...v1.15.2)
+
+Updates  from 3.3.2 to 3.4.1
+- [Release notes](https://github.com/cure53/DOMPurify/releases)
+- [Commits](https://github.com/cure53/DOMPurify/compare/3.3.2...3.4.1)
+
+Updates  from 4.17.23 to 4.18.1
+- [Release notes](https://github.com/lodash/lodash/releases)
+- [Commits](https://github.com/lodash/lodash/compare/4.17.23...4.18.1)
+
+Updates  from 29.4.6 to 29.4.9
+- [Release notes](https://github.com/kulshekhar/ts-jest/releases)
+- [Changelog](https://github.com/kulshekhar/ts-jest/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/kulshekhar/ts-jest/compare/v29.4.6...v29.4.9)
+
+Updates  from 9.5.4 to 9.5.7
+- [Release notes](https://github.com/TypeStrong/ts-loader/releases)
+- [Changelog](https://github.com/TypeStrong/ts-loader/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/TypeStrong/ts-loader/compare/v9.5.4...v9.5.7)
+
+Updates  from 11.12.3 to 11.14.0
+- [Release notes](https://github.com/mermaid-js/mermaid/releases)
+- [Commits](https://github.com/mermaid-js/mermaid/compare/mermaid@11.12.3...mermaid@11.14.0)
+
+Updates  from 7.71.2 to 7.73.1
+- [Release notes](https://github.com/react-hook-form/react-hook-form/releases)
+- [Changelog](https://github.com/react-hook-form/react-hook-form/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/react-hook-form/react-hook-form/compare/v7.71.2...v7.73.1)
+
+Updates  from 2.8.2 to 2.8.3
+- [Release notes](https://github.com/eemeli/yaml/releases)
+- [Commits](https://github.com/eemeli/yaml/compare/v2.8.2...v2.8.3)
+
+---
+updated-dependencies:
+- dependency-name: plotly.js
+  dependency-version: 3.5.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: react
+  dependency-version: 19.2.5
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: react-dom
+  dependency-version: 19.2.5
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: react-router-dom
+  dependency-version: 7.14.2
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: react-toastify
+  dependency-version: 11.1.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: styled-components
+  dependency-version: 6.4.1
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: @biomejs/biome
+  dependency-version: 2.4.13
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @types/node
+  dependency-version: 25.6.0
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: @vitejs/plugin-react-swc
+  dependency-version: 4.3.0
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: vite-plugin-checker
+  dependency-version: 0.13.0
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: vitest
+  dependency-version: 4.1.5
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: @equinor/eds-core-react
+  dependency-version: 2.5.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: @equinor/eds-icons
+  dependency-version: 1.4.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: @tanstack/react-query
+  dependency-version: 5.100.1
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: axios
+  dependency-version: 1.15.2
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: dompurify
+  dependency-version: 3.4.1
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: lodash
+  dependency-version: 4.18.1
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: ts-jest
+  dependency-version: 29.4.9
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: ts-loader
+  dependency-version: 9.5.7
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: mermaid
+  dependency-version: 11.14.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: react-hook-form
+  dependency-version: 7.73.1
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: yaml
+  dependency-version: 2.8.3
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+...
+
+Signed-off-by: dependabot[bot] <support@github.com> (2026-04-24T07:20:32Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/24878751209/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
