@@ -14,7 +14,7 @@
     "@equinor/eds-tokens": "^2.2.0",
     "@tanstack/react-query": "^5.100.1",
     "axios": "^1.15.2",
-    "dompurify": "^3.4.1",
+    "dompurify": "^3.4.2",
     "json-loader": "^0.5.7",
     "lodash": "^4.18.1",
     "luxon": "^3.7.2",
