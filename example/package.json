@@ -5,20 +5,20 @@
   "dependencies": {
     "@development-framework/dm-core": "^1.46.0",
     "@development-framework/dm-core-plugins": "^1.57.0",
-    "plotly.js": "^3.5.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
+    "plotly.js": "^3.5.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "react-oauth2-code-pkce": "^1.24.0",
     "react-plotly.js": "^2.6.0",
-    "react-router-dom": "^7.14.2",
+    "react-router-dom": "^7.15.0",
     "react-toastify": "^11.1.0",
     "styled-components": "^6.4.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths-webpack-plugin": "^4.2.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.13",
-    "@types/node": "^25.6.0",
+    "@biomejs/biome": "2.4.15",
+    "@types/node": "^25.6.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/react-plotly.js": "^2.6.4",
@@ -31,7 +31,7 @@
     "vite-plugin-checker": "^0.13.0",
     "vite-plugin-svgr": "^4.5.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.6"
   },
   "scripts": {
     "start": "vite",
