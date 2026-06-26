@@ -23,6 +23,7 @@ import { useHistory } from './history'
 import { ICONS } from './icons'
 import {
   addWidget,
+  clampPath,
   createEmptyModel,
   deserialize,
   duplicateWidget,
@@ -155,13 +156,25 @@ export const BuilderPlugin = (
     const item = activeModel.items[index]
     if (!item) return
     const area = translateArea(item.gridArea, deltaColumns, deltaRows)
-    const next = moveWidget(activeModel, index, area)
-    // Reject moves that would stack this widget on top of another.
-    if (wouldOverlap(next, index, next.items[index].gridArea)) {
+    // Pre-check against the rendered grid for immediate feedback.
+    const preview = moveWidget(activeModel, index, area)
+    if (wouldOverlap(preview, index, preview.items[index].gridArea)) {
       notify('That position overlaps another widget')
       return
     }
-    updateActive(() => next)
+    // Authoritative write re-derives from the latest model so a concurrent edit
+    // is never dropped, and re-checks overlap against that model.
+    updateActive((m) => {
+      const current = m.items[index]
+      if (!current) return m
+      const next = moveWidget(
+        m,
+        index,
+        translateArea(current.gridArea, deltaColumns, deltaRows)
+      )
+      if (wouldOverlap(next, index, next.items[index].gridArea)) return m
+      return next
+    })
   }
 
   const handleResize = (index: number, area: TGridArea) =>
@@ -179,12 +192,17 @@ export const BuilderPlugin = (
   const handleSetArea = (index: number, area: TGridArea) => {
     const item = activeModel.items[index]
     if (!item) return
-    const next = setWidgetArea(activeModel, index, area)
-    if (wouldOverlap(next, index, next.items[index].gridArea)) {
+    const preview = setWidgetArea(activeModel, index, area)
+    if (wouldOverlap(preview, index, preview.items[index].gridArea)) {
       notify('That size overlaps another widget')
       return
     }
-    updateActive(() => next, `area:${index}`)
+    updateActive((m) => {
+      if (!m.items[index]) return m
+      const next = setWidgetArea(m, index, area)
+      if (wouldOverlap(next, index, next.items[index].gridArea)) return m
+      return next
+    }, `area:${index}`)
   }
 
   const handleCopy = (index: number) => {
@@ -317,6 +335,17 @@ export const BuilderPlugin = (
     handleDuplicate,
     handleDelete,
   ])
+
+  // Keep navigation valid: if the model changes underneath the current path
+  // (e.g. an undo removes the section being edited), truncate the path to the
+  // deepest still-valid container and drop any now-stale selection.
+  useEffect(() => {
+    const clamped = clampPath(model, path)
+    if (clamped.length !== path.length) {
+      setPath(clamped)
+      setSelectedIndex(null)
+    }
+  }, [model, path])
 
   // Persisted JSON of the page. The baseline ref tracks what was last saved so
   // we can tell whether there are unsaved changes.

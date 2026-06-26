@@ -397,6 +397,23 @@ export const getSubModel = (
 }
 
 /**
+ * Truncate `path` to the deepest prefix that still resolves through genuine
+ * container items in `model`. Used to keep navigation valid after the model
+ * changes underneath it (e.g. an undo that removes the section being edited).
+ */
+export const clampPath = (model: TBuilderModel, path: number[]): number[] => {
+  const valid: number[] = []
+  let current = model
+  for (const index of path) {
+    const item = current.items[index]
+    if (!item || !isContainerItem(item)) break
+    valid.push(index)
+    current = ensureModel((item.viewConfig.recipe as TUiRecipe).config)
+  }
+  return valid
+}
+
+/**
  * Immutably replace the nested grid model at `path`. An empty path replaces the
  * root model. No-op when the path does not resolve to a container item.
  */

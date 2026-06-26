@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 export type TToast = {
   /** Unique id; changing it restarts the auto-hide timer for a new message. */
@@ -16,11 +16,12 @@ export type TUseToast = {
 /** Minimal single-slot toast state for transient builder feedback. */
 export const useToast = (): TUseToast => {
   const [toast, setToast] = useState<TToast | null>(null)
+  const nextId = useRef(0)
 
-  const notify = useCallback(
-    (message: string) => setToast({ id: Date.now(), message }),
-    []
-  )
+  const notify = useCallback((message: string) => {
+    nextId.current += 1
+    setToast({ id: nextId.current, message })
+  }, [])
   const dismiss = useCallback(() => setToast(null), [])
 
   return { toast, notify, dismiss }
