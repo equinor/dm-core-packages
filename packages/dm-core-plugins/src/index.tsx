@@ -4,6 +4,13 @@ import { lazy } from 'react'
 export { WidgetProvider } from './form/context/WidgetContext'
 
 export default {
+  '@development-framework/dm-core-plugins/builder': {
+    component: lazy(() =>
+      import('./builder/BuilderPlugin').then((module) => ({
+        default: module.BuilderPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/explorer': {
     component: lazy(() => import('./explorer/ExplorerPlugin')),
   },
