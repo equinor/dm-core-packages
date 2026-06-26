@@ -377,11 +377,9 @@ export const getSubModel = (
   let current = model
   for (const index of path) {
     const item = current.items[index]
-    if (!item) break
-    const recipe = item.viewConfig.recipe
-    current = ensureModel(
-      typeof recipe === 'object' ? recipe?.config : undefined
-    )
+    if (!item || !isContainerItem(item)) break
+    const recipe = item.viewConfig.recipe as TUiRecipe
+    current = ensureModel(recipe.config)
   }
   return current
 }
@@ -398,9 +396,8 @@ export const setSubModel = (
   if (path.length === 0) return sub
   const [index, ...rest] = path
   const item = model.items[index]
-  if (!item) return model
-  const recipe = item.viewConfig.recipe
-  if (typeof recipe !== 'object' || recipe === null) return model
+  if (!item || !isContainerItem(item)) return model
+  const recipe = item.viewConfig.recipe as TUiRecipe
   const child = setSubModel(ensureModel(recipe.config), rest, sub)
   return updateItem(model, index, (it) => ({
     ...it,
