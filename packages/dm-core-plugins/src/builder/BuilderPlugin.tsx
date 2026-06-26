@@ -15,6 +15,7 @@ import type { TGridArea, TGridItem } from '../grid/types'
 import { getBlock } from './blocks'
 import { Canvas } from './components/Canvas'
 import { Inspector } from './components/Inspector'
+import { Outline } from './components/Outline'
 import { TemplatesMenu } from './components/TemplatesMenu'
 import { Toast } from './components/Toast'
 import { WidgetPalette } from './components/WidgetPalette'
@@ -422,7 +423,17 @@ export const BuilderPlugin = (
           </Styled.ToolbarGroup>
         </Styled.Toolbar>
 
-        {mode === 'edit' && !showJson && <WidgetPalette onAdd={handleAdd} />}
+        {mode === 'edit' && !showJson && (
+          <Styled.LeftPanel>
+            <WidgetPalette onAdd={handleAdd} />
+            <Outline
+              items={activeModel.items}
+              selectedIndex={selectedIndex}
+              onSelect={setSelectedIndex}
+              onEnter={handleEnter}
+            />
+          </Styled.LeftPanel>
+        )}
 
         {showJson ? (
           <Styled.CanvasPanel

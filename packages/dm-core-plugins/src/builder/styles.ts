@@ -30,12 +30,75 @@ export const ToolbarGroup = styled.div`
   gap: 8px;
 `
 
-export const PalettePanel = styled.div`
+export const LeftPanel = styled.div`
   grid-area: palette;
   border-right: 1px solid #d3d3d3;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`
+
+export const PalettePanel = styled.div`
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 12px;
   overflow-y: auto;
   background: #fff;
+`
+
+export const OutlinePanel = styled.div`
+  flex: 0 0 auto;
+  max-height: 40%;
+  padding: 12px;
+  border-top: 1px solid #e0e0e0;
+  overflow-y: auto;
+  background: #fafafa;
+`
+
+export const OutlineList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 6px;
+`
+
+export const OutlineRow = styled.div<{ $selected: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid
+    ${(props) => (props.$selected ? '#007079' : 'transparent')};
+  border-radius: 4px;
+  background: ${(props) => (props.$selected ? '#f0f7f7' : 'transparent')};
+  cursor: pointer;
+  font-size: 13px;
+  text-align: left;
+
+  &:hover {
+    background: #f0f7f7;
+  }
+`
+
+export const OutlineLabel = styled.span`
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+export const OutlineCount = styled.span`
+  flex: 0 0 auto;
+  color: #6f6f6f;
+  font-size: 11px;
+`
+
+export const OutlineEmpty = styled.div`
+  color: #9e9e9e;
+  font-size: 12px;
+  padding: 6px 0;
 `
 
 export const PaletteGroupTitle = styled.div`
