@@ -8,8 +8,8 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
-import { Button, Icon, Typography } from '@equinor/eds-core-react'
-import { Fragment, useState } from 'react'
+import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
+import { Fragment, useEffect, useState } from 'react'
 import { GridPlugin } from '../grid/GridPlugin'
 import type { TGridArea } from '../grid/types'
 import { getBlock } from './blocks'
@@ -17,6 +17,7 @@ import { Canvas } from './components/Canvas'
 import { Inspector } from './components/Inspector'
 import { TemplatesMenu } from './components/TemplatesMenu'
 import { WidgetPalette } from './components/WidgetPalette'
+import { useHistory } from './history'
 import { ICONS } from './icons'
 import {
   addWidget,
@@ -64,11 +65,13 @@ export const BuilderPlugin = (
 ): React.ReactElement => {
   const { config, idReference, type, onSubmit, onChange } = props
 
-  const [model, setModel] = useState<TBuilderModel>(() =>
+  const history = useHistory<TBuilderModel>(() =>
     config?.initialConfig
       ? deserialize(config.initialConfig)
       : createEmptyModel()
   )
+  const model = history.present
+  const setModel = history.set
   const [mode, setMode] = useState<TBuilderMode>(config?.mode ?? 'edit')
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [showJson, setShowJson] = useState(false)
@@ -84,10 +87,19 @@ export const BuilderPlugin = (
   const activeModel = getSubModel(model, path)
   const frameWidth = DEVICE_WIDTHS[device]
 
-  /** Apply a transform to the active (possibly nested) grid and write it back. */
-  const updateActive = (updater: (model: TBuilderModel) => TBuilderModel) =>
-    setModel((current) =>
-      setSubModel(current, path, updater(getSubModel(current, path)))
+  /**
+   * Apply a transform to the active (possibly nested) grid and write it back.
+   * An optional `label` lets consecutive related changes (e.g. a drag-resize or
+   * typing in one field) collapse into a single undo step.
+   */
+  const updateActive = (
+    updater: (model: TBuilderModel) => TBuilderModel,
+    label: string | null = null
+  ) =>
+    setModel(
+      (current) =>
+        setSubModel(current, path, updater(getSubModel(current, path))),
+      label
     )
 
   const handleAdd = (block: TBlock) => updateActive((m) => addWidget(m, block))
@@ -142,7 +154,11 @@ export const BuilderPlugin = (
       const next = resizeWidget(m, index, area)
       if (wouldOverlap(next, index, next.items[index].gridArea)) return m
       return next
-    })
+    }, `resize:${index}`)
+
+  // Drag-resize emits many updates; end the coalescing run on pointer-up so the
+  // whole gesture collapses into a single undo step.
+  const handleResizeEnd = () => history.commit()
 
   const handleSetArea = (index: number, area: TGridArea) =>
     updateActive((m) => {
@@ -150,7 +166,7 @@ export const BuilderPlugin = (
       const next = setWidgetArea(m, index, area)
       if (wouldOverlap(next, index, next.items[index].gridArea)) return m
       return next
-    })
+    }, `area:${index}`)
 
   const selectedItem =
     selectedIndex !== null ? (activeModel.items[selectedIndex] ?? null) : null
@@ -165,19 +181,67 @@ export const BuilderPlugin = (
   const inspectorHandlers = {
     onTitle: (value: string) =>
       selectedIndex !== null &&
-      updateActive((m) => setWidgetTitle(m, selectedIndex, value)),
+      updateActive(
+        (m) => setWidgetTitle(m, selectedIndex, value),
+        `title:${selectedIndex}`
+      ),
     onLabel: (value: string) =>
       selectedIndex !== null &&
-      updateActive((m) => setWidgetLabel(m, selectedIndex, value)),
+      updateActive(
+        (m) => setWidgetLabel(m, selectedIndex, value),
+        `label:${selectedIndex}`
+      ),
     onScope: (value: string) =>
       selectedIndex !== null &&
-      updateActive((m) => setWidgetScope(m, selectedIndex, value)),
+      updateActive(
+        (m) => setWidgetScope(m, selectedIndex, value),
+        `scope:${selectedIndex}`
+      ),
     onArea: (area: TGridArea) =>
       selectedIndex !== null && handleSetArea(selectedIndex, area),
     onConfigValue: (key: string, value: unknown) =>
       selectedIndex !== null &&
-      updateActive((m) => setWidgetConfigValue(m, selectedIndex, key, value)),
+      updateActive(
+        (m) => setWidgetConfigValue(m, selectedIndex, key, value),
+        `config:${key}:${selectedIndex}`
+      ),
+    onCommit: () => history.commit(),
   }
+
+  // Keyboard shortcuts for editing. Undo/redo are available whenever the editor
+  // is active; they are ignored while typing in a form field so the field's own
+  // text undo keeps working.
+  useEffect(() => {
+    if (mode !== 'edit' || showJson) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null
+      const typing =
+        !!target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.tagName === 'SELECT' ||
+          target.isContentEditable)
+      const mod = event.metaKey || event.ctrlKey
+      const key = event.key.toLowerCase()
+
+      if (mod && key === 'z') {
+        if (typing) return
+        event.preventDefault()
+        if (event.shiftKey) history.redo()
+        else history.undo()
+        return
+      }
+      if (mod && key === 'y') {
+        if (typing) return
+        event.preventDefault()
+        history.redo()
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [mode, showJson, history])
 
   // Breadcrumb labels for the path from the root page down to the active grid.
   const crumbLabels = ['Page']
@@ -223,6 +287,30 @@ export const BuilderPlugin = (
               <TemplatesMenu
                 onApply={(template) => handleApplyTemplate(template.build)}
               />
+            )}
+            {mode === 'edit' && (
+              <>
+                <Tooltip title='Undo (Ctrl/Cmd+Z)'>
+                  <Button
+                    variant='ghost_icon'
+                    aria-label='Undo'
+                    disabled={!history.canUndo}
+                    onClick={() => history.undo()}
+                  >
+                    <Icon data={ICONS.undo} size={18} />
+                  </Button>
+                </Tooltip>
+                <Tooltip title='Redo (Ctrl/Cmd+Shift+Z)'>
+                  <Button
+                    variant='ghost_icon'
+                    aria-label='Redo'
+                    disabled={!history.canRedo}
+                    onClick={() => history.redo()}
+                  >
+                    <Icon data={ICONS.redo} size={18} />
+                  </Button>
+                </Tooltip>
+              </>
             )}
           </Styled.ToolbarGroup>
           <Styled.ToolbarGroup>
@@ -281,6 +369,7 @@ export const BuilderPlugin = (
             onDuplicate={handleDuplicate}
             onMove={handleMove}
             onResize={handleResize}
+            onResizeEnd={handleResizeEnd}
             onEnter={handleEnter}
           />
         ) : (

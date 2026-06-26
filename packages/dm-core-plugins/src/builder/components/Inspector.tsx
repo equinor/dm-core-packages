@@ -10,6 +10,8 @@ export type TInspectorHandlers = {
   onScope: (value: string) => void
   onArea: (area: TGridArea) => void
   onConfigValue: (key: string, value: unknown) => void
+  /** End the current coalescing run (called on blur) so each edit is one undo. */
+  onCommit: () => void
 }
 
 type TInspectorProps = TInspectorHandlers & {
@@ -113,6 +115,7 @@ export const Inspector = ({
   onScope,
   onArea,
   onConfigValue,
+  onCommit,
 }: TInspectorProps): React.ReactElement => {
   if (!item) {
     return (
@@ -130,7 +133,9 @@ export const Inspector = ({
     onArea(boxToArea({ ...box, ...patch }))
 
   return (
-    <Styled.InspectorPanel>
+    // Committing on blur ends the per-field coalescing run, so each field edit
+    // becomes a single undo step.
+    <Styled.InspectorPanel onBlur={onCommit}>
       <Typography variant='h6'>
         {block?.label ?? 'Widget'} properties
       </Typography>

@@ -24,6 +24,7 @@ const CanvasItem = ({
   onDelete,
   onDuplicate,
   onResize,
+  onResizeEnd,
   onEnter,
 }: {
   item: TGridItem
@@ -34,6 +35,7 @@ const CanvasItem = ({
   onDelete: (index: number) => void
   onDuplicate: (index: number) => void
   onResize: (index: number, area: TGridArea) => void
+  onResizeEnd: () => void
   onEnter: (index: number) => void
 }) => {
   const recipe = item.viewConfig.recipe
@@ -77,11 +79,13 @@ const CanvasItem = ({
   }
 
   const handleResizePointerUp = (event: ReactPointerEvent) => {
+    const wasResizing = resizeOrigin.current !== null
     resizeOrigin.current = null
     resizeStart.current = null
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId)
     }
+    if (wasResizing) onResizeEnd()
   }
 
   const childCount =
@@ -185,6 +189,7 @@ export const Canvas = ({
   onDuplicate,
   onMove,
   onResize,
+  onResizeEnd,
   onEnter,
 }: {
   model: TBuilderModel
@@ -196,6 +201,7 @@ export const Canvas = ({
   onDuplicate: (index: number) => void
   onMove: (index: number, deltaColumns: number, deltaRows: number) => void
   onResize: (index: number, area: TGridArea) => void
+  onResizeEnd: () => void
   onEnter: (index: number) => void
 }): React.ReactElement => {
   const { setNodeRef, isOver } = useDroppable({ id: 'canvas' })
@@ -250,6 +256,7 @@ export const Canvas = ({
               onDelete={onDelete}
               onDuplicate={onDuplicate}
               onResize={onResize}
+              onResizeEnd={onResizeEnd}
               onEnter={onEnter}
             />
           ))}
