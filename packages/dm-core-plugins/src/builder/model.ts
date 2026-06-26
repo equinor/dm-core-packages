@@ -170,6 +170,84 @@ export const moveWidget = (
   ),
 })
 
+/** Translate an area by a number of columns/rows, preserving its span. */
+export const translateArea = (
+  area: TGridArea,
+  deltaColumns: number,
+  deltaRows: number
+): TGridArea => ({
+  columnStart: area.columnStart + deltaColumns,
+  columnEnd: area.columnEnd + deltaColumns,
+  rowStart: area.rowStart + deltaRows,
+  rowEnd: area.rowEnd + deltaRows,
+})
+
+/**
+ * Resize the widget at `index` to a new area, clamping to the grid bounds and
+ * enforcing a minimum footprint of 1x1 cell. Returns a new model.
+ */
+export const resizeWidget = (
+  model: TBuilderModel,
+  index: number,
+  area: TGridArea
+): TBuilderModel => {
+  const normalized: TGridArea = {
+    columnStart: area.columnStart,
+    columnEnd: Math.max(area.columnStart, area.columnEnd),
+    rowStart: area.rowStart,
+    rowEnd: Math.max(area.rowStart, area.rowEnd),
+  }
+  return {
+    ...model,
+    items: model.items.map((item, i) =>
+      i === index
+        ? { ...item, gridArea: clampArea(normalized, model.size) }
+        : item
+    ),
+  }
+}
+
+/**
+ * True when `area` overlaps any item other than the one at `excludeIndex`.
+ * Used to keep manual moves/resizes from stacking widgets on top of each other.
+ */
+export const wouldOverlap = (
+  model: TBuilderModel,
+  excludeIndex: number,
+  area: TGridArea
+): boolean =>
+  model.items.some(
+    (item, i) => i !== excludeIndex && areasOverlap(item.gridArea, area)
+  )
+
+/**
+ * Duplicate the widget at `index`. The copy is placed in the first free area
+ * that fits it, or offset by one cell (clamped) when the grid is full. Returns
+ * a new model.
+ */
+export const duplicateWidget = (
+  model: TBuilderModel,
+  index: number
+): TBuilderModel => {
+  const source = model.items[index]
+  if (!source) return model
+  const { gridArea } = source
+  const footprint = {
+    columns: gridArea.columnEnd - gridArea.columnStart + 1,
+    rows: gridArea.rowEnd - gridArea.rowStart + 1,
+  }
+  const placed =
+    findFreeArea(model, footprint) ??
+    clampArea(translateArea(gridArea, 1, 1), model.size)
+  const copy: TGridItem = {
+    type: GRID_ITEM_TYPE,
+    gridArea: placed,
+    viewConfig: structuredClone(source.viewConfig),
+    ...(source.title ? { title: source.title } : {}),
+  }
+  return { ...model, items: [...model.items, copy] }
+}
+
 /**
  * Serialize the in-memory model to the canonical DMSS entity JSON consumed by
  * the runtime `grid` plugin (adds the `type` discriminators).
