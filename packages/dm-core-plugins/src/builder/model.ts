@@ -95,6 +95,37 @@ const defaultViewConfig = (block: TBlock): TViewConfig => ({
   },
 })
 
+const cloneViewConfig = (viewConfig: TViewConfig): TViewConfig =>
+  JSON.parse(JSON.stringify(viewConfig))
+
+/**
+ * Allocate a non-overlapping area for a widget of the given footprint.
+ *
+ * Uses the first free cell when one exists; otherwise grows the grid by extra
+ * rows and places the widget at the bottom, so widgets never overlap or get
+ * lost off-canvas. Returns the (possibly grown) grid size alongside the area.
+ */
+const allocateArea = (
+  model: TBuilderModel,
+  footprint: { columns: number; rows: number }
+): { size: TGridSize; area: TGridArea } => {
+  const free = findFreeArea(model, footprint)
+  if (free) return { size: model.size, area: free }
+
+  const width = Math.min(footprint.columns, model.size.columns) - 1
+  const height = footprint.rows - 1
+  const rowStart = model.size.rows + 1
+  return {
+    size: { ...model.size, rows: model.size.rows + footprint.rows },
+    area: {
+      rowStart,
+      rowEnd: rowStart + height,
+      columnStart: 1,
+      columnEnd: 1 + width,
+    },
+  }
+}
+
 /**
  * Add a widget for a block, returning a new model.
  *
@@ -122,31 +153,8 @@ export const addWidget = (
     }
   }
 
-  const free = findFreeArea(model, block.defaultSize)
-  if (free) {
-    return { ...model, items: [...model.items, makeItem(free)] }
-  }
-
-  // Grid is full: append rows and place the widget at the bottom.
-  const width = Math.min(block.defaultSize.columns, model.size.columns) - 1
-  const height = block.defaultSize.rows - 1
-  const rowStart = model.size.rows + 1
-  const grownModel: TBuilderModel = {
-    ...model,
-    size: { ...model.size, rows: model.size.rows + block.defaultSize.rows },
-  }
-  return {
-    ...grownModel,
-    items: [
-      ...grownModel.items,
-      makeItem({
-        rowStart,
-        rowEnd: rowStart + height,
-        columnStart: 1,
-        columnEnd: 1 + width,
-      }),
-    ],
-  }
+  const { size, area: placed } = allocateArea(model, block.defaultSize)
+  return { ...model, size, items: [...model.items, makeItem(placed)] }
 }
 
 /** Remove the widget at `index`, returning a new model. */
@@ -222,8 +230,8 @@ export const wouldOverlap = (
 
 /**
  * Duplicate the widget at `index`. The copy is placed in the first free area
- * that fits it, or offset by one cell (clamped) when the grid is full. Returns
- * a new model.
+ * that fits it; if the grid is full it grows so the copy never overlaps another
+ * widget. Returns a new model (unchanged when `index` is out of range).
  */
 export const duplicateWidget = (
   model: TBuilderModel,
@@ -236,16 +244,14 @@ export const duplicateWidget = (
     columns: gridArea.columnEnd - gridArea.columnStart + 1,
     rows: gridArea.rowEnd - gridArea.rowStart + 1,
   }
-  const placed =
-    findFreeArea(model, footprint) ??
-    clampArea(translateArea(gridArea, 1, 1), model.size)
+  const { size, area: placed } = allocateArea(model, footprint)
   const copy: TGridItem = {
     type: GRID_ITEM_TYPE,
     gridArea: placed,
-    viewConfig: structuredClone(source.viewConfig),
+    viewConfig: cloneViewConfig(source.viewConfig),
     ...(source.title ? { title: source.title } : {}),
   }
-  return { ...model, items: [...model.items, copy] }
+  return { ...model, size, items: [...model.items, copy] }
 }
 
 /**

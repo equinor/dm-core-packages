@@ -71,7 +71,9 @@ const CanvasItem = ({
   const handleResizePointerUp = (event: ReactPointerEvent) => {
     resizeOrigin.current = null
     resizeStart.current = null
-    event.currentTarget.releasePointerCapture(event.pointerId)
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
   }
 
   return (
@@ -133,6 +135,7 @@ const CanvasItem = ({
         onPointerDown={handleResizePointerDown}
         onPointerMove={handleResizePointerMove}
         onPointerUp={handleResizePointerUp}
+        onPointerCancel={handleResizePointerUp}
       />
     </Styled.CanvasItem>
   )

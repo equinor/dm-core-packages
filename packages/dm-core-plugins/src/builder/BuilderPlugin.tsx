@@ -77,11 +77,9 @@ export const BuilderPlugin = (
 
   const handleMove = (index: number, deltaColumns: number, deltaRows: number) =>
     setModel((current) => {
-      const area = translateArea(
-        current.items[index].gridArea,
-        deltaColumns,
-        deltaRows
-      )
+      const item = current.items[index]
+      if (!item) return current
+      const area = translateArea(item.gridArea, deltaColumns, deltaRows)
       const next = moveWidget(current, index, area)
       // Reject moves that would stack this widget on top of another.
       if (wouldOverlap(next, index, next.items[index].gridArea)) return current
@@ -90,6 +88,7 @@ export const BuilderPlugin = (
 
   const handleResize = (index: number, area: TGridArea) =>
     setModel((current) => {
+      if (!current.items[index]) return current
       const next = resizeWidget(current, index, area)
       if (wouldOverlap(next, index, next.items[index].gridArea)) return current
       return next
