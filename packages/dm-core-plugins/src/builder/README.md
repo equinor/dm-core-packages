@@ -15,7 +15,7 @@ renderer — there is no separate runtime format to maintain.
 A "widget" dropped on the canvas is a grid item whose `viewConfig` points at a
 plugin/recipe (Text, Image, Table, Form, or a nested Section).
 
-## Status: Phase 2 (property inspector)
+## Status: Phase 3 (sections, templates, device widths)
 
 Implemented:
 
@@ -40,7 +40,15 @@ Implemented:
   `serialize`/`deserialize` and renders it with the runtime `grid` plugin.
   Existing pages can be loaded for editing via `config.initialConfig`.
 - Read-only "Advanced: JSON" inspector.
-- Pure, immutable editor model with unit tests (`model.ts`, `gridMetrics.ts`).
+- **Section nesting**: a Section widget is a nested grid. Drill into it (its
+  "Open" button or a double-click) to edit its children on the same canvas; a
+  breadcrumb shows the path and navigates back out.
+- **Starter templates**: apply a preset layout (Blank, Landing, Dashboard,
+  Article) from the toolbar to seed the page.
+- **Device-width preview**: switch the canvas/preview width between desktop,
+  tablet and mobile frames.
+- Pure, immutable editor model with unit tests (`model.ts`, `gridMetrics.ts`,
+  `templates.ts`).
 
 ## Architecture
 
@@ -51,9 +59,11 @@ Implemented:
 | `model.ts` | Pure transforms (add/remove/move/resize/duplicate/setters) + serialize. |
 | `gridMetrics.ts` | Converts drag/resize pixel deltas into grid-cell deltas. |
 | `BuilderPlugin.tsx` | Plugin entry: state, `DndContext`, toolbar, mode switch. |
+| `templates.ts` | Starter page presets that build ready-to-edit models. |
 | `components/WidgetPalette.tsx` | Draggable palette cards grouped by category. |
-| `components/Canvas.tsx` | Grid canvas: drag-to-move, resize, select widgets. |
+| `components/Canvas.tsx` | Grid canvas: drag-to-move, resize, select, drill-in, device frame. |
 | `components/Inspector.tsx` | Property panel for the selected widget. |
+| `components/TemplatesMenu.tsx` | Toolbar menu listing the starter templates. |
 
 ## Content model
 
@@ -71,11 +81,15 @@ Implemented:
 - Grid gaps are assumed to be `px` values when snapping drag/resize deltas.
 - Inspector config fields are silent no-ops for widgets that use a recipe
   reference (string) rather than an inline recipe.
+- `serialize()` adds DMSS type discriminators to the **root** grid only; the
+  nested grids inside Section widgets are kept as raw builder models. Making
+  serialization fully recursive (with a symmetric recursive `deserialize` to
+  preserve the round-trip) is deferred to Phase 5 (persistence).
 
 ## Roadmap
 
 - Phase 1 — move/resize widgets on the canvas; load existing pages. ✅
 - Phase 2 — inspector that edits each widget via typed controls (no JSON). ✅
-- Phase 3 — sections/nesting, responsive breakpoints, templates.
+- Phase 3 — sections/nesting, responsive breakpoints, templates. ✅
 - Phase 4 — undo/redo, autosave, alignment guides, guardrails.
 - Phase 5 — publish flow, example-app entry and demo blueprints.
