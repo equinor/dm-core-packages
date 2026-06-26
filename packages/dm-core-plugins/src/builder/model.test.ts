@@ -5,6 +5,7 @@ import {
   clampArea,
   createEmptyModel,
   deserialize,
+  duplicateWidget,
   findFreeArea,
   GRID_AREA_TYPE,
   GRID_CONFIG_TYPE,
@@ -13,7 +14,10 @@ import {
   INLINE_RECIPE_VIEW_CONFIG_TYPE,
   moveWidget,
   removeWidget,
+  resizeWidget,
   serialize,
+  translateArea,
+  wouldOverlap,
 } from './model'
 
 const textBlock = getBlock('text') ?? BLOCKS[0]
@@ -116,6 +120,169 @@ describe('builder model', () => {
       columnStart: 1,
       columnEnd: 7,
     })
+  })
+
+  it('translates an area by positive and negative deltas while preserving its span', () => {
+    const area = { rowStart: 3, rowEnd: 6, columnStart: 4, columnEnd: 8 }
+    const result = translateArea(area, -2, 5)
+
+    expect(result).toEqual({
+      rowStart: 8,
+      rowEnd: 11,
+      columnStart: 2,
+      columnEnd: 6,
+    })
+    expect(result.columnEnd - result.columnStart).toBe(
+      area.columnEnd - area.columnStart
+    )
+    expect(result.rowEnd - result.rowStart).toBe(area.rowEnd - area.rowStart)
+  })
+
+  it('resizes a widget without mutating the input model or other items', () => {
+    const model = addWidget(
+      addWidget(createEmptyModel(), textBlock, {
+        rowStart: 2,
+        rowEnd: 3,
+        columnStart: 2,
+        columnEnd: 3,
+      }),
+      imageBlock,
+      { rowStart: 5, rowEnd: 6, columnStart: 5, columnEnd: 6 }
+    )
+    const original = clone(model)
+
+    const grown = resizeWidget(model, 0, {
+      rowStart: 2,
+      rowEnd: 5,
+      columnStart: 2,
+      columnEnd: 7,
+    })
+    const shrunk = resizeWidget(model, 0, {
+      rowStart: 2,
+      rowEnd: 2,
+      columnStart: 2,
+      columnEnd: 2,
+    })
+
+    expect(model).toEqual(original)
+    expect(grown).not.toBe(model)
+    expect(grown.items[0].gridArea).toEqual({
+      rowStart: 2,
+      rowEnd: 5,
+      columnStart: 2,
+      columnEnd: 7,
+    })
+    expect(grown.items[1]).toEqual(model.items[1])
+    expect(shrunk.items[0].gridArea).toEqual({
+      rowStart: 2,
+      rowEnd: 2,
+      columnStart: 2,
+      columnEnd: 2,
+    })
+  })
+
+  it('normalizes resize areas to at least 1x1 and clamps them to grid bounds', () => {
+    const model = addWidget(createEmptyModel(), textBlock)
+
+    const normalized = resizeWidget(model, 0, {
+      rowStart: 4,
+      rowEnd: 1,
+      columnStart: 5,
+      columnEnd: 1,
+    })
+    const clamped = resizeWidget(model, 0, {
+      rowStart: 7,
+      rowEnd: 12,
+      columnStart: 10,
+      columnEnd: 15,
+    })
+
+    expect(normalized.items[0].gridArea).toEqual({
+      rowStart: 4,
+      rowEnd: 4,
+      columnStart: 5,
+      columnEnd: 5,
+    })
+    expect(clamped.items[0].gridArea).toEqual({
+      rowStart: 3,
+      rowEnd: 8,
+      columnStart: 7,
+      columnEnd: 12,
+    })
+  })
+
+  it('duplicates a widget into free space with an isolated view config copy', () => {
+    const model = addWidget(createEmptyModel(), textBlock, {
+      rowStart: 1,
+      rowEnd: 2,
+      columnStart: 1,
+      columnEnd: 2,
+    })
+    const original = clone(model)
+    const result = duplicateWidget(model, 0)
+
+    expect(model).toEqual(original)
+    expect(result).not.toBe(model)
+    expect(result.items).toHaveLength(2)
+    expect(
+      areasOverlap(result.items[0].gridArea, result.items[1].gridArea)
+    ).toBe(false)
+
+    result.items[1].viewConfig.label = 'Changed copy'
+    expect(result.items[0].viewConfig.label).toBe(textBlock.label)
+  })
+
+  it('returns an equal model when duplicating an out-of-range widget index', () => {
+    const model = addWidget(createEmptyModel(), textBlock)
+
+    expect(duplicateWidget(model, 99)).toEqual(model)
+  })
+
+  it('grows the grid and avoids overlap when duplicating into a full grid', () => {
+    const full = addWidget(createEmptyModel(), textBlock, {
+      rowStart: 1,
+      rowEnd: 8,
+      columnStart: 1,
+      columnEnd: 12,
+    })
+    const result = duplicateWidget(full, 0)
+
+    expect(result.size.rows).toBeGreaterThan(full.size.rows)
+    expect(result.items).toHaveLength(2)
+    expect(
+      areasOverlap(result.items[0].gridArea, result.items[1].gridArea)
+    ).toBe(false)
+  })
+
+  it('detects overlap against other widgets while ignoring the excluded index', () => {
+    const model = addWidget(
+      addWidget(createEmptyModel(), textBlock, {
+        rowStart: 1,
+        rowEnd: 2,
+        columnStart: 1,
+        columnEnd: 2,
+      }),
+      imageBlock,
+      { rowStart: 4, rowEnd: 5, columnStart: 4, columnEnd: 5 }
+    )
+
+    expect(
+      wouldOverlap(model, 0, {
+        rowStart: 4,
+        rowEnd: 4,
+        columnStart: 4,
+        columnEnd: 4,
+      })
+    ).toBe(true)
+    expect(wouldOverlap(model, 0, model.items[0].gridArea)).toBe(false)
+    expect(
+      wouldOverlap(model, 0, {
+        rowStart: 7,
+        rowEnd: 8,
+        columnStart: 10,
+        columnEnd: 12,
+      })
+    ).toBe(false)
   })
 
   it('detects overlapping, adjacent, and disjoint areas', () => {
