@@ -232,16 +232,14 @@ export const wouldOverlap = (
   )
 
 /**
- * Duplicate the widget at `index`. The copy is placed in the first free area
+ * Append a copy of `source` to the model, placing it in the first free area
  * that fits it; if the grid is full it grows so the copy never overlaps another
- * widget. Returns a new model (unchanged when `index` is out of range).
+ * widget. The view config is deep-cloned so the copy is fully independent.
  */
-export const duplicateWidget = (
+export const insertWidgetItem = (
   model: TBuilderModel,
-  index: number
+  source: TGridItem
 ): TBuilderModel => {
-  const source = model.items[index]
-  if (!source) return model
   const { gridArea } = source
   const footprint = {
     columns: gridArea.columnEnd - gridArea.columnStart + 1,
@@ -255,6 +253,20 @@ export const duplicateWidget = (
     ...(source.title ? { title: source.title } : {}),
   }
   return { ...model, size, items: [...model.items, copy] }
+}
+
+/**
+ * Duplicate the widget at `index`. The copy is placed in the first free area
+ * that fits it; if the grid is full it grows so the copy never overlaps another
+ * widget. Returns a new model (unchanged when `index` is out of range).
+ */
+export const duplicateWidget = (
+  model: TBuilderModel,
+  index: number
+): TBuilderModel => {
+  const source = model.items[index]
+  if (!source) return model
+  return insertWidgetItem(model, source)
 }
 
 /** Apply `updater` to the item at `index`, returning a new model. No-op when

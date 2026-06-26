@@ -11,7 +11,7 @@ import {
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
 import { Fragment, useEffect, useState } from 'react'
 import { GridPlugin } from '../grid/GridPlugin'
-import type { TGridArea } from '../grid/types'
+import type { TGridArea, TGridItem } from '../grid/types'
 import { getBlock } from './blocks'
 import { Canvas } from './components/Canvas'
 import { Inspector } from './components/Inspector'
@@ -26,6 +26,7 @@ import {
   deserialize,
   duplicateWidget,
   getSubModel,
+  insertWidgetItem,
   moveWidget,
   removeWidget,
   resizeWidget,
@@ -79,6 +80,7 @@ export const BuilderPlugin = (
   const [showJson, setShowJson] = useState(false)
   const [path, setPath] = useState<number[]>([])
   const [device, setDevice] = useState<TDevice>('desktop')
+  const [clipboard, setClipboard] = useState<TGridItem | null>(null)
   const { toast, notify, dismiss } = useToast()
 
   const sensors = useSensors(
@@ -184,6 +186,22 @@ export const BuilderPlugin = (
     updateActive(() => next, `area:${index}`)
   }
 
+  const handleCopy = (index: number) => {
+    const item = activeModel.items[index]
+    if (!item) return
+    setClipboard(JSON.parse(JSON.stringify(item)) as TGridItem)
+    notify('Widget copied')
+  }
+
+  const handlePaste = () => {
+    if (!clipboard) return
+    // The pasted widget is appended, so it lands at the current item count.
+    const newIndex = activeModel.items.length
+    updateActive((m) => insertWidgetItem(m, clipboard))
+    setSelectedIndex(newIndex)
+    notify('Widget pasted')
+  }
+
   const selectedItem =
     selectedIndex !== null ? (activeModel.items[selectedIndex] ?? null) : null
   const selectedBlock = selectedItem
@@ -225,8 +243,8 @@ export const BuilderPlugin = (
   }
 
   // Keyboard shortcuts for editing. Undo/redo are available whenever the editor
-  // is active; they are ignored while typing in a form field so the field's own
-  // text undo keeps working.
+  // is active; the editing shortcuts are ignored while typing in a form field so
+  // the field's own behaviour (text undo, copy, etc.) keeps working.
   useEffect(() => {
     if (mode !== 'edit' || showJson) return
 
@@ -252,12 +270,52 @@ export const BuilderPlugin = (
         if (typing) return
         event.preventDefault()
         history.redo()
+        return
       }
+
+      if (typing) return
+
+      if (mod && key === 'c') {
+        if (selectedIndex !== null) handleCopy(selectedIndex)
+        return
+      }
+      if (mod && key === 'v') {
+        if (clipboard) {
+          event.preventDefault()
+          handlePaste()
+        }
+        return
+      }
+      if (mod && key === 'd') {
+        if (selectedIndex !== null) {
+          event.preventDefault()
+          handleDuplicate(selectedIndex)
+        }
+        return
+      }
+      if (key === 'delete' || key === 'backspace') {
+        if (selectedIndex !== null) {
+          event.preventDefault()
+          handleDelete(selectedIndex)
+        }
+        return
+      }
+      if (key === 'escape') setSelectedIndex(null)
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [mode, showJson, history])
+  }, [
+    mode,
+    showJson,
+    history,
+    selectedIndex,
+    clipboard,
+    handleCopy,
+    handlePaste,
+    handleDuplicate,
+    handleDelete,
+  ])
 
   // Breadcrumb labels for the path from the root page down to the active grid.
   const crumbLabels = ['Page']
