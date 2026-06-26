@@ -19,7 +19,9 @@ const CanvasItem = ({
   onSelect: (index: number) => void
   onDelete: (index: number) => void
 }) => {
-  const block = getBlock(String(item.viewConfig.recipe))
+  const recipe = item.viewConfig.recipe
+  const blockId = typeof recipe === 'string' ? recipe : recipe?.name
+  const block = getBlock(String(blockId))
   const { gridArea } = item
   return (
     <Styled.CanvasItem

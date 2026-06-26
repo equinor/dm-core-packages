@@ -107,7 +107,13 @@ export const BuilderPlugin = (
 
         {mode === 'edit' && <WidgetPalette onAdd={handleAdd} />}
 
-        {mode === 'edit' ? (
+        {showJson ? (
+          <Styled.CanvasPanel style={{ background: '#1e1e1e' }}>
+            <pre style={{ color: '#d4d4d4', fontSize: 12, margin: 0 }}>
+              {JSON.stringify(serialize(model), null, 2)}
+            </pre>
+          </Styled.CanvasPanel>
+        ) : mode === 'edit' ? (
           <Canvas
             model={model}
             selectedIndex={selectedIndex}
@@ -123,16 +129,6 @@ export const BuilderPlugin = (
               onSubmit={onSubmit}
               onChange={onChange}
             />
-          </Styled.CanvasPanel>
-        )}
-
-        {showJson && (
-          <Styled.CanvasPanel
-            style={{ gridColumn: '1 / -1', background: '#1e1e1e' }}
-          >
-            <pre style={{ color: '#d4d4d4', fontSize: 12, margin: 0 }}>
-              {JSON.stringify(serialize(model), null, 2)}
-            </pre>
           </Styled.CanvasPanel>
         )}
       </Styled.BuilderLayout>

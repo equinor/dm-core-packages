@@ -8,6 +8,7 @@ export const GRID_ITEM_TYPE = 'PLUGINS:dm-core-plugins/grid/GridItem'
 export const GRID_AREA_TYPE = 'PLUGINS:dm-core-plugins/grid/GridArea'
 export const GRID_SIZE_TYPE = 'PLUGINS:dm-core-plugins/grid/GridSize'
 export const REFERENCE_VIEW_CONFIG_TYPE = 'CORE:ReferenceViewConfig'
+export const INLINE_RECIPE_VIEW_CONFIG_TYPE = 'CORE:InlineRecipeViewConfig'
 
 const DEFAULT_SIZE: TGridSize = {
   columns: 12,
@@ -35,8 +36,14 @@ export const areasOverlap = (a: TGridArea, b: TGridArea): boolean =>
 
 /** Clamp a grid area so it stays within the grid bounds. */
 export const clampArea = (area: TGridArea, size: TGridSize): TGridArea => {
-  const width = area.columnEnd - area.columnStart
-  const height = area.rowEnd - area.rowStart
+  const width = Math.min(
+    Math.max(0, area.columnEnd - area.columnStart),
+    size.columns - 1
+  )
+  const height = Math.min(
+    Math.max(0, area.rowEnd - area.rowStart),
+    size.rows - 1
+  )
   const columnStart = Math.min(
     Math.max(1, area.columnStart),
     size.columns - width
@@ -52,12 +59,12 @@ export const clampArea = (area: TGridArea, size: TGridSize): TGridArea => {
 
 /**
  * Find the first free top-left cell that fits a widget of the given footprint,
- * scanning row by row. Falls back to the origin if nothing fits.
+ * scanning row by row. Returns `null` when the grid has no free space.
  */
 export const findFreeArea = (
   model: TBuilderModel,
   footprint: { columns: number; rows: number }
-): TGridArea => {
+): TGridArea | null => {
   const { columns, rows } = model.size
   const width = Math.min(footprint.columns, columns) - 1
   const height = Math.min(footprint.rows, rows) - 1
@@ -74,39 +81,72 @@ export const findFreeArea = (
       }
     }
   }
-  return {
-    rowStart: 1,
-    rowEnd: 1 + height,
-    columnStart: 1,
-    columnEnd: 1 + width,
-  }
+  return null
 }
 
 const defaultViewConfig = (block: TBlock): TViewConfig => ({
-  type: REFERENCE_VIEW_CONFIG_TYPE,
+  type: INLINE_RECIPE_VIEW_CONFIG_TYPE,
   scope: '',
-  recipe: block.id,
   label: block.label,
+  recipe: {
+    name: block.id,
+    type: 'CORE:UiRecipe',
+    plugin: block.recipe,
+  },
 })
 
-/** Add a widget for a block at the given area, returning a new model. */
+/**
+ * Add a widget for a block, returning a new model.
+ *
+ * When no explicit `area` is given the widget is placed in the first free cell;
+ * if the grid is full the grid grows by extra rows so widgets never overlap or
+ * get lost off-canvas.
+ */
 export const addWidget = (
   model: TBuilderModel,
   block: TBlock,
   area?: TGridArea,
   viewConfig?: TViewConfig
 ): TBuilderModel => {
-  const gridArea = clampArea(
-    area ?? findFreeArea(model, block.defaultSize),
-    model.size
-  )
-  const item: TGridItem = {
+  const makeItem = (gridArea: TGridArea): TGridItem => ({
     type: GRID_ITEM_TYPE,
     gridArea,
     viewConfig: viewConfig ?? defaultViewConfig(block),
     title: block.label,
+  })
+
+  if (area) {
+    return {
+      ...model,
+      items: [...model.items, makeItem(clampArea(area, model.size))],
+    }
   }
-  return { ...model, items: [...model.items, item] }
+
+  const free = findFreeArea(model, block.defaultSize)
+  if (free) {
+    return { ...model, items: [...model.items, makeItem(free)] }
+  }
+
+  // Grid is full: append rows and place the widget at the bottom.
+  const width = Math.min(block.defaultSize.columns, model.size.columns) - 1
+  const height = block.defaultSize.rows - 1
+  const rowStart = model.size.rows + 1
+  const grownModel: TBuilderModel = {
+    ...model,
+    size: { ...model.size, rows: model.size.rows + block.defaultSize.rows },
+  }
+  return {
+    ...grownModel,
+    items: [
+      ...grownModel.items,
+      makeItem({
+        rowStart,
+        rowEnd: rowStart + height,
+        columnStart: 1,
+        columnEnd: 1 + width,
+      }),
+    ],
+  }
 }
 
 /** Remove the widget at `index`, returning a new model. */
