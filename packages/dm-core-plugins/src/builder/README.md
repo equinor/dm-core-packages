@@ -15,7 +15,7 @@ renderer — there is no separate runtime format to maintain.
 A "widget" dropped on the canvas is a grid item whose `viewConfig` points at a
 plugin/recipe (Text, Image, Table, Form, or a nested Section).
 
-## Status: Phase 3 (sections, templates, device widths)
+## Status: Phase 4 (UX polish & safety)
 
 Implemented:
 
@@ -47,8 +47,21 @@ Implemented:
   Article) from the toolbar to seed the page.
 - **Device-width preview**: switch the canvas/preview width between desktop,
   tablet and mobile frames.
+- **Undo/redo** (toolbar + `Ctrl/Cmd+Z`, `Shift+Z`, `Y`) over an immutable
+  history; consecutive related edits (a drag-resize, typing in one field)
+  collapse into a single undo step.
+- **Keyboard editing**: `Ctrl/Cmd+C/V` copy & paste, `Ctrl/Cmd+D` duplicate,
+  `Delete`/`Backspace` remove, `Escape` deselect (inert while typing in a field).
+- **Outline panel** beneath the palette: select any widget in the current grid
+  and drill into sections.
+- **Toast feedback**: overlap-rejected moves/resizes and edit actions surface a
+  friendly message instead of failing silently.
+- **Dirty-state & autosave**: a toolbar status (All changes saved / Saving… /
+  Unsaved changes) reflects unsaved work; edits autosave through `onChange` (when
+  provided) after a short debounce, and the browser warns before leaving with
+  unsaved changes.
 - Pure, immutable editor model with unit tests (`model.ts`, `gridMetrics.ts`,
-  `templates.ts`).
+  `templates.ts`, `history.ts`).
 
 ## Architecture
 
@@ -56,14 +69,18 @@ Implemented:
 | --- | --- |
 | `types.ts` | Editor model, plugin config, block and inspector-field types. |
 | `blocks.ts` | The widget catalogue + inspector fields shown in the palette. |
-| `model.ts` | Pure transforms (add/remove/move/resize/duplicate/setters) + serialize. |
+| `model.ts` | Pure transforms (add/remove/move/resize/duplicate/insert/setters), nesting helpers and serialize. |
 | `gridMetrics.ts` | Converts drag/resize pixel deltas into grid-cell deltas. |
-| `BuilderPlugin.tsx` | Plugin entry: state, `DndContext`, toolbar, mode switch. |
+| `history.ts` | Immutable undo/redo stack + `useHistory` hook (with coalescing). |
+| `toast.ts` | `useToast` single-slot transient feedback state. |
+| `BuilderPlugin.tsx` | Plugin entry: state, history, `DndContext`, toolbar, mode switch, shortcuts, autosave. |
 | `templates.ts` | Starter page presets that build ready-to-edit models. |
 | `components/WidgetPalette.tsx` | Draggable palette cards grouped by category. |
+| `components/Outline.tsx` | List of widgets in the active grid for select/drill-in. |
 | `components/Canvas.tsx` | Grid canvas: drag-to-move, resize, select, drill-in, device frame. |
 | `components/Inspector.tsx` | Property panel for the selected widget. |
 | `components/TemplatesMenu.tsx` | Toolbar menu listing the starter templates. |
+| `components/Toast.tsx` | Renders the current toast (EDS `Snackbar`). |
 
 ## Content model
 
@@ -76,8 +93,8 @@ Implemented:
 ## Known limitations
 
 - Widgets are keyed by array index for React keys and dnd ids. This is safe for
-  the current append/delete/duplicate operations; a stable per-widget id should
-  be introduced before adding reorder support (tracked for Phase 4).
+  the current append/delete/duplicate/paste operations; a stable per-widget id
+  should be introduced before adding free reordering (tracked for Phase 5).
 - Grid gaps are assumed to be `px` values when snapping drag/resize deltas.
 - Inspector config fields are silent no-ops for widgets that use a recipe
   reference (string) rather than an inline recipe.
@@ -91,5 +108,5 @@ Implemented:
 - Phase 1 — move/resize widgets on the canvas; load existing pages. ✅
 - Phase 2 — inspector that edits each widget via typed controls (no JSON). ✅
 - Phase 3 — sections/nesting, responsive breakpoints, templates. ✅
-- Phase 4 — undo/redo, autosave, alignment guides, guardrails.
+- Phase 4 — undo/redo, copy/paste, outline, toasts, autosave & dirty guard. ✅
 - Phase 5 — publish flow, example-app entry and demo blueprints.
