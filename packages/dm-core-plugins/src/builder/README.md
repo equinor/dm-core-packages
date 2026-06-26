@@ -15,7 +15,7 @@ renderer — there is no separate runtime format to maintain.
 A "widget" dropped on the canvas is a grid item whose `viewConfig` points at a
 plugin/recipe (Text, Image, Table, Form, or a nested Section).
 
-## Status: Phase 0 (proof of concept)
+## Status: Phase 1 (core canvas editing)
 
 Implemented:
 
@@ -23,11 +23,15 @@ Implemented:
 - Widget palette (Section, Text, Image, Table, Form) with draggable cards
   (`@dnd-kit`).
 - CSS-grid canvas: drag a block from the palette (or click it) to add a widget;
-  select and delete widgets; drop-target highlight and empty state.
+  select, delete and **duplicate** widgets; drop-target highlight and empty state.
+- **Drag widgets by their header to reposition** them (pixel deltas snapped to
+  grid cells) and **resize via a corner handle**. Moves and resizes are clamped
+  to the grid and rejected when they would overlap another widget.
 - Edit / Preview toggle. Preview round-trips the model through
   `serialize`/`deserialize` and renders it with the runtime `grid` plugin.
+  Existing pages can be loaded for editing via `config.initialConfig`.
 - Read-only "Advanced: JSON" inspector.
-- Pure, immutable editor model with unit tests (`model.ts` / `model.test.ts`).
+- Pure, immutable editor model with unit tests (`model.ts`, `gridMetrics.ts`).
 
 ## Architecture
 
@@ -35,10 +39,11 @@ Implemented:
 | --- | --- |
 | `types.ts` | Editor model, plugin config and block types. |
 | `blocks.ts` | The widget catalogue shown in the palette. |
-| `model.ts` | Pure transforms (add/remove/move) + serialize/deserialize. |
+| `model.ts` | Pure transforms (add/remove/move/resize/duplicate) + serialize. |
+| `gridMetrics.ts` | Converts drag/resize pixel deltas into grid-cell deltas. |
 | `BuilderPlugin.tsx` | Plugin entry: state, `DndContext`, toolbar, mode switch. |
 | `components/WidgetPalette.tsx` | Draggable palette cards grouped by category. |
-| `components/Canvas.tsx` | Droppable grid canvas with selectable widgets. |
+| `components/Canvas.tsx` | Grid canvas: drag-to-move, resize, select widgets. |
 
 ## Content model
 
@@ -47,9 +52,16 @@ Implemented:
   `viewConfig.scope`.
 - **Layout** (Section) is a container (a nested grid).
 
+## Known limitations
+
+- Widgets are keyed by array index for React keys and dnd ids. This is safe for
+  the current append/delete/duplicate operations; a stable per-widget id should
+  be introduced before adding reorder support (tracked for Phase 4).
+- Grid gaps are assumed to be `px` values when snapping drag/resize deltas.
+
 ## Roadmap
 
-- Phase 1 — move/resize widgets on the canvas; load existing pages for editing.
+- Phase 1 — move/resize widgets on the canvas; load existing pages. ✅
 - Phase 2 — inspector that edits each widget via the `form` plugin (no JSON).
 - Phase 3 — sections/nesting, responsive breakpoints, templates.
 - Phase 4 — undo/redo, autosave, alignment guides, guardrails.
