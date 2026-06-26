@@ -31,6 +31,7 @@ RUN npm ci
 COPY . .
 
 FROM base AS development
+USER 1000
 CMD ["npm", "run", "start:example"]
 
 FROM base AS prod
