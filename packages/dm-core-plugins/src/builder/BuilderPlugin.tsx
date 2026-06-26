@@ -11,6 +11,7 @@ import {
 import { Button, Icon, Typography } from '@equinor/eds-core-react'
 import { useState } from 'react'
 import { GridPlugin } from '../grid/GridPlugin'
+import type { TGridArea } from '../grid/types'
 import { getBlock } from './blocks'
 import { Canvas } from './components/Canvas'
 import { WidgetPalette } from './components/WidgetPalette'
@@ -19,8 +20,13 @@ import {
   addWidget,
   createEmptyModel,
   deserialize,
+  duplicateWidget,
+  moveWidget,
   removeWidget,
+  resizeWidget,
   serialize,
+  translateArea,
+  wouldOverlap,
 } from './model'
 import * as Styled from './styles'
 import type {
@@ -65,6 +71,29 @@ export const BuilderPlugin = (
     setModel((current) => removeWidget(current, index))
     setSelectedIndex(null)
   }
+
+  const handleDuplicate = (index: number) =>
+    setModel((current) => duplicateWidget(current, index))
+
+  const handleMove = (index: number, deltaColumns: number, deltaRows: number) =>
+    setModel((current) => {
+      const area = translateArea(
+        current.items[index].gridArea,
+        deltaColumns,
+        deltaRows
+      )
+      const next = moveWidget(current, index, area)
+      // Reject moves that would stack this widget on top of another.
+      if (wouldOverlap(next, index, next.items[index].gridArea)) return current
+      return next
+    })
+
+  const handleResize = (index: number, area: TGridArea) =>
+    setModel((current) => {
+      const next = resizeWidget(current, index, area)
+      if (wouldOverlap(next, index, next.items[index].gridArea)) return current
+      return next
+    })
 
   // Round-trip through serialize/deserialize so preview proves the stored JSON
   // renders identically with the runtime grid plugin.
@@ -119,6 +148,9 @@ export const BuilderPlugin = (
             selectedIndex={selectedIndex}
             onSelect={setSelectedIndex}
             onDelete={handleDelete}
+            onDuplicate={handleDuplicate}
+            onMove={handleMove}
+            onResize={handleResize}
           />
         ) : (
           <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>

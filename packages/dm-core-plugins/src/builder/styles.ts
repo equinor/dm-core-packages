@@ -96,7 +96,10 @@ export const CanvasGrid = styled.div<{ $size: TGridSize; $editing: boolean }>`
   padding: 4px;
 `
 
-export const CanvasItem = styled.div<{ $selected: boolean }>`
+export const CanvasItem = styled.div<{
+  $selected: boolean
+  $dragging?: boolean
+}>`
   position: relative;
   overflow: hidden;
   border: 2px solid ${(props) => (props.$selected ? '#007079' : '#bcbcbc')};
@@ -104,11 +107,8 @@ export const CanvasItem = styled.div<{ $selected: boolean }>`
   background: #fff;
   box-shadow: ${(props) =>
     props.$selected ? '0 0 0 2px rgba(0,112,121,0.2)' : 'none'};
-  cursor: grab;
-
-  &:active {
-    cursor: grabbing;
-  }
+  opacity: ${(props) => (props.$dragging ? 0.7 : 1)};
+  z-index: ${(props) => (props.$dragging || props.$selected ? 2 : 1)};
 `
 
 export const CanvasItemHeader = styled.div`
@@ -121,6 +121,35 @@ export const CanvasItemHeader = styled.div`
   border-bottom: 1px solid #e0e0e0;
   font-size: 12px;
   font-weight: 600;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+`
+
+export const CanvasItemActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0;
+`
+
+export const ResizeHandle = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 14px;
+  height: 14px;
+  cursor: nwse-resize;
+  background: linear-gradient(
+    135deg,
+    transparent 0 50%,
+    #007079 50% 60%,
+    transparent 60% 70%,
+    #007079 70% 80%,
+    transparent 80%
+  );
+  touch-action: none;
 `
 
 export const CanvasItemBody = styled.div`

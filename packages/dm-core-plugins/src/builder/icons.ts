@@ -1,5 +1,6 @@
 import {
   add,
+  copy,
   delete_to_trash,
   drag_handle,
   edit,
@@ -24,4 +25,5 @@ export const ICONS: Record<string, IconData> = {
   visibility,
   drag_handle,
   delete_to_trash,
+  copy,
 }
