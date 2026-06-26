@@ -9,7 +9,7 @@ import {
   useSensors,
 } from '@dnd-kit/core'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { GridPlugin } from '../grid/GridPlugin'
 import type { TGridArea, TGridItem } from '../grid/types'
 import { getBlock } from './blocks'
@@ -318,6 +318,53 @@ export const BuilderPlugin = (
     handleDelete,
   ])
 
+  // Persisted JSON of the page. The baseline ref tracks what was last saved so
+  // we can tell whether there are unsaved changes.
+  const currentJson = useMemo(() => JSON.stringify(serialize(model)), [model])
+  const savedJsonRef = useRef(currentJson)
+  const [saveState, setSaveState] = useState<'saved' | 'saving' | 'dirty'>(
+    'saved'
+  )
+
+  // Autosave: debounce changes and push them to the host via onChange. Without
+  // an onChange handler there is nowhere to save to, so the page just stays
+  // marked as having unsaved changes.
+  useEffect(() => {
+    if (currentJson === savedJsonRef.current) {
+      setSaveState('saved')
+      return
+    }
+    if (!onChange) {
+      setSaveState('dirty')
+      return
+    }
+    setSaveState('saving')
+    const timer = setTimeout(() => {
+      onChange(JSON.parse(currentJson))
+      savedJsonRef.current = currentJson
+      setSaveState('saved')
+    }, 800)
+    return () => clearTimeout(timer)
+  }, [currentJson, onChange])
+
+  // Warn before leaving the page while there are unsaved changes.
+  useEffect(() => {
+    if (saveState === 'saved') return
+    const handler = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+      event.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [saveState])
+
+  const saveStatusLabel =
+    saveState === 'saved'
+      ? 'All changes saved'
+      : saveState === 'saving'
+        ? 'Saving…'
+        : 'Unsaved changes'
+
   // Breadcrumb labels for the path from the root page down to the active grid.
   const crumbLabels = ['Page']
   for (let depth = 0; depth < path.length; depth++) {
@@ -389,6 +436,11 @@ export const BuilderPlugin = (
             )}
           </Styled.ToolbarGroup>
           <Styled.ToolbarGroup>
+            {mode === 'edit' && (
+              <Styled.SaveStatus $state={saveState}>
+                {saveStatusLabel}
+              </Styled.SaveStatus>
+            )}
             {(['desktop', 'tablet', 'mobile'] as TDevice[]).map((value) => (
               <Button
                 key={value}

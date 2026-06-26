@@ -30,6 +30,27 @@ export const ToolbarGroup = styled.div`
   gap: 8px;
 `
 
+export const SaveStatus = styled.span<{ $state: 'saved' | 'saving' | 'dirty' }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: ${(props) => (props.$state === 'dirty' ? '#ad6800' : '#6f6f6f')};
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: ${(props) =>
+      props.$state === 'saved'
+        ? '#4caf50'
+        : props.$state === 'saving'
+          ? '#bdbdbd'
+          : '#ffa000'};
+  }
+`
+
 export const LeftPanel = styled.div`
   grid-area: palette;
   border-right: 1px solid #d3d3d3;
