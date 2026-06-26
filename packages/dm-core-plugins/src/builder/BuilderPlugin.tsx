@@ -16,6 +16,7 @@ import { getBlock } from './blocks'
 import { Canvas } from './components/Canvas'
 import { Inspector } from './components/Inspector'
 import { TemplatesMenu } from './components/TemplatesMenu'
+import { Toast } from './components/Toast'
 import { WidgetPalette } from './components/WidgetPalette'
 import { useHistory } from './history'
 import { ICONS } from './icons'
@@ -39,6 +40,7 @@ import {
   wouldOverlap,
 } from './model'
 import * as Styled from './styles'
+import { useToast } from './toast'
 import type {
   TBlock,
   TBuilderMode,
@@ -77,6 +79,7 @@ export const BuilderPlugin = (
   const [showJson, setShowJson] = useState(false)
   const [path, setPath] = useState<number[]>([])
   const [device, setDevice] = useState<TDevice>('desktop')
+  const { toast, notify, dismiss } = useToast()
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -116,10 +119,13 @@ export const BuilderPlugin = (
   const handleDelete = (index: number) => {
     updateActive((m) => removeWidget(m, index))
     setSelectedIndex(null)
+    notify('Widget deleted')
   }
 
-  const handleDuplicate = (index: number) =>
+  const handleDuplicate = (index: number) => {
     updateActive((m) => duplicateWidget(m, index))
+    notify('Widget duplicated')
+  }
 
   const handleEnter = (index: number) => {
     setPath((current) => [...current, index])
@@ -135,18 +141,25 @@ export const BuilderPlugin = (
     setModel(build())
     setPath([])
     setSelectedIndex(null)
+    notify('Template applied')
   }
 
-  const handleMove = (index: number, deltaColumns: number, deltaRows: number) =>
-    updateActive((m) => {
-      const item = m.items[index]
-      if (!item) return m
-      const area = translateArea(item.gridArea, deltaColumns, deltaRows)
-      const next = moveWidget(m, index, area)
-      // Reject moves that would stack this widget on top of another.
-      if (wouldOverlap(next, index, next.items[index].gridArea)) return m
-      return next
-    })
+  const handleMove = (
+    index: number,
+    deltaColumns: number,
+    deltaRows: number
+  ) => {
+    const item = activeModel.items[index]
+    if (!item) return
+    const area = translateArea(item.gridArea, deltaColumns, deltaRows)
+    const next = moveWidget(activeModel, index, area)
+    // Reject moves that would stack this widget on top of another.
+    if (wouldOverlap(next, index, next.items[index].gridArea)) {
+      notify('That position overlaps another widget')
+      return
+    }
+    updateActive(() => next)
+  }
 
   const handleResize = (index: number, area: TGridArea) =>
     updateActive((m) => {
@@ -160,13 +173,16 @@ export const BuilderPlugin = (
   // whole gesture collapses into a single undo step.
   const handleResizeEnd = () => history.commit()
 
-  const handleSetArea = (index: number, area: TGridArea) =>
-    updateActive((m) => {
-      if (!m.items[index]) return m
-      const next = setWidgetArea(m, index, area)
-      if (wouldOverlap(next, index, next.items[index].gridArea)) return m
-      return next
-    }, `area:${index}`)
+  const handleSetArea = (index: number, area: TGridArea) => {
+    const item = activeModel.items[index]
+    if (!item) return
+    const next = setWidgetArea(activeModel, index, area)
+    if (wouldOverlap(next, index, next.items[index].gridArea)) {
+      notify('That size overlaps another widget')
+      return
+    }
+    updateActive(() => next, `area:${index}`)
+  }
 
   const selectedItem =
     selectedIndex !== null ? (activeModel.items[selectedIndex] ?? null) : null
@@ -395,6 +411,7 @@ export const BuilderPlugin = (
           />
         )}
       </Styled.BuilderLayout>
+      <Toast toast={toast} onClose={dismiss} />
     </DndContext>
   )
 }
