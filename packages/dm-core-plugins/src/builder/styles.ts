@@ -78,6 +78,37 @@ export const CanvasPanel = styled.div`
   background: #f3f3f3;
 `
 
+export const DeviceFrame = styled.div<{ $maxWidth: string }>`
+  max-width: ${(props) => props.$maxWidth};
+  margin: 0 auto;
+  height: 100%;
+  transition: max-width 0.2s ease;
+`
+
+export const Breadcrumbs = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #6f6f6f;
+`
+
+export const BreadcrumbButton = styled.button<{ $current: boolean }>`
+  border: none;
+  background: none;
+  padding: 2px 4px;
+  cursor: ${(props) => (props.$current ? 'default' : 'pointer')};
+  color: ${(props) => (props.$current ? '#3d3d3d' : '#007079')};
+  font-weight: ${(props) => (props.$current ? 600 : 400)};
+  font-size: 13px;
+
+  &:hover {
+    text-decoration: ${(props) => (props.$current ? 'none' : 'underline')};
+  }
+`
+
 export const CanvasGrid = styled.div<{ $size: TGridSize; $editing: boolean }>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.$size.columns}, 1fr);

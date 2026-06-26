@@ -339,6 +339,78 @@ export const getWidgetConfigValue = (item: TGridItem, key: string): unknown => {
   return recipe.config?.[key]
 }
 
+/** Runtime plugin name of the layout grid (used to detect container widgets). */
+export const GRID_PLUGIN_NAME = '@development-framework/dm-core-plugins/grid'
+
+/** True when the item is a layout container — its inline recipe is a grid. */
+export const isContainerItem = (item: TGridItem): boolean => {
+  const recipe = item.viewConfig.recipe
+  return (
+    typeof recipe === 'object' &&
+    recipe !== null &&
+    recipe.plugin === GRID_PLUGIN_NAME
+  )
+}
+
+/** Coerce an arbitrary nested recipe config into a valid builder (grid) model. */
+export const ensureModel = (value: unknown): TBuilderModel => {
+  const base = createEmptyModel({ columns: 6, rows: 4 })
+  if (!value || typeof value !== 'object') return base
+  const candidate = value as Partial<TBuilderModel>
+  return {
+    size: { ...base.size, ...(candidate.size ?? {}) },
+    items: Array.isArray(candidate.items) ? candidate.items : [],
+    itemBorder: { ...base.itemBorder, ...(candidate.itemBorder ?? {}) },
+    showItemBorders: candidate.showItemBorders ?? base.showItemBorders,
+  }
+}
+
+/**
+ * Get the nested grid model at `path`, where each path index drills into a
+ * container item's nested grid. An empty path returns the root model; an
+ * invalid path stops at the deepest valid level.
+ */
+export const getSubModel = (
+  model: TBuilderModel,
+  path: number[]
+): TBuilderModel => {
+  let current = model
+  for (const index of path) {
+    const item = current.items[index]
+    if (!item) break
+    const recipe = item.viewConfig.recipe
+    current = ensureModel(
+      typeof recipe === 'object' ? recipe?.config : undefined
+    )
+  }
+  return current
+}
+
+/**
+ * Immutably replace the nested grid model at `path`. An empty path replaces the
+ * root model. No-op when the path does not resolve to a container item.
+ */
+export const setSubModel = (
+  model: TBuilderModel,
+  path: number[],
+  sub: TBuilderModel
+): TBuilderModel => {
+  if (path.length === 0) return sub
+  const [index, ...rest] = path
+  const item = model.items[index]
+  if (!item) return model
+  const recipe = item.viewConfig.recipe
+  if (typeof recipe !== 'object' || recipe === null) return model
+  const child = setSubModel(ensureModel(recipe.config), rest, sub)
+  return updateItem(model, index, (it) => ({
+    ...it,
+    viewConfig: {
+      ...it.viewConfig,
+      recipe: { ...recipe, config: child } as TUiRecipe,
+    },
+  }))
+}
+
 /**
  * Serialize the in-memory model to the canonical DMSS entity JSON consumed by
  * the runtime `grid` plugin (adds the `type` discriminators).

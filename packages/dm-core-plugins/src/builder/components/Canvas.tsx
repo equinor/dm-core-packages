@@ -1,10 +1,15 @@
 import { useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core'
 import { Button, Icon } from '@equinor/eds-core-react'
-import { type PointerEvent as ReactPointerEvent, useRef } from 'react'
+import {
+  type ReactNode,
+  type PointerEvent as ReactPointerEvent,
+  useRef,
+} from 'react'
 import type { TGridArea, TGridItem } from '../../grid/types'
 import { getBlock } from '../blocks'
 import { pixelDeltaToCells } from '../gridMetrics'
 import { ICONS } from '../icons'
+import { isContainerItem } from '../model'
 import * as Styled from '../styles'
 import type { TBuilderModel } from '../types'
 
@@ -19,6 +24,7 @@ const CanvasItem = ({
   onDelete,
   onDuplicate,
   onResize,
+  onEnter,
 }: {
   item: TGridItem
   index: number
@@ -28,10 +34,12 @@ const CanvasItem = ({
   onDelete: (index: number) => void
   onDuplicate: (index: number) => void
   onResize: (index: number, area: TGridArea) => void
+  onEnter: (index: number) => void
 }) => {
   const recipe = item.viewConfig.recipe
   const blockId = typeof recipe === 'string' ? recipe : recipe?.name
   const block = getBlock(String(blockId))
+  const isContainer = isContainerItem(item)
   const { gridArea } = item
 
   const { attributes, listeners, setNodeRef, transform, isDragging } =
@@ -76,6 +84,11 @@ const CanvasItem = ({
     }
   }
 
+  const childCount =
+    isContainer && typeof recipe === 'object'
+      ? (recipe?.config?.items?.length ?? 0)
+      : 0
+
   return (
     <Styled.CanvasItem
       ref={setNodeRef}
@@ -93,6 +106,11 @@ const CanvasItem = ({
         event.stopPropagation()
         onSelect(index)
       }}
+      onDoubleClick={(event) => {
+        if (!isContainer) return
+        event.stopPropagation()
+        onEnter(index)
+      }}
     >
       <Styled.CanvasItemHeader {...listeners} {...attributes}>
         <span>
@@ -106,6 +124,18 @@ const CanvasItem = ({
           {item.title ?? block?.label ?? 'Widget'}
         </span>
         <Styled.CanvasItemActions>
+          {isContainer && (
+            <Button
+              variant='ghost_icon'
+              aria-label='Open section'
+              onClick={(event) => {
+                event.stopPropagation()
+                onEnter(index)
+              }}
+            >
+              <Icon data={ICONS.chevron_right} size={16} />
+            </Button>
+          )}
           <Button
             variant='ghost_icon'
             aria-label='Duplicate widget'
@@ -128,7 +158,11 @@ const CanvasItem = ({
           </Button>
         </Styled.CanvasItemActions>
       </Styled.CanvasItemHeader>
-      <Styled.CanvasItemBody>{block?.description}</Styled.CanvasItemBody>
+      <Styled.CanvasItemBody>
+        {isContainer
+          ? `${childCount} widget${childCount === 1 ? '' : 's'} — double-click or open to edit`
+          : block?.description}
+      </Styled.CanvasItemBody>
       <Styled.ResizeHandle
         aria-label='Resize widget'
         onClick={(event) => event.stopPropagation()}
@@ -144,19 +178,25 @@ const CanvasItem = ({
 export const Canvas = ({
   model,
   selectedIndex,
+  frameWidth,
+  breadcrumb,
   onSelect,
   onDelete,
   onDuplicate,
   onMove,
   onResize,
+  onEnter,
 }: {
   model: TBuilderModel
   selectedIndex: number | null
+  frameWidth: string
+  breadcrumb?: ReactNode
   onSelect: (index: number | null) => void
   onDelete: (index: number) => void
   onDuplicate: (index: number) => void
   onMove: (index: number, deltaColumns: number, deltaRows: number) => void
   onResize: (index: number, area: TGridArea) => void
+  onEnter: (index: number) => void
 }): React.ReactElement => {
   const { setNodeRef, isOver } = useDroppable({ id: 'canvas' })
   const gridRef = useRef<HTMLDivElement | null>(null)
@@ -182,35 +222,39 @@ export const Canvas = ({
 
   return (
     <Styled.CanvasPanel onClick={() => onSelect(null)}>
-      <Styled.CanvasGrid
-        ref={(node) => {
-          setNodeRef(node)
-          gridRef.current = node
-        }}
-        $size={model.size}
-        $editing
-        style={{ outline: isOver ? '2px dashed #007079' : 'none' }}
-      >
-        {model.items.length === 0 && (
-          <Styled.EmptyState>
-            Drag a widget here, or click one in the palette, to start building
-            your page.
-          </Styled.EmptyState>
-        )}
-        {model.items.map((item, index) => (
-          <CanvasItem
-            key={index}
-            item={item}
-            index={index}
-            selected={selectedIndex === index}
-            metrics={metrics}
-            onSelect={onSelect}
-            onDelete={onDelete}
-            onDuplicate={onDuplicate}
-            onResize={onResize}
-          />
-        ))}
-      </Styled.CanvasGrid>
+      {breadcrumb}
+      <Styled.DeviceFrame $maxWidth={frameWidth}>
+        <Styled.CanvasGrid
+          ref={(node) => {
+            setNodeRef(node)
+            gridRef.current = node
+          }}
+          $size={model.size}
+          $editing
+          style={{ outline: isOver ? '2px dashed #007079' : 'none' }}
+        >
+          {model.items.length === 0 && (
+            <Styled.EmptyState>
+              Drag a widget here, or click one in the palette, to start building
+              your page.
+            </Styled.EmptyState>
+          )}
+          {model.items.map((item, index) => (
+            <CanvasItem
+              key={index}
+              item={item}
+              index={index}
+              selected={selectedIndex === index}
+              metrics={metrics}
+              onSelect={onSelect}
+              onDelete={onDelete}
+              onDuplicate={onDuplicate}
+              onResize={onResize}
+              onEnter={onEnter}
+            />
+          ))}
+        </Styled.CanvasGrid>
+      </Styled.DeviceFrame>
     </Styled.CanvasPanel>
   )
 }

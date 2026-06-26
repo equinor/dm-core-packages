@@ -23,6 +23,12 @@ export const BLOCKS: TBlock[] = [
     contentModel: 'content',
     defaultSize: { columns: 4, rows: 2 },
     recipe: '@development-framework/dm-core-plugins/grid',
+    defaultConfig: {
+      size: { columns: 6, rows: 4, rowGap: '16px', columnGap: '16px' },
+      items: [],
+      itemBorder: { size: '1px', style: 'solid', color: '#bbb', radius: '5px' },
+      showItemBorders: false,
+    },
   },
   {
     id: 'text',
