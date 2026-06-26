@@ -72,6 +72,8 @@ export type TBlock = {
   defaultSize: { columns: number; rows: number }
   /** UI recipe / plugin this block renders with at runtime. */
   recipe: string
+  /** Sensible default recipe config so the widget renders without setup. */
+  defaultConfig?: Record<string, unknown>
   /** Block-specific properties surfaced in the inspector. */
   fields?: TInspectorField[]
 }

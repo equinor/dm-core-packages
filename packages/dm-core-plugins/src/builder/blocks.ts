@@ -3,9 +3,15 @@ import type { TBlock } from './types'
 /**
  * The v1 widget catalogue shown in the palette.
  *
- * - `content` blocks (Text, Image) carry their own content inline.
- * - `data` blocks (Table, Form) bind to an existing DMSS entity.
+ * - `content` blocks (Text, Image) render document-backed content and bind to a
+ *   DMSS attribute via `scope` (e.g. a markdown blob or a media file).
+ * - `data` blocks (Table, Form) bind to an existing DMSS entity via `scope`.
  * - `layout` blocks (Section) are containers (a nested grid).
+ *
+ * `defaultConfig` seeds a valid recipe config so a freshly dropped widget
+ * renders in preview without manual setup. `fields` are block-specific
+ * properties surfaced in the inspector; they target config keys the runtime
+ * plugin actually consumes.
  */
 export const BLOCKS: TBlock[] = [
   {
@@ -23,41 +29,39 @@ export const BLOCKS: TBlock[] = [
     label: 'Text',
     icon: 'text_field',
     category: 'content',
-    description: 'Rich text written in Markdown.',
+    description: 'Markdown rendered from a bound document.',
     contentModel: 'content',
     defaultSize: { columns: 3, rows: 1 },
     recipe: '@development-framework/dm-core-plugins/markdown',
-    fields: [
-      {
-        label: 'Content',
-        type: 'textarea',
-        target: { kind: 'config', key: 'content' },
-        placeholder: '# Heading\n\nWrite Markdown here…',
-        help: 'Markdown shown in this text block.',
-      },
-    ],
   },
   {
     id: 'image',
     label: 'Image',
     icon: 'image',
     category: 'media',
-    description: 'An image or other media asset.',
+    description: 'An image or other media asset from a bound file.',
     contentModel: 'content',
     defaultSize: { columns: 2, rows: 2 },
     recipe: '@development-framework/dm-core-plugins/media-viewer',
+    defaultConfig: { fill: 'width' },
     fields: [
       {
-        label: 'Image URL',
+        label: 'Caption',
         type: 'text',
-        target: { kind: 'config', key: 'src' },
-        placeholder: 'https://…',
+        target: { kind: 'config', key: 'caption' },
+        help: 'Text shown beneath the image.',
       },
       {
-        label: 'Alt text',
-        type: 'text',
-        target: { kind: 'config', key: 'alt' },
-        help: 'Describe the image for accessibility.',
+        label: 'Width (px)',
+        type: 'number',
+        target: { kind: 'config', key: 'width' },
+        help: 'Fixed width in pixels (optional).',
+      },
+      {
+        label: 'Height (px)',
+        type: 'number',
+        target: { kind: 'config', key: 'height' },
+        help: 'Fixed height in pixels (optional).',
       },
     ],
   },
@@ -70,14 +74,16 @@ export const BLOCKS: TBlock[] = [
     contentModel: 'data',
     defaultSize: { columns: 4, rows: 2 },
     recipe: '@development-framework/dm-core-plugins/table',
-    fields: [
-      {
-        label: 'Rows per page',
-        type: 'number',
-        target: { kind: 'config', key: 'pageSize' },
-        help: 'How many rows to show per page.',
-      },
-    ],
+    defaultConfig: {
+      columns: [{ data: 'name', label: 'Name' }, { data: 'type' }],
+      variant: [
+        {
+          name: 'view',
+          density: 'compact',
+          functionality: { add: true, delete: true },
+        },
+      ],
+    },
   },
   {
     id: 'form',
@@ -88,14 +94,6 @@ export const BLOCKS: TBlock[] = [
     contentModel: 'data',
     defaultSize: { columns: 3, rows: 2 },
     recipe: '@development-framework/dm-core-plugins/form',
-    fields: [
-      {
-        label: 'Read only',
-        type: 'boolean',
-        target: { kind: 'config', key: 'readOnly' },
-        help: 'Show the form without allowing edits.',
-      },
-    ],
   },
 ]
 

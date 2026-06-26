@@ -92,6 +92,9 @@ const defaultViewConfig = (block: TBlock): TViewConfig => ({
     name: block.id,
     type: 'CORE:UiRecipe',
     plugin: block.recipe,
+    ...(block.defaultConfig
+      ? { config: JSON.parse(JSON.stringify(block.defaultConfig)) }
+      : {}),
   },
 })
 

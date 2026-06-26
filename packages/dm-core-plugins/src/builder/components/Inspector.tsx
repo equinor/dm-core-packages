@@ -86,15 +86,20 @@ const FieldControl = ({
       type={field.type === 'number' ? 'number' : 'text'}
       placeholder={field.placeholder}
       value={value === undefined || value === null ? '' : String(value)}
-      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-        onChange(
-          field.type === 'number'
-            ? event.target.value === ''
-              ? undefined
-              : Number(event.target.value)
-            : event.target.value
-        )
-      }
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+        if (field.type !== 'number') {
+          onChange(event.target.value)
+          return
+        }
+        if (event.target.value === '') {
+          onChange(undefined)
+          return
+        }
+        const parsed = Number(event.target.value)
+        // Ignore intermediate/invalid numeric input (e.g. "-", "1e") so NaN
+        // never enters the model.
+        if (Number.isFinite(parsed)) onChange(parsed)
+      }}
     />
   )
 }
@@ -203,31 +208,29 @@ export const Inspector = ({
         </Styled.FieldHelp>
       </Styled.InspectorSection>
 
-      {block?.contentModel === 'data' && (
-        <Styled.InspectorSection>
-          <Styled.InspectorSectionTitle>
-            Data binding
-          </Styled.InspectorSectionTitle>
-          <Styled.InspectorField>
-            <TextField
-              id='inspector-scope'
-              label='Scope'
-              placeholder='e.g. orders or order.product'
-              value={item.viewConfig.scope ?? ''}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                onScope(event.target.value)
-              }
-            />
-            <Styled.FieldHelp>
-              Attribute path this widget binds to on the document.
-            </Styled.FieldHelp>
-          </Styled.InspectorField>
-        </Styled.InspectorSection>
-      )}
+      <Styled.InspectorSection>
+        <Styled.InspectorSectionTitle>
+          Data binding
+        </Styled.InspectorSectionTitle>
+        <Styled.InspectorField>
+          <TextField
+            id='inspector-scope'
+            label='Scope'
+            placeholder='e.g. orders or order.product'
+            value={item.viewConfig.scope ?? ''}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              onScope(event.target.value)
+            }
+          />
+          <Styled.FieldHelp>
+            Attribute path this widget binds to on the document.
+          </Styled.FieldHelp>
+        </Styled.InspectorField>
+      </Styled.InspectorSection>
 
       {block?.fields && block.fields.length > 0 && (
         <Styled.InspectorSection>
-          <Styled.InspectorSectionTitle>Content</Styled.InspectorSectionTitle>
+          <Styled.InspectorSectionTitle>Settings</Styled.InspectorSectionTitle>
           {block.fields.map((field) => {
             const value =
               field.target.kind === 'scope'
