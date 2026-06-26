@@ -3,11 +3,11 @@ import type { TGridSize } from '../grid/types'
 
 export const BuilderLayout = styled.div`
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 220px 1fr 300px;
   grid-template-rows: auto 1fr;
   grid-template-areas:
-    'toolbar toolbar'
-    'palette canvas';
+    'toolbar toolbar toolbar'
+    'palette canvas inspector';
   height: 100%;
   min-height: 480px;
   gap: 0;
@@ -172,4 +172,78 @@ export const EmptyState = styled.div`
   color: #9e9e9e;
   font-size: 14px;
   text-align: center;
+`
+
+export const InspectorPanel = styled.div`
+  grid-area: inspector;
+  border-left: 1px solid #d3d3d3;
+  padding: 12px;
+  overflow-y: auto;
+  background: #fff;
+`
+
+export const InspectorEmpty = styled.div`
+  color: #9e9e9e;
+  font-size: 13px;
+  padding: 8px 0;
+`
+
+export const InspectorSection = styled.div`
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`
+
+export const InspectorSectionTitle = styled.div`
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6f6f6f;
+  margin-bottom: 8px;
+`
+
+export const InspectorField = styled.div`
+  margin-bottom: 10px;
+`
+
+export const LayoutGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+`
+
+export const FieldHelp = styled.div`
+  font-size: 11px;
+  color: #6f6f6f;
+  margin-top: 2px;
+`
+
+export const Textarea = styled.textarea`
+  width: 100%;
+  min-height: 96px;
+  resize: vertical;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  border: 1px solid #897e7e;
+  border-radius: 0;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: 2px solid #007079;
+    outline-offset: -2px;
+  }
+`
+
+export const FieldLabel = styled.label`
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3d3d3d;
+  margin-bottom: 4px;
 `

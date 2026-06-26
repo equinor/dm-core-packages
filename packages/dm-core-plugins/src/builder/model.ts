@@ -1,4 +1,4 @@
-import type { TViewConfig } from '@development-framework/dm-core'
+import type { TUiRecipe, TViewConfig } from '@development-framework/dm-core'
 import type { TGridArea, TGridItem, TGridSize } from '../grid/types'
 import type { TBlock, TBuilderModel } from './types'
 
@@ -252,6 +252,88 @@ export const duplicateWidget = (
     ...(source.title ? { title: source.title } : {}),
   }
   return { ...model, size, items: [...model.items, copy] }
+}
+
+/** Apply `updater` to the item at `index`, returning a new model. No-op when
+ * the index is out of range. */
+const updateItem = (
+  model: TBuilderModel,
+  index: number,
+  updater: (item: TGridItem) => TGridItem
+): TBuilderModel => {
+  if (!model.items[index]) return model
+  return {
+    ...model,
+    items: model.items.map((item, i) => (i === index ? updater(item) : item)),
+  }
+}
+
+const updateViewConfig = (
+  model: TBuilderModel,
+  index: number,
+  updater: (viewConfig: TViewConfig) => TViewConfig
+): TBuilderModel =>
+  updateItem(model, index, (item) => ({
+    ...item,
+    viewConfig: updater(item.viewConfig),
+  }))
+
+/** Set the title shown above the widget. Returns a new model. */
+export const setWidgetTitle = (
+  model: TBuilderModel,
+  index: number,
+  title: string
+): TBuilderModel => updateItem(model, index, (item) => ({ ...item, title }))
+
+/**
+ * Set the widget's grid area from absolute coordinates (e.g. inspector layout
+ * fields), normalizing and clamping to the grid bounds. Returns a new model.
+ */
+export const setWidgetArea = (
+  model: TBuilderModel,
+  index: number,
+  area: TGridArea
+): TBuilderModel => resizeWidget(model, index, area)
+
+/** Set the widget's data binding (`viewConfig.scope`). Returns a new model. */
+export const setWidgetScope = (
+  model: TBuilderModel,
+  index: number,
+  scope: string
+): TBuilderModel =>
+  updateViewConfig(model, index, (viewConfig) => ({ ...viewConfig, scope }))
+
+/** Set the widget's display label (`viewConfig.label`). Returns a new model. */
+export const setWidgetLabel = (
+  model: TBuilderModel,
+  index: number,
+  label: string
+): TBuilderModel =>
+  updateViewConfig(model, index, (viewConfig) => ({ ...viewConfig, label }))
+
+/**
+ * Set a value on the widget's inline recipe config
+ * (`viewConfig.recipe.config[key]`). No-op when the widget uses a recipe
+ * reference (string) rather than an inline recipe. Returns a new model.
+ */
+export const setWidgetConfigValue = (
+  model: TBuilderModel,
+  index: number,
+  key: string,
+  value: unknown
+): TBuilderModel =>
+  updateViewConfig(model, index, (viewConfig) => {
+    const recipe = viewConfig.recipe
+    if (!recipe || typeof recipe === 'string') return viewConfig
+    const config = { ...(recipe.config ?? {}), [key]: value }
+    return { ...viewConfig, recipe: { ...recipe, config } as TUiRecipe }
+  })
+
+/** Read a value from a widget's inline recipe config, or `undefined`. */
+export const getWidgetConfigValue = (item: TGridItem, key: string): unknown => {
+  const recipe = item.viewConfig.recipe
+  if (!recipe || typeof recipe === 'string') return undefined
+  return recipe.config?.[key]
 }
 
 /**

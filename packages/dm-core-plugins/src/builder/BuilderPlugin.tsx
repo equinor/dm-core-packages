@@ -14,6 +14,7 @@ import { GridPlugin } from '../grid/GridPlugin'
 import type { TGridArea } from '../grid/types'
 import { getBlock } from './blocks'
 import { Canvas } from './components/Canvas'
+import { Inspector } from './components/Inspector'
 import { WidgetPalette } from './components/WidgetPalette'
 import { ICONS } from './icons'
 import {
@@ -25,6 +26,11 @@ import {
   removeWidget,
   resizeWidget,
   serialize,
+  setWidgetArea,
+  setWidgetConfigValue,
+  setWidgetLabel,
+  setWidgetScope,
+  setWidgetTitle,
   translateArea,
   wouldOverlap,
 } from './model'
@@ -94,6 +100,43 @@ export const BuilderPlugin = (
       return next
     })
 
+  const handleSetArea = (index: number, area: TGridArea) =>
+    setModel((current) => {
+      if (!current.items[index]) return current
+      const next = setWidgetArea(current, index, area)
+      if (wouldOverlap(next, index, next.items[index].gridArea)) return current
+      return next
+    })
+
+  const selectedItem =
+    selectedIndex !== null ? (model.items[selectedIndex] ?? null) : null
+  const selectedBlock = selectedItem
+    ? getBlock(
+        typeof selectedItem.viewConfig.recipe === 'string'
+          ? selectedItem.viewConfig.recipe
+          : (selectedItem.viewConfig.recipe?.name ?? '')
+      )
+    : undefined
+
+  const inspectorHandlers = {
+    onTitle: (value: string) =>
+      selectedIndex !== null &&
+      setModel((current) => setWidgetTitle(current, selectedIndex, value)),
+    onLabel: (value: string) =>
+      selectedIndex !== null &&
+      setModel((current) => setWidgetLabel(current, selectedIndex, value)),
+    onScope: (value: string) =>
+      selectedIndex !== null &&
+      setModel((current) => setWidgetScope(current, selectedIndex, value)),
+    onArea: (area: TGridArea) =>
+      selectedIndex !== null && handleSetArea(selectedIndex, area),
+    onConfigValue: (key: string, value: unknown) =>
+      selectedIndex !== null &&
+      setModel((current) =>
+        setWidgetConfigValue(current, selectedIndex, key, value)
+      ),
+  }
+
   // Round-trip through serialize/deserialize so preview proves the stored JSON
   // renders identically with the runtime grid plugin.
   const previewConfig = deserialize(serialize(model))
@@ -133,10 +176,12 @@ export const BuilderPlugin = (
           </Styled.ToolbarGroup>
         </Styled.Toolbar>
 
-        {mode === 'edit' && <WidgetPalette onAdd={handleAdd} />}
+        {mode === 'edit' && !showJson && <WidgetPalette onAdd={handleAdd} />}
 
         {showJson ? (
-          <Styled.CanvasPanel style={{ background: '#1e1e1e' }}>
+          <Styled.CanvasPanel
+            style={{ gridColumn: '1 / -1', background: '#1e1e1e' }}
+          >
             <pre style={{ color: '#d4d4d4', fontSize: 12, margin: 0 }}>
               {JSON.stringify(serialize(model), null, 2)}
             </pre>
@@ -161,6 +206,15 @@ export const BuilderPlugin = (
               onChange={onChange}
             />
           </Styled.CanvasPanel>
+        )}
+
+        {mode === 'edit' && !showJson && (
+          <Inspector
+            item={selectedItem}
+            block={selectedBlock}
+            gridSize={model.size}
+            {...inspectorHandlers}
+          />
         )}
       </Styled.BuilderLayout>
     </DndContext>
