@@ -6,18 +6,22 @@ import {
   createEmptyModel,
   deserialize,
   duplicateWidget,
+  ensureModel,
   findFreeArea,
   GRID_AREA_TYPE,
   GRID_CONFIG_TYPE,
   GRID_ITEM_TYPE,
   GRID_SIZE_TYPE,
+  getSubModel,
   getWidgetConfigValue,
   INLINE_RECIPE_VIEW_CONFIG_TYPE,
+  isContainerItem,
   moveWidget,
   REFERENCE_VIEW_CONFIG_TYPE,
   removeWidget,
   resizeWidget,
   serialize,
+  setSubModel,
   setWidgetArea,
   setWidgetConfigValue,
   setWidgetLabel,
@@ -29,6 +33,7 @@ import {
 
 const textBlock = getBlock('text') ?? BLOCKS[0]
 const imageBlock = getBlock('image') ?? BLOCKS[1]
+const sectionBlock = getBlock('section') ?? BLOCKS[0]
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value))
 
 describe('builder model', () => {
@@ -543,5 +548,89 @@ describe('builder model — default config seeding', () => {
 
     expect(getWidgetConfigValue(updated.items[0], 'caption')).toBeUndefined()
     expect(getWidgetConfigValue(updated.items[1], 'caption')).toBe('Second')
+  })
+})
+
+describe('builder model — nesting', () => {
+  it('identifies section widgets as containers only when their recipe is an inline grid', () => {
+    const sectionModel = addWidget(createEmptyModel(), sectionBlock)
+    const textModel = addWidget(createEmptyModel(), textBlock)
+    const referenceModel = addWidget(
+      createEmptyModel(),
+      textBlock,
+      { rowStart: 1, rowEnd: 1, columnStart: 1, columnEnd: 1 },
+      {
+        type: REFERENCE_VIEW_CONFIG_TYPE,
+        scope: '',
+        recipe: 'X',
+      }
+    )
+
+    expect(isContainerItem(sectionModel.items[0])).toBe(true)
+    expect(isContainerItem(textModel.items[0])).toBe(false)
+    expect(isContainerItem(referenceModel.items[0])).toBe(false)
+    expect(getWidgetConfigValue(sectionModel.items[0], 'items')).toEqual([])
+  })
+
+  it('coerces arbitrary values into valid nested builder models', () => {
+    const item = addWidget(createEmptyModel(), textBlock).items[0]
+    const items = [item]
+
+    expect(ensureModel(undefined)).toEqual({
+      size: { columns: 6, rows: 4, rowGap: '16px', columnGap: '16px' },
+      items: [],
+      itemBorder: { size: '1px', style: 'solid', color: '#bbb', radius: '5px' },
+      showItemBorders: false,
+    })
+    expect(ensureModel({}).items).toEqual([])
+    expect(ensureModel({ items }).items).toBe(items)
+    expect(ensureModel({ size: { rows: 9 } }).size).toEqual({
+      columns: 6,
+      rows: 9,
+      rowGap: '16px',
+      columnGap: '16px',
+    })
+  })
+
+  it('reads nested grid models by path without throwing for invalid indexes', () => {
+    const model = addWidget(createEmptyModel(), sectionBlock)
+
+    expect(getSubModel(model, [])).toBe(model)
+    expect(getSubModel(model, [0])).toEqual({
+      size: { columns: 6, rows: 4, rowGap: '16px', columnGap: '16px' },
+      items: [],
+      itemBorder: { size: '1px', style: 'solid', color: '#bbb', radius: '5px' },
+      showItemBorders: false,
+    })
+    expect(getSubModel(model, [0, 99])).toEqual(getSubModel(model, [0]))
+  })
+
+  it('sets nested grid models immutably and no-ops for invalid paths', () => {
+    const model = addWidget(
+      addWidget(createEmptyModel(), sectionBlock),
+      textBlock
+    )
+    const original = clone(model)
+    const sub = addWidget(getSubModel(model, [0]), imageBlock)
+
+    expect(setSubModel(model, [], sub)).toBe(sub)
+
+    const updated = setSubModel(model, [0], sub)
+    expect(model).toEqual(original)
+    expect(updated).not.toBe(model)
+    expect(getSubModel(updated, [0])).toEqual(sub)
+    expect(setSubModel(model, [1], sub)).toEqual(original)
+    expect(setSubModel(model, [99], sub)).toEqual(original)
+  })
+
+  it('round-trips adding a widget inside a section while preserving the root section', () => {
+    const sectionIndex = 0
+    const model = addWidget(createEmptyModel(), sectionBlock)
+    const child = addWidget(getSubModel(model, [sectionIndex]), textBlock)
+    const updated = setSubModel(model, [sectionIndex], child)
+
+    expect(getSubModel(updated, [sectionIndex]).items).toHaveLength(1)
+    expect(updated.items[sectionIndex].title).toBe(sectionBlock.label)
+    expect(updated.items).toHaveLength(1)
   })
 })
