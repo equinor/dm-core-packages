@@ -3,6 +3,7 @@ import {
   addWidget,
   areasOverlap,
   clampArea,
+  clampPath,
   createEmptyModel,
   deserialize,
   duplicateWidget,
@@ -15,6 +16,7 @@ import {
   getSubModel,
   getWidgetConfigValue,
   INLINE_RECIPE_VIEW_CONFIG_TYPE,
+  insertWidgetItem,
   isContainerItem,
   moveWidget,
   REFERENCE_VIEW_CONFIG_TYPE,
@@ -551,6 +553,85 @@ describe('builder model — default config seeding', () => {
   })
 })
 
+describe('builder model — insertWidgetItem', () => {
+  it('appends a deep-cloned copy whose nested view config is independent', () => {
+    const sourceModel = setWidgetConfigValue(
+      addWidget(createEmptyModel(), textBlock, {
+        rowStart: 1,
+        rowEnd: 2,
+        columnStart: 1,
+        columnEnd: 2,
+      }),
+      0,
+      'nested',
+      { text: 'original' }
+    )
+    const source = sourceModel.items[0]
+    const result = insertWidgetItem(createEmptyModel(), source)
+    const inserted = result.items[0]
+    const sourceRecipe = source.viewConfig.recipe as any
+    const insertedRecipe = inserted.viewConfig.recipe as any
+
+    expect(result.items).toHaveLength(1)
+    expect(inserted).not.toBe(source)
+    expect(inserted.viewConfig).not.toBe(source.viewConfig)
+    expect(insertedRecipe).not.toBe(sourceRecipe)
+    expect(insertedRecipe.config.nested).not.toBe(sourceRecipe.config.nested)
+
+    sourceRecipe.config.nested.text = 'mutated source'
+    expect(insertedRecipe.config.nested.text).toBe('original')
+
+    insertedRecipe.config.nested.text = 'mutated copy'
+    expect(sourceRecipe.config.nested.text).toBe('mutated source')
+  })
+
+  it('places the copy in free space without overlapping existing items', () => {
+    const model = addWidget(createEmptyModel(), textBlock, {
+      rowStart: 1,
+      rowEnd: 2,
+      columnStart: 1,
+      columnEnd: 2,
+    })
+    const result = insertWidgetItem(model, model.items[0])
+    const inserted = result.items[result.items.length - 1]
+
+    expect(result.items).toHaveLength(model.items.length + 1)
+    for (const item of model.items) {
+      expect(areasOverlap(item.gridArea, inserted.gridArea)).toBe(false)
+    }
+  })
+
+  it('grows the grid when full so the copy never overlaps', () => {
+    const full = addWidget(createEmptyModel(), textBlock, {
+      rowStart: 1,
+      rowEnd: 8,
+      columnStart: 1,
+      columnEnd: 12,
+    })
+    const result = insertWidgetItem(full, full.items[0])
+
+    expect(result.size.rows).toBeGreaterThan(full.size.rows)
+    expect(result.items).toHaveLength(2)
+    expect(
+      areasOverlap(result.items[0].gridArea, result.items[1].gridArea)
+    ).toBe(false)
+  })
+
+  it('returns a new model without mutating the original model or items array', () => {
+    const model = addWidget(createEmptyModel(), textBlock)
+    const original = clone(model)
+    const originalItems = model.items
+    const result = insertWidgetItem(model, model.items[0])
+
+    expect(model).toEqual(original)
+    expect(model.items).toBe(originalItems)
+    expect(model.items).toHaveLength(1)
+    expect(result).not.toBe(model)
+    expect(result.items).not.toBe(model.items)
+    expect(result.items).toHaveLength(2)
+  })
+})
+
 describe('builder model — nesting', () => {
   it('identifies section widgets as containers only when their recipe is an inline grid', () => {
     const sectionModel = addWidget(createEmptyModel(), sectionBlock)
@@ -632,5 +713,34 @@ describe('builder model — nesting', () => {
     expect(getSubModel(updated, [sectionIndex]).items).toHaveLength(1)
     expect(updated.items[sectionIndex].title).toBe(sectionBlock.label)
     expect(updated.items).toHaveLength(1)
+  })
+})
+
+describe('builder model — clampPath', () => {
+  it('keeps a valid path that resolves through container items', () => {
+    const model = addWidget(createEmptyModel(), sectionBlock)
+    expect(clampPath(model, [])).toEqual([])
+    expect(clampPath(model, [0])).toEqual([0])
+  })
+
+  it('truncates at a non-container item', () => {
+    const model = addWidget(createEmptyModel(), textBlock)
+    expect(clampPath(model, [0])).toEqual([])
+  })
+
+  it('truncates at a missing index', () => {
+    const model = addWidget(createEmptyModel(), sectionBlock)
+    expect(clampPath(model, [0, 5])).toEqual([0])
+    expect(clampPath(model, [9])).toEqual([])
+  })
+
+  it('truncates a deep path when an ancestor section is removed', () => {
+    const withSection = addWidget(createEmptyModel(), sectionBlock)
+    const nested = addWidget(getSubModel(withSection, [0]), sectionBlock)
+    const model = setSubModel(withSection, [0], nested)
+
+    expect(clampPath(model, [0, 0])).toEqual([0, 0])
+    // After removing the outer section the whole path is invalid.
+    expect(clampPath(removeWidget(model, 0), [0, 0])).toEqual([])
   })
 })
