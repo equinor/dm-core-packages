@@ -26,7 +26,7 @@ jobs:
 
       - name: "Build web"
         run: |
-          docker build --tag $APPLICATION_IMAGE example
+          docker build --tag $APPLICATION_IMAGE --target prod -f example/Dockerfile .
 
       - name: "Publish web"
         run: |
