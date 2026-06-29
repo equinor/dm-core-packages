@@ -32,6 +32,7 @@ export type TGridItem = {
   viewConfig: TViewConfig
   title?: string
   style?: TGridItemStyle
+  titleStyle?: TGridItemStyle
 }
 
 export type TGridPluginConfig = {

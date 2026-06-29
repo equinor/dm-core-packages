@@ -354,28 +354,32 @@ export const getWidgetConfigValue = (item: TGridItem, key: string): unknown => {
 }
 
 /**
- * Set a per-widget style property (`item.style[key]`) used by the grid renderer
- * for presentation (text alignment, font size, color, etc). An empty value
- * removes the key so it falls back to defaults. Returns a new model.
+ * Set a per-widget style property used by the grid renderer for presentation
+ * (text alignment, font size, color, etc). `target` selects whether to style
+ * the widget body (`style`) or its title (`titleStyle`). An empty value removes
+ * the key so it falls back to defaults. Returns a new model.
  */
 export const setWidgetStyleValue = (
   model: TBuilderModel,
   index: number,
   key: keyof NonNullable<TGridItem['style']>,
-  value: unknown
+  value: unknown,
+  target: 'body' | 'title' = 'body'
 ): TBuilderModel =>
   updateItem(model, index, (item) => {
-    const style = { ...(item.style ?? {}) }
+    const prop = target === 'title' ? 'titleStyle' : 'style'
+    const style = { ...(item[prop] ?? {}) }
     if (value === '' || value === undefined || value === null) delete style[key]
     else (style as Record<string, unknown>)[key] = value
-    return { ...item, style }
+    return { ...item, [prop]: style }
   })
 
 /** Read a per-widget style property, or `undefined`. */
 export const getWidgetStyleValue = (
   item: TGridItem,
-  key: keyof NonNullable<TGridItem['style']>
-): unknown => item.style?.[key]
+  key: keyof NonNullable<TGridItem['style']>,
+  target: 'body' | 'title' = 'body'
+): unknown => (target === 'title' ? item.titleStyle : item.style)?.[key]
 
 /** Runtime plugin name of the layout grid (used to detect container widgets). */
 export const GRID_PLUGIN_NAME = '@development-framework/dm-core-plugins/grid'
@@ -492,6 +496,9 @@ export const serialize = (model: TBuilderModel): Record<string, unknown> => ({
     ...(item.style && Object.keys(item.style).length
       ? { style: { type: GRID_ITEM_STYLE_TYPE, ...item.style } }
       : {}),
+    ...(item.titleStyle && Object.keys(item.titleStyle).length
+      ? { titleStyle: { type: GRID_ITEM_STYLE_TYPE, ...item.titleStyle } }
+      : {}),
   })),
   itemBorder: { type: GRID_BORDER_TYPE, ...model.itemBorder },
   showItemBorders: model.showItemBorders,
@@ -526,18 +533,22 @@ export const deserialize = (entity: any): TBuilderModel => {
     items: Array.isArray(entity.items)
       ? entity.items.map((item: any): TGridItem => {
           const { type: _areaType, ...gridArea } = item.gridArea ?? {}
-          const style = item.style
-            ? (() => {
-                const { type: _styleType, ...rest } = item.style
-                return rest as TGridItem['style']
-              })()
-            : undefined
+          const stripStyle = (raw: any): TGridItem['style'] | undefined => {
+            if (!raw) return undefined
+            const { type: _styleType, ...rest } = raw
+            return Object.keys(rest).length
+              ? (rest as TGridItem['style'])
+              : undefined
+          }
+          const style = stripStyle(item.style)
+          const titleStyle = stripStyle(item.titleStyle)
           return {
             type: GRID_ITEM_TYPE,
             gridArea: gridArea as TGridArea,
             viewConfig: deserializeViewConfig(item.viewConfig),
             ...(item.title ? { title: item.title } : {}),
-            ...(style && Object.keys(style).length ? { style } : {}),
+            ...(style ? { style } : {}),
+            ...(titleStyle ? { titleStyle } : {}),
           }
         })
       : [],

@@ -18,14 +18,20 @@ import { checkbox, checkbox_outline } from '@equinor/eds-icons'
 
 export const MarkdownPlugin = (props: IUIPlugin) => {
   const { idReference, config } = props
+  const inlineContent: string | undefined = (config as any)?.content
   const { dmssAPI } = useApplication()
   const [markdownString, setMarkdownString] = useState<string>()
   const { document, isLoading, error } = useDocument<MediaObject>(
     idReference,
-    1
+    1,
+    false
   )
 
   useMemo(async () => {
+    if (inlineContent !== undefined) {
+      setMarkdownString(inlineContent)
+      return
+    }
     if (document) {
       const { dataSource } = splitAddress(idReference)
       const response = await dmssAPI.blobGetById(
@@ -42,10 +48,12 @@ export const MarkdownPlugin = (props: IUIPlugin) => {
       const file = await axios.get(syntheticBlobUrl)
       setMarkdownString(file.data)
     }
-  }, [document])
+  }, [document, inlineContent])
 
-  if (error) throw new Error(JSON.stringify(error, null, 2))
-  if (isLoading || document === null) return <Loading />
+  if (inlineContent === undefined) {
+    if (error) throw new Error(JSON.stringify(error, null, 2))
+    if (isLoading || document === null) return <Loading />
+  }
 
   return (
     <StyledMarkdownWrapper className='dm-plugin-padding'>

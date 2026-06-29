@@ -39,6 +39,15 @@ export const BLOCKS: TBlock[] = [
     contentModel: 'content',
     defaultSize: { columns: 3, rows: 1 },
     recipe: '@development-framework/dm-core-plugins/markdown',
+    defaultConfig: { content: 'Write your text here.' },
+    fields: [
+      {
+        label: 'Content',
+        type: 'textarea',
+        target: { kind: 'config', key: 'content' },
+        help: 'Markdown text shown in this widget. Bind a Scope instead to use a document.',
+      },
+    ],
   },
   {
     id: 'image',

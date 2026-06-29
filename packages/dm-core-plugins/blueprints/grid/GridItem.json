@@ -28,6 +28,12 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "PLUGINS:dm-core-plugins/grid/GridItemStyle",
       "optional": true
+    },
+    {
+      "name": "titleStyle",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridItemStyle",
+      "optional": true
     }
   ]
 }

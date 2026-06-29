@@ -22,17 +22,18 @@ const Element = styled.div<TElementProps>`
   border-radius: ${(props: TElementProps) =>
     props.$showItemBorders && props.$itemBorder.radius};
   overflow: auto;
-  ${(props: TElementProps) =>
-    props.$item.style?.textAlign &&
-    `text-align: ${props.$item.style.textAlign};`}
-  ${(props: TElementProps) =>
-    props.$item.style?.fontSize && `font-size: ${props.$item.style.fontSize};`}
-  ${(props: TElementProps) => props.$item.style?.bold && 'font-weight: 700;'}
-  ${(props: TElementProps) =>
-    props.$item.style?.color && `color: ${props.$item.style.color};`}
-  ${(props: TElementProps) =>
-    props.$item.style?.padding && `padding: ${props.$item.style.padding};`}
 `
+
+const styleToCss = (style?: TGridItem['style']): React.CSSProperties =>
+  style
+    ? {
+        textAlign: style.textAlign,
+        fontSize: style.fontSize,
+        fontWeight: style.bold ? 700 : undefined,
+        color: style.color,
+        padding: style.padding,
+      }
+    : {}
 
 type TGridItemProps = {
   idReference: string
@@ -55,8 +56,12 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       $showItemBorders={showItemBorders}
       $itemBorder={itemBorder}
     >
-      {item?.title && <Typography variant='h4'>{item.title}</Typography>}
-      <Stack grow={1} minHeight={0} fullWidth>
+      {item?.title && (
+        <Typography variant='h4' style={styleToCss(item.titleStyle)}>
+          {item.title}
+        </Typography>
+      )}
+      <Stack grow={1} minHeight={0} fullWidth style={styleToCss(item.style)}>
         <ViewCreator
           idReference={idReference}
           viewConfig={item.viewConfig}

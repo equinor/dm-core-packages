@@ -93,6 +93,11 @@ const CanvasItem = ({
       ? (recipe?.config?.items?.length ?? 0)
       : 0
 
+  const bodyText =
+    typeof recipe === 'object' && typeof recipe?.config?.content === 'string'
+      ? recipe.config.content
+      : undefined
+
   return (
     <Styled.CanvasItem
       ref={setNodeRef}
@@ -164,10 +169,43 @@ const CanvasItem = ({
           </Button>
         </Styled.CanvasItemActions>
       </Styled.CanvasItemHeader>
-      <Styled.CanvasItemBody>
-        {isContainer
-          ? `${childCount} widget${childCount === 1 ? '' : 's'} — double-click or open to edit`
-          : block?.description}
+      <Styled.CanvasItemBody
+        style={{
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          justifyContent: isContainer ? 'center' : 'flex-start',
+        }}
+      >
+        {isContainer ? (
+          `${childCount} widget${childCount === 1 ? '' : 's'} — double-click or open to edit`
+        ) : (
+          <>
+            {item.title && (
+              <div
+                style={{
+                  textAlign: item.titleStyle?.textAlign,
+                  fontSize: item.titleStyle?.fontSize ?? '18px',
+                  fontWeight: item.titleStyle?.bold ? 700 : 600,
+                  color: item.titleStyle?.color ?? '#111',
+                  padding: item.titleStyle?.padding,
+                }}
+              >
+                {item.title}
+              </div>
+            )}
+            <div
+              style={{
+                textAlign: item.style?.textAlign,
+                fontSize: item.style?.fontSize,
+                fontWeight: item.style?.bold ? 700 : undefined,
+                color: item.style?.color,
+                padding: item.style?.padding,
+              }}
+            >
+              {bodyText ?? block?.description}
+            </div>
+          </>
+        )}
       </Styled.CanvasItemBody>
       <Styled.ResizeHandle
         aria-label='Resize widget'

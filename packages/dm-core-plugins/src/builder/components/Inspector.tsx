@@ -17,7 +17,8 @@ export type TInspectorHandlers = {
   onConfigValue: (key: string, value: unknown) => void
   onStyleValue: (
     key: keyof NonNullable<TGridItem['style']>,
-    value: unknown
+    value: unknown,
+    target: 'body' | 'title'
   ) => void
   /** End the current coalescing run (called on blur) so each edit is one undo. */
   onCommit: () => void
@@ -114,6 +115,85 @@ const FieldControl = ({
     />
   )
 }
+
+const StyleGroup = ({
+  title,
+  style,
+  onChange,
+}: {
+  title: string
+  style: TGridItem['style']
+  onChange: (key: keyof NonNullable<TGridItem['style']>, value: unknown) => void
+}) => (
+  <Styled.InspectorSection>
+    <Styled.InspectorSectionTitle>{title}</Styled.InspectorSectionTitle>
+    <Styled.InspectorField>
+      <NativeSelect
+        id={`${title}-textAlign`}
+        label='Alignment'
+        value={style?.textAlign ?? ''}
+        onChange={(event) =>
+          onChange('textAlign', event.target.value || undefined)
+        }
+      >
+        <option value=''>Default</option>
+        <option value='left'>Left</option>
+        <option value='center'>Center</option>
+        <option value='right'>Right</option>
+      </NativeSelect>
+    </Styled.InspectorField>
+    <Styled.InspectorField>
+      <NativeSelect
+        id={`${title}-fontSize`}
+        label='Text size'
+        value={style?.fontSize ?? ''}
+        onChange={(event) =>
+          onChange('fontSize', event.target.value || undefined)
+        }
+      >
+        <option value=''>Default</option>
+        <option value='12px'>Small (12px)</option>
+        <option value='16px'>Normal (16px)</option>
+        <option value='20px'>Large (20px)</option>
+        <option value='28px'>X-Large (28px)</option>
+        <option value='40px'>Heading (40px)</option>
+      </NativeSelect>
+    </Styled.InspectorField>
+    <Styled.InspectorField>
+      <Switch
+        label='Bold'
+        checked={Boolean(style?.bold)}
+        onChange={(event) => onChange('bold', event.target.checked)}
+      />
+    </Styled.InspectorField>
+    <Styled.InspectorField>
+      <TextField
+        id={`${title}-color`}
+        label='Text color'
+        placeholder='#333 or red'
+        value={style?.color ?? ''}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          onChange('color', event.target.value || undefined)
+        }
+      />
+    </Styled.InspectorField>
+    <Styled.InspectorField>
+      <NativeSelect
+        id={`${title}-padding`}
+        label='Padding'
+        value={style?.padding ?? ''}
+        onChange={(event) =>
+          onChange('padding', event.target.value || undefined)
+        }
+      >
+        <option value=''>None</option>
+        <option value='8px'>Small (8px)</option>
+        <option value='16px'>Medium (16px)</option>
+        <option value='32px'>Large (32px)</option>
+      </NativeSelect>
+    </Styled.InspectorField>
+  </Styled.InspectorSection>
+)
 
 export const Inspector = ({
   item,
@@ -243,74 +323,17 @@ export const Inspector = ({
         </Styled.InspectorField>
       </Styled.InspectorSection>
 
-      <Styled.InspectorSection>
-        <Styled.InspectorSectionTitle>Style</Styled.InspectorSectionTitle>
-        <Styled.InspectorField>
-          <NativeSelect
-            id='inspector-textAlign'
-            label='Alignment'
-            value={item.style?.textAlign ?? ''}
-            onChange={(event) =>
-              onStyleValue('textAlign', event.target.value || undefined)
-            }
-          >
-            <option value=''>Default</option>
-            <option value='left'>Left</option>
-            <option value='center'>Center</option>
-            <option value='right'>Right</option>
-          </NativeSelect>
-        </Styled.InspectorField>
-        <Styled.InspectorField>
-          <NativeSelect
-            id='inspector-fontSize'
-            label='Text size'
-            value={item.style?.fontSize ?? ''}
-            onChange={(event) =>
-              onStyleValue('fontSize', event.target.value || undefined)
-            }
-          >
-            <option value=''>Default</option>
-            <option value='12px'>Small (12px)</option>
-            <option value='16px'>Normal (16px)</option>
-            <option value='20px'>Large (20px)</option>
-            <option value='28px'>X-Large (28px)</option>
-            <option value='40px'>Heading (40px)</option>
-          </NativeSelect>
-        </Styled.InspectorField>
-        <Styled.InspectorField>
-          <Switch
-            label='Bold'
-            checked={Boolean(item.style?.bold)}
-            onChange={(event) => onStyleValue('bold', event.target.checked)}
-          />
-        </Styled.InspectorField>
-        <Styled.InspectorField>
-          <TextField
-            id='inspector-color'
-            label='Text color'
-            placeholder='#333 or red'
-            value={item.style?.color ?? ''}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              onStyleValue('color', event.target.value || undefined)
-            }
-          />
-        </Styled.InspectorField>
-        <Styled.InspectorField>
-          <NativeSelect
-            id='inspector-padding'
-            label='Padding'
-            value={item.style?.padding ?? ''}
-            onChange={(event) =>
-              onStyleValue('padding', event.target.value || undefined)
-            }
-          >
-            <option value=''>None</option>
-            <option value='8px'>Small (8px)</option>
-            <option value='16px'>Medium (16px)</option>
-            <option value='32px'>Large (32px)</option>
-          </NativeSelect>
-        </Styled.InspectorField>
-      </Styled.InspectorSection>
+      <StyleGroup
+        title='Title style'
+        style={item.titleStyle}
+        onChange={(key, value) => onStyleValue(key, value, 'title')}
+      />
+
+      <StyleGroup
+        title='Body style'
+        style={item.style}
+        onChange={(key, value) => onStyleValue(key, value, 'body')}
+      />
 
       {block?.fields && block.fields.length > 0 && (
         <Styled.InspectorSection>

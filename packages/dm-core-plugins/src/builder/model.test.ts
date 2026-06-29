@@ -38,6 +38,7 @@ import {
 const textBlock = getBlock('text') ?? BLOCKS[0]
 const imageBlock = getBlock('image') ?? BLOCKS[1]
 const sectionBlock = getBlock('section') ?? BLOCKS[0]
+const formBlock = getBlock('form') ?? BLOCKS[0]
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value))
 
 describe('builder model', () => {
@@ -90,6 +91,7 @@ describe('builder model', () => {
           name: textBlock.id,
           type: 'CORE:UiRecipe',
           plugin: textBlock.recipe,
+          config: { content: 'Write your text here.' },
         },
       },
     })
@@ -434,7 +436,7 @@ describe('builder model — property setters', () => {
   })
 
   it('sets inline recipe config values immutably and preserves existing keys', () => {
-    const model = addWidget(createEmptyModel(), textBlock)
+    const model = addWidget(createEmptyModel(), formBlock)
     const original = clone(model)
     const originalRecipe = model.items[0].viewConfig.recipe
 
@@ -469,12 +471,14 @@ describe('builder model — property setters', () => {
 
     const aligned = setWidgetStyleValue(model, 0, 'textAlign', 'center')
     const sized = setWidgetStyleValue(aligned, 0, 'fontSize', '28px')
-    const cleared = setWidgetStyleValue(sized, 0, 'textAlign', '')
+    const titled = setWidgetStyleValue(sized, 0, 'bold', true, 'title')
+    const cleared = setWidgetStyleValue(titled, 0, 'textAlign', '')
 
     expect(model).toEqual(original)
     expect(getWidgetStyleValue(aligned.items[0], 'textAlign')).toBe('center')
     expect(getWidgetStyleValue(sized.items[0], 'fontSize')).toBe('28px')
-    expect(getWidgetStyleValue(sized.items[0], 'textAlign')).toBe('center')
+    expect(getWidgetStyleValue(titled.items[0], 'bold', 'title')).toBe(true)
+    expect(getWidgetStyleValue(titled.items[0], 'bold', 'body')).toBeUndefined()
     expect(getWidgetStyleValue(cleared.items[0], 'textAlign')).toBeUndefined()
     expect(getWidgetStyleValue(model.items[0], 'textAlign')).toBeUndefined()
   })
@@ -487,7 +491,8 @@ describe('builder model — property setters', () => {
       'center'
     )
     const styled = setWidgetStyleValue(model, 0, 'bold', true)
-    expect(deserialize(serialize(styled))).toEqual(styled)
+    const titled = setWidgetStyleValue(styled, 0, 'fontSize', '40px', 'title')
+    expect(deserialize(serialize(titled))).toEqual(titled)
   })
 
   it('does not set config values on string recipe widgets', () => {
