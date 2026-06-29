@@ -1,4 +1,8 @@
-import type { IUIPlugin } from '@development-framework/dm-core'
+import {
+  ErrorBoundary,
+  type IUIPlugin,
+  useDocument,
+} from '@development-framework/dm-core'
 import {
   DndContext,
   type DragEndEvent,
@@ -38,6 +42,7 @@ import {
   setWidgetConfigValue,
   setWidgetLabel,
   setWidgetScope,
+  setWidgetStyleValue,
   setWidgetTitle,
   translateArea,
   wouldOverlap,
@@ -69,6 +74,11 @@ export const BuilderPlugin = (
   props: IUIPlugin & { config?: TBuilderPluginConfig }
 ): React.ReactElement => {
   const { config, idReference, type, onSubmit, onChange } = props
+
+  const { document, updateDocument } = useDocument<Record<string, unknown>>(
+    idReference,
+    1
+  )
 
   const history = useHistory<TBuilderModel>(() =>
     config?.initialConfig
@@ -258,6 +268,15 @@ export const BuilderPlugin = (
         (m) => setWidgetConfigValue(m, selectedIndex, key, value),
         `config:${key}:${selectedIndex}`
       ),
+    onStyleValue: (
+      key: keyof NonNullable<TGridItem['style']>,
+      value: unknown
+    ) =>
+      selectedIndex !== null &&
+      updateActive(
+        (m) => setWidgetStyleValue(m, selectedIndex, key, value),
+        `style:${key}:${selectedIndex}`
+      ),
     onCommit: () => history.commit(),
   }
 
@@ -355,26 +374,65 @@ export const BuilderPlugin = (
     'saved'
   )
 
-  // Autosave: debounce changes and push them to the host via onChange. Without
-  // an onChange handler there is nowhere to save to, so the page just stays
-  // marked as having unsaved changes.
+  // Hydrate the canvas from the page entity's saved `layout` once it loads, so
+  // reopening a page shows previously saved work rather than the recipe seed.
+  const hydratedRef = useRef(false)
+  useEffect(() => {
+    if (hydratedRef.current) return
+    const layout = document?.layout
+    if (!layout) return
+    hydratedRef.current = true
+    const json = JSON.stringify(layout)
+    savedJsonRef.current = json
+    setModel(() => deserialize(layout), 'load')
+    setSaveState('saved')
+  }, [document, setModel])
+
+  /**
+   * Persist the current page layout. When bound to an entity we write the
+   * serialized grid config to its `layout` attribute; otherwise we fall back to
+   * the host `onChange` handler. Returns true on success.
+   */
+  const save = async (): Promise<boolean> => {
+    const layout = JSON.parse(currentJson)
+    setSaveState('saving')
+    try {
+      if (idReference && document) {
+        await updateDocument({ ...document, layout }, false, true)
+      } else if (onChange) {
+        onChange(layout)
+      } else {
+        setSaveState('dirty')
+        return false
+      }
+      savedJsonRef.current = currentJson
+      setSaveState('saved')
+      return true
+    } catch {
+      setSaveState('dirty')
+      notify('Could not save page')
+      return false
+    }
+  }
+
+  // Autosave: debounce changes and persist them. Without a save target the page
+  // just stays marked as having unsaved changes.
   useEffect(() => {
     if (currentJson === savedJsonRef.current) {
       setSaveState('saved')
       return
     }
-    if (!onChange) {
+    if (!idReference && !onChange) {
       setSaveState('dirty')
       return
     }
     setSaveState('saving')
     const timer = setTimeout(() => {
-      onChange(JSON.parse(currentJson))
-      savedJsonRef.current = currentJson
-      setSaveState('saved')
+      void save()
     }, 800)
     return () => clearTimeout(timer)
-  }, [currentJson, onChange])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentJson, onChange, idReference, document])
 
   // Warn before leaving the page while there are unsaved changes.
   useEffect(() => {
@@ -470,6 +528,18 @@ export const BuilderPlugin = (
                 {saveStatusLabel}
               </Styled.SaveStatus>
             )}
+            {mode === 'edit' && (
+              <Button
+                variant='outlined'
+                disabled={saveState === 'saved'}
+                onClick={() => {
+                  void save()
+                }}
+              >
+                <Icon data={ICONS.save} size={18} />
+                Save
+              </Button>
+            )}
             {(['desktop', 'tablet', 'mobile'] as TDevice[]).map((value) => (
               <Button
                 key={value}
@@ -541,13 +611,15 @@ export const BuilderPlugin = (
         ) : (
           <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>
             <Styled.DeviceFrame $maxWidth={frameWidth}>
-              <GridPlugin
-                type={type}
-                idReference={idReference}
-                config={previewConfig}
-                onSubmit={onSubmit}
-                onChange={onChange}
-              />
+              <ErrorBoundary message='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'>
+                <GridPlugin
+                  type={type}
+                  idReference={idReference}
+                  config={previewConfig}
+                  onSubmit={onSubmit}
+                  onChange={onChange}
+                />
+              </ErrorBoundary>
             </Styled.DeviceFrame>
           </Styled.CanvasPanel>
         )}

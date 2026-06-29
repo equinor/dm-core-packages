@@ -1,4 +1,9 @@
-import { Switch, TextField, Typography } from '@equinor/eds-core-react'
+import {
+  NativeSelect,
+  Switch,
+  TextField,
+  Typography,
+} from '@equinor/eds-core-react'
 import type { TGridArea, TGridItem, TGridSize } from '../../grid/types'
 import { getWidgetConfigValue } from '../model'
 import * as Styled from '../styles'
@@ -10,6 +15,10 @@ export type TInspectorHandlers = {
   onScope: (value: string) => void
   onArea: (area: TGridArea) => void
   onConfigValue: (key: string, value: unknown) => void
+  onStyleValue: (
+    key: keyof NonNullable<TGridItem['style']>,
+    value: unknown
+  ) => void
   /** End the current coalescing run (called on blur) so each edit is one undo. */
   onCommit: () => void
 }
@@ -115,6 +124,7 @@ export const Inspector = ({
   onScope,
   onArea,
   onConfigValue,
+  onStyleValue,
   onCommit,
 }: TInspectorProps): React.ReactElement => {
   if (!item) {
@@ -230,6 +240,75 @@ export const Inspector = ({
           <Styled.FieldHelp>
             Attribute path this widget binds to on the document.
           </Styled.FieldHelp>
+        </Styled.InspectorField>
+      </Styled.InspectorSection>
+
+      <Styled.InspectorSection>
+        <Styled.InspectorSectionTitle>Style</Styled.InspectorSectionTitle>
+        <Styled.InspectorField>
+          <NativeSelect
+            id='inspector-textAlign'
+            label='Alignment'
+            value={item.style?.textAlign ?? ''}
+            onChange={(event) =>
+              onStyleValue('textAlign', event.target.value || undefined)
+            }
+          >
+            <option value=''>Default</option>
+            <option value='left'>Left</option>
+            <option value='center'>Center</option>
+            <option value='right'>Right</option>
+          </NativeSelect>
+        </Styled.InspectorField>
+        <Styled.InspectorField>
+          <NativeSelect
+            id='inspector-fontSize'
+            label='Text size'
+            value={item.style?.fontSize ?? ''}
+            onChange={(event) =>
+              onStyleValue('fontSize', event.target.value || undefined)
+            }
+          >
+            <option value=''>Default</option>
+            <option value='12px'>Small (12px)</option>
+            <option value='16px'>Normal (16px)</option>
+            <option value='20px'>Large (20px)</option>
+            <option value='28px'>X-Large (28px)</option>
+            <option value='40px'>Heading (40px)</option>
+          </NativeSelect>
+        </Styled.InspectorField>
+        <Styled.InspectorField>
+          <Switch
+            label='Bold'
+            checked={Boolean(item.style?.bold)}
+            onChange={(event) => onStyleValue('bold', event.target.checked)}
+          />
+        </Styled.InspectorField>
+        <Styled.InspectorField>
+          <TextField
+            id='inspector-color'
+            label='Text color'
+            placeholder='#333 or red'
+            value={item.style?.color ?? ''}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              onStyleValue('color', event.target.value || undefined)
+            }
+          />
+        </Styled.InspectorField>
+        <Styled.InspectorField>
+          <NativeSelect
+            id='inspector-padding'
+            label='Padding'
+            value={item.style?.padding ?? ''}
+            onChange={(event) =>
+              onStyleValue('padding', event.target.value || undefined)
+            }
+          >
+            <option value=''>None</option>
+            <option value='8px'>Small (8px)</option>
+            <option value='16px'>Medium (16px)</option>
+            <option value='32px'>Large (32px)</option>
+          </NativeSelect>
         </Styled.InspectorField>
       </Styled.InspectorSection>
 

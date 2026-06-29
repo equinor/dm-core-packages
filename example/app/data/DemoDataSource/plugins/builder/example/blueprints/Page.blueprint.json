@@ -17,6 +17,12 @@
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "layout",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "object",
+      "optional": true
     }
   ]
 }

@@ -8,6 +8,7 @@ export const GRID_ITEM_TYPE = 'PLUGINS:dm-core-plugins/grid/GridItem'
 export const GRID_AREA_TYPE = 'PLUGINS:dm-core-plugins/grid/GridArea'
 export const GRID_SIZE_TYPE = 'PLUGINS:dm-core-plugins/grid/GridSize'
 export const GRID_BORDER_TYPE = 'PLUGINS:dm-core-plugins/grid/GridBorder'
+export const GRID_ITEM_STYLE_TYPE = 'PLUGINS:dm-core-plugins/grid/GridItemStyle'
 export const REFERENCE_VIEW_CONFIG_TYPE = 'CORE:ReferenceViewConfig'
 export const INLINE_RECIPE_VIEW_CONFIG_TYPE = 'CORE:InlineRecipeViewConfig'
 
@@ -352,6 +353,30 @@ export const getWidgetConfigValue = (item: TGridItem, key: string): unknown => {
   return recipe.config?.[key]
 }
 
+/**
+ * Set a per-widget style property (`item.style[key]`) used by the grid renderer
+ * for presentation (text alignment, font size, color, etc). An empty value
+ * removes the key so it falls back to defaults. Returns a new model.
+ */
+export const setWidgetStyleValue = (
+  model: TBuilderModel,
+  index: number,
+  key: keyof NonNullable<TGridItem['style']>,
+  value: unknown
+): TBuilderModel =>
+  updateItem(model, index, (item) => {
+    const style = { ...(item.style ?? {}) }
+    if (value === '' || value === undefined || value === null) delete style[key]
+    else (style as Record<string, unknown>)[key] = value
+    return { ...item, style }
+  })
+
+/** Read a per-widget style property, or `undefined`. */
+export const getWidgetStyleValue = (
+  item: TGridItem,
+  key: keyof NonNullable<TGridItem['style']>
+): unknown => item.style?.[key]
+
 /** Runtime plugin name of the layout grid (used to detect container widgets). */
 export const GRID_PLUGIN_NAME = '@development-framework/dm-core-plugins/grid'
 
@@ -464,6 +489,9 @@ export const serialize = (model: TBuilderModel): Record<string, unknown> => ({
     gridArea: { type: GRID_AREA_TYPE, ...item.gridArea },
     viewConfig: serializeViewConfig(item),
     ...(item.title ? { title: item.title } : {}),
+    ...(item.style && Object.keys(item.style).length
+      ? { style: { type: GRID_ITEM_STYLE_TYPE, ...item.style } }
+      : {}),
   })),
   itemBorder: { type: GRID_BORDER_TYPE, ...model.itemBorder },
   showItemBorders: model.showItemBorders,
@@ -498,11 +526,18 @@ export const deserialize = (entity: any): TBuilderModel => {
     items: Array.isArray(entity.items)
       ? entity.items.map((item: any): TGridItem => {
           const { type: _areaType, ...gridArea } = item.gridArea ?? {}
+          const style = item.style
+            ? (() => {
+                const { type: _styleType, ...rest } = item.style
+                return rest as TGridItem['style']
+              })()
+            : undefined
           return {
             type: GRID_ITEM_TYPE,
             gridArea: gridArea as TGridArea,
             viewConfig: deserializeViewConfig(item.viewConfig),
             ...(item.title ? { title: item.title } : {}),
+            ...(style && Object.keys(style).length ? { style } : {}),
           }
         })
       : [],

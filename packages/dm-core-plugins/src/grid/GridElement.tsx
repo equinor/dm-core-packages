@@ -22,6 +22,16 @@ const Element = styled.div<TElementProps>`
   border-radius: ${(props: TElementProps) =>
     props.$showItemBorders && props.$itemBorder.radius};
   overflow: auto;
+  ${(props: TElementProps) =>
+    props.$item.style?.textAlign &&
+    `text-align: ${props.$item.style.textAlign};`}
+  ${(props: TElementProps) =>
+    props.$item.style?.fontSize && `font-size: ${props.$item.style.fontSize};`}
+  ${(props: TElementProps) => props.$item.style?.bold && 'font-weight: 700;'}
+  ${(props: TElementProps) =>
+    props.$item.style?.color && `color: ${props.$item.style.color};`}
+  ${(props: TElementProps) =>
+    props.$item.style?.padding && `padding: ${props.$item.style.padding};`}
 `
 
 type TGridItemProps = {

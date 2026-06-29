@@ -15,6 +15,7 @@ import {
   GRID_SIZE_TYPE,
   getSubModel,
   getWidgetConfigValue,
+  getWidgetStyleValue,
   INLINE_RECIPE_VIEW_CONFIG_TYPE,
   insertWidgetItem,
   isContainerItem,
@@ -28,6 +29,7 @@ import {
   setWidgetConfigValue,
   setWidgetLabel,
   setWidgetScope,
+  setWidgetStyleValue,
   setWidgetTitle,
   translateArea,
   wouldOverlap,
@@ -459,6 +461,33 @@ describe('builder model — property setters', () => {
         originalRecipe
       )
     }
+  })
+
+  it('sets and clears per-widget style values immutably', () => {
+    const model = addWidget(createEmptyModel(), textBlock)
+    const original = clone(model)
+
+    const aligned = setWidgetStyleValue(model, 0, 'textAlign', 'center')
+    const sized = setWidgetStyleValue(aligned, 0, 'fontSize', '28px')
+    const cleared = setWidgetStyleValue(sized, 0, 'textAlign', '')
+
+    expect(model).toEqual(original)
+    expect(getWidgetStyleValue(aligned.items[0], 'textAlign')).toBe('center')
+    expect(getWidgetStyleValue(sized.items[0], 'fontSize')).toBe('28px')
+    expect(getWidgetStyleValue(sized.items[0], 'textAlign')).toBe('center')
+    expect(getWidgetStyleValue(cleared.items[0], 'textAlign')).toBeUndefined()
+    expect(getWidgetStyleValue(model.items[0], 'textAlign')).toBeUndefined()
+  })
+
+  it('round-trips per-widget style through serialize and deserialize', () => {
+    const model = setWidgetStyleValue(
+      addWidget(createEmptyModel(), textBlock),
+      0,
+      'textAlign',
+      'center'
+    )
+    const styled = setWidgetStyleValue(model, 0, 'bold', true)
+    expect(deserialize(serialize(styled))).toEqual(styled)
   })
 
   it('does not set config values on string recipe widgets', () => {
