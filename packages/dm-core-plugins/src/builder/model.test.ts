@@ -564,13 +564,13 @@ describe('builder model — default config seeding', () => {
     expect(getWidgetConfigValue(model.items[0], 'fill')).toBe('width')
   })
 
-  it('seeds a markdown table so the widget renders before any upload', () => {
+  it('seeds table rows so the widget renders before any upload', () => {
     const model = addWidget(createEmptyModel(), tableBlock)
 
-    // The Table widget renders via markdown; a seeded table keeps preview valid.
-    const content = getWidgetConfigValue(model.items[0], 'content')
-    expect(typeof content).toBe('string')
-    expect(content).toContain('| --- |')
+    // The Table widget renders structured rows; a seeded grid keeps preview valid.
+    const rows = getWidgetConfigValue(model.items[0], 'rows')
+    expect(Array.isArray(rows)).toBe(true)
+    expect((rows as string[][])[0]).toEqual(['Column A', 'Column B'])
   })
 
   it('does not share seeded config between two widgets of the same block', () => {

@@ -28,6 +28,13 @@ export default {
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/static-table': {
+    component: lazy(() =>
+      import('./builder/StaticTablePlugin').then((module) => ({
+        default: module.StaticTablePlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/stack': {
     component: lazy(() =>
       import('./stack/StackPlugin').then((module) => ({

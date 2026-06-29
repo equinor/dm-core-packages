@@ -87,8 +87,8 @@ const FieldControl = ({
     return (
       <TableUploadField
         label={field.label}
-        hasContent={value !== undefined && value !== null && value !== ''}
-        onChange={(markdown) => onChange(markdown)}
+        hasContent={Array.isArray(value) && value.length > 0}
+        onChange={(rows) => onChange(rows)}
       />
     )
   }
