@@ -31,11 +31,10 @@
             "viewConfig": {
               "type": "CORE:InlineRecipeViewConfig",
               "recipe": {
-                "name": "markdown",
+                "name": "form",
                 "type": "CORE:UiRecipe",
-                "plugin": "@development-framework/dm-core-plugins/markdown"
-              },
-              "scope": "title"
+                "plugin": "@development-framework/dm-core-plugins/form"
+              }
             }
           },
           {

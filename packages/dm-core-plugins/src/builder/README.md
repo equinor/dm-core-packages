@@ -72,10 +72,10 @@ A demo page is wired into the example DemoDataSource. After `./reset-app.sh`
 and `yarn start:example`, open:
 
 ```
-/view?documentId=DemoDataSource/builderPageExample
+/view/?documentId=dmss://DemoDataSource/$builderPageExample
 ```
 
-It mounts the builder with a seeded layout (heading + a nested Section) via
+It mounts the builder with a seeded layout (a page form + a nested Section) via
 `config.initialConfig`. The blueprint/recipe/entity live under
 `example/app/data/DemoDataSource/{plugins,recipes}/builder/example/`.
 
