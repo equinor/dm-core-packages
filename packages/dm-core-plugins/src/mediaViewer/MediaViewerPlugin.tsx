@@ -78,7 +78,16 @@ export const MediaViewerPlugin = (
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading || document === null) return <Loading />
-  if (document.type !== EBlueprint.FILE) throw new Error('This is not a file')
+  if (document.type !== EBlueprint.FILE)
+    return (
+      <Stack
+        alignItems='center'
+        justifyContent='center'
+        style={{ padding: 16, color: '#6f6f6f', textAlign: 'center' }}
+      >
+        No image bound. Set this widget's Scope to a file attribute.
+      </Stack>
+    )
 
   return (
     <MediaPluginWrapper
