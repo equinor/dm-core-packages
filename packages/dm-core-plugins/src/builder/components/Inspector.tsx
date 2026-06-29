@@ -8,6 +8,7 @@ import type { TGridArea, TGridItem, TGridSize } from '../../grid/types'
 import { getWidgetConfigValue } from '../model'
 import * as Styled from '../styles'
 import type { TBlock, TInspectorField } from '../types'
+import { ImageUploadField } from './ImageUploadField'
 
 export type TInspectorHandlers = {
   onTitle: (value: string) => void
@@ -28,6 +29,7 @@ type TInspectorProps = TInspectorHandlers & {
   item: TGridItem | null
   block: TBlock | undefined
   gridSize: TGridSize
+  dataSource: string
 }
 
 const areaToBox = (area: TGridArea) => ({
@@ -57,15 +59,28 @@ const toNumber = (value: string, fallback: number): number => {
 const FieldControl = ({
   field,
   value,
+  dataSource,
   onChange,
 }: {
   field: TInspectorField
   value: unknown
+  dataSource: string
   onChange: (value: unknown) => void
 }) => {
   const id = `inspector-${field.target.kind}-${
     field.target.kind === 'config' ? field.target.key : field.label
   }`
+
+  if (field.type === 'image-upload') {
+    return (
+      <ImageUploadField
+        label={field.label}
+        value={value === undefined || value === null ? '' : String(value)}
+        dataSource={dataSource}
+        onChange={(address) => onChange(address)}
+      />
+    )
+  }
 
   if (field.type === 'boolean') {
     return (
@@ -199,6 +214,7 @@ export const Inspector = ({
   item,
   block,
   gridSize,
+  dataSource,
   onTitle,
   onLabel,
   onScope,
@@ -352,6 +368,7 @@ export const Inspector = ({
                 <FieldControl
                   field={field}
                   value={value}
+                  dataSource={dataSource}
                   onChange={(next) => {
                     if (field.target.kind === 'scope')
                       onScope(String(next ?? ''))

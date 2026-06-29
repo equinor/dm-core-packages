@@ -1,6 +1,7 @@
 import {
   ErrorBoundary,
   type IUIPlugin,
+  splitAddress,
   useDocument,
 } from '@development-framework/dm-core'
 import {
@@ -270,12 +271,13 @@ export const BuilderPlugin = (
       ),
     onStyleValue: (
       key: keyof NonNullable<TGridItem['style']>,
-      value: unknown
+      value: unknown,
+      target: 'body' | 'title' = 'body'
     ) =>
       selectedIndex !== null &&
       updateActive(
-        (m) => setWidgetStyleValue(m, selectedIndex, key, value),
-        `style:${key}:${selectedIndex}`
+        (m) => setWidgetStyleValue(m, selectedIndex, key, value, target),
+        `style:${target}:${key}:${selectedIndex}`
       ),
     onCommit: () => history.commit(),
   }
@@ -629,6 +631,7 @@ export const BuilderPlugin = (
             item={selectedItem}
             block={selectedBlock}
             gridSize={activeModel.size}
+            dataSource={idReference ? splitAddress(idReference).dataSource : ''}
             {...inspectorHandlers}
           />
         )}

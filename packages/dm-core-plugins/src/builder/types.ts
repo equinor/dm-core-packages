@@ -23,7 +23,12 @@ export type TBuilderPluginConfig = {
  */
 export type TBlockCategory = 'layout' | 'content' | 'media' | 'data'
 
-export type TInspectorFieldType = 'text' | 'textarea' | 'number' | 'boolean'
+export type TInspectorFieldType =
+  | 'text'
+  | 'textarea'
+  | 'number'
+  | 'boolean'
+  | 'image-upload'
 
 /**
  * Where an inspector field's value is read from / written to on a grid item.

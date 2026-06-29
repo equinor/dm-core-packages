@@ -61,6 +61,12 @@ export const BLOCKS: TBlock[] = [
     defaultConfig: { fill: 'width' },
     fields: [
       {
+        label: 'Image',
+        type: 'image-upload',
+        target: { kind: 'config', key: 'address' },
+        help: 'Browse your computer to upload an image, or bind a Scope to a file.',
+      },
+      {
         label: 'Caption',
         type: 'text',
         target: { kind: 'config', key: 'caption' },

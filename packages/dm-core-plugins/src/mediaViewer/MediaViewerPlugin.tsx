@@ -22,13 +22,13 @@ export const MediaViewerPlugin = (
   props: Omit<IUIPlugin, 'config'> & { config: MediaViewerPluginConfig }
 ) => {
   const { idReference, config } = props
+  // A directly uploaded image stores its absolute File address in the config so
+  // the widget no longer depends on a page attribute (scope) binding.
+  const targetRef = config.address || idReference
   const [blobUrl, setBlobUrl] = useState<string>()
   const { dmssAPI } = useApplication()
-  const { document, isLoading, error } = useDocument<MediaObject>(
-    idReference,
-    1
-  )
-  const { dataSource } = useMemo(() => splitAddress(idReference), [idReference])
+  const { document, isLoading, error } = useDocument<MediaObject>(targetRef, 1)
+  const { dataSource } = useMemo(() => splitAddress(targetRef), [targetRef])
   const [contentType, canPreview] = useMemo(() => {
     const normalizedFileType = document?.filetype?.toLowerCase() // normalize if your keys are lowercase
     const contentType =
@@ -85,7 +85,8 @@ export const MediaViewerPlugin = (
         justifyContent='center'
         style={{ padding: 16, color: '#6f6f6f', textAlign: 'center' }}
       >
-        No image bound. Set this widget's Scope to a file attribute.
+        No image bound. Upload an image from your computer in the inspector, or
+        set this widget's Scope to a file attribute.
       </Stack>
     )
 
