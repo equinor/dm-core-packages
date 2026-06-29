@@ -1,0 +1,6 @@
+{
+  "_id": "builderPageExample",
+  "name": "BuilderPageExample",
+  "type": "./blueprints/Page",
+  "title": "My first page"
+}

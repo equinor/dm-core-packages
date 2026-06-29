@@ -1,0 +1,27 @@
+{
+  "name": "BuilderPluginConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "Configuration for the drag-and-drop website builder plugin.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "mode",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Initial mode: 'edit' (canvas) or 'preview' (runtime render).",
+      "default": "edit",
+      "optional": true
+    },
+    {
+      "name": "initialConfig",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+      "description": "Seed grid config used to hydrate the canvas.",
+      "optional": true
+    }
+  ]
+}
