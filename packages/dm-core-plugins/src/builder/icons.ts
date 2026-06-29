@@ -1,6 +1,8 @@
 import {
   add,
+  check,
   chevron_right,
+  close,
   copy,
   delete_to_trash,
   desktop_mac,
@@ -32,6 +34,8 @@ export const ICONS: Record<string, IconData> = {
   table_chart,
   list,
   add,
+  check,
+  close,
   edit,
   visibility,
   drag_handle,

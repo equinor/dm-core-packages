@@ -14,12 +14,20 @@ import {
   useSensors,
 } from '@dnd-kit/core'
 import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { GridPlugin } from '../grid/GridPlugin'
 import type { TGridArea, TGridItem } from '../grid/types'
 import { getBlock } from './blocks'
 import { Canvas, DENSITY_STEP } from './components/Canvas'
 import { Inspector } from './components/Inspector'
+import { NavSidebar } from './components/NavSidebar'
 import { Outline } from './components/Outline'
 import { TemplatesMenu } from './components/TemplatesMenu'
 import { Toast } from './components/Toast'
@@ -29,7 +37,6 @@ import { ICONS } from './icons'
 import {
   addWidget,
   clampPath,
-  createEmptyModel,
   deserialize,
   duplicateWidget,
   getSubModel,
@@ -51,6 +58,17 @@ import {
   translateArea,
   wouldOverlap,
 } from './model'
+import {
+  addPage,
+  deserializeSite,
+  findPage,
+  findPageContext,
+  movePage,
+  removePage,
+  renamePage,
+  serializeSite,
+  setPageLayout,
+} from './site'
 import * as Styled from './styles'
 import { useToast } from './toast'
 import type {
@@ -84,13 +102,14 @@ export const BuilderPlugin = (
     1
   )
 
-  const history = useHistory<TBuilderModel>(() =>
-    config?.initialConfig
-      ? deserialize(config.initialConfig)
-      : createEmptyModel()
+  const history = useHistory(() =>
+    deserializeSite(config?.initialConfig ?? null)
   )
-  const model = history.present
-  const setModel = history.set
+  const site = history.present
+  const setSite = history.set
+  const [activePageId, setActivePageId] = useState<string>(
+    () => site.pages[0]?.id ?? ''
+  )
   const [mode, setMode] = useState<TBuilderMode>(config?.mode ?? 'edit')
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [showJson, setShowJson] = useState(false)
@@ -102,6 +121,31 @@ export const BuilderPlugin = (
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor)
+  )
+
+  // The page currently open in the editor; falls back to the first page when
+  // the active id no longer resolves (e.g. after a delete or undo).
+  const activePage = findPage(site, activePageId) ?? site.pages[0]
+  const model = activePage.layout
+
+  // Edit the active page's grid through the site history, so widget edits and
+  // page operations share a single undo stack. Behaves like a plain model
+  // setter scoped to the open page.
+  const setModel = useCallback(
+    (
+      updater: TBuilderModel | ((current: TBuilderModel) => TBuilderModel),
+      label: string | null = null
+    ) =>
+      setSite((current) => {
+        const previous = findPage(current, activePage.id)?.layout
+        if (previous === undefined) return current
+        const next =
+          typeof updater === 'function'
+            ? (updater as (value: TBuilderModel) => TBuilderModel)(previous)
+            : updater
+        return setPageLayout(current, activePage.id, next)
+      }, label),
+    [setSite, activePage.id]
   )
 
   // The grid currently being edited (root, or a section drilled into via path).
@@ -161,6 +205,57 @@ export const BuilderPlugin = (
     setSelectedIndex(null)
     notify('Template applied')
   }
+
+  // ---- Page (nav sidebar) management -------------------------------------
+
+  // Switch the editor (or, in preview, the viewer) to another page, resetting
+  // the section path and selection so we open at that page's root grid.
+  const handleSelectPage = (id: string) => {
+    if (id === activePageId) return
+    setActivePageId(id)
+    setPath([])
+    setSelectedIndex(null)
+  }
+
+  const handleAddPage = (parentId: string | null = null) => {
+    const { site: next, id } = addPage(site, parentId)
+    if (!id) return
+    setSite(next)
+    setActivePageId(id)
+    setPath([])
+    setSelectedIndex(null)
+    notify(parentId ? 'Sub-page added' : 'Page added')
+  }
+
+  const handleRenamePage = (id: string, title: string) =>
+    setSite((current) => renamePage(current, id, title))
+
+  const handleDeletePage = (id: string) => {
+    const context = findPageContext(site, id)
+    if (!context) return
+    if (context.parentId === null && site.pages.length <= 1) return
+    const next = removePage(site, id)
+    if (next === site) return
+    setSite(next)
+    if (id === activePageId || findPage(next, activePageId) === null) {
+      const sibling =
+        context.siblings[context.index - 1] ?? context.siblings[context.index]
+      const fallback =
+        (sibling && sibling.id !== id ? findPage(next, sibling.id) : null) ??
+        (context.parentId ? findPage(next, context.parentId) : null) ??
+        next.pages[0]
+      setActivePageId(fallback.id)
+      setPath([])
+      setSelectedIndex(null)
+    }
+    notify('Page deleted')
+  }
+
+  const handleReorderPages = (
+    parentId: string | null,
+    from: number,
+    to: number
+  ) => setSite((current) => movePage(current, parentId, from, to))
 
   const handleMove = (
     index: number,
@@ -377,27 +472,37 @@ export const BuilderPlugin = (
     }
   }, [model, path])
 
-  // Persisted JSON of the page. The baseline ref tracks what was last saved so
-  // we can tell whether there are unsaved changes.
-  const currentJson = useMemo(() => JSON.stringify(serialize(model)), [model])
+  // Keep the active page id in sync with the site: if it no longer resolves
+  // (e.g. an undo/redo removed the open page), snap to the resolved page.
+  useEffect(() => {
+    if (activePage.id !== activePageId) setActivePageId(activePage.id)
+  }, [activePage.id, activePageId])
+
+  // Persisted JSON of the whole site (all pages). The baseline ref tracks what
+  // was last saved so we can tell whether there are unsaved changes.
+  const currentJson = useMemo(() => JSON.stringify(serializeSite(site)), [site])
   const savedJsonRef = useRef(currentJson)
   const [saveState, setSaveState] = useState<'saved' | 'saving' | 'dirty'>(
     'saved'
   )
 
-  // Hydrate the canvas from the page entity's saved `layout` once it loads, so
-  // reopening a page shows previously saved work rather than the recipe seed.
+  // Hydrate the builder from the page entity's saved `layout` once it loads, so
+  // reopening shows previously saved work rather than the recipe seed. Accepts
+  // both the multi-page site format and a legacy single-grid layout.
   const hydratedRef = useRef(false)
   useEffect(() => {
     if (hydratedRef.current) return
     const layout = document?.layout
     if (!layout) return
     hydratedRef.current = true
-    const json = JSON.stringify(layout)
-    savedJsonRef.current = json
-    setModel(() => deserialize(layout), 'load')
+    const loaded = deserializeSite(layout)
+    savedJsonRef.current = JSON.stringify(serializeSite(loaded))
+    setSite(() => loaded, 'load')
+    setActivePageId(loaded.pages[0]?.id ?? '')
+    setPath([])
+    setSelectedIndex(null)
     setSaveState('saved')
-  }, [document, setModel])
+  }, [document, setSite])
 
   /**
    * Persist the current page layout. When bound to an entity we write the
@@ -492,6 +597,19 @@ export const BuilderPlugin = (
   // Round-trip through serialize/deserialize so preview proves the stored JSON
   // renders identically with the runtime grid plugin.
   const previewConfig = deserialize(serialize(model))
+
+  const navSidebar = (
+    <NavSidebar
+      pages={site.pages}
+      activePageId={activePage.id}
+      editing={mode === 'edit'}
+      onNavigate={handleSelectPage}
+      onAddPage={handleAddPage}
+      onRenamePage={handleRenamePage}
+      onDeletePage={handleDeletePage}
+      onReorder={handleReorderPages}
+    />
+  )
 
   return (
     <DndContext
@@ -639,7 +757,7 @@ export const BuilderPlugin = (
             style={{ gridColumn: '1 / -1', background: '#1e1e1e' }}
           >
             <pre style={{ color: '#d4d4d4', fontSize: 12, margin: 0 }}>
-              {JSON.stringify(serialize(model), null, 2)}
+              {JSON.stringify(serializeSite(site), null, 2)}
             </pre>
           </Styled.CanvasPanel>
         ) : mode === 'edit' ? (
@@ -656,20 +774,26 @@ export const BuilderPlugin = (
             onResizeEnd={handleResizeEnd}
             onEnter={handleEnter}
             onDensity={handleDensity}
+            nav={navSidebar}
           />
         ) : (
           <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>
-            <Styled.DeviceFrame $maxWidth={frameWidth}>
-              <ErrorBoundary message='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'>
-                <GridPlugin
-                  type={type}
-                  idReference={idReference}
-                  config={previewConfig}
-                  onSubmit={onSubmit}
-                  onChange={onChange}
-                />
-              </ErrorBoundary>
-            </Styled.DeviceFrame>
+            <Styled.SiteFrame>
+              {navSidebar}
+              <Styled.SitePageArea>
+                <Styled.DeviceFrame $maxWidth={frameWidth}>
+                  <ErrorBoundary message='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'>
+                    <GridPlugin
+                      type={type}
+                      idReference={idReference}
+                      config={previewConfig}
+                      onSubmit={onSubmit}
+                      onChange={onChange}
+                    />
+                  </ErrorBoundary>
+                </Styled.DeviceFrame>
+              </Styled.SitePageArea>
+            </Styled.SiteFrame>
           </Styled.CanvasPanel>
         )}
 

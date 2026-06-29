@@ -163,6 +163,7 @@ export const CanvasPanel = styled.div`
 `
 
 export const DeviceFrame = styled.div<{ $maxWidth: string }>`
+  width: 100%;
   max-width: ${(props) => props.$maxWidth};
   margin: 0 auto;
   height: 100%;
@@ -361,4 +362,151 @@ export const FieldLabel = styled.label`
   font-weight: 500;
   color: #3d3d3d;
   margin-bottom: 4px;
+`
+
+/* ------------------------------------------------------------------ *
+ * Website nav sidebar (the site's own left navigation, shown in both *
+ * edit and preview so the canvas is WYSIWYG).                        *
+ * ------------------------------------------------------------------ */
+
+export const SiteFrame = styled.div`
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  min-height: 0;
+  gap: 0;
+`
+
+export const NavSidebar = styled.nav<{ $editing: boolean }>`
+  flex: 0 0 200px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  background: #f7f7f7;
+  border-right: 1px solid #d8d8d8;
+  border-radius: 6px 0 0 6px;
+  overflow-y: auto;
+  padding: 12px 8px;
+  box-sizing: border-box;
+`
+
+export const NavHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 4px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6f6f6f;
+`
+
+export const NavList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+`
+
+export const NavItem = styled.div<{ $active: boolean; $dragging?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  color: ${(props) => (props.$active ? '#fff' : '#3d3d3d')};
+  background: ${(props) => (props.$active ? '#007079' : 'transparent')};
+  opacity: ${(props) => (props.$dragging ? 0.5 : 1)};
+
+  &:hover {
+    background: ${(props) => (props.$active ? '#007079' : '#e8e8e8')};
+  }
+`
+
+export const NavItemLabel = styled.span`
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
+
+export const NavItemActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 0 0 auto;
+`
+
+export const NavDragHandle = styled.span`
+  display: inline-flex;
+  align-items: center;
+  cursor: grab;
+  color: inherit;
+  opacity: 0.6;
+
+  &:active {
+    cursor: grabbing;
+  }
+`
+
+export const NavDisclosure = styled.button<{ $expanded: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  transform: rotate(${(props) => (props.$expanded ? 90 : 0)}deg);
+  transition: transform 0.15s ease;
+`
+
+export const NavDisclosureSpacer = styled.span`
+  flex: 0 0 auto;
+  width: 18px;
+`
+
+export const NavRenameInput = styled.input`
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 14px;
+  padding: 2px 4px;
+  border: 1px solid #007079;
+  border-radius: 4px;
+  box-sizing: border-box;
+`
+
+export const NavAddButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 8px;
+  border: 1px dashed #b5b5b5;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #007079;
+
+  &:hover {
+    background: #eef6f6;
+    border-color: #007079;
+  }
+`
+
+export const SitePageArea = styled.div`
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 `
