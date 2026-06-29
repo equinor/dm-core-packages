@@ -20,6 +20,8 @@ import {
   undo,
   view_module,
   visibility,
+  zoom_in,
+  zoom_out,
 } from '@equinor/eds-icons'
 
 /** Maps block icon names to EDS icon data objects used by `<Icon />`. */
@@ -44,4 +46,6 @@ export const ICONS: Record<string, IconData> = {
   save,
   layers,
   format_list_bulleted,
+  zoom_in,
+  zoom_out,
 }

@@ -3,6 +3,7 @@ import { Button, Icon } from '@equinor/eds-core-react'
 import {
   type ReactNode,
   type PointerEvent as ReactPointerEvent,
+  useEffect,
   useRef,
 } from 'react'
 import type { TGridArea, TGridItem } from '../../grid/types'
@@ -14,6 +15,9 @@ import * as Styled from '../styles'
 import type { TBuilderModel } from '../types'
 
 type TGridMetrics = { size: TBuilderModel['size']; rect: () => DOMRect | null }
+
+/** Multiplicative density step for one zoom increment (in/out). */
+export const DENSITY_STEP = 1.5
 
 const CanvasItem = ({
   item,
@@ -231,6 +235,7 @@ export const Canvas = ({
   onResize,
   onResizeEnd,
   onEnter,
+  onDensity,
 }: {
   model: TBuilderModel
   selectedIndex: number | null
@@ -243,9 +248,11 @@ export const Canvas = ({
   onResize: (index: number, area: TGridArea) => void
   onResizeEnd: () => void
   onEnter: (index: number) => void
+  onDensity: (factor: number) => void
 }): React.ReactElement => {
   const { setNodeRef, isOver } = useDroppable({ id: 'canvas' })
   const gridRef = useRef<HTMLDivElement | null>(null)
+  const panelRef = useRef<HTMLDivElement | null>(null)
 
   // Translate a finished canvas-item drag (pixels) into a grid cell move.
   useDndMonitor({
@@ -261,13 +268,39 @@ export const Canvas = ({
     },
   })
 
+  // Ctrl/Cmd + wheel adjusts grid density (zoom). A native, non-passive
+  // listener is required so we can call preventDefault to suppress page zoom.
+  // Wheel deltas are accumulated so trackpads take one density step per gesture
+  // chunk rather than dozens.
+  useEffect(() => {
+    const node = panelRef.current
+    if (!node) return
+    let accumulated = 0
+    const THRESHOLD = 40
+    const onWheel = (event: WheelEvent) => {
+      if (!event.ctrlKey && !event.metaKey) return
+      event.preventDefault()
+      accumulated += event.deltaY
+      while (accumulated <= -THRESHOLD) {
+        accumulated += THRESHOLD
+        onDensity(DENSITY_STEP)
+      }
+      while (accumulated >= THRESHOLD) {
+        accumulated -= THRESHOLD
+        onDensity(1 / DENSITY_STEP)
+      }
+    }
+    node.addEventListener('wheel', onWheel, { passive: false })
+    return () => node.removeEventListener('wheel', onWheel)
+  }, [onDensity])
+
   const metrics: TGridMetrics = {
     size: model.size,
     rect: () => gridRef.current?.getBoundingClientRect() ?? null,
   }
 
   return (
-    <Styled.CanvasPanel onClick={() => onSelect(null)}>
+    <Styled.CanvasPanel ref={panelRef} onClick={() => onSelect(null)}>
       {breadcrumb}
       <Styled.DeviceFrame $maxWidth={frameWidth}>
         <Styled.CanvasGrid

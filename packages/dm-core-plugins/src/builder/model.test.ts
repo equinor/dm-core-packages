@@ -22,6 +22,7 @@ import {
   moveWidget,
   REFERENCE_VIEW_CONFIG_TYPE,
   removeWidget,
+  rescaleGrid,
   resizeWidget,
   serialize,
   setSubModel,
@@ -42,13 +43,13 @@ const formBlock = getBlock('form') ?? BLOCKS[0]
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value))
 
 describe('builder model', () => {
-  it('creates an empty 12x8 model with expected defaults', () => {
+  it('creates an empty 24x16 model with expected defaults', () => {
     expect(createEmptyModel()).toEqual({
       size: {
-        columns: 12,
-        rows: 8,
-        rowGap: '16px',
-        columnGap: '16px',
+        columns: 24,
+        rows: 16,
+        rowGap: '8px',
+        columnGap: '8px',
       },
       items: [],
       itemBorder: {
@@ -78,10 +79,10 @@ describe('builder model', () => {
       type: GRID_ITEM_TYPE,
       title: textBlock.label,
       gridArea: {
-        rowStart: 5,
-        rowEnd: 8,
-        columnStart: 8,
-        columnEnd: 12,
+        rowStart: 7,
+        rowEnd: 10,
+        columnStart: 11,
+        columnEnd: 15,
       },
       viewConfig: {
         type: INLINE_RECIPE_VIEW_CONFIG_TYPE,
@@ -133,8 +134,8 @@ describe('builder model', () => {
 
     expect(model).toEqual(original)
     expect(result.items[0].gridArea).toEqual({
-      rowStart: 2,
-      rowEnd: 8,
+      rowStart: 6,
+      rowEnd: 12,
       columnStart: 1,
       columnEnd: 7,
     })
@@ -222,10 +223,10 @@ describe('builder model', () => {
       columnEnd: 5,
     })
     expect(clamped.items[0].gridArea).toEqual({
-      rowStart: 3,
-      rowEnd: 8,
-      columnStart: 7,
-      columnEnd: 12,
+      rowStart: 7,
+      rowEnd: 12,
+      columnStart: 10,
+      columnEnd: 15,
     })
   })
 
@@ -259,9 +260,9 @@ describe('builder model', () => {
   it('grows the grid and avoids overlap when duplicating into a full grid', () => {
     const full = addWidget(createEmptyModel(), textBlock, {
       rowStart: 1,
-      rowEnd: 8,
+      rowEnd: 16,
       columnStart: 1,
-      columnEnd: 12,
+      columnEnd: 24,
     })
     const result = duplicateWidget(full, 0)
 
@@ -339,7 +340,7 @@ describe('builder model', () => {
         { rowStart: 0, rowEnd: 2, columnStart: 11, columnEnd: 14 },
         createEmptyModel().size
       )
-    ).toEqual({ rowStart: 1, rowEnd: 3, columnStart: 9, columnEnd: 12 })
+    ).toEqual({ rowStart: 1, rowEnd: 3, columnStart: 11, columnEnd: 14 })
   })
 
   it('clamps an area larger than the grid to fit inside it', () => {
@@ -359,9 +360,9 @@ describe('builder model', () => {
   it('returns null from findFreeArea when the grid is full', () => {
     const model = addWidget(createEmptyModel(), textBlock, {
       rowStart: 1,
-      rowEnd: 8,
+      rowEnd: 16,
       columnStart: 1,
-      columnEnd: 12,
+      columnEnd: 24,
     })
     expect(findFreeArea(model, { columns: 1, rows: 1 })).toBeNull()
   })
@@ -369,9 +370,9 @@ describe('builder model', () => {
   it('grows the grid and avoids overlap when adding to a full grid', () => {
     const full = addWidget(createEmptyModel(), textBlock, {
       rowStart: 1,
-      rowEnd: 8,
+      rowEnd: 16,
       columnStart: 1,
-      columnEnd: 12,
+      columnEnd: 24,
     })
     const result = addWidget(full, imageBlock)
 
@@ -526,10 +527,10 @@ describe('builder model — property setters', () => {
 
     expect(model).toEqual(original)
     expect(result.items[0].gridArea).toEqual({
-      rowStart: 8,
-      rowEnd: 8,
-      columnStart: 12,
-      columnEnd: 12,
+      rowStart: 16,
+      rowEnd: 16,
+      columnStart: 15,
+      columnEnd: 15,
     })
   })
 
@@ -634,9 +635,9 @@ describe('builder model — insertWidgetItem', () => {
   it('grows the grid when full so the copy never overlaps', () => {
     const full = addWidget(createEmptyModel(), textBlock, {
       rowStart: 1,
-      rowEnd: 8,
+      rowEnd: 16,
       columnStart: 1,
-      columnEnd: 12,
+      columnEnd: 24,
     })
     const result = insertWidgetItem(full, full.items[0])
 
@@ -688,7 +689,7 @@ describe('builder model — nesting', () => {
     const items = [item]
 
     expect(ensureModel(undefined)).toEqual({
-      size: { columns: 6, rows: 4, rowGap: '16px', columnGap: '16px' },
+      size: { columns: 6, rows: 4, rowGap: '8px', columnGap: '8px' },
       items: [],
       itemBorder: { size: '1px', style: 'solid', color: '#bbb', radius: '5px' },
       showItemBorders: false,
@@ -698,8 +699,8 @@ describe('builder model — nesting', () => {
     expect(ensureModel({ size: { rows: 9 } }).size).toEqual({
       columns: 6,
       rows: 9,
-      rowGap: '16px',
-      columnGap: '16px',
+      rowGap: '8px',
+      columnGap: '8px',
     })
   })
 
@@ -708,7 +709,7 @@ describe('builder model — nesting', () => {
 
     expect(getSubModel(model, [])).toBe(model)
     expect(getSubModel(model, [0])).toEqual({
-      size: { columns: 6, rows: 4, rowGap: '16px', columnGap: '16px' },
+      size: { columns: 12, rows: 8, rowGap: '8px', columnGap: '8px' },
       items: [],
       itemBorder: { size: '1px', style: 'solid', color: '#bbb', radius: '5px' },
       showItemBorders: false,
@@ -772,6 +773,80 @@ describe('builder model — nesting', () => {
     )
 
     expect(deserialize(serialize(model))).toEqual(model)
+  })
+})
+
+describe('builder model — rescaleGrid', () => {
+  it('doubles density and scales widget areas while keeping the model immutable', () => {
+    const model = addWidget(
+      createEmptyModel({ columns: 12, rows: 8 }),
+      textBlock,
+      {
+        rowStart: 1,
+        rowEnd: 4,
+        columnStart: 3,
+        columnEnd: 6,
+      }
+    )
+    const original = clone(model)
+    const result = rescaleGrid(model, 2)
+
+    expect(model).toEqual(original)
+    expect(result.size.columns).toBe(24)
+    expect(result.size.rows).toBe(16)
+    expect(result.items[0].gridArea).toEqual({
+      columnStart: 5,
+      columnEnd: 12,
+      rowStart: 1,
+      rowEnd: 8,
+    })
+  })
+
+  it('returns the same model for a factor of 1 or non-positive factors', () => {
+    const model = addWidget(createEmptyModel(), textBlock)
+    expect(rescaleGrid(model, 1)).toBe(model)
+    expect(rescaleGrid(model, 0)).toBe(model)
+    expect(rescaleGrid(model, -2)).toBe(model)
+  })
+
+  it('clamps density to the maximum and never drops a widget below 1x1', () => {
+    const model = addWidget(
+      createEmptyModel({ columns: 200, rows: 200 }),
+      textBlock,
+      {
+        rowStart: 1,
+        rowEnd: 1,
+        columnStart: 1,
+        columnEnd: 1,
+      }
+    )
+    const result = rescaleGrid(model, 4)
+
+    expect(result.size.columns).toBeLessThanOrEqual(240)
+    expect(result.size.rows).toBeLessThanOrEqual(240)
+    const { gridArea } = result.items[0]
+    expect(gridArea.columnEnd).toBeGreaterThanOrEqual(gridArea.columnStart)
+    expect(gridArea.rowEnd).toBeGreaterThanOrEqual(gridArea.rowStart)
+  })
+
+  it('keeps every scaled widget inside the new grid bounds', () => {
+    const model = addWidget(
+      createEmptyModel({ columns: 12, rows: 8 }),
+      textBlock,
+      {
+        rowStart: 7,
+        rowEnd: 8,
+        columnStart: 11,
+        columnEnd: 12,
+      }
+    )
+    const result = rescaleGrid(model, 0.5)
+
+    expect(result.size.columns).toBe(6)
+    expect(result.size.rows).toBe(4)
+    const { gridArea } = result.items[0]
+    expect(gridArea.columnEnd).toBeLessThanOrEqual(6)
+    expect(gridArea.rowEnd).toBeLessThanOrEqual(4)
   })
 })
 

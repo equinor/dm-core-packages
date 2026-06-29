@@ -21,10 +21,10 @@ export const BLOCKS: TBlock[] = [
     category: 'layout',
     description: 'A container to group and arrange other widgets.',
     contentModel: 'content',
-    defaultSize: { columns: 4, rows: 2 },
+    defaultSize: { columns: 8, rows: 4 },
     recipe: '@development-framework/dm-core-plugins/grid',
     defaultConfig: {
-      size: { columns: 6, rows: 4, rowGap: '16px', columnGap: '16px' },
+      size: { columns: 12, rows: 8, rowGap: '8px', columnGap: '8px' },
       items: [],
       itemBorder: { size: '1px', style: 'solid', color: '#bbb', radius: '5px' },
       showItemBorders: false,
@@ -37,7 +37,7 @@ export const BLOCKS: TBlock[] = [
     category: 'content',
     description: 'Markdown rendered from a bound document.',
     contentModel: 'content',
-    defaultSize: { columns: 3, rows: 1 },
+    defaultSize: { columns: 6, rows: 2 },
     recipe: '@development-framework/dm-core-plugins/markdown',
     defaultConfig: { content: 'Write your text here.' },
     fields: [
@@ -56,7 +56,7 @@ export const BLOCKS: TBlock[] = [
     category: 'media',
     description: 'An image or other media asset from a bound file.',
     contentModel: 'content',
-    defaultSize: { columns: 2, rows: 2 },
+    defaultSize: { columns: 4, rows: 4 },
     recipe: '@development-framework/dm-core-plugins/media-viewer',
     defaultConfig: { fill: 'width' },
     fields: [
@@ -93,7 +93,7 @@ export const BLOCKS: TBlock[] = [
     category: 'data',
     description: 'A paginated table from an uploaded CSV or Excel file.',
     contentModel: 'content',
-    defaultSize: { columns: 4, rows: 2 },
+    defaultSize: { columns: 8, rows: 4 },
     recipe: '@development-framework/dm-core-plugins/static-table',
     defaultConfig: {
       rows: [
@@ -125,7 +125,7 @@ export const BLOCKS: TBlock[] = [
     category: 'data',
     description: 'An editable form bound to an entity.',
     contentModel: 'data',
-    defaultSize: { columns: 3, rows: 2 },
+    defaultSize: { columns: 6, rows: 4 },
     recipe: '@development-framework/dm-core-plugins/form',
   },
 ]

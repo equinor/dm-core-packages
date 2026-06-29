@@ -13,10 +13,10 @@ export const REFERENCE_VIEW_CONFIG_TYPE = 'CORE:ReferenceViewConfig'
 export const INLINE_RECIPE_VIEW_CONFIG_TYPE = 'CORE:InlineRecipeViewConfig'
 
 const DEFAULT_SIZE: TGridSize = {
-  columns: 12,
-  rows: 8,
-  rowGap: '16px',
-  columnGap: '16px',
+  columns: 24,
+  rows: 16,
+  rowGap: '8px',
+  columnGap: '8px',
 }
 
 /** Create an empty builder model with a sensible default grid. */
@@ -59,10 +59,55 @@ export const clampArea = (area: TGridArea, size: TGridSize): TGridArea => {
   }
 }
 
+/** Minimum and maximum grid density (cells per axis) when zooming. */
+export const MIN_GRID_CELLS = 4
+export const MAX_GRID_CELLS = 240
+
 /**
- * Find the first free top-left cell that fits a widget of the given footprint,
- * scanning row by row. Returns `null` when the grid has no free space.
+ * Rescale a grid's density (number of columns and rows) by `factor`, keeping
+ * the physical grid size constant. Widget areas are scaled proportionally so
+ * they stay in roughly the same visual place; a higher density yields a finer
+ * snap stride for micro adjustments. Nested section grids keep their own
+ * density and are not touched. Returns the model unchanged when the density
+ * would not actually change (e.g. clamped at a bound).
  */
+export const rescaleGrid = (
+  model: TBuilderModel,
+  factor: number
+): TBuilderModel => {
+  if (!(factor > 0) || factor === 1) return model
+  const clampCells = (value: number): number =>
+    Math.min(Math.max(MIN_GRID_CELLS, Math.round(value)), MAX_GRID_CELLS)
+  const columns = clampCells(model.size.columns * factor)
+  const rows = clampCells(model.size.rows * factor)
+  if (columns === model.size.columns && rows === model.size.rows) return model
+
+  const fx = columns / model.size.columns
+  const fy = rows / model.size.rows
+  const size: TGridSize = { ...model.size, columns, rows }
+  const items = model.items.map((item) => {
+    const { gridArea } = item
+    const width = Math.max(
+      1,
+      Math.round((gridArea.columnEnd - gridArea.columnStart + 1) * fx)
+    )
+    const height = Math.max(
+      1,
+      Math.round((gridArea.rowEnd - gridArea.rowStart + 1) * fy)
+    )
+    const columnStart = Math.round((gridArea.columnStart - 1) * fx) + 1
+    const rowStart = Math.round((gridArea.rowStart - 1) * fy) + 1
+    const scaled: TGridArea = {
+      columnStart,
+      columnEnd: columnStart + width - 1,
+      rowStart,
+      rowEnd: rowStart + height - 1,
+    }
+    return { ...item, gridArea: clampArea(scaled, size) }
+  })
+  return { ...model, size, items }
+}
+
 export const findFreeArea = (
   model: TBuilderModel,
   footprint: { columns: number; rows: number }

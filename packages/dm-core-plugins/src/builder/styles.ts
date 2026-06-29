@@ -196,7 +196,7 @@ export const BreadcrumbButton = styled.button<{ $current: boolean }>`
 export const CanvasGrid = styled.div<{ $size: TGridSize; $editing: boolean }>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.$size.columns}, 1fr);
-  grid-template-rows: repeat(${(props) => props.$size.rows}, minmax(48px, 1fr));
+  grid-template-rows: repeat(${(props) => props.$size.rows}, minmax(24px, 1fr));
   row-gap: ${(props) => props.$size.rowGap};
   column-gap: ${(props) => props.$size.columnGap};
   min-height: 100%;

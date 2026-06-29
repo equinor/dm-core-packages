@@ -18,7 +18,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { GridPlugin } from '../grid/GridPlugin'
 import type { TGridArea, TGridItem } from '../grid/types'
 import { getBlock } from './blocks'
-import { Canvas } from './components/Canvas'
+import { Canvas, DENSITY_STEP } from './components/Canvas'
 import { Inspector } from './components/Inspector'
 import { Outline } from './components/Outline'
 import { TemplatesMenu } from './components/TemplatesMenu'
@@ -34,8 +34,11 @@ import {
   duplicateWidget,
   getSubModel,
   insertWidgetItem,
+  MAX_GRID_CELLS,
+  MIN_GRID_CELLS,
   moveWidget,
   removeWidget,
+  rescaleGrid,
   resizeWidget,
   serialize,
   setSubModel,
@@ -199,6 +202,12 @@ export const BuilderPlugin = (
   // Drag-resize emits many updates; end the coalescing run on pointer-up so the
   // whole gesture collapses into a single undo step.
   const handleResizeEnd = () => history.commit()
+
+  // Rescale the active grid's density (cell count) without changing its size,
+  // so a higher density yields a finer snap stride for micro adjustments.
+  // Consecutive density steps coalesce into one undo step via a shared label.
+  const handleDensity = (factor: number) =>
+    updateActive((m) => rescaleGrid(m, factor), 'density')
 
   const handleSetArea = (index: number, area: TGridArea) => {
     const item = activeModel.items[index]
@@ -553,6 +562,43 @@ export const BuilderPlugin = (
                 <Icon data={ICONS[DEVICE_ICONS[value]]} size={18} />
               </Button>
             ))}
+            {mode === 'edit' && (
+              <>
+                <Tooltip title='Coarser grid (fewer cells)'>
+                  <Button
+                    variant='ghost_icon'
+                    aria-label='decrease grid density'
+                    disabled={
+                      activeModel.size.columns <= MIN_GRID_CELLS &&
+                      activeModel.size.rows <= MIN_GRID_CELLS
+                    }
+                    onClick={() => handleDensity(1 / DENSITY_STEP)}
+                  >
+                    <Icon data={ICONS.zoom_out} size={18} />
+                  </Button>
+                </Tooltip>
+                <Tooltip title='Grid density (Ctrl/Cmd + scroll to zoom)'>
+                  <span
+                    style={{ fontSize: 13, minWidth: 56, textAlign: 'center' }}
+                  >
+                    {activeModel.size.columns}×{activeModel.size.rows}
+                  </span>
+                </Tooltip>
+                <Tooltip title='Finer grid (more cells, micro adjustments)'>
+                  <Button
+                    variant='ghost_icon'
+                    aria-label='increase grid density'
+                    disabled={
+                      activeModel.size.columns >= MAX_GRID_CELLS &&
+                      activeModel.size.rows >= MAX_GRID_CELLS
+                    }
+                    onClick={() => handleDensity(DENSITY_STEP)}
+                  >
+                    <Icon data={ICONS.zoom_in} size={18} />
+                  </Button>
+                </Tooltip>
+              </>
+            )}
             <Button
               variant={showJson ? 'contained' : 'outlined'}
               onClick={() => setShowJson((value) => !value)}
@@ -609,6 +655,7 @@ export const BuilderPlugin = (
             onResize={handleResize}
             onResizeEnd={handleResizeEnd}
             onEnter={handleEnter}
+            onDensity={handleDensity}
           />
         ) : (
           <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>
