@@ -15,7 +15,7 @@ renderer — there is no separate runtime format to maintain.
 A "widget" dropped on the canvas is a grid item whose `viewConfig` points at a
 plugin/recipe (Text, Image, Table, Form, or a nested Section).
 
-## Status: Phase 4 (UX polish & safety)
+## Status: Phase 5 (publish & docs)
 
 Implemented:
 
@@ -62,6 +62,22 @@ Implemented:
   unsaved changes.
 - Pure, immutable editor model with unit tests (`model.ts`, `gridMetrics.ts`,
   `templates.ts`, `history.ts`).
+- **Recursive (de)serialization**: Section grids are serialized with the same
+  DMSS `type` discriminators as the root, so nested layouts render at runtime
+  and round-trip cleanly through `serialize`/`deserialize`.
+
+## Try it in the example app
+
+A demo page is wired into the example DemoDataSource. After `./reset-app.sh`
+and `yarn start:example`, open:
+
+```
+/view?documentId=DemoDataSource/builderPageExample
+```
+
+It mounts the builder with a seeded layout (heading + a nested Section) via
+`config.initialConfig`. The blueprint/recipe/entity live under
+`example/app/data/DemoDataSource/{plugins,recipes}/builder/example/`.
 
 ## Architecture
 
@@ -98,10 +114,6 @@ Implemented:
 - Grid gaps are assumed to be `px` values when snapping drag/resize deltas.
 - Inspector config fields are silent no-ops for widgets that use a recipe
   reference (string) rather than an inline recipe.
-- `serialize()` adds DMSS type discriminators to the **root** grid only; the
-  nested grids inside Section widgets are kept as raw builder models. Making
-  serialization fully recursive (with a symmetric recursive `deserialize` to
-  preserve the round-trip) is deferred to Phase 5 (persistence).
 
 ## Roadmap
 
@@ -109,4 +121,4 @@ Implemented:
 - Phase 2 — inspector that edits each widget via typed controls (no JSON). ✅
 - Phase 3 — sections/nesting, responsive breakpoints, templates. ✅
 - Phase 4 — undo/redo, copy/paste, outline, toasts, autosave & dirty guard. ✅
-- Phase 5 — publish flow, example-app entry and demo blueprints.
+- Phase 5 — publish flow, example-app entry and demo blueprints. ✅
