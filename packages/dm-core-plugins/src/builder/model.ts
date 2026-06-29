@@ -7,6 +7,7 @@ export const GRID_CONFIG_TYPE = 'PLUGINS:dm-core-plugins/grid/GridPluginConfig'
 export const GRID_ITEM_TYPE = 'PLUGINS:dm-core-plugins/grid/GridItem'
 export const GRID_AREA_TYPE = 'PLUGINS:dm-core-plugins/grid/GridArea'
 export const GRID_SIZE_TYPE = 'PLUGINS:dm-core-plugins/grid/GridSize'
+export const GRID_BORDER_TYPE = 'PLUGINS:dm-core-plugins/grid/GridBorder'
 export const REFERENCE_VIEW_CONFIG_TYPE = 'CORE:ReferenceViewConfig'
 export const INLINE_RECIPE_VIEW_CONFIG_TYPE = 'CORE:InlineRecipeViewConfig'
 
@@ -464,7 +465,7 @@ export const serialize = (model: TBuilderModel): Record<string, unknown> => ({
     viewConfig: serializeViewConfig(item),
     ...(item.title ? { title: item.title } : {}),
   })),
-  itemBorder: model.itemBorder,
+  itemBorder: { type: GRID_BORDER_TYPE, ...model.itemBorder },
   showItemBorders: model.showItemBorders,
 })
 
@@ -505,7 +506,10 @@ export const deserialize = (entity: any): TBuilderModel => {
           }
         })
       : [],
-    itemBorder: { ...base.itemBorder, ...(entity.itemBorder ?? {}) },
+    itemBorder: (() => {
+      const { type: _borderType, ...border } = entity.itemBorder ?? {}
+      return { ...base.itemBorder, ...border }
+    })(),
     showItemBorders: entity.showItemBorders ?? base.showItemBorders,
   }
 }

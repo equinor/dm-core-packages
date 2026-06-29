@@ -84,6 +84,7 @@
                     }
                   ],
                   "itemBorder": {
+                    "type": "PLUGINS:dm-core-plugins/grid/GridBorder",
                     "size": "1px",
                     "style": "solid",
                     "color": "#bbb",
@@ -96,6 +97,7 @@
           }
         ],
         "itemBorder": {
+          "type": "PLUGINS:dm-core-plugins/grid/GridBorder",
           "size": "1px",
           "style": "solid",
           "color": "#bbb",
