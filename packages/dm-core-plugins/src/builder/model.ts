@@ -438,8 +438,22 @@ export const setSubModel = (
 }
 
 /**
+ * Serialize a view config, recursing into Section containers so their nested
+ * grids carry the same DMSS `type` discriminators as the root.
+ */
+const serializeViewConfig = (item: TGridItem): unknown => {
+  if (!isContainerItem(item)) return item.viewConfig
+  const recipe = item.viewConfig.recipe as TUiRecipe
+  return {
+    ...item.viewConfig,
+    recipe: { ...recipe, config: serialize(ensureModel(recipe.config)) },
+  }
+}
+
+/**
  * Serialize the in-memory model to the canonical DMSS entity JSON consumed by
- * the runtime `grid` plugin (adds the `type` discriminators).
+ * the runtime `grid` plugin (adds the `type` discriminators). Section grids are
+ * serialized recursively so nested layouts round-trip and render at runtime.
  */
 export const serialize = (model: TBuilderModel): Record<string, unknown> => ({
   type: GRID_CONFIG_TYPE,
@@ -447,12 +461,31 @@ export const serialize = (model: TBuilderModel): Record<string, unknown> => ({
   items: model.items.map((item) => ({
     type: GRID_ITEM_TYPE,
     gridArea: { type: GRID_AREA_TYPE, ...item.gridArea },
-    viewConfig: item.viewConfig,
+    viewConfig: serializeViewConfig(item),
     ...(item.title ? { title: item.title } : {}),
   })),
   itemBorder: model.itemBorder,
   showItemBorders: model.showItemBorders,
 })
+
+/**
+ * Rebuild a view config from stored JSON, recursing into Section containers so
+ * their nested grids return to raw builder models the editor can mutate.
+ */
+const deserializeViewConfig = (viewConfig: any): TViewConfig => {
+  const recipe = viewConfig?.recipe
+  if (
+    recipe &&
+    typeof recipe === 'object' &&
+    recipe.plugin === GRID_PLUGIN_NAME
+  ) {
+    return {
+      ...viewConfig,
+      recipe: { ...recipe, config: deserialize(recipe.config) },
+    }
+  }
+  return viewConfig
+}
 
 /** Rebuild the in-memory model from a (possibly partial) stored grid config. */
 export const deserialize = (entity: any): TBuilderModel => {
@@ -467,7 +500,7 @@ export const deserialize = (entity: any): TBuilderModel => {
           return {
             type: GRID_ITEM_TYPE,
             gridArea: gridArea as TGridArea,
-            viewConfig: item.viewConfig,
+            viewConfig: deserializeViewConfig(item.viewConfig),
             ...(item.title ? { title: item.title } : {}),
           }
         })

@@ -714,6 +714,35 @@ describe('builder model — nesting', () => {
     expect(updated.items[sectionIndex].title).toBe(sectionBlock.label)
     expect(updated.items).toHaveLength(1)
   })
+
+  it('recursively serializes nested section grids with type discriminators', () => {
+    const model = setSubModel(
+      addWidget(createEmptyModel(), sectionBlock),
+      [0],
+      addWidget(
+        getSubModel(addWidget(createEmptyModel(), sectionBlock), [0]),
+        textBlock
+      )
+    )
+    const nested = (serialize(model).items as any[])[0].viewConfig.recipe.config
+
+    expect(nested.type).toBe(GRID_CONFIG_TYPE)
+    expect(nested.size.type).toBe(GRID_SIZE_TYPE)
+    expect(nested.items[0].type).toBe(GRID_ITEM_TYPE)
+  })
+
+  it('round-trips a nested section through serialize and deserialize', () => {
+    const model = setSubModel(
+      addWidget(createEmptyModel(), sectionBlock),
+      [0],
+      addWidget(
+        getSubModel(addWidget(createEmptyModel(), sectionBlock), [0]),
+        textBlock
+      )
+    )
+
+    expect(deserialize(serialize(model))).toEqual(model)
+  })
 })
 
 describe('builder model — clampPath', () => {
