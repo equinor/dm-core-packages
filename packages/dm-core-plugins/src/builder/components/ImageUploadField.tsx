@@ -40,13 +40,14 @@ export const ImageUploadField = ({
     try {
       const blobId = crypto.randomUUID()
       await dmssAPI.blobUpload({ dataSourceId: dataSource, file, blobId })
+      const ext = file.name.split('.').slice(1).pop()?.toLowerCase() ?? ''
       const entity: TFileEntity = {
         type: EBlueprint.FILE,
         name: file.name.split('.').slice(0, -1).join('.') || file.name,
         author: '',
         date: new Date().toDateString(),
         size: file.size,
-        filetype: file.type,
+        filetype: ext,
         content: {
           type: 'dmss://system/SIMOS/Reference',
           referenceType: 'storage',
