@@ -127,7 +127,9 @@ const CanvasItem = ({
           )}
           {item.title ?? block?.label ?? 'Widget'}
         </span>
-        <Styled.CanvasItemActions>
+        <Styled.CanvasItemActions
+          onPointerDown={(event) => event.stopPropagation()}
+        >
           {isContainer && (
             <Button
               variant='ghost_icon'
