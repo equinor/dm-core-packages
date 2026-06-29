@@ -2,5 +2,27 @@
   "_id": "builderPageExample",
   "name": "BuilderPageExample",
   "type": "./blueprints/Page",
-  "title": "My first page"
+  "title": "My first page",
+  "cover": {
+    "type": "dmss://system/SIMOS/Reference",
+    "address": "/DemoDataSource/plugins/media_viewer/assets/beauty",
+    "referenceType": "link"
+  },
+  "contact": {
+    "type": "./blueprints/Member",
+    "name": "Ada Lovelace",
+    "role": "Owner"
+  },
+  "team": [
+    {
+      "type": "./blueprints/Member",
+      "name": "Ada Lovelace",
+      "role": "Owner"
+    },
+    {
+      "type": "./blueprints/Member",
+      "name": "Alan Turing",
+      "role": "Engineer"
+    }
+  ]
 }
