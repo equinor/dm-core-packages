@@ -104,5 +104,13 @@
         "showItemBorders": false
       }
     }
-  }
+  },
+  "uiRecipes": [
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "category": "edit",
+      "plugin": "@development-framework/dm-core-plugins/form"
+    }
+  ]
 }
