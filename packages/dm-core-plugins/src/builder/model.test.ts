@@ -564,17 +564,13 @@ describe('builder model — default config seeding', () => {
     expect(getWidgetConfigValue(model.items[0], 'fill')).toBe('width')
   })
 
-  it('seeds a valid table config so the widget can render in preview', () => {
+  it('seeds a markdown table so the widget renders before any upload', () => {
     const model = addWidget(createEmptyModel(), tableBlock)
 
-    // The runtime table plugin reads config.variant; a missing variant throws.
-    expect(getWidgetConfigValue(model.items[0], 'variant')).toEqual([
-      {
-        name: 'view',
-        density: 'compact',
-        functionality: { add: true, delete: true },
-      },
-    ])
+    // The Table widget renders via markdown; a seeded table keeps preview valid.
+    const content = getWidgetConfigValue(model.items[0], 'content')
+    expect(typeof content).toBe('string')
+    expect(content).toContain('| --- |')
   })
 
   it('does not share seeded config between two widgets of the same block', () => {

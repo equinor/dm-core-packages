@@ -100,10 +100,11 @@ It mounts the builder with a seeded layout (a page form + a nested Section) via
 
 ## Content model
 
-- **Content widgets** (Text, Image) render document-backed content bound via
-  `viewConfig.scope` (e.g. a markdown blob or a media file).
-- **Data widgets** (Table, Form) bind to an existing DMSS entity via
-  `viewConfig.scope`.
+- **Content widgets** (Text, Image, Table) render self-contained content: Text
+  and Table store inline markdown, Image stores an uploaded file address. Image
+  upload and Table CSV/Excel upload are handled in the inspector; binding a
+  `viewConfig.scope` to a document still works as an alternative.
+- **Data widgets** (Form) bind to an existing DMSS entity via `viewConfig.scope`.
 - **Layout** (Section) is a container (a nested grid).
 
 ## Known limitations

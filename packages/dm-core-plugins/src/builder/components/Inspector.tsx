@@ -9,6 +9,7 @@ import { getWidgetConfigValue } from '../model'
 import * as Styled from '../styles'
 import type { TBlock, TInspectorField } from '../types'
 import { ImageUploadField } from './ImageUploadField'
+import { TableUploadField } from './TableUploadField'
 
 export type TInspectorHandlers = {
   onTitle: (value: string) => void
@@ -78,6 +79,16 @@ const FieldControl = ({
         value={value === undefined || value === null ? '' : String(value)}
         dataSource={dataSource}
         onChange={(address) => onChange(address)}
+      />
+    )
+  }
+
+  if (field.type === 'table-upload') {
+    return (
+      <TableUploadField
+        label={field.label}
+        hasContent={value !== undefined && value !== null && value !== ''}
+        onChange={(markdown) => onChange(markdown)}
       />
     )
   }

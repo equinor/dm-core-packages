@@ -91,20 +91,28 @@ export const BLOCKS: TBlock[] = [
     label: 'Table',
     icon: 'table_chart',
     category: 'data',
-    description: 'A table bound to a list of entities.',
-    contentModel: 'data',
+    description: 'A table from an uploaded CSV or Excel file.',
+    contentModel: 'content',
     defaultSize: { columns: 4, rows: 2 },
-    recipe: '@development-framework/dm-core-plugins/table',
+    recipe: '@development-framework/dm-core-plugins/markdown',
     defaultConfig: {
-      columns: [{ data: 'name', label: 'Name' }, { data: 'type' }],
-      variant: [
-        {
-          name: 'view',
-          density: 'compact',
-          functionality: { add: true, delete: true },
-        },
-      ],
+      content:
+        '| Column A | Column B |\n| --- | --- |\n| Row 1 | Value |\n| Row 2 | Value |',
     },
+    fields: [
+      {
+        label: 'Data',
+        type: 'table-upload',
+        target: { kind: 'config', key: 'content' },
+        help: 'Upload a CSV or Excel file to fill the table. Edit cells below.',
+      },
+      {
+        label: 'Table (markdown)',
+        type: 'textarea',
+        target: { kind: 'config', key: 'content' },
+        help: 'The table as markdown. Uploading a file replaces this.',
+      },
+    ],
   },
   {
     id: 'form',

@@ -29,6 +29,7 @@ export type TInspectorFieldType =
   | 'number'
   | 'boolean'
   | 'image-upload'
+  | 'table-upload'
 
 /**
  * Where an inspector field's value is read from / written to on a grid item.
