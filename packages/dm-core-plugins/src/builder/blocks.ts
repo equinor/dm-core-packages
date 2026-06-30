@@ -8,8 +8,8 @@ import type { TBlock } from './types'
  *   self-contained content from inline config — no DMSS binding needed.
  * - `media` blocks (Image, Video/Embed) show media from an uploaded file,
  *   bound scope, or an external URL.
- * - `data` blocks (Table, Form) bind to an uploaded dataset or a DMSS entity
- *   via `scope`.
+ * - `data` blocks (Table, Form, Job) bind to an uploaded dataset or a DMSS
+ *   entity via `scope`. The Job widget runs and monitors a bound Job entity.
  *
  * `defaultConfig` seeds a valid recipe config so a freshly dropped widget
  * renders in preview without manual setup. `fields` are block-specific
@@ -311,6 +311,35 @@ export const BLOCKS: TBlock[] = [
     contentModel: 'data',
     defaultSize: { columns: 6, rows: 4 },
     recipe: '@development-framework/dm-core-plugins/form',
+  },
+  {
+    id: 'job',
+    label: 'Job',
+    icon: 'play',
+    category: 'data',
+    description:
+      'Run and monitor a job — start it, schedule it, and read logs.',
+    contentModel: 'data',
+    defaultSize: { columns: 6, rows: 4 },
+    recipe: '@development-framework/dm-core-plugins/job',
+    defaultConfig: {
+      type: 'PLUGINS:dm-core-plugins/job/ControlConfig',
+      hideLogs: false,
+    },
+    fields: [
+      {
+        label: 'Title',
+        type: 'text',
+        target: { kind: 'config', key: 'title' },
+        help: 'Heading shown above the job controls.',
+      },
+      {
+        label: 'Hide logs',
+        type: 'boolean',
+        target: { kind: 'config', key: 'hideLogs' },
+        help: 'Hide the streamed job log output.',
+      },
+    ],
   },
 ]
 
