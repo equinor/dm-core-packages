@@ -1,46 +1,46 @@
 default_stages: [ pre-commit ]
 default_install_hook_types: [ pre-commit, commit-msg ]
 repos:
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
-  hooks:
-  - id: check-merge-conflict
-  - id: check-case-conflict
-  - id: check-toml
-  - id: check-yaml
-  - id: trailing-whitespace
-    exclude: ^.*\.(lock)$||^docs\/
-  - id: end-of-file-fixer
-    exclude: ^.*\.(lock)$||^docs\/
-  - id: mixed-line-ending
-    exclude: ^.*\.(lock)$||^docs\/
-  - id: detect-private-key
-  - id: no-commit-to-branch
-    args: [ --branch, main ]
-    stages: [ commit-msg ]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: trailing-whitespace
+        exclude: ^.*\.(lock)$||^docs\/
+      - id: end-of-file-fixer
+        exclude: ^.*\.(lock)$||^docs\/
+      - id: mixed-line-ending
+        exclude: ^.*\.(lock)$||^docs\/
+      - id: detect-private-key
+      - id: no-commit-to-branch
+        args: [ --branch, main ]
+        stages: [ commit-msg ]
 
-- repo: https://github.com/biomejs/pre-commit
-  rev: "v2.4.5"
-  hooks:
-  - id: biome-check
-    additional_dependencies: [ "@biomejs/biome@2.4.5" ]
+  - repo: https://github.com/biomejs/pre-commit
+    rev: "v2.4.5"
+    hooks:
+      - id: biome-check
+        additional_dependencies: [ "@biomejs/biome@2.4.5" ]
 
-- repo: local
-  hooks:
-  - id: type_check_core
-    name: Run typecheck on dm-core
-    language: system
-    pass_filenames: false
-    entry: bash -c "cd packages/dm-core && npx --no-install tsc --noEmit"
+  - repo: local
+    hooks:
+      - id: type_check_core
+        name: Run typecheck on dm-core
+        language: system
+        pass_filenames: false
+        entry: bash -c "cd packages/dm-core && npx --no-install tsc --noEmit"
 
-  - id: type_check_plugins
-    name: Run typecheck on dm-core-plugins
-    language: system
-    pass_filenames: false
-    entry: bash -c "cd packages/dm-core-plugins && npx --no-install tsc --noEmit"
+      - id: type_check_plugins
+        name: Run typecheck on dm-core-plugins
+        language: system
+        pass_filenames: false
+        entry: bash -c "cd packages/dm-core-plugins && npx --no-install tsc --noEmit"
 
-- repo: https://github.com/compilerla/conventional-pre-commit
-  rev: v2.3.0
-  hooks:
-  - id: conventional-pre-commit
-    stages: [ commit-msg ]
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v2.3.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [ commit-msg ]
