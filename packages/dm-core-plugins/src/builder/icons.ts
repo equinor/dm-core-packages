@@ -1,5 +1,6 @@
 import {
   add,
+  bar_chart,
   check,
   chevron_down,
   chevron_right,
@@ -11,6 +12,7 @@ import {
   edit,
   external_link,
   format_list_bulleted,
+  functions,
   type IconData,
   image,
   keyboard_space_bar,
@@ -42,6 +44,8 @@ export const ICONS: Record<string, IconData> = {
   text_field,
   image,
   table_chart,
+  bar_chart,
+  functions,
   list,
   add,
   check,

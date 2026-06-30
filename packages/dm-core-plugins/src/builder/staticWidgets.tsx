@@ -1,6 +1,12 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import { createElement } from 'react'
+import {
+  aggregate,
+  formatNumber,
+  parseNumbers,
+  type TAggregation,
+} from './mathUtils'
 
 /**
  * Self-contained "static" widgets for the website builder. Each renders purely
@@ -232,6 +238,89 @@ export const StaticEmbedPlugin = (
           borderRadius: 4,
         }}
       />
+    </div>
+  )
+}
+
+// ---- Metric / KPI ---------------------------------------------------------
+
+export interface StaticMetricPluginConfig {
+  label?: string
+  /** Free-form text; all numbers found are extracted and aggregated. */
+  values?: string
+  aggregation?: TAggregation
+  unit?: string
+  decimals?: number
+  color?: string
+  align?: TAlign
+}
+
+/**
+ * A single big-number KPI. Reads numbers out of `values`, reduces them with the
+ * chosen aggregation (mean, sum, min, max, …) and renders the result with an
+ * optional label and unit. Self-contained — no DMSS binding required.
+ */
+export const StaticMetricPlugin = (
+  props: Omit<IUIPlugin, 'config'> & { config: StaticMetricPluginConfig }
+): React.ReactElement => {
+  const {
+    label = 'Metric',
+    values = '',
+    aggregation = 'mean',
+    unit = '',
+    decimals = 2,
+    color = '#243746',
+    align = 'left',
+  } = props.config
+
+  const numbers = parseNumbers(values)
+  const result = aggregate(numbers, aggregation)
+  const display = numbers.length === 0 ? '–' : formatNumber(result, decimals)
+
+  return (
+    <div
+      className='dm-plugin-padding'
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:
+          align === 'center'
+            ? 'center'
+            : align === 'right'
+              ? 'flex-end'
+              : 'flex-start',
+        width: '100%',
+        height: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 500,
+          color: '#6f6f6f',
+          textTransform: 'uppercase',
+          letterSpacing: 0.4,
+        }}
+      >
+        {label}
+      </div>
+      <div
+        style={{
+          fontSize: 40,
+          fontWeight: 700,
+          lineHeight: 1.1,
+          color,
+        }}
+      >
+        {display}
+        {unit ? (
+          <span style={{ fontSize: 20, fontWeight: 500, marginLeft: 4 }}>
+            {unit}
+          </span>
+        ) : null}
+      </div>
     </div>
   )
 }

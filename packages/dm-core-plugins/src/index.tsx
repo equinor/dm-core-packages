@@ -70,6 +70,13 @@ export default {
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/static-metric': {
+    component: lazy(() =>
+      import('./builder/staticWidgets').then((module) => ({
+        default: module.StaticMetricPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/stack': {
     component: lazy(() =>
       import('./stack/StackPlugin').then((module) => ({
