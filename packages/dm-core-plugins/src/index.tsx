@@ -77,6 +77,13 @@ export default {
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/static-chart': {
+    component: lazy(() =>
+      import('./builder/StaticChartPlugin').then((module) => ({
+        default: module.StaticChartPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/stack': {
     component: lazy(() =>
       import('./stack/StackPlugin').then((module) => ({
