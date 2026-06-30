@@ -1,6 +1,6 @@
 # How to run Playwright tests
 
-1. Make sure the example web application is running on localhost:3000 in test mode by running `yarn start:example --mode test`. This will turn authentication off. It might be necessary to reset the database.
+1. Make sure the example web application is running on localhost:3000 in test mode by running `npm run start:example -- --mode test`. This will turn authentication off. It might be necessary to reset the database.
 2. Install playwright:
 
 ```

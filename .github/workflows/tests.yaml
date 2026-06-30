@@ -37,29 +37,14 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
-
-      - name: Cache node modules
-        id: cache-npm
-        uses: actions/cache@v5
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: |
-            ./node_modules
-            ./example/node_modules
-            ./packages/dm-core/node_modules
-            ./packages/dm-core-plugins/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./packages/dm-core/package.json')}}-${{ hashFiles('./packages/dm-core-plugins/package.json') }}
-
-      - name: Enable Corepack
-        run: corepack enable
+          node-version: 24
+          cache: 'npm'
 
       - name: "Install dependencies"
-        run: yarn install
+        run: npm ci
 
       - name: "Build packages"
-        run: yarn build:packages
+        run: npm run build:packages
 
       - name: "Test packages"
-        run: yarn test:packages
+        run: npm run test:packages

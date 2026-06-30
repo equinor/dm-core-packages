@@ -35,7 +35,7 @@ See under `packages/` for list of available plugins or [NPM](https://www.npmjs.c
 First, install the plugins:
 
 ```
-yarn install @development-framework/dm-core-plugins
+npm install @development-framework/dm-core-plugins
 ```
 
 Add the installed plugins to the `src/plugins.js` file.
