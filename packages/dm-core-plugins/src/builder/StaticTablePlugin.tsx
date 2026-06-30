@@ -32,7 +32,7 @@ export const StaticTablePlugin = (
   if (columns.length === 0 && body.length === 0)
     return (
       <div style={{ padding: 16, color: '#6f6f6f', textAlign: 'center' }}>
-        No data. Upload a CSV or Excel file in the inspector.
+        No data. Write a table or upload a CSV/Excel file in the inspector.
       </div>
     )
 

@@ -275,7 +275,7 @@ export const BLOCKS: TBlock[] = [
     label: 'Table',
     icon: 'table_chart',
     category: 'data',
-    description: 'A paginated table from an uploaded CSV or Excel file.',
+    description: 'A table you fill in by hand or from a CSV/Excel file.',
     contentModel: 'content',
     defaultSize: { columns: 8, rows: 4 },
     recipe: '@development-framework/dm-core-plugins/static-table',
@@ -290,9 +290,9 @@ export const BLOCKS: TBlock[] = [
     fields: [
       {
         label: 'Data',
-        type: 'table-upload',
+        type: 'table-source',
         target: { kind: 'config', key: 'rows' },
-        help: 'Upload a CSV or Excel file to fill the table. Large files are paginated.',
+        help: 'Write the table as markdown, or import a CSV/Excel file. Large files are paginated.',
       },
       {
         label: 'Rows per page',

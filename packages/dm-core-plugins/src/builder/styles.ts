@@ -364,6 +364,37 @@ export const FieldLabel = styled.label`
   margin-bottom: 4px;
 `
 
+/* A small two-option segmented toggle used in inspector fields. */
+export const SegmentedControl = styled.div`
+  display: flex;
+  gap: 0;
+  margin-bottom: 8px;
+`
+
+export const SegmentButton = styled.button<{ $active: boolean }>`
+  flex: 1 1 0;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid ${(props) => (props.$active ? '#007079' : '#c4c4c4')};
+  background: ${(props) => (props.$active ? '#007079' : '#fff')};
+  color: ${(props) => (props.$active ? '#fff' : '#3d3d3d')};
+
+  &:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:last-child {
+    border-radius: 0 4px 4px 0;
+    border-left: ${(props) => (props.$active ? undefined : 'none')};
+  }
+
+  &:hover {
+    background: ${(props) => (props.$active ? '#007079' : '#f0f0f0')};
+  }
+`
+
 /* ------------------------------------------------------------------ *
  * Website nav sidebar (the site's own left navigation, shown in both *
  * edit and preview so the canvas is WYSIWYG).                        *
