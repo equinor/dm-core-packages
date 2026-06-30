@@ -1,7 +1,9 @@
 import { BLOCKS, getBlock } from './blocks'
 import { addWidget, createEmptyModel, serialize } from './model'
 import {
+  addNavItem,
   addPage,
+  createDefaultNavbar,
   createEmptySite,
   createPage,
   deserializeSite,
@@ -10,14 +12,20 @@ import {
   findPageIndex,
   findPagePath,
   isSerializedSite,
+  moveNavItem,
   movePage,
+  NAVBAR_ITEM_TYPE,
+  NAVBAR_TYPE,
   PAGE_TYPE,
+  removeNavItem,
   removePage,
   renamePage,
   SITE_TYPE,
   serializeSite,
   setPageLayout,
   type TBuilderSite,
+  updateNavbar,
+  updateNavItem,
 } from './site'
 
 const textBlock = getBlock('text') ?? BLOCKS[0]
@@ -34,6 +42,7 @@ describe('builder site', () => {
 
   it('round-trips through serialize and deserialize with type discriminators', () => {
     const site: TBuilderSite = {
+      navbar: createDefaultNavbar(),
       pages: [
         createPage('Home', addWidget(createEmptyModel(), textBlock)),
         createPage('About'),
@@ -191,5 +200,121 @@ describe('builder site', () => {
     }
     const site = deserializeSite(legacy)
     expect(site.pages[0].children).toEqual([])
+  })
+
+  describe('navbar', () => {
+    it('creates a disabled default navbar on a new site', () => {
+      const site = createEmptySite()
+      expect(site.navbar.enabled).toBe(false)
+      expect(site.navbar.items).toEqual([])
+      expect(site.navbar.align).toBe('right')
+    })
+
+    it('updates navbar fields immutably', () => {
+      const site = createEmptySite()
+      const updated = updateNavbar(site, { enabled: true, brand: 'Acme' })
+
+      expect(updated.navbar.enabled).toBe(true)
+      expect(updated.navbar.brand).toBe('Acme')
+      expect(site.navbar.enabled).toBe(false)
+      expect(site.navbar.brand).toBe('My Site')
+    })
+
+    it('adds a nav item defaulting to the first page', () => {
+      const site = createEmptySite()
+      const homeId = site.pages[0].id
+      const { site: next, id } = addNavItem(site)
+
+      expect(next.navbar.items).toHaveLength(1)
+      expect(next.navbar.items[0].id).toBe(id)
+      expect(next.navbar.items[0].label).toBe('Home')
+      expect(next.navbar.items[0].target).toEqual({
+        kind: 'page',
+        pageId: homeId,
+      })
+      expect(site.navbar.items).toHaveLength(0)
+    })
+
+    it('adds a nav item with an explicit URL target', () => {
+      const site = createEmptySite()
+      const { site: next, id } = addNavItem(site, {
+        kind: 'url',
+        href: 'https://example.com',
+      })
+
+      expect(next.navbar.items[0].id).toBe(id)
+      expect(next.navbar.items[0].target).toEqual({
+        kind: 'url',
+        href: 'https://example.com',
+      })
+    })
+
+    it('updates and removes nav items immutably and ignores unknown ids', () => {
+      const { site: withItem, id } = addNavItem(createEmptySite())
+      const renamed = updateNavItem(withItem, id, { label: 'Docs' })
+
+      expect(renamed.navbar.items[0].label).toBe('Docs')
+      expect(withItem.navbar.items[0].label).toBe('Home')
+      expect(updateNavItem(withItem, 'missing', { label: 'X' })).toBe(withItem)
+
+      const removed = removeNavItem(renamed, id)
+      expect(removed.navbar.items).toHaveLength(0)
+      expect(removeNavItem(renamed, 'missing')).toBe(renamed)
+    })
+
+    it('reorders nav items and clamps out-of-range targets', () => {
+      let site = createEmptySite()
+      site = addNavItem(site, { kind: 'url', href: 'a' }).site
+      site = addNavItem(site, { kind: 'url', href: 'b' }).site
+      site = addNavItem(site, { kind: 'url', href: 'c' }).site
+      const hrefs = site.navbar.items.map(
+        (item) => (item.target as { href: string }).href
+      )
+
+      const moved = moveNavItem(site, 0, 2)
+      expect(
+        moved.navbar.items.map((item) => (item.target as { href: string }).href)
+      ).toEqual([hrefs[1], hrefs[2], hrefs[0]])
+      expect(moveNavItem(site, 1, 1)).toBe(site)
+      expect(moveNavItem(site, 5, 0)).toBe(site)
+    })
+
+    it('round-trips the navbar through serialize and deserialize', () => {
+      let site = updateNavbar(createEmptySite(), {
+        enabled: true,
+        brand: 'Acme',
+        align: 'center',
+        background: '#000000',
+      })
+      site = addNavItem(site).site
+      site = addNavItem(site, { kind: 'url', href: 'https://x.dev' }).site
+
+      const serialized = serializeSite(site)
+      const navbar = serialized.navbar as Record<string, unknown>
+      expect(navbar.type).toBe(NAVBAR_TYPE)
+      const items = navbar.items as Array<Record<string, unknown>>
+      expect(items[0].type).toBe(NAVBAR_ITEM_TYPE)
+
+      const restored = deserializeSite(serialized)
+      expect(restored.navbar.enabled).toBe(true)
+      expect(restored.navbar.brand).toBe('Acme')
+      expect(restored.navbar.align).toBe('center')
+      expect(restored.navbar.items).toHaveLength(2)
+      expect(restored.navbar.items[1].target).toEqual({
+        kind: 'url',
+        href: 'https://x.dev',
+      })
+    })
+
+    it('defaults the navbar when missing from stored JSON (backward compat)', () => {
+      const legacy = {
+        type: 'PLUGINS:dm-core-plugins/builder/Site',
+        pages: [
+          { id: 'x', title: 'Home', layout: serialize(createEmptyModel()) },
+        ],
+      }
+      const site = deserializeSite(legacy)
+      expect(site.navbar).toEqual(createDefaultNavbar())
+    })
   })
 })

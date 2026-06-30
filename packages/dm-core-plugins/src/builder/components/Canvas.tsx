@@ -253,6 +253,7 @@ export const Canvas = ({
   onEnter,
   onDensity,
   nav,
+  navbar,
 }: {
   model: TBuilderModel
   selectedIndex: number | null
@@ -267,6 +268,7 @@ export const Canvas = ({
   onEnter: (index: number) => void
   onDensity: (factor: number) => void
   nav?: ReactNode
+  navbar?: ReactNode
 }): React.ReactElement => {
   const { setNodeRef, isOver } = useDroppable({ id: 'canvas' })
   const gridRef = useRef<HTMLDivElement | null>(null)
@@ -320,44 +322,47 @@ export const Canvas = ({
   return (
     <Styled.CanvasPanel ref={panelRef} onClick={() => onSelect(null)}>
       {breadcrumb}
-      <Styled.SiteFrame>
-        {nav}
-        <Styled.SitePageArea>
-          <Styled.DeviceFrame $maxWidth={frameWidth}>
-            <Styled.CanvasGrid
-              ref={(node) => {
-                setNodeRef(node)
-                gridRef.current = node
-              }}
-              $size={model.size}
-              $editing
-              style={{ outline: isOver ? '2px dashed #007079' : 'none' }}
-            >
-              {model.items.length === 0 && (
-                <Styled.EmptyState>
-                  Drag a widget here, or click one in the palette, to start
-                  building your page.
-                </Styled.EmptyState>
-              )}
-              {model.items.map((item, index) => (
-                <CanvasItem
-                  key={index}
-                  item={item}
-                  index={index}
-                  selected={selectedIndex === index}
-                  metrics={metrics}
-                  onSelect={onSelect}
-                  onDelete={onDelete}
-                  onDuplicate={onDuplicate}
-                  onResize={onResize}
-                  onResizeEnd={onResizeEnd}
-                  onEnter={onEnter}
-                />
-              ))}
-            </Styled.CanvasGrid>
-          </Styled.DeviceFrame>
-        </Styled.SitePageArea>
-      </Styled.SiteFrame>
+      <Styled.SiteShell>
+        {navbar}
+        <Styled.SiteFrame>
+          {nav}
+          <Styled.SitePageArea>
+            <Styled.DeviceFrame $maxWidth={frameWidth}>
+              <Styled.CanvasGrid
+                ref={(node) => {
+                  setNodeRef(node)
+                  gridRef.current = node
+                }}
+                $size={model.size}
+                $editing
+                style={{ outline: isOver ? '2px dashed #007079' : 'none' }}
+              >
+                {model.items.length === 0 && (
+                  <Styled.EmptyState>
+                    Drag a widget here, or click one in the palette, to start
+                    building your page.
+                  </Styled.EmptyState>
+                )}
+                {model.items.map((item, index) => (
+                  <CanvasItem
+                    key={index}
+                    item={item}
+                    index={index}
+                    selected={selectedIndex === index}
+                    metrics={metrics}
+                    onSelect={onSelect}
+                    onDelete={onDelete}
+                    onDuplicate={onDuplicate}
+                    onResize={onResize}
+                    onResizeEnd={onResizeEnd}
+                    onEnter={onEnter}
+                  />
+                ))}
+              </Styled.CanvasGrid>
+            </Styled.DeviceFrame>
+          </Styled.SitePageArea>
+        </Styled.SiteFrame>
+      </Styled.SiteShell>
     </Styled.CanvasPanel>
   )
 }

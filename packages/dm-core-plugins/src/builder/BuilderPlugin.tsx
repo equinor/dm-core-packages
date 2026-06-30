@@ -27,6 +27,7 @@ import type { TGridArea, TGridItem } from '../grid/types'
 import { getBlock } from './blocks'
 import { Canvas, DENSITY_STEP } from './components/Canvas'
 import { Inspector } from './components/Inspector'
+import { Navbar } from './components/Navbar'
 import { NavSidebar } from './components/NavSidebar'
 import { Outline } from './components/Outline'
 import { TemplatesMenu } from './components/TemplatesMenu'
@@ -59,15 +60,22 @@ import {
   wouldOverlap,
 } from './model'
 import {
+  addNavItem,
   addPage,
   deserializeSite,
   findPage,
   findPageContext,
+  moveNavItem,
   movePage,
+  removeNavItem,
   removePage,
   renamePage,
   serializeSite,
   setPageLayout,
+  type TNavbar,
+  type TNavbarItem,
+  updateNavbar,
+  updateNavItem,
 } from './site'
 import * as Styled from './styles'
 import { useToast } from './toast'
@@ -256,6 +264,22 @@ export const BuilderPlugin = (
     from: number,
     to: number
   ) => setSite((current) => movePage(current, parentId, from, to))
+
+  // ---- Top navbar management ---------------------------------------------
+
+  const handleUpdateNavbar = (patch: Partial<TNavbar>) =>
+    setSite((current) => updateNavbar(current, patch))
+
+  const handleAddNavItem = () => setSite((current) => addNavItem(current).site)
+
+  const handleUpdateNavItem = (id: string, patch: Partial<TNavbarItem>) =>
+    setSite((current) => updateNavItem(current, id, patch))
+
+  const handleRemoveNavItem = (id: string) =>
+    setSite((current) => removeNavItem(current, id))
+
+  const handleReorderNavItem = (from: number, to: number) =>
+    setSite((current) => moveNavItem(current, from, to))
 
   const handleMove = (
     index: number,
@@ -611,6 +635,20 @@ export const BuilderPlugin = (
     />
   )
 
+  const navbar = (
+    <Navbar
+      navbar={site.navbar}
+      pages={site.pages}
+      editing={mode === 'edit'}
+      onNavigate={handleSelectPage}
+      onUpdateNavbar={handleUpdateNavbar}
+      onAddItem={handleAddNavItem}
+      onUpdateItem={handleUpdateNavItem}
+      onRemoveItem={handleRemoveNavItem}
+      onReorderItem={handleReorderNavItem}
+    />
+  )
+
   return (
     <DndContext
       sensors={sensors}
@@ -775,25 +813,29 @@ export const BuilderPlugin = (
             onEnter={handleEnter}
             onDensity={handleDensity}
             nav={navSidebar}
+            navbar={navbar}
           />
         ) : (
           <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>
-            <Styled.SiteFrame>
-              {navSidebar}
-              <Styled.SitePageArea>
-                <Styled.DeviceFrame $maxWidth={frameWidth}>
-                  <ErrorBoundary message='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'>
-                    <GridPlugin
-                      type={type}
-                      idReference={idReference}
-                      config={previewConfig}
-                      onSubmit={onSubmit}
-                      onChange={onChange}
-                    />
-                  </ErrorBoundary>
-                </Styled.DeviceFrame>
-              </Styled.SitePageArea>
-            </Styled.SiteFrame>
+            <Styled.SiteShell>
+              {navbar}
+              <Styled.SiteFrame>
+                {navSidebar}
+                <Styled.SitePageArea>
+                  <Styled.DeviceFrame $maxWidth={frameWidth}>
+                    <ErrorBoundary message='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'>
+                      <GridPlugin
+                        type={type}
+                        idReference={idReference}
+                        config={previewConfig}
+                        onSubmit={onSubmit}
+                        onChange={onChange}
+                      />
+                    </ErrorBoundary>
+                  </Styled.DeviceFrame>
+                </Styled.SitePageArea>
+              </Styled.SiteFrame>
+            </Styled.SiteShell>
           </Styled.CanvasPanel>
         )}
 

@@ -510,3 +510,200 @@ export const SitePageArea = styled.div`
   display: flex;
   flex-direction: column;
 `
+
+/* ------------------------------------------------------------------ *
+ * Customizable top navbar (a full-width header above the sidebar and *
+ * content, shared by every page and rendered in edit + preview).     *
+ * ------------------------------------------------------------------ */
+
+/** Column wrapper: navbar on top, then the sidebar + content row below. */
+export const SiteShell = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+`
+
+export const Navbar = styled.header<{ $background: string; $color: string }>`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 0 0 auto;
+  padding: 10px 16px;
+  background: ${(props) => props.$background};
+  color: ${(props) => props.$color};
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px 6px 0 0;
+  box-sizing: border-box;
+`
+
+export const NavbarBrand = styled.div<{ $color: string }>`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  font-size: 18px;
+  font-weight: 700;
+  color: ${(props) => props.$color};
+`
+
+export const NavbarBrandInput = styled.input`
+  font: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2px 6px;
+  border: 1px solid #007079;
+  border-radius: 4px;
+  box-sizing: border-box;
+`
+
+export const NavbarItems = styled.nav<{ $align: 'left' | 'center' | 'right' }>`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: ${(props) =>
+    props.$align === 'left'
+      ? 'flex-start'
+      : props.$align === 'center'
+        ? 'center'
+        : 'flex-end'};
+`
+
+export const NavbarLink = styled.button<{ $color: string }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  color: ${(props) => props.$color};
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+`
+
+export const NavbarItemEditor = styled.div<{ $dragging?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 4px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.6);
+  opacity: ${(props) => (props.$dragging ? 0.5 : 1)};
+`
+
+export const NavbarItemInput = styled.input`
+  font: inherit;
+  font-size: 14px;
+  color: #3d3d3d;
+  background: #fff;
+  padding: 2px 4px;
+  border: 1px solid #007079;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100px;
+`
+
+export const NavbarTargetSelect = styled.select`
+  font: inherit;
+  font-size: 13px;
+  color: #3d3d3d;
+  background: #fff;
+  padding: 2px 4px;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  box-sizing: border-box;
+  max-width: 140px;
+`
+
+export const NavbarUrlInput = styled.input`
+  font: inherit;
+  font-size: 13px;
+  color: #3d3d3d;
+  background: #fff;
+  padding: 2px 4px;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 140px;
+`
+
+export const NavbarAddButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: inherit;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+`
+
+export const NavbarEmptyAffordance = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  flex: 0 0 auto;
+  padding: 10px 16px;
+  border: 1px dashed #b5b5b5;
+  border-radius: 6px 6px 0 0;
+  background: #fafafa;
+  cursor: pointer;
+  font-size: 14px;
+  color: #007079;
+  box-sizing: border-box;
+
+  &:hover {
+    background: #eef6f6;
+    border-color: #007079;
+  }
+`
+
+export const NavbarSettings = styled.div`
+  position: relative;
+  flex: 0 0 auto;
+`
+
+export const NavbarSettingsPanel = styled.div`
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 220px;
+  padding: 12px;
+  background: #fff;
+  color: #3d3d3d;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+`
+
+export const NavbarSettingsRow = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+`

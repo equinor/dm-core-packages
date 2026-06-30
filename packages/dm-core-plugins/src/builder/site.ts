@@ -4,6 +4,40 @@ import type { TBuilderModel } from './types'
 /** DMSS type discriminators for the multi-page site wrapper. */
 export const SITE_TYPE = 'PLUGINS:dm-core-plugins/builder/Site'
 export const PAGE_TYPE = 'PLUGINS:dm-core-plugins/builder/Page'
+export const NAVBAR_TYPE = 'PLUGINS:dm-core-plugins/builder/Navbar'
+export const NAVBAR_ITEM_TYPE = 'PLUGINS:dm-core-plugins/builder/NavbarItem'
+
+/**
+ * Where a navbar link points. `page` links navigate within the site (SPA-style)
+ * to one of its pages; `url` links open an external address.
+ */
+export type TNavbarItemTarget =
+  | { kind: 'page'; pageId: string }
+  | { kind: 'url'; href: string }
+
+/** A single clickable link shown in the top navbar. */
+export type TNavbarItem = {
+  id: string
+  label: string
+  target: TNavbarItemTarget
+}
+
+/**
+ * The site's customizable top navigation bar, shared across every page (like a
+ * real website header). Rendered in both edit and preview so the canvas stays
+ * WYSIWYG. `enabled` is false by default so existing sites are unchanged until
+ * the author opts in via the "Add navbar" affordance.
+ */
+export type TNavbar = {
+  enabled: boolean
+  brand: string
+  background: string
+  color: string
+  brandColor: string
+  /** Horizontal placement of the link group within the bar. */
+  align: 'left' | 'center' | 'right'
+  items: TNavbarItem[]
+}
 
 /**
  * A single navigable page in the site. `id` is a stable handle used by the nav
@@ -22,9 +56,11 @@ export type TBuilderPage = {
 
 /**
  * A website built in the builder: an ordered tree of pages reachable from the
- * nav sidebar. There is always at least one top-level page.
+ * nav sidebar, plus a customizable top navbar shared by every page. There is
+ * always at least one top-level page.
  */
 export type TBuilderSite = {
+  navbar: TNavbar
   pages: TBuilderPage[]
 }
 
@@ -44,14 +80,34 @@ export const createPageId = (): string => {
   return `page-${Date.now().toString(36)}-${pageCounter}`
 }
 
+let navItemCounter = 0
+
+/** Generate a reasonably unique, stable navbar item id. */
+export const createNavItemId = (): string => {
+  navItemCounter += 1
+  return `nav-${Date.now().toString(36)}-${navItemCounter}`
+}
+
 /** Create a page with the given title and (optionally) an existing layout. */
 export const createPage = (
   title: string,
   layout: TBuilderModel = createEmptyModel()
 ): TBuilderPage => ({ id: createPageId(), title, layout, children: [] })
 
-/** Create a site seeded with a single empty "Home" page. */
+/** A sensible, disabled-by-default navbar (opt-in via the builder UI). */
+export const createDefaultNavbar = (): TNavbar => ({
+  enabled: false,
+  brand: 'My Site',
+  background: '#ffffff',
+  color: '#3d3d3d',
+  brandColor: '#007079',
+  align: 'right',
+  items: [],
+})
+
+/** Create a site seeded with a single empty "Home" page and a default navbar. */
 export const createEmptySite = (): TBuilderSite => ({
+  navbar: createDefaultNavbar(),
   pages: [createPage('Home')],
 })
 
@@ -69,11 +125,76 @@ const serializePage = (page: TBuilderPage): Record<string, unknown> => ({
   children: page.children.map(serializePage),
 })
 
+const serializeNavItem = (item: TNavbarItem): Record<string, unknown> => ({
+  type: NAVBAR_ITEM_TYPE,
+  id: item.id,
+  label: item.label,
+  targetKind: item.target.kind,
+  ...(item.target.kind === 'page'
+    ? { pageId: item.target.pageId }
+    : { href: item.target.href }),
+})
+
+const serializeNavbar = (navbar: TNavbar): Record<string, unknown> => ({
+  type: NAVBAR_TYPE,
+  enabled: navbar.enabled,
+  brand: navbar.brand,
+  background: navbar.background,
+  color: navbar.color,
+  brandColor: navbar.brandColor,
+  align: navbar.align,
+  items: navbar.items.map(serializeNavItem),
+})
+
 /** Serialize a site to canonical DMSS JSON (adds `type` discriminators). */
 export const serializeSite = (site: TBuilderSite): Record<string, unknown> => ({
   type: SITE_TYPE,
+  navbar: serializeNavbar(site.navbar),
   pages: site.pages.map(serializePage),
 })
+
+const deserializeNavItem = (raw: Record<string, unknown>): TNavbarItem => {
+  const target: TNavbarItemTarget =
+    raw.targetKind === 'url'
+      ? { kind: 'url', href: typeof raw.href === 'string' ? raw.href : '' }
+      : {
+          kind: 'page',
+          pageId: typeof raw.pageId === 'string' ? raw.pageId : '',
+        }
+  return {
+    id: typeof raw.id === 'string' ? raw.id : createNavItemId(),
+    label: typeof raw.label === 'string' ? raw.label : 'Link',
+    target,
+  }
+}
+
+/**
+ * Rebuild a navbar from stored JSON, falling back to the default for any
+ * missing field so sites authored before the navbar existed still load.
+ */
+const deserializeNavbar = (raw: unknown): TNavbar => {
+  const base = createDefaultNavbar()
+  if (!raw || typeof raw !== 'object') return base
+  const obj = raw as Record<string, unknown>
+  return {
+    enabled: typeof obj.enabled === 'boolean' ? obj.enabled : base.enabled,
+    brand: typeof obj.brand === 'string' ? obj.brand : base.brand,
+    background:
+      typeof obj.background === 'string' ? obj.background : base.background,
+    color: typeof obj.color === 'string' ? obj.color : base.color,
+    brandColor:
+      typeof obj.brandColor === 'string' ? obj.brandColor : base.brandColor,
+    align:
+      obj.align === 'left' || obj.align === 'center' || obj.align === 'right'
+        ? obj.align
+        : base.align,
+    items: Array.isArray(obj.items)
+      ? obj.items
+          .filter((item): item is Record<string, unknown> => !!item)
+          .map(deserializeNavItem)
+      : [],
+  }
+}
 
 const deserializePage = (raw: Record<string, unknown>): TBuilderPage => ({
   id: typeof raw.id === 'string' ? raw.id : createPageId(),
@@ -90,17 +211,23 @@ const deserializePage = (raw: Record<string, unknown>): TBuilderPage => ({
  * Rebuild a site from stored JSON. Accepts either the multi-page wrapper or a
  * legacy single-grid layout (which is wrapped into a one-page "Home" site), so
  * pages authored before multi-page support still load. Legacy pages without a
- * `children` array deserialize as leaf pages.
+ * `children` array deserialize as leaf pages; a missing navbar defaults to the
+ * disabled default so older sites are unchanged.
  */
 export const deserializeSite = (raw: unknown): TBuilderSite => {
   if (isSerializedSite(raw)) {
-    const pages = (raw as { pages: unknown[] }).pages
+    const source = raw as { pages: unknown[]; navbar?: unknown }
+    const navbar = deserializeNavbar(source.navbar)
+    const pages = source.pages
       .filter((page): page is Record<string, unknown> => !!page)
       .map(deserializePage)
-    return pages.length > 0 ? { pages } : createEmptySite()
+    return pages.length > 0 ? { navbar, pages } : createEmptySite()
   }
   // Legacy or seed: a single grid layout becomes the site's only page.
-  return { pages: [createPage('Home', deserialize(raw))] }
+  return {
+    navbar: createDefaultNavbar(),
+    pages: [createPage('Home', deserialize(raw))],
+  }
 }
 
 /** Index of the top-level page with `id`, or -1 when absent. */
@@ -263,16 +390,12 @@ export const setPageLayout = (
   return pages === site.pages ? site : { ...site, pages }
 }
 
-const reorder = (
-  pages: TBuilderPage[],
-  from: number,
-  to: number
-): TBuilderPage[] => {
-  const count = pages.length
-  if (from < 0 || from >= count) return pages
+const reorder = <T>(list: T[], from: number, to: number): T[] => {
+  const count = list.length
+  if (from < 0 || from >= count) return list
   const target = Math.min(Math.max(0, to), count - 1)
-  if (target === from) return pages
-  const next = [...pages]
+  if (target === from) return list
+  const next = [...list]
   const [moved] = next.splice(from, 1)
   next.splice(target, 0, moved)
   return next
@@ -298,4 +421,76 @@ export const movePage = (
     return children === parent.children ? parent : { ...parent, children }
   })
   return pages === site.pages ? site : { ...site, pages }
+}
+
+// ---- Navbar -------------------------------------------------------------
+
+/** Immutably merge `patch` into the site's navbar. */
+export const updateNavbar = (
+  site: TBuilderSite,
+  patch: Partial<TNavbar>
+): TBuilderSite => ({ ...site, navbar: { ...site.navbar, ...patch } })
+
+/**
+ * Append a navbar link and return the updated site plus the new item id. The
+ * link defaults to the first page when one exists, otherwise an empty URL, so a
+ * freshly added item is immediately editable and valid.
+ */
+export const addNavItem = (
+  site: TBuilderSite,
+  target?: TNavbarItemTarget
+): { site: TBuilderSite; id: string } => {
+  const firstPage = site.pages[0]
+  const resolved: TNavbarItemTarget =
+    target ??
+    (firstPage
+      ? { kind: 'page', pageId: firstPage.id }
+      : { kind: 'url', href: '' })
+  const label =
+    resolved.kind === 'page'
+      ? (findPage(site, resolved.pageId)?.title ?? 'Link')
+      : 'Link'
+  const item: TNavbarItem = { id: createNavItemId(), label, target: resolved }
+  return {
+    site: {
+      ...site,
+      navbar: { ...site.navbar, items: [...site.navbar.items, item] },
+    },
+    id: item.id,
+  }
+}
+
+/** Immutably merge `patch` into the navbar item with `id`; no-op if unknown. */
+export const updateNavItem = (
+  site: TBuilderSite,
+  id: string,
+  patch: Partial<TNavbarItem>
+): TBuilderSite => {
+  let changed = false
+  const items = site.navbar.items.map((item) => {
+    if (item.id !== id) return item
+    changed = true
+    return { ...item, ...patch }
+  })
+  return changed ? { ...site, navbar: { ...site.navbar, items } } : site
+}
+
+/** Immutably remove the navbar item with `id`; no-op if unknown. */
+export const removeNavItem = (site: TBuilderSite, id: string): TBuilderSite => {
+  const items = site.navbar.items.filter((item) => item.id !== id)
+  return items.length === site.navbar.items.length
+    ? site
+    : { ...site, navbar: { ...site.navbar, items } }
+}
+
+/** Move a navbar item from index `from` to `to` (both clamped). */
+export const moveNavItem = (
+  site: TBuilderSite,
+  from: number,
+  to: number
+): TBuilderSite => {
+  const items = reorder(site.navbar.items, from, to)
+  return items === site.navbar.items
+    ? site
+    : { ...site, navbar: { ...site.navbar, items } }
 }
