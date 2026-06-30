@@ -30,6 +30,10 @@ RUN npm ci
 
 COPY . .
 
+# Give the non-root runtime user ownership so tools like Vite can write
+# cache files under node_modules and the workspace at runtime.
+RUN chown -R 1000:1000 /code
+
 FROM base AS development
 USER 1000
 CMD ["npm", "run", "start:example"]

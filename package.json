@@ -12,7 +12,7 @@
     "start:example": "npm run start -w example",
     "build:dm-core": "npm run build -w @development-framework/dm-core",
     "build:dm-core-plugins": "npm run build -w @development-framework/dm-core-plugins",
-    "clear-external-pckgs": "rm -rf node_modules && rm -rf packages/dm-core/node_modules && rm -rf packages/dm-core-plugins/node_modules && rm -rf example/node_modules && rm package-lock.json",
+    "clear-external-pckgs": "rm -rf node_modules && rm -rf packages/dm-core/node_modules && rm -rf packages/dm-core-plugins/node_modules && rm -rf example/node_modules",
     "build:packages": "npm run build -w @development-framework/dm-core && npm run build -w @development-framework/dm-core-plugins",
     "test:packages": "npm test -w @development-framework/dm-core && npm test -w @development-framework/dm-core-plugins"
   }
