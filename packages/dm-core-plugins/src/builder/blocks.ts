@@ -1,12 +1,15 @@
 import type { TBlock } from './types'
 
 /**
- * The v1 widget catalogue shown in the palette.
+ * The widget catalogue shown in the palette.
  *
- * - `content` blocks (Text, Image) render document-backed content and bind to a
- *   DMSS attribute via `scope` (e.g. a markdown blob or a media file).
- * - `data` blocks (Table, Form) bind to an existing DMSS entity via `scope`.
  * - `layout` blocks (Section) are containers (a nested grid).
+ * - `content` blocks (Heading, Text, Button, Divider, Spacer) render
+ *   self-contained content from inline config — no DMSS binding needed.
+ * - `media` blocks (Image, Video/Embed) show media from an uploaded file,
+ *   bound scope, or an external URL.
+ * - `data` blocks (Table, Form) bind to an uploaded dataset or a DMSS entity
+ *   via `scope`.
  *
  * `defaultConfig` seeds a valid recipe config so a freshly dropped widget
  * renders in preview without manual setup. `fields` are block-specific
@@ -31,6 +34,57 @@ export const BLOCKS: TBlock[] = [
     },
   },
   {
+    id: 'heading',
+    label: 'Heading',
+    icon: 'title',
+    category: 'content',
+    description: 'A page title or section heading.',
+    contentModel: 'content',
+    defaultSize: { columns: 8, rows: 1 },
+    recipe: '@development-framework/dm-core-plugins/static-heading',
+    defaultConfig: { text: 'Heading', level: 2, align: 'left' },
+    hideTitle: true,
+    fields: [
+      {
+        label: 'Text',
+        type: 'text',
+        target: { kind: 'config', key: 'text' },
+        help: 'The heading text shown on the page.',
+      },
+      {
+        label: 'Level',
+        type: 'select',
+        target: { kind: 'config', key: 'level' },
+        options: [
+          { label: 'H1 — Largest', value: 1 },
+          { label: 'H2', value: 2 },
+          { label: 'H3', value: 3 },
+          { label: 'H4', value: 4 },
+          { label: 'H5', value: 5 },
+          { label: 'H6 — Smallest', value: 6 },
+        ],
+        help: 'Heading level controls size and document outline.',
+      },
+      {
+        label: 'Alignment',
+        type: 'select',
+        target: { kind: 'config', key: 'align' },
+        options: [
+          { label: 'Left', value: 'left' },
+          { label: 'Center', value: 'center' },
+          { label: 'Right', value: 'right' },
+        ],
+      },
+      {
+        label: 'Color',
+        type: 'text',
+        target: { kind: 'config', key: 'color' },
+        placeholder: '#333 or red',
+        help: 'Text color (optional).',
+      },
+    ],
+  },
+  {
     id: 'text',
     label: 'Text',
     icon: 'text_field',
@@ -46,6 +100,109 @@ export const BLOCKS: TBlock[] = [
         type: 'textarea',
         target: { kind: 'config', key: 'content' },
         help: 'Markdown text shown in this widget. Bind a Scope instead to use a document.',
+      },
+    ],
+  },
+  {
+    id: 'button',
+    label: 'Button',
+    icon: 'link',
+    category: 'content',
+    description: 'A call-to-action button that links somewhere.',
+    contentModel: 'content',
+    defaultSize: { columns: 3, rows: 1 },
+    recipe: '@development-framework/dm-core-plugins/static-button',
+    defaultConfig: { label: 'Click me', variant: 'contained', align: 'left' },
+    hideTitle: true,
+    fields: [
+      {
+        label: 'Label',
+        type: 'text',
+        target: { kind: 'config', key: 'label' },
+        help: 'Text shown on the button.',
+      },
+      {
+        label: 'Link (URL)',
+        type: 'text',
+        target: { kind: 'config', key: 'href' },
+        placeholder: 'https://example.com',
+        help: 'Where the button navigates when clicked.',
+      },
+      {
+        label: 'Style',
+        type: 'select',
+        target: { kind: 'config', key: 'variant' },
+        options: [
+          { label: 'Filled', value: 'contained' },
+          { label: 'Outlined', value: 'outlined' },
+          { label: 'Text only', value: 'ghost' },
+        ],
+      },
+      {
+        label: 'Alignment',
+        type: 'select',
+        target: { kind: 'config', key: 'align' },
+        options: [
+          { label: 'Left', value: 'left' },
+          { label: 'Center', value: 'center' },
+          { label: 'Right', value: 'right' },
+        ],
+      },
+      {
+        label: 'Open in new tab',
+        type: 'boolean',
+        target: { kind: 'config', key: 'openInNewTab' },
+      },
+    ],
+  },
+  {
+    id: 'divider',
+    label: 'Divider',
+    icon: 'remove',
+    category: 'content',
+    description: 'A horizontal line to separate sections.',
+    contentModel: 'content',
+    defaultSize: { columns: 12, rows: 1 },
+    recipe: '@development-framework/dm-core-plugins/static-divider',
+    defaultConfig: { color: '#d8d8d8', thickness: 1, spacing: 8 },
+    hideTitle: true,
+    fields: [
+      {
+        label: 'Color',
+        type: 'text',
+        target: { kind: 'config', key: 'color' },
+        placeholder: '#d8d8d8',
+      },
+      {
+        label: 'Thickness (px)',
+        type: 'number',
+        target: { kind: 'config', key: 'thickness' },
+      },
+      {
+        label: 'Spacing (px)',
+        type: 'number',
+        target: { kind: 'config', key: 'spacing' },
+        help: 'Empty space above and below the line.',
+      },
+    ],
+  },
+  {
+    id: 'spacer',
+    label: 'Spacer',
+    icon: 'keyboard_space_bar',
+    category: 'content',
+    description: 'Empty vertical space between widgets.',
+    contentModel: 'content',
+    defaultSize: { columns: 12, rows: 1 },
+    recipe: '@development-framework/dm-core-plugins/static-spacer',
+    defaultConfig: { height: 24 },
+    hideTitle: true,
+    fields: [
+      {
+        label: 'Height (px)',
+        type: 'number',
+        target: { kind: 'config', key: 'height' },
+        help: 'How tall the empty space is.',
       },
     ],
   },
@@ -83,6 +240,33 @@ export const BLOCKS: TBlock[] = [
         type: 'number',
         target: { kind: 'config', key: 'height' },
         help: 'Fixed height in pixels (optional).',
+      },
+    ],
+  },
+  {
+    id: 'embed',
+    label: 'Video / Embed',
+    icon: 'play_circle',
+    category: 'media',
+    description: 'Embed a YouTube/Vimeo video or any external page.',
+    contentModel: 'content',
+    defaultSize: { columns: 6, rows: 5 },
+    recipe: '@development-framework/dm-core-plugins/static-embed',
+    defaultConfig: {},
+    hideTitle: true,
+    fields: [
+      {
+        label: 'URL',
+        type: 'text',
+        target: { kind: 'config', key: 'url' },
+        placeholder: 'https://www.youtube.com/watch?v=…',
+        help: 'YouTube and Vimeo share links are converted automatically.',
+      },
+      {
+        label: 'Title',
+        type: 'text',
+        target: { kind: 'config', key: 'title' },
+        help: 'Accessible title for the embedded frame.',
       },
     ],
   },

@@ -24,10 +24,32 @@ const Element = styled.div<TElementProps>`
   overflow: auto;
 `
 
+const HORIZONTAL_ALIGN: Record<string, React.CSSProperties['alignItems']> = {
+  left: 'flex-start',
+  center: 'center',
+  right: 'flex-end',
+}
+
+const VERTICAL_ALIGN: Record<string, React.CSSProperties['justifyContent']> = {
+  top: 'flex-start',
+  center: 'center',
+  bottom: 'flex-end',
+}
+
 const styleToCss = (style?: TGridItem['style']): React.CSSProperties =>
   style
     ? {
         textAlign: style.textAlign,
+        // The content wrapper is a flex column, so horizontal alignment of
+        // block widgets (image, button, embed…) is driven by `align-items`,
+        // derived from the same control as text alignment. Vertical placement
+        // within the cell is driven by `justify-content`.
+        alignItems: style.textAlign
+          ? HORIZONTAL_ALIGN[style.textAlign]
+          : undefined,
+        justifyContent: style.verticalAlign
+          ? VERTICAL_ALIGN[style.verticalAlign]
+          : undefined,
         fontSize: style.fontSize,
         fontWeight: style.bold ? 700 : undefined,
         color: style.color,

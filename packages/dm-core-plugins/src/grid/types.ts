@@ -20,6 +20,7 @@ export type TGridArea = {
 
 export type TGridItemStyle = {
   textAlign?: 'left' | 'center' | 'right'
+  verticalAlign?: 'top' | 'center' | 'bottom'
   fontSize?: string
   bold?: boolean
   color?: string

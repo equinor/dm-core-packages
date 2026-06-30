@@ -103,6 +103,27 @@ const FieldControl = ({
     )
   }
 
+  if (field.type === 'select') {
+    const options = field.options ?? []
+    const isNumeric = options.some((option) => typeof option.value === 'number')
+    return (
+      <NativeSelect
+        id={id}
+        label={field.label}
+        value={value === undefined || value === null ? '' : String(value)}
+        onChange={(event) =>
+          onChange(isNumeric ? Number(event.target.value) : event.target.value)
+        }
+      >
+        {options.map((option) => (
+          <option key={String(option.value)} value={String(option.value)}>
+            {option.label}
+          </option>
+        ))}
+      </NativeSelect>
+    )
+  }
+
   if (field.type === 'textarea') {
     return (
       <>
@@ -156,7 +177,7 @@ const StyleGroup = ({
     <Styled.InspectorField>
       <NativeSelect
         id={`${title}-textAlign`}
-        label='Alignment'
+        label='Horizontal align'
         value={style?.textAlign ?? ''}
         onChange={(event) =>
           onChange('textAlign', event.target.value || undefined)
@@ -166,6 +187,21 @@ const StyleGroup = ({
         <option value='left'>Left</option>
         <option value='center'>Center</option>
         <option value='right'>Right</option>
+      </NativeSelect>
+    </Styled.InspectorField>
+    <Styled.InspectorField>
+      <NativeSelect
+        id={`${title}-verticalAlign`}
+        label='Vertical align'
+        value={style?.verticalAlign ?? ''}
+        onChange={(event) =>
+          onChange('verticalAlign', event.target.value || undefined)
+        }
+      >
+        <option value=''>Default</option>
+        <option value='top'>Top</option>
+        <option value='center'>Center</option>
+        <option value='bottom'>Bottom</option>
       </NativeSelect>
     </Styled.InspectorField>
     <Styled.InspectorField>

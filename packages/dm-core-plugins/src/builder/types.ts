@@ -28,6 +28,7 @@ export type TInspectorFieldType =
   | 'textarea'
   | 'number'
   | 'boolean'
+  | 'select'
   | 'image-upload'
   | 'table-upload'
 
@@ -53,6 +54,8 @@ export type TInspectorField = {
   target: TInspectorFieldTarget
   placeholder?: string
   help?: string
+  /** Options for `select` fields. The stored value is the option's `value`. */
+  options?: { label: string; value: string | number }[]
 }
 
 /**
@@ -80,6 +83,12 @@ export type TBlock = {
   recipe: string
   /** Sensible default recipe config so the widget renders without setup. */
   defaultConfig?: Record<string, unknown>
+  /**
+   * Self-contained widgets (heading, button, divider…) render their own
+   * content, so they should not receive the auto-generated title that data
+   * widgets get. A redundant title also overflows small cells.
+   */
+  hideTitle?: boolean
   /** Block-specific properties surfaced in the inspector. */
   fields?: TInspectorField[]
 }

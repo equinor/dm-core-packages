@@ -1,5 +1,6 @@
 import type { TUiRecipe, TViewConfig } from '@development-framework/dm-core'
 import type { TGridArea, TGridItem, TGridSize } from '../grid/types'
+import { getBlock } from './blocks'
 import type { TBlock, TBuilderModel } from './types'
 
 /** DMSS type discriminators used by the runtime `grid` plugin entity format. */
@@ -193,7 +194,7 @@ export const addWidget = (
     type: GRID_ITEM_TYPE,
     gridArea,
     viewConfig: viewConfig ?? defaultViewConfig(block),
-    title: block.label,
+    ...(block.hideTitle ? {} : { title: block.label }),
   })
 
   if (area) {
@@ -526,6 +527,19 @@ const serializeViewConfig = (item: TGridItem): unknown => {
 }
 
 /**
+ * Self-contained widgets (button, heading, divider…) render their own content
+ * and must not carry the auto-generated title that data widgets get — a
+ * redundant title also overflows small cells and shows a scrollbar. Used at
+ * both serialize and deserialize time so neither the live preview nor older
+ * persisted pages show a stray title.
+ */
+export const blockHidesTitle = (viewConfig: any): boolean => {
+  const recipe = viewConfig?.recipe
+  const blockId = typeof recipe === 'string' ? recipe : recipe?.name
+  return getBlock(String(blockId))?.hideTitle === true
+}
+
+/**
  * Serialize the in-memory model to the canonical DMSS entity JSON consumed by
  * the runtime `grid` plugin (adds the `type` discriminators). Section grids are
  * serialized recursively so nested layouts round-trip and render at runtime.
@@ -537,7 +551,9 @@ export const serialize = (model: TBuilderModel): Record<string, unknown> => ({
     type: GRID_ITEM_TYPE,
     gridArea: { type: GRID_AREA_TYPE, ...item.gridArea },
     viewConfig: serializeViewConfig(item),
-    ...(item.title ? { title: item.title } : {}),
+    ...(item.title && !blockHidesTitle(item.viewConfig)
+      ? { title: item.title }
+      : {}),
     ...(item.style && Object.keys(item.style).length
       ? { style: { type: GRID_ITEM_STYLE_TYPE, ...item.style } }
       : {}),
@@ -587,11 +603,12 @@ export const deserialize = (entity: any): TBuilderModel => {
           }
           const style = stripStyle(item.style)
           const titleStyle = stripStyle(item.titleStyle)
+          const keepTitle = item.title && !blockHidesTitle(item.viewConfig)
           return {
             type: GRID_ITEM_TYPE,
             gridArea: gridArea as TGridArea,
             viewConfig: deserializeViewConfig(item.viewConfig),
-            ...(item.title ? { title: item.title } : {}),
+            ...(keepTitle ? { title: item.title } : {}),
             ...(style ? { style } : {}),
             ...(titleStyle ? { titleStyle } : {}),
           }

@@ -35,6 +35,41 @@ export default {
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/static-heading': {
+    component: lazy(() =>
+      import('./builder/staticWidgets').then((module) => ({
+        default: module.StaticHeadingPlugin,
+      }))
+    ),
+  },
+  '@development-framework/dm-core-plugins/static-button': {
+    component: lazy(() =>
+      import('./builder/staticWidgets').then((module) => ({
+        default: module.StaticButtonPlugin,
+      }))
+    ),
+  },
+  '@development-framework/dm-core-plugins/static-divider': {
+    component: lazy(() =>
+      import('./builder/staticWidgets').then((module) => ({
+        default: module.StaticDividerPlugin,
+      }))
+    ),
+  },
+  '@development-framework/dm-core-plugins/static-spacer': {
+    component: lazy(() =>
+      import('./builder/staticWidgets').then((module) => ({
+        default: module.StaticSpacerPlugin,
+      }))
+    ),
+  },
+  '@development-framework/dm-core-plugins/static-embed': {
+    component: lazy(() =>
+      import('./builder/staticWidgets').then((module) => ({
+        default: module.StaticEmbedPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/stack': {
     component: lazy(() =>
       import('./stack/StackPlugin').then((module) => ({

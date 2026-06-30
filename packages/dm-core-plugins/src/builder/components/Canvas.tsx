@@ -176,15 +176,31 @@ const CanvasItem = ({
       <Styled.CanvasItemBody
         style={{
           flexDirection: 'column',
-          alignItems: 'stretch',
-          justifyContent: isContainer ? 'center' : 'flex-start',
+          alignItems:
+            item.style?.textAlign === 'center'
+              ? 'center'
+              : item.style?.textAlign === 'right'
+                ? 'flex-end'
+                : item.style?.textAlign === 'left'
+                  ? 'flex-start'
+                  : 'stretch',
+          justifyContent:
+            item.style?.verticalAlign === 'center'
+              ? 'center'
+              : item.style?.verticalAlign === 'bottom'
+                ? 'flex-end'
+                : item.style?.verticalAlign === 'top'
+                  ? 'flex-start'
+                  : isContainer
+                    ? 'center'
+                    : 'flex-start',
         }}
       >
         {isContainer ? (
           `${childCount} widget${childCount === 1 ? '' : 's'} — double-click or open to edit`
         ) : (
           <>
-            {item.title && (
+            {item.title && !block?.hideTitle && (
               <div
                 style={{
                   textAlign: item.titleStyle?.textAlign,
