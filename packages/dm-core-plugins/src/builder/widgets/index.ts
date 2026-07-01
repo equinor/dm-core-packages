@@ -3,6 +3,7 @@ import { type ComponentType, lazy } from 'react'
 import type { TBlock } from '../types'
 import { buttonWidget } from './button.widget'
 import { chartWidget } from './chart.widget'
+import { datePickerWidget } from './datePicker.widget'
 import { dividerWidget } from './divider.widget'
 import { embedWidget } from './embed.widget'
 import { formWidget } from './form.widget'
@@ -40,6 +41,7 @@ export const WIDGET_DEFINITIONS: TWidgetDefinition[] = [
   jobWidget,
   chartWidget,
   metricWidget,
+  datePickerWidget,
 ]
 
 /** The palette catalogue, derived from the registry. */

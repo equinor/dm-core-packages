@@ -84,7 +84,9 @@ It mounts the builder with a seeded layout (a page form + a nested Section) via
 | File | Responsibility |
 | --- | --- |
 | `types.ts` | Editor model, plugin config, block and inspector-field types. |
-| `blocks.ts` | The widget catalogue + inspector fields shown in the palette. |
+| `widgets/` | **The widget registry** — one file per palette widget (metadata + icon + optional component loader), collected in `widgets/index.ts`. Adding a widget happens here and nowhere else. See [`ADDING_WIDGETS.md`](./ADDING_WIDGETS.md). |
+| `blocks.ts` | Thin re-export of `BLOCKS` / `getBlock` from the widget registry. |
+| `icons.ts` | Editor-chrome icons, merged with each widget's own icon from the registry. |
 | `model.ts` | Pure transforms (add/remove/move/resize/duplicate/insert/setters), nesting helpers and serialize. |
 | `gridMetrics.ts` | Converts drag/resize pixel deltas into grid-cell deltas. |
 | `history.ts` | Immutable undo/redo stack + `useHistory` hook (with coalescing). |
@@ -97,6 +99,14 @@ It mounts the builder with a seeded layout (a page form + a nested Section) via
 | `components/Inspector.tsx` | Property panel for the selected widget. |
 | `components/TemplatesMenu.tsx` | Toolbar menu listing the starter templates. |
 | `components/Toast.tsx` | Renders the current toast (EDS `Snackbar`). |
+
+## Adding your own widgets
+
+The palette is fully extensible. Adding a widget (a date picker, a rating, a
+countdown…) is a **one-file, one-line** change — you don't touch the builder's
+internals. See the step-by-step **[Adding a widget guide](./ADDING_WIDGETS.md)**,
+which walks through a complete date-picker example. A working reference lives at
+[`widgets/datePicker.widget.tsx`](./widgets/datePicker.widget.tsx).
 
 ## Content model
 
