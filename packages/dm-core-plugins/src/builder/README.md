@@ -13,15 +13,15 @@ serializes to the canonical grid entity JSON and renders with the existing grid
 renderer — there is no separate runtime format to maintain.
 
 A "widget" dropped on the canvas is a grid item whose `viewConfig` points at a
-plugin/recipe (Text, Image, Table, Form, or a nested Section).
+plugin/recipe (Text, Image, Table, or a nested Section).
 
 ## Status: Phase 5 (publish & docs)
 
 Implemented:
 
 - Plugin registered as `@development-framework/dm-core-plugins/builder`.
-- Widget palette (Section, Text, Image, Table, Form) with draggable cards
-  (`@dnd-kit`).
+- Widget palette (Section, Text, Image, Table, Chart, Metric…) with draggable
+  cards (`@dnd-kit`).
 - CSS-grid canvas: drag a block from the palette (or click it) to add a widget;
   select, delete and **duplicate** widgets; drop-target highlight and empty state.
 - **Drag widgets by their header to reposition** them (pixel deltas snapped to
@@ -75,7 +75,7 @@ and `yarn start:example`, open:
 /view/?documentId=dmss://DemoDataSource/$builderPageExample
 ```
 
-It mounts the builder with a seeded layout (a page form + a nested Section) via
+It mounts the builder with a seeded layout (a page heading + a nested Section) via
 `config.initialConfig`. The blueprint/recipe/entity live under
 `example/app/data/DemoDataSource/{plugins,recipes}/builder/example/`.
 
@@ -111,11 +111,11 @@ which walks through a complete date-picker example. A working reference lives at
 
 ## Content model
 
-- **Content widgets** (Text, Image, Table) render self-contained content: Text
-  and Table store inline markdown, Image stores an uploaded file address. Image
-  upload and Table CSV/Excel upload are handled in the inspector; binding a
-  `viewConfig.scope` to a document still works as an alternative.
-- **Data widgets** (Form) bind to an existing DMSS entity via `viewConfig.scope`.
+- **Content widgets** (Text, Image, Table, Chart, Metric, Date picker…) render
+  self-contained content: Text and Table store inline markdown, Image stores an
+  uploaded file address. Image upload and Table CSV/Excel upload are handled in
+  the inspector; binding a `viewConfig.scope` to a document still works as an
+  alternative.
 - **Layout** (Section) is a container (a nested grid).
 
 ## Known limitations

@@ -56,9 +56,10 @@ tables, charts, metrics and the date-picker example all work this way. Choose
 this for almost everything.
 
 **2. Reuse-an-existing-plugin widget (no `load`).**
-It's just a palette card that points at a plugin that already exists (like the
-`form` or `job` plugin). Use this only when you're wrapping an existing plugin.
-See [`form.widget.ts`](./widgets/form.widget.ts) for the tiny version.
+It's just a palette card that points at a plugin that already exists in the
+package (for example a data/entity plugin). Use this only when you're wrapping
+an existing plugin — the card carries a `recipe` (the plugin key) and an
+optional `defaultConfig`, but no `load`.
 
 The rest of this guide covers kind #1, which is what you'll want almost always.
 
