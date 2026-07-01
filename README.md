@@ -6148,3 +6148,107 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps): bump the web group across 1 directory with 8 updates (#1624)
+
+Bumps the web group with 8 updates in the / directory:
+
+| Package | From | To |
+| --- | --- | --- |
+| [react-router-dom](https://github.com/remix-run/react-router/tree/HEAD/packages/react-router-dom) |  |  |
+| [@biomejs/biome](https://github.com/biomejs/biome/tree/HEAD/packages/@biomejs/biome) |  |  |
+| [@types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react) |  |  |
+| [vite-plugin-checker](https://github.com/fi3ework/vite-plugin-checker) |  |  |
+| [@equinor/eds-tokens](https://github.com/equinor/design-system/tree/HEAD/packages/eds-tokens) |  |  |
+| [@tanstack/react-query](https://github.com/TanStack/query/tree/HEAD/packages/react-query) |  |  |
+| [react-icons](https://github.com/react-icons/react-icons) |  |  |
+| [@types/luxon](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/luxon) |  |  |
+
+
+
+Updates  from 7.18.0 to 7.18.1
+- [Release notes](https://github.com/remix-run/react-router/releases)
+- [Changelog](https://github.com/remix-run/react-router/blob/react-router-dom@7.18.1/packages/react-router-dom/CHANGELOG.md)
+- [Commits](https://github.com/remix-run/react-router/commits/react-router-dom@7.18.1/packages/react-router-dom)
+
+Updates  from 2.4.13 to 2.5.2
+- [Release notes](https://github.com/biomejs/biome/releases)
+- [Changelog](https://github.com/biomejs/biome/blob/main/packages/@biomejs/biome/CHANGELOG.md)
+- [Commits](https://github.com/biomejs/biome/commits/@biomejs/biome@2.5.2/packages/@biomejs/biome)
+
+Updates  from 19.2.14 to 19.2.17
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/react)
+
+Updates  from 0.13.0 to 0.14.4
+- [Release notes](https://github.com/fi3ework/vite-plugin-checker/releases)
+- [Commits](https://github.com/fi3ework/vite-plugin-checker/compare/vite-plugin-checker@0.13.0...v0.14.4)
+
+Updates  from 2.2.0 to 2.3.1
+- [Release notes](https://github.com/equinor/design-system/releases)
+- [Changelog](https://github.com/equinor/design-system/blob/main/packages/eds-tokens/CHANGELOG.md)
+- [Commits](https://github.com/equinor/design-system/commits/eds-tokens@v2.3.1/packages/eds-tokens)
+
+Updates  from 5.101.1 to 5.101.2
+- [Release notes](https://github.com/TanStack/query/releases)
+- [Changelog](https://github.com/TanStack/query/blob/main/packages/react-query/CHANGELOG.md)
+- [Commits](https://github.com/TanStack/query/commits/@tanstack/react-query@5.101.2/packages/react-query)
+
+Updates  from 5.6.0 to 5.7.0
+- [Release notes](https://github.com/react-icons/react-icons/releases)
+- [Commits](https://github.com/react-icons/react-icons/compare/v5.6.0...v5.7.0)
+
+Updates  from 3.7.1 to 3.7.2
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/luxon)
+
+---
+updated-dependencies:
+- dependency-name: @biomejs/biome
+  dependency-version: 2.5.1
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: @equinor/eds-tokens
+  dependency-version: 2.3.1
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: @tanstack/react-query
+  dependency-version: 5.101.2
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @types/luxon
+  dependency-version: 3.7.2
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @types/react
+  dependency-version: 19.2.17
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: react-icons
+  dependency-version: 5.7.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: react-router-dom
+  dependency-version: 7.18.1
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: vite-plugin-checker
+  dependency-version: 0.14.4
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+  dependency-group: web
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Co-authored-by: Jakob Elias Reksten Keller <Jakob.er.keller@hotmail.com> (2026-07-01T11:41:55Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/28515309969/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
