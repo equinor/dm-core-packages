@@ -1,5 +1,6 @@
 import type { TUiPluginMap } from '@development-framework/dm-core'
 import { lazy } from 'react'
+import { builderStaticPlugins } from './builder/widgets'
 
 export { WidgetProvider } from './form/context/WidgetContext'
 
@@ -28,62 +29,10 @@ export default {
       }))
     ),
   },
-  '@development-framework/dm-core-plugins/static-table': {
-    component: lazy(() =>
-      import('./builder/StaticTablePlugin').then((module) => ({
-        default: module.StaticTablePlugin,
-      }))
-    ),
-  },
-  '@development-framework/dm-core-plugins/static-heading': {
-    component: lazy(() =>
-      import('./builder/staticWidgets').then((module) => ({
-        default: module.StaticHeadingPlugin,
-      }))
-    ),
-  },
-  '@development-framework/dm-core-plugins/static-button': {
-    component: lazy(() =>
-      import('./builder/staticWidgets').then((module) => ({
-        default: module.StaticButtonPlugin,
-      }))
-    ),
-  },
-  '@development-framework/dm-core-plugins/static-divider': {
-    component: lazy(() =>
-      import('./builder/staticWidgets').then((module) => ({
-        default: module.StaticDividerPlugin,
-      }))
-    ),
-  },
-  '@development-framework/dm-core-plugins/static-spacer': {
-    component: lazy(() =>
-      import('./builder/staticWidgets').then((module) => ({
-        default: module.StaticSpacerPlugin,
-      }))
-    ),
-  },
-  '@development-framework/dm-core-plugins/static-embed': {
-    component: lazy(() =>
-      import('./builder/staticWidgets').then((module) => ({
-        default: module.StaticEmbedPlugin,
-      }))
-    ),
-  },
-  '@development-framework/dm-core-plugins/static-metric': {
-    component: lazy(() =>
-      import('./builder/staticWidgets').then((module) => ({
-        default: module.StaticMetricPlugin,
-      }))
-    ),
-  },
-  '@development-framework/dm-core-plugins/static-chart': {
-    component: lazy(() =>
-      import('./builder/StaticChartPlugin').then((module) => ({
-        default: module.StaticChartPlugin,
-      }))
-    ),
-  },
+  // Builder "static" widgets (Heading, Button, Table, Chart, Metric, …) are
+  // registered from the widget registry so adding one never touches this file.
+  // See builder/widgets/index.ts and builder/ADDING_WIDGETS.md.
+  ...builderStaticPlugins,
   '@development-framework/dm-core-plugins/stack': {
     component: lazy(() =>
       import('./stack/StackPlugin').then((module) => ({

@@ -1,6 +1,5 @@
 import {
   add,
-  bar_chart,
   check,
   chevron_down,
   chevron_right,
@@ -12,41 +11,29 @@ import {
   edit,
   external_link,
   format_list_bulleted,
-  functions,
   type IconData,
-  image,
-  keyboard_space_bar,
   layers,
-  link,
-  list,
   menu,
   phone,
-  play,
-  play_circle,
   redo,
-  remove,
   save,
   settings,
-  table_chart,
   tablet_android,
-  text_field,
-  title,
   undo,
-  view_module,
   visibility,
   zoom_in,
   zoom_out,
 } from '@equinor/eds-icons'
+import { WIDGET_ICONS } from './widgets'
 
-/** Maps block icon names to EDS icon data objects used by `<Icon />`. */
-export const ICONS: Record<string, IconData> = {
-  view_module,
-  text_field,
-  image,
-  table_chart,
-  bar_chart,
-  functions,
-  list,
+/**
+ * Icons used by the builder's editor chrome (toolbar, palette, outline, nav).
+ *
+ * Widget palette icons are NOT listed here — each widget carries its own icon
+ * in its `*.widget.ts` file, and they are merged in via `WIDGET_ICONS`. That
+ * means adding a new widget never requires editing this file.
+ */
+const CHROME_ICONS: Record<string, IconData> = {
   add,
   check,
   close,
@@ -67,13 +54,13 @@ export const ICONS: Record<string, IconData> = {
   format_list_bulleted,
   zoom_in,
   zoom_out,
-  title,
-  link,
-  remove,
-  keyboard_space_bar,
-  play,
-  play_circle,
   settings,
   external_link,
   menu,
+}
+
+/** Maps icon names (chrome + every widget's `block.icon`) to EDS icon data. */
+export const ICONS: Record<string, IconData> = {
+  ...CHROME_ICONS,
+  ...WIDGET_ICONS,
 }
