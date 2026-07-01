@@ -77,7 +77,7 @@ test('Delete folder with content', async ({ page }) => {
 })
 
 test('Create entity with required name', async ({ page }) => {
-  await page.getByRole('button', { name: 'form' }).click()
+  await page.getByTestId('tree-button_form').click()
   await page.getByRole('button', { name: 'uncontained_object' }).click({
     button: 'right',
   })

@@ -67,10 +67,9 @@ test('Change to operator role and back', async ({ page }) => {
 
   await test.step('Change back to admin', async () => {
     await page.getByLabel('AppSelector').nth(1).click()
-
     await page.getByRole('menuitem', { name: 'Yaml' }).first().click()
     await page.getByRole('button', { name: 'User' }).click()
-    await page.getByLabel('admin').check()
+    await page.getByTestId('impersonate-role-dmss-admin').check()
     await page.getByRole('button', { name: 'Save' }).click()
     await page.getByLabel('AppSelector').nth(1).click()
     await expect(page.getByRole('menuitem', { name: 'Edit' })).toBeVisible()

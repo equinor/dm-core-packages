@@ -1,0 +1,24 @@
+{
+  "name": "HeaderUIRecipeItem",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Label for item in dropdown selection",
+      "optional": true,
+      "attributeType": "string"
+    },
+    {
+      "name": "recipeName",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Name of recipe to select",
+      "attributeType": "string"
+    }
+  ]
+}

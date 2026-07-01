@@ -2,70 +2,26 @@ import {
   type IUIPlugin,
   Loading,
   type TApplication,
-  type TGenericObject,
   type TUiRecipe,
   useApplication,
   useBlueprint,
   useDocument,
 } from '@development-framework/dm-core'
-import { Icon, Menu, TopBar, Typography } from '@equinor/eds-core-react'
-import { account_circle, info_circle, menu, refresh } from '@equinor/eds-icons'
-import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import styled from 'styled-components'
-
+import { TopBar } from '@equinor/eds-core-react'
+import { useEffect, useMemo, useState } from 'react'
 import { Stack } from '../common'
 import { AboutDialog } from './components/AboutDialog'
+import { AdminMenu } from './components/AdminMenu'
 import { AppSelector } from './components/AppSelector'
 import { UserInfoDialog } from './components/UserInfoDialog'
-
-const Icons = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-
-  > * {
-    margin-left: 40px;
-  }
-`
-const Logo = styled.span`
-  color: #007079;
-  font-weight: 500;
-  margin-right: 1rem;
-  margin-left: 0.5rem;
-  font-size: 18px;
-`
-
-const ClickableIcon = styled.button`
-  appearance: none;
-  border: none;
-  background-color: transparent;
-
-  &:hover {
-    color: gray;
-    cursor: pointer;
-  }
-`
-
-type THeaderPluginConfig = {
-  uiRecipesList: string[]
-  hideUserInfo: boolean
-  hideAbout: boolean
-  adminRole?: string
-}
-
-const defaultHeaderPluginConfig = {
-  uiRecipesList: [],
-  hideUserInfo: false,
-  hideAbout: false,
-  adminRole: 'dmss-admin',
-}
-
-type TRecipeConfigAndPlugin = {
-  config?: TGenericObject
-  component: (props: IUIPlugin) => React.ReactElement
-  name: string
-}
+import * as S from './HeaderPlugin.styles'
+import {
+  defaultHeaderPluginConfig,
+  type THeaderPluginConfig,
+  type TRecipeConfigAndPlugin,
+  type UIRecipeItem,
+} from './HeaderPlugin.types'
+import { getRecipeConfigAndPlugin } from './HeaderPlugin.utils'
 
 /**
  * Component which renders a header.
@@ -78,142 +34,78 @@ type TRecipeConfigAndPlugin = {
 
 export default (props: IUIPlugin): React.ReactElement => {
   const { idReference, config: passedConfig, type } = props
-  const config: THeaderPluginConfig & { adminRole: string } = {
+  const config: THeaderPluginConfig = {
     ...defaultHeaderPluginConfig,
     ...passedConfig,
   }
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+
   const { document: entity, isLoading } = useDocument<TApplication>(idReference)
   const { uiRecipes, isLoading: isBlueprintLoading } = useBlueprint(type)
-  const { roles, role, dmssAPI, name } = useApplication()
-  const [aboutOpen, setAboutOpen] = useState(false)
-  const [visibleUserInfo, setVisibleUserInfo] = useState<boolean>(false)
-  const { getUiPlugin } = useApplication()
+  const { getUiPlugin, roles } = useApplication()
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipeConfigAndPlugin>({
     component: () => <div />,
     config: {},
     name: '',
   })
 
-  function getRecipeConfigAndPlugin(
-    recipeName: string
-  ): TRecipeConfigAndPlugin {
-    const recipe = uiRecipes.find(
-      (recipe: TUiRecipe) => recipe.name === recipeName
-    )
-    if (!recipe) throw new Error(`Failed to find recipe named '${recipeName}'`)
-    return {
-      component: getUiPlugin(recipe.plugin),
-      config: recipe?.config ?? {},
-      name: recipeName,
-    }
-  }
-
   useEffect(() => {
     if (!isBlueprintLoading) {
       const defaultRecipe: TUiRecipe = config.uiRecipesList.length
         ? uiRecipes.find(
-            (recipe: TUiRecipe) => recipe.name === config.uiRecipesList[0]
+            (recipe: TUiRecipe) =>
+              recipe.name === config.uiRecipesList[0]?.recipeName
           )
         : uiRecipes[0]
-      setSelectedRecipe(getRecipeConfigAndPlugin(defaultRecipe.name))
+      setSelectedRecipe(
+        getRecipeConfigAndPlugin(defaultRecipe?.name, uiRecipes, getUiPlugin)
+      )
     }
-  }, [isBlueprintLoading])
+  }, [isBlueprintLoading, config.uiRecipesList, uiRecipes])
 
   const UIPlugin: (props: IUIPlugin) => React.ReactElement =
     selectedRecipe.component
+
+  const recipes: UIRecipeItem[] | TUiRecipe[] = useMemo(
+    () => (config.uiRecipesList.length > 0 ? config.uiRecipesList : uiRecipes),
+    [config.uiRecipesList, uiRecipes]
+  )
 
   if (isLoading || !entity || isBlueprintLoading) {
     return <Loading />
   }
 
-  const recipeNames: string[] =
-    config.uiRecipesList.length > 0
-      ? config.uiRecipesList
-      : uiRecipes.map((recipe: TUiRecipe) => recipe.name)
   return (
     <Stack fullWidth grow={1} minHeight={0}>
       <TopBar style={{ width: '100%', flexShrink: 0 }}>
         <TopBar.Header>
-          <Logo aria-label='main-heading'>{entity.label}</Logo>
+          <S.Logo data-testid='application-label'>{entity.label}</S.Logo>
           <AppSelector
-            items={recipeNames}
-            onSelectItem={(item) =>
-              setSelectedRecipe(getRecipeConfigAndPlugin(item))
-            }
+            isLoading={isBlueprintLoading}
+            items={recipes}
+            onSelectItem={(item) => {
+              const newSelectedRecipe = getRecipeConfigAndPlugin(
+                item,
+                uiRecipes,
+                getUiPlugin
+              )
+              setSelectedRecipe(newSelectedRecipe)
+            }}
             currentItem={selectedRecipe.name}
           />
         </TopBar.Header>
         <TopBar.Actions>
-          <Icons>
-            <ClickableIcon
-              onClick={() => setVisibleUserInfo(true)}
-              hidden={config.hideUserInfo}
-            >
-              <Icon data={account_circle} size={24} title='User' />
-            </ClickableIcon>
-            <ClickableIcon
-              onClick={() => setAboutOpen(true)}
-              hidden={config.hideAbout}
-            >
-              <Icon data={info_circle} size={24} title='About' />
-            </ClickableIcon>
-            {roles.map((r) => r.name).includes(config.adminRole) && (
-              <ClickableIcon
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                ref={setAnchorEl}
-              >
-                <Icon data={menu} />
-              </ClickableIcon>
+          <Stack direction='row' alignItems='center' spacing={2}>
+            {!config.hideUserInfo && (
+              <UserInfoDialog applicationEntity={entity} />
             )}
-          </Icons>
-          <Menu
-            open={isMenuOpen}
-            id='menu-default'
-            aria-labelledby='anchor-default'
-            onClose={() => setIsMenuOpen(false)}
-            anchorEl={anchorEl}
-          >
-            <Menu.Item>
-              <Icon data={refresh} title='refresh_app' />
-              <Typography
-                group='navigation'
-                variant='menu_title'
-                as='span'
-                onClick={() => {
-                  dmssAPI
-                    .refreshLookup({ application: name })
-                    .then(() => {
-                      Object.keys(window.sessionStorage).forEach((key) => {
-                        if (key.startsWith('BLUEPRINT::'))
-                          window.sessionStorage.removeItem(key)
-                      })
-                      toast.success(`RecipeLookup for app '${name}' updated`)
-                    })
-                    .catch((error: any) => {
-                      console.error(error)
-                      toast.error(`Failed to refresh application '${name}'`)
-                    })
-                  setIsMenuOpen(false)
-                }}
-              >
-                Refresh application recipes
-              </Typography>
-            </Menu.Item>
-          </Menu>
+            {!config.hideAbout && <AboutDialog applicationEntity={entity} />}
+            {config.adminRole &&
+              roles.map((r) => r.name).includes(config.adminRole) && (
+                <AdminMenu />
+              )}
+          </Stack>
         </TopBar.Actions>
       </TopBar>
-      <AboutDialog
-        isOpen={aboutOpen}
-        setIsOpen={setAboutOpen}
-        applicationEntity={entity}
-      />
-      <UserInfoDialog
-        isOpen={visibleUserInfo}
-        setIsOpen={setVisibleUserInfo}
-        applicationEntity={entity}
-      />
       <Stack fullWidth grow={1} minHeight={0}>
         <UIPlugin
           key={idReference + selectedRecipe.name}
