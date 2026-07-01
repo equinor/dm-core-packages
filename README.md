@@ -5973,3 +5973,20 @@ Signed-off-by: dependabot[bot] <support@github.com> (2026-04-24T07:20:32Z)
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps): bump python (#1498)
+
+Bumps python from 3.11-slim to 3.14-slim.
+
+---
+updated-dependencies:
+- dependency-name: python
+  dependency-version: 3.14-slim
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> (2026-06-30T11:15:10Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/28505188818/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
