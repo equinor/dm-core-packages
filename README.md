@@ -5990,3 +5990,21 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps): bump node from 22-alpine to 26-alpine (#1594)
+
+Bumps node from 22-alpine to 26-alpine.
+
+---
+updated-dependencies:
+- dependency-name: node
+  dependency-version: 26-alpine
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Co-authored-by: Jakob Elias Reksten Keller <Jakob.er.keller@hotmail.com> (2026-07-01T08:46:27Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/28505614956/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
