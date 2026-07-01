@@ -20,7 +20,7 @@ jobs:
       # work. Note that the credential will need to specify a branch name. This
       # step will therefore fail for all branches not mentioned in the credentials
       - name: Az CLI login
-        uses: azure/login@v2
+        uses: azure/login@v3
         with:
           client-id: 9bc1cfd7-c616-45d2-8827-22ae9d1e0567 # app registration Application ID
           tenant-id: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
