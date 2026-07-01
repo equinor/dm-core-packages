@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # npm dependencies (yarn workspaces — single root entry covers all packages)
+  # npm dependencies (npm workspaces — single root entry covers all packages)
   - package-ecosystem: "npm"
     directory: "/"
     schedule:

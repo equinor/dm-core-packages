@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.14-slim
 WORKDIR /code/src
 ENTRYPOINT ["/code/src/init.sh"]
 CMD ["run"]

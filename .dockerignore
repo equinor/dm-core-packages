@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/.git
+**/*.tsbuildinfo
+.github
+e2e
+**/coverage
+**/*.log
+**/.DS_Store
