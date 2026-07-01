@@ -1,4 +1,4 @@
-import { BLOCKS, getBlock } from './blocks'
+import { BLOCKS, getBlock } from '../blocks'
 import {
   addWidget,
   areasOverlap,
@@ -34,7 +34,7 @@ import {
   setWidgetTitle,
   translateArea,
   wouldOverlap,
-} from './model'
+} from '../model'
 
 const textBlock = getBlock('text') ?? BLOCKS[0]
 const imageBlock = getBlock('image') ?? BLOCKS[1]

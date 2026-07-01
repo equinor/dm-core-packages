@@ -7,7 +7,7 @@ import {
   pushHistory,
   redoHistory,
   undoHistory,
-} from './history'
+} from '../history'
 
 describe('builder history', () => {
   it('creates history with the initial present value and empty stacks', () => {

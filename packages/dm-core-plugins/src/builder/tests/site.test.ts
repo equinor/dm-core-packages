@@ -1,5 +1,5 @@
-import { BLOCKS, getBlock } from './blocks'
-import { addWidget, createEmptyModel, serialize } from './model'
+import { BLOCKS, getBlock } from '../blocks'
+import { addWidget, createEmptyModel, serialize } from '../model'
 import {
   addNavItem,
   addPage,
@@ -26,7 +26,7 @@ import {
   type TBuilderSite,
   updateNavbar,
   updateNavItem,
-} from './site'
+} from '../site'
 
 const textBlock = getBlock('text') ?? BLOCKS[0]
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value))

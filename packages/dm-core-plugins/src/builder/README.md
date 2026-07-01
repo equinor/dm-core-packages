@@ -99,6 +99,7 @@ It mounts the builder with a seeded layout (a page form + a nested Section) via
 | `components/Inspector.tsx` | Property panel for the selected widget. |
 | `components/TemplatesMenu.tsx` | Toolbar menu listing the starter templates. |
 | `components/Toast.tsx` | Renders the current toast (EDS `Snackbar`). |
+| `tests/` | All builder unit tests (model, grid metrics, history, templates, site, markdown/math helpers, widget registry). |
 
 ## Adding your own widgets
 

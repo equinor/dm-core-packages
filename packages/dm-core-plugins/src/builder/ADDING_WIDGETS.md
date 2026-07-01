@@ -301,7 +301,7 @@ Then try it live in the example app (see the builder [README](./README.md)).
 
 ## Troubleshooting
 
-The registry test (`widgets/registry.test.ts`) checks common mistakes for you.
+The registry test (`tests/registry.test.ts`) checks common mistakes for you.
 If a test fails, here's what it means:
 
 | Message                                             | Fix                                                                 |

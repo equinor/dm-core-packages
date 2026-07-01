@@ -1,5 +1,5 @@
-import type { TGridSize } from '../grid/types'
-import { pixelDeltaToCells } from './gridMetrics'
+import type { TGridSize } from '../../grid/types'
+import { pixelDeltaToCells } from '../gridMetrics'
 
 describe('builder grid metrics', () => {
   const size: TGridSize = {

@@ -4,7 +4,7 @@ import {
   builderStaticPlugins,
   getBlock,
   WIDGET_DEFINITIONS,
-} from './index'
+} from '../widgets'
 
 /**
  * Guardrails for the widget registry. These fail with a clear message when a
