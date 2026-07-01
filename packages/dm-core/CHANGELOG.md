@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.46.6](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.5...dm-core-v1.46.6) (2026-07-01)
+
+
+### Bug Fixes
+
+* return undefined when contentType does not exist, and fileTy… ([#1543](https://github.com/equinor/dm-core-packages/issues/1543)) ([1f3c13d](https://github.com/equinor/dm-core-packages/commit/1f3c13d7f945b82850d62538b8a9fe867b67e93b))
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump jest-environment-jsdom from 29.7.0 to 30.4.1 ([#1587](https://github.com/equinor/dm-core-packages/issues/1587)) ([d754b6f](https://github.com/equinor/dm-core-packages/commit/d754b6fcfba7e1070bd7b3d501bc10a81482493d))
+* **deps:** bump the web group across 1 directory with 8 updates ([#1624](https://github.com/equinor/dm-core-packages/issues/1624)) ([7e3b625](https://github.com/equinor/dm-core-packages/commit/7e3b625fcfcf91d23527a707dfbc74aa3ccc54f9))
+* **deps:** bump the web group with 22 updates ([fc5890c](https://github.com/equinor/dm-core-packages/commit/fc5890cc56f37d3909ec3a8f6dc01ff16ff6782c))
+
+
+### Code Refactoring
+
+* support label in uiRecipeList and cleanup header plugin ([#1537](https://github.com/equinor/dm-core-packages/issues/1537)) ([6afe86b](https://github.com/equinor/dm-core-packages/commit/6afe86bd869c4bd518843dfe7405970ccebfa26d))
+
 ## [1.46.5](https://github.com/equinor/dm-core-packages/compare/dm-core-v1.46.4...dm-core-v1.46.5) (2026-03-05)
 
 
