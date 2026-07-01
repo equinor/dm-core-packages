@@ -1,7 +1,7 @@
+FROM node:26-bullseye-slim as base
 # This image is built from the repository root so that the npm workspace
 # `package-lock.json` is available for a reproducible `npm ci` install.
 # Build it with:  docker build -f example/Dockerfile .
-FROM node:24-bullseye-slim AS base
 
 ARG AUTH_ENABLED=0
 ARG REDIRECT_URI=http://localhost/
