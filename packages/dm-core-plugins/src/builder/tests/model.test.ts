@@ -36,10 +36,23 @@ import {
   wouldOverlap,
 } from '../model'
 
+import type { TBlock } from '../types'
+
 const textBlock = getBlock('text') ?? BLOCKS[0]
 const imageBlock = getBlock('image') ?? BLOCKS[1]
 const sectionBlock = getBlock('section') ?? BLOCKS[0]
-const formBlock = getBlock('form') ?? BLOCKS[0]
+// A minimal block that ships no defaultConfig, so its inline recipe starts
+// without a `config` object — used to test the config setters from scratch.
+const configlessBlock: TBlock = {
+  id: 'test-configless',
+  label: 'Configless',
+  icon: 'text_field',
+  category: 'content',
+  description: 'Test-only block with no default config.',
+  contentModel: 'content',
+  defaultSize: { columns: 4, rows: 2 },
+  recipe: '@development-framework/dm-core-plugins/markdown',
+}
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value))
 
 describe('builder model', () => {
@@ -437,7 +450,7 @@ describe('builder model — property setters', () => {
   })
 
   it('sets inline recipe config values immutably and preserves existing keys', () => {
-    const model = addWidget(createEmptyModel(), formBlock)
+    const model = addWidget(createEmptyModel(), configlessBlock)
     const original = clone(model)
     const originalRecipe = model.items[0].viewConfig.recipe
 

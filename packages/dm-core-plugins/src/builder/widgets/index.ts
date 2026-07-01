@@ -1,25 +1,15 @@
 import type { IconData } from '@equinor/eds-icons'
 import { type ComponentType, lazy } from 'react'
 import type { TBlock } from '../types'
-import { blueprintHierarchyWidget } from './blueprintHierarchy.widget'
 import { buttonWidget } from './button.widget'
 import { chartWidget } from './chart.widget'
-import { dataGridWidget } from './dataGrid.widget'
-import { dataTableWidget } from './dataTable.widget'
 import { datePickerWidget } from './datePicker.widget'
 import { dividerWidget } from './divider.widget'
 import { embedWidget } from './embed.widget'
-import { fileWidget } from './file.widget'
-import { formWidget } from './form.widget'
-import { headerWidget } from './header.widget'
 import { headingWidget } from './heading.widget'
 import { imageWidget } from './image.widget'
-import { jobWidget } from './job.widget'
-import { jobCreateWidget } from './jobCreate.widget'
-import { listWidget } from './list.widget'
 import { metricWidget } from './metric.widget'
 import { sectionWidget } from './section.widget'
-import { singleViewWidget } from './singleView.widget'
 import { spacerWidget } from './spacer.widget'
 import { tableWidget } from './table.widget'
 import { textWidget } from './text.widget'
@@ -44,20 +34,10 @@ export const WIDGET_DEFINITIONS: TWidgetDefinition[] = [
   spacerWidget,
   imageWidget,
   embedWidget,
-  fileWidget,
   tableWidget,
-  dataTableWidget,
-  dataGridWidget,
-  listWidget,
-  singleViewWidget,
-  formWidget,
-  jobWidget,
-  jobCreateWidget,
   chartWidget,
   metricWidget,
   datePickerWidget,
-  blueprintHierarchyWidget,
-  headerWidget,
 ]
 
 /** The palette catalogue, derived from the registry. */
