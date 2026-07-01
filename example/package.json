@@ -40,7 +40,7 @@
     "preview": "vite preview",
     "serve": "serve -s dist -p 3000 --no-clipboard",
     "test": "vitest",
-    "build-all-packages": "for package in ../packages/*/; do echo $package && cd $package && yarn install --no-lockfile && yarn build && rm -rf ./node_modules && cd ../../example; done",
+    "build-all-packages": "for package in ../packages/*/; do echo $package && cd $package && npm install --no-package-lock && npm run build && rm -rf ./node_modules && cd ../../example; done",
     "symlinks": "for package in ../packages/*/; do echo $package && cd $package && mkdir -p dist && cd dist && ln -sf ../src/index.tsx index.js && cd ../../../example; done",
     "remove-symlinks": "for package in ../packages/*/; do echo $package && rm -rf dist && cd ../example; done"
   },

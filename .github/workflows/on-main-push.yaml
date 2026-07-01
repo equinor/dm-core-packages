@@ -4,11 +4,6 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-  
 jobs:
   tests:
     uses: ./.github/workflows/tests.yaml
@@ -47,17 +42,14 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           registry-url: "https://registry.npmjs.org"
 
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
       - name: Build packages
-        run: yarn build:packages
+        run: npm run build:packages
 
       - name: Publish dm-core package
         run: |
@@ -65,18 +57,18 @@ jobs:
           PACKAGE_NAME=$(cat packages/dm-core/package.json | jq '.["name"]' | tr -d '"')
           VERSION_EXISTS=$(curl --HEAD --output /dev/null --silent -w "%{http_code}" https://registry.npmjs.org/$PACKAGE_NAME/$PACKAGE_VERSION)
           if [[ $VERSION_EXISTS == 404 ]]; then
-            yarn workspace @development-framework/dm-core publish --access public
+            npm publish --access public -w @development-framework/dm-core
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish dm-core-plugins package
         run: |
-          PACKAGE_VERSION=$(cat packages/dm-core-plugins/package.json | jq '.["version"]' | tr -d '"')
-          PACKAGE_NAME=$(cat packages/dm-core-plugins/package.json | jq '.["name"]' | tr -d '"')
+          PACKAGE_VERSION=$(cat packages/dm-core-plugins/package.json | jq '."version"' | tr -d '"')
+          PACKAGE_NAME=$(cat packages/dm-core-plugins/package.json | jq '."name"' | tr -d '"')
           VERSION_EXISTS=$(curl --HEAD --output /dev/null --silent -w "%{http_code}" https://registry.npmjs.org/$PACKAGE_NAME/$PACKAGE_VERSION)
           if [[ $VERSION_EXISTS == 404 ]]; then
-            yarn workspace @development-framework/dm-core-plugins publish --access public
+            npm publish --access public -w @development-framework/dm-core-plugins
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Node and yarn
+- Node (v24 or later)
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - Make sure you have Python installed. version 3.11 or higher is required.
@@ -19,9 +19,9 @@
 
    #### Frontend
 
-   The project uses yarn workspaces to handle dependencies for all three sub-projects.
+   The project uses npm workspaces to handle dependencies for all three sub-projects.
 
-   - Run `yarn install`
+   - Run `npm install`
 
    #### Backend
 
@@ -33,17 +33,17 @@
      - Install dm-cli package by running `pip install -r requirements.txt`.
 
 2. Navigate to the root of the project, and build the local packages.
-   - Run `yarn build:dm-core && yarn build:dm-core-plugins`
+   - Run `npm run build:dm-core && npm run build:dm-core-plugins`
 3. Navigate to the `example` folder, then pull and start API services.
    - Run `docker-compose pull && docker-compose up -d`
 4. From the `example` folder, load data into the database.
    - Run `./reset-app.sh`
 5. Start the test app.
-   - Run `yarn start:example`
+   - Run `npm run start:example`
 
 ## Running (Windows)
 
-1. Open Powershell and navigate to dm-core-packages and run `yarn install`.
+1. Open Powershell and navigate to dm-core-packages and run `npm install`.
 2. Navigate to dm-core-packages/example. Make sure docker engine is running, then run these commands:
    - `docker-compose down && docker-compose pull && docker-compose up -d`
    - `docker-compose run --rm dmss reset-app`
@@ -72,7 +72,7 @@
    ```
    (dm reset app can also be run with --no-validate-entities to skip validation)
 7. Go back to the Powershell terminal and navigate to root in `dm-core-packages/` by typing the command `cd .. ` and
-   start the app with the command `yarn start:example`.
+   start the app with the command `npm run start:example`.
 
 ## Naming Convention
 
@@ -92,7 +92,7 @@ In the example app, folders are named according to the naming convention:
 The application watching and live-reload of dm-core dependencies, to turn this off, start the application by running this command:
 
 ```bash
-ALIAS=off yarn start
+ALIAS=off npm start
 ```
 
 The configuration to support this hot reloading is in the `vite.local.config.ts` and `tsconfig.local.json`.
