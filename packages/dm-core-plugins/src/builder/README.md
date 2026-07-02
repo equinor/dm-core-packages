@@ -93,6 +93,86 @@ list of role names allowed to edit. Users whose current role is not listed get
 the same read-only viewer; an empty or absent list leaves editing open to
 everyone.
 
+## Embedding & hosting (internal)
+
+The builder is a **DMSS plugin**, not a standalone widget: it reads and writes a
+document through DMSS at runtime. "Hosting" a built site internally therefore
+means mounting the plugin inside a DMSS-connected React app — you do **not** need
+a separate web server or database for the builder itself.
+
+### 1. Storage — you already have it
+
+On save the plugin never talks to a database directly; it calls
+`updateDocument(idReference)` and **DMSS owns storage**. The persisted site is a
+plain JSON document validated by the `Site` / `Page` / `Navbar` blueprints, so
+the storage backend is chosen per DMSS **data source**, not in the builder:
+
+- **MongoDB** (typical default), **Azure Blob Storage**, or local disk.
+- Want **Cosmos DB**? Point the DMSS Mongo backend at a Cosmos account using its
+  **Mongo API** — no builder or plugin code changes, and you keep DMSS
+  versioning, access control and blueprint validation. A *native* Cosmos backend
+  would be work in the DMSS repo and is only worth it for a hard Cosmos-native
+  requirement.
+
+Because a site is just JSON, backups/migrations are ordinary document
+export/import. `serializeSite` / `deserializeSite` (exported from the package
+root) are the canonical shape if you ever read or transform it yourself.
+
+### 2. Mount the editor
+
+Every consumer app already wraps the tree in `DMApplicationProvider` (auth,
+application, `dmssBasePath`) and passes the plugin map. Two equivalent ways to
+render the builder for an entity:
+
+**Recipe-driven (recommended — how the example app works).** Attach a `builder`
+recipe to the entity's blueprint and let `EntityView` resolve it:
+
+```tsx
+import { DMApplicationProvider, EntityView } from '@development-framework/dm-core'
+import plugins from './plugins' // { ...dmCorePlugins }
+
+<DMApplicationProvider
+  plugins={plugins}
+  application={application}
+  dmssBasePath={import.meta.env.VITE_DMSS_URL}
+>
+  <EntityView idReference="MyDataSource/$siteId" type="…/Site" />
+</DMApplicationProvider>
+```
+
+**Direct mount.** When you want the builder on a fixed entity without a recipe
+lookup, render the component yourself (still inside the provider):
+
+```tsx
+import { BuilderPlugin } from '@development-framework/dm-core-plugins/builder'
+
+<BuilderPlugin idReference="MyDataSource/$siteId" type="…/Site" />
+```
+
+### 3. Serve the built site to viewers
+
+The *same* entity is the published site — there is no separate deploy step for
+internal hosting. Give end users the **read-only viewer** by mounting the plugin
+with `config.readOnly: true`, or gate by role with `config.editorRoles` so
+editors get the editor and everyone else gets the viewer against the very same
+document:
+
+```tsx
+// A "published site" route for internal users:
+<EntityView idReference="MyDataSource/$siteId" type="…/Site" /* recipe sets readOnly */ />
+```
+
+The viewer renders the navbar, multi-page navigation and content only — no
+toolbar, palette or inspector, and nothing can mutate or persist the site. A
+common setup is **two recipes on one entity**: an authoring recipe (editing open
+or `editorRoles`-gated) and a viewer recipe with `readOnly: true`, wired to
+different routes.
+
+> **Scope:** this is internal hosting — every viewer is an authenticated DMSS
+> user, and the site is rendered live from DMSS. Public, no-backend hosting would
+> need a standalone `value`-driven viewer (no `useDocument`) plus a static export
+> of the site JSON; that is out of scope for v1.
+
 ## Architecture
 
 | File | Responsibility |
