@@ -16,6 +16,13 @@ export type TBuilderPluginConfig = {
   mode?: TBuilderMode
   /** Optional seed grid config to hydrate the canvas with. */
   initialConfig?: Partial<TBuilderModel>
+  /**
+   * When true the plugin renders as a read-only site viewer: the published
+   * navbar, page navigation and content only, with no editing toolbar,
+   * palette or inspector. Use this to mount a built site for end users who
+   * should be able to browse but not edit it.
+   */
+  readOnly?: boolean
 }
 
 /**

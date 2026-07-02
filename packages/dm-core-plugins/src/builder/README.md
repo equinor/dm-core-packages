@@ -79,6 +79,15 @@ It mounts the builder with a seeded layout (a page heading + a nested Section) v
 `config.initialConfig`. The blueprint/recipe/entity live under
 `example/app/data/DemoDataSource/{plugins,recipes}/builder/example/`.
 
+## Read-only viewer
+
+Set `config.readOnly: true` to mount a built site as a **read-only viewer**: the
+published navbar, page navigation and content render, but the editing toolbar,
+palette and inspector are all hidden and nothing can mutate or persist the site.
+Use this to show a finished site to end users (who should browse but not edit)
+while the same entity stays editable from a builder recipe with `readOnly`
+unset. Multi-page navigation keeps working in the viewer.
+
 ## Architecture
 
 | File | Responsibility |

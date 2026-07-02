@@ -118,7 +118,10 @@ export const BuilderPlugin = (
   const [activePageId, setActivePageId] = useState<string>(
     () => site.pages[0]?.id ?? ''
   )
-  const [mode, setMode] = useState<TBuilderMode>(config?.mode ?? 'edit')
+  const readOnly = config?.readOnly ?? false
+  const [mode, setMode] = useState<TBuilderMode>(
+    readOnly ? 'preview' : (config?.mode ?? 'edit')
+  )
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [showJson, setShowJson] = useState(false)
   const [path, setPath] = useState<number[]>([])
@@ -570,6 +573,7 @@ export const BuilderPlugin = (
   // Autosave: debounce changes and persist them. Without a save target the page
   // just stays marked as having unsaved changes.
   useEffect(() => {
+    if (readOnly) return
     if (currentJson === savedJsonRef.current) {
       setSaveState('saved')
       return
@@ -588,6 +592,7 @@ export const BuilderPlugin = (
 
   // Warn before leaving the page while there are unsaved changes.
   useEffect(() => {
+    if (readOnly) return
     if (saveState === 'saved') return
     const handler = (event: BeforeUnloadEvent) => {
       event.preventDefault()
@@ -595,7 +600,7 @@ export const BuilderPlugin = (
     }
     window.addEventListener('beforeunload', handler)
     return () => window.removeEventListener('beforeunload', handler)
-  }, [saveState])
+  }, [saveState, readOnly])
 
   const saveStatusLabel =
     saveState === 'saved'
@@ -660,6 +665,35 @@ export const BuilderPlugin = (
       onReorderItem={handleReorderNavItem}
     />
   )
+
+  // Read-only viewer: render the published site (navbar, page navigation and
+  // content) with no editing chrome. Multi-page navigation still works so end
+  // users can browse the built site, but nothing here can mutate or persist it.
+  if (readOnly) {
+    return (
+      <Styled.BuilderLayout>
+        <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>
+          <Styled.SiteShell>
+            {navbar}
+            <Styled.SiteFrame>
+              {navSidebar}
+              <Styled.SitePageArea>
+                <ErrorBoundary message='This page could not be displayed.'>
+                  <GridPlugin
+                    type={type}
+                    idReference={idReference}
+                    config={previewConfig}
+                    onSubmit={onSubmit}
+                    onChange={onChange}
+                  />
+                </ErrorBoundary>
+              </Styled.SitePageArea>
+            </Styled.SiteFrame>
+          </Styled.SiteShell>
+        </Styled.CanvasPanel>
+      </Styled.BuilderLayout>
+    )
+  }
 
   return (
     <DndContext

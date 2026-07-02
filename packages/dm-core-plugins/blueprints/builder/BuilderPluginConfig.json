@@ -22,6 +22,14 @@
       "attributeType": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
       "description": "Seed grid config used to hydrate the canvas.",
       "optional": true
+    },
+    {
+      "name": "readOnly",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "description": "When true, render the built site as a read-only viewer (navbar, navigation and content only) with no editing toolbar, palette or inspector.",
+      "default": false,
+      "optional": true
     }
   ]
 }
