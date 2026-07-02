@@ -1,0 +1,38 @@
+{
+  "name": "Page",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "A single navigable page in a builder site. Its layout is a grid config, and it may contain nested sub-pages to any depth.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "id",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Stable handle used by the nav sidebar to switch/route to this page."
+    },
+    {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Page title; doubles as the navigation label."
+    },
+    {
+      "name": "layout",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+      "description": "The page's grid model, in the same format the runtime grid plugin consumes."
+    },
+    {
+      "name": "children",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/builder/Page",
+      "description": "Sub-pages reachable from this page's nav menu, nestable to any depth.",
+      "dimensions": "*",
+      "optional": true
+    }
+  ]
+}

@@ -8,6 +8,13 @@ export const NAVBAR_TYPE = 'PLUGINS:dm-core-plugins/builder/Navbar'
 export const NAVBAR_ITEM_TYPE = 'PLUGINS:dm-core-plugins/builder/NavbarItem'
 
 /**
+ * Version of the serialized site format. Bump this whenever the stored shape
+ * changes in a way that needs migrating, and add a matching case to
+ * `migrateSite` so older saved sites keep loading.
+ */
+export const SITE_SCHEMA_VERSION = 1
+
+/**
  * Where a navbar link points. `page` links navigate within the site (SPA-style)
  * to one of its pages; `url` links open an external address.
  */
@@ -149,6 +156,7 @@ const serializeNavbar = (navbar: TNavbar): Record<string, unknown> => ({
 /** Serialize a site to canonical DMSS JSON (adds `type` discriminators). */
 export const serializeSite = (site: TBuilderSite): Record<string, unknown> => ({
   type: SITE_TYPE,
+  schemaVersion: SITE_SCHEMA_VERSION,
   navbar: serializeNavbar(site.navbar),
   pages: site.pages.map(serializePage),
 })
@@ -208,15 +216,54 @@ const deserializePage = (raw: Record<string, unknown>): TBuilderPage => ({
 })
 
 /**
+ * Read the stored `schemaVersion`, defaulting to 1 for sites saved before the
+ * field existed (or legacy single-grid layouts).
+ */
+const readSchemaVersion = (raw: unknown): number => {
+  if (raw && typeof raw === 'object') {
+    const value = (raw as { schemaVersion?: unknown }).schemaVersion
+    if (typeof value === 'number' && Number.isFinite(value)) return value
+  }
+  return 1
+}
+
+/** Upgrades a stored payload from one schema version to the next. */
+type TSiteMigration = (raw: Record<string, unknown>) => Record<string, unknown>
+
+/**
+ * Ordered migrations keyed by the version they upgrade *from*. Empty today
+ * (every supported version loads directly); when the stored shape changes, bump
+ * `SITE_SCHEMA_VERSION` and add an entry here, e.g. `1: migrateV1toV2`.
+ */
+const SITE_MIGRATIONS: Record<number, TSiteMigration> = {}
+
+/**
+ * Migrate a stored site payload up to the current `SITE_SCHEMA_VERSION` by
+ * applying each registered migration in turn, so older saved sites keep loading
+ * after the format evolves.
+ */
+const migrateSite = (raw: Record<string, unknown>): Record<string, unknown> => {
+  let current = raw
+  let version = readSchemaVersion(current)
+  while (version < SITE_SCHEMA_VERSION && SITE_MIGRATIONS[version]) {
+    current = SITE_MIGRATIONS[version](current)
+    version = readSchemaVersion(current)
+  }
+  return current
+}
+
+/**
  * Rebuild a site from stored JSON. Accepts either the multi-page wrapper or a
  * legacy single-grid layout (which is wrapped into a one-page "Home" site), so
  * pages authored before multi-page support still load. Legacy pages without a
  * `children` array deserialize as leaf pages; a missing navbar defaults to the
- * disabled default so older sites are unchanged.
+ * disabled default so older sites are unchanged. Older `schemaVersion`s are
+ * migrated forward via `migrateSite` before deserializing.
  */
 export const deserializeSite = (raw: unknown): TBuilderSite => {
   if (isSerializedSite(raw)) {
-    const source = raw as { pages: unknown[]; navbar?: unknown }
+    const migrated = migrateSite(raw as Record<string, unknown>)
+    const source = migrated as { pages: unknown[]; navbar?: unknown }
     const navbar = deserializeNavbar(source.navbar)
     const pages = source.pages
       .filter((page): page is Record<string, unknown> => !!page)

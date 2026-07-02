@@ -1,0 +1,68 @@
+{
+  "name": "Navbar",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "The site's customizable top navigation bar, shared across every page.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "enabled",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "description": "Whether the navbar is shown. Disabled by default so existing sites are unchanged.",
+      "default": false,
+      "optional": true
+    },
+    {
+      "name": "brand",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Brand / site name shown at the start of the bar.",
+      "default": "My Site",
+      "optional": true
+    },
+    {
+      "name": "background",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Bar background colour.",
+      "default": "#ffffff",
+      "optional": true
+    },
+    {
+      "name": "color",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Link text colour.",
+      "default": "#3d3d3d",
+      "optional": true
+    },
+    {
+      "name": "brandColor",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Brand text colour.",
+      "default": "#007079",
+      "optional": true
+    },
+    {
+      "name": "align",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Horizontal placement of the link group: 'left', 'center' or 'right'.",
+      "default": "right",
+      "optional": true
+    },
+    {
+      "name": "items",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/builder/NavbarItem",
+      "description": "The clickable links shown in the bar.",
+      "dimensions": "*",
+      "optional": true
+    }
+  ]
+}

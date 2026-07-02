@@ -1,0 +1,34 @@
+{
+  "name": "Site",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "A website built with the drag-and-drop builder: a shared top navbar plus an ordered tree of pages.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "schemaVersion",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "description": "Version of the serialized site format, used to migrate older saved sites.",
+      "default": 1,
+      "optional": true
+    },
+    {
+      "name": "navbar",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/builder/Navbar",
+      "description": "The customizable top navigation bar shared by every page.",
+      "optional": true
+    },
+    {
+      "name": "pages",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/builder/Page",
+      "description": "The site's top-level pages, in nav order. There is always at least one.",
+      "dimensions": "*"
+    }
+  ]
+}
