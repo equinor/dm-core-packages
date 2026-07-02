@@ -6331,3 +6331,34 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps-dev): bump jest and @types/jest (#1586)
+
+Bumps [jest](https://github.com/jestjs/jest/tree/HEAD/packages/jest) and [@types/jest](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/jest). These dependencies needed to be updated together.
+
+Updates  from 29.7.0 to 30.4.2
+- [Release notes](https://github.com/jestjs/jest/releases)
+- [Changelog](https://github.com/jestjs/jest/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/jestjs/jest/commits/v30.4.2/packages/jest)
+
+Updates  from 29.5.14 to 30.0.0
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/jest)
+
+---
+updated-dependencies:
+- dependency-name: @types/jest
+  dependency-version: 30.0.0
+  dependency-type: direct:development
+  update-type: version-update:semver-major
+- dependency-name: jest
+  dependency-version: 30.3.0
+  dependency-type: direct:development
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> (2026-07-02T13:04:06Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/28595787951/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
