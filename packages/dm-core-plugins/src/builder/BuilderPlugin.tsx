@@ -512,21 +512,33 @@ export const BuilderPlugin = (
 
   // Hydrate the builder from the page entity's saved `layout` once it loads, so
   // reopening shows previously saved work rather than the recipe seed. Accepts
-  // both the multi-page site format and a legacy single-grid layout.
+  // both the multi-page site format and a legacy single-grid layout. A corrupt
+  // or unreadable layout must never crash the editor: on failure we keep the
+  // seeded/empty site and tell the user, so their next save can recover it.
   const hydratedRef = useRef(false)
   useEffect(() => {
     if (hydratedRef.current) return
     const layout = document?.layout
     if (!layout) return
     hydratedRef.current = true
-    const loaded = deserializeSite(layout)
-    savedJsonRef.current = JSON.stringify(serializeSite(loaded))
-    setSite(() => loaded, 'load')
-    setActivePageId(loaded.pages[0]?.id ?? '')
-    setPath([])
-    setSelectedIndex(null)
-    setSaveState('saved')
-  }, [document, setSite])
+    try {
+      const loaded = deserializeSite(layout)
+      if (loaded.pages.length === 0) {
+        throw new Error('Saved layout has no pages')
+      }
+      savedJsonRef.current = JSON.stringify(serializeSite(loaded))
+      setSite(() => loaded, 'load')
+      setActivePageId(loaded.pages[0]?.id ?? '')
+      setPath([])
+      setSelectedIndex(null)
+      setSaveState('saved')
+    } catch {
+      // Leave the current (seeded) site in place and flag it as unsaved so the
+      // author can review before overwriting whatever unreadable data existed.
+      setSaveState('dirty')
+      notify('Could not read the saved page — starting from a blank layout')
+    }
+  }, [document, setSite, notify])
 
   /**
    * Persist the current page layout. When bound to an entity we write the

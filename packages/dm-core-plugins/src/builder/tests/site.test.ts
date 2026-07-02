@@ -77,6 +77,27 @@ describe('builder site', () => {
     expect(deserializeSite({ pages: [] }).pages).toHaveLength(1)
   })
 
+  it('never throws and always yields at least one page on corrupt input', () => {
+    const corrupt: unknown[] = [
+      42,
+      'a string layout',
+      true,
+      [],
+      { pages: 'not-an-array' },
+      { pages: [null, 1, 'x', {}] },
+      { pages: [{ id: 5, title: {}, layout: 'oops', children: 'nope' }] },
+      { pages: [{ layout: { items: 42, size: 7 } }] },
+      { navbar: 'broken', pages: [{ title: 'Home' }] },
+      { pages: [{ children: [{ children: [{ title: 3 }] }] }] },
+    ]
+    for (const input of corrupt) {
+      expect(() => deserializeSite(input)).not.toThrow()
+      const site = deserializeSite(input)
+      expect(site.pages.length).toBeGreaterThanOrEqual(1)
+      expect(site.navbar).toBeDefined()
+    }
+  })
+
   it('adds a page with a unique default title without mutating the original', () => {
     const site = createEmptySite()
     const original = clone(site)
