@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import type { TGridSize } from '../grid/types'
+import type { TGridSize } from '../grid'
 
 export const BuilderLayout = styled.div`
   display: grid;

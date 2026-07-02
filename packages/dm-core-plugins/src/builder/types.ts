@@ -1,4 +1,4 @@
-import type { TGridArea, TGridPluginConfig } from '../grid/types'
+import type { TGridArea, TGridPluginConfig } from '../grid'
 
 /**
  * Editor model for the website builder.

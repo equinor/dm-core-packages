@@ -1,5 +1,5 @@
 import type { TUiRecipe, TViewConfig } from '@development-framework/dm-core'
-import type { TGridArea, TGridItem, TGridSize } from '../grid/types'
+import type { TGridArea, TGridItem, TGridSize } from '../grid'
 import { getBlock } from './blocks'
 import type { TBlock, TBuilderModel } from './types'
 

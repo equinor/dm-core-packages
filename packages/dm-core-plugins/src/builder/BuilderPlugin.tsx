@@ -23,8 +23,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import { GridPlugin } from '../grid/GridPlugin'
-import type { TGridArea, TGridItem } from '../grid/types'
+import { GridPlugin, type TGridArea, type TGridItem } from '../grid'
 import { getBlock } from './blocks'
 import { Canvas, DENSITY_STEP } from './components/Canvas'
 import { Inspector } from './components/Inspector'
