@@ -2,7 +2,43 @@ import type { TUiPluginMap } from '@development-framework/dm-core'
 import { lazy } from 'react'
 import { builderStaticPlugins } from './builder/widgets'
 
+export type {
+  TBuilderPage,
+  TBuilderSite,
+  TNavbar,
+  TNavbarItem,
+} from './builder/site'
+
+// Website builder public API.
+//
+// Only the lightweight, side-effect-free surface is re-exported from the
+// package root so importing the plugin map stays cheap: the serializer helpers
+// are pure and their module graph (`builder/widgets`) is already loaded here via
+// `builderStaticPlugins`, while types are erased at runtime. The heavy editor
+// component (`BuilderPlugin`) and grid renderer (`GridPlugin`) are intentionally
+// NOT re-exported here to preserve lazy-loading — import them from the dedicated
+// `.../builder` and `.../grid` entry points instead.
+export {
+  createEmptySite,
+  deserializeSite,
+  isSerializedSite,
+  SITE_SCHEMA_VERSION,
+  serializeSite,
+} from './builder/site'
+export type { TBuilderMode, TBuilderPluginConfig } from './builder/types'
+export type { TWidgetDefinition } from './builder/widgets'
 export { WidgetProvider } from './form/context/WidgetContext'
+
+// Grid contract consumed by the builder; re-exported (type-only, free at
+// runtime) so the persisted layout format has a supported public shape.
+export type {
+  TGridArea,
+  TGridItem,
+  TGridItemStyle,
+  TGridPluginConfig,
+  TGridSize,
+  TItemBorder,
+} from './grid'
 
 export default {
   '@development-framework/dm-core-plugins/builder': {
