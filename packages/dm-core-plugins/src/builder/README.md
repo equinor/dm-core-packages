@@ -88,6 +88,11 @@ Use this to show a finished site to end users (who should browse but not edit)
 while the same entity stays editable from a builder recipe with `readOnly`
 unset. Multi-page navigation keeps working in the viewer.
 
+To gate editing by role instead of per-recipe, set `config.editorRoles` to the
+list of role names allowed to edit. Users whose current role is not listed get
+the same read-only viewer; an empty or absent list leaves editing open to
+everyone.
+
 ## Architecture
 
 | File | Responsibility |

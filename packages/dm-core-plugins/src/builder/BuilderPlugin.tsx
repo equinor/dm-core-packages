@@ -2,6 +2,7 @@ import {
   ErrorBoundary,
   type IUIPlugin,
   splitAddress,
+  useApplication,
   useDocument,
 } from '@development-framework/dm-core'
 import {
@@ -119,8 +120,15 @@ export const BuilderPlugin = (
     () => site.pages[0]?.id ?? ''
   )
   const readOnly = config?.readOnly ?? false
+  const { role } = useApplication()
+  // When `editorRoles` is configured, only those roles may edit; everyone else
+  // is shown the read-only viewer. An empty/absent list means editing is open.
+  const editorRoles = config?.editorRoles
+  const roleAllowsEditing =
+    !editorRoles?.length || editorRoles.includes(role?.name)
+  const locked = readOnly || !roleAllowsEditing
   const [mode, setMode] = useState<TBuilderMode>(
-    readOnly ? 'preview' : (config?.mode ?? 'edit')
+    locked ? 'preview' : (config?.mode ?? 'edit')
   )
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [showJson, setShowJson] = useState(false)
@@ -573,7 +581,7 @@ export const BuilderPlugin = (
   // Autosave: debounce changes and persist them. Without a save target the page
   // just stays marked as having unsaved changes.
   useEffect(() => {
-    if (readOnly) return
+    if (locked) return
     if (currentJson === savedJsonRef.current) {
       setSaveState('saved')
       return
@@ -592,7 +600,7 @@ export const BuilderPlugin = (
 
   // Warn before leaving the page while there are unsaved changes.
   useEffect(() => {
-    if (readOnly) return
+    if (locked) return
     if (saveState === 'saved') return
     const handler = (event: BeforeUnloadEvent) => {
       event.preventDefault()
@@ -600,7 +608,7 @@ export const BuilderPlugin = (
     }
     window.addEventListener('beforeunload', handler)
     return () => window.removeEventListener('beforeunload', handler)
-  }, [saveState, readOnly])
+  }, [saveState, locked])
 
   const saveStatusLabel =
     saveState === 'saved'
@@ -667,9 +675,10 @@ export const BuilderPlugin = (
   )
 
   // Read-only viewer: render the published site (navbar, page navigation and
-  // content) with no editing chrome. Multi-page navigation still works so end
-  // users can browse the built site, but nothing here can mutate or persist it.
-  if (readOnly) {
+  // content) with no editing chrome. Reached when the recipe sets `readOnly` or
+  // the current role isn't allowed to edit. Multi-page navigation still works so
+  // end users can browse the built site, but nothing here can mutate or persist it.
+  if (locked) {
     return (
       <Styled.BuilderLayout>
         <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>

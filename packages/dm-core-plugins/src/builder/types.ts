@@ -23,6 +23,12 @@ export type TBuilderPluginConfig = {
    * should be able to browse but not edit it.
    */
   readOnly?: boolean
+  /**
+   * Role names allowed to edit. When set, users whose current role is not in
+   * this list get the read-only viewer regardless of `readOnly`. An empty or
+   * absent list leaves editing open to everyone.
+   */
+  editorRoles?: string[]
 }
 
 /**
