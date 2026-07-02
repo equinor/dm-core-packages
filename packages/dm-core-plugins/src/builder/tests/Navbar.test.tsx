@@ -139,4 +139,40 @@ describe('Navbar', () => {
     await user.click(screen.getByRole('button', { name: 'Home' }))
     expect(onNavigate).toHaveBeenCalledWith(pages[0].id)
   })
+
+  describe('accessibility', () => {
+    it('exposes the settings popover as an expandable dialog', async () => {
+      const user = userEvent.setup()
+      render(<Navbar {...baseProps(enabledNavbar())} />)
+
+      const toggle = screen.getByRole('button', { name: 'Navbar settings' })
+      expect(toggle.getAttribute('aria-haspopup')).toBe('dialog')
+      expect(toggle.getAttribute('aria-expanded')).toBe('false')
+
+      await user.click(toggle)
+
+      expect(toggle.getAttribute('aria-expanded')).toBe('true')
+      const dialog = screen.getByRole('dialog', { name: 'Navbar settings' })
+      expect(dialog).not.toBeNull()
+    })
+
+    it('closes the settings popover on Escape', async () => {
+      const user = userEvent.setup()
+      render(<Navbar {...baseProps(enabledNavbar())} />)
+
+      await user.click(screen.getByRole('button', { name: 'Navbar settings' }))
+      expect(screen.queryByRole('dialog')).not.toBeNull()
+
+      await user.keyboard('{Escape}')
+      expect(screen.queryByRole('dialog')).toBeNull()
+    })
+
+    it('labels the drag handle and destructive actions for each link', () => {
+      render(<Navbar {...baseProps(enabledNavbar())} />)
+      expect(screen.getByLabelText('Reorder Home')).not.toBeNull()
+      expect(
+        screen.getByRole('button', { name: 'Delete Home' })
+      ).not.toBeNull()
+    })
+  })
 })

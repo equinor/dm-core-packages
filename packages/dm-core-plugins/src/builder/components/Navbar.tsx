@@ -63,6 +63,7 @@ export const Navbar = ({
   const brandRef = useRef<HTMLInputElement | null>(null)
   const labelRef = useRef<HTMLInputElement | null>(null)
   const settingsRef = useRef<HTMLDivElement | null>(null)
+  const settingsPanelRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (editingBrand) brandRef.current?.focus()
@@ -71,6 +72,12 @@ export const Navbar = ({
   useEffect(() => {
     if (renamingId) labelRef.current?.focus()
   }, [renamingId])
+
+  // Move focus into the settings popover when it opens so keyboard users land
+  // inside it (and Escape-to-close works).
+  useEffect(() => {
+    if (settingsOpen) settingsPanelRef.current?.focus()
+  }, [settingsOpen])
 
   // Close the settings popover when clicking outside of it.
   useEffect(() => {
@@ -299,6 +306,8 @@ export const Navbar = ({
           <button
             type='button'
             aria-label='Navbar settings'
+            aria-haspopup='dialog'
+            aria-expanded={settingsOpen}
             title='Navbar settings'
             onClick={() => setSettingsOpen((open) => !open)}
             style={iconButtonStyle}
@@ -307,7 +316,15 @@ export const Navbar = ({
           </button>
 
           {settingsOpen && (
-            <Styled.NavbarSettingsPanel>
+            <Styled.NavbarSettingsPanel
+              ref={settingsPanelRef}
+              role='dialog'
+              aria-label='Navbar settings'
+              tabIndex={-1}
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') setSettingsOpen(false)
+              }}
+            >
               <Styled.NavbarSettingsRow>
                 Background
                 <input
