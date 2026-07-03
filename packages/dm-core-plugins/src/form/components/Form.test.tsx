@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
-import { mockBlueprintGet, wrapper } from '../test-utils'
+import { mockAttributeGet, mockBlueprintGet, mockDocumentGet, wrapper } from '../test-utils'
 import { Form } from './Form'
 
 describe('Form', () => {
@@ -45,6 +45,15 @@ describe('Form', () => {
 
   describe('Nested', () => {
     it('should render nested attributes ', async () => {
+      mockDocumentGet({
+        'ds/$1.child': { type: 'Child', bar: '' },
+      })
+      mockAttributeGet({
+        'ds/$1.child': {
+          address: 'ds/$1.child',
+          attribute: { attributeType: 'Child', dimensions: '' }, // was 'MyChildBlueprint'
+        },
+      })
       const mock = mockBlueprintGet([
         {
           type: 'system/SIMOS/Blueprint',
@@ -93,7 +102,7 @@ describe('Form', () => {
       await waitFor(() =>
         expect(container.querySelector(`input[id="baz"]`)).toBeNull()
       )
-      await waitFor(() => expect(mock).toHaveBeenCalledTimes(1))
+      await waitFor(() => expect(mock).toHaveBeenCalledTimes(2))
     })
   })
 
