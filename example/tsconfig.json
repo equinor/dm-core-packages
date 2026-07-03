@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "incremental": true,
     "paths": {
       "@development-framework/dm-core/*": ["../packages/dm-core/src/*"],
@@ -19,7 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
