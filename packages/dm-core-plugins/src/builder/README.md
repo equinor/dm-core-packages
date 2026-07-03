@@ -5,6 +5,10 @@ A drag-and-drop, WordPress-style page builder for the Data Modeling framework.
 It lets users assemble pages visually — dragging widgets onto a canvas — instead
 of hand-authoring nested `UiRecipe` / `GridPluginConfig` JSON.
 
+> **New here?** The **[user guide: Build & publish a website](./USER_GUIDE.md)**
+> is a no-code, step-by-step walkthrough for people using the builder. This
+> README is the technical/developer reference.
+
 ## Design principle: build format == runtime format
 
 The builder's editor model is the **same shape the runtime [`grid`](../grid)
