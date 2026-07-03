@@ -42,6 +42,7 @@ describe('useDocumentHook', () => {
       })
     })
     it('return error message when fetching the document fails', async () => {
+      jest.spyOn(console, 'error').mockImplementation(() => { }) // console.error( is called in the catch block of useDocument, so we need to mock it to avoid cluttering the test output)
       const mock = mockGetDocument(mockDocument)
       const { result } = renderHook(() => useDocument('testDS/-1'), { wrapper })
 
