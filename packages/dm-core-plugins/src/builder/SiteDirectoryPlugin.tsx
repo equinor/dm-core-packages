@@ -79,6 +79,20 @@ export const SiteDirectoryPlugin = (
     [config?.viewUrlTemplate]
   )
 
+  // Freshly created sites are empty, so they open in the editor (falling back to
+  // the normal view URL when no dedicated create URL is configured).
+  const createUrl = useCallback(
+    (dataSource: string, id: string): string =>
+      (
+        config?.newSiteUrlTemplate ??
+        config?.viewUrlTemplate ??
+        DEFAULT_VIEW_URL
+      )
+        .replace('{dataSource}', dataSource)
+        .replace('{id}', id),
+    [config?.newSiteUrlTemplate, config?.viewUrlTemplate]
+  )
+
   useEffect(() => {
     let cancelled = false
     setStatus('loading')
@@ -136,13 +150,13 @@ export const SiteDirectoryPlugin = (
         body,
       })
       const id = typeof response.data === 'string' ? response.data : name
-      window.location.assign(viewUrl(dataSource, id))
+      window.location.assign(createUrl(dataSource, id))
     } catch (error) {
       console.error('Failed to create site', error)
       setCreateError('Could not create a new site. Please try again.')
       setCreating(false)
     }
-  }, [config?.newSiteName, dmssAPI, entityType, target, viewUrl])
+  }, [config?.newSiteName, dmssAPI, entityType, target, createUrl])
 
   return (
     <div className='dm-plugin-padding' style={{ width: '100%' }}>

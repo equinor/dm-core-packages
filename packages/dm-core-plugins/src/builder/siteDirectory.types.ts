@@ -32,6 +32,13 @@ export type TSiteDirectoryConfig = {
    * example app's viewer route. The `$` marks a root document id.
    */
   viewUrlTemplate?: string
+  /**
+   * URL opened right after "New site" creates a site. Because new sites are
+   * empty, this usually points at the editor (e.g. append `&recipe=Edit`).
+   * `{id}` and `{dataSource}` are substituted. Falls back to `viewUrlTemplate`
+   * when omitted.
+   */
+  newSiteUrlTemplate?: string
   /** Name given to a site created via "New site". Defaults to "New_site". */
   newSiteName?: string
   /** Set false to hide the "New site" button (a read-only gallery). */

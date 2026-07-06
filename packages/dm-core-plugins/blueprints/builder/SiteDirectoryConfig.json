@@ -45,6 +45,13 @@
       "optional": true
     },
     {
+      "name": "newSiteUrlTemplate",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "URL opened right after 'New site' creates a site (empty sites usually open in the editor, e.g. append '&recipe=Edit'). {id} and {dataSource} are substituted. Falls back to viewUrlTemplate.",
+      "optional": true
+    },
+    {
       "name": "newSiteName",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
