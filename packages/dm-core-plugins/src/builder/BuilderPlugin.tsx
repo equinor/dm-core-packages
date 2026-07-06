@@ -23,13 +23,14 @@ import {
   useRef,
   useState,
 } from 'react'
-import { GridPlugin, type TGridArea, type TGridItem } from '../grid'
+import type { TGridArea, TGridItem } from '../grid'
 import { getBlock } from './blocks'
 import { Canvas, DENSITY_STEP } from './components/Canvas'
 import { Inspector } from './components/Inspector'
 import { Navbar } from './components/Navbar'
 import { NavSidebar } from './components/NavSidebar'
 import { Outline } from './components/Outline'
+import { SiteGrid } from './components/SiteGrid'
 import { TemplatesMenu } from './components/TemplatesMenu'
 import { Toast } from './components/Toast'
 import { WidgetPalette } from './components/WidgetPalette'
@@ -708,7 +709,7 @@ export const BuilderPlugin = (
               {navSidebar}
               <Styled.SitePageArea>
                 <ErrorBoundary message='This page could not be displayed.'>
-                  <GridPlugin
+                  <SiteGrid
                     type={type}
                     idReference={idReference}
                     config={previewConfig}
@@ -899,7 +900,7 @@ export const BuilderPlugin = (
                 <Styled.SitePageArea>
                   <Styled.DeviceFrame $maxWidth={frameWidth}>
                     <ErrorBoundary message='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'>
-                      <GridPlugin
+                      <SiteGrid
                         type={type}
                         idReference={idReference}
                         config={previewConfig}

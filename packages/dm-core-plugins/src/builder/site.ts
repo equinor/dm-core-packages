@@ -19,6 +19,18 @@ export const PLUGINS_ALIAS_PREFIX = 'PLUGINS:'
 export const PLUGINS_ADDRESS_PREFIX = 'dmss://system/Plugins/'
 
 /**
+ * The `CORE:` alias resolves to the `system/SIMOS` package (where the standard
+ * blueprints like `UiRecipe` and `InlineRecipeViewConfig` live). Serialized
+ * widget view configs embed these `CORE:` types, so — exactly like `PLUGINS:` —
+ * they must be expanded to fully-qualified addresses before a site is written
+ * through the context-free add-raw endpoint. A stored `CORE:` alias cannot be
+ * resolved when DMSS reads the document back, which makes every widget's
+ * `attributeGet` fail and the viewer spin forever.
+ */
+export const CORE_ALIAS_PREFIX = 'CORE:'
+export const CORE_ADDRESS_PREFIX = 'dmss://system/SIMOS/'
+
+/**
  * Fully-qualified address of the Site blueprint, for the context-free search
  * endpoint (which cannot resolve the `PLUGINS:` alias).
  */
@@ -28,15 +40,19 @@ export const SITE_TYPE_ADDRESS = SITE_TYPE.replace(
 )
 
 /**
- * Replace every `PLUGINS:` alias in a serialized value with its fully-qualified
- * `dmss://system/Plugins/…` address, so documents written through the
- * context-free add-raw endpoint carry resolvable type discriminators.
+ * Replace every builder alias (`PLUGINS:` and `CORE:`) in a serialized value
+ * with its fully-qualified `dmss://…` address, so documents written through the
+ * context-free add-raw / update endpoints carry resolvable type discriminators.
+ * Without this, a stored alias can't be resolved when the document is read back
+ * and rendering fails (search misses, or the viewer spins on `attributeGet`).
  */
 export const resolvePluginAliases = <T>(value: T): T =>
   JSON.parse(
     JSON.stringify(value)
       .split(PLUGINS_ALIAS_PREFIX)
       .join(PLUGINS_ADDRESS_PREFIX)
+      .split(CORE_ALIAS_PREFIX)
+      .join(CORE_ADDRESS_PREFIX)
   )
 
 /**
