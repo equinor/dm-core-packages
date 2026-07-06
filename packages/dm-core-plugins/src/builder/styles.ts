@@ -1,5 +1,27 @@
+import { tokens } from '@equinor/eds-tokens'
 import styled from 'styled-components'
 import type { TGridSize } from '../grid'
+
+// Aliases for EDS tokens used throughout this file.
+const {
+  interactive: {
+    primary__resting: { hex: colorPrimary },
+    primary__hover_alt: { hex: colorPrimaryHoverAlt },
+    danger__hover: { hex: colorDangerHover },
+    danger__resting: { hex: colorDangerResting },
+  },
+  text: {
+    static_icons__default: { hex: colorTextDefault },
+    static_icons__tertiary: { hex: colorTextTertiary },
+  },
+  ui: {
+    background__default: { hex: colorBgDefault },
+    background__light: { hex: colorBgLight },
+    background__medium: { hex: colorBgMedium },
+    background__warning: { hex: colorBgWarning },
+    background__danger: { hex: colorBgDanger },
+  },
+} = tokens.colors
 
 export const BuilderLayout = styled.div`
   display: grid;
@@ -20,8 +42,8 @@ export const Toolbar = styled.div`
   justify-content: space-between;
   gap: 8px;
   padding: 8px 12px;
-  border-bottom: 1px solid #d3d3d3;
-  background: #fafafa;
+  border-bottom: 1px solid ${colorBgMedium};
+  background: ${colorBgLight};
 `
 
 export const ToolbarGroup = styled.div`
@@ -35,7 +57,8 @@ export const SaveStatus = styled.span<{ $state: 'saved' | 'saving' | 'dirty' }>`
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: ${(props) => (props.$state === 'dirty' ? '#ad6800' : '#6f6f6f')};
+  color: ${(props) =>
+    props.$state === 'dirty' ? colorDangerHover : colorTextTertiary};
 
   &::before {
     content: '';
@@ -46,15 +69,15 @@ export const SaveStatus = styled.span<{ $state: 'saved' | 'saving' | 'dirty' }>`
       props.$state === 'saved'
         ? '#4caf50'
         : props.$state === 'saving'
-          ? '#bdbdbd'
+          ? colorBgMedium
           : '#ffa000'};
   }
 `
 
 export const LeftPanel = styled.div`
   grid-area: palette;
-  border-right: 1px solid #d3d3d3;
-  background: #fff;
+  border-right: 1px solid ${colorBgMedium};
+  background: ${colorBgDefault};
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -65,16 +88,16 @@ export const PalettePanel = styled.div`
   min-height: 0;
   padding: 12px;
   overflow-y: auto;
-  background: #fff;
+  background: ${colorBgDefault};
 `
 
 export const OutlinePanel = styled.div`
   flex: 0 0 auto;
   max-height: 40%;
   padding: 12px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid ${colorBgMedium};
   overflow-y: auto;
-  background: #fafafa;
+  background: ${colorBgLight};
 `
 
 export const OutlineList = styled.div`
@@ -91,15 +114,16 @@ export const OutlineRow = styled.div<{ $selected: boolean }>`
   width: 100%;
   padding: 4px 6px;
   border: 1px solid
-    ${(props) => (props.$selected ? '#007079' : 'transparent')};
+    ${(props) => (props.$selected ? colorPrimary : 'transparent')};
   border-radius: 4px;
-  background: ${(props) => (props.$selected ? '#f0f7f7' : 'transparent')};
+  background: ${(props) =>
+    props.$selected ? colorPrimaryHoverAlt : 'transparent'};
   cursor: pointer;
   font-size: 13px;
   text-align: left;
 
   &:hover {
-    background: #f0f7f7;
+    background: ${colorPrimaryHoverAlt};
   }
 `
 
@@ -112,12 +136,12 @@ export const OutlineLabel = styled.span`
 
 export const OutlineCount = styled.span`
   flex: 0 0 auto;
-  color: #6f6f6f;
+  color: ${colorTextTertiary};
   font-size: 11px;
 `
 
 export const OutlineEmpty = styled.div`
-  color: #9e9e9e;
+  color: ${colorTextTertiary};
   font-size: 12px;
   padding: 6px 0;
 `
@@ -127,7 +151,7 @@ export const PaletteGroupTitle = styled.div`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #6f6f6f;
+  color: ${colorTextTertiary};
   margin: 12px 0 6px;
 `
 
@@ -138,16 +162,16 @@ export const PaletteCard = styled.button`
   width: 100%;
   padding: 8px;
   margin-bottom: 6px;
-  border: 1px solid #d3d3d3;
+  border: 1px solid ${colorBgMedium};
   border-radius: 6px;
-  background: #fff;
+  background: ${colorBgDefault};
   cursor: grab;
   text-align: left;
   font-size: 13px;
 
   &:hover {
-    border-color: #007079;
-    background: #f0f7f7;
+    border-color: ${colorPrimary};
+    background: ${colorPrimaryHoverAlt};
   }
 
   &:active {
@@ -159,7 +183,7 @@ export const CanvasPanel = styled.div`
   grid-area: canvas;
   padding: 16px;
   overflow: auto;
-  background: #f3f3f3;
+  background: ${colorBgLight};
 `
 
 export const DeviceFrame = styled.div<{ $maxWidth: string }>`
@@ -177,7 +201,7 @@ export const Breadcrumbs = styled.div`
   gap: 2px;
   margin-bottom: 8px;
   font-size: 13px;
-  color: #6f6f6f;
+  color: ${colorTextTertiary};
 `
 
 export const BreadcrumbButton = styled.button<{ $current: boolean }>`
@@ -185,7 +209,7 @@ export const BreadcrumbButton = styled.button<{ $current: boolean }>`
   background: none;
   padding: 2px 4px;
   cursor: ${(props) => (props.$current ? 'default' : 'pointer')};
-  color: ${(props) => (props.$current ? '#3d3d3d' : '#007079')};
+  color: ${(props) => (props.$current ? colorTextDefault : colorPrimary)};
   font-weight: ${(props) => (props.$current ? 600 : 400)};
   font-size: 13px;
 
@@ -201,14 +225,14 @@ export const CanvasGrid = styled.div<{ $size: TGridSize; $editing: boolean }>`
   row-gap: ${(props) => props.$size.rowGap};
   column-gap: ${(props) => props.$size.columnGap};
   min-height: 100%;
-  background-color: #fff;
+  background-color: ${colorBgDefault};
   background-image: ${(props) =>
     props.$editing
-      ? 'linear-gradient(#e6e6e6 1px, transparent 1px), linear-gradient(90deg, #e6e6e6 1px, transparent 1px)'
+      ? `linear-gradient(${colorBgMedium} 1px, transparent 1px), linear-gradient(90deg, ${colorBgMedium} 1px, transparent 1px)`
       : 'none'};
   background-size: ${(props) =>
     `calc(100% / ${props.$size.columns}) calc(100% / ${props.$size.rows})`};
-  border: 1px solid #d3d3d3;
+  border: 1px solid ${colorBgMedium};
   border-radius: 6px;
   padding: 4px;
 `
@@ -219,11 +243,12 @@ export const CanvasItem = styled.div<{
 }>`
   position: relative;
   overflow: hidden;
-  border: 2px solid ${(props) => (props.$selected ? '#007079' : '#bcbcbc')};
+  border: 2px solid
+    ${(props) => (props.$selected ? colorPrimary : colorBgMedium)};
   border-radius: 6px;
-  background: #fff;
+  background: ${colorBgDefault};
   box-shadow: ${(props) =>
-    props.$selected ? '0 0 0 2px rgba(0,112,121,0.2)' : 'none'};
+    props.$selected ? `0 0 0 2px ${colorPrimaryHoverAlt}` : 'none'};
   opacity: ${(props) => (props.$dragging ? 0.7 : 1)};
   z-index: ${(props) => (props.$dragging || props.$selected ? 2 : 1)};
 `
@@ -234,8 +259,8 @@ export const CanvasItemHeader = styled.div`
   justify-content: space-between;
   gap: 4px;
   padding: 4px 6px;
-  background: #f5f5f5;
-  border-bottom: 1px solid #e0e0e0;
+  background: ${colorBgLight};
+  border-bottom: 1px solid ${colorBgMedium};
   font-size: 12px;
   font-weight: 600;
   cursor: grab;
@@ -261,9 +286,9 @@ export const ResizeHandle = styled.div`
   background: linear-gradient(
     135deg,
     transparent 0 50%,
-    #007079 50% 60%,
+    ${colorPrimary} 50% 60%,
     transparent 60% 70%,
-    #007079 70% 80%,
+    ${colorPrimary} 70% 80%,
     transparent 80%
   );
   touch-action: none;
@@ -274,7 +299,7 @@ export const CanvasItemBody = styled.div`
   align-items: center;
   justify-content: center;
   padding: 8px;
-  color: #6f6f6f;
+  color: ${colorTextTertiary};
   font-size: 12px;
   height: 100%;
 `
@@ -285,21 +310,21 @@ export const EmptyState = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #9e9e9e;
+  color: ${colorTextTertiary};
   font-size: 14px;
   text-align: center;
 `
 
 export const InspectorPanel = styled.div`
   grid-area: inspector;
-  border-left: 1px solid #d3d3d3;
+  border-left: 1px solid ${colorBgMedium};
   padding: 12px;
   overflow-y: auto;
-  background: #fff;
+  background: ${colorBgDefault};
 `
 
 export const InspectorEmpty = styled.div`
-  color: #9e9e9e;
+  color: ${colorTextTertiary};
   font-size: 13px;
   padding: 8px 0;
 `
@@ -307,7 +332,7 @@ export const InspectorEmpty = styled.div`
 export const InspectorSection = styled.div`
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${colorBgMedium};
 
   &:last-child {
     border-bottom: none;
@@ -319,7 +344,7 @@ export const InspectorSectionTitle = styled.div`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #6f6f6f;
+  color: ${colorTextTertiary};
   margin-bottom: 8px;
 `
 
@@ -335,7 +360,7 @@ export const LayoutGrid = styled.div`
 
 export const FieldHelp = styled.div`
   font-size: 11px;
-  color: #6f6f6f;
+  color: ${colorTextTertiary};
   margin-top: 2px;
 `
 
@@ -346,12 +371,12 @@ export const Textarea = styled.textarea`
   padding: 8px;
   font-family: inherit;
   font-size: 13px;
-  border: 1px solid #897e7e;
+  border: 1px solid ${colorBgMedium};
   border-radius: 0;
   box-sizing: border-box;
 
   &:focus {
-    outline: 2px solid #007079;
+    outline: 2px solid ${colorPrimary};
     outline-offset: -2px;
   }
 `
@@ -360,7 +385,7 @@ export const FieldLabel = styled.label`
   display: block;
   font-size: 12px;
   font-weight: 500;
-  color: #3d3d3d;
+  color: ${colorTextDefault};
   margin-bottom: 4px;
 `
 
@@ -377,9 +402,13 @@ export const SegmentButton = styled.button<{ $active: boolean }>`
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  border: 1px solid ${(props) => (props.$active ? '#007079' : '#c4c4c4')};
-  background: ${(props) => (props.$active ? '#007079' : '#fff')};
-  color: ${(props) => (props.$active ? '#fff' : '#3d3d3d')};
+  border: 1px solid
+    ${(props) => (props.$active ? colorPrimary : colorBgMedium)};
+  background: ${(props) => (props.$active ? colorPrimary : colorBgDefault)};
+  color: ${(props) =>
+    props.$active
+      ? tokens.colors.text.static_icons__primary_white.hex
+      : colorTextDefault};
 
   &:first-child {
     border-radius: 4px 0 0 4px;
@@ -391,7 +420,8 @@ export const SegmentButton = styled.button<{ $active: boolean }>`
   }
 
   &:hover {
-    background: ${(props) => (props.$active ? '#007079' : '#f0f0f0')};
+    background: ${(props) =>
+      props.$active ? colorPrimary : colorPrimaryHoverAlt};
   }
 `
 
@@ -413,8 +443,8 @@ export const NavSidebar = styled.nav<{ $editing: boolean }>`
   width: 200px;
   display: flex;
   flex-direction: column;
-  background: #f7f7f7;
-  border-right: 1px solid #d8d8d8;
+  background: ${colorBgLight};
+  border-right: 1px solid ${colorBgMedium};
   border-radius: 6px 0 0 6px;
   overflow-y: auto;
   padding: 12px 8px;
@@ -431,7 +461,7 @@ export const NavHeader = styled.div`
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #6f6f6f;
+  color: ${colorTextTertiary};
 `
 
 export const NavList = styled.div`
@@ -448,12 +478,15 @@ export const NavItem = styled.div<{ $active: boolean; $dragging?: boolean }>`
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
-  color: ${(props) => (props.$active ? '#fff' : '#3d3d3d')};
-  background: ${(props) => (props.$active ? '#007079' : 'transparent')};
+  color: ${(props) =>
+    props.$active
+      ? tokens.colors.text.static_icons__primary_white.hex
+      : colorTextDefault};
+  background: ${(props) => (props.$active ? colorPrimary : 'transparent')};
   opacity: ${(props) => (props.$dragging ? 0.5 : 1)};
 
   &:hover {
-    background: ${(props) => (props.$active ? '#007079' : '#e8e8e8')};
+    background: ${(props) => (props.$active ? colorPrimary : colorBgMedium)};
   }
 `
 
@@ -510,7 +543,7 @@ export const NavRenameInput = styled.input`
   font: inherit;
   font-size: 14px;
   padding: 2px 4px;
-  border: 1px solid #007079;
+  border: 1px solid ${colorPrimary};
   border-radius: 4px;
   box-sizing: border-box;
 `
@@ -522,16 +555,16 @@ export const NavAddButton = styled.button`
   gap: 6px;
   margin-top: 8px;
   padding: 6px 8px;
-  border: 1px dashed #b5b5b5;
+  border: 1px dashed ${colorBgMedium};
   border-radius: 5px;
   background: transparent;
   cursor: pointer;
   font-size: 13px;
-  color: #007079;
+  color: ${colorPrimary};
 
   &:hover {
-    background: #eef6f6;
-    border-color: #007079;
+    background: ${colorPrimaryHoverAlt};
+    border-color: ${colorPrimary};
   }
 `
 
@@ -585,7 +618,7 @@ export const NavbarBrandInput = styled.input`
   color: inherit;
   background: rgba(255, 255, 255, 0.85);
   padding: 2px 6px;
-  border: 1px solid #007079;
+  border: 1px solid ${colorPrimary};
   border-radius: 4px;
   box-sizing: border-box;
 `
@@ -636,10 +669,10 @@ export const NavbarItemEditor = styled.div<{ $dragging?: boolean }>`
 export const NavbarItemInput = styled.input`
   font: inherit;
   font-size: 14px;
-  color: #3d3d3d;
-  background: #fff;
+  color: ${colorTextDefault};
+  background: ${colorBgDefault};
   padding: 2px 4px;
-  border: 1px solid #007079;
+  border: 1px solid ${colorPrimary};
   border-radius: 4px;
   box-sizing: border-box;
   width: 100px;
@@ -648,10 +681,10 @@ export const NavbarItemInput = styled.input`
 export const NavbarTargetSelect = styled.select`
   font: inherit;
   font-size: 13px;
-  color: #3d3d3d;
-  background: #fff;
+  color: ${colorTextDefault};
+  background: ${colorBgDefault};
   padding: 2px 4px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid ${colorBgMedium};
   border-radius: 4px;
   box-sizing: border-box;
   max-width: 140px;
@@ -660,10 +693,10 @@ export const NavbarTargetSelect = styled.select`
 export const NavbarUrlInput = styled.input`
   font: inherit;
   font-size: 13px;
-  color: #3d3d3d;
-  background: #fff;
+  color: ${colorTextDefault};
+  background: ${colorBgDefault};
   padding: 2px 4px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid ${colorBgMedium};
   border-radius: 4px;
   box-sizing: border-box;
   width: 140px;
@@ -695,17 +728,17 @@ export const NavbarEmptyAffordance = styled.button`
   width: 100%;
   flex: 0 0 auto;
   padding: 10px 16px;
-  border: 1px dashed #b5b5b5;
+  border: 1px dashed ${colorBgMedium};
   border-radius: 6px 6px 0 0;
-  background: #fafafa;
+  background: ${colorBgLight};
   cursor: pointer;
   font-size: 14px;
-  color: #007079;
+  color: ${colorPrimary};
   box-sizing: border-box;
 
   &:hover {
-    background: #eef6f6;
-    border-color: #007079;
+    background: ${colorPrimaryHoverAlt};
+    border-color: ${colorPrimary};
   }
 `
 
@@ -724,9 +757,9 @@ export const NavbarSettingsPanel = styled.div`
   gap: 10px;
   width: 220px;
   padding: 12px;
-  background: #fff;
-  color: #3d3d3d;
-  border: 1px solid #d8d8d8;
+  background: ${colorBgDefault};
+  color: ${colorTextDefault};
+  border: 1px solid ${colorBgMedium};
   border-radius: 6px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 `

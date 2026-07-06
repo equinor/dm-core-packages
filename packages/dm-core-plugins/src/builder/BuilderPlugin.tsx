@@ -922,6 +922,7 @@ export const BuilderPlugin = (
         )}
 
         {showJson ? (
+          /* Dark-theme code panel — these colours are intentional and have no EDS token equivalent. */
           <Styled.CanvasPanel
             style={{ gridColumn: '1 / -1', background: '#1e1e1e' }}
           >

@@ -1,5 +1,11 @@
 import { type IUIPlugin, useApplication } from '@development-framework/dm-core'
-import { Button, Icon, Switch, Typography } from '@equinor/eds-core-react'
+import {
+  Button,
+  Dialog,
+  Icon,
+  Switch,
+  Typography,
+} from '@equinor/eds-core-react'
 import {
   add,
   delete_to_trash,
@@ -8,8 +14,8 @@ import {
   refresh,
   warning_outlined,
 } from '@equinor/eds-icons'
+import { tokens } from '@equinor/eds-tokens'
 import { useCallback, useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
 import {
   createEmptySite,
   resolvePluginAliases,
@@ -17,6 +23,21 @@ import {
   serializeSite,
 } from './site'
 import type { TSiteDirectoryConfig } from './siteDirectory.types'
+
+const {
+  interactive: {
+    primary__resting: { hex: colorPrimary },
+    danger__resting: { hex: colorDangerResting },
+  },
+  text: {
+    static_icons__tertiary: { hex: colorTextTertiary },
+    static_icons__primary_white: { hex: colorTextWhite },
+  },
+  ui: {
+    background__default: { hex: colorBgDefault },
+    background__medium: { hex: colorBgMedium },
+  },
+} = tokens.colors
 
 type TSiteHit = {
   address: string
@@ -55,100 +76,6 @@ const hueFromString = (s: string): number => {
   return h % 360
 }
 
-// ---- Delete confirmation modal ------------------------------------------
-
-type DeleteModalProps = {
-  siteName: string
-  deleting: boolean
-  onConfirm: () => void
-  onCancel: () => void
-}
-
-const DeleteModal = ({
-  siteName,
-  deleting,
-  onConfirm,
-  onCancel,
-}: DeleteModalProps) =>
-  createPortal(
-    // biome-ignore lint/a11y/useKeyWithClickEvents: backdrop click to dismiss
-    <div
-      onClick={onCancel}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 9999,
-      }}
-    >
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: stop propagation */}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        role='alertdialog'
-        aria-modal='true'
-        aria-labelledby='delete-modal-title'
-        style={{
-          background: '#fff',
-          borderRadius: 8,
-          padding: '32px 28px 24px',
-          maxWidth: 420,
-          width: '90vw',
-          boxShadow: '0 16px 48px rgba(0,0,0,0.22)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 12,
-          textAlign: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: 52,
-            height: 52,
-            borderRadius: '50%',
-            background: '#fff0f2',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 4,
-          }}
-        >
-          <Icon data={delete_to_trash} size={24} style={{ color: '#b30d2f' }} />
-        </div>
-        <Typography id='delete-modal-title' variant='h5' style={{ margin: 0 }}>
-          Delete website?
-        </Typography>
-        <Typography style={{ color: '#3d3d3d', lineHeight: 1.5 }}>
-          Deleting <strong>{siteName}</strong> is permanent. Are you sure you
-          wish to delete it?
-        </Typography>
-        <div style={{ display: 'flex', gap: 12, marginTop: 8, width: '100%' }}>
-          <Button
-            variant='outlined'
-            style={{ flexGrow: 1 }}
-            onClick={onCancel}
-            disabled={deleting}
-          >
-            No
-          </Button>
-          <Button
-            color='danger'
-            style={{ flexGrow: 1 }}
-            onClick={onConfirm}
-            disabled={deleting}
-          >
-            <Icon data={delete_to_trash} size={16} />
-            {deleting ? 'Deleting…' : 'Yes, delete'}
-          </Button>
-        </div>
-      </div>
-    </div>,
-    document.body
-  )
-
 // ---- Site card ----------------------------------------------------------
 
 type SiteCardProps = {
@@ -176,8 +103,8 @@ const SiteCard = ({
       onMouseLeave={() => setHovered(false)}
       style={{
         borderRadius: 6,
-        background: '#fff',
-        border: '1px solid #e0e0e0',
+        background: colorBgDefault,
+        border: `1px solid ${colorBgMedium}`,
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
@@ -223,7 +150,7 @@ const SiteCard = ({
               padding: '3px 10px',
               borderRadius: 12,
               background: 'rgba(0,0,0,0.40)',
-              color: '#fff',
+              color: colorTextWhite,
               fontSize: 11,
               fontWeight: 600,
               letterSpacing: '0.6px',
@@ -260,7 +187,7 @@ const SiteCard = ({
         </Typography>
         <Typography
           variant='caption'
-          style={{ color: '#6f6f6f', marginBottom: 14 }}
+          style={{ color: colorTextTertiary, marginBottom: 14 }}
         >
           {site.dataSource}
         </Typography>
@@ -294,7 +221,7 @@ const SiteCard = ({
             title='Delete site'
             disabled={deleting}
             onClick={onDeleteRequest}
-            style={{ color: '#b30d2f' }}
+            style={{ color: colorDangerResting }}
           >
             <Icon data={delete_to_trash} size={18} />
           </Button>
@@ -477,14 +404,41 @@ export const SiteDirectoryPlugin = (
 
   return (
     <div className='dm-plugin-padding' style={{ width: '100%' }}>
-      {pendingDeleteSite ? (
-        <DeleteModal
-          siteName={pendingDeleteSite.label}
-          deleting={deletingId === pendingDeleteSite.id}
-          onConfirm={() => handleDelete(pendingDeleteSite)}
-          onCancel={() => setPendingDeleteSite(null)}
-        />
-      ) : null}
+      {/* EDS Dialog for delete confirmation */}
+      <Dialog
+        open={pendingDeleteSite !== null}
+        isDismissable
+        onClose={() => setPendingDeleteSite(null)}
+      >
+        <Dialog.Header>
+          <Dialog.Title>Delete website?</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.CustomContent>
+          <Typography variant='body_short'>
+            Deleting <strong>{pendingDeleteSite?.label}</strong> is permanent.
+            Are you sure you wish to delete it?
+          </Typography>
+        </Dialog.CustomContent>
+        <Dialog.Actions>
+          <Button
+            variant='outlined'
+            onClick={() => setPendingDeleteSite(null)}
+            disabled={deletingId !== null}
+          >
+            No
+          </Button>
+          <Button
+            color='danger'
+            onClick={() =>
+              pendingDeleteSite ? handleDelete(pendingDeleteSite) : undefined
+            }
+            disabled={deletingId !== null}
+          >
+            <Icon data={delete_to_trash} size={16} />
+            {deletingId !== null ? 'Deleting…' : 'Yes, delete'}
+          </Button>
+        </Dialog.Actions>
+      </Dialog>
 
       {/* Header row */}
       <div
@@ -530,7 +484,9 @@ export const SiteDirectoryPlugin = (
       ) : null}
 
       {status === 'loading' ? (
-        <Typography style={{ color: '#6f6f6f' }}>Loading websites…</Typography>
+        <Typography variant='body_short' style={{ color: colorTextTertiary }}>
+          Loading websites…
+        </Typography>
       ) : null}
 
       {status === 'error' ? (
@@ -539,7 +495,7 @@ export const SiteDirectoryPlugin = (
           role='alert'
         >
           <Icon data={warning_outlined} size={18} />
-          <Typography>
+          <Typography variant='body_short'>
             Could not load websites. Check your data source access and try
             refreshing.
           </Typography>
@@ -547,14 +503,18 @@ export const SiteDirectoryPlugin = (
       ) : null}
 
       {status === 'ready' && sites.length === 0 ? (
-        <div
-          style={{ textAlign: 'center', padding: '48px 0', color: '#6f6f6f' }}
-        >
-          <Typography variant='h5' style={{ marginBottom: 8 }}>
+        <div style={{ textAlign: 'center', padding: '48px 0' }}>
+          <Typography
+            variant='h5'
+            style={{ marginBottom: 8, color: colorTextTertiary }}
+          >
             No websites yet
           </Typography>
           {allowCreate && target ? (
-            <Typography>
+            <Typography
+              variant='body_short'
+              style={{ color: colorTextTertiary }}
+            >
               Click <strong>New site</strong> to create your first one.
             </Typography>
           ) : null}
@@ -562,7 +522,7 @@ export const SiteDirectoryPlugin = (
       ) : null}
 
       {status === 'ready' && sites.length > 0 && visibleSites.length === 0 ? (
-        <Typography style={{ color: '#6f6f6f' }}>
+        <Typography variant='body_short' style={{ color: colorTextTertiary }}>
           No published websites yet. Turn on "Show drafts" to see unpublished
           sites.
         </Typography>

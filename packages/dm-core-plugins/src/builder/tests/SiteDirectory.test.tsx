@@ -219,7 +219,7 @@ describe('SiteDirectoryPlugin', () => {
     expect(documentRemove).not.toHaveBeenCalled()
 
     // Modal shows the site name and a confirmation message.
-    expect(screen.getByRole('alertdialog')).not.toBeNull()
+    expect(screen.getByRole('dialog')).not.toBeNull()
     expect(screen.getByText(/permanent/i)).not.toBeNull()
 
     // Clicking "Yes, delete" executes the deletion.
@@ -228,7 +228,7 @@ describe('SiteDirectoryPlugin', () => {
     await waitFor(() => expect(documentRemove).toHaveBeenCalledTimes(1))
     // The deleted card disappears from the list and the modal closes.
     await waitFor(() => expect(screen.queryByText('Alpha')).toBeNull())
-    expect(screen.queryByRole('alertdialog')).toBeNull()
+    expect(screen.queryByRole('dialog')).toBeNull()
     expect(screen.getByText('Beta')).not.toBeNull()
   })
 
@@ -245,11 +245,11 @@ describe('SiteDirectoryPlugin', () => {
 
     await screen.findByText('One')
     fireEvent.click(screen.getByRole('button', { name: 'Delete site' }))
-    expect(screen.getByRole('alertdialog')).not.toBeNull()
+    expect(screen.getByRole('dialog')).not.toBeNull()
 
     fireEvent.click(screen.getByRole('button', { name: 'No' }))
 
-    await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull())
+    await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull())
     expect(documentRemove).not.toHaveBeenCalled()
     expect(screen.getByText('One')).not.toBeNull()
   })

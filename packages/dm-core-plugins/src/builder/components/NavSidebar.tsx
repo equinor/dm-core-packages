@@ -1,4 +1,5 @@
 import { Icon } from '@equinor/eds-core-react'
+import { tokens } from '@equinor/eds-tokens'
 import { useEffect, useRef, useState } from 'react'
 import { ICONS } from '../icons'
 import type { TBuilderPage } from '../site'
@@ -250,5 +251,7 @@ const iconButtonStyle = (active: boolean): React.CSSProperties => ({
   border: 'none',
   background: 'transparent',
   cursor: 'pointer',
-  color: active ? '#fff' : '#6f6f6f',
+  color: active
+    ? tokens.colors.text.static_icons__primary_white.hex
+    : tokens.colors.text.static_icons__tertiary.hex,
 })
