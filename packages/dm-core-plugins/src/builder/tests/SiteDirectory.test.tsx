@@ -141,6 +141,34 @@ describe('SiteDirectoryPlugin', () => {
     )
   })
 
+  it('opens a freshly created site via newSiteUrlTemplate when set', async () => {
+    mockSearch({})
+    jest
+      .spyOn(DmssAPI.prototype, 'documentAddSimple')
+      // biome-ignore lint/suspicious/noExplicitAny: test stub for AxiosPromise
+      .mockResolvedValue({ data: 'fresh-id' } as any)
+
+    const assign = jest.fn()
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: { assign },
+    })
+
+    renderDirectory({
+      ...baseConfig,
+      newSiteUrlTemplate:
+        '/view?documentId=dmss://{dataSource}/${id}&recipe=Edit',
+    })
+
+    fireEvent.click(await screen.findByRole('button', { name: 'New site' }))
+
+    await waitFor(() =>
+      expect(assign).toHaveBeenCalledWith(
+        '/view?documentId=dmss://Sites/$fresh-id&recipe=Edit'
+      )
+    )
+  })
+
   it('hides the New site button when creation is disabled', async () => {
     mockSearch({})
 
