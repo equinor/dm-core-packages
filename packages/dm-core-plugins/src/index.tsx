@@ -48,6 +48,13 @@ export default {
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/builder/directory': {
+    component: lazy(() =>
+      import('./builder/SiteDirectoryPlugin').then((module) => ({
+        default: module.SiteDirectoryPlugin,
+      }))
+    ),
+  },
   '@development-framework/dm-core-plugins/explorer': {
     component: lazy(() => import('./explorer/ExplorerPlugin')),
   },

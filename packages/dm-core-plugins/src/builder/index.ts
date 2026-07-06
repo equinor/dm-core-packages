@@ -11,6 +11,8 @@
 
 // The plugin component.
 export { BuilderPlugin } from './BuilderPlugin'
+// The site directory (gallery of saved sites + "New site").
+export { SiteDirectoryPlugin } from './SiteDirectoryPlugin'
 export type {
   TBuilderPage,
   TBuilderSite,
@@ -18,7 +20,6 @@ export type {
   TNavbarItem,
   TNavbarItemTarget,
 } from './site'
-
 // Persistence: the site model, its serializer and versioning. This is the
 // contract stored on an entity's `layout` and validated by the Site blueprint.
 export {
@@ -34,6 +35,7 @@ export {
   SITE_TYPE,
   serializeSite,
 } from './site'
+export type { TSiteDirectoryConfig } from './siteDirectory.types'
 // Plugin configuration.
 export type {
   TBlock,

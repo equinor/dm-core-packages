@@ -1,0 +1,63 @@
+{
+  "name": "SiteDirectoryConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "Configuration for the Site directory plugin: a gallery of saved websites with an optional 'New site' action.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "heading",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Heading shown above the gallery. Defaults to 'Websites'.",
+      "optional": true
+    },
+    {
+      "name": "entityType",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Entity type to list. Defaults to the builder Site type (PLUGINS:dm-core-plugins/builder/Site).",
+      "optional": true
+    },
+    {
+      "name": "dataSources",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "description": "Data sources to search. Defaults to the application's visible data sources.",
+      "optional": true
+    },
+    {
+      "name": "targetDataSource",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "DMSS address (usually a data source root) where 'New site' creates the entity. Defaults to the first searched data source; when absent the create button is hidden.",
+      "optional": true
+    },
+    {
+      "name": "viewUrlTemplate",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "URL opened when visiting a site. {id} and {dataSource} are substituted. Defaults to '/view?documentId=dmss://{dataSource}/{id}'.",
+      "optional": true
+    },
+    {
+      "name": "newSiteName",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Name given to a site created via 'New site'. Defaults to 'New site'.",
+      "optional": true
+    },
+    {
+      "name": "allowCreate",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "description": "Set false to hide the 'New site' button (a read-only gallery).",
+      "default": true,
+      "optional": true
+    }
+  ]
+}
