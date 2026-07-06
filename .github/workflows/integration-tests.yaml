@@ -44,7 +44,9 @@ jobs:
         run: npm run build:packages
 
       - name: Start example application
-        run: pm2 start "npm run build -- --mode test && npm run serve" --name web --wait-ready #--listen-timeout 10000 # wait for 10 seconds
+        run: |
+          pm2 delete web || true
+          pm2 start "npm run build -- --mode test && npm run serve" --name web --wait-ready
         working-directory: example/
 
       - name: Pull docker images
@@ -142,6 +144,10 @@ jobs:
           path: e2e/test-results/
           retention-days: 30
 
+      - name: Output pm2 logs on failure
+        if: failure()
+        run: pm2 logs web --lines 200 --nostream || true
+
       - name: Output dmss logs on failure
         if: failure()
         run: docker compose logs dmss
@@ -153,3 +159,4 @@ jobs:
           name: playwright-report
           path: e2e/playwright-report/
           retention-days: 30
+          

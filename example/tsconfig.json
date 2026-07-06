@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "incremental": true,
     "paths": {
       "@development-framework/dm-core/*": ["../packages/dm-core/src/*"],
@@ -8,18 +7,17 @@
         "../packages/dm-core-plugins/src/*"
       ]
     },
-    "target": "ESNext",
+    "target": "es2022",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,

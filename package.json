@@ -15,5 +15,8 @@
     "clear-external-pckgs": "rm -rf node_modules && rm -rf packages/dm-core/node_modules && rm -rf packages/dm-core-plugins/node_modules && rm -rf example/node_modules",
     "build:packages": "npm run build -w @development-framework/dm-core && npm run build -w @development-framework/dm-core-plugins",
     "test:packages": "npm test -w @development-framework/dm-core && npm test -w @development-framework/dm-core-plugins"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0"
   }
 }

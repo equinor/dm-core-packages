@@ -85,6 +85,7 @@ export function useDocument<T>(
           setErrorResponse(
             error.response?.data || { message: error.name, data: error }
           )
+          return null
         }),
   })
 

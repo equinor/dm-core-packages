@@ -1,23 +1,22 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowSyntheticDefaultImports": true,
+    "types": ["jest", "node"],
+
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "downlevelIteration": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "allowJs": true,
     "strict": true,
     "skipLibCheck": true,
     "jsx": "react",
     "esModuleInterop": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es5",
-    "composite": false,
+    "ignoreDeprecations": "6.0",
+    "target": "es2022",
     "useUnknownInCatchVariables": false
   }
 }

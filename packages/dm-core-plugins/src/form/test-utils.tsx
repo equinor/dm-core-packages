@@ -33,6 +33,33 @@ export const mockBlueprintGet = (blueprints: Array<any>) => {
   return mock
 }
 
+export const mockAttributeGet = (
+  attributes: Record<string, { address: string; attribute: object }>
+) => {
+  const mock = jest.spyOn(DmssAPI.prototype, 'attributeGet')
+  // @ts-ignore
+  mock.mockImplementation((props: { address: string }) =>
+    Promise.resolve({
+      data: attributes[props.address] ?? {
+        address: props.address,
+        attribute: { attributeType: 'string', dimensions: '' },
+      },
+    })
+  )
+  return mock
+}
+
+export const mockDocumentGet = (documents: Record<string, object>) => {
+  const mock = jest.spyOn(DmssAPI.prototype, 'documentGet')
+  // @ts-ignore
+  mock.mockImplementation((props: { address: string }) =>
+    Promise.resolve({
+      data: documents[props.address] ?? {},
+    })
+  )
+  return mock
+}
+
 const plugins = {
   '@development-framework/dm-core-plugins/form': {
     component: FormPlugin,
