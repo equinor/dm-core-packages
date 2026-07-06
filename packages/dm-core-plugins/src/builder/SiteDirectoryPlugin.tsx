@@ -1,11 +1,11 @@
 import { type IUIPlugin, useApplication } from '@development-framework/dm-core'
-import { Button, Card, Icon, Switch, Typography } from '@equinor/eds-core-react'
+import { Button, Icon, Switch, Typography } from '@equinor/eds-core-react'
 import {
   add,
+  edit,
   external_link,
   refresh,
   warning_outlined,
-  world,
 } from '@equinor/eds-icons'
 import { useCallback, useEffect, useState } from 'react'
 import {
@@ -44,6 +44,142 @@ const dataSourceOf = (address: string): string =>
   address.replace(/^dmss:\/\//, '').split('/')[0]
 
 /**
+ * Derive a deterministic hue (0–360) from a string so every card gets its
+ * own colour without any runtime randomness that would shift on re-render.
+ */
+const hueFromString = (s: string): number => {
+  let h = 0
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) & 0xffff
+  return h % 360
+}
+
+type SiteCardProps = {
+  site: TSiteHit
+  viewUrl: string
+  editUrl: string | null
+}
+
+const SiteCard = ({ site, viewUrl, editUrl }: SiteCardProps) => {
+  const initial = (site.label[0] ?? '?').toUpperCase()
+  const [hovered, setHovered] = useState(false)
+  const h = hueFromString(site.id)
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        borderRadius: 6,
+        background: '#fff',
+        border: '1px solid #e0e0e0',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'box-shadow 0.15s ease, transform 0.15s ease',
+        boxShadow: hovered
+          ? '0 8px 24px rgba(0,0,0,0.14)'
+          : '0 2px 6px rgba(0,0,0,0.07)',
+        transform: hovered ? 'translateY(-2px)' : 'none',
+      }}
+    >
+      {/* Coloured banner with the site's initial letter */}
+      <div
+        style={{
+          background: `linear-gradient(135deg, hsl(${h},55%,38%) 0%, hsl(${(h + 40) % 360},60%,52%) 100%)`,
+          height: 100,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <span
+          style={{
+            fontSize: 52,
+            fontWeight: 700,
+            color: 'rgba(255,255,255,0.80)',
+            lineHeight: 1,
+            userSelect: 'none',
+            letterSpacing: '-2px',
+          }}
+        >
+          {initial}
+        </span>
+        {!site.published && (
+          <span
+            style={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+              padding: '3px 10px',
+              borderRadius: 12,
+              background: 'rgba(0,0,0,0.40)',
+              color: '#fff',
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: '0.6px',
+              textTransform: 'uppercase',
+            }}
+          >
+            Draft
+          </span>
+        )}
+      </div>
+
+      {/* Card body */}
+      <div
+        style={{
+          padding: '14px 16px 16px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          flexGrow: 1,
+        }}
+      >
+        <Typography
+          variant='h6'
+          style={{
+            margin: 0,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            fontSize: 16,
+          }}
+          title={site.label}
+        >
+          {site.label}
+        </Typography>
+        <Typography
+          variant='caption'
+          style={{ color: '#6f6f6f', marginBottom: 14 }}
+        >
+          {site.dataSource}
+        </Typography>
+
+        {/* Action row */}
+        <div style={{ display: 'flex', gap: 8, marginTop: 'auto' }}>
+          <a href={viewUrl} style={{ textDecoration: 'none', flexGrow: 1 }}>
+            <Button variant='contained' style={{ width: '100%' }}>
+              <Icon data={external_link} size={16} />
+              Open
+            </Button>
+          </a>
+          {editUrl ? (
+            <a href={editUrl} style={{ textDecoration: 'none' }}>
+              <Button variant='ghost_icon' aria-label='Edit site'>
+                <Icon data={edit} size={18} />
+              </Button>
+            </a>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/**
  * Site directory — a gallery of saved websites.
  *
  * Searches DMSS for every entity of the builder's Site type and lists them as
@@ -78,26 +214,38 @@ export const SiteDirectoryPlugin = (
   // shown by default; toggling this off previews the published-only view.
   const [showDrafts, setShowDrafts] = useState(true)
 
-  const viewUrl = useCallback(
-    (dataSource: string, id: string): string =>
-      (config?.viewUrlTemplate ?? DEFAULT_VIEW_URL)
+  const buildUrl = useCallback(
+    (template: string | undefined, dataSource: string, id: string): string =>
+      (template ?? DEFAULT_VIEW_URL)
         .replace('{dataSource}', dataSource)
         .replace('{id}', id),
-    [config?.viewUrlTemplate]
+    []
+  )
+
+  const viewUrl = useCallback(
+    (dataSource: string, id: string) =>
+      buildUrl(config?.viewUrlTemplate, dataSource, id),
+    [buildUrl, config?.viewUrlTemplate]
+  )
+
+  const editUrl = useCallback(
+    (dataSource: string, id: string): string | null =>
+      config?.newSiteUrlTemplate
+        ? buildUrl(config.newSiteUrlTemplate, dataSource, id)
+        : null,
+    [buildUrl, config?.newSiteUrlTemplate]
   )
 
   // Freshly created sites are empty, so they open in the editor (falling back to
   // the normal view URL when no dedicated create URL is configured).
   const createUrl = useCallback(
     (dataSource: string, id: string): string =>
-      (
-        config?.newSiteUrlTemplate ??
-        config?.viewUrlTemplate ??
-        DEFAULT_VIEW_URL
-      )
-        .replace('{dataSource}', dataSource)
-        .replace('{id}', id),
-    [config?.newSiteUrlTemplate, config?.viewUrlTemplate]
+      buildUrl(
+        config?.newSiteUrlTemplate ?? config?.viewUrlTemplate,
+        dataSource,
+        id
+      ),
+    [buildUrl, config?.newSiteUrlTemplate, config?.viewUrlTemplate]
   )
 
   useEffect(() => {
@@ -178,13 +326,14 @@ export const SiteDirectoryPlugin = (
 
   return (
     <div className='dm-plugin-padding' style={{ width: '100%' }}>
+      {/* Header row */}
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 16,
-          marginBottom: 16,
+          marginBottom: 24,
         }}
       >
         <Typography variant='h4'>{heading}</Typography>
@@ -220,7 +369,9 @@ export const SiteDirectoryPlugin = (
         </Typography>
       ) : null}
 
-      {status === 'loading' ? <Typography>Loading websites…</Typography> : null}
+      {status === 'loading' ? (
+        <Typography style={{ color: '#6f6f6f' }}>Loading websites…</Typography>
+      ) : null}
 
       {status === 'error' ? (
         <div
@@ -236,17 +387,23 @@ export const SiteDirectoryPlugin = (
       ) : null}
 
       {status === 'ready' && sites.length === 0 ? (
-        <Typography>
-          No websites yet.{' '}
-          {allowCreate && target
-            ? 'Use “New site” to create your first one.'
-            : ''}
-        </Typography>
+        <div
+          style={{ textAlign: 'center', padding: '48px 0', color: '#6f6f6f' }}
+        >
+          <Typography variant='h5' style={{ marginBottom: 8 }}>
+            No websites yet
+          </Typography>
+          {allowCreate && target ? (
+            <Typography>
+              Click <strong>New site</strong> to create your first one.
+            </Typography>
+          ) : null}
+        </div>
       ) : null}
 
       {status === 'ready' && sites.length > 0 && visibleSites.length === 0 ? (
-        <Typography>
-          No published websites yet. Turn on “Show drafts” to see unpublished
+        <Typography style={{ color: '#6f6f6f' }}>
+          No published websites yet. Turn on "Show drafts" to see unpublished
           sites.
         </Typography>
       ) : null}
@@ -255,50 +412,17 @@ export const SiteDirectoryPlugin = (
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-            gap: 16,
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gap: 20,
           }}
         >
           {visibleSites.map((site) => (
-            <Card key={site.address} style={{ padding: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Icon data={world} size={24} />
-                <Typography variant='h6' style={{ margin: 0 }}>
-                  {site.label}
-                </Typography>
-                {!site.published ? (
-                  <span
-                    style={{
-                      marginLeft: 'auto',
-                      padding: '2px 8px',
-                      borderRadius: 4,
-                      background: '#ffe7cc',
-                      color: '#ad6200',
-                      fontSize: 12,
-                      fontWeight: 500,
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    Draft
-                  </span>
-                ) : null}
-              </div>
-              <Typography
-                variant='caption'
-                style={{ display: 'block', margin: '4px 0 12px' }}
-              >
-                {site.dataSource}
-              </Typography>
-              <a
-                href={viewUrl(site.dataSource, site.id)}
-                style={{ textDecoration: 'none' }}
-              >
-                <Button variant='outlined'>
-                  <Icon data={external_link} size={18} />
-                  Open
-                </Button>
-              </a>
-            </Card>
+            <SiteCard
+              key={site.address}
+              site={site}
+              viewUrl={viewUrl(site.dataSource, site.id)}
+              editUrl={editUrl(site.dataSource, site.id)}
+            />
           ))}
         </div>
       ) : null}
