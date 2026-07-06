@@ -14,7 +14,13 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
-import { Button, Icon, Tooltip, Typography } from '@equinor/eds-core-react'
+import {
+  Button,
+  Icon,
+  Input,
+  Tooltip,
+  Typography,
+} from '@equinor/eds-core-react'
 import {
   Fragment,
   useCallback,
@@ -79,6 +85,7 @@ import {
   type TNavbarItem,
   updateNavbar,
   updateNavItem,
+  updateSiteMeta,
 } from './site'
 import * as Styled from './styles'
 import { useToast } from './toast'
@@ -290,6 +297,17 @@ export const BuilderPlugin = (
 
   const handleReorderNavItem = (from: number, to: number) =>
     setSite((current) => moveNavItem(current, from, to))
+
+  // ---- Site metadata (display name + publish state) ----------------------
+
+  const handleRenameSite = (title: string) =>
+    setSite((current) => updateSiteMeta(current, { title }), 'rename-site')
+
+  const handleTogglePublished = () =>
+    setSite(
+      (current) => updateSiteMeta(current, { published: !current.published }),
+      'publish'
+    )
 
   const handleMove = (
     index: number,
@@ -731,6 +749,47 @@ export const BuilderPlugin = (
         <Styled.Toolbar>
           <Styled.ToolbarGroup>
             <Typography variant='h5'>Website builder</Typography>
+            {mode === 'edit' && (
+              <Tooltip title='Site name (shown in the site directory)'>
+                <Input
+                  aria-label='Site name'
+                  placeholder='Untitled site'
+                  value={site.title}
+                  disabled={locked}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    handleRenameSite(event.target.value)
+                  }
+                  onBlur={() => history.commit()}
+                  style={{ width: '12rem' }}
+                />
+              </Tooltip>
+            )}
+            {mode === 'edit' && !locked && (
+              <Tooltip
+                title={
+                  site.published
+                    ? 'Published — visitors can find this site. Click to unpublish.'
+                    : 'Draft — hidden from visitors. Click to publish.'
+                }
+              >
+                <Button
+                  variant={site.published ? 'contained' : 'outlined'}
+                  aria-label={
+                    site.published ? 'Unpublish site' : 'Publish site'
+                  }
+                  aria-pressed={site.published}
+                  onClick={handleTogglePublished}
+                >
+                  <Icon
+                    data={
+                      site.published ? ICONS.visibility : ICONS.visibility_off
+                    }
+                    size={18}
+                  />
+                  {site.published ? 'Published' : 'Publish'}
+                </Button>
+              </Tooltip>
+            )}
             {mode === 'edit' && (
               <TemplatesMenu
                 onApply={(template) => handleApplyTemplate(template.build)}

@@ -21,6 +21,7 @@ import {
   tablet_android,
   undo,
   visibility,
+  visibility_off,
   zoom_in,
   zoom_out,
 } from '@equinor/eds-icons'
@@ -39,6 +40,7 @@ const CHROME_ICONS: Record<string, IconData> = {
   close,
   edit,
   visibility,
+  visibility_off,
   drag_handle,
   delete_to_trash,
   copy,

@@ -113,8 +113,16 @@ export type TBuilderPage = {
  * A website built in the builder: an ordered tree of pages reachable from the
  * nav sidebar, plus a customizable top navbar shared by every page. There is
  * always at least one top-level page.
+ *
+ * `title` is a human-friendly display name shown on the site directory card
+ * (the stored DMSS document `name` must stay slug-safe, so the freeform title
+ * lives here instead). `published` gates whether the site is treated as live:
+ * the directory only surfaces published sites to visitors, while authors keep
+ * seeing their drafts so they can finish and publish them.
  */
 export type TBuilderSite = {
+  title: string
+  published: boolean
   navbar: TNavbar
   pages: TBuilderPage[]
 }
@@ -162,6 +170,8 @@ export const createDefaultNavbar = (): TNavbar => ({
 
 /** Create a site seeded with a single empty "Home" page and a default navbar. */
 export const createEmptySite = (): TBuilderSite => ({
+  title: '',
+  published: false,
   navbar: createDefaultNavbar(),
   pages: [createPage('Home')],
 })
@@ -205,6 +215,8 @@ const serializeNavbar = (navbar: TNavbar): Record<string, unknown> => ({
 export const serializeSite = (site: TBuilderSite): Record<string, unknown> => ({
   type: SITE_TYPE,
   schemaVersion: SITE_SCHEMA_VERSION,
+  title: site.title,
+  published: site.published,
   navbar: serializeNavbar(site.navbar),
   pages: site.pages.map(serializePage),
 })
@@ -307,19 +319,41 @@ const migrateSite = (raw: Record<string, unknown>): Record<string, unknown> => {
  * `children` array deserialize as leaf pages; a missing navbar defaults to the
  * disabled default so older sites are unchanged. Older `schemaVersion`s are
  * migrated forward via `migrateSite` before deserializing.
+ *
+ * `title` falls back to the stored document `name` (the slug) so sites authored
+ * before the display-name field existed still show a sensible label, and
+ * `published` defaults to false so sites without the flag are treated as drafts
+ * until an author explicitly publishes them.
  */
 export const deserializeSite = (raw: unknown): TBuilderSite => {
   if (isSerializedSite(raw)) {
     const migrated = migrateSite(raw as Record<string, unknown>)
-    const source = migrated as { pages: unknown[]; navbar?: unknown }
+    const source = migrated as {
+      pages: unknown[]
+      navbar?: unknown
+      title?: unknown
+      name?: unknown
+      published?: unknown
+    }
     const navbar = deserializeNavbar(source.navbar)
     const pages = source.pages
       .filter((page): page is Record<string, unknown> => !!page)
       .map(deserializePage)
-    return pages.length > 0 ? { navbar, pages } : createEmptySite()
+    const title =
+      typeof source.title === 'string'
+        ? source.title
+        : typeof source.name === 'string'
+          ? source.name
+          : ''
+    const published = source.published === true
+    return pages.length > 0
+      ? { title, published, navbar, pages }
+      : createEmptySite()
   }
   // Legacy or seed: a single grid layout becomes the site's only page.
   return {
+    title: '',
+    published: false,
     navbar: createDefaultNavbar(),
     pages: [createPage('Home', deserialize(raw))],
   }
@@ -516,6 +550,23 @@ export const movePage = (
     return children === parent.children ? parent : { ...parent, children }
   })
   return pages === site.pages ? site : { ...site, pages }
+}
+
+// ---- Site metadata ------------------------------------------------------
+
+/**
+ * Immutably update the site's display `title` and/or `published` flag. Used by
+ * the toolbar's name field and Publish toggle; a no-op when nothing changes so
+ * it never adds a spurious undo step.
+ */
+export const updateSiteMeta = (
+  site: TBuilderSite,
+  patch: Partial<Pick<TBuilderSite, 'title' | 'published'>>
+): TBuilderSite => {
+  const next = { ...site, ...patch }
+  return next.title === site.title && next.published === site.published
+    ? site
+    : next
 }
 
 // ---- Navbar -------------------------------------------------------------

@@ -169,13 +169,43 @@ describe('SiteDirectoryPlugin', () => {
     )
   })
 
-  it('hides the New site button when creation is disabled', async () => {
-    mockSearch({})
+  it('shows the friendly title, a Draft badge, and a Show drafts toggle', async () => {
+    mockSearch({
+      'Sites/live': {
+        _id: 'live',
+        name: 'Live_Slug',
+        title: 'Live Marketing Site',
+        published: true,
+      },
+      'Sites/draft': { _id: 'draft', name: 'Draft_Slug', published: false },
+    })
 
-    renderDirectory({ ...baseConfig, allowCreate: false })
+    renderDirectory(baseConfig)
 
-    // Wait for load to finish so the button would have appeared if enabled.
-    await screen.findByText(/No websites yet/)
-    expect(screen.queryByRole('button', { name: 'New site' })).toBeNull()
+    // Friendly title is preferred over the slug name.
+    expect(await screen.findByText('Live Marketing Site')).not.toBeNull()
+    // Draft site with no title falls back to its slug name.
+    expect(screen.getByText('Draft_Slug')).not.toBeNull()
+    // Only the unpublished site carries a Draft badge.
+    expect(screen.getAllByText('Draft')).toHaveLength(1)
+
+    // Turning off "Show drafts" hides the draft, leaving only the published one.
+    const toggle = screen.getByLabelText('Show drafts') as HTMLInputElement
+    expect(toggle.checked).toBe(true)
+    fireEvent.click(toggle)
+
+    await waitFor(() => expect(screen.queryByText('Draft_Slug')).toBeNull())
+    expect(screen.getByText('Live Marketing Site')).not.toBeNull()
+  })
+
+  it('does not offer the drafts toggle when every site is published', async () => {
+    mockSearch({
+      'Sites/one': { _id: 'one', name: 'One', published: true },
+    })
+
+    renderDirectory(baseConfig)
+
+    await screen.findByText('One')
+    expect(screen.queryByLabelText('Show drafts')).toBeNull()
   })
 })

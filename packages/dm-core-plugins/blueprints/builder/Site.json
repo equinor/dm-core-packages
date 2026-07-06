@@ -9,6 +9,21 @@
       "attributeType": "string"
     },
     {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Human-friendly display name shown on the site directory card. Unlike the DMSS document name (which must be slug-safe), this may contain spaces and punctuation.",
+      "optional": true
+    },
+    {
+      "name": "published",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "description": "Whether the site is published (live). The site directory only surfaces published sites to visitors; authors still see their unpublished drafts.",
+      "default": false,
+      "optional": true
+    },
+    {
       "name": "schemaVersion",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "number",

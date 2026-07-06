@@ -179,5 +179,7 @@
       "children": []
     }
   ],
-  "name": "Acme_Marketing"
+  "name": "Acme_Marketing",
+  "title": "Acme Marketing",
+  "published": true
 }

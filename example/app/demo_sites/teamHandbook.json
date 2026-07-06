@@ -179,5 +179,7 @@
       "children": []
     }
   ],
-  "name": "Team_Handbook"
+  "name": "Team_Handbook",
+  "title": "Team Handbook",
+  "published": true
 }

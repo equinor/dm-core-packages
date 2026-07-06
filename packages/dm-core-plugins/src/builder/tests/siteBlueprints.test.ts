@@ -101,6 +101,8 @@ const validateNode = (node: unknown, expectedType: string, path: string) => {
 const buildRichSite = (): TBuilderSite => {
   const textBlock = getBlock('text') ?? BLOCKS[0]
   let site: TBuilderSite = {
+    title: 'Rich Site',
+    published: true,
     navbar: { ...createDefaultNavbar(), enabled: true },
     pages: [
       createPage('Home', addWidget(createEmptyModel(), textBlock)),

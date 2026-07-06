@@ -1,5 +1,5 @@
 import { type IUIPlugin, useApplication } from '@development-framework/dm-core'
-import { Button, Card, Icon, Typography } from '@equinor/eds-core-react'
+import { Button, Card, Icon, Switch, Typography } from '@equinor/eds-core-react'
 import {
   add,
   external_link,
@@ -21,6 +21,10 @@ type TSiteHit = {
   dataSource: string
   id: string
   name: string
+  /** Friendly display name; falls back to `name` (the slug) when unset. */
+  label: string
+  /** Whether the site is published (live) or still a draft. */
+  published: boolean
 }
 
 // The literal `$` before the `{id}` placeholder marks a DMSS root-document id;
@@ -70,6 +74,9 @@ export const SiteDirectoryPlugin = (
   const [reloadKey, setReloadKey] = useState(0)
   const [creating, setCreating] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
+  // Authors need to see their drafts to finish and publish them, so drafts are
+  // shown by default; toggling this off previews the published-only view.
+  const [showDrafts, setShowDrafts] = useState(true)
 
   const viewUrl = useCallback(
     (dataSource: string, id: string): string =>
@@ -102,18 +109,24 @@ export const SiteDirectoryPlugin = (
         if (cancelled) return
         const data = (response.data ?? {}) as Record<
           string,
-          { _id?: string; name?: string }
+          { _id?: string; name?: string; title?: string; published?: boolean }
         >
         const hits: TSiteHit[] = Object.entries(data).map(([address, doc]) => {
           const id = doc._id ?? address.split('/').slice(1).join('/')
+          const name = doc.name ?? id ?? 'Untitled site'
           return {
             address,
             dataSource: dataSourceOf(address),
             id,
-            name: doc.name ?? id ?? 'Untitled site',
+            name,
+            label:
+              typeof doc.title === 'string' && doc.title.trim() !== ''
+                ? doc.title
+                : name,
+            published: doc.published === true,
           }
         })
-        hits.sort((a, b) => a.name.localeCompare(b.name))
+        hits.sort((a, b) => a.label.localeCompare(b.label))
         setSites(hits)
         setStatus('ready')
       })
@@ -158,6 +171,11 @@ export const SiteDirectoryPlugin = (
     }
   }, [config?.newSiteName, dmssAPI, entityType, target, createUrl])
 
+  const draftCount = sites.filter((site) => !site.published).length
+  const visibleSites = showDrafts
+    ? sites
+    : sites.filter((site) => site.published)
+
   return (
     <div className='dm-plugin-padding' style={{ width: '100%' }}>
       <div
@@ -170,7 +188,16 @@ export const SiteDirectoryPlugin = (
         }}
       >
         <Typography variant='h4'>{heading}</Typography>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {draftCount > 0 ? (
+            <Switch
+              label='Show drafts'
+              checked={showDrafts}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setShowDrafts(event.target.checked)
+              }
+            />
+          ) : null}
           <Button
             variant='ghost_icon'
             aria-label='Refresh list'
@@ -217,7 +244,14 @@ export const SiteDirectoryPlugin = (
         </Typography>
       ) : null}
 
-      {status === 'ready' && sites.length > 0 ? (
+      {status === 'ready' && sites.length > 0 && visibleSites.length === 0 ? (
+        <Typography>
+          No published websites yet. Turn on “Show drafts” to see unpublished
+          sites.
+        </Typography>
+      ) : null}
+
+      {status === 'ready' && visibleSites.length > 0 ? (
         <div
           style={{
             display: 'grid',
@@ -225,13 +259,29 @@ export const SiteDirectoryPlugin = (
             gap: 16,
           }}
         >
-          {sites.map((site) => (
+          {visibleSites.map((site) => (
             <Card key={site.address} style={{ padding: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Icon data={world} size={24} />
                 <Typography variant='h6' style={{ margin: 0 }}>
-                  {site.name}
+                  {site.label}
                 </Typography>
+                {!site.published ? (
+                  <span
+                    style={{
+                      marginLeft: 'auto',
+                      padding: '2px 8px',
+                      borderRadius: 4,
+                      background: '#ffe7cc',
+                      color: '#ad6200',
+                      fontSize: 12,
+                      fontWeight: 500,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Draft
+                  </span>
+                ) : null}
               </div>
               <Typography
                 variant='caption'

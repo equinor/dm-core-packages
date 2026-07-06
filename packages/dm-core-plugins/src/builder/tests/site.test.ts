@@ -44,6 +44,8 @@ describe('builder site', () => {
 
   it('round-trips through serialize and deserialize with type discriminators', () => {
     const site: TBuilderSite = {
+      title: 'My Site',
+      published: true,
       navbar: createDefaultNavbar(),
       pages: [
         createPage('Home', addWidget(createEmptyModel(), textBlock)),
@@ -53,6 +55,8 @@ describe('builder site', () => {
     const serialized = serializeSite(site)
 
     expect(serialized.type).toBe(SITE_TYPE)
+    expect(serialized.title).toBe('My Site')
+    expect(serialized.published).toBe(true)
     const pages = serialized.pages as Array<Record<string, unknown>>
     expect(pages).toHaveLength(2)
     expect(pages[0].type).toBe(PAGE_TYPE)
@@ -61,6 +65,20 @@ describe('builder site', () => {
     const restored = deserializeSite(serialized)
     expect(restored.pages.map((page) => page.title)).toEqual(['Home', 'About'])
     expect(restored.pages[0].layout.items).toHaveLength(1)
+    expect(restored.title).toBe('My Site')
+    expect(restored.published).toBe(true)
+  })
+
+  it('reads site metadata with slug fallback and draft default', () => {
+    // Title falls back to the document `name` (slug) when unset; a site without
+    // an explicit `published` flag is treated as an unpublished draft.
+    const fallback = deserializeSite({
+      type: SITE_TYPE,
+      name: 'My_Company',
+      pages: [{ type: PAGE_TYPE, id: 'p1', title: 'Home' }],
+    })
+    expect(fallback.title).toBe('My_Company')
+    expect(fallback.published).toBe(false)
   })
 
   it('wraps a legacy single-grid layout into a one-page Home site', () => {
