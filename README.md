@@ -6444,3 +6444,48 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps): bump the web group across 1 directory with 3 updates (#1632)
+
+Bumps the web group with 3 updates in the / directory: [plotly.js](https://github.com/plotly/plotly.js), [vitest](https://github.com/vitest-dev/vitest/tree/HEAD/packages/vitest) and [react-hook-form](https://github.com/react-hook-form/react-hook-form).
+
+
+Updates  from 3.6.0 to 3.7.0
+- [Release notes](https://github.com/plotly/plotly.js/releases)
+- [Changelog](https://github.com/plotly/plotly.js/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/plotly/plotly.js/compare/v3.6.0...v3.7.0)
+
+Updates  from 4.1.9 to 4.1.10
+- [Release notes](https://github.com/vitest-dev/vitest/releases)
+- [Changelog](https://github.com/vitest-dev/vitest/blob/main/docs/releases.md)
+- [Commits](https://github.com/vitest-dev/vitest/commits/v4.1.10/packages/vitest)
+
+Updates  from 7.80.0 to 7.81.0
+- [Release notes](https://github.com/react-hook-form/react-hook-form/releases)
+- [Changelog](https://github.com/react-hook-form/react-hook-form/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/react-hook-form/react-hook-form/compare/v7.80.0...v7.81.0)
+
+---
+updated-dependencies:
+- dependency-name: plotly.js
+  dependency-version: 3.7.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: react-hook-form
+  dependency-version: 7.81.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: vitest
+  dependency-version: 4.1.10
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> (2026-07-06T11:45:25Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/28789639883/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
