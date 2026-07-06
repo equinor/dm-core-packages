@@ -6362,3 +6362,44 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps-dev): bump typescript from 5.9.3 to 6.0.3 (#1557)
+
+* chore(deps-dev): bump typescript from 5.9.3 to 6.0.3
+
+Bumps [typescript](https://github.com/microsoft/TypeScript) from 5.9.3 to 6.0.3.
+- [Release notes](https://github.com/microsoft/TypeScript/releases)
+- [Commits](https://github.com/microsoft/TypeScript/compare/v5.9.3...v6.0.3)
+
+---
+updated-dependencies:
+- dependency-name: typescript
+  dependency-version: 6.0.3
+  dependency-type: direct:development
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+* fix: jsconfig fixes based on this post https://github.com/microsoft/TypeScript/issues/62508, installed packages and added declarations.d.ts
+
+* fix: make console.error(error) catch behind the scenes to not clutter the terminal
+
+* fix: mockAttributeGet and mockDocumentGet so jsdom wont fail due to no internet connection.
+
+* fix: tsconfig in example for e2e tests
+
+* fix: copilot fix to integration_test.yaml. Said to free up the runner each time the workflow runs.
+
+* fix: re-install package-lock for proper dependencies.
+
+* fix: tsconfig comments resolved
+
+---------
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Co-authored-by: Jakob Keller <jakel@equinor.com> (2026-07-02T13:59:44Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/28788166277/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
