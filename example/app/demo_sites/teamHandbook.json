@@ -1,4 +1,5 @@
 {
+  "_id": "demo-site-team-handbook",
   "type": "dmss://DemoDataSource/plugins/builder/sites/blueprints/Website",
   "schemaVersion": 1,
   "navbar": {
@@ -51,12 +52,12 @@
               "rowEnd": 2
             },
             "viewConfig": {
-              "type": "CORE:InlineRecipeViewConfig",
+              "type": "dmss://system/SIMOS/InlineRecipeViewConfig",
               "scope": "",
               "label": "Heading",
               "recipe": {
                 "name": "heading",
-                "type": "CORE:UiRecipe",
+                "type": "dmss://system/SIMOS/UiRecipe",
                 "plugin": "@development-framework/dm-core-plugins/static-heading",
                 "config": {
                   "text": "Team Handbook",
@@ -76,12 +77,12 @@
               "rowEnd": 5
             },
             "viewConfig": {
-              "type": "CORE:InlineRecipeViewConfig",
+              "type": "dmss://system/SIMOS/InlineRecipeViewConfig",
               "scope": "",
               "label": "Text",
               "recipe": {
                 "name": "text",
-                "type": "CORE:UiRecipe",
+                "type": "dmss://system/SIMOS/UiRecipe",
                 "plugin": "@development-framework/dm-core-plugins/markdown",
                 "config": {
                   "content": "A living document for how we work. Edit any page in the builder and it updates here instantly."
@@ -126,12 +127,12 @@
               "rowEnd": 2
             },
             "viewConfig": {
-              "type": "CORE:InlineRecipeViewConfig",
+              "type": "dmss://system/SIMOS/InlineRecipeViewConfig",
               "scope": "",
               "label": "Heading",
               "recipe": {
                 "name": "heading",
-                "type": "CORE:UiRecipe",
+                "type": "dmss://system/SIMOS/UiRecipe",
                 "plugin": "@development-framework/dm-core-plugins/static-heading",
                 "config": {
                   "text": "Getting started",
@@ -151,12 +152,12 @@
               "rowEnd": 5
             },
             "viewConfig": {
-              "type": "CORE:InlineRecipeViewConfig",
+              "type": "dmss://system/SIMOS/InlineRecipeViewConfig",
               "scope": "",
               "label": "Text",
               "recipe": {
                 "name": "text",
-                "type": "CORE:UiRecipe",
+                "type": "dmss://system/SIMOS/UiRecipe",
                 "plugin": "@development-framework/dm-core-plugins/markdown",
                 "config": {
                   "content": "1. Get your accounts.\n2. Read this handbook.\n3. Ship something small on day one."

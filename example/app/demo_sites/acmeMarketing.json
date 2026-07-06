@@ -1,4 +1,5 @@
 {
+  "_id": "demo-site-acme-marketing",
   "type": "dmss://DemoDataSource/plugins/builder/sites/blueprints/Website",
   "schemaVersion": 1,
   "navbar": {
@@ -51,12 +52,12 @@
               "rowEnd": 2
             },
             "viewConfig": {
-              "type": "CORE:InlineRecipeViewConfig",
+              "type": "dmss://system/SIMOS/InlineRecipeViewConfig",
               "scope": "",
               "label": "Heading",
               "recipe": {
                 "name": "heading",
-                "type": "CORE:UiRecipe",
+                "type": "dmss://system/SIMOS/UiRecipe",
                 "plugin": "@development-framework/dm-core-plugins/static-heading",
                 "config": {
                   "text": "Welcome to Acme",
@@ -76,15 +77,15 @@
               "rowEnd": 5
             },
             "viewConfig": {
-              "type": "CORE:InlineRecipeViewConfig",
+              "type": "dmss://system/SIMOS/InlineRecipeViewConfig",
               "scope": "",
               "label": "Text",
               "recipe": {
                 "name": "text",
-                "type": "CORE:UiRecipe",
+                "type": "dmss://system/SIMOS/UiRecipe",
                 "plugin": "@development-framework/dm-core-plugins/markdown",
                 "config": {
-                  "content": "Acme builds delightful things. This whole site was assembled with the **drag-and-drop website builder** — no code required.\n\nUse the navbar above to explore."
+                  "content": "Acme builds delightful things. This whole site was assembled with the **drag-and-drop website builder** \u2014 no code required.\n\nUse the navbar above to explore."
                 }
               }
             },
@@ -126,12 +127,12 @@
               "rowEnd": 2
             },
             "viewConfig": {
-              "type": "CORE:InlineRecipeViewConfig",
+              "type": "dmss://system/SIMOS/InlineRecipeViewConfig",
               "scope": "",
               "label": "Heading",
               "recipe": {
                 "name": "heading",
-                "type": "CORE:UiRecipe",
+                "type": "dmss://system/SIMOS/UiRecipe",
                 "plugin": "@development-framework/dm-core-plugins/static-heading",
                 "config": {
                   "text": "About Acme",
@@ -151,12 +152,12 @@
               "rowEnd": 5
             },
             "viewConfig": {
-              "type": "CORE:InlineRecipeViewConfig",
+              "type": "dmss://system/SIMOS/InlineRecipeViewConfig",
               "scope": "",
               "label": "Text",
               "recipe": {
                 "name": "text",
-                "type": "CORE:UiRecipe",
+                "type": "dmss://system/SIMOS/UiRecipe",
                 "plugin": "@development-framework/dm-core-plugins/markdown",
                 "config": {
                   "content": "We are a small team with big ideas. Every page here is a grid of widgets you can rearrange visually."
