@@ -16,7 +16,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "ignoreDeprecations": "6.0",
-    "target": "es2015",
+    "target": "es2022",
     "useUnknownInCatchVariables": false
   }
 }

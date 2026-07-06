@@ -7,7 +7,7 @@
         "../packages/dm-core-plugins/src/*"
       ]
     },
-    "target": "ESNext",
+    "target": "es2022",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "allowJs": true,
