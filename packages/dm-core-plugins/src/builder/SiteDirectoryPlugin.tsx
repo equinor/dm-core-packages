@@ -8,7 +8,12 @@ import {
   world,
 } from '@equinor/eds-icons'
 import { useCallback, useEffect, useState } from 'react'
-import { createEmptySite, SITE_TYPE, serializeSite } from './site'
+import {
+  createEmptySite,
+  resolvePluginAliases,
+  SITE_TYPE_ADDRESS,
+  serializeSite,
+} from './site'
 import type { TSiteDirectoryConfig } from './siteDirectory.types'
 
 type TSiteHit = {
@@ -18,7 +23,17 @@ type TSiteHit = {
   name: string
 }
 
-const DEFAULT_VIEW_URL = '/view?documentId=dmss://{dataSource}/{id}'
+// The literal `$` before the `{id}` placeholder marks a DMSS root-document id;
+// it is not a template-string interpolation.
+// biome-ignore lint/suspicious/noTemplateCurlyInString: literal `${id}` placeholder
+const DEFAULT_VIEW_URL = '/view?documentId=dmss://{dataSource}/${id}'
+
+/** DMSS names allow only alphanumerics, underscore and dash. */
+const toSlug = (value: string): string =>
+  value
+    .trim()
+    .replace(/[^a-zA-Z0-9_-]+/g, '_')
+    .replace(/^_+|_+$/g, '') || 'New_site'
 
 /** Strip a leading `dmss://` and any path, leaving the data source id. */
 const dataSourceOf = (address: string): string =>
@@ -41,7 +56,7 @@ export const SiteDirectoryPlugin = (
   const { config } = props
   const { dmssAPI, visibleDataSources } = useApplication()
 
-  const entityType = config?.entityType ?? SITE_TYPE
+  const entityType = config?.entityType ?? SITE_TYPE_ADDRESS
   const dataSources =
     config?.dataSources && config.dataSources.length > 0
       ? config.dataSources
@@ -104,26 +119,30 @@ export const SiteDirectoryPlugin = (
     setCreating(true)
     setCreateError(null)
     try {
-      const name = config?.newSiteName ?? 'New site'
-      const document = JSON.stringify({
-        ...serializeSite(createEmptySite()),
+      const dataSource = dataSourceOf(target)
+      // DMSS names allow only alphanumerics/underscore/dash; add a short suffix
+      // so repeated "New site" clicks don't collide.
+      const name = `${toSlug(config?.newSiteName ?? 'New_site')}_${Date.now().toString(36)}`
+      // The context-free add-raw endpoint stores the document verbatim, so emit
+      // fully-qualified addresses (not the `PLUGINS:` alias) and stamp the root
+      // `type` with the listed entity type so the new site is found and rendered.
+      const body = {
+        ...resolvePluginAliases(serializeSite(createEmptySite())),
+        type: entityType,
         name,
-      })
-      const response = await dmssAPI.documentAdd({ address: target, document })
-      const uid = (response.data as { uid?: string } | undefined)?.uid
-      if (uid) {
-        window.location.assign(viewUrl(dataSourceOf(target), uid))
-        return
       }
-      // No uid returned — just refresh the list so the new site appears.
-      setReloadKey((key) => key + 1)
+      const response = await dmssAPI.documentAddSimple({
+        dataSourceId: dataSource,
+        body,
+      })
+      const id = typeof response.data === 'string' ? response.data : name
+      window.location.assign(viewUrl(dataSource, id))
     } catch (error) {
       console.error('Failed to create site', error)
       setCreateError('Could not create a new site. Please try again.')
-    } finally {
       setCreating(false)
     }
-  }, [config?.newSiteName, dmssAPI, target, viewUrl])
+  }, [config?.newSiteName, dmssAPI, entityType, target, viewUrl])
 
   return (
     <div className='dm-plugin-padding' style={{ width: '100%' }}>

@@ -8,6 +8,38 @@ export const NAVBAR_TYPE = 'PLUGINS:dm-core-plugins/builder/Navbar'
 export const NAVBAR_ITEM_TYPE = 'PLUGINS:dm-core-plugins/builder/NavbarItem'
 
 /**
+ * The `PLUGINS:` alias (declared in each package's dependencies) resolves to the
+ * `system/Plugins` package. dm-cli import and the running app resolve it via
+ * package context, but the raw DMSS search and add-raw endpoints do NOT — they
+ * need the fully-qualified `dmss://…` address. Keep both forms so the builder
+ * can emit aliases for storage (where context resolves them) and full addresses
+ * where it talks to those context-free endpoints.
+ */
+export const PLUGINS_ALIAS_PREFIX = 'PLUGINS:'
+export const PLUGINS_ADDRESS_PREFIX = 'dmss://system/Plugins/'
+
+/**
+ * Fully-qualified address of the Site blueprint, for the context-free search
+ * endpoint (which cannot resolve the `PLUGINS:` alias).
+ */
+export const SITE_TYPE_ADDRESS = SITE_TYPE.replace(
+  PLUGINS_ALIAS_PREFIX,
+  PLUGINS_ADDRESS_PREFIX
+)
+
+/**
+ * Replace every `PLUGINS:` alias in a serialized value with its fully-qualified
+ * `dmss://system/Plugins/…` address, so documents written through the
+ * context-free add-raw endpoint carry resolvable type discriminators.
+ */
+export const resolvePluginAliases = <T>(value: T): T =>
+  JSON.parse(
+    JSON.stringify(value)
+      .split(PLUGINS_ALIAS_PREFIX)
+      .join(PLUGINS_ADDRESS_PREFIX)
+  )
+
+/**
  * Version of the serialized site format. Bump this whenever the stored shape
  * changes in a way that needs migrating, and add a matching case to
  * `migrateSite` so older saved sites keep loading.

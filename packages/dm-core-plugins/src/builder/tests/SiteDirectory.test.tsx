@@ -6,7 +6,7 @@ import {
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import { SiteDirectoryPlugin } from '../SiteDirectoryPlugin'
-import { SITE_TYPE } from '../site'
+import { SITE_TYPE_ADDRESS } from '../site'
 import type { TSiteDirectoryConfig } from '../siteDirectory.types'
 
 const wrapper = ({ children }: { children: ReactNode }) => (
@@ -57,19 +57,19 @@ describe('SiteDirectoryPlugin', () => {
     expect(await screen.findByText('Marketing site')).not.toBeNull()
     expect(screen.getByText('Docs portal')).not.toBeNull()
 
-    // Searched for the Site type in the configured data source.
+    // Searched for the fully-qualified Site type in the configured data source.
     expect(search).toHaveBeenCalledWith(
       expect.objectContaining({
         dataSources: ['Sites'],
-        body: { type: SITE_TYPE },
+        body: { type: SITE_TYPE_ADDRESS },
       })
     )
 
-    // Each card links to the default viewer URL for its entity.
+    // Each card links to the default viewer URL for its entity ($ = root id).
     const openLinks = screen.getAllByRole('link')
     const hrefs = openLinks.map((a) => a.getAttribute('href'))
-    expect(hrefs).toContain('/view?documentId=dmss://Sites/marketing')
-    expect(hrefs).toContain('/view?documentId=dmss://Sites/docs')
+    expect(hrefs).toContain('/view?documentId=dmss://Sites/$marketing')
+    expect(hrefs).toContain('/view?documentId=dmss://Sites/$docs')
   })
 
   it('applies a custom viewUrlTemplate', async () => {
@@ -103,10 +103,10 @@ describe('SiteDirectoryPlugin', () => {
 
   it('creates a new site and navigates to it', async () => {
     mockSearch({})
-    const documentAdd = jest
-      .spyOn(DmssAPI.prototype, 'documentAdd')
+    const documentAddSimple = jest
+      .spyOn(DmssAPI.prototype, 'documentAddSimple')
       // biome-ignore lint/suspicious/noExplicitAny: test stub for AxiosPromise
-      .mockResolvedValue({ data: { uid: 'fresh-id' } } as any)
+      .mockResolvedValue({ data: 'fresh-id' } as any)
 
     const assign = jest.fn()
     Object.defineProperty(window, 'location', {
@@ -119,21 +119,24 @@ describe('SiteDirectoryPlugin', () => {
     const button = await screen.findByRole('button', { name: 'New site' })
     fireEvent.click(button)
 
-    await waitFor(() => expect(documentAdd).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(documentAddSimple).toHaveBeenCalledTimes(1))
 
-    const arg = documentAdd.mock.calls[0][0] as {
-      address: string
-      document: string
+    const arg = documentAddSimple.mock.calls[0][0] as {
+      dataSourceId: string
+      // biome-ignore lint/suspicious/noExplicitAny: raw add body
+      body: any
     }
-    expect(arg.address).toBe('Sites')
-    const doc = JSON.parse(arg.document)
-    expect(doc.type).toBe(SITE_TYPE)
-    expect(doc.name).toBe('New site')
-    expect(Array.isArray(doc.pages)).toBe(true)
+    expect(arg.dataSourceId).toBe('Sites')
+    // The raw endpoint stores verbatim, so the type must be fully-qualified.
+    expect(arg.body.type).toBe(SITE_TYPE_ADDRESS)
+    // Name is slugged (no spaces) with a unique suffix.
+    expect(typeof arg.body.name).toBe('string')
+    expect(arg.body.name).not.toContain(' ')
+    expect(Array.isArray(arg.body.pages)).toBe(true)
 
     await waitFor(() =>
       expect(assign).toHaveBeenCalledWith(
-        '/view?documentId=dmss://Sites/fresh-id'
+        '/view?documentId=dmss://Sites/$fresh-id'
       )
     )
   })

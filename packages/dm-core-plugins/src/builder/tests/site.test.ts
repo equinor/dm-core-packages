@@ -20,7 +20,9 @@ import {
   removeNavItem,
   removePage,
   renamePage,
+  resolvePluginAliases,
   SITE_TYPE,
+  SITE_TYPE_ADDRESS,
   serializeSite,
   setPageLayout,
   type TBuilderSite,
@@ -336,6 +338,33 @@ describe('builder site', () => {
       }
       const site = deserializeSite(legacy)
       expect(site.navbar).toEqual(createDefaultNavbar())
+    })
+  })
+
+  describe('plugin alias resolution', () => {
+    it('exposes the Site type as a fully-qualified dmss address', () => {
+      expect(SITE_TYPE).toBe('PLUGINS:dm-core-plugins/builder/Site')
+      expect(SITE_TYPE_ADDRESS).toBe(
+        'dmss://system/Plugins/dm-core-plugins/builder/Site'
+      )
+    })
+
+    it('rewrites every PLUGINS: alias to its dmss address, deeply', () => {
+      const serialized = serializeSite(createEmptySite())
+      const resolved = resolvePluginAliases(serialized)
+      const asText = JSON.stringify(resolved)
+      expect(asText).not.toContain('PLUGINS:')
+      expect(resolved.type).toBe(SITE_TYPE_ADDRESS)
+      // Nested page/navbar discriminators are rewritten too.
+      expect(asText).toContain('dmss://system/Plugins/dm-core-plugins/builder/')
+    })
+
+    it('still deserializes a site whose types are fully-qualified addresses', () => {
+      const resolved = resolvePluginAliases(serializeSite(createEmptySite()))
+      expect(isSerializedSite(resolved)).toBe(true)
+      const site = deserializeSite(resolved)
+      expect(site.pages).toHaveLength(1)
+      expect(site.pages[0].title).toBe('Home')
     })
   })
 })

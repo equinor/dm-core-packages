@@ -65,11 +65,13 @@ import {
   deserializeSite,
   findPage,
   findPageContext,
+  isSerializedSite,
   moveNavItem,
   movePage,
   removeNavItem,
   removePage,
   renamePage,
+  resolvePluginAliases,
   serializeSite,
   setPageLayout,
   type TNavbar,
@@ -528,11 +530,14 @@ export const BuilderPlugin = (
   const hydratedRef = useRef(false)
   useEffect(() => {
     if (hydratedRef.current) return
-    const layout = document?.layout
-    if (!layout) return
+    // A Site-shaped document (top-level `pages`) *is* the site; otherwise the
+    // site is embedded in the host document's `layout` attribute (a page/host
+    // entity). Detecting by shape keeps existing `.layout` hosts unchanged.
+    const source = isSerializedSite(document) ? document : document?.layout
+    if (!source) return
     hydratedRef.current = true
     try {
-      const loaded = deserializeSite(layout)
+      const loaded = deserializeSite(source)
       if (loaded.pages.length === 0) {
         throw new Error('Saved layout has no pages')
       }
@@ -551,18 +556,34 @@ export const BuilderPlugin = (
   }, [document, setSite, notify])
 
   /**
-   * Persist the current page layout. When bound to an entity we write the
-   * serialized grid config to its `layout` attribute; otherwise we fall back to
-   * the host `onChange` handler. Returns true on success.
+   * Persist the current site. When the bound document *is* the site (Site-shaped)
+   * we write the navbar/pages onto the document itself, with fully-qualified
+   * addresses (the update endpoint cannot resolve the `PLUGINS:` alias),
+   * preserving the document's own type and metadata. Otherwise the site is
+   * stored in the host document's `layout` attribute. Without an entity we fall
+   * back to the host `onChange` handler. Returns true on success.
    */
   const save = async (): Promise<boolean> => {
-    const layout = JSON.parse(currentJson)
+    const serializedSite = JSON.parse(currentJson)
     setSaveState('saving')
     try {
       if (idReference && document) {
-        await updateDocument({ ...document, layout }, false, true)
+        if (isSerializedSite(document)) {
+          const resolved = resolvePluginAliases(serializedSite)
+          await updateDocument(
+            { ...document, ...resolved, type: document.type },
+            false,
+            true
+          )
+        } else {
+          await updateDocument(
+            { ...document, layout: serializedSite },
+            false,
+            true
+          )
+        }
       } else if (onChange) {
-        onChange(layout)
+        onChange(serializedSite)
       } else {
         setSaveState('dirty')
         return false
