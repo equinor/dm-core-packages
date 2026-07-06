@@ -1,0 +1,16 @@
+{
+  "name": "Sites",
+  "repositories": {
+    "sitesRepo": {
+      "type": "mongo-db",
+      "collection": "default",
+      "data_types": [],
+      "database": "Sites",
+      "host": "db",
+      "password": "maf",
+      "port": 27017,
+      "tls": false,
+      "username": "maf"
+    }
+  }
+}

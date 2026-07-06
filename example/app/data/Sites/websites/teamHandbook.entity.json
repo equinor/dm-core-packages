@@ -1,0 +1,182 @@
+{
+  "type": "dmss://DemoDataSource/plugins/builder/sites/blueprints/Website",
+  "schemaVersion": 1,
+  "navbar": {
+    "type": "PLUGINS:dm-core-plugins/builder/Navbar",
+    "enabled": true,
+    "brand": "Handbook",
+    "background": "#ffffff",
+    "color": "#3d3d3d",
+    "brandColor": "#007079",
+    "align": "right",
+    "items": [
+      {
+        "type": "PLUGINS:dm-core-plugins/builder/NavbarItem",
+        "id": "nav-mr90fj81-3",
+        "label": "Handbook",
+        "targetKind": "page",
+        "pageId": "page-mr90fj81-3"
+      },
+      {
+        "type": "PLUGINS:dm-core-plugins/builder/NavbarItem",
+        "id": "nav-mr90fj81-4",
+        "label": "Onboarding",
+        "targetKind": "page",
+        "pageId": "page-mr90fj81-4"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "type": "PLUGINS:dm-core-plugins/builder/Page",
+      "id": "page-mr90fj81-3",
+      "title": "Handbook",
+      "layout": {
+        "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+        "size": {
+          "type": "PLUGINS:dm-core-plugins/grid/GridSize",
+          "columns": 24,
+          "rows": 16,
+          "rowGap": "8px",
+          "columnGap": "8px"
+        },
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+            "gridArea": {
+              "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+              "columnStart": 1,
+              "columnEnd": 12,
+              "rowStart": 1,
+              "rowEnd": 2
+            },
+            "viewConfig": {
+              "type": "CORE:InlineRecipeViewConfig",
+              "scope": "",
+              "label": "Heading",
+              "recipe": {
+                "name": "heading",
+                "type": "CORE:UiRecipe",
+                "plugin": "@development-framework/dm-core-plugins/static-heading",
+                "config": {
+                  "text": "Team Handbook",
+                  "level": 1,
+                  "align": "left"
+                }
+              }
+            }
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+            "gridArea": {
+              "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+              "columnStart": 1,
+              "columnEnd": 12,
+              "rowStart": 2,
+              "rowEnd": 5
+            },
+            "viewConfig": {
+              "type": "CORE:InlineRecipeViewConfig",
+              "scope": "",
+              "label": "Text",
+              "recipe": {
+                "name": "text",
+                "type": "CORE:UiRecipe",
+                "plugin": "@development-framework/dm-core-plugins/markdown",
+                "config": {
+                  "content": "A living document for how we work. Edit any page in the builder and it updates here instantly."
+                }
+              }
+            },
+            "title": "Text"
+          }
+        ],
+        "itemBorder": {
+          "type": "PLUGINS:dm-core-plugins/grid/GridBorder",
+          "size": "1px",
+          "style": "solid",
+          "color": "#bbb",
+          "radius": "5px"
+        },
+        "showItemBorders": false
+      },
+      "children": []
+    },
+    {
+      "type": "PLUGINS:dm-core-plugins/builder/Page",
+      "id": "page-mr90fj81-4",
+      "title": "Onboarding",
+      "layout": {
+        "type": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+        "size": {
+          "type": "PLUGINS:dm-core-plugins/grid/GridSize",
+          "columns": 24,
+          "rows": 16,
+          "rowGap": "8px",
+          "columnGap": "8px"
+        },
+        "items": [
+          {
+            "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+            "gridArea": {
+              "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+              "columnStart": 1,
+              "columnEnd": 12,
+              "rowStart": 1,
+              "rowEnd": 2
+            },
+            "viewConfig": {
+              "type": "CORE:InlineRecipeViewConfig",
+              "scope": "",
+              "label": "Heading",
+              "recipe": {
+                "name": "heading",
+                "type": "CORE:UiRecipe",
+                "plugin": "@development-framework/dm-core-plugins/static-heading",
+                "config": {
+                  "text": "Getting started",
+                  "level": 1,
+                  "align": "left"
+                }
+              }
+            }
+          },
+          {
+            "type": "PLUGINS:dm-core-plugins/grid/GridItem",
+            "gridArea": {
+              "type": "PLUGINS:dm-core-plugins/grid/GridArea",
+              "columnStart": 1,
+              "columnEnd": 12,
+              "rowStart": 2,
+              "rowEnd": 5
+            },
+            "viewConfig": {
+              "type": "CORE:InlineRecipeViewConfig",
+              "scope": "",
+              "label": "Text",
+              "recipe": {
+                "name": "text",
+                "type": "CORE:UiRecipe",
+                "plugin": "@development-framework/dm-core-plugins/markdown",
+                "config": {
+                  "content": "1. Get your accounts.\n2. Read this handbook.\n3. Ship something small on day one."
+                }
+              }
+            },
+            "title": "Text"
+          }
+        ],
+        "itemBorder": {
+          "type": "PLUGINS:dm-core-plugins/grid/GridBorder",
+          "size": "1px",
+          "style": "solid",
+          "color": "#bbb",
+          "radius": "5px"
+        },
+        "showItemBorders": false
+      },
+      "children": []
+    }
+  ],
+  "name": "Team_Handbook"
+}

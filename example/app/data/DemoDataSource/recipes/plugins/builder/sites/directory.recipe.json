@@ -1,0 +1,20 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/builder/sites/blueprints/SiteDirectory",
+  "initialUiRecipe": {
+    "name": "Directory",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/builder/directory",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/builder/SiteDirectoryConfig",
+      "heading": "Websites",
+      "entityType": "dmss://DemoDataSource/plugins/builder/sites/blueprints/Website",
+      "dataSources": ["Sites"],
+      "targetDataSource": "Sites",
+      "viewUrlTemplate": "/view?documentId=dmss://{dataSource}/${id}",
+      "newSiteUrlTemplate": "/view?documentId=dmss://{dataSource}/${id}&recipe=Edit",
+      "newSiteName": "New_site",
+      "allowCreate": true
+    }
+  }
+}
