@@ -215,6 +215,12 @@ Setting that up (recipes, roles, where it's stored) is an app-configuration task
 covered in the developer README under
 [**Embedding & hosting**](./README.md#embedding--hosting-internal).
 
+**Finding sites.** To browse *all* the sites that have been built (instead of
+knowing each link), your app can show a **Site directory** — a gallery page that
+lists every saved site and opens it in one click, with an optional **New site**
+button to start a fresh one. See the developer README under
+[**Finding sites — the Site directory**](./README.md#4-finding-sites--the-site-directory).
+
 ---
 
 ## 14. Tips & troubleshooting

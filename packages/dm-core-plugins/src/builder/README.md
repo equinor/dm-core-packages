@@ -177,6 +177,53 @@ different routes.
 > need a standalone `value`-driven viewer (no `useDocument`) plus a static export
 > of the site JSON; that is out of scope for v1.
 
+### 4. Finding sites — the Site directory
+
+Linking to one site by its id is fine, but users also need a **home page that
+lists every site** so they can browse what's been built. That's the **Site
+directory** plugin (`@development-framework/dm-core-plugins/builder/directory`).
+
+It searches DMSS for every entity of the Site type and shows them as cards that
+open the viewer, plus an optional **New site** button that creates a fresh Site
+entity and jumps into the editor. It has no hard router dependency — cards are
+plain links built from a configurable URL template (defaulting to the example
+app's `/view?documentId=` convention).
+
+```tsx
+import { SiteDirectoryPlugin } from '@development-framework/dm-core-plugins/builder'
+
+// Or, more commonly, mount it via a recipe using the plugin name
+// '@development-framework/dm-core-plugins/builder/directory'.
+<SiteDirectoryPlugin
+  idReference="Sites/$directory"
+  type="…"
+  config={{
+    heading: 'Our websites',
+    targetDataSource: 'Sites',           // where "New site" writes
+    // dataSources: ['Sites'],           // defaults to the app's visible data sources
+    // viewUrlTemplate: '/view?documentId=dmss://{dataSource}/{id}',
+    // allowCreate: false,               // a read-only gallery
+  }}
+/>
+```
+
+Config (`TSiteDirectoryConfig`, blueprint `SiteDirectoryConfig`):
+
+| Field | Default | Purpose |
+| --- | --- | --- |
+| `heading` | `"Websites"` | Title above the gallery. |
+| `entityType` | `SITE_TYPE` | Which entity type to list. |
+| `dataSources` | app's visible data sources | Where to search. |
+| `targetDataSource` | first searched data source | Where **New site** creates the entity; absent ⇒ button hidden. |
+| `viewUrlTemplate` | `/view?documentId=dmss://{dataSource}/{id}` | Link built per site (`{id}`, `{dataSource}` substituted). |
+| `newSiteName` | `"New site"` | Name for a created site. |
+| `allowCreate` | `true` | Set `false` for a read-only gallery. |
+
+**How "New site" works:** it serializes `createEmptySite()` (a navbar + one blank
+page), `documentAdd`s it under `targetDataSource` with a `name`, then navigates
+to the new entity via `viewUrlTemplate`. Point that route at an authoring recipe
+so the new site opens in the editor.
+
 ## Architecture
 
 | File | Responsibility |
@@ -190,6 +237,7 @@ different routes.
 | `history.ts` | Immutable undo/redo stack + `useHistory` hook (with coalescing). |
 | `toast.ts` | `useToast` single-slot transient feedback state. |
 | `BuilderPlugin.tsx` | Plugin entry: state, history, `DndContext`, toolbar, mode switch, shortcuts, autosave. |
+| `SiteDirectoryPlugin.tsx` | Standalone plugin: a gallery of saved sites (search by type) + a "New site" action. Config in `siteDirectory.types.ts`. |
 | `templates.ts` | Starter page presets that build ready-to-edit models. |
 | `components/WidgetPalette.tsx` | Draggable palette cards grouped by category. |
 | `components/Outline.tsx` | List of widgets in the active grid for select/drill-in. |
