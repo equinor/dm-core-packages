@@ -5,7 +5,7 @@
   "dependencies": {
     "@development-framework/dm-core": "^1.46.0",
     "@development-framework/dm-core-plugins": "^1.57.0",
-    "plotly.js": "^3.5.0",
+    "plotly.js": "^3.7.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-oauth2-code-pkce": "^1.24.0",
@@ -31,7 +31,7 @@
     "vite-plugin-checker": "^0.14.4",
     "vite-plugin-svgr": "^5.2.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.10"
   },
   "scripts": {
     "start": "vite",
