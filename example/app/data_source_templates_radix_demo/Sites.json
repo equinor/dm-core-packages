@@ -4,7 +4,7 @@
     "sitesRepo": {
       "type": "mongo-db",
       "collection": "default",
-      "data_types": [],
+      "data_types": ["blob"],
       "database": "Sites",
       "host": "db",
       "password": "$MONGO_PASSWORD",

@@ -108,10 +108,7 @@ export const BuilderPlugin = (
 ): React.ReactElement => {
   const { config, idReference, type, onSubmit, onChange } = props
 
-  const { document, updateDocument } = useDocument<Record<string, unknown>>(
-    idReference,
-    1
-  )
+  const { document } = useDocument<Record<string, unknown>>(idReference, 1)
 
   const history = useHistory(() =>
     deserializeSite(config?.initialConfig ?? null)
@@ -122,7 +119,7 @@ export const BuilderPlugin = (
     () => site.pages[0]?.id ?? ''
   )
   const readOnly = config?.readOnly ?? false
-  const { role } = useApplication()
+  const { role, dmssAPI } = useApplication()
   // When `editorRoles` is configured, only those roles may edit; everyone else
   // is shown the read-only viewer. An empty/absent list means editing is open.
   const editorRoles = config?.editorRoles
@@ -557,32 +554,31 @@ export const BuilderPlugin = (
   }, [document, setSite, notify])
 
   /**
-   * Persist the current site. When the bound document *is* the site (Site-shaped)
-   * we write the navbar/pages onto the document itself, with fully-qualified
-   * addresses (the update endpoint cannot resolve the `PLUGINS:` alias),
-   * preserving the document's own type and metadata. Otherwise the site is
-   * stored in the host document's `layout` attribute. Without an entity we fall
-   * back to the host `onChange` handler. Returns true on success.
+   * Persist the current site. Builder widgets serialize free-form inline
+   * `config` objects with no DMSS `type`, which the validating update endpoint
+   * rejects (it requires a `type` on every node). We therefore write through the
+   * context-free add-raw endpoint (the same path used to create a site), which
+   * stores the document verbatim and upserts by `_id`. When the bound document
+   * *is* the site (Site-shaped) we write the navbar/pages onto the document
+   * itself with fully-qualified addresses (aliases can't be resolved on read),
+   * preserving the document's own `_id`, `type` and metadata. Otherwise the site
+   * is stored in the host document's `layout` attribute. Without an entity we
+   * fall back to the host `onChange` handler. Returns true on success.
    */
   const save = async (): Promise<boolean> => {
     const serializedSite = JSON.parse(currentJson)
     setSaveState('saving')
     try {
       if (idReference && document) {
-        if (isSerializedSite(document)) {
-          const resolved = resolvePluginAliases(serializedSite)
-          await updateDocument(
-            { ...document, ...resolved, type: document.type },
-            false,
-            true
-          )
-        } else {
-          await updateDocument(
-            { ...document, layout: serializedSite },
-            false,
-            true
-          )
-        }
+        const { dataSource } = splitAddress(idReference)
+        const body = isSerializedSite(document)
+          ? {
+              ...document,
+              ...resolvePluginAliases(serializedSite),
+              type: document.type,
+            }
+          : { ...document, layout: resolvePluginAliases(serializedSite) }
+        await dmssAPI.documentAddSimple({ dataSourceId: dataSource, body })
       } else if (onChange) {
         onChange(serializedSite)
       } else {
