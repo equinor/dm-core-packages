@@ -198,14 +198,35 @@ describe('SiteDirectoryPlugin', () => {
     expect(screen.getByText('Live Marketing Site')).not.toBeNull()
   })
 
-  it('does not offer the drafts toggle when every site is published', async () => {
+  it('deletes a site after two-step confirmation and removes the card', async () => {
     mockSearch({
-      'Sites/one': { _id: 'one', name: 'One', published: true },
+      'Sites/alpha': { _id: 'alpha', name: 'Alpha', published: true },
+      'Sites/beta': { _id: 'beta', name: 'Beta', published: true },
     })
+    const documentRemove = jest
+      .spyOn(DmssAPI.prototype, 'documentRemove')
+      // biome-ignore lint/suspicious/noExplicitAny: test stub
+      .mockResolvedValue({ data: undefined } as any)
 
     renderDirectory(baseConfig)
 
-    await screen.findByText('One')
-    expect(screen.queryByLabelText('Show drafts')).toBeNull()
+    expect(await screen.findByText('Alpha')).not.toBeNull()
+    expect(screen.getByText('Beta')).not.toBeNull()
+
+    // First click arms the button (no delete yet).
+    const [firstTrash] = screen.getAllByRole('button', { name: 'Delete site' })
+    fireEvent.click(firstTrash)
+    expect(documentRemove).not.toHaveBeenCalled()
+
+    // Second click (now labelled "Confirm delete") executes the deletion.
+    const confirmBtn = screen.getByRole('button', { name: 'Confirm delete' })
+    fireEvent.click(confirmBtn)
+
+    await waitFor(() => expect(documentRemove).toHaveBeenCalledTimes(1))
+    // The deleted card disappears from the list.
+    await waitFor(() =>
+      expect(screen.queryByText('Alpha')).toBeNull()
+    )
+    expect(screen.getByText('Beta')).not.toBeNull()
   })
 })

@@ -2,6 +2,7 @@ import { type IUIPlugin, useApplication } from '@development-framework/dm-core'
 import { Button, Icon, Switch, Typography } from '@equinor/eds-core-react'
 import {
   add,
+  delete_to_trash,
   edit,
   external_link,
   refresh,
@@ -57,29 +58,55 @@ type SiteCardProps = {
   site: TSiteHit
   viewUrl: string
   editUrl: string | null
+  onDelete: () => void
+  deleting: boolean
 }
 
-const SiteCard = ({ site, viewUrl, editUrl }: SiteCardProps) => {
+const SiteCard = ({
+  site,
+  viewUrl,
+  editUrl,
+  onDelete,
+  deleting,
+}: SiteCardProps) => {
   const initial = (site.label[0] ?? '?').toUpperCase()
   const [hovered, setHovered] = useState(false)
+  // Two-step delete: first click arms the button, second click confirms.
+  const [confirming, setConfirming] = useState(false)
   const h = hueFromString(site.id)
+
+  const handleDeleteClick = () => {
+    if (confirming) {
+      onDelete()
+    } else {
+      setConfirming(true)
+    }
+  }
+
+  // Cancel confirm state when the mouse leaves the card.
+  const handleMouseLeave = () => {
+    setHovered(false)
+    setConfirming(false)
+  }
 
   return (
     <div
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={handleMouseLeave}
       style={{
         borderRadius: 6,
         background: '#fff',
-        border: '1px solid #e0e0e0',
+        border: `1px solid ${confirming ? '#ff6b6b' : '#e0e0e0'}`,
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'box-shadow 0.15s ease, transform 0.15s ease',
+        transition:
+          'box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease',
         boxShadow: hovered
           ? '0 8px 24px rgba(0,0,0,0.14)'
           : '0 2px 6px rgba(0,0,0,0.07)',
         transform: hovered ? 'translateY(-2px)' : 'none',
+        opacity: deleting ? 0.5 : 1,
       }}
     >
       {/* Coloured banner with the site's initial letter */}
@@ -161,19 +188,51 @@ const SiteCard = ({ site, viewUrl, editUrl }: SiteCardProps) => {
         {/* Action row */}
         <div style={{ display: 'flex', gap: 8, marginTop: 'auto' }}>
           <a href={viewUrl} style={{ textDecoration: 'none', flexGrow: 1 }}>
-            <Button variant='contained' style={{ width: '100%' }}>
+            <Button
+              variant='contained'
+              style={{ width: '100%' }}
+              disabled={deleting}
+            >
               <Icon data={external_link} size={16} />
               Open
             </Button>
           </a>
           {editUrl ? (
             <a href={editUrl} style={{ textDecoration: 'none' }}>
-              <Button variant='ghost_icon' aria-label='Edit site'>
+              <Button
+                variant='ghost_icon'
+                aria-label='Edit site'
+                disabled={deleting}
+              >
                 <Icon data={edit} size={18} />
               </Button>
             </a>
           ) : null}
+          <Button
+            variant='ghost_icon'
+            aria-label={confirming ? 'Confirm delete' : 'Delete site'}
+            title={
+              confirming ? 'Click again to confirm deletion' : 'Delete site'
+            }
+            disabled={deleting}
+            onClick={handleDeleteClick}
+            style={
+              confirming
+                ? { color: '#b30d2f', background: '#fff0f2' }
+                : undefined
+            }
+          >
+            <Icon data={delete_to_trash} size={18} />
+          </Button>
         </div>
+        {confirming ? (
+          <Typography
+            variant='caption'
+            style={{ color: '#b30d2f', marginTop: 6, textAlign: 'right' }}
+          >
+            Click trash again to confirm
+          </Typography>
+        ) : null}
       </div>
     </div>
   )
@@ -210,6 +269,7 @@ export const SiteDirectoryPlugin = (
   const [reloadKey, setReloadKey] = useState(0)
   const [creating, setCreating] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
   // Authors need to see their drafts to finish and publish them, so drafts are
   // shown by default; toggling this off previews the published-only view.
   const [showDrafts, setShowDrafts] = useState(true)
@@ -319,6 +379,25 @@ export const SiteDirectoryPlugin = (
     }
   }, [config?.newSiteName, dmssAPI, entityType, target, createUrl])
 
+  const handleDelete = useCallback(
+    async (site: TSiteHit) => {
+      setDeletingId(site.id)
+      try {
+        // documentRemove takes a full DMSS address; root documents use the
+        // `$id` syntax (the `$` is DMSS's root-id sigil, not a JS template).
+        await dmssAPI.documentRemove({
+          address: `dmss://${site.dataSource}/$${site.id}`,
+        })
+        setSites((current) => current.filter((s) => s.id !== site.id))
+      } catch (error) {
+        console.error('Failed to delete site', error)
+      } finally {
+        setDeletingId(null)
+      }
+    },
+    [dmssAPI]
+  )
+
   const draftCount = sites.filter((site) => !site.published).length
   const visibleSites = showDrafts
     ? sites
@@ -422,6 +501,8 @@ export const SiteDirectoryPlugin = (
               site={site}
               viewUrl={viewUrl(site.dataSource, site.id)}
               editUrl={editUrl(site.dataSource, site.id)}
+              onDelete={() => handleDelete(site)}
+              deleting={deletingId === site.id}
             />
           ))}
         </div>
