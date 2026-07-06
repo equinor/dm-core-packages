@@ -9,6 +9,7 @@ import {
   warning_outlined,
 } from '@equinor/eds-icons'
 import { useCallback, useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import {
   createEmptySite,
   resolvePluginAliases,
@@ -54,11 +55,107 @@ const hueFromString = (s: string): number => {
   return h % 360
 }
 
+// ---- Delete confirmation modal ------------------------------------------
+
+type DeleteModalProps = {
+  siteName: string
+  deleting: boolean
+  onConfirm: () => void
+  onCancel: () => void
+}
+
+const DeleteModal = ({
+  siteName,
+  deleting,
+  onConfirm,
+  onCancel,
+}: DeleteModalProps) =>
+  createPortal(
+    // biome-ignore lint/a11y/useKeyWithClickEvents: backdrop click to dismiss
+    <div
+      onClick={onCancel}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'rgba(0,0,0,0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 9999,
+      }}
+    >
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: stop propagation */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        role='alertdialog'
+        aria-modal='true'
+        aria-labelledby='delete-modal-title'
+        style={{
+          background: '#fff',
+          borderRadius: 8,
+          padding: '32px 28px 24px',
+          maxWidth: 420,
+          width: '90vw',
+          boxShadow: '0 16px 48px rgba(0,0,0,0.22)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 12,
+          textAlign: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: 52,
+            height: 52,
+            borderRadius: '50%',
+            background: '#fff0f2',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 4,
+          }}
+        >
+          <Icon data={delete_to_trash} size={24} style={{ color: '#b30d2f' }} />
+        </div>
+        <Typography id='delete-modal-title' variant='h5' style={{ margin: 0 }}>
+          Delete website?
+        </Typography>
+        <Typography style={{ color: '#3d3d3d', lineHeight: 1.5 }}>
+          Deleting <strong>{siteName}</strong> is permanent. Are you sure you
+          wish to delete it?
+        </Typography>
+        <div style={{ display: 'flex', gap: 12, marginTop: 8, width: '100%' }}>
+          <Button
+            variant='outlined'
+            style={{ flexGrow: 1 }}
+            onClick={onCancel}
+            disabled={deleting}
+          >
+            No
+          </Button>
+          <Button
+            color='danger'
+            style={{ flexGrow: 1 }}
+            onClick={onConfirm}
+            disabled={deleting}
+          >
+            <Icon data={delete_to_trash} size={16} />
+            {deleting ? 'Deleting…' : 'Yes, delete'}
+          </Button>
+        </div>
+      </div>
+    </div>,
+    document.body
+  )
+
+// ---- Site card ----------------------------------------------------------
+
 type SiteCardProps = {
   site: TSiteHit
   viewUrl: string
   editUrl: string | null
-  onDelete: () => void
+  onDeleteRequest: () => void
   deleting: boolean
 }
 
@@ -66,42 +163,25 @@ const SiteCard = ({
   site,
   viewUrl,
   editUrl,
-  onDelete,
+  onDeleteRequest,
   deleting,
 }: SiteCardProps) => {
   const initial = (site.label[0] ?? '?').toUpperCase()
   const [hovered, setHovered] = useState(false)
-  // Two-step delete: first click arms the button, second click confirms.
-  const [confirming, setConfirming] = useState(false)
   const h = hueFromString(site.id)
-
-  const handleDeleteClick = () => {
-    if (confirming) {
-      onDelete()
-    } else {
-      setConfirming(true)
-    }
-  }
-
-  // Cancel confirm state when the mouse leaves the card.
-  const handleMouseLeave = () => {
-    setHovered(false)
-    setConfirming(false)
-  }
 
   return (
     <div
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={() => setHovered(false)}
       style={{
         borderRadius: 6,
         background: '#fff',
-        border: `1px solid ${confirming ? '#ff6b6b' : '#e0e0e0'}`,
+        border: '1px solid #e0e0e0',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        transition:
-          'box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease',
+        transition: 'box-shadow 0.15s ease, transform 0.15s ease',
         boxShadow: hovered
           ? '0 8px 24px rgba(0,0,0,0.14)'
           : '0 2px 6px rgba(0,0,0,0.07)',
@@ -210,33 +290,21 @@ const SiteCard = ({
           ) : null}
           <Button
             variant='ghost_icon'
-            aria-label={confirming ? 'Confirm delete' : 'Delete site'}
-            title={
-              confirming ? 'Click again to confirm deletion' : 'Delete site'
-            }
+            aria-label='Delete site'
+            title='Delete site'
             disabled={deleting}
-            onClick={handleDeleteClick}
-            style={
-              confirming
-                ? { color: '#b30d2f', background: '#fff0f2' }
-                : undefined
-            }
+            onClick={onDeleteRequest}
+            style={{ color: '#b30d2f' }}
           >
             <Icon data={delete_to_trash} size={18} />
           </Button>
         </div>
-        {confirming ? (
-          <Typography
-            variant='caption'
-            style={{ color: '#b30d2f', marginTop: 6, textAlign: 'right' }}
-          >
-            Click trash again to confirm
-          </Typography>
-        ) : null}
       </div>
     </div>
   )
 }
+
+// ---- Directory plugin ---------------------------------------------------
 
 /**
  * Site directory — a gallery of saved websites.
@@ -270,6 +338,9 @@ export const SiteDirectoryPlugin = (
   const [creating, setCreating] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [pendingDeleteSite, setPendingDeleteSite] = useState<TSiteHit | null>(
+    null
+  )
   // Authors need to see their drafts to finish and publish them, so drafts are
   // shown by default; toggling this off previews the published-only view.
   const [showDrafts, setShowDrafts] = useState(true)
@@ -389,6 +460,7 @@ export const SiteDirectoryPlugin = (
           address: `dmss://${site.dataSource}/$${site.id}`,
         })
         setSites((current) => current.filter((s) => s.id !== site.id))
+        setPendingDeleteSite(null)
       } catch (error) {
         console.error('Failed to delete site', error)
       } finally {
@@ -405,6 +477,15 @@ export const SiteDirectoryPlugin = (
 
   return (
     <div className='dm-plugin-padding' style={{ width: '100%' }}>
+      {pendingDeleteSite ? (
+        <DeleteModal
+          siteName={pendingDeleteSite.label}
+          deleting={deletingId === pendingDeleteSite.id}
+          onConfirm={() => handleDelete(pendingDeleteSite)}
+          onCancel={() => setPendingDeleteSite(null)}
+        />
+      ) : null}
+
       {/* Header row */}
       <div
         style={{
@@ -501,7 +582,7 @@ export const SiteDirectoryPlugin = (
               site={site}
               viewUrl={viewUrl(site.dataSource, site.id)}
               editUrl={editUrl(site.dataSource, site.id)}
-              onDelete={() => handleDelete(site)}
+              onDeleteRequest={() => setPendingDeleteSite(site)}
               deleting={deletingId === site.id}
             />
           ))}

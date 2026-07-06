@@ -198,7 +198,7 @@ describe('SiteDirectoryPlugin', () => {
     expect(screen.getByText('Live Marketing Site')).not.toBeNull()
   })
 
-  it('deletes a site after two-step confirmation and removes the card', async () => {
+  it('deletes a site after modal confirmation and removes the card', async () => {
     mockSearch({
       'Sites/alpha': { _id: 'alpha', name: 'Alpha', published: true },
       'Sites/beta': { _id: 'beta', name: 'Beta', published: true },
@@ -213,20 +213,44 @@ describe('SiteDirectoryPlugin', () => {
     expect(await screen.findByText('Alpha')).not.toBeNull()
     expect(screen.getByText('Beta')).not.toBeNull()
 
-    // First click arms the button (no delete yet).
+    // Click the trash icon — the modal should appear.
     const [firstTrash] = screen.getAllByRole('button', { name: 'Delete site' })
     fireEvent.click(firstTrash)
     expect(documentRemove).not.toHaveBeenCalled()
 
-    // Second click (now labelled "Confirm delete") executes the deletion.
-    const confirmBtn = screen.getByRole('button', { name: 'Confirm delete' })
-    fireEvent.click(confirmBtn)
+    // Modal shows the site name and a confirmation message.
+    expect(screen.getByRole('alertdialog')).not.toBeNull()
+    expect(screen.getByText(/permanent/i)).not.toBeNull()
+
+    // Clicking "Yes, delete" executes the deletion.
+    fireEvent.click(screen.getByRole('button', { name: /yes, delete/i }))
 
     await waitFor(() => expect(documentRemove).toHaveBeenCalledTimes(1))
-    // The deleted card disappears from the list.
-    await waitFor(() =>
-      expect(screen.queryByText('Alpha')).toBeNull()
-    )
+    // The deleted card disappears from the list and the modal closes.
+    await waitFor(() => expect(screen.queryByText('Alpha')).toBeNull())
+    expect(screen.queryByRole('alertdialog')).toBeNull()
     expect(screen.getByText('Beta')).not.toBeNull()
+  })
+
+  it('cancels deletion when "No" is clicked in the modal', async () => {
+    mockSearch({
+      'Sites/one': { _id: 'one', name: 'One', published: true },
+    })
+    const documentRemove = jest
+      .spyOn(DmssAPI.prototype, 'documentRemove')
+      // biome-ignore lint/suspicious/noExplicitAny: test stub
+      .mockResolvedValue({ data: undefined } as any)
+
+    renderDirectory(baseConfig)
+
+    await screen.findByText('One')
+    fireEvent.click(screen.getByRole('button', { name: 'Delete site' }))
+    expect(screen.getByRole('alertdialog')).not.toBeNull()
+
+    fireEvent.click(screen.getByRole('button', { name: 'No' }))
+
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull())
+    expect(documentRemove).not.toHaveBeenCalled()
+    expect(screen.getByText('One')).not.toBeNull()
   })
 })
