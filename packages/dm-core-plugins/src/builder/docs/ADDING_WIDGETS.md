@@ -7,7 +7,7 @@ drag-and-drop website builder — for example a **date picker**, a **rating**, a
 You do **not** need to touch the builder's internals. Every widget lives in its
 own small file, and you register it by adding **one line** to a list. That's it.
 
-> **TL;DR** — Create one file in `builder/widgets/`, add one import line to
+> **TL;DR** — Create two files in `builder/widgets/` (a `*.widget.styles.ts` and a `*.widget.tsx`), add one import line to
 > `builder/widgets/index.ts`. Done. Skip to [The 3-minute version](#the-3-minute-version).
 
 ---
@@ -18,14 +18,15 @@ Everything about one widget lives in a single file:
 
 ```
 packages/dm-core-plugins/src/builder/widgets/
-├── index.ts              ← the ONE list of all widgets (you add a line here)
-├── types.ts              ← the shape of a widget definition
-├── heading.widget.ts     ← one file per widget …
+├── index.ts                       ← the ONE list of all widgets (you add a line here)
+├── types.ts                       ← the shape of a widget definition
+├── heading.widget.ts              ← one file per widget …
 ├── button.widget.ts
 ├── table.widget.ts
 ├── chart.widget.ts
 ├── metric.widget.ts
-├── datePicker.widget.tsx ← 👀 a complete worked example — copy this
+├── datePicker.widget.tsx          ← 👀 a complete worked example — copy this
+├── datePicker.widget.styles.ts    ← 👀 …and its co-located styles — copy this too
 └── …
 ```
 
@@ -43,7 +44,7 @@ When you add your file to the list in `index.ts`, the builder automatically:
 - shows your **settings fields** in the properties panel on the right,
 - **renders** your widget in Preview and on the published page.
 
-No other files to edit. (Behind the scenes `blocks.ts`, `icons.ts` and the
+No other files to edit. (Behind the scenes `model/blocks.ts`, `utils/icons.ts` and the
 plugin registry all read from this one list.)
 
 ---
@@ -69,12 +70,47 @@ The rest of this guide covers kind #1, which is what you'll want almost always.
 
 Say you want a **Date picker**. Here's the whole thing.
 
-### Step 1 — Create `builder/widgets/datePicker.widget.tsx`
+### Step 1 — Create `builder/widgets/datePicker.widget.styles.ts`
+
+The project convention is **styled-components** — no inline `style={{}}`. Put all
+styling in a co-located `*.styles.ts` file:
+
+```ts
+import styled from 'styled-components'
+
+export const Container = styled.div`
+  width: 100%;
+`
+
+export const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+`
+
+export const Input = styled.input`
+  padding: 6px 8px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font: inherit;
+`
+
+export const HelperText = styled.div`
+  font-size: 12px;
+  color: #6f6f6f;
+  margin-top: 4px;
+`
+```
+
+### Step 2 — Create `builder/widgets/datePicker.widget.tsx`
 
 ```tsx
 import type { IUIPlugin } from '@development-framework/dm-core'
 import { calendar } from '@equinor/eds-icons'
 import { useState } from 'react'
+import * as S from './datePicker.widget.styles'
 import type { TWidgetDefinition } from './types'
 
 // What settings this widget stores.
@@ -92,13 +128,17 @@ const DatePickerWidget = (
   const [date, setDate] = useState(value)
 
   return (
-    <div className='dm-plugin-padding' style={{ width: '100%' }}>
-      <label style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+    <S.Container className='dm-plugin-padding'>
+      <S.Label>
         {label}
-        <input type='date' value={date} onChange={(e) => setDate(e.target.value)} />
-      </label>
-      {helperText ? <small>{helperText}</small> : null}
-    </div>
+        <S.Input
+          type='date'
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+      </S.Label>
+      {helperText ? <S.HelperText>{helperText}</S.HelperText> : null}
+    </S.Container>
   )
 }
 
@@ -126,11 +166,12 @@ export const datePickerWidget: TWidgetDefinition = {
 }
 ```
 
-> A full, commented version of this exact file already lives at
-> [`widgets/datePicker.widget.tsx`](../widgets/datePicker.widget.tsx) — open it
-> and copy it.
+> A full, commented version of these files already lives at
+> [`widgets/datePicker.widget.tsx`](../widgets/datePicker.widget.tsx) and
+> [`widgets/datePicker.widget.styles.ts`](../widgets/datePicker.widget.styles.ts)
+> — copy them both as your starting point.
 
-### Step 2 — Register it (the one line)
+### Step 3 — Register it (the one line)
 
 Open [`builder/widgets/index.ts`](../widgets/index.ts) and add two lines:
 
@@ -143,7 +184,7 @@ export const WIDGET_DEFINITIONS: TWidgetDefinition[] = [
 ]
 ```
 
-### Step 3 — See it
+### Step 4 — See it
 
 Start the example app, open the builder, and your **Date picker** card is in the
 palette under **Data**. Drag it onto the page. That's it. 🎉
@@ -250,8 +291,9 @@ const { label = 'Pick a date', value = '' } = props.config
 Tips:
 
 - Add the `dm-plugin-padding` class to your outer element for consistent spacing.
-- Use `style={{ width: '100%' }}` so the widget fills its grid cell.
-- If content might overflow a small cell, add `overflow: 'hidden'`.
+- Use `width: 100%` in your styled-component so the widget fills its grid cell (see `datePicker.widget.styles.ts`).
+- **No inline `style={{}}`** — the project convention is styled-components. Put all CSS in a co-located `*.widget.styles.ts` file and import it as `* as S`.
+- If content might overflow a small cell, add `overflow: hidden` in the styled-component.
 - Keep it **dependency-free** where you can (plain HTML/SVG), the same way the
   built-in Chart and Metric widgets do. That keeps the app small and fast.
 
@@ -325,7 +367,8 @@ Other common issues:
 
 ## Cheat sheet
 
-1. Copy `datePicker.widget.tsx` → `myThing.widget.tsx`.
-2. Change the component, the `id`, `recipe`, `label`, `icon`, and `fields`.
-3. Import it and add it to the list in `index.ts`.
-4. `tsc`, `jest`, `biome` → done.
+1. Copy `datePicker.widget.styles.ts` → `myThing.widget.styles.ts` (adjust the styled-components inside).
+2. Copy `datePicker.widget.tsx` → `myThing.widget.tsx`.
+3. Update the component, the `id`, `recipe`, `label`, `icon`, and `fields`.
+4. Import it and add it to the list in `index.ts`.
+5. `tsc`, `jest`, `biome` → done.
