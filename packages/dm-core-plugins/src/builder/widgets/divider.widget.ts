@@ -5,7 +5,7 @@ import type { TWidgetDefinition } from './types'
 export const dividerWidget: TWidgetDefinition = {
   icon: remove,
   load: () =>
-    import('../staticWidgets').then((m) => ({
+    import('../static/staticWidgets').then((m) => ({
       default: m.StaticDividerPlugin,
     })),
   block: {

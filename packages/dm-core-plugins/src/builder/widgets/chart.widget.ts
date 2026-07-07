@@ -5,7 +5,7 @@ import type { TWidgetDefinition } from './types'
 export const chartWidget: TWidgetDefinition = {
   icon: bar_chart,
   load: () =>
-    import('../StaticChartPlugin').then((m) => ({
+    import('../static/StaticChartPlugin').then((m) => ({
       default: m.StaticChartPlugin,
     })),
   block: {

@@ -1,5 +1,5 @@
+import type { TBuilderModel } from '../types'
 import { createEmptyModel, deserialize, serialize } from './model'
-import type { TBuilderModel } from './types'
 
 /** DMSS type discriminators for the multi-page site wrapper. */
 export const SITE_TYPE = 'PLUGINS:dm-core-plugins/builder/Site'

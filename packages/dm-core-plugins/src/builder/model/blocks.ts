@@ -6,6 +6,6 @@
  * `getBlock` are derived from that registry so existing imports keep working.
  *
  * ★ To add a new widget, add a file under `builder/widgets/` — you do NOT edit
- *   this file. See `builder/ADDING_WIDGETS.md`.
+ *   this file. See `builder/docs/ADDING_WIDGETS.md`.
  */
-export { BLOCKS, getBlock } from './widgets'
+export { BLOCKS, getBlock } from '../widgets'

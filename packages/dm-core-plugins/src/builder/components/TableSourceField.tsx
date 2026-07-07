@@ -1,8 +1,8 @@
 import { Button, Progress } from '@equinor/eds-core-react'
 import { type ChangeEvent, useRef, useState } from 'react'
-import { markdownToRows, rowsToMarkdown } from '../markdownTable'
-import { MAX_COLS, MAX_ROWS, parseSpreadsheet } from '../spreadsheet'
 import * as Styled from '../styles'
+import { markdownToRows, rowsToMarkdown } from '../utils/markdownTable'
+import { MAX_COLS, MAX_ROWS, parseSpreadsheet } from '../utils/spreadsheet'
 
 type TTableSourceFieldProps = {
   label: string

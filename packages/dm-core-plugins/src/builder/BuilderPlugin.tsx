@@ -30,7 +30,6 @@ import {
   useState,
 } from 'react'
 import type { TGridArea, TGridItem } from '../grid'
-import { getBlock } from './blocks'
 import { Canvas, DENSITY_STEP } from './components/Canvas'
 import { Inspector } from './components/Inspector'
 import { Navbar } from './components/Navbar'
@@ -40,8 +39,8 @@ import { SiteGrid } from './components/SiteGrid'
 import { TemplatesMenu } from './components/TemplatesMenu'
 import { Toast } from './components/Toast'
 import { WidgetPalette } from './components/WidgetPalette'
-import { useHistory } from './history'
-import { ICONS } from './icons'
+import { getBlock } from './model/blocks'
+import { useHistory } from './model/history'
 import {
   addWidget,
   clampPath,
@@ -65,7 +64,7 @@ import {
   setWidgetTitle,
   translateArea,
   wouldOverlap,
-} from './model'
+} from './model/model'
 import {
   addNavItem,
   addPage,
@@ -86,15 +85,16 @@ import {
   updateNavbar,
   updateNavItem,
   updateSiteMeta,
-} from './site'
+} from './model/site'
 import * as Styled from './styles'
-import { useToast } from './toast'
 import type {
   TBlock,
   TBuilderMode,
   TBuilderModel,
   TBuilderPluginConfig,
 } from './types'
+import { ICONS } from './utils/icons'
+import { useToast } from './utils/toast'
 
 type TDevice = 'desktop' | 'tablet' | 'mobile'
 

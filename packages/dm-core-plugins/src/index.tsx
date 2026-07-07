@@ -7,7 +7,7 @@ export type {
   TBuilderSite,
   TNavbar,
   TNavbarItem,
-} from './builder/site'
+} from './builder/model/site'
 
 // Website builder public API.
 //
@@ -24,7 +24,7 @@ export {
   isSerializedSite,
   SITE_SCHEMA_VERSION,
   serializeSite,
-} from './builder/site'
+} from './builder/model/site'
 export type { TBuilderMode, TBuilderPluginConfig } from './builder/types'
 export type { TWidgetDefinition } from './builder/widgets'
 export { WidgetProvider } from './form/context/WidgetContext'
@@ -74,7 +74,7 @@ export default {
   },
   // Builder "static" widgets (Heading, Button, Table, Chart, Metric, …) are
   // registered from the widget registry so adding one never touches this file.
-  // See builder/widgets/index.ts and builder/ADDING_WIDGETS.md.
+  // See builder/widgets/index.ts and builder/docs/ADDING_WIDGETS.md.
   ...builderStaticPlugins,
   '@development-framework/dm-core-plugins/stack': {
     component: lazy(() =>

@@ -1,6 +1,6 @@
+import type { TBuilderModel } from '../types'
 import { getBlock } from './blocks'
 import { addWidget, createEmptyModel } from './model'
-import type { TBuilderModel } from './types'
 
 const block = (id: string) => {
   const found = getBlock(id)

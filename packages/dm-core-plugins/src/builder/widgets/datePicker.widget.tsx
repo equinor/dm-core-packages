@@ -6,7 +6,7 @@ import type { TWidgetDefinition } from './types'
 /**
  * Date picker — a worked example of a self-contained widget.
  *
- * This whole file is the canonical reference for `builder/ADDING_WIDGETS.md`:
+ * This whole file is the canonical reference for `builder/docs/ADDING_WIDGETS.md`:
  * one file that co-locates the runtime component AND its registry definition.
  * Copy it as a starting point for your own widgets.
  */

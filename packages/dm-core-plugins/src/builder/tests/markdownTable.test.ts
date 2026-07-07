@@ -1,4 +1,4 @@
-import { markdownToRows, rowsToMarkdown } from '../markdownTable'
+import { markdownToRows, rowsToMarkdown } from '../utils/markdownTable'
 
 describe('markdown table', () => {
   it('renders a cell grid as a GitHub-style markdown table', () => {

@@ -1,6 +1,6 @@
 import { DndContext } from '@dnd-kit/core'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { BLOCKS } from '../blocks'
+import { BLOCKS } from '../model/blocks'
 import { WidgetPalette } from '../components/WidgetPalette'
 
 const renderPalette = (onAdd: (block: unknown) => void) =>

@@ -1,9 +1,9 @@
 import { Button, Icon, Typography } from '@equinor/eds-core-react'
 import type { TGridItem } from '../../grid/types'
-import { getBlock } from '../blocks'
-import { ICONS } from '../icons'
-import { isContainerItem } from '../model'
+import { getBlock } from '../model/blocks'
+import { isContainerItem } from '../model/model'
 import * as Styled from '../styles'
+import { ICONS } from '../utils/icons'
 
 const itemLabel = (item: TGridItem): string => {
   const recipe = item.viewConfig.recipe

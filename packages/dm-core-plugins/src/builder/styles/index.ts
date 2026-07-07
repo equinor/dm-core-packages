@@ -1,6 +1,6 @@
 import { tokens } from '@equinor/eds-tokens'
 import styled from 'styled-components'
-import type { TGridSize } from '../grid'
+import type { TGridSize } from '../../grid'
 
 // Aliases for EDS tokens used throughout this file.
 const {

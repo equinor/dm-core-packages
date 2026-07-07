@@ -11,15 +11,13 @@
 
 // The plugin component.
 export { BuilderPlugin } from './BuilderPlugin'
-// The site directory (gallery of saved sites + "New site").
-export { SiteDirectoryPlugin } from './SiteDirectoryPlugin'
 export type {
   TBuilderPage,
   TBuilderSite,
   TNavbar,
   TNavbarItem,
   TNavbarItemTarget,
-} from './site'
+} from './model/site'
 // Persistence: the site model, its serializer and versioning. This is the
 // contract stored on an entity's `layout` and validated by the Site blueprint.
 export {
@@ -34,8 +32,9 @@ export {
   SITE_SCHEMA_VERSION,
   SITE_TYPE,
   serializeSite,
-} from './site'
-export type { TSiteDirectoryConfig } from './siteDirectory.types'
+} from './model/site'
+// The site directory (gallery of saved sites + "New site").
+export { SiteDirectoryPlugin } from './SiteDirectoryPlugin'
 // Plugin configuration.
 export type {
   TBlock,
@@ -46,7 +45,8 @@ export type {
   TInspectorFieldTarget,
   TInspectorFieldType,
 } from './types'
+export type { TSiteDirectoryConfig } from './types/siteDirectory'
 export type { TWidgetDefinition } from './widgets'
 // The widget registry contract, so custom widgets can be authored and inspected
-// programmatically. See ADDING_WIDGETS.md for the authoring guide.
+// programmatically. See docs/ADDING_WIDGETS.md for the authoring guide.
 export { BLOCKS, getBlock, WIDGET_DEFINITIONS } from './widgets'

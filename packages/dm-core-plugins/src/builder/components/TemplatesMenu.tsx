@@ -1,6 +1,6 @@
 import { Button, Menu } from '@equinor/eds-core-react'
 import { useRef, useState } from 'react'
-import { TEMPLATES, type TTemplate } from '../templates'
+import { TEMPLATES, type TTemplate } from '../model/templates'
 
 export const TemplatesMenu = ({
   onApply,

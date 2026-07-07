@@ -1,13 +1,13 @@
 import { Icon } from '@equinor/eds-core-react'
 import { useEffect, useRef, useState } from 'react'
-import { ICONS } from '../icons'
 import type {
   TBuilderPage,
   TNavbar,
   TNavbarItem,
   TNavbarItemTarget,
-} from '../site'
+} from '../model/site'
 import * as Styled from '../styles'
+import { ICONS } from '../utils/icons'
 
 /** Flatten the page tree to `{ id, label }` options for the target selector. */
 const flattenPages = (

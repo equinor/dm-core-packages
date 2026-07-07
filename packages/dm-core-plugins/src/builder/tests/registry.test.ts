@@ -1,4 +1,4 @@
-import { ICONS } from '../icons'
+import { ICONS } from '../utils/icons'
 import {
   BLOCKS,
   builderStaticPlugins,
@@ -9,7 +9,7 @@ import {
 /**
  * Guardrails for the widget registry. These fail with a clear message when a
  * newly added widget is misconfigured, so you don't have to hunt through the
- * running app to find the mistake. See builder/ADDING_WIDGETS.md.
+ * running app to find the mistake. See builder/docs/ADDING_WIDGETS.md.
  */
 describe('widget registry', () => {
   it('gives every widget a unique block id', () => {

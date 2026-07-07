@@ -1,7 +1,7 @@
 import type { TUiRecipe, TViewConfig } from '@development-framework/dm-core'
-import type { TGridArea, TGridItem, TGridSize } from '../grid'
+import type { TGridArea, TGridItem, TGridSize } from '../../grid'
+import type { TBlock, TBuilderModel } from '../types'
 import { getBlock } from './blocks'
-import type { TBlock, TBuilderModel } from './types'
 
 /** DMSS type discriminators used by the runtime `grid` plugin entity format. */
 export const GRID_CONFIG_TYPE = 'PLUGINS:dm-core-plugins/grid/GridPluginConfig'

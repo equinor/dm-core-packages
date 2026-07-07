@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { getBlock } from '../blocks'
+import { getBlock } from '../model/blocks'
 import { Outline } from '../components/Outline'
-import { addWidget, createEmptyModel } from '../model'
+import { addWidget, createEmptyModel } from '../model/model'
 
 const modelWith = (...blockIds: string[]) =>
   blockIds.reduce((model, id) => {

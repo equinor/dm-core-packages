@@ -6,8 +6,8 @@ import {
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import { SiteDirectoryPlugin } from '../SiteDirectoryPlugin'
-import { SITE_TYPE_ADDRESS } from '../site'
-import type { TSiteDirectoryConfig } from '../siteDirectory.types'
+import { SITE_TYPE_ADDRESS } from '../model/site'
+import type { TSiteDirectoryConfig } from '../types/siteDirectory'
 
 const wrapper = ({ children }: { children: ReactNode }) => (
   <DMApplicationProvider

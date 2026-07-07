@@ -1,9 +1,9 @@
 import { Icon } from '@equinor/eds-core-react'
 import { tokens } from '@equinor/eds-tokens'
 import { useEffect, useRef, useState } from 'react'
-import { ICONS } from '../icons'
-import type { TBuilderPage } from '../site'
+import type { TBuilderPage } from '../model/site'
 import * as Styled from '../styles'
+import { ICONS } from '../utils/icons'
 
 /** Ids of every ancestor of `targetId` within `pages` (root-most first). */
 const ancestorIds = (pages: TBuilderPage[], targetId: string): string[] => {

@@ -1,4 +1,4 @@
-import { BLOCKS, getBlock } from '../blocks'
+import { BLOCKS, getBlock } from '../model/blocks'
 import {
   addWidget,
   areasOverlap,
@@ -34,7 +34,7 @@ import {
   setWidgetTitle,
   translateArea,
   wouldOverlap,
-} from '../model'
+} from '../model/model'
 
 import type { TBlock } from '../types'
 

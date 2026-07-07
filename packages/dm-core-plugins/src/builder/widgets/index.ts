@@ -21,7 +21,7 @@ import type { TWidgetDefinition } from './types'
  * ★ To add a new widget: create a `*.widget.ts(x)` file next to this one that
  *   exports a `TWidgetDefinition`, import it above, and add it to this array.
  *   The palette card, its icon and (for static widgets) the runtime component
- *   are all wired up automatically. See `builder/ADDING_WIDGETS.md`.
+ *   are all wired up automatically. See `builder/docs/ADDING_WIDGETS.md`.
  *
  * The array order is the order widgets appear within their palette category.
  */

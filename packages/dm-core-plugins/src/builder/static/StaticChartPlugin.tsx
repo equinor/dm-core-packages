@@ -1,6 +1,6 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { max as arrayMax, min as arrayMin } from './mathUtils'
+import { max as arrayMax, min as arrayMin } from '../utils/mathUtils'
 
 /**
  * A self-contained, dependency-free chart rendered as inline SVG. Data is

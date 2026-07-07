@@ -6,7 +6,7 @@ import {
 import { render, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import type { TGridPluginConfig } from '../../grid/types'
-import { GRID_PLUGIN_NAME } from '../model'
+import { GRID_PLUGIN_NAME } from '../model/model'
 import { SiteGrid } from '../components/SiteGrid'
 
 const HeadingStub = (props: IUIPlugin) => (

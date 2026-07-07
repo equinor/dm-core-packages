@@ -5,7 +5,9 @@ import type { TWidgetDefinition } from './types'
 export const spacerWidget: TWidgetDefinition = {
   icon: keyboard_space_bar,
   load: () =>
-    import('../staticWidgets').then((m) => ({ default: m.StaticSpacerPlugin })),
+    import('../static/staticWidgets').then((m) => ({
+      default: m.StaticSpacerPlugin,
+    })),
   block: {
     id: 'spacer',
     label: 'Spacer',

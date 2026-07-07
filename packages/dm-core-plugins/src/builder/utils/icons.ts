@@ -25,7 +25,7 @@ import {
   zoom_in,
   zoom_out,
 } from '@equinor/eds-icons'
-import { WIDGET_ICONS } from './widgets'
+import { WIDGET_ICONS } from '../widgets'
 
 /**
  * Icons used by the builder's editor chrome (toolbar, palette, outline, nav).

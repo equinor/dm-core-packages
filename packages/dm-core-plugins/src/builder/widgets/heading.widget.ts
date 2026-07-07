@@ -5,7 +5,7 @@ import type { TWidgetDefinition } from './types'
 export const headingWidget: TWidgetDefinition = {
   icon: title,
   load: () =>
-    import('../staticWidgets').then((m) => ({
+    import('../static/staticWidgets').then((m) => ({
       default: m.StaticHeadingPlugin,
     })),
   block: {

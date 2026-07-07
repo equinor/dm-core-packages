@@ -6,7 +6,7 @@ import {
   formatNumber,
   parseNumbers,
   type TAggregation,
-} from './mathUtils'
+} from '../utils/mathUtils'
 
 /**
  * Self-contained "static" widgets for the website builder. Each renders purely

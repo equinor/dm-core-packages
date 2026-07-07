@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { getBlock } from '../blocks'
+import { getBlock } from '../model/blocks'
 import { Inspector, type TInspectorHandlers } from '../components/Inspector'
-import { addWidget, createEmptyModel } from '../model'
+import { addWidget, createEmptyModel } from '../model/model'
 
 const itemForBlock = (blockId: string) => {
   const block = getBlock(blockId)

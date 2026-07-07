@@ -1,4 +1,4 @@
-import type { TGridSize } from '../grid'
+import type { TGridSize } from '../../grid'
 
 /** Padding (px) inside the canvas grid; mirrors `CanvasGrid` in styles.ts. */
 export const CANVAS_GRID_PADDING = 4

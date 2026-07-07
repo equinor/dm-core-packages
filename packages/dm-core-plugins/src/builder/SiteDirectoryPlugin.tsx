@@ -22,8 +22,8 @@ import {
   SITE_TYPE_ADDRESS,
   serializeSite,
   stampWidgetConfigTypes,
-} from './site'
-import type { TSiteDirectoryConfig } from './siteDirectory.types'
+} from './model/site'
+import type { TSiteDirectoryConfig } from './types/siteDirectory'
 
 const {
   interactive: {

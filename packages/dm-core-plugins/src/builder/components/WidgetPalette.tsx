@@ -1,9 +1,9 @@
 import { useDraggable } from '@dnd-kit/core'
 import { Icon, Typography } from '@equinor/eds-core-react'
-import { BLOCKS } from '../blocks'
-import { ICONS } from '../icons'
+import { BLOCKS } from '../model/blocks'
 import * as Styled from '../styles'
 import type { TBlock, TBlockCategory } from '../types'
+import { ICONS } from '../utils/icons'
 
 const CATEGORY_LABELS: Record<TBlockCategory, string> = {
   layout: 'Layout',

@@ -5,7 +5,7 @@ import type { TWidgetDefinition } from './types'
 export const tableWidget: TWidgetDefinition = {
   icon: table_chart,
   load: () =>
-    import('../StaticTablePlugin').then((m) => ({
+    import('../static/StaticTablePlugin').then((m) => ({
       default: m.StaticTablePlugin,
     })),
   block: {

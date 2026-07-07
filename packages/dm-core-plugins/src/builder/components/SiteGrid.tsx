@@ -10,7 +10,7 @@ import type {
   TGridItemStyle,
   TGridPluginConfig,
 } from '../../grid/types'
-import { ensureModel, GRID_PLUGIN_NAME, isContainerItem } from '../model'
+import { ensureModel, GRID_PLUGIN_NAME, isContainerItem } from '../model/model'
 
 /**
  * Read-only site renderer.

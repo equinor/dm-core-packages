@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { NavSidebar } from '../components/NavSidebar'
-import { createPage, type TBuilderPage } from '../site'
+import { createPage, type TBuilderPage } from '../model/site'
 
 /** Build a small page tree: Home, About (with a Team sub-page), Contact. */
 const buildPages = (): TBuilderPage[] => {

@@ -5,7 +5,9 @@ import type { TWidgetDefinition } from './types'
 export const metricWidget: TWidgetDefinition = {
   icon: functions,
   load: () =>
-    import('../staticWidgets').then((m) => ({ default: m.StaticMetricPlugin })),
+    import('../static/staticWidgets').then((m) => ({
+      default: m.StaticMetricPlugin,
+    })),
   block: {
     id: 'metric',
     label: 'Metric',

@@ -1,5 +1,5 @@
 import { Snackbar } from '@equinor/eds-core-react'
-import type { TToast } from '../toast'
+import type { TToast } from '../utils/toast'
 
 /**
  * Renders the current builder toast. Keyed by toast id so a new message

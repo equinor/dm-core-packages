@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { BLOCKS, getBlock } from '../blocks'
-import { addWidget, createEmptyModel } from '../model'
+import { BLOCKS, getBlock } from '../model/blocks'
+import { addWidget, createEmptyModel } from '../model/model'
 import {
   addNavItem,
   addPage,
@@ -15,7 +15,7 @@ import {
   SITE_TYPE,
   serializeSite,
   type TBuilderSite,
-} from '../site'
+} from '../model/site'
 
 type TBlueprintAttribute = {
   name: string

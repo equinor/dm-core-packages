@@ -7,12 +7,12 @@ import {
   useRef,
 } from 'react'
 import type { TGridArea, TGridItem } from '../../grid/types'
-import { getBlock } from '../blocks'
-import { pixelDeltaToCells } from '../gridMetrics'
-import { ICONS } from '../icons'
-import { isContainerItem } from '../model'
+import { getBlock } from '../model/blocks'
+import { isContainerItem } from '../model/model'
 import * as Styled from '../styles'
 import type { TBuilderModel } from '../types'
+import { pixelDeltaToCells } from '../utils/gridMetrics'
+import { ICONS } from '../utils/icons'
 
 type TGridMetrics = { size: TBuilderModel['size']; rect: () => DOMRect | null }
 

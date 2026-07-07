@@ -13,7 +13,7 @@ import type { TBlock } from '../types'
  *
  * To add a new widget you create one `*.widget.ts(x)` file that exports one of
  * these, then add a single line to `widgets/index.ts`. Nothing else to touch.
- * See `builder/ADDING_WIDGETS.md` for a step-by-step guide.
+ * See `builder/docs/ADDING_WIDGETS.md` for a step-by-step guide.
  */
 export type TWidgetDefinition = {
   /** Palette + inspector metadata. Also feeds `getBlock` / `BLOCKS`. */

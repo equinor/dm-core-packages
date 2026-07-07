@@ -1,5 +1,5 @@
-import { areasOverlap } from '../model'
-import { getTemplate, TEMPLATES } from '../templates'
+import { areasOverlap } from '../model/model'
+import { getTemplate, TEMPLATES } from '../model/templates'
 
 describe('builder templates', () => {
   it('defines unique templates that build valid models', () => {

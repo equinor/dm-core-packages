@@ -5,7 +5,7 @@ import {
   Typography,
 } from '@equinor/eds-core-react'
 import type { TGridArea, TGridItem, TGridSize } from '../../grid/types'
-import { getWidgetConfigValue } from '../model'
+import { getWidgetConfigValue } from '../model/model'
 import * as Styled from '../styles'
 import type { TBlock, TInspectorField } from '../types'
 import { ImageUploadField } from './ImageUploadField'

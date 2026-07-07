@@ -6,7 +6,7 @@ import {
   createPage,
   type TBuilderPage,
   type TNavbar,
-} from '../site'
+} from '../model/site'
 
 const pages: TBuilderPage[] = [createPage('Home'), createPage('About')]
 

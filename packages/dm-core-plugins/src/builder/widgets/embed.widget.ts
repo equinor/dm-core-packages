@@ -5,7 +5,9 @@ import type { TWidgetDefinition } from './types'
 export const embedWidget: TWidgetDefinition = {
   icon: play_circle,
   load: () =>
-    import('../staticWidgets').then((m) => ({ default: m.StaticEmbedPlugin })),
+    import('../static/staticWidgets').then((m) => ({
+      default: m.StaticEmbedPlugin,
+    })),
   block: {
     id: 'embed',
     label: 'Video / Embed',

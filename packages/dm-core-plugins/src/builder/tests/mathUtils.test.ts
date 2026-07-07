@@ -8,7 +8,7 @@ import {
   parseNumbers,
   stddev,
   sum,
-} from '../mathUtils'
+} from '../utils/mathUtils'
 
 describe('math utils', () => {
   it('parses finite numbers from free-form text', () => {

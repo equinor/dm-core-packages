@@ -5,7 +5,9 @@ import type { TWidgetDefinition } from './types'
 export const buttonWidget: TWidgetDefinition = {
   icon: link,
   load: () =>
-    import('../staticWidgets').then((m) => ({ default: m.StaticButtonPlugin })),
+    import('../static/staticWidgets').then((m) => ({
+      default: m.StaticButtonPlugin,
+    })),
   block: {
     id: 'button',
     label: 'Button',
