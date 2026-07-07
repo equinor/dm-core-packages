@@ -1,6 +1,7 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
 import { calendar } from '@equinor/eds-icons'
 import { useState } from 'react'
+import * as S from './datePicker.widget.styles'
 import type { TWidgetDefinition } from './types'
 
 /**
@@ -26,35 +27,17 @@ const DatePickerWidget = (
   const [date, setDate] = useState(value)
 
   return (
-    <div className='dm-plugin-padding' style={{ width: '100%' }}>
-      <label
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 4,
-          fontSize: 13,
-          fontWeight: 500,
-        }}
-      >
+    <S.Container className='dm-plugin-padding'>
+      <S.Label>
         {label}
-        <input
+        <S.Input
           type='date'
           value={date}
           onChange={(event) => setDate(event.target.value)}
-          style={{
-            padding: '6px 8px',
-            border: '1px solid #bbb',
-            borderRadius: 4,
-            font: 'inherit',
-          }}
         />
-      </label>
-      {helperText ? (
-        <div style={{ fontSize: 12, color: '#6f6f6f', marginTop: 4 }}>
-          {helperText}
-        </div>
-      ) : null}
-    </div>
+      </S.Label>
+      {helperText ? <S.HelperText>{helperText}</S.HelperText> : null}
+    </S.Container>
   )
 }
 

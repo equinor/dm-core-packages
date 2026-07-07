@@ -1,6 +1,7 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
 import { Pagination, Table } from '@equinor/eds-core-react'
 import { useMemo, useState } from 'react'
+import * as S from './StaticTablePlugin.styles'
 
 export interface StaticTablePluginConfig {
   /** Full grid of cells; the first row is the header. */
@@ -31,14 +32,14 @@ export const StaticTablePlugin = (
 
   if (columns.length === 0 && body.length === 0)
     return (
-      <div style={{ padding: 16, color: '#6f6f6f', textAlign: 'center' }}>
+      <S.EmptyMessage>
         No data. Write a table or upload a CSV/Excel file in the inspector.
-      </div>
+      </S.EmptyMessage>
     )
 
   return (
-    <div className='dm-plugin-padding' style={{ width: '100%' }}>
-      <Table style={{ width: '100%' }}>
+    <S.TableContainer className='dm-plugin-padding'>
+      <S.FullWidthTable>
         {caption && <Table.Caption>{caption}</Table.Caption>}
         <Table.Head>
           <Table.Row>
@@ -58,19 +59,17 @@ export const StaticTablePlugin = (
             </Table.Row>
           ))}
         </Table.Body>
-      </Table>
+      </S.FullWidthTable>
       {body.length > pageSize && (
-        <div
-          style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}
-        >
+        <S.PaginationContainer>
           <Pagination
             totalItems={body.length}
             itemsPerPage={pageSize}
             onChange={(_, newPage) => setPage(newPage)}
             withItemIndicator
           />
-        </div>
+        </S.PaginationContainer>
       )}
-    </div>
+    </S.TableContainer>
   )
 }

@@ -1,5 +1,4 @@
 import {
-  ErrorBoundary,
   type IUIPlugin,
   splitAddress,
   useApplication,
@@ -14,31 +13,25 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
-import {
-  Button,
-  Icon,
-  Input,
-  Tooltip,
-  Typography,
-} from '@equinor/eds-core-react'
-import {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { Icon } from '@equinor/eds-core-react'
+import { Fragment, useCallback, useEffect, useState } from 'react'
 import type { TGridArea, TGridItem } from '../grid'
-import { Canvas, DENSITY_STEP } from './components/Canvas'
+import {
+  BuilderToolbar,
+  DEVICE_WIDTHS,
+  type TDevice,
+} from './components/BuilderToolbar'
+import { Canvas } from './components/Canvas'
 import { Inspector } from './components/Inspector'
 import { Navbar } from './components/Navbar'
 import { NavSidebar } from './components/NavSidebar'
 import { Outline } from './components/Outline'
 import { SiteGrid } from './components/SiteGrid'
-import { TemplatesMenu } from './components/TemplatesMenu'
+import { SiteShellView } from './components/SiteShellView'
 import { Toast } from './components/Toast'
 import { WidgetPalette } from './components/WidgetPalette'
+import { useEditorShortcuts } from './hooks/useEditorShortcuts'
+import { usePersistence } from './hooks/usePersistence'
 import { getBlock } from './model/blocks'
 import { useHistory } from './model/history'
 import {
@@ -48,8 +41,6 @@ import {
   duplicateWidget,
   getSubModel,
   insertWidgetItem,
-  MAX_GRID_CELLS,
-  MIN_GRID_CELLS,
   moveWidget,
   removeWidget,
   rescaleGrid,
@@ -71,15 +62,14 @@ import {
   deserializeSite,
   findPage,
   findPageContext,
-  isSerializedSite,
   moveNavItem,
   movePage,
   removeNavItem,
   removePage,
   renamePage,
-  resolvePluginAliases,
   serializeSite,
   setPageLayout,
+  type TBuilderSite,
   type TNavbar,
   type TNavbarItem,
   updateNavbar,
@@ -95,20 +85,6 @@ import type {
 } from './types'
 import { ICONS } from './utils/icons'
 import { useToast } from './utils/toast'
-
-type TDevice = 'desktop' | 'tablet' | 'mobile'
-
-const DEVICE_WIDTHS: Record<TDevice, string> = {
-  desktop: '100%',
-  tablet: '768px',
-  mobile: '380px',
-}
-
-const DEVICE_ICONS: Record<TDevice, string> = {
-  desktop: 'desktop_mac',
-  tablet: 'tablet_android',
-  mobile: 'phone',
-}
 
 export const BuilderPlugin = (
   props: IUIPlugin & { config?: TBuilderPluginConfig }
@@ -438,80 +414,19 @@ export const BuilderPlugin = (
     onCommit: () => history.commit(),
   }
 
-  // Keyboard shortcuts for editing. Undo/redo are available whenever the editor
-  // is active; the editing shortcuts are ignored while typing in a form field so
-  // the field's own behaviour (text undo, copy, etc.) keeps working.
-  useEffect(() => {
-    if (mode !== 'edit' || showJson) return
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement | null
-      const typing =
-        !!target &&
-        (target.tagName === 'INPUT' ||
-          target.tagName === 'TEXTAREA' ||
-          target.tagName === 'SELECT' ||
-          target.isContentEditable)
-      const mod = event.metaKey || event.ctrlKey
-      const key = event.key.toLowerCase()
-
-      if (mod && key === 'z') {
-        if (typing) return
-        event.preventDefault()
-        if (event.shiftKey) history.redo()
-        else history.undo()
-        return
-      }
-      if (mod && key === 'y') {
-        if (typing) return
-        event.preventDefault()
-        history.redo()
-        return
-      }
-
-      if (typing) return
-
-      if (mod && key === 'c') {
-        if (selectedIndex !== null) handleCopy(selectedIndex)
-        return
-      }
-      if (mod && key === 'v') {
-        if (clipboard) {
-          event.preventDefault()
-          handlePaste()
-        }
-        return
-      }
-      if (mod && key === 'd') {
-        if (selectedIndex !== null) {
-          event.preventDefault()
-          handleDuplicate(selectedIndex)
-        }
-        return
-      }
-      if (key === 'delete' || key === 'backspace') {
-        if (selectedIndex !== null) {
-          event.preventDefault()
-          handleDelete(selectedIndex)
-        }
-        return
-      }
-      if (key === 'escape') setSelectedIndex(null)
-    }
-
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [
-    mode,
-    showJson,
-    history,
+  // Keyboard shortcuts for editing (undo/redo, copy/paste/duplicate/delete).
+  useEditorShortcuts({
+    enabled: mode === 'edit' && !showJson,
     selectedIndex,
-    clipboard,
-    handleCopy,
-    handlePaste,
-    handleDuplicate,
-    handleDelete,
-  ])
+    hasClipboard: clipboard !== null,
+    onUndo: () => history.undo(),
+    onRedo: () => history.redo(),
+    onCopy: handleCopy,
+    onPaste: handlePaste,
+    onDuplicate: handleDuplicate,
+    onDelete: handleDelete,
+    onDeselect: () => setSelectedIndex(null),
+  })
 
   // Keep navigation valid: if the model changes underneath the current path
   // (e.g. an undo removes the section being edited), truncate the path to the
@@ -530,127 +445,24 @@ export const BuilderPlugin = (
     if (activePage.id !== activePageId) setActivePageId(activePage.id)
   }, [activePage.id, activePageId])
 
-  // Persisted JSON of the whole site (all pages). The baseline ref tracks what
-  // was last saved so we can tell whether there are unsaved changes.
-  const currentJson = useMemo(() => JSON.stringify(serializeSite(site)), [site])
-  const savedJsonRef = useRef(currentJson)
-  const [saveState, setSaveState] = useState<'saved' | 'saving' | 'dirty'>(
-    'saved'
-  )
+  // Loading and saving the site (hydration, autosave, manual save, unload guard).
+  const handleSiteLoaded = useCallback((loaded: TBuilderSite) => {
+    setActivePageId(loaded.pages[0]?.id ?? '')
+    setPath([])
+    setSelectedIndex(null)
+  }, [])
 
-  // Hydrate the builder from the page entity's saved `layout` once it loads, so
-  // reopening shows previously saved work rather than the recipe seed. Accepts
-  // both the multi-page site format and a legacy single-grid layout. A corrupt
-  // or unreadable layout must never crash the editor: on failure we keep the
-  // seeded/empty site and tell the user, so their next save can recover it.
-  const hydratedRef = useRef(false)
-  useEffect(() => {
-    if (hydratedRef.current) return
-    // A Site-shaped document (top-level `pages`) *is* the site; otherwise the
-    // site is embedded in the host document's `layout` attribute (a page/host
-    // entity). Detecting by shape keeps existing `.layout` hosts unchanged.
-    const source = isSerializedSite(document) ? document : document?.layout
-    if (!source) return
-    hydratedRef.current = true
-    try {
-      const loaded = deserializeSite(source)
-      if (loaded.pages.length === 0) {
-        throw new Error('Saved layout has no pages')
-      }
-      savedJsonRef.current = JSON.stringify(serializeSite(loaded))
-      setSite(() => loaded, 'load')
-      setActivePageId(loaded.pages[0]?.id ?? '')
-      setPath([])
-      setSelectedIndex(null)
-      setSaveState('saved')
-    } catch {
-      // Leave the current (seeded) site in place and flag it as unsaved so the
-      // author can review before overwriting whatever unreadable data existed.
-      setSaveState('dirty')
-      notify('Could not read the saved page — starting from a blank layout')
-    }
-  }, [document, setSite, notify])
-
-  /**
-   * Persist the current site. Builder widgets serialize free-form inline
-   * `config` objects with no DMSS `type`, which the validating update endpoint
-   * rejects (it requires a `type` on every node). We therefore write through the
-   * context-free add-raw endpoint (the same path used to create a site), which
-   * stores the document verbatim and upserts by `_id`. When the bound document
-   * *is* the site (Site-shaped) we write the navbar/pages onto the document
-   * itself with fully-qualified addresses (aliases can't be resolved on read),
-   * preserving the document's own `_id`, `type` and metadata. Otherwise the site
-   * is stored in the host document's `layout` attribute. Without an entity we
-   * fall back to the host `onChange` handler. Returns true on success.
-   */
-  const save = async (): Promise<boolean> => {
-    const serializedSite = JSON.parse(currentJson)
-    setSaveState('saving')
-    try {
-      if (idReference && document) {
-        const { dataSource } = splitAddress(idReference)
-        const body = isSerializedSite(document)
-          ? {
-              ...document,
-              ...resolvePluginAliases(serializedSite),
-              type: document.type,
-            }
-          : { ...document, layout: resolvePluginAliases(serializedSite) }
-        await dmssAPI.documentAddSimple({ dataSourceId: dataSource, body })
-      } else if (onChange) {
-        onChange(serializedSite)
-      } else {
-        setSaveState('dirty')
-        return false
-      }
-      savedJsonRef.current = currentJson
-      setSaveState('saved')
-      return true
-    } catch {
-      setSaveState('dirty')
-      notify('Could not save page')
-      return false
-    }
-  }
-
-  // Autosave: debounce changes and persist them. Without a save target the page
-  // just stays marked as having unsaved changes.
-  useEffect(() => {
-    if (locked) return
-    if (currentJson === savedJsonRef.current) {
-      setSaveState('saved')
-      return
-    }
-    if (!idReference && !onChange) {
-      setSaveState('dirty')
-      return
-    }
-    setSaveState('saving')
-    const timer = setTimeout(() => {
-      void save()
-    }, 800)
-    return () => clearTimeout(timer)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentJson, onChange, idReference, document])
-
-  // Warn before leaving the page while there are unsaved changes.
-  useEffect(() => {
-    if (locked) return
-    if (saveState === 'saved') return
-    const handler = (event: BeforeUnloadEvent) => {
-      event.preventDefault()
-      event.returnValue = ''
-    }
-    window.addEventListener('beforeunload', handler)
-    return () => window.removeEventListener('beforeunload', handler)
-  }, [saveState, locked])
-
-  const saveStatusLabel =
-    saveState === 'saved'
-      ? 'All changes saved'
-      : saveState === 'saving'
-        ? 'Saving…'
-        : 'Unsaved changes'
+  const { saveState, saveStatusLabel, save } = usePersistence({
+    site,
+    document,
+    idReference,
+    dmssAPI,
+    locked,
+    onChange,
+    notify,
+    setSite,
+    onSiteLoaded: handleSiteLoaded,
+  })
 
   // Breadcrumb labels for the path from the root page down to the active grid.
   const crumbLabels = ['Page']
@@ -709,6 +521,16 @@ export const BuilderPlugin = (
     />
   )
 
+  const siteGrid = (
+    <SiteGrid
+      type={type}
+      idReference={idReference}
+      config={previewConfig}
+      onSubmit={onSubmit}
+      onChange={onChange}
+    />
+  )
+
   // Read-only viewer: render the published site (navbar, page navigation and
   // content) with no editing chrome. Reached when the recipe sets `readOnly` or
   // the current role isn't allowed to edit. Multi-page navigation still works so
@@ -716,25 +538,13 @@ export const BuilderPlugin = (
   if (locked) {
     return (
       <Styled.BuilderLayout>
-        <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>
-          <Styled.SiteShell>
-            {navbar}
-            <Styled.SiteFrame>
-              {navSidebar}
-              <Styled.SitePageArea>
-                <ErrorBoundary message='This page could not be displayed.'>
-                  <SiteGrid
-                    type={type}
-                    idReference={idReference}
-                    config={previewConfig}
-                    onSubmit={onSubmit}
-                    onChange={onChange}
-                  />
-                </ErrorBoundary>
-              </Styled.SitePageArea>
-            </Styled.SiteFrame>
-          </Styled.SiteShell>
-        </Styled.CanvasPanel>
+        <SiteShellView
+          navbar={navbar}
+          navSidebar={navSidebar}
+          errorMessage='This page could not be displayed.'
+        >
+          {siteGrid}
+        </SiteShellView>
       </Styled.BuilderLayout>
     )
   }
@@ -746,197 +556,34 @@ export const BuilderPlugin = (
       onDragEnd={handleDragEnd}
     >
       <Styled.BuilderLayout>
-        <Styled.Toolbar>
-          <Styled.ToolbarGroup>
-            <button
-              type='button'
-              aria-label='Back to site directory'
-              onClick={() => {
-                if (config?.directoryUrl) {
-                  window.location.assign(config.directoryUrl)
-                } else {
-                  window.history.back()
-                }
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <Typography
-                variant='h5'
-                style={{
-                  textDecoration: 'underline',
-                  textDecorationStyle: 'dotted',
-                  textUnderlineOffset: 3,
-                }}
-              >
-                Website builder
-              </Typography>
-            </button>
-            {mode === 'edit' && (
-              <Tooltip title='Site name (shown in the site directory)'>
-                <Input
-                  aria-label='Site name'
-                  placeholder='Untitled site'
-                  value={site.title}
-                  disabled={locked}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                    handleRenameSite(event.target.value)
-                  }
-                  onBlur={() => history.commit()}
-                  style={{ width: '12rem' }}
-                />
-              </Tooltip>
-            )}
-            {mode === 'edit' && !locked && (
-              <Tooltip
-                title={
-                  site.published
-                    ? 'Published — visitors can find this site. Click to unpublish.'
-                    : 'Draft — hidden from visitors. Click to publish.'
-                }
-              >
-                <Button
-                  variant={site.published ? 'contained' : 'outlined'}
-                  aria-label={
-                    site.published ? 'Unpublish site' : 'Publish site'
-                  }
-                  aria-pressed={site.published}
-                  onClick={handleTogglePublished}
-                >
-                  <Icon
-                    data={
-                      site.published ? ICONS.visibility : ICONS.visibility_off
-                    }
-                    size={18}
-                  />
-                  {site.published ? 'Published' : 'Publish'}
-                </Button>
-              </Tooltip>
-            )}
-            {mode === 'edit' && (
-              <TemplatesMenu
-                onApply={(template) => handleApplyTemplate(template.build)}
-              />
-            )}
-            {mode === 'edit' && (
-              <>
-                <Tooltip title='Undo (Ctrl/Cmd+Z)'>
-                  <Button
-                    variant='ghost_icon'
-                    aria-label='Undo'
-                    disabled={!history.canUndo}
-                    onClick={() => history.undo()}
-                  >
-                    <Icon data={ICONS.undo} size={18} />
-                  </Button>
-                </Tooltip>
-                <Tooltip title='Redo (Ctrl/Cmd+Shift+Z)'>
-                  <Button
-                    variant='ghost_icon'
-                    aria-label='Redo'
-                    disabled={!history.canRedo}
-                    onClick={() => history.redo()}
-                  >
-                    <Icon data={ICONS.redo} size={18} />
-                  </Button>
-                </Tooltip>
-              </>
-            )}
-          </Styled.ToolbarGroup>
-          <Styled.ToolbarGroup>
-            {mode === 'edit' && (
-              <Styled.SaveStatus $state={saveState}>
-                {saveStatusLabel}
-              </Styled.SaveStatus>
-            )}
-            {mode === 'edit' && (
-              <Button
-                variant='outlined'
-                disabled={saveState === 'saved'}
-                onClick={() => {
-                  void save()
-                }}
-              >
-                <Icon data={ICONS.save} size={18} />
-                Save
-              </Button>
-            )}
-            {(['desktop', 'tablet', 'mobile'] as TDevice[]).map((value) => (
-              <Button
-                key={value}
-                variant={device === value ? 'contained_icon' : 'ghost_icon'}
-                aria-label={`${value} width`}
-                aria-pressed={device === value}
-                onClick={() => setDevice(value)}
-              >
-                <Icon data={ICONS[DEVICE_ICONS[value]]} size={18} />
-              </Button>
-            ))}
-            {mode === 'edit' && (
-              <>
-                <Tooltip title='Coarser grid (fewer cells)'>
-                  <Button
-                    variant='ghost_icon'
-                    aria-label='decrease grid density'
-                    disabled={
-                      activeModel.size.columns <= MIN_GRID_CELLS &&
-                      activeModel.size.rows <= MIN_GRID_CELLS
-                    }
-                    onClick={() => handleDensity(1 / DENSITY_STEP)}
-                  >
-                    <Icon data={ICONS.zoom_out} size={18} />
-                  </Button>
-                </Tooltip>
-                <Tooltip title='Grid density (Ctrl/Cmd + scroll to zoom)'>
-                  <span
-                    style={{ fontSize: 13, minWidth: 56, textAlign: 'center' }}
-                  >
-                    {activeModel.size.columns}×{activeModel.size.rows}
-                  </span>
-                </Tooltip>
-                <Tooltip title='Finer grid (more cells, micro adjustments)'>
-                  <Button
-                    variant='ghost_icon'
-                    aria-label='increase grid density'
-                    disabled={
-                      activeModel.size.columns >= MAX_GRID_CELLS &&
-                      activeModel.size.rows >= MAX_GRID_CELLS
-                    }
-                    onClick={() => handleDensity(DENSITY_STEP)}
-                  >
-                    <Icon data={ICONS.zoom_in} size={18} />
-                  </Button>
-                </Tooltip>
-              </>
-            )}
-            <Button
-              variant={showJson ? 'contained' : 'outlined'}
-              onClick={() => setShowJson((value) => !value)}
-            >
-              Advanced: JSON
-            </Button>
-            <Button
-              variant={mode === 'edit' ? 'contained' : 'outlined'}
-              onClick={() => setMode('edit')}
-            >
-              <Icon data={ICONS.edit} size={18} />
-              Edit
-            </Button>
-            <Button
-              variant={mode === 'preview' ? 'contained' : 'outlined'}
-              onClick={() => setMode('preview')}
-            >
-              <Icon data={ICONS.visibility} size={18} />
-              Preview
-            </Button>
-          </Styled.ToolbarGroup>
-        </Styled.Toolbar>
+        <BuilderToolbar
+          config={config}
+          mode={mode}
+          locked={locked}
+          siteTitle={site.title}
+          published={site.published}
+          saveState={saveState}
+          saveStatusLabel={saveStatusLabel}
+          device={device}
+          gridColumns={activeModel.size.columns}
+          gridRows={activeModel.size.rows}
+          showJson={showJson}
+          canUndo={history.canUndo}
+          canRedo={history.canRedo}
+          onSetMode={setMode}
+          onRenameSite={handleRenameSite}
+          onCommit={() => history.commit()}
+          onUndo={() => history.undo()}
+          onRedo={() => history.redo()}
+          onTogglePublished={handleTogglePublished}
+          onApplyTemplate={handleApplyTemplate}
+          onSave={() => {
+            void save()
+          }}
+          onSetDevice={setDevice}
+          onDensity={handleDensity}
+          onToggleJson={() => setShowJson((value) => !value)}
+        />
 
         {mode === 'edit' && !showJson && (
           <Styled.LeftPanel>
@@ -951,14 +598,11 @@ export const BuilderPlugin = (
         )}
 
         {showJson ? (
-          /* Dark-theme code panel — these colours are intentional and have no EDS token equivalent. */
-          <Styled.CanvasPanel
-            style={{ gridColumn: '1 / -1', background: '#1e1e1e' }}
-          >
-            <pre style={{ color: '#d4d4d4', fontSize: 12, margin: 0 }}>
+          <Styled.JsonPanel>
+            <Styled.JsonPre>
               {JSON.stringify(serializeSite(site), null, 2)}
-            </pre>
-          </Styled.CanvasPanel>
+            </Styled.JsonPre>
+          </Styled.JsonPanel>
         ) : mode === 'edit' ? (
           <Canvas
             model={activeModel}
@@ -977,27 +621,14 @@ export const BuilderPlugin = (
             navbar={navbar}
           />
         ) : (
-          <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>
-            <Styled.SiteShell>
-              {navbar}
-              <Styled.SiteFrame>
-                {navSidebar}
-                <Styled.SitePageArea>
-                  <Styled.DeviceFrame $maxWidth={frameWidth}>
-                    <ErrorBoundary message='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'>
-                      <SiteGrid
-                        type={type}
-                        idReference={idReference}
-                        config={previewConfig}
-                        onSubmit={onSubmit}
-                        onChange={onChange}
-                      />
-                    </ErrorBoundary>
-                  </Styled.DeviceFrame>
-                </Styled.SitePageArea>
-              </Styled.SiteFrame>
-            </Styled.SiteShell>
-          </Styled.CanvasPanel>
+          <SiteShellView
+            navbar={navbar}
+            navSidebar={navSidebar}
+            maxWidth={frameWidth}
+            errorMessage='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'
+          >
+            {siteGrid}
+          </SiteShellView>
         )}
 
         {mode === 'edit' && !showJson && (

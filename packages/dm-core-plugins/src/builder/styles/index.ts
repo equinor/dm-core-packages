@@ -186,6 +186,21 @@ export const CanvasPanel = styled.div`
   background: ${colorBgLight};
 `
 
+export const FullBleedCanvasPanel = styled(CanvasPanel)`
+  grid-column: 1 / -1;
+`
+
+export const JsonPanel = styled(CanvasPanel)`
+  grid-column: 1 / -1;
+`
+
+export const JsonPre = styled.pre`
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 12px;
+`
+
 export const DeviceFrame = styled.div<{ $maxWidth: string }>`
   width: 100%;
   max-width: ${(props) => props.$maxWidth};

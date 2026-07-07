@@ -4,6 +4,7 @@ import { BLOCKS } from '../model/blocks'
 import * as Styled from '../styles'
 import type { TBlock, TBlockCategory } from '../types'
 import { ICONS } from '../utils/icons'
+import * as S from './WidgetPalette.styles'
 
 const CATEGORY_LABELS: Record<TBlockCategory, string> = {
   layout: 'Layout',
@@ -25,18 +26,18 @@ const PaletteCard = ({
   })
 
   return (
-    <Styled.PaletteCard
+    <S.PaletteCard
       ref={setNodeRef}
       type='button'
       title={block.description}
-      style={{ opacity: isDragging ? 0.4 : 1 }}
+      $dragging={isDragging}
       onClick={() => onAdd(block)}
       {...listeners}
       {...attributes}
     >
       <Icon data={ICONS[block.icon]} size={18} />
       {block.label}
-    </Styled.PaletteCard>
+    </S.PaletteCard>
   )
 }
 

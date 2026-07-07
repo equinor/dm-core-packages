@@ -6,6 +6,7 @@ import {
 import { Button, Progress } from '@equinor/eds-core-react'
 import { type ChangeEvent, useRef, useState } from 'react'
 import * as Styled from '../styles'
+import * as S from './ImageUploadField.styles'
 
 type TImageUploadFieldProps = {
   label: string
@@ -70,11 +71,10 @@ export const ImageUploadField = ({
   return (
     <>
       <Styled.FieldLabel>{label}</Styled.FieldLabel>
-      <input
+      <S.HiddenInput
         ref={input}
         type='file'
         accept='image/*'
-        style={{ display: 'none' }}
         onChange={handleFile}
       />
       <Button
@@ -91,17 +91,11 @@ export const ImageUploadField = ({
         )}
       </Button>
       {value && (
-        <Button
-          variant='ghost'
-          onClick={() => onChange(undefined)}
-          style={{ marginTop: 4 }}
-        >
+        <S.RemoveButton variant='ghost' onClick={() => onChange(undefined)}>
           Remove image
-        </Button>
+        </S.RemoveButton>
       )}
-      {error && (
-        <Styled.FieldHelp style={{ color: '#c00' }}>{error}</Styled.FieldHelp>
-      )}
+      {error && <S.ErrorHelp>{error}</S.ErrorHelp>}
     </>
   )
 }

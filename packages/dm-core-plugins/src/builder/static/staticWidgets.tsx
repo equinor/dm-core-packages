@@ -1,5 +1,4 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
-import { Button } from '@equinor/eds-core-react'
 import { createElement } from 'react'
 import {
   aggregate,
@@ -7,6 +6,7 @@ import {
   parseNumbers,
   type TAggregation,
 } from '../utils/mathUtils'
+import * as S from './staticWidgets.styles'
 
 /**
  * Self-contained "static" widgets for the website builder. Each renders purely
@@ -52,22 +52,18 @@ export const StaticHeadingPlugin = (
   const safeLevel = Math.min(6, Math.max(1, Math.round(level)))
 
   return (
-    <div className='dm-plugin-padding' style={{ width: '100%' }}>
+    <S.FullWidth className='dm-plugin-padding'>
       {createElement(
-        `h${safeLevel}`,
+        S.Heading,
         {
-          style: {
-            margin: 0,
-            textAlign: align,
-            color,
-            fontSize: HEADING_SIZES[safeLevel],
-            fontWeight: 600,
-            lineHeight: 1.2,
-          },
+          as: `h${safeLevel}`,
+          $align: align,
+          $color: color,
+          $fontSize: HEADING_SIZES[safeLevel],
         },
         text
       )}
-    </div>
+    </S.FullWidth>
   )
 }
 
@@ -94,25 +90,16 @@ export const StaticButtonPlugin = (
   } = props.config
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: alignToFlex(align),
-        width: '100%',
-        height: '100%',
-      }}
-    >
-      <Button
+    <S.ButtonContainer $justifyContent={alignToFlex(align)}>
+      <S.OverflowHiddenButton
         variant={variant}
         href={href || undefined}
         target={href && openInNewTab ? '_blank' : undefined}
         rel={href && openInNewTab ? 'noopener noreferrer' : undefined}
-        style={{ overflow: 'hidden' }}
       >
         {label}
-      </Button>
-    </div>
+      </S.OverflowHiddenButton>
+    </S.ButtonContainer>
   )
 }
 
@@ -132,25 +119,9 @@ export const StaticDividerPlugin = (
 ): React.ReactElement => {
   const { color = '#d8d8d8', thickness = 1, spacing = 8 } = props.config
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        padding: `${spacing}px 0`,
-        boxSizing: 'border-box',
-      }}
-    >
-      <hr
-        style={{
-          width: '100%',
-          border: 'none',
-          borderTop: `${thickness}px solid ${color}`,
-          margin: 0,
-        }}
-      />
-    </div>
+    <S.DividerContainer $spacing={spacing}>
+      <S.DividerLine $color={color} $thickness={thickness} />
+    </S.DividerContainer>
   )
 }
 
@@ -166,7 +137,7 @@ export const StaticSpacerPlugin = (
   props: Omit<IUIPlugin, 'config'> & { config: StaticSpacerPluginConfig }
 ): React.ReactElement => {
   const { height = 24 } = props.config
-  return <div style={{ width: '100%', height }} aria-hidden />
+  return <S.Spacer $height={height} aria-hidden />
 }
 
 // ---- Video / Embed --------------------------------------------------------
@@ -210,35 +181,20 @@ export const StaticEmbedPlugin = (
 
   if (!url)
     return (
-      <div style={{ padding: 16, color: '#6f6f6f', textAlign: 'center' }}>
+      <S.EmptyMessage>
         Paste a video or page URL in the inspector to embed it.
-      </div>
+      </S.EmptyMessage>
     )
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        minHeight: 0,
-      }}
-    >
-      <iframe
+    <S.EmbedFrame>
+      <S.EmbedIframe
         src={toEmbedUrl(url)}
         title={title}
         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
         allowFullScreen
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          border: 'none',
-          borderRadius: 4,
-        }}
       />
-    </div>
+    </S.EmbedFrame>
   )
 }
 
@@ -278,50 +234,21 @@ export const StaticMetricPlugin = (
   const display = numbers.length === 0 ? '–' : formatNumber(result, decimals)
 
   return (
-    <div
+    <S.MetricContainer
       className='dm-plugin-padding'
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems:
-          align === 'center'
-            ? 'center'
-            : align === 'right'
-              ? 'flex-end'
-              : 'flex-start',
-        width: '100%',
-        height: '100%',
-        boxSizing: 'border-box',
-        overflow: 'hidden',
-      }}
+      $alignItems={
+        align === 'center'
+          ? 'center'
+          : align === 'right'
+            ? 'flex-end'
+            : 'flex-start'
+      }
     >
-      <div
-        style={{
-          fontSize: 13,
-          fontWeight: 500,
-          color: '#6f6f6f',
-          textTransform: 'uppercase',
-          letterSpacing: 0.4,
-        }}
-      >
-        {label}
-      </div>
-      <div
-        style={{
-          fontSize: 40,
-          fontWeight: 700,
-          lineHeight: 1.1,
-          color,
-        }}
-      >
+      <S.MetricLabel>{label}</S.MetricLabel>
+      <S.MetricValue $color={color}>
         {display}
-        {unit ? (
-          <span style={{ fontSize: 20, fontWeight: 500, marginLeft: 4 }}>
-            {unit}
-          </span>
-        ) : null}
-      </div>
-    </div>
+        {unit ? <S.MetricUnit>{unit}</S.MetricUnit> : null}
+      </S.MetricValue>
+    </S.MetricContainer>
   )
 }

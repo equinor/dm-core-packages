@@ -13,6 +13,7 @@ import * as Styled from '../styles'
 import type { TBuilderModel } from '../types'
 import { pixelDeltaToCells } from '../utils/gridMetrics'
 import { ICONS } from '../utils/icons'
+import * as S from './Canvas.styles'
 
 type TGridMetrics = { size: TBuilderModel['size']; rect: () => DOMRect | null }
 
@@ -101,20 +102,38 @@ const CanvasItem = ({
     typeof recipe === 'object' && typeof recipe?.config?.content === 'string'
       ? recipe.config.content
       : undefined
+  const gridAreaValue = `${gridArea.rowStart} / ${gridArea.columnStart} / ${
+    gridArea.rowEnd + 1
+  } / ${gridArea.columnEnd + 1}`
+  const transformValue = transform
+    ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+    : undefined
+  const itemAlign =
+    item.style?.textAlign === 'center'
+      ? 'center'
+      : item.style?.textAlign === 'right'
+        ? 'flex-end'
+        : item.style?.textAlign === 'left'
+          ? 'flex-start'
+          : 'stretch'
+  const itemJustify =
+    item.style?.verticalAlign === 'center'
+      ? 'center'
+      : item.style?.verticalAlign === 'bottom'
+        ? 'flex-end'
+        : item.style?.verticalAlign === 'top'
+          ? 'flex-start'
+          : isContainer
+            ? 'center'
+            : 'flex-start'
 
   return (
-    <Styled.CanvasItem
+    <S.CanvasItem
       ref={setNodeRef}
       $selected={selected}
       $dragging={isDragging}
-      style={{
-        gridArea: `${gridArea.rowStart} / ${gridArea.columnStart} / ${
-          gridArea.rowEnd + 1
-        } / ${gridArea.columnEnd + 1}`,
-        transform: transform
-          ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-          : undefined,
-      }}
+      $gridArea={gridAreaValue}
+      $transform={transformValue}
       onClick={(event) => {
         event.stopPropagation()
         onSelect(index)
@@ -127,13 +146,7 @@ const CanvasItem = ({
     >
       <Styled.CanvasItemHeader {...listeners} {...attributes}>
         <span>
-          {block && (
-            <Icon
-              data={ICONS[block.icon]}
-              size={16}
-              style={{ marginRight: 4, verticalAlign: 'middle' }}
-            />
-          )}
+          {block && <S.BlockIcon data={ICONS[block.icon]} size={16} />}
           {item.title ?? block?.label ?? 'Widget'}
         </span>
         <Styled.CanvasItemActions
@@ -173,60 +186,34 @@ const CanvasItem = ({
           </Button>
         </Styled.CanvasItemActions>
       </Styled.CanvasItemHeader>
-      <Styled.CanvasItemBody
-        style={{
-          flexDirection: 'column',
-          alignItems:
-            item.style?.textAlign === 'center'
-              ? 'center'
-              : item.style?.textAlign === 'right'
-                ? 'flex-end'
-                : item.style?.textAlign === 'left'
-                  ? 'flex-start'
-                  : 'stretch',
-          justifyContent:
-            item.style?.verticalAlign === 'center'
-              ? 'center'
-              : item.style?.verticalAlign === 'bottom'
-                ? 'flex-end'
-                : item.style?.verticalAlign === 'top'
-                  ? 'flex-start'
-                  : isContainer
-                    ? 'center'
-                    : 'flex-start',
-        }}
-      >
+      <S.CanvasItemBody $alignItems={itemAlign} $justifyContent={itemJustify}>
         {isContainer ? (
           `${childCount} widget${childCount === 1 ? '' : 's'} — double-click or open to edit`
         ) : (
           <>
             {item.title && !block?.hideTitle && (
-              <div
-                style={{
-                  textAlign: item.titleStyle?.textAlign,
-                  fontSize: item.titleStyle?.fontSize ?? '18px',
-                  fontWeight: item.titleStyle?.bold ? 700 : 600,
-                  color: item.titleStyle?.color ?? '#111',
-                  padding: item.titleStyle?.padding,
-                }}
+              <S.ItemTitle
+                $textAlign={item.titleStyle?.textAlign}
+                $fontSize={item.titleStyle?.fontSize ?? '18px'}
+                $fontWeight={item.titleStyle?.bold ? 700 : 600}
+                $color={item.titleStyle?.color ?? '#111'}
+                $padding={item.titleStyle?.padding}
               >
                 {item.title}
-              </div>
+              </S.ItemTitle>
             )}
-            <div
-              style={{
-                textAlign: item.style?.textAlign,
-                fontSize: item.style?.fontSize,
-                fontWeight: item.style?.bold ? 700 : undefined,
-                color: item.style?.color,
-                padding: item.style?.padding,
-              }}
+            <S.ItemBodyText
+              $textAlign={item.style?.textAlign}
+              $fontSize={item.style?.fontSize}
+              $fontWeight={item.style?.bold ? 700 : undefined}
+              $color={item.style?.color}
+              $padding={item.style?.padding}
             >
               {bodyText ?? block?.description}
-            </div>
+            </S.ItemBodyText>
           </>
         )}
-      </Styled.CanvasItemBody>
+      </S.CanvasItemBody>
       <Styled.ResizeHandle
         aria-label='Resize widget'
         onClick={(event) => event.stopPropagation()}
@@ -235,7 +222,7 @@ const CanvasItem = ({
         onPointerUp={handleResizePointerUp}
         onPointerCancel={handleResizePointerUp}
       />
-    </Styled.CanvasItem>
+    </S.CanvasItem>
   )
 }
 
@@ -328,14 +315,14 @@ export const Canvas = ({
           {nav}
           <Styled.SitePageArea>
             <Styled.DeviceFrame $maxWidth={frameWidth}>
-              <Styled.CanvasGrid
+              <S.CanvasGrid
                 ref={(node) => {
                   setNodeRef(node)
                   gridRef.current = node
                 }}
                 $size={model.size}
                 $editing
-                style={{ outline: isOver ? '2px dashed #007079' : 'none' }}
+                $isOver={isOver}
               >
                 {model.items.length === 0 && (
                   <Styled.EmptyState>
@@ -358,7 +345,7 @@ export const Canvas = ({
                     onEnter={onEnter}
                   />
                 ))}
-              </Styled.CanvasGrid>
+              </S.CanvasGrid>
             </Styled.DeviceFrame>
           </Styled.SitePageArea>
         </Styled.SiteFrame>

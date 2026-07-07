@@ -1,6 +1,7 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { max as arrayMax, min as arrayMin } from '../utils/mathUtils'
+import * as S from './StaticChartPlugin.styles'
 
 /**
  * A self-contained, dependency-free chart rendered as inline SVG. Data is
@@ -135,47 +136,22 @@ export const StaticChartPlugin = (
   const ticks = niceTicks(data.yMin, data.yMax)
 
   return (
-    <div
-      ref={ref}
-      className='dm-plugin-padding'
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        boxSizing: 'border-box',
-        minHeight: 0,
-      }}
-    >
-      {title ? (
-        <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>
-          {title}
-        </div>
-      ) : null}
+    <S.ChartContainer ref={ref} className='dm-plugin-padding'>
+      {title ? <S.ChartTitle>{title}</S.ChartTitle> : null}
 
       {!hasData ? (
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#6f6f6f',
-            textAlign: 'center',
-          }}
-        >
+        <S.EmptyMessage>
           Add data in the inspector: a header row, x labels in the first column
           and numbers in the rest.
-        </div>
+        </S.EmptyMessage>
       ) : (
         <>
-          <svg
+          <S.Svg
             width='100%'
             height={height}
             viewBox={`0 0 ${width} ${height}`}
             role='img'
             aria-label={title || 'Chart'}
-            style={{ display: 'block' }}
           >
             <title>{title || 'Chart'}</title>
 
@@ -268,44 +244,20 @@ export const StaticChartPlugin = (
                     </g>
                   )
                 })}
-          </svg>
+          </S.Svg>
 
           {showLegend && data.series.length > 0 ? (
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 12,
-                justifyContent: 'center',
-                marginTop: 4,
-              }}
-            >
+            <S.Legend>
               {data.series.map((entry, seriesIndex) => (
-                <span
-                  key={`legend-${seriesIndex}`}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 4,
-                    fontSize: 11,
-                    color: '#3d3d3d',
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: 2,
-                      backgroundColor: colors[seriesIndex],
-                    }}
-                  />
+                <S.LegendItem key={`legend-${seriesIndex}`}>
+                  <S.LegendSwatch $color={colors[seriesIndex]} />
                   {entry.name}
-                </span>
+                </S.LegendItem>
               ))}
-            </div>
+            </S.Legend>
           ) : null}
         </>
       )}
-    </div>
+    </S.ChartContainer>
   )
 }

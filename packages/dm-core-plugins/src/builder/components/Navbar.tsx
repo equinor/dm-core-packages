@@ -8,6 +8,7 @@ import type {
 } from '../model/site'
 import * as Styled from '../styles'
 import { ICONS } from '../utils/icons'
+import * as S from './Navbar.styles'
 
 /** Flatten the page tree to `{ id, label }` options for the target selector. */
 const flattenPages = (
@@ -163,19 +164,19 @@ export const Navbar = ({
           }}
         />
       ) : (
-        <Styled.NavbarBrand
+        <S.NavbarBrand
           $color={navbar.brandColor}
+          $editing={editing}
           onClick={() => {
             if (editing) {
               setBrandDraft(navbar.brand)
               setEditingBrand(true)
             }
           }}
-          style={{ cursor: editing ? 'text' : 'default' }}
           title={editing ? 'Click to edit brand' : undefined}
         >
           {navbar.brand}
-        </Styled.NavbarBrand>
+        </S.NavbarBrand>
       )}
 
       <Styled.NavbarItems $align={navbar.align}>
@@ -233,14 +234,13 @@ export const Navbar = ({
                   }}
                 />
               ) : (
-                <button
+                <S.LabelButton
                   type='button'
                   onClick={() => startRename(item)}
                   title='Rename link'
-                  style={labelButtonStyle}
                 >
                   {item.label}
-                </button>
+                </S.LabelButton>
               )}
 
               <Styled.NavbarTargetSelect
@@ -280,15 +280,14 @@ export const Navbar = ({
                 />
               )}
 
-              <button
+              <S.IconButton
                 type='button'
                 aria-label={`Delete ${item.label}`}
                 title='Delete link'
                 onClick={() => onRemoveItem(item.id)}
-                style={iconButtonStyle}
               >
                 <Icon data={ICONS.close} size={16} />
-              </button>
+              </S.IconButton>
             </Styled.NavbarItemEditor>
           )
         })}
@@ -303,17 +302,16 @@ export const Navbar = ({
 
       {editing && (
         <Styled.NavbarSettings ref={settingsRef}>
-          <button
+          <S.IconButton
             type='button'
             aria-label='Navbar settings'
             aria-haspopup='dialog'
             aria-expanded={settingsOpen}
             title='Navbar settings'
             onClick={() => setSettingsOpen((open) => !open)}
-            style={iconButtonStyle}
           >
             <Icon data={ICONS.settings} size={18} />
-          </button>
+          </S.IconButton>
 
           {settingsOpen && (
             <Styled.NavbarSettingsPanel
@@ -370,51 +368,19 @@ export const Navbar = ({
                   <option value='right'>Right</option>
                 </select>
               </Styled.NavbarSettingsRow>
-              <button
+              <S.RemoveButton
                 type='button'
                 onClick={() => {
                   onUpdateNavbar({ enabled: false })
                   setSettingsOpen(false)
                 }}
-                style={removeButtonStyle}
               >
                 Remove navbar
-              </button>
+              </S.RemoveButton>
             </Styled.NavbarSettingsPanel>
           )}
         </Styled.NavbarSettings>
       )}
     </Styled.Navbar>
   )
-}
-
-const labelButtonStyle: React.CSSProperties = {
-  font: 'inherit',
-  fontSize: 14,
-  color: '#3d3d3d',
-  background: 'transparent',
-  border: 'none',
-  cursor: 'text',
-  padding: '2px 4px',
-}
-
-const iconButtonStyle: React.CSSProperties = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 2,
-  border: 'none',
-  background: 'transparent',
-  cursor: 'pointer',
-  color: 'inherit',
-}
-
-const removeButtonStyle: React.CSSProperties = {
-  padding: '6px 8px',
-  border: '1px solid #d6534f',
-  borderRadius: 5,
-  background: 'transparent',
-  cursor: 'pointer',
-  fontSize: 13,
-  color: '#d6534f',
 }

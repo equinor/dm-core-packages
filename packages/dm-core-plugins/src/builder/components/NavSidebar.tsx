@@ -1,9 +1,9 @@
 import { Icon } from '@equinor/eds-core-react'
-import { tokens } from '@equinor/eds-tokens'
 import { useEffect, useRef, useState } from 'react'
 import type { TBuilderPage } from '../model/site'
 import * as Styled from '../styles'
 import { ICONS } from '../utils/icons'
+import * as S from './NavSidebar.styles'
 
 /** Ids of every ancestor of `targetId` within `pages` (root-most first). */
 const ancestorIds = (pages: TBuilderPage[], targetId: string): string[] => {
@@ -106,11 +106,11 @@ export const NavSidebar = ({
       const expanded = hasChildren && !collapsed.has(page.id)
 
       const row = (
-        <Styled.NavItem
+        <S.NavItem
           key={page.id}
           $active={active}
           $dragging={drag?.parentId === parentId && drag?.index === index}
-          style={{ paddingLeft: 8 + depth * 14 }}
+          $depth={depth}
           onClick={() => {
             if (!isRenaming) onNavigate(page.id)
           }}
@@ -172,10 +172,11 @@ export const NavSidebar = ({
 
           {editing && !isRenaming && (
             <Styled.NavItemActions>
-              <button
+              <S.IconButton
                 type='button'
                 aria-label={`Add sub-page to ${page.title}`}
                 title='Add sub-page'
+                $active={active}
                 onClick={(event) => {
                   event.stopPropagation()
                   setCollapsed((current) => {
@@ -185,39 +186,38 @@ export const NavSidebar = ({
                   })
                   onAddPage(page.id)
                 }}
-                style={iconButtonStyle(active)}
               >
                 <Icon data={ICONS.add} size={16} />
-              </button>
-              <button
+              </S.IconButton>
+              <S.IconButton
                 type='button'
                 aria-label={`Rename ${page.title}`}
                 title='Rename'
+                $active={active}
                 onClick={(event) => {
                   event.stopPropagation()
                   startRename(page)
                 }}
-                style={iconButtonStyle(active)}
               >
                 <Icon data={ICONS.edit} size={16} />
-              </button>
+              </S.IconButton>
               {!(parentId === null && pages.length <= 1) && (
-                <button
+                <S.IconButton
                   type='button'
                   aria-label={`Delete ${page.title}`}
                   title='Delete'
+                  $active={active}
                   onClick={(event) => {
                     event.stopPropagation()
                     onDeletePage(page.id)
                   }}
-                  style={iconButtonStyle(active)}
                 >
                   <Icon data={ICONS.close} size={16} />
-                </button>
+                </S.IconButton>
               )}
             </Styled.NavItemActions>
           )}
-        </Styled.NavItem>
+        </S.NavItem>
       )
 
       return expanded
@@ -242,16 +242,3 @@ export const NavSidebar = ({
     </Styled.NavSidebar>
   )
 }
-
-const iconButtonStyle = (active: boolean): React.CSSProperties => ({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: 2,
-  border: 'none',
-  background: 'transparent',
-  cursor: 'pointer',
-  color: active
-    ? tokens.colors.text.static_icons__primary_white.hex
-    : tokens.colors.text.static_icons__tertiary.hex,
-})

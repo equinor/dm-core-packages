@@ -3,6 +3,7 @@ import { type ChangeEvent, useRef, useState } from 'react'
 import * as Styled from '../styles'
 import { markdownToRows, rowsToMarkdown } from '../utils/markdownTable'
 import { MAX_COLS, MAX_ROWS, parseSpreadsheet } from '../utils/spreadsheet'
+import * as S from './TableSourceField.styles'
 
 type TTableSourceFieldProps = {
   label: string
@@ -106,11 +107,10 @@ export const TableSourceField = ({
 
       {mode === 'upload' ? (
         <>
-          <input
+          <S.HiddenInput
             ref={input}
             type='file'
             accept='.csv,.tsv,.xlsx,.xls'
-            style={{ display: 'none' }}
             onChange={handleFile}
           />
           <Button
@@ -129,10 +129,9 @@ export const TableSourceField = ({
         </>
       ) : (
         <>
-          <Styled.Textarea
+          <S.MonospaceTextarea
             value={draft}
             spellCheck={false}
-            style={{ fontFamily: 'monospace', minHeight: 140 }}
             placeholder={
               '| Column A | Column B |\n| --- | --- |\n| Row 1 | Value |'
             }
@@ -146,9 +145,7 @@ export const TableSourceField = ({
       )}
 
       {notice && <Styled.FieldHelp>{notice}</Styled.FieldHelp>}
-      {error && (
-        <Styled.FieldHelp style={{ color: '#c00' }}>{error}</Styled.FieldHelp>
-      )}
+      {error && <S.ErrorHelp>{error}</S.ErrorHelp>}
     </>
   )
 }
