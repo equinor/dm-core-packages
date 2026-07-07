@@ -9,13 +9,11 @@ import {
 import {
   add,
   delete_to_trash,
-  edit,
-  external_link,
   refresh,
   warning_outlined,
 } from '@equinor/eds-icons'
-import { tokens } from '@equinor/eds-tokens'
 import { useCallback, useEffect, useState } from 'react'
+import { SiteCard, type TSiteHit } from './components/SiteCard'
 import {
   createEmptySite,
   resolvePluginAliases,
@@ -23,33 +21,8 @@ import {
   serializeSite,
   stampWidgetConfigTypes,
 } from './model/site'
+import * as S from './styles/directory.styles'
 import type { TSiteDirectoryConfig } from './types/siteDirectory'
-
-const {
-  interactive: {
-    primary__resting: { hex: colorPrimary },
-    danger__resting: { hex: colorDangerResting },
-  },
-  text: {
-    static_icons__tertiary: { hex: colorTextTertiary },
-    static_icons__primary_white: { hex: colorTextWhite },
-  },
-  ui: {
-    background__default: { hex: colorBgDefault },
-    background__medium: { hex: colorBgMedium },
-  },
-} = tokens.colors
-
-type TSiteHit = {
-  address: string
-  dataSource: string
-  id: string
-  name: string
-  /** Friendly display name; falls back to `name` (the slug) when unset. */
-  label: string
-  /** Whether the site is published (live) or still a draft. */
-  published: boolean
-}
 
 // The literal `$` before the `{id}` placeholder marks a DMSS root-document id;
 // it is not a template-string interpolation.
@@ -66,171 +39,6 @@ const toSlug = (value: string): string =>
 /** Strip a leading `dmss://` and any path, leaving the data source id. */
 const dataSourceOf = (address: string): string =>
   address.replace(/^dmss:\/\//, '').split('/')[0]
-
-/**
- * Derive a deterministic hue (0–360) from a string so every card gets its
- * own colour without any runtime randomness that would shift on re-render.
- */
-const hueFromString = (s: string): number => {
-  let h = 0
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) & 0xffff
-  return h % 360
-}
-
-// ---- Site card ----------------------------------------------------------
-
-type SiteCardProps = {
-  site: TSiteHit
-  viewUrl: string
-  editUrl: string | null
-  onDeleteRequest: () => void
-  deleting: boolean
-}
-
-const SiteCard = ({
-  site,
-  viewUrl,
-  editUrl,
-  onDeleteRequest,
-  deleting,
-}: SiteCardProps) => {
-  const initial = (site.label[0] ?? '?').toUpperCase()
-  const [hovered, setHovered] = useState(false)
-  const h = hueFromString(site.id)
-
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        borderRadius: 6,
-        background: colorBgDefault,
-        border: `1px solid ${colorBgMedium}`,
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'box-shadow 0.15s ease, transform 0.15s ease',
-        boxShadow: hovered
-          ? '0 8px 24px rgba(0,0,0,0.14)'
-          : '0 2px 6px rgba(0,0,0,0.07)',
-        transform: hovered ? 'translateY(-2px)' : 'none',
-        opacity: deleting ? 0.5 : 1,
-      }}
-    >
-      {/* Coloured banner with the site's initial letter */}
-      <div
-        style={{
-          background: `linear-gradient(135deg, hsl(${h},55%,38%) 0%, hsl(${(h + 40) % 360},60%,52%) 100%)`,
-          height: 100,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        <span
-          style={{
-            fontSize: 52,
-            fontWeight: 700,
-            color: 'rgba(255,255,255,0.80)',
-            lineHeight: 1,
-            userSelect: 'none',
-            letterSpacing: '-2px',
-          }}
-        >
-          {initial}
-        </span>
-        {!site.published && (
-          <span
-            style={{
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              padding: '3px 10px',
-              borderRadius: 12,
-              background: 'rgba(0,0,0,0.40)',
-              color: colorTextWhite,
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: '0.6px',
-              textTransform: 'uppercase',
-            }}
-          >
-            Draft
-          </span>
-        )}
-      </div>
-
-      {/* Card body */}
-      <div
-        style={{
-          padding: '14px 16px 16px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          flexGrow: 1,
-        }}
-      >
-        <Typography
-          variant='h6'
-          style={{
-            margin: 0,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            fontSize: 16,
-          }}
-          title={site.label}
-        >
-          {site.label}
-        </Typography>
-        <Typography
-          variant='caption'
-          style={{ color: colorTextTertiary, marginBottom: 14 }}
-        >
-          {site.dataSource}
-        </Typography>
-
-        {/* Action row */}
-        <div style={{ display: 'flex', gap: 8, marginTop: 'auto' }}>
-          <a href={viewUrl} style={{ textDecoration: 'none', flexGrow: 1 }}>
-            <Button
-              variant='contained'
-              style={{ width: '100%' }}
-              disabled={deleting}
-            >
-              <Icon data={external_link} size={16} />
-              Open
-            </Button>
-          </a>
-          {editUrl ? (
-            <a href={editUrl} style={{ textDecoration: 'none' }}>
-              <Button
-                variant='ghost_icon'
-                aria-label='Edit site'
-                disabled={deleting}
-              >
-                <Icon data={edit} size={18} />
-              </Button>
-            </a>
-          ) : null}
-          <Button
-            variant='ghost_icon'
-            aria-label='Delete site'
-            title='Delete site'
-            disabled={deleting}
-            onClick={onDeleteRequest}
-            style={{ color: colorDangerResting }}
-          >
-            <Icon data={delete_to_trash} size={18} />
-          </Button>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 // ---- Directory plugin ---------------------------------------------------
 
@@ -424,7 +232,7 @@ export const SiteDirectoryPlugin = (
     : sites.filter((site) => site.published)
 
   return (
-    <div className='dm-plugin-padding' style={{ width: '100%' }}>
+    <S.Root className='dm-plugin-padding'>
       {/* EDS Dialog for delete confirmation */}
       <Dialog
         open={pendingDeleteSite !== null}
@@ -442,22 +250,12 @@ export const SiteDirectoryPlugin = (
             Are you sure you wish to delete it?
           </Typography>
           {deleteError ? (
-            <Typography
-              variant='body_short'
-              style={{ color: colorDangerResting, marginTop: 8 }}
-            >
+            <S.DialogErrorText variant='body_short'>
               {deleteError}
-            </Typography>
+            </S.DialogErrorText>
           ) : null}
         </Dialog.CustomContent>
-        <Dialog.Actions
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
+        <S.DialogActions>
           <Button
             variant='outlined'
             onClick={() => setPendingDeleteSite(null)}
@@ -475,21 +273,13 @@ export const SiteDirectoryPlugin = (
             <Icon data={delete_to_trash} size={16} />
             {deletingId !== null ? 'Deleting…' : 'Yes, delete'}
           </Button>
-        </Dialog.Actions>
+        </S.DialogActions>
       </Dialog>
 
       {/* Header row */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 16,
-          marginBottom: 24,
-        }}
-      >
+      <S.HeaderRow>
         <Typography variant='h4'>{heading}</Typography>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <S.HeaderActions>
           {draftCount > 0 ? (
             <Switch
               label='Show drafts'
@@ -512,68 +302,47 @@ export const SiteDirectoryPlugin = (
               {creating ? 'Creating…' : 'New site'}
             </Button>
           ) : null}
-        </div>
-      </div>
+        </S.HeaderActions>
+      </S.HeaderRow>
 
       {createError ? (
-        <Typography color='danger' style={{ marginBottom: 12 }}>
-          {createError}
-        </Typography>
+        <S.CreateErrorText color='danger'>{createError}</S.CreateErrorText>
       ) : null}
 
       {status === 'loading' ? (
-        <Typography variant='body_short' style={{ color: colorTextTertiary }}>
-          Loading websites…
-        </Typography>
+        <S.MutedText variant='body_short'>Loading websites…</S.MutedText>
       ) : null}
 
       {status === 'error' ? (
-        <div
-          style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-          role='alert'
-        >
+        <S.AlertRow role='alert'>
           <Icon data={warning_outlined} size={18} />
           <Typography variant='body_short'>
             Could not load websites. Check your data source access and try
             refreshing.
           </Typography>
-        </div>
+        </S.AlertRow>
       ) : null}
 
       {status === 'ready' && sites.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '48px 0' }}>
-          <Typography
-            variant='h5'
-            style={{ marginBottom: 8, color: colorTextTertiary }}
-          >
-            No websites yet
-          </Typography>
+        <S.EmptyState>
+          <S.EmptyTitle variant='h5'>No websites yet</S.EmptyTitle>
           {allowCreate && target ? (
-            <Typography
-              variant='body_short'
-              style={{ color: colorTextTertiary }}
-            >
+            <S.MutedText variant='body_short'>
               Click <strong>New site</strong> to create your first one.
-            </Typography>
+            </S.MutedText>
           ) : null}
-        </div>
+        </S.EmptyState>
       ) : null}
 
       {status === 'ready' && sites.length > 0 && visibleSites.length === 0 ? (
-        <Typography variant='body_short' style={{ color: colorTextTertiary }}>
+        <S.MutedText variant='body_short'>
           No published websites yet. Turn on "Show drafts" to see unpublished
           sites.
-        </Typography>
+        </S.MutedText>
       ) : null}
 
       {status === 'ready' && visibleSites.length > 0 ? (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-            gap: 20,
-          }}
-        >
+        <S.CardGrid>
           {visibleSites.map((site) => (
             <SiteCard
               key={site.address}
@@ -587,8 +356,8 @@ export const SiteDirectoryPlugin = (
               deleting={deletingId === site.id}
             />
           ))}
-        </div>
+        </S.CardGrid>
       ) : null}
-    </div>
+    </S.Root>
   )
 }
