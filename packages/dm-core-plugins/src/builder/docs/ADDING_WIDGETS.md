@@ -127,12 +127,12 @@ export const datePickerWidget: TWidgetDefinition = {
 ```
 
 > A full, commented version of this exact file already lives at
-> [`widgets/datePicker.widget.tsx`](./widgets/datePicker.widget.tsx) — open it
+> [`widgets/datePicker.widget.tsx`](../widgets/datePicker.widget.tsx) — open it
 > and copy it.
 
 ### Step 2 — Register it (the one line)
 
-Open [`builder/widgets/index.ts`](./widgets/index.ts) and add two lines:
+Open [`builder/widgets/index.ts`](../widgets/index.ts) and add two lines:
 
 ```ts
 import { datePickerWidget } from './datePicker.widget' // ← 1) import it

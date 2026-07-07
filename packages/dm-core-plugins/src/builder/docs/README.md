@@ -11,7 +11,7 @@ of hand-authoring nested `UiRecipe` / `GridPluginConfig` JSON.
 
 ## Design principle: build format == runtime format
 
-The builder's editor model is the **same shape the runtime [`grid`](../grid)
+The builder's editor model is the **same shape the runtime [`grid`](../../grid)
 plugin already consumes** (`TGridPluginConfig`). Anything authored in the builder
 serializes to the canonical grid entity JSON and renders with the existing grid
 renderer — there is no separate runtime format to maintain.
@@ -226,19 +226,44 @@ so the new site opens in the editor.
 
 ## Architecture
 
+The plugin is organised into folders by responsibility:
+
+```
+builder/
+  BuilderPlugin.tsx        # main editor entry (state, DnD, mode switch)
+  SiteDirectoryPlugin.tsx  # standalone site gallery entry
+  index.ts                 # public barrel
+  docs/       README.md, USER_GUIDE.md, ADDING_WIDGETS.md
+  types/      index.ts (editor model, config, block & field types), siteDirectory.ts
+  model/      site.ts, model.ts, templates.ts, blocks.ts, history.ts
+  utils/      gridMetrics.ts, markdownTable.ts, mathUtils.ts, spreadsheet.ts, toast.ts, icons.ts
+  styles/     index.ts (shared styled-components), directory.styles.ts
+  static/     StaticChartPlugin.tsx, StaticTablePlugin.tsx, staticWidgets.tsx
+  hooks/      usePersistence.ts, useEditorShortcuts.ts
+  components/ UI pieces + co-located *.styles.ts
+  widgets/    the widget registry (one file per widget)
+  tests/      all builder unit tests
+```
+
 | File | Responsibility |
 | --- | --- |
-| `types.ts` | Editor model, plugin config, block and inspector-field types. |
+| `types/index.ts` | Editor model, plugin config, block and inspector-field types. |
 | `widgets/` | **The widget registry** — one file per palette widget (metadata + icon + optional component loader), collected in `widgets/index.ts`. Adding a widget happens here and nowhere else. See [`ADDING_WIDGETS.md`](./ADDING_WIDGETS.md). |
-| `blocks.ts` | Thin re-export of `BLOCKS` / `getBlock` from the widget registry. |
-| `icons.ts` | Editor-chrome icons, merged with each widget's own icon from the registry. |
-| `model.ts` | Pure transforms (add/remove/move/resize/duplicate/insert/setters), nesting helpers and serialize. |
-| `gridMetrics.ts` | Converts drag/resize pixel deltas into grid-cell deltas. |
-| `history.ts` | Immutable undo/redo stack + `useHistory` hook (with coalescing). |
-| `toast.ts` | `useToast` single-slot transient feedback state. |
-| `BuilderPlugin.tsx` | Plugin entry: state, history, `DndContext`, toolbar, mode switch, shortcuts, autosave. |
-| `SiteDirectoryPlugin.tsx` | Standalone plugin: a gallery of saved sites (search by type) + a "New site" action. Config in `siteDirectory.types.ts`. |
-| `templates.ts` | Starter page presets that build ready-to-edit models. |
+| `model/blocks.ts` | Thin re-export of `BLOCKS` / `getBlock` from the widget registry. |
+| `utils/icons.ts` | Editor-chrome icons, merged with each widget's own icon from the registry. |
+| `model/model.ts` | Pure transforms (add/remove/move/resize/duplicate/insert/setters), nesting helpers and serialize. |
+| `model/site.ts` | Site (multi-page) serialize/deserialize and page helpers. |
+| `model/history.ts` | Immutable undo/redo stack + `useHistory` hook (with coalescing). |
+| `model/templates.ts` | Starter page presets that build ready-to-edit models. |
+| `utils/gridMetrics.ts` | Converts drag/resize pixel deltas into grid-cell deltas. |
+| `utils/toast.ts` | `useToast` single-slot transient feedback state. |
+| `hooks/usePersistence.ts` | Hydration, autosave, manual save and unload guard. |
+| `hooks/useEditorShortcuts.ts` | Keyboard shortcut bindings for the editor. |
+| `styles/index.ts` | Shared styled-components for the editor chrome. |
+| `BuilderPlugin.tsx` | Plugin entry: state, history, `DndContext`, mode switch. |
+| `components/BuilderToolbar.tsx` | Presentational editor toolbar. |
+| `components/SiteShellView.tsx` | Shared shell for the locked viewer and preview mode. |
+| `SiteDirectoryPlugin.tsx` | Standalone plugin: a gallery of saved sites (search by type) + a "New site" action. Config in `types/siteDirectory.ts`. |
 | `components/WidgetPalette.tsx` | Draggable palette cards grouped by category. |
 | `components/Outline.tsx` | List of widgets in the active grid for select/drill-in. |
 | `components/Canvas.tsx` | Grid canvas: drag-to-move, resize, select, drill-in, device frame. |
@@ -247,13 +272,14 @@ so the new site opens in the editor.
 | `components/Toast.tsx` | Renders the current toast (EDS `Snackbar`). |
 | `tests/` | All builder unit tests (model, grid metrics, history, templates, site, markdown/math helpers, widget registry). |
 
+
 ## Adding your own widgets
 
 The palette is fully extensible. Adding a widget (a date picker, a rating, a
 countdown…) is a **one-file, one-line** change — you don't touch the builder's
 internals. See the step-by-step **[Adding a widget guide](./ADDING_WIDGETS.md)**,
 which walks through a complete date-picker example. A working reference lives at
-[`widgets/datePicker.widget.tsx`](./widgets/datePicker.widget.tsx).
+[`widgets/datePicker.widget.tsx`](../widgets/datePicker.widget.tsx).
 
 ## Content model
 
