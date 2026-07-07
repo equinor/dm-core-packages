@@ -38,6 +38,13 @@
       "dimensions": "*",
       "description": "Role names allowed to edit. When set, users whose current role is not listed get the read-only viewer. Empty or absent means editing is open to everyone.",
       "optional": true
+    },
+    {
+      "name": "directoryUrl",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "URL to navigate to when clicking the 'Website builder' breadcrumb (e.g. the site directory page). Falls back to window.history.back() when omitted.",
+      "optional": true
     }
   ]
 }

@@ -18,7 +18,8 @@
       "plugin": "@development-framework/dm-core-plugins/builder",
       "config": {
         "type": "PLUGINS:dm-core-plugins/builder/BuilderPluginConfig",
-        "mode": "edit"
+        "mode": "edit",
+        "directoryUrl": "/view?documentId=dmss://DemoDataSource/$siteDirectory"
       }
     }
   ]

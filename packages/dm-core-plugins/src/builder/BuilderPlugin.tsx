@@ -748,7 +748,36 @@ export const BuilderPlugin = (
       <Styled.BuilderLayout>
         <Styled.Toolbar>
           <Styled.ToolbarGroup>
-            <Typography variant='h5'>Website builder</Typography>
+            <button
+              type='button'
+              aria-label='Back to site directory'
+              onClick={() => {
+                if (config?.directoryUrl) {
+                  window.location.assign(config.directoryUrl)
+                } else {
+                  window.history.back()
+                }
+              }}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <Typography
+                variant='h5'
+                style={{
+                  textDecoration: 'underline',
+                  textDecorationStyle: 'dotted',
+                  textUnderlineOffset: 3,
+                }}
+              >
+                Website builder
+              </Typography>
+            </button>
             {mode === 'edit' && (
               <Tooltip title='Site name (shown in the site directory)'>
                 <Input

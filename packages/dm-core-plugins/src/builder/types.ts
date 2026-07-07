@@ -29,6 +29,12 @@ export type TBuilderPluginConfig = {
    * absent list leaves editing open to everyone.
    */
   editorRoles?: string[]
+  /**
+   * URL to navigate to when the user clicks the "Website builder" breadcrumb
+   * in the toolbar (e.g. the site directory page). Falls back to
+   * `window.history.back()` when omitted.
+   */
+  directoryUrl?: string
 }
 
 /**

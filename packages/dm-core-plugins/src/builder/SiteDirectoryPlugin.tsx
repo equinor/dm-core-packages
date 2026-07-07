@@ -265,6 +265,7 @@ export const SiteDirectoryPlugin = (
   const [creating, setCreating] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
   const [pendingDeleteSite, setPendingDeleteSite] = useState<TSiteHit | null>(
     null
   )
@@ -380,6 +381,7 @@ export const SiteDirectoryPlugin = (
   const handleDelete = useCallback(
     async (site: TSiteHit) => {
       setDeletingId(site.id)
+      setDeleteError(null)
       try {
         // documentRemove takes a full DMSS address; root documents use the
         // `$id` syntax (the `$` is DMSS's root-id sigil, not a JS template).
@@ -390,6 +392,7 @@ export const SiteDirectoryPlugin = (
         setPendingDeleteSite(null)
       } catch (error) {
         console.error('Failed to delete site', error)
+        setDeleteError('Could not delete the site. Please try again.')
       } finally {
         setDeletingId(null)
       }
@@ -408,7 +411,9 @@ export const SiteDirectoryPlugin = (
       <Dialog
         open={pendingDeleteSite !== null}
         isDismissable
-        onClose={() => setPendingDeleteSite(null)}
+        onClose={() => {
+          if (deletingId === null) setPendingDeleteSite(null)
+        }}
       >
         <Dialog.Header>
           <Dialog.Title>Delete website?</Dialog.Title>
@@ -418,8 +423,16 @@ export const SiteDirectoryPlugin = (
             Deleting <strong>{pendingDeleteSite?.label}</strong> is permanent.
             Are you sure you wish to delete it?
           </Typography>
+          {deleteError ? (
+            <Typography
+              variant='body_short'
+              style={{ color: colorDangerResting, marginTop: 8 }}
+            >
+              {deleteError}
+            </Typography>
+          ) : null}
         </Dialog.CustomContent>
-        <Dialog.Actions>
+        <Dialog.Actions style={{ gap: 8 }}>
           <Button
             variant='outlined'
             onClick={() => setPendingDeleteSite(null)}
@@ -542,7 +555,10 @@ export const SiteDirectoryPlugin = (
               site={site}
               viewUrl={viewUrl(site.dataSource, site.id)}
               editUrl={editUrl(site.dataSource, site.id)}
-              onDeleteRequest={() => setPendingDeleteSite(site)}
+              onDeleteRequest={() => {
+                setDeleteError(null)
+                setPendingDeleteSite(site)
+              }}
               deleting={deletingId === site.id}
             />
           ))}
