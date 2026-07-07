@@ -25,9 +25,11 @@ import {
   SITE_TYPE_ADDRESS,
   serializeSite,
   setPageLayout,
+  stampWidgetConfigTypes,
   type TBuilderSite,
   updateNavbar,
   updateNavItem,
+  WIDGET_CONFIG_TYPE,
 } from '../site'
 
 const textBlock = getBlock('text') ?? BLOCKS[0]
@@ -383,6 +385,69 @@ describe('builder site', () => {
       const site = deserializeSite(resolved)
       expect(site.pages).toHaveLength(1)
       expect(site.pages[0].title).toBe('Home')
+    })
+  })
+
+  describe('widget config type stamping', () => {
+    it('stamps a resolvable type onto every typeless config, in place', () => {
+      const doc = {
+        recipe: { config: { text: 'Hi', level: 1 } },
+        nested: [{ recipe: { config: { label: 'Go' } } }],
+      }
+      stampWidgetConfigTypes(doc)
+      expect(doc.recipe.config).toMatchObject({
+        text: 'Hi',
+        level: 1,
+        type: WIDGET_CONFIG_TYPE,
+      })
+      expect(doc.nested[0].recipe.config).toMatchObject({
+        label: 'Go',
+        type: WIDGET_CONFIG_TYPE,
+      })
+    })
+
+    it('leaves configs that already declare a type untouched (idempotent)', () => {
+      const doc = { config: { text: 'Hi', type: 'dmss://custom/Type' } }
+      stampWidgetConfigTypes(doc)
+      expect(doc.config.type).toBe('dmss://custom/Type')
+    })
+
+    it('does not recurse into config values (e.g. a chart rows array)', () => {
+      const doc: { config: Record<string, unknown> } = {
+        config: {
+          chartType: 'line',
+          rows: [
+            ['Month', 'Sales'],
+            ['Jan', '12'],
+          ],
+        },
+      }
+      stampWidgetConfigTypes(doc)
+      expect(doc.config.type).toBe(WIDGET_CONFIG_TYPE)
+      // Values inside config keep their shape and gain no stray `type`.
+      expect(doc.config.rows).toEqual([
+        ['Month', 'Sales'],
+        ['Jan', '12'],
+      ])
+    })
+
+    it('resolvePluginAliases stamps widget configs while expanding aliases', () => {
+      const serialized = {
+        type: SITE_TYPE,
+        pages: [
+          { layout: { items: [{ recipe: { config: { text: 'Hi' } } }] } },
+        ],
+      }
+      const resolved = resolvePluginAliases(serialized) as {
+        type: string
+        pages: {
+          layout: { items: { recipe: { config: Record<string, unknown> } }[] }
+        }[]
+      }
+      expect(resolved.type).toBe(SITE_TYPE_ADDRESS)
+      expect(resolved.pages[0].layout.items[0].recipe.config.type).toBe(
+        WIDGET_CONFIG_TYPE
+      )
     })
   })
 })

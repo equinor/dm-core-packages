@@ -21,6 +21,7 @@ import {
   resolvePluginAliases,
   SITE_TYPE_ADDRESS,
   serializeSite,
+  stampWidgetConfigTypes,
 } from './site'
 import type { TSiteDirectoryConfig } from './siteDirectory.types'
 
@@ -382,17 +383,34 @@ export const SiteDirectoryPlugin = (
     async (site: TSiteHit) => {
       setDeletingId(site.id)
       setDeleteError(null)
+      const address = `dmss://${site.dataSource}/$${site.id}`
       try {
         // documentRemove takes a full DMSS address; root documents use the
         // `$id` syntax (the `$` is DMSS's root-id sigil, not a JS template).
-        await dmssAPI.documentRemove({
-          address: `dmss://${site.dataSource}/$${site.id}`,
-        })
+        await dmssAPI.documentRemove({ address })
         setSites((current) => current.filter((s) => s.id !== site.id))
         setPendingDeleteSite(null)
       } catch (error) {
-        console.error('Failed to delete site', error)
-        setDeleteError('Could not delete the site. Please try again.')
+        // Sites saved before widget configs were stamped with a resolvable
+        // `type` (see WIDGET_CONFIG_TYPE) can't be deleted: DMSS fails to build
+        // the node-tree over their typeless configs. Self-heal such legacy
+        // documents by re-storing them with stamped config types, then retry.
+        try {
+          const current = (await dmssAPI
+            .documentGet({ address, depth: 0 })
+            .then((response) => response.data)) as Record<string, unknown>
+          stampWidgetConfigTypes(current)
+          await dmssAPI.documentAddSimple({
+            dataSourceId: site.dataSource,
+            body: current,
+          })
+          await dmssAPI.documentRemove({ address })
+          setSites((sites) => sites.filter((s) => s.id !== site.id))
+          setPendingDeleteSite(null)
+        } catch (retryError) {
+          console.error('Failed to delete site', error, retryError)
+          setDeleteError('Could not delete the site. Please try again.')
+        }
       } finally {
         setDeletingId(null)
       }
@@ -432,7 +450,14 @@ export const SiteDirectoryPlugin = (
             </Typography>
           ) : null}
         </Dialog.CustomContent>
-        <Dialog.Actions style={{ gap: 8 }}>
+        <Dialog.Actions
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
           <Button
             variant='outlined'
             onClick={() => setPendingDeleteSite(null)}

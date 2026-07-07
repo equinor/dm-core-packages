@@ -31,6 +31,54 @@ export const CORE_ALIAS_PREFIX = 'CORE:'
 export const CORE_ADDRESS_PREFIX = 'dmss://system/SIMOS/'
 
 /**
+ * Type stamped onto every free-form widget `config` object before a site is
+ * written to storage.
+ *
+ * Widget configs are deliberately typeless (`{ text, level, align }`, etc.) so
+ * authors can add any widget without a bespoke blueprint. They are stored under
+ * the core `UiRecipe.config` attribute, which DMSS declares as `object` (a
+ * non-primitive type). When DMSS builds the document node-tree — which it does
+ * on *delete* (and any full read) — it recurses into every `object` attribute
+ * and throws `Entity is missing required attribute 'type'` for our typeless
+ * configs, so sites containing widgets cannot be deleted.
+ *
+ * `dmss://system/SIMOS/Entity` is the generic base type whose only required
+ * attribute is `type` (everything else is optional) and whose sole non-primitive
+ * attribute, `_meta_`, no widget uses. Stamping it onto each config lets DMSS
+ * resolve the node-tree (the arbitrary config keys are simply carried through as
+ * unmodelled data) while remaining invisible to the widgets, which ignore it.
+ */
+export const WIDGET_CONFIG_TYPE = 'dmss://system/SIMOS/Entity'
+
+/**
+ * Stamp {@link WIDGET_CONFIG_TYPE} onto every `config` object that lacks a
+ * `type`, in place. Only bare `config` objects are touched; configs that
+ * already declare a type are left as-is (idempotent), and config *values*
+ * (e.g. a chart's `rows`) are never modelled by `Entity`, so DMSS leaves them
+ * untouched too.
+ */
+export const stampWidgetConfigTypes = (value: unknown): void => {
+  if (Array.isArray(value)) {
+    for (const item of value) stampWidgetConfigTypes(item)
+    return
+  }
+  if (!value || typeof value !== 'object') return
+  const obj = value as Record<string, unknown>
+  for (const [key, child] of Object.entries(obj)) {
+    if (
+      key === 'config' &&
+      child &&
+      typeof child === 'object' &&
+      !Array.isArray(child) &&
+      typeof (child as Record<string, unknown>).type !== 'string'
+    ) {
+      ;(child as Record<string, unknown>).type = WIDGET_CONFIG_TYPE
+    }
+    stampWidgetConfigTypes(child)
+  }
+}
+
+/**
  * Fully-qualified address of the Site blueprint, for the context-free search
  * endpoint (which cannot resolve the `PLUGINS:` alias).
  */
@@ -41,19 +89,25 @@ export const SITE_TYPE_ADDRESS = SITE_TYPE.replace(
 
 /**
  * Replace every builder alias (`PLUGINS:` and `CORE:`) in a serialized value
- * with its fully-qualified `dmss://…` address, so documents written through the
+ * with its fully-qualified `dmss://…` address, and stamp a resolvable `type`
+ * onto every typeless widget `config`, so documents written through the
  * context-free add-raw / update endpoints carry resolvable type discriminators.
- * Without this, a stored alias can't be resolved when the document is read back
- * and rendering fails (search misses, or the viewer spins on `attributeGet`).
+ * Without the alias expansion, a stored alias can't be resolved when the
+ * document is read back and rendering fails (search misses, or the viewer spins
+ * on `attributeGet`); without the config `type`, DMSS cannot build the node-tree
+ * and the site can't be deleted (see {@link WIDGET_CONFIG_TYPE}).
  */
-export const resolvePluginAliases = <T>(value: T): T =>
-  JSON.parse(
+export const resolvePluginAliases = <T>(value: T): T => {
+  const resolved = JSON.parse(
     JSON.stringify(value)
       .split(PLUGINS_ALIAS_PREFIX)
       .join(PLUGINS_ADDRESS_PREFIX)
       .split(CORE_ALIAS_PREFIX)
       .join(CORE_ADDRESS_PREFIX)
   )
+  stampWidgetConfigTypes(resolved)
+  return resolved
+}
 
 /**
  * Version of the serialized site format. Bump this whenever the stored shape
