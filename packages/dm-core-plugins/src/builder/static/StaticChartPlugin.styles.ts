@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const ChartContainer = styled.div`
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -26,6 +26,8 @@ export const EmptyMessage = styled.div`
 
 export const Svg = styled.svg`
   display: block;
+  flex: 1;
+  min-height: 0;
 `
 
 export const Legend = styled.div`

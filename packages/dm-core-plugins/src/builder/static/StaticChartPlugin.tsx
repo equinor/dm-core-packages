@@ -117,7 +117,7 @@ export const StaticChartPlugin = (
   const legendHeight = showLegend && data.series.length > 0 ? 24 : 0
   const titleHeight = title ? 24 : 0
   const width = Math.max(size.width, 120)
-  const height = Math.max(size.height - titleHeight - legendHeight, 80)
+  const height = Math.max(size.height - titleHeight - legendHeight, 200)
 
   const margin = { top: 8, right: 12, bottom: 28, left: 40 }
   const plotWidth = Math.max(width - margin.left - margin.right, 10)
@@ -134,12 +134,11 @@ export const StaticChartPlugin = (
   }
 
   const ticks = niceTicks(data.yMin, data.yMax)
-
   return (
     <S.ChartContainer ref={ref} className='dm-plugin-padding'>
       {title ? <S.ChartTitle>{title}</S.ChartTitle> : null}
 
-      {!hasData ? (
+      {!size ? null : !hasData ? (
         <S.EmptyMessage>
           Add data in the inspector: a header row, x labels in the first column
           and numbers in the rest.
