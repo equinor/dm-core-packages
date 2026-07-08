@@ -3,6 +3,7 @@ import {
   Loading,
   useDocument,
 } from '@development-framework/dm-core'
+import { set } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import * as S from './LiveTablePlugin.styles'
 
@@ -42,6 +43,8 @@ export const LiveTablePlugin = (
   const [localRows, setLocalRows] = useState<string[][]>([])
   const [dirty, setDirty] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [selectedColumn, setSelectedColumn] = useState<number | null>(null)
+  const [selectedRow, setSelectedRow] = useState<number | null>(null)
 
   // Sync from DMSS whenever the document loads or changes externally.
   useEffect(() => {
@@ -67,6 +70,13 @@ export const LiveTablePlugin = (
     updateRows(next)
   }
 
+  const setHeaderValue = (colIndex: number, value: string) => {
+    const next = localRows.map((row) => [...row])
+    if (!next[0]) next[0] = EMPTY_ROW(colCount)
+    next[0][colIndex] = value
+    updateRows(next)
+  }
+
   const addRow = () => {
     const next =
       localRows.length === 0
@@ -78,6 +88,18 @@ export const LiveTablePlugin = (
   const deleteRow = (bodyIndex: number) => {
     const next = [header, ...bodyRows.filter((_, i) => i !== bodyIndex)]
     updateRows(next)
+    setSelectedRow(null)
+  }
+
+  const addColumn = () => {
+    const next = localRows.map((row) => [...row, ''])
+    updateRows(next)
+  }
+
+  const deleteColumn = (colIndex: number) => {
+    const next = localRows.map((row) => row.filter((_, i) => i !== colIndex))
+    updateRows(next[0]?.length === 0 ? [] : next)
+    setSelectedColumn(null)
   }
 
   const handleSave = async () => {
@@ -111,9 +133,28 @@ export const LiveTablePlugin = (
     <S.Container className='dm-plugin-padding'>
       <S.Toolbar>
         {allowAddRows && (
-          <S.AddRowButton type='button' onClick={addRow} disabled={saving}>
-            + Add row
-          </S.AddRowButton>
+          <>
+            <S.AddRowButton type='button' onClick={addRow} disabled={saving}>
+              + Add row
+            </S.AddRowButton>
+            <S.DeleteRowButton
+              type='button'
+              onClick={() => deleteRow(selectedRow!)}
+              disabled={saving || selectedRow === null}
+            >
+              - Delete row
+            </S.DeleteRowButton>
+            <S.AddRowButton type='button' onClick={addColumn} disabled={saving}>
+              + Add column
+            </S.AddRowButton>
+            <S.DeleteRowButton
+              type='button'
+              onClick={() => deleteColumn(selectedColumn!)}
+              disabled={saving || selectedColumn === null}
+            >
+              - Delete column
+            </S.DeleteRowButton>
+          </>
         )}
         <S.SaveButton
           type='button'
@@ -140,9 +181,38 @@ export const LiveTablePlugin = (
               </caption>
             )}
             <thead>
+              {allowDeleteRows && (
+                <tr>
+                  {header.map((_, colIndex) => (
+                    <S.ActionTd as='th' key={`del-col-${colIndex}`}>
+                      <S.SelectRowButton
+                        type='button'
+                        title={`Delete column ${colIndex + 1}`}
+                        onClick={() =>
+                          colIndex === selectedColumn
+                            ? setSelectedColumn(null)
+                            : setSelectedColumn(colIndex)
+                        }
+                        disabled={saving}
+                        style={{
+                          color: selectedColumn === colIndex ? 'red' : 'grey',
+                        }}
+                      >
+                        ✕
+                      </S.SelectRowButton>
+                    </S.ActionTd>
+                  ))}
+                  <S.ActionTd as='th' />
+                </tr>
+              )}
               <tr>
                 {header.map((col, colIndex) => (
-                  <S.GridTh key={`h-${colIndex}`}>{col}</S.GridTh>
+                  <S.GridTh key={`h-${colIndex}`}>
+                    <S.CellInput
+                      value={col}
+                      onChange={(e) => setHeaderValue(colIndex, e.target.value)}
+                    />
+                  </S.GridTh>
                 ))}
                 {allowDeleteRows && <S.ActionTd as='th' />}
               </tr>
@@ -162,14 +232,21 @@ export const LiveTablePlugin = (
                   ))}
                   {allowDeleteRows && (
                     <S.ActionTd>
-                      <S.DeleteRowButton
+                      <S.SelectRowButton
                         type='button'
                         title='Delete row'
-                        onClick={() => deleteRow(rowIndex)}
+                        onClick={() =>
+                          rowIndex === selectedRow
+                            ? setSelectedRow(null)
+                            : setSelectedRow(rowIndex)
+                        }
                         disabled={saving}
+                        style={{
+                          color: selectedRow === rowIndex ? 'red' : 'grey',
+                        }}
                       >
                         ✕
-                      </S.DeleteRowButton>
+                      </S.SelectRowButton>
                     </S.ActionTd>
                   )}
                 </tr>

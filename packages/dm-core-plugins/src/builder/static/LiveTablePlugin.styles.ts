@@ -54,13 +54,14 @@ export const CellInput = styled.input`
   font: inherit;
   font-size: 13px;
   background: transparent;
+  text-align: center;
 
   &:focus {
     background: #eef6ff;
   }
 `
 
-export const DeleteRowButton = styled.button`
+export const SelectRowButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
@@ -83,15 +84,37 @@ export const Toolbar = styled.div`
 
 export const AddRowButton = styled.button`
   padding: 4px 12px;
-  border: 1px solid #d8d8d8;
+  border: 1px solid #00c424;
   border-radius: 4px;
   background: #fafafa;
   cursor: pointer;
   font-size: 12px;
-  color: #444;
+  color: #00c424;
 
   &:hover {
-    background: #f0f0f0;
+    background: #00c424;
+    color: #fafaaf;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+`
+export const DeleteRowButton = styled.button`
+  padding: 4px 12px;
+  border: 1px solid rgb(255, 0, 0);
+  border-radius: 4px;
+  background: #fafafa;
+  cursor: pointer;
+  font-size: 12px;
+  color: rgb(255, 0, 0);
+
+  &:hover {
+    background: rgb(255, 0, 0);
+    color: #fafaaf;
+    cursor: pointer;
   }
 
   &:disabled {
