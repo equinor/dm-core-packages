@@ -8,6 +8,7 @@ import { dividerWidget } from './divider.widget'
 import { embedWidget } from './embed.widget'
 import { headingWidget } from './heading.widget'
 import { imageWidget } from './image.widget'
+import { liveTableWidget } from './liveTable.widget'
 import { metricWidget } from './metric.widget'
 import { sectionWidget } from './section.widget'
 import { spacerWidget } from './spacer.widget'
@@ -37,6 +38,7 @@ export const WIDGET_DEFINITIONS: TWidgetDefinition[] = [
   tableWidget,
   chartWidget,
   metricWidget,
+  liveTableWidget,
   datePickerWidget,
 ]
 
