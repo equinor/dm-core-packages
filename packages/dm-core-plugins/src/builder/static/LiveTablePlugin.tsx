@@ -3,7 +3,6 @@ import {
   Loading,
   useDocument,
 } from '@development-framework/dm-core'
-import { set } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import * as S from './LiveTablePlugin.styles'
 

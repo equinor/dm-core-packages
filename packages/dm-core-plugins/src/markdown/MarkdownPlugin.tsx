@@ -7,7 +7,7 @@ import {
 } from '@development-framework/dm-core'
 import axios from 'axios'
 import hljs from 'highlight.js'
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import type { MediaObject } from '../mediaViewer/MediaViewerPlugin.types'
@@ -27,28 +27,31 @@ export const MarkdownPlugin = (props: IUIPlugin) => {
     false
   )
 
-  useMemo(async () => {
-    if (inlineContent !== undefined) {
-      setMarkdownString(inlineContent)
-      return
+  useEffect(() => {
+    const fetchMarkdown = async () => {
+      if (inlineContent !== undefined) {
+        setMarkdownString(inlineContent)
+        return
+      }
+      if (document) {
+        const { dataSource } = splitAddress(idReference)
+        const response = await dmssAPI.blobGetById(
+          {
+            dataSourceId: dataSource,
+            blobId: document?.content?.address.slice(1),
+          },
+          { responseType: 'blob' }
+        )
+        const blobFile = new Blob([response.data], {
+          type: 'text/markdown',
+        })
+        const syntheticBlobUrl = window.URL.createObjectURL(blobFile)
+        const file = await axios.get(syntheticBlobUrl)
+        setMarkdownString(file.data)
+      }
     }
-    if (document) {
-      const { dataSource } = splitAddress(idReference)
-      const response = await dmssAPI.blobGetById(
-        {
-          dataSourceId: dataSource,
-          blobId: document?.content?.address.slice(1),
-        },
-        { responseType: 'blob' }
-      )
-      const blobFile = new Blob([response.data], {
-        type: 'text/markdown',
-      })
-      const syntheticBlobUrl = window.URL.createObjectURL(blobFile)
-      const file = await axios.get(syntheticBlobUrl)
-      setMarkdownString(file.data)
-    }
-  }, [document, inlineContent])
+    fetchMarkdown()
+  }, [document, inlineContent, idReference, dmssAPI])
 
   if (inlineContent === undefined) {
     if (error) throw new Error(JSON.stringify(error, null, 2))

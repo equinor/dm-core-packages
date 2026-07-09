@@ -20,6 +20,12 @@
       "optional": true
     },
     {
+      "name": "verticalAlign",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
       "name": "bold",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "boolean",
