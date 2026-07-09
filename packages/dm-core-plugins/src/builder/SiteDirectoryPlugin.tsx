@@ -40,6 +40,9 @@ const toSlug = (value: string): string =>
 const dataSourceOf = (address: string): string =>
   address.replace(/^dmss:\/\//, '').split('/')[0]
 
+/** Exported so tests can spy on it without fighting jsdom's non-configurable window.location. */
+export const navigateTo = (url: string) => window.location.assign(url)
+
 // ---- Directory plugin ---------------------------------------------------
 
 /**
@@ -179,7 +182,7 @@ export const SiteDirectoryPlugin = (
         body,
       })
       const id = typeof response.data === 'string' ? response.data : name
-      window.location.assign(createUrl(dataSource, id))
+      navigateTo(createUrl(dataSource, id))
     } catch (error) {
       console.error('Failed to create site', error)
       setCreateError('Could not create a new site. Please try again.')

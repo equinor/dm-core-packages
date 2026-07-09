@@ -5,6 +5,7 @@ import {
 } from '@development-framework/dm-core'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { ReactNode } from 'react'
+import * as SiteDirectoryModule from '../SiteDirectoryPlugin'
 import { SiteDirectoryPlugin } from '../SiteDirectoryPlugin'
 import { SITE_TYPE_ADDRESS } from '../model/site'
 import type { TSiteDirectoryConfig } from '../types/siteDirectory'
@@ -108,11 +109,9 @@ describe('SiteDirectoryPlugin', () => {
       // biome-ignore lint/suspicious/noExplicitAny: test stub for AxiosPromise
       .mockResolvedValue({ data: 'fresh-id' } as any)
 
-    const assign = jest.fn()
-    Object.defineProperty(window, 'location', {
-      configurable: true,
-      value: { assign },
-    })
+    const assign = jest
+      .spyOn(SiteDirectoryModule, 'navigateTo')
+      .mockImplementation(() => {})
 
     renderDirectory(baseConfig)
 
@@ -148,11 +147,9 @@ describe('SiteDirectoryPlugin', () => {
       // biome-ignore lint/suspicious/noExplicitAny: test stub for AxiosPromise
       .mockResolvedValue({ data: 'fresh-id' } as any)
 
-    const assign = jest.fn()
-    Object.defineProperty(window, 'location', {
-      configurable: true,
-      value: { assign },
-    })
+    const assign = jest
+      .spyOn(SiteDirectoryModule, 'navigateTo')
+      .mockImplementation(() => {})
 
     renderDirectory({
       ...baseConfig,
@@ -222,8 +219,8 @@ describe('SiteDirectoryPlugin', () => {
     expect(screen.getByRole('dialog')).not.toBeNull()
     expect(screen.getByText(/permanent/i)).not.toBeNull()
 
-    // Clicking "Yes, delete" executes the deletion.
-    fireEvent.click(screen.getByRole('button', { name: /yes, delete/i }))
+    // Clicking "Delete" executes the deletion.
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }))
 
     await waitFor(() => expect(documentRemove).toHaveBeenCalledTimes(1))
     // The deleted card disappears from the list and the modal closes.
@@ -247,7 +244,7 @@ describe('SiteDirectoryPlugin', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Delete site' }))
     expect(screen.getByRole('dialog')).not.toBeNull()
 
-    fireEvent.click(screen.getByRole('button', { name: 'No' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
 
     await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull())
     expect(documentRemove).not.toHaveBeenCalled()
