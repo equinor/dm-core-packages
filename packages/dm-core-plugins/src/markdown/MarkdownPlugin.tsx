@@ -46,8 +46,12 @@ export const MarkdownPlugin = (props: IUIPlugin) => {
           type: 'text/markdown',
         })
         const syntheticBlobUrl = window.URL.createObjectURL(blobFile)
-        const file = await axios.get(syntheticBlobUrl)
-        setMarkdownString(file.data)
+        try {
+          const file = await axios.get(syntheticBlobUrl)
+          setMarkdownString(file.data)
+        } finally {
+          window.URL.revokeObjectURL(syntheticBlobUrl)
+        }
       }
     }
     fetchMarkdown()

@@ -101,7 +101,6 @@ export const Card = styled.div<{ $deleting: boolean }>`
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
     transform: translateY(-2px);
   }
-  
 `
 
 /** Coloured banner; hue is derived per-site so each card looks distinct. */

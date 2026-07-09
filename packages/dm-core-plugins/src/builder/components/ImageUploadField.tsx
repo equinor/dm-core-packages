@@ -59,7 +59,7 @@ export const ImageUploadField = ({
         dataSourceId: dataSource,
         body: entity,
       })
-      onChange(`${dataSource}/$${res.data}`)
+      onChange(`dmss://${dataSource}/$${res.data}`)
     } catch {
       setError('Could not upload image')
     } finally {

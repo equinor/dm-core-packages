@@ -146,7 +146,7 @@ export const usePersistence = ({
     }, 800)
     return () => clearTimeout(timer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentJson, onChange, idReference, document])
+  }, [currentJson, onChange, idReference, document, locked])
 
   // Warn before leaving the page while there are unsaved changes.
   useEffect(() => {

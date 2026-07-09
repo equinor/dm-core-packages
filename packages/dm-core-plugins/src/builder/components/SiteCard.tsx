@@ -1,4 +1,4 @@
-import { Button, Icon } from '@equinor/eds-core-react'
+import { Icon } from '@equinor/eds-core-react'
 import { delete_to_trash, edit, external_link } from '@equinor/eds-icons'
 import * as S from '../styles/directory.styles'
 
@@ -67,13 +67,15 @@ export const SiteCard = ({
           </S.OpenLink>
           {editUrl ? (
             <S.EditLink href={editUrl}>
-              <Button
+              <S.DangerIconButton
+                as={undefined}
                 variant='ghost_icon'
                 aria-label='Edit site'
                 disabled={deleting}
+                style={{ color: 'inherit' }}
               >
                 <Icon data={edit} size={18} />
-              </Button>
+              </S.DangerIconButton>
             </S.EditLink>
           ) : null}
           <S.DangerIconButton
