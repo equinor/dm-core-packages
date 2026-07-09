@@ -261,7 +261,7 @@ export const SiteDirectoryPlugin = (
             onClick={() => setPendingDeleteSite(null)}
             disabled={deletingId !== null}
           >
-            No
+            Cancel
           </Button>
           <Button
             color='danger'
@@ -271,7 +271,7 @@ export const SiteDirectoryPlugin = (
             disabled={deletingId !== null}
           >
             <Icon data={delete_to_trash} size={16} />
-            {deletingId !== null ? 'Deleting…' : 'Yes, delete'}
+            {deletingId !== null ? 'Deleting…' : 'Delete'}
           </Button>
         </S.DialogActions>
       </Dialog>
