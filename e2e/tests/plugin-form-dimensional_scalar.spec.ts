@@ -88,7 +88,7 @@ test('Dimensional scalar', async ({ page }) => {
     await page.getByLabel('unit (optional)').fill('€')
     await page.getByRole('button', { name: 'Submit' }).click()
     await expect(page.getByRole('alert')).not.toBeVisible()
-    await page.getByRole('button', { name: 'waveForm' }).click()
+    await navigate()
     await expect(
       page.getByTestId('maximumWaveHeight').getByRole('spinbutton')
     ).toHaveValue('88888')
