@@ -66,6 +66,7 @@ const InlineMarkdown = ({ content }: { content: string }) => (
 const FileMarkdown = ({ idReference }: { idReference: string }) => {
   const { dmssAPI } = useApplication()
   const [markdownString, setMarkdownString] = useState<string>()
+  const [fetchError, setFetchError] = useState<Error>()
   const { document, isLoading, error } = useDocument<MediaObject>(
     idReference,
     1,
@@ -95,10 +96,17 @@ const FileMarkdown = ({ idReference }: { idReference: string }) => {
         }
       }
     }
-    fetchMarkdown()
-  }, [document, idReference])
+    void fetchMarkdown().catch((err) =>
+      setFetchError(
+        err instanceof Error
+          ? err
+          : new Error(err?.toString() ?? 'Unknown error')
+      )
+    )
+  }, [document, idReference, dmssAPI])
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
+  if (fetchError) throw fetchError
   if (isLoading || document === null) return <Loading />
   return <MarkdownView markdownString={markdownString} />
 }

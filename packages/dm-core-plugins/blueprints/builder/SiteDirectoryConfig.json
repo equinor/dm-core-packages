@@ -55,7 +55,7 @@
       "name": "newSiteName",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "string",
-      "description": "Name given to a site created via 'New site'. Defaults to 'New site'.",
+      "description": "Name given to a site created via 'New site'. Defaults to 'New_site'.",
       "optional": true
     },
     {
