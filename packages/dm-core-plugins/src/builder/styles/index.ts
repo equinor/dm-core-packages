@@ -1,5 +1,5 @@
 import { tokens } from '@equinor/eds-tokens'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import type { TGridSize } from '../../grid'
 
 // Aliases for EDS tokens used throughout this file.
@@ -201,12 +201,30 @@ export const JsonPre = styled.pre`
   font-size: 12px;
 `
 
-export const DeviceFrame = styled.div<{ $maxWidth: string }>`
+export const DeviceFrame = styled.div<{ $maxWidth: string; $framed?: boolean }>`
   width: 100%;
   max-width: ${(props) => props.$maxWidth};
   margin: 0 auto;
   height: 100%;
   transition: max-width 0.2s ease;
+
+  /*
+   * When emulating a tablet/phone, draw a device bezel so the screen edges are
+   * obvious. The frame sizes to its content, is capped to the panel height and
+   * scrolls internally, so it reads like a device screen rather than a narrowed
+   * column. Desktop keeps the plain full-width layout (no bezel).
+   */
+  ${(props) =>
+    props.$framed &&
+    css`
+      height: auto;
+      max-height: 100%;
+      overflow: auto;
+      background: ${colorBgDefault};
+      border: 10px solid #1c1c1c;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    `}
 `
 
 export const Breadcrumbs = styled.div`

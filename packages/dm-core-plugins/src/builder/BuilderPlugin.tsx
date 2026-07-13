@@ -978,12 +978,15 @@ export const BuilderPlugin = (
           />
         ) : (
           <Styled.CanvasPanel style={{ gridColumn: '1 / -1' }}>
-            <Styled.SiteShell>
-              {navbar}
-              <Styled.SiteFrame>
-                {navSidebar}
-                <Styled.SitePageArea>
-                  <Styled.DeviceFrame $maxWidth={frameWidth}>
+            <Styled.DeviceFrame
+              $maxWidth={frameWidth}
+              $framed={device !== 'desktop'}
+            >
+              <Styled.SiteShell>
+                {navbar}
+                <Styled.SiteFrame>
+                  {navSidebar}
+                  <Styled.SitePageArea>
                     <ErrorBoundary message='A widget could not render. Bind its data (scope) in the inspector or remove it, then preview again.'>
                       <SiteGrid
                         type={type}
@@ -993,10 +996,10 @@ export const BuilderPlugin = (
                         onChange={onChange}
                       />
                     </ErrorBoundary>
-                  </Styled.DeviceFrame>
-                </Styled.SitePageArea>
-              </Styled.SiteFrame>
-            </Styled.SiteShell>
+                  </Styled.SitePageArea>
+                </Styled.SiteFrame>
+              </Styled.SiteShell>
+            </Styled.DeviceFrame>
           </Styled.CanvasPanel>
         )}
 

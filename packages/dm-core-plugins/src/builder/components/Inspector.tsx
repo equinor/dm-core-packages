@@ -4,6 +4,7 @@ import {
   TextField,
   Typography,
 } from '@equinor/eds-core-react'
+import { useEffect, useState } from 'react'
 import type { TGridArea, TGridItem, TGridSize } from '../../grid/types'
 import { getWidgetConfigValue } from '../model/model'
 import * as Styled from '../styles'
@@ -52,9 +53,43 @@ const boxToArea = (box: {
   rowEnd: box.y + Math.max(1, box.height) - 1,
 })
 
-const toNumber = (value: string, fallback: number): number => {
-  const parsed = Number.parseInt(value, 10)
-  return Number.isNaN(parsed) ? fallback : parsed
+/**
+ * Numeric layout field that keeps a local draft so the input can be cleared
+ * while editing. Valid entries commit to the model (clamped to >= 1); an empty
+ * or invalid draft snaps back to the model value on blur.
+ */
+const LayoutNumberField = ({
+  id,
+  label,
+  value,
+  onChangeValue,
+}: {
+  id: string
+  label: string
+  value: number
+  onChangeValue: (next: number) => void
+}): React.ReactElement => {
+  const [draft, setDraft] = useState<string>(String(value))
+
+  // Resync when the value changes outside this field (canvas drag-resize, undo).
+  useEffect(() => {
+    setDraft(String(value))
+  }, [value])
+
+  return (
+    <TextField
+      id={id}
+      label={label}
+      type='number'
+      value={draft}
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+        setDraft(event.target.value)
+        const parsed = Number.parseInt(event.target.value, 10)
+        if (!Number.isNaN(parsed)) onChangeValue(Math.max(1, parsed))
+      }}
+      onBlur={() => setDraft(String(value))}
+    />
+  )
 }
 
 const FieldControl = ({
@@ -320,45 +355,29 @@ export const Inspector = ({
       <Styled.InspectorSection>
         <Styled.InspectorSectionTitle>Layout</Styled.InspectorSectionTitle>
         <Styled.LayoutGrid>
-          <TextField
+          <LayoutNumberField
             id='inspector-x'
             label='Column'
-            type='number'
-            value={String(box.x)}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              updateBox({ x: Math.max(1, toNumber(event.target.value, box.x)) })
-            }
+            value={box.x}
+            onChangeValue={(next) => updateBox({ x: next })}
           />
-          <TextField
+          <LayoutNumberField
             id='inspector-y'
             label='Row'
-            type='number'
-            value={String(box.y)}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              updateBox({ y: Math.max(1, toNumber(event.target.value, box.y)) })
-            }
+            value={box.y}
+            onChangeValue={(next) => updateBox({ y: next })}
           />
-          <TextField
+          <LayoutNumberField
             id='inspector-w'
             label='Width'
-            type='number'
-            value={String(box.width)}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              updateBox({
-                width: Math.max(1, toNumber(event.target.value, box.width)),
-              })
-            }
+            value={box.width}
+            onChangeValue={(next) => updateBox({ width: next })}
           />
-          <TextField
+          <LayoutNumberField
             id='inspector-h'
             label='Height'
-            type='number'
-            value={String(box.height)}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              updateBox({
-                height: Math.max(1, toNumber(event.target.value, box.height)),
-              })
-            }
+            value={box.height}
+            onChangeValue={(next) => updateBox({ height: next })}
           />
         </Styled.LayoutGrid>
         <Styled.FieldHelp>
