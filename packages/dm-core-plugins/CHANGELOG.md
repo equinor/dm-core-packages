@@ -60,6 +60,23 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.60.3](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.60.2...dm-core-plugins-v1.60.3) (2026-07-21)
+
+
+### Miscellaneous Chores
+
+* **deps-dev:** bump @types/node from 25.9.4 to 26.1.0 ([#1631](https://github.com/equinor/dm-core-packages/issues/1631)) ([079bae7](https://github.com/equinor/dm-core-packages/commit/079bae7acf417706597c0152ca519d9c4bcd1d51))
+* **deps-dev:** bump jest and @types/jest ([#1586](https://github.com/equinor/dm-core-packages/issues/1586)) ([6170d6a](https://github.com/equinor/dm-core-packages/commit/6170d6a95003f6ef5a210599942078f716d57564))
+* **deps-dev:** bump typescript from 5.9.3 to 6.0.3 ([#1557](https://github.com/equinor/dm-core-packages/issues/1557)) ([d402c28](https://github.com/equinor/dm-core-packages/commit/d402c28a36d972ba18d9fbbe66a38d226679c63e))
+* **deps:** bump the web group across 1 directory with 3 updates ([#1632](https://github.com/equinor/dm-core-packages/issues/1632)) ([0a0933f](https://github.com/equinor/dm-core-packages/commit/0a0933fa958d20b81cacd7bc7e3f10fe29ce4f88))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @development-framework/dm-core bumped from ^1.46.6 to ^1.46.7
+
 ## [1.60.2](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.60.1...dm-core-plugins-v1.60.2) (2026-07-01)
 
 
