@@ -1,6 +1,6 @@
 {
   "name": "@development-framework/dm-core",
-  "version": "1.46.6",
+  "version": "1.46.7",
   "license": "MIT",
   "peerDependencies": {
     "@types/react": "^19.2.17",
