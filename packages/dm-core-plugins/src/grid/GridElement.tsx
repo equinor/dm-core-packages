@@ -24,6 +24,39 @@ const Element = styled.div<TElementProps>`
   overflow: auto;
 `
 
+const HORIZONTAL_ALIGN: Record<string, React.CSSProperties['alignItems']> = {
+  left: 'flex-start',
+  center: 'center',
+  right: 'flex-end',
+}
+
+const VERTICAL_ALIGN: Record<string, React.CSSProperties['justifyContent']> = {
+  top: 'flex-start',
+  center: 'center',
+  bottom: 'flex-end',
+}
+
+const styleToCss = (style?: TGridItem['style']): React.CSSProperties =>
+  style
+    ? {
+        textAlign: style.textAlign,
+        // The content wrapper is a flex column, so horizontal alignment of
+        // block widgets (image, button, embed…) is driven by `align-items`,
+        // derived from the same control as text alignment. Vertical placement
+        // within the cell is driven by `justify-content`.
+        alignItems: style.textAlign
+          ? HORIZONTAL_ALIGN[style.textAlign]
+          : undefined,
+        justifyContent: style.verticalAlign
+          ? VERTICAL_ALIGN[style.verticalAlign]
+          : undefined,
+        fontSize: style.fontSize,
+        fontWeight: style.bold ? 700 : undefined,
+        color: style.color,
+        padding: style.padding,
+      }
+    : {}
+
 type TGridItemProps = {
   idReference: string
   item: TGridItem
@@ -45,8 +78,12 @@ export const GridElement = (props: TGridItemProps): React.ReactElement => {
       $showItemBorders={showItemBorders}
       $itemBorder={itemBorder}
     >
-      {item?.title && <Typography variant='h4'>{item.title}</Typography>}
-      <Stack grow={1} minHeight={0} fullWidth>
+      {item?.title && (
+        <Typography variant='h4' style={styleToCss(item.titleStyle)}>
+          {item.title}
+        </Typography>
+      )}
+      <Stack grow={1} minHeight={0} fullWidth style={styleToCss(item.style)}>
         <ViewCreator
           idReference={idReference}
           viewConfig={item.viewConfig}

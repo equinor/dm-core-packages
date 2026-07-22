@@ -1,0 +1,7 @@
+{
+  "name": "SiteDirectory",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "A landing entity whose recipe mounts the Site directory plugin: a gallery of saved websites.",
+  "extends": ["CORE:NamedEntity"],
+  "attributes": []
+}

@@ -63,7 +63,7 @@ test('Dimensional scalar', async ({ page }) => {
       .getByLabel('label (optional)')
       .fill('Should not show as config overrides')
     await page.getByRole('button', { name: 'Submit' }).click()
-    await expect(page.getByRole('alert')).not.toBeVisible()
+    await expect(page.locator('.Toastify__toast--error')).not.toBeVisible()
     await page.getByRole('button', { name: 'waveForm' }).click()
     await expect(page.getByText('significantWaveHeight (config)')).toBeVisible()
     await expect(
@@ -87,8 +87,8 @@ test('Dimensional scalar', async ({ page }) => {
     await page.getByLabel('label (optional)').fill('New Maximum')
     await page.getByLabel('unit (optional)').fill('€')
     await page.getByRole('button', { name: 'Submit' }).click()
-    await expect(page.getByRole('alert')).not.toBeVisible()
-    await page.getByRole('button', { name: 'waveForm' }).click()
+    await expect(page.locator('.Toastify__toast--error')).not.toBeVisible()
+    await navigate()
     await expect(
       page.getByTestId('maximumWaveHeight').getByRole('spinbutton')
     ).toHaveValue('88888')

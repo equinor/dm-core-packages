@@ -22,6 +22,7 @@
     "react-toastify": "^11.1.0",
     "remark-gfm": "^4.0.1",
     "ts-node": "^10.9.2",
+    "xlsx": "^0.18.5",
     "yaml": "^2.8.3"
   },
   "devDependencies": {
@@ -57,6 +58,22 @@
     "dist"
   ],
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./builder": {
+      "types": "./dist/builder/index.d.ts",
+      "default": "./dist/builder/index.js"
+    },
+    "./grid": {
+      "types": "./dist/grid/index.d.ts",
+      "default": "./dist/grid/index.js"
+    },
+    "./package.json": "./package.json",
+    "./*": "./*"
+  },
   "scripts": {
     "prebuild": "shx rm -rf dist",
     "build": "tsc",

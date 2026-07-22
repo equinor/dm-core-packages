@@ -1,0 +1,50 @@
+{
+  "name": "BuilderPluginConfig",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "Configuration for the drag-and-drop website builder plugin.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "mode",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Initial mode: 'edit' (canvas) or 'preview' (runtime render).",
+      "default": "edit",
+      "optional": true
+    },
+    {
+      "name": "initialConfig",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/grid/GridPluginConfig",
+      "description": "Seed grid config used to hydrate the canvas.",
+      "optional": true
+    },
+    {
+      "name": "readOnly",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "description": "When true, render the built site as a read-only viewer (navbar, navigation and content only) with no editing toolbar, palette or inspector.",
+      "default": false,
+      "optional": true
+    },
+    {
+      "name": "editorRoles",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "dimensions": "*",
+      "description": "Role names allowed to edit. When set, users whose current role is not listed get the read-only viewer. Empty or absent means editing is open to everyone.",
+      "optional": true
+    },
+    {
+      "name": "directoryUrl",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "URL to navigate to when clicking the 'Website builder' breadcrumb (e.g. the site directory page). Falls back to window.history.back() when omitted.",
+      "optional": true
+    }
+  ]
+}

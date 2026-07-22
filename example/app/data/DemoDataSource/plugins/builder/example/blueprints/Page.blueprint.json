@@ -1,0 +1,48 @@
+{
+  "name": "Page",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "layout",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "object",
+      "optional": true
+    },
+    {
+      "name": "cover",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "CORE:File",
+      "contained": false,
+      "optional": true
+    },
+    {
+      "name": "contact",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Member",
+      "optional": true
+    },
+    {
+      "name": "team",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./Member",
+      "dimensions": "*",
+      "optional": true
+    }
+  ]
+}

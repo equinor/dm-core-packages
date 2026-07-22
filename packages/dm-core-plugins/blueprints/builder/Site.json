@@ -1,0 +1,49 @@
+{
+  "name": "Site",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "A website built with the drag-and-drop builder: a shared top navbar plus an ordered tree of pages.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Human-friendly display name shown on the site directory card. Unlike the DMSS document name (which must be slug-safe), this may contain spaces and punctuation.",
+      "optional": true
+    },
+    {
+      "name": "published",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "description": "Whether the site is published (live). The site directory only surfaces published sites to visitors; authors still see their unpublished drafts.",
+      "default": false,
+      "optional": true
+    },
+    {
+      "name": "schemaVersion",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "number",
+      "description": "Version of the serialized site format, used to migrate older saved sites.",
+      "default": 1,
+      "optional": true
+    },
+    {
+      "name": "navbar",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/builder/Navbar",
+      "description": "The customizable top navigation bar shared by every page.",
+      "optional": true
+    },
+    {
+      "name": "pages",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "PLUGINS:dm-core-plugins/builder/Page",
+      "description": "The site's top-level pages, in nav order. There is always at least one.",
+      "dimensions": "*"
+    }
+  ]
+}
