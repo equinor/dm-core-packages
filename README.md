@@ -6509,3 +6509,161 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps): bump the web group across 1 directory with 13 updates (#1642)
+
+Bumps the web group with 13 updates in the / directory:
+
+| Package | From | To |
+| --- | --- | --- |
+| [react](https://github.com/react/react/tree/HEAD/packages/react) |  |  |
+| [react-dom](https://github.com/react/react/tree/HEAD/packages/react-dom) |  |  |
+| [styled-components](https://github.com/styled-components/styled-components) |  |  |
+| [@biomejs/biome](https://github.com/biomejs/biome/tree/HEAD/packages/@biomejs/biome) |  |  |
+| [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node) |  |  |
+| [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/tree/HEAD/packages/plugin-react-swc) |  |  |
+| [vite](https://github.com/vitejs/vite/tree/HEAD/packages/vite) |  |  |
+| [vite-plugin-checker](https://github.com/fi3ework/vite-plugin-checker) |  |  |
+| [@equinor/eds-tokens](https://github.com/equinor/design-system/tree/HEAD/packages/eds-tokens) |  |  |
+| [@tanstack/react-query](https://github.com/TanStack/query/tree/HEAD/packages/react-query) |  |  |
+| [dompurify](https://github.com/cure53/DOMPurify) |  |  |
+| [ts-jest](https://github.com/kulshekhar/ts-jest) |  |  |
+| [react-hook-form](https://github.com/react-hook-form/react-hook-form) |  |  |
+
+
+
+Updates  from 19.2.7 to 19.2.8
+- [Release notes](https://github.com/react/react/releases)
+- [Changelog](https://github.com/react/react/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/react/react/commits/v19.2.8/packages/react)
+
+Updates  from 19.2.7 to 19.2.8
+- [Release notes](https://github.com/react/react/releases)
+- [Changelog](https://github.com/react/react/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/react/react/commits/v19.2.8/packages/react-dom)
+
+Updates  from 6.4.3 to 6.4.4
+- [Release notes](https://github.com/styled-components/styled-components/releases)
+- [Commits](https://github.com/styled-components/styled-components/compare/styled-components@6.4.3...styled-components@6.4.4)
+
+Updates  from 2.5.2 to 2.5.5
+- [Release notes](https://github.com/biomejs/biome/releases)
+- [Changelog](https://github.com/biomejs/biome/blob/main/packages/@biomejs/biome/CHANGELOG.md)
+- [Commits](https://github.com/biomejs/biome/commits/@biomejs/biome@2.5.5/packages/@biomejs/biome)
+
+Updates  from 26.1.0 to 26.1.1
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
+
+Updates  from 4.3.1 to 4.3.2
+- [Release notes](https://github.com/vitejs/vite-plugin-react/releases)
+- [Changelog](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc/CHANGELOG.md)
+- [Commits](https://github.com/vitejs/vite-plugin-react/commits/v4.3.2/packages/plugin-react-swc)
+
+Updates  from 8.1.3 to 8.1.5
+- [Release notes](https://github.com/vitejs/vite/releases)
+- [Changelog](https://github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md)
+- [Commits](https://github.com/vitejs/vite/commits/v8.1.5/packages/vite)
+
+Updates  from 0.14.4 to 0.14.5
+- [Release notes](https://github.com/fi3ework/vite-plugin-checker/releases)
+- [Commits](https://github.com/fi3ework/vite-plugin-checker/compare/v0.14.4...v0.14.5)
+
+Updates  from 2.3.1 to 2.3.2
+- [Release notes](https://github.com/equinor/design-system/releases)
+- [Changelog](https://github.com/equinor/design-system/blob/main/packages/eds-tokens/CHANGELOG.md)
+- [Commits](https://github.com/equinor/design-system/commits/eds-tokens@v2.3.2/packages/eds-tokens)
+
+Updates  from 5.101.2 to 5.101.4
+- [Release notes](https://github.com/TanStack/query/releases)
+- [Changelog](https://github.com/TanStack/query/blob/main/packages/react-query/CHANGELOG.md)
+- [Commits](https://github.com/TanStack/query/commits/@tanstack/react-query@5.101.4/packages/react-query)
+
+Updates  from 3.4.11 to 3.4.12
+- [Release notes](https://github.com/cure53/DOMPurify/releases)
+- [Commits](https://github.com/cure53/DOMPurify/compare/3.4.11...3.4.12)
+
+Updates  from 29.4.11 to 29.4.12
+- [Release notes](https://github.com/kulshekhar/ts-jest/releases)
+- [Changelog](https://github.com/kulshekhar/ts-jest/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/kulshekhar/ts-jest/compare/v29.4.11...v29.4.12)
+
+Updates  from 7.81.0 to 7.83.0
+- [Release notes](https://github.com/react-hook-form/react-hook-form/releases)
+- [Changelog](https://github.com/react-hook-form/react-hook-form/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/react-hook-form/react-hook-form/compare/v7.81.0...v7.83.0)
+
+---
+updated-dependencies:
+- dependency-name: react
+  dependency-version: 19.2.8
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: react-dom
+  dependency-version: 19.2.8
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: styled-components
+  dependency-version: 6.4.4
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @biomejs/biome
+  dependency-version: 2.5.5
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @types/node
+  dependency-version: 26.1.1
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @vitejs/plugin-react-swc
+  dependency-version: 4.3.2
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: vite
+  dependency-version: 8.1.5
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: vite-plugin-checker
+  dependency-version: 0.14.5
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @equinor/eds-tokens
+  dependency-version: 2.3.2
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @tanstack/react-query
+  dependency-version: 5.101.4
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: dompurify
+  dependency-version: 3.4.12
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: ts-jest
+  dependency-version: 29.4.12
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: react-hook-form
+  dependency-version: 7.83.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> (2026-07-21T11:20:47Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/30333994093/1)
+    * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
