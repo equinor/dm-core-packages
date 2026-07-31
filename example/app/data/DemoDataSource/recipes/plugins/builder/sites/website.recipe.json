@@ -1,0 +1,26 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/builder/sites/blueprints/Website",
+  "initialUiRecipe": {
+    "name": "View",
+    "type": "CORE:UiRecipe",
+    "plugin": "@development-framework/dm-core-plugins/builder",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/builder/BuilderPluginConfig",
+      "readOnly": true
+    }
+  },
+  "uiRecipes": [
+    {
+      "name": "Edit",
+      "type": "CORE:UiRecipe",
+      "category": "edit",
+      "plugin": "@development-framework/dm-core-plugins/builder",
+      "config": {
+        "type": "PLUGINS:dm-core-plugins/builder/BuilderPluginConfig",
+        "mode": "edit",
+        "directoryUrl": "/view?documentId=dmss://DemoDataSource/$siteDirectory"
+      }
+    }
+  ]
+}

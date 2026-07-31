@@ -1,0 +1,22 @@
+{
+  "name": "Member",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "role",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
+}

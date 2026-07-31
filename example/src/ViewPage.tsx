@@ -10,6 +10,9 @@ import { Typography } from '@equinor/eds-core-react'
 function ViewPage() {
   const urlParams = new URLSearchParams(window.location.search)
   const idReference = urlParams.get('documentId')
+  // Optional: pick a specific named UiRecipe (e.g. the builder's read-only
+  // "View" vs its "Edit" recipe) so one entity can be opened either way.
+  const recipeName = urlParams.get('recipe') ?? undefined
 
   if (!idReference) throw new Error("No parameter 'documentId' in URL")
 
@@ -36,7 +39,13 @@ function ViewPage() {
     )
   }
 
-  return <EntityView idReference={idReference} type={document.type} />
+  return (
+    <EntityView
+      idReference={idReference}
+      type={document.type}
+      recipeName={recipeName}
+    />
+  )
 }
 
 export default ViewPage

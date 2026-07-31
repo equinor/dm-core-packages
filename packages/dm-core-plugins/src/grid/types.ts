@@ -18,11 +18,22 @@ export type TGridArea = {
   columnEnd: number
 }
 
+export type TGridItemStyle = {
+  textAlign?: 'left' | 'center' | 'right'
+  verticalAlign?: 'top' | 'center' | 'bottom'
+  fontSize?: string
+  bold?: boolean
+  color?: string
+  padding?: string
+}
+
 export type TGridItem = {
   type: string
   gridArea: TGridArea
   viewConfig: TViewConfig
   title?: string
+  style?: TGridItemStyle
+  titleStyle?: TGridItemStyle
 }
 
 export type TGridPluginConfig = {

@@ -1,0 +1,15 @@
+{
+  "name": "Website",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "A saved website built with the drag-and-drop builder. Extends the builder Site (navbar + pages) and adds a human-friendly name shown in the site directory.",
+  "extends": ["PLUGINS:dm-core-plugins/builder/Site"],
+  "attributes": [
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Display name of the website, shown as the card title in the directory.",
+      "optional": true
+    }
+  ]
+}

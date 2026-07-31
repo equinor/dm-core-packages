@@ -1,0 +1,47 @@
+{
+  "name": "GridItemStyle",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "textAlign",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "fontSize",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "verticalAlign",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "bold",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "boolean",
+      "optional": true
+    },
+    {
+      "name": "color",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "padding",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    }
+  ]
+}

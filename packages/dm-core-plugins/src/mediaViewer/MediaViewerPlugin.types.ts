@@ -24,4 +24,6 @@ export interface MediaViewerPluginConfig {
   showDescription?: boolean
   caption?: string
   description?: string
+  /** Absolute DMSS address of a File to display. Overrides scope binding. */
+  address?: string
 }

@@ -105,6 +105,28 @@ main () {
 
   echo "Creating lookup table"
   dm --token "$TOKEN" --url $VITE_DMSS_URL create-lookup exampleApplication DemoDataSource/recipes
+
+  # Seed a couple of ready-made websites into the "Sites" data source so the
+  # website directory isn't empty on first visit. These are stored via the
+  # raw add endpoint (like the builder's own "New site" action) because their
+  # inline widget configs are free-form objects the static importer rejects.
+  if [ -d app/demo_sites ]; then
+    echo "Seeding demo websites into 'Sites'"
+    AUTH_HEADER=()
+    if [ -n "$TOKEN" ]; then
+      AUTH_HEADER=(-H "Authorization: Bearer $TOKEN")
+    fi
+    for site_file in app/demo_sites/*.json; do
+      [ -e "$site_file" ] || continue
+      curl --silent --show-error --fail \
+        -X POST "$VITE_DMSS_URL/api/documents-add-raw/Sites" \
+        -H "Content-Type: application/json" \
+        ${AUTH_HEADER[@]+"${AUTH_HEADER[@]}"} \
+        --data-binary @"$site_file" > /dev/null &&
+        echo "        Seeded $(basename "$site_file") ✓" ||
+        echo "        WARNING: failed to seed $(basename "$site_file")"
+    done
+  fi
 }
 
 time main "$@"

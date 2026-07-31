@@ -1,0 +1,44 @@
+{
+  "name": "NavbarItem",
+  "type": "dmss://system/SIMOS/Blueprint",
+  "description": "A single clickable link in the top navbar. Links either navigate to a page in the site or open an external URL.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "id",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Stable handle for this navbar item."
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Text shown for the link."
+    },
+    {
+      "name": "targetKind",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "Where the link points: 'page' (navigate within the site) or 'url' (external address)."
+    },
+    {
+      "name": "pageId",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "For 'page' links: the id of the target page.",
+      "optional": true
+    },
+    {
+      "name": "href",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "description": "For 'url' links: the external address to open.",
+      "optional": true
+    }
+  ]
+}
