@@ -9,13 +9,13 @@ import { AttributeFieldSelector } from '../fields/AttributeFieldSelector'
 
 export const AttributeList = (props: {
   namePath: string
-  blueprint: TBlueprint
+  blueprint: TBlueprint | undefined
   storageRecipes: TStorageRecipe[]
 }) => {
   const { namePath, blueprint, storageRecipes } = props
   const { config } = useRegistryContext()
   const prefix = namePath === '' ? '' : `${namePath}.`
-  const attributes: TAttribute[] | undefined = blueprint.attributes
+  const attributes: TAttribute[] | undefined = blueprint?.attributes
 
   const hideByDefaultFields: string[] = ['type', '_meta_']
   const filteredAttributes =
@@ -25,7 +25,7 @@ export const AttributeList = (props: {
             attributes?.find((attribute) => attribute.name === field)
           )
           .filter((attribute): attribute is TAttribute => !!attribute)
-      : attributes.filter((attr) => !hideByDefaultFields.includes(attr.name))
+      : attributes?.filter((attr) => !hideByDefaultFields.includes(attr.name))
 
   return (
     <Stack spacing={0.75}>

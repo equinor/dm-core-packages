@@ -7,7 +7,7 @@ import {
 
 export function getCalculatedDimensions(
   config: DataGridConfig,
-  attribute: TAttribute
+  attribute: TAttribute | undefined
 ): string {
   const { fieldNames, printDirection } = config
   // If multi primitive (more than one data field)

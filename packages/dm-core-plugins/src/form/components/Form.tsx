@@ -151,6 +151,8 @@ export const Form = (props: TFormProps) => {
       const attribute = blueprint?.attributes.find(
         (attribute: TAttribute) => attribute.name === key
       )
+      if (!attribute)
+        throw new Error(`Attribute with name ${key} not found in blueprint`)
       const isComplexArray =
         Array.isArray(obj[key]) && !isPrimitiveType(attribute.attributeType)
       if (isComplexArray) {
