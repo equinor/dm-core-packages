@@ -6788,3 +6788,160 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: 0da0236 2026-08-04 Henri..rmann Merge pull request #912 from equinor/dependabot/pip/requests-2.33.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
+* chore(deps): bump the web group across 1 directory with 12 updates (#1649)
+
+* chore(deps): bump the web group across 1 directory with 12 updates
+
+Bumps the web group with 12 updates in the / directory:
+
+| Package | From | To |
+| --- | --- | --- |
+| [react-plotly.js](https://github.com/plotly/react-plotly.js) |  |  |
+| [react-router-dom](https://github.com/remix-run/react-router/tree/HEAD/packages/react-router-dom) |  |  |
+| [@biomejs/biome](https://github.com/biomejs/biome/tree/HEAD/packages/@biomejs/biome) |  |  |
+| [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/node) |  |  |
+| [@types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react) |  |  |
+| [@types/react-dom](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/react-dom) |  |  |
+| [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/tree/HEAD/packages/plugin-react-swc) |  |  |
+| [vite](https://github.com/vitejs/vite/tree/HEAD/packages/vite) |  |  |
+| [axios](https://github.com/axios/axios) |  |  |
+| [@types/lodash](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/lodash) |  |  |
+| [@types/luxon](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/HEAD/types/luxon) |  |  |
+| [react-hook-form](https://github.com/react-hook-form/react-hook-form) |  |  |
+
+
+
+Updates  from 4.0.0 to 4.1.0
+- [Release notes](https://github.com/plotly/react-plotly.js/releases)
+- [Changelog](https://github.com/plotly/react-plotly.js/blob/main/CHANGELOG.md)
+- [Commits](https://github.com/plotly/react-plotly.js/compare/v4.0.0...v4.1.0)
+
+Updates  from 7.18.1 to 7.18.2
+- [Release notes](https://github.com/remix-run/react-router/releases)
+- [Changelog](https://github.com/remix-run/react-router/blob/react-router-dom@7.18.2/packages/react-router-dom/CHANGELOG.md)
+- [Commits](https://github.com/remix-run/react-router/commits/react-router-dom@7.18.2/packages/react-router-dom)
+
+Updates  from 2.5.5 to 2.5.6
+- [Release notes](https://github.com/biomejs/biome/releases)
+- [Changelog](https://github.com/biomejs/biome/blob/main/packages/@biomejs/biome/CHANGELOG.md)
+- [Commits](https://github.com/biomejs/biome/commits/@biomejs/biome@2.5.6/packages/@biomejs/biome)
+
+Updates  from 26.1.1 to 26.1.2
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/node)
+
+Updates  from 19.2.17 to 19.2.18
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/react)
+
+Updates  from 19.2.3 to 19.2.4
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/react-dom)
+
+Updates  from 4.3.2 to 4.3.3
+- [Release notes](https://github.com/vitejs/vite-plugin-react/releases)
+- [Changelog](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc/CHANGELOG.md)
+- [Commits](https://github.com/vitejs/vite-plugin-react/commits/v4.3.3/packages/plugin-react-swc)
+
+Updates  from 8.1.5 to 8.2.0
+- [Release notes](https://github.com/vitejs/vite/releases)
+- [Changelog](https://github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md)
+- [Commits](https://github.com/vitejs/vite/commits/create-vite@8.2.0/packages/vite)
+
+Updates  from 1.18.1 to 1.19.0
+- [Release notes](https://github.com/axios/axios/releases)
+- [Changelog](https://github.com/axios/axios/blob/v1.x/CHANGELOG.md)
+- [Commits](https://github.com/axios/axios/compare/v1.18.1...v1.19.0)
+
+Updates  from 4.17.24 to 4.17.25
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/lodash)
+
+Updates  from 3.7.2 to 3.7.3
+- [Release notes](https://github.com/DefinitelyTyped/DefinitelyTyped/releases)
+- [Commits](https://github.com/DefinitelyTyped/DefinitelyTyped/commits/HEAD/types/luxon)
+
+Updates  from 7.83.0 to 7.84.0
+- [Release notes](https://github.com/react-hook-form/react-hook-form/releases)
+- [Changelog](https://github.com/react-hook-form/react-hook-form/blob/master/CHANGELOG.md)
+- [Commits](https://github.com/react-hook-form/react-hook-form/compare/v7.83.0...v7.84.0)
+
+---
+updated-dependencies:
+- dependency-name: react-plotly.js
+  dependency-version: 4.1.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: react-router-dom
+  dependency-version: 7.18.2
+  dependency-type: direct:production
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @biomejs/biome
+  dependency-version: 2.5.6
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @types/node
+  dependency-version: 26.1.2
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @types/react
+  dependency-version: 19.2.18
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @types/react-dom
+  dependency-version: 19.2.4
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @vitejs/plugin-react-swc
+  dependency-version: 4.3.3
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: vite
+  dependency-version: 8.2.0
+  dependency-type: direct:development
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: axios
+  dependency-version: 1.19.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+- dependency-name: @types/lodash
+  dependency-version: 4.17.25
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: @types/luxon
+  dependency-version: 3.7.3
+  dependency-type: direct:development
+  update-type: version-update:semver-patch
+  dependency-group: web
+- dependency-name: react-hook-form
+  dependency-version: 7.84.0
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+  dependency-group: web
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+* fix: add return type to axios call, as axios update introduces internal unique symbol type in typing
+
+* fix: add promise to axios return in common.js
+
+---------
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Co-authored-by: Jakob Keller <jakel@equinor.com> (2026-08-04T09:58:07Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/30901676058/1)
+    * **DMSS VERSION**: 0da0236 2026-08-04 Henri..rmann Merge pull request #912 from equinor/dependabot/pip/requests-2.33.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
