@@ -6700,3 +6700,23 @@ Co-authored-by: Jakob Keller <jakel@equinor.com> (2026-07-28T06:12:15Z)
     * **DMSS VERSION**: 8ce1f64 2026-08-04 Henri..rmann Merge pull request #910 from equinor/dependabot/pip/deepdiff-8.6.2 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
+* chore(deps): bump actions/setup-python from 6 to 7 (#1639)
+
+Bumps [actions/setup-python](https://github.com/actions/setup-python) from 6 to 7.
+- [Release notes](https://github.com/actions/setup-python/releases)
+- [Commits](https://github.com/actions/setup-python/compare/v6...v7)
+
+---
+updated-dependencies:
+- dependency-name: actions/setup-python
+  dependency-version: '7'
+  dependency-type: direct:production
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> (2026-08-04T08:43:59Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/30893669524/1)
+    * **DMSS VERSION**: 0da0236 2026-08-04 Henri..rmann Merge pull request #912 from equinor/dependabot/pip/requests-2.33.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
