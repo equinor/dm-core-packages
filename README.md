@@ -6769,3 +6769,22 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: 0da0236 2026-08-04 Henri..rmann Merge pull request #912 from equinor/dependabot/pip/requests-2.33.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
+* chore(deps-dev): bump fast-uri from 3.1.3 to 3.1.5 (#1647)
+
+Bumps [fast-uri](https://github.com/fastify/fast-uri) from 3.1.3 to 3.1.5.
+- [Release notes](https://github.com/fastify/fast-uri/releases)
+- [Commits](https://github.com/fastify/fast-uri/compare/v3.1.3...v3.1.5)
+
+---
+updated-dependencies:
+- dependency-name: fast-uri
+  dependency-version: 3.1.5
+  dependency-type: indirect
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> (2026-08-04T09:51:46Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/30898621174/1)
+    * **DMSS VERSION**: 0da0236 2026-08-04 Henri..rmann Merge pull request #912 from equinor/dependabot/pip/requests-2.33.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
