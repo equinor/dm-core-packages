@@ -13,9 +13,8 @@
     "skipLibCheck": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "ignoreDeprecations": "6.0",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "target": "es2022",
     "useUnknownInCatchVariables": false
   }

@@ -6,7 +6,7 @@ import {
   type TLinkReference,
   useApplication,
 } from '@development-framework/dm-core'
-import type { AxiosError } from 'axios/index'
+import type { AxiosError } from 'axios'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'

@@ -6,7 +6,10 @@ import {
   Progress,
   Tooltip,
 } from '@equinor/eds-core-react'
-import type { Variants } from '@equinor/eds-core-react/dist/types/components/types'
+
+// import type { Variants } from '@equinor/eds-core-react/dist/types/components/types'
+type Variants = 'error' | 'warning' | 'success'
+
 import { add } from '@equinor/eds-icons'
 import { useState } from 'react'
 import { useApplication } from '../../ApplicationContext'

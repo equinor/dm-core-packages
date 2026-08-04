@@ -151,10 +151,12 @@ export const Form = (props: TFormProps) => {
       const attribute = blueprint?.attributes.find(
         (attribute: TAttribute) => attribute.name === key
       )
-      const isComplexArray =
-        Array.isArray(obj[key]) && !isPrimitiveType(attribute.attributeType)
-      if (isComplexArray) {
-        toRemoveFromPayload.push(key)
+      if (attribute) {
+        const isComplexArray =
+          Array.isArray(obj[key]) && !isPrimitiveType(attribute.attributeType)
+        if (isComplexArray) {
+          toRemoveFromPayload.push(key)
+        }
       }
     }
     toRemoveFromPayload.forEach((key) => delete obj[key])

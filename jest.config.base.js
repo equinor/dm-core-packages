@@ -1,18 +1,25 @@
 module.exports = {
-  preset: 'ts-jest',
-  roots: ['<rootDir>/src'],
-  testEnvironment: 'node',
+  roots: ["<rootDir>/src"],
+  testEnvironment: "node",
   collectCoverage: false,
-  collectCoverageFrom: ['<rootDir>/**/*.{js,ts,tsx}'],
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+  collectCoverageFrom: ["<rootDir>/**/*.{js,ts,tsx}"],
+ transform: {
+    '^.+\\.(ts|tsx)$': ['@swc/jest', {
+      jsc: {
+        transform: {
+          react: {
+            runtime: 'automatic'
+          }
+        }
+      }
+    }]
   },
   testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
-    '<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}',
+    "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+    "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}",
   ],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'node'],
-  coverageDirectory: '<rootDir>/coverage/',
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "node"],
+  coverageDirectory: "<rootDir>/coverage/",
   verbose: true,
   coverageThreshold: {
     global: {
@@ -22,8 +29,8 @@ module.exports = {
       statements: 15,
     },
   },
-  coverageReporters: ['json-summary', 'text', 'lcov'],
+  coverageReporters: ["json-summary", "text", "lcov"],
   moduleNameMapper: {
-    '\\.(css|less)$': '<rootDir>/styleMock.js',
+    "\\.(css|less)$": "<rootDir>/styleMock.js",
   },
-}
+};

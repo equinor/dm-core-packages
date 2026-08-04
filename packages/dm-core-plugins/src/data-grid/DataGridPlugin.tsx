@@ -31,7 +31,7 @@ export function DataGridPlugin(props: IUIPlugin) {
   const { document, isLoading } = useDocument<TGenericObject>(idReference, 1)
   const { fieldNames } = config
   const multiplePrimitives = fieldNames?.length > 1
-  const attribute: TAttribute = useMemo(
+  const attribute: TAttribute | undefined = useMemo(
     () =>
       blueprint?.attributes?.find(
         (attr: TAttribute) => attr.name === fieldNames[0]

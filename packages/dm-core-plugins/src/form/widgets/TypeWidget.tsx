@@ -23,6 +23,7 @@ const TypeWidget = (props: TWidget) => {
       onClick={() => {
         // @ts-ignore
         window
+          // @ts-ignore
           .open(`dmt/view/${datasourceId}/${blueprint.uid}`, '_blank')
           .focus()
       }}

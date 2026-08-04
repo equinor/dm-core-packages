@@ -50,14 +50,19 @@ export default (props: IUIPlugin): React.ReactElement => {
 
   useEffect(() => {
     if (!isBlueprintLoading) {
-      const defaultRecipe: TUiRecipe = config.uiRecipesList.length
+      const defaultRecipe: TUiRecipe | undefined = config.uiRecipesList.length
         ? uiRecipes.find(
             (recipe: TUiRecipe) =>
               recipe.name === config.uiRecipesList[0]?.recipeName
           )
         : uiRecipes[0]
+      if (!defaultRecipe) {
+        throw new Error(
+          `Failed to find default recipe named '${config.uiRecipesList[0]?.recipeName}'`
+        )
+      }
       setSelectedRecipe(
-        getRecipeConfigAndPlugin(defaultRecipe?.name, uiRecipes, getUiPlugin)
+        getRecipeConfigAndPlugin(defaultRecipe.name, uiRecipes, getUiPlugin)
       )
     }
   }, [isBlueprintLoading, config.uiRecipesList, uiRecipes])
