@@ -6667,3 +6667,36 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: a5dd7a6 2026-03-05 githu..[bot] chore(master): release 1.28.4 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: dc6e19e 2026-04-21 githu..[bot] chore(main): release 1.6.8 grafted, HEAD -> main, origin/main
+* chore(deps-dev): bump typescript from 6.0.3 to 7.0.2 (#1636)
+
+* chore(deps-dev): bump typescript from 6.0.3 to 7.0.2
+
+Bumps [typescript](https://github.com/microsoft/TypeScript) from 6.0.3 to 7.0.2.
+- [Release notes](https://github.com/microsoft/TypeScript/releases)
+- [Commits](https://github.com/microsoft/TypeScript/commits)
+
+---
+updated-dependencies:
+- dependency-name: typescript
+  dependency-version: 7.0.2
+  dependency-type: direct:development
+  update-type: version-update:semver-major
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+* fix: Type safety improvements surfaced by TS 7
+
+* fix: switch from ts-jest to swc/jest. It does not type-check like ts-jest, but the build does the extensive type-checking, so it is not a problem. swc/jest does not compile TS, and as ts-jest does not have support for TS 7 yet, this allows us to keep working.
+
+* fix: Type-issue handled for attribute being undefined
+
+---------
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Co-authored-by: Jakob Keller <jakel@equinor.com> (2026-07-28T06:12:15Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/30893140742/1)
+    * **DMSS VERSION**: 8ce1f64 2026-08-04 Henri..rmann Merge pull request #910 from equinor/dependabot/pip/deepdiff-8.6.2 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
