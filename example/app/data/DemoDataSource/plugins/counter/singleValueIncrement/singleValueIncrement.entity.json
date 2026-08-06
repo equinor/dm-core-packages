@@ -1,0 +1,6 @@
+{
+  "_id": "SingleValueIncrement",
+  "name": "SingleValueIncrement",
+  "type": "./blueprints/SingleValueIncrement",
+  "count": 0
+}

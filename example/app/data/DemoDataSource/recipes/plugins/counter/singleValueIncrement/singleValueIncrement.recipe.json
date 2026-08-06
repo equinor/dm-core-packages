@@ -1,0 +1,35 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/counter/singleValueIncrement/blueprints/SingleValueIncrement",
+  "initialUiRecipe": {
+    "name": "ViewSelector",
+    "type": "CORE:UiRecipe",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorConfig",
+      "items": [
+        {
+          "type": "PLUGINS:dm-core-plugins/view_selector/ViewSelectorItem",
+          "label": "Counter",
+          "viewConfig": {
+            "type": "CORE:InlineRecipeViewConfig",
+            "recipe": {
+              "name": "SingleValueIncrement",
+              "type": "CORE:UiRecipe",
+              "description": "Counter stepping by one",
+              "config": {
+                "type": "PLUGINS:dm-core-plugins/counter/CounterPluginConfig",
+                "attribute": "count",
+                "label": "Clicks",
+                "incrementValue": 1,
+                "decrementValue": 1
+              },
+              "plugin": "@development-framework/dm-core-plugins/counter"
+            },
+            "scope": "self"
+          }
+        }
+      ]
+    },
+    "plugin": "@development-framework/dm-core-plugins/view_selector/tabs"
+  }
+}

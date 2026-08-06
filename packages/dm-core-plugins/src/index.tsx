@@ -157,6 +157,13 @@ export default {
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/counter': {
+  component: lazy(() =>
+    import('./counter/CounterPlugin').then((module) => ({
+      default: module.CounterPlugin,
+    }))
+  ),
+},
   '@development-framework/dm-core-plugins/publish': {
     component: lazy(() =>
       import('./publish/PublishPlugin').then((module) => ({

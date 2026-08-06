@@ -1,0 +1,22 @@
+{
+  "name": "SingleValueIncrement",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "count",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "default": 0
+    }
+  ]
+}

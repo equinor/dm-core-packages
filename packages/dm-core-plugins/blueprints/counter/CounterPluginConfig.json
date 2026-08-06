@@ -1,0 +1,50 @@
+{
+  "name": "CounterPluginConfig",
+  "type": "CORE:Blueprint",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+        "name": "attribute",
+        "type": "CORE:BlueprintAttribute",
+        "attributeType": "string",
+        "description": "Name of the integer attribute on the entity to store the count in.",
+        "optional": true,
+        "default": "count"
+    },
+    {
+      "name": "incrementValue",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "description": "How much to increment per click.",
+      "optional": true,
+      "default": 1
+    },
+    {
+      "name": "decrementValue",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "description": "How much to decrement per click.",
+      "optional": true,
+      "default": 1
+    },
+    {
+      "name": "initialValue",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "description": "The attribute to use for the initial value of the counter.",
+      "optional": true,
+      "default": 0
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": "Counter"
+    }
+  ]
+}
