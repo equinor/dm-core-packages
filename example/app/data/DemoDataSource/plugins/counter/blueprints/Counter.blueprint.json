@@ -13,10 +13,32 @@
       "attributeType": "string"
     },
     {
-      "name": "count",
+      "name": "incrementValue",
       "type": "CORE:BlueprintAttribute",
       "attributeType": "integer",
+      "optional": true,
+      "default": 1
+    },
+    {
+      "name": "decrementValue",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "optional": true,
+      "default": 1
+    },
+    {
+      "name": "initialValue",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "optional": true,
       "default": 0
+    },
+    {
+      "name": "label",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": "Counter"
     }
   ]
 }

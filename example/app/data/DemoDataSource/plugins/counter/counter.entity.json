@@ -1,6 +1,0 @@
-{
-  "_id": "Counter",
-  "name": "Counter",
-  "type": "./blueprints/Counter",
-  "count": 0
-}

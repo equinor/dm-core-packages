@@ -1,18 +1,26 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
 
 export type TCounterPluginConfig = {
-  attribute: string
-  incrementValue: number
-  decrementValue: number
-  label: string
-  initialValue: number
+  attribute?: string
+  incrementValue?: number
+  decrementValue?: number
+  label?: string
+  initialValue?: number
+}
+
+export type TCounterEntitySettings = {
+  attribute?: string
+  incrementValue?: number
+  decrementValue?: number
+  label?: string
+  initialValue?: number
 }
 
 export type CounterPluginProps = {
   config: TCounterPluginConfig
 } & IUIPlugin
 
-export const defaultConfig: TCounterPluginConfig = {
+export const defaultConfig: Required<TCounterPluginConfig> = {
   attribute: 'count',
   incrementValue: 1,
   decrementValue: 1,

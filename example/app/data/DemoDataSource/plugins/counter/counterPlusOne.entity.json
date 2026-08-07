@@ -1,0 +1,8 @@
+{
+  "_id": "CounterPlusOne",
+  "name": "CounterPlusOne",
+  "type": "./blueprints/Counter",
+  "incrementValue": 1,
+  "decrementValue": 1,
+  "initialValue": 10
+}
