@@ -5,7 +5,8 @@ export type TCounterPluginConfig = {
   incrementValue?: number
   decrementValue?: number
   label?: string
-  initialValue?: number
+  initialValue?: number,
+  color?: string
 }
 
 export type TCounterEntitySettings = {
@@ -13,7 +14,8 @@ export type TCounterEntitySettings = {
   incrementValue?: number
   decrementValue?: number
   label?: string
-  initialValue?: number
+  initialValue?: number,
+  color?: string
 }
 
 export type CounterPluginProps = {
@@ -26,4 +28,5 @@ export const defaultConfig: Required<TCounterPluginConfig> = {
   decrementValue: 1,
   label: 'Counter',
   initialValue: 0,
+  color: 'black'
 }

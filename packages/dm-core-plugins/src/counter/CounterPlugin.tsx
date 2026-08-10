@@ -37,6 +37,7 @@ export const CounterPlugin = (props: CounterPluginProps) => {
 
   const setValue = (next: number) =>
     updateDocument({ ...document, [config.attribute]: next }, false, true)
+
   return (
     <Stack
       direction='row'
@@ -44,14 +45,18 @@ export const CounterPlugin = (props: CounterPluginProps) => {
       spacing={1}
       className='dm-plugin-padding'
     >
-      <Typography variant='h5'>{config.label}</Typography>
+      <Typography variant='h5' style={{ color: config.color }}>
+        {config.label}
+      </Typography>
       <Button
         variant='outlined'
         onClick={() => setValue(value - config.decrementValue)}
       >
         -
       </Button>
-      <Typography data-testid='counter-value'>{value}</Typography>
+      <Typography data-testid='counter-value' style={{ color: config.color }}>
+        {value}
+      </Typography>
       <Button
         variant='outlined'
         onClick={() => setValue(value + config.incrementValue)}

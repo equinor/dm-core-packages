@@ -45,6 +45,13 @@
       "attributeType": "string",
       "optional": true,
       "default": "Counter"
+    },
+    {
+      "name": "color",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true,
+      "default": false
     }
   ]
 }
