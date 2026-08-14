@@ -4,6 +4,9 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { Button, Typography } from '@equinor/eds-core-react'
+import type React from 'react'
+import { useRef, useState } from 'react'
+import styled, { css, keyframes } from 'styled-components'
 import { Stack } from '../common'
 import {
   type CounterPluginProps,
@@ -20,6 +23,33 @@ import {
  * @param {TCounterPluginConfig} props {@link TCounterPluginConfig}
  */
 
+const spin = keyframes`
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+`
+
+const SpinButton = styled(Button)`
+  &:hover {
+    animation: ${spin} 0.8s linear infinite;
+  }
+`
+
+const jump = keyframes`
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(1px); }
+  50%  { transform: translateY(2px); }
+  75%  { transform: translateY(-14px); }
+  100% { transform: translateY(0); }
+`
+
+const JumpButton = styled(Button)<{ $jumping: boolean }>`
+  ${({ $jumping }) =>
+    $jumping &&
+    css`
+      animation: ${jump} var(--jump-speed, 0.8s) ease-in infinite;
+    `}
+`
+
 type TCounterDocument = TGenericObject & TCounterEntitySettings
 
 export const CounterPlugin = (props: CounterPluginProps) => {
@@ -27,6 +57,31 @@ export const CounterPlugin = (props: CounterPluginProps) => {
   const { document, isLoading, error, updateDocument } =
     useDocument<TCounterDocument>(idReference, 1)
   const config = { ...defaultConfig, ...userConfig, ...document }
+
+  const [jumpDuration, setJumpDuration] = useState(0.8)
+  const [isJumping, setIsJumping] = useState(false)
+  const jumpInterval = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  const startJumping = () => {
+    setIsJumping(true)
+    jumpInterval.current = setInterval(() => {
+      setJumpDuration((d) => Math.max(0.1, +(d - 0.05).toFixed(2)))
+    }, 300)
+  }
+
+  const resetSpeed = () => {
+    if (jumpInterval.current) clearInterval(jumpInterval.current)
+    setJumpDuration(0.8)
+    jumpInterval.current = setInterval(() => {
+      setJumpDuration((d) => Math.max(0.1, +(d - 0.05).toFixed(2)))
+    }, 500)
+  }
+
+  const resetJumping = () => {
+    if (jumpInterval.current) clearInterval(jumpInterval.current)
+    setIsJumping(false)
+    setJumpDuration(0.8)
+  }
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading || !document) return <Loading />
@@ -48,21 +103,28 @@ export const CounterPlugin = (props: CounterPluginProps) => {
       <Typography variant='h5' style={{ color: config.color }}>
         {config.label}
       </Typography>
-      <Button
+      <JumpButton
+        $jumping={isJumping}
+        style={{ '--jump-speed': `${jumpDuration}s` } as React.CSSProperties}
         variant='outlined'
-        onClick={() => setValue(value - config.decrementValue)}
+        onMouseEnter={startJumping}
+        onMouseLeave={resetJumping}
+        onClick={() => {
+          resetSpeed()
+          setValue(value - config.decrementValue)
+        }}
       >
         -
-      </Button>
+      </JumpButton>
       <Typography data-testid='counter-value' style={{ color: config.color }}>
         {value}
       </Typography>
-      <Button
+      <SpinButton
         variant='outlined'
         onClick={() => setValue(value + config.incrementValue)}
       >
         +
-      </Button>
+      </SpinButton>
     </Stack>
   )
 }
