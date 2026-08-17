@@ -1,0 +1,39 @@
+{
+  "name": "GraphPluginConfig",
+  "type": "CORE:Blueprint",
+  "description": "Config for the minimal bar-chart Graph plugin.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "valueAttribute",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Attribute holding the numeric value each bar represents.",
+      "attributeType": "string"
+    },
+    {
+      "name": "labelAttribute",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Attribute used as the bar's label.",
+      "attributeType": "string",
+      "default": "name",
+      "optional": true
+    },
+    {
+      "name": "title",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "optional": true
+    },
+    {
+      "name": "color",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "default": "#007079",
+      "optional": true
+    }
+  ]
+}
