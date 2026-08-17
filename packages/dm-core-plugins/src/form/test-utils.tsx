@@ -60,6 +60,15 @@ export const mockDocumentGet = (documents: Record<string, object>) => {
   return mock
 }
 
+export const mockUpdateDocument = (updatedDocument: object) => {
+  const mock = jest.spyOn(DmssAPI.prototype, 'documentUpdate')
+  // @ts-ignore
+  mock.mockImplementation(() =>
+    Promise.resolve({ data: { data: updatedDocument } })
+  )
+  return mock
+}
+
 const plugins = {
   '@development-framework/dm-core-plugins/form': {
     component: FormPlugin,

@@ -1,6 +1,10 @@
 import { Typography } from '@equinor/eds-core-react'
 import { memo, Suspense, useState } from 'react'
 import { useRecipe } from '../hooks'
+import {
+  SaveCoordinatorProvider,
+  useSaveCoordinatorValue,
+} from '../hooks/useSaveCoordinator'
 import { Stack } from '../layout'
 import type { IUIPlugin, TUiRecipe } from '../types'
 import { ErrorBoundary, ErrorGroup } from '../utils/ErrorBoundary'
@@ -42,6 +46,8 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     recipeName,
     dimensions
   )
+  // Reuses an ancestor coordinator if this EntityView is nested, else creates one for this tree.
+  const coordinatorStore = useSaveCoordinatorValue()
 
   // Refresh Button stuff
   const [reloadCounter, setReloadCounter] = useState(0)
@@ -69,52 +75,56 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
-        <Stack
-          grow={1}
-          minHeight={0}
-          fullWidth
-          position='relative'
-          style={{
-            boxShadow: hoverRefresh ? 'inset 0px 0px 0px 1px #5c5c5c' : 'none',
-            borderRadius: hoverRefresh ? '4px' : '0',
-          }}
-          key={reloadCounter}
-        >
-          {refreshable && (
-            <RefreshButton
-              hidden={false}
-              tooltip={recipe.plugin.split('/').at(-1)}
-              onMouseLeave={() => setHoverRefresh(false)}
-              onMouseEnter={() => {
-                setHoverRefresh(true)
-              }}
-              onClick={() => {
-                setReloadCounter(reloadCounter + 1)
-                setHoverRefresh(false)
-              }}
-            />
-          )}
+      <SaveCoordinatorProvider value={coordinatorStore}>
+        <ErrorBoundary message={`Plugin "${recipe.plugin}" crashed...`}>
           <Stack
             grow={1}
             minHeight={0}
             fullWidth
+            position='relative'
             style={{
-              opacity: hoverRefresh ? 0.6 : 1,
+              boxShadow: hoverRefresh
+                ? 'inset 0px 0px 0px 1px #5c5c5c'
+                : 'none',
+              borderRadius: hoverRefresh ? '4px' : '0',
             }}
+            key={reloadCounter}
           >
-            <MemoizedUiPlugin
-              getPlugin={getUiPlugin}
-              recipe={recipe}
-              idReference={idReference}
-              type={type}
-              onSubmit={onSubmit}
-              onOpen={onOpen}
-              onChange={onChange}
-            />
+            {refreshable && (
+              <RefreshButton
+                hidden={false}
+                tooltip={recipe.plugin.split('/').at(-1)}
+                onMouseLeave={() => setHoverRefresh(false)}
+                onMouseEnter={() => {
+                  setHoverRefresh(true)
+                }}
+                onClick={() => {
+                  setReloadCounter(reloadCounter + 1)
+                  setHoverRefresh(false)
+                }}
+              />
+            )}
+            <Stack
+              grow={1}
+              minHeight={0}
+              fullWidth
+              style={{
+                opacity: hoverRefresh ? 0.6 : 1,
+              }}
+            >
+              <MemoizedUiPlugin
+                getPlugin={getUiPlugin}
+                recipe={recipe}
+                idReference={idReference}
+                type={type}
+                onSubmit={onSubmit}
+                onOpen={onOpen}
+                onChange={onChange}
+              />
+            </Stack>
           </Stack>
-        </Stack>
-      </ErrorBoundary>
+        </ErrorBoundary>
+      </SaveCoordinatorProvider>
     </Suspense>
   )
 }

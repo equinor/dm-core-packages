@@ -17,6 +17,7 @@ interface IUseDocumentReturnType<T> {
   ) => Promise<void>
   error: ErrorResponse | null
   setError: Dispatch<SetStateAction<ErrorResponse | null>>
+  refetch: () => void
 }
 
 /**
@@ -64,7 +65,7 @@ export function useDocument<T>(
   if (documentDepth < 0 || documentDepth > 999)
     throw new Error('Depth must be a positive number < 999')
 
-  const { isPending, data } = useQuery({
+  const { isPending, data, refetch } = useQuery({
     staleTime: 5 * 1000,
     refetchOnMount: true,
     queryKey: queryKeys,
@@ -131,5 +132,6 @@ export function useDocument<T>(
       mutation.mutateAsync({ newDocument, notify, partialUpdate, throwError }),
     error: errorResponse,
     setError: setErrorResponse,
+    refetch: () => void refetch(),
   }
 }
