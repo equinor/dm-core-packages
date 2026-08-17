@@ -1,6 +1,7 @@
 import {
   type IUIPlugin,
   Loading,
+  SaveCoordinatorAnchor,
   type TGenericObject,
   ViewCreator,
 } from '@development-framework/dm-core'
@@ -37,36 +38,38 @@ export const SidebarPlugin = (
   ) as TItemData
 
   return (
-    <Stack direction='row' fullWidth grow={1} minHeight={0}>
-      <Sidebar
-        viewSelectorItems={viewSelectorItems}
-        selectedViewId={selectedViewId}
-        setSelectedViewId={setSelectedViewId}
-        addView={addView}
-      />
-      <Stack direction='row' fullWidth grow={1} minHeight={0} scrollY>
-        {viewItem.viewConfig ? (
-          <ViewCreator
-            key={`${viewItem.rootEntityId}-${viewItem.viewConfig.scope}`}
-            idReference={viewItem.rootEntityId}
-            viewConfig={viewItem.viewConfig}
-            onOpen={addView}
-            onSubmit={(data: TGenericObject) => {
-              if (viewItem?.onSubmit) viewItem?.onSubmit(data)
-              setFormData({
-                ...formData,
-                [viewItem.viewId]: data,
-              })
-            }}
-            onChange={viewItem?.onChange}
-          />
-        ) : (
-          <p>
-            {viewItem.label ?? viewItem.viewId} was selected, but has no view
-            defined
-          </p>
-        )}
+    <SaveCoordinatorAnchor>
+      <Stack direction='row' fullWidth grow={1} minHeight={0}>
+        <Sidebar
+          viewSelectorItems={viewSelectorItems}
+          selectedViewId={selectedViewId}
+          setSelectedViewId={setSelectedViewId}
+          addView={addView}
+        />
+        <Stack direction='row' fullWidth grow={1} minHeight={0} scrollY>
+          {viewItem.viewConfig ? (
+            <ViewCreator
+              key={`${viewItem.rootEntityId}-${viewItem.viewConfig.scope}`}
+              idReference={viewItem.rootEntityId}
+              viewConfig={viewItem.viewConfig}
+              onOpen={addView}
+              onSubmit={(data: TGenericObject) => {
+                if (viewItem?.onSubmit) viewItem?.onSubmit(data)
+                setFormData({
+                  ...formData,
+                  [viewItem.viewId]: data,
+                })
+              }}
+              onChange={viewItem?.onChange}
+            />
+          ) : (
+            <p>
+              {viewItem.label ?? viewItem.viewId} was selected, but has no view
+              defined
+            </p>
+          )}
+        </Stack>
       </Stack>
-    </Stack>
+    </SaveCoordinatorAnchor>
   )
 }

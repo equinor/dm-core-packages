@@ -1,5 +1,6 @@
 import {
   type IUIPlugin,
+  SaveCoordinatorAnchor,
   type TViewConfig,
   ViewCreator,
 } from '@development-framework/dm-core'
@@ -9,5 +10,9 @@ export const SingleViewPlugin = (
 ): React.ReactElement => {
   const { idReference, config } = props
 
-  return <ViewCreator idReference={idReference} viewConfig={config} />
+  return (
+    <SaveCoordinatorAnchor>
+      <ViewCreator idReference={idReference} viewConfig={config} />
+    </SaveCoordinatorAnchor>
+  )
 }

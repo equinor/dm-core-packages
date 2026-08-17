@@ -1,4 +1,7 @@
-import type { IUIPlugin } from '@development-framework/dm-core'
+import {
+  type IUIPlugin,
+  SaveCoordinatorAnchor,
+} from '@development-framework/dm-core'
 import { Stack } from '../common'
 import { Tabs } from './Tabs'
 import { TabsContent } from './TabsContent'
@@ -30,21 +33,23 @@ export const TabsPlugin = (
   }
 
   return (
-    <Stack grow={1} minHeight={0} fullWidth>
-      <Tabs
-        viewSelectorItems={viewSelectorItems}
-        selectedViewId={selectedViewId}
-        setSelectedViewId={setSelectedViewId}
-        removeView={removeView}
-      />
-      <TabsContent
-        type={type}
-        onOpen={addView}
-        formData={formData}
-        selectedViewId={selectedViewId}
-        viewSelectorItems={viewSelectorItems}
-        setFormData={setFormData}
-      />
-    </Stack>
+    <SaveCoordinatorAnchor>
+      <Stack grow={1} minHeight={0} fullWidth>
+        <Tabs
+          viewSelectorItems={viewSelectorItems}
+          selectedViewId={selectedViewId}
+          setSelectedViewId={setSelectedViewId}
+          removeView={removeView}
+        />
+        <TabsContent
+          type={type}
+          onOpen={addView}
+          formData={formData}
+          selectedViewId={selectedViewId}
+          viewSelectorItems={viewSelectorItems}
+          setFormData={setFormData}
+        />
+      </Stack>
+    </SaveCoordinatorAnchor>
   )
 }
