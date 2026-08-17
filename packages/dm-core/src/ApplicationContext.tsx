@@ -148,7 +148,9 @@ export const DMApplicationProvider = (props: {
   return (
     <>
       <GlobalStyle />
-      <ToastContainer />
+      {/* top-right collides with page action buttons (e.g. SaveCoordinatorAnchor's
+      "Save all changes"), which also sit top-right - covering/blocking clicks. */}
+      <ToastContainer position='bottom-right' />
       <ApplicationContext.Provider
         value={{
           dmJobApi,
