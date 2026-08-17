@@ -47,6 +47,9 @@ export const Form = (props: TFormProps) => {
   const { dmssAPI, name } = useApplication()
   const [reloadCounter, setReloadCounter] = useState(0)
   const showSubmitButton = props.showSubmitButton ?? true
+  // Purely visual: hides the button without affecting which RHF instance/namePath is
+  // used above (that's still governed by showSubmitButton alone).
+  const hideSubmitButton = props.hideSubmitButton ?? false
   // Every react hook form controller needs to have a unique name
   const namePath: string = showSubmitButton
     ? ''
@@ -164,8 +167,19 @@ export const Form = (props: TFormProps) => {
   }
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    if (onSubmit !== undefined) onSubmit(await preparePayload(data))
+    // Must return/await onSubmit's promise - otherwise this callback (and therefore
+    // handleSubmit()) resolves before the actual save finishes, so a coordinated
+    // saveAll() thinks this form is done saving when it has really only just started.
+    if (onSubmit !== undefined) return onSubmit(await preparePayload(data))
   })
+
+  // Lets FormPlugin register this form's dirty-state + submit trigger with a SaveCoordinator.
+  useEffect(() => {
+    props.onCoordinatorSync?.({
+      isDirty: methods.formState.isDirty,
+      submit: () => handleSubmit(),
+    })
+  }, [methods.formState.isDirty, handleSubmit])
 
   if (isLoading) return <Loading />
 
@@ -217,7 +231,7 @@ export const Form = (props: TFormProps) => {
                 storageRecipes={storageRecipes ?? []}
               />
             </Stack>
-            {showSubmitButton && !config?.readOnly && (
+            {showSubmitButton && !hideSubmitButton && !config?.readOnly && (
               <EdsProvider
                 density={config?.compactButtons ? 'compact' : 'comfortable'}
               >

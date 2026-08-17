@@ -11,9 +11,17 @@ export type TFormProps = {
   formData?: any
   config?: TFormConfig
   onOpen?: TOnOpen
-  onSubmit?: (data: any) => void
+  onSubmit?: (data: any) => void | Promise<void>
   onChange?: (data: any) => void
   showSubmitButton?: boolean
+  // Purely visual - hides the submit button without changing which RHF instance/namePath
+  // showSubmitButton selects (used when an ancestor SaveCoordinator anchor owns saving).
+  hideSubmitButton?: boolean
+  // Reports live dirty-state + a programmatic submit trigger, used to register with a SaveCoordinator.
+  onCoordinatorSync?: (state: {
+    isDirty: boolean
+    submit: () => Promise<void>
+  }) => void
 }
 
 export type TObjectTemplate = {
