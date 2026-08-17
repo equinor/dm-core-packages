@@ -9,6 +9,8 @@ import {
   type TViewConfig,
   useList,
   usePagination,
+  usePluginSaveRegistration,
+  useSaveCoordinatorStore,
   ViewCreator,
 } from '@development-framework/dm-core'
 import {
@@ -82,6 +84,8 @@ const defaultConfig: TListConfig = {
 
 export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const { idReference, config, type, onOpen } = props
+  const coordinatorStore = useSaveCoordinatorStore()
+  const entryId = `list:${idReference}`
   const internalConfig: TListConfig = {
     ...defaultConfig,
     ...config,
@@ -103,6 +107,22 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     updateItem,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
+  // Registers this list with the nearest SaveCoordinator (no-op if there is none,
+  // e.g. when the list is used standalone - existing behavior is unaffected).
+  const { hasAnchorAbove, notifyChanged } = usePluginSaveRegistration({
+    id: entryId,
+    idReference,
+    isDirty: dirtyState,
+    // Notify related plugins even when flushed via an ancestor's saveAll() - not
+    // just when saved through this list's own (possibly hidden) Save button.
+    save: () =>
+      save(items).then(() =>
+        coordinatorStore?.notifyChanged(idReference, entryId)
+      ),
+    // reloadData is a state setter; called with no args it wouldn't change state and no-op.
+    refetch: () => reloadData({}),
+  })
+
   const {
     currentItems,
     itemsPerPage,
@@ -122,6 +142,12 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   const handleItemUpdate = (item: TItem<any>, data: any) => {
     updateItem(item, data, false)
+    // A nested row-level Form's save flows into this list's local dirty state via
+    // this callback - but that only shows up in the coordinator store once THIS
+    // component re-renders and its own registration effect pushes it (a React
+    // scheduler round-trip, not guaranteed to land within the same saveAll() pass).
+    // Push it synchronously too, so an ancestor's saveAll() can never miss it.
+    coordinatorStore?.update(entryId, { isDirty: true })
   }
 
   const ensureNotObject = (attribute: any) => {
@@ -392,7 +418,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   )}
                 </>
               )}
-              {showEditButtons && (
+              {showEditButtons && !hasAnchorAbove && (
                 <>
                   <FormButton
                     onClick={reloadData}
@@ -405,7 +431,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     <Icon data={undo} size={16} />
                   </FormButton>
                   <FormButton
-                    onClick={() => save(items)}
+                    onClick={() => save(items).then(() => notifyChanged())}
                     disabled={!dirtyState}
                     isLoading={isLoading}
                     tooltip={'Save'}

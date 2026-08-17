@@ -79,6 +79,8 @@ export type TableProps = {
     saveOnUpdate?: boolean
   ) => Promise<void>
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
+  // Hides Table's own Save/Undo buttons when an ancestor coordinator owns saving instead.
+  hideSaveControls?: boolean
 } & IUIPlugin
 
 export type TableHeadProps = {
