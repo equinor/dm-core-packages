@@ -6945,3 +6945,22 @@ Co-authored-by: Jakob Keller <jakel@equinor.com> (2026-08-04T09:58:07Z)
     * **DMSS VERSION**: 0da0236 2026-08-04 Henri..rmann Merge pull request #912 from equinor/dependabot/pip/requests-2.33.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
+* chore(deps): bump mermaid from 11.16.0 to 11.16.1 (#1650)
+
+Bumps [mermaid](https://github.com/mermaid-js/mermaid) from 11.16.0 to 11.16.1.
+- [Release notes](https://github.com/mermaid-js/mermaid/releases)
+- [Commits](https://github.com/mermaid-js/mermaid/compare/mermaid@11.16.0...mermaid@11.16.1)
+
+---
+updated-dependencies:
+- dependency-name: mermaid
+  dependency-version: 11.16.1
+  dependency-type: direct:production
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> (2026-08-04T10:41:19Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/32011405419/1)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
