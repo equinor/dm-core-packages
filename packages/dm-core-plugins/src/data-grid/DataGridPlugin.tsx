@@ -5,6 +5,7 @@ import {
   useApplication,
   useBlueprint,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import { Button, Icon, Tooltip } from '@equinor/eds-core-react'
 import { undo } from '@equinor/eds-icons'
@@ -28,7 +29,10 @@ export function DataGridPlugin(props: IUIPlugin) {
   const [loading, setLoading] = useState<boolean>(false)
   const [isDirty, setIsDirty] = useState<boolean>(false)
   const { blueprint } = useBlueprint(type)
-  const { document, isLoading } = useDocument<TGenericObject>(idReference, 1)
+  const { document, isLoading, refetch } = useDocument<TGenericObject>(
+    idReference,
+    1
+  )
   const { fieldNames } = config
   const multiplePrimitives = fieldNames?.length > 1
   const attribute: TAttribute | undefined = useMemo(
@@ -80,6 +84,7 @@ export function DataGridPlugin(props: IUIPlugin) {
       toast.success('Updated document!')
       setInitialData(window.structuredClone(data))
       setIsDirty(false)
+      notifyChanged()
     } catch (error) {
       throw new Error(
         error.response?.data || { message: error.name, data: error }
@@ -88,6 +93,16 @@ export function DataGridPlugin(props: IUIPlugin) {
       setLoading(false)
     }
   }
+
+  // Registers this data grid with the nearest SaveCoordinator (no-op if there is
+  // none, e.g. when used standalone - existing behavior is unaffected).
+  const { hasAnchorAbove, notifyChanged } = usePluginSaveRegistration({
+    id: `data-grid:${idReference}`,
+    idReference,
+    isDirty,
+    save: saveDocument,
+    refetch,
+  })
 
   return !data ? null : (
     <div className='dm-plugin-padding'>
@@ -103,7 +118,7 @@ export function DataGridPlugin(props: IUIPlugin) {
           setData={onDataChange}
           title={document?.title}
         />
-        {config.editable && (
+        {config.editable && !(hasAnchorAbove && !onChange) && (
           <Stack direction='row' spacing={1}>
             <Tooltip title={isDirty ? 'Undo changes' : ''}>
               <Button
