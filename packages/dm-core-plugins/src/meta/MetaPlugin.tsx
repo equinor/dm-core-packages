@@ -5,15 +5,23 @@ import {
   type TGenericObject,
   type TMeta,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import { Table } from '@equinor/eds-core-react'
 import { DateTime } from 'luxon'
 
 export const MetaPlugin = (props: IUIPlugin) => {
-  const { document, isLoading, error } = useDocument<TGenericObject>(
+  const { document, isLoading, error, refetch } = useDocument<TGenericObject>(
     props.idReference,
     1
   )
+  // Read-only viewer: only registers for refetch, so "last modified" refreshes
+  // when a sibling/ancestor plugin saves the same entity.
+  usePluginSaveRegistration({
+    id: `meta:${props.idReference}`,
+    idReference: props.idReference,
+    refetch,
+  })
 
   if (isLoading) return <Loading />
 

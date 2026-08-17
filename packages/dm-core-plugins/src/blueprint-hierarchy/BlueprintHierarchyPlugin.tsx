@@ -4,6 +4,7 @@ import {
   Loading,
   useApplication,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import { useEffect, useState } from 'react'
 import { dfs, loader, type Node } from './loader'
@@ -78,7 +79,13 @@ export const BlueprintHierarchyPlugin = (props: IUIPlugin) => {
 
   const [chart, setChart] = useState<string | undefined>(undefined)
 
-  const { document, isLoading } = useDocument(idReference)
+  const { document, isLoading, refetch } = useDocument(idReference)
+  // Read-only viewer: only registers for refetch, never contributes to saveAll().
+  usePluginSaveRegistration({
+    id: `blueprint-hierarchy:${idReference}`,
+    idReference,
+    refetch,
+  })
 
   useEffect(() => {
     if (!document) return

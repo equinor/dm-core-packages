@@ -6,6 +6,7 @@ import {
   type TFileEntity,
   type TStorageReference,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import { DownloadFileButton } from './DownloadFileButton'
 import { UploadFileButton } from './UploadFileButton'
@@ -17,8 +18,16 @@ export const FilePlugin = (props: IUIPlugin) => {
     isLoading,
     updateDocument,
     error,
+    refetch,
   } = useDocument<TFileEntity>(idReference, 1)
   const { dataSource } = splitAddress(idReference)
+  // Uploads persist immediately (no deferred/unsaved state) - only registers for
+  // refetch, and notifies related plugins once a new file has been uploaded.
+  const { notifyChanged } = usePluginSaveRegistration({
+    id: `file:${idReference}`,
+    idReference,
+    refetch,
+  })
   if (error) throw new Error(JSON.stringify(error, null, 2))
   if (isLoading || fileEntity === null) return <Loading />
   if (fileEntity.type !== EBlueprint.FILE) return <>Error: Not File type</>
@@ -32,7 +41,7 @@ export const FilePlugin = (props: IUIPlugin) => {
     fileEntity.filetype = file.type
     fileEntity.date = new Date().toDateString()
     fileEntity.content = reference
-    updateDocument(fileEntity, false)
+    updateDocument(fileEntity, false).then(() => notifyChanged())
   }
 
   return (

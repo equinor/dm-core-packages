@@ -4,6 +4,7 @@ import {
   splitAddress,
   useApplication,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import axios from 'axios'
 import hljs from 'highlight.js'
@@ -20,10 +21,16 @@ export const MarkdownPlugin = (props: IUIPlugin) => {
   const { idReference, config } = props
   const { dmssAPI } = useApplication()
   const [markdownString, setMarkdownString] = useState<string>()
-  const { document, isLoading, error } = useDocument<MediaObject>(
+  const { document, isLoading, error, refetch } = useDocument<MediaObject>(
     idReference,
     1
   )
+  // Read-only viewer: only registers for refetch, never contributes to saveAll().
+  usePluginSaveRegistration({
+    id: `markdown:${idReference}`,
+    idReference,
+    refetch,
+  })
 
   useMemo(async () => {
     if (document) {

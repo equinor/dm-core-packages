@@ -5,6 +5,7 @@ import {
   splitAddress,
   useApplication,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import type { AxiosRequestConfig } from 'axios'
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
@@ -24,10 +25,16 @@ export const MediaViewerPlugin = (
   const { idReference, config } = props
   const [blobUrl, setBlobUrl] = useState<string>()
   const { dmssAPI } = useApplication()
-  const { document, isLoading, error } = useDocument<MediaObject>(
+  const { document, isLoading, error, refetch } = useDocument<MediaObject>(
     idReference,
     1
   )
+  // Read-only viewer: only registers for refetch, never contributes to saveAll().
+  usePluginSaveRegistration({
+    id: `media-viewer:${idReference}`,
+    idReference,
+    refetch,
+  })
   const { dataSource } = useMemo(() => splitAddress(idReference), [idReference])
   const [contentType, canPreview] = useMemo(() => {
     const normalizedFileType = document?.filetype?.toLowerCase() // normalize if your keys are lowercase

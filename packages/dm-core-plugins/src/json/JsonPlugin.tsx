@@ -3,6 +3,7 @@ import {
   Loading,
   type TGenericObject,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import { Button } from '@equinor/eds-core-react'
 import { toast } from 'react-toastify'
@@ -10,7 +11,10 @@ import { JsonView } from './JsonView/JsonView'
 
 export default (props: IUIPlugin) => {
   const { idReference } = props
-  const { document, isLoading } = useDocument<TGenericObject>(idReference)
+  const { document, isLoading, refetch } =
+    useDocument<TGenericObject>(idReference)
+  // Read-only viewer: only registers for refetch, never contributes to saveAll().
+  usePluginSaveRegistration({ id: `json:${idReference}`, idReference, refetch })
   if (isLoading || document === null) {
     return <Loading />
   }
