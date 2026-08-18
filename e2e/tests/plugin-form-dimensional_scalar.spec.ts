@@ -62,7 +62,9 @@ test('Dimensional scalar', async ({ page }) => {
     await page
       .getByLabel('label (optional)')
       .fill('Should not show as config overrides')
-    await page.getByRole('button', { name: 'Submit' }).click()
+    // Nested inside the Explorer's Tabs, which claims the shared SaveCoordinator
+    // anchor - the Form's own Submit button is hidden here.
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'waveForm' }).click()
     await expect(page.getByText('significantWaveHeight (config)')).toBeVisible()
@@ -86,7 +88,9 @@ test('Dimensional scalar', async ({ page }) => {
     await page.getByLabel('value').fill('88888')
     await page.getByLabel('label (optional)').fill('New Maximum')
     await page.getByLabel('unit (optional)').fill('€')
-    await page.getByRole('button', { name: 'Submit' }).click()
+    // Nested inside the Explorer's Tabs, which claims the shared SaveCoordinator
+    // anchor - the Form's own Submit button is hidden here.
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'waveForm' }).click()
     await expect(

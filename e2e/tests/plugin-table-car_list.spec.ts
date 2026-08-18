@@ -15,7 +15,9 @@ test('Table car list example', async ({ page }) => {
     await page.getByLabel('Manufacturer').fill('Audi')
     await page.getByLabel('Model').fill('e-tron')
     await page.getByLabel('Color (Optional)').fill('Black')
-    await page.getByTestId('form-submit').click()
+    // The whole page is wrapped in a SaveCoordinator anchor - the row-level
+    // Form's own Submit button is hidden here.
+    await page.getByRole('button', { name: 'Save all changes' }).click()
 
     //Currently we need to reload application to view saved values...
     await page.reload()
@@ -33,7 +35,9 @@ test('Table car list example', async ({ page }) => {
     await page.getByLabel('Manufacturer').fill('Polestar')
     await page.getByLabel('Model').fill('2023')
     await page.getByLabel('Color (Optional)').fill('Grey')
-    await page.getByTestId('form-submit').click()
+    // The whole page is wrapped in a SaveCoordinator anchor - the row-level
+    // Form's own Submit button is hidden here.
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.getByLabel('Close Audi').click()
 
     //Currently we need to reload application to view saved values...

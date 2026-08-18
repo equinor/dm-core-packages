@@ -76,7 +76,9 @@ test('View selector - car garage', async ({ page }) => {
       .last()
 
       .fill('2025-06-31')
-    await page.getByRole('button', { name: 'Submit' }).click()
+    // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
+    // the Form's own Submit button is hidden here.
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page
       .getByRole('button', { name: 'close', exact: true })
@@ -87,7 +89,9 @@ test('View selector - car garage', async ({ page }) => {
       .getByTestId('form-number-widget-Length (mm) (Optional)')
       .last()
       .fill('4250')
-    await page.getByRole('button', { name: 'Submit' }).click()
+    // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
+    // the Form's own Submit button is hidden here.
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page
       .getByRole('button', { name: 'close', exact: true })

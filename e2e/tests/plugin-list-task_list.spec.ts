@@ -26,7 +26,9 @@ test('task list', async ({ page }) => {
     await titleInput.fill('Tax return')
     await assignedInput.fill('Maria Johnson')
     await descriptionTextarea.fill('Review and submit the tax return.')
-    await page.getByRole('button', { name: 'Submit' }).click()
+    // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
+    // the row-level Form's own Submit button is hidden here.
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await expect(page.getByText('Tax return', { exact: true })).toBeVisible()
@@ -46,14 +48,16 @@ test('task list', async ({ page }) => {
     await page.getByTestId('expandListItem-0').last().click()
     const contentWrapper = page.getByTestId('expandListItemContent-0').last()
     await expect(contentWrapper).toBeVisible()
+    // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
+    // the row-level Form's own Submit button is hidden here.
     await expect(
-      contentWrapper.getByRole('button', { name: 'Submit' })
+      page.getByRole('button', { name: 'Save all changes' })
     ).toBeVisible()
     await expect(
       contentWrapper.getByTestId('form-text-widget-Task title:')
     ).toHaveValue('Wash the car')
     await contentWrapper.getByText('Mark task as complete').click()
-    await contentWrapper.getByRole('button', { name: 'Submit' }).click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await page
@@ -95,7 +99,9 @@ test('task list', async ({ page }) => {
       .last()
     const downButton = task.getByRole('button', { name: 'Move down' })
     const upButton = task.getByRole('button', { name: 'Move up' })
-    const saveButton = page.getByTestId('SaveList').last()
+    // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
+    // the List's own Save button is hidden here.
+    const saveButton = page.getByRole('button', { name: 'Save all changes' })
     await expect(task).toBeVisible()
     await expect(downButton).toBeVisible()
     await expect(upButton).toBeVisible()
@@ -144,7 +150,9 @@ test('task list', async ({ page }) => {
     await contentWrapper
       .getByTestId('form-text-area-widget-Task description: (Optional)')
       .fill('Remember to buy new brush.')
-    await contentWrapper.getByRole('button', { name: 'Submit' }).click()
+    // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
+    // the row-level Form's own Submit button is hidden here.
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await expect(
