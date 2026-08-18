@@ -23,6 +23,22 @@ import { AttributeList } from './AttributeList'
 
 const FORM_DEFAULT_MAX_WIDTH = '650px'
 
+// Plugins that never own their own persistence - they just lay out/select between
+// children and pass onSubmit/onChange straight through to whatever's nested inside
+// (which is often the form plugin, e.g. a type with no dedicated recipe falls back to
+// a Tabs recipe showing "Yaml" + "Edit"). Their presence here doesn't mean the data is
+// unsupported - only plugins with their own independent save flow (Table, List, Graph,
+// etc.) should be excluded from the parent's payload.
+const PASSTHROUGH_CONTAINER_PLUGINS = new Set([
+  '@development-framework/dm-core-plugins/form',
+  '@development-framework/dm-core-plugins/stack',
+  '@development-framework/dm-core-plugins/grid',
+  '@development-framework/dm-core-plugins/responsive_grid',
+  '@development-framework/dm-core-plugins/view_selector/tabs',
+  '@development-framework/dm-core-plugins/view_selector/sidebar',
+  '@development-framework/dm-core-plugins/single_view',
+])
+
 export const defaultConfig: TFormConfig = {
   attributes: [],
   fields: [],
@@ -145,7 +161,7 @@ export const Form = (props: TFormProps) => {
           uiAttribute?.uiRecipe
         )
         // TODO: Find a better way to determine if the target plugin support onSubmit
-        if (uiRecipe.plugin !== '@development-framework/dm-core-plugins/form') {
+        if (!PASSTHROUGH_CONTAINER_PLUGINS.has(uiRecipe.plugin)) {
           toRemoveFromPayload.push(key)
           continue
         }

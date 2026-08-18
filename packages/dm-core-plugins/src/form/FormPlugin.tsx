@@ -16,6 +16,11 @@ export const FormPlugin = (props: IUIPlugin) => {
   )
   const [isDirty, setIsDirty] = useState(false)
   const submitRef = useRef<() => Promise<void>>(async () => {})
+  // A contained sub-object (rendered via onChange) shares its ancestor's
+  // react-hook-form instance (see Form.tsx: showSubmitButton=false reuses
+  // useFormContext()) - handleSubmit() there submits the WHOLE ancestor form, not
+  // just this slice. Saving must stay entirely owned by that ancestor.
+  const isNested = !!props.onChange
 
   // Registers this form with the nearest SaveCoordinator (no-op if there is none,
   // e.g. when the form is used standalone - existing behavior is unaffected).
@@ -23,8 +28,8 @@ export const FormPlugin = (props: IUIPlugin) => {
     usePluginSaveRegistration({
       id: `form:${props.idReference}`,
       idReference: props.idReference,
-      isDirty,
-      save: () => submitRef.current(),
+      isDirty: isNested ? false : isDirty,
+      save: isNested ? undefined : () => submitRef.current(),
     })
 
   // react-hook-form is unable to rerender when the document is updated.
@@ -32,6 +37,10 @@ export const FormPlugin = (props: IUIPlugin) => {
   if (isLoading) return <Loading />
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
+
+  // useDocument's error state lags one render behind its query settling with a null
+  // document (they're separate state updates) - avoid crashing on that transient gap.
+  if (!document) return <Loading />
 
   const handleOnSubmit = (formData: TGenericObject) => {
     // Must return this promise - the coordinator's save() (via submitRef) awaits it to
@@ -57,12 +66,16 @@ export const FormPlugin = (props: IUIPlugin) => {
       type={document.type}
       config={props.config}
       formData={document}
-      onSubmit={handleOnSubmit}
+      onSubmit={isNested ? undefined : handleOnSubmit}
       onChange={props?.onChange && handleOnChange}
-      onCoordinatorSync={({ isDirty: dirty, submit }) => {
-        setIsDirty(dirty)
-        submitRef.current = submit
-      }}
+      onCoordinatorSync={
+        isNested
+          ? undefined
+          : ({ isDirty: dirty, submit }) => {
+              setIsDirty(dirty)
+              submitRef.current = submit
+            }
+      }
       showSubmitButton={!props?.onChange}
       hideSubmitButton={hasAnchorAbove}
     />
@@ -71,7 +84,7 @@ export const FormPlugin = (props: IUIPlugin) => {
   // Only claim the save anchor when this form owns its own submit lifecycle - when
   // driven externally via onChange, or when an ancestor already owns coordination
   // (hasAnchorAbove), something else up the chain owns it instead.
-  return props?.onChange || hasAnchorAbove ? (
+  return isNested || hasAnchorAbove ? (
     form
   ) : (
     <SaveAnchorBoundary>{form}</SaveAnchorBoundary>
