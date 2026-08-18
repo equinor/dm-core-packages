@@ -96,6 +96,19 @@ and can hide its own Save/Undo controls and buffer its writes instead of
 persisting them immediately - trusting the ancestor's `saveAll()` to flush
 them later.
 
+**A `FormPlugin` rendered as a contained sub-object is a special case worth
+calling out explicitly**, since it doesn't just hide its UI - it must not
+register a real coordinator entry at all. When `Form.tsx` renders with
+`showSubmitButton=false` (contained attribute, driven via `onChange` rather
+than `onSubmit`), it reuses its *ancestor's* `react-hook-form` instance
+(`useFormContext()`) instead of creating its own - `handleSubmit()` there
+submits the whole shared form, not just that attribute's slice. `FormPlugin`
+detects this (`isNested = !!props.onChange`) and passes `isDirty: false,
+save: undefined` to `usePluginSaveRegistration` in that case, so `saveAll()`
+never calls a nested Form's `save()` and PUTs the whole shared payload to
+that attribute's own (wrong) address. Saving stays entirely owned by the true
+ancestor Form.
+
 For containers that have **no save UI of their own** (Stack, Grid, ...),
 there's a ready-made component that does both the claiming *and* renders a
 generic button:
@@ -211,7 +224,12 @@ is fragile by construction for exactly this reason.
 
 - **Read-write leaves** (register `isDirty` + `save` + `refetch`, and hide
   their own save UI when `hasAnchorAbove` is true): `Table`, `Form`, `List`,
-  `DataGrid`, `Blueprint`. `Yaml` registers `isDirty`/`save`/`refetch` too, but
+  `DataGrid`, `Blueprint`. `Form` only registers a *real* entry when it owns
+  its own submit lifecycle (top-level, or `hasAnchorAbove`); when rendered as
+  a contained sub-object sharing an ancestor's shared form instance (see
+  above), it registers with `isDirty: false, save: undefined` instead,
+  deliberately opting itself out of `saveAll()`. `Yaml` registers
+  `isDirty`/`save`/`refetch` too, but
   - deliberately - does **not** hide its own Save/Cancel UI when
   `hasAnchorAbove` is true (its text lives in an uncontrolled contentEditable
   node with no other way to exit edit mode; suppressing the button risked
