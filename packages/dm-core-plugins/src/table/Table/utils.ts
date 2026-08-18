@@ -1,5 +1,5 @@
 import type { TGenericObject, TItem } from '@development-framework/dm-core'
-import { isObject } from 'lodash'
+import { isObject, set } from 'lodash'
 import {
   TableVariantNameEnum,
   type TTableConfig,
@@ -7,20 +7,20 @@ import {
   type TTableSortDirection,
 } from './types'
 
-function setValue(object: TGenericObject, attribute: string, value: any) {
-  const properties = attribute.split('.')
-  const lastProperty = properties.pop()
-  const lastObject = properties.reduce(
-    (a, prop) => (isObject(a) ? a[prop] : null),
-    object
-  )
-  if (isObject(lastObject) && lastProperty) {
-    lastObject[lastProperty] = value
-    return true
-  } else {
-    return false
-  }
-}
+// function setValue(object: TGenericObject, attribute: string, value: any) {
+//   const properties = attribute.split('.')
+//   const lastProperty = properties.pop()
+//   const lastObject = properties.reduce(
+//     (a, prop) => (isObject(a) ? a[prop] : null),
+//     object
+//   )
+//   if (isObject(lastObject) && lastProperty) {
+//     lastObject[lastProperty] = value
+//     return true
+//   } else {
+//     return false
+//   }
+// }
 
 export function updateItemAttribute(
   items: TItem<TGenericObject>[],
@@ -31,7 +31,7 @@ export function updateItemAttribute(
   const itemsCopy = [...items]
   const index = itemsCopy.findIndex((item) => item.key === key)
   const itemData = itemsCopy[index].data || {}
-  const success = setValue(itemData, attribute, newValue)
+  const success = set(itemData, attribute, newValue)
   if (success && itemsCopy[index].data) {
     ;(itemsCopy[index].data as TGenericObject) = itemData
   }

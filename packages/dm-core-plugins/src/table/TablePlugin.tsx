@@ -55,8 +55,8 @@ export const TablePlugin = (props: IUIPlugin) => {
     <div className='dm-plugin-padding'>
       <Table
         addItem={async (saveOnAdd, insertAtIndex, template) => {
-          await addItem(!deferSave && saveOnAdd, insertAtIndex, template)
-          if (!deferSave) notifyChanged()
+          await addItem(saveOnAdd, insertAtIndex, template)
+          notifyChanged()
         }}
         config={config}
         dirtyState={dirtyState}
