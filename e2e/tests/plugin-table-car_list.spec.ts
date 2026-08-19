@@ -38,6 +38,8 @@ test('Table car list example', async ({ page }) => {
     // The whole page is wrapped in a SaveCoordinator anchor - the row-level
     // Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
+
+    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByLabel('Close Audi').click()
 
     //Currently we need to reload application to view saved values...
@@ -52,6 +54,8 @@ test('Table car list example', async ({ page }) => {
     await page.getByRole('button', { name: 'Row actions' }).last().click()
     await page.getByRole('menuitem', { name: 'Delete' }).click()
     await expect(page.getByText('1 - 1 of 1')).toBeVisible()
+
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.reload()
     await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
       1

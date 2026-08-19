@@ -182,9 +182,9 @@ test('task list', async ({ page }) => {
     await contentArea.getByLabel('Add to List').click()
     await contentArea.getByLabel('Add to List').click()
     await expect(contentArea.getByText('6 - 6 of 6')).toBeVisible()
-    await contentArea.getByRole('button', { name: 'Save' }).click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(
-      contentArea.getByRole('button', { name: 'Save' })
+      page.getByRole('button', { name: 'Save all changes' })
     ).toBeDisabled()
     await expect(
       contentArea.getByRole('button', { name: 'Next page' })
