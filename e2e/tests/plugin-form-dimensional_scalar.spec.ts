@@ -91,7 +91,7 @@ test('Dimensional scalar', async ({ page }) => {
     // Nested inside the Explorer's Tabs, which claims the shared SaveCoordinator
     // anchor - the Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
-    await expect(page.getByRole('alert')).not.toBeVisible()
+    await expect(page.getByRole('alert')).toHaveCount(0)
     await page.getByRole('button', { name: 'waveForm' }).click()
     await expect(
       page.getByTestId('maximumWaveHeight').getByRole('spinbutton')
