@@ -21,9 +21,6 @@ export interface ISaveCoordinatorStore {
   update: (id: string, patch: Partial<TCoordinatorEntry>) => void
   subscribe: (listener: () => void) => () => void
   getSnapshot: () => boolean
-  // Whether ANY registered entry could ever be saved (has a save fn), regardless of
-  // whether it's currently dirty - lets UI hide entirely when there's nothing to save
-  // (e.g. a subtree of read-only plugins), instead of showing a permanently-disabled button.
   hasSavableEntries: () => boolean
   saveAll: (excludeId?: string) => Promise<void>
   notifyChanged: (idReference: string, sourceId: string) => void
@@ -35,8 +32,10 @@ function isRelatedAddress(a: string, b: string): boolean {
     a === b ||
     a.startsWith(`${b}.`) ||
     a.startsWith(`${b}[`) ||
+    a.startsWith(`${b}(`) ||
     b.startsWith(`${a}.`) ||
-    b.startsWith(`${a}[`)
+    b.startsWith(`${a}[`) ||
+    b.startsWith(`${a}(`)
   )
 }
 
@@ -70,12 +69,6 @@ export function createSaveCoordinatorStore(): ISaveCoordinatorStore {
     hasSavableEntries: () =>
       [...entries.values()].some((entry) => entry.save !== undefined),
     async saveAll(excludeId) {
-      // A single pass isn't enough: one entry's save() can, as a side effect,
-      // mark a DIFFERENT entry dirty (e.g. a row-level Form's save flows into its
-      // parent Table's local state). That newly-dirtied entry wouldn't exist yet
-      // in a snapshot taken before this pass started. So keep sweeping for newly
-      // dirty entries until a pass finds none left, capped to avoid looping
-      // forever if something never clears its own dirty flag.
       const MAX_PASSES = 10
       const attempted = new Set<string>()
       const failures: unknown[] = []
