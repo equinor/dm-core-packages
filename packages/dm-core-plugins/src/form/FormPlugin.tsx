@@ -16,17 +16,13 @@ export const FormPlugin = (props: IUIPlugin) => {
   )
   const [isDirty, setIsDirty] = useState(false)
   const submitRef = useRef<() => Promise<void>>(async () => {})
-  // A contained sub-object (rendered via onChange) shares its ancestor's
-  // react-hook-form instance (see Form.tsx: showSubmitButton=false reuses
-  // useFormContext()) - handleSubmit() there submits the WHOLE ancestor form, not
-  // just this slice. Saving must stay entirely owned by that ancestor.
   const isNested = !!props.onChange
 
-  // Registers this form with the nearest SaveCoordinator (no-op if there is none,
-  // e.g. when the form is used standalone - existing behavior is unaffected).
   const { isCoordinated, hasAnchorAbove, saveAll, notifyChanged } =
     usePluginSaveRegistration({
-      id: `form:${props.idReference}`,
+      id: isNested
+        ? `form:${props.idReference}:embedded`
+        : `form:${props.idReference}`,
       idReference: props.idReference,
       isDirty: isNested ? false : isDirty,
       save: isNested ? undefined : () => submitRef.current(),
