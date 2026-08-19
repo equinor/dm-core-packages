@@ -7,7 +7,7 @@ import {
   type TViewConfig,
   useDocument,
 } from '@development-framework/dm-core'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { TItemData, TViewSelectorConfig, TViewSelectorItem } from './types'
 
 interface IUseViewSelector {
@@ -37,6 +37,7 @@ export function useViewSelector(
   const [selectedViewId, setSelectedViewId] = useState<string | undefined>()
   const [viewSelectorItems, setViewSelectorItems] = useState<TItemData[]>([])
   const [formData, setFormData] = useState<TGenericObject>({})
+  const initializedForRef = useRef<string | null>(null)
   const internalConfig: TViewSelectorConfig = {
     childTabsOnRender: true,
     items: [],
@@ -93,6 +94,11 @@ export function useViewSelector(
   useEffect(() => {
     if (!entity) return
     setFormData({ ...entity })
+  }, [entity])
+
+  useEffect(() => {
+    if (!entity || initializedForRef.current === idReference) return
+    initializedForRef.current = idReference
     let selectedViewId: string = ''
     const newViews: TItemData[] = []
     if (internalConfig.items && internalConfig.items.length) {
@@ -170,7 +176,7 @@ export function useViewSelector(
     }
     setViewSelectorItems(newViews)
     setSelectedViewId(selectedViewId)
-  }, [entity])
+  }, [entity, idReference])
 
   return {
     addView,

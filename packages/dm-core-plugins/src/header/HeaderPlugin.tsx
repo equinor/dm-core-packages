@@ -8,7 +8,7 @@ import {
   useDocument,
 } from '@development-framework/dm-core'
 import { TopBar } from '@equinor/eds-core-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Stack } from '../common'
 import { AboutDialog } from './components/AboutDialog'
 import { AdminMenu } from './components/AdminMenu'
@@ -47,9 +47,10 @@ export default (props: IUIPlugin): React.ReactElement => {
     config: {},
     name: '',
   })
+  const hasInitialized = useRef(false)
 
   useEffect(() => {
-    if (!isBlueprintLoading) {
+    if (!isBlueprintLoading && !hasInitialized.current) {
       const defaultRecipe: TUiRecipe | undefined = config.uiRecipesList.length
         ? uiRecipes.find(
             (recipe: TUiRecipe) =>
@@ -64,6 +65,7 @@ export default (props: IUIPlugin): React.ReactElement => {
       setSelectedRecipe(
         getRecipeConfigAndPlugin(defaultRecipe.name, uiRecipes, getUiPlugin)
       )
+      hasInitialized.current = true
     }
   }, [isBlueprintLoading, config.uiRecipesList, uiRecipes])
 
