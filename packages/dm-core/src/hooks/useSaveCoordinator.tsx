@@ -24,6 +24,7 @@ export interface ISaveCoordinatorStore {
   hasSavableEntries: () => boolean
   saveAll: (excludeId?: string) => Promise<void>
   notifyChanged: (idReference: string, sourceId: string) => void
+  refetchAll: () => void
 }
 
 function isRelatedAddress(a: string, b: string): boolean {
@@ -106,6 +107,9 @@ export function createSaveCoordinatorStore(): ISaveCoordinatorStore {
           entry.refetch?.()
         }
       })
+    },
+    refetchAll() {
+      entries.forEach((entry) => entry.refetch?.())
     },
   }
 }

@@ -1,4 +1,5 @@
-import { Button } from '@equinor/eds-core-react'
+import { Button, Icon } from '@equinor/eds-core-react'
+import { refresh } from '@equinor/eds-icons'
 import { useState, useSyncExternalStore } from 'react'
 import {
   SaveAnchorBoundary,
@@ -11,6 +12,13 @@ type Props = {
   children: React.ReactNode
   label?: string
 }
+
+const spinKeyframes = `
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+`
 
 export function SaveCoordinatorAnchor({
   children,
@@ -28,7 +36,17 @@ export function SaveCoordinatorAnchor({
     store?.hasSavableEntries ?? (() => false)
   )
 
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [remountKey, setRemountKey] = useState(0)
+
   if (!store || alreadyClaimed) return <>{children}</>
+
+  const handleRefreshAll = () => {
+    setIsRefreshing(true)
+    store.refetchAll()
+    setRemountKey((k) => k + 1)
+    setTimeout(() => setIsRefreshing(false), 600)
+  }
 
   const handleSaveAll = async () => {
     setIsSaving(true)
@@ -41,15 +59,36 @@ export function SaveCoordinatorAnchor({
 
   return (
     <SaveAnchorBoundary>
-      <Stack spacing={1}>
-        {hasSavableEntries && (
-          <Stack direction='row' justifyContent='flex-end'>
+      <style>{spinKeyframes}</style>
+      <Stack spacing={0}>
+        <Stack
+          direction='row'
+          justifyContent='flex-end'
+          alignItems='center'
+          spacing={0.5}
+          padding={[0.5, 1]}
+          style={{ borderBottom: '1px solid #DCDCDC' }}
+        >
+          <Button
+            variant='ghost_icon'
+            onClick={handleRefreshAll}
+            disabled={isSaving}
+            title='Refresh all'
+          >
+            <Icon
+              data={refresh}
+              style={
+                isRefreshing ? { animation: 'spin 0.6s linear' } : undefined
+              }
+            />
+          </Button>
+          {hasSavableEntries && (
             <Button onClick={handleSaveAll} disabled={isSaving || !anyDirty}>
               {label}
             </Button>
-          </Stack>
-        )}
-        {children}
+          )}
+        </Stack>
+        <div key={remountKey}>{children}</div>
       </Stack>
     </SaveAnchorBoundary>
   )
