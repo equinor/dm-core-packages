@@ -1,5 +1,5 @@
 import type { TGenericObject, TItem } from '@development-framework/dm-core'
-import { isObject, set } from 'lodash'
+import { set } from 'lodash'
 import {
   TableVariantNameEnum,
   type TTableConfig,

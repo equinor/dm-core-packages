@@ -143,8 +143,9 @@ export function SaveAnchorBoundary({ children }: { children: ReactNode }) {
 export function useSaveCoordinatorValue(): ISaveCoordinatorStore {
   const existing = useContext(SaveCoordinatorContext)
   const createdRef = useRef<ISaveCoordinatorStore | null>(null)
-  if (!createdRef.current) createdRef.current = createSaveCoordinatorStore()
-  return existing ?? createdRef.current
+  if (!existing && !createdRef.current)
+    createdRef.current = createSaveCoordinatorStore()
+  return existing ?? createdRef.current!
 }
 
 /**
