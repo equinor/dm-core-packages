@@ -115,8 +115,6 @@ describe('FormPlugin + SaveCoordinator', () => {
     mockDocumentGet({ 'ds/$2': { type: 'Root', foo: 'bar' } })
     const store = createSaveCoordinatorStore()
 
-    // A deferred documentUpdate response - lets us assert on ordering instead of
-    // just "was it called eventually".
     let resolveUpdate!: () => void
     const updateMock = jest.spyOn(DmssAPI.prototype, 'documentUpdate')
     // @ts-ignore
@@ -153,8 +151,6 @@ describe('FormPlugin + SaveCoordinator', () => {
       saveAllPromise = store.saveAll().then(() => {
         saveAllResolved = true
       })
-      // documentUpdate() is still pending (deliberately un-resolved) at this
-      // point - saveAll() must not have resolved yet either.
       await new Promise((resolve) => setTimeout(resolve, 0))
     })
     expect(updateMock).toHaveBeenCalled()

@@ -12,8 +12,6 @@ test('Form default DMSS UI Recipe', async ({ page }) => {
   )
   await expect(page.getByLabel('An optional checkbox')).toBeVisible()
   await expect(page.getByLabel('date')).toHaveValue('2023-10-17T13:30')
-  // The Form's own submit button is hidden here - it's nested inside the
-  // Explorer's Tabs, which claims the shared SaveCoordinator anchor.
   await expect(
     page.getByRole('button', { name: 'Save all changes' })
   ).toBeVisible()

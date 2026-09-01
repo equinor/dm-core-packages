@@ -13,7 +13,6 @@ export default (props: IUIPlugin) => {
   const { idReference } = props
   const { document, isLoading, refetch } =
     useDocument<TGenericObject>(idReference)
-  // Read-only viewer: only registers for refetch, never contributes to saveAll().
   usePluginSaveRegistration({ id: `json:${idReference}`, idReference, refetch })
   if (isLoading || document === null) {
     return <Loading />

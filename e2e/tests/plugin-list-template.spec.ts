@@ -13,8 +13,6 @@ test('Add list item using template', async ({ page }) => {
   await expect(contentArea).toBeVisible({ timeout: 30000 })
   await contentArea.getByRole('button', { name: 'Add to list' }).click()
   await page.getByRole('menuitem', { name: 'Template1' }).click()
-  // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
-  // the List's own Save button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await contentArea.getByTestId('expandListItem-3').click()
   const taskArea = contentArea.getByTestId('expandListItemContent-3')
@@ -34,8 +32,6 @@ test('Add list item using template', async ({ page }) => {
 
   await contentArea.getByRole('button', { name: 'Add to list' }).click()
   await page.getByRole('menuitem', { name: 'Template2' }).click()
-  // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
-  // the List's own Save button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await contentArea.getByTestId('expandListItem-4').click()
   const openTaskArea = contentArea.getByTestId('expandListItemContent-4')
@@ -48,8 +44,6 @@ test('Add list item using template', async ({ page }) => {
   await openTaskArea
     .getByTestId('form-text-area-widget-Task description: (Optional)')
     .fill('Patch tire and adjust brakes')
-  // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
-  // the row-level Form's own Submit button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
 

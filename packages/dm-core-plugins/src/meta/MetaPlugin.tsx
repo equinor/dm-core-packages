@@ -15,8 +15,6 @@ export const MetaPlugin = (props: IUIPlugin) => {
     props.idReference,
     1
   )
-  // Read-only viewer: only registers for refetch, so "last modified" refreshes
-  // when a sibling/ancestor plugin saves the same entity.
   usePluginSaveRegistration({
     id: `meta:${props.idReference}`,
     idReference: props.idReference,
@@ -81,7 +79,6 @@ export const MetaPlugin = (props: IUIPlugin) => {
           </Table.Row>
         </Table.Body>
       </Table>
-      {/*This empty div wrapper is kind of a hack to avoid EntityView take the same height as the entire plugin*/}
       <div>
         {document.type ===
         'dmss://system/Plugins/dm-core-plugins/common/Meta' ? (

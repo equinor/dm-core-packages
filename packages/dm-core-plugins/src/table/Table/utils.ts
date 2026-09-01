@@ -7,21 +7,6 @@ import {
   type TTableSortDirection,
 } from './types'
 
-// function setValue(object: TGenericObject, attribute: string, value: any) {
-//   const properties = attribute.split('.')
-//   const lastProperty = properties.pop()
-//   const lastObject = properties.reduce(
-//     (a, prop) => (isObject(a) ? a[prop] : null),
-//     object
-//   )
-//   if (isObject(lastObject) && lastProperty) {
-//     lastObject[lastProperty] = value
-//     return true
-//   } else {
-//     return false
-//   }
-// }
-
 export function updateItemAttribute(
   items: TItem<TGenericObject>[],
   key: string,

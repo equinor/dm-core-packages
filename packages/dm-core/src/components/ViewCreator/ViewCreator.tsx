@@ -65,7 +65,6 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
       dmssAPI
         .attributeGet({ address: reference, resolve: props.viewConfig.resolve })
         .then((response: any) => response.data),
-    // no .catch swallowing here - let the query reject and land in isError
   })
 
   if (isPending) return <Loading />

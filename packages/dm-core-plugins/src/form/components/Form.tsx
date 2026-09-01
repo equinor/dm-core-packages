@@ -63,10 +63,7 @@ export const Form = (props: TFormProps) => {
   const { dmssAPI, name } = useApplication()
   const [reloadCounter, setReloadCounter] = useState(0)
   const showSubmitButton = props.showSubmitButton ?? true
-  // Purely visual: hides the button without affecting which RHF instance/namePath is
-  // used above (that's still governed by showSubmitButton alone).
   const hideSubmitButton = props.hideSubmitButton ?? false
-  // Every react hook form controller needs to have a unique name
   const namePath: string = showSubmitButton
     ? ''
     : idReference.split('.').length > 1
@@ -74,7 +71,6 @@ export const Form = (props: TFormProps) => {
       : ''
 
   const rootMethods = useForm({
-    // Set initial state.
     defaultValues: formData || {},
   })
 
@@ -122,13 +118,7 @@ export const Form = (props: TFormProps) => {
   }
 
   const preparePayload = async (obj: TGenericObject) => {
-    // Since react-hook-form cannot handle null values,
-    // we have to convert null values to undefined before submitting.
     replaceNull(obj)
-
-    // Remove attributes that should not be in the payload,
-    // that is complex objects that are not using the form plugin (or is not shown inline),
-    // and complex arrays (since they are using other plugins then the form plugin).
 
     const toRemoveFromPayload: string[] = []
     for (const key of Object.keys(obj)) {
@@ -150,7 +140,6 @@ export const Form = (props: TFormProps) => {
           continue
         }
 
-        // Remove if not use the form plugin
         const response: any = await dmssAPI.blueprintGet({
           typeRef: obj[key].type,
           context: name,
@@ -183,13 +172,9 @@ export const Form = (props: TFormProps) => {
   }
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    // Must return/await onSubmit's promise - otherwise this callback (and therefore
-    // handleSubmit()) resolves before the actual save finishes, so a coordinated
-    // saveAll() thinks this form is done saving when it has really only just started.
     if (onSubmit !== undefined) return onSubmit(await preparePayload(data))
   })
 
-  // Lets FormPlugin register this form's dirty-state + submit trigger with a SaveCoordinator.
   useEffect(() => {
     props.onCoordinatorSync?.({
       isDirty: methods.formState.isDirty,

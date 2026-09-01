@@ -54,8 +54,6 @@ export type TTableConfig = {
   width?: string
 }
 
-// Table components types
-
 export type TableProps = {
   addItem: (
     saveOnAdd: boolean,
@@ -79,7 +77,6 @@ export type TableProps = {
     saveOnUpdate?: boolean
   ) => Promise<void>
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
-  // Hides Table's own Save/Undo buttons when an ancestor coordinator owns saving instead.
   hideSaveControls?: boolean
 } & IUIPlugin
 

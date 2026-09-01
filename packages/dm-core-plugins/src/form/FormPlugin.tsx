@@ -34,17 +34,10 @@ export const FormPlugin = (props: IUIPlugin) => {
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
-  // useDocument's error state lags one render behind its query settling with a null
-  // document (they're separate state updates) - avoid crashing on that transient gap.
   if (!document) return <Loading />
 
   const handleOnSubmit = (formData: TGenericObject) => {
-    // Must return this promise - the coordinator's save() (via submitRef) awaits it to
-    // know when the save has actually finished, not just when it was kicked off.
     return updateDocument(formData, true, true).then(async () => {
-      // Only the true anchor owner flushes nested deferred plugins - if an ancestor
-      // already owns coordination, its own saveAll() already reaches this form too,
-      // so calling it again here would re-invoke siblings redundantly (or recurse).
       if (isCoordinated && !hasAnchorAbove) await saveAll()
       notifyChanged()
       if (props.onSubmit) props.onSubmit(formData)
@@ -77,9 +70,6 @@ export const FormPlugin = (props: IUIPlugin) => {
     />
   )
 
-  // Only claim the save anchor when this form owns its own submit lifecycle - when
-  // driven externally via onChange, or when an ancestor already owns coordination
-  // (hasAnchorAbove), something else up the chain owns it instead.
   return isNested || hasAnchorAbove ? (
     form
   ) : (

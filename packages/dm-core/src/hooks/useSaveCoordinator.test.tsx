@@ -32,7 +32,6 @@ describe('createSaveCoordinatorStore', () => {
 
   it('hasSavableEntries() is only true when at least one entry provides a save fn', () => {
     const store = createSaveCoordinatorStore()
-    // A read-only entry like Graph, with no save fn at all.
     store.register({ id: 'graph', idReference: 'DS/$1.items' })
     expect(store.hasSavableEntries()).toBe(false)
 
@@ -54,15 +53,13 @@ describe('createSaveCoordinatorStore', () => {
 
       await store.saveAll('a')
 
-      expect(saveA).not.toHaveBeenCalled() // excluded
-      expect(saveB).not.toHaveBeenCalled() // not dirty
+      expect(saveA).not.toHaveBeenCalled()
+      expect(saveB).not.toHaveBeenCalled()
     })
 
     it('sweeps in multiple passes to catch entries dirtied as a side effect of another save()', async () => {
       const store = createSaveCoordinatorStore()
       const saveB = jest.fn().mockResolvedValue(undefined)
-      // Simulates a row-level Form's save() flowing into its parent Table's local
-      // state, marking the Table dirty AFTER the initial dirty snapshot was taken.
       const saveA = jest.fn().mockImplementation(async () => {
         store.update('b', { isDirty: true })
       })
@@ -75,20 +72,8 @@ describe('createSaveCoordinatorStore', () => {
       expect(saveB).toHaveBeenCalledTimes(1)
     })
 
-    // NOTE: the multi-pass sweep above only catches a newly-dirtied entry if
-    // whatever marks it dirty does so SYNCHRONOUSLY (e.g. a direct store.update()
-    // call, as List/TablePlugin do for their row-level Form callbacks). If a side
-    // effect instead only sets React state and waits for usePluginSaveRegistration's
-    // own effect to push isDirty into the store, that push happens on React's
-    // scheduler - which is NOT guaranteed to land before the very next pass here
-    // re-checks for dirty entries, and the entry can be missed. Plugin authors
-    // triggering cross-entry dirtiness from a save side effect MUST call
-    // store.update(id, { isDirty: true }) synchronously rather than relying only
-    // on a React state update to eventually get there.
-
     it('only attempts each entry once per call, even if it is still dirty afterwards', async () => {
       const store = createSaveCoordinatorStore()
-      // A save() that never clears its own dirty flag (e.g. a buggy plugin).
       const save = jest.fn().mockResolvedValue(undefined)
       store.register({ id: 'a', idReference: 'DS/$1.a', isDirty: true, save })
 
@@ -177,8 +162,6 @@ describe('createSaveCoordinatorStore', () => {
     it('does not false-positive on similar-looking prefixes without a real path delimiter', () => {
       const store = createSaveCoordinatorStore()
       const refetch = jest.fn()
-      // "items" is a plain string-prefix of "itemsExtra", but NOT a real
-      // ancestor/descendant address relationship - must not match.
       store.register({ id: 'a', idReference: 'DS/$1.itemsExtra', refetch })
 
       store.notifyChanged('DS/$1.items', 'source')
@@ -202,7 +185,6 @@ describe('usePluginSaveRegistration', () => {
     expect(result.current.isCoordinated).toBe(false)
     expect(result.current.anyDirty).toBe(false)
     expect(result.current.hasAnchorAbove).toBe(false)
-    // Should resolve without throwing even though nothing is listening.
     return expect(result.current.saveAll()).resolves.toBeUndefined()
   })
 

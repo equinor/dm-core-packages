@@ -30,8 +30,6 @@ test('Change owner', async () => {
     .getByRole('tabpanel')
     .getByTestId('form-number-widget-Phone Number (Optional)')
     .fill('1234')
-  // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
-  // the Form's own Submit button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
@@ -58,8 +56,6 @@ test('Hiring a CEO', async () => {
     .getByRole('tabpanel')
     .getByTestId('form-number-widget-Phone Number (Optional)')
     .fill('99887766')
-  // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
-  // the Form's own Submit button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await expect(page.getByRole('alert').first()).toHaveText('Document updated')
   await page.getByRole('button', { name: 'close', exact: true }).first().click()
@@ -101,8 +97,6 @@ test('Adding a trainee', async () => {
     .getByTestId('form-number-widget-Phone Number (Optional)')
     .last()
     .fill('123')
-  // The whole page is wrapped in a SaveCoordinator anchor - the Form's own
-  // Submit button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
@@ -122,8 +116,6 @@ test('Locations', async () => {
   await locationsDiv.getByLabel('Add new item to list').click()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(2)
   await locationsDiv.getByRole('textbox').last().fill('Oslo')
-  // The whole page is wrapped in a SaveCoordinator anchor - the Form's own
-  // Submit button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
@@ -136,8 +128,6 @@ test('Locations', async () => {
   await page.getByTestId('form-text-widget-locations.1').hover()
   await page.getByTestId('form-primitive-array-remove-1').click()
   await expect(locationsDiv.getByRole('textbox')).toHaveCount(1)
-  // The whole page is wrapped in a SaveCoordinator anchor - the Form's own
-  // Submit button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()
@@ -152,8 +142,6 @@ test('New car', async () => {
   await carsDiv.getByRole('button', { name: 'Expand item' }).last().click()
   await carsDiv.getByTestId('form-text-widget-Name').fill('McLaren')
   await carsDiv.getByTestId('form-text-widget-Plate Number').fill('3000')
-  // The whole page is wrapped in a SaveCoordinator anchor - the row-level
-  // Form's own Submit button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await page.getByText('Document updated').click()
   await page.reload()
@@ -180,8 +168,6 @@ test('New customer', async () => {
   await lastTabPanel
     .getByTestId('form-number-widget-Phone Number (Optional)')
     .fill('12345678')
-  // Nested inside an opened tab, which claims the shared SaveCoordinator anchor -
-  // the Form's own Submit button is hidden here.
   await page.getByRole('button', { name: 'Save all changes' }).click()
   await expect(page.getByRole('alert')).toHaveText(['Document updated'])
   await page.getByRole('button', { name: 'close', exact: true }).click()

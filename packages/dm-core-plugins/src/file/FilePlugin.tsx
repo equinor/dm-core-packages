@@ -21,8 +21,6 @@ export const FilePlugin = (props: IUIPlugin) => {
     refetch,
   } = useDocument<TFileEntity>(idReference, 1)
   const { dataSource } = splitAddress(idReference)
-  // Uploads persist immediately (no deferred/unsaved state) - only registers for
-  // refetch, and notifies related plugins once a new file has been uploaded.
   const { notifyChanged } = usePluginSaveRegistration({
     id: `file:${idReference}`,
     idReference,

@@ -62,8 +62,6 @@ test('Dimensional scalar', async ({ page }) => {
     await page
       .getByLabel('label (optional)')
       .fill('Should not show as config overrides')
-    // Nested inside the Explorer's Tabs, which claims the shared SaveCoordinator
-    // anchor - the Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'waveForm' }).click()
@@ -88,8 +86,6 @@ test('Dimensional scalar', async ({ page }) => {
     await page.getByLabel('value').fill('88888')
     await page.getByLabel('label (optional)').fill('New Maximum')
     await page.getByLabel('unit (optional)').fill('€')
-    // Nested inside the Explorer's Tabs, which claims the shared SaveCoordinator
-    // anchor - the Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).toHaveCount(0)
     await page.getByRole('button', { name: 'waveForm' }).click()

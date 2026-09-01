@@ -12,20 +12,6 @@ type Props = {
   label?: string
 }
 
-/**
- * Ready-made "claim the save anchor for this subtree" component. Container plugins
- * (Stack, Grid, ...) that have no save UI of their own can wrap their rendered
- * children in this to get a single shared "Save all" button - any nested plugin
- * (e.g. a Table) will automatically detect the anchor and defer its own saving to it.
- *
- * Renders children unchanged (no button, no new boundary) if there's no coordinator
- * at all, or if an ancestor has already claimed the anchor - so nesting these is safe.
- * Also renders no button (while still claiming the anchor) if nothing in this
- * subtree is even capable of being saved (e.g. a Stack of read-only plugins) -
- * avoids showing a permanently-disabled button with nothing to do.
- *
- * @docs Components
- */
 export function SaveCoordinatorAnchor({
   children,
   label = 'Save all changes',

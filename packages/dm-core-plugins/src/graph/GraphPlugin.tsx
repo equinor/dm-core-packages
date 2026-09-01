@@ -9,22 +9,15 @@ import { defaultConfig, type TGraphPluginProps } from './types'
 
 const CHART_HEIGHT_PX = 200
 
-/**
- * Minimal bar chart plugin. Reads the same kind of list attribute a Table
- * plugin points at, so both can be aimed at one idReference to demonstrate
- * live cross-plugin refresh via the SaveCoordinator (see usePluginSaveRegistration).
- */
 export const GraphPlugin = (props: TGraphPluginProps) => {
   const { idReference, config: userConfig } = props
   const config = { ...defaultConfig, ...userConfig }
   const { items, isLoading, error, reloadData } =
     useList<TGenericObject>(idReference)
 
-  // Read-only viewer: only registers for refetch, never contributes to saveAll().
   usePluginSaveRegistration({
     id: `graph:${idReference}`,
     idReference,
-    // reloadData is a state setter; called with no args it wouldn't change state and no-op.
     refetch: () => reloadData({}),
   })
 

@@ -18,8 +18,6 @@ test('Relative reference', async ({ page }) => {
     await expect(page.getByRole('code')).toBeVisible()
     await page.getByRole('button', { name: 'Edit' }).last().click()
     await page.getByTestId('form-number-widget-A Number').fill('1')
-    // Nested inside an opened panel/tab, which claims the shared SaveCoordinator
-    // anchor - the Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).not.toBeVisible()
     await page.getByRole('button', { name: 'Close data' }).click()
@@ -35,8 +33,6 @@ test('Relative reference', async ({ page }) => {
     )
 
     await page.getByTestId('form-number-widget-A Number').fill('10')
-    // Nested inside an opened panel/tab, which claims the shared SaveCoordinator
-    // anchor - the Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.getByRole('button', { name: 'Close job' }).click()
     await page.waitForTimeout(5000) // Wait for react-query cache to expire
@@ -63,8 +59,6 @@ test('Relative reference', async ({ page }) => {
       '200'
     )
     await page.getByTestId('form-number-widget-A Number').fill('2')
-    // Nested inside an opened panel/tab, which claims the shared SaveCoordinator
-    // anchor - the Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByRole('button', { name: 'Close data' }).click()
@@ -102,8 +96,6 @@ test('Relative reference', async ({ page }) => {
       '300'
     )
     await area.getByTestId('form-number-widget-A Number').fill('3')
-    // Nested inside an opened panel/tab, which claims the shared SaveCoordinator
-    // anchor - the Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await area.getByRole('button', { name: 'Close data' }).click()
@@ -133,8 +125,6 @@ test('Relative reference', async ({ page }) => {
       area.getByTestId('form-number-widget-A Number').last()
     ).toHaveValue('400')
     await area.getByTestId('form-number-widget-A Number').last().fill('4')
-    // Nested inside an opened panel/tab, which claims the shared SaveCoordinator
-    // anchor - the Form's own Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await area.getByRole('button', { name: 'Close data' }).click()

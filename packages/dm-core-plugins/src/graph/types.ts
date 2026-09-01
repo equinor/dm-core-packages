@@ -1,9 +1,7 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
 
 export type TGraphPluginConfig = {
-  // Attribute holding the numeric value each bar represents.
   valueAttribute: string
-  // Attribute used as the bar's label, defaults to "name".
   labelAttribute?: string
   title?: string
   color?: string

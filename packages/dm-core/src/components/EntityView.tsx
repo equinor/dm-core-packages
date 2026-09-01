@@ -46,10 +46,8 @@ export const EntityView = (props: IEntityView): React.ReactElement => {
     recipeName,
     dimensions
   )
-  // Reuses an ancestor coordinator if this EntityView is nested, else creates one for this tree.
   const coordinatorStore = useSaveCoordinatorValue()
 
-  // Refresh Button stuff
   const [reloadCounter, setReloadCounter] = useState(0)
   const [hoverRefresh, setHoverRefresh] = useState(false)
 

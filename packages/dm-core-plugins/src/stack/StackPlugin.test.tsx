@@ -27,7 +27,7 @@ describe('StackPlugin + SaveCoordinator', () => {
 
   it('shows no button at all when nothing inside is savable (e.g. a Stack of read-only plugins)', () => {
     const store = createSaveCoordinatorStore()
-    store.register({ id: 'entry', idReference: 'ds/$1' }) // no save fn
+    store.register({ id: 'entry', idReference: 'ds/$1' })
 
     const { queryByRole } = render(
       <SaveCoordinatorProvider value={store}>

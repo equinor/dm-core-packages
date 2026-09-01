@@ -94,8 +94,6 @@ export function DataGridPlugin(props: IUIPlugin) {
     }
   }
 
-  // Registers this data grid with the nearest SaveCoordinator (no-op if there is
-  // none, e.g. when used standalone - existing behavior is unaffected).
   const { hasAnchorAbove, notifyChanged } = usePluginSaveRegistration({
     id: `data-grid:${idReference}`,
     idReference,

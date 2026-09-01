@@ -47,8 +47,6 @@ export const AddObject = (props: {
           shouldTouch: true,
         }
         setValue(namePath, document, options)
-        // Nested ViewCreator for this attribute already tried & cached a "not found"
-        // result before this object existed - force it to refetch now that it does.
         queryClient.invalidateQueries({
           queryKey: ['attributes', `${idReference}.${namePath}`],
           exact: false,

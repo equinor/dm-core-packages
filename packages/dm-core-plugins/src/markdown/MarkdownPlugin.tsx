@@ -25,7 +25,6 @@ export const MarkdownPlugin = (props: IUIPlugin) => {
     idReference,
     1
   )
-  // Read-only viewer: only registers for refetch, never contributes to saveAll().
   usePluginSaveRegistration({
     id: `markdown:${idReference}`,
     idReference,

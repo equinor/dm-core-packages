@@ -10,7 +10,6 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import React from 'react'
 import { TablePlugin } from './TablePlugin'
 
-// jsdom doesn't implement the native Popover API that EDS's Tooltip relies on.
 if (!HTMLElement.prototype.showPopover) {
   HTMLElement.prototype.showPopover = jest.fn()
   HTMLElement.prototype.hidePopover = jest.fn()
@@ -84,8 +83,6 @@ describe('TablePlugin + SaveCoordinator', () => {
       )
     )
 
-    // Wait for the table to finish loading before asserting absence - the cell
-    // value lives in an input's value attribute, not as plain text content.
     await waitFor(() =>
       expect(container.querySelector('input[value="Alpha"]')).toBeTruthy()
     )
@@ -120,9 +117,6 @@ describe('TablePlugin + SaveCoordinator', () => {
 
     await waitFor(() => expect(store.getSnapshot()).toBe(true))
 
-    // A read-only sibling (e.g. a Graph) watching the same address, to confirm
-    // saving via the coordinator's saveAll() - not just the table's own hidden
-    // Save button - still triggers refetch on related plugins.
     const siblingRefetch = jest.fn()
     store.register({
       id: 'graph:ds/$1.items',

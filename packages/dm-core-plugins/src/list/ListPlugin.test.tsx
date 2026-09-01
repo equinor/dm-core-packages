@@ -10,16 +10,12 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import React from 'react'
 import { ListPlugin } from './ListPlugin'
 
-// jsdom doesn't implement the native Popover API that EDS's Tooltip relies on.
 if (!HTMLElement.prototype.showPopover) {
   HTMLElement.prototype.showPopover = jest.fn()
   HTMLElement.prototype.hidePopover = jest.fn()
   HTMLElement.prototype.togglePopover = jest.fn()
 }
 
-// Intercepts the onSubmit callback ListPlugin passes to a row's expanded/nested
-// view, so we can simulate "a nested row-level Form just saved" without having
-// to mock the full nested blueprint/recipe resolution chain.
 let capturedOnSubmit: ((data: unknown) => void) | undefined
 jest.mock('@development-framework/dm-core', () => {
   const actual = jest.requireActual('@development-framework/dm-core')
@@ -94,9 +90,6 @@ describe('ListPlugin + SaveCoordinator', () => {
       capturedOnSubmit!({ name: 'Alpha renamed' })
     })
 
-    // Must be true IMMEDIATELY (synchronously) - not just eventually after a
-    // React re-render/effect round-trip - so an ancestor's saveAll() called
-    // right after can never miss this newly-dirtied entry.
     expect(store.getSnapshot()).toBe(true)
   })
 })

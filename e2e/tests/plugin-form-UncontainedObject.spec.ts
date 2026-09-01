@@ -102,8 +102,6 @@ test('uncontainedObject', async ({ page }) => {
   })
 
   await test.step('Submit form', async () => {
-    // The whole page is wrapped in a SaveCoordinator anchor - the Form's own
-    // Submit button is hidden here.
     await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert').last()).toHaveText([
       'Document updated',

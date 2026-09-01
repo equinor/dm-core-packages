@@ -52,8 +52,6 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
       true
     ).then(() => notifyChanged())
 
-  // Registers this editor with the nearest SaveCoordinator (no-op if there is
-  // none, e.g. when used standalone - existing behavior is unaffected).
   const { hasAnchorAbove, notifyChanged } = usePluginSaveRegistration({
     id: `blueprint:${idReference}`,
     idReference,

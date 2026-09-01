@@ -29,7 +29,6 @@ export const MediaViewerPlugin = (
     idReference,
     1
   )
-  // Read-only viewer: only registers for refetch, never contributes to saveAll().
   usePluginSaveRegistration({
     id: `media-viewer:${idReference}`,
     idReference,

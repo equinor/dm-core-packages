@@ -80,7 +80,6 @@ export const BlueprintHierarchyPlugin = (props: IUIPlugin) => {
   const [chart, setChart] = useState<string | undefined>(undefined)
 
   const { document, isLoading, refetch } = useDocument(idReference)
-  // Read-only viewer: only registers for refetch, never contributes to saveAll().
   usePluginSaveRegistration({
     id: `blueprint-hierarchy:${idReference}`,
     idReference,
