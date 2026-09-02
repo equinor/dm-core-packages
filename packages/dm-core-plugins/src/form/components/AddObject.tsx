@@ -2,6 +2,7 @@ import {
   type ErrorResponse,
   useApplication,
 } from '@development-framework/dm-core'
+import { useQueryClient } from '@tanstack/react-query'
 import type { AxiosError, AxiosResponse } from 'axios'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../context/RegistryContext'
@@ -13,6 +14,7 @@ export const AddObject = (props: {
   defaultValue?: any
   onAdd?: () => void
 }) => {
+  const queryClient = useQueryClient()
   const { type, namePath, defaultValue, onAdd } = props
   const { setValue } = useFormContext()
   const { dmssAPI } = useApplication()
@@ -33,18 +35,23 @@ export const AddObject = (props: {
     }
   }
   const addDocument = (document: any) => {
-    const options = {
-      shouldValidate: true,
-      shouldDirty: true,
-      shouldTouch: true,
-    }
     dmssAPI
       .documentAdd({
         address: `${idReference}.${namePath}`,
         document: JSON.stringify(document),
       })
       .then(() => {
+        const options = {
+          shouldValidate: true,
+          shouldDirty: true,
+          shouldTouch: true,
+        }
         setValue(namePath, document, options)
+        queryClient.invalidateQueries({
+          queryKey: ['attributes', `${idReference}.${namePath}`],
+          exact: false,
+        })
+        onAdd?.()
       })
       .catch((error: AxiosError<ErrorResponse>) => {
         console.error(error)

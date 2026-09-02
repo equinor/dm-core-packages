@@ -1,5 +1,5 @@
 import { type AxiosError, type AxiosResponse, isAxiosError } from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useApplication } from '../../ApplicationContext'
 import { EBlueprint } from '../../Enums'
 import type { ErrorResponse } from '../../services'
@@ -21,6 +21,7 @@ export function useList<T extends object>(
   const [dirtyState, setDirtyState] = useState<boolean>(false)
   const [refresh, reloadData] = useState()
   const { dmssAPI } = useApplication()
+  const hasLoadedOnce = useRef(false)
 
   useEffect(() => {
     dmssAPI
@@ -37,7 +38,7 @@ export function useList<T extends object>(
 
   useEffect(() => {
     if (!attribute) return
-    setLoading(true)
+    if (!hasLoadedOnce.current) setLoading(true)
     setDirtyState(false)
     dmssAPI
       .documentGet({
@@ -52,16 +53,19 @@ export function useList<T extends object>(
             )
           }
           const items: TItem<any>[] = Object.values(response.data).map(
-            (data, index) => ({
-              key: crypto.randomUUID() as string,
-              index: index,
-              idReference: `${idReference}${
+            (data, index) => {
+              const itemIdReference = `${idReference}${
                 data._id ? `(_id=${data._id})` : `[${index}]`
-              }`,
-              data: data,
-              reference: null,
-              isSaved: true,
-            })
+              }`
+              return {
+                key: itemIdReference,
+                index: index,
+                idReference: itemIdReference,
+                data: data,
+                reference: null,
+                isSaved: true,
+              }
+            }
           )
           setItems(items)
           setError(null)
@@ -74,7 +78,7 @@ export function useList<T extends object>(
             }))
           const resolvedItems = (resolved ? resolved.data : []) as T[]
           const items = Object.values(response.data).map((data, index) => ({
-            key: crypto.randomUUID() as string,
+            key: (data as TLinkReference).address,
             idReference: (data as TLinkReference).address,
             index: index,
             data: resolveReferences ? resolvedItems[index] : (data as T),
@@ -88,7 +92,10 @@ export function useList<T extends object>(
       .catch((error: AxiosError<ErrorResponse>) => {
         setError(error.response?.data || { message: error.name, data: error })
       })
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setLoading(false)
+        hasLoadedOnce.current = true
+      })
   }, [attribute, refresh])
 
   async function addItem(

@@ -1,7 +1,7 @@
 import { Typography } from '@equinor/eds-core-react'
 import { useQuery } from '@tanstack/react-query'
 import type { AxiosError } from 'axios'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
   EntityView,
   type ErrorResponse,
@@ -47,7 +47,6 @@ type TViewCreator = Omit<IUIPlugin, 'type'> & {
 export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   const { idReference, viewConfig, onOpen, onSubmit, onChange } = props
   const { dmssAPI } = useApplication()
-  const [error, setError] = useState<Error>()
 
   const reference = useMemo(
     () => getTarget(idReference, viewConfig),
@@ -55,7 +54,7 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
   )
   const queryKeys = ['attributes', reference, viewConfig.resolve]
 
-  const { isPending, data } = useQuery<{
+  const { isPending, isError, error, data } = useQuery<{
     address: string
     attribute: TAttribute
   }>({
@@ -64,29 +63,20 @@ export const ViewCreator = (props: TViewCreator): React.ReactElement => {
     queryKey: queryKeys,
     queryFn: () =>
       dmssAPI
-        .attributeGet({
-          address: reference,
-          resolve: props.viewConfig.resolve,
-        })
-        .then((response: any) => response.data)
-        .catch((error: AxiosError<ErrorResponse>) => setError(error)),
+        .attributeGet({ address: reference, resolve: props.viewConfig.resolve })
+        .then((response: any) => response.data),
   })
 
-  if (isPending || !data?.address) return <Loading />
-  if (error)
+  if (isPending) return <Loading />
+  if (isError)
     return (
       <Typography>
         Could not find attribute for document with id {reference} (
-        {error.message})
+        {(error as AxiosError<ErrorResponse>)?.message})
       </Typography>
     )
-  if (data.attribute === undefined)
+  if (data?.attribute === undefined)
     throw new Error('Unable to find type and dimensions for view')
-
-  if (viewConfig === undefined)
-    throw new Error(
-      'Cannot create a View without a "viewConfig". Sure the attribute is properly named?'
-    )
   if (isInlineRecipeViewConfig(viewConfig)) {
     return (
       <InlineRecipeView

@@ -3,6 +3,7 @@ import {
   Loading,
   type TGenericObject,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import { Icon, Popover, TextField, Tooltip } from '@equinor/eds-core-react'
 import { close, copy, edit, filter_alt, save } from '@equinor/eds-icons'
@@ -28,8 +29,20 @@ export const YamlPlugin = (props: YamlPluginProps) => {
   const textEditor = useRef<HTMLInputElement>(null)
   const depthPopoverTrigger = useRef<HTMLButtonElement>(null)
 
-  const { document, isLoading, error, setError, updateDocument } =
+  const { document, isLoading, error, setError, updateDocument, refetch } =
     useDocument<TGenericObject>(idReference, depth, false)
+
+  // Registers this editor with the nearest SaveCoordinator (no-op if there is
+  // none, e.g. when used standalone - existing behavior is unaffected). Being
+  // in edit mode is used as an approximation for "has unsaved changes", since
+  // the actual text lives in an uncontrolled contentEditable node until saved.
+  const { notifyChanged } = usePluginSaveRegistration({
+    id: `yaml:${idReference}`,
+    idReference,
+    isDirty: isEditMode,
+    save: () => saveChanges(),
+    refetch,
+  })
 
   const asYAML = useMemo(() => YAML.stringify(document), [document])
   const asJSON = useMemo(() => JSON.stringify(document, null, 2), [document])
@@ -54,12 +67,14 @@ export const YamlPlugin = (props: YamlPluginProps) => {
     try {
       const clean = DOMPurify.sanitize(textEditor.current?.innerText || '{}')
       const parsedJSON = showAsJSON ? JSON.parse(clean) : YAML.parse(clean)
-      updateDocument(parsedJSON, true, false, true).then(() => {
+      return updateDocument(parsedJSON, true, false, true).then(() => {
         setIsEditMode(false)
+        notifyChanged()
       })
     } catch (e) {
       console.log(e)
       toast.error(`Invalid JSON - ${e.message}`, { autoClose: false })
+      return Promise.resolve()
     }
   }
 

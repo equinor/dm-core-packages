@@ -148,7 +148,7 @@ export const DMApplicationProvider = (props: {
   return (
     <>
       <GlobalStyle />
-      <ToastContainer />
+      <ToastContainer position='bottom-right' />
       <ApplicationContext.Provider
         value={{
           dmJobApi,

@@ -1,0 +1,25 @@
+{
+  "name": "GraphDemoItem",
+  "type": "CORE:Blueprint",
+  "description": "One row/bar in the Table+Graph live-sync demo.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "optional": false
+    },
+    {
+      "name": "name",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "string",
+      "label": "Name"
+    },
+    {
+      "name": "value",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "integer",
+      "label": "Value"
+    }
+  ]
+}

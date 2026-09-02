@@ -4,6 +4,7 @@ import {
   Loading,
   type TBlueprint,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import {
   Button,
@@ -37,13 +38,27 @@ const withoutId = (attributes: any[]) => {
 
 export const BlueprintPlugin = (props: IUIPlugin) => {
   const { idReference } = props
-  const { document, isLoading, updateDocument, error } =
+  const { document, isLoading, updateDocument, error, refetch } =
     useDocument<TBlueprint>(idReference)
   const [formData, setFormData] = useState<any>({ ...document }) //TODO remove any type (requires TBlueprint to be updated)
 
   const dirtyState = useMemo(() => {
     return !isEqual(document, formData)
   }, [document, formData])
+
+  const saveChanges = () =>
+    updateDocument(
+      { ...formData, attributes: withoutId(formData.attributes) },
+      true
+    ).then(() => notifyChanged())
+
+  const { hasAnchorAbove, notifyChanged } = usePluginSaveRegistration({
+    id: `blueprint:${idReference}`,
+    idReference,
+    isDirty: dirtyState,
+    save: saveChanges,
+    refetch,
+  })
 
   useEffect(() => {
     if (!document) return
@@ -93,27 +108,21 @@ export const BlueprintPlugin = (props: IUIPlugin) => {
           />
         </Stack>
         <BlueprintAttributeList formData={formData} setFormData={setFormData} />
-        <Stack direction='row' spacing={0.5}>
-          <Button
-            variant='outlined'
-            disabled={!dirtyState}
-            onClick={() => setFormData(structuredClone(document))}
-          >
-            <Icon data={undo} />
-          </Button>
-          <Button
-            disabled={!dirtyState}
-            onClick={() =>
-              updateDocument(
-                { ...formData, attributes: withoutId(formData.attributes) },
-                true
-              )
-            }
-          >
-            <Icon data={save} />
-            Save
-          </Button>
-        </Stack>
+        {!hasAnchorAbove && (
+          <Stack direction='row' spacing={0.5}>
+            <Button
+              variant='outlined'
+              disabled={!dirtyState}
+              onClick={() => setFormData(structuredClone(document))}
+            >
+              <Icon data={undo} />
+            </Button>
+            <Button disabled={!dirtyState} onClick={saveChanges}>
+              <Icon data={save} />
+              Save
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </div>
   )

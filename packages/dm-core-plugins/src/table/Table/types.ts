@@ -54,8 +54,6 @@ export type TTableConfig = {
   width?: string
 }
 
-// Table components types
-
 export type TableProps = {
   addItem: (
     saveOnAdd: boolean,
@@ -79,6 +77,7 @@ export type TableProps = {
     saveOnUpdate?: boolean
   ) => Promise<void>
   setDirtyState: React.Dispatch<React.SetStateAction<boolean>>
+  hideSaveControls?: boolean
 } & IUIPlugin
 
 export type TableHeadProps = {

@@ -5,15 +5,21 @@ import {
   type TGenericObject,
   type TMeta,
   useDocument,
+  usePluginSaveRegistration,
 } from '@development-framework/dm-core'
 import { Table } from '@equinor/eds-core-react'
 import { DateTime } from 'luxon'
 
 export const MetaPlugin = (props: IUIPlugin) => {
-  const { document, isLoading, error } = useDocument<TGenericObject>(
+  const { document, isLoading, error, refetch } = useDocument<TGenericObject>(
     props.idReference,
     1
   )
+  usePluginSaveRegistration({
+    id: `meta:${props.idReference}`,
+    idReference: props.idReference,
+    refetch,
+  })
 
   if (isLoading) return <Loading />
 
@@ -73,7 +79,6 @@ export const MetaPlugin = (props: IUIPlugin) => {
           </Table.Row>
         </Table.Body>
       </Table>
-      {/*This empty div wrapper is kind of a hack to avoid EntityView take the same height as the entire plugin*/}
       <div>
         {document.type ===
         'dmss://system/Plugins/dm-core-plugins/common/Meta' ? (

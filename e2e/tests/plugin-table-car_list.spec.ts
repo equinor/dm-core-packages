@@ -15,7 +15,7 @@ test('Table car list example', async ({ page }) => {
     await page.getByLabel('Manufacturer').fill('Audi')
     await page.getByLabel('Model').fill('e-tron')
     await page.getByLabel('Color (Optional)').fill('Black')
-    await page.getByTestId('form-submit').click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
 
     //Currently we need to reload application to view saved values...
     await page.reload()
@@ -33,7 +33,9 @@ test('Table car list example', async ({ page }) => {
     await page.getByLabel('Manufacturer').fill('Polestar')
     await page.getByLabel('Model').fill('2023')
     await page.getByLabel('Color (Optional)').fill('Grey')
-    await page.getByTestId('form-submit').click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
+
+    await expect(page.getByRole('alert')).toHaveText(['Document updated'])
     await page.getByLabel('Close Audi').click()
 
     //Currently we need to reload application to view saved values...
@@ -48,6 +50,8 @@ test('Table car list example', async ({ page }) => {
     await page.getByRole('button', { name: 'Row actions' }).last().click()
     await page.getByRole('menuitem', { name: 'Delete' }).click()
     await expect(page.getByText('1 - 1 of 1')).toBeVisible()
+
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.reload()
     await expect(page.getByRole('button', { name: 'Expand item' })).toHaveCount(
       1

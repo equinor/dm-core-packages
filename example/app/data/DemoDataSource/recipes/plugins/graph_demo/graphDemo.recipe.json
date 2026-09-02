@@ -1,0 +1,90 @@
+{
+  "type": "CORE:RecipeLink",
+  "_blueprintPath_": "/plugins/graph_demo/blueprints/GraphDemo",
+  "initialUiRecipe": {
+    "name": "TableAndGraph",
+    "type": "CORE:UiRecipe",
+    "description": "Table + Graph pointed at the same 'items' list - edit rows in the Table and watch the Graph refresh live via the SaveCoordinator.",
+    "config": {
+      "type": "PLUGINS:dm-core-plugins/stack/StackPluginConfig",
+      "direction": "horizontal",
+      "spacing": 1,
+      "items": [
+        {
+          "type": "CORE:InlineRecipeViewConfig",
+          "label": "items (table)",
+          "scope": "items",
+          "recipe": {
+            "name": "items-table",
+            "type": "CORE:UiRecipe",
+            "description": "Editable table of items",
+            "plugin": "@development-framework/dm-core-plugins/table",
+            "config": {
+              "type": "PLUGINS:dm-core-plugins/table/TablePluginConfig",
+              "width": "50%",
+              "columns": [
+                {
+                  "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                  "data": "name",
+                  "label": "Name"
+                },
+                {
+                  "type": "PLUGINS:dm-core-plugins/table/TableColumnConfig",
+                  "data": "value",
+                  "label": "Value",
+                  "dataType": "number",
+                  "editable": true
+                }
+              ],
+              "variant": [
+                {
+                  "name": "edit",
+                  "type": "PLUGINS:dm-core-plugins/table/TableVariantConfig"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "CORE:InlineRecipeViewConfig",
+          "label": "items (graph)",
+          "scope": "items",
+          "recipe": {
+            "name": "items-graph",
+            "type": "CORE:UiRecipe",
+            "description": "Live bar chart of the same items",
+            "plugin": "@development-framework/dm-core-plugins/graph",
+            "config": {
+              "type": "PLUGINS:dm-core-plugins/graph/GraphPluginConfig",
+              "title": "Item values",
+              "valueAttribute": "value",
+              "labelAttribute": "name",
+              "color": "#007079"
+            }
+          }
+        },
+        {
+          "type": "CORE:InlineRecipeViewConfig",
+          "label": "name (form)",
+          "scope": "self",
+          "recipe": {
+            "name": "name-form",
+            "type": "CORE:UiRecipe",
+            "description": "Form nested in this Stack - should show NO submit button of its own, since the Stack's SaveCoordinatorAnchor already owns saving here (Finding #1 fix verification).",
+            "plugin": "@development-framework/dm-core-plugins/form",
+            "config": {
+              "type": "PLUGINS:dm-core-plugins/form/FormInput",
+              "attributes": [
+                {
+                  "name": "name",
+                  "type": "PLUGINS:dm-core-plugins/form/fields/StringField"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "plugin": "@development-framework/dm-core-plugins/stack"
+  }
+}

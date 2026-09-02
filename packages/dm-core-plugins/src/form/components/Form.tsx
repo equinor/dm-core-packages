@@ -23,6 +23,22 @@ import { AttributeList } from './AttributeList'
 
 const FORM_DEFAULT_MAX_WIDTH = '650px'
 
+// Plugins that never own their own persistence - they just lay out/select between
+// children and pass onSubmit/onChange straight through to whatever's nested inside
+// (which is often the form plugin, e.g. a type with no dedicated recipe falls back to
+// a Tabs recipe showing "Yaml" + "Edit"). Their presence here doesn't mean the data is
+// unsupported - only plugins with their own independent save flow (Table, List, Graph,
+// etc.) should be excluded from the parent's payload.
+const PASSTHROUGH_CONTAINER_PLUGINS = new Set([
+  '@development-framework/dm-core-plugins/form',
+  '@development-framework/dm-core-plugins/stack',
+  '@development-framework/dm-core-plugins/grid',
+  '@development-framework/dm-core-plugins/responsive_grid',
+  '@development-framework/dm-core-plugins/view_selector/tabs',
+  '@development-framework/dm-core-plugins/view_selector/sidebar',
+  '@development-framework/dm-core-plugins/single_view',
+])
+
 export const defaultConfig: TFormConfig = {
   attributes: [],
   fields: [],
@@ -47,7 +63,7 @@ export const Form = (props: TFormProps) => {
   const { dmssAPI, name } = useApplication()
   const [reloadCounter, setReloadCounter] = useState(0)
   const showSubmitButton = props.showSubmitButton ?? true
-  // Every react hook form controller needs to have a unique name
+  const hideSubmitButton = props.hideSubmitButton ?? false
   const namePath: string = showSubmitButton
     ? ''
     : idReference.split('.').length > 1
@@ -55,7 +71,6 @@ export const Form = (props: TFormProps) => {
       : ''
 
   const rootMethods = useForm({
-    // Set initial state.
     defaultValues: formData || {},
   })
 
@@ -103,13 +118,7 @@ export const Form = (props: TFormProps) => {
   }
 
   const preparePayload = async (obj: TGenericObject) => {
-    // Since react-hook-form cannot handle null values,
-    // we have to convert null values to undefined before submitting.
     replaceNull(obj)
-
-    // Remove attributes that should not be in the payload,
-    // that is complex objects that are not using the form plugin (or is not shown inline),
-    // and complex arrays (since they are using other plugins then the form plugin).
 
     const toRemoveFromPayload: string[] = []
     for (const key of Object.keys(obj)) {
@@ -131,7 +140,6 @@ export const Form = (props: TFormProps) => {
           continue
         }
 
-        // Remove if not use the form plugin
         const response: any = await dmssAPI.blueprintGet({
           typeRef: obj[key].type,
           context: name,
@@ -142,7 +150,7 @@ export const Form = (props: TFormProps) => {
           uiAttribute?.uiRecipe
         )
         // TODO: Find a better way to determine if the target plugin support onSubmit
-        if (uiRecipe.plugin !== '@development-framework/dm-core-plugins/form') {
+        if (!PASSTHROUGH_CONTAINER_PLUGINS.has(uiRecipe.plugin)) {
           toRemoveFromPayload.push(key)
           continue
         }
@@ -164,8 +172,15 @@ export const Form = (props: TFormProps) => {
   }
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    if (onSubmit !== undefined) onSubmit(await preparePayload(data))
+    if (onSubmit !== undefined) return onSubmit(await preparePayload(data))
   })
+
+  useEffect(() => {
+    props.onCoordinatorSync?.({
+      isDirty: methods.formState.isDirty,
+      submit: () => handleSubmit(),
+    })
+  }, [methods.formState.isDirty, handleSubmit])
 
   if (isLoading) return <Loading />
 
@@ -217,7 +232,7 @@ export const Form = (props: TFormProps) => {
                 storageRecipes={storageRecipes ?? []}
               />
             </Stack>
-            {showSubmitButton && !config?.readOnly && (
+            {showSubmitButton && !hideSubmitButton && !config?.readOnly && (
               <EdsProvider
                 density={config?.compactButtons ? 'compact' : 'comfortable'}
               >

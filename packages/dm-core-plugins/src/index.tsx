@@ -164,4 +164,11 @@ export default {
       }))
     ),
   },
+  '@development-framework/dm-core-plugins/graph': {
+    component: lazy(() =>
+      import('./graph/GraphPlugin').then((module) => ({
+        default: module.GraphPlugin,
+      }))
+    ),
+  },
 } as TUiPluginMap

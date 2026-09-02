@@ -102,7 +102,7 @@ test('uncontainedObject', async ({ page }) => {
   })
 
   await test.step('Submit form', async () => {
-    await page.getByRole('button', { name: 'Submit' }).click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(page.getByRole('alert').last()).toHaveText([
       'Document updated',
     ])

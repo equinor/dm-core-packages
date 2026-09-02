@@ -9,6 +9,8 @@ import {
   type TViewConfig,
   useList,
   usePagination,
+  usePluginSaveRegistration,
+  useSaveCoordinatorStore,
   ViewCreator,
 } from '@development-framework/dm-core'
 import {
@@ -82,6 +84,8 @@ const defaultConfig: TListConfig = {
 
 export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
   const { idReference, config, type, onOpen } = props
+  const coordinatorStore = useSaveCoordinatorStore()
+  const entryId = `list:${idReference}`
   const internalConfig: TListConfig = {
     ...defaultConfig,
     ...config,
@@ -103,6 +107,17 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
     updateItem,
   } = useList<TGenericObject>(idReference, internalConfig.resolveReferences)
 
+  const { hasAnchorAbove, notifyChanged } = usePluginSaveRegistration({
+    id: entryId,
+    idReference,
+    isDirty: dirtyState,
+    save: () =>
+      save(items).then(() =>
+        coordinatorStore?.notifyChanged(idReference, entryId)
+      ),
+    refetch: () => reloadData({}),
+  })
+
   const {
     currentItems,
     itemsPerPage,
@@ -122,6 +137,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
 
   const handleItemUpdate = (item: TItem<any>, data: any) => {
     updateItem(item, data, false)
+    coordinatorStore?.update(entryId, { isDirty: true })
   }
 
   const ensureNotObject = (attribute: any) => {
@@ -392,7 +408,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                   )}
                 </>
               )}
-              {showEditButtons && (
+              {showEditButtons && !hasAnchorAbove && (
                 <>
                   <FormButton
                     onClick={reloadData}
@@ -405,7 +421,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                     <Icon data={undo} size={16} />
                   </FormButton>
                   <FormButton
-                    onClick={() => save(items)}
+                    onClick={() => save(items).then(() => notifyChanged())}
                     disabled={!dirtyState}
                     isLoading={isLoading}
                     tooltip={'Save'}

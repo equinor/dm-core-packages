@@ -264,26 +264,29 @@ export function Table(props: TableProps) {
           page={currentPage}
           setPage={setPage}
         />
-        {tableVariant === TableVariantNameEnum.Edit && reloadData && (
-          <Button
-            aria-label='Revert changes'
-            style={{ overflow: 'hidden' }}
-            variant='outlined'
-            disabled={isLoading || !props.dirtyState}
-            onClick={reloadData}
-          >
-            <Icon data={undo} size={16} />
-          </Button>
-        )}
-        {tableVariant === TableVariantNameEnum.Edit && (
-          <Button
-            style={{ overflow: 'hidden' }}
-            disabled={isLoading || !props.dirtyState}
-            onClick={() => saveTable(items)}
-          >
-            {isLoading ? <Progress.Dots color={'primary'} /> : 'Save'}
-          </Button>
-        )}
+        {tableVariant === TableVariantNameEnum.Edit &&
+          reloadData &&
+          !props.hideSaveControls && (
+            <Button
+              aria-label='Revert changes'
+              style={{ overflow: 'hidden' }}
+              variant='outlined'
+              disabled={isLoading || !props.dirtyState}
+              onClick={reloadData}
+            >
+              <Icon data={undo} size={16} />
+            </Button>
+          )}
+        {tableVariant === TableVariantNameEnum.Edit &&
+          !props.hideSaveControls && (
+            <Button
+              style={{ overflow: 'hidden' }}
+              disabled={isLoading || !props.dirtyState}
+              onClick={() => saveTable(items)}
+            >
+              {isLoading ? <Progress.Dots color={'primary'} /> : 'Save'}
+            </Button>
+          )}
       </Stack>
     </Stack>
   )

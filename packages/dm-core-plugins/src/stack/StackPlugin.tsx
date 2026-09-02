@@ -1,4 +1,8 @@
-import { type IUIPlugin, ViewCreator } from '@development-framework/dm-core'
+import {
+  type IUIPlugin,
+  SaveCoordinatorAnchor,
+  ViewCreator,
+} from '@development-framework/dm-core'
 import { type DirectionTypes, Stack, type StackProps } from '../common'
 import { defaultConfig, type StackPluginConfig } from './types'
 
@@ -33,26 +37,28 @@ export const StackPlugin = (props: IUIPlugin) => {
   }
 
   return (
-    <Stack
-      {...stackProps}
-      className={`dm-plugin-padding dm-parent-plugin ${config.classNames}`}
-    >
-      {config.items?.map((item, index) => (
-        <Stack
-          key={`${item.recipe}_${index}`}
-          grow={1}
-          minHeight={0}
-          fullWidth
-          style={{ maxWidth: config.itemMaxWidths?.[index] || 'none' }}
-        >
-          <ViewCreator
-            idReference={idReference}
-            viewConfig={item}
-            onSubmit={props.onSubmit}
-            onChange={props.onChange}
-          />
-        </Stack>
-      ))}
-    </Stack>
+    <SaveCoordinatorAnchor>
+      <Stack
+        {...stackProps}
+        className={`dm-plugin-padding dm-parent-plugin ${config.classNames}`}
+      >
+        {config.items?.map((item, index) => (
+          <Stack
+            key={`${item.recipe}_${index}`}
+            grow={1}
+            minHeight={0}
+            fullWidth
+            style={{ maxWidth: config.itemMaxWidths?.[index] || 'none' }}
+          >
+            <ViewCreator
+              idReference={idReference}
+              viewConfig={item}
+              onSubmit={props.onSubmit}
+              onChange={props.onChange}
+            />
+          </Stack>
+        ))}
+      </Stack>
+    </SaveCoordinatorAnchor>
   )
 }

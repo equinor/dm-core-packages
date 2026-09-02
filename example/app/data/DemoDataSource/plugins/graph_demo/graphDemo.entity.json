@@ -1,0 +1,31 @@
+{
+  "_id": "graphDemo",
+  "name": "GraphDemo",
+  "type": "./blueprints/GraphDemo",
+  "items": [
+    {
+      "_id": "graph-demo-item-1",
+      "name": "Alpha",
+      "type": "./blueprints/GraphDemoItem",
+      "value": 4
+    },
+    {
+      "_id": "graph-demo-item-2",
+      "name": "Beta",
+      "type": "./blueprints/GraphDemoItem",
+      "value": 7
+    },
+    {
+      "_id": "graph-demo-item-3",
+      "name": "Gamma",
+      "type": "./blueprints/GraphDemoItem",
+      "value": 2
+    },
+    {
+      "_id": "graph-demo-item-4",
+      "name": "Delta",
+      "type": "./blueprints/GraphDemoItem",
+      "value": 9
+    }
+  ]
+}

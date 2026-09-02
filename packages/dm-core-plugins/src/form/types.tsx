@@ -11,9 +11,14 @@ export type TFormProps = {
   formData?: any
   config?: TFormConfig
   onOpen?: TOnOpen
-  onSubmit?: (data: any) => void
+  onSubmit?: (data: any) => void | Promise<void>
   onChange?: (data: any) => void
   showSubmitButton?: boolean
+  hideSubmitButton?: boolean
+  onCoordinatorSync?: (state: {
+    isDirty: boolean
+    submit: () => Promise<void>
+  }) => void
 }
 
 export type TObjectTemplate = {

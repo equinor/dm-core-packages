@@ -2,6 +2,7 @@ import {
   type ErrorResponse,
   useApplication,
 } from '@development-framework/dm-core'
+import { useQueryClient } from '@tanstack/react-query'
 import type { AxiosError } from 'axios'
 import { useFormContext } from 'react-hook-form'
 import { useRegistryContext } from '../../context/RegistryContext'
@@ -20,6 +21,7 @@ export const RemoveObject = (props: {
   const { unregister } = useFormContext()
   const { idReference } = useRegistryContext()
   const { dmssAPI } = useApplication()
+  const queryClient = useQueryClient()
 
   const onClick = () => {
     dmssAPI
@@ -28,6 +30,13 @@ export const RemoveObject = (props: {
       })
       .then(() => {
         unregister(namePath)
+        queryClient.invalidateQueries({
+          queryKey: [
+            'attributes',
+            address ? address : `${idReference}.${namePath}`,
+          ],
+          exact: false,
+        })
         if (onRemove) onRemove()
       })
       .catch((error: AxiosError<ErrorResponse>) => {

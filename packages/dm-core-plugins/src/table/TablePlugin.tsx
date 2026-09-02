@@ -2,6 +2,8 @@ import {
   type IUIPlugin,
   type TGenericObject,
   useList,
+  usePluginSaveRegistration,
+  useSaveCoordinatorStore,
 } from '@development-framework/dm-core'
 import { Table, type TTableConfig } from './Table/Table'
 import * as utils from './utils'
@@ -9,6 +11,8 @@ import * as utils from './utils'
 export const TablePlugin = (props: IUIPlugin) => {
   const { idReference } = props
   const config: TTableConfig = utils.mergeConfigs(props.config)
+  const coordinatorStore = useSaveCoordinatorStore()
+  const entryId = `table:${idReference}`
 
   const {
     items,
@@ -26,10 +30,27 @@ export const TablePlugin = (props: IUIPlugin) => {
 
   if (error) throw new Error(JSON.stringify(error, null, 2))
 
+  const { hasAnchorAbove, isCoordinated, notifyChanged } =
+    usePluginSaveRegistration({
+      id: entryId,
+      idReference,
+      isDirty: dirtyState,
+      save: () =>
+        save(items).then(() =>
+          coordinatorStore?.notifyChanged(idReference, entryId)
+        ),
+      refetch: () => reloadData({}),
+    })
+
+  const deferSave = isCoordinated && hasAnchorAbove
+
   return (
     <div className='dm-plugin-padding'>
       <Table
-        addItem={addItem}
+        addItem={async (saveOnAdd, insertAtIndex, template) => {
+          await addItem(saveOnAdd, insertAtIndex, template)
+          notifyChanged()
+        }}
         config={config}
         dirtyState={dirtyState}
         idReference={idReference}
@@ -37,11 +58,22 @@ export const TablePlugin = (props: IUIPlugin) => {
         isLoading={isLoading}
         onOpen={props.onOpen}
         reloadData={reloadData}
-        removeItem={removeItem}
-        saveTable={save}
+        removeItem={async (item, saveOnRemove) => {
+          await removeItem(item, !deferSave && saveOnRemove)
+          if (!deferSave) notifyChanged()
+        }}
+        saveTable={(itemsToSave) =>
+          save(itemsToSave).then(() => notifyChanged())
+        }
         setDirtyState={setDirtyState}
         setItems={setItems}
-        updateItem={updateItem}
+        updateItem={async (item, newDocument, saveOnUpdate) => {
+          await updateItem(item, newDocument, !deferSave && saveOnUpdate)
+
+          if (deferSave) coordinatorStore?.update(entryId, { isDirty: true })
+          if (!deferSave) notifyChanged()
+        }}
+        hideSaveControls={deferSave}
         type={props.type}
       />
     </div>

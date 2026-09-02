@@ -1,4 +1,5 @@
 import type { IUIPlugin } from '@development-framework/dm-core'
+import { SaveCoordinatorAnchor } from '@development-framework/dm-core'
 import styled from 'styled-components'
 import { GridItems } from './GridItems'
 import type { TGridPluginConfig, TGridSize } from './types'
@@ -64,19 +65,21 @@ export const GridPlugin = (
   }
 
   return (
-    <Grid
-      className='dm-plugin-padding dm-parent-plugin'
-      {...internalConfig.size}
-    >
-      <GridItems
-        idReference={idReference}
-        items={internalConfig.items}
-        itemBorder={internalConfig.itemBorder}
-        showItemBorders={internalConfig.showItemBorders}
-        type={type}
-        onSubmit={onSubmit}
-        onChange={onChange}
-      />
-    </Grid>
+    <SaveCoordinatorAnchor>
+      <Grid
+        className='dm-plugin-padding dm-parent-plugin'
+        {...internalConfig.size}
+      >
+        <GridItems
+          idReference={idReference}
+          items={internalConfig.items}
+          itemBorder={internalConfig.itemBorder}
+          showItemBorders={internalConfig.showItemBorders}
+          type={type}
+          onSubmit={onSubmit}
+          onChange={onChange}
+        />
+      </Grid>
+    </SaveCoordinatorAnchor>
   )
 }

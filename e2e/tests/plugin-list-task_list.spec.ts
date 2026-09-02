@@ -26,7 +26,7 @@ test('task list', async ({ page }) => {
     await titleInput.fill('Tax return')
     await assignedInput.fill('Maria Johnson')
     await descriptionTextarea.fill('Review and submit the tax return.')
-    await page.getByRole('button', { name: 'Submit' }).click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await expect(page.getByText('Tax return', { exact: true })).toBeVisible()
@@ -47,13 +47,13 @@ test('task list', async ({ page }) => {
     const contentWrapper = page.getByTestId('expandListItemContent-0').last()
     await expect(contentWrapper).toBeVisible()
     await expect(
-      contentWrapper.getByRole('button', { name: 'Submit' })
+      page.getByRole('button', { name: 'Save all changes' })
     ).toBeVisible()
     await expect(
       contentWrapper.getByTestId('form-text-widget-Task title:')
     ).toHaveValue('Wash the car')
     await contentWrapper.getByText('Mark task as complete').click()
-    await contentWrapper.getByRole('button', { name: 'Submit' }).click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await page
@@ -95,7 +95,7 @@ test('task list', async ({ page }) => {
       .last()
     const downButton = task.getByRole('button', { name: 'Move down' })
     const upButton = task.getByRole('button', { name: 'Move up' })
-    const saveButton = page.getByTestId('SaveList').last()
+    const saveButton = page.getByRole('button', { name: 'Save all changes' })
     await expect(task).toBeVisible()
     await expect(downButton).toBeVisible()
     await expect(upButton).toBeVisible()
@@ -144,7 +144,7 @@ test('task list', async ({ page }) => {
     await contentWrapper
       .getByTestId('form-text-area-widget-Task description: (Optional)')
       .fill('Remember to buy new brush.')
-    await contentWrapper.getByRole('button', { name: 'Submit' }).click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await page.getByLabel('Close task_list').click()
     await page.getByTestId('task_list').getByLabel('Open in tab').click()
     await expect(
@@ -174,9 +174,9 @@ test('task list', async ({ page }) => {
     await contentArea.getByLabel('Add to List').click()
     await contentArea.getByLabel('Add to List').click()
     await expect(contentArea.getByText('6 - 6 of 6')).toBeVisible()
-    await contentArea.getByRole('button', { name: 'Save' }).click()
+    await page.getByRole('button', { name: 'Save all changes' }).click()
     await expect(
-      contentArea.getByRole('button', { name: 'Save' })
+      page.getByRole('button', { name: 'Save all changes' })
     ).toBeDisabled()
     await expect(
       contentArea.getByRole('button', { name: 'Next page' })

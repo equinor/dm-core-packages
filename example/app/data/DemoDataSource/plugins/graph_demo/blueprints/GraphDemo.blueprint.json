@@ -1,0 +1,26 @@
+{
+  "name": "GraphDemo",
+  "type": "CORE:Blueprint",
+  "description": "Table plugin and Graph plugin pointed at the same list, to demonstrate the SaveCoordinator's live cross-plugin refresh.",
+  "attributes": [
+    {
+      "name": "type",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string",
+      "default": "",
+      "optional": false
+    },
+    {
+      "name": "name",
+      "type": "dmss://system/SIMOS/BlueprintAttribute",
+      "attributeType": "string"
+    },
+    {
+      "name": "items",
+      "type": "CORE:BlueprintAttribute",
+      "attributeType": "./GraphDemoItem",
+      "dimensions": "*",
+      "ensureUID": true
+    }
+  ]
+}
