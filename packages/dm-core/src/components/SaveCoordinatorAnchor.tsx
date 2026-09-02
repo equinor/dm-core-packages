@@ -60,34 +60,35 @@ export function SaveCoordinatorAnchor({
   return (
     <SaveAnchorBoundary>
       <style>{spinKeyframes}</style>
+
       <Stack spacing={0}>
-        <Stack
-          direction='row'
-          justifyContent='flex-end'
-          alignItems='center'
-          spacing={0.5}
-          padding={[0.5, 1]}
-          style={{ borderBottom: '1px solid #DCDCDC' }}
-        >
-          <Button
-            variant='ghost_icon'
-            onClick={handleRefreshAll}
-            disabled={isSaving}
-            title='Refresh all'
+        {hasSavableEntries && (
+          <Stack
+            direction='row'
+            justifyContent='flex-end'
+            alignItems='center'
+            spacing={0.5}
+            padding={[0.5, 1]}
+            style={{ borderBottom: '1px solid #DCDCDC' }}
           >
-            <Icon
-              data={refresh}
-              style={
-                isRefreshing ? { animation: 'spin 0.6s linear' } : undefined
-              }
-            />
-          </Button>
-          {hasSavableEntries && (
+            <Button
+              variant='ghost_icon'
+              onClick={handleRefreshAll}
+              disabled={isSaving}
+              title='Refresh all'
+            >
+              <Icon
+                data={refresh}
+                style={
+                  isRefreshing ? { animation: 'spin 0.6s linear' } : undefined
+                }
+              />
+            </Button>
             <Button onClick={handleSaveAll} disabled={isSaving || !anyDirty}>
               {label}
             </Button>
-          )}
-        </Stack>
+          </Stack>
+        )}
         <div key={remountKey}>{children}</div>
       </Stack>
     </SaveAnchorBoundary>
