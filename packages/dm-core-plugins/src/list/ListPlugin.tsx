@@ -57,7 +57,7 @@ type TListConfig = {
   defaultPaginationRowsPerPage?: number
   label?: string
   width?: string
-  newItemButtonText?: string
+  newItemButtonText?: string //Button text
 }
 const defaultConfig: TListConfig = {
   expanded: false,
