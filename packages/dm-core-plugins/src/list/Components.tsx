@@ -58,6 +58,7 @@ export const ListChevronButton = (props: {
 export const NewListItemButton = (props: {
   onClick: (event: MouseEvent<HTMLButtonElement>) => void
   compact?: boolean
+  buttonText?: string
 }) => (
   <Tooltip title='Add item'>
     <Button
@@ -67,7 +68,7 @@ export const NewListItemButton = (props: {
       aria-label='Add to list'
       data-testid='append-to-list'
     >
-      <Icon data={add} size={18} title='Append' /> New Item
+      <Icon data={add} size={18} title='Append' /> {props.buttonText ?? 'New Item'}
     </Button>
   </Tooltip>
 )
