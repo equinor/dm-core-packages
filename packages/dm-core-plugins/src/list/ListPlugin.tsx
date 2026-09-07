@@ -57,6 +57,7 @@ type TListConfig = {
   defaultPaginationRowsPerPage?: number
   label?: string
   width?: string
+  newItemButtonText?: string
 }
 const defaultConfig: TListConfig = {
   expanded: false,
@@ -378,6 +379,7 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                       } else setTemplateMenuIsOpen(true)
                     }}
                     compact={internalConfig.compact}
+                    buttonText={internalConfig.newItemButtonText}
                   />
                   {config.templates?.length && (
                     <TemplateMenu
