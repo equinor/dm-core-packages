@@ -388,7 +388,6 @@ export const ListPlugin = (props: IUIPlugin & { config?: TListConfig }) => {
                         addItem(false, undefined, template?.path)
                         goToLastPage(1)
                       }}
-                      
                       onClose={() => setTemplateMenuIsOpen(false)}
                       isOpen={isTemplateMenuOpen}
                     />
