@@ -86,6 +86,7 @@ export const MediaViewerPlugin = (
       $fill={config.fill}
       $height={config.height}
       $width={config.width}
+      $isDocument={contentType === 'application/pdf'}
     >
       <Suspense fallback={<Loading />}>
         <MediaContent

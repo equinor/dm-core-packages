@@ -46,8 +46,6 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
           src={blobUrl}
           type={meta.contentType}
           style={{ width: '100%', height: '100%' }}
-          height={config.height}
-          width={config.width}
           data-testid='embedded-document'
         />
       )
@@ -106,6 +104,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
       $height={config.height}
       $width={config.width}
       $fill={config.fill}
+      $isDocument={meta.contentType === 'application/pdf'}
     >
       {!(meta.filetype === 'pfd') &&
         (config.showMeta || config.showDescription) && (
