@@ -1,8 +1,11 @@
 import { Button, Icon, Typography } from '@equinor/eds-core-react'
 import { download, info_circle } from '@equinor/eds-icons'
+import { DateTime } from 'luxon'
 import { type ReactElement, useRef, useState } from 'react'
 import { Stack } from '../../common'
+import { formatBytes } from '../../utils'
 import { MediaContentPopover } from './MediaContentPopover/MediaContentPopover'
+import { MetaItem } from './MetaItem/MetaItem'
 import { MediaWrapper, MetaPopoverButton, NoPreviewMessage } from './styles'
 import type { MediaContentProps } from './types'
 
@@ -49,6 +52,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         />
       )
     } else {
+      const isStask = meta.filetype?.toLowerCase() === 'stask'
       return (
         <NoPreviewMessage
           spacing={1}
@@ -58,16 +62,35 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         >
           <Stack>
             <Typography as='h5' color='primary' token={{ fontWeight: 500 }}>
-              No preview available
+              {isStask ? 'SIMA stask file' : 'No preview available'}
             </Typography>
             <Typography>
               A preview for{' '}
               <Typography as='span' token={{ fontFamily: 'monospace' }}>
                 {meta.filetype.length > 0 ? meta.filetype : 'binary'}
               </Typography>{' '}
-              files cannot be shown. Please download the file and open it in the
-              appropriate software.
+              {isStask
+                ? 'files cannot be shown. Please download the file and open it in SIMA.'
+                : 'files cannot be shown. Please download the file and open it in the appropriate software.'}
             </Typography>
+          </Stack>
+          <Stack spacing={0.25} fullWidth>
+            <MetaItem
+              title='File name'
+              value={`${meta.title}.${meta.filetype}`}
+            />
+            {meta.fileSize !== undefined && (
+              <MetaItem title='File size' value={formatBytes(meta.fileSize)} />
+            )}
+            {meta.date && (
+              <MetaItem
+                title='Date'
+                value={DateTime.fromISO(
+                  meta.date.replace(' ', 'T')
+                ).toFormat('dd/MM/yyyy HH:mm')}
+              />
+            )}
+            {meta.author && <MetaItem title='Author' value={meta.author} />}
           </Stack>
           <Button onClick={downloadFile}>
             <Icon size={16} data={download} />
