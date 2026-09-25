@@ -6964,3 +6964,35 @@ Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.c
     * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 8c186f8 2026-08-04 Henri..rmann Merge pull request #267 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
+* Feat/media viewer update (#1669)
+
+* feat(media-viewer): show file details and download for non-previewable files
+
+- Show file name, size, date, and author with a download button
+  instead of a plain message when a preview isn't available.
+- Recognize .stask files as a known SIMA format and show a tailored
+  message to open the downloaded file in SIMA.
+
+* fix(media-viewer): pdf preview now fills available width and height
+
+Both the outer MediaPluginWrapper and inner MediaWrapper defaulted to
+fit-content sizing, causing embedded PDFs to render in a tiny window.
+They now default to a full-size viewport (100% width, 75vh height)
+for PDF content when no explicit width/height/fill config is set.
+
+* feat(media-viewer): extract SIMA metadata and release notes from stask archives
+
+- Trigger blob fetch for .stask files so their contents can be
+  inspected client-side.
+- Add stask-utils.ts using fflate to selectively decompress only
+  meta.properties and any RELEASE_NOTES.md entries from the archive,
+  keeping overhead low regardless of overall archive size.
+- Extract and display SIMA version, plus a release notes summary per
+  component (repository name + link when available, version, date,
+  SIMA version, branch, and triggering user) in the media viewer.
+
+* style(media-viewer): fix biome lint/format issues (2026-08-17T08:40:18Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/36129559794/1)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
