@@ -4,10 +4,10 @@ import { DateTime } from 'luxon'
 import { type ReactElement, useEffect, useRef, useState } from 'react'
 import { Stack } from '../../common'
 import { formatBytes } from '../../utils'
+import { getStaskMetadata } from '../stask-utils'
 import { MediaContentPopover } from './MediaContentPopover/MediaContentPopover'
 import { MetaItem } from './MetaItem/MetaItem'
 import { MediaWrapper, MetaPopoverButton, NoPreviewMessage } from './styles'
-import { getStaskMetadata } from '../stask-utils'
 import type { MediaContentProps } from './types'
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
@@ -103,9 +103,9 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
             {meta.date && (
               <MetaItem
                 title='Date'
-                value={DateTime.fromISO(
-                  meta.date.replace(' ', 'T')
-                ).toFormat('dd/MM/yyyy HH:mm')}
+                value={DateTime.fromISO(meta.date.replace(' ', 'T')).toFormat(
+                  'dd/MM/yyyy HH:mm'
+                )}
               />
             )}
             {meta.author && <MetaItem title='Author' value={meta.author} />}

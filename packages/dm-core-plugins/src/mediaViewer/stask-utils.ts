@@ -44,8 +44,7 @@ function parseProperties(content: string): Record<string, string> {
 // Matches e.g. "## v0.1.7 — 2026-09-23"
 const RELEASE_HEADER_REGEX = /^##\s*(\S+)\s*[—-]\s*([\d-]+)/m
 // Matches e.g. "_Repository: [equinor/srs-mooring-sima-model-asgb](https://github.com/equinor/srs-mooring-sima-model-asgb)_"
-const RELEASE_REPOSITORY_REGEX =
-  /_Repository:\s*\[([^\]]+)\](?:\(([^)]+)\))?_/
+const RELEASE_REPOSITORY_REGEX = /_Repository:\s*\[([^\]]+)\](?:\(([^)]+)\))?_/
 // Matches e.g. "_SIMA 4.8.1 · branch `v4_8_1/main` · triggered by @l3abak_"
 const RELEASE_META_REGEX =
   /_SIMA\s*([^\s·]+)(?:\s*·\s*branch\s*`([^`]+)`)?(?:\s*·\s*triggered by\s*@?([^\s_]+))?_/
