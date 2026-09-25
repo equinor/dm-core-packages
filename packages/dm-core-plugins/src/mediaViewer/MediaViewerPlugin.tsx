@@ -41,6 +41,7 @@ export const MediaViewerPlugin = (
       contentType === 'application/pdf'
     return [contentType, canPreview]
   }, [document])
+  const isStask = document?.filetype?.toLowerCase() === 'stask'
 
   const fetchBlob = useCallback(async () => {
     if (document?.content?.address) {
@@ -66,10 +67,10 @@ export const MediaViewerPlugin = (
   }, [document])
 
   useEffect(() => {
-    if (canPreview) {
+    if (canPreview || isStask) {
       fetchBlob()
     }
-  }, [canPreview])
+  }, [canPreview, isStask])
 
   async function downloadFile() {
     const url = blobUrl || (await fetchBlob())

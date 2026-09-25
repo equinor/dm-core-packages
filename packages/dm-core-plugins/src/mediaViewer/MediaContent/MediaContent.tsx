@@ -1,18 +1,39 @@
 import { Button, Icon, Typography } from '@equinor/eds-core-react'
 import { download, info_circle } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
-import { type ReactElement, useRef, useState } from 'react'
+import { type ReactElement, useEffect, useRef, useState } from 'react'
 import { Stack } from '../../common'
 import { formatBytes } from '../../utils'
 import { MediaContentPopover } from './MediaContentPopover/MediaContentPopover'
 import { MetaItem } from './MetaItem/MetaItem'
 import { MediaWrapper, MetaPopoverButton, NoPreviewMessage } from './styles'
+import { getStaskMetadata } from '../stask-utils'
 import type { MediaContentProps } from './types'
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, downloadFile, meta, config } = props
   const [showInfoPopover, setShowInfoPopover] = useState(false)
   const referenceElement = useRef<HTMLButtonElement>(null)
+  const isStask = meta.filetype?.toLowerCase() === 'stask'
+  const [simaVersion, setSimaVersion] = useState<string>()
+  const [releaseNotes, setReleaseNotes] = useState<
+    Awaited<ReturnType<typeof getStaskMetadata>>['releaseNotes']
+  >([])
+
+  useEffect(() => {
+    if (isStask && blobUrl) {
+      let cancelled = false
+      getStaskMetadata(blobUrl).then((metadata) => {
+        if (!cancelled) {
+          setSimaVersion(metadata.simaVersion)
+          setReleaseNotes(metadata.releaseNotes)
+        }
+      })
+      return () => {
+        cancelled = true
+      }
+    }
+  }, [isStask, blobUrl])
 
   function renderMediaElement() {
     if (meta.contentType?.includes('image')) {
@@ -50,7 +71,6 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
         />
       )
     } else {
-      const isStask = meta.filetype?.toLowerCase() === 'stask'
       return (
         <NoPreviewMessage
           spacing={1}
@@ -89,7 +109,35 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
               />
             )}
             {meta.author && <MetaItem title='Author' value={meta.author} />}
+            {isStask && simaVersion && (
+              <MetaItem title='SIMA version' value={simaVersion} />
+            )}
           </Stack>
+          {isStask && releaseNotes.length > 0 && (
+            <Stack spacing={0.25} fullWidth>
+              <Typography variant='h6'>Release notes</Typography>
+              {releaseNotes.map((note) => (
+                <Typography key={note.path} variant='caption'>
+                  {note.repositoryUrl ? (
+                    <a
+                      href={note.repositoryUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      <strong>{note.component}</strong>
+                    </a>
+                  ) : (
+                    <strong>{note.component}</strong>
+                  )}
+                  {note.version && `: ${note.version}`}
+                  {note.date && ` (${note.date})`}
+                  {note.simaVersion && ` · SIMA ${note.simaVersion}`}
+                  {note.branch && ` · branch ${note.branch}`}
+                  {note.triggeredBy && ` · @${note.triggeredBy}`}
+                </Typography>
+              ))}
+            </Stack>
+          )}
           <Button onClick={downloadFile}>
             <Icon size={16} data={download} />
             Download
