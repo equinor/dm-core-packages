@@ -914,6 +914,7 @@ export const mimeTypes: Record<string, string> = {
   sti: 'application/vnd.sun.xml.impress.template',
   stk: 'application/hyperstudio',
   stl: 'model/stl',
+  stask: 'application/vnd.sima.stask',
   stpx: 'model/step+xml',
   stpxz: 'model/step-xml+zip',
   stpz: 'model/step+zip',
