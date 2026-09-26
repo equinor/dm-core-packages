@@ -7060,3 +7060,10 @@ archive was being downloaded and parsed. (2026-09-26T18:05:50Z)
     * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
+* chore: release main (#1678)
+
+Co-authored-by: hephaestus-hermes[bot] <264979962+hephaestus-hermes[bot]@users.noreply.github.com> (2026-09-26T18:33:03Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/36263528536/1)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
