@@ -60,6 +60,19 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.62.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.61.0...dm-core-plugins-v1.62.0) (2026-09-26)
+
+
+### Features
+
+* **media-viewer:** render stask release notes as a table ([#1677](https://github.com/equinor/dm-core-packages/issues/1677)) ([48d0506](https://github.com/equinor/dm-core-packages/commit/48d0506eff8a40e6ce17ba66ba74eecafafe3e3b))
+* **media-viewer:** show loading indicator while fetching stask release notes ([#1679](https://github.com/equinor/dm-core-packages/issues/1679)) ([1856530](https://github.com/equinor/dm-core-packages/commit/185653018b0327391a24f718e978cc2fe4ec27b5))
+
+
+### Styles
+
+* **media-viewer:** fix biome formatting ([#1680](https://github.com/equinor/dm-core-packages/issues/1680)) ([4f89909](https://github.com/equinor/dm-core-packages/commit/4f89909241c6e9500f2ddf004d0fff4f5b8355d8))
+
 ## [1.61.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.60.2...dm-core-plugins-v1.61.0) (2026-09-26)
 
 
