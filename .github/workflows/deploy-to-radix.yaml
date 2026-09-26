@@ -39,25 +39,17 @@ jobs:
           tenant-id: 3aa4a235-b6e2-48d5-9195-7fcf05b459b0
           allow-no-subscriptions: true
 
-      - name: Get Azure principal token for Radix
-        # The resource 6dae42f8-4368-4678-94ff-3960e28e3630 is a fixed Application ID,
-        # corresponding to the Azure Kubernetes Service AAD Server.
-        run: |
-          token=$(az account get-access-token --resource 6dae42f8-4368-4678-94ff-3960e28e3630 --query=accessToken -otsv)
-          echo "::add-mask::$token"
-          echo "APP_SERVICE_ACCOUNT_TOKEN=$token" >> $GITHUB_ENV
+      - name: Install rx and authenticate with Radix
+        uses: equinor/radix-github-actions@master
+        with:
+          azure_client_id: 9bc1cfd7-c616-45d2-8827-22ae9d1e0567
 
       - name: Deploy on Radix
-        uses: equinor/radix-github-actions@master
-        env:
-          APP_SERVICE_ACCOUNT_TOKEN: ${{ env.APP_SERVICE_ACCOUNT_TOKEN }}
-        with:
-          args: >
-            create job
-            build-deploy
-            --application dm-demos
-            --context production
-            --branch main
+        run: |
+          rx create job build-deploy \
+            --application dm-demos \
+            --context production \
+            --branch main \
             --follow
 
       - name: Get Azure principal token for Azure application
