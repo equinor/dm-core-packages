@@ -1,4 +1,10 @@
-import { Button, Icon, Table, Typography } from '@equinor/eds-core-react'
+import {
+  Button,
+  CircularProgress,
+  Icon,
+  Table,
+  Typography,
+} from '@equinor/eds-core-react'
 import { download, info_circle } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
 import { type ReactElement, useEffect, useRef, useState } from 'react'
@@ -19,16 +25,22 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
   const [releaseNotes, setReleaseNotes] = useState<
     Awaited<ReturnType<typeof getStaskMetadata>>['releaseNotes']
   >([])
+  const [isLoadingStaskMetadata, setIsLoadingStaskMetadata] = useState(false)
 
   useEffect(() => {
     if (isStask && blobUrl) {
       let cancelled = false
-      getStaskMetadata(blobUrl).then((metadata) => {
-        if (!cancelled) {
-          setSimaVersion(metadata.simaVersion)
-          setReleaseNotes(metadata.releaseNotes)
-        }
-      })
+      setIsLoadingStaskMetadata(true)
+      getStaskMetadata(blobUrl)
+        .then((metadata) => {
+          if (!cancelled) {
+            setSimaVersion(metadata.simaVersion)
+            setReleaseNotes(metadata.releaseNotes)
+          }
+        })
+        .finally(() => {
+          if (!cancelled) setIsLoadingStaskMetadata(false)
+        })
       return () => {
         cancelled = true
       }
@@ -113,7 +125,20 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
               <MetaItem title='SIMA version' value={simaVersion} />
             )}
           </Stack>
-          {isStask && releaseNotes.length > 0 && (
+          {isStask && isLoadingStaskMetadata && (
+            <Stack
+              direction='row'
+              spacing={0.5}
+              alignItems='center'
+              data-testid='stask-release-notes-loading'
+            >
+              <CircularProgress size={16} />
+              <Typography variant='caption'>
+                Fetching release notes…
+              </Typography>
+            </Stack>
+          )}
+          {isStask && !isLoadingStaskMetadata && releaseNotes.length > 0 && (
             <Stack spacing={0.25} fullWidth>
               <Typography variant='h6'>Release notes</Typography>
               <Table style={{ width: '100%' }}>
