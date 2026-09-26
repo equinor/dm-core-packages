@@ -133,9 +133,7 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
               data-testid='stask-release-notes-loading'
             >
               <CircularProgress size={16} />
-              <Typography variant='caption'>
-                Fetching release notes…
-              </Typography>
+              <Typography variant='caption'>Fetching release notes…</Typography>
             </Stack>
           )}
           {isStask && !isLoadingStaskMetadata && releaseNotes.length > 0 && (
