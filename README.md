@@ -6996,3 +6996,22 @@ for PDF content when no explicit width/height/fill config is set.
     * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
+* feat(media-viewer): show file details, PDF full-size preview, and stask metadata extraction
+
+- Show file name, size, date, author, and a download button for
+  non-previewable files, with a tailored message for .stask archives.
+- Fix PDF previews to fill the available width and height instead of
+  rendering in a tiny window.
+- Extract SIMA version and release notes (repository, version, date,
+  branch, triggering user) from .stask archives using selective,
+  low-overhead unzip via fflate, displayed as a table.
+
+Note: this is a marker commit. The actual changes were already merged
+via #1669, but that squash-merge commit's title/body was not in a
+format release-please's changelog parser could pick up, so this
+commit re-states the changes in conventional-commit format to trigger
+a correct release. (2026-09-25T19:33:36Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/36188551434/2)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
