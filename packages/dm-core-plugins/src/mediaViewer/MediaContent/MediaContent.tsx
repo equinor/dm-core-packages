@@ -1,51 +1,26 @@
-import {
-  Button,
-  CircularProgress,
-  Icon,
-  Table,
-  Typography,
-} from '@equinor/eds-core-react'
+import { Button, Icon, Typography } from '@equinor/eds-core-react'
 import { download, info_circle } from '@equinor/eds-icons'
 import { DateTime } from 'luxon'
-import { type ReactElement, useEffect, useRef, useState } from 'react'
+import { type ReactElement, useRef, useState } from 'react'
 import { Stack } from '../../common'
 import { formatBytes } from '../../utils'
-import { getStaskMetadata } from '../stask-utils'
 import { MediaContentPopover } from './MediaContentPopover/MediaContentPopover'
 import { MetaItem } from './MetaItem/MetaItem'
+import { StaskReleaseNotes } from './StaskReleaseNotes/StaskReleaseNotes'
 import { MediaWrapper, MetaPopoverButton, NoPreviewMessage } from './styles'
 import type { MediaContentProps } from './types'
+import { useStaskMetadata } from './useStaskMetadata'
 
 export const MediaContent = (props: MediaContentProps): ReactElement => {
   const { blobUrl, downloadFile, meta, config } = props
   const [showInfoPopover, setShowInfoPopover] = useState(false)
   const referenceElement = useRef<HTMLButtonElement>(null)
   const isStask = meta.filetype?.toLowerCase() === 'stask'
-  const [simaVersion, setSimaVersion] = useState<string>()
-  const [releaseNotes, setReleaseNotes] = useState<
-    Awaited<ReturnType<typeof getStaskMetadata>>['releaseNotes']
-  >([])
-  const [isLoadingStaskMetadata, setIsLoadingStaskMetadata] = useState(false)
-
-  useEffect(() => {
-    if (isStask && blobUrl) {
-      let cancelled = false
-      setIsLoadingStaskMetadata(true)
-      getStaskMetadata(blobUrl)
-        .then((metadata) => {
-          if (!cancelled) {
-            setSimaVersion(metadata.simaVersion)
-            setReleaseNotes(metadata.releaseNotes)
-          }
-        })
-        .finally(() => {
-          if (!cancelled) setIsLoadingStaskMetadata(false)
-        })
-      return () => {
-        cancelled = true
-      }
-    }
-  }, [isStask, blobUrl])
+  const {
+    simaVersion,
+    releaseNotes,
+    isLoading: isLoadingStaskMetadata,
+  } = useStaskMetadata(isStask, blobUrl)
 
   function renderMediaElement() {
     if (meta.contentType?.includes('image')) {
@@ -125,59 +100,12 @@ export const MediaContent = (props: MediaContentProps): ReactElement => {
               <MetaItem title='SIMA version' value={simaVersion} />
             )}
           </Stack>
-          {isStask && isLoadingStaskMetadata && (
-            <Stack
-              direction='row'
-              spacing={0.5}
-              alignItems='center'
-              data-testid='stask-release-notes-loading'
-            >
-              <CircularProgress size={16} />
-              <Typography variant='caption'>Fetching release notes…</Typography>
-            </Stack>
-          )}
-          {isStask && !isLoadingStaskMetadata && releaseNotes.length > 0 && (
-            <Stack spacing={0.25} fullWidth>
-              <Typography variant='h6'>Release notes</Typography>
-              <Table style={{ width: '100%' }}>
-                <Table.Head>
-                  <Table.Row>
-                    <Table.Cell>Repository</Table.Cell>
-                    <Table.Cell>Release</Table.Cell>
-                    <Table.Cell>Date</Table.Cell>
-                    <Table.Cell>SIMA</Table.Cell>
-                    <Table.Cell>Branch</Table.Cell>
-                    <Table.Cell>User</Table.Cell>
-                  </Table.Row>
-                </Table.Head>
-                <Table.Body>
-                  {releaseNotes.map((note) => (
-                    <Table.Row key={note.path}>
-                      <Table.Cell>
-                        {note.repositoryUrl ? (
-                          <a
-                            href={note.repositoryUrl}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
-                            {note.component}
-                          </a>
-                        ) : (
-                          note.component
-                        )}
-                      </Table.Cell>
-                      <Table.Cell>{note.version ?? '—'}</Table.Cell>
-                      <Table.Cell>{note.date ?? '—'}</Table.Cell>
-                      <Table.Cell>{note.simaVersion ?? '—'}</Table.Cell>
-                      <Table.Cell>{note.branch ?? '—'}</Table.Cell>
-                      <Table.Cell>
-                        {note.triggeredBy ? `@${note.triggeredBy}` : '—'}
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table.Body>
-              </Table>
-            </Stack>
+          {isStask && (
+            <StaskReleaseNotes
+              isLoading={isLoadingStaskMetadata}
+              hasBlobUrl={!!blobUrl}
+              releaseNotes={releaseNotes}
+            />
           )}
           <Button onClick={downloadFile}>
             <Icon size={16} data={download} />
