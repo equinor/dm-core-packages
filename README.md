@@ -7034,3 +7034,12 @@ Co-authored-by: hephaestus-hermes[bot] <264979962+hephaestus-hermes[bot]@users.n
     * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
+* feat(media-viewer): render stask release notes as a table (#1677)
+
+Replace the free-text release notes summary with an EDS Table showing
+Repository, Release, Date, SIMA, Branch, and User columns for clearer
+scanning across multiple components. (2026-09-26T12:51:49Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/36261334237/1)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
