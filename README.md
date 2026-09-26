@@ -7027,3 +7027,10 @@ instead, matching the pattern used in every other spec file. (2026-09-26T12:30:2
     * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
+* chore: release main (#1676)
+
+Co-authored-by: hephaestus-hermes[bot] <264979962+hephaestus-hermes[bot]@users.noreply.github.com> (2026-09-26T12:36:15Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/36243264469/1)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
