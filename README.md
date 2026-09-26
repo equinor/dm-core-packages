@@ -7015,3 +7015,15 @@ a correct release. (2026-09-25T19:33:36Z)
     * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
+* fix(e2e): wait for save confirmation toast instead of racy not.toBeVisible()
+
+'not.toBeVisible()' right after clicking Submit can pass trivially
+before the transient 'Document updated' toast even appears (or after
+it already disappeared), so the test could proceed to navigate away
+before the save request actually completed - causing an intermittent
+stale-value assertion failure. Wait for the toast's actual text
+instead, matching the pattern used in every other spec file. (2026-09-26T12:30:29Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/36242442519/1)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
