@@ -16,6 +16,13 @@ folder `node_modules/@development-framework/dm-core-plugins/blueprint/table`
 
 ## Explanation of the attributes in `TablePluginConfig`:
 
+### reverseOrder: boolean
+
+- optional, default: false
+- When true, items are displayed in reverse of their underlying storage order by default (last item first), without mutating the underlying list. Useful for event/log-like lists where the most recent entry should appear on top.
+- Has no effect in the "edit" variant, so drag-and-drop reordering always reflects the real, saved order.
+- Overridden as soon as the user sorts by clicking a sortable column header; clicking back to the unsorted state restores the reversed default order.
+
 ### variant: array of objects
 
 NOTE: The order in which you pass variants is the order in which they will appear. ["view", "edit"] will showcase a view table switchable to edit. ["edit", "view"] will showcase a edit table switchable to view. You can also only pass one variant.

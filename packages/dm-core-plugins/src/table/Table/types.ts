@@ -52,6 +52,15 @@ export type TTableConfig = {
   labelByIndex?: boolean
   label?: string
   width?: string
+  /**
+   * Display items in reverse of their underlying storage order by default
+   * (i.e. last item first), without mutating the underlying list. Useful
+   * for event/log-like lists where the most recent entry should appear on
+   * top. Has no effect in the 'edit' variant (so drag-and-drop reordering
+   * always reflects the real, saved order), and is overridden as soon as
+   * the user sorts by clicking a sortable column header.
+   */
+  reverseOrder?: boolean
 }
 
 // Table components types

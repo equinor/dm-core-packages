@@ -76,6 +76,14 @@
       "description": "Override label for all items that are opened in a ViewSelector from table.",
       "attributeType": "string",
       "optional": true
+    },
+    {
+      "name": "reverseOrder",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Display items in reverse of their underlying storage order by default (last item first), without mutating the underlying list. Useful for event/log-like lists where the most recent entry should appear on top. Has no effect in the 'edit' variant, and is overridden as soon as the user sorts by clicking a sortable column header.",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
     }
   ]
 }

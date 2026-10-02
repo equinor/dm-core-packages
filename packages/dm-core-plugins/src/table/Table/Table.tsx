@@ -95,9 +95,11 @@ export function Table(props: TableProps) {
   } = usePagination(
     TableVariantNameEnum.Edit === tableVariant
       ? items
-      : !sortColumn
-        ? items
-        : sortedItems,
+      : sortColumn
+        ? sortedItems
+        : config.reverseOrder
+          ? [...items].reverse()
+          : items,
     10
   )
   const functionalityConfig =
