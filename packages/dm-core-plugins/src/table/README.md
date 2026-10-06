@@ -64,6 +64,11 @@ NOTE: The order in which you pass columns is the order they will appear in.
   - optional, default: true
   - when using edit variant of table, should rows be editable in specific column
 
+- `onlyNumber: boolean`
+
+  - optional, default: false
+  - when using edit variant of table, only allow numbers to be entered in the cells of this column. The value is saved as a number. Has no effect on boolean and datetime columns
+
 - `sortable: boolean`
   - optional, default: true
   - In view variant: should user be able to sort items in ascending or descending order. Fitting for values that make sense to order alphabetically or by size (numbers)
