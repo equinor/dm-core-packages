@@ -20,6 +20,7 @@ export function mergeConfigs(config: TTableConfig): TTableConfig {
       functionality: {
         delete: variant.functionality?.delete !== false,
         add: variant.functionality?.add !== false,
+        confirmDelete: variant.functionality?.confirmDelete === true,
       },
     })),
   }

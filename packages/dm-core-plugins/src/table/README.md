@@ -31,9 +31,10 @@ NOTE: The order in which you pass variants is the order in which they will appea
   - Two vaiants of padding are available.
 
 - `functionality: object`
-  - fields: `delete: boolean, add: boolean`
-  - optional, `default: delete: true, add: true`
+  - fields: `delete: boolean, add: boolean, confirmDelete: boolean`
+  - optional, `default: delete: true, add: true, confirmDelete: false`
   - Define which functionality you want available for the variant you're configuring
+  - `confirmDelete`: ask for confirmation before a row is deleted from the row menu in the view variant. Deleting in the edit variant is not saved until you save the table, so it is not affected
 
 ### columns: array of objects
 

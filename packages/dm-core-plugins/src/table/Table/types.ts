@@ -28,6 +28,7 @@ export type TTableVariant = {
 export type TTableFunctionalityConfig = {
   add: boolean
   delete: boolean
+  confirmDelete?: boolean
 }
 
 export type TTableColumnConfig = {

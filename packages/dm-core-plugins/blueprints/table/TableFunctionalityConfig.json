@@ -20,6 +20,14 @@
       "attributeType": "boolean",
       "default": false,
       "optional": true
+    },
+    {
+      "name": "confirmDelete",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Ask for confirmation before a row is deleted from the row menu in the view variant.",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
     }
   ]
 }
