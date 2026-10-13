@@ -7067,3 +7067,18 @@ Co-authored-by: hephaestus-hermes[bot] <264979962+hephaestus-hermes[bot]@users.n
     * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 698f15c 2026-08-17 Babak Ommani Merge pull request #282 from equinor/fix/azure_ci grafted, HEAD -> main, origin/main
+* Feat/weight tracker needed changes (#1688)
+
+* fix: Listplugin new item button text
+
+* feat: Added onlyNumber input enforcement for table
+
+* feat: Delete confirmation boxes for table (optional)
+
+* fix: precommit fix
+
+* fix: precommit fix (2026-10-11T15:48:31Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/38363562151/1)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 0b8e522 2026-10-02 Babak Ommani Merge pull request #294 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
