@@ -92,6 +92,9 @@ You can also select data by using dot syntax to show and edit nested data in obj
 #### presentAs
 When dataType is boolean, by default the field is shown as a checkbox in the table. Value can also be shown as plain text by setting `presentAs` to `text`.
 
+#### onlyNumber
+Set `onlyNumber` to `true` to make the cells of a column accept numbers only when editing. The cell then uses a number input, so letters cannot be typed, and the value is saved as a number. Input the browser cannot parse as a number is discarded and the previous value is kept. Defaults to `false`, which keeps the regular text input. Has no effect on `boolean` and `datetime` columns.
+
 #### labels
 Set column header label.
 

@@ -51,6 +51,14 @@
       "attributeType": "boolean",
       "default": true,
       "optional": true
+    },
+    {
+      "name": "onlyNumber",
+      "type": "CORE:BlueprintAttribute",
+      "description": "Only allow numbers to be entered in this column's cells in edit mode. The value is saved as a number.",
+      "attributeType": "boolean",
+      "default": false,
+      "optional": true
     }
   ]
 }
