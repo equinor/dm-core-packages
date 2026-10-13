@@ -28,6 +28,7 @@ export type TTableVariant = {
 export type TTableFunctionalityConfig = {
   add: boolean
   delete: boolean
+  confirmDelete?: boolean
 }
 
 export type TTableColumnConfig = {
@@ -37,6 +38,7 @@ export type TTableColumnConfig = {
   label?: string
   presentAs?: 'checkbox' | 'text'
   sortable?: boolean
+  onlyNumber?: boolean
 }
 
 export type TTableSortDirection = 'descending' | 'ascending'

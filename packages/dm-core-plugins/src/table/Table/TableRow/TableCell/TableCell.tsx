@@ -119,17 +119,33 @@ export function TableCell(props: TableCellProps) {
   return (
     <Styled.TableCell $noPadding={isEditableField}>
       {isEditableField ? (
-        <Styled.Input
-          defaultValue={value ?? ''}
-          type='text'
-          onBlur={(event: ChangeEvent<HTMLInputElement>) =>
-            updateItem(
-              column.data,
-              event.target.value,
-              column.dataType || 'string'
-            )
-          }
-        />
+        column.onlyNumber ? (
+          <Styled.Input
+            defaultValue={value ?? ''}
+            type='number'
+            step='any'
+            onBlur={(event: ChangeEvent<HTMLInputElement>) => {
+              // Unparsable input (e.g. a lone 'e') reads as '' - keep the old value instead of saving 0
+              if (event.target.validity.badInput) {
+                event.target.value = String(value ?? '')
+                return
+              }
+              updateItem(column.data, event.target.value, 'number')
+            }}
+          />
+        ) : (
+          <Styled.Input
+            defaultValue={value ?? ''}
+            type='text'
+            onBlur={(event: ChangeEvent<HTMLInputElement>) =>
+              updateItem(
+                column.data,
+                event.target.value,
+                column.dataType || 'string'
+              )
+            }
+          />
+        )
       ) : (
         value || (column.dataType === 'number' ? 0 : '-')
       )}
