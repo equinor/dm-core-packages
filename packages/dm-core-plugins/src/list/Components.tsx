@@ -68,7 +68,8 @@ export const NewListItemButton = (props: {
       aria-label='Add to list'
       data-testid='append-to-list'
     >
-      <Icon data={add} size={18} title='Append' /> {props.buttonText ?? 'New Item'}
+      <Icon data={add} size={18} title='Append' />{' '}
+      {props.buttonText ?? 'New Item'}
     </Button>
   </Tooltip>
 )
