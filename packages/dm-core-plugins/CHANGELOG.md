@@ -60,6 +60,13 @@
   * dependencies
     * @development-framework/dm-core bumped from ^1.39.2 to ^1.39.3
 
+## [1.63.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.62.0...dm-core-plugins-v1.63.0) (2026-10-13)
+
+
+### Features
+
+* **media-viewer:** show loading indicator while downloading/parsing stask files ([#1681](https://github.com/equinor/dm-core-packages/issues/1681)) ([5c288f9](https://github.com/equinor/dm-core-packages/commit/5c288f99af1ffd45ffd06ac509fc2cf6ba3f2743))
+
 ## [1.62.0](https://github.com/equinor/dm-core-packages/compare/dm-core-plugins-v1.61.0...dm-core-plugins-v1.62.0) (2026-09-26)
 
 
