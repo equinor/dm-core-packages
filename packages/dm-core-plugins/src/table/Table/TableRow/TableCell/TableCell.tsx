@@ -116,10 +116,11 @@ export function TableCell(props: TableCellProps) {
     )
   }
 
-  return (
-    <Styled.TableCell $noPadding={isEditableField}>
-      {isEditableField ? (
-        column.onlyNumber ? (
+  // Datatype is number. Number input in editmode, so only numbers can be entered
+  if (column.dataType === 'number') {
+    return (
+      <Styled.TableCell $noPadding={isEditableField}>
+        {isEditableField ? (
           <Styled.Input
             defaultValue={value ?? ''}
             type='number'
@@ -134,20 +135,28 @@ export function TableCell(props: TableCellProps) {
             }}
           />
         ) : (
-          <Styled.Input
-            defaultValue={value ?? ''}
-            type='text'
-            onBlur={(event: ChangeEvent<HTMLInputElement>) =>
-              updateItem(
-                column.data,
-                event.target.value,
-                column.dataType || 'string'
-              )
-            }
-          />
-        )
+          value || 0
+        )}
+      </Styled.TableCell>
+    )
+  }
+
+  return (
+    <Styled.TableCell $noPadding={isEditableField}>
+      {isEditableField ? (
+        <Styled.Input
+          defaultValue={value ?? ''}
+          type='text'
+          onBlur={(event: ChangeEvent<HTMLInputElement>) =>
+            updateItem(
+              column.data,
+              event.target.value,
+              column.dataType || 'string'
+            )
+          }
+        />
       ) : (
-        value || (column.dataType === 'number' ? 0 : '-')
+        value || '-'
       )}
     </Styled.TableCell>
   )
