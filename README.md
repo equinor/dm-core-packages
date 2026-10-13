@@ -7116,3 +7116,8 @@ Co-authored-by: hephaestus-hermes[bot] <264979962+hephaestus-hermes[bot]@users.n
     * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
     * **DM CLI VERSION**: 1.7.1
     * **JOB VERSION**: 0b8e522 2026-10-02 Babak Ommani Merge pull request #294 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
+*  (2026-10-13T10:12:13Z)
+  * [Integration tests](https://equinor.github.io/dm-core-packages/reports/main/38387965503/1)
+    * **DMSS VERSION**: 980e38f 2026-08-06 githu..[bot] chore(master): release 1.29.0 grafted, HEAD -> master, origin/master
+    * **DM CLI VERSION**: 1.7.1
+    * **JOB VERSION**: 0b8e522 2026-10-02 Babak Ommani Merge pull request #294 from equinor/release-please--branches--main--components--dm-job grafted, HEAD -> main, origin/main
