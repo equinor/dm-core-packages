@@ -38,7 +38,6 @@ export type TTableColumnConfig = {
   label?: string
   presentAs?: 'checkbox' | 'text'
   sortable?: boolean
-  onlyNumber?: boolean
 }
 
 export type TTableSortDirection = 'descending' | 'ascending'
